@@ -59,16 +59,25 @@ class Scrollers{
     return _isAtTenPercentFromTop;
   }
 // -----------------------------------------------------------------------------
-  static bool canSlide({ScrollUpdateNotification details, double boxDistance, int numberOfBoxes}){
+  static bool canSlide({ScrollUpdateNotification details, double boxDistance, int numberOfBoxes, @required bool goesBackOnly}){
     double _offset = details.metrics.pixels;
 
     double _limitRatio = 0.25;
 
     double _backLimit = boxDistance * _limitRatio * (-1);
 
-    double _nextLimit = (boxDistance * (numberOfBoxes - 1)) + (_backLimit * (-1));
+    int _numberOfBoxes = numberOfBoxes ?? 2;
 
-    bool _canSlide = _offset < _backLimit || _offset > _nextLimit;
+    double _nextLimit = (boxDistance * (_numberOfBoxes - 1)) + (_backLimit * (-1));
+
+    bool _canSlide;
+
+    if (goesBackOnly == true){
+      _canSlide =  _offset < _backLimit;
+    }
+    else {
+      _canSlide = _offset < _backLimit || _offset > _nextLimit;
+    }
 
     // print('boxDistance * numberOfBoxes = $boxDistance * ${numberOfBoxes - 1} = ${boxDistance * (numberOfBoxes - 1)} : _backLimit : $_backLimit : _offset : $_offset');
 
@@ -146,6 +155,8 @@ class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
 
     double _boxDistance = widget.axis == Axis.vertical ? _height : _width;
 
+    bool _goesBackOnly = widget.axis == Axis.vertical ? true : false;
+
     return
       NotificationListener(
         key: widget.notificationListenerKey,
@@ -154,6 +165,7 @@ class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
             details: details,
             boxDistance: _boxDistance,
             numberOfBoxes: widget.numberOfBoxes,
+            goesBackOnly: _goesBackOnly,
           );
 
           // print('details : ${details.scrollDelta}');
