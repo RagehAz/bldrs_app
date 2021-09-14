@@ -47,7 +47,7 @@ class NotificationCard extends StatelessWidget {
 
     double _bodyWidth = bodyWidth(context);
     bool _designMode = false;
-    bool _notiHasButtons = notiModel.attachmentType == NotiAttachmentType.buttons;
+    bool _notiHasButtons = notiModel?.attachmentType == NotiAttachmentType.buttons;
     double _bannerCorner = bannerCorners();
 
     return Bubble(
@@ -63,8 +63,8 @@ class NotificationCard extends StatelessWidget {
 
                 /// SENDER BALLOON
                 NotificationSenderBalloon(
-                  sender: notiModel.notiPicType,
-                  pic: notiModel.pic,
+                  sender: notiModel?.notiPicType,
+                  pic: notiModel?.pic,
                 ),
 
                 /// SPACER
@@ -83,7 +83,7 @@ class NotificationCard extends StatelessWidget {
 
                       /// TITLE
                       SuperVerse(
-                        verse: notiModel.title,
+                        verse: notiModel?.title,
                         size: 2,
                         designMode: _designMode,
                         maxLines: 3,

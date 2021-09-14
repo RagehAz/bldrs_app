@@ -83,9 +83,19 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  void _dismissNotification(String id){
+  Future<void> _dismissNotification(String id) async {
 
     print('removing noti with id : $id');
+
+    await Fire.updateSubDocField(
+      context: context,
+      collName: FireCollection.users,
+      docName: superUserID(),
+      subCollName: FireCollection.subUserNotifications,
+      subDocName: id,
+      field: 'dismissed',
+      input: true,
+    );
 
     // setState(() {
     //   _notifications.removeWhere((notiModel) => notiModel.id == id,);
@@ -166,6 +176,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             print('the shit is : notiModels : $notiModels');
 
             return
+
+              notiModels == null || notiModels.length == 0 ?
+              Container()
+                  :
               ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 controller: ScrollController(),
@@ -214,11 +228,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       bool _dismissible = true;
 
                       return _dismissible;
-                    },
-                    onDismissed: (DismissDirection direction){
-                      _dismissNotification(_notiModel.id);
-                      // print('onDismissed : direction is : $direction');
-                    },
+                      },
+                    onDismissed: (DismissDirection direction) async {
+                      await _dismissNotification(_notiModel.id);
+
+                      },
                     child: Container(
                       width: _screenWidth,
                       decoration: BoxDecoration(
@@ -231,7 +245,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     ),
                   );
 
-                },
+                  },
 
 
               );

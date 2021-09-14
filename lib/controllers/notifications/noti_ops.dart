@@ -413,7 +413,11 @@ Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID)
         subCollName: FireCollection.subUserNotifications,
         orderBy: 'timeStamp',
         descending: true,
+        // field: 'dismissed',
+        // compareValue: true,
       );
+
+      print('getNotiModelsStream : _querySnapshots : ${_querySnapshots}');
 
       _notiModelsStream = _querySnapshots.map(
               (qShot) => qShot.docs.map((doc) =>
@@ -421,6 +425,7 @@ Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID)
           ).toList()
       );
 
+      print('getNotiModelsStream : _notiModelsStream : ${_notiModelsStream}');
 
     }
   );

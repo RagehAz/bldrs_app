@@ -39,7 +39,7 @@ class MoreScreen extends StatelessWidget {
       // appBarBackButton: true,
       sky: Sky.Black,
       pyramids: Iconz.PyramidzYellow,
-      layoutWidget: GoHomeOnMaxBounce(
+      layoutWidget: MaxBounceNavigator(
         child: Scroller(
           child: ListView(
             physics: const BouncingScrollPhysics(),

@@ -81,7 +81,7 @@ class dashboardUserButton extends StatelessWidget {
             width: _clearDialogWidth,
             height: BottomDialog.dialogClearHeight(draggable: true, titleIsOn: true, context: context,),
             color: Colorz.BloodTest,
-            child: GoHomeOnMaxBounce(
+            child: MaxBounceNavigator(
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: <Widget>[

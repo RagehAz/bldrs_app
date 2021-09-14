@@ -59,14 +59,20 @@ class Scrollers{
     return _isAtTenPercentFromTop;
   }
 // -----------------------------------------------------------------------------
-  static bool canPageUp({ScrollUpdateNotification details, double height}){
+  static bool canSlide({ScrollUpdateNotification details, double boxDistance, int numberOfBoxes}){
     double _offset = details.metrics.pixels;
 
-    double _bounceLimit = height * 0.3 * (-1);
+    double _limitRatio = 0.25;
 
-    bool _canPageUp = _offset < _bounceLimit;
+    double _backLimit = boxDistance * _limitRatio * (-1);
 
-    return _canPageUp;
+    double _nextLimit = (boxDistance * (numberOfBoxes - 1)) + (_backLimit * (-1));
+
+    bool _canSlide = _offset < _backLimit || _offset > _nextLimit;
+
+    // print('boxDistance * numberOfBoxes = $boxDistance * ${numberOfBoxes - 1} = ${boxDistance * (numberOfBoxes - 1)} : _backLimit : $_backLimit : _offset : $_offset');
+
+    return _canSlide;
   }
 // -----------------------------------------------------------------------------
   static Future<void> scrollTo({ScrollController controller, double offset}) async {
@@ -89,24 +95,28 @@ class Scrollers{
 // -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
-class GoHomeOnMaxBounce extends StatefulWidget {
-  final double height;
+class MaxBounceNavigator extends StatefulWidget {
+  final double boxDistance;
+  final int numberOfBoxes;
   final Widget child;
   final Function onNavigate;
   final Key notificationListenerKey;
+  final Axis axis;
 
-  const GoHomeOnMaxBounce({
-    this.height,
+  const MaxBounceNavigator({
+    this.boxDistance,
+    this.numberOfBoxes = 1,
     @required this.child,
     this.onNavigate,
     this.notificationListenerKey,
+    this.axis = Axis.vertical,
   });
 
   @override
-  _GoHomeOnMaxBounceState createState() => _GoHomeOnMaxBounceState();
+  _MaxBounceNavigatorState createState() => _MaxBounceNavigatorState();
 }
 
-class _GoHomeOnMaxBounceState extends State<GoHomeOnMaxBounce> {
+class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
   bool _canNavigate = true;
 
   Future<void> navigate() async {
@@ -121,6 +131,9 @@ class _GoHomeOnMaxBounceState extends State<GoHomeOnMaxBounce> {
 
     else {
       widget.onNavigate();
+      setState(() {
+        _canNavigate = true;
+      });
     }
 
   }
@@ -128,17 +141,27 @@ class _GoHomeOnMaxBounceState extends State<GoHomeOnMaxBounce> {
   @override
   Widget build(BuildContext context) {
 
-    double _height = widget.height == null ? Scale.superScreenHeight(context) : widget.height;
+    double _height = widget.boxDistance == null ? Scale.superScreenHeight(context) : widget.boxDistance;
+    double _width = widget.boxDistance == null ? Scale.superScreenHeight(context) : widget. boxDistance;
+
+    double _boxDistance = widget.axis == Axis.vertical ? _height : _width;
 
     return
       NotificationListener(
         key: widget.notificationListenerKey,
         onNotification: (ScrollUpdateNotification details){
-          bool _canPageUp = Scrollers.canPageUp(details: details, height: _height,);
+          bool _canSlide = Scrollers.canSlide(
+            details: details,
+            boxDistance: _boxDistance,
+            numberOfBoxes: widget.numberOfBoxes,
+          );
 
-          if(_canPageUp == true && _canNavigate == true){
+          // print('details : ${details.scrollDelta}');
+
+          if(_canSlide == true && _canNavigate == true){
 
             navigate();
+
 
           }
           return true;

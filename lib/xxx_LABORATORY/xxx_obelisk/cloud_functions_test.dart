@@ -125,7 +125,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
       ],
 
       layoutWidget: Center(
-        child: GoHomeOnMaxBounce(
+        child: MaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.only(top: Ratioz.stratosphere),
