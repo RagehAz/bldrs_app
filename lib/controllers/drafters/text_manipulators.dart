@@ -24,11 +24,11 @@ class TextMod {
 }
 // -----------------------------------------------------------------------------
   static List<String> sortAlphabetically2(List<String> inputList){
-  List<String> _outputList = [];
+  // List<String> _outputList = [];
 
   inputList.sort((a, b) => a.toString().compareTo(b.toString()));
 
-  return _outputList;
+  return inputList;
 }
 // -----------------------------------------------------------------------------
   static String firstCharacterAfterRemovingSpacesFromAString(String string){
