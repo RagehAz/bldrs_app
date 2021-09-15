@@ -66,8 +66,7 @@ class FlyerZoneBox extends StatelessWidget {
       child: Container(
         width: _flyerZoneWidth + _panelWidth + _spacerWidth,
         height: _flyerZoneHeight,
-        // color: Colorz.BloodTest,
-
+        alignment: Alignment.center,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
