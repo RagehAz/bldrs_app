@@ -66,3 +66,21 @@ class DashBoardLayout extends StatelessWidget {
   }
 
 }
+
+class FloatingLayout extends StatelessWidget {
+  final Widget child;
+
+  FloatingLayout({
+    @required this.child,
+});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: Scale.superScreenWidth(context),
+      height: DashBoardLayout.clearScreenHeight(context),
+      child: child,
+    );
+  }
+}
+

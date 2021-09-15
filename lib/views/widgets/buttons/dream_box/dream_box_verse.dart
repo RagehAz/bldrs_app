@@ -183,9 +183,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                       ObjectChecker.objectIsSVG(icon) ?
                       Padding(
                         padding: EdgeInsets.all(iconMargin),
-                        child: ClipRRect(
-                            borderRadius: iconCorners,
-                            child: WebsafeSvg.asset(icon, color: iconColor, height: _svgGraphicWidth, fit: BoxFit.cover)),
+                        child: WebsafeSvg.asset(icon, color: iconColor, height: _svgGraphicWidth, fit: BoxFit.cover),
                       )
                           :
                       ObjectChecker.objectIsJPGorPNG(icon) ?
