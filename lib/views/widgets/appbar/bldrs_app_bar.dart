@@ -192,8 +192,8 @@ class BldrsAppBar extends StatelessWidget {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: _titleHorizontalMargins),
                               child: SuperVerse(
-                                verse: pageTitle,
-                                weight: VerseWeight.thin,
+                                verse: pageTitle.toUpperCase(),
+                                weight: VerseWeight.black,
                                 color: Colorz.White200,
                                 size: 3,
                                 margin: 0,

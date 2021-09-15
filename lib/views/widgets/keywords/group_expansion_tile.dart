@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/groups.dart';
-import 'package:bldrs/models/secondary_models/namez_model.dart';
+import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:bldrs/views/widgets/keywords/collapsed_tile.dart';
 import 'package:bldrs/views/widgets/keywords/keywords_buttons_list.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
