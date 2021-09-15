@@ -10,7 +10,7 @@ import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/models/secondary_models/image_size.dart';
+import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

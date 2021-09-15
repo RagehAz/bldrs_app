@@ -104,7 +104,7 @@ double superVerseLetterSpacing(VerseWeight weight, double verseSizeValue){
   weight == VerseWeight.thin ? verseSizeValue * 0.035 :
   weight == VerseWeight.regular ? verseSizeValue * 0.09 :
   weight == VerseWeight.bold ? verseSizeValue * 0.05 :
-  weight == VerseWeight.black ? verseSizeValue * 0.12
+  weight == VerseWeight.black ? verseSizeValue * 0.07
       :
   verseSizeValue * 0
   ;

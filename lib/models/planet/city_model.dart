@@ -4,7 +4,7 @@ import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/planet/district_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/models/secondary_models/namez_model.dart';
+import 'package:bldrs/models/helpers/namez_model.dart';
 // -----------------------------------------------------------------------------
 class City{
   final String iso3;
