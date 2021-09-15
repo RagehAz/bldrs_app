@@ -110,21 +110,6 @@ class Scale{
       EdgeInsets.only(bottom: _enBottom, left: _enRight, right: _enLeft, top: _enTop);
   }
 // -----------------------------------------------------------------------------
-  static double appBarScrollWidth(BuildContext context){
-    double _appBarScrollWidth = superScreenWidth(context) - (Ratioz.appBarMargin * 2) - (Ratioz.appBarPadding * 2) - Ratioz.appBarButtonSize - Ratioz.appBarPadding;
-    return _appBarScrollWidth;
-  }
-// -----------------------------------------------------------------------------
-  static double appBarClearWidth(BuildContext context){
-    double _abWidth = superScreenWidth(context) - (2 * Ratioz.appBarMargin);
-    return _abWidth;
-  }
-// -----------------------------------------------------------------------------
-  static double appBarClearHeight(BuildContext context, AppBarType appBarType){
-    double _abHeight = appBarType == AppBarType.Search ? Ratioz.appBarBigHeight : Ratioz.appBarSmallHeight;
-    return _abHeight;
-  }
-// -----------------------------------------------------------------------------
   static double superHeaderAndProgressHeights(BuildContext, double flyerZoneHeight){
     return
     superHeaderHeight(false, flyerZoneHeight) + flyerZoneHeight * Ratioz.xxProgressBarHeightRatio;

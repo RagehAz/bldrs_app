@@ -35,6 +35,7 @@ class NavDialog extends StatelessWidget {
       SnackBar(
         duration: Duration(seconds: 5),
         backgroundColor: Colorz.Nothing,
+
         behavior: _isBig == true ? SnackBarBehavior.fixed :  SnackBarBehavior.fixed,
         // width: _isBig == true ? _screenWidth : null,
 
