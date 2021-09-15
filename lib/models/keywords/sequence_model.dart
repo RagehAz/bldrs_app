@@ -1,5 +1,5 @@
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/secondary_models/namez_model.dart';
+import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:flutter/cupertino.dart';

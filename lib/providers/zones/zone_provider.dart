@@ -7,7 +7,7 @@ import 'package:bldrs/models/planet/district_model.dart';
 import 'package:bldrs/models/planet/city_model.dart';
 import 'package:bldrs/models/planet/country_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
-import 'package:bldrs/models/secondary_models/namez_model.dart';
+import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class CountryProvider with ChangeNotifier{

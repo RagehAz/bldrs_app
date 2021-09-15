@@ -133,6 +133,30 @@ class Timers {
     return _timeString;
   }
 // -----------------------------------------------------------------------------
+  static String getString_dd_month_yyyy({BuildContext context, DateTime time}){
+    String _day = '${(time).day}';
+    String _monthString = Timers.getMonthNameByInt(context, (time).month);
+    String _year = '${(time).year}';
+    String _timeString = '${_day} ${_monthString} ${_year}';
+    return _timeString;
+  }
+// -----------------------------------------------------------------------------
+  static String getString_dd_I_mm_I_yyyy({BuildContext context, DateTime time}){
+    String _day = '${(time).day}';
+    String _year = '${(time).year}';
+    String _timeString = '${_day} / ${(time).month} / ${_year}';
+    return _timeString;
+  }
+// -----------------------------------------------------------------------------
+  static String getString_hh_i_mm({BuildContext context, DateTime time}){
+    String _hour = DateFormat("h").format(time);
+    String _minute = '${(time).minute}';
+    String _ampm = DateFormat("a").format(time);
+    String _timeString = '$_hour:$_minute $_ampm';
+
+    return _timeString;
+  }
+// -----------------------------------------------------------------------------
   static String monthYearStringer(BuildContext context, DateTime time){
     return
       '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${Timers.getMonthNameByInt(context, (time).month)} ${(time).year}';
