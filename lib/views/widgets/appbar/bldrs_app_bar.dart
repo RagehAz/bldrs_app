@@ -39,12 +39,27 @@ class BldrsAppBar extends StatelessWidget {
     this.onSearchChanged,
   });
 // -----------------------------------------------------------------------------
+  static double width(BuildContext context){
+    double _abWidth = Scale.superScreenWidth(context) - (2 * Ratioz.appBarMargin);
+    return _abWidth;
+  }
+// -----------------------------------------------------------------------------
+  static double height(BuildContext context, AppBarType appBarType){
+    double _abHeight = appBarType == AppBarType.Search ? Ratioz.appBarBigHeight : Ratioz.appBarSmallHeight;
+    return _abHeight;
+  }
+// -----------------------------------------------------------------------------
+  static double scrollWidth(BuildContext context){
+    double _appBarScrollWidth = Scale.superScreenWidth(context) - (Ratioz.appBarMargin * 2) - (Ratioz.appBarPadding * 2) - Ratioz.appBarButtonSize - Ratioz.appBarPadding;
+    return _appBarScrollWidth;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
-    double _abWidth = Scale.appBarClearWidth(context);
-    double _abHeight = Scale.appBarClearHeight(context, appBarType);
+    double _abWidth = width(context);
+    double _abHeight = height(context, appBarType);
     double _blurValue = Ratioz.blur1;
     bool _backButtonIsOn =
     appBarType == AppBarType.Basic ? true :

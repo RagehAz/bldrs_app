@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/buttons/back_anb_search_button.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -43,7 +44,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
 
-    double _appBarClearWidth = Scale.appBarClearWidth(context);
+    double _appBarClearWidth = BldrsAppBar.width(context);
 
     const double _padding = Ratioz.appBarPadding;
     double _historyButtonWidth = widget.historyButtonIsOn == true ? 40 : 0;

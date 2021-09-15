@@ -10,6 +10,7 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/top_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
@@ -139,7 +140,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onTamam() async {
+  Future<void> _onVerify() async {
     print('currentFlyer : ${_currentFlyer.slides.length} slides');
 
     if (_currentFlyer.flyerState != FlyerState.Verified){
@@ -154,14 +155,15 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
       await _onRemoveFlyerFromStack(_currentFlyer);
 
-      await NavDialog.showNavDialog(
-        context: context,
-        color: Colorz.Green255,
-        firstLine: 'Done',
-        secondLine: 'flyer ${_currentFlyer.flyerID} got verified',
-        isBig: true,
+      TopDialog.showTopDialog(
+          context: context,
+          verse: 'Done',
+          secondLine: 'flyer ${_currentFlyer.flyerID} got verified',
+          color: Colorz.Green255,
+          onTap: (){
+            print('a77aaa ');
+          }
       );
-
 
     }
 
@@ -178,11 +180,11 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onTa3ala() async {
+  Future<void> _onAudit() async {
 
   }
 // -----------------------------------------------------------------------------
-  bool _canDelete = false;
+  bool _canDelete = true;
   int _numberOfStrips;
   bool _listenToSwipe = true;
   Future<void> _onRemoveFlyerFromStack(FlyerModel flyerModel) async {
@@ -557,6 +559,11 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     return DashBoardLayout(
       pageTitle: 'Flyers Auditor',
       loading: false,
+      onBldrsTap: (){
+
+        print('aho');
+
+      },
       listWidgets: <Widget>[
 
         Container(
@@ -566,6 +573,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
             children: <Widget>[
 
+              /// PROGRESS BAR
               Container(
                 width: _screenWidth,
                 height: _progressBarHeight,
@@ -588,25 +596,22 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
               Container(
                 width: _screenWidth,
                 height: _bodyZoneHeight,
-                // color: Colorz.Yellow50,
+                alignment: Alignment.center,
                 child:
 
                 _flyers != null && _flyers.isNotEmpty == true ?
 
                 PageView.builder(
-                  scrollDirection: Axis.horizontal,
+                    scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),
                     itemCount: _flyers.length,
                     controller: _pageController,
                     allowImplicitScrolling: true,
                     onPageChanged: (int i) => _onPageChange(i),
-
                     pageSnapping: true,
                     // scrollBehavior: ScrollBehavior().,
                     itemBuilder: (ctx, index){
-
                       return
-
                         AnimatedOpacity(
                           opacity: _pagesOpacities[index],
                           duration: Ratioz.durationFading200,
@@ -617,39 +622,37 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                             onSwipeFlyer: (SwipeDirection direction) => _onSwipeFlyer(direction, index),
                           ),
                         );
-
                     }
-                )
-
+                    )
                     :
-
-                Container()
-
-                ,
+                Container(),
               ),
 
               /// BUTTONS
               Container(
                 width: _screenWidth,
                 height: _footerZoneHeight,
-                // color: Colorz.Blue125,
+                color: Colorz.White10,
+                alignment: Alignment.center,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
 
+                    /// AUDIT
                     AuditorButton(
-                        verse: 'Ta3ala',
+                        verse: 'Audit',
                         color: Colorz.Red255,
                         icon: Iconz.XSmall,
-                        onTap: _onTa3ala,
+                        onTap: _onAudit,
                     ),
 
+                    /// VERIFY
                     AuditorButton(
-                      verse: 'Tamam',
+                      verse: 'Verify',
                       color: Colorz.Green255,
                       icon: Iconz.Check,
-                      onTap: _onTamam,
+                      onTap: _onVerify,
                     ),
                   ],
                 ),
@@ -686,7 +689,7 @@ class AuditorButton extends StatelessWidget {
     double _buttonWidth = Scale.getUniformRowItemWidth(context, _numberOfItems);
 
     return DreamBox(
-      height: 60,
+      height: 50,
       width: _buttonWidth,
       verse: verse,
       verseScaleFactor: 1.3,

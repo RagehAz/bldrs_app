@@ -10,11 +10,13 @@ class DashBoardLayout extends StatelessWidget {
   final List<Widget> listWidgets;
   final String pageTitle;
   final bool loading;
+  final Function onBldrsTap;
 
   DashBoardLayout({
     @required this.listWidgets,
     this.pageTitle,
     this.loading = false,
+    this.onBldrsTap,
 });
 // -----------------------------------------------------------------------------
   static double clearScreenHeight(BuildContext context){
@@ -30,16 +32,19 @@ class DashBoardLayout extends StatelessWidget {
       appBarType: AppBarType.Basic,
       pageTitle: pageTitle,
       // appBarBackButton: true,
-      sky: Sky.Black,
+      sky: Sky.Night,
       loading: loading,
       appBarRowWidgets: [
 
           Expander(),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-            child: BldrsName(
-              size: 40,
+          GestureDetector(
+            onTap: onBldrsTap,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+              child: BldrsName(
+                size: 40,
+              ),
             ),
           ),
 
