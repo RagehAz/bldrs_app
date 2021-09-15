@@ -5,6 +5,7 @@ import 'package:bldrs/dashboard/pricing_manager/pricing_screen.dart';
 import 'package:bldrs/dashboard/s02_statistics.dart';
 import 'package:bldrs/dashboard/s05_keywords_manager.dart';
 import 'package:bldrs/dashboard/screens_manager.dart';
+import 'package:bldrs/dashboard/ui_manager.dart';
 import 'package:bldrs/dashboard/users_manager/users_manager_screen.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
@@ -57,7 +58,7 @@ class _DashBoardState extends State<DashBoard> {
 
           DashboardWideButton(
               title: 'Users Manager',
-              icon: Iconz.NormalUser,
+              icon: Iconz.Users,
               onTap: () => Nav.goToNewScreen(context, UsersManagerScreen()),
           ),
 
@@ -81,20 +82,20 @@ class _DashBoardState extends State<DashBoard> {
 
           DashboardWideButton(
             title: 'Keywords Manager',
-            icon: Iconz.Language,
+            icon: Iconz.Keyword,
             onTap: () => Nav.goToNewScreen(context, KeywordsManager()),
           ),
 
           DashboardWideButton(
             title: 'Flyers Auditor',
-            icon: Iconz.FlyerGrid,
+            icon: Iconz.VerifyFlyer,
             onTap: () => Nav.goToNewScreen(context, FlyersAuditor()),
           ),
 
           DashboardWideButton(
-            title: 'Screens Manager',
-            icon: Iconz.FlyerGrid,
-            onTap: () => Nav.goToNewScreen(context, ScreensManager()),
+            title: 'UI Manager',
+            icon: Iconz.Star,
+            onTap: () => Nav.goToNewScreen(context, UIManager()),
           ),
 
           PyramidsHorizon(),
