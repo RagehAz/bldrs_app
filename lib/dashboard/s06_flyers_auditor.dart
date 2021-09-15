@@ -566,9 +566,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       },
       listWidgets: <Widget>[
 
-        Container(
-          width: _screenWidth,
-          height: _clearScreenHeight,
+        FloatingLayout(
           child: Column(
 
             children: <Widget>[

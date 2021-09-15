@@ -104,7 +104,7 @@ class MoreScreen extends StatelessWidget {
               ),
               TileBubble(
                 verse: Wordz.feedback(context),
-                icon: Iconz.UTPlanning,
+                icon: Iconz.UTSearching,
                 iconSizeFactor: 0.6,
                 btOnTap: () => Nav.goToNewScreen(context, FeedBack()),
               ),
