@@ -28,7 +28,7 @@ import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/models/secondary_models/image_size.dart';
+import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';

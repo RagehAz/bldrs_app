@@ -1,4 +1,4 @@
-import 'package:bldrs/models/secondary_models/namez_model.dart';
+import 'package:bldrs/models/helpers/namez_model.dart';
 // -----------------------------------------------------------------------------
 class District{
   final String iso3;

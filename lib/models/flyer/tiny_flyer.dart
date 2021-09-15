@@ -10,7 +10,7 @@ import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/models/secondary_models/image_size.dart';
+import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';

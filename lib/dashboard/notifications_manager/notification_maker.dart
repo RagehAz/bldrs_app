@@ -23,7 +23,7 @@ import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
-import 'package:bldrs/models/secondary_models/image_size.dart';
+import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_welcome_banner.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
