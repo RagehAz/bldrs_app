@@ -1,12 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/dashboard/super_methods.dart';
-import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/layouts/test_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -28,75 +22,8 @@ class _TrigramTestState extends State<TrigramTest> {
     super.initState();
   }
 
-  String _input = 'Rageh mohammed Fawzi Fahim Soliman El Azzazy';
+  // String _input = 'Rageh mohammed Fawzi Fahim Soliman El Azzazy';
   List<String> _result = ['Nothing Yet'];
-
-  void _createTrigramOld(){
-
-    List<String> _resultTrigram = [];
-
-
-    /// 1 - to lower case and remove Spaces
-    final String _lowerCased = _input.toLowerCase();
-
-    /// 1 - add each word separately first
-    final List<String> _splitWords = _lowerCased.trim().split(' ');
-    _resultTrigram.addAll(_splitWords);
-
-
-    final String _withoutSpaces = TextMod.removeSpacesFromAString(_lowerCased);
-
-    /// 2 - split characters into a list
-    final List<String> _splitString = _withoutSpaces.split('');
-
-    /// 3 - generate the triplets
-    for (int i = 0; i < _splitString.length - 2; i++){
-      String _first = _splitString[i];
-      String _second = _splitString[i+1];
-      String _third = _splitString[i+2];
-      String _combined = '$_first$_second$_third';
-      _resultTrigram = TextMod.addStringToListIfDoesNotContainIt(strings : _resultTrigram, stringToAdd : _combined,);
-    }
-
-    /// 4 - generate quadruplets
-    for (int i = 0; i < _splitString.length - 3; i++){
-      String _first = _splitString[i];
-      String _second = _splitString[i+1];
-      String _third = _splitString[i+2];
-      String _fourth = _splitString[i+3];
-      String _combined = '$_first$_second$_third$_fourth';
-      _resultTrigram = TextMod.addStringToListIfDoesNotContainIt(strings : _resultTrigram, stringToAdd : _combined,);
-    }
-
-    /// 5 - generate Quintuplets
-    for (int i = 0; i < _splitString.length - 4; i++){
-      String _first = _splitString[i];
-      String _second = _splitString[i+1];
-      String _third = _splitString[i+2];
-      String _fourth = _splitString[i+3];
-      String _fifth = _splitString[i+4];
-      String _combined = '$_first$_second$_third$_fourth$_fifth';
-      _resultTrigram = TextMod.addStringToListIfDoesNotContainIt(strings : _resultTrigram, stringToAdd : _combined,);
-    }
-
-    /// 6 - generate Sextuplets
-    for (int i = 0; i < _splitString.length - 5; i++){
-      String _first = _splitString[i];
-      String _second = _splitString[i+1];
-      String _third = _splitString[i+2];
-      String _fourth = _splitString[i+3];
-      String _fifth = _splitString[i+4];
-      String _sixth = _splitString[i+5];
-      String _combined = '$_first$_second$_third$_fourth$_fifth$_sixth';
-      _resultTrigram = TextMod.addStringToListIfDoesNotContainIt(strings : _resultTrigram, stringToAdd : _combined,);
-    }
-
-    setState(() {
-      _result = _resultTrigram;
-    });
-
-    print(_result);
-  }
 
   // void _createTrigram(String input){
   //

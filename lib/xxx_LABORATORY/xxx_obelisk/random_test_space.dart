@@ -10,10 +10,10 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class RandomTestSpace extends StatefulWidget {
-final double flyerZoneWidth;
+final double flyerBoxWidth;
 
 RandomTestSpace({
-  @required this.flyerZoneWidth,
+  @required this.flyerBoxWidth,
 });
 
   @override

@@ -530,7 +530,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     @required dynamic pic,
     @required ImageSize imageSize,
     @required BoxFit boxFit,
-    @required double flyerZoneWidth
+    @required double flyerBoxWidth
   }) {
     /// blur layer shall only be active if the height of image supplied is smaller
     /// than flyer height when image width = flyerWidth
@@ -559,7 +559,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
       double _originalImageRatio = _originalImageWidth / _originalImageHeight
       ;
       /// slide aspect ratio : 1 / 1.74 ~= 0.575
-      double _flyerZoneHeight = flyerZoneWidth * Ratioz.xxflyerZoneHeight;
+      double _flyerZoneHeight = flyerBoxWidth * Ratioz.xxflyerZoneHeight;
       double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
 
       double _fittedImageWidth;
@@ -567,8 +567,8 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
 
       /// if fit width
       if (boxFit == BoxFit.fitWidth){
-        _fittedImageWidth = flyerZoneWidth;
-        _fittedImageHeight= flyerZoneWidth / _originalImageRatio;
+        _fittedImageWidth = flyerBoxWidth;
+        _fittedImageHeight= flyerBoxWidth / _originalImageRatio;
       }
 
       /// if fit height
@@ -583,7 +583,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
       /// so
       /// if _originalImageRatio < 0.575 image is narrower than slide,
       /// if ratio > 0.575 image is wider than slide
-      double _errorPercentage = Ratioz.slideFitWidthLimit; // ~= max limit from flyer width => flyerZoneWidth * 90%
+      double _errorPercentage = Ratioz.slideFitWidthLimit; // ~= max limit from flyer width => flyerBoxWidth * 90%
       double _maxRatioForBlur = _slideRatio / (_errorPercentage / 100);
       double _minRatioForBlur = _slideRatio * (_errorPercentage / 100);
 
@@ -617,7 +617,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
         ;
     // double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
 
-    // double _fittedImageWidth = flyerZoneWidth; // for info only
+    // double _fittedImageWidth = flyerBoxWidth; // for info only
     double _fittedImageHeight = (viewWidth * picHeight) / picWidth;
 
     double _heightAllowingFitHeight = (Ratioz.slideFitWidthLimit/100) * viewHeight;
@@ -635,7 +635,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     return _boxFit;
   }
 // -----------------------------------------------------------------------------
-  static BoxFit concludeBoxFitForAsset({Asset asset, double flyerZoneWidth}){
+  static BoxFit concludeBoxFitForAsset({Asset asset, double flyerBoxWidth}){
   BoxFit _boxFit;
 
   /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
@@ -644,19 +644,19 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
   // double _originalImageRatio = _originalImageWidth / _originalImageHeight
   ;
   /// slide aspect ratio : 1 / 1.74 ~= 0.575
-  double _flyerZoneHeight = flyerZoneWidth * Ratioz.xxflyerZoneHeight;
+  double _flyerZoneHeight = flyerBoxWidth * Ratioz.xxflyerZoneHeight;
 
   _boxFit = concludeBoxFit(
     picWidth: _originalImageWidth,
     picHeight: _originalImageHeight,
-    viewWidth: flyerZoneWidth,
+    viewWidth: flyerBoxWidth,
     viewHeight: _flyerZoneHeight,
   );
 
   return _boxFit;
   }
 // -----------------------------------------------------------------------------
-  static List<BoxFit> concludeBoxesFitsForAssets({List<Asset> assets, double flyerZoneWidth}){
+  static List<BoxFit> concludeBoxesFitsForAssets({List<Asset> assets, double flyerBoxWidth}){
   List<BoxFit> _fits = [];
 
   for (Asset asset in assets){
@@ -669,7 +669,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     // }
 
     /// boss ba2a
-    BoxFit _fit = concludeBoxFitForAsset(asset: asset, flyerZoneWidth: flyerZoneWidth);
+    BoxFit _fit = concludeBoxFitForAsset(asset: asset, flyerBoxWidth: flyerBoxWidth);
 
     _fits.add(_fit);
   }

@@ -51,14 +51,14 @@ class GalleryGrid extends StatelessWidget {
     return _gridColumnsCount;
   }
 // -----------------------------------------------------------------------------
-  static double gridFlyerZoneWidth({double gridZoneWidth, int flyersLength}){
+  static double gridflyerBoxWidth({double gridZoneWidth, int flyersLength}){
     int _gridColumnsCount = gridColumnCount(flyersLength);
     double _gridFlyerWidth = gridZoneWidth / (_gridColumnsCount + (_gridColumnsCount * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     return _gridFlyerWidth;
   }
 // -----------------------------------------------------------------------------
   static double gridSpacing({double gridZoneWidth, int flyersLength}){
-    double _gridFlyerWidth = gridFlyerZoneWidth(gridZoneWidth: gridZoneWidth, flyersLength: flyersLength);
+    double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: flyersLength);
     return  _gridFlyerWidth * _spacingRatioToGridWidth;
   }
 // -----------------------------------------------------------------------------
@@ -70,7 +70,7 @@ class GalleryGrid extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static double gridHeight({BuildContext context, double gridZoneWidth, bool gridHasAddButton, int flyersLength}){
     // int _flyersCount = gridHasAddButton ? flyersLength + 1 : flyersLength;
-    double _gridFlyerWidth = gridFlyerZoneWidth(gridZoneWidth: gridZoneWidth, flyersLength: flyersLength);
+    double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: flyersLength);
     double _gridFlyerHeight = _gridFlyerWidth * Ratioz.xxflyerZoneHeight;
     int _numOfRows = numOfRows(flyersLength);
     double _gridHeight = _gridFlyerHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
@@ -83,7 +83,7 @@ class GalleryGrid extends StatelessWidget {
     final List<TinyFlyer> _gridFlyers = galleryFlyers == null ? <TinyFlyer>[] : galleryFlyers;//pro.getAllFlyers;
     bool _viewerIsAuthor = _concludeUserIsAuthor();
 // -----------------------------------------------------------------------------
-    double _gridFlyerWidth = gridFlyerZoneWidth(gridZoneWidth: gridZoneWidth, flyersLength: _gridFlyers.length);
+    double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: _gridFlyers.length);
     double _gridSpacing = gridSpacing(gridZoneWidth: gridZoneWidth, flyersLength: _gridFlyers.length);
 // -----------------------------------------------------------------------------
     double _gridHeight = gridHeight(
@@ -117,7 +117,7 @@ class GalleryGrid extends StatelessWidget {
               if (_viewerIsAuthor == true && addButtonIsOn == true)
               AddFlyerButton(
                 bzModel: bz,
-                flyerZoneWidth: _gridFlyerWidth,
+                flyerBoxWidth: _gridFlyerWidth,
                 addPublishedFlyerToGallery: addPublishedFlyerToGallery,
               ),
 
@@ -130,7 +130,7 @@ class GalleryGrid extends StatelessWidget {
                     child:
 
                       FinalFlyer(
-                        flyerZoneWidth: _gridFlyerWidth,
+                        flyerBoxWidth: _gridFlyerWidth,
                         tinyFlyer: _gridFlyers[index],
                         goesToEditor: true,
                         bzModel: bz,

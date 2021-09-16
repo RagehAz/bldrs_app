@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -7,19 +6,20 @@ import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/editor/panel_button.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 
 class EditorPanel extends StatelessWidget {
   final SuperFlyer superFlyer;
   final BzModel bzModel;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final double panelWidth;
 
   EditorPanel({
     @required this.superFlyer,
     @required this.bzModel,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.panelWidth,
 });
 // -----------------------------------------------------------------------------
@@ -40,7 +40,7 @@ class EditorPanel extends StatelessWidget {
     double _panelWidth = panelWidth;
     double _buttonSize = panelWidth;//_panelWidth - (Ratioz.appBarMargin * 2);
 
-    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, flyerZoneWidth);
+    double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
 
     // double _panelButtonSize = _buttonSize * 0.8;
 
@@ -55,7 +55,7 @@ class EditorPanel extends StatelessWidget {
     //   height: _assets[_draft.currentSlideIndex].originalHeight,
     // );
 
-    double _authorButtonHeight = Ratioz.xxflyerLogoWidth * flyerZoneWidth;
+    double _authorButtonHeight = Ratioz.xxflyerLogoWidth * flyerBoxWidth;
 
 // -----------------------------------------------------------------------------
 
@@ -72,7 +72,7 @@ class EditorPanel extends StatelessWidget {
           /// SHOW AUTHOR
           DreamBox(
             height: _authorButtonHeight,
-            // margins: EdgeInsets.symmetric(vertical: (Ratioz.xxflyerHeaderMiniHeight - Ratioz.xxflyerLogoWidth) * _flyerZoneWidth / 2),
+            // margins: EdgeInsets.symmetric(vertical: (Ratioz.xxflyerHeaderMiniHeight - Ratioz.xxflyerLogoWidth) * _flyerBoxWidth / 2),
             width: _buttonSize,
             color: superFlyer.flyerShowsAuthor == true ? Colorz.White80 : Colorz.White80,
             icon: _author?.authorPic,
@@ -80,7 +80,7 @@ class EditorPanel extends StatelessWidget {
             underLine: superFlyer.flyerShowsAuthor == true ? 'Author Shown' : 'Author Hidden',
             underLineShadowIsOn: false,
             underLineColor: superFlyer.flyerShowsAuthor == true ? Colorz.White255 : Colorz.White80,
-            corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerZoneWidth),
+            corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerBoxWidth),
             blackAndWhite: superFlyer.flyerShowsAuthor == true ? false : true,
             bubble: superFlyer.flyerShowsAuthor == true ? true : false,
             onTap: superFlyer.edit.onShowAuthorTap,
@@ -94,7 +94,7 @@ class EditorPanel extends StatelessWidget {
           /// DELETE FLYER button
           if(superFlyer.edit.editMode == true && superFlyer.edit.firstTimer == false)
             PanelButton(
-              flyerZoneWidth: flyerZoneWidth,
+              flyerBoxWidth: flyerBoxWidth,
               icon:  Iconz.XSmall,
               iconSizeFactor: 0.5,
               verse: 'Delete',
@@ -108,7 +108,7 @@ class EditorPanel extends StatelessWidget {
           /// Publish button
           if(superFlyer.edit.editMode == true)
           PanelButton(
-            flyerZoneWidth: flyerZoneWidth,
+            flyerBoxWidth: flyerBoxWidth,
             icon:  Iconz.ArrowUp,
             iconSizeFactor: 0.5,
             verse: superFlyer.edit.firstTimer ? 'Publish' : 'Update',
@@ -121,7 +121,7 @@ class EditorPanel extends StatelessWidget {
 
           /// TRIGGER EDIT MODE
           PanelButton(
-            flyerZoneWidth: flyerZoneWidth,
+            flyerBoxWidth: flyerBoxWidth,
             icon: superFlyer.edit.editMode == true ? Iconz.Gears : Iconz.Views,
             iconSizeFactor: 0.5,
             verse: superFlyer.edit.editMode == true ? 'Editing' : 'Viewing',

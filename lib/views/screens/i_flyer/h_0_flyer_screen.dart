@@ -1,8 +1,8 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -75,7 +75,7 @@ class FlyerScreen extends StatelessWidget {
 
 
         FinalFlyer(
-          flyerZoneWidth: Scale.superFlyerZoneWidth(context, 1),
+          flyerBoxWidth: FlyerBox.width(context, 1),
           tinyFlyer: tinyFlyer,
           initialSlideIndex: tinyFlyer.slideIndex,
           goesToEditor: false,

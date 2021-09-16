@@ -3,17 +3,18 @@ import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class BzLabel extends StatelessWidget {
   final SuperFlyer superFlyer;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
 
   BzLabel({
     this.superFlyer,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
 });
 
   @override
@@ -24,11 +25,11 @@ class BzLabel extends StatelessWidget {
     bool versesDesignMode = false;
     bool versesShadow = false;
 // -----------------------------------------------------------------------------
-    double headerMainHeight = Scale.superHeaderStripHeight(superFlyer.nav.bzPageIsOn, flyerZoneWidth);
+    double headerMainHeight = FlyerBox.headerStripHeight(superFlyer.nav.bzPageIsOn, flyerBoxWidth);
     // --- B.DATA
     double businessDataHeight = superFlyer.flyerShowsAuthor == true ? headerMainHeight * 0.4 : headerMainHeight * 0.7; //0.0475;
-    double businessDataWidth = flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
-    double headerTextSidePadding = flyerZoneWidth * 0.02;
+    double businessDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+    double headerTextSidePadding = flyerBoxWidth * 0.02;
     // --- B.LOCALE
     String businessLocale = TextGenerator.zoneStringer(context: context, zone: superFlyer.bz.bzZone,);
 // -----------------------------------------------------------------------------
@@ -59,7 +60,7 @@ class BzLabel extends StatelessWidget {
                 designMode: versesDesignMode,
                 weight: VerseWeight.bold ,
                 size: bzNameSize,
-                scaleFactor: (flyerZoneWidth / screenWidth) * 0.9,
+                scaleFactor: (flyerBoxWidth / screenWidth) * 0.9,
                 maxLines: _maxLines,
 
               ),
@@ -79,7 +80,7 @@ class BzLabel extends StatelessWidget {
                 centered: false,
                 italic: true,
                 color: Colorz.White255,
-                scaleFactor: (flyerZoneWidth / screenWidth)*0.9,
+                scaleFactor: (flyerBoxWidth / screenWidth)*0.9,
                 maxLines: 1,
               ),
             ),

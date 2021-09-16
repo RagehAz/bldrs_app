@@ -8,7 +8,7 @@ import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
-import 'package:bldrs/views/screens/g_x_user_editor_screen.dart';
+import 'package:bldrs/views/screens/g_user/g_x_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/following_bzz_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/status_bubble.dart';

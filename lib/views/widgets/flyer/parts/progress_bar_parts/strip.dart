@@ -4,14 +4,14 @@ import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:flutter/material.dart';
 
 class Strip extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final double stripWidth;
   final int numberOfSlides;
   final EdgeInsets margins;
   final bool isWhite;
 
   Strip({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.stripWidth,
     @required this.numberOfSlides,
     this.margins,
@@ -22,11 +22,11 @@ class Strip extends StatelessWidget {
   Widget build(BuildContext context) {
     // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
 // -----------------------------------------------------------------------------
-//     double _stripsTotalLength = Strips.stripsTotalLength(flyerZoneWidth);
-    double _aStripThickness = Strips.stripThickness(flyerZoneWidth);
+//     double _stripsTotalLength = Strips.stripsTotalLength(flyerBoxWidth);
+    double _aStripThickness = Strips.stripThickness(flyerBoxWidth);
     double _aStripOnePadding = _aStripThickness / 2;
-    double _aStripLength = Strips.oneStripLength(flyerZoneWidth: flyerZoneWidth, numberOfStrips: numberOfSlides);
-    double _stripCorner = Strips.stripCornerValue(flyerZoneWidth);
+    double _aStripLength = Strips.oneStripLength(flyerBoxWidth: flyerBoxWidth, numberOfStrips: numberOfSlides);
+    double _stripCorner = Strips.stripCornerValue(flyerBoxWidth);
     Color _stripColor = Strips.stripColor(isWhite: isWhite, numberOfSlides: numberOfSlides);
 // -----------------------------------------------------------------------------
 

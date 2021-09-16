@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/views/screens/h_1_bz_card_screen.dart';
+import 'package:bldrs/views/screens/i_flyer/h_1_bz_card_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/in_pyramids/profile/bz_grid.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -54,7 +54,7 @@ class BzzBubble extends StatelessWidget {
             itemOnTap: (bzID) {
 
               if (onTap == null) {
-                Nav.goToNewScreen(context, BzCardScreen(bzID: bzID, flyerZoneWidth: Bubble.clearWidth(context),));
+                Nav.goToNewScreen(context, BzCardScreen(bzID: bzID, flyerBoxWidth: Bubble.clearWidth(context),));
               } else {
                 onTap(bzID);
               }

@@ -107,10 +107,10 @@
 //   @override
 //   Widget build(BuildContext context) {
 //
-//     double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, sizeFactor);
-//     double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, _flyerZoneWidth);
-//     double _headerHeight = Scale.superHeaderHeight(false, _flyerZoneWidth);
-//     double _footerHeight = FlyerFooter.boxHeight(context: context, flyerZoneWidth: _flyerZoneWidth);
+//     double _flyerBoxWidth = Scale.superFlyerBoxWidth(context, sizeFactor);
+//     double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, _flyerBoxWidth);
+//     double _headerHeight = Scale.superHeaderHeight(false, _flyerBoxWidth);
+//     double _footerHeight = FlyerFooter.boxHeight(context: context, flyerBoxWidth: _flyerBoxWidth);
 //
 //     return GestureDetector(
 //       onTap: (){
@@ -118,7 +118,7 @@
 //         onTap();
 //       },
 //       child: Container(
-//         width: _flyerZoneWidth,
+//         width: _flyerBoxWidth,
 //         height: _flyerZoneHeight,
 //         color: Colorz.BloodTest,
 //         child: Stack(
@@ -127,7 +127,7 @@
 //             Positioned(
 //               top: 0,
 //               child: Container(
-//                 width: _flyerZoneWidth,
+//                 width: _flyerBoxWidth,
 //                 height: _headerHeight,
 //                 color: Colorz.White20,
 //                 child: Row(
@@ -149,7 +149,7 @@
 //             Positioned(
 //               bottom: 0,
 //               child: Container(
-//                 width: _flyerZoneWidth,
+//                 width: _flyerBoxWidth,
 //                 height: _footerHeight,
 //                 color: Colorz.White80,
 //               ),
@@ -245,8 +245,8 @@
 //   Widget _stupidFlightShuttle(flightContext, animation, direction, fromContext, toContext) {
 //     final Hero toHero = toContext.widget;
 //
-//     double _flyerSmallWidth = Scale.superFlyerZoneWidth(fromContext, 0.4);
-//     double _flyerBigWidth = Scale.superFlyerZoneWidth(fromContext, 1);
+//     double _flyerSmallWidth = Scale.superFlyerBoxWidth(fromContext, 0.4);
+//     double _flyerBigWidth = Scale.superFlyerBoxWidth(fromContext, 1);
 //     double _heroBeginRatio = _flyerSmallWidth / _flyerBigWidth;
 //     double _heroEndRatio = _flyerBigWidth / _flyerBigWidth;
 //
@@ -276,12 +276,12 @@
 //
 //     final Hero toHero = toHeroContext.widget;
 //
-//     double _flyerZoneWidth = Scale.superFlyerZoneWidth(fromHeroContext, sizeFactor);
-//     double _flyerZoneHeight = Scale.superFlyerZoneHeight(fromHeroContext, _flyerZoneWidth);
-//     double _headerHeight = Scale.superHeaderHeight(false, _flyerZoneWidth);
-//     double _footerHeight = FlyerFooter.boxHeight(context: fromHeroContext, flyerZoneWidth: _flyerZoneWidth);
+//     double _flyerBoxWidth = Scale.superFlyerBoxWidth(fromHeroContext, sizeFactor);
+//     double _flyerZoneHeight = Scale.superFlyerZoneHeight(fromHeroContext, _flyerBoxWidth);
+//     double _headerHeight = Scale.superHeaderHeight(false, _flyerBoxWidth);
+//     double _footerHeight = FlyerFooter.boxHeight(context: fromHeroContext, flyerBoxWidth: _flyerBoxWidth);
 //
-//     double _flyerSmallWidth = Scale.superFlyerZoneWidth(fromHeroContext, 0.4);
+//     double _flyerSmallWidth = Scale.superFlyerBoxWidth(fromHeroContext, 0.4);
 //     double _flyerSmallHeight = Scale.superFlyerZoneHeight(fromHeroContext, _flyerSmallWidth);
 //
 //     double _flyerBigWidth = Scale.superScreenWidth(fromHeroContext);
@@ -314,8 +314,8 @@
 //         /// ------------------------------------------------- o
 //         // placeholderBuilder: (context, size ,widget) {
 //         //   return FlyerZoneBox(
-//         //     flyerZoneWidth: _flyerZoneWidth,
-//         //     superFlyer: SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: _flyerZoneWidth),
+//         //     flyerBoxWidth: _flyerBoxWidth,
+//         //     superFlyer: SuperFlyer.createEmptySuperFlyer(flyerBoxWidth: _flyerBoxWidth),
 //         //     onFlyerZoneTap: null,
 //         //   );
 //         // },

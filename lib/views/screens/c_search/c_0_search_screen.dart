@@ -11,7 +11,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
-import 'package:bldrs/views/screens/c_2_search_filters_screen.dart';
+import 'package:bldrs/views/screens/c_search/c_2_search_filters_screen.dart';
 import 'package:bldrs/views/widgets/browser/browser_pages.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';

@@ -7,6 +7,7 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -131,8 +132,8 @@ class _SwiperScreenState extends State<SwiperScreen> {
                   margin: const EdgeInsets.only(top: 54, right: Ratioz.appBarMargin * 2, left: Ratioz.appBarMargin * 2),
                 ),
                 layout: SwiperLayout.DEFAULT,
-                itemWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
-                itemHeight: Scale.superFlyerZoneHeight(context, Scale.superFlyerZoneWidth(context, _flyerSizeFactor)),
+                itemWidth: FlyerBox.width(context, _flyerSizeFactor),
+                itemHeight: FlyerBox.height(context, FlyerBox.width(context, _flyerSizeFactor)),
                 // control: new SwiperControl(),
                 // transformer: ,
                 fade: 0.1,
@@ -151,7 +152,7 @@ class _SwiperScreenState extends State<SwiperScreen> {
                         Stratosphere(),
 
                         FinalFlyer(
-                          flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
+                          flyerBoxWidth: FlyerBox.width(context, _flyerSizeFactor),
                           tinyFlyer: _tinyFlyersOfType[index],
                           goesToEditor: false,
                         ),

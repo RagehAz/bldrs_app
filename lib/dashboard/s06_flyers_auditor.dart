@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/animators.dart';
-import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -9,16 +8,14 @@ import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/top_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 
 class FlyersAuditor extends StatefulWidget {
   @override
@@ -186,7 +183,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 // -----------------------------------------------------------------------------
   bool _canDelete = true;
   int _numberOfStrips;
-  bool _listenToSwipe = true;
   Future<void> _onRemoveFlyerFromStack(FlyerModel flyerModel) async {
 
     /// A - if flyers are empty
@@ -260,7 +256,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
       /// A - decrease progress bar and trigger visibility
       setState(() {
-        _listenToSwipe = false;
         _statelessTriggerPageVisibility(_currentPageIndex);
         _numberOfStrips = _flyers.length - 1;
         // _slidingNext = true;
@@ -289,7 +284,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
             _statelessFlyerRemove(_currentPageIndex);
             _currentPageIndex = 0;
             // _draft.numberOfSlides = 1;
-            _listenToSwipe = true;
           });
 
         });
@@ -308,7 +302,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
       /// A - decrease progress bar and trigger visibility
       setState(() {
-        _listenToSwipe = false;
         _statelessTriggerPageVisibility(_currentPageIndex);
         // _flyers.length = _decreasedNumberOfPages;
         _numberOfStrips = _decreasedNumberOfPages;
@@ -327,7 +320,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
           setState(() {
             /// Dx - delte data
             _statelessFlyerRemove(_currentPageIndex);
-            _listenToSwipe = true;
           });
 
         }
@@ -347,7 +339,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
             /// G - trigger progress bar listener (onPageChangedIsOn)
             setState(() {
-              _listenToSwipe = true;
             });
 
           });
@@ -368,7 +359,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
     /// A - decrease progress bar and trigger visibility
     setState(() {
-      _listenToSwipe = false;
       _currentPageIndex = _currentPageIndex - 1;
       _lastSwipeDirection = SwipeDirection.freeze;
       _numberOfStrips = _flyers.length - 1;
@@ -392,7 +382,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
         /// Dx - delete data & trigger progress bar listener (onPageChangedIsOn)
         setState(() {
           _statelessFlyerRemove(_originalIndex);
-          _listenToSwipe = true;
         });
 
         // print('XXX after second rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
@@ -584,7 +573,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                   opacity: _progressBarOpacity,
                   swipeDirection: _lastSwipeDirection,
                   loading: _loading,
-                  flyerZoneWidth: _screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   margins: EdgeInsets.zero,
 
                 ),
@@ -614,7 +603,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                           opacity: _pagesOpacities[index],
                           duration: Ratioz.durationFading200,
                           child: FinalFlyer(
-                            flyerZoneWidth: Scale.superFlyerZoneWidth(context, _flyerSizeFactor),
+                            flyerBoxWidth: FlyerBox.width(context, _flyerSizeFactor),
                             flyerModel: _flyers[index],
                             goesToEditor: false,
                             onSwipeFlyer: (SwipeDirection direction) => _onSwipeFlyer(direction, index),

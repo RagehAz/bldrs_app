@@ -52,7 +52,7 @@ class Ratioz {
   static const double rrFlyerTitleTopMargin = rrFlyerHeaderHeight + rrFlyerProgressBarHeight;
 
 // -----------------------------------------------------------------------------
-  /// flyer ratios multiplied by FlyerZoneWidth
+  /// flyer ratios multiplied by flyerBoxWidth
   static const double xxbzPageSpacing = 0.005;
 
   static const double xxflyerZoneHeight = 1.74;
@@ -69,7 +69,7 @@ class Ratioz {
 
   static const double xxfooterBTMargins = 0.026;
 
-  /// HEADER WIDTH OF EACH COMPONENT IN RESPECT TO FlyerZoneWidth
+  /// HEADER WIDTH OF EACH COMPONENT IN RESPECT TO flyerBoxWidth
   static const double xxflyerHeaderMainPadding = 0.006;
   static const double xxflyerLogoWidth = 0.26;
   static const double xxflyerAuthorPicWidth = 0.15;

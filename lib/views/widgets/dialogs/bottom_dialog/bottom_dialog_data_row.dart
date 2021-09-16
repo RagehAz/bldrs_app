@@ -29,9 +29,7 @@ class BottomDialogRow extends StatelessWidget {
     const double _rowHeight = 50;
     const double _margin = 2.5;
     double _rowWidth = width ?? BottomDialog.dialogClearWidth(context) - _margin * 2;
-    const double _keyButtonWidth = 80;
     const double _keyButtonMargin = Ratioz.appBarPadding;
-    double _valueZoneWidth = _rowWidth - _keyButtonWidth - _keyButtonMargin * 2;
 
     double _keyRowHeight = _rowHeight * 0.4;
     double _valueRowHeight = _rowHeight * 0.6;

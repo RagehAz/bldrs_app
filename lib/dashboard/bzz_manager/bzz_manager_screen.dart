@@ -12,6 +12,7 @@ import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header_strip.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
@@ -257,7 +258,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
                                 Container(
                                   width: _clearDialogWidth,
-                                  height: Scale.superHeaderStripHeight(false, _clearDialogWidth),
+                                  height: FlyerBox.headerStripHeight(false, _clearDialogWidth),
                                   child: Column(
 
                                     children: <Widget>[
@@ -267,7 +268,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                                             onHeaderTap: (){},
                                             bzModel: _bz,
                                         ),
-                                        flyerZoneWidth: _clearDialogWidth,
+                                        flyerBoxWidth: _clearDialogWidth,
                                       ),
 
                                     ],

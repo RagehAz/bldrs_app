@@ -6,7 +6,7 @@ import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/fo
 import 'package:flutter/material.dart';
 
 class EditorFooter extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final Function onAddImages;
   final Function onDeleteSlide;
   final Function onCropImage;
@@ -17,7 +17,7 @@ class EditorFooter extends StatelessWidget {
   final SuperFlyer superFlyer;
 
   EditorFooter({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.onAddImages,
     @required this.onDeleteSlide,
     @required this.onCropImage,
@@ -33,14 +33,14 @@ class EditorFooter extends StatelessWidget {
 
     double _spacing = FlyerFooter.buttonMargin(
       buttonIsOn: false,
-      flyerZoneWidth: flyerZoneWidth,
+      flyerBoxWidth: flyerBoxWidth,
       context: context,
     );
 
     double _numberOfButtons = 5;
 
     double _sumOfSpacings = _spacing * (_numberOfButtons + 1);
-    double _sumOfButtons = flyerZoneWidth - _sumOfSpacings;
+    double _sumOfButtons = flyerBoxWidth - _sumOfSpacings;
     double _fittingButtonSize = _sumOfButtons / _numberOfButtons;
 
     bool _flyerHasNoSlides = numberOfSlides == 0 ? true : false;
@@ -57,14 +57,14 @@ class EditorFooter extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       // --- FLYER FOOTER BOX
       child: Container(
-        width: flyerZoneWidth,
-        height: FlyerFooter.boxHeight(context: context, flyerZoneWidth: flyerZoneWidth),
+        width: flyerBoxWidth,
+        height: FlyerFooter.boxHeight(context: context, flyerBoxWidth: flyerBoxWidth),
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
 
             /// BOTTOM SHADOW
-            FlyerFooter.boxShadow(context: context, flyerZoneWidth: flyerZoneWidth),
+            FlyerFooter.boxShadow(context: context, flyerBoxWidth: flyerBoxWidth),
 
             /// BUTTONS
             Row(
@@ -76,7 +76,7 @@ class EditorFooter extends StatelessWidget {
                 FooterButton(
                   verse: 'Add',
                   icon: Iconz.Plus,
-                  flyerZoneWidth: flyerZoneWidth,
+                  flyerBoxWidth: flyerBoxWidth,
                   onTap: onAddImages,
                   size: _fittingButtonSize,
                   inActiveMode: _addSlidesButtonInActiveMode,
@@ -86,7 +86,7 @@ class EditorFooter extends StatelessWidget {
                 FooterButton(
                   verse: 'Delete',
                   icon: Iconz.XSmall,
-                  flyerZoneWidth: flyerZoneWidth,
+                  flyerBoxWidth: flyerBoxWidth,
                   onTap: onDeleteSlide,
                   size: _fittingButtonSize,
                   inActiveMode: _deleteSlideButtonInActiveMode,
@@ -96,7 +96,7 @@ class EditorFooter extends StatelessWidget {
                 FooterButton(
                   verse: 'Crop',
                   icon: Iconz.BxDesignsOff,
-                  flyerZoneWidth: flyerZoneWidth,
+                  flyerBoxWidth: flyerBoxWidth,
                   onTap: onCropImage,
                   size: _fittingButtonSize,
                   inActiveMode: _cropButtonInActiveMode,
@@ -106,7 +106,7 @@ class EditorFooter extends StatelessWidget {
                 FooterButton(
                   verse: 'Reset',
                   icon: Iconz.Clock,
-                  flyerZoneWidth: flyerZoneWidth,
+                  flyerBoxWidth: flyerBoxWidth,
                   onTap: onResetImage,
                   size: _fittingButtonSize,
                   inActiveMode: _resetButtonInActiveMode,
@@ -116,7 +116,7 @@ class EditorFooter extends StatelessWidget {
                 FooterButton(
                   verse: 'Fit',
                   icon: currentPicFit == BoxFit.fitWidth ? Iconz.ArrowRight : currentPicFit == BoxFit.fitHeight ? Iconz.ArrowUp : Iconz.DashBoard,
-                  flyerZoneWidth: flyerZoneWidth,
+                  flyerBoxWidth: flyerBoxWidth,
                   onTap: superFlyer.edit.onFitImage, //onFitImage,
                   size: _fittingButtonSize,
                   inActiveMode: _fitButtonInActiveMode,

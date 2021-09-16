@@ -28,6 +28,11 @@ class Aligners{
       appIsLeftToRight(context) ? Alignment.topRight : Alignment.topLeft;
   }
 // -----------------------------------------------------------------------------
+  static Alignment superInverseBottomAlignment(BuildContext context){
+    return
+      appIsLeftToRight(context) ? Alignment.bottomRight : Alignment.bottomLeft;
+  }
+// -----------------------------------------------------------------------------
   /// gets [right position] of object that [aligns left] when app is english (LTR)
   static double rightPositionInLeftAlignmentEn(BuildContext context, double offsetFromRight){
     double _rightOffset;

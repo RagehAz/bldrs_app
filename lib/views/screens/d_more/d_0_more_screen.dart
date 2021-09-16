@@ -10,11 +10,11 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/flyer/records/share_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/screens/f_x_bz_editor_screen.dart';
-import 'package:bldrs/views/screens/d_2_select_city_screen.dart';
-import 'package:bldrs/views/screens/d_4_change_language_screen.dart';
-import 'package:bldrs/views/screens/d_5_about_bldrs_screen.dart';
-import 'package:bldrs/views/screens/d_6_feedback_screen.dart';
+import 'package:bldrs/views/screens/d_more/d_2_select_city_screen.dart';
+import 'package:bldrs/views/screens/d_more/d_4_change_language_screen.dart';
+import 'package:bldrs/views/screens/d_more/d_5_about_bldrs_screen.dart';
+import 'package:bldrs/views/screens/d_more/d_6_feedback_screen.dart';
+import 'package:bldrs/views/screens/f_bz/f_x_bz_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/flagbox_button.dart';
@@ -38,6 +38,7 @@ class MoreScreen extends StatelessWidget {
       appBarType: AppBarType.Basic,
       // appBarBackButton: true,
       sky: Sky.Black,
+      pageTitle: 'Options',
       pyramids: Iconz.PyramidzYellow,
       layoutWidget: MaxBounceNavigator(
         child: Scroller(

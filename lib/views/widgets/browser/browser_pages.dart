@@ -296,7 +296,7 @@ class _BrowserPagesState extends State<BrowserPages> {
 
             /// PROGRESS BAR
             Strips(
-              flyerZoneWidth: _clearWidth,
+              flyerBoxWidth: _clearWidth,
               numberOfStrips: _numberOfPages,
               barIsOn: true,
               slideIndex: _currentPage,

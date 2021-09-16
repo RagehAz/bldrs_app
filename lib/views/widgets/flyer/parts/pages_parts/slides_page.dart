@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 
 class SlidesPage extends StatelessWidget {
   final SuperFlyer superFlyer;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
 
   const SlidesPage({
     @required this.superFlyer,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
   });
 // -----------------------------------------------------------------------------
   @override
@@ -26,14 +26,14 @@ class SlidesPage extends StatelessWidget {
         if(superFlyer.currentSlideIndex != null)
           Slides(
             superFlyer: superFlyer,
-            flyerZoneWidth: flyerZoneWidth,
+            flyerBoxWidth: flyerBoxWidth,
           ),
 
         /// ANKH
         if(superFlyer.currentSlideIndex != null && superFlyer.numberOfSlides != 0 && superFlyer.edit.editMode != true)
           AnkhButton(
             bzPageIsOn: superFlyer.nav.bzPageIsOn,
-            flyerZoneWidth: flyerZoneWidth,
+            flyerBoxWidth: flyerBoxWidth,
             listenToSwipe: superFlyer.nav.listenToSwipe,
             ankhIsOn: superFlyer.rec.ankhIsOn,
             onAnkhTap: superFlyer.rec.onAnkhTap,
@@ -42,7 +42,7 @@ class SlidesPage extends StatelessWidget {
         /// EDITOR FOOTER
         if (superFlyer.edit.editMode == true)
           EditorFooter(
-            flyerZoneWidth: flyerZoneWidth,
+            flyerBoxWidth: flyerBoxWidth,
             currentPicFit: FlyerMethod.getCurrentBoxFitFromSuperFlyer(superFlyer: superFlyer),
             onAddImages: superFlyer.edit.onAddImages,
             onDeleteSlide: superFlyer.edit.onDeleteSlide,

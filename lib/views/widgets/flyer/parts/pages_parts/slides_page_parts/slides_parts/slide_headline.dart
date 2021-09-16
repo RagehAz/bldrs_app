@@ -2,14 +2,14 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class SlideHeadline extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final String verse;
   final dynamic verseColor;
   final int verseSize;
   final Function tappingVerse;
 
   SlideHeadline({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.verse,
     @required this.verseSize,
     @required this.verseColor,
@@ -21,14 +21,14 @@ class SlideHeadline extends StatelessWidget {
 
     // print('slide title verse is : $verse');
 
-    double _headlineTopMargin = flyerZoneWidth * 0.3;
+    double _headlineTopMargin = flyerBoxWidth * 0.3;
 
     // --- FLYER TITLE
     return GestureDetector(
       onTap: tappingVerse,
       child: Container(
-          width: flyerZoneWidth,
-          height: flyerZoneWidth*0.4,
+          width: flyerBoxWidth,
+          height: flyerBoxWidth*0.4,
           // color: Colorz.BloodTest,
           margin: EdgeInsets.only(top: _headlineTopMargin),
           child: Column(

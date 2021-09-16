@@ -5,12 +5,12 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class BzPageHeadline extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final bool bzPageIsOn;
   final TinyBz tinyBz;
 
   BzPageHeadline({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
     @required this.tinyBz,
 });
@@ -20,8 +20,8 @@ class BzPageHeadline extends StatelessWidget {
     return
       bzPageIsOn == false ? Container() :
       Container(
-        height: (flyerZoneWidth * 0.3),
-        width: flyerZoneWidth,
+        height: (flyerBoxWidth * 0.3),
+        width: flyerBoxWidth,
         color: Colorz.Nothing,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
