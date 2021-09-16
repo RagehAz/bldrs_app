@@ -9,7 +9,7 @@ import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/bubbles/flyers_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -34,7 +34,7 @@ class DialogTestScreen extends StatelessWidget {
           int _totalNumOfFlyers = _flyers.length;
           int _numberOfBzz = 16;
 
-          bool _result = await superDialog(
+          bool _result = await CenterDialog.showCenterDialog(
             context: context,
             title: '',
             body: 'You Have $_totalNumOfFlyers flyers that will be deactivated that can not be retrieved',

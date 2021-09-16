@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/notifications/audioz.dart';

@@ -1,6 +1,6 @@
 import 'package:bldrs/providers/local_db/ldb_column.dart';
 import 'package:bldrs/providers/local_db/ldb_table.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';

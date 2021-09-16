@@ -10,7 +10,7 @@ import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +95,7 @@ class AddAuthorScreen extends StatelessWidget {
             verseScaleFactor: 0.7,
             onTap: () async {
 
-              await superDialog(
+              await CenterDialog.showCenterDialog(
                 context: context,
                 title: 'Khally balak ba2a',
               );
@@ -137,7 +137,7 @@ class AddAuthorScreen extends StatelessWidget {
                 input: _userBzzIDs,
               );
 
-              await superDialog(
+              await CenterDialog.showCenterDialog(
                 context: context,
                 title: 'tamam',
                 body: 'Done baby',

@@ -7,7 +7,6 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/flyers_bubble.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ import 'package:flutter/material.dart';
 class Dialogz{
 // -----------------------------------------------------------------------------
   static Future<void> maxSlidesReached(BuildContext context, int maxLength) async {
-    await superDialog(
+    await CenterDialog.showCenterDialog(
       context: context,
       title: 'Max. Images reached',
       body: 'Can not add more than $maxLength images in one slide',
@@ -79,7 +78,7 @@ class Dialogz{
     String _errorReply = _errorMap == null ? null : _errorMap['reply'];
     print('_errorReply : $_errorReply');
 
-    await superDialog(
+    await CenterDialog.showCenterDialog(
       context: context,
       title: 'Ops!',
       body: _errorMap == null ? result : _errorReply,
@@ -94,7 +93,7 @@ class Dialogz{
     List<BzModel> bzzToKeep,
   }) async {
 
-    bool _bzzReviewResult = await superDialog(
+    bool _bzzReviewResult = await CenterDialog.showCenterDialog(
       context: context,
       title: 'You Have ${bzzToDeactivate.length + bzzToKeep.length} business accounts',
       body: 'All Business accounts will be deactivated except those shared with other authors',
@@ -147,7 +146,7 @@ class Dialogz{
     int _totalNumOfFlyers = FlyerModel.getNumberOfFlyersFromBzzModels(bzzToDeactivate);
     int _numberOfBzz = bzzToDeactivate.length;
 
-    bool _flyersReviewResult = await superDialog(
+    bool _flyersReviewResult = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
       body: 'You Have $_totalNumOfFlyers flyers that will be deactivated and can not be retrieved',

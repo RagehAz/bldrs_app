@@ -8,8 +8,8 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
@@ -155,7 +155,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     });
 
     /// show success dialog
-    await superDialog(
+    await CenterDialog.showCenterDialog(
       context: context,
       body: 'Flyer has been deleted',
       boolDialog: false,
