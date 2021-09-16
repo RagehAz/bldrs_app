@@ -15,8 +15,8 @@ import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/contact_field_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -177,7 +177,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 // -----------------------------------------------------------------------------
   void _confirmEdits() async {
 
-    bool _continueOps = await superDialog(
+    bool _continueOps = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
       body: 'Are you sure you want to continue ?',
@@ -196,7 +196,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if(_inputsAreValid() == false){
 
       /// TASK : add error missing data indicator in UI bubbles
-      await superDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
         title: '',
         body: 'Please add all required fields',
@@ -243,7 +243,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       _triggerLoading();
 
-      await superDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
         title: 'Great !',
         body: 'Successfully created your user account',
@@ -263,7 +263,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if(_inputsAreValid() == false){
 
       /// TASK : add error missing data indicator in UI bubbles
-      await superDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
         title: '',
         body: 'Please add all required fields',
@@ -312,7 +312,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       _triggerLoading();
 
-      await superDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
         title: 'Great !',
         body: 'Successfully updated your user account',

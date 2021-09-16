@@ -24,8 +24,8 @@ import 'package:bldrs/views/widgets/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/multiple_choice_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -314,7 +314,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     if (_inputsAreValid() == false) {
 
       /// TASK : add error missing data indicator in UI bubbles
-      await superDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
         title: '',
         body: 'Please add all required fields',
@@ -392,7 +392,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       _triggerLoading();
 
-      await superDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
         title: 'Great !',
         body: 'Successfully added your Business Account',
@@ -410,7 +410,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
     if (_inputsAreValid() == false) {
 
-      await superDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
         title: '',
         body: 'Please add all required fields',
@@ -503,7 +503,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       _triggerLoading();
 
-      await superDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
         title: 'Great !',
         body: 'Successfully updated your Business Account',
@@ -518,7 +518,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   Future<void> _confirmButton() async {
     // TASK : create bool dialog and use it here before confirming bz edits in bzEditor
     // temp solution here below to just notify
-      bool _continueOps = await superDialog(
+      bool _continueOps = await CenterDialog.showCenterDialog(
         context: context,
         title: '',
         body: 'Are you sure you want to continue ?',

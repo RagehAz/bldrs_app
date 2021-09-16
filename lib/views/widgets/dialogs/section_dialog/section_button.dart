@@ -9,7 +9,7 @@ import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/center_dialog/dialog_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +46,7 @@ class SectionDialogButton extends StatelessWidget {
     /// A - if section is not active * if user is author or not
     if(inActiveMode == true){
 
-      await superDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
         title: 'Section "${TextGenerator.sectionStringer(context, section)}" is\nTemporarily closed in $_currentProvince',
         body: 'The Bldrs in $_currentProvince are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',

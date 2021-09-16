@@ -9,7 +9,7 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -253,7 +253,7 @@ class UserOps{
   Future<dynamic> deactivateUserOps({BuildContext context, UserModel userModel}) async {
 
     /// A - initial bool dialog alert
-    bool _result = await superDialog(
+    bool _result = await CenterDialog.showCenterDialog(
       context: context,
       title: 'Watch Out !',
       body: 'Your data can not be retrieved after deactivating your account\nAre you sure you want to proceed ?',
@@ -278,7 +278,7 @@ class UserOps{
       if (UserModel.userIsAuthor(userModel) == true){
 
         /// WAITING DIALOG
-        superDialog(
+        CenterDialog.showCenterDialog(
           context: context,
           title: '',
           boolDialog: null,
@@ -334,7 +334,7 @@ class UserOps{
           else {
 
             /// SHOW WAITING DIALOG
-            superDialog(
+            CenterDialog.showCenterDialog(
               context: context,
               title: '',
               boolDialog: null,
@@ -375,7 +375,7 @@ class UserOps{
             /// CLOSE WAITING DIALOG
             Nav.goBack(context);
 
-            await superDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
+            await CenterDialog.showCenterDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
 
             return 'deactivated';
 
@@ -407,7 +407,7 @@ class UserOps{
           input: UserModel.cipherUserStatus(UserStatus.Deactivated),
         );
 
-        superDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
+        CenterDialog.showCenterDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
 
         /// J - SIGN OUT
         await AuthOps().signOut(context: context, routeToUserChecker: false);
@@ -415,7 +415,7 @@ class UserOps{
         /// CLOSE WAITING DIALOG
         Nav.goBack(context);
 
-        await superDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
+        await CenterDialog.showCenterDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
 
         return 'deactivated';
 
@@ -452,7 +452,7 @@ class UserOps{
   Future<dynamic> superDeleteUserOps({BuildContext context, UserModel userModel}) async {
 
     /// A - initial bool dialog alert
-    bool _result = await superDialog(
+    bool _result = await CenterDialog.showCenterDialog(
       context: context,
       title: 'This will Delete all your data',
       body: 'all pictures, flyers, businesses, your user records will be deleted for good\nDo you want to proceed ?',
@@ -476,7 +476,7 @@ class UserOps{
       if (UserModel.userIsAuthor(userModel) == true){
 
         /// WAITING DIALOG
-        superDialog(
+        CenterDialog.showCenterDialog(
           context: context,
           title: '',
           boolDialog: null,
@@ -531,7 +531,7 @@ class UserOps{
           else {
 
             /// SHOW WAITING DIALOG
-            superDialog(
+            CenterDialog.showCenterDialog(
               context: context,
               title: '',
               boolDialog: null,
@@ -599,7 +599,7 @@ class UserOps{
       else {
 
         /// SHOW WAITING DIALOG
-        superDialog(
+        CenterDialog.showCenterDialog(
           context: context,
           title: '',
           boolDialog: null,
