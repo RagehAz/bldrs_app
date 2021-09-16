@@ -42,14 +42,15 @@ class BzGrid extends StatelessWidget {
     double _logoHeight = _logoWidth;
     double _gridZoneHeight = _gridSpacing + (numberOfRows * (_logoHeight * 1.25 + _gridSpacing));
 
+    double _verticalAspectRatio = _logoWidth / ((_logoWidth * 1.25) + (_gridSpacing));
 
     SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
       crossAxisSpacing: _gridSpacing,
       mainAxisSpacing: _gridSpacing,
-      childAspectRatio: scrollDirection == Axis.vertical ?  1/1.25 : 1.25/1,
+      childAspectRatio: scrollDirection == Axis.vertical ?  _verticalAspectRatio : 1/_verticalAspectRatio,
       maxCrossAxisExtent: scrollDirection == Axis.vertical ? _logoWidth : _logoWidth * 1.25,
     );
-    //
+
     double _zoneCorners = corners == null ? (_logoWidth * Ratioz.bzLogoCorner) + _gridSpacing : corners;
 
     EdgeInsets _gridPadding = EdgeInsets.only(top: _gridSpacing, left: _gridSpacing, right: _gridSpacing, bottom: 0);
@@ -147,7 +148,7 @@ class BzGrid extends StatelessWidget {
                               Container(
                                 width: _logoWidth,
                                 height: _logoWidth * 0.25,
-                                color: Colorz.BloodTest,
+                                // color: Colorz.BloodTest,
                                 child: SuperVerse(
                                   verse: bz.bzName,
                                   scaleFactor: _logoWidth / 120,
