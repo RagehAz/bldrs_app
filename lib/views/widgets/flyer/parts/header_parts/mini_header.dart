@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_headline.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/header_shadow.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_header_strip.dart';
@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 
 class MiniHeader extends StatelessWidget {
   final SuperFlyer superFlyer;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
 
   MiniHeader({
     @required this.superFlyer,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
 
 });
 
@@ -23,32 +23,32 @@ class MiniHeader extends StatelessWidget {
     // String businessLocale = TextGenerator.zoneStringer(context: context, zone: tinyBz?.bzZone,);
 // -----------------------------------------------------------------------------
 
-  bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
+  bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 
     return
       GestureDetector(
         onTap: _tinyMode == true ? null : () async { await superFlyer.nav.onTinyFlyerTap();},
         child: Container(
-          height: Scale.superHeaderHeight(superFlyer.nav.bzPageIsOn, flyerZoneWidth),
-          width: flyerZoneWidth,
+          height: FlyerBox.headerBoxHeight(superFlyer.nav.bzPageIsOn, flyerBoxWidth),
+          width: flyerBoxWidth,
           child: Stack(
             children: <Widget>[
 
               // --- HEADER SHADOW
               HeaderShadow(
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: superFlyer.nav.bzPageIsOn,
               ),
 
               // --- HEADER COMPONENTS
               MiniHeaderStrip(
                 superFlyer: superFlyer,
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
               ),
 
               // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
               BzPageHeadline(
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: superFlyer.nav.bzPageIsOn,
                 tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
               ),

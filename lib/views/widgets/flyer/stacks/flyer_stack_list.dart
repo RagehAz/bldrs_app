@@ -1,8 +1,8 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/spacers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 
 class FlyerStackList extends StatefulWidget {
@@ -52,7 +52,7 @@ class _FlyerStackListState extends State<FlyerStackList> {
 
     List<TinyFlyer> _tinyFlyers = widget.tinyFlyers;
 
-    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, widget.flyerSizeFactor);
+    double _flyerBoxWidth = FlyerBox.width(context, widget.flyerSizeFactor);
 
     return ListView.separated(
       physics: BouncingScrollPhysics(),
@@ -62,7 +62,7 @@ class _FlyerStackListState extends State<FlyerStackList> {
       padding: Spacers.superPadding(
         context: context,
         enLeft: Ratioz.appBarMargin,
-        enRight: _flyerZoneWidth,
+        enRight: _flyerBoxWidth,
         bottom: 0,
         top: 0,
       ),
@@ -79,7 +79,7 @@ class _FlyerStackListState extends State<FlyerStackList> {
 
         // SuperFlyer _superFlyer = SuperFlyer.createViewSuperFlyerFromTinyFlyer(
         //     context: context,
-        //     flyerZoneWidth: _flyerZoneWidth,
+        //     flyerBoxWidth: _flyerBoxWidth,
         //     tinyFlyer: _tinyFlyers[_x],
         //     onMicroFlyerTap: null,
         //     onAnkhTap: null
@@ -111,7 +111,7 @@ class _FlyerStackListState extends State<FlyerStackList> {
           //     //     )
           //     //
           //     //     SingleSlide(
-          //     //         flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
+          //     //         flyerBoxWidth: superFlyerBoxWidth(context, flyerSizeFactor),
           //     //
           //     //     ),
           //     //
@@ -139,7 +139,7 @@ class _FlyerStackListState extends State<FlyerStackList> {
           // );
         ///
           FinalFlyer(
-            flyerZoneWidth: _flyerZoneWidth,
+            flyerBoxWidth: _flyerBoxWidth,
             tinyFlyer: _tinyFlyers[_x],
             goesToEditor: false,
           );

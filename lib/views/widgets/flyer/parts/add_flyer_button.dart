@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -6,7 +5,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/views/screens/f_1_flyer_editor_screen.dart';
+import 'package:bldrs/views/screens/f_bz/f_1_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
@@ -14,12 +13,12 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class AddFlyerButton extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final BzModel bzModel;
   final Function addPublishedFlyerToGallery;
 
   const AddFlyerButton({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.bzModel,
     @required this.addPublishedFlyerToGallery,
   });
@@ -53,20 +52,20 @@ class AddFlyerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _flyerSizeFactor = Scale.superFlyerSizeFactorByWidth(context, flyerZoneWidth);
+    double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
 
     SuperFlyer _bzHeaderSuperFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
       onHeaderTap: () async { await _goToFlyerEditor(context); },
       bzModel: bzModel,
     );
 
-    return FlyerZoneBox(
-      flyerZoneWidth: flyerZoneWidth,
+    return FlyerBox(
+      flyerBoxWidth: flyerBoxWidth,
       superFlyer: _bzHeaderSuperFlyer,
       onFlyerZoneTap: () async { await _goToFlyerEditor(context); },
       stackWidgets: <Widget>[
 
-        FlyerHeader(superFlyer: _bzHeaderSuperFlyer, flyerZoneWidth: flyerZoneWidth,),
+        FlyerHeader(superFlyer: _bzHeaderSuperFlyer, flyerBoxWidth: flyerBoxWidth,),
 
         // --- ADD FLYER BUTTON
           Column(
@@ -76,12 +75,12 @@ class AddFlyerButton extends StatelessWidget {
 
               // --- FAKE HEADER FOOTPRINT
               SizedBox(
-                height: Scale.superHeaderHeight(false, flyerZoneWidth),
+                height: FlyerBox.headerBoxHeight(false, flyerBoxWidth),
               ),
 
               DreamBox(
-                height: flyerZoneWidth * 0.4,
-                width: flyerZoneWidth * 0.4,
+                height: flyerBoxWidth * 0.4,
+                width: flyerBoxWidth * 0.4,
                 icon: Iconz.Plus,
                 iconColor: Colorz.White200,
                 iconSizeFactor: 0.6,

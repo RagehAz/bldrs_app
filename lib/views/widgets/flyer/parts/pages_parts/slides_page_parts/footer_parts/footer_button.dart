@@ -1,14 +1,14 @@
 import 'package:bldrs/controllers/drafters/imagers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class FooterButton extends StatelessWidget {
   final String icon;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final Function onTap;
   final String verse;
   final double size;
@@ -19,7 +19,7 @@ class FooterButton extends StatelessWidget {
 
   const FooterButton({
     @required this.icon,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.onTap,
     @required this.verse,
     /// initializing size value overrides all values and suppresses margins
@@ -32,10 +32,10 @@ class FooterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _footerBTMargins = size != null ? 0 : FlyerFooter.buttonMargin(context: context, flyerZoneWidth: flyerZoneWidth, buttonIsOn: isOn);
-    double _saveBTRadius = size != null ? size/2 : FlyerFooter.buttonRadius(context: context, flyerZoneWidth: flyerZoneWidth, buttonIsOn: isOn);
-    double _buttonSize = size != null ? size : FlyerFooter.buttonSize(context: context, flyerZoneWidth: flyerZoneWidth, buttonIsOn: isOn);
-    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
+    double _footerBTMargins = size != null ? 0 : FlyerFooter.buttonMargin(context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: isOn);
+    double _saveBTRadius = size != null ? size/2 : FlyerFooter.buttonRadius(context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: isOn);
+    double _buttonSize = size != null ? size : FlyerFooter.buttonSize(context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: isOn);
+    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 
     return Container(
       width: _buttonSize,
@@ -73,13 +73,13 @@ class FooterButton extends StatelessWidget {
           /// verse
           if (!_tinyMode)
           Positioned(
-            bottom: flyerZoneWidth * 0.01,
+            bottom: flyerBoxWidth * 0.01,
             child: SuperVerse(
               verse: verse,
               size: 1,
               weight: VerseWeight.bold,
               italic: false,
-              scaleFactor: Scale.superFlyerSizeFactorByWidth(context, flyerZoneWidth),
+              scaleFactor: FlyerBox.sizeFactorByWidth(context, flyerBoxWidth),
               color: DreamBox.getIconColor(inActiveMode: inActiveMode, colorOverride: Colorz.White125),
             ),
           ),

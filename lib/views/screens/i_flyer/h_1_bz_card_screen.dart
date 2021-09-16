@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/bz_streamer.dart';
@@ -9,11 +8,11 @@ import 'package:flutter/material.dart';
 
 class BzCardScreen extends StatefulWidget {
   final String bzID;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
 
   BzCardScreen({
     @required this.bzID,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
 });
 
   @override
@@ -59,7 +58,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
       //         tinyAuthor: getTinyAuthorFromAuthorModel(bz.bzAuthors[0]),
       //         flyerShowsAuthor: true,
       //         followIsOn: false, // TASK : fix following on/off issue
-      //         flyerZoneWidth: superFlyerZoneWidth(context, flyerSizeFactor),
+      //         flyerBoxWidth: superFlyerBoxWidth(context, flyerSizeFactor),
       //         bzPageIsOn: _bzPageIsOn,
       //         tappingHeader: _triggerMaxHeader,
       //         tappingFollow: () async {
@@ -79,7 +78,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
         bzID: widget.bzID,
         builder: (ctx, bz){
 
-          double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
+          double _flyerBoxWidth = FlyerBox.width(context, flyerSizeFactor);
 
           SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
               bzModel: bz,
@@ -87,15 +86,15 @@ class _BzCardScreenState extends State<BzCardScreen> {
           );
 
           return
-            FlyerZoneBox(
-              flyerZoneWidth: _flyerZoneWidth,
+            FlyerBox(
+              flyerBoxWidth: _flyerBoxWidth,
               superFlyer: _superFlyer,
               onFlyerZoneTap: (){print('tapping flyer zone in h 1 bz card screen ');},
               stackWidgets: <Widget>[
 
                 FlyerHeader(
                   superFlyer: _superFlyer,
-                  flyerZoneWidth: widget.flyerZoneWidth,
+                  flyerBoxWidth: widget.flyerBoxWidth,
                 ),
 
                   ],

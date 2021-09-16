@@ -184,7 +184,7 @@ class _FlyerTestScreenState extends State<FlyerTestScreen> {
   @override
   Widget build(BuildContext context) {
 
-    // double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, 0.8);
+    // double _flyerBoxWidth = Scale.superFlyerBoxWidth(context, 0.8);
 
     print('----------> building flyer test screen flyerID : $_flyerID, tinyFlyer : $_tinyFlyer, FlyerModel : $_flyerModel, BzModel : $_bzModel');
 
@@ -215,7 +215,7 @@ class _FlyerTestScreenState extends State<FlyerTestScreen> {
                       onHeaderTap: null,
                       bzModel: bzModel
                   ),
-                  flyerZoneWidth: Scale.superScreenWidth(context) * 0.8,
+                  flyerBoxWidth: Scale.superScreenWidth(context) * 0.8,
               );
 
           }

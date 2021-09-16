@@ -12,7 +12,7 @@ class PanelButton extends StatelessWidget {
   final double iconSizeFactor;
   final bool blackAndWhite;
   final bool isAuthorButton;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final Color color;
 
   PanelButton({
@@ -24,7 +24,7 @@ class PanelButton extends StatelessWidget {
     this.iconSizeFactor = 0.6,
     this.blackAndWhite,
     this.isAuthorButton = false,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     this.color = Colorz.White80,
   });
 
@@ -47,17 +47,17 @@ class PanelButton extends StatelessWidget {
 
     // BorderRadius _authorCorners =
     // isAuthorButton == true ?
-    // Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerZoneWidth) :
+    // Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerBoxWidth) :
     // Borderers.superBorderAll(context,  Ratioz.appBarButtonCorner);
     // ;
 
     double _height = FlyerFooter.buttonSize(
       buttonIsOn: false,
-      flyerZoneWidth: flyerZoneWidth,
+      flyerBoxWidth: flyerBoxWidth,
       context: context
     );
 
-    double _margin = FlyerFooter.buttonMargin(context: context, buttonIsOn: false, flyerZoneWidth: flyerZoneWidth);
+    double _margin = FlyerFooter.buttonMargin(context: context, buttonIsOn: false, flyerBoxWidth: flyerBoxWidth);
     EdgeInsets _margins = EdgeInsets.symmetric(vertical: _margin);
 
     return
@@ -73,7 +73,7 @@ class PanelButton extends StatelessWidget {
         underLineShadowIsOn: false,
         underLineColor: verseColor,
         // verseScaleFactor: 1.2,
-        // corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerZoneWidth),
+        // corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerBoxWidth),
         bubble: true,
         onTap: onTap,
       );

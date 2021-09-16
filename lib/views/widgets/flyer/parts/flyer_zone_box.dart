@@ -7,9 +7,9 @@ import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/editor/editorPanel.dart';
 import 'package:flutter/material.dart';
 
-class FlyerZoneBox extends StatelessWidget {
+class FlyerBox extends StatelessWidget {
   final SuperFlyer superFlyer;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final Function onFlyerZoneTap;
   final List<Widget> stackWidgets;
   final Function onFlyerZoneLongPress;
@@ -17,9 +17,9 @@ class FlyerZoneBox extends StatelessWidget {
   final bool editorMode;
   final Key key;
 
-  FlyerZoneBox({
+  FlyerBox({
     @required this.superFlyer,
-    @required this.flyerZoneWidth, // NEVER DELETE THIS
+    @required this.flyerBoxWidth, // NEVER DELETE THIS
     @required this.onFlyerZoneTap,
     this.stackWidgets,
     this.onFlyerZoneLongPress,
@@ -27,30 +27,107 @@ class FlyerZoneBox extends StatelessWidget {
     this.editorMode = false,
     this.key,
   });
-
-  @override
-  Widget build(BuildContext context) {
-
-    // bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
-    bool _isEditorZone = editorMode;
-
+// -----------------------------------------------------------------------------
+  static double width (BuildContext context, double flyerSizeFactor){
     double _screenWidth = Scale.superScreenWidth(context);
+    double _flyerBoxWidth = _screenWidth * flyerSizeFactor;
+    return _flyerBoxWidth;
+  }
 // -----------------------------------------------------------------------------
-    double _flyerZoneWidth = flyerZoneWidth;
-    double _flyerTopCorners = _flyerZoneWidth * Ratioz.xxflyerTopCorners;
-    double _flyerBottomCorners = _flyerZoneWidth * Ratioz.xxflyerBottomCorners;
-    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, flyerZoneWidth);
+  static double height (BuildContext context, double flyerBoxWidth){
+    double _flyerZoneHeight = sizeFactorByWidth(context, flyerBoxWidth) == 1 ?
+    Scale.superScreenHeightWithoutSafeArea(context)
+        :
+    flyerBoxWidth * Ratioz.xxflyerZoneHeight;
+    return _flyerZoneHeight;
+  }
 // -----------------------------------------------------------------------------
-    BorderRadius _flyerBorders = Borderers.superBorderOnly(
+  static double sizeFactorByWidth (BuildContext context, double flyerBoxWidth){
+    double _flyerSizeFactor = flyerBoxWidth/Scale.superScreenWidth(context);
+    return _flyerSizeFactor;
+  }
+// -----------------------------------------------------------------------------
+  static double sizeFactorByHeight (BuildContext context, double flyerZoneHeight){
+
+    double _flyerBoxWidth = flyerZoneHeight == Scale.superScreenHeightWithoutSafeArea(context) ?
+    Scale.superScreenWidth(context) : (flyerZoneHeight / Ratioz.xxflyerZoneHeight);
+
+    double _flyerSizeFactor = sizeFactorByWidth(context, _flyerBoxWidth);
+
+    return _flyerSizeFactor;
+  }
+// -----------------------------------------------------------------------------
+  static double topCornerValue(double flyerBoxWidth){
+    return flyerBoxWidth * Ratioz.xxflyerTopCorners;
+  }
+// -----------------------------------------------------------------------------
+  static double bottomCornerValue(double flyerBoxWidth){
+    return flyerBoxWidth * Ratioz.xxflyerBottomCorners;
+  }
+// -----------------------------------------------------------------------------
+  static BorderRadius borders(BuildContext context, double flyerBoxWidth){
+
+    double _flyerTopCorners = topCornerValue(flyerBoxWidth);
+    double _flyerBottomCorners = bottomCornerValue(flyerBoxWidth);
+
+    return
+      Borderers.superBorderOnly(
         context: context,
         enTopLeft: _flyerTopCorners,
         enBottomLeft: _flyerBottomCorners,
         enBottomRight: _flyerBottomCorners,
         enTopRight: _flyerTopCorners
     );
+  }
+// -----------------------------------------------------------------------------
+  static bool isTinyMode (BuildContext context, double flyerBoxWidth){
+    bool _tinyMode = flyerBoxWidth < (Scale.superScreenWidth(context) * 0.58) ? true : false; // 0.4 needs calibration
+    return _tinyMode;
+  }
+// -----------------------------------------------------------------------------
+  static double headerBoxHeight(bool bzPageIsOn, double flyerBoxWidth){
+    double _miniHeaderHeightAtMaxState = flyerBoxWidth * Ratioz.xxflyerHeaderMaxHeight;
+    double _miniHeaderHeightAtMiniState = flyerBoxWidth * Ratioz.xxflyerHeaderMiniHeight;
+    double _headerHeight = bzPageIsOn == true ? _miniHeaderHeightAtMaxState : _miniHeaderHeightAtMiniState;
+    return _headerHeight;
+  }
+// -----------------------------------------------------------------------------
+  static double headerStripHeight(bool bzPageIsOn, double flyerBoxWidth){
+    double _headerStripHeight = bzPageIsOn == true ? flyerBoxWidth : flyerBoxWidth * Ratioz.xxflyerHeaderMiniHeight;
+    return _headerStripHeight;
+  }
+// -----------------------------------------------------------------------------
+  static double headerOffsetHeight(double flyerBoxWidth){
+    double _headerOffsetHeight = (flyerBoxWidth * Ratioz.xxflyerHeaderMiniHeight) - (2 * flyerBoxWidth * Ratioz.xxfollowCallSpacing);
+    return _headerOffsetHeight;
+  }
+// -----------------------------------------------------------------------------
+  static double logoWidth(bool bzPageIsOn, double flyerBoxWidth ){
+    double _headerMainPadding = flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
+    double _headerOffsetWidth = flyerBoxWidth - (2 * _headerMainPadding);
+    double _logoWidth = bzPageIsOn == true ? _headerOffsetWidth : (flyerBoxWidth*Ratioz.xxflyerLogoWidth);
+    return _logoWidth;
+  }
+// -----------------------------------------------------------------------------
+  static double headerAndProgressHeights(BuildContext, double flyerZoneHeight){
+    return
+      headerBoxHeight(false, flyerZoneHeight) + flyerZoneHeight * Ratioz.xxProgressBarHeightRatio;
+  }
+// -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    // bool _tinyMode = Scale.superFlyerTinyMode(context, flyerBoxWidth);
+    bool _isEditorZone = editorMode;
+
+    double _screenWidth = Scale.superScreenWidth(context);
+// -----------------------------------------------------------------------------
+    double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
+// -----------------------------------------------------------------------------
+    BorderRadius _flyerBorders = borders(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
     double _panelWidth = _isEditorZone == true ?
-        _screenWidth - _flyerZoneWidth - (Ratioz.appBarMargin * 3) : 0;
+        _screenWidth - flyerBoxWidth - (Ratioz.appBarMargin * 3) : 0;
 // -----------------------------------------------------------------------------
 //     String _heroTag =
 //         superFlyer?.flyerID == null ?
@@ -64,7 +141,7 @@ class FlyerZoneBox extends StatelessWidget {
       onLongPress: onFlyerZoneLongPress,
       key: key,
       child: Container(
-        width: _flyerZoneWidth + _panelWidth + _spacerWidth,
+        width: flyerBoxWidth + _panelWidth + _spacerWidth,
         height: _flyerZoneHeight,
         alignment: Alignment.center,
         child: Row(
@@ -78,7 +155,7 @@ class FlyerZoneBox extends StatelessWidget {
                 superFlyer: superFlyer,
                 panelWidth: _panelWidth,
                 bzModel: editorBzModel,
-                flyerZoneWidth: _flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
               ),
 
             /// SPACER WIDTH
@@ -89,19 +166,19 @@ class FlyerZoneBox extends StatelessWidget {
 
             /// flyer zone
             Container(
-              width: _flyerZoneWidth,
+              width: flyerBoxWidth,
               height: _flyerZoneHeight,
               alignment: Alignment.topCenter,
               decoration: BoxDecoration(
                 color: Colorz.White20,
                 borderRadius: _flyerBorders,
-                // boxShadow: Shadowz.flyerZoneShadow(_flyerZoneWidth),
+                // boxShadow: Shadowz.flyerZoneShadow(_flyerBoxWidth),
               ),
               child: ClipRRect(
                 borderRadius: _flyerBorders,
 
                 child: Container(
-                  width: _flyerZoneWidth,
+                  width: flyerBoxWidth,
                   height: _flyerZoneHeight,
                   alignment: Alignment.topCenter,
                   child: Stack(

@@ -36,7 +36,7 @@ class _HomeWallState extends State<HomeWall> {
     Widget _spacer = SizedBox(height: Ratioz.appBarMargin, width: Ratioz.appBarMargin,);
 // -----------------------------------------------------------------------------
 
-    double _sponsoredFlyerWidth = Scale.superFlyerZoneWidth(context, 0.45);
+    double _sponsoredFlyerWidth = FlyerBox.width(context, 0.45);
 
     List<Widget> _homeWallWidgets = <Widget>[
 
@@ -83,10 +83,10 @@ class _HomeWallState extends State<HomeWall> {
                 //         //   tappingAskInfo: () {print('Ask info is tapped aho');},
                 //         // ),
 
-                FlyerZoneBox(
-                  flyerZoneWidth: _sponsoredFlyerWidth,
+                FlyerBox(
+                  flyerBoxWidth: _sponsoredFlyerWidth,
                   superFlyer: SuperFlyer.createEmptySuperFlyer(
-                    flyerZoneWidth: _sponsoredFlyerWidth,
+                    flyerBoxWidth: _sponsoredFlyerWidth,
                     goesToEditor: false,
                   ),
                   onFlyerZoneTap: null,
@@ -94,10 +94,10 @@ class _HomeWallState extends State<HomeWall> {
 
                 _spacer,
 
-                FlyerZoneBox(
-                  flyerZoneWidth: _sponsoredFlyerWidth,
+                FlyerBox(
+                  flyerBoxWidth: _sponsoredFlyerWidth,
                   superFlyer: SuperFlyer.createEmptySuperFlyer(
-                    flyerZoneWidth: _sponsoredFlyerWidth,
+                    flyerBoxWidth: _sponsoredFlyerWidth,
                     goesToEditor: false
                   ),
                   onFlyerZoneTap: null,

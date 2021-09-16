@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
@@ -7,7 +6,6 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_data_row.dart';
-import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +27,8 @@ class TimerTest extends StatelessWidget {
 
     DateTime _now = DateTime.now();
 
+    DateTime _ragehBD = Timers.createDate(year: 1987, month: 6, day: 10);
+
     return
         {
           'DateTime\n.now()': _now,
@@ -36,6 +36,16 @@ class TimerTest extends StatelessWidget {
           'Timers.getString_dd_month_yyy' : Timers.getString_dd_month_yyyy(context: context, time: _now,),
           'Timers.getString_dd_I_mm_I_yyyy' : Timers.getString_dd_I_mm_I_yyyy(context: context, time: _now,),
           'Timers.getString_hh_i_mm:_mm' : Timers.getString_hh_i_mm(context: context, time: _now),
+          'Timers.createDateTime(year: 1987, month: 6, day: 10),' : Timers.createDateTime(year: 1987, month: 6, day: 10),
+          'Timers.createDate(year: 1987, month: 6, day: 10)' : Timers.createDate(year: 1987, month: 6, day: 10),
+          'Timers.createClock(hour: 1987, minute: 6)' : Timers.createClock(hour: 5+12, minute: 30),
+          'Timers.getTimeDifferenceInSeconds(from: _yesterday, to: _now)': Timers.getTimeDifferenceInSeconds(from: _ragehBD, to: _now),
+          'Timers.getTimeDifferenceInMinutes(from: _yesterday, to: _now)': Timers.getTimeDifferenceInMinutes(from: _ragehBD, to: _now),
+          'Timers.getDifferenceInDays(from: _yesterday, to: _now)': Timers.getTimeDifferenceInDays(from: _ragehBD, to: _now),
+          'Timers.getDateTimeDifferenceInWeeks(from: _yesterday, to: _now)': Timers.getTimeDifferenceInWeeks(from: _ragehBD, to: _now),
+          'Timers.getDateTimeDifferenceInMonths(from: _yesterday, to: _now)': Timers.getTimeDifferenceInMonths(from: _ragehBD, to: _now),
+          'Timers.getDateTimeDifferenceInYears(from: _yesterday, to: _now)': Timers.getTimeDifferenceInYears(from: _ragehBD, to: _now),
+
           'x1' : '',
           'Timers.stringOnDateMonthYear' : Timers.stringOnDateMonthYear(context: context, time: _now,),
           'Timers.dayMonthYearStringer' : Timers.dayMonthYearStringer(context, _now),
@@ -51,26 +61,26 @@ class TimerTest extends StatelessWidget {
           'Timers.hourMinuteSecondListOfStringsWithIndexes([_now], [0])' : Timers.hourMinuteSecondListOfStringsWithIndexes([_now], [0]),
           'Timers.monthYearStringer(context, _now)' : Timers.monthYearStringer(context, _now),
           'x1.' : '',
-          'dateFormat.add_d()': Timers.dateFormat.add_d(),
-          'dateFormat.dateOnly': Timers.dateFormat.dateOnly,
-          'dateFormat.digitMatcher': Timers.dateFormat.digitMatcher,
-          'dateFormat.dateTimeConstructor': Timers.dateFormat.dateTimeConstructor,
-          'dateFormat.format(_now)': Timers.dateFormat.format(_now),
+          // 'dateFormat.add_d()': Timers.dateFormat.add_d(),
+          // 'dateFormat.dateOnly': Timers.dateFormat.dateOnly,
+          // 'dateFormat.digitMatcher': Timers.dateFormat.digitMatcher,
+          // 'dateFormat.dateTimeConstructor': Timers.dateFormat.dateTimeConstructor,
+          // 'dateFormat.format(_now)': Timers.dateFormat.format(_now),
           // 'dateFormat.formatDuration(_now)': Timers.dateFormat.formatDuration(_now),
           // 'dateFormat.formatDurationFrom(Duration.zero, _now)': Timers.dateFormat.formatDurationFrom(Duration.zero, _now),
-          'Timers.dateFormat.hashCode': Timers.dateFormat.hashCode,
-          'dateFormat.pattern': Timers.dateFormat.pattern,
+          // 'Timers.dateFormat.hashCode': Timers.dateFormat.hashCode,
+          // 'dateFormat.pattern': Timers.dateFormat.pattern,
           // 'dateFormat.parse(inputString)': Timers.dateFormat.parse('inputString'),
           // 'dateFormat.parseLoose(inputString)': Timers.dateFormat.parseLoose('inputString'),
           // 'dateFormat.parsePattern(pattern)': Timers.dateFormat.parsePattern('pattern'),
           // 'dateFormat.parseStrict(inputString)': Timers.dateFormat.parseStrict('inputString'),
           // 'dateFormat.parseUTC(inputString)': Timers.dateFormat.parseUTC('inputString'),
           // 'dateFormat.parseUtc(inputString)': Timers.dateFormat.parseUtc('inputString'),
-          'dateFormat.runtimeType': Timers.dateFormat.runtimeType,
-          'dateFormat.toString()': Timers.dateFormat.toString(),
-          'dateFormat.useNativeDigits': Timers.dateFormat.useNativeDigits,
-          'dateFormat.usesAsciiDigits': Timers.dateFormat.usesAsciiDigits,
-          'dateFormat.usesNativeDigits': Timers.dateFormat.usesNativeDigits,
+          // 'dateFormat.runtimeType': Timers.dateFormat.runtimeType,
+          // 'dateFormat.toString()': Timers.dateFormat.toString(),
+          // 'dateFormat.useNativeDigits': Timers.dateFormat.useNativeDigits,
+          // 'dateFormat.usesAsciiDigits': Timers.dateFormat.usesAsciiDigits,
+          // 'dateFormat.usesNativeDigits': Timers.dateFormat.usesNativeDigits,
           'x2' : '',
           'dateFormat.locale': Timers.dateFormat.locale,
           'dateFormat.localeZero': Timers.dateFormat.localeZero,

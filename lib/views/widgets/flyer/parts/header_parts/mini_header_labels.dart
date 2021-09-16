@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/mini_bz_label.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -7,24 +7,24 @@ import 'package:flutter/material.dart';
 
 class HeaderLabels extends StatelessWidget {
   final SuperFlyer superFlyer;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
 
   HeaderLabels({
     @required this.superFlyer,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
   });
 
-  static double getHeaderLabelWidth(double flyerZoneWidth){
-    return flyerZoneWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+  static double getHeaderLabelWidth(double flyerBoxWidth){
+    return flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
   }
 
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
+    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
-    double labelsWidth = getHeaderLabelWidth(flyerZoneWidth);
-    double labelsHeight = flyerZoneWidth * (Ratioz.xxflyerHeaderMiniHeight - (2*Ratioz.xxflyerHeaderMainPadding));
+    double labelsWidth = getHeaderLabelWidth(flyerBoxWidth);
+    double labelsHeight = flyerBoxWidth * (Ratioz.xxflyerHeaderMiniHeight - (2*Ratioz.xxflyerHeaderMainPadding));
 // -----------------------------------------------------------------------------
     return
       _tinyMode == true ? Container() :
@@ -40,7 +40,7 @@ class HeaderLabels extends StatelessWidget {
               /// BUSINESS LABEL : BZ.NAME & BZ.LOCALE
               BzLabel(
                 superFlyer: superFlyer,
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
               ),
 
               /// middle expander ,, will delete i don't like it
@@ -52,7 +52,7 @@ class HeaderLabels extends StatelessWidget {
               /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
               if (superFlyer.flyerShowsAuthor == true)
               AuthorLabel(
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 tinyAuthor: superFlyer.flyerTinyAuthor,
                 tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
                 showLabel: superFlyer.nav.bzPageIsOn,

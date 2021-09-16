@@ -11,7 +11,6 @@ enum NotiType{
 enum NotiAttachmentType{
   non,
   flyers,
-  bz,
   banner,
   buttons,
 }
@@ -172,7 +171,6 @@ class NotiModel{
       case 'non'  : return NotiAttachmentType.non; break;
       case 'flyers' : return NotiAttachmentType.flyers; break;
       case 'banner' : return NotiAttachmentType.banner; break;
-      case 'bz' : return NotiAttachmentType.bz; break;
       case 'buttons' : return NotiAttachmentType.buttons; break;
       default: return NotiAttachmentType.non;
     }
@@ -183,7 +181,6 @@ class NotiModel{
       case NotiAttachmentType.non : return 'non'; break;
       case NotiAttachmentType.flyers : return 'flyers'; break;
       case NotiAttachmentType.banner : return 'banner'; break;
-      case NotiAttachmentType.bz : return 'bz'; break;
       case NotiAttachmentType.buttons : return 'buttons'; break;
       default: return 'non';
     }
@@ -193,7 +190,6 @@ class NotiModel{
     return <NotiAttachmentType>[
       NotiAttachmentType.non,
       NotiAttachmentType.flyers,
-      NotiAttachmentType.bz,
       NotiAttachmentType.banner,
       NotiAttachmentType.buttons,
     ];

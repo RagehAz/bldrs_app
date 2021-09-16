@@ -1,8 +1,8 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +71,7 @@ class FlyersPageView extends StatelessWidget {
         //   }
         ///
         FinalFlyer(
-          flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.8),
+          flyerBoxWidth: FlyerBox.width(context, 0.8),
           tinyFlyer:_tinyFlyers[i],
           goesToEditor: false,
         ),

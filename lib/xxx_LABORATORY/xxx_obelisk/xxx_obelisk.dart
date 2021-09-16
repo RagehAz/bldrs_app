@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/notifications/test_screens/awome_noti_test_screen.dart';
 import 'package:bldrs/controllers/notifications/test_screens/fcm_tet_screen.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -7,11 +6,12 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/views/screens/a_0_user_checker_widget.dart';
+import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/web_view/web_view_test_screen.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/textings/the_golden_scroll.dart';
@@ -192,7 +192,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           oButton('go to user checker', Iconz.Flyer, UserChecker()),
 
           oButton('Random Test Space', Iconz.Flyer, RandomTestSpace(
-            flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.5),
+            flyerBoxWidth: FlyerBox.width(context, 0.5),
           )),
 
           oButton('Slider Test Screen', Iconz.Flyer, SliderTestScreen()),

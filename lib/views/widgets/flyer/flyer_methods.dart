@@ -1,9 +1,9 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 
 enum FlyerMode {
@@ -67,9 +67,9 @@ class FlyerMethod{
     return _source;
   }
 // -----------------------------------------------------------------------------
-  static FlyerMode flyerModeSelector({BuildContext context, double flyerZoneWidth, bool inEditor, dynamic flyerSource}){
+  static FlyerMode flyerModeSelector({BuildContext context, double flyerBoxWidth, bool inEditor, dynamic flyerSource}){
 
-    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
+    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
     bool _editMode = inEditor;
     FlyerSourceType _source = checkSuperFlyerSource(flyerSource);
 

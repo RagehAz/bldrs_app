@@ -5,11 +5,11 @@
 //     ScrollSnapList(
 //       onItemFocus: onPageChangedIsOn ? (i) => _onPageChanged(i) : (i) => Sliders.zombie(i),
 //       background: Colorz.Black255,
-//       itemSize: _flyerZoneWidth,
+//       itemSize: _flyerBoxWidth,
 //       duration: 100,
 //       curve: Curves.easeIn,
 //       endOfListTolerance: 5,
-//       initialIndex: (widget.index * widget.flyerZoneWidth),
+//       initialIndex: (widget.index * widget.flyerBoxWidth),
 //       updateOnScroll: false,
 //       scrollDirection: Axis.horizontal,
 //       dynamicItemOpacity: 1,
@@ -31,7 +31,7 @@
 //
 //         double _shrinkScalePercentageTo = 90; // means by 10%
 //
-//         // double intendedPixel = _currentSlideIndex * widget.flyerZoneWidth;
+//         // double intendedPixel = _currentSlideIndex * widget.flyerBoxWidth;
 //         // double difference = intendedPixel - distance;
 //         return (1 - min(distance.abs() / (_shrinkScalePercentageTo * 10), 0.5));
 //       },
@@ -46,7 +46,7 @@
 //             duration: Duration(milliseconds: 100),
 //             child: SingleSlide(
 //               key: ObjectKey(widget.draftFlyerModel.key.value + i),
-//               flyerZoneWidth: _flyerZoneWidth,
+//               flyerBoxWidth: _flyerBoxWidth,
 //               flyerID: null, //_flyer.flyerID,
 //               picture: _assetsAsFiles[i],//_currentSlides[index].picture,
 //               slideMode: SlideMode.Editor,//slidesModes[index],

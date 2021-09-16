@@ -56,11 +56,11 @@ class Shadowz {
      basicOuterShadow,
   ];
 // -----------------------------------------------------------------------------
-  static List<BoxShadow> flyerZoneShadow(double flyerZoneWidth){
+  static List<BoxShadow> flyerZoneShadow(double flyerBoxWidth){
     List<BoxShadow> _flyerZoneShadow = <BoxShadow>[
       CustomBoxShadow(
           color: Colorz.Black230,
-          blurRadius: flyerZoneWidth * 0.055,
+          blurRadius: flyerBoxWidth * 0.055,
           blurStyle: BlurStyle.outer
       ),
     ];
@@ -68,12 +68,12 @@ class Shadowz {
     return _flyerZoneShadow;
   }
 // -----------------------------------------------------------------------------
-  static List<BoxShadow> flyerHeaderShadow(double flyerZoneWidth){
+  static List<BoxShadow> flyerHeaderShadow(double flyerBoxWidth){
     List<BoxShadow> _shadows = <BoxShadow>[
       CustomBoxShadow(
         color: Colorz.Black200,
         offset: Offset(0, 0),
-        blurRadius: flyerZoneWidth * 0.1,
+        blurRadius: flyerBoxWidth * 0.1,
         blurStyle: BlurStyle.outer
       ),
     ];

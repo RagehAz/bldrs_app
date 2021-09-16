@@ -124,6 +124,153 @@ class Timers {
     return DateTime.parse(cipheredDateTimeIso8601);
   }
 // -----------------------------------------------------------------------------
+  static DateTime createDateTime({int year, int month, int day, int hour, int minute, int second, int millisecond, int microsecond}){
+     DateTime _now = DateTime.now();
+     DateTime _localTime = _now.toLocal();
+
+    int _year = year ?? _localTime.year;
+    int _month = month ?? _localTime.month;
+    int _day = day ?? _localTime.day;
+    int _hour = hour ?? _localTime.hour;
+    int _minute = minute ?? _localTime.minute;
+    int _second = second ?? _localTime.second;
+    int _millisecond = millisecond ?? _localTime.millisecond;
+    int _microsecond = microsecond ?? _localTime.microsecond;
+
+    DateTime _output = new DateTime(_year, _month, _day, _hour, _minute, _second, _millisecond, _microsecond);
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+  static DateTime createDate({@required int year, @required int month, @required int day}){
+    return
+        createDateTime(
+            year: year,
+            month: month,
+            day: day,
+            hour: 0,
+            minute: 0,
+            second: 0,
+            millisecond: 0,
+            microsecond: 0,
+        );
+  }
+// -----------------------------------------------------------------------------
+  static DateTime createClock({@required int hour, @required int minute, int second}){
+    return
+      createDateTime(
+        year: DateTime.now().toLocal().year,
+        month: DateTime.now().toLocal().month,
+        day: DateTime.now().toLocal().day,
+        hour: hour,
+        minute: minute,
+        second: second ?? 0,//DateTime.now().toLocal().second,
+        millisecond: 0,
+        microsecond: 0,
+      );
+  }
+// -----------------------------------------------------------------------------
+  static DateTime createDateAndClock({@required int year, @required int month, @required int day, @required int hour, @required int minute, int second}){
+    return
+      createDateTime(
+        year: year,
+        month: month,
+        day: day,
+        hour: hour,
+        minute: minute,
+        second: second ?? DateTime.now().toLocal().second,
+        millisecond: 0,
+        microsecond: 0,
+      );
+  }
+// -----------------------------------------------------------------------------
+  static int getTimeDifferenceInSeconds({DateTime from, DateTime to}){
+    DateTime _from = DateTime(from.year, from.month, from.day);
+    DateTime _to = DateTime(to.year, to.month, to.day);
+    return (_to.difference(_from).inSeconds).round();
+  }
+// -----------------------------------------------------------------------------
+  static int getTimeDifferenceInMinutes({DateTime from, DateTime to}){
+    DateTime _from = DateTime(from.year, from.month, from.day);
+    DateTime _to = DateTime(to.year, to.month, to.day);
+    return (_to.difference(_from).inMinutes).round();
+  }
+// -----------------------------------------------------------------------------
+  static int getTimeDifferenceInHours({DateTime from, DateTime to}){
+    DateTime _from = DateTime(from.year, from.month, from.day);
+    DateTime _to = DateTime(to.year, to.month, to.day);
+    return (_to.difference(_from).inHours).round();
+  }
+// -----------------------------------------------------------------------------
+  static int getTimeDifferenceInDays({DateTime from, DateTime to}){
+    DateTime _from = DateTime(from.year, from.month, from.day);
+    DateTime _to = DateTime(to.year, to.month, to.day);
+    return (_to.difference(_from).inDays);
+  }
+// -----------------------------------------------------------------------------
+  static int getTimeDifferenceInWeeks({DateTime from, DateTime to}){
+    int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
+    return (_differenceInDays / 7).floor();
+  }
+// -----------------------------------------------------------------------------
+  static int getTimeDifferenceInMonths({DateTime from, DateTime to}){
+    int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
+    return (_differenceInDays / 30).floor();
+  }
+// -----------------------------------------------------------------------------
+  static int getTimeDifferenceInYears({DateTime from, DateTime to}){
+    int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
+    return (_differenceInDays / 365).floor();
+  }
+// -----------------------------------------------------------------------------
+  static String getSuperTimeDifferenceString({@required DateTime from, @required DateTime to}) {
+    int _seconds = getTimeDifferenceInSeconds(from: from, to: to);
+
+    String _string;
+
+    if (_seconds < 60){
+      _string = '$_seconds seconds ago';
+    }
+
+    /// MINUTE = 60 s
+    else if (_seconds >= 60 && _seconds < 3600){
+      int _minutes = getTimeDifferenceInMinutes(from: from, to: to);
+      _string = '$_minutes minutes ago';
+    }
+
+    /// HOUR = 3'600 s
+    else if (_seconds >= 3600 && _seconds < 86400){
+      int _hours = getTimeDifferenceInHours(from: from, to: to);
+      _string = '$_hours hours ago';
+    }
+
+    /// DAY = 86'400 s
+    else if (_seconds >= 86400 && _seconds < 604800){
+      int _days = getTimeDifferenceInDays(from: from, to: to);
+      _string = '$_days days ago';
+    }
+
+    /// WEEK = 604'800 s
+    else if (_seconds >= 604800 && _seconds < 2592000){
+      int _weeks = getTimeDifferenceInWeeks(from: from, to: to);
+      _string = '$_weeks weeks ago';
+    }
+
+    /// MONTH = 2'592'000 s
+    else if (_seconds >= 2592000 && _seconds < 31536000){
+      int _months = getTimeDifferenceInMonths(from: from, to: to);
+      _string = '$_months months ago';
+    }
+
+    /// YEAR = 31'536'000 s
+    else {
+      int _years = getTimeDifferenceInMonths(from: from, to: to);
+      _string = '$_years years ago';
+    }
+
+    return _string;
+  }
+// -----------------------------------------------------------------------------
   static String stringOnDateMonthYear({BuildContext context, DateTime time}){
     String _day = '${(time).day}';
     String _monthString = Timers.getMonthNameByInt(context, (time).month);

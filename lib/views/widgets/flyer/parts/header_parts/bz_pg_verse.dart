@@ -4,14 +4,14 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class BzPgVerse extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final bool bzPageIsOn;
   final String verse;
   final int size;
   final int maxLines;
 
   BzPgVerse({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     this.bzPageIsOn = true,
     @required this.verse,
     @required this.size,
@@ -21,16 +21,16 @@ class BzPgVerse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     dynamic bzPageBGColor = Colorz.Black80;
-    double bzPageDividers = flyerZoneWidth * 0.005;
+    double bzPageDividers = flyerBoxWidth * 0.005;
 
     double _margins =
-        maxLines > 1 ? flyerZoneWidth * 0.05 : flyerZoneWidth * 0.02;
+        maxLines > 1 ? flyerBoxWidth * 0.05 : flyerBoxWidth * 0.02;
 
     return bzPageIsOn == false ? Container()
         : Padding(
             padding: EdgeInsets.only(top: bzPageDividers),
             child: Container(
-              width: flyerZoneWidth,
+              width: flyerBoxWidth,
               color: bzPageBGColor,
               child: SuperVerse(
                 verse: verse,
@@ -48,13 +48,13 @@ class BzPgVerse extends StatelessWidget {
 }
 
 class BzAboutVerse extends StatefulWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final bool bzPageIsOn;
   final String verse;
   final String bzName;
 
   BzAboutVerse({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     this.bzPageIsOn = true,
     @required this.verse,
     @required this.bzName,
@@ -76,9 +76,9 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
   @override
   Widget build(BuildContext context) {
     dynamic bzPageBGColor = Colorz.Black80;
-    double bzPageDividers = widget.flyerZoneWidth * 0.005;
+    double bzPageDividers = widget.flyerBoxWidth * 0.005;
 
-    double _margins = widget.flyerZoneWidth * 0.05;
+    double _margins = widget.flyerBoxWidth * 0.05;
 
     return widget.bzPageIsOn == false
         ? Container()
@@ -87,7 +87,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
             child: Padding(
               padding: EdgeInsets.only(top: bzPageDividers),
               child: Container(
-                width: widget.flyerZoneWidth,
+                width: widget.flyerBoxWidth,
                 color: bzPageBGColor,
                 padding: EdgeInsets.only(left: _margins, right: _margins, bottom: _margins),
                 child: Column(
