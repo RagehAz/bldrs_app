@@ -8,7 +8,7 @@ import 'package:bldrs/views/screens/a_starters/a_2_starting_screen.dart';
 import 'package:bldrs/views/screens/a_starters/a_4_loading_screen.dart';
 import 'package:bldrs/views/screens/g_user/g_x_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -92,7 +92,7 @@ class _UserCheckerState extends State<UserChecker> {
                 _triggerLoading();
 
                 /// pop a dialog
-                await superDialog(
+                await CenterDialog.showCenterDialog(
                   context: context,
                   title: 'Ops!',
                   body: 'You have to complete your profile info\n ${_missingFields.toString()}',

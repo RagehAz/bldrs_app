@@ -7,9 +7,9 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/dream_wrapper.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_data_row.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -125,7 +125,7 @@ class dashboardUserButton extends StatelessWidget {
                       spacing: 2.5,
                       margins: const EdgeInsets.all(2.5),
                       onTap: () async {
-                        await superDialog(
+                        await CenterDialog.showCenterDialog(
                           context: context,
                           title: 'Contact',
                           body: '$_stringyContactsValues',
@@ -145,7 +145,7 @@ class dashboardUserButton extends StatelessWidget {
                       spacing: 2.5,
                       margins: const EdgeInsets.all(2.5),
                       onTap: () async {
-                        await superDialog(
+                        await CenterDialog.showCenterDialog(
                           context: context,
                           title: 'Contact',
                           body: '$_socialContactsValues',

@@ -12,7 +12,8 @@ import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/models/helpers/error_helpers.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -215,7 +216,7 @@ class Imagers{
       error = e.toString();
 
       if (error != 'The user has cancelled the selection'){
-        await superDialog(
+        await CenterDialog.showCenterDialog(
           context: context,
           boolDialog: false,
           title: 'Error',

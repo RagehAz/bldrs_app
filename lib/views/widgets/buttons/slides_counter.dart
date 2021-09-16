@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:flutter/material.dart';
 
 class SlidesCounter extends StatelessWidget {
@@ -22,7 +22,7 @@ class SlidesCounter extends StatelessWidget {
       color: Colorz.White20,
       onTap: () async {
 
-        dynamic _result = await superDialog(
+        dynamic _result = await CenterDialog.showCenterDialog(
           context: context,
           boolDialog: true,
           title: 'No Slides left',

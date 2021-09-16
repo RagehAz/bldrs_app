@@ -34,9 +34,9 @@ import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/screens/f_bz/f_1_flyer_editor_screen.dart';
 import 'package:bldrs/views/screens/x_select_keywords_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_buttons.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/flyer_methods.dart';
@@ -2103,7 +2103,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// when no pictures picked
     if (_superFlyer.mSlides == null || _superFlyer.mSlides.length == 0){
-      await superDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
         boolDialog: false,
         // title: 'No '
@@ -2114,7 +2114,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// when less than 3 pictures selected
     else if (_superFlyer.mSlides.length < 3){
-      await superDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
         boolDialog: false,
         // title: 'No '
@@ -2191,7 +2191,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     _triggerLoading();
 
-    await superDialog(
+    await CenterDialog.showCenterDialog(
       context: context,
       title: 'Great !',
       body: _superFlyer.edit.firstTimer == true ? 'Flyer has been created' : 'Flyer has been updated',
@@ -2380,7 +2380,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     if (_inputsValidator() == false){
       // show something for user to know
 
-      await superDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
         title: '',
         body: 'Please add all required fields',
@@ -2439,7 +2439,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       print('D- Uploading to cloud');
 
 
-      await superDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
         title: 'Great !',
         body: 'Flyer has been updated',
@@ -2456,7 +2456,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     _triggerLoading();
 
     /// Task : this should be bool dialog instead
-    bool _dialogResult = await superDialog(
+    bool _dialogResult = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
       body: 'Are you sure you want to Delete this flyer and never get it back?',
@@ -2496,7 +2496,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // Nav.goBack(context);
 
     /// Task : this should be bool dialog instead
-    bool _dialogResult = await superDialog(
+    bool _dialogResult = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
       body: 'Are you sure you want to unpublish this flyer ?',
