@@ -132,8 +132,8 @@ class NotificationCard extends StatelessWidget {
 
                       if(notiModel.attachmentType == NotiAttachmentType.flyers)
                         NotificationFlyers(
-                            bodyWidth: _bodyWidth,
-                            flyers: notiModel.attachment,
+                          bodyWidth: _bodyWidth,
+                          flyers: notiModel.attachment,
                         ),
 
                       /// BUTTONS

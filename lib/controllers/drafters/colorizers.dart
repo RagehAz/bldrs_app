@@ -156,6 +156,17 @@ class Colorizer{
     return _bldrsColors[_randomIndex];
   }
 // -----------------------------------------------------------------------------
+  static bool isBlack(Color color){
+    bool _isBlack = false;
+
+    Color _black = Colorz.Black255;
+
+    if (color !=null && color.red == _black.red && color.green == _black.green && color.blue == _black.blue){
+      _isBlack = true;
+    }
+
+    return _isBlack;
+  }
 }
 // -----------------------------------------------------------------------------
 class BlurLayer extends StatelessWidget {

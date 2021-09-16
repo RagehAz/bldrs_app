@@ -16,6 +16,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/dashboard/widgets/user_button.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
+import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
@@ -106,10 +107,9 @@ class _NotificationMakerState extends State<NotificationMaker> {
   }
 // -----------------------------------------------------------------------------
   dynamic _attachment;
-  NotiAttachmentType _attachmentType;
-
-  // dynamic _bannerImage;
+  NotiAttachmentType _attachmentType = NotiAttachmentType.non;
   double _bannerHeight = 0;
+// -----------------------------------------------------------------------------
   Future<void> _onAddAttachment() async {
     print('choosing attachment');
 
@@ -193,6 +193,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
 // -----------------------------------------------------------------------------
   Future<void> _attachFlyers() async {
 
+    Keyboarders.closeKeyboard(context);
+
     List<TinyFlyer> _selectedTinyFlyers = await Nav.goToNewScreen(
         context,
         SavedFlyersScreen(
@@ -207,13 +209,12 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     await Nav.goBack(context);
 
-    Keyboarders.closeKeyboard(context);
   }
 // -----------------------------------------------------------------------------
   void _onDeleteAttachment(){
     setState(() {
       _attachment = null;
-      _attachmentType = null;
+      _attachmentType = NotiAttachmentType.non;
     });
   }
 // -----------------------------------------------------------------------------
@@ -383,12 +384,14 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onSendNotification() async {
+  Future<void> _onSendNotification({bool sendToMyself = false}) async {
+
+    String _userName = sendToMyself == true ? 'YOURSELF : ${superUserID()}' : _selectedUser.name;
 
     bool _confirmSend = await CenterDialog.showCenterDialog(
       context: context,
       title: 'Send ?',
-      body: 'Do you want to confirm sending this notification to ${_selectedUser.name}',
+      body: 'Do you want to confirm sending this notification to $_userName',
       boolDialog: true,
     );
 
@@ -430,45 +433,56 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
       // _newNoti.printNotiModel(methodName: '_onSendNotification');
 
-      await tryAndCatch(
+      bool result = await tryCatchAndReturn(
         context: context,
         methodName: '_onSendNotification',
         functions: () async {
-
           await Fire.createNamedSubDoc(
             context: context,
             collName: FireCollection.users,
-            docName: _selectedUser.userID,
+            docName: sendToMyself == true ? superUserID() : _selectedUser.userID,
             subCollName: FireCollection.subUserNotifications,
             input: _newNoti.toMap(),
             subDocName: _id,
           );
-
-          await CenterDialog.showCenterDialog(
-            context: context,
-            title: 'Done',
-            body: 'Notification has been sent to ${_selectedUser.name}',
-          );
-
-          setState(() {
-            _titleController.clear();
-            _bodyController.clear();
-            _attachment = null;
-            _attachmentType = null;
-            _sendFCMIsOn = false;
-            _selectedUser = null;
-          });
-
         },
-
       );
+
+      if (result == true){
+
+        await CenterDialog.showCenterDialog(
+          context: context,
+          title: 'Done',
+          body: 'Notification has been sent to ${_selectedUser.name}',
+          boolDialog: false,
+        );
+
+        setState(() {
+          _titleController.clear();
+          _bodyController.clear();
+          _attachment = null;
+          _attachmentType = NotiAttachmentType.non;
+          _sendFCMIsOn = false;
+          _selectedUser = null;
+        });
+      }
+
+      else {
+
+        await CenterDialog.showCenterDialog(
+          context: context,
+          title: 'FAILED',
+          body: 'The notification was not sent',
+          boolDialog: false,
+        );
+      }
 
 
     }
 
   }
 // -----------------------------------------------------------------------------
-  bool _canSendNotification(){
+  bool _canSendNotification({bool sendToMySelf}){
     bool _canSend = false;
 
     if (
@@ -477,13 +491,35 @@ class _NotificationMakerState extends State<NotificationMaker> {
         _attachment != null &&
         _attachmentType != null &&
         _sendFCMIsOn != null &&
-        _selectedUser != null
+        _selectedUser != null || sendToMySelf == true
     ){
       _canSend = true;
     }
 
     return _canSend;
   }
+// -----------------------------------------------------------------------------
+  void _onDeleteFlyer(String flyerID){
+
+    List<TinyFlyer> _tinyFlyers = _attachment;
+
+    TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromTinyFlyers(tinyFlyers: _tinyFlyers, flyerID: flyerID);
+
+    _tinyFlyers.remove(_tinyFlyer);
+
+    bool _attachmentIsEmpty = _tinyFlyers.length == 0 ? true : false;
+
+    setState(() {
+      _attachment = _tinyFlyers;
+
+      if (_attachmentIsEmpty == true){
+        _attachmentType = NotiAttachmentType.non;
+      }
+
+    });
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -491,8 +527,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
     double _screenWidth = Scale.superScreenWidth(context);
 
     double _bodyWidth = NotificationCard.bodyWidth(context);
-
-    bool _canSend = _canSendNotification();
 
     return DashBoardLayout(
       loading: _loading,
@@ -589,7 +623,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                         ),
 
                         /// ADD ATTACHMENT BUTTON
-                        if (_attachment == null)
+                        if (_attachment == null || _attachment.length == 0)
                         Container(
                           width: _bodyWidth,
                           height: 60,
@@ -607,6 +641,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                         NotificationFlyers(
                           bodyWidth: _bodyWidth,
                           flyers: _attachment,
+                          onFlyerTap: (String flyerID) => _onDeleteFlyer(flyerID),
                         ),
 
                         /// BANNER
@@ -717,15 +752,38 @@ class _NotificationMakerState extends State<NotificationMaker> {
             ),
           ),
 
+          SizedBox(
+            width: _screenWidth,
+            height: 50,
+          ),
+
+          /// SEND BUTTON
           Container(
             width: _screenWidth,
-            height: 150,
+            // height: 150,
             child: Center(
               child: DashboardWideButton(
                 title: 'Send Notification',
                 icon: Iconz.Share,
                 onTap: _onSendNotification,
-                isActive: _canSend,
+                color: Colorz.Yellow255,
+                isActive: _canSendNotification(sendToMySelf: false),
+              ),
+            ),
+          ),
+
+          /// SEND TO MYSELF
+          Container(
+            width: _screenWidth,
+            // height: 150,
+            child: Center(
+              child: DashboardWideButton(
+                title: 'Send To Myself',
+                titleColor: Colorz.Black255,
+                icon: Iconz.Share,
+                onTap: () => _onSendNotification(sendToMyself: true),
+                color: Colorz.Yellow255,
+                isActive: _canSendNotification(sendToMySelf: true),
               ),
             ),
           ),

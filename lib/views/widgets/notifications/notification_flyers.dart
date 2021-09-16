@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,13 @@ import 'package:flutter/material.dart';
 class NotificationFlyers extends StatelessWidget {
   final double bodyWidth;
   final dynamic flyers;
+  final Function onFlyerTap;
 
 
   const NotificationFlyers({
     @required this.bodyWidth,
     @required this.flyers,
+    this.onFlyerTap,
 });
 
   @override
@@ -32,12 +35,22 @@ class NotificationFlyers extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 5),
           itemBuilder: (ctx, index){
 
+            String _flyerID = flyers[0].runtimeType == String ? flyers[index] : null;
+            TinyFlyer _tinyFlyer = flyers[0].runtimeType == TinyFlyer ? flyers[index] : null;
+
             return
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: FinalFlyer(
-                  flyerBoxWidth: FlyerBox.width(context, FlyerBox.sizeFactorByHeight(context, 200)),
-                  tinyFlyer: flyers[index],
+              GestureDetector(
+                onTap: onFlyerTap == null ? null : () => onFlyerTap(_flyerID ?? _tinyFlyer.flyerID),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: AbsorbPointer(
+                    absorbing: onFlyerTap == null ? false : true,
+                    child: FinalFlyer(
+                      flyerBoxWidth: FlyerBox.width(context, FlyerBox.sizeFactorByHeight(context, 200)),
+                      tinyFlyer: _tinyFlyer,
+                      flyerID: _flyerID,
+                    ),
+                  ),
                 ),
               );
 

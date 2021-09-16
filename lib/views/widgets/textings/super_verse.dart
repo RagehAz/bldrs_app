@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -83,8 +84,8 @@ class SuperVerse extends StatelessWidget {
       const double _shadowYOffset = 0;
       double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
       double _secondShadowXOffset = -0.35 * _shadowXOffset;
-      Color _leftShadow = color == Colorz.Black230 ? Colorz.White125 : Colorz.Black230;
-      Color _rightShadow = color == Colorz.Black230 ? Colorz.White80 : Colorz.White20;
+      Color _leftShadow = Colorizer.isBlack(color) == true ? Colorz.White200 : Colorz.Black230;
+      Color _rightShadow = Colorizer.isBlack(color) == true ? Colorz.White80 : Colorz.White20;
 
       return
         TextStyle(
