@@ -56,20 +56,26 @@
   static const String DvDonaldDuck = _iconzPath + 'dv_donald_duck.png' ;
   // -----------------------------------------------------------------------------
   /// FLYER TYPE
-  static const String BxPropertiesOn = _iconzPath + 'ft_properties_on.svg' ;
-  static const String BxPropertiesOff = _iconzPath + 'ft_properties_off.svg' ;
-  static const String BxDesignsOn = _iconzPath + 'ft_designs_on.svg' ;
-  static const String BxDesignsOff = _iconzPath + 'ft_designs_off.svg' ;
-  static const String BxProductsOn = _iconzPath + 'ft_products_on.svg' ;
-  static const String BxProductsOff = _iconzPath + 'ft_products_off.svg' ;
-  static const String BxProjectsOn = _iconzPath + 'ft_projects_on.svg' ;
-  static const String BxProjectsOff = _iconzPath + 'ft_projects_off.svg' ;
-  static const String BxCraftsOn = _iconzPath + 'ft_crafts_on.svg' ;
-  static const String BxCraftsOff = _iconzPath + 'ft_crafts_off.svg' ;
-  static const String BxEquipmentOn = _iconzPath + 'ft_equipment_on.svg' ;
-  static const String BxEquipmentOff = _iconzPath + 'ft_equipment_off.svg' ;
-  static const String BxOwnerOn = _iconzPath + 'ft_owner_on.svg' ;
-  static const String BxOwnerOff = _iconzPath + 'ft_owner_off.svg' ;
+    static const String BxPropertiesOn = _iconzPath + 'ft_properties_on.svg' ;
+    static const String BxPropertiesOff = _iconzPath + 'ft_properties_off.svg' ;
+    static const String BxNewPropertiesOn =  _iconzPath + 'ft_properties_new_on.svg' ;
+    static const String BxNewPropertiesOff =  _iconzPath + 'ft_properties_new_off.svg' ;
+    static const String BxResalePropertiesOn =  _iconzPath + 'ft_properties_resale_on.svg' ;
+    static const String BxResalePropertiesOff =  _iconzPath + 'ft_properties_resale_off.svg' ;
+    static const String BxRentPropertiesOn =  _iconzPath + 'ft_properties_rent_on.svg' ;
+    static const String BxRentPropertiesOff =  _iconzPath + 'ft_properties_rent_off.svg' ;
+    static const String BxDesignsOn = _iconzPath + 'ft_designs_on.svg' ;
+    static const String BxDesignsOff = _iconzPath + 'ft_designs_off.svg' ;
+    static const String BxProductsOn = _iconzPath + 'ft_products_on.svg' ;
+    static const String BxProductsOff = _iconzPath + 'ft_products_off.svg' ;
+    static const String BxProjectsOn = _iconzPath + 'ft_projects_on.svg' ;
+    static const String BxProjectsOff = _iconzPath + 'ft_projects_off.svg' ;
+    static const String BxCraftsOn = _iconzPath + 'ft_crafts_on.svg' ;
+    static const String BxCraftsOff = _iconzPath + 'ft_crafts_off.svg' ;
+    static const String BxEquipmentOn = _iconzPath + 'ft_equipment_on.svg' ;
+    static const String BxEquipmentOff = _iconzPath + 'ft_equipment_off.svg' ;
+    static const String BxOwnerOn = _iconzPath + 'ft_owner_on.svg' ;
+    static const String BxOwnerOff = _iconzPath + 'ft_owner_off.svg' ;
   // -----------------------------------------------------------------------------
   /// GENERAL ICONS
   static const String Back = _iconzPath + 'gi_back.svg' ;

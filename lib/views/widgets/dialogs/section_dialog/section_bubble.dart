@@ -1,5 +1,8 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class SectionBubble extends StatelessWidget {
@@ -28,8 +31,9 @@ class SectionBubble extends StatelessWidget {
       width: bubbleWidth,
       // leadingIcon: icon,
       leadingIconColor: Colorz.White50,
+      margins: const EdgeInsets.only(bottom: 0, left: Ratioz.appBarMargin, right: Ratioz.appBarMargin, top: Ratioz.appBarMargin),
       titleColor: Colorz.White50,
-      // corners: BottomDialog.dialogClearCornerValue() - Ratioz.appBarMargin,
+      corners: BottomDialog.dialogClearCornerValue() - Ratioz.appBarMargin,
       columnChildren: <Widget>[
 
         /// Section buttons
@@ -41,7 +45,6 @@ class SectionBubble extends StatelessWidget {
             children: buttons,
           ),
         ),
-
 
       ],
     );
