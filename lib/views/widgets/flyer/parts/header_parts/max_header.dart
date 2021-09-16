@@ -84,7 +84,7 @@ class MaxHeader extends StatelessWidget {
               BzPgVerse(
                 flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
-                verse: Timers.monthYearStringer(context,bz.bldrBirth),
+                verse: Timers.monthYearStringer(context,bz.createdAt),
                 size: 2,
               ),
 

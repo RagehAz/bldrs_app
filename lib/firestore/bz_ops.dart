@@ -95,7 +95,7 @@ class BzOps{
       // -------------------------
       bzType : inputBz.bzType,
       bzForm : inputBz.bzForm,
-      bldrBirth : DateTime.now(),
+      createdAt : DateTime.now(),
       accountType : inputBz.accountType,
       bzURL : _bzURL,
       // -------------------------
@@ -242,7 +242,7 @@ class BzOps{
       // -------------------------
       bzType: modifiedBz.bzType,
       bzForm: modifiedBz.bzForm,
-      bldrBirth: modifiedBz.bldrBirth,
+      createdAt: modifiedBz.createdAt,
       accountType: modifiedBz.accountType,
       bzURL: modifiedBz.bzURL,
       // -------------------------

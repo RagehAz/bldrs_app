@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
@@ -10,7 +9,7 @@ import 'package:flutter/material.dart';
 class UserModel {
   final String userID;
   final AuthBy authBy;
-  final DateTime joinedAt;
+  final DateTime createdAt;
   final UserStatus userStatus;
   // -------------------------
   final String name;
@@ -31,7 +30,7 @@ class UserModel {
   UserModel({
     this.userID,
     this.authBy,
-    this.joinedAt,
+    this.createdAt,
     this.userStatus,
     // -------------------------
     this.name,
@@ -54,7 +53,7 @@ class UserModel {
     return {
       'userID' : userID,
       'authBy' : cipherAuthBy(authBy),
-      'joinedAt' : Timers.cipherDateTimeToString(joinedAt),
+      'createdAt' : createdAt,
       'userStatus' : cipherUserStatus(userStatus),
 // -------------------------
       'name' : name,
@@ -83,7 +82,7 @@ class UserModel {
       UserModel(
         userID : map['userID'] ?? '',
         authBy: decipherAuthBy(map['authBy'] ?? 0),
-        joinedAt : Timers.decipherDateTimeString(map['joinedAt'] ?? ''),
+        createdAt : map['createdAt'].toDate() ?? null,
         userStatus : decipherUserStatus(map['userStatus'] ?? 1),
         // -------------------------
         name : map['name'] ?? '',
@@ -227,7 +226,7 @@ class UserModel {
       UserModel(
         userID: user.uid,
         authBy: null,
-        joinedAt: DateTime.now(),
+        createdAt: DateTime.now(),
         userStatus: UserStatus.Normal,
         // -------------------------
         name: user.displayName,
@@ -265,7 +264,7 @@ class UserModel {
     UserModel _userModel = UserModel(
       userID: user.uid,
       authBy: authBy,
-      joinedAt: DateTime.now(),
+      createdAt: DateTime.now(),
       userStatus: UserStatus.Normal,
       // -------------------------
       name: user.displayName,
@@ -308,7 +307,7 @@ class UserModel {
 
     print('userID : $userID');
     print('authBy : $authBy');
-    print('joinedAt : $joinedAt');
+    print('createdAt : $createdAt');
     print('userStatus : $userStatus');
     print('name : $name');
     print('pic : $pic');

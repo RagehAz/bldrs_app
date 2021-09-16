@@ -218,6 +218,7 @@ class MainLayout extends StatelessWidget {
                 resizeToAvoidBottomInset: false, // this false prevents keyboard from pushing pyramids up
                 // resizeToAvoidBottomPadding: false,
                 backgroundColor: _backgroundColor,
+
                 body:
                 canRefreshFlyers ?
 

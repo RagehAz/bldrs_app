@@ -283,7 +283,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                                 BottomDialogRow(dataKey: 'bzID', dataValue: _bz.bzID, ),
                                 BottomDialogRow(dataKey: 'bzType', dataValue: _bz.bzType, ),
                                 BottomDialogRow(dataKey: 'bzForm', dataValue: _bz.bzForm, ),
-                                BottomDialogRow(dataKey: 'bldrBirth', dataValue: _bz.bldrBirth, ),
+                                BottomDialogRow(dataKey: 'createdAt', dataValue: _bz.createdAt, ),
                                 BottomDialogRow(dataKey: 'accountType', dataValue: _bz.accountType, ),
                                 BottomDialogRow(dataKey: 'bzURL', dataValue: _bz.bzURL, ),
                                 BottomDialogRow(dataKey: 'bzScope', dataValue: _bz.bzScope, ),
