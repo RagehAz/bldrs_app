@@ -44,7 +44,7 @@ Future<void> tryAndCatch({Function onError, BuildContext context, Function funct
 Future<bool> tryCatchAndReturn({Function onError, BuildContext context, Function functions, String methodName,}) async {
   try{
     await functions();
-    // return true;
+    return true;
   } catch (error){
 
     print('$methodName : tryAndCatch ERROR : $error');

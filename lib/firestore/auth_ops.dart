@@ -136,7 +136,7 @@ class AuthOps {
     UserCredential _userCredential;
 
     /// try sign in and check result
-    dynamic _signInError = await tryCatchAndReturn(
+    bool _opSucceeded = await tryCatchAndReturn(
         context: context,
         methodName: 'signInWithEmailAndPassword in emailSignInOps',
         functions: () async {
@@ -145,14 +145,14 @@ class AuthOps {
         }
         );
 
-    print('_signInError : $_signInError');
+    print('_opSucceeded : $_opSucceeded');
     print('_userCredential : $_userCredential');
 
     /// if sign in results user credentials and not an error string, get user id and read user ops
-    if (_signInError != null){
+    if (_opSucceeded == false){
 
-      print('emailSignInOps returns _signInError : $_signInError');
-      return _signInError.toString();
+      print('emailSignInOps returns _opSucceeded : $_opSucceeded');
+      return _opSucceeded.toString();
 
     } else {
       /// get user ID
@@ -614,7 +614,7 @@ class AuthOps {
 //     /// create new UserModel
 //     UserModel _newUserModel = UserModel(
 //       userID: user.uid,
-//       joinedAt: DateTime.now(),
+//       createdAt: DateTime.now(),
 //       userStatus: UserStatus.Normal,
 //       // -------------------------
 //       name: user.displayName,

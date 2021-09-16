@@ -2351,7 +2351,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         tinyAuthor: _tinyAuthor,
         tinyBz: _tinyBz,
         // -------------------------
-        publishTime: null, // will be overriden in createFlyerOps
+        createdAt: null, // will be overriden in createFlyerOps
         flyerPosition: _superFlyer.position,
         // -------------------------
         ankhIsOn: false, // shouldn't be saved here but will leave this now
@@ -2411,7 +2411,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         tinyAuthor: _superFlyer.flyerTinyAuthor,
         tinyBz: TinyBz.getTinyBzFromSuperFlyer(_superFlyer),
         // -------------------------
-        publishTime: PublishTime.getPublishTimeFromTimes(times: _superFlyer.flyerTimes, state: FlyerState.Published),
+        createdAt: PublishTime.getPublishTimeFromTimes(times: _superFlyer.flyerTimes, state: FlyerState.Published),
         flyerPosition: _superFlyer.position,
         // -------------------------
         ankhIsOn: false, // shouldn't be saved here but will leave this now

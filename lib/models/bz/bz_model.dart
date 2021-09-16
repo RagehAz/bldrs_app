@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
 import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/bz/author_model.dart';
@@ -48,7 +47,7 @@ class BzModel with ChangeNotifier{
   // -------------------------
   final BzType bzType;
   final BzForm bzForm;
-  final DateTime bldrBirth;
+  final DateTime createdAt;
   final BzAccountType accountType;
   final String bzURL;
   // -------------------------
@@ -86,7 +85,7 @@ class BzModel with ChangeNotifier{
     // -------------------------
     this.bzType,
     this.bzForm,
-    this.bldrBirth,
+    this.createdAt,
     this.accountType,
     this.bzURL,
     // -------------------------
@@ -157,7 +156,7 @@ Map<String, dynamic> toMap(){
     // -------------------------
     'bzType' : cipherBzType(bzType),
     'bzForm' : cipherBzForm(bzForm),
-    'bldrBirth' : Timers.cipherDateTimeToString(bldrBirth),
+    'createdAt' : createdAt,
     'accountType' : cipherBzAccountType(accountType),
     'bzURL' : bzURL,
     // -------------------------
@@ -215,7 +214,7 @@ Map<String, dynamic> toMap(){
       // -------------------------
       bzType : decipherBzType(map['bzType']),
       bzForm : decipherBzForm(map['bzForm']),
-      bldrBirth : Timers.decipherDateTimeString(map['bldrBirth']),
+      createdAt : map['createdAt'].toDate(),
       accountType : decipherBzAccountType(map['accountType']),
       bzURL : map['bzURL'],
       // -------------------------
@@ -408,7 +407,7 @@ Map<String, dynamic> toMap(){
         // -------------------------
         bzType : tinyBz.bzType,
         bzForm : null,
-        bldrBirth : null,
+        createdAt : null,
         accountType : null,
         bzURL : null,
         // -------------------------
@@ -455,7 +454,7 @@ Map<String, dynamic> toMap(){
     print('bzID : $bzID');
     print('bzType : $bzType');
     print('bzForm : $bzForm');
-    print('bldrBirth : $bldrBirth');
+    print('createdAt : $createdAt');
     print('accountType : $accountType');
     print('bzURL : $bzURL');
     print('bzName : $bzName');

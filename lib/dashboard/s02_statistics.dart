@@ -41,7 +41,7 @@ class GeneralStatistics extends StatelessWidget {
           flyerZone: _flyer.flyerZone,
           tinyAuthor: _flyer.tinyAuthor,
           tinyBz: _flyer.tinyBz,
-          publishTime: _flyer.publishTime,
+          createdAt: _flyer.createdAt,
           flyerPosition: _flyer.flyerPosition,
           ankhIsOn: _flyer.ankhIsOn,
           slides: [..._flyer.slides,..._flyer.slides,..._flyer.slides],
