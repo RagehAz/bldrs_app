@@ -19,9 +19,9 @@ class Iconizer{
 // -----------------------------------------------------------------------------
   static String sectionIconOn (Section section){
     return
-      section == Section.NewProperties ? Iconz.BxPropertiesOn :
-      section == Section.ResaleProperties ? Iconz.BxPropertiesOn :
-      section == Section.RentalProperties ? Iconz.BxPropertiesOn :
+      section == Section.NewProperties ? Iconz.BxNewPropertiesOn :
+      section == Section.ResaleProperties ? Iconz.BxResalePropertiesOn :
+      section == Section.RentalProperties ? Iconz.BxRentPropertiesOn :
 
       section == Section.Designs ? Iconz.BxDesignsOn :
       section == Section.Projects ? Iconz.BxProjectsOn :
@@ -35,9 +35,9 @@ class Iconizer{
 // -----------------------------------------------------------------------------
   static String sectionIconOff (Section section){
     return
-      section == Section.NewProperties ? Iconz.BxPropertiesOff :
-      section == Section.ResaleProperties ? Iconz.BxPropertiesOff :
-      section == Section.RentalProperties ? Iconz.BxPropertiesOff :
+      section == Section.NewProperties ? Iconz.BxNewPropertiesOff :
+      section == Section.ResaleProperties ? Iconz.BxResalePropertiesOff :
+      section == Section.RentalProperties ? Iconz.BxRentPropertiesOff :
 
       section == Section.Designs ? Iconz.BxDesignsOff :
       section == Section.Projects ? Iconz.BxProjectsOff :
