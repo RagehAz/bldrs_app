@@ -136,7 +136,7 @@ class SuperFlyer{
   static String draftID = 'draft';
   static String emptyFlyerBzOnlyFlyerID = 'bzOnly';
 // -----------------------------------------------------------------------------
-  static SuperFlyer createEmptySuperFlyer({@required double flyerZoneWidth, @required goesToEditor}){
+  static SuperFlyer createEmptySuperFlyer({@required double flyerBoxWidth, @required goesToEditor}){
 
     return
         SuperFlyer(

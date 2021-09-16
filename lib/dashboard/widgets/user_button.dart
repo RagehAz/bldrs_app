@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -36,7 +35,6 @@ class dashboardUserButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    double _screenWidth = Scale.superScreenWidth(context);
     String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, userModel.zone.countryID);
     String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, userModel.zone.cityID);
     String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, userModel.zone.districtID);

@@ -1,20 +1,20 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/footer_button.dart';
 import 'package:flutter/material.dart';
 
 class AnkhButton extends StatefulWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final bool bzPageIsOn;
   final bool listenToSwipe;
   final bool ankhIsOn;
   final Function onAnkhTap;
 
   AnkhButton({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
     @required this.listenToSwipe,
     @required this.ankhIsOn,
@@ -121,7 +121,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
 // -----------------------------------------------------------------------------
 //     double _saveBTSize = FlyerFooter.buttonSize(
 //       context: context,
-//       flyerZoneWidth: widget.flyerZoneWidth,
+//       flyerBoxWidth: widget.flyerBoxWidth,
 //       buttonIsOn: _ankhIsOn,
 //     ) ;
 
@@ -132,7 +132,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
 // -----------------------------------------------------------------------------
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
 // -----------------------------------------------------------------------------
-    bool _tinyMode = Scale.superFlyerTinyMode(context, widget.flyerZoneWidth);
+    bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
     // print('AnkhButton : _ankhColorAni : $_ankhColorAni');
     return
@@ -149,7 +149,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
           _tinyMode == true && widget.ankhIsOn == true ?
           FooterButton(
             icon: _saveBTIcon,
-            flyerZoneWidth: widget.flyerZoneWidth,
+            flyerBoxWidth: widget.flyerBoxWidth,
             verse: _saveBTVerse,
             onTap: null,
           )
@@ -158,7 +158,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
           _tinyMode == false && widget.ankhIsOn == false ?
           FooterButton(
             icon: _saveBTIcon,
-            flyerZoneWidth: widget.flyerZoneWidth,
+            flyerBoxWidth: widget.flyerBoxWidth,
             verse: _saveBTVerse,
             onTap: _onAnkhTap,
           )
@@ -168,7 +168,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
           // (_tinyMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
           FooterButton(
             icon: _saveBTIcon,
-            flyerZoneWidth: widget.flyerZoneWidth,
+            flyerBoxWidth: widget.flyerBoxWidth,
             isOn: widget.ankhIsOn,
             verse: _saveBTVerse,
             onTap: _onAnkhTap,
@@ -199,7 +199,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
         //           (widget.tinyMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
         //           FooterButton(
         //               icon: _saveBTIcon,
-        //               flyerZoneWidth: widget.flyerZoneWidth,
+        //               flyerBoxWidth: widget.flyerBoxWidth,
         //               isOn: widget.ankhIsOn,
         //               verse: _saveBTVerse,
         //               onTap: _onAnkhTap,

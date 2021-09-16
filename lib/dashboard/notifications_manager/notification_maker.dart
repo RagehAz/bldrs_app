@@ -3,8 +3,6 @@
 import 'dart:io';
 
 import 'package:bldrs/controllers/drafters/aligners.dart';
-import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
@@ -25,10 +23,8 @@ import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/widgets/artworks/bldrs_welcome_banner.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/user_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
@@ -153,7 +149,11 @@ class _NotificationMakerState extends State<NotificationMaker> {
   Future<void> _onChooseAttachmentType(NotiAttachmentType attachmentType) async {
 
     if (attachmentType == NotiAttachmentType.banner){
-      await _takeGalleryPicAndAttachToBanner();
+      await _attachGalleryPicture();
+    }
+
+    else if (attachmentType == NotiAttachmentType.flyers){
+      await _attachFlyers();
     }
 
     else {
@@ -162,7 +162,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _takeGalleryPicAndAttachToBanner() async {
+  Future<void> _attachGalleryPicture() async {
     File _pic = await Imagers.takeGalleryPicture(PicType.slideHighRes);
 
     print('pic is : $_pic');
@@ -186,6 +186,11 @@ class _NotificationMakerState extends State<NotificationMaker> {
         _bannerHeight = _picViewHeight;
       });
     }
+
+  }
+
+  Future<void> _attachFlyers() async {
+
 
   }
 // -----------------------------------------------------------------------------
@@ -449,7 +454,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenHeight = Scale.superScreenHeight(context);
+    // double _screenHeight = Scale.superScreenHeight(context);
     double _screenWidth = Scale.superScreenWidth(context);
 
     double _bodyWidth = NotificationCard.bodyWidth(context);

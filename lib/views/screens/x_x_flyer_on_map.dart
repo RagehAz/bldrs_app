@@ -24,12 +24,12 @@ import 'package:location/location.dart';
 class GoogleMapScreen extends StatefulWidget {
   final PlaceLocation initialLocation;
   final bool isSelecting;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
 
   GoogleMapScreen({
     this.initialLocation, // = const PlaceLocation(latitude: 37.43296265331129, longitude: -122.08832357078792),
     this.isSelecting = false,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
   });
 
   @override

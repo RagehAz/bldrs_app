@@ -1,26 +1,26 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/flyer_methods.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
 import 'package:flutter/material.dart';
 
 class Slides extends StatelessWidget {
   final SuperFlyer superFlyer;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
 
   const Slides({
     @required this.superFlyer,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
   });
 // -----------------------------------------------------------------------------
   void _onSingleSlideTap(BuildContext context){
 
-    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
+    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 
     if (Keyboarders.keyboardIsOn(context)){
       Keyboarders.closeKeyboard(context);
@@ -41,7 +41,7 @@ class Slides extends StatelessWidget {
 
     return MaxBounceNavigator(
       axis: Axis.horizontal,
-      boxDistance: flyerZoneWidth,
+      boxDistance: flyerBoxWidth,
       numberOfBoxes: superFlyer.numberOfSlides,
       onNavigate: (){
 
@@ -86,7 +86,7 @@ class Slides extends StatelessWidget {
 
                     SingleSlide(
                       superFlyer: superFlyer,
-                      flyerZoneWidth: flyerZoneWidth,
+                      flyerBoxWidth: flyerBoxWidth,
                       slideIndex: i,
                       // key: ObjectKey('${superFlyer.key.value}${i}'),
                       flyerID: superFlyer.flyerID, //_flyer.flyerID,
@@ -108,7 +108,7 @@ class Slides extends StatelessWidget {
 
                     if (superFlyer.edit.editMode != true)
                       FlyerFooter(
-                        flyerZoneWidth: flyerZoneWidth,
+                        flyerBoxWidth: flyerBoxWidth,
                         saves: superFlyer.edit.firstTimer == true ? 0 : superFlyer.mSlides[superFlyer.currentSlideIndex].savesCount,
                         shares: superFlyer.edit.firstTimer == true? 0 : superFlyer.mSlides[superFlyer.currentSlideIndex].sharesCount,
                         views: superFlyer.edit.firstTimer == true ? 0 : superFlyer.mSlides[superFlyer.currentSlideIndex].viewsCount,
@@ -138,7 +138,7 @@ class Slides extends StatelessWidget {
                     //
                     //       },
                     //       child: Container(
-                    //         width: widget.superFlyer.flyerZoneWidth * 0.25,
+                    //         width: widget.superFlyer.flyerBoxWidth * 0.25,
                     //         height: _tapAreaHeight,
                     //         margin: EdgeInsets.only(top: _headerHeight + _progressBarHeight),
                     //         color: Colorz.Nothing,
@@ -162,7 +162,7 @@ class Slides extends StatelessWidget {
                     //     //     }
                     //     //   },
                     //     //   child: Container(
-                    //     //     width: widget.flyerZoneWidth * 0.75,
+                    //     //     width: widget.flyerBoxWidth * 0.75,
                     //     //     height: _tapAreaHeight,
                     //     //     margin: EdgeInsets.only(top: _headerHeight + _progressBarHeight),
                     //     //     color: Colorz.Nothing,

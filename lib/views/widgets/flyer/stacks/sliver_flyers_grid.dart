@@ -14,18 +14,18 @@ class SliverFlyersGrid extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static const double spacing = Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
-  static double calculateFlyerZoneWidth({BuildContext context, int flyersLength}){
+  static double calculateFlyerBoxWidth({BuildContext context, int flyersLength}){
     double _screenWidth = Scale.superScreenWidth(context);
     double _gridWidth = _screenWidth - (2 * spacing);
     int _numberOfColumns = GalleryGrid.gridColumnCount(flyersLength);
-    double _flyerZoneWidth = (_gridWidth - ((_numberOfColumns - 1) * spacing)) / _numberOfColumns;
-    return _flyerZoneWidth;
+    double _flyerBoxWidth = (_gridWidth - ((_numberOfColumns - 1) * spacing)) / _numberOfColumns;
+    return _flyerBoxWidth;
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    double _flyerZoneWidth = calculateFlyerZoneWidth(
+    double _flyerBoxWidth = calculateFlyerBoxWidth(
       flyersLength: tinyFlyers.length,
       context: context,
     );
@@ -48,7 +48,7 @@ class SliverFlyersGrid extends StatelessWidget {
                 return
 
                   FinalFlyer(
-                    flyerZoneWidth: _flyerZoneWidth,
+                    flyerBoxWidth: _flyerBoxWidth,
                     goesToEditor: false,
                     tinyFlyer: tinyFlyers[flyerIndex],
                     flyerKey: Key(tinyFlyers[flyerIndex].flyerID),

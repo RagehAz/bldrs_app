@@ -5,6 +5,7 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/flyer_stack_list.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +42,8 @@ class FlyerStack extends StatelessWidget {
     // double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
     double _titleSpacing = Ratioz.appBarMargin;
-    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, flyerSizeFactor);
-    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, _flyerZoneWidth);
+    double flyerBoxWidth = FlyerBox.width(context, flyerSizeFactor);
+    double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
 //     bool _slidingIsOn = false;
     double _titleIconWidth = Ratioz.appBarButtonSize;

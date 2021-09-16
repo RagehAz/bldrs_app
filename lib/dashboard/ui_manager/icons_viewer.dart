@@ -1,13 +1,9 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/views/screens/a_4_loading_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +16,6 @@ class BldrsIconsViewer extends StatelessWidget {
 
     List<String> _icons = Iconz.allIconz();
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
 
     double _gridSpacing = Ratioz.appBarMargin;
 

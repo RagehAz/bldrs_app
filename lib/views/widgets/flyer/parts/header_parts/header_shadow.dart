@@ -4,11 +4,11 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class HeaderShadow extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final bool bzPageIsOn;
 
   const HeaderShadow({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
 });
   @override
@@ -23,12 +23,12 @@ class HeaderShadow extends StatelessWidget {
 
         /// --- HEADER SHADOW
         Container(
-          width: flyerZoneWidth,
-          height: flyerZoneWidth,
+          width: flyerBoxWidth,
+          height: flyerBoxWidth,
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              borderRadius: Borderers.superHeaderCorners(context, bzPageIsOn, flyerZoneWidth),
-              boxShadow: Shadowz.flyerHeaderShadow(flyerZoneWidth),
+              borderRadius: Borderers.superHeaderCorners(context, bzPageIsOn, flyerBoxWidth),
+              boxShadow: Shadowz.flyerHeaderShadow(flyerBoxWidth),
           ),
         ),
 

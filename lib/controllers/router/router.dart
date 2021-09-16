@@ -1,11 +1,11 @@
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
-import 'package:bldrs/views/screens/a_0_user_checker_widget.dart';
-import 'package:bldrs/views/screens/e_0_saved_flyers_screen.dart';
-import 'package:bldrs/views/screens/g_1_notifications_screen.dart';
-import 'package:bldrs/views/screens/h_0_flyer_screen.dart';
-import 'package:bldrs/views/screens/a_2_starting_screen.dart';
-import 'package:bldrs/views/screens/c_0_search_screen.dart';
+import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
+import 'package:bldrs/views/screens/e_saves/e_0_saved_flyers_screen.dart';
+import 'package:bldrs/views/screens/h_notifications/g_1_notifications_screen.dart';
+import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
+import 'package:bldrs/views/screens/a_starters/a_2_starting_screen.dart';
+import 'package:bldrs/views/screens/c_search/c_0_search_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dynamic_links_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/xxx_obelisk.dart';
 import 'package:flutter/material.dart';

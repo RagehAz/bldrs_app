@@ -13,12 +13,12 @@ import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/revi
 import 'package:flutter/material.dart';
 
 class ReviewBubble extends StatefulWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final SuperFlyer superFlyer;
   final Key key;
 
   const ReviewBubble({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.superFlyer,
     this.key,
   });
@@ -103,12 +103,12 @@ class _ReviewBubbleState extends State<ReviewBubble> {
   @override
   Widget build(BuildContext context) {
 
-    double _bubbleWidth = widget.flyerZoneWidth - (Ratioz.appBarPadding * 2);
+    double _bubbleWidth = widget.flyerBoxWidth - (Ratioz.appBarPadding * 2);
     EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
-    // double _peopleBubbleBoxHeight = widget.flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
+    // double _peopleBubbleBoxHeight = widget.flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
 
-    double _cornerSmall = widget.flyerZoneWidth * Ratioz.xxflyerTopCorners;
-    double _cornerBig = (widget.flyerZoneWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
+    double _cornerSmall = widget.flyerBoxWidth * Ratioz.xxflyerTopCorners;
+    double _cornerBig = (widget.flyerBoxWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
 
     BorderRadius _bubbleCorners = Borderers.superBorderOnly(
       context: context,

@@ -52,7 +52,7 @@ class FlyerCoversStack extends StatelessWidget {
               width: coverFlyerWidth,
               height: coverFlyerHeight,
               child: FinalFlyer(
-                flyerZoneWidth: coverFlyerWidth,
+                flyerBoxWidth: coverFlyerWidth,
                 flyerModel: flyersDataList[0],
                 goesToEditor: false,
               ),
@@ -82,7 +82,7 @@ class FlyerCoversStack extends StatelessWidget {
                               width: otherFlyersWidth,
                               height: otherFlyersHeight,
                               child: FinalFlyer(
-                                flyerZoneWidth: otherFlyersWidth,
+                                flyerBoxWidth: otherFlyersWidth,
                                 initialSlideIndex: 0,
                                 flyerModel: flyersDataList[index],
                                 goesToEditor: false,
@@ -157,7 +157,7 @@ class TopFlyersStack extends StatelessWidget {
                       child: Material(
                         type: MaterialType.transparency,
                         child: FinalFlyer(
-                          flyerZoneWidth: flyerWidth,
+                          flyerBoxWidth: flyerWidth,
                           goesToEditor: false,
                           flyerModel: flyersDataList[index],
                         ),

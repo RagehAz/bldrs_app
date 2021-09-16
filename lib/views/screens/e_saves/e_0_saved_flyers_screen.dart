@@ -1,16 +1,18 @@
+import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
-import 'package:bldrs/views/widgets/appbar/sections_button.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/gallery_grid.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/sliver_flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -22,6 +24,11 @@ import 'package:provider/provider.dart';
 
 
 class SavedFlyersScreen extends StatefulWidget {
+  final bool selectionMode;
+
+  SavedFlyersScreen({
+    this.selectionMode = false,
+});
 
   @override
   _SavedFlyersScreenState createState() => _SavedFlyersScreenState();
@@ -34,6 +41,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
   List<TinyFlyer> _filteredTinyFlyers;
   TabController _tabController;
 
+  List<TinyFlyer> _selectedTinyFlyers;
 
   @override
   void initState() {
@@ -53,6 +61,10 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
 
      _tabController = TabController(vsync: this, length: 2);
 
+     ///
+     if(widget.selectionMode == true){
+       _selectedTinyFlyers = [];
+     }
   }
 // -----------------------------------------------------------------------------
   List<Section> addAllButtonToSections(){
@@ -61,7 +73,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
     return _newListWithAddButton;
   }
 // -----------------------------------------------------------------------------
-  void _setSection(Section section){
+  void _onSetSection(Section section){
     setState(() {
       _currentSection = section;
       _filteredTinyFlyers = TinyFlyer.filterTinyFlyersBySection(
@@ -70,6 +82,29 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
       );
 
     });
+  }
+// -----------------------------------------------------------------------------
+  void _onSelectFlyer(TinyFlyer tinyFlyer){
+
+    print('selecting flyer : ${tinyFlyer.flyerID}');
+
+    bool _alreadySelected = TinyFlyer.tinyFlyersContainThisID(
+      tinyFlyers: _selectedTinyFlyers,
+      flyerID: tinyFlyer.flyerID,
+    );
+
+    if (_alreadySelected == true){
+      setState(() {
+        _selectedTinyFlyers.remove(tinyFlyer);
+      });
+    }
+
+    else {
+      setState(() {
+        _selectedTinyFlyers.add(tinyFlyer);
+      });
+    }
+
   }
 // -----------------------------------------------------------------------------
   @override
@@ -87,9 +122,10 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
       sky: Sky.Black,
       pageTitle: 'Chosen Flyers',
       pyramids: Iconz.DvBlankSVG,
-      appBarRowWidgets: <Widget>[
-        SectionsButton(),
-      ],
+      onBack: widget.selectionMode == false ? null :
+          () async {
+        await Nav.goBack(context, argument: _selectedTinyFlyers);
+        },
       layoutWidget: MaxBounceNavigator(
         child: NestedScrollView(
           physics: const BouncingScrollPhysics(),
@@ -150,7 +186,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
                                     verseCentered: false,
                                     bubble: true,
                                     verseScaleFactor: 0.7,
-                                    onTap: () => _setSection(_section),
+                                    onTap: () => _onSetSection(_section),
                                   ),
                                 );
                             },
@@ -197,7 +233,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
       int _numberOfColumns = GalleryGrid.gridColumnCount(_filteredTinyFlyers.length);
       double _spacing = SliverFlyersGrid.spacing;
 
-      double _flyerZoneWidth = SliverFlyersGrid.calculateFlyerZoneWidth(
+      double _flyerBoxWidth = SliverFlyersGrid.calculateFlyerBoxWidth(
         flyersLength: _filteredTinyFlyers.length,
         context: context,
       );
@@ -217,14 +253,64 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
             childAspectRatio: 1  / Ratioz.xxflyerZoneHeight,
           ),
           itemBuilder: (ctx, index){
+
+            bool _isSelected = TinyFlyer.tinyFlyersContainThisID(
+              tinyFlyers: _selectedTinyFlyers,
+              flyerID: _filteredTinyFlyers[index].flyerID,
+            );
+
+
             return
+
+              widget.selectionMode == true ?
+              GestureDetector(
+                onTap: () => _onSelectFlyer(_filteredTinyFlyers[index]),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+
+                    AbsorbPointer(
+                      absorbing:  true,
+                      child: FinalFlyer(
+                        flyerBoxWidth: _flyerBoxWidth,
+                        tinyFlyer: _filteredTinyFlyers[index],
+                        inEditor: false,
+                        goesToEditor: false,
+                        initialSlideIndex: _filteredTinyFlyers[index].slideIndex,
+                      ),
+                    ),
+
+                    if(_isSelected == true)
+                    Container(
+                      width: _flyerBoxWidth,
+                      height: FlyerBox.height(context, _flyerBoxWidth),
+                      alignment: Aligners.superInverseBottomAlignment(context),
+                      child: DreamBox(
+                        height: _flyerBoxWidth * 0.2,
+                        width: _flyerBoxWidth * 0.2,
+                        corners: 0,
+                        color: Colorz.Green255,
+                        icon: Iconz.Check,
+                        iconSizeFactor: 0.4,
+                        iconColor: Colorz.White255,
+                      ),
+                    ),
+
+
+                    ],
+                ),
+              )
+
+                  :
+
               FinalFlyer(
-                flyerZoneWidth: _flyerZoneWidth,
-                    tinyFlyer: _filteredTinyFlyers[index],
-                    inEditor: false,
-                    goesToEditor: false,
-                    initialSlideIndex: _filteredTinyFlyers[index].slideIndex,
-                  );
+                flyerBoxWidth: _flyerBoxWidth,
+                tinyFlyer: _filteredTinyFlyers[index],
+                inEditor: false,
+                goesToEditor: false,
+                initialSlideIndex: _filteredTinyFlyers[index].slideIndex,
+              );
+
             },
         );
     }
