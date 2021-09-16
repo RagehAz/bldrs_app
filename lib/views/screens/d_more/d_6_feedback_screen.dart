@@ -48,6 +48,7 @@ class _FeedBackState extends State<FeedBack> {
     await Fire.createDoc(
       context: context,
       collName: FireCollection.feedbacks,
+      addDocID: true,
       input: FeedbackModel(
         userID: superUserID(),
         timeStamp: DateTime.now(),

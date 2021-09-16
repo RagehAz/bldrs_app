@@ -31,9 +31,9 @@ class NotificationCard extends StatelessWidget {
 // -----------------------------------------------------------------------------
   void _onBubbleTap(){
 
-    print('_onBubbleTap : noti id is : ${notiModel.id} : ${notiModel.name}');
+    print('_onBubbleTap : noti id is : ${notiModel.id} : ${notiModel.timeStamp} : dif : ${Timers.getTimeDifferenceInSeconds(from: notiModel.timeStamp, to: DateTime.now())}');
 
-      // notiModel.sudo.printSudo(methodName: '${notiModel.id} : ${notiModel.name}');
+
     }
 // -----------------------------------------------------------------------------
   void _onButtonTap(String value){

@@ -25,7 +25,7 @@ class FlyerModel with ChangeNotifier{
   final TinyUser tinyAuthor;
   final TinyBz tinyBz;
   // -------------------------
-  final DateTime publishTime;
+  final DateTime createdAt;
   final GeoPoint flyerPosition;
   // -------------------------
   bool ankhIsOn;
@@ -51,7 +51,7 @@ class FlyerModel with ChangeNotifier{
     this.tinyAuthor,
     this.tinyBz,
     // -------------------------
-    this.publishTime, /// TASK : delete this
+    this.createdAt,
     this.flyerPosition,
     // -------------------------
     this.ankhIsOn,
@@ -84,7 +84,7 @@ class FlyerModel with ChangeNotifier{
       'tinyAuthor' : tinyAuthor.toMap(),
       'tinyBz' : tinyBz.toMap(),
       // -------------------------
-      'publishTime' : Timers.cipherDateTimeToString(publishTime),
+      'createdAt' : createdAt,
       'flyerPosition' : flyerPosition,
       // -------------------------
       'ankhIsOn' : ankhIsOn,
@@ -109,7 +109,7 @@ class FlyerModel with ChangeNotifier{
       flyerZone: flyerZone,
       tinyAuthor: tinyAuthor.clone(),
       tinyBz: tinyBz.clone(),
-      publishTime: publishTime,
+      createdAt: createdAt,
       flyerPosition: flyerPosition,
       slides: SlideModel.cloneSlides(slides),
       flyerIsBanned: flyerIsBanned,
@@ -133,7 +133,7 @@ class FlyerModel with ChangeNotifier{
           flyerZone: flyer.flyerZone,
           tinyAuthor: flyer.tinyAuthor,
           tinyBz: flyer.tinyBz,
-          publishTime: flyer.publishTime,
+          createdAt: flyer.createdAt,
           flyerPosition: flyer.flyerPosition,
           slides: updatedSlides,
           flyerIsBanned: flyer.flyerIsBanned,
@@ -197,7 +197,7 @@ class FlyerModel with ChangeNotifier{
         tinyAuthor: TinyUser.decipherTinyUserMap(map['tinyAuthor']),
         tinyBz: TinyBz.decipherTinyBzMap(map['tinyBz']),
         // -------------------------
-        publishTime: Timers.decipherDateTimeString(map['publishTime']),
+        createdAt: map['createdAt'].toDate(),
         flyerPosition: map['flyerPosition'],
         // -------------------------
         slides: SlideModel.decipherSlidesMaps(map['slides']),
@@ -230,7 +230,7 @@ class FlyerModel with ChangeNotifier{
       flyerZone: inputFlyerModel.flyerZone,
       tinyAuthor: inputFlyerModel.tinyAuthor,
       tinyBz: inputFlyerModel.tinyBz,
-      publishTime: inputFlyerModel.publishTime,
+      createdAt: inputFlyerModel.createdAt,
       slides: updatedSlides,
       flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
       flyerState: inputFlyerModel.flyerState,
@@ -381,7 +381,7 @@ class FlyerModel with ChangeNotifier{
     print('FLYER-PRINT : flyerZone : ${flyerZone}');
     print('FLYER-PRINT : tinyAuthor : ${tinyAuthor}');
     print('FLYER-PRINT : tinyBz : ${tinyBz}');
-    print('FLYER-PRINT : publishTime : ${publishTime}');
+    print('FLYER-PRINT : createdAt : ${createdAt}');
     print('FLYER-PRINT : flyerPosition : ${flyerPosition}');
     print('FLYER-PRINT : ankhIsOn : ${ankhIsOn}');
     print('FLYER-PRINT : slides : ${slides}');

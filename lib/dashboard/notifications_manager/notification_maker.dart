@@ -450,10 +450,11 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
       if (result == true){
 
+
         await CenterDialog.showCenterDialog(
           context: context,
           title: 'Done',
-          body: 'Notification has been sent to ${_selectedUser.name}',
+          body: 'Notification has been sent to $_userName',
           boolDialog: false,
         );
 
@@ -551,6 +552,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
           Bubble(
             centered: true,
             margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin, vertical: Ratioz.appBarPadding),
+            // bubbleOnTap: null,
             columnChildren: <Widget>[
 
               Row(
@@ -588,11 +590,13 @@ class _NotificationMakerState extends State<NotificationMaker> {
                           textController: _titleController,
                           inputColor: Colorz.White255,
                           hintText: 'Title',
-                          keyboardTextInputType: TextInputType.multiline,
+                          keyboardTextInputType: TextInputType.text,
+                          keyboardTextInputAction: TextInputAction.next,
                           maxLength: 30,
                           maxLines: 2,
                           counterIsOn: true,
                           fieldIsFormField: true,
+
                           // validator: (){}, // TASK : question body must include question mark '?'
                         ),
 

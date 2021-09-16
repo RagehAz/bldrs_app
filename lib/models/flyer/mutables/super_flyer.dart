@@ -73,6 +73,7 @@ class SuperFlyer{
 
   /// publishing times
   List<PublishTime> flyerTimes; // MutableFlyer -- ?
+  DateTime createdAt;
 
 
   /// --------------------------------------------------------------------------
@@ -130,7 +131,7 @@ class SuperFlyer{
 
     /// publishing times
     @required this.flyerTimes,
-
+    @required this.createdAt,
   });
 // -----------------------------------------------------------------------------
   static String draftID = 'draft';
@@ -241,6 +242,7 @@ class SuperFlyer{
 
           /// publishing times
           flyerTimes: null,
+          createdAt: null,
 
         );
   }
@@ -344,7 +346,7 @@ class SuperFlyer{
           bzID: flyerModel.tinyBz.bzID,
           bzType: flyerModel.tinyBz.bzType,
           bzForm: null,
-          bldrBirth: null,
+          createdAt: null,
           accountType: null,
           bzURL: null,
           bzName: flyerModel.tinyBz.bzName,
@@ -407,9 +409,10 @@ class SuperFlyer{
 
         /// publishing times
         flyerTimes: <PublishTime>[
-          PublishTime(state: FlyerState.Published, timeStamp: flyerModel.publishTime),
+          PublishTime(state: FlyerState.Published, timeStamp: flyerModel.createdAt),
           PublishTime(state: FlyerState.Deleted, timeStamp: flyerModel.deletionTime),
         ],
+        createdAt: flyerModel.createdAt,
 
       );
   }
@@ -508,7 +511,7 @@ class SuperFlyer{
           bzID: tinyFlyer.tinyBz.bzID,
           bzType: tinyFlyer?.tinyBz?.bzType,
           bzForm: null,
-          bldrBirth: null,
+          createdAt: null,
           accountType: null,
           bzURL: null,
           bzName: tinyFlyer.tinyBz.bzName,
@@ -575,6 +578,7 @@ class SuperFlyer{
 
         /// publishing times
         flyerTimes: null,
+        createdAt: null,
 
       );
   }
@@ -690,7 +694,7 @@ class SuperFlyer{
           bzID: bzModel.bzID,
           bzType: bzModel.bzType,
           bzForm: bzModel.bzForm,
-          bldrBirth: bzModel.bldrBirth,
+          createdAt: bzModel.createdAt,
           accountType: bzModel.accountType,
           bzURL: bzModel.bzURL,
           bzName: bzModel.bzName,
@@ -756,6 +760,7 @@ class SuperFlyer{
         flyerTimes: <PublishTime>[
           PublishTime(state: FlyerState.Draft, timeStamp: DateTime.now()),
         ],
+        createdAt: DateTime.now(),
 
       );
 
@@ -869,7 +874,7 @@ class SuperFlyer{
           bzID: bzModel.bzID,
           bzType: bzModel.bzType,
           bzForm: bzModel.bzForm,
-          bldrBirth: bzModel.bldrBirth,
+          createdAt: bzModel.createdAt,
           accountType: bzModel.accountType,
           bzURL: bzModel.bzURL,
           bzName: bzModel.bzName,
@@ -935,10 +940,11 @@ class SuperFlyer{
 
         /// publishing times
         flyerTimes: <PublishTime>[
-          PublishTime(state: FlyerState.Published, timeStamp: flyerModel.publishTime),
+          PublishTime(state: FlyerState.Published, timeStamp: flyerModel.createdAt),
           PublishTime(state: FlyerState.Deleted, timeStamp: flyerModel.deletionTime),
           PublishTime(state: FlyerState.Draft, timeStamp: DateTime.now()),
         ],
+        createdAt: flyerModel.createdAt,
 
       );
 
@@ -1064,7 +1070,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
 
         /// publishing times
         flyerTimes: null,
-
+        createdAt: null,
       );
 }
 

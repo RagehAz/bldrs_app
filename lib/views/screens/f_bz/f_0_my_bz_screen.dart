@@ -448,7 +448,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
                     /// BIRTH
                     StatsLine(
-                      verse: '${Timers.monthYearStringer(context,_bzModel.bldrBirth)}',
+                      verse: '${Timers.monthYearStringer(context,_bzModel.createdAt)}',
                       icon: Iconz.Calendar,
                     ),
 
