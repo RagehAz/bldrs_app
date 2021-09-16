@@ -2,8 +2,9 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
+import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -1026,7 +1027,7 @@ class Fire{
 
       } else {
 
-        await superDialog(
+        await CenterDialog.showCenterDialog(
           context: context,
           title: 'Can not delete image',
           body: '${_result.toString()}',

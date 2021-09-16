@@ -1,9 +1,7 @@
-
-
 import 'dart:io';
-
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
@@ -20,18 +18,22 @@ import 'package:bldrs/dashboard/widgets/user_button.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/search_ops.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/views/screens/e_saves/e_0_saved_flyers_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/notifications/notification_balloon.dart';
 import 'package:bldrs/views/widgets/notifications/notification_card.dart';
+import 'package:bldrs/views/widgets/notifications/notification_flyers.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -188,10 +190,24 @@ class _NotificationMakerState extends State<NotificationMaker> {
     }
 
   }
-
+// -----------------------------------------------------------------------------
   Future<void> _attachFlyers() async {
 
+    List<TinyFlyer> _selectedTinyFlyers = await Nav.goToNewScreen(
+        context,
+        SavedFlyersScreen(
+          selectionMode: true,
+        ),
+    );
 
+    setState(() {
+      _attachmentType = NotiAttachmentType.flyers;
+      _attachment = _selectedTinyFlyers;
+    });
+
+    await Nav.goBack(context);
+
+    Keyboarders.closeKeyboard(context);
   }
 // -----------------------------------------------------------------------------
   void _onDeleteAttachment(){
@@ -210,6 +226,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _onTapReciever() async {
+
+    Keyboarders.closeKeyboard(context);
 
     double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.85);
 
@@ -375,17 +393,22 @@ class _NotificationMakerState extends State<NotificationMaker> {
     );
 
     if (_confirmSend == true){
-      String _bannerURL;
 
       String _id = '${Numberers.createUniqueID()}';
 
+      dynamic _outputAttachment;
+
       if (_attachment != null && _attachmentType == NotiAttachmentType.banner){
-        _bannerURL = await Fire.createStoragePicAndGetURL(
+        _outputAttachment = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: _attachment,
           fileName: _id,
           picType: PicType.notiBanner,
         );
+      }
+
+      if (_attachment != null && _attachmentType == NotiAttachmentType.flyers){
+        _outputAttachment = TinyFlyer.getListOfFlyerIDsFromTinyFlyers(_attachment);
       }
 
       NotiModel _newNoti = NotiModel(
@@ -398,8 +421,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
         title: _titleController.text,
         timeStamp: DateTime.now(),
         body: _bodyController.text,
-        attachment: _bannerURL,
-        attachmentType: NotiAttachmentType.banner,
+        attachment: _outputAttachment,
+        attachmentType: _attachmentType,
         dismissed: false,
         sendFCM: _sendFCMIsOn,
         metaData: BldrsNotiModelz.notiDefaultMap,
@@ -407,29 +430,39 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
       // _newNoti.printNotiModel(methodName: '_onSendNotification');
 
-      await Fire.createNamedSubDoc(
+      await tryAndCatch(
         context: context,
-        collName: FireCollection.users,
-        docName: _selectedUser.userID,
-        subCollName: FireCollection.subUserNotifications,
-        input: _newNoti.toMap(),
-        subDocName: _id,
+        methodName: '_onSendNotification',
+        functions: () async {
+
+          await Fire.createNamedSubDoc(
+            context: context,
+            collName: FireCollection.users,
+            docName: _selectedUser.userID,
+            subCollName: FireCollection.subUserNotifications,
+            input: _newNoti.toMap(),
+            subDocName: _id,
+          );
+
+          await CenterDialog.showCenterDialog(
+            context: context,
+            title: 'Done',
+            body: 'Notification has been sent to ${_selectedUser.name}',
+          );
+
+          setState(() {
+            _titleController.clear();
+            _bodyController.clear();
+            _attachment = null;
+            _attachmentType = null;
+            _sendFCMIsOn = false;
+            _selectedUser = null;
+          });
+
+        },
+
       );
 
-      await CenterDialog.showCenterDialog(
-        context: context,
-        title: 'Done',
-        body: 'Notification has been sent to ${_selectedUser.name}',
-      );
-
-      setState(() {
-        _titleController.clear();
-        _bodyController.clear();
-        _attachment = null;
-        _attachmentType = null;
-        _sendFCMIsOn = false;
-        _selectedUser = null;
-      });
 
     }
 
@@ -555,6 +588,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                           height: Ratioz.appBarPadding,
                         ),
 
+                        /// ADD ATTACHMENT BUTTON
                         if (_attachment == null)
                         Container(
                           width: _bodyWidth,
@@ -566,6 +600,13 @@ class _NotificationMakerState extends State<NotificationMaker> {
                             verseScaleFactor: 0.6,
                             onTap: _onAddAttachment,
                           ),
+                        ),
+
+                        /// FLYERS ATTACHMENT
+                        if(_attachment != null && _attachmentType == NotiAttachmentType.flyers)
+                        NotificationFlyers(
+                          bodyWidth: _bodyWidth,
+                          flyers: _attachment,
                         ),
 
                         /// BANNER

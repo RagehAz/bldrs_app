@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
+import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
@@ -16,6 +17,7 @@ import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/gallery_grid.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/sliver_flyers_grid.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -281,14 +283,43 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
                     ),
 
                     if(_isSelected == true)
+                    DreamBox(
+                      width: _flyerBoxWidth,
+                      height: FlyerBox.height(context, _flyerBoxWidth),
+                      color: Colorz.Black50,
+                      corners: Borderers.superFlyerCorners(context, _flyerBoxWidth),
+                      bubble: true,
+                    ),
+
+                    if(_isSelected == true)
+                      Container(
+                        width: _flyerBoxWidth,
+                        height: FlyerBox.height(context, _flyerBoxWidth),
+                        alignment: Alignment.center,
+                        child: SuperVerse(
+                          verse: 'SELECTED',
+                          weight: VerseWeight.black,
+                          italic: true,
+                          color: Colorz.White255,
+                          size: 2,
+                          scaleFactor: _flyerBoxWidth/100,
+                          shadow: true,
+                        ),
+                      ),
+
+                    if(_isSelected == true)
                     Container(
                       width: _flyerBoxWidth,
                       height: FlyerBox.height(context, _flyerBoxWidth),
                       alignment: Aligners.superInverseBottomAlignment(context),
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colorz.White20,),
+                        borderRadius: Borderers.superFlyerCorners(context, _flyerBoxWidth),
+                      ),
                       child: DreamBox(
-                        height: _flyerBoxWidth * 0.2,
-                        width: _flyerBoxWidth * 0.2,
-                        corners: 0,
+                        height: FlyerBox.bottomCornerValue(_flyerBoxWidth) * 2,
+                        width: FlyerBox.bottomCornerValue(_flyerBoxWidth) * 2,
+                        corners: FlyerBox.bottomCornerValue(_flyerBoxWidth),
                         color: Colorz.Green255,
                         icon: Iconz.Check,
                         iconSizeFactor: 0.4,

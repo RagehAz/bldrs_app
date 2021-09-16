@@ -6,6 +6,7 @@ import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/notifications/notification_balloon.dart';
+import 'package:bldrs/views/widgets/notifications/notification_flyers.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -128,6 +129,12 @@ class NotificationCard extends StatelessWidget {
                       //   width: _bodyWidth,
                       //   corners: _bannerCorner,
                       // ),
+
+                      if(notiModel.attachmentType == NotiAttachmentType.flyers)
+                        NotificationFlyers(
+                            bodyWidth: _bodyWidth,
+                            flyers: notiModel.attachment,
+                        ),
 
                       /// BUTTONS
                       if(notiModel.attachmentType == NotiAttachmentType.buttons && notiModel.attachment is List<String>)

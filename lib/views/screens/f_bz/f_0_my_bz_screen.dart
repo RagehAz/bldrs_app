@@ -20,8 +20,8 @@ import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/gallery.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
@@ -116,7 +116,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
     Nav.goBack(context);
 
-    bool _dialogResult = await superDialog(
+    bool _dialogResult = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
       body: 'Are you sure you want to Delete ${_bzModel.bzName} Business account ?',
@@ -161,7 +161,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
       /// close bottom sheet
       Nav.goBack(context);
 
-      bool _dialogResult = await superDialog(
+      bool _dialogResult = await CenterDialog.showCenterDialog(
         context: context,
         title: '',
         body: 'Are you sure you want to Deactivate ${_bzModel.bzName} Business account ?',

@@ -8,7 +8,7 @@ import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/keywords/keywords_bubble.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +93,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
           bubble: false,
           margins: const EdgeInsets.all(7.5),
           onTap: () async {
-              await superDialog(
+              await CenterDialog.showCenterDialog(
                 context: context,
                 title: 'Country ISO3',
                 body: widget.country.iso3,

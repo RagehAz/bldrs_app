@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/device_checkers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/layouts/test_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';

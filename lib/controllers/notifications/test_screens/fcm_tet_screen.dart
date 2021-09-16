@@ -8,7 +8,7 @@ import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/user/fcm_token.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
+import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/layouts/test_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
