@@ -78,7 +78,7 @@ class FlyerOps{
     tinyAuthor: inputFlyerModel.tinyAuthor,
     tinyBz: inputFlyerModel.tinyBz,
     // -------------------------
-    publishTime: DateTime.now(),
+    createdAt: DateTime.now(),
     flyerPosition: inputFlyerModel.flyerPosition,
     // -------------------------
     ankhIsOn: false,

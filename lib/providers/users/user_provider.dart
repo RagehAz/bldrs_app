@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/planet/zone_model.dart';
@@ -26,7 +25,7 @@ class UserProvider {
 
       return UserModel(
         userID: _map['userID'] ?? '',
-        joinedAt: Timers.decipherDateTimeString(_map['joinedAt'] ?? ''),
+        createdAt: _map['createdAt'].toDate(),
         userStatus: UserModel.decipherUserStatus(_map['userStatus'] ?? 1),
         // -------------------------
         name: _map['name'] ?? '',
@@ -70,7 +69,7 @@ class UserProvider {
 
         _userModel = UserModel(
           userID: _map['userID'] ?? '',
-          joinedAt: Timers.decipherDateTimeString(_map['joinedAt']) ?? null,
+          createdAt: _map['createdAt'].toDate() ?? null,
           userStatus: UserModel.decipherUserStatus(_map['userStatus'] ?? 1),
           // -------------------------
           name: _map['name'] ?? '',

@@ -97,7 +97,7 @@ class UserBubble extends StatelessWidget {
 
         // --- Joined at
         SuperVerse(
-          verse: Timers.monthYearStringer(context,user?.joinedAt),
+          verse: Timers.monthYearStringer(context,user?.createdAt),
           weight: VerseWeight.thin,
           italic: true,
           color: Colorz.Grey225,

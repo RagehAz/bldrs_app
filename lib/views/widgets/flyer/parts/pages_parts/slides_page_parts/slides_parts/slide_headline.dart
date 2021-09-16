@@ -28,25 +28,20 @@ class SlideHeadline extends StatelessWidget {
       onTap: tappingVerse,
       child: Container(
           width: flyerBoxWidth,
-          height: flyerBoxWidth*0.4,
+          height: flyerBoxWidth,
           // color: Colorz.BloodTest,
           margin: EdgeInsets.only(top: _headlineTopMargin),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SuperVerse(
-                verse: verse,
-                color: verseColor,
-                italic: false,
-                shadow: true,
-                weight: VerseWeight.bold,
-                size: verseSize,
-                centered: true,
-                designMode: false,
-                maxLines: 3,
-              ),
-            ],
+          alignment: Alignment.topCenter,
+          child: SuperVerse(
+            verse: verse,
+            color: verseColor,
+            italic: false,
+            shadow: true,
+            weight: VerseWeight.bold,
+            size: verseSize,
+            centered: true,
+            designMode: false,
+            maxLines: 3,
           ),
         ),
     );

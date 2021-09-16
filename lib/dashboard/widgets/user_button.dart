@@ -95,8 +95,8 @@ class dashboardUserButton extends StatelessWidget {
 
                   BottomDialogRow(dataKey: 'userID', dataValue: userModel.userID),
                   BottomDialogRow(dataKey: 'authBy', dataValue: userModel.authBy),
-                  BottomDialogRow(dataKey: 'joinedAt', dataValue: userModel.joinedAt),
-                  BottomDialogRow(dataKey: 'timeString', dataValue: Timers.dayMonthYearStringer(context, userModel.joinedAt)),
+                  BottomDialogRow(dataKey: 'createdAt', dataValue: userModel.createdAt),
+                  BottomDialogRow(dataKey: 'timeString', dataValue: Timers.dayMonthYearStringer(context, userModel.createdAt)),
                   BottomDialogRow(dataKey: 'userStatus', dataValue: userModel.userStatus),
                   BottomDialogRow(dataKey: 'name', dataValue: userModel.name),
                   BottomDialogRow(dataKey: 'pic', dataValue: userModel.pic),

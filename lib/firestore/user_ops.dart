@@ -71,7 +71,7 @@ class UserOps{
     UserModel _finalUserModel = UserModel(
       userID : userModel.userID,
       authBy: userModel.authBy,
-      joinedAt : DateTime.now(),
+      createdAt : DateTime.now(),
       userStatus : userModel.userStatus,
       // -------------------------
       name : userModel.name,
@@ -187,7 +187,7 @@ class UserOps{
     UserModel _finalUserModel = UserModel(
       userID : updatedUserModel.userID,
       authBy: oldUserModel.authBy,
-      joinedAt : oldUserModel.joinedAt,
+      createdAt : oldUserModel.createdAt,
       userStatus : updatedUserModel.userStatus,
       // -------------------------
       name : updatedUserModel.name,

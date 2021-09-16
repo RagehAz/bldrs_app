@@ -146,7 +146,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzID: '',
         bzType: _currentBzType,
         bzForm: _currentBzForm,
-        bldrBirth: DateTime.now(),
+        createdAt: DateTime.now(),
         accountType: _currentAccountType,
         bzURL: '',
         bzName: _bzNameTextController.text,
@@ -342,7 +342,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         // -------------------------
         bzType: _currentBzType,
         bzForm: _currentBzForm,
-        bldrBirth: null, // timestamp will be generated inside createBzOps
+        createdAt: null, // timestamp will be generated inside createBzOps
         accountType: BzAccountType.Default, // changing this is not in bzEditor
         bzURL: null, // will be generated inside createBzOps
         // -------------------------
@@ -451,7 +451,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         // -------------------------
         bzType: _currentBzType,
         bzForm: _currentBzForm,
-        bldrBirth: widget.bzModel.bldrBirth,
+        createdAt: widget.bzModel.createdAt,
         accountType: _currentAccountType,
         bzURL: widget.bzModel.bzURL,
         // -------------------------

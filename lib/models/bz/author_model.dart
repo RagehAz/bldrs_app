@@ -135,7 +135,7 @@ class AuthorModel{
       bzID : bzModel.bzID,
       bzType : bzModel.bzType,
       bzForm : bzModel.bzForm,
-      bldrBirth : bzModel.bldrBirth,
+      createdAt : bzModel.createdAt,
       accountType : bzModel.accountType,
       bzURL : bzModel.bzURL,
       bzName : bzModel.bzName,

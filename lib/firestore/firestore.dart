@@ -168,6 +168,7 @@ class Fire{
   static Future<DocumentReference> createDoc({
     BuildContext context,
     String collName,
+    bool addDocID,
     Map<String, dynamic> input,
   }) async {
 
@@ -181,6 +182,16 @@ class Fire{
           final CollectionReference _bzCollectionRef = Fire.getCollectionRef(collName);
 
           _docRef = _bzCollectionRef.doc();
+
+          if (addDocID == true){
+
+            Mapper.insertPairInMap(
+              map: input,
+              key: 'id',
+              value: _docRef.id,
+            );
+
+          }
 
           await _docRef.set(input);
 
@@ -279,7 +290,14 @@ class Fire{
     return _subDocRef;
   }
 // =============================================================================
-  static Future<List<dynamic>> readCollectionDocs({String collectionName, String orderBy, @required int limit, QueryDocumentSnapshot startAfter, bool addDocSnapshotToEachMap}) async {
+  static Future<List<dynamic>> readCollectionDocs({
+    String collectionName,
+    String orderBy,
+    @required int limit,
+    QueryDocumentSnapshot startAfter,
+    bool addDocSnapshotToEachMap,
+    bool addDocID,
+  }) async {
 
     QueryDocumentSnapshot _startAfter = startAfter ?? null;
 
@@ -303,6 +321,14 @@ class Fire{
     for (var docSnapshot in _docsSnapshots){
 
       Map<String, dynamic> _map = docSnapshot.data();
+
+      if (addDocID == true){
+        _map = Mapper.insertPairInMap(
+          map: _map,
+          key: 'id',
+          value: docSnapshot.id,
+        );
+      }
 
       if (addDocSnapshotToEachMap == true){
         _map = Mapper.insertPairInMap(
