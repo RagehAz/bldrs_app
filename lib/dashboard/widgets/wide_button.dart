@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +9,16 @@ class DashboardWideButton extends StatelessWidget {
   final Function onTap;
   final String title;
   final bool isActive;
+  final Color color;
+  final Color titleColor;
 
   const DashboardWideButton({
     @required this.title,
     this.onTap,
     this.icon,
     this.isActive = true,
+    this.color,
+    this.titleColor = Colorz.White255,
   });
 
   @override
@@ -27,6 +32,7 @@ class DashboardWideButton extends StatelessWidget {
         height: 50,
         width: _screenWidth - (2 * Ratioz.appBarMargin),
         verse: title,
+        verseColor: titleColor,
         icon: icon,
         iconSizeFactor: 0.6,
         verseScaleFactor: 1,
@@ -34,6 +40,7 @@ class DashboardWideButton extends StatelessWidget {
         margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
         inActiveMode: !isActive,
         onTap: onTap,
+        color: color,
       );
 
   }

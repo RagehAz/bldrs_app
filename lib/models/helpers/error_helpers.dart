@@ -23,10 +23,9 @@ Future<void> tryAndCatch({Function onError, BuildContext context, Function funct
 
     if (onError != null){
 
-      onError(error);
+      await onError(error);
 
     }
-
     else {
 
       await CenterDialog.showCenterDialog(
@@ -42,21 +41,32 @@ Future<void> tryAndCatch({Function onError, BuildContext context, Function funct
   }
 }
 // -----------------------------------------------------------------------------
-Future<dynamic> tryCatchAndReturn({Function finals, BuildContext context, Function functions, String methodName,}) async {
+Future<bool> tryCatchAndReturn({Function onError, BuildContext context, Function functions, String methodName,}) async {
   try{
     await functions();
+    // return true;
   } catch (error){
-
-    // await superDialog(
-    //   context: context,
-    //   title: 'ops',
-    //   body: error,
-    //   boolDialog: false,
-    // );
 
     print('$methodName : tryAndCatch ERROR : $error');
 
-    return error.toString();
+    if (onError != null){
+
+      await onError(error);
+
+    }
+    else {
+
+      await CenterDialog.showCenterDialog(
+        context: context,
+        boolDialog: false,
+        body: error,
+        title: 'Something Went Wrong !',
+      );
+
+    }
+
+    // throw(error);
+    return error == null ? true : false;
   }
 }
 // -----------------------------------------------------------------------------
