@@ -15,14 +15,14 @@ import 'package:bldrs/views/widgets/flyer/parts/header_parts/gallery.dart';
 import 'package:flutter/material.dart';
 
 class MaxHeader extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final bool bzPageIsOn;
   final TinyBz tinyBz;
   final SuperFlyer superFlyer;
 
 
   MaxHeader({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
     @required this.tinyBz,
     @required this.superFlyer,
@@ -75,14 +75,14 @@ class MaxHeader extends StatelessWidget {
 
               // --- BUSINESS FIELD
               BzPgFields(
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
                 bzScope: _bzScope,
               ),
 
               // --- BUSINESS BIRTH YEAR
               BzPgVerse(
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
                 verse: Timers.monthYearStringer(context,bz.bldrBirth),
                 size: 2,
@@ -90,7 +90,7 @@ class MaxHeader extends StatelessWidget {
 
               // --- BUSINESS DESCRIPTION
               BzAboutVerse(
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
                 verse: bz != null ? bz.bzAbout : '',
                 bzName:  bz != null ? bz.bzName : '',
@@ -99,7 +99,7 @@ class MaxHeader extends StatelessWidget {
               // --- FOLLOWERS
               BzPgCounter(
                 bzPageIsOn: bzPageIsOn,
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 count: _followersCount,
                 verse: Wordz.followers(context),
                 icon: Iconz.Follow,
@@ -109,7 +109,7 @@ class MaxHeader extends StatelessWidget {
               // --- CALLS
               BzPgCounter(
                 bzPageIsOn: bzPageIsOn,
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 count: _callsCount,
                 verse: Wordz.callsReceived(context),
                 icon: Iconz.ComPhone,
@@ -118,7 +118,7 @@ class MaxHeader extends StatelessWidget {
 
               // --- PUBLISHED SLIDE & FLYERS
               BzPgCounter(
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
                 count: _bzTotalSlides,
                 verse: Wordz.slidesPublished(context),
@@ -128,7 +128,7 @@ class MaxHeader extends StatelessWidget {
 
               // --- TOTAL VIEWS
               BzPgCounter(
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
                 count: _bzTotalViews,
                 verse: Wordz.totalViews(context),
@@ -138,7 +138,7 @@ class MaxHeader extends StatelessWidget {
 
               // --- TOTAL SHARES
               BzPgCounter(
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
                 count: _bzTotalShares,
                 verse: Wordz.totalShares(context),
@@ -148,7 +148,7 @@ class MaxHeader extends StatelessWidget {
 
               // --- TOTAL ANKHS
               BzPgCounter(
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
                 count: _bzTotalSaves,
                 verse: Wordz.totalSaves(context),
@@ -162,22 +162,22 @@ class MaxHeader extends StatelessWidget {
               Gallery(
                 superFlyer: superFlyer,
                 showFlyers: true,
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 addAuthorButtonIsOn: false,
               ),
 
               Container(
-                width: flyerZoneWidth,
-                height: flyerZoneWidth * Ratioz.xxflyerBottomCorners + Ratioz.appBarMargin,
-                margin: EdgeInsets.only(top: flyerZoneWidth * Ratioz.xxbzPageSpacing),
+                width: flyerBoxWidth,
+                height: flyerBoxWidth * Ratioz.xxflyerBottomCorners + Ratioz.appBarMargin,
+                margin: EdgeInsets.only(top: flyerBoxWidth * Ratioz.xxbzPageSpacing),
                 decoration: BoxDecoration(
                   color: Colorz.Black80,
                   borderRadius: Borderers.superBorderOnly(
                     context: context,
                     enTopLeft: 0,
                     enTopRight: 0,
-                    enBottomLeft: flyerZoneWidth * Ratioz.xxflyerBottomCorners,
-                    enBottomRight: flyerZoneWidth * Ratioz.xxflyerBottomCorners,
+                    enBottomLeft: flyerBoxWidth * Ratioz.xxflyerBottomCorners,
+                    enBottomRight: flyerBoxWidth * Ratioz.xxflyerBottomCorners,
                   ),
                 ),
               ),

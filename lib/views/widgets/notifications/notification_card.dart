@@ -3,7 +3,6 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
-import 'package:bldrs/views/widgets/artworks/bldrs_welcome_banner.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/notifications/notification_balloon.dart';
@@ -48,7 +47,6 @@ class NotificationCard extends StatelessWidget {
     double _bodyWidth = bodyWidth(context);
     bool _designMode = false;
     bool _notiHasButtons = notiModel?.attachmentType == NotiAttachmentType.buttons;
-    double _bannerCorner = bannerCorners();
 
     return Bubble(
           centered: true,
@@ -92,7 +90,7 @@ class NotificationCard extends StatelessWidget {
 
                       /// TIME STAMP
                       SuperVerse(
-                        verse: '${Timers.stringOnDateMonthYear(context: context, time: notiModel.timeStamp)}', /// task : fix timestamp parsing
+                        verse: '${Timers.getSuperTimeDifferenceString(from: notiModel.timeStamp, to: DateTime.now())}',
                         color: Colorz.Grey225,
                         italic: true,
                         weight: VerseWeight.thin,

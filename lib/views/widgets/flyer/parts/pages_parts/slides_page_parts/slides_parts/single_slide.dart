@@ -8,7 +8,8 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
-import 'package:bldrs/views/screens/x_3_slide_full_screen.dart';
+import 'package:bldrs/views/screens/i_flyer/x_3_slide_full_screen.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/slide_headline.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/zoomable_pic.dart';
 import 'package:bldrs/views/widgets/textings/super_text_field.dart';
@@ -18,7 +19,7 @@ import 'package:flutter/painting.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 
 class SingleSlide extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final dynamic picture;
   final String headline;
   final int shares;
@@ -38,7 +39,7 @@ class SingleSlide extends StatelessWidget {
 
   SingleSlide({
 
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.superFlyer,
     @required this.slideIndex,
     this.picture,
@@ -104,13 +105,13 @@ class SingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
     double _screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
-    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
+    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
     int _slideTitleSize =
-    flyerZoneWidth <= _screenWidth && flyerZoneWidth > (_screenWidth*0.75) ? 4 :
-    flyerZoneWidth <= (_screenWidth*0.75) && flyerZoneWidth > (_screenWidth*0.5) ? 3 :
-        flyerZoneWidth <= (_screenWidth*0.5) && flyerZoneWidth > (_screenWidth*0.25) ? 2 :
-        flyerZoneWidth <= (_screenWidth*0.25) && flyerZoneWidth > (_screenWidth*0.1) ? 1 : 0
+    flyerBoxWidth <= _screenWidth && flyerBoxWidth > (_screenWidth*0.75) ? 4 :
+    flyerBoxWidth <= (_screenWidth*0.75) && flyerBoxWidth > (_screenWidth*0.5) ? 3 :
+        flyerBoxWidth <= (_screenWidth*0.5) && flyerBoxWidth > (_screenWidth*0.25) ? 2 :
+        flyerBoxWidth <= (_screenWidth*0.25) && flyerBoxWidth > (_screenWidth*0.1) ? 1 : 0
     ;
 // -----------------------------------------------------------------------------
 //     double _blurImageScale = 1.5;
@@ -119,7 +120,7 @@ class SingleSlide extends StatelessWidget {
     // Imagers().slideBlurIsOn(
     //   pic: picture,
     //   boxFit: boxFit,
-    //   flyerZoneWidth: flyerZoneWidth,
+    //   flyerBoxWidth: flyerBoxWidth,
     //   imageSize: imageSize,
     // );
 // -----------------------------------------------------------------------------
@@ -133,7 +134,7 @@ class SingleSlide extends StatelessWidget {
     Imagers.superImage(picture, boxFit);
 // -----------------------------------------------------------------------------
 
-    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, flyerZoneWidth);
+    double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
 
     return GestureDetector(
       onTap: () => _onBehindSlideImageTap(context, _tinyMode), // listening to taps from inside the zoomable pic widget
@@ -141,17 +142,17 @@ class SingleSlide extends StatelessWidget {
       onDoubleTap: _tinyMode == true ? null : () => _onImageDoubleTap(context),
 
       child: Container(
-        width: flyerZoneWidth,
-        height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
+        width: flyerBoxWidth,
+        height: FlyerBox.height(context, flyerBoxWidth),
         alignment: Alignment.topCenter,
         decoration: BoxDecoration(
-          borderRadius: Borderers.superFlyerCorners(context, flyerZoneWidth),
+          borderRadius: Borderers.superFlyerCorners(context, flyerBoxWidth),
           color: slideColor,
           image: _slidePic,
         ),
 
         child: ClipRRect(
-          borderRadius: Borderers.superFlyerCorners(context, flyerZoneWidth),
+          borderRadius: Borderers.superFlyerCorners(context, flyerBoxWidth),
 
           child: Stack(
             alignment: Alignment.topCenter,
@@ -162,8 +163,8 @@ class SingleSlide extends StatelessWidget {
               //   Image.file(
               //     picture,
               //     fit: BoxFit.cover,
-              //     width: flyerZoneWidth * _blurImageScale,
-              //     height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
+              //     width: flyerBoxWidth * _blurImageScale,
+              //     height: Scale.superFlyerZoneHeight(context, flyerBoxWidth*1.2),
               //     // colorBlendMode: BlendMode.overlay,
               //     // color: Colorz.WhiteAir,
               //   ),
@@ -173,17 +174,17 @@ class SingleSlide extends StatelessWidget {
               //   Image.network(
               //     picture,
               //     fit: BoxFit.cover,
-              //     width: flyerZoneWidth * _blurImageScale,
-              //     height: Scale.superFlyerZoneHeight(context, flyerZoneWidth*1.2),
+              //     width: flyerBoxWidth * _blurImageScale,
+              //     height: Scale.superFlyerZoneHeight(context, flyerBoxWidth*1.2),
               //   ),
 
               // /// --- IMAGE FILE BLUR LAYER
               // if (_blurLayerIsActive)
                 // BlurLayer(
-                //   width: flyerZoneWidth,
-                //   height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
+                //   width: flyerBoxWidth,
+                //   height: Scale.superFlyerZoneHeight(context, flyerBoxWidth),
                 //   blur: Ratioz.blur4,
-                //   borders: Borderers.superFlyerCorners(context, flyerZoneWidth),
+                //   borders: Borderers.superFlyerCorners(context, flyerBoxWidth),
                 //   color: Colorz.Nothing,
                 //   blurIsOn: _blurLayerIsActive,
                 // ),
@@ -199,10 +200,10 @@ class SingleSlide extends StatelessWidget {
                 //       } else {
                 //         return
                 //           BlurLayer(
-                //             width: flyerZoneWidth,
-                //             height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
+                //             width: flyerBoxWidth,
+                //             height: Scale.superFlyerZoneHeight(context, flyerBoxWidth),
                 //             blur: 0,
-                //             borders: Borderers.superFlyerCorners(context, flyerZoneWidth),
+                //             borders: Borderers.superFlyerCorners(context, flyerBoxWidth),
                 //             color: _color,
                 //             blurIsOn: _blurLayerIsActive,
                 //           );
@@ -218,8 +219,8 @@ class SingleSlide extends StatelessWidget {
                   child: Image.file(
                       picture,
                       fit: boxFit,
-                      width: flyerZoneWidth,
-                      height: Scale.superFlyerZoneHeight(context, flyerZoneWidth),
+                      width: flyerBoxWidth,
+                      height: FlyerBox.height(context, flyerBoxWidth),
                   ),
                 ),
 
@@ -231,24 +232,24 @@ class SingleSlide extends StatelessWidget {
                   child: Image.network(
                       picture,
                       fit: BoxFit.fitWidth,
-                      width: flyerZoneWidth,
+                      width: flyerBoxWidth,
                       height: _flyerZoneHeight,
                   ),
                 ),
 
               /// --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
               Container(
-                width: flyerZoneWidth,
-                height: flyerZoneWidth * 0.6,
+                width: flyerBoxWidth,
+                height: flyerBoxWidth * 0.6,
                 decoration: BoxDecoration(
-                    borderRadius: Borderers.superHeaderShadowCorners(context, flyerZoneWidth),
+                    borderRadius: Borderers.superHeaderShadowCorners(context, flyerBoxWidth),
                     gradient: Colorizer.superSlideGradient(), /// TASK : can optimize this by adding svg instead
                 ),
               ),
 
               if (superFlyer.edit.editMode == false) //&& title != null && title != '')
                 SlideHeadline(
-                  flyerZoneWidth: flyerZoneWidth,
+                  flyerBoxWidth: flyerBoxWidth,
                   verse: _titleVerse,
                   verseSize: _slideTitleSize,
                   verseColor: Colorz.White255,
@@ -261,10 +262,10 @@ class SingleSlide extends StatelessWidget {
                 SuperTextField(
                   key: ValueKey('slide${slideIndex}'),
                   hintText: 'T i t l e',
-                  width: flyerZoneWidth,
-                  // height: flyerZoneWidth * 0.15,
+                  width: flyerBoxWidth,
+                  // height: flyerBoxWidth * 0.15,
                   fieldColor: Colorz.Black80,
-                  margin: EdgeInsets.only(top: (flyerZoneWidth * 0.3), left: 5, right: 5),
+                  margin: EdgeInsets.only(top: (flyerBoxWidth * 0.3), left: 5, right: 5),
                   maxLines: 4,
                   keyboardTextInputType: TextInputType.text,
                   designMode: false,

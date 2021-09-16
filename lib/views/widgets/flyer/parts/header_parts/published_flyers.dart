@@ -6,7 +6,7 @@
 // import '../../../old_flyer_data.dart';
 //
 // class PublishedFlyers extends StatelessWidget {
-//   final double flyerZoneWidth;
+//   final double flyerBoxWidth;
 //   final bool bzPageIsOn;
 //   final String authorPic;
 //   final String authorName;
@@ -18,7 +18,7 @@
 //   // final List<FlyerData> flyersData;
 //
 //   PublishedFlyers({
-//     @required this.flyerZoneWidth,
+//     @required this.flyerBoxWidth,
 //     @required this.bzPageIsOn,
 //     @required this.authorPic,
 //     @required this.authorName,
@@ -45,13 +45,13 @@
 //         // --- AUTHOR LABEL
 //         bzPageIsOn == false ? Container() :
 //         Container(
-//           width: flyerZoneWidth,
-//           height: flyerZoneWidth * 0.2,
+//           width: flyerBoxWidth,
+//           height: flyerBoxWidth * 0.2,
 //           color: Colorz.bzPageBGColor,
 //           alignment: Alignment.center,
 //           child: AuthorLabel(
 //             bzPageIsOn: bzPageIsOn,
-//             flyerZoneWidth: flyerZoneWidth,
+//             flyerBoxWidth: flyerBoxWidth,
 //             authorPic: authorPic,
 //             authorName: authorName,
 //             authorTitle: authorTitle,
@@ -66,7 +66,7 @@
 //
 //         // bzPageIsOn == false ? Container() :
 //         // FlyersGrid(
-//         //   gridZoneWidth: flyerZoneWidth,
+//         //   gridZoneWidth: flyerBoxWidth,
 //         //   flyersData: flyersData,
 //         // ),
 //

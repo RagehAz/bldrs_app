@@ -9,10 +9,10 @@ class StreamChecker{
       snapshot.connectionState == ConnectionState.waiting? true : false;
   }
 // -----------------------------------------------------------------------------
-  static bool _connectionHasNoData(AsyncSnapshot<dynamic> snapshot){
-    return
-      snapshot.hasData == false ? true : false;
-  }
+//   static bool _connectionHasNoData(AsyncSnapshot<dynamic> snapshot){
+//     return
+//       snapshot.hasData == false ? true : false;
+//   }
 // -----------------------------------------------------------------------------
   static bool valueIsLoading(dynamic value){
     return

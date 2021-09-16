@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class BzPgCounter extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final bool bzPageIsOn;
   final int count;
   final String verse;
@@ -14,7 +14,7 @@ class BzPgCounter extends StatelessWidget {
   final double iconSizeFactor;
 
   BzPgCounter({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     this.bzPageIsOn = true,
     @required this.count,
     @required this.verse,
@@ -27,11 +27,11 @@ class BzPgCounter extends StatelessWidget {
 
 
     const Color bzPageBGColor = Colorz.Black80;
-    double bzPageDividers = flyerZoneWidth * Ratioz.xxbzPageSpacing;
+    double bzPageDividers = flyerBoxWidth * Ratioz.xxbzPageSpacing;
 
-    double iconBoxHeight = flyerZoneWidth * 0.08;
+    double iconBoxHeight = flyerBoxWidth * 0.08;
     double iconHeight = iconBoxHeight * iconSizeFactor;
-    double bzPageStripSideMargin = flyerZoneWidth * 0.05;
+    double bzPageStripSideMargin = flyerBoxWidth * 0.05;
 
     double iconMargin = iconBoxHeight - iconHeight;
 
@@ -40,9 +40,9 @@ class BzPgCounter extends StatelessWidget {
       Padding(
         padding: EdgeInsets.only(top: bzPageDividers),
         child: Container(
-          width: flyerZoneWidth,
+          width: flyerBoxWidth,
           color: bzPageBGColor,
-          padding: EdgeInsets.symmetric(vertical: flyerZoneWidth * 0.02),
+          padding: EdgeInsets.symmetric(vertical: flyerBoxWidth * 0.02),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: bzPageStripSideMargin),
             child: Row(
@@ -54,7 +54,7 @@ class BzPgCounter extends StatelessWidget {
                 Container(
                   width: iconBoxHeight,
                   height: iconBoxHeight,
-                  margin: EdgeInsets.symmetric(horizontal: flyerZoneWidth * 0.01),
+                  margin: EdgeInsets.symmetric(horizontal: flyerBoxWidth * 0.01),
                   // color: Colorz.BloodTest,
                   child: Padding(
                     padding: EdgeInsets.all(iconMargin),

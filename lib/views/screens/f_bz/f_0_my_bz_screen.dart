@@ -13,8 +13,8 @@ import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
-import 'package:bldrs/views/screens/f_x_bz_editor_screen.dart';
-import 'package:bldrs/views/screens/f_2_deactivated_flyers_screen.dart';
+import 'package:bldrs/views/screens/f_bz/f_2_deactivated_flyers_screen.dart';
+import 'package:bldrs/views/screens/f_bz/f_x_bz_editor_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
@@ -369,7 +369,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
                 columnChildren: <Widget>[
 
                   Gallery(
-                    flyerZoneWidth: Bubble.clearWidth(context),
+                    flyerBoxWidth: Bubble.clearWidth(context),
                     superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
                       bzModel: _bzModel,
                       onHeaderTap: () => print('on header tap in f 0 my bz Screen'),

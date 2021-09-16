@@ -1,14 +1,17 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/info_page_parts/review_bubble.dart';
 import 'package:bldrs/views/widgets/keywords/keywords_bubble.dart';
 import 'package:flutter/material.dart';
@@ -25,33 +28,33 @@ final PageStorageBucket appBucket = PageStorageBucket();
 
 class InfoPage extends StatelessWidget {
   final SuperFlyer superFlyer;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
 
   const InfoPage({
     @required this.superFlyer,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
   });
 
 
   @override
   Widget build(BuildContext context) {
 
-    double _flyerZoneHeight = Scale.superFlyerZoneHeight(context, flyerZoneWidth);
+    double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
 
-    double _bubbleWidth = flyerZoneWidth - (Ratioz.appBarPadding * 2);
+    double _bubbleWidth = flyerBoxWidth - (Ratioz.appBarPadding * 2);
 
-    // double _peopleBubbleBoxHeight = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
-    // double _peopleIconSize = flyerZoneWidth * Ratioz.xxflyerAuthorPicWidth * 0.7;
+    // double _peopleBubbleBoxHeight = flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
+    // double _peopleIconSize = flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 0.7;
     // double _peopleNameHeight = _peopleBubbleBoxHeight - _peopleIconSize;
 
-    double _headerHeight = Scale.superHeaderHeight(false, flyerZoneWidth);
+    double _headerHeight = FlyerBox.headerBoxHeight(false, flyerBoxWidth);
 
     EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
-    // double _cornerSmall = flyerZoneWidth * Ratioz.xxflyerTopCorners;
-    // double _cornerBig = (flyerZoneWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
-    BorderRadius _bubbleCorners = Borderers.superBorderAll(context, flyerZoneWidth * Ratioz.xxflyerTopCorners);
+    // double _cornerSmall = flyerBoxWidth * Ratioz.xxflyerTopCorners;
+    // double _cornerBig = (flyerBoxWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
+    BorderRadius _bubbleCorners = Borderers.superBorderAll(context, flyerBoxWidth * Ratioz.xxflyerTopCorners);
 
-    BorderRadius _keywordsBubbleCorners = Borderers.superBorderAll(context, flyerZoneWidth * Ratioz.xxflyerTopCorners);
+    BorderRadius _keywordsBubbleCorners = Borderers.superBorderAll(context, flyerBoxWidth * Ratioz.xxflyerTopCorners);
 
     FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType) : superFlyer.flyerType;
 
@@ -82,7 +85,7 @@ class InfoPage extends StatelessWidget {
         if (_editMode == false)
           Container(
             key: ValueKey<String>('info_page_top_space'),
-            width: flyerZoneWidth,
+            width: flyerBoxWidth,
             height: _headerHeight,
           ),
 
@@ -107,7 +110,7 @@ class InfoPage extends StatelessWidget {
 
               /// PUBLISH TIME
               StatsLine(
-                verse: 'Published on Saturday 17 July 2021',
+                verse: 'Published ${Timers.getSuperTimeDifferenceString(from: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Published), to: DateTime.now())}',
                 icon: Iconz.Calendar,
                 bubbleWidth: _bubbleWidth,
               ),
@@ -180,7 +183,7 @@ class InfoPage extends StatelessWidget {
         if (_editMode != true)
           RecordBubble(
             key: ValueKey<String>('info_page_saves_bubble'),
-            flyerZoneWidth: flyerZoneWidth,
+            flyerBoxWidth: flyerBoxWidth,
             bubbleTitle: 'Who Saved it',
             bubbleIcon: Iconz.Save,
             users: _users,
@@ -190,7 +193,7 @@ class InfoPage extends StatelessWidget {
         if (_editMode != true)
           RecordBubble(
             key: ValueKey<String>('info_page_shares_bubble'),
-            flyerZoneWidth: flyerZoneWidth,
+            flyerBoxWidth: flyerBoxWidth,
             bubbleTitle: 'Who Shared it',
             bubbleIcon: Iconz.Share,
             users: _users,
@@ -200,7 +203,7 @@ class InfoPage extends StatelessWidget {
         if (_editMode != true)
           RecordBubble(
             key: ValueKey<String>('info_page_views_bubble'),
-            flyerZoneWidth: flyerZoneWidth,
+            flyerBoxWidth: flyerBoxWidth,
             bubbleTitle: 'Who viewed it',
             bubbleIcon: Iconz.Views,
             users: _users,
@@ -223,12 +226,12 @@ class InfoPage extends StatelessWidget {
 
         ReviewBubble(
           key: ValueKey<String>('info_page_review_bubble'),
-          flyerZoneWidth: flyerZoneWidth,
+          flyerBoxWidth: flyerBoxWidth,
           superFlyer: superFlyer,
         ),
 
         Container(
-          width: flyerZoneWidth,
+          width: flyerBoxWidth,
           height: Ratioz.appBarPadding,
         ),
 

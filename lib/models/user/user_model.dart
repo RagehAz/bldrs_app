@@ -186,7 +186,12 @@ class UserModel {
   }
 // -----------------------------------------------------------------------------
   static bool userIsAuthor(UserModel userModel){
-    bool _userIsAuthor = userModel.myBzzIDs.length > 0 ? true : false;
+    bool _userIsAuthor = false;
+
+    if (userModel != null && userModel.myBzzIDs != null && userModel.myBzzIDs.length > 0){
+      _userIsAuthor = true;
+    }
+
     return
       _userIsAuthor;
   }

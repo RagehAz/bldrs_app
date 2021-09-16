@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +10,7 @@ class ProgressBar extends StatelessWidget {
   final int index;
   // final Duration duration;
   final double opacity;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   // final DraftFlyerModel draft;
   final bool loading;
   final SwipeDirection swipeDirection;
@@ -23,7 +22,7 @@ class ProgressBar extends StatelessWidget {
     @required this.index,
     // @required this.duration,
     @required this.opacity,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     // @required this.draft,
     this.loading = true,
     @required this.swipeDirection,
@@ -36,7 +35,7 @@ class ProgressBar extends StatelessWidget {
     print('B---> ProgressBar : numberOfSlides : ${numberOfSlides}');
 
     return Container(
-      width: flyerZoneWidth,
+      width: flyerBoxWidth,
       child: AnimatedOpacity(
         duration: Ratioz.durationFading200,
         opacity: opacity == null ? 1 : opacity,
@@ -45,19 +44,19 @@ class ProgressBar extends StatelessWidget {
         // superFlyer.loading == true ?
         loading == true || numberOfStrips == null?
         ProgressBox(
-              flyerZoneWidth: flyerZoneWidth,
+              flyerBoxWidth: flyerBoxWidth,
               margins: margins,
               strips: <Widget>[
                 Container(
-                  width: Strips.stripsTotalLength(flyerZoneWidth),
-                  height: Strips.stripThickness(flyerZoneWidth),
+                  width: Strips.stripsTotalLength(flyerBoxWidth),
+                  height: Strips.stripThickness(flyerBoxWidth),
                   decoration: BoxDecoration(
                     color: Strips.stripOffColor,
-                    borderRadius: Strips.stripBorders(context: context, flyerZoneWidth: flyerZoneWidth),
+                    borderRadius: Strips.stripBorders(context: context, flyerBoxWidth: flyerBoxWidth),
                   ),
                   child: LinearProgressIndicator(
                     backgroundColor: Colorz.Nothing,
-                    minHeight: Strips.stripThickness(flyerZoneWidth),
+                    minHeight: Strips.stripThickness(flyerBoxWidth),
                     valueColor: AlwaysStoppedAnimation(Strips.stripFadedColor),
 
                   ),
@@ -68,7 +67,7 @@ class ProgressBar extends StatelessWidget {
             :
         Strips.canBuildStrips(numberOfStrips) == true?
         Strips(
-          flyerZoneWidth: flyerZoneWidth,
+          flyerBoxWidth: flyerBoxWidth,
           numberOfStrips: numberOfStrips,
           slideIndex: index,
           swipeDirection: swipeDirection,

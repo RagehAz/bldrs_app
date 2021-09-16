@@ -4,7 +4,6 @@ import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/launchers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
@@ -32,7 +31,7 @@ import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
-import 'package:bldrs/views/screens/f_1_flyer_editor_screen.dart';
+import 'package:bldrs/views/screens/f_bz/f_1_flyer_editor_screen.dart';
 import 'package:bldrs/views/screens/x_select_keywords_screen.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/alert_dialog.dart';
@@ -55,7 +54,7 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FinalFlyer extends StatefulWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final TinyFlyer tinyFlyer;
   final int initialSlideIndex;
@@ -67,7 +66,7 @@ class FinalFlyer extends StatefulWidget {
   final Key flyerKey;
 
   FinalFlyer({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     this.flyerModel,
     this.tinyFlyer,
     this.initialSlideIndex = 0,
@@ -173,7 +172,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
         FlyerMode _flyerMode = FlyerMethod.flyerModeSelector(
           context: context,
-          flyerZoneWidth: widget.flyerZoneWidth,
+          flyerBoxWidth: widget.flyerBoxWidth,
           flyerSource: _flyerSource,
           inEditor: widget.inEditor,
         );
@@ -200,7 +199,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         }
 
         else if (_flyerMode == FlyerMode.tinyModeByNull){
-          _builtSuperFlyer = SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: widget.flyerZoneWidth, goesToEditor: widget.goesToEditor);
+          _builtSuperFlyer = SuperFlyer.createEmptySuperFlyer(flyerBoxWidth: widget.flyerBoxWidth, goesToEditor: widget.goesToEditor);
         }
 
         // --------------------------------------------------------------------X
@@ -224,7 +223,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         }
 
         else if (_flyerMode == FlyerMode.bigModeByNull){
-          _builtSuperFlyer = SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: widget.flyerZoneWidth, goesToEditor: widget.goesToEditor);
+          _builtSuperFlyer = SuperFlyer.createEmptySuperFlyer(flyerBoxWidth: widget.flyerBoxWidth, goesToEditor: widget.goesToEditor);
         }
 
         // --------------------------------------------------------------------X
@@ -322,7 +321,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// A - emptiness
     else {
-      _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: widget.flyerZoneWidth, goesToEditor: widget.goesToEditor);
+      _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerBoxWidth: widget.flyerBoxWidth, goesToEditor: widget.goesToEditor);
     }
 
     return _superFlyer;
@@ -371,7 +370,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// TASK : below code is temp,,, should see what to do if flyer not found on db
     else {
-      _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: widget.flyerZoneWidth, goesToEditor: false);
+      _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerBoxWidth: widget.flyerBoxWidth, goesToEditor: false);
     }
 
     return _superFlyer;
@@ -419,7 +418,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     }
     else {
-      _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerZoneWidth: widget.flyerZoneWidth, goesToEditor: widget.goesToEditor);
+      _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerBoxWidth: widget.flyerBoxWidth, goesToEditor: widget.goesToEditor);
     }
 
     return _superFlyer;
@@ -572,7 +571,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     print('aho');
 
-    bool _tinyMode = Scale.superFlyerTinyMode(context, widget.flyerZoneWidth);
+    bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
     print('Final flyer zone tapped : ${_superFlyer.flyerID} : micro mode is $_tinyMode');
 
@@ -1288,7 +1287,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                 picAsset: _newAsset,
                 picFile:_newFile,
                 imageSize: await ImageSize.superImageSize(_newAsset),
-                picFit: Imagers.concludeBoxFitForAsset(asset: _newAsset, flyerZoneWidth: widget.flyerZoneWidth),
+                picFit: Imagers.concludeBoxFitForAsset(asset: _newAsset, flyerBoxWidth: widget.flyerBoxWidth),
                 midColor: await Colorizer.getAverageColor(_newFile),
                 headline: null,
                 headlineController: new TextEditingController(),
@@ -2025,7 +2024,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 //               builder: (ctx) =>
 //                   GoogleMapScreen(
 //                     isSelecting: true,
-//                     flyerZoneWidth: Scale.superFlyerZoneWidth(context, 0.8),
+//                     flyerBoxWidth: Scale.superflyerBoxWidth(context, 0.8),
 //                   )
 //           )
 //       );
@@ -2656,7 +2655,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Widget build(BuildContext context) {
     super.build(context);
 
-    bool _tinyMode = Scale.superFlyerTinyMode(context, widget.flyerZoneWidth);
+    bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
     bool _superFlyerHasID = _superFlyer?.flyerID == null ? false : true;
 
@@ -2673,8 +2672,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // Tracer.traceWidgetBuild(number: 2, widgetName: 'FinalFlyer', varName: 'numberOfSlides', varValue: _superFlyer.numberOfSlides);
     // Tracer.traceWidgetBuild(number: 3, widgetName: 'FinalFlyer', varName: 'midColor', varValue: Colorizer.cipherColor(_superFlyer.mSlides[0].midColor));
     return
-        FlyerZoneBox(
-          flyerZoneWidth: widget.flyerZoneWidth,
+        FlyerBox(
+          flyerBoxWidth: widget.flyerBoxWidth,
           superFlyer: _superFlyer,
           onFlyerZoneTap: _onFlyerZoneTap,
           onFlyerZoneLongPress: _onFlyerZoneLongPress,
@@ -2686,13 +2685,13 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             if (_superFlyerHasID == true)
               FlyerPages(
                 superFlyer: _superFlyer,
-                flyerZoneWidth: widget.flyerZoneWidth,
+                flyerBoxWidth: widget.flyerBoxWidth,
               ),
 
             if (_superFlyerHasID == true)
               NewHeader(
                 superFlyer: _superFlyer,
-                flyerZoneWidth: widget.flyerZoneWidth,
+                flyerBoxWidth: widget.flyerBoxWidth,
               ),
 
             if (_tinyMode == false)
@@ -2702,7 +2701,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                 numberOfStrips: _superFlyer.numberOfStrips,
                 numberOfSlides: _superFlyer.mSlides.length,
                 index: _superFlyer.currentSlideIndex,
-                flyerZoneWidth: widget.flyerZoneWidth,
+                flyerBoxWidth: widget.flyerBoxWidth,
                 loading: _loading,
               ),
 

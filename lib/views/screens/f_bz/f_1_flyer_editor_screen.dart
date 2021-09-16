@@ -5,6 +5,7 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/buttons/slides_counter.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -24,9 +25,9 @@ class FlyerEditorScreen extends StatelessWidget {
 
     // double _screenWidth = Scale.superScreenWidth(context);
     double _flyerZoneHeight = Scale.superScreenHeightWithoutSafeArea(context) - Ratioz.appBarSmallHeight - (Ratioz.appBarMargin * 3);
-    double _flyerSizeFactor = Scale.superFlyerSizeFactorByHeight(context, _flyerZoneHeight);
-    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, _flyerSizeFactor);
-    // double _panelWidth = _screenWidth - _flyerZoneWidth - (Ratioz.appBarMargin * 3);
+    double _flyerSizeFactor = FlyerBox.sizeFactorByHeight(context, _flyerZoneHeight);
+    double _flyerBoxWidth = FlyerBox.width(context, _flyerSizeFactor);
+    // double _panelWidth = _screenWidth - _flyerBoxWidth - (Ratioz.appBarMargin * 3);
     // AuthorModel _author = widget.firstTimer ?
     // AuthorModel.getAuthorFromBzByAuthorID(widget.bzModel, superUserID()) :
     // AuthorModel.getAuthorFromBzByAuthorID(widget.bzModel, _flyer.tinyAuthor.userID);
@@ -63,7 +64,7 @@ class FlyerEditorScreen extends StatelessWidget {
 
           /// FLYER & PANEL ZONES
           FinalFlyer(
-            flyerZoneWidth: _flyerZoneWidth,
+            flyerBoxWidth: _flyerBoxWidth,
             flyerModel: null,
             tinyFlyer: firstTimer == true ? null : tinyFlyer, // redundant
             goesToEditor: true,

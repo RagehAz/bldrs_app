@@ -56,13 +56,11 @@ class UserProvider {
   /// UserModel from Snapshot
   static UserModel _userModelFromSnapshot(DocumentSnapshot doc) {
     UserModel _userModel;
-    Map<String, dynamic> _mapa = {};
 
     if (doc != null) {
       try {
         Map<String, dynamic> _map = doc.data() as Map;
 
-        _mapa = _map;
 
         List<dynamic> _myBzzIDs = _map == null
             ? []
@@ -93,7 +91,7 @@ class UserProvider {
         );
       } catch (error) {
         print(
-            '_userModelFromSnapshot error is : $error : _map[\'authBy\'] : ${_mapa['authBy']}');
+            '_userModelFromSnapshot error is : $error');
         throw (error);
       }
     }

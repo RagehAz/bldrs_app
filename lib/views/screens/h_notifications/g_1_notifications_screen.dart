@@ -1,12 +1,10 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
-import 'package:bldrs/controllers/notifications/bldrs_notiz.dart';
 import 'package:bldrs/controllers/notifications/noti_ops.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/dashboard/super_methods.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
@@ -16,7 +14,6 @@ import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/notifications/notification_card.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -63,10 +60,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       _triggerLoading(function: (){}).then((_) async {
         /// ---------------------------------------------------------0
 
-        List<NotiModel> _notiModelsAho = await SuperBldrsMethod.readAllNotiModels(
-          context: context,
-          userID: superUserID(),
-        );
 
         // _notiModelsAho[0].printNotiModel(methodName: 'kos omak');
         //

@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/tracers.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_headline.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/header_shadow.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/max_header.dart';
@@ -10,11 +10,11 @@ import 'package:flutter/material.dart';
 
 class FlyerHeader extends StatelessWidget {
   final SuperFlyer superFlyer;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
 
   FlyerHeader({
     this.superFlyer,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
   });
 
   @override
@@ -30,34 +30,34 @@ class FlyerHeader extends StatelessWidget {
           children: <Widget>[
 
             Container(
-              height: Scale.superHeaderHeight(superFlyer.nav.bzPageIsOn, flyerZoneWidth),
-              width: flyerZoneWidth,
+              height: FlyerBox.headerBoxHeight(superFlyer.nav.bzPageIsOn, flyerBoxWidth),
+              width: flyerBoxWidth,
               child: Stack(
                 children: <Widget>[
 
                   // if (stripBlurIsOn)
                   // BlurLayer(
-                  //   height: Scale.superHeaderHeight(bzPageIsOn, flyerZoneWidth),
-                  //   width: flyerZoneWidth,
-                  //   borders: Borderers.superHeaderStripCorners(context, bzPageIsOn, flyerZoneWidth),
+                  //   height: Scale.superHeaderHeight(bzPageIsOn, flyerBoxWidth),
+                  //   width: flyerBoxWidth,
+                  //   borders: Borderers.superHeaderStripCorners(context, bzPageIsOn, flyerBoxWidth),
                   // ),
 
 
                   // --- HEADER SHADOW
                   HeaderShadow(
-                    flyerZoneWidth: flyerZoneWidth,
+                    flyerBoxWidth: flyerBoxWidth,
                     bzPageIsOn: superFlyer.nav.bzPageIsOn,
                   ),
 
                   // --- HEADER COMPONENTS
                   MiniHeaderStrip(
                     superFlyer: superFlyer,
-                    flyerZoneWidth: flyerZoneWidth,
+                    flyerBoxWidth: flyerBoxWidth,
                   ),
 
                   // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
                   BzPageHeadline(
-                    flyerZoneWidth: flyerZoneWidth,
+                    flyerBoxWidth: flyerBoxWidth,
                     bzPageIsOn: superFlyer.nav.bzPageIsOn,
                     tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
                   ),
@@ -69,7 +69,7 @@ class FlyerHeader extends StatelessWidget {
             if (superFlyer.nav.bzPageIsOn)
             MaxHeader(
               superFlyer: superFlyer,
-              flyerZoneWidth: flyerZoneWidth,
+              flyerBoxWidth: flyerBoxWidth,
               bzPageIsOn: superFlyer.nav.bzPageIsOn,
               tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
             ),

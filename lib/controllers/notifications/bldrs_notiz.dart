@@ -627,8 +627,8 @@ class BldrsNotiModelz {
         timeStamp: DateTime.now(),
         title: '${tinyAuthor.name} invites you',
         body: 'You are invited to become an author of the Bldr account : ${tinyBz.bzName}',
-        attachment: tinyBz.bzLogo,
-        attachmentType: NotiAttachmentType.bz,
+        attachment: null,
+        attachmentType: null,
 
         dismissed: false,
         sendFCM: true,
@@ -1024,22 +1024,9 @@ class BldrsNotiModelz {
   }
 }
 
-// --- ALL NEWS : NEW PUBLISHED FLYER BY BZ WITHOUT AUTHOR : (INSTANTANEOUS)
-
-// --- ALL NEWS : NEW PUBLISHED FLYER BY BZ WITH AUTHOR : (INSTANTANEOUS)
-
-// --- ALL NEWS : NEW PUBLISHED FLYER BY USER OF TYPE : (INSTANTANEOUS)
-
 // o ( FOLLOWING NOTIFICATIONS )
 // --- BZ NEWS : NEW FOLLOWERS : (MIN OF NUMBER = X && MIN OF DURATION = T)
 
-// o ( CONNECTION NOTIFICATION )
-// --- BZ NEWS : NEW RECEIVED CONNECTION REQUEST : (INSTANTANEOUS)
-// --- BZ NEWS : SENT CONNECTION REPLY 'ACCEPTED, REJECTED' : (INSTANTANEOUS)
-
-// o ( BZ AUTHOR REQUEST NOTIFICATION )
-// --- BZ NEWS : USER REPLIED TO YOUR SENT AUTHORSHIP REQUEST 'ACCEPTED, REJECTED' : (INSTANTANEOUS)
-// --- USER NEWS : BZ SENT YOU AUTHORSHIP REQUEST 'ACCEPT, REJECT' : (INSTANTANEOUS)
 
 // o ( BZ PUBLISHED FLYER EDITOR'S REPLY )
 // --- BZ NEWS : BLDRS EDITORS 'REJECTED, EDITED, HIGHLIGHTED' YOUR FLYER : (INSTANTANEOUS)
@@ -1047,9 +1034,6 @@ class BldrsNotiModelz {
 // o ( FLYERS SHARING )
 // --- ANY USER : RECEIVED A FLYER : (INSTANTANEOUS)
 // --- ANY USER : RECEIVED A COLLECTION OF FLYERS : (INSTANTANEOUS)
-
-// o ( PAID NEWS )
-// --- USER NEWS : BZ PAID NEWS : ( LIMITED AMOUNT PER WEEK AND LIMITED AMOUNT OF NOTIFICATION ALERTS )
 
 // o ( STATISTICS )
 // --- BZ NEWS : COMPETITION SIGNUPS IN SAME FIELD : (MIN OF NUM = X && MIN OF DURATION = T)

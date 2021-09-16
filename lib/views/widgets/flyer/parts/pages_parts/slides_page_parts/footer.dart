@@ -1,15 +1,15 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/footer_button.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/slide_counters.dart';
 import 'package:flutter/material.dart';
 
 class FlyerFooter extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final int shares;
   final int views;
   final int saves;
@@ -17,7 +17,7 @@ class FlyerFooter extends StatelessWidget {
   final Function onCountersTap;
 
   FlyerFooter({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.shares,
     @required this.views,
     @required this.saves,
@@ -25,20 +25,20 @@ class FlyerFooter extends StatelessWidget {
     @required this.onCountersTap,
   });
 // -----------------------------------------------------------------------------
-  static double boxCorners(double flyerZoneWidth){
-    return flyerZoneWidth * Ratioz.xxflyerBottomCorners;
+  static double boxCorners(double flyerBoxWidth){
+    return flyerBoxWidth * Ratioz.xxflyerBottomCorners;
   }
 // -----------------------------------------------------------------------------
-  static double boxHeight({BuildContext context, double flyerZoneWidth}){
+  static double boxHeight({BuildContext context, double flyerBoxWidth}){
     double _footerBTMargins = buttonMargin(
       context: context,
-      flyerZoneWidth: flyerZoneWidth,
+      flyerBoxWidth: flyerBoxWidth,
       buttonIsOn: null,
     );
 
     double _footerBTRadius = buttonRadius(
       context: context,
-      flyerZoneWidth: flyerZoneWidth,
+      flyerBoxWidth: flyerBoxWidth,
       buttonIsOn: null,
     );
 
@@ -47,29 +47,29 @@ class FlyerFooter extends StatelessWidget {
     return _flyerFooterHeight;
   }
 // -----------------------------------------------------------------------------
-  static double buttonMargin({BuildContext context, double flyerZoneWidth, bool buttonIsOn}){
+  static double buttonMargin({BuildContext context, double flyerBoxWidth, bool buttonIsOn}){
 
-    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth);
+    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
     bool _buttonIsOn = buttonIsOn == null ? false : buttonIsOn;
 
     double _footerBTMargins =
 
         (_buttonIsOn == true && _tinyMode == true) ? //&& widget.slidingIsOn == false
-        flyerZoneWidth * 0.01// for tiny flyer when Button is on
+        flyerBoxWidth * 0.01// for tiny flyer when Button is on
             :
         (_buttonIsOn == true) ?
-        flyerZoneWidth * 0.015 // for big flyer when button is on
+        flyerBoxWidth * 0.015 // for big flyer when button is on
             :
-        flyerZoneWidth * 0.025; // for big flyer when button is off
+        flyerBoxWidth * 0.025; // for big flyer when button is off
 
     return _footerBTMargins;
   }
 // -----------------------------------------------------------------------------
-  static double buttonRadius({BuildContext context, double flyerZoneWidth, bool buttonIsOn}){
-    double _flyerBottomCorners = boxCorners(flyerZoneWidth);
+  static double buttonRadius({BuildContext context, double flyerBoxWidth, bool buttonIsOn}){
+    double _flyerBottomCorners = boxCorners(flyerBoxWidth);
     double _footerBTMargins = buttonMargin(
       context: context,
-      flyerZoneWidth: flyerZoneWidth,
+      flyerBoxWidth: flyerBoxWidth,
       buttonIsOn: buttonIsOn,
     );
 
@@ -77,8 +77,8 @@ class FlyerFooter extends StatelessWidget {
     return _footerBTRadius;
   }
 // -----------------------------------------------------------------------------
-  static double buttonSize({BuildContext context, double flyerZoneWidth, bool buttonIsOn}){
-    double _footerBTRadius = buttonRadius(context: context, flyerZoneWidth: flyerZoneWidth, buttonIsOn: buttonIsOn);
+  static double buttonSize({BuildContext context, double flyerBoxWidth, bool buttonIsOn}){
+    double _footerBTRadius = buttonRadius(context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: buttonIsOn);
     return _footerBTRadius * 2;
   }
 // -----------------------------------------------------------------------------
@@ -91,17 +91,17 @@ class FlyerFooter extends StatelessWidget {
     return _color;
   }
 // -----------------------------------------------------------------------------
-  static Widget boxShadow({BuildContext context, double flyerZoneWidth}){
+  static Widget boxShadow({BuildContext context, double flyerBoxWidth}){
 
-    double _flyerBottomCorners = boxCorners(flyerZoneWidth);
+    double _flyerBottomCorners = boxCorners(flyerBoxWidth);
     double _footerHeight = boxHeight(
       context: context,
-      flyerZoneWidth: flyerZoneWidth,
+      flyerBoxWidth: flyerBoxWidth,
     );
 
     return
       Container(
-        width: flyerZoneWidth,
+        width: flyerBoxWidth,
         height: _footerHeight,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -125,11 +125,11 @@ class FlyerFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    bool _tinyMode = Scale.superFlyerTinyMode(context, flyerZoneWidth) ;
+    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
     /// SHARE & SAVE BUTTONS
 
-    // double _footerBTRadius = buttonRadius(context: context, flyerZoneWidth: flyerZoneWidth, buttonIsOn: false,);
+    // double _footerBTRadius = buttonRadius(context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: false,);
 
     // dynamic _footerBTColor = Colorz.Grey80;
     // String _shareBTIcon = Iconz.Share;
@@ -140,21 +140,21 @@ class FlyerFooter extends StatelessWidget {
     // dynamic saveBTColor = ankhOn == true ? Colorz.SkyDarkBlue : footerBTColor;
 // -----------------------------------------------------------------------------
     /// FLYER FOOTER CONTAINER
-    double _flyerFooterHeight = boxHeight(context: context, flyerZoneWidth: flyerZoneWidth);
+    double _flyerFooterHeight = boxHeight(context: context, flyerBoxWidth: flyerBoxWidth);
 
     // --- FLYER FOOTER
     return Align(
       alignment: Alignment.bottomCenter,
       // --- FLYER FOOTER BOX
       child: Container(
-        width: flyerZoneWidth,
+        width: flyerBoxWidth,
         height: _flyerFooterHeight,
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
 
             /// BOTTOM SHADOW
-            boxShadow(context: context, flyerZoneWidth: flyerZoneWidth,),
+            boxShadow(context: context, flyerBoxWidth: flyerBoxWidth,),
 
             /// SHARE BUTTON
             if (!_tinyMode)
@@ -164,7 +164,7 @@ class FlyerFooter extends StatelessWidget {
                 bottom: 0,
                 child: FooterButton(
                   icon: Iconz.Share, /// TASK : let share icon point outwards the flyer pointing to outside the phone
-                  flyerZoneWidth: flyerZoneWidth,
+                  flyerBoxWidth: flyerBoxWidth,
                   onTap: onShareTap,
                   verse: _shareBTVerse,
                 ),
@@ -176,7 +176,7 @@ class FlyerFooter extends StatelessWidget {
                 saves: saves,
                 shares: shares,
                 views: views,
-                flyerZoneWidth: flyerZoneWidth,
+                flyerBoxWidth: flyerBoxWidth,
                 onCountersTap: onCountersTap,
               ),
 

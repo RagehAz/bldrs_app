@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class SlideCounters extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final int shares;
   final int views;
   final int saves;
   final Function onCountersTap;
 
   SlideCounters({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     this.shares = 0,
     this.views = 0,
     this.saves = 0,
@@ -29,12 +29,12 @@ class SlideCounters extends StatelessWidget {
     // --- SCREEN
     // double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    double verseScaleFactor = flyerZoneWidth/screenWidth;
+    double verseScaleFactor = flyerBoxWidth/screenWidth;
     // --- SHARE & SAVE BUTTONS
-    double footerBTMargins = flyerZoneWidth * Ratioz.xxfooterBTMargins;
+    double footerBTMargins = flyerBoxWidth * Ratioz.xxfooterBTMargins;
 
     // --- FLYER STATES
-    double flyerStateBoxCorner = flyerZoneWidth * 0.021;
+    double flyerStateBoxCorner = flyerBoxWidth * 0.021;
 
     double singleCounterPaddingRatio = 0.5;
 

@@ -4,13 +4,13 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class BzPgFields extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final bool bzPageIsOn;
   final String bzScope;
 
   BzPgFields({
     @required this.bzPageIsOn,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.bzScope,
 
 });
@@ -20,7 +20,7 @@ class BzPgFields extends StatelessWidget {
 
 // -----------------------------------------------------------------------------
     dynamic bzPageBGColor = Colorz.Black80;
-    double bzPageDividers = flyerZoneWidth * 0.005;
+    double bzPageDividers = flyerBoxWidth * 0.005;
 // -----------------------------------------------------------------------------
 
     return
@@ -28,9 +28,9 @@ class BzPgFields extends StatelessWidget {
       Padding(
         padding: EdgeInsets.only(top: bzPageDividers),
         child: Container(
-          width: flyerZoneWidth,
+          width: flyerBoxWidth,
           color: bzPageBGColor,
-          padding: EdgeInsets.symmetric(vertical: flyerZoneWidth * 0.02),
+          padding: EdgeInsets.symmetric(vertical: flyerBoxWidth * 0.02),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,7 +68,7 @@ class BzPgFields extends StatelessWidget {
                             color: Colorz.White255,
                             weight: VerseWeight.bold,
                             size: 2,
-                            margin: flyerZoneWidth * 0.02 * 0,
+                            margin: flyerBoxWidth * 0.02 * 0,
                           );
                       }
                   )

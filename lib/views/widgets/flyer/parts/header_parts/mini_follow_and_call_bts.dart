@@ -7,6 +7,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/painting.dart';
@@ -14,35 +15,35 @@ import 'package:websafe_svg/websafe_svg.dart';
 
 class FollowAndCallBTs extends StatelessWidget {
   final SuperFlyer superFlyer;
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
 
   FollowAndCallBTs({
     @required this.superFlyer,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
 });
 // -----------------------------------------------------------------------------
-  static double getPaddings({double flyerZoneWidth}){
-    return flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
+  static double getPaddings({double flyerBoxWidth}){
+    return flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
   }
 // -----------------------------------------------------------------------------
-  static double getBoxHeight({double flyerZoneWidth, bool bzPageIsOn}){
-    double _headerMainHeight = Scale.superHeaderStripHeight(bzPageIsOn, flyerZoneWidth);
-    double _headerMainPadding = flyerZoneWidth * Ratioz.xxflyerHeaderMainPadding;
+  static double getBoxHeight({double flyerBoxWidth, bool bzPageIsOn}){
+    double _headerMainHeight = FlyerBox.headerStripHeight(bzPageIsOn, flyerBoxWidth);
+    double _headerMainPadding = flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
     double _followGalleryHeight = _headerMainHeight - (2 * _headerMainPadding);
     return _followGalleryHeight;
   }
 // -----------------------------------------------------------------------------
-  static double getBoxWidth({double flyerZoneWidth}){
-    return (flyerZoneWidth * Ratioz.xxflyerFollowBtWidth) - 1;
+  static double getBoxWidth({double flyerBoxWidth}){
+    return (flyerBoxWidth * Ratioz.xxflyerFollowBtWidth) - 1;
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _paddings = getPaddings(flyerZoneWidth: flyerZoneWidth);
+    double _paddings = getPaddings(flyerBoxWidth: flyerBoxWidth);
     // --- FOLLOWERS & GALLERY --- --- --- --- --- --- --- --- --- --- --- --- ---
-    double followGalleryHeight = getBoxHeight(flyerZoneWidth: flyerZoneWidth, bzPageIsOn: superFlyer.nav.bzPageIsOn);
-    double followGalleryWidth = getBoxWidth(flyerZoneWidth: flyerZoneWidth);
+    double followGalleryHeight = getBoxHeight(flyerBoxWidth: flyerBoxWidth, bzPageIsOn: superFlyer.nav.bzPageIsOn);
+    double followGalleryWidth = getBoxWidth(flyerBoxWidth: flyerBoxWidth);
 // -----------------------------------------------------------------------------
     return
       superFlyer.nav.bzPageIsOn == true ? Container () :
@@ -56,7 +57,7 @@ class FollowAndCallBTs extends StatelessWidget {
 
             /// --- FOLLOW BUTTON
             FollowBT(
-              flyerZoneWidth: flyerZoneWidth,
+              flyerBoxWidth: flyerBoxWidth,
               onFollowTap: superFlyer.rec.onFollowTap,
               tappingUnfollow: (){},
               followOn: superFlyer.rec.followIsOn,
@@ -69,7 +70,7 @@ class FollowAndCallBTs extends StatelessWidget {
 
             /// --- Call BUTTON
             CallBT(
-              flyerZoneWidth: flyerZoneWidth,
+              flyerBoxWidth: flyerBoxWidth,
               onCallTap: superFlyer.rec.onCallTap,
             ),
 
@@ -81,13 +82,13 @@ class FollowAndCallBTs extends StatelessWidget {
 }
 
 class FollowBT extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final Function onFollowTap;
   final Function tappingUnfollow;
   final bool followOn;
 
   FollowBT({
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
     @required this.onFollowTap,
     @required this.tappingUnfollow,
     @required this.followOn,
@@ -97,13 +98,13 @@ class FollowBT extends StatelessWidget {
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === ===
     double screenWidth = Scale.superScreenWidth(context);
-    bool miniMode = Scale.superFlyerMiniMode(context, flyerZoneWidth) ;
+    bool _isTinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth) ;
     bool versesDesignMode = false;
     bool versesShadow = false;
     // --- FOLLOW BUTTON --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- FOLLOW BUTTON
     Color followBTColor = followOn == true ? Colorz.Yellow255 : Colorz.White20;
-    double followBTHeight = flyerZoneWidth * Ratioz.xxfollowBTHeight;
-    double followBTWidth = flyerZoneWidth * Ratioz.xxfollowCallWidth;
+    double followBTHeight = flyerBoxWidth * Ratioz.xxfollowBTHeight;
+    double followBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
     // === === === === === === === === === === === === === === === === === ===
     // --- FOLLOW ICON --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- FOLLOW ICON
     String followIcon = Iconz.Follow;
@@ -121,7 +122,7 @@ class FollowBT extends StatelessWidget {
     // }
     // === === === === === === === === === === === === === === === === === ===
     return
-      miniMode == true ? Container() :
+      _isTinyMode == true ? Container() :
       GestureDetector(
         onTap: onFollowTap,
         child: Container(
@@ -130,7 +131,7 @@ class FollowBT extends StatelessWidget {
           decoration: BoxDecoration(
             color: followBTColor,
             boxShadow: superFollowBtShadow(followBTHeight),
-            borderRadius: Borderers.superFollowOrCallCorners(context, flyerZoneWidth, true),
+            borderRadius: Borderers.superFollowOrCallCorners(context, flyerBoxWidth, true),
           ),
           child: Stack(
             alignment: Alignment.center,
@@ -141,7 +142,7 @@ class FollowBT extends StatelessWidget {
                 height: followBTHeight,
                 width: followBTWidth,
                 decoration: BoxDecoration(
-                  borderRadius: Borderers.superFollowOrCallCorners(context, flyerZoneWidth, true),
+                  borderRadius: Borderers.superFollowOrCallCorners(context, flyerBoxWidth, true),
                   gradient: Colorizer.superFollowBTGradient(),
                 ),
               ),
@@ -170,7 +171,7 @@ class FollowBT extends StatelessWidget {
                     weight: VerseWeight.bold,
                     shadow: versesShadow,
                     italic: false,
-                    scaleFactor: flyerZoneWidth/screenWidth,
+                    scaleFactor: flyerBoxWidth/screenWidth,
                   )
 
                 ],
@@ -183,12 +184,12 @@ class FollowBT extends StatelessWidget {
 }
 
 class CallBT extends StatelessWidget {
-  final double flyerZoneWidth;
+  final double flyerBoxWidth;
   final Function onCallTap;
 
   CallBT({
     @required this.onCallTap,
-    @required this.flyerZoneWidth,
+    @required this.flyerBoxWidth,
   });
 
   @override
@@ -196,19 +197,19 @@ class CallBT extends StatelessWidget {
 // -----------------------------------------------------------------------------
     bool versesDesignMode = false;
     bool versesShadow = false;
-    bool miniMode = Scale.superFlyerMiniMode(context, flyerZoneWidth);
+    bool isTinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
     // --- call BUTTON
     Color callBTColor = Colorz.White10;
-    double callBTHeight = flyerZoneWidth * Ratioz.xxCallBTHeight;
-    double callBTWidth = flyerZoneWidth * Ratioz.xxfollowCallWidth;
+    double callBTHeight = flyerBoxWidth * Ratioz.xxCallBTHeight;
+    double callBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
     // --- call ICON
     String callIcon = Iconz.ComPhone;
-    double callIconWidth = flyerZoneWidth * 0.05;
+    double callIconWidth = flyerBoxWidth * 0.05;
 // -----------------------------------------------------------------------------
-    BorderRadius roundCorners = Borderers.superFollowOrCallCorners(context, flyerZoneWidth, false);
+    BorderRadius roundCorners = Borderers.superFollowOrCallCorners(context, flyerBoxWidth, false);
 // -----------------------------------------------------------------------------
     return
-      miniMode == true ? Container() :
+      isTinyMode == true ? Container() :
       GestureDetector(
         onTap: onCallTap,
         child: Container(
@@ -243,7 +244,7 @@ class CallBT extends StatelessWidget {
                   Container(
                     height: callIconWidth,
                     width: callIconWidth,
-                    margin: EdgeInsets.all(flyerZoneWidth*0.01),
+                    margin: EdgeInsets.all(flyerBoxWidth*0.01),
                     child: WebsafeSvg.asset(callIcon),
                   ),
 
@@ -263,7 +264,7 @@ class CallBT extends StatelessWidget {
                     weight: VerseWeight.bold,
                     shadow: versesShadow,
                     designMode: versesDesignMode,
-                    scaleFactor: flyerZoneWidth/Scale.superScreenWidth(context),
+                    scaleFactor: flyerBoxWidth/Scale.superScreenWidth(context),
                   )
 
                 ],

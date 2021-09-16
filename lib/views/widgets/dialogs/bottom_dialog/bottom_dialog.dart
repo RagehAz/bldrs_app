@@ -11,6 +11,7 @@ import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -252,7 +253,7 @@ class BottomDialog extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static void slideBzBottomDialog({BuildContext context, BzModel bz, AuthorModel author}) {
 
-    double _flyerZoneWidth = Scale.superFlyerZoneWidth(context, 0.71);
+    double _flyerBoxWidth = FlyerBox.width(context, 0.71);
 
     BottomDialog.showBottomDialog(
         context: context,
@@ -260,7 +261,7 @@ class BottomDialog extends StatelessWidget {
         draggable: true,
         child: Center(
           child: FinalFlyer(
-            flyerZoneWidth: _flyerZoneWidth,
+            flyerBoxWidth: _flyerBoxWidth,
             goesToEditor: false,
             flyerModel: FlyerModel(
               flyerID: null,
