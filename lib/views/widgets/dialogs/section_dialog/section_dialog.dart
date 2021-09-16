@@ -7,6 +7,7 @@ import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/section_dialog/section_bubble.dart';
 import 'package:bldrs/views/widgets/dialogs/section_dialog/section_button.dart';
+import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class SectionDialog extends StatelessWidget {
@@ -80,6 +81,7 @@ SectionDialog({
                     dialogHeight: dialogHeight,
                   ),
 
+
                 ]
             ),
 
@@ -132,6 +134,8 @@ SectionDialog({
 
               ],
             ),
+
+            PyramidsHorizon(heightFactor: 0.5,),
 
           ],
         ),
