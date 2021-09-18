@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
@@ -18,9 +19,15 @@ import 'package:flutter/material.dart';
 
 class FlyerScreen extends StatelessWidget {
   final TinyFlyer tinyFlyer;
+  final FlyerModel flyerModel;
+  final int initialSlideIndex;
+  final String flyerID;
 
   FlyerScreen({
     this.tinyFlyer,
+    this.flyerModel,
+    this.initialSlideIndex,
+    this.flyerID,
 });
 
 
@@ -29,7 +36,12 @@ class FlyerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _flyerID = ModalRoute.of(context).settings.arguments as String;
+    String _flyerID = ModalRoute.of(context).settings.arguments as String;
+
+    if (_flyerID == null){
+      _flyerID = flyerID ?? tinyFlyer?.flyerID ?? flyerModel?.flyerID;
+    }
+
     print('_flyerID is $_flyerID');
     // final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
     // final TinyFlyer _tinyFlyer = tinyFlyer == null ? _pro.getTinyFlyerByFlyerID(_flyerID) : tinyFlyer;
@@ -77,9 +89,11 @@ class FlyerScreen extends StatelessWidget {
         FinalFlyer(
           flyerBoxWidth: FlyerBox.width(context, 1),
           tinyFlyer: tinyFlyer,
-          initialSlideIndex: tinyFlyer.slideIndex,
+          flyerModel: flyerModel,
+          flyerID: flyerID,
+          initialSlideIndex: initialSlideIndex ?? tinyFlyer?.slideIndex ?? 0,
           goesToEditor: false,
-          flyerKey: PageStorageKey<String>('${tinyFlyer.flyerID}'),
+          flyerKey: PageStorageKey<String>(_flyerID),
         ),
 
       ),

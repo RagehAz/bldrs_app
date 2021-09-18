@@ -31,68 +31,68 @@ class _DashBoardState extends State<DashBoard> {
         loading: false,
         listWidgets: <Widget>[
 
-          DashboardWideButton(
-            title: 'Big Mac Price Index',
+          WideButton(
+            verse: 'Big Mac Price Index',
             icon: Iconz.BigMac,
             onTap: () => Nav.goToNewScreen(context, PricingScreen()),
           ),
 
-          DashboardWideButton(
-            title: 'Pricing',
+          WideButton(
+            verse: 'Pricing',
             icon: Iconz.Dollar,
             onTap: () => Nav.goToNewScreen(context, PricingScreen()),
           ),
 
-          DashboardWideButton(
-            title: 'All Flyers',
+          WideButton(
+            verse: 'All Flyers',
             icon: Iconz.Flyer,
             onTap: () => Nav.goToNewScreen(context, AllFlyersScreen()),
           ),
 
-          DashboardWideButton(
-              title: 'General Statistics',
+          WideButton(
+              verse: 'General Statistics',
               icon: Iconz.Statistics,
               onTap: () => Nav.goToNewScreen(context, GeneralStatistics()),
           ),
 
-          DashboardWideButton(
-              title: 'Users Manager',
+          WideButton(
+              verse: 'Users Manager',
               icon: Iconz.Users,
               onTap: () => Nav.goToNewScreen(context, UsersManagerScreen()),
           ),
 
-          DashboardWideButton(
-            title: 'Zones Manager',
+          WideButton(
+            verse: 'Zones Manager',
             icon: Iconz.Earth,
             onTap: () => Nav.goToNewScreen(context, ZonesManagerScreen()),
           ),
 
-          DashboardWideButton(
-            title: 'Bzz Manager',
+          WideButton(
+            verse: 'Bzz Manager',
             icon: Iconz.Bz,
             onTap: () => Nav.goToNewScreen(context, BzzManagerScreen()),
           ),
 
-          DashboardWideButton(
-            title: 'Notifications Manager',
+          WideButton(
+            verse: 'Notifications Manager',
             icon: Iconz.News,
             onTap: () => Nav.goToNewScreen(context, NotificationsManager()),
           ),
 
-          DashboardWideButton(
-            title: 'Keywords Manager',
+          WideButton(
+            verse: 'Keywords Manager',
             icon: Iconz.Keyword,
             onTap: () => Nav.goToNewScreen(context, KeywordsManager()),
           ),
 
-          DashboardWideButton(
-            title: 'Flyers Auditor',
+          WideButton(
+            verse: 'Flyers Auditor',
             icon: Iconz.VerifyFlyer,
             onTap: () => Nav.goToNewScreen(context, FlyersAuditor()),
           ),
 
-          DashboardWideButton(
-            title: 'UI Manager',
+          WideButton(
+            verse: 'UI Manager',
             icon: Iconz.Star,
             onTap: () => Nav.goToNewScreen(context, UIManager()),
           ),

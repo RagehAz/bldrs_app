@@ -4,21 +4,21 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:flutter/material.dart';
 
-class DashboardWideButton extends StatelessWidget {
+class WideButton extends StatelessWidget {
   final String icon;
   final Function onTap;
-  final String title;
+  final String verse;
   final bool isActive;
   final Color color;
-  final Color titleColor;
+  final Color verseColor;
 
-  const DashboardWideButton({
-    @required this.title,
+  const WideButton({
+    @required this.verse,
     this.onTap,
     this.icon,
     this.isActive = true,
     this.color,
-    this.titleColor = Colorz.White255,
+    this.verseColor = Colorz.White255,
   });
 
   @override
@@ -31,8 +31,8 @@ class DashboardWideButton extends StatelessWidget {
       DreamBox(
         height: 50,
         width: _screenWidth - (2 * Ratioz.appBarMargin),
-        verse: title,
-        verseColor: titleColor,
+        verse: verse,
+        verseColor: verseColor,
         icon: icon,
         iconSizeFactor: 0.6,
         verseScaleFactor: 1,

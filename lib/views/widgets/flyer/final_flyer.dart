@@ -13,6 +13,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/firestore/dynamic_links.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/firestore/record_ops.dart';
@@ -841,10 +842,19 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     print('Sharing flyer');
 
     int _i = _superFlyer.currentSlideIndex;
+    FlyerModel _flyer = FlyerModel.getFlyerModelFromSuperFlyer(_superFlyer);
+
+    dynamic _dynamicLink = await DynamicLinksApi().createFlyerDynamicLink(
+      context: context,
+      isShortURL: true,
+      flyerModel: _flyer,
+      slideIndex: _i,
+    );
+
 
     /// TASK : adjust link url and description
     LinkModel _theFlyerLink = LinkModel(
-        url: _superFlyer.flyerURL,
+        url: _dynamicLink,
         description: '${_superFlyer.flyerType} flyer .\n'
             '- slide number ${_superFlyer.currentSlideIndex} .\n'
             '- ${_superFlyer.mSlides[_i].headline} .\n'
@@ -2345,7 +2355,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         flyerState: _superFlyer.flyerState,
         keywords: _superFlyer.keywords,
         flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
-        flyerURL: _superFlyer.flyerURL,
         flyerZone: _superFlyer.flyerZone,
         // -------------------------
         tinyAuthor: _tinyAuthor,
@@ -2405,7 +2414,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         flyerState: _superFlyer.flyerState,
         keywords: _superFlyer.keywords,
         flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
-        flyerURL: _superFlyer.flyerURL,
         flyerZone: _superFlyer.flyerZone,
         // -------------------------
         tinyAuthor: _superFlyer.flyerTinyAuthor,
@@ -2698,8 +2706,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               ProgressBar(
                 swipeDirection: _superFlyer.nav.swipeDirection,
                 opacity: _superFlyer.nav.progressBarOpacity,
-                numberOfStrips: _superFlyer.numberOfStrips,
-                numberOfSlides: _superFlyer.mSlides.length,
+                numberOfStrips: _superFlyer?.numberOfStrips ?? 0,
+                numberOfSlides: _superFlyer?.mSlides?.length ?? 0,
                 index: _superFlyer.currentSlideIndex,
                 flyerBoxWidth: widget.flyerBoxWidth,
                 loading: _loading,

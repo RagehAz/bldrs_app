@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_data_row.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_row.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';

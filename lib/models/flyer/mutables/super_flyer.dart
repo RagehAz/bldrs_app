@@ -54,7 +54,6 @@ class SuperFlyer{
   final ValueKey key; // MutableFlyer -- ?
   final String flyerID; // MutableFlyer -- ?
   String authorID; // tinyAuthor
-  final String flyerURL; // MutableFlyer -- ?
 
   /// flyer data
   FlyerType flyerType; // MutableFlyer -- ?
@@ -112,7 +111,6 @@ class SuperFlyer{
     @required this.key,
     @required this.flyerID,
     @required this.authorID,
-    @required this.flyerURL,
 
     /// flyer data
     @required this.flyerType,
@@ -223,7 +221,6 @@ class SuperFlyer{
           key: null,
           flyerID: null,
           authorID: null,
-          flyerURL: null,
 
           /// flyer data
           flyerType: null,
@@ -348,7 +345,6 @@ class SuperFlyer{
           bzForm: null,
           createdAt: null,
           accountType: null,
-          bzURL: null,
           bzName: flyerModel.tinyBz.bzName,
           bzLogo: flyerModel.tinyBz.bzLogo,
           bzScope: null,
@@ -390,7 +386,6 @@ class SuperFlyer{
         key: ValueKey(flyerModel.flyerID),
         flyerID: flyerModel.flyerID,
         authorID: flyerModel.tinyAuthor.userID,
-        flyerURL: flyerModel.flyerURL,
 
         /// flyer data
         flyerType: flyerModel.flyerType,
@@ -513,7 +508,6 @@ class SuperFlyer{
           bzForm: null,
           createdAt: null,
           accountType: null,
-          bzURL: null,
           bzName: tinyFlyer.tinyBz.bzName,
           bzLogo: tinyFlyer.tinyBz.bzLogo,
           bzScope: null,
@@ -559,7 +553,6 @@ class SuperFlyer{
         key: ValueKey(tinyFlyer.flyerID),
         flyerID: tinyFlyer.flyerID,
         authorID: tinyFlyer.authorID,
-        flyerURL: null,
 
         /// flyer data
         flyerType: tinyFlyer.flyerType,
@@ -696,7 +689,6 @@ class SuperFlyer{
           bzForm: bzModel.bzForm,
           createdAt: bzModel.createdAt,
           accountType: bzModel.accountType,
-          bzURL: bzModel.bzURL,
           bzName: bzModel.bzName,
           bzLogo: bzModel.bzLogo,
           bzScope: bzModel.bzScope,
@@ -739,7 +731,6 @@ class SuperFlyer{
         key: ValueKey('${bzModel.bzID} : ${bzModel.nanoFlyers.length + 1} : ${superUserID()}'),
         flyerID: SuperFlyer.draftID,
         authorID: superUserID(),
-        flyerURL: null,
 
         /// flyer data
         flyerType: FlyerTypeClass.concludeFlyerType(bzModel.bzType),
@@ -876,7 +867,6 @@ class SuperFlyer{
           bzForm: bzModel.bzForm,
           createdAt: bzModel.createdAt,
           accountType: bzModel.accountType,
-          bzURL: bzModel.bzURL,
           bzName: bzModel.bzName,
           bzLogo: bzModel.bzLogo,
           bzScope: bzModel.bzScope,
@@ -921,7 +911,6 @@ class SuperFlyer{
         key: ValueKey('${SuperFlyer.draftID} : ${bzModel.bzID} : ${bzModel.nanoFlyers.length + 1} : ${superUserID()}'),
         flyerID: flyerModel.flyerID,
         authorID: superUserID(),
-        flyerURL: flyerModel.flyerURL,
 
         /// flyer data
         flyerType: flyerModel.flyerType,
@@ -1051,7 +1040,6 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         key: null,
         flyerID: SuperFlyer.emptyFlyerBzOnlyFlyerID,
         authorID: superUserID(),
-        flyerURL: null,
 
         /// flyer data
         flyerType: null,
