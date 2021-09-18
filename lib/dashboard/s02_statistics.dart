@@ -37,7 +37,6 @@ class GeneralStatistics extends StatelessWidget {
           flyerState: _flyer.flyerState,
           keywords: _flyer.keywords,
           flyerShowsAuthor: _flyer.flyerShowsAuthor,
-          flyerURL: _flyer.flyerURL,
           flyerZone: _flyer.flyerZone,
           tinyAuthor: _flyer.tinyAuthor,
           tinyBz: _flyer.tinyBz,

@@ -14,8 +14,8 @@ class ScreensManager extends StatelessWidget {
         loading: false,
         listWidgets: <Widget>[
 
-          DashboardWideButton(
-            title: 'Loading screen',
+          WideButton(
+            verse: 'Loading screen',
             onTap: () async {
               await Nav.goToNewScreen(context, LoadingScreen());
             },

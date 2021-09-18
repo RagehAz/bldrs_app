@@ -38,12 +38,12 @@ class NotiModel{
   final String pic;
   final NotiPicType notiPicType;
   final String title; /// max 30 char
-  final DateTime timeStamp;
+  final DateTime timeStamp; // NEVER CHANGE THIS VAR NAME -> OR CREATE NEW FIREBASE QUERY INDEX
   final String body; /// max 80 char
   final dynamic attachment;
   final NotiAttachmentType attachmentType;
 
-  final bool dismissed;
+  final bool dismissed; // NEVER CHANGE THIS VAR NAME -> OR CREATE NEW FIREBASE QUERY INDEX
   final bool sendFCM;
   final dynamic metaData; /// of type : InternalLinkedHashMap<dynamic, dynamic>
 

@@ -529,7 +529,8 @@ class Fire{
     if (field != null && compareValue != null){
       _snapshots = _collection
           .orderBy(orderBy, descending: descending)
-          .where('$field', isNotEqualTo: compareValue)
+          .where('$field', isEqualTo: compareValue)
+          .limit(10)
           .snapshots();
     }
 

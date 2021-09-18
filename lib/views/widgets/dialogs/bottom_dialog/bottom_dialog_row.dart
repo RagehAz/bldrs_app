@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -114,6 +115,13 @@ class BottomDialogRow extends StatelessWidget {
                 await Keyboarders.copyToClipboard(
                   context: context,
                   copy: dataValue.toString(),
+                );
+
+                await NavDialog.showNavDialog(
+                  context: context,
+                  firstLine: 'data copied to clipboard',
+                  secondLine: '${dataValue.toString()}',
+                  isBig: true,
                 );
 
               },

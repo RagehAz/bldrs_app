@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
@@ -320,5 +321,35 @@ class SlideModel {
     }
   }
 // -----------------------------------------------------------------------------
+  static SlideModel getSlideFromMutableSlide(MutableSlide mSlide){
 
+    SlideModel _slideModel;
+
+    if (mSlide != null){
+      _slideModel = SlideModel(
+          slideIndex: mSlide.slideIndex,
+          pic: mSlide.picURL ?? mSlide.picFile ?? mSlide.picAsset,
+          headline: mSlide.headline,
+          description: mSlide.description,
+          sharesCount: mSlide.sharesCount,
+          viewsCount: mSlide.viewsCount,
+          savesCount: mSlide.savesCount,
+          picFit: mSlide.picFit,
+          imageSize: mSlide.imageSize,
+          midColor: mSlide.midColor,
+      );
+    }
+    return _slideModel;
+  }
+// -----------------------------------------------------------------------------
+  static List<SlideModel> getSlidesFromMutableSlides(List<MutableSlide> mSlides){
+    List<SlideModel> _slides = [];
+    if (mSlides != null && mSlides.length != 0){
+      for (var mSlide in mSlides){
+        _slides.add(getSlideFromMutableSlide(mSlide));
+      }
+    }
+    return _slides;
+  }
+// -----------------------------------------------------------------------------
 }

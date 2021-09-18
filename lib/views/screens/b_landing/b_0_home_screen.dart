@@ -1,3 +1,4 @@
+import 'package:bldrs/firestore/dynamic_links.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:bldrs/views/widgets/walls/home_wall.dart';
@@ -39,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //   Provider.of<FlyersProvider>(context,listen: true).fetchAndSetBzz();
     // });
 
+    DynamicLinksApi().initializeDynamicLinks(context);
   }
 
   // /// this method of fetching provided data allows listening true or false,
