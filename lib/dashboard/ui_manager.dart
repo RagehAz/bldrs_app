@@ -17,24 +17,24 @@ class UIManager extends StatelessWidget {
       loading: false,
       listWidgets: <Widget>[
 
-        DashboardWideButton(
-          title: 'Bldrs icons',
+        WideButton(
+          verse: 'Bldrs icons',
           icon: Iconz.DvGouran,
           onTap: () async {
             await Nav.goToNewScreen(context, BldrsIconsViewer());
           },
         ),
 
-        DashboardWideButton(
-          title: 'Screens Manager',
+        WideButton(
+          verse: 'Screens Manager',
           icon: Iconz.MobilePhone,
           onTap: () async {
             await Nav.goToNewScreen(context, ScreensManager());
           },
         ),
 
-        DashboardWideButton(
-          title: 'Emojis',
+        WideButton(
+          verse: 'Emojis',
           icon: Iconz.Emoji,
           onTap: () async {
             await Nav.goToNewScreen(context, EmojiTest());

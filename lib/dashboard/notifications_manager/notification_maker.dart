@@ -766,8 +766,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
             width: _screenWidth,
             // height: 150,
             child: Center(
-              child: DashboardWideButton(
-                title: 'Send Notification',
+              child: WideButton(
+                verse: 'Send Notification',
                 icon: Iconz.Share,
                 onTap: _onSendNotification,
                 color: Colorz.Yellow255,
@@ -781,9 +781,9 @@ class _NotificationMakerState extends State<NotificationMaker> {
             width: _screenWidth,
             // height: 150,
             child: Center(
-              child: DashboardWideButton(
-                title: 'Send To Myself',
-                titleColor: Colorz.Black255,
+              child: WideButton(
+                verse: 'Send To Myself',
+                verseColor: Colorz.Black255,
                 icon: Iconz.Share,
                 onTap: () => _onSendNotification(sendToMyself: true),
                 color: Colorz.Yellow255,

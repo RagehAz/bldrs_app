@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
@@ -19,7 +20,6 @@ class FlyerModel with ChangeNotifier{
   final FlyerState flyerState;
   final List<Keyword> keywords;
   final bool flyerShowsAuthor;
-  final String flyerURL;
   final Zone flyerZone;
   // -------------------------
   final TinyUser tinyAuthor;
@@ -45,7 +45,6 @@ class FlyerModel with ChangeNotifier{
     this.flyerState = FlyerState.Draft,
     this.keywords,
     this.flyerShowsAuthor = false,
-    this.flyerURL,
     this.flyerZone,
     // -------------------------
     this.tinyAuthor,
@@ -78,7 +77,6 @@ class FlyerModel with ChangeNotifier{
       'flyerState' : cipherFlyerState(flyerState),
       'keyWords' : Keyword.cipherKeywordsToKeywordsIds(keywords),
       'flyerShowsAuthor' : flyerShowsAuthor,
-      'flyerURL' : flyerURL,
       'flyerZone' : flyerZone.toMap(),
       // -------------------------
       'tinyAuthor' : tinyAuthor.toMap(),
@@ -105,7 +103,6 @@ class FlyerModel with ChangeNotifier{
       flyerState: flyerState,
       keywords: Mapper.cloneListOfStrings(keywords),
       flyerShowsAuthor: flyerShowsAuthor,
-      flyerURL: flyerURL,
       flyerZone: flyerZone,
       tinyAuthor: tinyAuthor.clone(),
       tinyBz: tinyBz.clone(),
@@ -129,7 +126,6 @@ class FlyerModel with ChangeNotifier{
           flyerState: flyer.flyerState,
           keywords: flyer.keywords,
           flyerShowsAuthor: flyer.flyerShowsAuthor,
-          flyerURL: flyer.flyerURL,
           flyerZone: flyer.flyerZone,
           tinyAuthor: flyer.tinyAuthor,
           tinyBz: flyer.tinyBz,
@@ -191,7 +187,6 @@ class FlyerModel with ChangeNotifier{
         flyerState: FlyerModel.decipherFlyerState(map['flyerState']),
         keywords: Keyword.decipherKeywordsIDsToKeywords(map['keyWords']),
         flyerShowsAuthor: map['flyerShowsAuthor'],
-        flyerURL: map['flyerURL'],
         flyerZone: Zone.decipherZoneMap(map['flyerZone']),
         // -------------------------
         tinyAuthor: TinyUser.decipherTinyUserMap(map['tinyAuthor']),
@@ -226,7 +221,6 @@ class FlyerModel with ChangeNotifier{
     return FlyerModel(
       flyerID: inputFlyerModel.flyerID,
       flyerType: inputFlyerModel.flyerType,
-      flyerURL: inputFlyerModel.flyerURL,
       flyerZone: inputFlyerModel.flyerZone,
       tinyAuthor: inputFlyerModel.tinyAuthor,
       tinyBz: inputFlyerModel.tinyBz,
@@ -342,34 +336,34 @@ class FlyerModel with ChangeNotifier{
     return _flyerModel;
   }
 // -----------------------------------------------------------------------------
-//   static FlyerModel getFlyerModelFromSuperFlyer(SuperFlyer superFlyer){
-//     FlyerModel _flyer;
-//
-//     if (superFlyer != null){
-//       _flyer = FlyerModel(
-//         flyerID: superFlyer.flyerID,
-//         flyerType: superFlyer.flyerType,
-//         flyerState: superFlyer.flyerState,
-//         keywords: superFlyer.keywords,
-//         flyerShowsAuthor: superFlyer.flyerShowsAuthor,
-//         flyerURL: superFlyer.flyerURL,
-//         flyerZone: superFlyer.flyerZone,
-//         tinyAuthor: superFlyer.flyerTinyAuthor,
-//         tinyBz: TinyBz.getTinyBzFromSuperFlyer(superFlyer),
-//         publishTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Published),
-//         flyerPosition: superFlyer.position,
-//         slides: SlideModel.getSlidesModelsFromMutableSlides(superFlyer.mSlides),
-//         flyerIsBanned: PublishTime.flyerIsBanned(superFlyer.flyerTimes),
-//         deletionTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Deleted),
-//         ankhIsOn: superFlyer.rec.ankhIsOn,
-//         specs: superFlyer.specs,
-//         info: superFlyer.infoController.text,
-//         // times:
-//       );
-//     }
-//
-//     return _flyer;
-//   }
+  static FlyerModel getFlyerModelFromSuperFlyer(SuperFlyer superFlyer){
+    FlyerModel _flyer;
+
+    if (superFlyer != null){
+      _flyer = FlyerModel(
+        flyerID: superFlyer.flyerID,
+        flyerType: superFlyer.flyerType,
+        flyerState: superFlyer.flyerState,
+        keywords: superFlyer.keywords,
+        flyerShowsAuthor: superFlyer.flyerShowsAuthor,
+        flyerZone: superFlyer.flyerZone,
+        tinyAuthor: superFlyer.flyerTinyAuthor,
+        tinyBz: TinyBz.getTinyBzFromSuperFlyer(superFlyer),
+        createdAt: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Published),
+        flyerPosition: superFlyer.position,
+        slides: SlideModel.getSlidesFromMutableSlides(superFlyer.mSlides),
+        flyerIsBanned: PublishTime.flyerIsBanned(superFlyer.flyerTimes),
+        deletionTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Deleted),
+        ankhIsOn: superFlyer.rec.ankhIsOn,
+        specs: superFlyer.specs,
+        info: superFlyer?.infoController?.text,
+
+        // times:
+      );
+    }
+
+    return _flyer;
+  }
   void printFlyer(){
     print('FLYER-PRINT --------------------------------------------------START');
     print('FLYER-PRINT : flyerID : ${flyerID}');
@@ -377,7 +371,6 @@ class FlyerModel with ChangeNotifier{
     print('FLYER-PRINT : flyerState : ${flyerState}');
     print('FLYER-PRINT : keywords : ${keywords}');
     print('FLYER-PRINT : flyerShowsAuthor : ${flyerShowsAuthor}');
-    print('FLYER-PRINT : flyerURL : ${flyerURL}');
     print('FLYER-PRINT : flyerZone : ${flyerZone}');
     print('FLYER-PRINT : tinyAuthor : ${tinyAuthor}');
     print('FLYER-PRINT : tinyBz : ${tinyBz}');

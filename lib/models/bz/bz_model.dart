@@ -49,7 +49,6 @@ class BzModel with ChangeNotifier{
   final BzForm bzForm;
   final DateTime createdAt;
   final BzAccountType accountType;
-  final String bzURL;
   // -------------------------
   final String bzName;
   final dynamic bzLogo;
@@ -87,7 +86,6 @@ class BzModel with ChangeNotifier{
     this.bzForm,
     this.createdAt,
     this.accountType,
-    this.bzURL,
     // -------------------------
     this.bzName,
     this.bzLogo,
@@ -158,7 +156,6 @@ Map<String, dynamic> toMap(){
     'bzForm' : cipherBzForm(bzForm),
     'createdAt' : createdAt,
     'accountType' : cipherBzAccountType(accountType),
-    'bzURL' : bzURL,
     // -------------------------
     'bzName' : bzName,
     'bzLogo' : bzLogo,
@@ -216,7 +213,6 @@ Map<String, dynamic> toMap(){
       bzForm : decipherBzForm(map['bzForm']),
       createdAt : map['createdAt'].toDate(),
       accountType : decipherBzAccountType(map['accountType']),
-      bzURL : map['bzURL'],
       // -------------------------
       bzName : map['bzName'],
       bzLogo : map['bzLogo'],
@@ -300,6 +296,14 @@ Map<String, dynamic> toMap(){
       nanoFlyers: [],
       bzTotalFlyers: 0,
       authorsIDs: <String>[userModel.userID],
+      createdAt: DateTime.now(),
+      accountType: BzAccountType.Default,
+      bzAbout: '',
+      bzForm: BzForm.Individual,
+      bzLogo: userModel.pic,
+      bzPosition: null,
+      bzScope: null,
+      bzType: null,
 
     );
   }
@@ -409,7 +413,6 @@ Map<String, dynamic> toMap(){
         bzForm : null,
         createdAt : null,
         accountType : null,
-        bzURL : null,
         // -------------------------
         bzName :tinyBz.bzName,
         bzLogo : tinyBz.bzLogo,
@@ -456,7 +459,6 @@ Map<String, dynamic> toMap(){
     print('bzForm : $bzForm');
     print('createdAt : $createdAt');
     print('accountType : $accountType');
-    print('bzURL : $bzURL');
     print('bzName : $bzName');
     print('bzLogo : $bzLogo');
     print('bzScope : $bzScope');

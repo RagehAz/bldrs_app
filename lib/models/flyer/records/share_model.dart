@@ -49,14 +49,12 @@ class ShareModel{
 // -----------------------------------------------------------------------------
   static Future<void> shareFlyer (BuildContext context, LinkModel flyerLink) async {
     final RenderBox box = context.findRenderObject();
-    final String text = '${flyerLink.url} & ${flyerLink.description}';
 
     await Share.share(
-      text,
+      flyerLink.url,
       subject: flyerLink.description,
       sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
     );
-
 
   }
 // ----------------------------------------------------------------------------

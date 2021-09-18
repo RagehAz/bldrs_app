@@ -1,5 +1,11 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/dashboard/super_methods.dart';
+import 'package:bldrs/dashboard/widgets/wide_button.dart';
+import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/helpers/map_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -76,6 +82,8 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
   }
 // -----------------------------------------------------------------------------
 
+  int _numberOfFields = 0;
+
   @override
   Widget build(BuildContext context) {
 
@@ -112,13 +120,66 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
               DreamBox(
                 height: 50,
                 width: 200,
-                verse: 'fix users',
+                verse: 'save to db : $_numberOfFields fields',
                 verseScaleFactor: 0.7,
                 onTap: () async {
+
+                  Map<String, dynamic> _map = {};
+
+                  for (int i = 0; i < 1000; i++){
+                    _map = Mapper.insertPairInMap(
+                      map: _map,
+                      key: 'key$i',
+                      value: '$i : ${DateTime.now().millisecondsSinceEpoch}',
+                    );
+                  }
+
+                  await Fire.createNamedDoc(
+                    context: context,
+                    collName: FireCollection.admin,
+                    docName: 'test',
+                    input: _map,
+                  );
+
+                  Map<String, dynamic> doc = await Fire.readDoc(
+                    context: context,
+                    collName: FireCollection.admin,
+                    docName: 'test',
+                  );
+
+                  List<MapModel> _mapModels = MapModel.getModelsFromMap(doc);
+
+                  setState(() {
+                    _numberOfFields = _mapModels.length;
+                  });
+
+                },
+              ),
+
+              WideButton(
+                verse: 'delete url from bzzzzzzzzz models in fb',
+                onTap: () async {
+
+                  List<BzModel> _bzz = await SuperBldrsMethod.readAllBzzModels(
+                    context: context,
+                    limit: 300,
+                  );
+
+                  for (var bz in _bzz){
+
+                    await Fire.deleteDocField(
+                      context: context,
+                      collName: FireCollection.bzz,
+                      docName: bz.bzID,
+                      field: 'bzURL',
+                    );
+
+                  }
 
 
                 },
               ),
+
 
               Column(
                 children: <Widget>[
