@@ -21,6 +21,7 @@ import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_row.dart';
 import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/gallery.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -454,6 +455,28 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
                   ]
               ),
+
+              BubblesSeparator(),
+
+              Bubble(
+                title: 'Targets',
+                columnChildren: <Widget>[
+
+                  DataStrip(
+                    dataKey: 'Key',
+                    dataValue: 31.toDouble(),
+                    isPercent: true,
+                  ),
+
+                  DataStrip(
+                    dataKey: 'Key',
+                    dataValue: 84.5.toDouble(),
+                    isPercent: true,
+                  ),
+
+                ],
+              ),
+
 
               PyramidsHorizon(),
 

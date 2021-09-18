@@ -11,29 +11,35 @@ import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 
-class BottomDialogRow extends StatelessWidget {
+class DataStrip extends StatelessWidget {
   final String dataKey;
   final dynamic dataValue;
   final double width;
   final Color valueBoxColor;
+  final bool isPercent;
 
-  const BottomDialogRow({
+  const DataStrip({
     @required this.dataKey,
     @required this.dataValue,
     this.width,
     this.valueBoxColor = Colorz.White10,
+    this.isPercent = false,
   });
 
   @override
   Widget build(BuildContext context) {
 
-    const double _rowHeight = 50;
+    const double _rowHeight = 60;
     const double _margin = 2.5;
     double _rowWidth = width ?? BottomDialog.dialogClearWidth(context) - _margin * 2;
     const double _keyButtonMargin = Ratioz.appBarPadding;
 
     double _keyRowHeight = _rowHeight * 0.4;
     double _valueRowHeight = _rowHeight * 0.6;
+
+    bool _valueIsPercentage = isPercent == true && dataValue.runtimeType == double;
+
+    String _valueString = _valueIsPercentage == true ? '$dataValue %' : dataValue.toString();
 
     return Center(
       child: Container(
@@ -52,9 +58,9 @@ class BottomDialogRow extends StatelessWidget {
               width: _rowWidth,
               alignment: Aligners.superCenterAlignment(context),
               child: SuperVerse(
-                labelColor: Colorz.White10,
+                labelColor: Colorz.Nothing,
                 verse: dataKey.toString(),
-                size: 1,
+                size: 2,
                 weight: VerseWeight.thin,
                 color: Colorz.White255,
                 shadow: false,
@@ -132,15 +138,34 @@ class BottomDialogRow extends StatelessWidget {
                   color: valueBoxColor,
                   borderRadius: Borderers.superBorderAll(context, Ratioz.boxCorner8),
                 ),
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.symmetric(horizontal: _keyButtonMargin),
-                  child: SuperVerse(
-                    verse: dataValue.toString(),
-                    size: 1,
-                    centered: false,
-                  ),
+                child: Stack(
+                  alignment: Aligners.superCenterAlignment(context),
+                  children: <Widget>[
+
+                    if (_valueIsPercentage == true)
+                    DreamBox(
+                      width: (dataValue / 100 ) * _rowWidth,
+                      height: _valueRowHeight,
+                      // decoration: BoxDecoration(
+                        color: Colorz.Yellow80,
+                        corners: Borderers.superBorderAll(context, Ratioz.boxCorner8),
+                      // ),
+                    ),
+
+                    SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.symmetric(horizontal: _keyButtonMargin),
+                      child: SuperVerse(
+                        verse: _valueString,
+                        size: 1,
+                        centered: false,
+                        shadow: true,
+                      ),
+                    ),
+
+                  ],
+
                 ),
               ),
             ),

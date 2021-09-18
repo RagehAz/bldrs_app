@@ -167,7 +167,7 @@ class TimerTest extends StatelessWidget {
 
           :
 
-              BottomDialogRow(
+              DataStrip(
                 // width: null,
                 dataKey: _pair.key,
                 dataValue: _pair.value,
