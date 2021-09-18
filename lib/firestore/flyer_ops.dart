@@ -61,9 +61,6 @@ class FlyerOps{
 
   print('4- slides updated with URLs');
 
-    /// TASK : generate flyerURL
-  String _flyerURL = 'www.bldrs.net' ;
-
   /// update FlyerModel with newSlides & flyerURL
   FlyerModel _finalFlyerModel = FlyerModel(
     flyerID: _flyerID,
@@ -72,7 +69,6 @@ class FlyerOps{
     flyerState: inputFlyerModel.flyerState,
     keywords: inputFlyerModel.keywords,
     flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
-    flyerURL: _flyerURL,
     flyerZone: inputFlyerModel.flyerZone,
     // -------------------------
     tinyAuthor: inputFlyerModel.tinyAuthor,

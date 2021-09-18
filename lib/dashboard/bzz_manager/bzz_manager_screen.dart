@@ -18,7 +18,7 @@ import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_data_row.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_row.dart';
 
 class BzzManagerScreen extends StatefulWidget {
 
@@ -285,7 +285,6 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                                 BottomDialogRow(dataKey: 'bzForm', dataValue: _bz.bzForm, ),
                                 BottomDialogRow(dataKey: 'createdAt', dataValue: _bz.createdAt, ),
                                 BottomDialogRow(dataKey: 'accountType', dataValue: _bz.accountType, ),
-                                BottomDialogRow(dataKey: 'bzURL', dataValue: _bz.bzURL, ),
                                 BottomDialogRow(dataKey: 'bzScope', dataValue: _bz.bzScope, ),
                                 BottomDialogRow(dataKey: 'bzZone', dataValue: _bz.bzZone, ),
                                 BottomDialogRow(dataKey: 'bzAbout', dataValue: _bz.bzAbout, ),

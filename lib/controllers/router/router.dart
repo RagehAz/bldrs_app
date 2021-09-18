@@ -6,7 +6,6 @@ import 'package:bldrs/views/screens/h_notifications/g_1_notifications_screen.dar
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/views/screens/a_starters/a_2_starting_screen.dart';
 import 'package:bldrs/views/screens/c_search/c_0_search_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dynamic_links_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/xxx_obelisk.dart';
 import 'package:flutter/material.dart';
 
@@ -18,10 +17,6 @@ class Routerer {
 
     switch (settings.name) {
 
-// -----------------------------------------------------------------------------
-    /// ccc
-      case Routez.DynamicLinkTest:
-        return Nav.fadeToScreen(DynamicLinkTest(), settings); break;
 // -----------------------------------------------------------------------------
     /// s00
       case Routez.UserChecker:

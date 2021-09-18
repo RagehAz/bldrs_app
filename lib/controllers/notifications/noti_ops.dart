@@ -408,10 +408,10 @@ Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID)
         collName: FireCollection.users,
         docName: userID,
         subCollName: FireCollection.subUserNotifications,
-        orderBy: 'timeStamp',
+        orderBy: 'timeStamp', // NEVER CHANGE THIS -> OR CREATE NEW FIREBASE QUERY INDEX
         descending: true,
-        // field: 'dismissed',
-        // compareValue: true,
+        field: 'dismissed', // NEVER CHANGE THIS -> OR CREATE NEW FIREBASE QUERY INDEX
+        compareValue: false,
       );
 
       print('getNotiModelsStream : _querySnapshots : ${_querySnapshots}');

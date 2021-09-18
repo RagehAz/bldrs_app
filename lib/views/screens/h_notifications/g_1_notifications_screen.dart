@@ -76,9 +76,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _dismissNotification(String id) async {
+  Future<void> _dismissNotification({String id, int notiModelsLength}) async {
 
-    print('removing noti with id : $id');
+    print('removing noti with id : $id ---------------------------------------------------------------------------------xxxxx ');
 
     await Fire.updateSubDocField(
       context: context,
@@ -89,6 +89,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       field: 'dismissed',
       input: true,
     );
+
+    if (notiModelsLength == 1){
+      print('this was the last notification and is gone khalas --------------------------------------------------------------------------------- oooooo ');
+    }
 
     // setState(() {
     //   _notifications.removeWhere((notiModel) => notiModel.id == id,);
@@ -209,7 +213,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     //   DismissDirection.endToStart : 20,
                     // },
                     // dragStartBehavior: DragStartBehavior.start,
-                    key: ValueKey<String>(_notiModel?.id),
+                    key:  UniqueKey(),//ValueKey<String>(_notiModel?.id),
                     crossAxisEndOffset: 0,
                     direction: DismissDirection.horizontal,
                     movementDuration: Duration(milliseconds: 250),
@@ -223,7 +227,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       return _dismissible;
                       },
                     onDismissed: (DismissDirection direction) async {
-                      await _dismissNotification(_notiModel.id);
+                      await _dismissNotification(
+                        id : _notiModel.id,
+                        notiModelsLength : notiModels.length,
+                      );
 
                       },
                     child: Container(

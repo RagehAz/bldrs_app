@@ -86,9 +86,6 @@ class BzOps{
       authorContacts: inputBz.bzAuthors[0].authorContacts,
     );
 
-    /// TASK : generate bzURL
-    String _bzURL = 'www.bldrs.net' ;
-
     /// refactor the bzModel with new pics URLs generated above
     BzModel _outputBz = BzModel(
       bzID : _bzID,
@@ -97,7 +94,6 @@ class BzOps{
       bzForm : inputBz.bzForm,
       createdAt : DateTime.now(),
       accountType : inputBz.accountType,
-      bzURL : _bzURL,
       // -------------------------
       bzName : inputBz.bzName,
       bzLogo : _bzLogoURL,
@@ -244,7 +240,6 @@ class BzOps{
       bzForm: modifiedBz.bzForm,
       createdAt: modifiedBz.createdAt,
       accountType: modifiedBz.accountType,
-      bzURL: modifiedBz.bzURL,
       // -------------------------
       bzName: modifiedBz.bzName,
       bzLogo: _bzLogoURL ?? modifiedBz.bzLogo,
