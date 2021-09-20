@@ -11,7 +11,7 @@ abstract class Targetz {
   static const TargetReward aFlyerADayReward = const TargetReward(targetID: 'aFlyerADay', ankh: 3, slides: 38);
   static const TargetReward communityGrowthReward = const TargetReward(targetID: 'communityGrowth', ankh: 100, slides: 62);
   static const TargetReward payItBackReward = const TargetReward(targetID: 'payItBack', ankh: 50, slides: 50);
-  static const TargetReward dontMakeNoiseButMakeARhythmReward = const TargetReward(targetID: 'dontMakeNoiseButMakeARhythm', ankh: 1, slides: 2);
+  static const TargetReward makeARhythmReward = const TargetReward(targetID: 'makeARhythm', ankh: 1, slides: 2);
   static const TargetReward tenPotentialCustomersReward = const TargetReward(targetID: 'tenPotentialCustomers', ankh: 2, slides: 10);
   static const TargetReward richGalleryReward = const TargetReward(targetID: 'richGallery', ankh: 75, slides: 100);
   static const TargetReward callToActionReward = const TargetReward(targetID: 'callToAction', ankh: 5, slides: 20);
@@ -101,15 +101,15 @@ abstract class Targetz {
     ],
   );
 // -----------------------------------------------------------------------------
-  static const TargetModel dontMakeNoiseButMakeARhythm = const TargetModel(
-    id: 'dontMakeNoiseButMakeARhythm',
-    name: 'Don\'t make noise but Make a Rhythm',
+  static const TargetModel makeARhythm = const TargetModel(
+    id: 'makeARhythm',
+    name: 'Make a rhythm',
     description: 'Share at-least one of your own flyers once each day for ',
     instructions: <String>[
       'Share a flyer publicly via any of social media platforms or target a potential customer who is seeking your services',
       'Wait for the flyer views counter to increase 1 view',
     ],
-    reward: dontMakeNoiseButMakeARhythmReward,
+    reward: makeARhythmReward,
   );
 // -----------------------------------------------------------------------------
   static const TargetModel tenPotentialCustomers = const TargetModel(
@@ -167,5 +167,27 @@ abstract class Targetz {
     description: 'Use 100 Ankhs to boost your business account',
     reward: masterBldrReward,
   );
+// -----------------------------------------------------------------------------
+  static List<TargetModel> allTargets(){
+    return <TargetModel>[
+      startup,
+      completeAccount,
+      verifyAccount,
+      perfectFlyer,
+      threeFlyersAWeek,
+      aFlyerADay,
+      communityGrowth,
+      payItBack,
+      makeARhythm,
+      tenPotentialCustomers,
+      richGallery,
+      callToAction,
+      shareWorthy,
+      diversity,
+      publisher,
+      influencer,
+      masterBldr,
+    ];
+  }
 // -----------------------------------------------------------------------------
 }
