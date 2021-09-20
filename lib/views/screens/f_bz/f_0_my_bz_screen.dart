@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
@@ -6,11 +7,13 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/controllers/theme/targetz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/target/target_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/screens/f_bz/f_2_deactivated_flyers_screen.dart';
@@ -302,6 +305,9 @@ class _MyBzScreenState extends State<MyBzScreen> {
 //     );
 // }
 // -----------------------------------------------------------------------------
+
+  final List<TargetModel> _allTargets = Targetz.allTargets();
+
   @override
   Widget build(BuildContext context) {
 
@@ -312,6 +318,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
     String _zoneString = TextGenerator.cityCountryStringer(context: context, zone: _bzModel.bzZone);
 
+    double _bubbleClearWidth = Bubble.clearWidth(context);
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
@@ -462,17 +469,75 @@ class _MyBzScreenState extends State<MyBzScreen> {
                 title: 'Targets',
                 columnChildren: <Widget>[
 
-                  DataStrip(
-                    dataKey: 'Key',
-                    dataValue: 31.toDouble(),
-                    isPercent: true,
-                  ),
+                  ...List.generate(
+                      _allTargets.length
+                  , (index) {
 
-                  DataStrip(
-                    dataKey: 'Key',
-                    dataValue: 84.5.toDouble(),
-                    isPercent: true,
-                  ),
+                    TargetModel _target = _allTargets[index];
+
+                    return
+
+                        Container(
+                          width: _bubbleClearWidth,
+                          decoration: BoxDecoration(
+                            color: Colorz.White10,
+                            borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue()),
+                          ),
+                          margin: EdgeInsets.only(bottom: 5),
+                          padding: EdgeInsets.all(5),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+
+                                  /// TITLE
+                                  Container(
+                                    width: _bubbleClearWidth / 2,
+                                    height: 30,
+                                    // color: Colorz.BloodTest,
+                                    child: SuperVerse(
+                                      verse: _target.name,
+                                      centered: false,
+                                      size: 2,
+                                      weight: VerseWeight.bold,
+                                      italic: false,
+                                    ),
+                                  ),
+
+                                  /// PROGRESS
+                                  Container(
+                                    width: _bubbleClearWidth / 2 - 10,
+                                    height: 30,
+                                    // color: Colorz.BloodTest,
+                                    child: Container(
+                                      width: (_bubbleClearWidth / 2) - 10,
+                                      height: 20,
+                                      color: Colorz.BloodTest,
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+
+                              SuperVerse(
+                                verse: _target.description,
+                                centered: false,
+                                size: 1,
+                                weight: VerseWeight.thin,
+                                italic: true,
+                                maxLines: 10,
+                              ),
+
+                            ],
+                          ),
+                        );
+
+                  }),
 
                 ],
               ),
