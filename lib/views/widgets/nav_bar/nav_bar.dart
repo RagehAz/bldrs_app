@@ -88,6 +88,7 @@ class NavBar extends StatelessWidget {
                     details: details,
                     boxDistance: _bzzButtonsZoneHeight,
                     goesBackOnly: true,
+                    axis: Axis.vertical,
                   );
 
                   if(_canPageUp){
