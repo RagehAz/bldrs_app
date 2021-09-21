@@ -42,7 +42,7 @@ class Slides extends StatelessWidget {
     return MaxBounceNavigator(
       axis: Axis.horizontal,
       boxDistance: flyerBoxWidth,
-      numberOfBoxes: superFlyer.numberOfSlides,
+      numberOfScreens: superFlyer.numberOfSlides,
       onNavigate: (){
 
         SwipeDirection _direction = superFlyer.currentSlideIndex == 0 ? SwipeDirection.back : SwipeDirection.next;
