@@ -19,8 +19,8 @@ class FlyerTypeClass {
   static FlyerType getFlyerTypeBySection({Section section}){
 
     FlyerType _flyersTypes =
-    section == Section.NewProperties ? FlyerType.rentalProperty :
-    section == Section.ResaleProperties ? FlyerType.rentalProperty :
+    section == Section.NewProperties ? FlyerType.newProperty :
+    section == Section.ResaleProperties ? FlyerType.resaleProperty :
     section == Section.RentalProperties ? FlyerType.rentalProperty :
     section == Section.Designs ? FlyerType.design :
     section == Section.Projects ? FlyerType.project :

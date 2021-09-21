@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 
 class TargetProgress{
   final String targetID;
-  final double objective;
-  final double current;
+  final int objective;
+  final int current;
 
   TargetProgress({
     @required this.targetID,
