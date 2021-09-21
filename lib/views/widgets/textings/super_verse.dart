@@ -185,13 +185,15 @@ class SuperVerse extends StatelessWidget {
           padding: EdgeInsets.all(_margin),
           child: Row(
             mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
-            crossAxisAlignment: redDot == true ? CrossAxisAlignment.center : CrossAxisAlignment.center,
+            crossAxisAlignment: redDot == true ? CrossAxisAlignment.center : leadingDot == true ? CrossAxisAlignment.start : CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
 
               if (leadingDot == true)
-                Padding(
+                Container(
+                  // color: Colorz.BloodTest,
                   padding: EdgeInsets.all(_dotSize),
+                  margin: EdgeInsets.only(top: _dotSize),
                   child: _dot(_dotSize, color),
                 ),
 

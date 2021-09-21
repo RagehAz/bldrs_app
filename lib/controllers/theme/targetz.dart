@@ -1,4 +1,5 @@
 import 'package:bldrs/models/target/target_model.dart';
+import 'package:bldrs/models/target/target_progress.dart';
 import 'package:bldrs/models/target/target_reward.dart';
 
 abstract class Targetz {
@@ -58,7 +59,7 @@ abstract class Targetz {
   );
 // -----------------------------------------------------------------------------
   static const TargetModel threeFlyersAWeek = const TargetModel(
-    id: 'threeFlyerAWeek',
+    id: 'threeFlyersAWeek',
     name: 'Three Flyers a week',
     description: 'Publish three flyers a week for consecutive 4 weeks in a row',
     reward: threeFlyersAWeekReward,
@@ -150,7 +151,7 @@ abstract class Targetz {
   static const TargetModel publisher = const TargetModel(
     id: 'publisher',
     name: 'Publisher',
-    description: 'Achieve "Three flyers a week" target 3 consecutive times in 3 consecutive months',
+    description: 'Achieve "Three flyers a week" target for 3 consecutive months',
     reward: publisherReward,
   );
 // -----------------------------------------------------------------------------
@@ -190,4 +191,26 @@ abstract class Targetz {
     ];
   }
 // -----------------------------------------------------------------------------
+  static List<TargetProgress> dummyTargetsProgress(){
+    return
+        <TargetProgress>[
+          TargetProgress(targetID: 'startup', objective: 1, current: 1),
+          TargetProgress(targetID: 'completeAccount', objective: 12, current: 12),
+          TargetProgress(targetID: 'verifyAccount', objective: 1, current: 0),
+          TargetProgress(targetID: 'perfectFlyer', objective: 1, current: 1),
+          TargetProgress(targetID: 'threeFlyersAWeek', objective: 3, current: 3),
+          TargetProgress(targetID: 'aFlyerADay', objective: 4, current: 7),
+          TargetProgress(targetID: 'communityGrowth', objective: 5, current: 2),
+          TargetProgress(targetID: 'payItBack', objective: 5, current: 2),
+          TargetProgress(targetID: 'makeARhythm', objective: 0, current: 1),
+          TargetProgress(targetID: 'tenPotentialCustomers', objective: 10, current: 9),
+          TargetProgress(targetID: 'richGallery', objective: 30, current: 24),
+          TargetProgress(targetID: 'callToAction', objective: 10, current: 4),
+          TargetProgress(targetID: 'shareWorthy', objective: 10, current: 3),
+          TargetProgress(targetID: 'diversity', objective: 20, current: 12),
+          TargetProgress(targetID: 'publisher', objective: 3, current: 0),
+          TargetProgress(targetID: 'influencer', objective: 10, current: 8),
+          TargetProgress(targetID: 'masterBldr', objective: 1, current: 0),
+        ];
+  }
 }

@@ -22,6 +22,7 @@ import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
+import 'package:bldrs/views/widgets/bubbles/targets_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_row.dart';
@@ -306,7 +307,6 @@ class _MyBzScreenState extends State<MyBzScreen> {
 // }
 // -----------------------------------------------------------------------------
 
-  final List<TargetModel> _allTargets = Targetz.allTargets();
 
   @override
   Widget build(BuildContext context) {
@@ -318,7 +318,6 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
     String _zoneString = TextGenerator.cityCountryStringer(context: context, zone: _bzModel.bzZone);
 
-    double _bubbleClearWidth = Bubble.clearWidth(context);
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
@@ -334,6 +333,7 @@ class _MyBzScreenState extends State<MyBzScreen> {
           width: _appBarBzButtonWidth,
           icon: _bzModel.bzLogo,
           verse: '${_bzModel.bzName}',
+          verseCentered: false,
           bubble: false,
           verseScaleFactor: 0.7,
           color: Colorz.White10,
@@ -361,191 +361,117 @@ class _MyBzScreenState extends State<MyBzScreen> {
           opacity: _bubblesOpacity,
           duration: Ratioz.durationSliding400,
           curve: Curves.easeOut,
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: <Widget>[
+          child: Scroller(
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: <Widget>[
 
-              Stratosphere(),
+                Stratosphere(),
 
-              /// --- PUBLISHED FLYERS
-              if (_bzModel.nanoFlyers != null)
-              Bubble(
-                title: 'Published Flyers',
-                centered: false,
-                actionBtIcon: Iconz.Clock,
-                actionBtFunction: () => _showOldFlyersOnTap(_bzModel),
-                columnChildren: <Widget>[
-
-                  Gallery(
-                    flyerBoxWidth: Bubble.clearWidth(context),
-                    superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
-                      bzModel: _bzModel,
-                      onHeaderTap: () => print('on header tap in f 0 my bz Screen'),
-                    ),
-                    showFlyers: true,
-                  ),
-
-                ],
-              ),
-
-              if (_bzModel.nanoFlyers != null)
-                BubblesSeparator(),
-
-              /// --- SCOPE
-              if (_bzModel.bzScope != null)
-                ParagraphBubble(
-                title: 'Scope of services',
-                paragraph: _bzModel.bzScope,
-                maxLines: 5,
-              ),
-
-              /// --- ABOUT
-              if (_bzModel.bzAbout != null)
-                ParagraphBubble(
-                title: 'About ${_bzModel.bzName}',
-                paragraph: _bzModel.bzAbout,
-                maxLines: 5,
-                centered: false,
-              ),
-
-              if (_bzModel.bzAbout != null)
-              BubblesSeparator(),
-
-              /// --- STATS
-              if (_bzModel.bzTotalSlides != null)
+                /// --- PUBLISHED FLYERS
+                if (_bzModel.nanoFlyers != null)
                 Bubble(
-                  title: 'Stats',
+                  title: 'Published Flyers',
                   centered: false,
+                  actionBtIcon: Iconz.Clock,
+                  actionBtFunction: () => _showOldFlyersOnTap(_bzModel),
                   columnChildren: <Widget>[
 
-                    /// FOLLOWERS
-                    StatsLine(
-                      verse: '${_bzModel.bzTotalFollowers} ${Wordz.followers(context)}',
-                      icon: Iconz.Follow,
+                    Gallery(
+                      flyerBoxWidth: Bubble.clearWidth(context),
+                      superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
+                        bzModel: _bzModel,
+                        onHeaderTap: () => print('on header tap in f 0 my bz Screen'),
+                      ),
+                      showFlyers: true,
                     ),
 
-                    /// CALLS
-                    StatsLine(
-                      verse: '${_bzModel.bzTotalCalls} ${Wordz.callsReceived(context)}',
-                      icon: Iconz.ComPhone,
-                    ),
+                  ],
+                ),
 
-                    /// SLIDES & FLYERS
-                    StatsLine(
-                      verse: '${_bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${_bzModel.nanoFlyers.length} ${Wordz.flyers(context)}',
-                      icon: Iconz.Gallery,
-                    ),
+                if (_bzModel.nanoFlyers != null)
+                  BubblesSeparator(),
 
-                    /// SAVES
-                    StatsLine(
-                      verse: '${_bzModel.bzTotalSaves} ${Wordz.totalSaves(context)}',
-                      icon: Iconz.SaveOn,
-                    ),
+                /// --- SCOPE
+                if (_bzModel.bzScope != null)
+                  ParagraphBubble(
+                  title: 'Scope of services',
+                  paragraph: _bzModel.bzScope,
+                  maxLines: 5,
+                ),
 
-                    /// VIEWS
-                    StatsLine(
-                      verse: '${_bzModel.bzTotalViews} ${Wordz.totalViews(context)}',
-                      icon: Iconz.Views,
-                    ),
+                /// --- ABOUT
+                if (_bzModel.bzAbout != null)
+                  ParagraphBubble(
+                  title: 'About ${_bzModel.bzName}',
+                  paragraph: _bzModel.bzAbout,
+                  maxLines: 5,
+                  centered: false,
+                ),
 
-                    /// SHARES
-                    StatsLine(
-                      verse: '${_bzModel.bzTotalShares} ${Wordz.totalShares(context)}',
-                      icon: Iconz.Share,
-                    ),
+                if (_bzModel.bzAbout != null)
+                BubblesSeparator(),
 
-                    /// BIRTH
-                    StatsLine(
-                      verse: '${Timers.monthYearStringer(context,_bzModel.createdAt)}',
-                      icon: Iconz.Calendar,
-                    ),
+                /// --- STATS
+                if (_bzModel.bzTotalSlides != null)
+                  Bubble(
+                    title: 'Stats',
+                    centered: false,
+                    columnChildren: <Widget>[
 
-                  ]
-              ),
+                      /// FOLLOWERS
+                      StatsLine(
+                        verse: '${_bzModel.bzTotalFollowers} ${Wordz.followers(context)}',
+                        icon: Iconz.Follow,
+                      ),
 
-              BubblesSeparator(),
+                      /// CALLS
+                      StatsLine(
+                        verse: '${_bzModel.bzTotalCalls} ${Wordz.callsReceived(context)}',
+                        icon: Iconz.ComPhone,
+                      ),
 
-              Bubble(
-                title: 'Targets',
-                columnChildren: <Widget>[
+                      /// SLIDES & FLYERS
+                      StatsLine(
+                        verse: '${_bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${_bzModel.nanoFlyers.length} ${Wordz.flyers(context)}',
+                        icon: Iconz.Gallery,
+                      ),
 
-                  ...List.generate(
-                      _allTargets.length
-                  , (index) {
+                      /// SAVES
+                      StatsLine(
+                        verse: '${_bzModel.bzTotalSaves} ${Wordz.totalSaves(context)}',
+                        icon: Iconz.SaveOn,
+                      ),
 
-                    TargetModel _target = _allTargets[index];
+                      /// VIEWS
+                      StatsLine(
+                        verse: '${_bzModel.bzTotalViews} ${Wordz.totalViews(context)}',
+                        icon: Iconz.Views,
+                      ),
 
-                    return
+                      /// SHARES
+                      StatsLine(
+                        verse: '${_bzModel.bzTotalShares} ${Wordz.totalShares(context)}',
+                        icon: Iconz.Share,
+                      ),
 
-                        Container(
-                          width: _bubbleClearWidth,
-                          decoration: BoxDecoration(
-                            color: Colorz.White10,
-                            borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue()),
-                          ),
-                          margin: EdgeInsets.only(bottom: 5),
-                          padding: EdgeInsets.all(5),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
+                      /// BIRTH
+                      StatsLine(
+                        verse: '${Timers.monthYearStringer(context,_bzModel.createdAt)}',
+                        icon: Iconz.Calendar,
+                      ),
 
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
+                    ]
+                ),
 
-                                  /// TITLE
-                                  Container(
-                                    width: _bubbleClearWidth / 2,
-                                    height: 30,
-                                    // color: Colorz.BloodTest,
-                                    child: SuperVerse(
-                                      verse: _target.name,
-                                      centered: false,
-                                      size: 2,
-                                      weight: VerseWeight.bold,
-                                      italic: false,
-                                    ),
-                                  ),
+                BubblesSeparator(),
 
-                                  /// PROGRESS
-                                  Container(
-                                    width: _bubbleClearWidth / 2 - 10,
-                                    height: 30,
-                                    // color: Colorz.BloodTest,
-                                    child: Container(
-                                      width: (_bubbleClearWidth / 2) - 10,
-                                      height: 20,
-                                      color: Colorz.BloodTest,
-                                    ),
-                                  ),
+                TargetsBubble(),
 
-                                ],
-                              ),
+                PyramidsHorizon(),
 
-                              SuperVerse(
-                                verse: _target.description,
-                                centered: false,
-                                size: 1,
-                                weight: VerseWeight.thin,
-                                italic: true,
-                                maxLines: 10,
-                              ),
-
-                            ],
-                          ),
-                        );
-
-                  }),
-
-                ],
-              ),
-
-
-              PyramidsHorizon(),
-
-            ],
+              ],
+            ),
           ),
         ),
       ),
