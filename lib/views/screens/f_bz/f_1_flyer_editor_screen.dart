@@ -23,10 +23,9 @@ class FlyerEditorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // double _screenWidth = Scale.superScreenWidth(context);
-    double _flyerZoneHeight = Scale.superScreenHeightWithoutSafeArea(context) - Ratioz.appBarSmallHeight - (Ratioz.appBarMargin * 3);
-    double _flyerSizeFactor = FlyerBox.sizeFactorByHeight(context, _flyerZoneHeight);
-    double _flyerBoxWidth = FlyerBox.width(context, _flyerSizeFactor);
+    double _screenWidth = Scale.superScreenWidth(context);
+    double _flyerBoxWidth = _screenWidth - (Ratioz.appBarMargin * 3) - FlyerBox.editorPanelWidth();
+
     // double _panelWidth = _screenWidth - _flyerBoxWidth - (Ratioz.appBarMargin * 3);
     // AuthorModel _author = widget.firstTimer ?
     // AuthorModel.getAuthorFromBzByAuthorID(widget.bzModel, superUserID()) :
@@ -63,15 +62,21 @@ class FlyerEditorScreen extends StatelessWidget {
           Stratosphere(),
 
           /// FLYER & PANEL ZONES
-          FinalFlyer(
-            flyerBoxWidth: _flyerBoxWidth,
-            flyerModel: null,
-            tinyFlyer: firstTimer == true ? null : tinyFlyer, // redundant
-            goesToEditor: true,
-            initialSlideIndex: 0,
-            inEditor: true,
-            bzModel: bzModel,
+          Container(
+            height: Scale.superScreenHeightWithoutSafeArea(context) - Ratioz.stratosphere,
+            alignment: Alignment.center,
+            child: FinalFlyer(
+              flyerBoxWidth: _flyerBoxWidth,
+              flyerModel: null,
+              tinyFlyer: firstTimer == true ? null : tinyFlyer, // redundant
+              goesToEditor: true,
+              initialSlideIndex: 0,
+              inEditor: true,
+              bzModel: bzModel,
+            ),
           ),
+
+
 
         ],
       ),

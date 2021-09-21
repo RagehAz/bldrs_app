@@ -162,7 +162,7 @@ class MaxHeader extends StatelessWidget {
               Gallery(
                 superFlyer: superFlyer,
                 showFlyers: true,
-                flyerBoxWidth: flyerBoxWidth,
+                galleryBoxWidth: flyerBoxWidth,
                 addAuthorButtonIsOn: false,
               ),
 
