@@ -1,4 +1,6 @@
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
@@ -6,6 +8,7 @@ import 'package:bldrs/views/widgets/bubbles/targets_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/tab_button.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/layouts/tab_layout.dart';
+import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class BzPowersTab extends StatelessWidget {
@@ -92,7 +95,56 @@ class BzPowersTab extends StatelessWidget {
 
         Bubble(
           title: 'Get Bldrs.net marketing materials',
-          columnChildren: <Widget>[],
+          columnChildren: <Widget>[
+
+            SuperVerse.dotVerse(
+                verse : 'Download Your custom Bldr online banner',
+            ),
+
+            Container(
+              width: Bubble.clearWidth(context),
+              height: 100,
+              margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+              decoration: BoxDecoration(
+                color: Colorz.BloodTest,
+                borderRadius: Bubble.clearBorders(context),
+              ),
+            ),
+
+            SuperVerse.dotVerse(
+              verse : 'Download "Find us on Bldrs.net" printable banner',
+            ),
+
+            Container(
+              width: Bubble.clearWidth(context),
+              height: 100,
+              margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+              alignment: Alignment.center,
+              child: Container(
+                width: Bubble.clearWidth(context) - 150,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colorz.BloodTest,
+                  // borderRadius: Bubble.clearBorders(context),
+                ),
+              ),
+            ),
+
+            SuperVerse.dotVerse(
+              verse : 'Use Bldrs.net graphics to customize your own materials',
+            ),
+
+            Container(
+              width: Bubble.clearWidth(context),
+              height: 100,
+              margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+              decoration: BoxDecoration(
+                color: Colorz.BloodTest,
+                borderRadius: Bubble.clearBorders(context),
+              ),
+            ),
+
+          ],
         ),
 
 

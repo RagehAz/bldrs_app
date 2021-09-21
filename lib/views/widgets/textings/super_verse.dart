@@ -48,6 +48,25 @@ class SuperVerse extends StatelessWidget {
     this.redDot = false,
   });
 // -----------------------------------------------------------------------------
+  static Widget dotVerse({String verse}){
+    return
+      SuperVerse(
+        verse: verse,
+        size: 2,
+        scaleFactor: 0.9,
+        leadingDot: true,
+        maxLines: 10,
+        italic: true,
+        weight: VerseWeight.thin,
+        centered: false,
+      );
+  }
+// -----------------------------------------------------------------------------
+//   static Widget headlineVerse(String verse){
+//     return
+//         SuperVerse();
+//   }
+// -----------------------------------------------------------------------------
   Widget _dot(double _dotSize, Color _color){
     return Container(
       width: _dotSize,
