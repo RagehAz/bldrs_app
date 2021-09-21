@@ -6,29 +6,34 @@ import 'package:flutter/material.dart';
 class TabButton extends StatelessWidget {
   final bool isSelected;
   final String icon;
+  final double iconSizeFactor;
   final String verse;
   final Function onTap;
+  final bool triggerIconColor;
 
   const TabButton({
     @required this.isSelected,
     @required this.icon,
+    this.iconSizeFactor = 0.85,
     this.verse,
     this.onTap,
+    this.triggerIconColor = true,
 });
 
   @override
   Widget build(BuildContext context) {
 
     Color _buttonColor = isSelected == true ? Colorz.Yellow255 : null;
-    Color _iconColor = isSelected == true ? Colorz.Black255 : null;
+    Color _iconColor = isSelected == true && triggerIconColor == true ? Colorz.Black255 : null;
+    Color _verseColor = isSelected == true ? Colorz.Black255 : null;
 
     return DreamBox(
       height: Ratioz.appBarButtonSize,
       // width: Ratioz.appBarButtonSize * 4,
       icon: icon,//Iconizer.sectionIconOff(section),
-      iconSizeFactor: 0.85,
+      iconSizeFactor: iconSizeFactor,
       verse: verse,
-      verseColor: _iconColor,
+      verseColor: _verseColor,
       color: _buttonColor,
       iconColor: _iconColor,
       verseMaxLines: 2,

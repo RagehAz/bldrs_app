@@ -24,11 +24,17 @@ import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/bubbles/targets_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/buttons/tab_button.dart';
+import 'package:bldrs/views/widgets/bz/bz_about_tab.dart';
+import 'package:bldrs/views/widgets/bz/bz_flyers_tab.dart';
+import 'package:bldrs/views/widgets/bz/bz_powers_tab.dart';
+import 'package:bldrs/views/widgets/bz/bz_targets_tab.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_row.dart';
 import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/header_parts/gallery.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/layouts/tab_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,25 +46,28 @@ class MyBzScreen extends StatefulWidget {
   MyBzScreen({
     @required this.tinyBz,
     @required this.userModel,
-});
+  });
 
   @override
   _MyBzScreenState createState() => _MyBzScreenState();
+
 }
 
-class _MyBzScreenState extends State<MyBzScreen> {
+class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateMixin {
   // bool _showOldFlyers;
   BzModel _bzModel;
   double _bubblesOpacity = 0;
+  TabController _tabController;
+  int _currentTabIndex = 0;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
   Future <void> _triggerLoading({Function function}) async {
 
     if (function == null){
-    setState(() {
-      _loading = !_loading;
-    });
+      setState(() {
+        _loading = !_loading;
+      });
     }
 
     else {
@@ -81,6 +90,23 @@ class _MyBzScreenState extends State<MyBzScreen> {
     // _showOldFlyers = false;
 
     // TODO: implement initState
+
+    _tabModels = createBzTabModels();
+
+    _tabController = TabController(vsync: this, length: BzModel.bzPagesTabsTitles.length);
+
+    _tabController.addListener(() async {
+      _onChangeTab(_tabController.index);
+    });
+
+    _tabController.animation
+      ..addListener(() {
+        if(_tabController.indexIsChanging == false){
+          _onChangeTab((_tabController.animation.value).round());
+        }
+      });
+
+
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -93,8 +119,8 @@ class _MyBzScreenState extends State<MyBzScreen> {
         BzModel _bzFromDB = await BzOps.readBzOps(context: context, bzID: widget.tinyBz.bzID);
         print('3 - got the bzModel');
         // setState(() {
-          // _bzModel = _bzFromDB;
-          // _bubblesOpacity = 1;
+        // _bzModel = _bzFromDB;
+        // _bubblesOpacity = 1;
         // });
         print('4 - rebuilt tree with the retrieved bzModel');
 
@@ -103,10 +129,11 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
         /// X - REBUILD : TASK : check previous set states malhomsh lazma keda ba2a
         _triggerLoading(
-          function: (){
-            _bzModel = _bzFromDB;
-            _bubblesOpacity = 1;
-          }
+            function: (){
+              _bzModel = _bzFromDB;
+              _bubblesOpacity = 1;
+              _tabModels = createBzTabModels();
+            }
         );
 
       });
@@ -114,6 +141,12 @@ class _MyBzScreenState extends State<MyBzScreen> {
     }
     _isInit = false;
     super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _deleteBzOnTap(BzModel bzModel) async {
@@ -159,49 +192,49 @@ class _MyBzScreenState extends State<MyBzScreen> {
       Nav.goBack(context, argument: true);
 
     }
-}
+  }
 // -----------------------------------------------------------------------------
   Future<void> _deactivateBzOnTap(BzModel bzModel) async {
 
-      /// close bottom sheet
-      Nav.goBack(context);
+    /// close bottom sheet
+    Nav.goBack(context);
 
-      bool _dialogResult = await CenterDialog.showCenterDialog(
+    bool _dialogResult = await CenterDialog.showCenterDialog(
+      context: context,
+      title: '',
+      body: 'Are you sure you want to Deactivate ${_bzModel.bzName} Business account ?',
+      boolDialog: true,
+    );
+
+    print(_dialogResult);
+
+    /// if user chooses to cancel ops
+    if (_dialogResult == false) {
+      print('user cancelled ops');
+    }
+
+    /// if user chooses to continue ops
+    else {
+
+      _triggerLoading();
+
+      /// start deactivate bz ops
+      await BzOps().deactivateBzOps(
         context: context,
-        title: '',
-        body: 'Are you sure you want to Deactivate ${_bzModel.bzName} Business account ?',
-        boolDialog: true,
+        bzModel: bzModel,
       );
 
-      print(_dialogResult);
+      /// remove tinyBz from Local list
+      FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+      _prof.removeTinyBzFromLocalList(_bzModel.bzID);
 
-      /// if user chooses to cancel ops
-      if (_dialogResult == false) {
-        print('user cancelled ops');
-      }
+      /// remove tinyBz from local userTinyBzz
+      _prof.removeTinyBzFromLocalUserTinyBzz(_bzModel.bzID);
 
-      /// if user chooses to continue ops
-      else {
+      _triggerLoading();
 
-        _triggerLoading();
-
-        /// start deactivate bz ops
-        await BzOps().deactivateBzOps(
-          context: context,
-          bzModel: bzModel,
-        );
-
-        /// remove tinyBz from Local list
-        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-        _prof.removeTinyBzFromLocalList(_bzModel.bzID);
-
-        /// remove tinyBz from local userTinyBzz
-        _prof.removeTinyBzFromLocalUserTinyBzz(_bzModel.bzID);
-
-        _triggerLoading();
-
-        /// re-route back
-        Nav.goBack(context, argument: true);
+      /// re-route back
+      Nav.goBack(context, argument: true);
 
     }
 
@@ -255,77 +288,105 @@ class _MyBzScreenState extends State<MyBzScreen> {
 
         // --- DEACTIVATE BZ
         DreamBox(
-              height: _buttonHeight,
-              width: BottomDialog.dialogClearWidth(context),
-              icon: Iconz.XSmall,
-              iconSizeFactor: 0.5,
-              iconColor: Colorz.Red255,
-              verse: 'Deactivate Business Account',
-              verseScaleFactor: 1.2,
-              verseWeight: VerseWeight.black,
-              verseColor: Colorz.Red255,
-              // verseWeight: VerseWeight.thin,
-              onTap: () => _deactivateBzOnTap(bzModel)
-
-          ),
-
-          // --- EDIT BZ
-          DreamBox(
             height: _buttonHeight,
             width: BottomDialog.dialogClearWidth(context),
-            icon: Iconz.Gears,
+            icon: Iconz.XSmall,
             iconSizeFactor: 0.5,
-            verse: 'Edit Business Account info',
+            iconColor: Colorz.Red255,
+            verse: 'Deactivate Business Account',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.White255,
-            onTap: () => _editBzOnTap(bzModel),
-          ),
+            verseWeight: VerseWeight.black,
+            verseColor: Colorz.Red255,
+            // verseWeight: VerseWeight.thin,
+            onTap: () => _deactivateBzOnTap(bzModel)
 
-        ],
+        ),
+
+        // --- EDIT BZ
+        DreamBox(
+          height: _buttonHeight,
+          width: BottomDialog.dialogClearWidth(context),
+          icon: Iconz.Gears,
+          iconSizeFactor: 0.5,
+          verse: 'Edit Business Account info',
+          verseScaleFactor: 1.2,
+          verseColor: Colorz.White255,
+          onTap: () => _editBzOnTap(bzModel),
+        ),
+
+      ],
 
     );
 
   }
 // -----------------------------------------------------------------------------
-   void _showOldFlyersOnTap(BzModel bzModel){
+  List<TabModel> _tabModels = [];
+  List<TabModel> createBzTabModels(){
+    List<TabModel> _models = <TabModel>[
 
-    Nav.goToNewScreen(context, DeactivatedFlyerScreen(bz: bzModel));
+      /// 0 : ABOUT
+      BzAboutTab.aboutTabModel(
+        bzModel: _bzModel,
+        isSelected: BzModel.bzPagesTabsTitles[_currentTabIndex] == BzModel.bzPagesTabsTitles[0],
+        onChangeTab: (int index) => _onChangeTab(index),
+      ),
+      /// 1 : Flyers
+      BzFlyersTab.flyersTabModel(
+        bzModel: _bzModel,
+        isSelected: BzModel.bzPagesTabsTitles[_currentTabIndex] == BzModel.bzPagesTabsTitles[1],
+        onChangeTab: (int index) => _onChangeTab(index),
+      ),
+      /// 2 : Targets
+      BzTargetsTab.targetsTabModel(
+        bzModel: _bzModel,
+        isSelected: BzModel.bzPagesTabsTitles[_currentTabIndex] == BzModel.bzPagesTabsTitles[2],
+        onChangeTab: (int index) => _onChangeTab(index),
+      ),
+      /// 3 : Powers
+      BzPowersTab.powersTabModel(
+        bzModel: _bzModel,
+        isSelected: BzModel.bzPagesTabsTitles[_currentTabIndex] == BzModel.bzPagesTabsTitles[3],
+        onChangeTab: (int index) => _onChangeTab(index),
+      ),
+
+    ];
+
+
+    return _models;
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onChangeTab(int index) async {
+
+    setState(() {
+      _currentTabIndex = index;
+      _tabModels = createBzTabModels();
+    });
+
+    _tabController.animateTo(index, curve: Curves.easeIn, duration: Ratioz.duration150ms);
 
   }
 // -----------------------------------------------------------------------------
-//   Widget _statsButton({@required String verse, @required String icon}){
-//     return
-//     DreamBox(
-//       height: 30,
-//       icon: icon,
-//       verse: verse,
-//       verseWeight: VerseWeight.thin,
-//       verseItalic: true,
-//       iconSizeFactor: 0.6,
-//       bubble: false,
-//     );
-// }
-// -----------------------------------------------------------------------------
-
-
-  @override
+    @override
   Widget build(BuildContext context) {
 
-    // double _bubbleWidth = superScreenWidth(context) - (2 * Ratioz.ddAppBarMargin);
+    return TabLayout(
+      tabModels: _tabModels,
+      tabController: _tabController,
+      currentIndex: _currentTabIndex,
+      appBarRowWidgets: bzPageAppBarWidgets(),
+    );
+
+  }
+
+  List<Widget> bzPageAppBarWidgets(){
 
     double _appBarBzButtonWidth = Scale.superScreenWidth(context) - (Ratioz.appBarMargin * 2) -
         (Ratioz.appBarButtonSize * 2) - (Ratioz.appBarPadding * 4);
 
     String _zoneString = TextGenerator.cityCountryStringer(context: context, zone: _bzModel.bzZone);
 
-
-    return MainLayout(
-      pyramids: Iconz.PyramidzYellow,
-      sky: Sky.Black,
-      // appBarBackButton: true,
-      appBarType: AppBarType.Basic,
-      loading: _loading,
-      appBarRowWidgets: <Widget>[
+    return
+      <Widget>[
 
         /// --- BZ LOGO
         DreamBox(
@@ -354,128 +415,27 @@ class _MyBzScreenState extends State<MyBzScreen> {
         ),
 
 
-      ],
-
-      layoutWidget: MaxBounceNavigator(
-        child: AnimatedOpacity(
-          opacity: _bubblesOpacity,
-          duration: Ratioz.durationSliding400,
-          curve: Curves.easeOut,
-          child: Scroller(
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-              children: <Widget>[
-
-                Stratosphere(),
-
-                /// --- PUBLISHED FLYERS
-                if (_bzModel.nanoFlyers != null)
-                Bubble(
-                  title: 'Published Flyers',
-                  centered: false,
-                  actionBtIcon: Iconz.Clock,
-                  actionBtFunction: () => _showOldFlyersOnTap(_bzModel),
-                  columnChildren: <Widget>[
-
-                    Gallery(
-                      flyerBoxWidth: Bubble.clearWidth(context),
-                      superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
-                        bzModel: _bzModel,
-                        onHeaderTap: () => print('on header tap in f 0 my bz Screen'),
-                      ),
-                      showFlyers: true,
-                    ),
-
-                  ],
-                ),
-
-                if (_bzModel.nanoFlyers != null)
-                  BubblesSeparator(),
-
-                /// --- SCOPE
-                if (_bzModel.bzScope != null)
-                  ParagraphBubble(
-                  title: 'Scope of services',
-                  paragraph: _bzModel.bzScope,
-                  maxLines: 5,
-                ),
-
-                /// --- ABOUT
-                if (_bzModel.bzAbout != null)
-                  ParagraphBubble(
-                  title: 'About ${_bzModel.bzName}',
-                  paragraph: _bzModel.bzAbout,
-                  maxLines: 5,
-                  centered: false,
-                ),
-
-                if (_bzModel.bzAbout != null)
-                BubblesSeparator(),
-
-                /// --- STATS
-                if (_bzModel.bzTotalSlides != null)
-                  Bubble(
-                    title: 'Stats',
-                    centered: false,
-                    columnChildren: <Widget>[
-
-                      /// FOLLOWERS
-                      StatsLine(
-                        verse: '${_bzModel.bzTotalFollowers} ${Wordz.followers(context)}',
-                        icon: Iconz.Follow,
-                      ),
-
-                      /// CALLS
-                      StatsLine(
-                        verse: '${_bzModel.bzTotalCalls} ${Wordz.callsReceived(context)}',
-                        icon: Iconz.ComPhone,
-                      ),
-
-                      /// SLIDES & FLYERS
-                      StatsLine(
-                        verse: '${_bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${_bzModel.nanoFlyers.length} ${Wordz.flyers(context)}',
-                        icon: Iconz.Gallery,
-                      ),
-
-                      /// SAVES
-                      StatsLine(
-                        verse: '${_bzModel.bzTotalSaves} ${Wordz.totalSaves(context)}',
-                        icon: Iconz.SaveOn,
-                      ),
-
-                      /// VIEWS
-                      StatsLine(
-                        verse: '${_bzModel.bzTotalViews} ${Wordz.totalViews(context)}',
-                        icon: Iconz.Views,
-                      ),
-
-                      /// SHARES
-                      StatsLine(
-                        verse: '${_bzModel.bzTotalShares} ${Wordz.totalShares(context)}',
-                        icon: Iconz.Share,
-                      ),
-
-                      /// BIRTH
-                      StatsLine(
-                        verse: '${Timers.monthYearStringer(context,_bzModel.createdAt)}',
-                        icon: Iconz.Calendar,
-                      ),
-
-                    ]
-                ),
-
-                BubblesSeparator(),
-
-                TargetsBubble(),
-
-                PyramidsHorizon(),
-
-              ],
-            ),
-          ),
-        ),
-      ),
-
-    );
+      ];
   }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
