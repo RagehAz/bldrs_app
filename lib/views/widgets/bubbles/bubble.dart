@@ -83,6 +83,11 @@ final Key key;
     Borderers.superBorder(context: context, corners: cornersValue());
   }
 // -----------------------------------------------------------------------------
+  static BorderRadius clearBorders(BuildContext context,){
+    return
+      Borderers.superBorder(context: context, corners: clearCornersValue());
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
