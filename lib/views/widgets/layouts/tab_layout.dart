@@ -48,14 +48,16 @@ class TabLayout extends StatelessWidget {
   final int currentIndex;
   final bool selectionMode;
   final List<dynamic> selectedItems;
+  final List<Widget> appBarRowWidgets;
 
   const TabLayout({
     @required this.tabModels,
-    @required this.pageTitle,
+    this.pageTitle,
     @required this.tabController,
     @required this.currentIndex,
-    @required this.selectionMode,
-    @required this.selectedItems,
+    this.selectionMode = false,
+    this.selectedItems,
+    this.appBarRowWidgets,
   });
 
 
@@ -72,6 +74,7 @@ class TabLayout extends StatelessWidget {
       pageTitle: pageTitle,
       pyramids: Iconz.DvBlankSVG,
       onBack: selectionMode == false ? null : () async {await Nav.goBack(context, argument: selectedItems);},
+      appBarRowWidgets: appBarRowWidgets,
       layoutWidget: MaxBounceNavigator(
         axis: Axis.vertical,
 

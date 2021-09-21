@@ -12,13 +12,13 @@ import 'package:flutter/material.dart';
 
 class Gallery extends StatefulWidget {
   final SuperFlyer superFlyer;
-  final double flyerBoxWidth;
+  final double galleryBoxWidth;
   final bool showFlyers; // why ?
   final bool addAuthorButtonIsOn;
 
   Gallery({
     @required this.superFlyer,
-    @required this.flyerBoxWidth,
+    @required this.galleryBoxWidth,
     @required this.showFlyers,
     this.addAuthorButtonIsOn = true,
   });
@@ -117,8 +117,8 @@ class _GalleryState extends State<Gallery> {
     // bool _thisIsMyBz = _bzTeamIDs.contains(superUserID());
 
     return Container(
-      width: widget.flyerBoxWidth,
-      margin: EdgeInsets.only(top: widget.flyerBoxWidth * 0.005),
+      width: widget.galleryBoxWidth,
+      margin: EdgeInsets.only(top: widget.galleryBoxWidth * 0.005),
       color: widget.addAuthorButtonIsOn == false ? Colorz.bzPageBGColor : null,
       child:
       widget.showFlyers == false ?
@@ -131,7 +131,7 @@ class _GalleryState extends State<Gallery> {
 
             /// GRID TITLE
             Container(
-              width: widget.flyerBoxWidth,
+              width: widget.galleryBoxWidth,
               // height: ,
               alignment: Aligners.superCenterAlignment(context),
               padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
@@ -141,7 +141,7 @@ class _GalleryState extends State<Gallery> {
                 verse: '${Wordz.flyersPublishedBy(context)} ${widget.superFlyer.bz.bzName}',
                 size: 2,
                 italic: true,
-                margin: widget.flyerBoxWidth * Ratioz.xxflyersGridSpacing,
+                margin: widget.galleryBoxWidth * Ratioz.xxflyersGridSpacing,
                 maxLines: 3,
                 centered: false,
                 shadow: true,
@@ -153,7 +153,7 @@ class _GalleryState extends State<Gallery> {
                 '${widget.superFlyer.bz.bzName} ${Wordz.authorsTeam(context)}',
                 size: 2,
                 italic: true,
-                margin: widget.flyerBoxWidth * Ratioz.xxflyersGridSpacing,
+                margin: widget.galleryBoxWidth * Ratioz.xxflyersGridSpacing,
                 maxLines: 3,
                 centered: false,
                 shadow: true,
@@ -165,7 +165,7 @@ class _GalleryState extends State<Gallery> {
             /// AUTHORS BUBBLE
             if (widget.superFlyer.bz.bzShowsTeam != false)
               AuthorBubble(
-                  flyerBoxWidth: widget.flyerBoxWidth,
+                  flyerBoxWidth: widget.galleryBoxWidth,
                   addAuthorButtonIsOn: widget.addAuthorButtonIsOn,
                   bzAuthors: widget.superFlyer.bz.bzAuthors,
                   showFlyers: widget.showFlyers,
@@ -176,9 +176,9 @@ class _GalleryState extends State<Gallery> {
 
 
             /// FLYERS
-            if (widget.flyerBoxWidth != null)
+            if (widget.galleryBoxWidth != null)
               GalleryGrid(
-                gridZoneWidth: widget.flyerBoxWidth,
+                gridZoneWidth: widget.galleryBoxWidth,
                 bzID: widget.superFlyer.bz.bzAuthors == null || widget.superFlyer.bz.bzAuthors == [] || widget.superFlyer.bz.bzAuthors.isEmpty ?  '': widget.superFlyer.bz.bzID,
                 flyersVisibilities: _flyersVisibilities,
                 galleryFlyers: _tinyFlyers,

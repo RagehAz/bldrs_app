@@ -114,6 +114,11 @@ class FlyerBox extends StatelessWidget {
       headerBoxHeight(false, flyerZoneHeight) + flyerZoneHeight * Ratioz.xxProgressBarHeightRatio;
   }
 // -----------------------------------------------------------------------------
+  static double editorPanelWidth(){
+    return
+        50;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -126,8 +131,7 @@ class FlyerBox extends StatelessWidget {
 // -----------------------------------------------------------------------------
     BorderRadius _flyerBorders = borders(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
-    double _panelWidth = _isEditorZone == true ?
-        _screenWidth - flyerBoxWidth - (Ratioz.appBarMargin * 3) : 0;
+    double _panelWidth = _isEditorZone == true ? editorPanelWidth() : 0;
 // -----------------------------------------------------------------------------
 //     String _heroTag =
 //         superFlyer?.flyerID == null ?

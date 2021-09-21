@@ -38,7 +38,7 @@ class SavedFlyersScreen extends StatefulWidget {
 }
 
 class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTickerProviderStateMixin {
-  int _currentIndex;
+  int _currentTabIndex;
   List<Section> _sectionsList;
   List<TinyFlyer> _allTinyFlyers;
   TabController _tabController;
@@ -48,7 +48,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
   void initState() {
      super.initState();
      _sectionsList = addAllButtonToSections();
-     _currentIndex = 0;
+     _currentTabIndex = 0;
 
      final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
      _allTinyFlyers =  _prof.getSavedTinyFlyers;
@@ -97,7 +97,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
             tabButton: TabButton(
               verse: TextGenerator.sectionStringer(context, _sectionsList[i]),
               icon: Iconizer.sectionIconOff(_sectionsList[i]),
-              isSelected: _sectionsList[_currentIndex] == _sectionsList[i],
+              isSelected: _sectionsList[_currentTabIndex] == _sectionsList[i],
               onTap: (){
 
                 print('tapping on ${_sectionsList[i]}');
@@ -126,7 +126,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
   Future<void> _onSetSection(int index) async {
 
     setState(() {
-      _currentIndex = index;
+      _currentTabIndex = index;
       _tabModels = createTabModels();
     });
 
@@ -167,7 +167,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
         tabModels: _tabModels,
         pageTitle: 'Saved flyers ', //${TextGenerator.sectionStringer(context, _sectionsList[_currentIndex])}',
         tabController: _tabController,
-        currentIndex: _currentIndex,
+        currentIndex: _currentTabIndex,
         selectionMode: widget.selectionMode,
         selectedItems: _selectedTinyFlyers,
       );

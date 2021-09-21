@@ -146,6 +146,8 @@
   static const String Emoji =  _iconzPath + 'gi_emoji.svg' ;
   static const String Keyword =  _iconzPath + 'gi_keyword.svg' ;
   static const String MobilePhone =  _iconzPath + 'gi_phone.svg' ;
+  static const String Target =  _iconzPath + 'gi_target.svg' ;
+  static const String Power =  _iconzPath + 'gi_power.svg' ;
     // -----------------------------------------------------------------------------
   /// PYRAMIDS
   static const String PyramidsYellow = _iconzPath + 'pyramids_yellow.svg' ;
@@ -321,6 +323,8 @@
       Emoji,
       Keyword,
       MobilePhone,
+      Target,
+      Power,
     ];
 
   }
