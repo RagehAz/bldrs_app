@@ -73,6 +73,7 @@ class SuperFlyer{
   /// publishing times
   List<PublishTime> flyerTimes; // MutableFlyer -- ?
   DateTime createdAt;
+  bool priceTagIsOn;
 
 
   /// --------------------------------------------------------------------------
@@ -130,6 +131,8 @@ class SuperFlyer{
     /// publishing times
     @required this.flyerTimes,
     @required this.createdAt,
+
+    @required this.priceTagIsOn,
   });
 // -----------------------------------------------------------------------------
   static String draftID = 'draft';
@@ -240,6 +243,8 @@ class SuperFlyer{
           /// publishing times
           flyerTimes: null,
           createdAt: null,
+
+          priceTagIsOn: null,
 
         );
   }
@@ -408,7 +413,7 @@ class SuperFlyer{
           PublishTime(state: FlyerState.Deleted, timeStamp: flyerModel.deletionTime),
         ],
         createdAt: flyerModel.createdAt,
-
+        priceTagIsOn: flyerModel.priceTagIsOn,
       );
   }
 // -----------------------------------------------------------------------------
@@ -572,7 +577,7 @@ class SuperFlyer{
         /// publishing times
         flyerTimes: null,
         createdAt: null,
-
+        priceTagIsOn: tinyFlyer.priceTagIsOn,
       );
   }
 // -----------------------------------------------------------------------------
@@ -752,7 +757,7 @@ class SuperFlyer{
           PublishTime(state: FlyerState.Draft, timeStamp: DateTime.now()),
         ],
         createdAt: DateTime.now(),
-
+        priceTagIsOn: false,
       );
 
   }
@@ -891,9 +896,6 @@ class SuperFlyer{
         ),
         loading: false,
 
-
-
-
         /// editor data
         infoController: new TextEditingController(text: flyerModel.info),
         // screenShots: await Imagers.getScreenShotsFromFiles(_assetsFiles),
@@ -934,7 +936,7 @@ class SuperFlyer{
           PublishTime(state: FlyerState.Draft, timeStamp: DateTime.now()),
         ],
         createdAt: flyerModel.createdAt,
-
+        priceTagIsOn: flyerModel.priceTagIsOn,
       );
 
   }
@@ -1059,6 +1061,8 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         /// publishing times
         flyerTimes: null,
         createdAt: null,
+
+        priceTagIsOn: null,
       );
 }
 

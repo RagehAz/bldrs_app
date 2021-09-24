@@ -1,6 +1,7 @@
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/secondary_models/feedback_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -76,6 +77,21 @@ class SuperBldrsMethod{
     );
 
     List<FlyerModel> _allModels = FlyerModel.decipherFlyersMaps(_maps);
+
+    return _allModels;
+  }
+// -----------------------------------------------------------------------------
+  static Future<List<TinyFlyer>> readAllTinyFlyers({BuildContext context, int limit,}) async {
+
+    List<dynamic> _maps = await Fire.readCollectionDocs(
+      limit: limit ?? 100,
+      collectionName: FireCollection.tinyFlyers,
+      addDocSnapshotToEachMap: false,
+      addDocID: false,
+      orderBy: 'flyerID',
+    );
+
+    List<TinyFlyer> _allModels = TinyFlyer.decipherTinyFlyersMaps(_maps);
 
     return _allModels;
   }

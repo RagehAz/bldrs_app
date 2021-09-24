@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/super_methods.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
@@ -120,7 +120,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
               DreamBox(
                 height: 50,
                 width: 200,
-                verse: 'save to db : $_numberOfFields fields',
+                verse: 'testing max firebase upload _numberOfFields : $_numberOfFields fields',
                 verseScaleFactor: 0.7,
                 onTap: () async {
 
@@ -157,24 +157,44 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
               ),
 
               WideButton(
-                verse: 'delete url from bzzzzzzzzz models in fb',
+                verse: 'add the _priceTagIsOn to all flyers',
                 onTap: () async {
 
-                  List<BzModel> _bzz = await SuperBldrsMethod.readAllBzzModels(
+                  List<FlyerModel> _flyers = await SuperBldrsMethod.readAllFlyers(
                     context: context,
                     limit: 300,
                   );
 
-                  for (var bz in _bzz){
+                  for (int i = 0; i < _flyers.length; i++){
 
-                    await Fire.deleteDocField(
+                    bool _priceTagIsOn;
+
+                    if (i.isEven == true){
+                      _priceTagIsOn = true;
+                    } else {
+                      _priceTagIsOn = false;
+                    }
+
+                    await Fire.updateDocField(
                       context: context,
-                      collName: FireCollection.bzz,
-                      docName: bz.bzID,
-                      field: 'bzURL',
+                      collName: FireCollection.flyers,
+                      docName: _flyers[i].flyerID,
+                      field: 'priceTagIsOn',
+                      input: _priceTagIsOn,
                     );
 
+                    await Fire.updateDocField(
+                      context: context,
+                      collName: FireCollection.tinyFlyers,
+                      docName: _flyers[i].flyerID,
+                      field: 'priceTagIsOn',
+                      input: _priceTagIsOn,
+                    );
+
+                    print('Done with $i : ${_flyers[i].flyerID}');
+
                   }
+
 
 
                 },

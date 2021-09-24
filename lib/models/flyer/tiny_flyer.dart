@@ -29,6 +29,7 @@ class TinyFlyer with ChangeNotifier{
   final List<Keyword> keywords;
   final ImageSize imageSize;
   final String headline;
+  final bool priceTagIsOn;
 
   TinyFlyer({
     @required this.flyerID,
@@ -43,6 +44,7 @@ class TinyFlyer with ChangeNotifier{
     @required this.picFit, /// TASK : integrate this in all below methods
     @required this.imageSize,
     @required this.headline,
+    @required this.priceTagIsOn,
   });
 // -----------------------------------------------------------------------------
   Map<String,dynamic> toMap (){
@@ -59,6 +61,7 @@ class TinyFlyer with ChangeNotifier{
       'picFit' : SlideModel.cipherBoxFit(picFit),
       'imageSize' : imageSize.toMap(),
       'headline' : headline,
+      'priceTagIsOn' : priceTagIsOn,
     };
   }
 // -----------------------------------------------------------------------------
@@ -80,6 +83,8 @@ class TinyFlyer with ChangeNotifier{
     else if (finalFlyer.flyerZone.countryID != originalFlyer.flyerZone.countryID) {tinyFlyersAreTheSame = false;}
     else if (finalFlyer.flyerZone.cityID != originalFlyer.flyerZone.cityID) {tinyFlyersAreTheSame = false;}
     else if (finalFlyer.flyerZone.districtID != originalFlyer.flyerZone.districtID) {tinyFlyersAreTheSame = false;}
+
+    else if (finalFlyer.priceTagIsOn != originalFlyer.priceTagIsOn) {tinyFlyersAreTheSame = false;}
 
     else {tinyFlyersAreTheSame = true;}
 
@@ -108,6 +113,7 @@ class TinyFlyer with ChangeNotifier{
       picFit: SlideModel.decipherBoxFit(map['picFit']),
       imageSize: ImageSize.decipherImageSize(map['imageSize']),
       headline: map['headline'],
+      priceTagIsOn: map['priceTagIsOn'],
       // keywords: Keyword.de
     );
   }
@@ -131,6 +137,7 @@ class TinyFlyer with ChangeNotifier{
             keywords: flyerModel?.keywords,
             imageSize: flyerModel?.slides[0]?.imageSize,
             headline: flyerModel?.slides[0]?.headline,
+            priceTagIsOn: flyerModel?.priceTagIsOn,
           );
         }
       }
@@ -206,7 +213,8 @@ class TinyFlyer with ChangeNotifier{
       midColor: Colorz.Black255,
       keywords: [],
       imageSize: null,
-      headline: 'Headline'
+      headline: 'Headline',
+      priceTagIsOn: true,
     );
   }
 // -----------------------------------------------------------------------------
@@ -235,6 +243,7 @@ class TinyFlyer with ChangeNotifier{
       midColor: superFlyer.mSlides[superFlyer.currentSlideIndex].midColor,
       imageSize: superFlyer.mSlides[superFlyer.currentSlideIndex].imageSize,
       headline: superFlyer.mSlides[superFlyer.currentSlideIndex].headline,
+      priceTagIsOn: superFlyer.priceTagIsOn,
     );
 
     return _tinyFlyer;
@@ -256,6 +265,7 @@ class TinyFlyer with ChangeNotifier{
         imageSize: null, /// TASK : add imageSize to tinyFlyers from nano flyers
         headline: 'fix nano headline',
         tinyBz: TinyBz.getTinyBzFromBzModel(bzModel),
+        priceTagIsOn: true, /// Task : sheel mayteen om el nano flyers dih and change with tiny flyers instead
       );
     }
     return _tiny;

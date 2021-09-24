@@ -6,9 +6,45 @@ import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class Numberers {
   /// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
-  static String separateKilos(int number) {
-    if (number == null) return '0';
-    if (number > -1000 && number < 1000) return number.toString();
+  static String separateKilos({dynamic number, int fractions = 2}) {
+
+    String _result = '0';
+
+    if (number != null){
+
+      if (number > -1000 && number < 1000){
+        _result = number.toString();
+      }
+
+      else {
+
+        final String _roundedNumberAsString = roundFractions(number, fractions).toString();
+        final String _fractionsString = TextMod.trimTextBeforeLastSpecialCharacter(_roundedNumberAsString, '.');
+        final int _fractions = stringToInt(_fractionsString);
+        final _number = number.floor();
+        final String _digits = _number.abs().toString();
+        final StringBuffer _resultWithoutFractions = StringBuffer(_number < 0 ? '-' : '');
+        final int maxDigitIndex = _digits.length - 1;
+
+        for (int i = 0; i <= maxDigitIndex; i += 1) {
+          _resultWithoutFractions.write(_digits[i]);
+          if (i < maxDigitIndex && (maxDigitIndex - i) % 3 == 0) _resultWithoutFractions.write('\'');
+        }
+
+        if (_fractions > 0){
+          _result = '$_resultWithoutFractions.$_fractionsString';
+        }
+        else {
+          _result = '$_resultWithoutFractions';
+        }
+
+      }
+
+      return _result;
+    }
+
+    // if (number == null) return '0';
+    // if (number > -1000 && number < 1000) return number.toString();
 
     final String digits = number.abs().toString();
     final StringBuffer result = StringBuffer(number < 0 ? '-' : '');
