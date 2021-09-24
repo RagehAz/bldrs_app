@@ -8,7 +8,8 @@ enum SpecType {
   area,
   count,
   weight,
-  price,
+  oldPrice,
+  currentPrice,
 }
 /// ----------------------------------------------------------------------------
 class Spec {
@@ -65,8 +66,8 @@ class Spec {
       case 'area':return SpecType.area;break;
       case 'count':return SpecType.count;break;
       case 'weight':return SpecType.weight;break;
-      case 'price' : return SpecType.price; break;
-
+      case 'oldPrice' : return SpecType.oldPrice; break;
+      case 'currentPrice' : return SpecType.currentPrice; break;
       default :
         return null;
     }

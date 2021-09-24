@@ -28,6 +28,7 @@ class SuperVerse extends StatelessWidget {
   final Function onTap;
   final bool leadingDot;
   final bool redDot;
+  final bool strikethrough;
 
   SuperVerse({
     this.verse = 'Bldrs.net will shock planet Earth isa',
@@ -46,6 +47,7 @@ class SuperVerse extends StatelessWidget {
     this.onTap,
     this.leadingDot = false,
     this.redDot = false,
+    this.strikethrough = false,
   });
 // -----------------------------------------------------------------------------
   static Widget dotVerse({String verse}){
@@ -87,6 +89,7 @@ class SuperVerse extends StatelessWidget {
       @required bool shadow,
       double scaleFactor = 1,
       bool designMode = false,
+       bool strikeThrough = false,
     }){
 
       const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
@@ -118,6 +121,7 @@ class SuperVerse extends StatelessWidget {
             wordSpacing: _verseWordSpacing,
             fontSize: _verseSizeValue,
             fontWeight: _verseWeight,
+            decoration: strikeThrough == true ? TextDecoration.lineThrough : null,
             shadows: <Shadow>[
               if (shadow)
                 Shadow(
@@ -242,6 +246,7 @@ class SuperVerse extends StatelessWidget {
                       shadow: shadow,
                       scaleFactor: scaleFactor,
                       designMode: designMode,
+                      strikeThrough: strikethrough,
                     ),
 
                   // TextStyle(

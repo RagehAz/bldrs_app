@@ -3,6 +3,7 @@ import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/flyer/flyer_methods.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/editor_footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/price_tag.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/slides.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,13 @@ class SlidesPage extends StatelessWidget {
             superFlyer: superFlyer,
             flyerBoxWidth: flyerBoxWidth,
           ),
+
+        /// PRICE TAG
+        if(superFlyer.priceTagIsOn == true)
+        PriceTag(
+          flyerBoxWidth: flyerBoxWidth,
+          superFlyer: superFlyer,
+        ),
 
         /// ANKH
         if(superFlyer.currentSlideIndex != null && superFlyer.numberOfSlides != 0 && superFlyer.edit.editMode != true)

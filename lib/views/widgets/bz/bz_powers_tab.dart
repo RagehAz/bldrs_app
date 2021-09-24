@@ -4,7 +4,6 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
-import 'package:bldrs/views/widgets/bubbles/targets_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/tab_button.dart';
 import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/layouts/tab_layout.dart';

@@ -1,26 +1,12 @@
-import 'package:bldrs/controllers/drafters/aligners.dart';
-import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/buttons/tab_button.dart';
-import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
-import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
-import 'package:bldrs/views/widgets/flyer/stacks/gallery_grid.dart';
 import 'package:bldrs/views/widgets/flyer/stacks/saved_flyers_grid.dart';
-import 'package:bldrs/views/widgets/flyer/stacks/sliver_flyers_grid.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/layouts/tab_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -49,6 +49,7 @@ class GeneralStatistics extends StatelessWidget {
           specs: _flyer.specs,
           info: _flyer.info,
           times: _flyer.times,
+          priceTagIsOn: _flyer.priceTagIsOn,
         );
 
         print('the fucking fucking slides length is : ${_testFlyer.slides.length}');

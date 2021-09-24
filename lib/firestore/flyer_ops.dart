@@ -86,6 +86,7 @@ class FlyerOps{
     times: inputFlyerModel.times,
     info: inputFlyerModel.info,
     specs: inputFlyerModel.specs,
+    priceTagIsOn: inputFlyerModel.priceTagIsOn,
   );
 
     print('5- flyer model updated with flyerID, flyerURL & updates slides pic URLs');
