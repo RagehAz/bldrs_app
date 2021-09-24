@@ -125,7 +125,7 @@ class FlyerBox extends StatelessWidget {
     // bool _tinyMode = Scale.superFlyerTinyMode(context, flyerBoxWidth);
     bool _isEditorZone = editorMode;
 
-    double _screenWidth = Scale.superScreenWidth(context);
+    // double _screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
     double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------

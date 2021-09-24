@@ -63,7 +63,7 @@ class BzPgCounter extends StatelessWidget {
                 ),
 
                 SuperVerse(
-                  verse: Numberers.separateKilos(count),//formatDecimal(count),
+                  verse: Numberers.separateKilos(number: count),//formatDecimal(count),
                   size: 2,
                   weight: VerseWeight.bold,
                   margin: bzPageStripSideMargin * 0.1,

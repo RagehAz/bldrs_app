@@ -1,39 +1,22 @@
-import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
-import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/controllers/theme/targetz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/models/target/target_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
-import 'package:bldrs/views/screens/f_bz/f_2_deactivated_flyers_screen.dart';
 import 'package:bldrs/views/screens/f_bz/f_x_bz_editor_screen.dart';
-import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
-import 'package:bldrs/views/widgets/bubbles/bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/stats_line.dart';
-import 'package:bldrs/views/widgets/bubbles/targets_bubble.dart';
 import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/buttons/tab_button.dart';
 import 'package:bldrs/views/widgets/bz/bz_about_tab.dart';
 import 'package:bldrs/views/widgets/bz/bz_flyers_tab.dart';
 import 'package:bldrs/views/widgets/bz/bz_powers_tab.dart';
 import 'package:bldrs/views/widgets/bz/bz_targets_tab.dart';
 import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_row.dart';
 import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/gallery.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/layouts/tab_layout.dart';
 import 'package:bldrs/views/widgets/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +39,7 @@ class MyBzScreen extends StatefulWidget {
 class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateMixin {
   // bool _showOldFlyers;
   BzModel _bzModel;
-  double _bubblesOpacity = 0;
+  // double _bubblesOpacity = 0;
   TabController _tabController;
   int _currentTabIndex = 0;
 // -----------------------------------------------------------------------------
@@ -131,7 +114,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
         _triggerLoading(
             function: (){
               _bzModel = _bzFromDB;
-              _bubblesOpacity = 1;
+              // _bubblesOpacity = 1;
               _tabModels = createBzTabModels();
             }
         );

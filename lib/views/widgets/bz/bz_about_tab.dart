@@ -2,7 +2,6 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/views/screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/views/widgets/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
