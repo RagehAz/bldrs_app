@@ -37,6 +37,7 @@ class FlyerModel with ChangeNotifier{
   final List<Spec> specs;
   final String info;
   final List<PublishTime> times;
+  final bool priceTagIsOn;
 
   FlyerModel({
     this.flyerID,
@@ -62,6 +63,7 @@ class FlyerModel with ChangeNotifier{
     this.specs,
     @required this.info,
     this.times,
+    @required this.priceTagIsOn,
   });
 // -----------------------------------------------------------------------------
   void toggleAnkh(){
@@ -93,6 +95,7 @@ class FlyerModel with ChangeNotifier{
       'deletionTime' : Timers.cipherDateTimeToString(deletionTime),
       'specs' : Spec.cipherSpecs(specs),
       'info' : info,
+      'priceTagIsOn' : priceTagIsOn,
     };
   }
 // -----------------------------------------------------------------------------
@@ -114,6 +117,7 @@ class FlyerModel with ChangeNotifier{
       ankhIsOn: ankhIsOn,
       specs: Spec.cloneSpecs(specs),
       info: info,
+      priceTagIsOn: priceTagIsOn,
       // times:
     );
   }
@@ -137,6 +141,7 @@ class FlyerModel with ChangeNotifier{
           ankhIsOn: flyer.ankhIsOn,
           specs: flyer.specs,
           info: flyer.info,
+          priceTagIsOn: flyer.priceTagIsOn,
           // times:
     );
   }
@@ -201,6 +206,7 @@ class FlyerModel with ChangeNotifier{
         deletionTime: Timers.decipherDateTimeString(map['deletionTime']),
         specs: Spec.decipherSpecs(map['specs']),
         info: map['info'],
+        priceTagIsOn: map['priceTagIsOn'],
       );
 
     }
@@ -235,6 +241,7 @@ class FlyerModel with ChangeNotifier{
       deletionTime: inputFlyerModel.deletionTime,
       specs: inputFlyerModel.specs,
       info: inputFlyerModel.info,
+        priceTagIsOn: inputFlyerModel.priceTagIsOn,
     );
   }
 // -----------------------------------------------------------------------------
@@ -357,7 +364,7 @@ class FlyerModel with ChangeNotifier{
         ankhIsOn: superFlyer.rec.ankhIsOn,
         specs: superFlyer.specs,
         info: superFlyer?.infoController?.text,
-
+          priceTagIsOn : superFlyer?.priceTagIsOn,
         // times:
       );
     }
@@ -383,6 +390,7 @@ class FlyerModel with ChangeNotifier{
     print('FLYER-PRINT : specs : ${specs}');
     print('FLYER-PRINT : info : ${info}');
     print('FLYER-PRINT : times : ${times}');
+    print('FLYER-PRINT : priceTagIsOn : ${priceTagIsOn}');
     print('FLYER-PRINT --------------------------------------------------END');
   }
 // -----------------------------------------------------------------------------

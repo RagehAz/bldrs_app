@@ -269,7 +269,7 @@ class BottomDialog extends StatelessWidget {
               tinyAuthor: TinyUser.getTinyAuthorFromAuthorModel(author),
               flyerZone: bz.bzZone,
               info: '',
-
+              priceTagIsOn: false,
             ),
 
           ),

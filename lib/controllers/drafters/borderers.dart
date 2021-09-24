@@ -71,10 +71,8 @@ class Borderers {
   }
 
 // -----------------------------------------------------------------------------
-  static BorderRadius superHeaderStripCorners(BuildContext context,
-      bool bzPageIsOn, double flyerBoxWidth) {
-    double headerMainCorners = flyerBoxWidth * Ratioz
-        .xxflyerTopCorners; //bzPageIsOn == false ? flyerBoxWidth * Ratioz.xxflyerTopCorners : flyerBoxWidth * Ratioz.bzLogCorner;
+  static BorderRadius superHeaderStripCorners(BuildContext context, bool bzPageIsOn, double flyerBoxWidth) {
+    double headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners; //bzPageIsOn == false ? flyerBoxWidth * Ratioz.xxflyerTopCorners : flyerBoxWidth * Ratioz.bzLogCorner;
     double headerZeroCorner = bzPageIsOn == false ? headerMainCorners : 0;
     BorderRadius headerStripCorners = superBorderOnly(
       context: context,
@@ -85,7 +83,18 @@ class Borderers {
     );
     return headerStripCorners;
   }
-
+// -----------------------------------------------------------------------------
+  static BorderRadius superPriceTagCorners(BuildContext context, double flyerBoxWidth){
+    double headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners;
+    return
+      superBorderOnly(
+        context: context,
+        enTopLeft: 0,
+        enBottomLeft: 0,
+        enBottomRight: headerMainCorners,
+        enTopRight: headerMainCorners,
+      );
+  }
 // -----------------------------------------------------------------------------
   static BorderRadius superFollowOrCallCorners(BuildContext context,
       double flyerBoxWidth, bool gettingFollowCorner) {

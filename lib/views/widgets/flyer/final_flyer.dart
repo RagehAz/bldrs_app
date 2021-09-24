@@ -2372,6 +2372,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         info: _superFlyer.infoController.text,
         specs: _superFlyer.specs,
         times: <PublishTime>[PublishTime(timeStamp: DateTime.now(), state: FlyerState.Published)],
+        priceTagIsOn: _superFlyer.priceTagIsOn,
       );
 
       /// start create flyer ops
@@ -2430,6 +2431,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         deletionTime: PublishTime.getPublishTimeFromTimes(times: _superFlyer.flyerTimes, state: FlyerState.Deleted),
         info: _superFlyer.infoController.text,
         specs: _superFlyer.specs,
+        priceTagIsOn: _superFlyer.priceTagIsOn,
         // times: _superFlyer.times,
         // specs: _draft.specs,
       );
