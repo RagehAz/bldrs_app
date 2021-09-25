@@ -12,6 +12,7 @@ class BigMac{
     @required this.currency,
     @required this.toDollarRate,
 });
+// -----------------------------------------------------------------------------
   static const double proAccountPriceEGY = 3000.00; // 5 peacocks
 // -----------------------------------------------------------------------------
   static double proAccountPriceInLocalCurrencyByISO3(String iso3){
@@ -25,6 +26,7 @@ class BigMac{
 
     return _proAccountPriceInLocalCurrency;
   }
+// -----------------------------------------------------------------------------
   /// how many big macs can 5000 EGP buy
   static double bigMacsCountToBuyProAccount(){
     double _proAccountPriceEGY = proAccountPriceEGY;
@@ -64,7 +66,6 @@ class BigMac{
     return bigMacs().singleWhere((bigMac) => bigMac.iso3 == iso3, orElse: ()=> null);
   }
 // -----------------------------------------------------------------------------
-
   static List<BigMac> getBigMacsOrdered(){
     List<BigMac> _macs = [];
 
@@ -78,7 +79,7 @@ class BigMac{
 
     return _macs;
   }
-
+// -----------------------------------------------------------------------------
   static List<BigMac> bigMacs(){
     List<BigMac> _bigMacs = <BigMac>[
       BigMac(iso3: 'arg', localPrice: 320, currency: 'ARS', toDollarRate: 85.3736),
@@ -140,6 +141,12 @@ class BigMac{
     ];
 
     return _bigMacs;
+  }
+// -----------------------------------------------------------------------------
+  static String getCurrencyByIso3(String iso3){
+    BigMac _bigMacOfThisCountry = bigMacs().singleWhere((bigMac) => bigMac.iso3 == iso3, orElse: ()=> null);
+    String _currency = _bigMacOfThisCountry?.currency;
+    return _currency;
   }
 // -----------------------------------------------------------------------------
 }

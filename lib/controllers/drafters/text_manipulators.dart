@@ -54,7 +54,7 @@ class TextMod {
   return stringWithoutFirstCharacter;
 }
 // -----------------------------------------------------------------------------
-  static String removeNumberOfCharactersFromAString(String string, int numberOfCharacters){
+  static String removeNumberOfCharactersFromBeginningOfAString(String string, int numberOfCharacters){
   String _stringTrimmed;
   if (numberOfCharacters > string.length){
     print('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
@@ -64,6 +64,34 @@ class TextMod {
   }
   return _stringTrimmed;
 }
+// -----------------------------------------------------------------------------
+  static String removeNumberOfCharactersFromEndOfAString(String string, int numberOfCharacters){
+    String _stringTrimmed;
+    // if (numberOfCharacters > string.length){
+    //   print('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
+    //   throw('can not remove ($numberOfCharacters) from the given string because');
+    // } else {}
+
+    print('string length ${string.trim().length} and : numberOfCharacters : $numberOfCharacters');
+
+    if (string != null && string.trim().length != 0){
+
+      if (string.trim().length == numberOfCharacters){
+        _stringTrimmed = '';
+      }
+
+      else if (string.trim().length > numberOfCharacters){
+        _stringTrimmed = string.substring(0, string.trim().length - numberOfCharacters);
+      }
+
+      else {
+        _stringTrimmed = '';
+      }
+    }
+
+
+    return _stringTrimmed;
+  }
 // -----------------------------------------------------------------------------
   static String removeSpacesFromAString(String string){
     String _output5;
