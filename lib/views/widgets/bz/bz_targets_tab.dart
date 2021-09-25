@@ -17,7 +17,7 @@ class BzTargetsTab extends StatelessWidget {
     @required Function onChangeTab,
     @required BzModel bzModel,
     @required bool isSelected,
-    int tabIndex = 2,
+    @required int tabIndex,
   }) {
     return
       TabModel(
