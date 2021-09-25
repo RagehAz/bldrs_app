@@ -21,7 +21,7 @@ class BzFlyersTab extends StatelessWidget {
     @required Function onChangeTab,
     @required BzModel bzModel,
     @required bool isSelected,
-    int tabIndex = 1,
+    @required int tabIndex,
   }) {
     return
       TabModel(
