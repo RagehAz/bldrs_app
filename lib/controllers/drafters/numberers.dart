@@ -18,24 +18,23 @@ class Numberers {
 
       else {
 
-        final String _roundedNumberAsString = roundFractions(number, fractions).toString();
-        final String _fractionsString = TextMod.trimTextBeforeLastSpecialCharacter(_roundedNumberAsString, '.');
-        final int _fractions = stringToInt(_fractionsString);
+        final double _fractions = getFractions(number: number);
         final _number = number.floor();
         final String _digits = _number.abs().toString();
-        final StringBuffer _resultWithoutFractions = StringBuffer(_number < 0 ? '-' : '');
+        final StringBuffer _separatedNumberWithoutFractions = StringBuffer(_number < 0 ? '-' : '');
         final int maxDigitIndex = _digits.length - 1;
 
         for (int i = 0; i <= maxDigitIndex; i += 1) {
-          _resultWithoutFractions.write(_digits[i]);
-          if (i < maxDigitIndex && (maxDigitIndex - i) % 3 == 0) _resultWithoutFractions.write('\'');
+          _separatedNumberWithoutFractions.write(_digits[i]);
+          if (i < maxDigitIndex && (maxDigitIndex - i) % 3 == 0) _separatedNumberWithoutFractions.write('\'');
         }
 
         if (_fractions > 0){
-          _result = '$_resultWithoutFractions.$_fractionsString';
+          final String _fractionWithoutZero = getFractionStringWithoutZero(fraction: _fractions);
+          _result = '$_separatedNumberWithoutFractions.$_fractionWithoutZero';
         }
         else {
-          _result = '$_resultWithoutFractions';
+          _result = '$_separatedNumberWithoutFractions';
         }
 
       }
@@ -176,14 +175,48 @@ class Numberers {
     return _dummies;
   }
 // -----------------------------------------------------------------------------
+  static int createUniqueID(){
+    return DateTime.now().microsecondsSinceEpoch;
+  }
+// -----------------------------------------------------------------------------
+  /// for 1.123 => returns 0.123
+  static double getFractions({double number, int fractionDigits}){
+
+    final String _numberAsString = fractionDigits == null ? number.toString() : getFractionStringWithoutZero(fraction: number, fractionDigits: fractionDigits);
+    final String _fractionsString = TextMod.trimTextBeforeLastSpecialCharacter(_numberAsString, '.');
+    final double _fraction = stringToDouble('0.$_fractionsString');
+    return _fraction;
+  }
+// -----------------------------------------------------------------------------
+  static removeFractions({double number}){
+    final double _fractions = getFractions(number: number);
+    return number - _fractions;
+  }
+// -----------------------------------------------------------------------------
   static double roundFractions(double value, int fractions){
     String _roundedAsString = value.toStringAsFixed(fractions);
     double _rounded = stringToDouble(_roundedAsString);
     return _rounded;
   }
 // -----------------------------------------------------------------------------
-  static int createUniqueID(){
-    return DateTime.now().microsecondsSinceEpoch;
+  static String getFractionStringWithoutZero({double fraction, int fractionDigits}){
+    final String _fractionAsString = fraction.toString();
+    String _fractionAsStringWithoutZero = TextMod.trimTextBeforeLastSpecialCharacter(_fractionAsString, '.');
+
+    if (fractionDigits != null){
+      final int _fractionStringLength = _fractionAsStringWithoutZero.length;
+      final int _trimmingLength = _fractionStringLength - fractionDigits;
+      if(_trimmingLength >= 0){
+        _fractionAsStringWithoutZero = TextMod.removeNumberOfCharactersFromEndOfAString(_fractionAsStringWithoutZero, _trimmingLength);
+      }
+    }
+
+    return _fractionAsStringWithoutZero;
+  }
+// -----------------------------------------------------------------------------
+  static int discountPercentage({double oldPrice, double currentPrice}){
+    double percent = ((oldPrice - currentPrice) / oldPrice ) * 100;
+    return percent.round();
   }
 // -----------------------------------------------------------------------------
 }

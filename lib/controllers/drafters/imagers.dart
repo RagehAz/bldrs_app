@@ -299,7 +299,7 @@ class Imagers{
       methodName : 'getImageFileFromAssets',
       functions: () async {
         print('0. removing [assets/] from input image path');
-        String _pathTrimmed = TextMod.removeNumberOfCharactersFromAString(_asset, 7);
+        String _pathTrimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(_asset, 7);
         print('1. starting getting image from assets');
         final ByteData _byteData = await rootBundle.load('assets/$_pathTrimmed');
         print('2. we got byteData and creating the File aho');
