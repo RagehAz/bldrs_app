@@ -485,7 +485,7 @@ Map<String, dynamic> toMap(){
 
   }
 // -----------------------------------------------------------------------------
-  static const List<String> bzPagesTabsTitles = ['About', 'Flyers', 'Targets', 'Powers'];
+  static const List<String> bzPagesTabsTitles = <String>['Flyers', 'About', 'Targets', 'Powers'];
 // -----------------------------------------------------------------------------
 }
 

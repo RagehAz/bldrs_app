@@ -22,7 +22,7 @@ class BzAboutTab extends StatelessWidget {
     @required Function onChangeTab,
     @required BzModel bzModel,
     @required bool isSelected,
-    int tabIndex = 0,
+    @required int tabIndex,
   }){
     return
       TabModel(
