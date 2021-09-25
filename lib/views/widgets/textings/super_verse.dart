@@ -2,6 +2,8 @@ import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 
 enum VerseWeight {
   black,
@@ -68,6 +70,38 @@ class SuperVerse extends StatelessWidget {
 //     return
 //         SuperVerse();
 //   }
+
+  static Widget priceVerse({BuildContext context, Color color, double price, double scaleFactor, String currency, bool strikethrough = false}){
+    return
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+
+          SuperVerse(
+            verse: '${Numberers.separateKilos(number: price, fractions: 3)}',
+            color: color,
+            weight: VerseWeight.black,
+            size: 6,
+            scaleFactor: scaleFactor,
+            shadow: true,
+            strikethrough: strikethrough,
+          ),
+
+          SuperVerse(
+            verse: '$currency',
+            color: color,
+            weight: VerseWeight.bold,
+            italic: true,
+            size: 3,
+            margin: scaleFactor * 3,
+            scaleFactor: scaleFactor,
+          ),
+
+        ],
+      );
+  }
+
 // -----------------------------------------------------------------------------
   Widget _dot(double _dotSize, Color _color){
     return Container(
