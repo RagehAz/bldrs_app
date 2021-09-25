@@ -307,29 +307,36 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
   List<TabModel> createBzTabModels(){
     List<TabModel> _models = <TabModel>[
 
-      /// 0 : ABOUT
-      BzAboutTab.aboutTabModel(
+      /// 0 : Flyers
+      BzFlyersTab.flyersTabModel(
         bzModel: _bzModel,
         isSelected: BzModel.bzPagesTabsTitles[_currentTabIndex] == BzModel.bzPagesTabsTitles[0],
         onChangeTab: (int index) => _onChangeTab(index),
+        tabIndex: 0,
       ),
-      /// 1 : Flyers
-      BzFlyersTab.flyersTabModel(
+
+      /// 1 : ABOUT
+      BzAboutTab.aboutTabModel(
         bzModel: _bzModel,
         isSelected: BzModel.bzPagesTabsTitles[_currentTabIndex] == BzModel.bzPagesTabsTitles[1],
         onChangeTab: (int index) => _onChangeTab(index),
+        tabIndex: 1,
       ),
+
       /// 2 : Targets
       BzTargetsTab.targetsTabModel(
         bzModel: _bzModel,
         isSelected: BzModel.bzPagesTabsTitles[_currentTabIndex] == BzModel.bzPagesTabsTitles[2],
         onChangeTab: (int index) => _onChangeTab(index),
+        tabIndex: 2,
       ),
+
       /// 3 : Powers
       BzPowersTab.powersTabModel(
         bzModel: _bzModel,
         isSelected: BzModel.bzPagesTabsTitles[_currentTabIndex] == BzModel.bzPagesTabsTitles[3],
         onChangeTab: (int index) => _onChangeTab(index),
+        tabIndex: 3,
       ),
 
     ];
