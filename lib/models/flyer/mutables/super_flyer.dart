@@ -295,7 +295,8 @@ class SuperFlyer{
           onHeaderTap: onHeaderTap,
           onSlideRightTap: onSlideRightTap,
           onSlideLeftTap: onSlideLeftTap,
-          onSwipeFlyer: onSwipeFlyer,          onTinyFlyerTap: onTinyFlyerTap,
+          onSwipeFlyer: onSwipeFlyer,
+          onTinyFlyerTap: onTinyFlyerTap,
           /// animation parameters
           progressBarOpacity: 1,
           swipeDirection: SwipeDirection.next,
