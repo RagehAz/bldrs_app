@@ -1,12 +1,16 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/flyer_methods.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/stats_dialog.dart';
 import 'package:flutter/material.dart';
 
 class Slides extends StatelessWidget {
@@ -36,6 +40,14 @@ class Slides extends StatelessWidget {
 
   }
 // -----------------------------------------------------------------------------
+  Future<void> _onSlideCounterTap(BuildContext context) async {
+
+    print('tapping slide counter');
+
+    await FlyerStatsDialog.show(context);
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -45,9 +57,9 @@ class Slides extends StatelessWidget {
       numberOfScreens: superFlyer.numberOfSlides,
       onNavigate: (){
 
-        SwipeDirection _direction = superFlyer.currentSlideIndex == 0 ? SwipeDirection.back : SwipeDirection.next;
+        SwipeDirection _direction = superFlyer.currentSlideIndex == null || superFlyer.currentSlideIndex == 0 ? SwipeDirection.back : SwipeDirection.next;
 
-        superFlyer.nav.onSwipeFlyer(_direction);
+        superFlyer.nav.onSwipeFlyer(_direction ?? SwipeDirection.back);
 
       },
       child: PageView(
@@ -113,7 +125,7 @@ class Slides extends StatelessWidget {
                         shares: superFlyer.edit.firstTimer == true? 0 : superFlyer.mSlides[superFlyer.currentSlideIndex].sharesCount,
                         views: superFlyer.edit.firstTimer == true ? 0 : superFlyer.mSlides[superFlyer.currentSlideIndex].viewsCount,
                         onShareTap: () => superFlyer.rec.onShareTap(),
-                        onCountersTap: (){print('tapping slide counter');},
+                        onCountersTap: () => _onSlideCounterTap(context),
                       ),
 
                     // /// TAP AREAS
