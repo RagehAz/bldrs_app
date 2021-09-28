@@ -71,39 +71,52 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
     return
       GestureDetector(
         onTap: onTap,
-        child: Container(
-          width: Scale.getUniformRowItemWidth(context, 3),
-          height: 50,
-          decoration: BoxDecoration(
-            color: _buttonColor,
-            borderRadius: Borderers.superBorderAll(context, BottomDialog.dialogClearCornerValue()),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
+        child: Stack(
+          children: <Widget>[
 
-              DreamBox(
-                height: 30,
-                width: 30,
-                icon: icon,
-                iconColor: _verseColor,
-                iconSizeFactor: 0.8,
-                bubble: false,
+            DreamBox(
+              height: 50,
+              width: Scale.getUniformRowItemWidth(context, 3),
+              corners: Borderers.superBorderAll(context, BottomDialog.dialogClearCornerValue()),
+              color: _buttonColor,
+            ),
+
+            Container(
+              width: Scale.getUniformRowItemWidth(context, 3),
+              height: 50,
+              // decoration: BoxDecoration(
+              //   color: _buttonColor,
+              //   borderRadius: Borderers.superBorderAll(context, BottomDialog.dialogClearCornerValue()),
+              // ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+
+                  DreamBox(
+                    height: 30,
+                    width: 30,
+                    icon: icon,
+                    iconColor: _verseColor,
+                    iconSizeFactor: 0.8,
+                    bubble: false,
+                  ),
+
+                  Container(
+                    height: 20,
+                    child: SuperVerse(
+                      verse: verse,
+                      size: 1,
+                      color: _verseColor,
+                    ),
+                  ),
+
+                ],
+
               ),
+            ),
 
-              Container(
-                height: 20,
-                child: SuperVerse(
-                  verse: verse,
-                  size: 1,
-                  color: _verseColor,
-                ),
-              ),
-
-            ],
-
-          ),
+          ],
         ),
       );
   }

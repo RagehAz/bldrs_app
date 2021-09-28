@@ -176,6 +176,7 @@ class SuperFlyer{
             /// user based bool triggers
             ankhIsOn: null,
             followIsOn: null,
+            onCountersTap: null,
             onEditReview: null,
             onSubmitReview: null,
             reviewController: null,
@@ -266,6 +267,7 @@ class SuperFlyer{
     @required Function onShareTap,
     @required Function onFollowTap,
     @required Function onCallTap,
+    @required Function onCountersTap,
     @required Function onEditReview,
     @required Function onSubmitReview,
     @required Function onShowReviewOptions,
@@ -313,6 +315,7 @@ class SuperFlyer{
             onShareTap: onShareTap,
             onFollowTap: onFollowTap,
             onCallTap: onCallTap,
+            onCountersTap: onCountersTap,
             /// user based bool triggers
             ankhIsOn: _prof.checkAnkh(flyerModel.flyerID),
             followIsOn: _prof.checkFollow(flyerModel.tinyBz.bzID),
@@ -461,6 +464,7 @@ class SuperFlyer{
           onShareTap: null,
           onFollowTap: null,
           onCallTap: null,
+          onCountersTap: null,
           /// user based bool triggers
           ankhIsOn: _prof.checkAnkh(tinyFlyer.flyerID),
           followIsOn: _prof.checkFollow(tinyFlyer.tinyBz.bzID),
@@ -598,6 +602,7 @@ class SuperFlyer{
     @required Function onShareTap,
     @required Function onFollowTap,
     @required Function onCallTap,
+    @required Function onCountersTap,
     @required Function onAddImages,
     @required Function onDeleteSlide,
     @required Function onCropImage,
@@ -658,6 +663,7 @@ class SuperFlyer{
           onShareTap: onShareTap,
           onFollowTap: onFollowTap,
           onCallTap: onCallTap,
+          onCountersTap: onCountersTap,
           /// user based bool triggers
           ankhIsOn: false,
           followIsOn: false,
@@ -780,6 +786,7 @@ class SuperFlyer{
     @required Function onShareTap,
     @required Function onFollowTap,
     @required Function onCallTap,
+    @required Function onCountersTap,
     @required Function onAddImages,
     @required Function onDeleteSlide,
     @required Function onCropImage,
@@ -836,6 +843,7 @@ class SuperFlyer{
           onShareTap: onShareTap,
           onFollowTap: onFollowTap,
           onCallTap: onCallTap,
+          onCountersTap: onCountersTap,
           /// user based bool triggers
           ankhIsOn: false,
           followIsOn: false,
@@ -990,6 +998,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
           onShareTap: null,
           onFollowTap: null,
           onCallTap: null,
+          onCountersTap: null,
           /// user based bool triggers
           ankhIsOn: null,
           followIsOn: false,
