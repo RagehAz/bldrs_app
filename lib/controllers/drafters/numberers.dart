@@ -115,21 +115,18 @@ class Numberers {
     return _random.nextInt(listLength);
   }
 // -----------------------------------------------------------------------------
-  /// TASK : this method needs testing
-  static int createUniqueIntFrom({@required List<int> existingValues}) {
+  static int createUniqueIndex({@required List<int> existingIndexes, int maxIndex = 999999}) {
     Random _random = new Random();
-    int _randomNumber = _random.nextInt(1000000); // from 0 up to 999'999 included
 
-    if (existingValues == null || existingValues.length == 0){
-      _randomNumber = _random.nextInt(1000000);
-    }
+    /// from 0 up to 999'999 included
+    int _randomNumber = _random.nextInt(maxIndex+1);
 
-    else if (existingValues.contains(_randomNumber)) {
-      _randomNumber = createUniqueIntFrom(existingValues: existingValues);
-    }
+    print('random number is : $_randomNumber');
 
-    else {
-      /// will use initial random number created
+    if (existingIndexes != null && existingIndexes.length != 0){
+      if (existingIndexes.contains(_randomNumber)){
+        _randomNumber = createUniqueIndex(existingIndexes: existingIndexes, maxIndex: maxIndex);
+      }
     }
 
     return _randomNumber;
@@ -150,7 +147,7 @@ class Numberers {
   static List<ValueKey> addUniqueKeyToKeys({@required List<ValueKey> keys}) {
     List<int> _numbers = getValuesFromKeys(keys: keys);
 
-    int _newValue = createUniqueIntFrom(existingValues: _numbers);
+    int _newValue = createUniqueIndex(existingIndexes: _numbers);
 
     List<ValueKey> _newKeys = <ValueKey>[...keys, ValueKey(_newValue)];
 
@@ -160,7 +157,7 @@ class Numberers {
   static ValueKey createUniqueKeyFrom({@required List<ValueKey> existingKeys}) {
     List<int> _existingValues = getValuesFromKeys(keys: existingKeys);
 
-    int _newValue = createUniqueIntFrom(existingValues: _existingValues);
+    int _newValue = createUniqueIndex(existingIndexes: _existingValues);
 
     return ValueKey(_newValue);
   }
@@ -217,6 +214,15 @@ class Numberers {
   static int discountPercentage({double oldPrice, double currentPrice}){
     double percent = ((oldPrice - currentPrice) / oldPrice ) * 100;
     return percent.round();
+  }
+// -----------------------------------------------------------------------------
+  static List<int> getRandomIndexes({int numberOfIndexes, @required int maxIndex}){
+    List<int> _indexes = [];
+    for (int i = 0; i < numberOfIndexes; i++) {
+      int _newIndex = createUniqueIndex(existingIndexes: _indexes, maxIndex: maxIndex);
+      _indexes.add(_newIndex);
+    }
+    return _indexes;
   }
 // -----------------------------------------------------------------------------
 }

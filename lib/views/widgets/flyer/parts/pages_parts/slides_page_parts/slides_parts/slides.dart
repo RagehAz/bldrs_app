@@ -1,11 +1,8 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/flyer_methods.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/flyer/parts/pages_parts/slides_page_parts/footer.dart';
@@ -44,7 +41,10 @@ class Slides extends StatelessWidget {
 
     print('tapping slide counter');
 
-    await FlyerStatsDialog.show(context);
+    await FlyerStatsDialog.show(
+      context: context,
+      flyerID: superFlyer.flyerID,
+    );
 
   }
 // -----------------------------------------------------------------------------
