@@ -80,7 +80,7 @@ void main(){
     bool _allLoopsAreGood;
 
     for (int i = 0; i <= 1000; i++){
-      int _uniqueVal = Numberers.createUniqueIntFrom(existingValues: _numbers);
+      int _uniqueVal = Numberers.createUniqueIndex(existingIndexes: _numbers);
 
       if (_numbers.contains(_uniqueVal)){
         _allLoopsAreGood == false;
