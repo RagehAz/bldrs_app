@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:bldrs/controllers/drafters/numberers.dart';
 import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
@@ -145,42 +148,51 @@ class TinyUser {
       );
   }
 // -----------------------------------------------------------------------------
-  static List<TinyUser> dummyTinyUsers(){
+  static List<TinyUser> dummyTinyUsers({int numberOfUsers}){
 
-    final List<TinyUser> _users = <TinyUser>[
+    List<TinyUser> _users = <TinyUser>[
       TinyUser(
         name: 'Ahmad Ali',
         pic: Iconz.DumAuthorPic,
         userID: '1',
-        title: '',
+        title: 'CEO and Founder',
       ),
       TinyUser(
         name: 'Morgan Darwish',
         pic: Dumz.XXabohassan_author,
         userID: '2',
-        title: '',
+        title: 'Chairman',
       ),
       TinyUser(
         name: 'Zahi Fayez',
         pic: Dumz.XXzah_author,
         userID: '3',
-        title: '',
+        title: ' Marketing Director',
       ),
       TinyUser(
         name: 'Hani Wani',
         pic: Dumz.XXhs_author,
         userID: '4',
-        title: '',
+        title: 'Operations Manager',
       ),
       TinyUser(
         name: 'Nada Mohsen',
         pic: Dumz.XXmhdh_author,
         userID: '5',
-        title: '',
+        title: 'Planning and cost control engineer',
       ),
-
     ];
 
+    if (numberOfUsers != null){
+      List<int> _randomIndexes = Numberers.getRandomIndexes(numberOfIndexes: numberOfUsers, maxIndex: _users.length - 1);
+      List<TinyUser> _finalList = [];
+
+      for (int i = 0; i < _randomIndexes.length; i++){
+        _finalList.add(_users[_randomIndexes[i]]);
+      }
+
+      _users = _finalList;
+    }
 
     return _users;
   }

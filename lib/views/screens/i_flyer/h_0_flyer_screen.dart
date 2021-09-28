@@ -96,7 +96,7 @@ class FlyerScreen extends StatelessWidget {
           goesToEditor: false,
           flyerKey: PageStorageKey<String>(_flyerID),
           onSwipeFlyer: (SwipeDirection direction){
-            print('Direction is $direction');
+            // print('Direction is $direction');
           },
         ),
 
