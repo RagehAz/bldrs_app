@@ -105,7 +105,9 @@ class Iconizer{
 // -----------------------------------------------------------------------------
   static String flyerTypeIconOff (FlyerType flyerType){
     String _icon =
-    flyerType == FlyerType.rentalProperty ? Iconz.BxPropertiesOff :
+    flyerType == FlyerType.newProperty ? Iconz.BxNewPropertiesOff :
+    flyerType == FlyerType.resaleProperty ? Iconz.BxResalePropertiesOff :
+    flyerType == FlyerType.rentalProperty ? Iconz.BxRentPropertiesOff :
     flyerType == FlyerType.design ? Iconz.BxDesignsOff :
     flyerType == FlyerType.project ? Iconz.BxProjectsOff :
     flyerType == FlyerType.craft ? Iconz.BxCraftsOff :
