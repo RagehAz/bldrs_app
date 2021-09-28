@@ -80,7 +80,7 @@ class InfoPage extends StatelessWidget {
       children: <Widget>[
 
         /// HEADER FOOTPRINT ZONE
-        if (_editMode == false)
+        // if (_editMode == false)
           Container(
             key: ValueKey<String>('info_page_top_space'),
             width: flyerBoxWidth,
@@ -177,35 +177,35 @@ class InfoPage extends StatelessWidget {
             onParagraphTap: superFlyer.edit.onEditInfoTap,
           ),
 
-        /// SAVES BUBBLE
-        if (_editMode != true)
-          RecordBubble(
-            key: ValueKey<String>('info_page_saves_bubble'),
-            flyerBoxWidth: flyerBoxWidth,
-            bubbleTitle: 'Who Saved it',
-            bubbleIcon: Iconz.Save,
-            users: _users,
-          ),
-
-        /// SHARES BUBBLE
-        if (_editMode != true)
-          RecordBubble(
-            key: ValueKey<String>('info_page_shares_bubble'),
-            flyerBoxWidth: flyerBoxWidth,
-            bubbleTitle: 'Who Shared it',
-            bubbleIcon: Iconz.Share,
-            users: _users,
-          ),
-
-        /// VIEWS BUBBLE
-        if (_editMode != true)
-          RecordBubble(
-            key: ValueKey<String>('info_page_views_bubble'),
-            flyerBoxWidth: flyerBoxWidth,
-            bubbleTitle: 'Who viewed it',
-            bubbleIcon: Iconz.Views,
-            users: _users,
-          ),
+        // /// SAVES BUBBLE
+        // if (_editMode != true)
+        //   RecordBubble(
+        //     key: ValueKey<String>('info_page_saves_bubble'),
+        //     flyerBoxWidth: flyerBoxWidth,
+        //     bubbleTitle: 'Who Saved it',
+        //     bubbleIcon: Iconz.Save,
+        //     users: _users,
+        //   ),
+        //
+        // /// SHARES BUBBLE
+        // if (_editMode != true)
+        //   RecordBubble(
+        //     key: ValueKey<String>('info_page_shares_bubble'),
+        //     flyerBoxWidth: flyerBoxWidth,
+        //     bubbleTitle: 'Who Shared it',
+        //     bubbleIcon: Iconz.Share,
+        //     users: _users,
+        //   ),
+        //
+        // /// VIEWS BUBBLE
+        // if (_editMode != true)
+        //   RecordBubble(
+        //     key: ValueKey<String>('info_page_views_bubble'),
+        //     flyerBoxWidth: flyerBoxWidth,
+        //     bubbleTitle: 'Who viewed it',
+        //     bubbleIcon: Iconz.Views,
+        //     users: _users,
+        //   ),
 
         /// KEYWORDS
         if (superFlyer.keywords != null && superFlyer.keywords.length != 0)

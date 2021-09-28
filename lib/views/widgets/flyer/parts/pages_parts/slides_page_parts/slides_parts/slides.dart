@@ -37,17 +37,6 @@ class Slides extends StatelessWidget {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onSlideCounterTap(BuildContext context) async {
-
-    print('tapping slide counter');
-
-    await FlyerStatsDialog.show(
-      context: context,
-      flyerID: superFlyer.flyerID,
-    );
-
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -125,7 +114,7 @@ class Slides extends StatelessWidget {
                         shares: superFlyer.edit.firstTimer == true? 0 : superFlyer.mSlides[superFlyer.currentSlideIndex].sharesCount,
                         views: superFlyer.edit.firstTimer == true ? 0 : superFlyer.mSlides[superFlyer.currentSlideIndex].viewsCount,
                         onShareTap: () => superFlyer.rec.onShareTap(),
-                        onCountersTap: () => _onSlideCounterTap(context),
+                        onCountersTap: () => superFlyer.rec.onCountersTap(), //onSlideCounterTap(context),
                       ),
 
                     // /// TAP AREAS

@@ -40,8 +40,11 @@ import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_buttons.
 import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
+import 'package:bldrs/views/widgets/dialogs/top_dialog.dart';
+import 'package:bldrs/views/widgets/flyer/dialogs/flyer_type_selector.dart';
 import 'package:bldrs/views/widgets/flyer/flyer_methods.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_pages.dart';
+import 'package:bldrs/views/widgets/flyer/parts/pages_parts/stats_dialog.dart';
 import 'package:bldrs/views/widgets/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -360,6 +363,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onShareTap: _onShareTap,
         onFollowTap: () async { await _onFollowTap();},
         onCallTap: () async { await _onCallTap();},
+        onCountersTap: () async { await _onCountersTap();},
         onEditReview: () async {await _onEditReview();},
         onSubmitReview: () async {await _onSubmitReview();},
         onShowReviewOptions: (ReviewModel review) async {await _onShowReviewOptions(review);},
@@ -397,6 +401,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onShareTap: _onShareTap,
         onFollowTap: () async { await _onFollowTap();},
         onCallTap: () async { await _onCallTap();},
+        onCountersTap: () async { await _onCountersTap();},
         onAddImages: () => _onAddImages(),
         onDeleteSlide: () async {await _onDeleteSlide();},
         onCropImage: () async {await _onCropImage();},
@@ -442,6 +447,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onShareTap: _onShareTap,
       onFollowTap: () async { await _onFollowTap();},
       onCallTap: () async { await _onCallTap();},
+      onCountersTap: () async { await _onCountersTap();},
       onAddImages: () => _onAddImages(),
       onDeleteSlide: () async {await _onDeleteSlide();},
       onCropImage: () async {await _onCropImage();},
@@ -818,8 +824,20 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future<void> _onAnkhTap() async {
     print('tapping Ankh');
 
+    TopDialog.showTopDialog(
+      context: context,
+      verse: _superFlyer.rec.ankhIsOn == true ? 'Flyer is unsaved' : 'Flyer saved',
+      // secondLine: 'Allows users to follow your account',
+      color: _superFlyer.rec.ankhIsOn == true ? Colorz.Grey225 : Colorz.Yellow255,
+    );
+
+    setState(() {
+      _superFlyer.rec.ankhIsOn = !_superFlyer.rec.ankhIsOn;
+    });
+
+
     /// start save flyer ops
-    await RecordOps.saveFlyerOps(
+    RecordOps.saveFlyerOps(
         context: context,
         userID: superUserID(),
         flyerID: _superFlyer.flyerID,
@@ -831,9 +849,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     /// add or remove tiny flyer in local saved flyersList
     _prof.addOrDeleteTinyFlyerInLocalSavedTinyFlyers(_tinyFlyer);
 
-    setState(() {
-      _superFlyer.rec.ankhIsOn = !_superFlyer.rec.ankhIsOn;
-    });
     print('ankh is ${_superFlyer.rec.ankhIsOn}');
 
   }
@@ -841,27 +856,36 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future<void> _onShareTap() async {
     print('Sharing flyer');
 
-    int _i = _superFlyer.currentSlideIndex;
-    FlyerModel _flyer = FlyerModel.getFlyerModelFromSuperFlyer(_superFlyer);
+    if(widget.inEditor == true){
+      await TopDialog.showTopDialog(
+        context: context,
+        verse: 'Share button',
+        secondLine: 'Allows users to share this flyer\'s link to other apps',
 
-    dynamic _dynamicLink = await DynamicLinksApi().createFlyerDynamicLink(
-      context: context,
-      isShortURL: true,
-      flyerModel: _flyer,
-      slideIndex: _i,
-    );
+      );
+    }
 
+    else {
+      int _i = _superFlyer.currentSlideIndex;
+      FlyerModel _flyer = FlyerModel.getFlyerModelFromSuperFlyer(_superFlyer);
 
-    /// TASK : adjust link url and description
-    LinkModel _theFlyerLink = LinkModel(
-        url: _dynamicLink,
-        description: '${_superFlyer.flyerType} flyer .\n'
-            '- slide number ${_superFlyer.currentSlideIndex} .\n'
-            '- ${_superFlyer.mSlides[_i].headline} .\n'
-    );
+      dynamic _dynamicLink = await DynamicLinksApi().createFlyerDynamicLink(
+        context: context,
+        isShortURL: true,
+        flyerModel: _flyer,
+        slideIndex: _i,
+      );
 
-    // don't await this method
-    RecordOps.shareFlyerOPs(
+      /// TASK : adjust link url and description
+      LinkModel _theFlyerLink = LinkModel(
+          url: _dynamicLink,
+          description: '${_superFlyer.flyerType} flyer .\n'
+              '- slide number ${_superFlyer.currentSlideIndex} .\n'
+              '- ${_superFlyer.mSlides[_i].headline} .\n'
+      );
+
+      // don't await this method
+      RecordOps.shareFlyerOPs(
         context: context,
         flyerID: _superFlyer.flyerID,
         userID: superUserID(),
@@ -869,51 +893,102 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       );
 
       await ShareModel.shareFlyer(context, _theFlyerLink);
+
+    }
+
   }
 // -----------------------------------------------------o
   Future <void> _onFollowTap() async {
     print('Following bz : followIsOn was ${_superFlyer.rec.followIsOn} & headline for slide ${_superFlyer.currentSlideIndex} is : ${_superFlyer.mSlides[_superFlyer.currentSlideIndex].headline}');
 
-    /// start follow bz ops
-    List<String> _updatedBzFollows = await RecordOps.followBzOPs(
-      context: context,
-      bzID: _superFlyer.bz.bzID,
-      userID: superUserID(),
-    );
+    if(widget.inEditor == true){
+      await TopDialog.showTopDialog(
+        context: context,
+        verse: 'Follow button',
+        secondLine: 'Allows users to follow your account',
+      );
+    }
 
-    /// add or remove tinyBz from local followed bzz
-    _prof.updatedFollowsInLocalList(_updatedBzFollows);
+    else {
+      /// start follow bz ops
+      List<String> _updatedBzFollows = await RecordOps.followBzOPs(
+        context: context,
+        bzID: _superFlyer.bz.bzID,
+        userID: superUserID(),
+      );
 
-    /// trigger current follow value
-    setState(() {
-      _superFlyer.rec.followIsOn = !_superFlyer.rec.followIsOn;
-    });
+      /// add or remove tinyBz from local followed bzz
+      _prof.updatedFollowsInLocalList(_updatedBzFollows);
 
+      /// trigger current follow value
+      setState(() {
+        _superFlyer.rec.followIsOn = !_superFlyer.rec.followIsOn;
+      });
+
+    }
 
   }
 // -----------------------------------------------------o
   Future<void> _onCallTap() async {
     print('Call Bz');
 
-    String _userID = superUserID();
-    String _bzID = _superFlyer.bz.bzID;
-    String _contact = _superFlyer.flyerTinyAuthor.email;
+    if(widget.inEditor == true){
+      await TopDialog.showTopDialog(
+        context: context,
+        verse: 'Call button',
+        secondLine: 'Allows users to call you directly',
 
-    /// alert user there is no contact to call
-    if (_contact == null){print('no contact here');}
+      );
+    }
 
-    /// or launch call and start call bz ops
     else {
 
-      /// launch call
-      launchCall('tel: $_contact');
+      String _userID = superUserID();
+      String _bzID = _superFlyer.bz.bzID;
+      String _contact = _superFlyer.flyerTinyAuthor.email;
 
-      /// start call bz ops
-      await RecordOps.callBzOPs(
+      /// alert user there is no contact to call
+      if (_contact == null){print('no contact here');}
+
+      /// or launch call and start call bz ops
+      else {
+
+        /// launch call
+        launchCall('tel: $_contact');
+
+        /// start call bz ops
+        await RecordOps.callBzOPs(
+          context: context,
+          bzID: _bzID,
+          userID: _userID,
+          slideIndex: _superFlyer.currentSlideIndex,
+        );
+
+      }
+
+    }
+
+
+
+  }
+// -----------------------------------------------------o
+  Future<void> _onCountersTap() async {
+
+    print('tapping slide counter');
+
+    if(_superFlyer.edit.firstTimer == true){
+      await TopDialog.showTopDialog(
         context: context,
-        bzID: _bzID,
-        userID: _userID,
-        slideIndex: _superFlyer.currentSlideIndex,
+        verse: 'Flyer stats',
+        secondLine: 'These count the flyer\'s counts of shares, views & saves',
+      );
+    }
+
+    else {
+
+      await FlyerStatsDialog.show(
+        context: context,
+        flyerID: _superFlyer.flyerID,
       );
 
     }
@@ -1674,76 +1749,21 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
 
-    final List<FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: _superFlyer.bz.bzType);
-    final int _numberOfButtons = _possibleFlyerTypes.length;
-    final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
-    final double _dialogClearHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _dialogHeight, titleIsOn: true, draggable: true);
-    final double _spacing = Ratioz.appBarMargin;
-    final double _buttonWidth = (_dialogClearWidth - ((_numberOfButtons + 1) * _spacing) ) / _numberOfButtons;
-
-    await BottomDialog.showStatefulBottomDialog(
+    await BottomDialog.showBottomDialog(
       context: context,
+      title: 'Select Flyer Type',
       height: _dialogHeight,
       draggable: true,
-      title: 'Select Flyer Type',
-      builder: (context, title){
-        return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setDialogState){
+      child: FlyerTypeSelector(
+        superFlyer: _superFlyer,
+        onChangeFlyerType: (FlyerType flyerType){
 
-              return BottomDialog(
-                height: _dialogHeight,
-                title: title,
-                draggable: true,
-                child: Container(
-                  width: _dialogClearWidth,
-                  height: _dialogClearHeight,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
+          setState(() {
+            _superFlyer.flyerType = flyerType;
+          });
 
-                      ...List.generate(
-                          _numberOfButtons,
-                              (index) {
-
-                            FlyerType _flyerType = _possibleFlyerTypes[index];
-                            String _flyerTypeName = TextGenerator.flyerTypeSingleStringer(context, _flyerType);
-                            Color _buttonColor = _superFlyer.flyerType == _flyerType ? Colorz.Yellow255 : Colorz.White20;
-                            Color _verseColor = _superFlyer.flyerType == _flyerType ? Colorz.Black230 : Colorz.White255;
-
-                            return
-
-                              DreamBox(
-                                height: 60,
-                                width: _buttonWidth,
-                                verse: _flyerTypeName,
-                                verseMaxLines: 2,
-                                verseScaleFactor: 0.7,
-                                color: _buttonColor,
-                                verseColor: _verseColor,
-                                onTap: (){
-                                  setDialogState(() {
-                                    _superFlyer.flyerType = _flyerType;
-                                  });
-
-                                  setState(() {
-                                    _superFlyer.flyerType = _flyerType;
-                                  });
-
-                                },
-                              );
-
-                              }
-
-                      )
-
-                    ],
-                  ),
-                ),
-              );
-            }
-        );
-      },
+        },
+      ),
     );
   }
 // -----------------------------------------------------o

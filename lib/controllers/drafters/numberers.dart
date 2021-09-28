@@ -121,7 +121,7 @@ class Numberers {
     /// from 0 up to 999'999 included
     int _randomNumber = _random.nextInt(maxIndex+1);
 
-    print('random number is : $_randomNumber');
+    // print('random number is : $_randomNumber');
 
     if (existingIndexes != null && existingIndexes.length != 0){
       if (existingIndexes.contains(_randomNumber)){
