@@ -3,7 +3,6 @@ import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/drafters/numberers.dart';
-import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
 
 enum VerseWeight {
   black,
