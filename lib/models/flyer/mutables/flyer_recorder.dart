@@ -7,6 +7,7 @@ class FlyerRecorder{
   final Function onShareTap; // FlyerRecord
   final Function onFollowTap; // FlyerRecord
   final Function onCallTap; // FlyerRecord
+  final Function onCountersTap;
   final Function onEditReview;
   final Function onSubmitReview;
   /// user based bool triggers
@@ -21,6 +22,7 @@ class FlyerRecorder{
     @required this.onShareTap,
     @required this.onFollowTap,
     @required this.onCallTap,
+    @required this.onCountersTap,
     @required this.ankhIsOn,
     @required this.followIsOn,
     @required this.reviewController,

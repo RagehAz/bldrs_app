@@ -63,7 +63,7 @@ class TopDialog extends StatelessWidget {
 
       /// ANIMATION ----------------------------------------------
       forwardAnimationCurve: Curves.easeInOut,
-      duration: Duration(milliseconds: 50000),
+      duration: Duration(seconds: 6),
       animationDuration: Duration(milliseconds: 400),
       reverseAnimationCurve: Curves.easeInOut,
 
@@ -76,7 +76,7 @@ class TopDialog extends StatelessWidget {
       /// TITLE ----------------------------------------------
       titleText: Container(
         width: BldrsAppBar.width(context),
-        height: BldrsAppBar.height(context, AppBarType.Basic),
+        height: BldrsAppBar.height(context, AppBarType.Basic) - 5,
         decoration: BoxDecoration(
           // color: Colorz.Black255,
           borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
