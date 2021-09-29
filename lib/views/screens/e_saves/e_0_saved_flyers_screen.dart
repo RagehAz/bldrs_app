@@ -4,9 +4,9 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
-import 'package:bldrs/views/widgets/buttons/tab_button.dart';
-import 'package:bldrs/views/widgets/flyer/stacks/saved_flyers_grid.dart';
-import 'package:bldrs/views/widgets/layouts/tab_layout.dart';
+import 'package:bldrs/views/widgets/general/buttons/tab_button.dart';
+import 'package:bldrs/views/widgets/specific/flyer/stacks/saved_flyers_grid.dart';
+import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

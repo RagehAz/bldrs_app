@@ -3,8 +3,8 @@ import 'dart:collection';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/zones_manager/db_countries.dart';
-import 'package:bldrs/models/planet/country_model.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------

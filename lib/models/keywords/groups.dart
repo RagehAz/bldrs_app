@@ -2,7 +2,7 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keywordz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/planet/district_model.dart';
+import 'package:bldrs/models/zone/district_model.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

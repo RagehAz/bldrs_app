@@ -7,7 +7,7 @@ import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';

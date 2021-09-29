@@ -4,10 +4,10 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/flyer/final_flyer.dart';
-import 'package:bldrs/views/widgets/flyer/parts/flyer_zone_box.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

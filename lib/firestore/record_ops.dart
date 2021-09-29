@@ -15,7 +15,7 @@ class RecordOps{
       context: context,
       collName: FireCollection.users,
       docName: superUserID(),
-      subCollName: FireCollection.subUserSaves,
+      subCollName: FireCollection.users_user_saves,
       subDocName: FireCollection.flyers,
     );
 
@@ -47,7 +47,7 @@ class RecordOps{
       context: context,
       collName: FireCollection.users,
       docName: userID,
-      subCollName: FireCollection.subUserSaves,
+      subCollName: FireCollection.users_user_saves,
       subDocName: FireCollection.flyers,
       input: await SaveModel.cipherSavesModelsToUser(_updatedUserSavesModel),
     );
@@ -62,7 +62,7 @@ class RecordOps{
       context: context,
       collName: FireCollection.flyers,
       docName: flyerID,
-      subCollName: FireCollection.subFlyerSaves,
+      subCollName: FireCollection.flyers_flyer_saves,
       subDocName: userID,
       input: _flyerSaveModel.toFlyerSaveMap(),
     );
@@ -75,7 +75,7 @@ class RecordOps{
       context: context,
       collName: FireCollection.flyers,
       docName: flyerID,
-      subCollName: FireCollection.subFlyerShares,
+      subCollName: FireCollection.flyers_flyer_shares,
       subDocName: userID,
     );
 
@@ -101,7 +101,7 @@ class RecordOps{
       context: context,
       collName: FireCollection.flyers,
       docName: flyerID,
-      subCollName: FireCollection.subFlyerShares,
+      subCollName: FireCollection.flyers_flyer_shares,
       subDocName: userID,
       input: _updatedShareModel.toMap(),
     );
@@ -117,7 +117,7 @@ class RecordOps{
       context: context,
       collName: FireCollection.users,
       docName: superUserID(),
-      subCollName: FireCollection.subUserSaves,
+      subCollName: FireCollection.users_user_saves,
       subDocName: FireCollection.bzz,
     );
 
@@ -136,7 +136,7 @@ class RecordOps{
       context: context,
       collName: FireCollection.bzz,
       docName: bzID,
-      subCollName: FireCollection.subBzFollows,
+      subCollName: FireCollection.bzz_bz_follows,
       subDocName: userID,
     );
 
@@ -163,7 +163,7 @@ class RecordOps{
       context: context,
       collName: FireCollection.users,
       docName: userID,
-      subCollName: FireCollection.subUserSaves,
+      subCollName: FireCollection.users_user_saves,
       subDocName: FireCollection.bzz,
       input: FollowModel.cipherUserFollows(_updatedFollowedBzzIDs),
     );
@@ -181,7 +181,7 @@ class RecordOps{
       context: context,
       collName: FireCollection.bzz,
       docName: bzID,
-      subCollName: FireCollection.subBzFollows,
+      subCollName: FireCollection.bzz_bz_follows,
       subDocName: userID,
       input: _updatedFollowModel.toMap(),
     );
@@ -196,7 +196,7 @@ class RecordOps{
       context: context,
       collName: FireCollection.bzz,
       docName: bzID,
-      subCollName: FireCollection.subBzCalls,
+      subCollName: FireCollection.bzz_bz_calls,
       subDocName: userID,
     );
 
@@ -227,7 +227,7 @@ class RecordOps{
       context: context,
       collName: FireCollection.bzz,
       docName: bzID,
-      subCollName: FireCollection.subBzCalls,
+      subCollName: FireCollection.bzz_bz_calls,
       subDocName: userID,
       input: _updatedCallModel.toMap(),
     );

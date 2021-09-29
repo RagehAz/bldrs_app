@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';

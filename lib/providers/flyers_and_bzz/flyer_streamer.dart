@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/review_model.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
+import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -104,7 +104,7 @@ Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
   final Stream<QuerySnapshot> _reviewsStream = Fire.streamSubCollection(
     collName: FireCollection.flyers,
     docName: flyerID,
-    subCollName: FireCollection.subFlyerReviews,
+    subCollName: FireCollection.flyers_flyer_reviews,
     descending: true,
     orderBy: 'time',
   );

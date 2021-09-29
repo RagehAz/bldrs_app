@@ -2,15 +2,15 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/models/planet/country_model.dart';
-import 'package:bldrs/models/planet/city_model.dart';
-import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
-import 'package:bldrs/views/widgets/bubbles/text_field_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/keywords/keywords_bubble.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
+import 'package:bldrs/views/widgets/general/bubbles/text_field_bubble.dart';
+import 'package:bldrs/views/widgets/general/bubbles/tile_bubble.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/views/widgets/specific/keywords/keywords_bubble.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class CountryEditorScreen extends StatefulWidget {

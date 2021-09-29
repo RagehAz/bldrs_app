@@ -5,12 +5,12 @@ import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/buttons/dream_wrapper.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog_row.dart';
-import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_wrapper.dart';
+import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog_row.dart';
+import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

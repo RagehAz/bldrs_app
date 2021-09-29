@@ -1,4 +1,4 @@
-import 'package:bldrs/models/planet/district_model.dart';
+import 'package:bldrs/models/zone/district_model.dart';
 import 'package:bldrs/models/helpers/namez_model.dart';
 
 class DbDistricts {

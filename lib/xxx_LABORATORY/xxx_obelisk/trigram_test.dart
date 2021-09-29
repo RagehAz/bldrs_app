@@ -1,9 +1,9 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/views/widgets/layouts/test_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_text_field.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/general/layouts/test_layout.dart';
+import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class TrigramTest extends StatefulWidget {

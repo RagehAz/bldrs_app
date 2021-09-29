@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
-import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 

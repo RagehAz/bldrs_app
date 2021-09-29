@@ -5,13 +5,13 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/search_ops.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/views/widgets/bubbles/bubble.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/flyer/stacks/flyers_grid.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_grid.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class FireSearchTest extends StatefulWidget {

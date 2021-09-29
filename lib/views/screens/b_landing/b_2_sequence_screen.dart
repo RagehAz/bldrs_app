@@ -5,10 +5,10 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
-import 'package:bldrs/views/widgets/appbar/sections_button.dart';
-import 'package:bldrs/views/widgets/keywords/keyword_button.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/walls/sequences_wall.dart';
+import 'package:bldrs/views/widgets/general/appbar/sections_button.dart';
+import 'package:bldrs/views/widgets/specific/keywords/keyword_button.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/walls/sequences_wall.dart';
 import 'package:flutter/material.dart';
 
 class SequenceScreen extends StatelessWidget {
