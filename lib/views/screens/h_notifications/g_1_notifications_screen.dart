@@ -10,10 +10,10 @@ import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/widgets/bubbles/bubble.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/notifications/notification_card.dart';
+import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/specific/notifications/notification_card.dart';
 import 'package:flutter/material.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -84,7 +84,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       context: context,
       collName: FireCollection.users,
       docName: superUserID(),
-      subCollName: FireCollection.subUserNotifications,
+      subCollName: FireCollection.users_user_notifications,
       subDocName: id,
       field: 'dismissed',
       input: true,

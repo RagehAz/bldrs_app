@@ -1,8 +1,8 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/providers/dio/dio_helper.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/layouts/test_layout.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/layouts/test_layout.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 

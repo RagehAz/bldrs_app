@@ -6,8 +6,8 @@ import 'package:bldrs/dashboard/widgets/user_button.dart';
 import 'package:bldrs/firestore/cloud_functions.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

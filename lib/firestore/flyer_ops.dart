@@ -128,8 +128,8 @@ class FlyerOps{
     context: context,
     collName: FireCollection.flyers,
     docName: _flyerID,
-    subCollName: FireCollection.subFlyerCounters,
-    subDocName: FireCollection.subFlyerCounters,
+    subCollName: FireCollection.flyers_flyer_counters,
+    subDocName: FireCollection.flyers_flyer_counters,
     input: await SlideModel.cipherSlidesCounters(_updatedSlides),
   );
 
@@ -473,7 +473,7 @@ class FlyerOps{
       context: context,
       collName: FireCollection.flyers,
       docName: flyerModel.flyerID,
-      subCollName: FireCollection.subFlyerViews,
+      subCollName: FireCollection.flyers_flyer_views,
     );
 
     /// E - delete fireStore/flyers/flyerID/shares/(all sub docs)
@@ -482,7 +482,7 @@ class FlyerOps{
       context: context,
       collName: FireCollection.flyers,
       docName: flyerModel.flyerID,
-      subCollName: FireCollection.subFlyerShares,
+      subCollName: FireCollection.flyers_flyer_shares,
     );
 
     /// F - delete fireStore/flyers/flyerID/saves/(all sub docs)
@@ -491,7 +491,7 @@ class FlyerOps{
       context: context,
       collName: FireCollection.flyers,
       docName: flyerModel.flyerID,
-      subCollName: FireCollection.subFlyerSaves,
+      subCollName: FireCollection.flyers_flyer_saves,
     );
 
     /// G - delete fireStore/flyers/flyerID/counters/counters
@@ -500,8 +500,8 @@ class FlyerOps{
         context: context,
         collName: FireCollection.flyers,
         docName: flyerModel.flyerID,
-        subCollName: FireCollection.subFlyerCounters,
-        subDocName: FireCollection.subFlyerCounters
+        subCollName: FireCollection.flyers_flyer_counters,
+        subDocName: FireCollection.flyers_flyer_counters
     );
 
     /// H - delete fireStorage/slidesPics/slideID for all flyer slides
@@ -545,7 +545,7 @@ class FlyerOps{
       context: context,
       collName: FireCollection.flyers,
       docName: flyerID,
-      subCollName: FireCollection.subFlyerReviews,
+      subCollName: FireCollection.flyers_flyer_reviews,
       addDocsIDs: true,
     );
 

@@ -15,10 +15,10 @@ import 'package:bldrs/views/screens/d_more/d_4_change_language_screen.dart';
 import 'package:bldrs/views/screens/d_more/d_5_about_bldrs_screen.dart';
 import 'package:bldrs/views/screens/d_more/d_6_feedback_screen.dart';
 import 'package:bldrs/views/screens/f_bz/f_x_bz_editor_screen.dart';
-import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
-import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/flagbox_button.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
+import 'package:bldrs/views/widgets/general/bubbles/tile_bubble.dart';
+import 'package:bldrs/views/widgets/general/buttons/flagbox_button.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class MoreScreen extends StatelessWidget {

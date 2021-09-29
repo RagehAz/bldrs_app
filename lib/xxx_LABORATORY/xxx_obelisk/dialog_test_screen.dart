@@ -7,12 +7,12 @@ import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
-import 'package:bldrs/views/widgets/bubbles/flyers_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/main_button.dart';
-import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/dialogz.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/general/bubbles/flyers_bubble.dart';
+import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
+import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

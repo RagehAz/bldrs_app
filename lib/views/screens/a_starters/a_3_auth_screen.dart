@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/views/widgets/auth/register_form.dart';
-import 'package:bldrs/views/widgets/auth/signin_form.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/specific/auth/register_form.dart';
+import 'package:bldrs/views/widgets/specific/auth/signin_form.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {

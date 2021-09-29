@@ -1,6 +1,6 @@
-import 'package:bldrs/models/target/target_model.dart';
-import 'package:bldrs/models/target/target_progress.dart';
-import 'package:bldrs/models/target/target_reward.dart';
+import 'package:bldrs/models/bz/target/target_model.dart';
+import 'package:bldrs/models/bz/target/target_progress.dart';
+import 'package:bldrs/models/bz/target/target_reward.dart';
 
 abstract class Targetz {
 // -----------------------------------------------------------------------------
@@ -213,4 +213,27 @@ abstract class Targetz {
           TargetProgress(targetID: 'masterBldr', objective: 1, current: 0),
         ];
   }
+// -----------------------------------------------------------------------------
+  static List<TargetModel> insertTargetsProgressIntoTargetsModels({List<TargetModel> allTargets, List<TargetProgress> targetsProgress}){
+    List<TargetModel> _targets = [];
+
+    for (TargetModel target in allTargets){
+      TargetProgress _progress = targetsProgress.singleWhere((prog) => prog.targetID == target.id, orElse: () => null);
+
+      TargetModel _target = TargetModel(
+        id: target.id,
+        name: target.name,
+        description: target.description,
+        instructions: target.instructions,
+        reward: target.reward,
+        progress: _progress,
+      );
+
+      _targets.add(_target);
+
+    }
+
+    return _targets;
+  }
+// -----------------------------------------------------------------------------
 }

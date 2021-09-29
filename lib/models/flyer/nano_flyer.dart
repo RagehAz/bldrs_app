@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class NanoFlyer with ChangeNotifier{
