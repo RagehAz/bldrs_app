@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
-import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -12,37 +12,40 @@ import 'package:flutter/material.dart';
 class FireCollection{
   static const String users = 'users';
   static const String tinyUsers = 'tinyUsers';
-  static const String subUserAsks = 'asks' ;
-  static const String subUserSaves = 'saves';
-  static const String subUserNotifications = 'notifications';
+  static const String users_user_asks = 'asks' ;
+  static const String users_user_saves = 'saves';
+  static const String users_user_notifications = 'notifications';
 
   static const String countries = 'countries';
 
   static const String questions = 'questions';
-  static const String subQuestionChats = 'chats';
-  static const String subQuestionCounters = 'counters';
+  static const String questions_question_chats = 'chats';
+  static const String questions_question_counters = 'counters';
 
   static const String bzz = 'bzz';
   static const String tinyBzz = 'tinyBzz';
-  static const String subBzCounters = 'counters';
-  static const String subBzFollows = 'follows';
-  static const String subBzCalls = 'calls';
-  static const String subBzChats = 'chats';
-  static const String subBzNotifications = 'notifications';
+  static const String bzz_bz_counters = 'counters';
+  static const String bzz_bz_follows = 'follows';
+  static const String bzz_bz_calls = 'calls';
+  static const String bzz_bz_chats = 'chats';
+  static const String bzz_bz_notifications = 'notifications';
+  static const String bzz_bz_credits = 'credits';
+  static const String bzz_bz_credits_log = 'log';
+  static const String bzz_bz_credits_balance = 'balance';
 
   static const String flyers = 'flyers';
   static const String tinyFlyers = 'tinyFlyers';
   static const String flyersKeys = 'flyersKeys';
-  static const String subFlyerCounters = 'counters';
-  static const String subFlyerSaves = 'saves';
-  static const String subFlyerShares = 'shares';
-  static const String subFlyerViews = 'views';
-  static const String subFlyerReviews = 'reviews';
+  static const String flyers_flyer_counters = 'counters';
+  static const String flyers_flyer_saves = 'saves';
+  static const String flyers_flyer_shares = 'shares';
+  static const String flyers_flyer_views = 'views';
+  static const String flyers_flyer_reviews = 'reviews';
 
   static const String feedbacks = 'feedbacks';
   static const String admin = 'admin';
-  static const String subAdminSponsors = 'sponsors';
-  static const String subAdminStatistics = 'statistics';
+  static const String admin_sponsors = 'sponsors';
+  static const String admin_statistics = 'statistics';
 }
 
 class StorageDoc{

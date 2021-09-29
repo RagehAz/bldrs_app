@@ -1,0 +1,69 @@
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/mini_bz_label.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:flutter/material.dart';
+
+class HeaderLabels extends StatelessWidget {
+  final SuperFlyer superFlyer;
+  final double flyerBoxWidth;
+
+  HeaderLabels({
+    @required this.superFlyer,
+    @required this.flyerBoxWidth,
+  });
+
+  static double getHeaderLabelWidth(double flyerBoxWidth){
+    return flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+// -----------------------------------------------------------------------------
+    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+// -----------------------------------------------------------------------------
+    double labelsWidth = getHeaderLabelWidth(flyerBoxWidth);
+    double labelsHeight = flyerBoxWidth * (Ratioz.xxflyerHeaderMiniHeight - (2*Ratioz.xxflyerHeaderMainPadding));
+// -----------------------------------------------------------------------------
+    return
+      _tinyMode == true ? Container() :
+      Container(
+          width: labelsWidth,
+          height: labelsHeight,
+          // color: Colorz.Bl,
+          child: Column(
+            mainAxisAlignment: superFlyer.flyerShowsAuthor == true ? MainAxisAlignment.end : MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+
+              /// BUSINESS LABEL : BZ.NAME & BZ.LOCALE
+              BzLabel(
+                superFlyer: superFlyer,
+                flyerBoxWidth: flyerBoxWidth,
+              ),
+
+              /// middle expander ,, will delete i don't like it
+              superFlyer.flyerShowsAuthor == true ?
+              Expanded(
+                child: Container(),
+              ) : Container(),
+
+              /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
+              if (superFlyer.flyerShowsAuthor == true)
+              AuthorLabel(
+                flyerBoxWidth: flyerBoxWidth,
+                tinyAuthor: superFlyer.flyerTinyAuthor,
+                tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
+                showLabel: superFlyer.nav.bzPageIsOn,
+                authorGalleryCount: 0, // is not needed here
+                labelIsOn: true,
+                onTap: null,
+              ),
+
+            ],
+          )
+      )
+    ;
+  }
+}

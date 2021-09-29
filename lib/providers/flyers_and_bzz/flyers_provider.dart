@@ -12,7 +12,7 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/keywords/groups.dart';
-import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -113,7 +113,7 @@ class FlyersProvider with ChangeNotifier {
     Map<String, dynamic> _sponsorsIDsMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.admin,
-      docName: FireCollection.subAdminSponsors,
+      docName: FireCollection.admin_sponsors,
     );
 
     /// 2 - transform sponsors map into list<String>

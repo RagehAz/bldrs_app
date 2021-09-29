@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:flutter/material.dart';
 
 class HttpException implements Exception{

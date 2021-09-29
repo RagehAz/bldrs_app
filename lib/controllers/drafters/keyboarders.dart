@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/views/widgets/dialogs/nav_dialog/nav_dialog.dart';
+import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
-import 'package:bldrs/models/planet/district_model.dart';
+import 'package:bldrs/models/zone/district_model.dart';
 import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:flutter/foundation.dart';

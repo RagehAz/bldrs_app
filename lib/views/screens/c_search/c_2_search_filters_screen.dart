@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/views/widgets/appbar/bldrs_app_bar.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class SearchFiltersScreen extends StatefulWidget {

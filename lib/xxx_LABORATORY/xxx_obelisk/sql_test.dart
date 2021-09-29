@@ -4,9 +4,9 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/flyer/records/view_model.dart';
 import 'package:bldrs/providers/local_db/ldb.dart';
 import 'package:bldrs/providers/local_db/ldb_table.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/layouts/test_layout.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/layouts/test_layout.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class SQLTestScreen extends StatefulWidget {

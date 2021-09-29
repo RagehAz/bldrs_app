@@ -1,7 +1,7 @@
 import 'package:bldrs/firestore/dynamic_links.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
-import 'package:bldrs/views/widgets/walls/home_wall.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/walls/home_wall.dart';
+import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
