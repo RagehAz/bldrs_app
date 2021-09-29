@@ -6,8 +6,8 @@ import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class RandomTestSpace extends StatefulWidget {

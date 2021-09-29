@@ -3,10 +3,10 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/dashboard/zones_manager/db_districts.dart';
 import 'package:bldrs/dashboard/zones_manager/db_countries.dart';
 import 'package:bldrs/dashboard/zones_manager/db_cities.dart';
-import 'package:bldrs/models/planet/district_model.dart';
-import 'package:bldrs/models/planet/city_model.dart';
-import 'package:bldrs/models/planet/country_model.dart';
-import 'package:bldrs/models/planet/zone_model.dart';
+import 'package:bldrs/models/zone/district_model.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------

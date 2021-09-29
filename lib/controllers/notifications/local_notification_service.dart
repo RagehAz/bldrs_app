@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/notifications/test_screens/awome_noti_test_screen.dart';
+import 'package:bldrs/controllers/notifications/test_screens/awesome_noti_test_screen.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';

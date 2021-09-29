@@ -6,11 +6,11 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/bz_pg_counter.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
-import 'package:bldrs/views/widgets/pyramids/bldrs_name.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_counter.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/loading/loading.dart';
+import 'package:bldrs/views/widgets/general/pyramids/bldrs_name.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class GeneralStatistics extends StatelessWidget {

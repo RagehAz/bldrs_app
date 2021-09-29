@@ -7,12 +7,12 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/widgets/buttons/balloons/path_building_user.dart';
-import 'package:bldrs/views/widgets/buttons/balloons/path_constructing_user.dart';
-import 'package:bldrs/views/widgets/buttons/balloons/path_normal_user.dart';
-import 'package:bldrs/views/widgets/buttons/balloons/path_planning_user.dart';
-import 'package:bldrs/views/widgets/buttons/balloons/path_searching_user.dart';
-import 'package:bldrs/views/widgets/buttons/balloons/path_selling_user.dart';
+import 'package:bldrs/views/widgets/general/buttons/balloons/path_building_user.dart';
+import 'package:bldrs/views/widgets/general/buttons/balloons/path_constructing_user.dart';
+import 'package:bldrs/views/widgets/general/buttons/balloons/path_normal_user.dart';
+import 'package:bldrs/views/widgets/general/buttons/balloons/path_planning_user.dart';
+import 'package:bldrs/views/widgets/general/buttons/balloons/path_searching_user.dart';
+import 'package:bldrs/views/widgets/general/buttons/balloons/path_selling_user.dart';
 import 'package:flutter/material.dart';
 
 class Iconizer{

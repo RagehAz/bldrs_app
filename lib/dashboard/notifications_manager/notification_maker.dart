@@ -24,19 +24,19 @@ import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/screens/e_saves/e_0_saved_flyers_screen.dart';
-import 'package:bldrs/views/widgets/bubbles/bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
-import 'package:bldrs/views/widgets/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
+import 'package:bldrs/views/widgets/general/bubbles/tile_bubble.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
-import 'package:bldrs/views/widgets/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/views/widgets/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/notifications/notification_balloon.dart';
-import 'package:bldrs/views/widgets/notifications/notification_card.dart';
-import 'package:bldrs/views/widgets/notifications/notification_flyers.dart';
-import 'package:bldrs/views/widgets/textings/super_text_field.dart';
-import 'package:bldrs/views/widgets/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/specific/notifications/notification_balloon.dart';
+import 'package:bldrs/views/widgets/specific/notifications/notification_card.dart';
+import 'package:bldrs/views/widgets/specific/notifications/notification_flyers.dart';
+import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class NotificationMaker extends StatefulWidget {
@@ -441,7 +441,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
             context: context,
             collName: FireCollection.users,
             docName: sendToMyself == true ? superUserID() : _selectedUser.userID,
-            subCollName: FireCollection.subUserNotifications,
+            subCollName: FireCollection.users_user_notifications,
             input: _newNoti.toMap(),
             subDocName: _id,
           );

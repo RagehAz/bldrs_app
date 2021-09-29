@@ -29,7 +29,7 @@ class SuperBldrsMethod{
       context: context,
       collName: FireCollection.users,
       docName: userID,
-      subCollName: FireCollection.subUserNotifications,
+      subCollName: FireCollection.users_user_notifications,
     );
 
     List<NotiModel> _allModels = NotiModel.decipherNotiModels(_maps);

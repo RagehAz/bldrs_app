@@ -10,7 +10,7 @@ import 'package:bldrs/controllers/notifications/audioz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
+import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NotiOps{
@@ -407,7 +407,7 @@ Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID)
       final Stream<QuerySnapshot<Object>> _querySnapshots = Fire.streamSubCollection(
         collName: FireCollection.users,
         docName: userID,
-        subCollName: FireCollection.subUserNotifications,
+        subCollName: FireCollection.users_user_notifications,
         orderBy: 'timeStamp', // NEVER CHANGE THIS -> OR CREATE NEW FIREBASE QUERY INDEX
         descending: true,
         field: 'dismissed', // NEVER CHANGE THIS -> OR CREATE NEW FIREBASE QUERY INDEX

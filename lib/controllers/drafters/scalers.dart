@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/widgets/nav_bar/nav_bar.dart';
+import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class Scale{

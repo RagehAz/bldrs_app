@@ -1,10 +1,10 @@
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/views/widgets/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/views/widgets/bubbles/bubbles_separator.dart';
-import 'package:bldrs/views/widgets/bubbles/paragraph_bubble.dart';
-import 'package:bldrs/views/widgets/bubbles/tile_bubble.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
+import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
+import 'package:bldrs/views/widgets/general/bubbles/paragraph_bubble.dart';
+import 'package:bldrs/views/widgets/general/bubbles/tile_bubble.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class AboutBldrsScreen extends StatelessWidget {

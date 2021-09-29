@@ -459,7 +459,7 @@ class BzOps{
       context: context,
       collName: FireCollection.bzz,
       docName: bzModel.bzID,
-      subCollName: FireCollection.subBzCalls
+      subCollName: FireCollection.bzz_bz_calls
     );
 
     print('5 - wont delete calls sub collection');
@@ -470,7 +470,7 @@ class BzOps{
         context: context,
         collName: FireCollection.bzz,
         docName: bzModel.bzID,
-        subCollName: FireCollection.subBzFollows
+        subCollName: FireCollection.bzz_bz_follows
 
     );
 
@@ -482,8 +482,8 @@ class BzOps{
       context: context,
       collName: FireCollection.bzz,
       docName: bzModel.bzID,
-      subCollName: FireCollection.subBzCounters,
-      subDocName: FireCollection.subBzCounters,
+      subCollName: FireCollection.bzz_bz_counters,
+      subDocName: FireCollection.bzz_bz_counters,
     );
 
     print('9 - wont delete counters sub collection');

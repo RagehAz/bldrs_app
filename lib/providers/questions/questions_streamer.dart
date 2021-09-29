@@ -1,8 +1,7 @@
-
 import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/views/widgets/ask/chat/chat_model.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
+import 'package:bldrs/views/widgets/specific/ask/chat/chat_model.dart';
+import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +47,7 @@ Widget chatStreamBuilder({
   Stream<DocumentSnapshot> _bzSnapshot = Fire.streamSubDoc(
     collName: FireCollection.questions,
     docName: questionID,
-    subCollName: FireCollection.subQuestionChats,
+    subCollName: FireCollection.questions_question_chats,
     subDocName: bzID,
   );
 

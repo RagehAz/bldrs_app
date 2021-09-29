@@ -3,7 +3,7 @@ import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/users/user_provider.dart';
-import 'package:bldrs/views/widgets/loading/loading.dart';
+import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// IMPLEMENTATION

@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/dashboard/zones_manager/db_cities.dart';
-import 'package:bldrs/models/planet/country_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 
 class DbCountries {
 

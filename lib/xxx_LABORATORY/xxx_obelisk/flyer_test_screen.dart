@@ -5,8 +5,8 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/bz_streamer.dart';
-import 'package:bldrs/views/widgets/flyer/parts/header_parts/new_header.dart';
-import 'package:bldrs/views/widgets/layouts/test_layout.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/new_header.dart';
+import 'package:bldrs/views/widgets/general/layouts/test_layout.dart';
 import 'package:flutter/material.dart';
 
 class FlyerTestScreen extends StatefulWidget {

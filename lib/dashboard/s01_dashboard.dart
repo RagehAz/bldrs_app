@@ -11,8 +11,8 @@ import 'package:bldrs/dashboard/ui_manager.dart';
 import 'package:bldrs/dashboard/users_manager/users_manager_screen.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/dashboard/zones_manager/zones_manager_screen.dart';
-import 'package:bldrs/views/widgets/layouts/dashboard_layout.dart';
-import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class DashBoard extends StatefulWidget {
