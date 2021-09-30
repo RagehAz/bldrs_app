@@ -253,7 +253,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
 
               _buttons[index],
 
-              SizedBox(height: DialogOfBzOptions.spacing),
+              const SizedBox(height: DialogOfBzOptions.spacing),
 
             ],
           );

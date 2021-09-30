@@ -26,7 +26,7 @@ class GoogleMapScreen extends StatefulWidget {
   final bool isSelecting;
   final double flyerBoxWidth;
 
-  GoogleMapScreen({
+  const GoogleMapScreen({
     this.initialLocation, // = const PlaceLocation(latitude: 37.43296265331129, longitude: -122.08832357078792),
     this.isSelecting = false,
     @required this.flyerBoxWidth,
@@ -151,8 +151,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
     // LatLng userCurrentLocation = LatLng(_initialPosition?.latitude ?? 0, _initialPosition?.longitude ?? 0);
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
 
     return MainLayout(
       sky: Sky.Black,

@@ -16,7 +16,7 @@ class EnumLister extends StatelessWidget {
   final List<bool> triggersList;
   final Function closeEnumLister;
 
-  EnumLister({
+  const EnumLister({
     @required this.listTitle,
     @required this.stringsList,
     @required this.triggerTile,
@@ -56,12 +56,12 @@ class EnumLister extends StatelessWidget {
                   topRight: Radius.circular(Ratioz.appBarButtonCorner),
                 ),
                 boxShadow: <BoxShadow>[
-                  CustomBoxShadow(
+                  const CustomBoxShadow(
                       color: Colorz.Black230,
                       offset: const Offset(0, 0),
                       blurRadius: 30,
                       blurStyle: BlurStyle.outer),
-                  CustomBoxShadow(
+                  const CustomBoxShadow(
                       color: Colorz.Black230,
                       offset: const Offset(0, 0),
                       blurRadius: 30,
@@ -96,7 +96,7 @@ class EnumLister extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
 
-                            // --- LIST TITLE
+                            /// LIST TITLE
                             SuperVerse(
                               verse: listTitle,
                               size: 3,
@@ -105,7 +105,7 @@ class EnumLister extends StatelessWidget {
                               margin: Ratioz.appBarMargin * 2,
                             ),
 
-                            // --- EXIT X ICON
+                            /// EXIT X ICON
                             DreamBox(
                               height: 50,
                               width: 60,
@@ -120,7 +120,7 @@ class EnumLister extends StatelessWidget {
                         ),
                       ),
 
-                      // --- DIVIDING LINE
+                      /// DIVIDING LINE
                       Container(
                         width: listWidth - Ratioz.appBarMargin,
                         height: 0.5,
@@ -129,7 +129,7 @@ class EnumLister extends StatelessWidget {
 
                       ),
 
-                      // --- LIST ITEMS
+                      /// LIST ITEMS
                       Expanded(
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
@@ -137,8 +137,8 @@ class EnumLister extends StatelessWidget {
                             gradient: LinearGradient(
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
-                              colors: [Colorz.Black200, Colorz.Black0],
-                              stops: [0, 0.25]
+                              colors: <Color>[Colorz.Black200, Colorz.Black0],
+                              stops: <double>[0, 0.25]
                             )
                           ),
                           child: ListView.builder(

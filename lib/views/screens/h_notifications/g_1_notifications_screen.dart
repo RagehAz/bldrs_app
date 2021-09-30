@@ -102,7 +102,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
 
     return MainLayout(
       appBarType: AppBarType.Basic,
@@ -132,12 +132,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
         print('fuck fuck');
 
-        UserModel _rageh = await UserOps().readUserOps(
+        final UserModel _rageh = await UserOps().readUserOps(
           context: context,
           userID: superUserID(),
         );
 
-        List<String> _tri = TextMod.createTrigram(input: _rageh.name, maxTrigramLength: 15);
+        final List<String> _tri = TextMod.createTrigram(input: _rageh.name, maxTrigramLength: 15);
 
         await Fire.updateDocField(
           context: context,
@@ -185,7 +185,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
                 itemBuilder: (ctx, index){
 
-                  NotiModel _notiModel = notiModels == null ? null : notiModels[index];
+                  final NotiModel _notiModel = notiModels == null ? null : notiModels[index];
 
                   return Dismissible(
                     // onResize: (){
@@ -222,7 +222,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       // print('confirmDismiss : direction is : $direction');
 
                       /// if needed to make the bubble un-dismissible set to false
-                      bool _dismissible = true;
+                      final bool _dismissible = true;
 
                       return _dismissible;
                       },
@@ -236,7 +236,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     child: Container(
                       width: _screenWidth,
                       decoration: BoxDecoration(
-                        borderRadius: Borderers.superBorderAll(context, Bubble.cornersValue() + Ratioz.appBarMargin),
+                        borderRadius: Borderers.superBorderAll(context, Bubble.cornersValue + Ratioz.appBarMargin),
                         // color: Colorz.BloodTest,
                       ),
                       child: NotificationCard(

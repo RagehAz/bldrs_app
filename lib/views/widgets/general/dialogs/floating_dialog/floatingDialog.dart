@@ -16,7 +16,7 @@ class FloatingDialog extends StatefulWidget {
   final Function actionBtFunction;
 
 
-  FloatingDialog({
+  const FloatingDialog({
     @required this.title,
     @required this.list,
     this.fieldIsRequired = false,
@@ -35,13 +35,12 @@ class _FloatingDialogState extends State<FloatingDialog> {
   @override
   Widget build(BuildContext context) {
 
-    int titleVerseSize = 2;
-    double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
-    double actionBtCorner = actionBtSize * 0.4;
+    const int titleVerseSize = 2;
+    final double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
+    final double actionBtCorner = actionBtSize * 0.4;
 
     return Bubble(
       columnChildren: <Widget>[
-
 
         Container(
           // color: Colorz.YellowSmoke,
@@ -50,7 +49,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
-              // --- BUBBLE TITLE
+              /// BUBBLE TITLE
               Padding(
                 padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
                 child: SuperVerse(
@@ -60,7 +59,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
                 ),
               ),
 
-              // --- ACTION BUTTON
+              /// ACTION BUTTON
               widget.actionBtIcon == null ? Container() :
               DreamBox(
                 height: actionBtSize,
@@ -75,7 +74,6 @@ class _FloatingDialogState extends State<FloatingDialog> {
             ],
           ),
         ),
-
 
         Container(
           width: Bubble.clearWidth(context),

@@ -9,68 +9,68 @@ class FlagBox extends StatelessWidget {
   final String flag;
   final Function onTap;
 
-  FlagBox({
+  const FlagBox({
     @required this.flag,
     this.onTap,
   });
 
+  static const double flagWidth = 35;
+  static const double corner = Ratioz.boxCorner12;
+
   @override
   Widget build(BuildContext context) {
-
-    double _flagWidth = 35;
-    double _corner = Ratioz.boxCorner12;
 
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: _flagWidth,
-        height: _flagWidth,
+        width: flagWidth,
+        height: flagWidth,
         decoration: BoxDecoration(
             // color: boxColor,
-              borderRadius: BorderRadius.circular(_corner),
+              borderRadius: BorderRadius.circular(corner),
               boxShadow: <BoxShadow>[
                 CustomBoxShadow(
                     color: Colorz.Black230,
                     offset: new Offset(0, 0),
-                    blurRadius: _flagWidth * 0.12,
+                    blurRadius: flagWidth * 0.12,
                     blurStyle: BlurStyle.outer
                 ),
               ]),
         child: ClipRRect(
           borderRadius:
-          BorderRadius.all(Radius.circular(_corner)),
+          BorderRadius.all(Radius.circular(corner)),
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
 
-              // --- FLAG
+              /// FLAG
               flag == '' || flag == 'Black'?
                   Container() :
-              WebsafeSvg.asset(flag, width: _flagWidth),
+              WebsafeSvg.asset(flag, width: flagWidth),
 
-              // --- BUTTON GRADIENT
+              ///  BUTTON GRADIENT
                 Container(
-                  height: _flagWidth,
+                  height: flagWidth,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       // color: Colorz.Grey,
-                      borderRadius: BorderRadius.circular(_corner),
+                      borderRadius: BorderRadius.circular(corner),
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: <Color>[Colorz.Black0, Colorz.Black200],
-                          stops: [0.65,1]
+                          stops: <double>[0.65,1]
                       ),
                   ),
                 ),
 
-              // --- BUTTON HIGHLIGHT
+              ///  BUTTON HIGHLIGHT
                 Container(
-                  height: _flagWidth,
+                  height: flagWidth,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       // color: Colorz.Grey,
-                      borderRadius: BorderRadius.circular(_corner),
+                      borderRadius: BorderRadius.circular(corner),
                       gradient: LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,

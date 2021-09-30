@@ -29,17 +29,18 @@ class UserBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    String _countryName = Localizer.translate(context, user?.zone?.countryID);
+
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final String _countryName = Localizer.translate(context, user?.zone?.countryID);
     // String _countryFlag = Flagz.getFlagByIso3(user?.zone?.countryID);
-    String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, user?.zone?.cityID);
-    String _areaName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, user?.zone?.districtID);
+    final String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, user?.zone?.cityID);
+    final String _areaName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, user?.zone?.districtID);
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
 
-    double _topPadding = _screenHeight * 0.05;
-    double _editProfileBtSize = _topPadding ;
+    final double _topPadding = _screenHeight * 0.05;
+    final double _editProfileBtSize = _topPadding ;
 
     return Bubble(
 
@@ -67,7 +68,7 @@ class UserBubble extends StatelessWidget {
           loading: loading,
         ),
 
-        // --- USER NAME
+        /// USER NAME
         SuperVerse(
           verse: user?.name,
           shadow: true,
@@ -77,7 +78,7 @@ class UserBubble extends StatelessWidget {
           labelColor: Colorz.White10,
         ),
 
-        // --- USER JOB TITLE
+        /// USER JOB TITLE
         SuperVerse(
           verse: '${user?.title} @ ${user?.company}',
           size: 2,
@@ -85,7 +86,7 @@ class UserBubble extends StatelessWidget {
           weight: VerseWeight.thin,
         ),
 
-        // --- USER LOCALE
+        /// USER LOCALE
         SuperVerse(
           verse: '${Wordz.inn(context)} $_areaName, $_provinceName, $_countryName',
           weight: VerseWeight.thin,
@@ -95,7 +96,7 @@ class UserBubble extends StatelessWidget {
           margin: 5,
         ),
 
-        // --- Joined at
+        /// Joined at
         SuperVerse(
           verse: Timers.monthYearStringer(context,user?.createdAt),
           weight: VerseWeight.thin,

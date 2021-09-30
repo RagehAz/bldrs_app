@@ -47,7 +47,7 @@ class SequenceScreen extends StatelessWidget {
           },
         ),
 
-        SizedBox(
+        const SizedBox(
           width: Ratioz.appBarPadding * 0.5,
         ),
 

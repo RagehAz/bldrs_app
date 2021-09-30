@@ -82,9 +82,9 @@ class _SwiperScreenState extends State<SwiperScreen> {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
-    double _flyerSizeFactor = 0.8;
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
+    const double _flyerSizeFactor = 0.8;
 // -----------------------------------------------------------------------------
     final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
     // final List<TinyFlyer> _allTinyFlyers = pro.getAllTinyFlyers;

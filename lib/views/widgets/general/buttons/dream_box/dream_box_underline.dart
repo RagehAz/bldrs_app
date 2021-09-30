@@ -27,15 +27,11 @@ class DreamBoxUnderLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     final double _iconBoxHeight = width ?? 0;
-
     final double _underLineHeight = height?? 0 - _iconBoxHeight;
-
     final double _underLineTopMargin = underLine == null ? 0 :
     ObjectChecker.objectIsSVG(icon) ? (width - (_underLineHeight * 0.1)) * 1 : // (width - ((width - _graphicWidth)/2)) * 0.0 :
     width;
-
     final double _underlineHeightXXX = underLine == null ? 0 : height - _underLineTopMargin;
 
     return Container(
@@ -46,13 +42,15 @@ class DreamBoxUnderLine extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+
           /// ICON footprint
           Container(
             width: width,
             height: _underLineTopMargin,
             // color: Colorz.BloodTest,
           ),
-          /// --- THE UnderLine
+
+          /// THE UnderLine
           if (underLine != null)
             Container(
               width: width,
@@ -67,6 +65,7 @@ class DreamBoxUnderLine extends StatelessWidget {
                 shadow: underLineShadowIsOn,
               ),
             ),
+
         ],
       ),
     );

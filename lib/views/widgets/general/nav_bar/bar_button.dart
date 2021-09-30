@@ -17,7 +17,7 @@ class BarButton extends StatelessWidget {
   final double width;
   final double corners;
 
-  BarButton({
+  const BarButton({
     @required this.text,
     this.icon,
     this.iconSizeFactor,
@@ -68,7 +68,7 @@ class BarButton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
-              SizedBox(
+              const SizedBox(
                 height: _paddings,
               ),
 

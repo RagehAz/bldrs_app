@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 class NightSky extends StatefulWidget {
   final Sky sky;
 
-  NightSky({
+  const NightSky({
     this.sky,
 });
 
@@ -107,15 +107,15 @@ class _NightSkyState extends State<NightSky> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    List<Color> _skyColors =
+    final List<Color> _skyColors =
     widget.sky == Sky.Night ? <Color>[Colorz.SkyLightBlue, Colorz.SkyDarkBlue] :
         widget.sky == Sky.Black ? <Color>[Colorz.BlackSemi230, Colorz.BlackSemi230] :
         <Color>[Colorz.SkyDarkBlue, Colorz.SkyDarkBlue];
 // -----------------------------------------------------------------------------
-    Gradient _skyGradient =
+    final Gradient _skyGradient =
     widget.sky == Sky.Night || widget.sky == Sky.Black ? RadialGradient(
         center: const Alignment(0.75, 1.25),
         radius: 1,
@@ -123,7 +123,7 @@ class _NightSkyState extends State<NightSky> with TickerProviderStateMixin {
         stops: <double>[0.0, 0.65]
     ) : null;
 // -----------------------------------------------------------------------------
-    Color _plainColor = widget.sky == Sky.Night || widget.sky == Sky.Black ? null : Colorz.SkyDarkBlue;
+    final Color _plainColor = widget.sky == Sky.Night || widget.sky == Sky.Black ? null : Colorz.SkyDarkBlue;
 // -----------------------------------------------------------------------------
     return Center(
         child: Container(

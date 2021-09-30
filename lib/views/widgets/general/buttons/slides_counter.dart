@@ -22,7 +22,7 @@ class SlidesCounter extends StatelessWidget {
       color: Colorz.White20,
       onTap: () async {
 
-        dynamic _result = await CenterDialog.showCenterDialog(
+        final dynamic _result = await CenterDialog.showCenterDialog(
           context: context,
           boolDialog: true,
           title: 'No Slides left',

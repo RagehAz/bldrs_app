@@ -17,34 +17,31 @@ class NotificationSenderBalloon extends StatelessWidget {
     @required this.pic,
   });
 
-  static double balloonWidth(){
-    return 40;
-  }
+  static const double balloonWidth = 40;
 
   @override
   Widget build(BuildContext context) {
 
     // double _screenWidth = Scale.superScreenWidth(context);
-    double _balloonWidth = balloonWidth();
 
     return
 
       sender == NotiPicType.bz ?
       BzLogo(
-        width: _balloonWidth,
+        width: balloonWidth,
         image: pic,
       )
           :
       sender == NotiPicType.author ?
       AuthorPic(
         authorPic: pic,
-        width: _balloonWidth,
+        width: balloonWidth,
       )
           :
       sender == NotiPicType.user ?
       UserBalloon(
         pic: pic,
-        balloonWidth: _balloonWidth,
+        balloonWidth: balloonWidth,
         balloonType: UserStatus.PlanningTalking,
         onTap: null,
         blackAndWhite: false,
@@ -53,20 +50,20 @@ class NotificationSenderBalloon extends StatelessWidget {
       )
           :
       sender == NotiPicType.bldrs ?
-      BldrsName(
-        size: _balloonWidth,
+      const BldrsName(
+        size: balloonWidth,
       )
           :
       sender == NotiPicType.country ?
       DreamBox(
-        width: _balloonWidth,
-        height: _balloonWidth,
+        width: balloonWidth,
+        height: balloonWidth,
         icon: Flagz.getFlagByIso3(pic),
       )
           :
       DreamBox(
-        width: _balloonWidth,
-        height: _balloonWidth,
+        width: balloonWidth,
+        height: balloonWidth,
         icon: pic,
       );
 

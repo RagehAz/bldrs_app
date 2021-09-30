@@ -56,7 +56,7 @@ class ChatModel{
   }
 // -----------------------------------------------------------------------------
   static ChatModel getChatModelFromSnapshot(DocumentSnapshot doc){
-    var _map = doc.data();
+    final Object _map = doc.data();
     ChatModel _chat = ChatModel.decipherChatMap(_map);
     return _chat;
   }

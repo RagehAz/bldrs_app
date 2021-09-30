@@ -73,7 +73,7 @@ class AddFlyerButton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
-              // --- FAKE HEADER FOOTPRINT
+              /// --- FAKE HEADER FOOTPRINT
               SizedBox(
                 height: FlyerBox.headerBoxHeight(false, flyerBoxWidth),
               ),

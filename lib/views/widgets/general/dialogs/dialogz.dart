@@ -24,7 +24,7 @@ class Dialogz{
 // -----------------------------------------------------------------------------
   static Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
 
-    List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
+    final List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
 
       // SIGN IN ERROR
       {
@@ -93,7 +93,7 @@ class Dialogz{
     List<BzModel> bzzToKeep,
   }) async {
 
-    bool _bzzReviewResult = await CenterDialog.showCenterDialog(
+    final bool _bzzReviewResult = await CenterDialog.showCenterDialog(
       context: context,
       title: 'You Have ${bzzToDeactivate.length + bzzToKeep.length} business accounts',
       body: 'All Business accounts will be deactivated except those shared with other authors',
@@ -143,10 +143,10 @@ class Dialogz{
     List<BzModel> bzzToDeactivate,
   }) async {
 
-    int _totalNumOfFlyers = FlyerModel.getNumberOfFlyersFromBzzModels(bzzToDeactivate);
-    int _numberOfBzz = bzzToDeactivate.length;
+    final int _totalNumOfFlyers = FlyerModel.getNumberOfFlyersFromBzzModels(bzzToDeactivate);
+    final int _numberOfBzz = bzzToDeactivate.length;
 
-    bool _flyersReviewResult = await CenterDialog.showCenterDialog(
+    final bool _flyersReviewResult = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
       body: 'You Have $_totalNumOfFlyers flyers that will be deactivated and can not be retrieved',
@@ -183,7 +183,7 @@ class Dialogz{
             ),
           ),
 
-          SuperVerse(
+          const SuperVerse(
             verse: 'Would you like to continue ?',
             margin: 10,
           ),

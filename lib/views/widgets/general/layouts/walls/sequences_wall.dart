@@ -19,7 +19,7 @@ class SequencesWall extends StatelessWidget {
   final Sequence sequence;
   final FlyerType flyersType;
 
-  SequencesWall({
+  const SequencesWall({
     @required this.sequence,
     @required this.flyersType,
   });
@@ -35,29 +35,29 @@ class SequencesWall extends StatelessWidget {
     //     firstKeyID: groupModel.firstKeyID
     // );
 
-    bool _groupSecondKeysAreZoneAreas = Sequence.sequenceSecondKeysAreZoneDistricts(sequence);
+    final bool _groupSecondKeysAreZoneAreas = Sequence.sequenceSecondKeysAreZoneDistricts(sequence);
 
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _countryPro.currentCityID);
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _countryPro.currentCityID);
 
     if(_groupSecondKeysAreZoneAreas == true){
-      String _areaName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, sequence.secondKeywords.keywords[index].keywordID);
-      String _keywordName = Keyword.getKeywordNameByKeywordID(context, sequence.titleID);
+      final String _areaName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, sequence.secondKeywords.keywords[index].keywordID);
+      final String _keywordName = Keyword.getKeywordNameByKeywordID(context, sequence.titleID);
 
       _stackTitle = '$_keywordName - ${Wordz.inn(context)} $_areaName , $_provinceName';
     }
 
     else if (sequence?.secondKeywords?.keywords == null){
-      List<Keyword> _keywordsByGroupID = Keyword.getKeywordsByGroupID(sequence.titleID);
-      String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordsByGroupID[index].keywordID);
+      final List<Keyword> _keywordsByGroupID = Keyword.getKeywordsByGroupID(sequence.titleID);
+      final String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordsByGroupID[index].keywordID);
       _stackTitle = '$_keywordName - ${Wordz.inn(context)} $_provinceName';
     }
 
     else {
-      String _keywordID = sequence.secondKeywords.keywords[index].keywordID;
+      final String _keywordID = sequence.secondKeywords.keywords[index].keywordID;
       // Keyword _keyword = Keyword.getKeywordByKeywordID(_keywordID);
-      String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
-      String _sequenceName = Keyword.getKeywordNameByKeywordID(context, sequence.titleID);
+      final String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
+      final String _sequenceName = Keyword.getKeywordNameByKeywordID(context, sequence.titleID);
       _stackTitle = '$_sequenceName - ${_keywordName} - ${Wordz.inn(context)} $_provinceName';
     }
 
@@ -66,12 +66,12 @@ class SequencesWall extends StatelessWidget {
 
   void _onScrollEnd({BuildContext context, int index,Sequence sequence}){
 
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    String _currentProvinceID = _countryPro.currentCityID;
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final String _currentProvinceID = _countryPro.currentCityID;
 
-    bool _sequenceIsNewFlyers = index == null ? true : false;
+    final bool _sequenceIsNewFlyers = index == null ? true : false;
 
-    Keyword _firstKeyword =
+    final Keyword _firstKeyword =
     sequence.idType == SequenceType.byKeyID ? Keyword.getKeywordByKeywordID(sequence.titleID) :
     sequence.idType == SequenceType.byGroupID && _sequenceIsNewFlyers == false ? Keyword.getKeywordsByGroupID(sequence.titleID)[index] :
     sequence.idType == SequenceType.byGroupID && _sequenceIsNewFlyers == true ? null :
@@ -87,11 +87,12 @@ class SequencesWall extends StatelessWidget {
     else {
       print ('1 - flyer is from sequence keywords');
 
-      Group _secondKeywords = sequence?.secondKeywords;
+      final Group _secondKeywords = sequence?.secondKeywords;
 
       _secondKeyword = _secondKeywords == null ? null : _secondKeywords?.keywords[index];
-      bool _sequenceHasSecondKeywords = _secondKeyword != null ? true : false;
-      bool _secondKeyIsDistrict = _secondKeyword?.subGroupID == _currentProvinceID;
+
+      final bool _sequenceHasSecondKeywords = _secondKeyword != null ? true : false;
+      final bool _secondKeyIsDistrict = _secondKeyword?.subGroupID == _currentProvinceID;
 
       if(_sequenceHasSecondKeywords == true){
         print('2 - sequence has second keywords : ${_secondKeyword.keywordID}');
@@ -137,14 +138,14 @@ class SequencesWall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Widget _spacer = SizedBox(height: Ratioz.appBarMargin, width: Ratioz.appBarMargin,);
+    const Widget _spacer = const SizedBox(height: Ratioz.appBarMargin, width: Ratioz.appBarMargin,);
 
-    List<Keyword> _keywordsByGroupID = Keyword.getKeywordsByGroupID(sequence.titleID);
+    final List<Keyword> _keywordsByGroupID = Keyword.getKeywordsByGroupID(sequence.titleID);
 
     print(sequence.titleID);
     print(_keywordsByGroupID);
 
-    List<Widget> _sequenceWallWidgets = <Widget>[
+    final List<Widget> _sequenceWallWidgets = <Widget>[
 
       _spacer,
 
@@ -224,7 +225,7 @@ class SequencesWall extends StatelessWidget {
     return MaxBounceNavigator(
 
       child: ListView.builder(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.only(top: Ratioz.stratosphere),
         scrollDirection: Axis.vertical,
         itemCount: _sequenceWallWidgets.length,

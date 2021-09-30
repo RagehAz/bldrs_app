@@ -23,9 +23,9 @@ class TabButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Color _buttonColor = isSelected == true ? Colorz.Yellow255 : null;
-    Color _iconColor = isSelected == true && triggerIconColor == true ? Colorz.Black255 : null;
-    Color _verseColor = isSelected == true ? Colorz.Black255 : null;
+    final Color _buttonColor = isSelected == true ? Colorz.Yellow255 : null;
+    final Color _iconColor = isSelected == true && triggerIconColor == true ? Colorz.Black255 : null;
+    final Color _verseColor = isSelected == true ? Colorz.Black255 : null;
 
     return DreamBox(
       height: Ratioz.appBarButtonSize,

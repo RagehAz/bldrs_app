@@ -29,7 +29,7 @@ class SelectKeywordsScreen extends StatefulWidget {
 }
 
 class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
-  List<Keyword> _selectedKeywords = [];
+  List<Keyword> _selectedKeywords = <Keyword>[];
   List<Group> _groups;
   // CountryProvider _countryPro;
 // -----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     generateExpansionKeys();
   }
 // -----------------------------------------------------------------------------
-  List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = [];
+  List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = <GlobalKey<BldrsExpansionTileState>>[];
   void generateExpansionKeys(){
     _groups.forEach((x) {
       _expansionKeys.add(new GlobalKey());
@@ -67,7 +67,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
   }
 // -----------------------------------------------------------------------------
   List<String> getKeywordIDs(List<Keyword> _keywordModels){
-    List<String> _keywordIDs = [];
+    final List<String> _keywordIDs = <String>[];
 
     _keywordModels.forEach((key) {
       _keywordIDs.add(key.keywordID);
@@ -80,9 +80,9 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 
     // bool _canPickMany = filtersModels.singleWhere((filterModel) => filterModel.filterID == _currentFilterID).canPickMany;
 
-    bool _canPickMany = Group.getCanGroupPickManyByKeyword(keyword);
+    final bool _canPickMany = Group.getCanGroupPickManyByKeyword(keyword);
 
-    bool _isSelected = _selectedKeywords.contains(keyword);
+    final bool _isSelected = _selectedKeywords.contains(keyword);
 
     print('_onKeywordTap : keyword : ${keyword.keywordID} : groupID : ${keyword.groupID} : subGroupID : ${keyword.subGroupID} : _canPickMany : $_canPickMany : _isSelected : $_isSelected');
 
@@ -114,7 +114,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     else {
 
       /// check if SINGULAR keyword is selected by filterTitle
-      bool _selectedKeywordsHaveThisGroupID = Keyword.keywordsContainThisGroupID(keywords : _selectedKeywords, groupID: keyword.groupID);
+      final bool _selectedKeywordsHaveThisGroupID = Keyword.keywordsContainThisGroupID(keywords : _selectedKeywords, groupID: keyword.groupID);
 
       print('_selectedKeywordsHaveThisGroupID : $_selectedKeywordsHaveThisGroupID');
 
@@ -180,7 +180,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 
     _scrollToIndex(_index);
 
-    Keyword _keyword = _index >= 0 ? _selectedKeywords[_index] : null;
+    final Keyword _keyword = _index >= 0 ? _selectedKeywords[_index] : null;
 
     setState(() {
       _highlightedKeyword = _keyword;
@@ -287,7 +287,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     bool _isCity = false;
     bool _isArea = false;
 
-    Keyword _keyword = _selectedKeywords[index];
+    final Keyword _keyword = _selectedKeywords[index];
     // String _groupID = _keyword.groupID;
 
     if (_isCity == true){
@@ -312,7 +312,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 
     else {
 
-      Group _group = Group.getGroupByKeyword(_keyword);
+      final Group _group = Group.getGroupByKeyword(_keyword);
 
       await _highlightKeyword(_keyword, _group.canPickMany);
 
@@ -327,10 +327,10 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
-    double _selectedKeywordsZoneHeight = 80;
-    double _keywordsZoneHeight =  _screenHeight - Ratioz.stratosphere - _selectedKeywordsZoneHeight;
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    const double _selectedKeywordsZoneHeight = 80;
+    final double _keywordsZoneHeight =  _screenHeight - Ratioz.stratosphere - _selectedKeywordsZoneHeight;
 
     Tracer.traceWidgetBuild(widgetName: 'SelectKeywordsScreen', varName: '_selectedKeywords.length', varValue: _selectedKeywords.length);
     return MainLayout(

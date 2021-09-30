@@ -10,7 +10,7 @@ class EnumListerTile extends StatelessWidget {
   final Function onTap;
   final bool tileIsOn;
 
-  EnumListerTile({
+  const EnumListerTile({
     @required this.verse,
     @required this.onTap,
     @required this.tileIsOn,
