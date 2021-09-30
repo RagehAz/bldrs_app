@@ -17,7 +17,7 @@ class EditorPanel extends StatelessWidget {
   final double flyerBoxWidth;
   final double panelWidth;
 
-  EditorPanel({
+  const EditorPanel({
     @required this.superFlyer,
     @required this.bzModel,
     @required this.flyerBoxWidth,

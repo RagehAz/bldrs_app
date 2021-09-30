@@ -61,7 +61,7 @@ class BzAboutTab extends StatelessWidget {
           ),
 
         if (bzModel.bzScope != null)
-          BubblesSeparator(),
+          const BubblesSeparator(),
 
         /// --- STATS
         if (bzModel.bzTotalSlides != null)

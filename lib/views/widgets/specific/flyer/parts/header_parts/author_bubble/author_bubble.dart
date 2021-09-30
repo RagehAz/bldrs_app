@@ -42,30 +42,25 @@ class AuthorBubble extends StatelessWidget {
     return authorPicHeight(flyerBoxWidth) * 0.4;
   }
 // -----------------------------------------------------------------------------
-  static double spacing(double flyerBoxWidth){
-    return Ratioz.appBarMargin;
-  }
+  static const double spacing = Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
   static double bubbleHeight(double flyerBoxWidth){
 
-    double _titleHeight = titleHeight(flyerBoxWidth);
-    double _authorPicHeight = authorPicHeight(flyerBoxWidth);
-    double _spacing = spacing(flyerBoxWidth);
+    final double _titleHeight = titleHeight(flyerBoxWidth);
+    final double _authorPicHeight = authorPicHeight(flyerBoxWidth);
+    final double _bubbleHeight = _titleHeight + _authorPicHeight + (2 * spacing);
 
-    double _bubbleHeight = _titleHeight + _authorPicHeight + (2 * _spacing);
     return _bubbleHeight;
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    List<String> _bzTeamIDs = BzModel.getBzTeamIDs(bzModel);
-    bool _thisIsMyBz = _bzTeamIDs.contains(superUserID());
-    TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(bzModel);
+    final List<String> _bzTeamIDs = BzModel.getBzTeamIDs(bzModel);
+    final bool _thisIsMyBz = _bzTeamIDs.contains(superUserID());
+    final TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(bzModel);
 
-    double _bubbleWidth = bubbleWidth(flyerBoxWidth);
-
-    double _spacing = spacing(flyerBoxWidth);
+    final double _bubbleWidth = bubbleWidth(flyerBoxWidth);
 
     return Container(
       width: _bubbleWidth,
@@ -86,7 +81,7 @@ class AuthorBubble extends StatelessWidget {
 
           /// TOP SPACER
           SizedBox(
-            height: _spacing,
+            height: spacing,
             width: _bubbleWidth,
           ),
 
@@ -113,7 +108,7 @@ class AuthorBubble extends StatelessWidget {
             child: ListView(
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
                 children: <Widget>[
 
                   /// AUTHORS LABELS
@@ -165,7 +160,7 @@ class AuthorBubble extends StatelessWidget {
 
           /// BOTTOM SPACER
           SizedBox(
-            height: _spacing,
+            height: spacing,
             width: _bubbleWidth,
           ),
 

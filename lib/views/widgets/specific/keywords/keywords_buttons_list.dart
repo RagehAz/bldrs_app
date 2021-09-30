@@ -29,11 +29,11 @@ class KeywordsButtonsList extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (ctx, keyIndex){
 
-          Keyword _keyword = keywords[keyIndex];
-          String _keywordID = _keyword.keywordID;
-          String _icon = Keyword.getImagePath(_keyword);
-          String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
-          String _keywordNameArabic = Keyword.getKeywordArabicName(_keyword);
+          final Keyword _keyword = keywords[keyIndex];
+          final String _keywordID = _keyword.keywordID;
+          final String _icon = Keyword.getImagePath(_keyword);
+          final String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
+          final String _keywordNameArabic = Keyword.getKeywordArabicName(_keyword);
 
           return
 

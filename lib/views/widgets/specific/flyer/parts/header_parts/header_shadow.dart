@@ -18,7 +18,7 @@ class HeaderShadow extends StatelessWidget {
       children: <Widget>[
 
         /// --- MINI HEADER'S BG COLOR IN MAX STATE
-        bzPageIsOn == false ? Container() :
+        if (bzPageIsOn == true)
         Container(color:Colorz.bzPageBGColor),//bzPageBGColor,),
 
         /// --- HEADER SHADOW

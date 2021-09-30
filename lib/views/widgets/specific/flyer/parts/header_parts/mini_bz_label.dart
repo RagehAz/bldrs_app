@@ -12,7 +12,7 @@ class BzLabel extends StatelessWidget {
   final SuperFlyer superFlyer;
   final double flyerBoxWidth;
 
-  BzLabel({
+  const BzLabel({
     this.superFlyer,
     @required this.flyerBoxWidth,
 });
@@ -21,21 +21,21 @@ class BzLabel extends StatelessWidget {
   Widget build(BuildContext context) {
 
 // -----------------------------------------------------------------------------
-    double screenWidth = Scale.superScreenWidth(context);
-    bool versesDesignMode = false;
-    bool versesShadow = false;
+    final double screenWidth = Scale.superScreenWidth(context);
+    const bool versesDesignMode = false;
+    const bool versesShadow = false;
 // -----------------------------------------------------------------------------
-    double headerMainHeight = FlyerBox.headerStripHeight(superFlyer.nav.bzPageIsOn, flyerBoxWidth);
-    // --- B.DATA
-    double businessDataHeight = superFlyer.flyerShowsAuthor == true ? headerMainHeight * 0.4 : headerMainHeight * 0.7; //0.0475;
-    double businessDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
-    double headerTextSidePadding = flyerBoxWidth * 0.02;
-    // --- B.LOCALE
-    String businessLocale = TextGenerator.zoneStringer(context: context, zone: superFlyer.bz.bzZone,);
+    final double headerMainHeight = FlyerBox.headerStripHeight(superFlyer.nav.bzPageIsOn, flyerBoxWidth);
+    /// B.DATA
+    final double businessDataHeight = superFlyer.flyerShowsAuthor == true ? headerMainHeight * 0.4 : headerMainHeight * 0.7; //0.0475;
+    final double businessDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+    final double headerTextSidePadding = flyerBoxWidth * 0.02;
+    /// B.LOCALE
+    final String businessLocale = TextGenerator.zoneStringer(context: context, zone: superFlyer.bz.bzZone,);
 // -----------------------------------------------------------------------------
-    int bzNameSize = superFlyer.flyerShowsAuthor == true ? 3 : 5;
-    int bLocaleSize = superFlyer.flyerShowsAuthor == true ? 1 : 1;
-    int _maxLines = superFlyer.flyerShowsAuthor == true ? 1 : 2;
+    final int bzNameSize = superFlyer.flyerShowsAuthor == true ? 3 : 5;
+    final int bLocaleSize = superFlyer.flyerShowsAuthor == true ? 1 : 1;
+    final int _maxLines = superFlyer.flyerShowsAuthor == true ? 1 : 2;
 // -----------------------------------------------------------------------------
 
     return Container(
@@ -47,7 +47,7 @@ class BzLabel extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
 
-          // -- B.NAME
+          /// B.NAME
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: headerTextSidePadding),
@@ -67,7 +67,7 @@ class BzLabel extends StatelessWidget {
             ),
           ),
 
-          // --- B.LOCALE
+          /// B.LOCALE
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: headerTextSidePadding),

@@ -25,12 +25,12 @@ class SliverFlyersGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _flyerBoxWidth = calculateFlyerBoxWidth(
+    final double _flyerBoxWidth = calculateFlyerBoxWidth(
       flyersLength: tinyFlyers.length,
       context: context,
     );
 
-    int _numberOfColumns = GalleryGrid.gridColumnCount(tinyFlyers.length);
+    final int _numberOfColumns = GalleryGrid.gridColumnCount(tinyFlyers.length);
 
     return SliverPadding(
       padding: EdgeInsets.all(spacing),

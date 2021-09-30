@@ -23,11 +23,10 @@ class RecordBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _bubbleWidth = flyerBoxWidth - (Ratioz.appBarPadding * 2);
-    EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
-    BorderRadius _bubbleCorners = Borderers.superBorderAll(context, flyerBoxWidth * Ratioz.xxflyerTopCorners);
-    double _peopleBubbleBoxHeight = flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 1.2;
-
+    final double _bubbleWidth = flyerBoxWidth - (Ratioz.appBarPadding * 2);
+    const EdgeInsets _bubbleMargins = const EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
+    final BorderRadius _bubbleCorners = Borderers.superBorderAll(context, flyerBoxWidth * Ratioz.xxflyerTopCorners);
+    final double _peopleBubbleBoxHeight = flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 1.2;
 
     return Bubble(
       key: key,

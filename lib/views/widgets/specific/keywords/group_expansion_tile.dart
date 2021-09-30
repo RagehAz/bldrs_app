@@ -136,7 +136,7 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
     // final double _iconSize = SubGroupTile.calculateTitleIconSize(icon: widget.icon);
     //------------------------------------------------------------o
     final String _groupID = widget.group.groupID;
-    List<String> _subGroupsIDs = Keyword.getSubGroupsIDsFromKeywords(keywords: widget.group.keywords);
+    final List<String> _subGroupsIDs = Keyword.getSubGroupsIDsFromKeywords(keywords: widget.group.keywords);
     final Namez _groupNamez = Keyword.getGroupNamezByGroupID(_groupID);
     final String _groupEnglishName = Name.getNameByLingoFromNames(
       context: context,
@@ -192,19 +192,19 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
             shrinkWrap: true,
             itemBuilder: (xxx, _subIndex){
 
-              String _subGroupID = _subGroupsIDs[_subIndex];
-              String _subGroupNameEN = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
+              final String _subGroupID = _subGroupsIDs[_subIndex];
+              final String _subGroupNameEN = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
                 context: context,
                 subGroupID: _subGroupID,
                 lingoCode: Lingo.englishLingo.code,
               );
-              String _subGroupNameAR = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
+              final String _subGroupNameAR = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
                 context: context,
                 subGroupID: _subGroupID,
                 lingoCode: Lingo.arabicLingo.code,
               );
 
-              List<Keyword> _subGroupKeywords = Keyword.getKeywordsBySubGroupIDFromKeywords(keywords: widget.group.keywords, subGroupID: _subGroupID);
+              final List<Keyword> _subGroupKeywords = Keyword.getKeywordsBySubGroupIDFromKeywords(keywords: widget.group.keywords, subGroupID: _subGroupID);
 
               return
               _subGroupID == '' ?

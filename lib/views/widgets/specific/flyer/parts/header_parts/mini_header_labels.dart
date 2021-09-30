@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/mini_bz_label.dart';
@@ -9,7 +10,7 @@ class HeaderLabels extends StatelessWidget {
   final SuperFlyer superFlyer;
   final double flyerBoxWidth;
 
-  HeaderLabels({
+  const HeaderLabels({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
   });
@@ -21,10 +22,10 @@ class HeaderLabels extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
-    double labelsWidth = getHeaderLabelWidth(flyerBoxWidth);
-    double labelsHeight = flyerBoxWidth * (Ratioz.xxflyerHeaderMiniHeight - (2*Ratioz.xxflyerHeaderMainPadding));
+    final double labelsWidth = getHeaderLabelWidth(flyerBoxWidth);
+    final double labelsHeight = flyerBoxWidth * (Ratioz.xxflyerHeaderMiniHeight - (2*Ratioz.xxflyerHeaderMainPadding));
 // -----------------------------------------------------------------------------
     return
       _tinyMode == true ? Container() :
@@ -44,10 +45,8 @@ class HeaderLabels extends StatelessWidget {
               ),
 
               /// middle expander ,, will delete i don't like it
-              superFlyer.flyerShowsAuthor == true ?
-              Expanded(
-                child: Container(),
-              ) : Container(),
+              if (superFlyer.flyerShowsAuthor == false)
+              const Expander(),
 
               /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
               if (superFlyer.flyerShowsAuthor == true)

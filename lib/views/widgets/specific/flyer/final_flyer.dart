@@ -68,7 +68,7 @@ class FinalFlyer extends StatefulWidget {
   final String flyerID;
   final Key flyerKey;
 
-  FinalFlyer({
+  const FinalFlyer({
     @required this.flyerBoxWidth,
     this.flyerModel,
     this.tinyFlyer,
@@ -166,14 +166,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
         _prefs = await SharedPreferences.getInstance();
 
-        dynamic _flyerSource = FlyerMethod.selectFlyerSource(
+        final dynamic _flyerSource = FlyerMethod.selectFlyerSource(
           flyerID: widget.flyerID,
           tinyFlyer: widget.tinyFlyer,
           flyerModel: widget.flyerModel,
           bzModel: widget.bzModel,
         );
 
-        FlyerMode _flyerMode = FlyerMethod.flyerModeSelector(
+        final FlyerMode _flyerMode = FlyerMethod.flyerModeSelector(
           context: context,
           flyerBoxWidth: widget.flyerBoxWidth,
           flyerSource: _flyerSource,
@@ -185,7 +185,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         SuperFlyer _builtSuperFlyer;
 
         if (_flyerMode == FlyerMode.tinyModeByFlyerID){
-          TinyFlyer _dbTinyFlyer = await FlyerOps().readTinyFlyerOps(context: context, flyerID: widget.flyerID);
+          final TinyFlyer _dbTinyFlyer = await FlyerOps().readTinyFlyerOps(context: context, flyerID: widget.flyerID);
           _builtSuperFlyer = _getSuperFlyerFromTinyFlyer(tinyFlyer: _dbTinyFlyer);
         }
 
@@ -208,12 +208,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         // --------------------------------------------------------------------X
 
         else if (_flyerMode == FlyerMode.bigModeByFlyerID){
-          FlyerModel _dbFlyerModel = await FlyerOps().readFlyerOps(context: context, flyerID: widget.flyerID);
+          final FlyerModel _dbFlyerModel = await FlyerOps().readFlyerOps(context: context, flyerID: widget.flyerID);
           _builtSuperFlyer = _getSuperFlyerFromFlyer(flyerModel: _dbFlyerModel);
         }
 
         else if (_flyerMode == FlyerMode.bigModeByTinyFlyer){
-          FlyerModel _dbFlyerModel = await FlyerOps().readFlyerOps(context: context, flyerID: widget.tinyFlyer.flyerID);
+          final FlyerModel _dbFlyerModel = await FlyerOps().readFlyerOps(context: context, flyerID: widget.tinyFlyer.flyerID);
           _builtSuperFlyer = _getSuperFlyerFromFlyer(flyerModel: _dbFlyerModel);
         }
 
@@ -331,7 +331,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   SuperFlyer _getSuperFlyerFromTinyFlyer({TinyFlyer tinyFlyer}){
-    SuperFlyer _superFlyer = SuperFlyer.createViewSuperFlyerFromTinyFlyer(
+    final SuperFlyer _superFlyer = SuperFlyer.createViewSuperFlyerFromTinyFlyer(
       context: context,
       tinyFlyer: tinyFlyer,
       onHeaderTap: () async {await _openTinyFlyer();},
@@ -506,7 +506,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 //   }
 // -----------------------------------------------------o
   SuperFlyer _getSuperFlyerFromBzModel({BzModel bzModel}){
-    SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
+    final SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
       onHeaderTap: _onHeaderTap,
       bzModel: bzModel,
     );
@@ -519,7 +519,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   Future <void> _openTinyFlyer() async {
 
-    TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromSuperFlyer(_superFlyer);
+    final TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromSuperFlyer(_superFlyer);
     print('opening tiny flyer : ${_tinyFlyer.flyerID} while THE FUCKING widget.goesToEditor IS : ${widget.goesToEditor}');
 
     /// opening editor
@@ -577,7 +577,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     print('aho');
 
-    bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
+    final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
     print('Final flyer zone tapped : ${_superFlyer.flyerID} : micro mode is $_tinyMode');
 
@@ -631,7 +631,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       // FlyerModel _flyer = firstTimer == true ? null : widget.flyerModel;
 
-      dynamic _result = await Nav.goToNewScreen(context,
+      final dynamic _result = await Nav.goToNewScreen(context,
           new FlyerEditorScreen(
             firstTimer: firstTimer,
             bzModel: _bzModel,
@@ -655,7 +655,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   void _onHorizontalSlideSwipe (int newIndex){
     // print('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
-    SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _superFlyer.currentSlideIndex,);
+    final SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _superFlyer.currentSlideIndex,);
 
     /// A - if Keyboard is active
     if (Keyboarders.keyboardIsOn(context) == true){
@@ -791,9 +791,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // final String bucketOffsetKey = '${_superFlyer.flyerID}_infoPage_offset';
     // flyerBucket.writeState(context, offset, identifier: ValueKey(bucketOffsetKey));
 
-    String _prefName = '${_superFlyer.flyerID}_info_scroll_pos';
+    final String _prefName = '${_superFlyer.flyerID}_info_scroll_pos';
 
-    double offset = _superFlyer.nav.infoScrollController.position.pixels;
+    final double offset = _superFlyer.nav.infoScrollController.position.pixels;
 
     _prefs.setDouble(_prefName, offset);
 
@@ -805,8 +805,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // final String bucketOffsetKey = '${_superFlyer.flyerID}_infoPage_offset';
     // double _offset = flyerBucket.readState(context, identifier: ValueKey(bucketOffsetKey)) ?? 0.0;
 
-    String _prefName = '${_superFlyer?.flyerID}_info_scroll_pos';
-    double _offset = _prefs?.getDouble(_prefName) ?? 0;
+    final String _prefName = '${_superFlyer?.flyerID}_info_scroll_pos';
+    final double _offset = _prefs?.getDouble(_prefName) ?? 0;
 
     // print('O-O-O : offset is $_offset : for _prefName : $_prefName');
 
@@ -843,7 +843,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         slideIndex: _superFlyer.currentSlideIndex,
     );
 
-    TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromSuperFlyer(_superFlyer);
+    final TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromSuperFlyer(_superFlyer);
 
     /// add or remove tiny flyer in local saved flyersList
     _prof.addOrDeleteTinyFlyerInLocalSavedTinyFlyers(_tinyFlyer);
@@ -865,10 +865,10 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     }
 
     else {
-      int _i = _superFlyer.currentSlideIndex;
-      FlyerModel _flyer = FlyerModel.getFlyerModelFromSuperFlyer(_superFlyer);
+      final int _i = _superFlyer.currentSlideIndex;
+      final FlyerModel _flyer = FlyerModel.getFlyerModelFromSuperFlyer(_superFlyer);
 
-      dynamic _dynamicLink = await DynamicLinksApi().createFlyerDynamicLink(
+      final dynamic _dynamicLink = await DynamicLinksApi().createFlyerDynamicLink(
         context: context,
         isShortURL: true,
         flyerModel: _flyer,
@@ -876,7 +876,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       );
 
       /// TASK : adjust link url and description
-      LinkModel _theFlyerLink = LinkModel(
+      final LinkModel _theFlyerLink = LinkModel(
           url: _dynamicLink,
           description: '${_superFlyer.flyerType} flyer .\n'
               '- slide number ${_superFlyer.currentSlideIndex} .\n'
@@ -910,7 +910,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     else {
       /// start follow bz ops
-      List<String> _updatedBzFollows = await RecordOps.followBzOPs(
+      final List<String> _updatedBzFollows = await RecordOps.followBzOPs(
         context: context,
         bzID: _superFlyer.bz.bzID,
         userID: superUserID(),
@@ -942,9 +942,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     else {
 
-      String _userID = superUserID();
-      String _bzID = _superFlyer.bz.bzID;
-      String _contact = _superFlyer.flyerTinyAuthor.email;
+      final String _userID = superUserID();
+      final String _bzID = _superFlyer.bz.bzID;
+      final String _contact = _superFlyer.flyerTinyAuthor.email;
 
       /// alert user there is no contact to call
       if (_contact == null){print('no contact here');}
@@ -1306,7 +1306,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       /// A - if max slides reached
       if(FlyerMethod.maxSlidesReached(superFlyer: _superFlyer) == true){
 
-        int _maxLength = Standards.getMaxSlidesCount(_superFlyer.bz.accountType);
+        final int _maxLength = Standards.getMaxSlidesCount(_superFlyer.bz.accountType);
         await Dialogz.maxSlidesReached(context, _maxLength);
 
       }
@@ -1315,12 +1315,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       else {
 
         /// B1 - get assets from mutable slides
-        List<Asset> _assetsSources = MutableSlide.getAssetsFromMutableSlides(_superFlyer.mSlides); //Imagers.getOnlyAssetsFromDynamics(_superFlyer.assetsSources);
+        final List<Asset> _assetsSources = MutableSlide.getAssetsFromMutableSlides(_superFlyer.mSlides); //Imagers.getOnlyAssetsFromDynamics(_superFlyer.assetsSources);
         /// B2 - assert that index in never null
         _superFlyer.currentSlideIndex = FlyerMethod.unNullIndexIfNull(_superFlyer.currentSlideIndex);
 
         /// B3 - pick images from gallery
-        List<dynamic> _phoneAssets = await Imagers.takeGalleryMultiPictures(
+        final List<dynamic> _phoneAssets = await Imagers.takeGalleryMultiPictures(
           context: context,
           images: _assetsSources,
           mounted: mounted,
@@ -1338,7 +1338,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           print('picked new picks');
 
           /// C1 - declare private existing and new mutable slides
-          List<MutableSlide> _tempMutableSlides = _superFlyer.mSlides;
+          final List<MutableSlide> _tempMutableSlides = _superFlyer.mSlides;
 
 
           /// C2 - for every asset received from gallery
@@ -1353,7 +1353,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               assetToSearchFor: _newAsset,
             );
 
-            bool _assetFound = _assetIndexInAssets == -1 ? false : true;
+            final bool _assetFound = _assetIndexInAssets == -1 ? false : true;
 
             if (_assetFound){
               // nothing shall be added to the existing mutable slides
@@ -1361,9 +1361,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             }
 
             else {
-              File _newFile = await Imagers.getFileFromAsset(_newAsset);
+              final File _newFile = await Imagers.getFileFromAsset(_newAsset);
 
-              MutableSlide _mutableSlide = MutableSlide(
+              final MutableSlide _mutableSlide = MutableSlide(
                 slideIndex: i,
                 opacity: 1,
                 picURL: null,
@@ -1519,8 +1519,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     /// 2 - if more than two slides
     else {
 
-      int _originalNumberOfSlides = _superFlyer.numberOfSlides;
-      int _decreasedNumberOfSlides =  _superFlyer.numberOfSlides - 1;
+      final int _originalNumberOfSlides = _superFlyer.numberOfSlides;
+      final int _decreasedNumberOfSlides =  _superFlyer.numberOfSlides - 1;
       // int _originalIndex = 0;
       // int _decreasedIndex = 0;
 
@@ -1582,7 +1582,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future<void> _deleteMiddleOrLastSlide() async {
     print('XXXXX ----- DELETING STARTS AT (MIDDLE) index : ${_superFlyer.currentSlideIndex}, numberOfSlides : ${_superFlyer.numberOfSlides}');
 
-    int _originalIndex = _superFlyer.currentSlideIndex;
+    final int _originalIndex = _superFlyer.currentSlideIndex;
 
     /// A - decrease progress bar and trigger visibility
     setState(() {
@@ -1678,7 +1678,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       _triggerLoading();
 
-      File croppedFile = await Imagers.cropImage(context, _superFlyer.mSlides[_superFlyer.currentSlideIndex].picFile);
+      final File croppedFile = await Imagers.cropImage(context, _superFlyer.mSlides[_superFlyer.currentSlideIndex].picFile);
 
       if (croppedFile != null) {
         setState(() {
@@ -1697,7 +1697,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     if(_superFlyer.mSlides.isNotEmpty){
 
       if(_superFlyer.mSlides[_superFlyer.currentSlideIndex].picAsset != null){
-        File _file = await Imagers.getFileFromAsset(_superFlyer.mSlides[_superFlyer.currentSlideIndex].picAsset);
+        final File _file = await Imagers.getFileFromAsset(_superFlyer.mSlides[_superFlyer.currentSlideIndex].picAsset);
 
         setState(() {
           _superFlyer.mSlides[_superFlyer.currentSlideIndex].picFile = _file;
@@ -1710,8 +1710,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   void _onFitImage(){
 
-    int _i = _superFlyer.currentSlideIndex;
-    BoxFit _currentPicFit = _superFlyer.mSlides[_i].picFit;
+    final int _i = _superFlyer.currentSlideIndex;
+    final BoxFit _currentPicFit = _superFlyer.mSlides[_i].picFit;
 
     print('tapping on fit image : ${_superFlyer.mSlides.length} mSlides and _currentPicFit was : $_currentPicFit');
 
@@ -1745,7 +1745,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onFlyerTypeTap() async {
 
-    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
+    final double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -1767,9 +1767,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onChangeZone() async {
 
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
-    List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
+    final List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
     List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _superFlyer.flyerZone.countryID);
     List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _superFlyer.flyerZone.cityID);
 
@@ -1791,7 +1791,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         sheetType: BottomSheetType.BottomSheet,
         buttonTap: (countryID) async {
 
-          String _lastCountryID = _superFlyer.flyerZone.countryID;
+          final String _lastCountryID = _superFlyer.flyerZone.countryID;
 
           setState(() {
             _superFlyer.flyerZone.countryID = countryID;
@@ -1829,7 +1829,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           sheetType: BottomSheetType.Province,
           buttonTap: (cityID) async {
 
-            String _lastCity = _superFlyer.flyerZone.cityID;
+            final String _lastCity = _superFlyer.flyerZone.cityID;
 
             setState(() {
               _superFlyer.flyerZone.cityID = cityID;
@@ -1878,9 +1878,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onMoreInfoTap() async {
 
-    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.95);
-    double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
-    double _dialogInnerCorners = BottomDialog.dialogClearCornerValue();
+    final double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.95);
+    final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+    final double _dialogInnerCorners = BottomDialog.dialogClearCornerValue();
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -1890,7 +1890,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       child: Column(
         children: <Widget>[
 
-          /// TEXTFIELD
+          /// TEXT FIELD
           Container(
             width: _dialogClearWidth,
             child: SuperTextField(
@@ -1930,7 +1930,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onAddKeywords() async {
 
-    dynamic _result = await Nav.goToNewScreen(context,
+    final dynamic _result = await Nav.goToNewScreen(context,
         SelectKeywordsScreen(
           selectedKeywords: _superFlyer.keywords,
           flyerType: _superFlyer.flyerType,
@@ -2226,7 +2226,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       boolDialog: false,
     );
 
-    TinyFlyer _uploadedTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_uploadedFlyer);
+    final TinyFlyer _uploadedTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_uploadedFlyer);
     Nav.goBack(context, argument: _uploadedTinyFlyer);
 
   }
@@ -2291,7 +2291,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 //   }
 // -----------------------------------------------------o
   Future<List<SlideModel>> _createSlidesFromCurrentSuperFlyer() async {
-    List<SlideModel> _slides = [];
+    final List<SlideModel> _slides = <SlideModel>[];
 
     for (int i = 0; i<_superFlyer.mSlides.length; i++){
 
@@ -2348,7 +2348,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
 
     /// assert that all required fields are valid
-    bool _inputsAreValid = await _inputsValidator();
+    final bool _inputsAreValid = await _inputsValidator();
 
     if (_inputsAreValid == false){
       // dialogs already pushed in inputsValidator
@@ -2357,16 +2357,16 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
 
       /// create slides models
-      List<SlideModel> _slides = await _createSlidesFromCurrentSuperFlyer();
+      final List<SlideModel> _slides = await _createSlidesFromCurrentSuperFlyer();
 
       /// create tiny author model from bz.authors
-      BzModel _bz = _superFlyer.bz;
-      AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID());
-      TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
-      TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_bz);
+      final BzModel _bz = _superFlyer.bz;
+      final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(_bz, superUserID());
+      final TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
+      final TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_bz);
 
       ///create FlyerModel
-      FlyerModel _newFlyerModel = FlyerModel(
+      final FlyerModel _newFlyerModel = FlyerModel(
         flyerID: _superFlyer.flyerID, // will be created in createFlyerOps
         // -------------------------
         flyerType: _superFlyer.flyerType,
@@ -2421,12 +2421,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       print('A- Managing slides');
 
       /// create slides models
-      List<SlideModel> _updatedSlides = await _createSlidesFromCurrentSuperFlyer();
+      final List<SlideModel> _updatedSlides = await _createSlidesFromCurrentSuperFlyer();
 
       print('B- Modifying flyer');
 
       ///create updated FlyerModel
-      FlyerModel _tempUpdatedFlyerModel = FlyerModel(
+      final FlyerModel _tempUpdatedFlyerModel = FlyerModel(
         flyerID: _superFlyer.flyerID,
         // -------------------------
         flyerType: _superFlyer.flyerType,
@@ -2484,7 +2484,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     _triggerLoading();
 
     /// Task : this should be bool dialog instead
-    bool _dialogResult = await CenterDialog.showCenterDialog(
+    final bool _dialogResult = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
       body: 'Are you sure you want to Delete this flyer and never get it back?',
@@ -2524,7 +2524,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // Nav.goBack(context);
 
     /// Task : this should be bool dialog instead
-    bool _dialogResult = await CenterDialog.showCenterDialog(
+    final bool _dialogResult = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
       body: 'Are you sure you want to unpublish this flyer ?',
@@ -2683,9 +2683,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Widget build(BuildContext context) {
     super.build(context);
 
-    bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
+    final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
-    bool _superFlyerHasID = _superFlyer?.flyerID == null ? false : true;
+    final bool _superFlyerHasID = _superFlyer?.flyerID == null ? false : true;
 
     // bool _flyerHasMoreThanOnePage = FlyerMethod.flyerHasMoreThanOneSlide(_superFlyer);
 

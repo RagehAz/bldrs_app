@@ -109,14 +109,14 @@ class _OldAskScreenState extends State<OldAskScreen> {
             ],
           ),
 
-          enumListerIsOn == true ?
+          if (enumListerIsOn == true)
           EnumLister(
             listTitle: enumListTitle,
             stringsList: enumListerStrings,//listData['Strings'],
             triggersList: enumListerTriggers,//listData['Triggers'],
             triggerTile: _triggerTile,
             closeEnumLister: _closeEnumLister,
-          ) : Container(),
+          ),
 
         ],
       ),

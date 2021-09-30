@@ -12,7 +12,7 @@ class FlyerHeader extends StatelessWidget {
   final SuperFlyer superFlyer;
   final double flyerBoxWidth;
 
-  FlyerHeader({
+  const FlyerHeader({
     this.superFlyer,
     @required this.flyerBoxWidth,
   });
@@ -43,19 +43,19 @@ class FlyerHeader extends StatelessWidget {
                   // ),
 
 
-                  // --- HEADER SHADOW
+                  /// HEADER SHADOW
                   HeaderShadow(
                     flyerBoxWidth: flyerBoxWidth,
                     bzPageIsOn: superFlyer.nav.bzPageIsOn,
                   ),
 
-                  // --- HEADER COMPONENTS
+                  /// HEADER COMPONENTS
                   MiniHeaderStrip(
                     superFlyer: superFlyer,
                     flyerBoxWidth: flyerBoxWidth,
                   ),
 
-                  // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
+                  /// HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
                   BzPageHeadline(
                     flyerBoxWidth: flyerBoxWidth,
                     bzPageIsOn: superFlyer.nav.bzPageIsOn,

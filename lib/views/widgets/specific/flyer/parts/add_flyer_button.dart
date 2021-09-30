@@ -52,9 +52,9 @@ class AddFlyerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
+    final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
 
-    SuperFlyer _bzHeaderSuperFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
+    final SuperFlyer _bzHeaderSuperFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
       onHeaderTap: () async { await _goToFlyerEditor(context); },
       bzModel: bzModel,
     );
@@ -67,7 +67,7 @@ class AddFlyerButton extends StatelessWidget {
 
         FlyerHeader(superFlyer: _bzHeaderSuperFlyer, flyerBoxWidth: flyerBoxWidth,),
 
-        // --- ADD FLYER BUTTON
+        /// ADD FLYER BUTTON
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

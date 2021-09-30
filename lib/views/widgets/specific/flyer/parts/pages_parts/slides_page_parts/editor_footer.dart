@@ -16,7 +16,7 @@ class EditorFooter extends StatelessWidget {
   final int numberOfSlides;
   final SuperFlyer superFlyer;
 
-  EditorFooter({
+  const EditorFooter({
     @required this.flyerBoxWidth,
     @required this.onAddImages,
     @required this.onDeleteSlide,
@@ -31,28 +31,28 @@ class EditorFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _spacing = FlyerFooter.buttonMargin(
+    final double _spacing = FlyerFooter.buttonMargin(
       buttonIsOn: false,
       flyerBoxWidth: flyerBoxWidth,
       context: context,
     );
 
-    double _numberOfButtons = 5;
+    const double _numberOfButtons = 5;
 
-    double _sumOfSpacings = _spacing * (_numberOfButtons + 1);
-    double _sumOfButtons = flyerBoxWidth - _sumOfSpacings;
-    double _fittingButtonSize = _sumOfButtons / _numberOfButtons;
+    final double _sumOfSpacings = _spacing * (_numberOfButtons + 1);
+    final double _sumOfButtons = flyerBoxWidth - _sumOfSpacings;
+    final double _fittingButtonSize = _sumOfButtons / _numberOfButtons;
 
-    bool _flyerHasNoSlides = numberOfSlides == 0 ? true : false;
+    final bool _flyerHasNoSlides = numberOfSlides == 0 ? true : false;
 
 
-    bool _addSlidesButtonInActiveMode = Standards.canAddMoreSlides(superFlyer: superFlyer) == true ? false : true;
-    bool _deleteSlideButtonInActiveMode = Standards.canDeleteSlide(superFlyer: superFlyer) == true ? false : true;
-    bool _cropButtonInActiveMode = _flyerHasNoSlides;
-    bool _resetButtonInActiveMode = _flyerHasNoSlides;
-    bool _fitButtonInActiveMode = _flyerHasNoSlides;
+    final bool _addSlidesButtonInActiveMode = Standards.canAddMoreSlides(superFlyer: superFlyer) == true ? false : true;
+    final bool _deleteSlideButtonInActiveMode = Standards.canDeleteSlide(superFlyer: superFlyer) == true ? false : true;
+    final bool _cropButtonInActiveMode = _flyerHasNoSlides;
+    final bool _resetButtonInActiveMode = _flyerHasNoSlides;
+    final bool _fitButtonInActiveMode = _flyerHasNoSlides;
 
-    // --- FLYER FOOTER
+    /// FLYER FOOTER
     return Align(
       alignment: Alignment.bottomCenter,
       // --- FLYER FOOTER BOX

@@ -27,7 +27,6 @@ class ReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     return Container(
       width: width,
       // height: 50,

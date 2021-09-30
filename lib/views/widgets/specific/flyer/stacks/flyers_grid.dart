@@ -19,7 +19,7 @@ class FlyersGrid extends StatefulWidget {
   final Axis scrollDirection;
   final Function tinyFlyerOnTap;
 
-  FlyersGrid({
+  const FlyersGrid({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
     this.tinyFlyers,
@@ -81,27 +81,27 @@ class _FlyersGridState extends State<FlyersGrid> {
 // -----------------------------------------------------------------------------
       // int flyerIndex = 0;
 // -----------------------------------------------------------------------------
-    double screenWidth = Scale.superScreenWidth(context);
+    final double screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
-    int gridColumnsCount = widget.numberOfColumns;
+    final int gridColumnsCount = widget.numberOfColumns;
     const double spacingRatioToGridWidth = 0.15;
-    double gridFlyerWidth = widget.gridZoneWidth / (widget.numberOfColumns + (widget.numberOfColumns * spacingRatioToGridWidth) + spacingRatioToGridWidth);
-    double gridFlyerHeight = gridFlyerWidth * Ratioz.xxflyerZoneHeight;
-    double gridSpacing = gridFlyerWidth * spacingRatioToGridWidth;
-    int flyersCount = _tinyFlyers == null ? 0 : _tinyFlyers.length;
+    final double gridFlyerWidth = widget.gridZoneWidth / (widget.numberOfColumns + (widget.numberOfColumns * spacingRatioToGridWidth) + spacingRatioToGridWidth);
+    final double gridFlyerHeight = gridFlyerWidth * Ratioz.xxflyerZoneHeight;
+    final double gridSpacing = gridFlyerWidth * spacingRatioToGridWidth;
+    final int flyersCount = _tinyFlyers == null ? 0 : _tinyFlyers.length;
     int numOfGridRows(int flyersCount){
       return
         (flyersCount/gridColumnsCount).ceil();
     }
-    int _numOfRows = numOfGridRows(flyersCount);
+    final int _numOfRows = numOfGridRows(flyersCount);
     // double gridBottomSpacing = gridZoneWidth * 0.15;
-    double gridHeight = gridFlyerHeight * (_numOfRows + (_numOfRows * spacingRatioToGridWidth) + spacingRatioToGridWidth);
+    final double gridHeight = gridFlyerHeight * (_numOfRows + (_numOfRows * spacingRatioToGridWidth) + spacingRatioToGridWidth);
         // (numOfGridRows(flyersCount) * (gridFlyerHeight + gridSpacing)) + gridSpacing + gridBottomSpacing;
     // double flyerMainMargins = screenWidth - gridZoneWidth;
 // -----------------------------------------------------------------------------
-    double _flyerSizeFactor = (((widget.gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth;
+    final double _flyerSizeFactor = (((widget.gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth;
 // -----------------------------------------------------------------------------
-    EdgeInsets _gridPadding = widget.stratosphere == true ?
+    final EdgeInsets _gridPadding = widget.stratosphere == true ?
     EdgeInsets.only(right: gridSpacing, left: gridSpacing, bottom: gridSpacing + Ratioz.horizon * 5, top: gridSpacing + Ratioz.stratosphere)
         :
     EdgeInsets.all(gridSpacing);
@@ -113,8 +113,7 @@ class _FlyersGridState extends State<FlyersGrid> {
           child:
 
           _tinyFlyers == null?
-
-          Center(child: Loading(loading: true,)) :
+          const Center(child: Loading(loading: true,)) :
 
           GridView.builder(
             physics: widget.scrollable ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),

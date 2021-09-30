@@ -16,7 +16,7 @@ class Gallery extends StatefulWidget {
   final bool showFlyers; // why ?
   final bool addAuthorButtonIsOn;
 
-  Gallery({
+  const Gallery({
     @required this.superFlyer,
     @required this.galleryBoxWidth,
     @required this.showFlyers,
@@ -48,7 +48,7 @@ class _GalleryState extends State<Gallery> {
   }
 // -----------------------------------------------------------------------------
   List<bool> _createVisibilities({bool fillingValue}){
-    List<bool> _visibilities = <bool>[];
+    final List<bool> _visibilities = <bool>[];
 
     for (int i = 0; i< _tinyFlyers.length; i++){
       _visibilities.add(fillingValue);
@@ -58,7 +58,7 @@ class _GalleryState extends State<Gallery> {
   }
 // -----------------------------------------------------------------------------
   void setFlyersVisibility () {
-    List<bool> _visibilities = _createVisibilities(fillingValue: true);
+    final List<bool> _visibilities = _createVisibilities(fillingValue: true);
 
     setState(() {
       _flyersVisibilities = _visibilities;

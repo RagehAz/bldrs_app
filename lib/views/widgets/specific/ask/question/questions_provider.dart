@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class QuestionsProvider with ChangeNotifier {
-  List<Quest> _questions = [];
+  List<Quest> _questions = <Quest>[];
 // ----------------------------------------------------------------------------
   CollectionReference questionsFirebase =
       FirebaseFirestore.instance.collection('questions');
@@ -18,7 +18,7 @@ class QuestionsProvider with ChangeNotifier {
     _questions.clear();
     questionsFirebase.get().then((QuerySnapshot querySnapshot) => {
           querySnapshot.docs.forEach((doc) {
-            Quest newQuestion = Quest.fromMap(doc.data());
+            final Quest newQuestion = Quest.fromMap(doc.data());
             _questions.add(newQuestion);
           })
         });

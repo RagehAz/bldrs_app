@@ -11,7 +11,7 @@ class FlyerStackList extends StatefulWidget {
   final Function flyerOnTap;
   final Function onScrollEnd;
 
-  FlyerStackList({
+  const FlyerStackList({
     @required this.tinyFlyers,
     @required this.flyerSizeFactor,
     @required this.flyerOnTap,
@@ -50,9 +50,8 @@ class _FlyerStackListState extends State<FlyerStackList> {
   @override
   Widget build(BuildContext context) {
 
-    List<TinyFlyer> _tinyFlyers = widget.tinyFlyers;
-
-    double _flyerBoxWidth = FlyerBox.width(context, widget.flyerSizeFactor);
+    final List<TinyFlyer> _tinyFlyers = widget.tinyFlyers;
+    final double _flyerBoxWidth = FlyerBox.width(context, widget.flyerSizeFactor);
 
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
