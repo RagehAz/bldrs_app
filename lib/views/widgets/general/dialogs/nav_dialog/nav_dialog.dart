@@ -25,9 +25,9 @@ class NavDialog extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static Future<void> showNavDialog({BuildContext context, String firstLine, String secondLine, bool isBig, Color color}) async {
 
-    Color _color = color == null ? Colorz.DarkRed255 : color;
+    final Color _color = color == null ? Colorz.DarkRed255 : color;
 
-    bool _isBig = isBig == null ? false : isBig;
+    final bool _isBig = isBig == null ? false : isBig;
     // double _screenWidth = Scale.superScreenWidth(context);
 
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -66,8 +66,8 @@ class NavDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    BarType _barType = BarType.minWithText;
+    final double _screenWidth = Scale.superScreenWidth(context);
+    const BarType _barType = BarType.minWithText;
 
     return
         isBig == true ?

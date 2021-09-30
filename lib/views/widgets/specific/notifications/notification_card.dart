@@ -22,12 +22,10 @@ class NotificationCard extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double bodyWidth(BuildContext context){
-    return Bubble.defaultWidth(context) - NotificationSenderBalloon.balloonWidth() - (Ratioz.appBarMargin * 3);
+    return Bubble.defaultWidth(context) - NotificationSenderBalloon.balloonWidth - (Ratioz.appBarMargin * 3);
   }
 // -----------------------------------------------------------------------------
-  static double bannerCorners(){
-    return Bubble.cornersValue() - Ratioz.appBarMargin;
-  }
+  static const double bannerCorners = Bubble.cornersValue - Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
   void _onBubbleTap(){
 
@@ -38,16 +36,16 @@ class NotificationCard extends StatelessWidget {
 // -----------------------------------------------------------------------------
   void _onButtonTap(String value){
     /// TASK : notification buttons accept reject need better logic handling for translation
-    bool _accepted = value == 'Accept' ? true : false;
+    final bool _accepted = value == 'Accept' ? true : false;
     print('_onButtonTap : _accepted : $_accepted');
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    double _bodyWidth = bodyWidth(context);
-    bool _designMode = false;
-    bool _notiHasButtons = notiModel?.attachmentType == NotiAttachmentType.buttons;
+    final double _bodyWidth = bodyWidth(context);
+    final bool _designMode = false;
+    final bool _notiHasButtons = notiModel?.attachmentType == NotiAttachmentType.buttons;
 
     return Bubble(
           centered: true,
@@ -67,7 +65,7 @@ class NotificationCard extends StatelessWidget {
                 ),
 
                 /// SPACER
-                SizedBox(
+                const SizedBox(
                   width: Ratioz.appBarMargin,
                   height: Ratioz.appBarMargin,
                 ),
@@ -112,7 +110,7 @@ class NotificationCard extends StatelessWidget {
                       ),
 
                       /// SPACER
-                      SizedBox(
+                      const SizedBox(
                         width: Ratioz.appBarPadding,
                         height: Ratioz.appBarPadding,
                       ),
@@ -149,7 +147,7 @@ class NotificationCard extends StatelessWidget {
                               ...List.generate(notiModel.attachment.length,
                                       (index){
 
-                                double _width = (_bodyWidth - ((notiModel.attachment.length + 1) * Ratioz.appBarMargin) ) / (notiModel.attachment.length);
+                                final double _width = (_bodyWidth - ((notiModel.attachment.length + 1) * Ratioz.appBarMargin) ) / (notiModel.attachment.length);
 
                                 return
                                   DreamBox(

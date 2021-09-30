@@ -51,27 +51,27 @@ class _FontLabState extends State<FontLab> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenHeight = Scale.superScreenHeight(context);
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
     // ---
-    int fontSize1 = 1;
-    int fontSize2 = 2;
-    int fontSize3 = 3;
-    int fontSize4 = 4;
-    int fontSize5 = 5;
-    int fontSize6 = 6;
-    int fontSize7 = 7;
-    int fontSize8 = 8;
-    String testVerse = '${Wordz.bldrsFullName(context)}';
+    const int fontSize1 = 1;
+    const int fontSize2 = 2;
+    const int fontSize3 = 3;
+    const int fontSize4 = 4;
+    const int fontSize5 = 5;
+    const int fontSize6 = 6;
+    const int fontSize7 = 7;
+    const int fontSize8 = 8;
+    final String testVerse = '${Wordz.bldrsFullName(context)}';
 
-    VerseWeight weightTest = VerseWeight.thin;
+    final VerseWeight weightTest = VerseWeight.thin;
 
     // --- SHADOW TEST PARAMETERS
-    dynamic shadowTestColor = Colorz.White255;
-    String shadowTestVerse = 'AaBb أبجدية';
-    bool italiany = false;
-    bool centeredOn = true;
-    bool designModeOn = false;
+    const dynamic shadowTestColor = Colorz.White255;
+    const String shadowTestVerse = 'AaBb أبجدية';
+    const bool italiany = false;
+    const bool centeredOn = true;
+    const bool designModeOn = false;
 
     final List<String> fields = <String>['Architecture', 'abcd', 'Interior', 'Landscape', '1', 'test', '3abbas ebn fernas', 'thing', 'wtf'];
 

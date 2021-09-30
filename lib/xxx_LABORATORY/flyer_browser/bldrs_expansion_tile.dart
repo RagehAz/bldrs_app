@@ -347,7 +347,7 @@ class BldrsExpansionTileState extends State<BldrsExpansionTile> with SingleTicke
                           ),
 
                           /// SPACER
-                          SizedBox(
+                          const SizedBox(
                             width: Ratioz.appBarMargin,
                           ),
 

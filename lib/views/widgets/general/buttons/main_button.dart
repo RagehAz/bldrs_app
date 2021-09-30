@@ -20,7 +20,7 @@ class MainButton extends StatelessWidget {
   final VerseWeight verseWeight;
   final Color iconColor;
 
-  MainButton({
+  const MainButton({
     @required this.buttonVerse,
     @required this.buttonIcon,
     this.buttonColor = Colorz.White50,
@@ -38,19 +38,19 @@ class MainButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _screenHeight = Scale.superScreenHeight(context);
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
 
-    double _buttonCorner = _screenHeight * Ratioz.mainButtonCornerRatioToScreenHeight;
-    double _buttonZoneHeight = _screenHeight * 0.08;
-    double _buttonZonePaddings = _screenHeight * 0.01;
+    final double _buttonCorner = _screenHeight * Ratioz.mainButtonCornerRatioToScreenHeight;
+    final double _buttonZoneHeight = _screenHeight * 0.08;
+    final double _buttonZonePaddings = _screenHeight * 0.01;
 
-    double _buttonWidth = stretched == true ?
+    final double _buttonWidth = stretched == true ?
     _screenWidth
         :
     _screenHeight * 22 * 0.017;
 
-    double _buttonHeight = _buttonZoneHeight * 0.85;
+    final double _buttonHeight = _buttonZoneHeight * 0.85;
 
     /// BUTTON FOOTPRINT
     return Container(
@@ -60,7 +60,7 @@ class MainButton extends StatelessWidget {
       alignment: Alignment.center,
       // padding: EdgeInsets.all(_buttonZonePaddings),
 
-      // BUTTON ITSELF
+      /// BUTTON ITSELF
       child: Container(
         width: _buttonWidth,
         height: _buttonHeight,
@@ -99,12 +99,12 @@ class MainButton extends StatelessWidget {
           ),
           // splashColor: splashColor,
 
-          // --- BUTTON CONTENTS
+          /// BUTTON CONTENTS
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
 
-              // --- BUTTON HIGHLIGHT
+              /// BUTTON HIGHLIGHT
               Container(
                 width: _buttonWidth * 0.9,
                 height: _buttonHeight * 0.22,
@@ -120,7 +120,7 @@ class MainButton extends StatelessWidget {
                 ),
               ),
 
-              // --- BUTTON GRADIENT
+              /// BUTTON GRADIENT
               Container(
                 height: _buttonHeight,
                 width: _buttonWidth,
@@ -136,15 +136,15 @@ class MainButton extends StatelessWidget {
                 ),
               ),
 
-              // --- BUTTON COMPONENTS
+              /// BUTTON COMPONENTS
               buttonIcon == ''
                   ?
-                  // --- WHEN BUTTON DOES NOT HAVE AN ICON
+                  /// --- WHEN BUTTON DOES NOT HAVE AN ICON
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        // --- ONLY THE BUTTON VERSE HERE
+                        /// --- ONLY THE BUTTON VERSE HERE
                         Padding(
                           padding: EdgeInsets.all(_buttonZonePaddings),
                           child: SuperVerse(
@@ -161,7 +161,7 @@ class MainButton extends StatelessWidget {
                       ],
                     )
                   :
-                  // --- WHEN BUTTON HAS AN ICON
+                  /// --- WHEN BUTTON HAS AN ICON
                   Padding(
                     padding: EdgeInsets.only(left: _buttonZonePaddings, right: _buttonZonePaddings),
                     child: Row(
@@ -170,7 +170,7 @@ class MainButton extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
 
-                          // --- OLD BUTTON ICON
+                          /// --- OLD BUTTON ICON
                           Flexible(
                             flex: 1,
                             child: new Container(
@@ -194,7 +194,7 @@ class MainButton extends StatelessWidget {
                             ),
                           ),
 
-                          // --- BUTTON VERSE
+                          /// BUTTON VERSE
                           Expanded(
                             flex: 4,
                             child: new Padding(

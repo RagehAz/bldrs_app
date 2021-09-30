@@ -33,7 +33,7 @@ class ContactFieldBubble extends StatefulWidget {
   final String leadingIcon;
   final TextInputType keyboardTextInputType;
 
-  ContactFieldBubble({
+  const ContactFieldBubble({
     @required this.title,
     this.hintText = '...',
     this.textController,
@@ -62,7 +62,7 @@ class ContactFieldBubble extends StatefulWidget {
 
 class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   String paste = '';
-  TextEditingController pasteController = TextEditingController();
+  final TextEditingController pasteController = TextEditingController();
 
   Future<void> _pasteFunction() async {
     final value = await FlutterClipboard.paste();
@@ -76,13 +76,13 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   @override
   Widget build(BuildContext context) {
 
-    int titleVerseSize = 2;
-    double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
-    double actionBtCorner = actionBtSize * 0.4;
-    double leadingIconSize = 35;
-    double leadingAndFieldSpacing = 5;
-    double bubbleClearWidth = Bubble.clearWidth(context);
-    double fieldWidth = widget.leadingIcon == null ? bubbleClearWidth : bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing;
+    const int titleVerseSize = 2;
+    final double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
+    final double actionBtCorner = actionBtSize * 0.4;
+    const double leadingIconSize = 35;
+    const double leadingAndFieldSpacing = 5;
+    final double bubbleClearWidth = Bubble.clearWidth(context);
+    final double fieldWidth = widget.leadingIcon == null ? bubbleClearWidth : bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing;
 
     return
       Bubble(
@@ -95,7 +95,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
 
-                  // --- BUBBLE TITLE
+                  /// BUBBLE TITLE
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
                     child: SuperVerse(
@@ -105,7 +105,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                     ),
                   ),
 
-                  // --- ACTION BUTTON
+                  /// ACTION BUTTON
                   widget.actionBtIcon == null ? Container() :
                   DreamBox(
                     height: actionBtSize,
@@ -127,7 +127,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                 alignment: Aligners.superInverseTopAlignment(context),
                 children: <Widget>[
 
-                  // --- TEXT FIELD
+                  /// TEXT FIELD
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,7 +176,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                     textDirection: TextDirection.ltr,
                     children: <Widget>[
 
-                      // --- LOADING INDICATOR
+                      /// LOADING INDICATOR
                       if (widget.loading)
                       Loading(size: 35,loading: widget.loading,),
 
@@ -197,7 +197,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
               ),
             ),
 
-            // --- BUBBLE COMMENTS
+            /// BUBBLE COMMENTS
             widget.comments == null ? Container() :
             SuperVerse(
               verse: widget.comments,

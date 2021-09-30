@@ -31,9 +31,9 @@ class TopDialog extends StatelessWidget {
     Function onTap,
   }){
 
-    Color _dialogColor = color ?? Colorz.Yellow255;
+    final Color _dialogColor = color ?? Colorz.Yellow255;
 
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
 
     Flushbar(
       /// BEHAVIOUR - POSITIONING ----------------------------------------------
@@ -155,7 +155,7 @@ class TopDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
 
     return Flushbar(
       message: verse,

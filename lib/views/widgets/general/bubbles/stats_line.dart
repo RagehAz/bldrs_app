@@ -26,7 +26,7 @@ class StatsLine extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const String _spaces = '   ';
-    double _height = onTap == null ? 25 : 40;
+    final double _height = onTap == null ? 25 : 40;
 
     return Container(
       width: bubbleWidth,

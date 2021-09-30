@@ -37,7 +37,7 @@ class TextFieldBubble extends StatelessWidget {
   final Key key;
   final Function fieldOnTap;
 
-  TextFieldBubble({
+  const TextFieldBubble({
     @required this.title,
     this.hintText = '...',
     this.counterIsOn = false,
@@ -72,12 +72,12 @@ class TextFieldBubble extends StatelessWidget {
     // int titleVerseSize = 2;
     // double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
     // double actionBtCorner = actionBtSize * 0.4;
-    double leadingIconSize = leadingIcon == null ? 0 : 35;
-    double leadingAndFieldSpacing = leadingIcon == null ? 0 : 5;
-    double obscureBtSize = obscured == null ? 0 : 35;
-    double obscureBtSpacing = obscured == null ? 0 : 5;
-    double bubbleClearWidth = Bubble.clearWidth(context);
-    double fieldWidth =
+    final double leadingIconSize = leadingIcon == null ? 0 : 35;
+    final double leadingAndFieldSpacing = leadingIcon == null ? 0 : 5;
+    final double obscureBtSize = obscured == null ? 0 : 35;
+    final double obscureBtSpacing = obscured == null ? 0 : 5;
+    final double bubbleClearWidth = Bubble.clearWidth(context);
+    final double fieldWidth =
         bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing - obscureBtSize - obscureBtSpacing;
 
     return
@@ -97,7 +97,7 @@ class TextFieldBubble extends StatelessWidget {
                 alignment: Aligners.superInverseTopAlignment(context),
                 children: <Widget>[
 
-                  // --- TEXT FIELD
+                  /// TEXT FIELD
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +117,7 @@ class TextFieldBubble extends StatelessWidget {
 
                       /// SPACER
                       if (leadingIcon != null)
-                      Container(width: 5,),
+                      const SizedBox(width: 5,),
 
                       /// TEXT FIELD
                       Container(
@@ -145,7 +145,7 @@ class TextFieldBubble extends StatelessWidget {
 
                       /// SPACER
                       if (obscured != null)
-                      Container(width: 5,),
+                        const SizedBox(width: 5,),
 
                       /// OBSCURE BUTTON
                       if (obscured != null)
@@ -166,36 +166,36 @@ class TextFieldBubble extends StatelessWidget {
                     ],
                   ),
 
-                  // --- LOADING INDICATOR
+                  /// --- LOADING INDICATOR
                   if (loading)
                   Loading(size: 35, loading: loading,),
 
 
-                  keyboardTextInputType != TextInputType.url ? Container() :
-                      DreamBox(
-                        height: 35,
-                        verse: 'paste  ',
-                        verseScaleFactor: 0.5,
-                        verseWeight: VerseWeight.thin,
-                        verseItalic: true,
-                        color: Colorz.White10,
-                        onTap: pasteFunction,
-                      ),
+                  if (keyboardTextInputType == TextInputType.url)
+                    DreamBox(
+                      height: 35,
+                      verse: 'paste  ',
+                      verseScaleFactor: 0.5,
+                      verseWeight: VerseWeight.thin,
+                      verseItalic: true,
+                      color: Colorz.White10,
+                      onTap: pasteFunction,
+                    ),
 
                 ],
               ),
             ),
 
-            // --- BUBBLE COMMENTS
-            comments == null ? Container() :
-            SuperVerse(
-              verse: comments,
-              italic: true,
-              color: Colorz.White80,
-              size: 2,
-              weight: VerseWeight.thin,
-              leadingDot: true,
-            ),
+            /// BUBBLE COMMENTS
+            if (comments != null)
+              SuperVerse(
+                verse: comments,
+                italic: true,
+                color: Colorz.White80,
+                size: 2,
+                weight: VerseWeight.thin,
+                leadingDot: true,
+              ),
 
           ]
       )

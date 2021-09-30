@@ -56,7 +56,7 @@ class BzAppBar extends StatelessWidget {
           secondLineScaleFactor: 0.8,
         ),
 
-        SizedBox(
+        const SizedBox(
           width: Ratioz.appBarPadding,
           height: Ratioz.appBarPadding,
         ),

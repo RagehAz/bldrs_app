@@ -17,7 +17,7 @@ class BzzBubble extends StatelessWidget {
   final Function onTap;
   final double corners;
 
-  BzzBubble({
+  const BzzBubble({
     @required this.tinyBzz,
     this.title  = 'Businesses',
     this.numberOfColumns = 5,

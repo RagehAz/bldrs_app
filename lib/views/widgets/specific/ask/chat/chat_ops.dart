@@ -38,7 +38,7 @@ class ChatOps{
   /// read
   static Future<ChatModel> readChatOps({BuildContext context, String bzID, String questionID}) async {
 
-    dynamic _chatMap = await Fire.readSubDoc(
+    final dynamic _chatMap = await Fire.readSubDoc(
       context: context,
       collName: FireCollection.questions,
       docName: questionID,
@@ -46,7 +46,7 @@ class ChatOps{
       subDocName: bzID,
     );
 
-    ChatModel _chat = ChatModel.decipherChatMap(_chatMap);
+    final ChatModel _chat = ChatModel.decipherChatMap(_chatMap);
 
     return _chat;
   }

@@ -10,7 +10,7 @@ class SectionBubble extends StatelessWidget {
   final String icon;
   final List<Widget> buttons;
 
-  SectionBubble({
+  const SectionBubble({
     @required this.title,
     @required this.bubbleWidth,
     @required this.icon,

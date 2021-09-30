@@ -15,7 +15,7 @@ class ZoneButton extends StatelessWidget {
   final Function onTap;
   final bool isOn;
 
-  ZoneButton({
+  const ZoneButton({
     this.onTap,
     this.isOn = false,
   });

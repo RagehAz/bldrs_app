@@ -5,7 +5,7 @@ class SearchingThinking extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
-    Path path1 = Path();
+    final Path path1 = Path();
     final double _x = size.width / 50;
     final double _y = size.height / 50;
     path1.lineTo(50 * _x,25 * _y);
@@ -15,7 +15,7 @@ class SearchingThinking extends CustomClipper<Path> {
     path1.cubicTo(38.81 * _x,8.45e-16 * _y,50 * _x,11.191 * _y,50 * _x,25 * _y,);
     path1.cubicTo(50 * _x,25 * _y,50 * _x,25 * _y,50 * _x,25 * _y,);
 
-    Path path2 = Path();
+    final Path path2 = Path();
     path2.lineTo(3.7 * _x,42.7 * _y);
     path2.cubicTo(1.7 * _x,42.7 * _y,0 * _x,44.3 * _y,0 * _x,46.3 * _y,);
     path2.cubicTo(0 * _x,48.3 * _y,1.6 * _x,50 * _y,3.6 * _x,50 * _y,);

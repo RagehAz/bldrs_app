@@ -11,7 +11,7 @@ class DreamList extends StatelessWidget {
   final double itemHeight;
   final double itemZoneHeight;
 
-  DreamList({
+  const DreamList({
     @required this.itemCount,
     @required this.itemBuilder,
     this.itemHeight = 50,
@@ -34,7 +34,7 @@ class DreamList extends StatelessWidget {
 
 Widget dreamListBuilder  (BuildContext c, int x, String info,String icon ,String verse, String secondLine,) {
 
-     Widget dreamListItems =  Container(
+     final Widget dreamListItems =  Container(
         width: Scale.superScreenWidth(c),
         alignment: Alignment.center,
         child: Column(
@@ -75,7 +75,7 @@ class DreamTile extends StatelessWidget {
   final String verse;
   final String secondLine;
 
-  DreamTile({
+  const DreamTile({
     this.index,
     this.info,
     this.icon,

@@ -12,7 +12,7 @@ class PersonButton extends StatelessWidget {
   final String id;
   final Function onTap;
 
-  PersonButton({
+  const PersonButton({
     @required this.totalHeight,
     @required this.image,
     @required this.name,
@@ -23,11 +23,10 @@ class PersonButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _imageHeight = totalHeight * 0.6 ;
-    double _imageWidth = _imageHeight;
-
-    double _nameHeight = totalHeight - _imageHeight;
-    double _nameWidth = totalHeight * 0.6;
+    final double _imageHeight = totalHeight * 0.6 ;
+    final double _imageWidth = _imageHeight;
+    final double _nameHeight = totalHeight - _imageHeight;
+    final double _nameWidth = totalHeight * 0.6;
 
     return Container(
       width: _nameWidth,

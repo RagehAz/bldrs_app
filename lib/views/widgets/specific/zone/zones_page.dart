@@ -26,10 +26,10 @@ class ZonesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    double _verseHeight = superVerseRealHeight(context, 2, 1, Colorz.White10);
+    final double _verseHeight = superVerseRealHeight(context, 2, 1, Colorz.White10);
 
     return Container(
       width: _screenWidth,
@@ -50,7 +50,7 @@ class ZonesPage extends StatelessWidget {
             labelColor: Colorz.White10,
           ),
 
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
 
           Container(
             width: _screenWidth,

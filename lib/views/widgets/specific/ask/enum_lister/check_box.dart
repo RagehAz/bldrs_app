@@ -8,7 +8,7 @@ class CheckBox extends StatelessWidget {
   final Function onTap;
   final bool checkBoxIsOn;
 
-  CheckBox({
+  const CheckBox({
     this.onTap,
     @required this.checkBoxIsOn,
 
@@ -19,7 +19,7 @@ class CheckBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const double checkBoxRadius = 12.5;
-    Color checkBoxColor = checkBoxIsOn == true ? Colorz.Yellow255 : Colorz.White20;
+    final Color checkBoxColor = checkBoxIsOn == true ? Colorz.Yellow255 : Colorz.White20;
     const double btOvalSizeFactor = 0.8; // as a ratio of button sizes
 
     const Color iconColor = Colorz.Black230;
@@ -31,13 +31,13 @@ class CheckBox extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colorz.White20,
         shape: BoxShape.circle,
-        boxShadow: [
-            CustomBoxShadow(
+          boxShadow: <BoxShadow>[
+            const CustomBoxShadow(
                 color: Colorz.Black230,
                 blurRadius: 10,
                 blurStyle: BlurStyle.outer
             ),
-            CustomBoxShadow(
+            const CustomBoxShadow(
                 color: Colorz.White20,
                 blurRadius: 10,
                 blurStyle: BlurStyle.outer

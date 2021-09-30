@@ -9,7 +9,7 @@ class Loading extends StatelessWidget {
   final Function onTap;
   final bool loading;
 
-  Loading({
+  const Loading({
     this.size = 50,
     this.onTap,
     @required this.loading,
@@ -45,6 +45,6 @@ class LoadingFullScreenLayer extends StatelessWidget {
     return Container(
         width: Scale.superScreenWidth(context),
         height: Scale.superScreenWidth(context),
-        child: Center(child: Loading(loading: true,)));
+        child: Center(child: const Loading(loading: true,)));
   }
 }

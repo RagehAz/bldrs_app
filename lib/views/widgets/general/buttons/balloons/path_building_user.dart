@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class BuildingBalloon extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    Path path = Path();
+    final Path path = Path();
     final double _x = (size.width / 50);
     final double _y = (size.height / 50);
     path.lineTo(0 * _x,25 * _y);

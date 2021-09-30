@@ -18,7 +18,6 @@ import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/views/widgets/general/buttons/back_anb_search_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/general/buttons/rageh_button.dart';
 import 'package:provider/provider.dart';
@@ -72,7 +71,7 @@ class MainLayout extends StatelessWidget {
   final bool historyButtonIsOn;
   final Function onSearchChanged;
 
-  MainLayout({
+  const MainLayout({
     this.appBarRowWidgets,
     this.layoutWidget,
     this.tappingRageh,
@@ -118,7 +117,13 @@ class MainLayout extends StatelessWidget {
       return
         <Widget>[
 
-          NightSky(sky: sky,),
+          sky == Sky.Black ?
+          const NightSky(sky: Sky.Black,)
+          :
+          sky == Sky.Night ?
+          const NightSky(sky: Sky.Night,)
+              :
+          const NightSky(sky: Sky.Non,),
 
           if (layoutWidget != null)
             Container(
@@ -149,7 +154,7 @@ class MainLayout extends StatelessWidget {
               loading: loading,
             ),
 
-          // --- NAV BAR
+          /// NAV BAR
           if (pyramids == null)
             NavBar(
               barType: BarType.minWithText,
@@ -211,10 +216,8 @@ class MainLayout extends StatelessWidget {
                 resizeToAvoidBottomInset: false, // this false prevents keyboard from pushing pyramids up
                 // resizeToAvoidBottomPadding: false,
                 backgroundColor: _backgroundColor,
-
                 body:
                 canRefreshFlyers ?
-
                 RefreshIndicator(
                   onRefresh: ()=> _refresh(context),
                   color: Colorz.Black230,
@@ -245,21 +248,21 @@ class MainLayout extends StatelessWidget {
 }
 // -----------------------------------------------------------------------------
 /// --- for testing purposes, only used in appBar
-Widget zorar({Function function, String functionName}){
-  return DreamBox(
-    height: 40,
-    margins: const EdgeInsets.all(5),
-    color: Colorz.White10,
-    verse: functionName,
-    verseScaleFactor: 2,
-    onTap: function,
-    bubble: false,
-    icon: Iconz.XLarge,
-    iconSizeFactor: 0.3,
-    secondLine: 'blaaah',
-    secondLineColor: Colorz.White200,
-  );
-}
+// Widget zorar({Function function, String functionName}){
+//   return DreamBox(
+//     height: 40,
+//     margins: const EdgeInsets.all(5),
+//     color: Colorz.White10,
+//     verse: functionName,
+//     verseScaleFactor: 2,
+//     onTap: function,
+//     bubble: false,
+//     icon: Iconz.XLarge,
+//     iconSizeFactor: 0.3,
+//     secondLine: 'blaaah',
+//     secondLineColor: Colorz.White200,
+//   );
+// }
 // -----------------------------------------------------------------------------
 /// --- THE HORIZON IS BOTTOM PADDING THAT RESPECTS PYRAMIDS HEIGHT
 class PyramidsHorizon extends StatelessWidget {

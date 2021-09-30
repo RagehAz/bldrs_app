@@ -35,7 +35,7 @@ class CenterDialog extends StatelessWidget {
     String confirmButtonText = 'Ok',
   }) async {
 
-    bool _result = await showDialog(
+    final bool _result = await showDialog(
       context: context,
       builder: (ctx)=> CenterDialog(
         // context: context,
@@ -57,12 +57,10 @@ class CenterDialog extends StatelessWidget {
     return Scale.superScreenWidth(context) * 0.85;
   }
 // -----------------------------------------------------------------------------
-  static double dialogCornerValue(){
-    return 20;
-  }
+  static const double dialogCornerValue = 20;
 // -----------------------------------------------------------------------------
   static BorderRadius dialogBorders(BuildContext context){
-    return Borderers.superBorderAll(context, dialogCornerValue());
+    return Borderers.superBorderAll(context, dialogCornerValue);
   }
 // -----------------------------------------------------------------------------
 //   static double dialogVerticalMargin({BuildContext context, double dialogHeight}){
@@ -76,25 +74,25 @@ class CenterDialog extends StatelessWidget {
 //   }
 // -----------------------------------------------------------------------------
   static double dialogHeight({BuildContext context, double heightOverride}){
-    double _screenHeight = Scale.superScreenHeight(context);
-    double _height = heightOverride == null ? _screenHeight * 0.4 : heightOverride;
+    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _height = heightOverride == null ? _screenHeight * 0.4 : heightOverride;
     return _height;
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
 
-    BorderRadius _dialogBorders = dialogBorders(context);
+    final BorderRadius _dialogBorders = dialogBorders(context);
 
-    double _dialogHeight = dialogHeight(
+    final double _dialogHeight = dialogHeight(
       context: context,
       heightOverride: height,
     );
 
-    double _dialogWidth = dialogWidth(context: context);
+    final double _dialogWidth = dialogWidth(context: context);
 
     // double _dialogVerticalMargin = dialogVerticalMargin(
     //   context: context,
@@ -105,9 +103,9 @@ class CenterDialog extends StatelessWidget {
     //   dialogWidth: _dialogWidth,
     // );
 
-    double _buttonHeight = DialogButton.height();
-    double _buttonZoneHeight = _buttonHeight + (2 * Ratioz.appBarPadding);
-    double _contentZoneHeight = _dialogHeight - _buttonZoneHeight;
+    const double _buttonHeight = DialogButton.height;
+    const double _buttonZoneHeight = _buttonHeight + (2 * Ratioz.appBarPadding);
+    final double _contentZoneHeight = _dialogHeight - _buttonZoneHeight;
 
     return SafeArea(
       child: AlertDialog(

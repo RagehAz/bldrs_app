@@ -27,9 +27,9 @@ class FollowAndCallBTs extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double getBoxHeight({double flyerBoxWidth, bool bzPageIsOn}){
-    double _headerMainHeight = FlyerBox.headerStripHeight(bzPageIsOn, flyerBoxWidth);
-    double _headerMainPadding = flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
-    double _followGalleryHeight = _headerMainHeight - (2 * _headerMainPadding);
+    final double _headerMainHeight = FlyerBox.headerStripHeight(bzPageIsOn, flyerBoxWidth);
+    final double _headerMainPadding = flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
+    final double _followGalleryHeight = _headerMainHeight - (2 * _headerMainPadding);
     return _followGalleryHeight;
   }
 // -----------------------------------------------------------------------------
@@ -40,10 +40,10 @@ class FollowAndCallBTs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _paddings = getPaddings(flyerBoxWidth: flyerBoxWidth);
-    // --- FOLLOWERS & GALLERY --- --- --- --- --- --- --- --- --- --- --- --- ---
-    double followGalleryHeight = getBoxHeight(flyerBoxWidth: flyerBoxWidth, bzPageIsOn: superFlyer.nav.bzPageIsOn);
-    double followGalleryWidth = getBoxWidth(flyerBoxWidth: flyerBoxWidth);
+    final double _paddings = getPaddings(flyerBoxWidth: flyerBoxWidth);
+    /// --- FOLLOWERS & GALLERY
+    final double followGalleryHeight = getBoxHeight(flyerBoxWidth: flyerBoxWidth, bzPageIsOn: superFlyer.nav.bzPageIsOn);
+    final double followGalleryWidth = getBoxWidth(flyerBoxWidth: flyerBoxWidth);
 // -----------------------------------------------------------------------------
     return
       superFlyer.nav.bzPageIsOn == true ? Container () :
@@ -204,7 +204,7 @@ class CallBT extends StatelessWidget {
     double callBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
     // --- call ICON
     String callIcon = Iconz.ComPhone;
-    double callIconWidth = flyerBoxWidth * 0.05;
+    double _callIconWidth = flyerBoxWidth * 0.05;
 // -----------------------------------------------------------------------------
     BorderRadius roundCorners = Borderers.superFollowOrCallCorners(context, flyerBoxWidth, false);
 // -----------------------------------------------------------------------------
@@ -242,16 +242,16 @@ class CallBT extends StatelessWidget {
 
                   // --- call ICON
                   Container(
-                    height: callIconWidth,
-                    width: callIconWidth,
+                    height: _callIconWidth,
+                    width: _callIconWidth,
                     margin: EdgeInsets.all(flyerBoxWidth*0.01),
                     child: WebsafeSvg.asset(callIcon),
                   ),
 
 
                   SizedBox(
-                    width: callIconWidth,
-                    height: callIconWidth * 0.1,
+                    width: _callIconWidth,
+                    height: _callIconWidth * 0.1,
                   ),
 
                   // --- FLYERS TEXT

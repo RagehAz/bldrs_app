@@ -285,13 +285,13 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                               ],
                             ),
 
-                            // --- SPACING
+                            /// SPACING
                             SizedBox(
                               width: widget.iconSizeFactor != 1 && widget.icon != null ? verseIconSpacing * 0.25 : verseIconSpacing,
                               height: boxHeight,
                             ),
 
-                            // --- VERSE
+                            /// VERSE
                             widget.verse == null ? Container() :
                             AnimatedContainer(
                               duration: widget.duration,
@@ -331,7 +331,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                               ),
                             ),
 
-                            // --- SPACING
+                            /// --- SPACING
                             SizedBox(
                               width: verseIconSpacing + iconMargin,
                               height: boxHeight,
@@ -339,7 +339,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                           ],
                         ),
 
-                        // --- BOX HIGHLIGHT
+                        /// --- BOX HIGHLIGHT
                         widget.bubble == false ? Container() :
                         AnimatedContainer(
                           duration: widget.duration,

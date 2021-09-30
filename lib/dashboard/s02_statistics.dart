@@ -71,7 +71,7 @@ class GeneralStatistics extends StatelessWidget {
 
         Padding(
           padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-          child: BldrsName(
+          child: const BldrsName(
               size: 40,
           ),
         ),

@@ -194,7 +194,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
             child: Container(
               width: _screenWidth,
               decoration: BoxDecoration(
-                borderRadius: Borderers.superBorderAll(context, Bubble.cornersValue() + Ratioz.appBarMargin),
+                borderRadius: Borderers.superBorderAll(context, Bubble.cornersValue + Ratioz.appBarMargin),
                 // color: Colorz.BloodTest,
               ),
               child: NotificationCard(

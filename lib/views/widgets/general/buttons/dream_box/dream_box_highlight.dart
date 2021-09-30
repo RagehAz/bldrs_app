@@ -27,7 +27,8 @@ class DreamBoxHighlight extends StatelessWidget {
                 color: Colorz.White50,
                 offset: new Offset(0, height * -0.33),
                 blurRadius: height * 0.2,
-                blurStyle: BlurStyle.normal),
+                blurStyle: BlurStyle.normal
+            ),
           ]
       ),
     );

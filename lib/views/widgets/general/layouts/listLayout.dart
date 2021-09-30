@@ -21,7 +21,7 @@ class ListLayout extends StatelessWidget {
   final String pageIconVerse;
   final Sky sky;
 
-  ListLayout({
+  const ListLayout({
     this.pageTitle,
     this.pyramids,
     this.idValueMaps,
@@ -35,11 +35,11 @@ class ListLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    double _verseHeight = superVerseRealHeight(context, 2, 1, Colorz.White10);
-    double _bubbleHeight = _screenHeight - Ratioz.stratosphere - Ratioz.appBarSmallHeight - _verseHeight  - (Ratioz.appBarMargin * 4);
+    final double _verseHeight = superVerseRealHeight(context, 2, 1, Colorz.White10);
+    final double _bubbleHeight = _screenHeight - Ratioz.stratosphere - Ratioz.appBarSmallHeight - _verseHeight  - (Ratioz.appBarMargin * 4);
 // -----------------------------------------------------------------------------
     return MainLayout(
       sky: sky,
@@ -67,7 +67,7 @@ class ListLayout extends StatelessWidget {
             labelColor: Colorz.White10,
           ),
 
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
 
           Container(
             width: _screenWidth,

@@ -11,11 +11,12 @@ import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_naviga
 import 'package:flutter/material.dart';
 
 class SectionDialog extends StatelessWidget {
-final double dialogHeight;
+  final double dialogHeight;
 
-SectionDialog({
-  @required this.dialogHeight,
-});
+  SectionDialog({
+    @required this.dialogHeight,
+  });
+
 // -----------------------------------------------------------------------------
   static Future<void> slideDialog({BuildContext context, FlyersProvider pro, double dialogHeight}) async {
     await BottomDialog.showBottomDialog(
@@ -24,7 +25,6 @@ SectionDialog({
       height: BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7),
       draggable: true,
       child: SectionDialog(dialogHeight: dialogHeight,),
-
       // builder: (context, title){
       //   return StatefulBuilder(
       //     builder: (BuildContext context, StateSetter setDialogState){
@@ -43,8 +43,8 @@ SectionDialog({
   @override
   Widget build(BuildContext context) {
 
-    double _bubbleWidth = CenterDialog.dialogWidth(context: context) - Ratioz.appBarMargin * 2;
-    double _buttonWidth = _bubbleWidth * 0.9;
+    final double _bubbleWidth = CenterDialog.dialogWidth(context: context) - Ratioz.appBarMargin * 2;
+    final double _buttonWidth = _bubbleWidth * 0.9;
 
     return MaxBounceNavigator(
       boxDistance: BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7),
@@ -53,7 +53,7 @@ SectionDialog({
         // height: _dialogHeight,
         // color: Colorz.BloodTest,
         child: ListView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           children: <Widget>[
 
             /// REAL ESTATE
@@ -135,7 +135,7 @@ SectionDialog({
               ],
             ),
 
-            PyramidsHorizon(heightFactor: 0.5,),
+            const PyramidsHorizon(heightFactor: 0.5,),
 
           ],
         ),

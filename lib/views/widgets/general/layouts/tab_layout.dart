@@ -18,7 +18,7 @@ class TabModel{
 // -----------------------------------------------------------------------------
   static List<Widget> getPageWidgetsFromTabModels(List<TabModel> tabModels){
 
-    List<Widget> _widgets = <Widget>[];
+    final List<Widget> _widgets = <Widget>[];
 
     for (TabModel tabModel in tabModels){
       _widgets.add(tabModel.page);
@@ -29,7 +29,7 @@ class TabModel{
 // -----------------------------------------------------------------------------
   static List<Widget> getTabButtonsFromTabModels(List<TabModel> tabModels){
 
-    List<Widget> _widgets = <Widget>[];
+    final List<Widget> _widgets = <Widget>[];
 
     for (TabModel tabModel in tabModels){
       _widgets.add(tabModel.tabButton);
@@ -64,8 +64,8 @@ class TabLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final List<Widget> tabs = TabModel.getTabButtonsFromTabModels(tabModels);
-    final List<Widget> pages = TabModel.getPageWidgetsFromTabModels(tabModels);
+    final List<Widget> _tabs = TabModel.getTabButtonsFromTabModels(tabModels);
+    final List<Widget> _pages = TabModel.getPageWidgetsFromTabModels(tabModels);
 
     return MainLayout(
       appBarType: AppBarType.Basic,
@@ -101,7 +101,7 @@ class TabLayout extends StatelessWidget {
 
                       // indicatorColor: Colorz.BloodTest,
                       indicatorSize: TabBarIndicatorSize.tab,
-                      indicatorPadding: EdgeInsets.symmetric(vertical: 0),
+                      indicatorPadding: const EdgeInsets.symmetric(vertical: 0),
                       indicatorWeight: 0,
                       indicator: BoxDecoration(
                         color: Colorz.Yellow255,
@@ -120,7 +120,7 @@ class TabLayout extends StatelessWidget {
 
                       tabs: <Widget>[
 
-                        ...tabs,
+                        ..._tabs,
 
                       ],
                     ),
@@ -134,7 +134,7 @@ class TabLayout extends StatelessWidget {
             controller: tabController,
             children: <Widget>[
 
-              ...pages,
+              ..._pages,
 
             ],
           ),
