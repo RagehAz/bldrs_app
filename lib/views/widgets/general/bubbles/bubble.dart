@@ -166,7 +166,7 @@ final Key key;
 
                         /// --- EXPANDER
                         if(centered == true)
-                          Expander(),
+                          const Expander(),
 
                         /// --- LEADING BUTTON
                         if (leadingIcon != null)
@@ -199,7 +199,7 @@ final Key key;
 
                         /// --- EXPANDER
                         if(centered == true)
-                          Expander(),
+                          const Expander(),
 
                         /// --- ACTION BUTTON
                         if (actionBtIcon != null)

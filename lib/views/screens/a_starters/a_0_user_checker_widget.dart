@@ -27,18 +27,26 @@ class _UserCheckerState extends State<UserChecker> {
   bool _isInit = true;
   bool _logoIsShown = false;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
+  Future <void> _triggerLoading({Function function}) async {
 
-  void _triggerLoading() {
-    setState(() {
-      _loading = !_loading;
-    });
-    _loading == true ?
-    print('LOADING--------------------------------------') : print(
-        'LOADING COMPLETE--------------------------------------');
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -61,7 +69,7 @@ class _UserCheckerState extends State<UserChecker> {
           print('User is signed in : ${AuthOps.userIsSignedIn()}');
           if (AuthOps.userIsSignedIn() == true) {
 
-            UserModel _userModel = await UserOps().readUserOps(
+            final UserModel _userModel = await UserOps().readUserOps(
               context: context,
               userID: superUserID(),
             );
@@ -70,7 +78,7 @@ class _UserCheckerState extends State<UserChecker> {
             if (_userModel != null) {
 
               /// check if user model is properly completed
-              List<String> _missingFields = UserModel.missingFields(_userModel);
+              final List<String> _missingFields = UserModel.missingFields(_userModel);
               print(' _missingFields : $_missingFields');
 
               /// C - if userModel is completed
@@ -120,7 +128,7 @@ class _UserCheckerState extends State<UserChecker> {
               user: _userModel, firstTimer: true,),);
 
             /// after returning from creating profile, we go to LoadingScreen()
-            var _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
+            final dynamic _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
             print('user has created profile and good to go to LoadingScreen() : _result : $_result');
           }
 
@@ -131,7 +139,7 @@ class _UserCheckerState extends State<UserChecker> {
             _triggerLoading();
 
             /// route to sign in
-            var _result = await Nav.goToNewScreen(context, StartingScreen(), transitionType: PageTransitionType.fade);
+            final dynamic _result = await Nav.goToNewScreen(context, StartingScreen(), transitionType: PageTransitionType.fade);
 
             print('just came back from starting screen : _result : $_result');
             /// and we loop again in userChecker

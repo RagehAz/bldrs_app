@@ -217,7 +217,7 @@ class SequencesWall extends StatelessWidget {
               }
         ),
 
-      PyramidsHorizon(),
+      const PyramidsHorizon(),
 
     ];
 

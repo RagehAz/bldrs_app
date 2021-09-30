@@ -26,16 +26,6 @@ class SequenceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Widget _appBarKeywordButton =
-    KeywordBarButton(
-      keyword: Keyword.getKeywordByKeywordID(sequence.titleID),
-      xIsOn: false,
-      // color: ,
-      onTap: (){
-        print('bashboush');
-        },
-    );
-
 
     return MainLayout(
       appBarType: AppBarType.Scrollable,
@@ -48,7 +38,14 @@ class SequenceScreen extends StatelessWidget {
           onTap: (){},
         ),
 
-        _appBarKeywordButton,
+        KeywordBarButton(
+          keyword: Keyword.getKeywordByKeywordID(sequence.titleID),
+          xIsOn: false,
+          // color: ,
+          onTap: (){
+            print('bashboush');
+          },
+        ),
 
         SizedBox(
           width: Ratioz.appBarPadding * 0.5,

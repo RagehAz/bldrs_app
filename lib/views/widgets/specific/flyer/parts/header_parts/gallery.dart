@@ -35,14 +35,6 @@ class _GalleryState extends State<Gallery> {
   List<String> _bzTeamIDs;
   BzModel _bzModel;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  // bool _loading = false;
-  // void _triggerLoading(){
-  //   setState(() {_loading = !_loading;});
-  //   _loading == true?
-  //   print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  // }
-// -----------------------------------------------------------------------------
   @override
   void initState(){
     super.initState();
@@ -56,7 +48,7 @@ class _GalleryState extends State<Gallery> {
   }
 // -----------------------------------------------------------------------------
   List<bool> _createVisibilities({bool fillingValue}){
-    List<bool> _visibilities = [];
+    List<bool> _visibilities = <bool>[];
 
     for (int i = 0; i< _tinyFlyers.length; i++){
       _visibilities.add(fillingValue);

@@ -214,7 +214,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
       layoutWidget: Column(
         children: <Widget>[
 
-          Stratosphere(),
+          const Stratosphere(),
 
           Container(
             width: 300,

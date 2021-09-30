@@ -13,14 +13,6 @@ class QuestionScreen extends StatefulWidget {
 class _QuestionScreenState extends State<QuestionScreen> {
 
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  bool _loading = false;
-  // void _triggerLoading(){
-  //   setState(() {_loading = !_loading;});
-  //   _loading == true?
-  //   print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  // }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return MainLayout(
@@ -28,12 +20,11 @@ class _QuestionScreenState extends State<QuestionScreen> {
       appBarType: AppBarType.Basic,
       pageTitle: 'Ask a Question',
       // onBack: true,
-      loading: _loading,
       layoutWidget: ListView(
 
         children: <Widget>[
 
-          Stratosphere(),
+          const Stratosphere(),
 
           Column(
             mainAxisAlignment: MainAxisAlignment.center,

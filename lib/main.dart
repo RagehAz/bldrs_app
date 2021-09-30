@@ -54,15 +54,28 @@ class BldrsApp extends StatefulWidget {
 }
 
 class _BldrsAppState extends State<BldrsApp> {
-// ---------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+// -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();

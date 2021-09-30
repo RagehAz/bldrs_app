@@ -18,13 +18,12 @@ class SelectAreaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FlyersProvider _pro =  Provider.of<FlyersProvider>(context, listen: true);
+    final FlyersProvider _pro =  Provider.of<FlyersProvider>(context, listen: true);
 // -----------------------------------------------------------------------------
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    String _cityName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, cityID);
-    List<Map<String, dynamic>> _areasMaps = _countryPro.getDistrictsNameMapsByCityID(context, cityID);
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final String _cityName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, cityID);
+    final List<Map<String, dynamic>> _areasMaps = _countryPro.getDistrictsNameMapsByCityID(context, cityID);
 // -----------------------------------------------------------------------------
-
     return  ListLayout(
       pyramids: Iconz.PyramidzYellow,
       pageTitle: _cityName,

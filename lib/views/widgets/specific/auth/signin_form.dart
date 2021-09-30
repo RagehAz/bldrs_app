@@ -42,12 +42,25 @@ class _SignInFormState extends State<SignInForm> {
   bool showPassword = false;
   bool _passwordObscured = true;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
     _loading == true?
-    print('LOADING') : print('LOADING COMPLETE');
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -212,7 +225,7 @@ class _SignInFormState extends State<SignInForm> {
 
               // BtSkipAuth(),
 
-              Expander(),
+              const Expander(),
 
               DreamBox(
                 height: 50,

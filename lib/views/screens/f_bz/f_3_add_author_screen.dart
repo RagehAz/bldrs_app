@@ -24,6 +24,8 @@ class AddAuthorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return MainLayout(
       sky: Sky.Black,
       pageTitle: 'Add new Author',
@@ -33,7 +35,7 @@ class AddAuthorScreen extends StatelessWidget {
       layoutWidget: ListView(
         children: <Widget>[
 
-          Stratosphere(),
+          const Stratosphere(),
 
           Bubble(
               centered: false,
@@ -100,23 +102,23 @@ class AddAuthorScreen extends StatelessWidget {
                 title: 'Khally balak ba2a',
               );
 
-              String _ragehUserID = 'rBjNU5WybKgJXaiBnlcBnfFaQSq1';
+              final String _ragehUserID = 'xxx';
 
-              BzModel _bzModel = await BzOps.readBzOps(
+              final BzModel _bzModel = await BzOps.readBzOps(
                 context: context,
                 bzID: tinyBz.bzID,
               );
 
-              UserModel _ragehUserModel = await UserOps().readUserOps(
+              final UserModel _ragehUserModel = await UserOps().readUserOps(
                 context: context,
                 userID: _ragehUserID,
               );
 
-              AuthorModel _ragehAuthor = AuthorModel.getAuthorModelFromUserModel(
+              final AuthorModel _ragehAuthor = AuthorModel.getAuthorModelFromUserModel(
                 userModel: _ragehUserModel,
               );
 
-              List<AuthorModel> _newAuthorsList = <AuthorModel>[..._bzModel.bzAuthors, _ragehAuthor];
+              final List<AuthorModel> _newAuthorsList = <AuthorModel>[..._bzModel.bzAuthors, _ragehAuthor];
 
               await Fire.updateDocField(
                 context: context,
@@ -127,7 +129,7 @@ class AddAuthorScreen extends StatelessWidget {
               );
 
               /// add bzID in user's myBzIDs
-              List<dynamic> _userBzzIDs = _ragehUserModel.myBzzIDs;
+              final List<dynamic> _userBzzIDs = _ragehUserModel.myBzzIDs;
               _userBzzIDs.insert(0, _bzModel.bzID);
               await Fire.updateDocField(
                 context: context,

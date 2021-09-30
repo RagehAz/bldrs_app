@@ -32,15 +32,28 @@ class _FireSearchTestState extends State<FireSearchTest> {
   // List<FlyerModel> _allFLyers;
   // String _picURL;
   File _filePic;
-// ---------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+// -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
 
@@ -100,7 +113,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
       loading: _loading,
       appBarRowWidgets: <Widget>[
 
-        Expander(),
+        const Expander(),
 
         DreamBox(
           height: 35,
@@ -134,7 +147,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
           ListView(
             children: <Widget>[
 
-              Stratosphere(),
+              const Stratosphere(),
 
               ...List.generate(
                   functions.length, (index){
@@ -194,7 +207,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
               ),
 
 
-                PyramidsHorizon(),
+              const PyramidsHorizon(),
 
             ],
           ),

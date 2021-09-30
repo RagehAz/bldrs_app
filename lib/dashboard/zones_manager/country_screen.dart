@@ -34,15 +34,28 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
   bool _isGlobal;
   List<City> _provinces;
   String _language;
-// ---------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+// -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
     _loading == true?
-    print('LOADING') : print('LOADING COMPLETE');
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -107,7 +120,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
         // crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
-          Stratosphere(),
+          const Stratosphere(),
 
           /// --- ISO3
           TileBubble(
@@ -226,7 +239,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             addButtonIsOn: false,
           ),
 
-          PyramidsHorizon(),
+          const PyramidsHorizon(),
 
         ],
       ),

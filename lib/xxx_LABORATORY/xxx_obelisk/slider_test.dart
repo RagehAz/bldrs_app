@@ -74,7 +74,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
         child: ListView(
           children: <Widget>[
 
-            Stratosphere(),
+            const Stratosphere(),
 
             TextFieldBubble(
               title: 'Set Min value',
@@ -302,7 +302,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               },
             ),
 
-            PyramidsHorizon(),
+            const PyramidsHorizon(),
 
           ],
         ),

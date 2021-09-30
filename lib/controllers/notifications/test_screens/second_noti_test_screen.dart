@@ -17,7 +17,7 @@ class SecondNotiTestScreen extends StatelessWidget {
       layoutWidget: Column(
         children: <Widget>[
 
-          Stratosphere(),
+          const Stratosphere(),
 
           Container(
             width: 300,

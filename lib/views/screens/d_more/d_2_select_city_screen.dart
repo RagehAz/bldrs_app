@@ -18,10 +18,10 @@ class SelectCityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, countryID);
-    List<Map<String, dynamic>> _citiesMaps = _countryPro.getCitiesNamesMapsByIso3(context, countryID);
-    String _countryFlag = Flagz.getFlagByIso3(countryID);
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, countryID);
+    final List<Map<String, dynamic>> _citiesMaps = _countryPro.getCitiesNamesMapsByIso3(context, countryID);
+    final String _countryFlag = Flagz.getFlagByIso3(countryID);
 // -----------------------------------------------------------------------------
 
     return  ListLayout(
