@@ -102,39 +102,69 @@ class DreamBox extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static Color getIconColor({bool blackAndWhite, bool inActiveMode, Color colorOverride}){
 
-    bool _blackAndWhite = blackAndWhite == null ? false : blackAndWhite;
-    bool _inActiveMode = inActiveMode == null ? false : inActiveMode;
-    Color _colorOverride = colorOverride == null ? null : colorOverride;
+    final bool _blackAndWhite = blackAndWhite == null ? false : blackAndWhite;
+    final bool _inActiveMode = inActiveMode == null ? false : inActiveMode;
+    final Color _colorOverride = colorOverride == null ? null : colorOverride;
 
-    Color _iconColor =
+    final Color _iconColor =
     _blackAndWhite == true || _inActiveMode == true ? Colorz.White30 :
     _colorOverride;
 
     return _iconColor;
   }
 // -----------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
-    double _sizeFactor = iconSizeFactor;
-// -----------------------------------------------------------------------------
-    Color _imageSaturationColor =
-        blackAndWhite == true ? Colorz.Grey225 : Colorz.Nothing;
-// -----------------------------------------------------------------------------
-//     double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
-// -----------------------------------------------------------------------------
-    double _svgGraphicWidth = height * _sizeFactor;
-    double _jpgGraphicWidth = height * _sizeFactor;
-    double _graphicWidth = icon == null && loading == false ? 0 :
+  static double graphicWidth({String icon, double height, bool loading, double iconSizeFactor}){
+
+    final double _svgGraphicWidth = height * iconSizeFactor;
+    final double _jpgGraphicWidth = height * iconSizeFactor;
+
+    final double _graphicWidth = icon == null && loading == false ? 0 :
     ObjectChecker.fileExtensionOf(icon) == 'svg' ? _svgGraphicWidth :
     ObjectChecker.fileExtensionOf(icon) == 'jpg' ||
         ObjectChecker.fileExtensionOf(icon) == 'jpeg' ||
         ObjectChecker.fileExtensionOf(icon) == 'png' ? _jpgGraphicWidth : height;
+
+    return _graphicWidth;
+  }
 // -----------------------------------------------------------------------------
-    double _iconMargin = verse == null || icon == null ? 0 : (height - _graphicWidth)/2;
+  static double iconMargin({double height, double graphicWidth, String icon, String verse}){
+    return
+      verse == null || icon == null ? 0 : (height - graphicWidth)/2;
+  }
+// -----------------------------------------------------------------------------
+  static Color boxColor({bool blackAndWhite, Color color}){
+    return
+      (blackAndWhite == true && color != Colorz.Nothing) ?
+      Colorz.Grey80 :
+      (color == Colorz.Nothing && blackAndWhite == true) ?
+      Colorz.Nothing :
+      color;
+  }
+// -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+// -----------------------------------------------------------------------------
+    final Color _imageSaturationColor =
+        blackAndWhite == true ? Colorz.Grey225 : Colorz.Nothing;
+// -----------------------------------------------------------------------------
+//     double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
+// -----------------------------------------------------------------------------
+    final double _graphicWidth = graphicWidth(
+      icon: icon,
+      height: height,
+      iconSizeFactor: iconSizeFactor,
+      loading: loading,
+    );
+// -----------------------------------------------------------------------------
+    final double _iconMargin = iconMargin(
+      height: height,
+      icon: icon,
+      verse: verse,
+      graphicWidth: _graphicWidth,
+    );
 // -----------------------------------------------------------------------------
 //     double _verseWidth = width != null ? width - (_iconMargin * 2) - _graphicWidth - ((_verseIconSpacing * 2) + _iconMargin) : width;
-    int _verseSize =  iconSizeFactor == 1 ? 4 : 4;
+    final int _verseSize =  iconSizeFactor == 1 ? 4 : 4;
 // -----------------------------------------------------------------------------
 //     BorderRadius _getIconCornerByRadius(){
 //       BorderRadius _IconCornerAsBorderRadius;
@@ -167,24 +197,22 @@ class DreamBox extends StatelessWidget {
 //
 //       return _IconCornerAsBorderRadius;
 //     }
-    BorderRadius _iconCorners = Borderers.getCornersAsBorderRadius(context, corners);
+    final BorderRadius _iconCorners = Borderers.getCornersAsBorderRadius(context, corners);
 // -----------------------------------------------------------------------------
-    Color _boxColor =
-    (blackAndWhite == true && color != Colorz.Nothing) ?
-    Colorz.Grey80 :
-    (color == Colorz.Nothing && blackAndWhite == true) ?
-    Colorz.Nothing :
-    color;
+    final Color _boxColor = boxColor(
+      color: color,
+      blackAndWhite: blackAndWhite,
+    );
 // -----------------------------------------------------------------------------
-    Color _iconColor = getIconColor(
+    final Color _iconColor = getIconColor(
       inActiveMode: inActiveMode,
       blackAndWhite: blackAndWhite,
       colorOverride: iconColor,
     );
 // -----------------------------------------------------------------------------
-    TextDirection _textDirection = textDirection == null ? superTextDirection(context) : textDirection;
+    final TextDirection _textDirection = textDirection == null ? superTextDirection(context) : textDirection;
 // -----------------------------------------------------------------------------
-    EdgeInsets _boxMargins = Scale.superMargins(margins : margins);
+    final EdgeInsets _boxMargins = Scale.superMargins(margins : margins);
 // -----------------------------------------------------------------------------
 //     CrossAxisAlignment _versesCrossAlignment =
 //     icon == null && textDirection == null && secondLine == null ? CrossAxisAlignment.center
@@ -204,7 +232,7 @@ class DreamBox extends StatelessWidget {
     // double _underlineHeight = underLine == null ? 0 : height - _underLineTopMargin;
 // -----------------------------------------------------------------------------
 
-    BorderRadius _cornersAsBorderRadius = Borderers.getCornersAsBorderRadius(context, corners);
+    final BorderRadius _cornersAsBorderRadius = Borderers.getCornersAsBorderRadius(context, corners);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

@@ -33,21 +33,21 @@ class BarButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const double _circleWidth = 40;
-    double _buttonCircleCorner = corners == null ? _circleWidth * 0.5 : corners;
+    final double _buttonCircleCorner = corners == null ? _circleWidth * 0.5 : corners;
     const double _paddings = Ratioz.appBarPadding * 1.5;
 
     const double _textScaleFactor = 0.95;
     const int _textSize = 1;
 
-    double _textBoxHeight =
+    final double _textBoxHeight =
     barType == BarType.maxWithText || barType == BarType.minWithText ?
     superVerseRealHeight(context, _textSize, _textScaleFactor, null)
         :
     0
     ;
 
-    double _buttonHeight = _circleWidth + ( 2 * _paddings ) + _textBoxHeight;
-    double _buttonWidth = width;
+    final double _buttonHeight = _circleWidth + ( 2 * _paddings ) + _textBoxHeight;
+    final double _buttonWidth = width;
 
     // Color _designModeColor = Colorz.BloodTest;
     const bool _designMode = false;

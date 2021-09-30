@@ -47,27 +47,27 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
   @override
   Widget build(BuildContext context) {
 
-    double _circleWidth = circleWidth;
-    double _buttonCircleCorner = _circleWidth * 0.5;
-    double _paddings = Ratioz.appBarPadding * 1.5;
+    final double _circleWidth = circleWidth;
+    final double _buttonCircleCorner = _circleWidth * 0.5;
+    final double _paddings = Ratioz.appBarPadding * 1.5;
 
-    double _textScaleFactor = 0.95;
-    int _textSize = 1;
+    const double _textScaleFactor = 0.95;
+    const int _textSize = 1;
 
-    double _textBoxHeight =
+    final double _textBoxHeight =
     barType == BarType.maxWithText || barType == BarType.minWithText ?
     superVerseRealHeight(context, _textSize, _textScaleFactor, null)
         :
     0
     ;
 
-    double _buttonHeight = _circleWidth + ( 2 * _paddings ) + _textBoxHeight;
-    double _buttonWidth = width;
+    final double _buttonHeight = _circleWidth + ( 2 * _paddings ) + _textBoxHeight;
+    final double _buttonWidth = width;
 
     // Color _designModeColor = Colorz.BloodTest;
-    bool _designMode = false;
+    const bool _designMode = false;
 
-    bool _shadowIsOn = true;
+    const bool _shadowIsOn = true;
 
     return
       GestureDetector(
@@ -83,12 +83,12 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
-              // --- TOP MARGIN
+              /// --- TOP MARGIN
               SizedBox(
                 height: _paddings,
               ),
 
-              // --- BZZ LOGOS
+              /// --- BZZ LOGOS
               bzzIDs.length == 0 ? Container(width: _circleWidth, height: _circleWidth,) :
               Container(
                 width: _circleWidth,
@@ -275,7 +275,7 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
 
               ),
 
-              // --- BUTTON TEXT
+              /// --- BUTTON TEXT
               if (barType == BarType.maxWithText || barType == BarType.minWithText)
                 Container(
                   width: _buttonWidth,

@@ -24,28 +24,28 @@ class PriceTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _footerHeight = FlyerFooter.boxHeight(context: context, flyerBoxWidth: flyerBoxWidth);
+    final double _footerHeight = FlyerFooter.boxHeight(context: context, flyerBoxWidth: flyerBoxWidth);
 
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    String _iso3 = _countryPro.currentCountryID;
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final String _iso3 = _countryPro.currentCountryID;
 
-    double _currentPrice = 14999.99;
-    String _currency = BigMac.getCurrencyByIso3(_iso3);
-    double _oldPrice = 17800;
-    int _discountPercentage = Numberers.discountPercentage(
+    final double _currentPrice = 14999.99;
+    final String _currency = BigMac.getCurrencyByIso3(_iso3);
+    final double _oldPrice = 17800;
+    final int _discountPercentage = Numberers.discountPercentage(
       oldPrice: _oldPrice,
       currentPrice: _currentPrice,
     );
 
-    bool _designMode = false;
+    final bool _designMode = false;
 
-    double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
-    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
+    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 
-    double _tinyModePriceSizeMultiplier = _tinyMode == true ? 1.4 : 1;
+    final double _tinyModePriceSizeMultiplier = _tinyMode == true ? 1.4 : 1;
 
-    double _priceTagWidth = _tinyMode == true ? flyerBoxWidth * 0.7 : flyerBoxWidth * 0.55;
-    double _priceTagHeight = _tinyMode == true ? flyerBoxWidth * 0.3 : flyerBoxWidth * 0.2;
+    final double _priceTagWidth = _tinyMode == true ? flyerBoxWidth * 0.7 : flyerBoxWidth * 0.55;
+    final double _priceTagHeight = _tinyMode == true ? flyerBoxWidth * 0.3 : flyerBoxWidth * 0.2;
 
     return Container(
       width: flyerBoxWidth,
