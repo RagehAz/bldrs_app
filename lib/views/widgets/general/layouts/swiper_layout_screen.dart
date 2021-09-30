@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class SwiperLayoutScreen extends StatefulWidget {
-  /// this recieves a map like this
+  /// this receives a map like this
   /// {
   /// 'title' : 'page title here',
   /// 'widget' : pageWidgetInsideFullScreenContainer
@@ -15,7 +15,7 @@ class SwiperLayoutScreen extends StatefulWidget {
   final List<Map<String, dynamic>> swiperPages;
   final Sky sky;
 
-  SwiperLayoutScreen({
+  const SwiperLayoutScreen({
     @required this. swiperPages,
     this.sky = Sky.Night,
   });
@@ -47,11 +47,11 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    double _itemWidth = _screenWidth;
-    double _itemHeight = _screenHeight;
+    final double _itemWidth = _screenWidth;
+    final double _itemHeight = _screenHeight;
 // -----------------------------------------------------------------------------
 
     return MainLayout(
@@ -63,7 +63,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
       layoutWidget: Swiper(
         autoplay: false,
         pagination: new SwiperPagination(
-          builder: DotSwiperPaginationBuilder(
+          builder: const DotSwiperPaginationBuilder(
             color: Colorz.White255,
             activeColor: Colorz.Yellow255,
             activeSize: 8,

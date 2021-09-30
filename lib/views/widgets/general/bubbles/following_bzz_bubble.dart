@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 class FollowingBzzBubble extends StatelessWidget {
   final List<TinyBz> tinyBzz;
 
-  FollowingBzzBubble({
+  const FollowingBzzBubble({
     @required this.tinyBzz,
 });
 
@@ -21,14 +21,14 @@ class FollowingBzzBubble extends StatelessWidget {
 
     final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
     // final user = Provider.of<UserModel>(context);
-    List<dynamic> followedBzzIDs = pro.getFollows;
+    final List<dynamic> followedBzzIDs = pro.getFollows;
 
     return Bubble(
       centered: false,
       title: 'Following ${followedBzzIDs.length} Businesses',
       columnChildren: <Widget>[
 
-        // --- FOLLOWING BZZ GRID
+        /// FOLLOWING BZZ GRID
         BzGrid(
           gridZoneWidth: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
           tinyBzz: tinyBzz,

@@ -10,25 +10,25 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class Bubble extends StatelessWidget {
-final List<Widget> columnChildren;
-final bool centered;
-final Color bubbleColor;
-final bool stretchy;
-final String title;
-final Color titleColor;
-final bool redDot;
-final String actionBtIcon;
-final Function actionBtFunction;
-final double width;
-final Function bubbleOnTap;
-final double LeadingAndActionButtonsSizeFactor;
-final String leadingIcon;
-final Color leadingIconColor;
-final dynamic margins;
-final dynamic corners;
-final Key key;
+  final List<Widget> columnChildren;
+  final bool centered;
+  final Color bubbleColor;
+  final bool stretchy;
+  final String title;
+  final Color titleColor;
+  final bool redDot;
+  final String actionBtIcon;
+  final Function actionBtFunction;
+  final double width;
+  final Function bubbleOnTap;
+  final double LeadingAndActionButtonsSizeFactor;
+  final String leadingIcon;
+  final Color leadingIconColor;
+  final dynamic margins;
+  final dynamic corners;
+  final Key key;
 
-  Bubble({
+  const Bubble({
     @required this.columnChildren,
     this.centered = false,
     this.bubbleColor = Colorz.White20,
@@ -49,51 +49,46 @@ final Key key;
 });
 // -----------------------------------------------------------------------------
   static double clearWidth(BuildContext context){
-    double _bubbleWidth = defaultWidth(context);
-    double _bubblePaddings = Ratioz.appBarMargin * 2;
-    double _inBubbleClearWidth = _bubbleWidth - _bubblePaddings;
+    final double _bubbleWidth = defaultWidth(context);
+    const double _bubblePaddings = Ratioz.appBarMargin * 2;
+    final double _inBubbleClearWidth = _bubbleWidth - _bubblePaddings;
     return _inBubbleClearWidth;
   }
 // -----------------------------------------------------------------------------
   static double defaultWidth(BuildContext context){
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _bubbleMargins = Ratioz.appBarMargin * 2;
-    double _bubbleWidth = _screenWidth - _bubbleMargins;
+    final double _screenWidth = Scale.superScreenWidth(context);
+    const double _bubbleMargins = Ratioz.appBarMargin * 2;
+    final double _bubbleWidth = _screenWidth - _bubbleMargins;
     return _bubbleWidth;
   }
 // -----------------------------------------------------------------------------
   static double bubbleWidth({BuildContext context, bool stretchy, }){
-    double _bubbleWidth = stretchy == true ? null
+    final double _bubbleWidth = stretchy == true ? null
         :
     clearWidth(context);
 
     return _bubbleWidth;
   }
 // -----------------------------------------------------------------------------
-  static double cornersValue(){
-    return Ratioz.appBarCorner;
-  }
+  static const double cornersValue = Ratioz.appBarCorner;
+  static const double _pageMargin = Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
-  static double clearCornersValue(){
-    return Ratioz.appBarCorner - Ratioz.appBarMargin;
-  }
+  static const double clearCornersValue = Ratioz.appBarCorner - Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
   static BorderRadius borders(BuildContext context,){
     return
-    Borderers.superBorder(context: context, corners: cornersValue());
+    Borderers.superBorder(context: context, corners: cornersValue);
   }
 // -----------------------------------------------------------------------------
   static BorderRadius clearBorders(BuildContext context,){
     return
-      Borderers.superBorder(context: context, corners: clearCornersValue());
+      Borderers.superBorder(context: context, corners: clearCornersValue);
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _pageMargin = Ratioz.appBarMargin;
-// -----------------------------------------------------------------------------
-    EdgeInsets _bubbleMargins =
+    final EdgeInsets _bubbleMargins =
     margins == null && stretchy == true ? Scale.superMargins(margins: 0) :
     margins == null && stretchy == false ? Scale.superMargins(margins: _pageMargin) :
     margins != null ? Scale.superMargins(margins: margins) :
@@ -109,20 +104,20 @@ final Key key;
     //     child: InPyramidsBubble(
     ///////////////////////////////////////////////////////////////////////////
 
-    int titleVerseSize = 2;
-    double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
-    double actionBtCorner = actionBtSize * 0.4;
+    const int _titleVerseSize = 2;
+    final double _actionBtSize = superVerseRealHeight(context, _titleVerseSize, 1, null);
+    final double _actionBtCorner = _actionBtSize * 0.4;
 
-    double _bubbleWidth = width != null ? width :
+    final double _bubbleWidth = width != null ? width :
     bubbleWidth(
       context: context,
       stretchy: stretchy,
     );
 
 // -----------------------------------------------------------------------------
-    double _titleWidth = stretchy == true ? null : _bubbleWidth - actionBtSize * 2;
+    final double _titleWidth = stretchy == true ? null : _bubbleWidth - _actionBtSize * 2;
 // -----------------------------------------------------------------------------
-    BorderRadius _corners =
+    final BorderRadius _corners =
     corners == null ? borders(context)
     :
     Borderers.superBorder(context: context, corners: corners);
@@ -145,7 +140,7 @@ final Key key;
           splashColor: Colorz.Yellow255,
           borderRadius: _corners,
           child: Padding(
-            padding: EdgeInsets.all(_pageMargin),
+            padding: const EdgeInsets.all(_pageMargin),
             child: Column(
               mainAxisSize: stretchy ? MainAxisSize.min : MainAxisSize.max,
               mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
@@ -157,11 +152,12 @@ final Key key;
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: centered == true ? MainAxisSize.min : MainAxisSize.max,
                     children: <Widget>[
+
                       /// --- ACTION BUTTON
                       if(centered == true && actionBtIcon !=null)
                           Container(
-                            height: actionBtSize,
-                            width: actionBtSize,
+                            height: _actionBtSize,
+                            width: _actionBtSize,
                           ),
 
                         /// --- EXPANDER
@@ -171,9 +167,9 @@ final Key key;
                         /// --- LEADING BUTTON
                         if (leadingIcon != null)
                           DreamBox(
-                            height: actionBtSize,
-                            width: actionBtSize,
-                            corners: actionBtCorner,
+                            height: _actionBtSize,
+                            width: _actionBtSize,
+                            corners: _actionBtCorner,
                             // color: actionBtColor,
                             icon: leadingIcon,
                             iconColor: leadingIconColor,
@@ -189,7 +185,7 @@ final Key key;
                             padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin, left: Ratioz.appBarPadding, right:  Ratioz.appBarPadding),
                             child: SuperVerse(
                               verse: title,
-                              size: titleVerseSize,
+                              size: _titleVerseSize,
                               redDot: redDot,
                               centered: centered,
                               color: titleColor,
@@ -204,9 +200,9 @@ final Key key;
                         /// --- ACTION BUTTON
                         if (actionBtIcon != null)
                         DreamBox(
-                          height: actionBtSize,
-                          width: actionBtSize,
-                          corners: actionBtCorner,
+                          height: _actionBtSize,
+                          width: _actionBtSize,
+                          corners: _actionBtCorner,
                           // color: actionBtColor,
                           icon: actionBtIcon,
                           iconSizeFactor: LeadingAndActionButtonsSizeFactor,

@@ -57,7 +57,7 @@ class DreamBox extends StatelessWidget {
   final double secondLineScaleFactor;
   final bool loading;
 
-  DreamBox({
+  const DreamBox({
     @required this.height,
     this.width,
     this.icon,

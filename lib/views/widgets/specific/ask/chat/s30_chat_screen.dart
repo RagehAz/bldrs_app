@@ -21,7 +21,7 @@ class ChatScreen extends StatefulWidget {
   final String author1ID;
   final String author2ID;
 
-  ChatScreen({
+  const ChatScreen({
     @required this.question,
     @required this.bzID,
     @required this.author1ID,
@@ -53,12 +53,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
       Keyboarders.closeKeyboard(context);
 
-      List<MessageModel> _newMessages = MessageModel.addToMessages(
+      final List<MessageModel> _newMessages = MessageModel.addToMessages(
         body: body,
         existingMsgs: existingMsgs,
       );
 
-      ChatModel _chatModel = ChatModel(
+      final ChatModel _chatModel = ChatModel(
         bzID: widget.bzID,
         ownerID: widget.question.ownerID,
         messages: _newMessages,
@@ -88,19 +88,19 @@ class _ChatScreenState extends State<ChatScreen> {
     // final Stream<QuerySnapshot> _chatSnapshots = _chatsCollection.orderBy(
     //     'at', descending: false).snapshots();
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
 
-    double _textFieldBoxHeight = 150;
+    const double _textFieldBoxHeight = 150;
 
-    double _convBoxHeight = _screenHeight - _textFieldBoxHeight;
+    final double _convBoxHeight = _screenHeight - _textFieldBoxHeight;
 
     return MainLayout(
       appBarType: AppBarType.Basic,
       pageTitle: 'Chat Screen',
       pyramids: Iconz.DvBlankSVG,
       sky: Sky.Night,
-      appBarRowWidgets: <Widget>[BackButton(),],
+      appBarRowWidgets: <Widget>[const BackButton(),],
       layoutWidget: chatStreamBuilder(
           context: context,
           questionID: widget.question.questionID,
@@ -124,8 +124,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       shrinkWrap: false,
                       itemBuilder: (xyz, index){
 
-                        MessageModel _msg = chatModel.messages[index];
-                        bool _isMyVerse = _currentUserID == _msg.ownerID;
+                        final MessageModel _msg = chatModel.messages[index];
+                        final bool _isMyVerse = _currentUserID == _msg.ownerID;
 
                         return
 

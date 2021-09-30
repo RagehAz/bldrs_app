@@ -26,10 +26,10 @@ class SelectedKeywordsBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
-    double _selectedKeywordsZoneHeight = 80;
+    const double _selectedKeywordsZoneHeight = 80;
 
     String _screenTitle =
     selectedKeywords.length == 0 ? 'Select keywords' :

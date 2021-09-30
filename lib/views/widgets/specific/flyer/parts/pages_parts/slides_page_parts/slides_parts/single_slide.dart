@@ -103,11 +103,11 @@ class SingleSlide extends StatelessWidget {
   Widget build(BuildContext context) {
     // print('single slide title is : $title and controller is : ${titleController?.text}');
 // -----------------------------------------------------------------------------
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
-    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
-    int _slideTitleSize =
+    final int _slideTitleSize =
     flyerBoxWidth <= _screenWidth && flyerBoxWidth > (_screenWidth*0.75) ? 4 :
     flyerBoxWidth <= (_screenWidth*0.75) && flyerBoxWidth > (_screenWidth*0.5) ? 3 :
         flyerBoxWidth <= (_screenWidth*0.5) && flyerBoxWidth > (_screenWidth*0.25) ? 2 :

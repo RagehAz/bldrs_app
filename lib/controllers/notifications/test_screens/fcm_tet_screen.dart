@@ -181,7 +181,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
             },
           ),
 
-          SizedBox(
+          const SizedBox(
             width: 100,
             height: 10,
           ),
@@ -205,7 +205,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
             },
           ),
 
-          SizedBox(
+          const SizedBox(
             width: 100,
             height: 10,
           ),

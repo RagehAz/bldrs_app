@@ -87,7 +87,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
                           bubble: false,
                         ),
 
-                        SizedBox(
+                        const SizedBox(
                           width: _spacing,
                         ),
 

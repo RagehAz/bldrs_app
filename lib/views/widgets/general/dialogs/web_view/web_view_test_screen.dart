@@ -16,7 +16,7 @@ class WebViewTestScreen extends StatefulWidget {
 
 class _WebViewTestScreenState extends State<WebViewTestScreen> {
 
-  TextEditingController _textController = new TextEditingController();
+  final TextEditingController _textController = new TextEditingController();
   // String _url = 'https://www.cnn.com';
 
   Widget _webViewWidget(){
@@ -52,7 +52,7 @@ class _WebViewTestScreenState extends State<WebViewTestScreen> {
 
           if (DeviceChecker.deviceIsAndroid() == true) WebView.platform = SurfaceAndroidWebView();
 
-          double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.8);
+          final double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.8);
 
           await BottomDialog.showBottomDialog(
             context: context,
@@ -80,8 +80,8 @@ class _WebViewTestScreenState extends State<WebViewTestScreen> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    // double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    // final double _screenHeight = Scale.superScreenHeight(context);
 
     return TestingLayout(
         screenTitle: 'web view test screen',

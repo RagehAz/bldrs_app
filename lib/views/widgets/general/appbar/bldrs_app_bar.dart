@@ -25,7 +25,7 @@ class BldrsAppBar extends StatelessWidget {
   final bool historyButtonIsOn;
   final Function onSearchChanged;
 
-  BldrsAppBar({
+  const BldrsAppBar({
     this.appBarType,
     this.onBack,
     this.pageTitle,
@@ -60,7 +60,7 @@ class BldrsAppBar extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _abWidth = width(context);
     final double _abHeight = height(context, appBarType);
-    final double _blurValue = Ratioz.blur1;
+    const double _blurValue = Ratioz.blur1;
     final bool _backButtonIsOn =
     appBarType == AppBarType.Basic ? true :
     appBarType == AppBarType.Scrollable ? true :
@@ -117,7 +117,7 @@ class BldrsAppBar extends StatelessWidget {
           margin: const EdgeInsets.all(Ratioz.appBarMargin),
           decoration: BoxDecoration(
             color: Colorz.Black230,
-            borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
+            borderRadius: const BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
             boxShadow: Shadowz.appBarShadow,
           ),
 
@@ -130,7 +130,7 @@ class BldrsAppBar extends StatelessWidget {
                 width: _abWidth,
                 height: _abHeight,
                 blur: _blurValue,
-                borders: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
+                borders: const BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
               ),
 
               /// APP BAR CONTENTS
@@ -149,7 +149,7 @@ class BldrsAppBar extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
 
-                        SizedBox(
+                        const SizedBox(
                           width: Ratioz.appBarPadding,
                         ),
 
@@ -184,7 +184,7 @@ class BldrsAppBar extends StatelessWidget {
 
                         /// Section Button
                         if (_sectionButtonIsOn == true)
-                          SectionsButton(),
+                          const SectionsButton(),
 
                         /// Page Title
                         if (pageTitle != null)
@@ -215,7 +215,7 @@ class BldrsAppBar extends StatelessWidget {
 
                         /// Zone button
                         if (_zoneButtonIsOn == true)
-                          ZoneButton(),
+                          const ZoneButton(),
 
                       ],
                     ),

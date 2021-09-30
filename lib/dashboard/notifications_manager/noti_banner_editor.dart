@@ -27,7 +27,7 @@ class NotiBannerEditor extends StatelessWidget {
       width: width,
       height: height,
       child: ClipRRect(
-        borderRadius: Borderers.superBorderAll(context, NotificationCard.bannerCorners()),
+        borderRadius: Borderers.superBorderAll(context, NotificationCard.bannerCorners),
         child: Stack(
           children: <Widget>[
 

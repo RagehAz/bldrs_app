@@ -12,7 +12,7 @@ class DashBoardLayout extends StatelessWidget {
   final bool loading;
   final Function onBldrsTap;
 
-  DashBoardLayout({
+  const DashBoardLayout({
     @required this.listWidgets,
     this.pageTitle,
     this.loading = false,
@@ -42,7 +42,7 @@ class DashBoardLayout extends StatelessWidget {
             onTap: onBldrsTap,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-              child: BldrsName(
+              child: const BldrsName(
                 size: 40,
               ),
             ),
@@ -70,7 +70,7 @@ class DashBoardLayout extends StatelessWidget {
 class FloatingLayout extends StatelessWidget {
   final Widget child;
 
-  FloatingLayout({
+  const FloatingLayout({
     @required this.child,
 });
 

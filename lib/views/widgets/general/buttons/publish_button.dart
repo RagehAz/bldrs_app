@@ -9,7 +9,7 @@ class PublishButton extends StatelessWidget {
   final bool loading;
   final Function onTap;
 
-  PublishButton({
+  const PublishButton({
     @required this.firstTimer,
     @required this.loading,
     this.onTap,

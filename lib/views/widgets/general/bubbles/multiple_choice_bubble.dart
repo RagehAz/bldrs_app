@@ -11,7 +11,7 @@ class MultipleChoiceBubble extends StatelessWidget {
   final String chosenButton;
   final List<bool> buttonsInActivityList;
 
-  MultipleChoiceBubble({
+  const MultipleChoiceBubble({
     @required this.title,
     @required this.buttonsList,
     @required this.tappingAButton,

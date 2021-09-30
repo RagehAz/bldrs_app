@@ -14,14 +14,14 @@ class SectionsButton extends StatelessWidget {
   final Function onTap;
   final Color color;
 
-  SectionsButton({
+  const SectionsButton({
     this.onTap,
     this.color = Colorz.White10,
 });
 // -----------------------------------------------------------------------------
   void _changeSection(BuildContext context, FlyersProvider pro) async {
 
-  double _dialogHeight = Scale.superScreenHeight(context) * 0.95;
+  final double _dialogHeight = Scale.superScreenHeight(context) * 0.95;
 
   await SectionDialog.slideDialog(
     context: context,

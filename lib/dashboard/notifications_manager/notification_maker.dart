@@ -525,9 +525,9 @@ class _NotificationMakerState extends State<NotificationMaker> {
   Widget build(BuildContext context) {
 
     // double _screenHeight = Scale.superScreenHeight(context);
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
 
-    double _bodyWidth = NotificationCard.bodyWidth(context);
+    final double _bodyWidth = NotificationCard.bodyWidth(context);
 
     return DashBoardLayout(
       loading: _loading,
@@ -570,7 +570,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                   ),
 
                   /// SPACER
-                  SizedBox(
+                  const SizedBox(
                     width: Ratioz.appBarMargin,
                     height: Ratioz.appBarMargin,
                   ),
@@ -601,7 +601,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                         ),
 
                         /// SPACER
-                        SizedBox(
+                        const SizedBox(
                           width: Ratioz.appBarMargin,
                           height: Ratioz.appBarMargin,
                         ),
@@ -621,7 +621,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                         ),
 
                         /// SPACER
-                        SizedBox(
+                        const SizedBox(
                           width: Ratioz.appBarPadding,
                           height: Ratioz.appBarPadding,
                         ),

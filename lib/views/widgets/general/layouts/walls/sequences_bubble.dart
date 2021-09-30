@@ -18,48 +18,46 @@ class SequencesBubble extends StatelessWidget {
   final int numberOfColumns;
   final Function onTap;
 
-  SequencesBubble({
+  const SequencesBubble({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
     this.onTap,
   });
 
+  int _numOfGridRows(int buttonsCount){
+    final int _numOfGridRows = (buttonsCount/numberOfColumns).ceil();
+    // int _numOfGridRows = buttonsCount
+    return _numOfGridRows;
+  }
 
   @override
   Widget build(BuildContext context) {
 
     final _prof = Provider.of<FlyersProvider>(context, listen: true);
-    Section _currentSection = _prof.getCurrentSection;
-    List<Sequence> _sequences = Sequence.getActiveSequencesBySection(context: context,section: _currentSection);
+    final Section _currentSection = _prof.getCurrentSection;
+    final List<Sequence> _sequences = Sequence.getActiveSequencesBySection(context: context,section: _currentSection);
 
     const List<Color> _boxesColors = <Color>[Colorz.White30, Colorz.White20, Colorz.White10];
 
-    int _gridColumnsCount = numberOfColumns;
     const double _spacingRatioToGridWidth = 0.1;
-    double _buttonWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
-    double _buttonHeight = _buttonWidth * 1.65;
-    double _gridSpacing = _buttonWidth * _spacingRatioToGridWidth;
-    int _buttonsCount = _sequences == <int>[] || _sequences.length == 0 ? _boxesColors.length : _sequences.length;
+    final double _buttonWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
+    final double _buttonHeight = _buttonWidth * 1.65;
+    final double _gridSpacing = _buttonWidth * _spacingRatioToGridWidth;
+    final int _buttonsCount = _sequences == <int>[] || _sequences.length == 0 ? _boxesColors.length : _sequences.length;
 
-    int _numOfGridRows(int buttonsCount){
-      int _numOfGridRows = (buttonsCount/_gridColumnsCount).ceil();
-      // int _numOfGridRows = buttonsCount
-      return _numOfGridRows;
-    }
 
-    int _numOfRows = _numOfGridRows(_buttonsCount);
+    final int _numOfRows = _numOfGridRows(_buttonsCount);
 
-    double _gridHeight = _buttonHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
+    final double _gridHeight = _buttonHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
 
-    SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
+    final SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
     crossAxisSpacing: _gridSpacing,
     mainAxisSpacing: _gridSpacing,
     childAspectRatio: _buttonWidth / _buttonHeight,
     maxCrossAxisExtent: _buttonWidth,//gridFlyerWidth,
     );
 
-    double _zoneCorners = (_buttonWidth * Ratioz.bzLogoCorner) + _gridSpacing;
-
+    final double _zoneCorners = (_buttonWidth * Ratioz.bzLogoCorner) + _gridSpacing;
 
     return Bubble(
       bubbleColor: Colorz.White10,
@@ -68,7 +66,7 @@ class SequencesBubble extends StatelessWidget {
         /// --- Title
         Padding(
           padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding, left: Ratioz.appBarMargin, right: Ratioz.appBarMargin),
-          child: SuperVerse(
+          child: const SuperVerse(
             verse: 'Section Sequences',
             centered: false,
             maxLines: 2,
@@ -96,7 +94,7 @@ class SequencesBubble extends StatelessWidget {
                     children: _sequences.map(
                           (sequence) {
 
-                            String _groupName = Sequence.getSequenceNameBySequenceAndSection(
+                            final String _groupName = Sequence.getSequenceNameBySequenceAndSection(
                               context: context,
                               section: _currentSection,
                               sequence: sequence,

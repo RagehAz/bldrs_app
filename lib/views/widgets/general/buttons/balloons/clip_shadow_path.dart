@@ -33,8 +33,8 @@ class _ClipShadowPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    var paint = shadow.toPaint();
-    var clipPath = clipper.getClip(size).shift(shadow.offset);
+    final dynamic paint = shadow.toPaint();
+    final dynamic clipPath = clipper.getClip(size).shift(shadow.offset);
     canvas.drawPath(clipPath, paint);
   }
 

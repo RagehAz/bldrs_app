@@ -99,7 +99,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
 
     // bool _infoExceededMaxLines = superFlyer.i
 
-    TextStyle _paragraphTextStyle = SuperVerse.createStyle(
+    final TextStyle _paragraphTextStyle = SuperVerse.createStyle(
       context: context,
       color: Colorz.White255,
       weight: VerseWeight.thin,
@@ -154,7 +154,6 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
                 ),
               ),
             )
-
 
         ]
     );

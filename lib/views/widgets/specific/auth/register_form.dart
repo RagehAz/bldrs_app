@@ -176,7 +176,7 @@ class _RegisterFormState extends State<RegisterForm> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
 

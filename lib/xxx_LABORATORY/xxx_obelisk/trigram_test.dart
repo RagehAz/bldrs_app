@@ -40,7 +40,7 @@ class _TrigramTestState extends State<TrigramTest> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
 
     return TestingLayout(
         screenTitle: 'Trigram Test',

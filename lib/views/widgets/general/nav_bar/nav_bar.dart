@@ -76,72 +76,72 @@ class NavBar extends StatelessWidget {
     final double _bzzButtonsZoneHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _sliderHeight, titleIsOn: true, draggable: true);
 
     await BottomDialog.showBottomDialog(
-            context: context,
-            draggable: true,
-            height: _sliderHeight,
-            title: 'My Business accounts',
-            child: Container(
-              // height: 100,
-              child: NotificationListener(
-                onNotification: (ScrollUpdateNotification details){
+      context: context,
+      draggable: true,
+      height: _sliderHeight,
+      title: 'My Business accounts',
+      child: Container(
+        // height: 100,
+        child: NotificationListener(
+          onNotification: (ScrollUpdateNotification details){
 
-                  bool _canPageUp = Scrollers.canSlide(
-                    details: details,
-                    boxDistance: _bzzButtonsZoneHeight,
-                    goesBackOnly: true,
-                    axis: Axis.vertical,
-                  );
+            final bool _canPageUp = Scrollers.canSlide(
+              details: details,
+              boxDistance: _bzzButtonsZoneHeight,
+              goesBackOnly: true,
+              axis: Axis.vertical,
+            );
 
-                  if(_canPageUp){
-                    Nav.goBackToHomeScreen(context);
-                  }
+            if(_canPageUp){
+              Nav.goBackToHomeScreen(context);
+            }
 
-                  return true;
-                },
-                child: Container(
-                  height: _bzzButtonsZoneHeight,
-                  child: Scroller(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.all(_paddings),
-                      physics: const BouncingScrollPhysics(),
-                      // controller: _myBzzListController,
-                      itemCount: myTinyBzz.length,
-                      itemBuilder: (context, index){
-                        TinyBz _tinyBz = myTinyBzz[index];
-                        return Align(
-                          alignment: Aligners.superCenterAlignment(context),
-                          child: DreamBox(
-                            height: 60,
-                            width: _bzButtonWidth,
-                            margins: const EdgeInsets.all(Ratioz.appBarPadding),
-                            icon: _tinyBz.bzLogo,
-                            verse: _tinyBz.bzName,
-                            secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
-                            iconSizeFactor: 1,
-                            verseScaleFactor: 0.7,
-                            bubble: true,
-                            color: Colorz.Nothing,
-                            verseCentered: false,
-                            onTap: () async {
-                              print('${_tinyBz.bzID}');
+            return true;
+            },
+          child: Container(
+            height: _bzzButtonsZoneHeight,
+            child: Scroller(
+              child: ListView.builder(
+                padding: const EdgeInsets.all(_paddings),
+                physics: const BouncingScrollPhysics(),
+                // controller: _myBzzListController,
+                itemCount: myTinyBzz.length,
+                itemBuilder: (context, index){
 
-                              Nav.goToNewScreen(context,
-                                  MyBzScreen(
-                                    userModel: userModel,
-                                    tinyBz: _tinyBz,
-                                  ));
+                  final TinyBz _tinyBz = myTinyBzz[index];
 
-                            },
-                          ),
-                        );
-                      },
+                  return Align(
+                    alignment: Aligners.superCenterAlignment(context),
+                    child: DreamBox(
+                      height: 60,
+                      width: _bzButtonWidth,
+                      margins: const EdgeInsets.all(Ratioz.appBarPadding),
+                      icon: _tinyBz.bzLogo,
+                      verse: _tinyBz.bzName,
+                      secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
+                      iconSizeFactor: 1,
+                      verseScaleFactor: 0.7,
+                      bubble: true,
+                      color: Colorz.Nothing,
+                      verseCentered: false,
+                      onTap: () async {
+                        print('${_tinyBz.bzID}');
+                        Nav.goToNewScreen(context,
+                            MyBzScreen(
+                              userModel: userModel,
+                              tinyBz: _tinyBz,
+                            ));
+                        },
                     ),
-                  ),
-                ),
+                  );
+                  },
               ),
             ),
-          );
-        }
+          ),
+        ),
+      ),
+    );
+  }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -223,7 +223,7 @@ class NavBar extends StatelessWidget {
                                borders: _boxCorners,
                              ),
 
-                             // --- BUTTONS
+                             /// BUTTONS
                              Row(
                                mainAxisAlignment: MainAxisAlignment.center,
                                crossAxisAlignment: CrossAxisAlignment.center,
@@ -231,7 +231,7 @@ class NavBar extends StatelessWidget {
 
                                  _halfSpacer,
 
-                                 /// --- SAVED FLYERS
+                                 /// SAVED FLYERS
                                  BarButton(
                                    width: _buttonWidth,
                                    text: 'Choices',
@@ -244,7 +244,7 @@ class NavBar extends StatelessWidget {
 
                                  _spacer,
 
-                                 /// --- MORE
+                                 /// MORE
                                  BarButton(
                                    width: _buttonWidth,
                                    text: Wordz.more(context),
@@ -259,7 +259,7 @@ class NavBar extends StatelessWidget {
 
                                  _spacer,
 
-                                 /// --- BZZ BUTTON
+                                 /// BZZ BUTTON
                                   if (UserModel.userIsAuthor(userModel))
                                  BzzButton(
                                    width: _buttonWidth,
@@ -284,7 +284,7 @@ class NavBar extends StatelessWidget {
 
                                  _spacer,
 
-                                 /// ---  NEWS
+                                 /// NEWS
                                  BarButton(
                                    width: _buttonWidth,
                                    text: Wordz.news(context),
@@ -298,7 +298,7 @@ class NavBar extends StatelessWidget {
 
                                  _spacer,
 
-                                 /// --- PROFILE
+                                 /// PROFILE
                                  BarButton(
                                      width: _buttonWidth,
                                      text: Wordz.profile(context),

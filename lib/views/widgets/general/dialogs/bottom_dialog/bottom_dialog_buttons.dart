@@ -24,7 +24,7 @@ class BottomDialogButtons extends StatelessWidget {
   final CountryProvider provider;
   final BottomSheetType sheetType;
 
-  BottomDialogButtons({
+  const BottomDialogButtons({
     @required this.listOfMaps,
     this.mapValueIs = MapValueIs.String,
     @required this.alignment,
@@ -38,12 +38,12 @@ class BottomDialogButtons extends StatelessWidget {
 
     // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
 
-    double _abPadding =  Ratioz.appBarPadding;
-    double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+    const double _abPadding =  Ratioz.appBarPadding;
+    final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
     /// standard is Ratioz.ddAppBarHeight;
-    double _abHeight = Scale.superScreenHeight(context) - Ratioz.pyramidsHeight;
-    double _listHeight = _abHeight - Ratioz.appBarSmallHeight - (_abPadding) - 55 - 55; // each 55 is for confirm button & title, 50 +5 margin
-    double _listCorner = Ratioz.appBarCorner - _abPadding;
+    final double _abHeight = Scale.superScreenHeight(context) - Ratioz.pyramidsHeight;
+    final double _listHeight = _abHeight - Ratioz.appBarSmallHeight - (_abPadding) - 55 - 55; // each 55 is for confirm button & title, 50 +5 margin
+    const double _listCorner = Ratioz.appBarCorner - _abPadding;
 
     // double _languageButtonHeight = Ratioz.ddAppBarHeight - (_abPadding *2);
     // double _countryNameButtonWidth = _dialogClearWidth - _abPadding*3 - 35;
@@ -51,18 +51,18 @@ class BottomDialogButtons extends StatelessWidget {
     return Container(
       height: _listHeight - 256,
       width: _dialogClearWidth,
-      margin: EdgeInsets.only(top: _abPadding),
+      margin: const EdgeInsets.only(top: _abPadding),
       decoration: BoxDecoration(
         color: Colorz.White10,
         borderRadius: Borderers.superBorderAll(context, _listCorner),
       ),
       child: ListView.builder(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         itemCount: listOfMaps.length,
         itemBuilder: (context, index){
 
-          String id = listOfMaps[index]['id'];
-          String value = listOfMaps[index]['value'];
+          final String id = listOfMaps[index]['id'];
+          final String value = listOfMaps[index]['value'];
 
           return
             ChangeNotifierProvider.value(

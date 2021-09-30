@@ -15,7 +15,7 @@ class BldrsWelcomeBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _welcomeBannerHeight = Imagers.concludeHeightByGraphicSizes(
+    final double _welcomeBannerHeight = Imagers.concludeHeightByGraphicSizes(
       width: width,
       graphicWidth: 22,
       graphicHeight: 18,

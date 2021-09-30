@@ -55,7 +55,7 @@ class _FlyerStackListState extends State<FlyerStackList> {
     double _flyerBoxWidth = FlyerBox.width(context, widget.flyerSizeFactor);
 
     return ListView.separated(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       itemCount: _tinyFlyers.length,
       controller: _controller,
       scrollDirection: Axis.horizontal,
@@ -70,7 +70,7 @@ class _FlyerStackListState extends State<FlyerStackList> {
 
       // cacheExtent: screenHeight*5,
       // dragStartBehavior: DragStartBehavior.start,
-      separatorBuilder: (context, _y) => SizedBox(height: 1,width: Ratioz.appBarMargin,),
+      separatorBuilder: (context, _y) => const SizedBox(height: 1,width: Ratioz.appBarMargin,),
       // key: const PageStorageKey<String>('flyers'),
       // cacheExtent: screenHeight*5,
       itemBuilder: (context,_x) {

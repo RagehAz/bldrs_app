@@ -9,7 +9,7 @@ class ChatBubble extends StatelessWidget {
   final bool isMyVerse;
   final String userID;
 
-  ChatBubble({
+  const ChatBubble({
     @required this.verse,
     @required this.isMyVerse,
     @required this.userID,
@@ -19,10 +19,10 @@ class ChatBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // double _bubbleWidth = Scale.superScreenWidth(context);
-    double _corner = Ratioz.appBarCorner;
+    final double _corner = Ratioz.appBarCorner;
     // BorderRadius _bubbleBorderss = Borderers.superBorderAll(context, _corner);
 
-    BorderRadius _bubbleBorders = isMyVerse ?
+    final BorderRadius _bubbleBorders = isMyVerse ?
     Borderers.superBorderOnly(context: context, enTopLeft: _corner, enBottomLeft: _corner, enBottomRight: 0, enTopRight: _corner)
         :
     Borderers.superBorderOnly(context: context, enTopLeft: 0, enBottomLeft: _corner, enBottomRight: _corner, enTopRight: _corner) ;
