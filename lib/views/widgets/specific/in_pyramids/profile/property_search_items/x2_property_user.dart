@@ -8,25 +8,25 @@ class PropertyUse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
+    final double screenWidth = MediaQuery.of(context).size.width;
 
 
-    bool designMode = true;
+    const bool designMode = true;
 
     // - ROW OF BUTTONS
-    double buttonSpacing = Ratioz.appBarMargin*2;
-    double buttonsZoneWidth = (screenWidth - (Ratioz.appBarMargin * 12));
+    const double buttonSpacing = Ratioz.appBarMargin*2;
+    final double buttonsZoneWidth = (screenWidth - (Ratioz.appBarMargin * 12));
 
-    int numberOfButtons = 2;
-    double rowButtonWidth = (buttonsZoneWidth - (numberOfButtons * buttonSpacing) - buttonSpacing) / numberOfButtons;
-    double rowButtonHeight = 40;
+    const int numberOfButtons = 2;
+    final double rowButtonWidth = (buttonsZoneWidth - (numberOfButtons * buttonSpacing) - buttonSpacing) / numberOfButtons;
+    const double rowButtonHeight = 40;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
 
-        SuperVerse(
+        const SuperVerse(
           verse: 'Property Use',
           margin: Ratioz.appBarMargin * 2,
           centered: false,

@@ -61,59 +61,59 @@ class Strips extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double boxHeight(double flyerBoxWidth){
-    double _boxHeight = flyerBoxWidth * Ratioz.xxProgressBarHeightRatio;
+    final double _boxHeight = flyerBoxWidth * Ratioz.xxProgressBarHeightRatio;
     return _boxHeight;
   }
 // -----------------------------------------------------------------------------
   static EdgeInsets boxMargins({EdgeInsets margins, double flyerBoxWidth}){
-    EdgeInsets _boxMargins = margins == null ? EdgeInsets.only(top: flyerBoxWidth * 0.27) : margins;
+    final EdgeInsets _boxMargins = margins == null ? EdgeInsets.only(top: flyerBoxWidth * 0.27) : margins;
     return _boxMargins;
   }
 // -----------------------------------------------------------------------------
   static double stripsTotalLength(double flyerBoxWidth){
-    double _stripsTotalLength = flyerBoxWidth * 0.895;
+    final double _stripsTotalLength = flyerBoxWidth * 0.895;
     return _stripsTotalLength;
   }
 // -----------------------------------------------------------------------------
   static double stripThickness(double flyerBoxWidth){
-    double _thickness = flyerBoxWidth * 0.007;
+    final double _thickness = flyerBoxWidth * 0.007;
     return _thickness;
   }
 // -----------------------------------------------------------------------------
   static double stripCornerValue(double flyerBoxWidth){
-    double _thickness = stripThickness(flyerBoxWidth);
-    double _stripCorner = _thickness * 0.5;
+    final double _thickness = stripThickness(flyerBoxWidth);
+    final double _stripCorner = _thickness * 0.5;
     return _stripCorner;
   }
 // -----------------------------------------------------------------------------
   static BorderRadius stripBorders({BuildContext context, double flyerBoxWidth}){
-    double _stripCorner = stripCornerValue(flyerBoxWidth);
-    BorderRadius _borders = Borderers.superBorderAll(context, _stripCorner);
+    final double _stripCorner = stripCornerValue(flyerBoxWidth);
+    final BorderRadius _borders = Borderers.superBorderAll(context, _stripCorner);
     return _borders;
   }
 // -----------------------------------------------------------------------------
   static double stripsOneSideMargin(double flyerBoxWidth){
-    double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
-    double _allStripsOneSideMargin = (flyerBoxWidth - _stripsTotalLength) / 2;
+    final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
+    final double _allStripsOneSideMargin = (flyerBoxWidth - _stripsTotalLength) / 2;
     return _allStripsOneSideMargin;
   }
 // -----------------------------------------------------------------------------
   static double oneStripLength({double flyerBoxWidth, int numberOfStrips}){
-    double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
-    int _numberOfStrips = numberOfStrips == null ? 0 : numberOfStrips;
-    double _oneStripLength = (_stripsTotalLength / _numberOfStrips);
+    final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
+    final int _numberOfStrips = numberOfStrips == null ? 0 : numberOfStrips;
+    final double _oneStripLength = (_stripsTotalLength / _numberOfStrips);
     return _oneStripLength;
   }
 // -----------------------------------------------------------------------------
-  static Color stripOffColor = Colorz.White10;
-  static Color stripFadedColor = Colorz.White80;
-  static Color stripOnColor = Colorz.White200;
-  static Color stripLoadingColor = Colorz.Yellow200;
+  static const Color stripOffColor = Colorz.White10;
+  static const Color stripFadedColor = Colorz.White80;
+  static const Color stripOnColor = Colorz.White200;
+  static const Color stripLoadingColor = Colorz.Yellow200;
 
   static Color stripColor({bool isWhite, int numberOfSlides,}){
-    int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
+    final int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
 
-    Color _stripColor =
+    final Color _stripColor =
     !isWhite ? stripFadedColor :
     _numberOfSlides == 0 ? stripOffColor :
     stripOnColor;
@@ -147,11 +147,11 @@ class Strips extends StatelessWidget {
     // double _boxHeight = boxHeight(flyerBoxWidth);
 // -----------------------------------------------------------------------------
 //     EdgeInsets _boxMargins = boxMargins(margins: margins, flyerBoxWidth: flyerBoxWidth);
-    double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
+    final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
     // double _allStripsOneSideMargin = stripsOneSideMargin(flyerBoxWidth);
-    double _aStripLength = oneStripLength(flyerBoxWidth: flyerBoxWidth, numberOfStrips: numberOfStrips);
+    final double _aStripLength = oneStripLength(flyerBoxWidth: flyerBoxWidth, numberOfStrips: numberOfStrips);
 // -----------------------------------------------------------------------------
-    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
     Tween _tween(){
       Tween _tween;
@@ -295,7 +295,7 @@ class Strips extends StatelessWidget {
               key: ValueKey(slideIndex),
               builder: (BuildContext context,double tweenVal, Widget child){
 
-                double _tweenVal = swipeDirection == SwipeDirection.freeze ? _aStripLength : tweenVal;
+                final double _tweenVal = swipeDirection == SwipeDirection.freeze ? _aStripLength : tweenVal;
 
                 return
                   Container(

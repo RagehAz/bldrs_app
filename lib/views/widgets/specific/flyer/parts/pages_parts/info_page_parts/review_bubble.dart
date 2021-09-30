@@ -90,7 +90,7 @@ class _ReviewBubbleState extends State<ReviewBubble> {
 // -----------------------------------------------------------------------------
   Future<void> _reloadReviews() async {
     /// TASK : THIS IS SUPER EXPENSIVE
-    List<ReviewModel> reviews = await FlyerOps.readAllReviews(
+    final List<ReviewModel> reviews = await FlyerOps.readAllReviews(
       context: context,
       flyerID: widget.superFlyer.flyerID,
     );
@@ -103,14 +103,14 @@ class _ReviewBubbleState extends State<ReviewBubble> {
   @override
   Widget build(BuildContext context) {
 
-    double _bubbleWidth = widget.flyerBoxWidth - (Ratioz.appBarPadding * 2);
-    EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
+    final double _bubbleWidth = widget.flyerBoxWidth - (Ratioz.appBarPadding * 2);
+    const EdgeInsets _bubbleMargins = const EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
     // double _peopleBubbleBoxHeight = widget.flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
 
-    double _cornerSmall = widget.flyerBoxWidth * Ratioz.xxflyerTopCorners;
-    double _cornerBig = (widget.flyerBoxWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
+    final double _cornerSmall = widget.flyerBoxWidth * Ratioz.xxflyerTopCorners;
+    final double _cornerBig = (widget.flyerBoxWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
 
-    BorderRadius _bubbleCorners = Borderers.superBorderOnly(
+    final BorderRadius _bubbleCorners = Borderers.superBorderOnly(
       context: context,
       enTopLeft: _cornerSmall,
       enTopRight: _cornerSmall,
@@ -118,7 +118,7 @@ class _ReviewBubbleState extends State<ReviewBubble> {
       enBottomRight: _cornerBig,
     );
 
-    double _cardCorners = _cornerSmall - Ratioz.appBarMargin;
+    final double _cardCorners = _cornerSmall - Ratioz.appBarMargin;
 
     return Bubble(
       key: widget.key,
@@ -177,7 +177,7 @@ class ReviewsStreamBubbles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    int _length = reviews?.length ?? 0;
+    final int _length = reviews?.length ?? 0;
 
     return Container(
       width: bubbleWidth,

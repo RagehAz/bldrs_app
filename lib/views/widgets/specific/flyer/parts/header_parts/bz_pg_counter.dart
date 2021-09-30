@@ -13,7 +13,7 @@ class BzPgCounter extends StatelessWidget {
   final String icon;
   final double iconSizeFactor;
 
-  BzPgCounter({
+  const BzPgCounter({
     @required this.flyerBoxWidth,
     this.bzPageIsOn = true,
     @required this.count,
@@ -27,13 +27,13 @@ class BzPgCounter extends StatelessWidget {
 
 
     const Color bzPageBGColor = Colorz.Black80;
-    double bzPageDividers = flyerBoxWidth * Ratioz.xxbzPageSpacing;
+    final double bzPageDividers = flyerBoxWidth * Ratioz.xxbzPageSpacing;
 
-    double iconBoxHeight = flyerBoxWidth * 0.08;
-    double iconHeight = iconBoxHeight * iconSizeFactor;
-    double bzPageStripSideMargin = flyerBoxWidth * 0.05;
+    final double iconBoxHeight = flyerBoxWidth * 0.08;
+    final double iconHeight = iconBoxHeight * iconSizeFactor;
+    final double bzPageStripSideMargin = flyerBoxWidth * 0.05;
 
-    double iconMargin = iconBoxHeight - iconHeight;
+    final double iconMargin = iconBoxHeight - iconHeight;
 
     return
       bzPageIsOn == false ? Container() :
@@ -50,7 +50,7 @@ class BzPgCounter extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
 
-                // ---  ICON
+                ///  ICON
                 Container(
                   width: iconBoxHeight,
                   height: iconBoxHeight,
@@ -69,7 +69,7 @@ class BzPgCounter extends StatelessWidget {
                   margin: bzPageStripSideMargin * 0.1,
                 ),
 
-                // --- VERSE
+                /// VERSE
                 SuperVerse(
                   verse: verse,
                   color: Colorz.White200,

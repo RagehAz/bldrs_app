@@ -8,7 +8,7 @@ class SlideHeadline extends StatelessWidget {
   final int verseSize;
   final Function tappingVerse;
 
-  SlideHeadline({
+  const SlideHeadline({
     @required this.flyerBoxWidth,
     @required this.verse,
     @required this.verseSize,
@@ -21,9 +21,9 @@ class SlideHeadline extends StatelessWidget {
 
     // print('slide title verse is : $verse');
 
-    double _headlineTopMargin = flyerBoxWidth * 0.3;
+    final double _headlineTopMargin = flyerBoxWidth * 0.3;
 
-    // --- FLYER TITLE
+    /// FLYER TITLE
     return GestureDetector(
       onTap: tappingVerse,
       child: Container(

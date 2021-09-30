@@ -29,14 +29,13 @@ class SavedFlyersGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    int _numberOfColumns = GalleryGrid.gridColumnCount(tinyFlyers.length);
-    double _spacing = SliverFlyersGrid.spacing;
+    final int _numberOfColumns = GalleryGrid.gridColumnCount(tinyFlyers.length);
+    const double _spacing = SliverFlyersGrid.spacing;
 
-    double _flyerBoxWidth = SliverFlyersGrid.calculateFlyerBoxWidth(
+    final double _flyerBoxWidth = SliverFlyersGrid.calculateFlyerBoxWidth(
       flyersLength: tinyFlyers.length,
       context: context,
     );
-
 
     return
       tinyFlyers.length == 0 ? Container() :
@@ -54,7 +53,7 @@ class SavedFlyersGrid extends StatelessWidget {
           ),
           itemBuilder: (ctx, index){
 
-            bool _isSelected = TinyFlyer.tinyFlyersContainThisID(
+            final bool _isSelected = TinyFlyer.tinyFlyersContainThisID(
               tinyFlyers: selectedTinyFlyers,
               flyerID: tinyFlyers[index].flyerID,
             );

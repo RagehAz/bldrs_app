@@ -9,7 +9,7 @@ class MiniHeader extends StatelessWidget {
   final SuperFlyer superFlyer;
   final double flyerBoxWidth;
 
-  MiniHeader({
+  const MiniHeader({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
 
@@ -23,7 +23,7 @@ class MiniHeader extends StatelessWidget {
     // String businessLocale = TextGenerator.zoneStringer(context: context, zone: tinyBz?.bzZone,);
 // -----------------------------------------------------------------------------
 
-  bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 
     return
       GestureDetector(
@@ -34,19 +34,19 @@ class MiniHeader extends StatelessWidget {
           child: Stack(
             children: <Widget>[
 
-              // --- HEADER SHADOW
+              /// HEADER SHADOW
               HeaderShadow(
                 flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: superFlyer.nav.bzPageIsOn,
               ),
 
-              // --- HEADER COMPONENTS
+              /// HEADER COMPONENTS
               MiniHeaderStrip(
                 superFlyer: superFlyer,
                 flyerBoxWidth: flyerBoxWidth,
               ),
 
-              // --- HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
+              /// HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
               BzPageHeadline(
                 flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: superFlyer.nav.bzPageIsOn,

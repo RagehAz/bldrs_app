@@ -14,7 +14,7 @@ class SlideCounters extends StatelessWidget {
   final int saves;
   final Function onCountersTap;
 
-  SlideCounters({
+  const SlideCounters({
     @required this.flyerBoxWidth,
     this.shares = 0,
     this.views = 0,
@@ -26,17 +26,16 @@ class SlideCounters extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
 
-    // --- SCREEN
+    /// --- SCREEN
     // double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-    double verseScaleFactor = flyerBoxWidth/screenWidth;
-    // --- SHARE & SAVE BUTTONS
-    double footerBTMargins = flyerBoxWidth * Ratioz.xxfooterBTMargins;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double verseScaleFactor = flyerBoxWidth/screenWidth;
+    /// --- SHARE & SAVE BUTTONS
+    final double footerBTMargins = flyerBoxWidth * Ratioz.xxfooterBTMargins;
 
-    // --- FLYER STATES
-    double flyerStateBoxCorner = flyerBoxWidth * 0.021;
-
-    double singleCounterPaddingRatio = 0.5;
+    /// --- FLYER STATES
+    final double flyerStateBoxCorner = flyerBoxWidth * 0.021;
+    final double singleCounterPaddingRatio = 0.5;
 
     return Positioned(
       bottom: 0,
@@ -49,7 +48,7 @@ class SlideCounters extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
-              // --- COUNTERS
+              /// COUNTERS
               Container(
                 alignment: Alignment.bottomCenter,
                 padding: EdgeInsets.all(footerBTMargins * 0.15),
@@ -63,23 +62,25 @@ class SlideCounters extends StatelessWidget {
                           color: Colorz.Black50,
                           offset: new Offset(0, 0),
                           blurRadius: footerBTMargins * 0.7,
-                          blurStyle: BlurStyle.outer),
+                          blurStyle: BlurStyle.outer
+                      ),
                       CustomBoxShadow(
                           color: Colorz.White20,
                           offset: new Offset(0, 0),
                           blurRadius: footerBTMargins * 0.7,
-                          blurStyle: BlurStyle.outer),
+                          blurStyle: BlurStyle.outer
+                      ),
 
                     ]
                 ),
                 child: Container(
 
-                  // --- GRADIENT
+                  /// GRADIENT
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(flyerStateBoxCorner),
                     ),
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: <Color>[Colorz.Nothing, Colorz.Black50],
@@ -92,7 +93,7 @@ class SlideCounters extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
 
-                          // --- NUMBER OF SHARES
+                          /// NUMBER OF SHARES
                           Padding(
                             padding: EdgeInsets.only(
                               right: footerBTMargins * singleCounterPaddingRatio,
@@ -123,7 +124,7 @@ class SlideCounters extends StatelessWidget {
                             ),
                           ),
 
-                          // --- NUMBER OF VIEWS
+                          /// NUMBER OF VIEWS
                           Padding(
                             padding: EdgeInsets.only(
                               right: footerBTMargins * singleCounterPaddingRatio * 1.2,
@@ -153,7 +154,7 @@ class SlideCounters extends StatelessWidget {
                             ),
                           ),
 
-                          // --- NUMBER OF SAVES
+                          /// NUMBER OF SAVES
                           Padding(
                             padding: EdgeInsets.only(
                               right: footerBTMargins * singleCounterPaddingRatio,

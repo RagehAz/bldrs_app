@@ -37,7 +37,7 @@ class SingleSlide extends StatelessWidget {
   final Function onTap;
   final SuperFlyer superFlyer;
 
-  SingleSlide({
+  const SingleSlide({
 
     @required this.flyerBoxWidth,
     @required this.superFlyer,
@@ -83,7 +83,7 @@ class SingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
   Future<void> _onImageDoubleTap(BuildContext context) async {
 
-    bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
+    final bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
 
     if (_keyboardIsOn){
       Keyboarders.closeKeyboard(context);
@@ -124,17 +124,17 @@ class SingleSlide extends StatelessWidget {
     //   imageSize: imageSize,
     // );
 // -----------------------------------------------------------------------------
-    String _titleVerse = headline != null ? headline :
+    final String _titleVerse = headline != null ? headline :
         titleController != null ? titleController.text : null;
 // -----------------------------------------------------------------------------
-    dynamic _slidePic =
+    final dynamic _slidePic =
     picture == null || ObjectChecker.objectIsURL(picture) == true || ObjectChecker.objectIsFile(picture) == true ?
     null
         :
     Imagers.superImage(picture, boxFit);
 // -----------------------------------------------------------------------------
 
-    double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
+    final double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
 
     return GestureDetector(
       onTap: () => _onBehindSlideImageTap(context, _tinyMode), // listening to taps from inside the zoomable pic widget

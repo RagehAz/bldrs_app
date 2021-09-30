@@ -58,10 +58,10 @@ class QuestionOps {
     if (question.pics != null && question.pics.length !=0){
 
       /// A2 - create pics names
-      List<String> _picsNames = [];
+      List<String> _picsNames = <String>[];
       for (int i = 0; i < question.pics.length; i++){
-        File _file = question.pics[i];
-        String _name = TextMod.trimTextBeforeLastSpecialCharacter(_file.path, '.');
+        final File _file = question.pics[i];
+        final String _name = TextMod.trimTextBeforeLastSpecialCharacter(_file.path, '.');
         _picsNames.add(_name);
       }
 
@@ -78,7 +78,7 @@ class QuestionOps {
     _question = QuestionModel.updatePicsWithURLs(question: question, picsURLS: _picsURLs);
 
     /// C - create question doc with _question on firebase
-    DocumentReference _questionDocRef = await Fire.createDoc(
+    final DocumentReference _questionDocRef = await Fire.createDoc(
       context: context,
       collName: FireCollection.questions,
       input: _question.toMap(),
@@ -87,8 +87,7 @@ class QuestionOps {
     print('createQuestionOps : _questionDocRef : $_questionDocRef');
 
     /// D - update user questionsIDs list adding this new questionID
-
-    List<String> _updatedQuestionsIDs = [];
+    final List<String> _updatedQuestionsIDs = <String> []; //TASK :QUESTION OPS WTF WHY IS THIS EMPTY
 
     // String _questionID = _questionDocRef.id;
     await Fire.updateDocField(
@@ -103,13 +102,13 @@ class QuestionOps {
   }
 // -----------------------------------------------------------------------------
   static Future<QuestionModel> readQuestionOps({BuildContext context, String questionID}) async {
-    dynamic _questionMap = await Fire.readDoc(
+    final dynamic _questionMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.questions,
       docName: questionID,
     );
 
-    QuestionModel _question = QuestionModel.decipherQuestion(_questionMap);
+    final QuestionModel _question = QuestionModel.decipherQuestion(_questionMap);
 
     return _question;
 
@@ -118,7 +117,7 @@ class QuestionOps {
   static Future<QuestionModel> updateQuestionOps({BuildContext context, QuestionModel originalQuestion, QuestionModel updatedQuestion}) async {
     QuestionModel _question;
 
-    bool _questionIsUpdated = QuestionModel.questionIsUpdated(
+    final bool _questionIsUpdated = QuestionModel.questionIsUpdated(
       originalQuestion: originalQuestion,
       updateQuestion: updatedQuestion,
     );

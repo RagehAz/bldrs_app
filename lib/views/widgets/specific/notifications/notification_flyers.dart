@@ -35,8 +35,8 @@ class NotificationFlyers extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 5),
           itemBuilder: (ctx, index){
 
-            String _flyerID = flyers[0].runtimeType == String ? flyers[index] : null;
-            TinyFlyer _tinyFlyer = flyers[0].runtimeType == TinyFlyer ? flyers[index] : null;
+            final String _flyerID = flyers[0].runtimeType == String ? flyers[index] : null;
+            final TinyFlyer _tinyFlyer = flyers[0].runtimeType == TinyFlyer ? flyers[index] : null;
 
             return
               GestureDetector(

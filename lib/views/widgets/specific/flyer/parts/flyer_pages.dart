@@ -19,7 +19,7 @@ class FlyerPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 
     Tracer.traceWidgetBuild(widgetName: 'FlyerPages', varName: '_tinyMode', varValue: _tinyMode, tracerIsOn: false);
     return MaxBounceNavigator(

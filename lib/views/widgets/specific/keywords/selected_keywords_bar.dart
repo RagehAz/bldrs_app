@@ -31,18 +31,18 @@ class SelectedKeywordsBar extends StatelessWidget {
 
     const double _selectedKeywordsZoneHeight = 80;
 
-    String _screenTitle =
+    final String _screenTitle =
     selectedKeywords.length == 0 ? 'Select keywords' :
     selectedKeywords.length == 1 ? '1 Selected keyword' :
     '${selectedKeywords.length} Selected keywords';
 
-    EdgeInsets _barPadding = appIsLeftToRight(context) == true ?
+    final EdgeInsets _barPadding = appIsLeftToRight(context) == true ?
     EdgeInsets.only(left: Ratioz.appBarPadding, right: _selectedKeywordsZoneHeight)
         :
     EdgeInsets.only(left: _selectedKeywordsZoneHeight, right: Ratioz.appBarPadding)
     ;
 
-    double _yellowLineHeight = 1;
+    const double _yellowLineHeight = 1;
 
     return Container(
       width: _screenWidth,
@@ -82,15 +82,15 @@ class SelectedKeywordsBar extends StatelessWidget {
               padding: _barPadding,
               itemBuilder: (ctx, index){
 
-                Keyword _keyword = index >= 0 ? selectedKeywords[index] : null;
+                final Keyword _keyword = index >= 0 ? selectedKeywords[index] : null;
 
-                bool _highlightedMapIsCity =
+                final bool _highlightedMapIsCity =
                 highlightedKeyword == null ? false
                     :
                 highlightedKeyword.flyerType == 'cities' ? true
                     : false;
 
-                bool _isHighlighted =
+                final bool _isHighlighted =
                 _highlightedMapIsCity == true && _keyword.flyerType == 'cities'? true
                     :
                 _highlightedMapIsCity == true && _keyword.flyerType == 'area'? true

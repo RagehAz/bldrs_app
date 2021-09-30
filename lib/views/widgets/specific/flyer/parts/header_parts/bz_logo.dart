@@ -18,7 +18,7 @@ class BzLogo extends StatelessWidget {
   final bool blackAndWhite;
   final bool shadowIsOn;
 
-  BzLogo({
+  const BzLogo({
     @required this.width,
     this.image,
     this.tinyMode = true,
@@ -39,11 +39,11 @@ class BzLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double logoRoundCorners = cornersValue(width);
+    final double logoRoundCorners = cornersValue(width);
 // -----------------------------------------------------------------------------
-    double logoZeroCorner = tinyMode == true || zeroCornerIsOn == false ? logoRoundCorners : 0;
+    final double logoZeroCorner = tinyMode == true || zeroCornerIsOn == false ? logoRoundCorners : 0;
 // -----------------------------------------------------------------------------
-    BorderRadius bzLogoCorners = corners == null ?
+    final BorderRadius bzLogoCorners = corners == null ?
     Borderers.superBorderOnly(
         context: context,
         enTopLeft: logoRoundCorners,

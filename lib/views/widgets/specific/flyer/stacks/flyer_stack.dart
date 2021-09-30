@@ -21,7 +21,7 @@ class FlyerStack extends StatelessWidget {
   final Function onScrollEnd;
 
 
-  FlyerStack({
+  const FlyerStack({
     this.flyersType,
     this.flyerSizeFactor = 0.3,
     this.title,

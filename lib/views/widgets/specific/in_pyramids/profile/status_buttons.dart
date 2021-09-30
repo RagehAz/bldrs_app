@@ -22,8 +22,8 @@ class StatusButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = MediaQuery.of(context).size.width;
-    double _screenHeight = MediaQuery.of(context).size.height;
+    final double _screenWidth = MediaQuery.of(context).size.width;
+    final double _screenHeight = MediaQuery.of(context).size.height;
     const double _pageMargin = Ratioz.appBarMargin * 2;
 
     const double _abPadding = Ratioz.appBarMargin;
@@ -31,12 +31,12 @@ class StatusButtons extends StatelessWidget {
     // double profilePicHeight = abHeight;
     // double abButtonsHeight = abHeight - (2 * abPadding);
 
-    int _numberOfButtons = (status[stateIndex]['buttons'] as List<Map<String, Object>>).length;
+    final int _numberOfButtons = (status[stateIndex]['buttons'] as List<Map<String, Object>>).length;
     const double _buttonSpacing = _abPadding;
-    double _buttonsZoneWidth = (_screenWidth-(_pageMargin*3));
-    double _propertyStatusBtWidth = (_buttonsZoneWidth - (_numberOfButtons*_buttonSpacing) - _buttonSpacing)/_numberOfButtons;
+    final double _buttonsZoneWidth = (_screenWidth-(_pageMargin*3));
+    final double _propertyStatusBtWidth = (_buttonsZoneWidth - (_numberOfButtons*_buttonSpacing) - _buttonSpacing)/_numberOfButtons;
 
-    double _propertyStatusBtHeight = _screenHeight * 0.12;
+    final double _propertyStatusBtHeight = _screenHeight * 0.12;
 
     // Alignment defaultAlignment = getTranslated(context, 'Text_Direction') == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
 
@@ -52,6 +52,35 @@ class StatusButtons extends StatelessWidget {
               ...(status[stateIndex]['buttons'] as List<Map<String, Object>>)
                 .map(
                 (x){
+
+                  final Color _color = x['userStatus'] == UserStatus.Finishing &&
+                      ( currentUserStatus == UserStatus.Finishing ||
+                          currentUserStatus == UserStatus.PlanningTalking ||
+                          currentUserStatus == UserStatus.Building) ?
+                  Colorz.Yellow255 :
+                  currentUserStatus == x['userStatus'] ?
+                  Colorz.Yellow255 :
+                  Colorz.Nothing;
+
+                  final _verseColor =
+                  x['userStatus'] == UserStatus.Finishing &&
+                      ( currentUserStatus == UserStatus.Finishing ||
+                          currentUserStatus == UserStatus.PlanningTalking ||
+                          currentUserStatus == UserStatus.Building) ?
+                  Colorz.Black230 :
+                  currentUserStatus == x['userStatus'] ?
+                  Colorz.Black230 :
+                  Colorz.White255;
+
+                  final _verseWeight = x['userStatus'] == UserStatus.Finishing &&
+                      ( currentUserStatus == UserStatus.Finishing ||
+                          currentUserStatus == UserStatus.PlanningTalking ||
+                          currentUserStatus == UserStatus.Building) ?
+                  VerseWeight.black :
+                  currentUserStatus == x['userStatus'] ?
+                  VerseWeight.black :
+                  VerseWeight.thin;
+
                   return
                       DreamBox(
                         width: _propertyStatusBtWidth,
@@ -61,37 +90,11 @@ class StatusButtons extends StatelessWidget {
                         verseMaxLines: 4,
                         onTap: () => switchUserStatus(x['userStatus']),
                         blackAndWhite: false,
-                        color:
-                        x['userStatus'] == UserStatus.Finishing &&
-                            ( currentUserStatus == UserStatus.Finishing ||
-                                currentUserStatus == UserStatus.PlanningTalking ||
-                                currentUserStatus == UserStatus.Building) ?
-                        Colorz.Yellow255 :
-                        currentUserStatus == x['userStatus'] ?
-                        Colorz.Yellow255 :
-                        Colorz.Nothing,
-
-                        verseColor:
-                        x['userStatus'] == UserStatus.Finishing &&
-                            ( currentUserStatus == UserStatus.Finishing ||
-                                currentUserStatus == UserStatus.PlanningTalking ||
-                                currentUserStatus == UserStatus.Building) ?
-                        Colorz.Black230 :
-                        currentUserStatus == x['userStatus'] ?
-                        Colorz.Black230 :
-                        Colorz.White255,
-
-                        verseWeight:
-                        x['userStatus'] == UserStatus.Finishing &&
-                            ( currentUserStatus == UserStatus.Finishing ||
-                                currentUserStatus == UserStatus.PlanningTalking ||
-                                currentUserStatus == UserStatus.Building) ?
-                        VerseWeight.black :
-                        currentUserStatus == x['userStatus'] ?
-                        VerseWeight.black :
-                        VerseWeight.thin,
-
+                        color: _color,
+                        verseColor: _verseColor,
+                        verseWeight: _verseWeight,
                       );
+
                 }
             ).toList()
 

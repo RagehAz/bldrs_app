@@ -12,7 +12,7 @@ class KeywordBarButton extends StatelessWidget {
   final Function onTap;
   final Color color;
 
-  KeywordBarButton({
+  const KeywordBarButton({
     @required this.keyword,
     @required this.xIsOn,
     @required this.onTap,
@@ -22,9 +22,9 @@ class KeywordBarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _corners = Ratioz.boxCorner12;
+    final double _corners = Ratioz.boxCorner12;
 
-    bool _designMode = false;
+    final bool _designMode = false;
 
     return GestureDetector(
       onTap: onTap,

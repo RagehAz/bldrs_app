@@ -52,49 +52,49 @@ class BzPowersTab extends StatelessWidget {
           ],
         ),
 
-        BubblesSeparator(),
+        const BubblesSeparator(),
 
         Bubble(
           title: 'Get More Ankhs',
           columnChildren: <Widget>[],
         ),
 
-        BubblesSeparator(),
+        const BubblesSeparator(),
 
         Bubble(
           title: 'Get Premium Account',
           columnChildren: <Widget>[],
         ),
 
-        BubblesSeparator(),
+        const BubblesSeparator(),
 
         Bubble(
           title: 'Get Super Account',
           columnChildren: <Widget>[],
         ),
 
-        BubblesSeparator(),
+        const BubblesSeparator(),
 
         Bubble(
           title: 'Boost a flyer',
           columnChildren: <Widget>[],
         ),
 
-        BubblesSeparator(),
+        const BubblesSeparator(),
 
         Bubble(
           title: 'Create an Advertisement',
           columnChildren: <Widget>[],
         ),
 
-        BubblesSeparator(),
+        const BubblesSeparator(),
 
         Bubble(
           title: 'Sponsor Bldrs.net in your city',
           columnChildren: <Widget>[],
         ),
 
-        BubblesSeparator(),
+        const BubblesSeparator(),
 
         Bubble(
           title: 'Get Bldrs.net marketing materials',

@@ -17,7 +17,7 @@ class FlyerBox extends StatelessWidget {
   final bool editorMode;
   final Key key;
 
-  FlyerBox({
+  const FlyerBox({
     @required this.superFlyer,
     @required this.flyerBoxWidth, // NEVER DELETE THIS
     @required this.onFlyerZoneTap,
@@ -114,10 +114,8 @@ class FlyerBox extends StatelessWidget {
       headerBoxHeight(false, flyerZoneHeight) + flyerZoneHeight * Ratioz.xxProgressBarHeightRatio;
   }
 // -----------------------------------------------------------------------------
-  static double editorPanelWidth(){
-    return
-        50;
-  }
+  static const double editorPanelWidth = 50;
+
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -131,7 +129,7 @@ class FlyerBox extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final BorderRadius _flyerBorders = borders(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
-    final double _panelWidth = _isEditorZone == true ? editorPanelWidth() : 0;
+    final double _panelWidth = _isEditorZone == true ? editorPanelWidth : 0;
 // -----------------------------------------------------------------------------
 //     String _heroTag =
 //         superFlyer?.flyerID == null ?
@@ -190,6 +188,7 @@ class FlyerBox extends StatelessWidget {
                     children: stackWidgets == null ? <Widget>[] : stackWidgets,
                   ),
                 ),
+
               ),
             ),
 
