@@ -31,13 +31,13 @@ class BackAndSearchButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
 // -----------------------------------------------------------------------------
-    String _icon =
+    final String _icon =
     backAndSearchAction == BackAndSearchAction.GoBack ? Iconizer.superBackIcon(context) :
     backAndSearchAction == BackAndSearchAction.GoToSearchScreen ? Iconz.Search :
     backAndSearchAction == BackAndSearchAction.ShowHistory ? Iconz.Clock :
     null;
 // -----------------------------------------------------------------------------
-    double _iconSizeFactor =
+    final double _iconSizeFactor =
     backAndSearchAction == BackAndSearchAction.GoBack ? 1 :
     backAndSearchAction == BackAndSearchAction.GoToSearchScreen ? 0.5 :
     backAndSearchAction == BackAndSearchAction.ShowHistory ? 0.5 :
@@ -71,7 +71,7 @@ class BackAndSearchButton extends StatelessWidget {
           }
 
           else if(backAndSearchAction == BackAndSearchAction.ShowHistory){
-            String _result = await Nav.goToNewScreen(context, SearchHistoryScreen());
+            final String _result = await Nav.goToNewScreen(context, SearchHistoryScreen());
             print('received back this result : $_result');
             passSearchHistory(_result);
           }

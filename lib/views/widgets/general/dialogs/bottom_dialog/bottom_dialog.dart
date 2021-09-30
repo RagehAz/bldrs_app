@@ -280,23 +280,23 @@ class BottomDialog extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    double _dialogWidth = dialogWidth(context);
-    double _dialogHeight = dialogHeight(context, overridingDialogHeight: height);
-    BorderRadius _dialogCorners = dialogCorners(context);
+    final double _dialogWidth = dialogWidth(context);
+    final double _dialogHeight = dialogHeight(context, overridingDialogHeight: height);
+    final BorderRadius _dialogCorners = dialogCorners(context);
 
-    double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
-    double _draggerHeight = draggerHeight(draggable: draggable);
-    double _draggerWidth = draggerWidth(context);
-    double _draggerCorner = _draggerHeight *0.5;
-    EdgeInsets _draggerMargins = draggerMargins(draggable: draggable);
+    final double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
+    final double _draggerHeight = draggerHeight(draggable: draggable);
+    final double _draggerWidth = draggerWidth(context);
+    final double _draggerCorner = _draggerHeight *0.5;
+    final EdgeInsets _draggerMargins = draggerMargins(draggable: draggable);
 
-    bool _titleIsOn = title == null || TextMod.removeSpacesFromAString(title) == '' ? false : true;
+    final bool _titleIsOn = title == null || TextMod.removeSpacesFromAString(title) == '' ? false : true;
 
-    double _titleZoneHeight = titleZoneHeight(titleIsOn: _titleIsOn);
+    final double _titleZoneHeight = titleZoneHeight(titleIsOn: _titleIsOn);
 
-    double _dialogClearWidth = dialogClearWidth(context);
-    double _dialogClearHeight  = dialogClearHeight(context: context, titleIsOn: _titleIsOn, overridingDialogHeight: height, draggable: draggable);
-    BorderRadius _dialogClearCorners = dialogClearCorners(context);
+    final double _dialogClearWidth = dialogClearWidth(context);
+    final double _dialogClearHeight  = dialogClearHeight(context: context, titleIsOn: _titleIsOn, overridingDialogHeight: height, draggable: draggable);
+    final BorderRadius _dialogClearCorners = dialogClearCorners(context);
 
     return Container(
       width: _dialogWidth,

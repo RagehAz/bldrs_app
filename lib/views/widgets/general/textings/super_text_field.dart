@@ -115,49 +115,49 @@ class _SuperTextFieldState extends State<SuperTextField> {
   @override
   Widget build(BuildContext context) {
 
-    Color _boxColor = widget.designMode ? Colorz.BloodTest : Colorz.Nothing;
-    double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
-    double _scalingFactor = 1; //scaleFactor == null ? 1: scaleFactor;
-    // --- AVAILABLE FONT SIZES -----------------------------------------------
-    int _size = widget.inputSize;
-    // takes values from 0 to 8 in the entire app
-    double _verseSize = superVerseSizeValue(context, _size, _scalingFactor);
-    // --- AVAILABLE FONT WEIGHTS -----------------------------------------------
-    VerseWeight _weight = widget.inputWeight;
-    FontWeight _verseWeight = superVerseWeight(_weight);
-    // --- AVAILABLE FONTS -----------------------------------------------
-    String _verseFont = superVerseFont(context, _weight);
-    // --- LETTER SPACING -----------------------------------------------
-    double _verseLetterSpacing = superVerseLetterSpacing(_weight, _verseSize);
-    // --- WORD SPACING -----------------------------------------------
-    double _verseWordSpacing = superVerseWordSpacing(_verseSize);
-    // --- SHADOWS -----------------------------------------------
-    bool _shadow = widget.inputShadow;
-    double _shadowBlur = 0;
-    double _shadowYOffset = 0;
-    double _shadowXOffset = superVerseXOffset(_weight, _verseSize);
-    double _secondShadowXOffset = -0.35 * _shadowXOffset;
-    Color _leftShadow = widget.inputColor == Colorz.Black230 ? Colorz.White125
+    final Color _boxColor = widget.designMode ? Colorz.BloodTest : Colorz.Nothing;
+    final double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
+    final double _scalingFactor = 1; //scaleFactor == null ? 1: scaleFactor;
+    /// --- AVAILABLE FONT SIZES -----------------------------------------------
+    final int _size = widget.inputSize;
+    /// takes values from 0 to 8 in the entire app
+    final double _verseSize = superVerseSizeValue(context, _size, _scalingFactor);
+    /// --- AVAILABLE FONT WEIGHTS -----------------------------------------------
+    final VerseWeight _weight = widget.inputWeight;
+    final FontWeight _verseWeight = superVerseWeight(_weight);
+    /// --- AVAILABLE FONTS -----------------------------------------------
+    final String _verseFont = superVerseFont(context, _weight);
+    /// --- LETTER SPACING -----------------------------------------------
+    final double _verseLetterSpacing = superVerseLetterSpacing(_weight, _verseSize);
+    /// --- WORD SPACING -----------------------------------------------
+    final double _verseWordSpacing = superVerseWordSpacing(_verseSize);
+    /// --- SHADOWS -----------------------------------------------
+    final bool _shadow = widget.inputShadow;
+    final double _shadowBlur = 0;
+    final double _shadowYOffset = 0;
+    final double _shadowXOffset = superVerseXOffset(_weight, _verseSize);
+    final double _secondShadowXOffset = -0.35 * _shadowXOffset;
+    final Color _leftShadow = widget.inputColor == Colorz.Black230 ? Colorz.White125
         : Colorz.Black230;
 
-    Color _rightShadow = widget.inputColor == Colorz.Black230 ? Colorz.White80
+    final Color _rightShadow = widget.inputColor == Colorz.Black230 ? Colorz.White80
         : Colorz.White20;
-    // --- ITALIC -----------------------------------------------
-    FontStyle _verseStyle =
+    /// --- ITALIC -----------------------------------------------
+    final FontStyle _verseStyle =
     widget.italic == true ? FontStyle.italic : FontStyle.normal;
 
-    // --- VERSE BOX MARGIN -----------------------------------------------
+    /// --- VERSE BOX MARGIN -----------------------------------------------
     // double _margin = margin == null ? 0 : margin;
 
-    // --- LABEL CORNERS -----------------------------------------------
-    double _labelCornerValues = superVerseLabelCornerValue(context, _size);
-    double _labelCorner = widget.labelColor == Colorz.Nothing ? 0 :
+    /// --- LABEL CORNERS -----------------------------------------------
+    final double _labelCornerValues = superVerseLabelCornerValue(context, _size);
+    final double _labelCorner = widget.labelColor == Colorz.Nothing ? 0 :
     widget.corners == null ? _labelCornerValues :
     widget.corners;
-    // --- LABEL PADDINGS -----------------------------------------------
-    double _sidePaddingValues = superVerseSidePaddingValues(context, _size);
+    /// --- LABEL PADDINGS -----------------------------------------------
+    final double _sidePaddingValues = superVerseSidePaddingValues(context, _size);
 // -----------------------------------------------------------------------------
-    double _sidePaddings =
+    final double _sidePaddings =
     widget.labelColor == Colorz.Nothing ? 0 : _sidePaddingValues;
 // -----------------------------------------------------------------------------
     TextStyle superTextStyle(Color textColor, double sizeFactor) {
@@ -204,7 +204,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
       );
     }
 // -----------------------------------------------------------------------------
-    TextDirection _concludedTextDirection =
+    final TextDirection _concludedTextDirection =
     /// when widget.textDirection is already defined, it overrides all
     widget.textDirection != null ? widget.textDirection :
     /// when it is not defined outside, and _textDirection hadn't changed yet we
@@ -216,7 +216,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     // textIsEnglish(widget.textController.text) == false ? TextDirection.rtl :
     _textDirection;
 // -----------------------------------------------------------------------------
-    InputDecoration _inputDecoration =
+    final InputDecoration _inputDecoration =
 
     InputDecoration(
       hintText: widget.hintText,
@@ -252,17 +252,17 @@ class _SuperTextFieldState extends State<SuperTextField> {
       // icon: WebsafeSvg.asset(Iconz.DvRageh, height: 20),
     );
 // -----------------------------------------------------------------------------
-    EdgeInsets _boxPadding = EdgeInsets.only(
+    final EdgeInsets _boxPadding = EdgeInsets.only(
         bottom: widget.counterIsOn == true ? _sidePaddings * 0 : 0);
 // -----------------------------------------------------------------------------
-    BoxDecoration _boxDecoration = BoxDecoration(
+    final BoxDecoration _boxDecoration = BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
       color: widget.fieldColor,
     );
 // -----------------------------------------------------------------------------
-    TextAlign _textAlign = widget.centered == true ? TextAlign.center : TextAlign.start;
+    final TextAlign _textAlign = widget.centered == true ? TextAlign.center : TextAlign.start;
 // -----------------------------------------------------------------------------
-    int _maxLines = widget.obscured == true ? 1 : widget.maxLines;
+    final int _maxLines = widget.obscured == true ? 1 : widget.maxLines;
 // -----------------------------------------------------------------------------
     void _onChanged(val){
 
@@ -278,7 +278,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     }
 // -----------------------------------------------------------------------------
 
-    MaxLengthEnforcement _maxLengthEnforced = widget.counterIsOn == true ? MaxLengthEnforcement.enforced : MaxLengthEnforcement.none;
+    final MaxLengthEnforcement _maxLengthEnforced = widget.counterIsOn == true ? MaxLengthEnforcement.enforced : MaxLengthEnforcement.none;
 
     return
 

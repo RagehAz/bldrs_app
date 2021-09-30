@@ -8,22 +8,13 @@ class Rageh extends StatelessWidget {
   final Function tappingRageh;
   final Function doubleTappingRageh;
 
-  Rageh({
+  const Rageh({
     @required this.tappingRageh,
     @required this.doubleTappingRageh,
   });
 
-  void tappingOnMyFace(){
-    tappingRageh();
-  }
-
-  void doubleTappingOnMyFace(){
-    doubleTappingRageh();
-  }
-
   @override
   Widget build(BuildContext context) {
-  // final double sideSize = 50;
 
     return Positioned(
       bottom: 0,
@@ -33,9 +24,7 @@ class Rageh extends StatelessWidget {
         // onTap: (){
         //   tappingOnMyFace();
         // },
-        onDoubleTap: (){
-          doubleTappingOnMyFace();
-        },
+        onDoubleTap: doubleTappingRageh,
         splashColor: Colorz.Black80, // don't work yet,, will come back later
         splashFactory: InkSplash.splashFactory, // to you too bitch
         child:
@@ -50,9 +39,7 @@ class Rageh extends StatelessWidget {
                 iconSizeFactor: 1,
                 corners: Ratioz.boxCorner8,
                 icon: Iconz.DvRageh,
-                onTap: (){
-                  tappingOnMyFace();
-                },
+                onTap: tappingRageh,
               ),
             ),
           ),
