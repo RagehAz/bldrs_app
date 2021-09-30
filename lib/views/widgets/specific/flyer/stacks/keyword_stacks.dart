@@ -20,7 +20,7 @@ class FlyerCoversStack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
+    final double screenWidth = MediaQuery.of(context).size.width;
     const double pageMargin = Ratioz.appBarMargin * 2;
 
 
@@ -29,13 +29,13 @@ class FlyerCoversStack extends StatelessWidget {
 
 
     const double gridSpacing = 5;
-    double gridWidth = screenWidth - (4*pageMargin) - gridSpacing;
+    final double gridWidth = screenWidth - (4*pageMargin) - gridSpacing;
     const double gridHeight = coverFlyerHeight;
 
     const double otherFlyersHeight = (coverFlyerHeight - gridSpacing)/2;
     const double otherFlyersWidth = otherFlyersHeight / Ratioz.xxflyerZoneHeight;
 
-    int gridLoopLength = flyersDataList.length > 11 ? 11 : flyersDataList.length;
+    final int gridLoopLength = flyersDataList.length > 11 ? 11 : flyersDataList.length;
 
     return Bubble(
       centered: true,
@@ -109,7 +109,7 @@ class TopFlyersStack extends StatelessWidget {
   final String collectionTitle;
   final int numberOfFlyers;
 
-  TopFlyersStack({
+  const TopFlyersStack({
     @required this.flyersDataList,
     @required this.collectionTitle,
     this.numberOfFlyers = 3,
@@ -118,19 +118,19 @@ class TopFlyersStack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
-    double pageMargin = Ratioz.appBarMargin * 2;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    const double pageMargin = Ratioz.appBarMargin * 2;
 
-    double gridSpacing = 5;
+    const double gridSpacing = 5;
 
-    double gridWidth = screenWidth - (4*pageMargin);
+    final double gridWidth = screenWidth - (4*pageMargin);
 
-    double flyerWidth = (gridWidth - (numberOfFlyers*gridSpacing) - gridSpacing)/numberOfFlyers;
-    double flyerHeight = flyerWidth * Ratioz.xxflyerZoneHeight;
+    final double flyerWidth = (gridWidth - (numberOfFlyers*gridSpacing) - gridSpacing)/numberOfFlyers;
+    final double flyerHeight = flyerWidth * Ratioz.xxflyerZoneHeight;
 
-    double gridHeight = flyerHeight;
+    final double gridHeight = flyerHeight;
 
-    int gridLoopLength = flyersDataList.length > numberOfFlyers ? numberOfFlyers : flyersDataList.length;
+    final int gridLoopLength = flyersDataList.length > numberOfFlyers ? numberOfFlyers : flyersDataList.length;
 
     return Bubble(
       centered: false,

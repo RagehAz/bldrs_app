@@ -15,7 +15,7 @@ class PanelButton extends StatelessWidget {
   final double flyerBoxWidth;
   final Color color;
 
-  PanelButton({
+  const PanelButton({
     // this.size,
     this.icon,
     this.verse,
@@ -51,14 +51,14 @@ class PanelButton extends StatelessWidget {
     // Borderers.superBorderAll(context,  Ratioz.appBarButtonCorner);
     // ;
 
-    double _height = FlyerFooter.buttonSize(
+    final double _height = FlyerFooter.buttonSize(
       buttonIsOn: false,
       flyerBoxWidth: flyerBoxWidth,
       context: context
     );
 
-    double _margin = FlyerFooter.buttonMargin(context: context, buttonIsOn: false, flyerBoxWidth: flyerBoxWidth);
-    EdgeInsets _margins = EdgeInsets.symmetric(vertical: _margin);
+    final double _margin = FlyerFooter.buttonMargin(context: context, buttonIsOn: false, flyerBoxWidth: flyerBoxWidth);
+    final EdgeInsets _margins = EdgeInsets.symmetric(vertical: _margin);
 
     return
       DreamBox(

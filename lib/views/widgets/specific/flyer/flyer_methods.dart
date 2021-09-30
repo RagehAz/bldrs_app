@@ -69,9 +69,9 @@ class FlyerMethod{
 // -----------------------------------------------------------------------------
   static FlyerMode flyerModeSelector({BuildContext context, double flyerBoxWidth, bool inEditor, dynamic flyerSource}){
 
-    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
-    bool _editMode = inEditor;
-    FlyerSourceType _source = checkSuperFlyerSource(flyerSource);
+    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _editMode = inEditor;
+    final FlyerSourceType _source = checkSuperFlyerSource(flyerSource);
 
     FlyerMode _flyerMode;
 
@@ -206,10 +206,10 @@ class FlyerMethod{
   static dynamic selectFlyerSource({String flyerID, BzModel bzModel, FlyerModel flyerModel, TinyFlyer tinyFlyer,}) {
     dynamic _flyerSource;
 
-    bool _byFlyerModel = flyerModel != null;
-    bool _byTinyFlyer = tinyFlyer != null && flyerModel == null;
-    bool _byFlyerID = flyerID != null && flyerModel == null && tinyFlyer == null;
-    bool _byBzModel = bzModel != null && flyerID == null && flyerModel == null && tinyFlyer == null;
+    final bool _byFlyerModel = flyerModel != null;
+    final bool _byTinyFlyer = tinyFlyer != null && flyerModel == null;
+    final bool _byFlyerID = flyerID != null && flyerModel == null && tinyFlyer == null;
+    final bool _byBzModel = bzModel != null && flyerID == null && flyerModel == null && tinyFlyer == null;
 
     if (_byFlyerModel == true){
       _flyerSource = flyerModel;
@@ -261,8 +261,8 @@ class FlyerMethod{
   }
 // -----------------------------------------------------------------------------
   static bool maxSlidesReached({SuperFlyer superFlyer}){
-    int _maxLength = Standards.getMaxSlidesCount(superFlyer.bz.accountType);
-    bool _reachedMaxSlides = _maxLength <= superFlyer.numberOfSlides;
+    final int _maxLength = Standards.getMaxSlidesCount(superFlyer.bz.accountType);
+    final bool _reachedMaxSlides = _maxLength <= superFlyer.numberOfSlides;
     return _reachedMaxSlides;
   }
 // -----------------------------------------------------------------------------

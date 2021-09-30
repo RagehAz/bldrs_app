@@ -14,7 +14,7 @@ class PropertySearchCriteria extends StatelessWidget {
   // final Map<String, Object> currentPropertyType;
   // final Map<String, Object> currentPropertyContract;
 
-  PropertySearchCriteria({
+  const PropertySearchCriteria({
     @required this.openEnumLister,
     // @required this.currentPropertyUse,
     // @required this.currentPropertyType,
@@ -24,7 +24,7 @@ class PropertySearchCriteria extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = MediaQuery.of(context).size.width;
+    final double _screenWidth = MediaQuery.of(context).size.width;
     // double screenHeight = MediaQuery.of(context).size.height;
     const double _pageMargin = Ratioz.appBarMargin * 2;
 
@@ -39,11 +39,11 @@ class PropertySearchCriteria extends StatelessWidget {
     // double propertyStatusBtWidth = (_screenWidth - (2 * _pageMargin) - (8 * _abPadding)) / 3;
     // double propertyStatusBtHeight = 40;
 
-    double _boxWidth = _screenWidth - (_abPadding * 6);
+    final double _boxWidth = _screenWidth - (_abPadding * 6);
     const double _boxHeight = 100 ;
     const bool _bubble = true;
 
-    Alignment defaultAlignment =  Wordz.textDirection(context) == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
+    final Alignment defaultAlignment =  Wordz.textDirection(context) == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
 
     const double corners = Ratioz.boxCorner12;
 
@@ -55,19 +55,19 @@ class PropertySearchCriteria extends StatelessWidget {
     // double contractTypeBtWidth = (buttonsZoneWidth - (2*buttonSpacing) - buttonSpacing)/2;
 
 
-  Map<String, Object> propertyUseMap = {
+  const Map<String, Object> propertyUseMap = {
     'Title' : 'Use of property',
     'Strings' : <String>['Residential', 'Commercial', 'Industrial', 'Governmental', 'Administration', 'Transportation', 'Utilities', 'Religious', 'Educational', 'Agricultural', 'Medical', 'Hotel room', 'Sports', 'Entertainment',],
     'Triggers' : <bool>[false, false, false, false, false, false, false, false, false, false, false, false, false, false],
   };
 
-  Map<String, Object> propertyTypeMap = {
+    const Map<String, Object> propertyTypeMap = {
     'Title' : 'Type of property',
     'Strings' : <String>['Apartment', 'Penthouse', 'Chalet', 'TwinHouse', 'FullFloor', 'HalfFloor', 'Building', 'Land', 'Bungalow', 'Cabana', 'HotelRoom', 'Villa', 'Room', 'Office', 'Store', 'WareHouse', 'ExhibitionHall', 'MeetingRoom', 'Hostel', 'MedicalFacility',],
     'Triggers' : <bool>[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, ],
   };
 
-  Map<String, Object> contractTypeMap = {
+    const Map<String, Object> contractTypeMap = {
     'Title' : 'Contract type of property',
     'Strings' : <String>['For Sale', 'For Rent'],
     'Triggers' : <bool>[false, false],
@@ -126,7 +126,7 @@ class PropertySearchCriteria extends StatelessWidget {
                     decoration: BoxDecoration(
                       // color: Colorz.Grey,
                       borderRadius: BorderRadius.circular(corners),
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: <Color>[Colorz.Black0, Colorz.Black80],
@@ -147,7 +147,7 @@ class PropertySearchCriteria extends StatelessWidget {
                       child:
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: _pageMargin, vertical: _pageMargin * 0.5),
-                        child: SuperVerse(
+                        child: const SuperVerse(
                           verse: 'Select your default property search criteria !',
                           centered: false,
                           designMode: designMode,

@@ -16,7 +16,7 @@ class ZonesPage extends StatelessWidget {
   final List<String> countriesIDs;
   final Function buttonTap;
 
-  ZonesPage({
+  const ZonesPage({
     @required this.title,
     @required this.continentIcon,
     @required this.countriesIDs,
@@ -69,7 +69,7 @@ class ZonesPage extends StatelessWidget {
                     itemCount: countriesIDs.length,
                     itemBuilder: (context, index){
 
-                      String _id = countriesIDs[index];
+                      final String _id = countriesIDs[index];
 
                       return
                         Align(

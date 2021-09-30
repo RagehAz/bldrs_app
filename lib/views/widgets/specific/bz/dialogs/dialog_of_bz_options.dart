@@ -17,7 +17,7 @@ class DialogOfBzOptions extends StatefulWidget {
   final BzModel bzModel;
   final UserModel userModel;
 
-  DialogOfBzOptions({
+  const DialogOfBzOptions({
     @required this.bzModel,
     @required this.userModel,
 });
@@ -76,7 +76,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
 
     Nav.goBack(context);
 
-    bool _dialogResult = await CenterDialog.showCenterDialog(
+    final bool _dialogResult = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
       body: 'Are you sure you want to Delete ${bzModel.bzName} Business account ?',
@@ -102,7 +102,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       );
 
       // /// remove tinyBz from Local list
-      FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+      final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
       // _prof.removeTinyBzFromLocalList(bzModel.bzID);
 
       /// remove tinyBz from local userTinyBzz
@@ -121,7 +121,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
     /// close bottom sheet
     Nav.goBack(context);
 
-    bool _dialogResult = await CenterDialog.showCenterDialog(
+    final bool _dialogResult = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
       body: 'Are you sure you want to Deactivate ${bzModel.bzName} Business account ?',
@@ -147,7 +147,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       );
 
       /// remove tinyBz from Local list
-      FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+      final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
       _prof.removeTinyBzFromLocalList(bzModel.bzID);
 
       /// remove tinyBz from local userTinyBzz
@@ -163,7 +163,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _editBzOnTap(BzModel bzModel) async {
-    var _result = await Navigator.push(context, new MaterialPageRoute(
+    final dynamic _result = await Navigator.push(context, new MaterialPageRoute(
       // maintainState: ,
       // settings: ,
         fullscreenDialog: true,
@@ -188,7 +188,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
     return
     <Widget>[
 
-      /// --- DELETE BZ
+      /// DELETE BZ
       DreamBox(
         height: DialogOfBzOptions.buttonHeight,
         width: BottomDialog.dialogClearWidth(context),
@@ -203,7 +203,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
         onTap: () => _deleteBzOnTap(bzModel),
       ),
 
-      /// --- DEACTIVATE BZ
+      /// DEACTIVATE BZ
       DreamBox(
           height: DialogOfBzOptions.buttonHeight,
           width: BottomDialog.dialogClearWidth(context),
@@ -219,7 +219,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
 
       ),
 
-      /// --- EDIT BZ
+      /// EDIT BZ
       DreamBox(
         height: DialogOfBzOptions.buttonHeight,
         width: BottomDialog.dialogClearWidth(context),

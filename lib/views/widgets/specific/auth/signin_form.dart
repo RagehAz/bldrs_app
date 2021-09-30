@@ -21,7 +21,7 @@ class SignInForm extends StatefulWidget {
   final Function fieldOnTap;
 
 
-  SignInForm({
+  const SignInForm({
     @required this.switchSignIn,
     @required this.email,
     @required this.password,
@@ -35,8 +35,8 @@ class SignInForm extends StatefulWidget {
 class _SignInFormState extends State<SignInForm> {
   final AuthOps _authOps = AuthOps();
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool signingIn = true;
   bool loading = false;
   bool showPassword = false;
@@ -86,7 +86,7 @@ class _SignInFormState extends State<SignInForm> {
   }
 // -----------------------------------------------------------------------------
   bool _allFieldsAreValid(){
-    bool _areValid = _formKey.currentState.validate();
+    final bool _areValid = _formKey.currentState.validate();
     print('_allFieldsAreValid() = $_areValid');
     return _areValid;
   }
@@ -106,7 +106,7 @@ class _SignInFormState extends State<SignInForm> {
       _triggerLoading();
 
       /// start sign in ops
-      dynamic _result = await _authOps.emailSignInOps(context, _emailController.text, _passwordController.text);
+      final dynamic _result = await _authOps.emailSignInOps(context, _emailController.text, _passwordController.text);
 
       /// pop dialog if sign in fails otherwise check user required field then route
       print('_signInOnTap() _result.runtimeType : ${_result.runtimeType} : $_result');
@@ -168,7 +168,7 @@ class _SignInFormState extends State<SignInForm> {
             height: 20,
           ),
 
-          // --- ENTER E-MAIL
+          /// ENTER E-MAIL
           TextFieldBubble(
             textController: _emailController,
             fieldOnTap: widget.fieldOnTap,
@@ -191,7 +191,7 @@ class _SignInFormState extends State<SignInForm> {
             },
           ),
 
-          // --- ENTER PASSWORD
+          /// ENTER PASSWORD
           TextFieldBubble(
             textController: _passwordController,
             fieldOnTap: widget.fieldOnTap,

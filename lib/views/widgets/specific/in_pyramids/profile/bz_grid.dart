@@ -16,7 +16,7 @@ class BzGrid extends StatelessWidget {
   final int numberOfRows;
   final double corners;
 
-  BzGrid({
+  const BzGrid({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
     @required this.tinyBzz,
@@ -29,34 +29,34 @@ class BzGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<TinyBz> _tinyBzz = tinyBzz == null ? <TinyBz>[] : tinyBzz;
+    final List<TinyBz> _tinyBzz = tinyBzz == null ? <TinyBz>[] : tinyBzz;
 
-    List<Color> _boxesColors = <Color>[Colorz.White30, Colorz.White20, Colorz.White10];
+    const List<Color> _boxesColors = <Color>[Colorz.White30, Colorz.White20, Colorz.White10];
 
     const double _spacingRatioToGridWidth = 0.1;
-    double _logoWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
-    double _gridSpacing = _logoWidth * _spacingRatioToGridWidth;
+    final double _logoWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
+    final double _gridSpacing = _logoWidth * _spacingRatioToGridWidth;
     // int _bzCount = _tinyBzz == <TinyBz>[] || _tinyBzz.length == 0 ? _boxesColors.length : tinyBzz.length;
     // int _getNumberOfRowsByCount(int _bzCount){return (_bzCount/numberOfColumns).ceil();}
     // int _numOfRows = numberOfRows == null ? _getNumberOfRowsByCount(_bzCount) : numberOfRows;
-    double _logoHeight = _logoWidth;
-    double _gridZoneHeight = _gridSpacing + (numberOfRows * (_logoHeight * 1.25 + _gridSpacing));
+    final double _logoHeight = _logoWidth;
+    final double _gridZoneHeight = _gridSpacing + (numberOfRows * (_logoHeight * 1.25 + _gridSpacing));
 
-    double _verticalAspectRatio = _logoWidth / ((_logoWidth * 1.25) + (_gridSpacing));
+    final double _verticalAspectRatio = _logoWidth / ((_logoWidth * 1.25) + (_gridSpacing));
 
-    SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
+    final SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
       crossAxisSpacing: _gridSpacing,
       mainAxisSpacing: _gridSpacing,
       childAspectRatio: scrollDirection == Axis.vertical ?  _verticalAspectRatio : 1/_verticalAspectRatio,
       maxCrossAxisExtent: scrollDirection == Axis.vertical ? _logoWidth : _logoWidth * 1.25,
     );
 
-    double _zoneCorners = corners == null ? (_logoWidth * Ratioz.bzLogoCorner) + _gridSpacing : corners;
+    final double _zoneCorners = corners == null ? (_logoWidth * Ratioz.bzLogoCorner) + _gridSpacing : corners;
 
-    EdgeInsets _gridPadding = EdgeInsets.only(top: _gridSpacing, left: _gridSpacing, right: _gridSpacing, bottom: 0);
+    final EdgeInsets _gridPadding = EdgeInsets.only(top: _gridSpacing, left: _gridSpacing, right: _gridSpacing, bottom: 0);
 
-    Axis _scrollDirection = scrollDirection == null ? Axis.vertical : scrollDirection;
-    ScrollPhysics _physics = scrollDirection == null ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics();
+    final Axis _scrollDirection = scrollDirection == null ? Axis.vertical : scrollDirection;
+    final ScrollPhysics _physics = scrollDirection == null ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics();
 
     return
       ClipRRect(

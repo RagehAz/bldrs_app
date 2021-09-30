@@ -10,7 +10,7 @@ class KeywordsPage extends StatelessWidget {
   final Function onTap;
   final List<Keyword> selectedKeywords;
 
-  KeywordsPage({
+  const KeywordsPage({
     @required this.keywords,
     @required this.onTap,
     @required this.selectedKeywords,
@@ -27,11 +27,9 @@ class KeywordsPage extends StatelessWidget {
           padding: const EdgeInsets.all(Ratioz.appBarMargin),
           itemBuilder: (context, keyIndex){
 
-            Keyword _keyword = keywords[keyIndex];
-
-            Color _color = selectedKeywords.contains(_keyword) ? Colorz.Yellow255 : Colorz.Nothing;
-
-            bool _isIconlessKeyword = Keyword.isIconless(_keyword);
+            final Keyword _keyword = keywords[keyIndex];
+            final Color _color = selectedKeywords.contains(_keyword) ? Colorz.Yellow255 : Colorz.Nothing;
+            final bool _isIconlessKeyword = Keyword.isIconless(_keyword);
 
             return
               Align(

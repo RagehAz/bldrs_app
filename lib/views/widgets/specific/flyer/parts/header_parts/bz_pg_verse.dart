@@ -10,7 +10,7 @@ class BzPgVerse extends StatelessWidget {
   final int size;
   final int maxLines;
 
-  BzPgVerse({
+  const BzPgVerse({
     @required this.flyerBoxWidth,
     this.bzPageIsOn = true,
     @required this.verse,
@@ -20,10 +20,10 @@ class BzPgVerse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    dynamic bzPageBGColor = Colorz.Black80;
-    double bzPageDividers = flyerBoxWidth * 0.005;
+    const dynamic bzPageBGColor = Colorz.Black80;
+    final double bzPageDividers = flyerBoxWidth * 0.005;
 
-    double _margins =
+    final double _margins =
         maxLines > 1 ? flyerBoxWidth * 0.05 : flyerBoxWidth * 0.02;
 
     return bzPageIsOn == false ? Container()
@@ -53,7 +53,7 @@ class BzAboutVerse extends StatefulWidget {
   final String verse;
   final String bzName;
 
-  BzAboutVerse({
+  const BzAboutVerse({
     @required this.flyerBoxWidth,
     this.bzPageIsOn = true,
     @required this.verse,
@@ -75,10 +75,10 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
 
   @override
   Widget build(BuildContext context) {
-    dynamic bzPageBGColor = Colorz.Black80;
-    double bzPageDividers = widget.flyerBoxWidth * 0.005;
+    const dynamic bzPageBGColor = Colorz.Black80;
+    final double bzPageDividers = widget.flyerBoxWidth * 0.005;
 
-    double _margins = widget.flyerBoxWidth * 0.05;
+    final double _margins = widget.flyerBoxWidth * 0.05;
 
     return widget.bzPageIsOn == false
         ? Container()

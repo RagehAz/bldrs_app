@@ -13,7 +13,7 @@ class MiniHeaderStrip extends StatelessWidget {
   final SuperFlyer superFlyer;
   final double flyerBoxWidth;
 
-  MiniHeaderStrip({
+  const MiniHeaderStrip({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
   });
@@ -21,8 +21,8 @@ class MiniHeaderStrip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _stripHeight = FlyerBox.headerStripHeight(superFlyer.nav.bzPageIsOn, flyerBoxWidth);
-    BorderRadius _stripBorders = Borderers.superHeaderStripCorners(context, superFlyer.nav.bzPageIsOn, flyerBoxWidth);
+    final double _stripHeight = FlyerBox.headerStripHeight(superFlyer.nav.bzPageIsOn, flyerBoxWidth);
+    final BorderRadius _stripBorders = Borderers.superHeaderStripCorners(context, superFlyer.nav.bzPageIsOn, flyerBoxWidth);
 // -----------------------------------------------------------------------------
     return
       Align(

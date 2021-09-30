@@ -8,7 +8,7 @@ class GroupsPage extends StatelessWidget {
   final Function onTap;
   final String selectedGroup;
 
-  GroupsPage({
+  const GroupsPage({
     @required this.groups,
     @required this.onTap,
     @required this.selectedGroup,
@@ -25,9 +25,8 @@ class GroupsPage extends StatelessWidget {
           padding: const EdgeInsets.all(Ratioz.appBarMargin),
           itemBuilder: (context, groupIndex){
 
-            String _group = groups[groupIndex];
-
-            Color _color = selectedGroup == _group ? Colorz.Yellow255 : Colorz.Nothing;
+            final String _group = groups[groupIndex];
+            final Color _color = selectedGroup == _group ? Colorz.Yellow255 : Colorz.Nothing;
 
             return
               DreamBox(

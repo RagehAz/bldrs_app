@@ -8,7 +8,7 @@ class BzPgFields extends StatelessWidget {
   final bool bzPageIsOn;
   final String bzScope;
 
-  BzPgFields({
+  const BzPgFields({
     @required this.bzPageIsOn,
     @required this.flyerBoxWidth,
     @required this.bzScope,
@@ -19,8 +19,8 @@ class BzPgFields extends StatelessWidget {
   Widget build(BuildContext context) {
 
 // -----------------------------------------------------------------------------
-    dynamic bzPageBGColor = Colorz.Black80;
-    double bzPageDividers = flyerBoxWidth * 0.005;
+    const Color bzPageBGColor = Colorz.Black80;
+    final double bzPageDividers = flyerBoxWidth * 0.005;
 // -----------------------------------------------------------------------------
 
     return
@@ -46,35 +46,34 @@ class BzPgFields extends StatelessWidget {
                 maxLines: 2,
               ),
 
-              Wrap(
-                  spacing: 0,
-                  runSpacing: 0,
-                  alignment: WrapAlignment.center,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  direction: Axis.horizontal,
-                  runAlignment: WrapAlignment.center,
+          Wrap(
+              spacing: 0,
+              runSpacing: 0,
+              alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              direction: Axis.horizontal,
+              runAlignment: WrapAlignment.center,
+              children:
+              bzScope == '' ? [Container()] :
+              List<Widget>.generate(
+              1,
+                  (int index) {
+                return
+                  SuperVerse(
+                    verse: bzScope,
+                    italic: false,
+                    shadow: false,
+                    labelColor: Colorz.White50,
+                    color: Colorz.White255,
+                    weight: VerseWeight.bold,
+                    size: 2,
+                    margin: flyerBoxWidth * 0.02 * 0,
+                  );
+              }
+              )
 
-                  children:
-                  bzScope == '' ? [Container()] :
-                  List<Widget>.generate(
-                      1,
-                          (int index) {
-                        return
-                          SuperVerse(
-                            verse: bzScope,
-                            italic: false,
-                            shadow: false,
-                            labelColor: Colorz.White50,
-                            color: Colorz.White255,
-                            weight: VerseWeight.bold,
-                            size: 2,
-                            margin: flyerBoxWidth * 0.02 * 0,
-                          );
-                      }
-                  )
 
-
-              ),
+      ),
 
             ],
           ),

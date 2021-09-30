@@ -13,11 +13,17 @@ import 'package:flutter/material.dart';
 
 class TargetsBubble extends StatelessWidget {
 
+  const TargetsBubble();
 // -----------------------------------------------------------------------------
-  final List<TargetModel> _allTargets = Targetz.insertTargetsProgressIntoTargetsModels(
+  static List<TargetModel> getAllTargets(){
+
+    final List<TargetModel> _allTargets = Targetz.insertTargetsProgressIntoTargetsModels(
       allTargets: Targetz.allTargets(),
       targetsProgress: Targetz.dummyTargetsProgress(),
-  );
+    );
+
+    return _allTargets;
+  }
 // -----------------------------------------------------------------------------
   Future<void> _onClaimTap({BuildContext context, TargetModel target}) async {
 
@@ -38,6 +44,8 @@ class TargetsBubble extends StatelessWidget {
     const double _barHeight = 12;
     const double _iconsHeight = 15;
     const EdgeInsets _barMargin = const EdgeInsets.only(top: 9);
+
+    final List<TargetModel> _allTargets = getAllTargets();
 
     return Bubble(
       title: 'Targets',
