@@ -68,7 +68,7 @@ class UserOps{
     }
 
     /// create final UserModel
-    UserModel _finalUserModel = UserModel(
+    final UserModel _finalUserModel = UserModel(
       userID : userModel.userID,
       authBy: userModel.authBy,
       createdAt : DateTime.now(),
@@ -112,7 +112,7 @@ class UserOps{
 
     print('readUserOps : Start reading user $userID while lang is : ${Wordz.languageCode(context)},');
 
-    Map<String, dynamic> _userMap = await Fire.readDoc(
+    final Map<String, dynamic> _userMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.users,
       docName: userID,
@@ -121,7 +121,7 @@ class UserOps{
     print('readUserOps : _userMap _userMap[\'userID\'] is : ${_userMap['userID']}');
     // print('lng : ${Wordz.languageCode(context)}');
 
-    UserModel _user = _userMap == null ? null : UserModel.decipherUserMap(_userMap);
+    final UserModel _user = _userMap == null ? null : UserModel.decipherUserMap(_userMap);
 
     // print('_userModel is : $_user');
     // print('lng : ${Wordz.languageCode(context)}');
@@ -133,7 +133,7 @@ class UserOps{
 
     print('readUserOps : Start reading user $userID while lang is : ${Wordz.languageCode(context)},');
 
-    Map<String, dynamic> _tinyUserMap = await Fire.readDoc(
+    final Map<String, dynamic> _tinyUserMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.tinyUsers,
       docName: userID,
@@ -142,7 +142,7 @@ class UserOps{
     print('readUserOps : _tinyUserMap _tinyUserMap[\'userID\'] is : ${_tinyUserMap['userID']}');
     // print('lng : ${Wordz.languageCode(context)}');
 
-    TinyUser _tinyUser = _tinyUserMap == null ? null : TinyUser.decipherTinyUserMap(_tinyUserMap);
+    final TinyUser _tinyUser = _tinyUserMap == null ? null : TinyUser.decipherTinyUserMap(_tinyUserMap);
 
     // print('_userModel is : $_user');
     // print('lng : ${Wordz.languageCode(context)}');
@@ -184,7 +184,7 @@ class UserOps{
     }
 
     /// B - create final UserModel
-    UserModel _finalUserModel = UserModel(
+    final UserModel _finalUserModel = UserModel(
       userID : updatedUserModel.userID,
       authBy: oldUserModel.authBy,
       createdAt : oldUserModel.createdAt,
@@ -253,7 +253,7 @@ class UserOps{
   Future<dynamic> deactivateUserOps({BuildContext context, UserModel userModel}) async {
 
     /// A - initial bool dialog alert
-    bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await CenterDialog.showCenterDialog(
       context: context,
       title: 'Watch Out !',
       body: 'Your data can not be retrieved after deactivating your account\nAre you sure you want to proceed ?',
@@ -288,18 +288,18 @@ class UserOps{
         );
 
         /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
-        Map<String, dynamic> _userBzzMap = await BzOps.readAndFilterTeamlessBzzByUserModel(
+        final Map<String, dynamic> _userBzzMap = await BzOps.readAndFilterTeamlessBzzByUserModel(
           context: context,
           userModel: userModel,
         );
-        List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
-        List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
+        final List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
+        final List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
 
         /// CLOSE WAITING DIALOG
         Nav.goBack(context);
 
         /// C - show deactivable bzz dialog
-        bool _bzzReviewResult = await Dialogz.bzzDeactivationDialog(
+        final bool _bzzReviewResult = await Dialogz.bzzDeactivationDialog(
           context: context,
           bzzToDeactivate: _bzzToDeactivate,
           bzzToKeep: _bzzToKeep,
@@ -317,7 +317,7 @@ class UserOps{
         else  {
 
           /// E - show flyers that will be DEACTIVATED
-          bool _flyersReviewResult = await Dialogz.flyersDeactivationDialog(
+          final bool _flyersReviewResult = await Dialogz.flyersDeactivationDialog(
             context: context,
             bzzToDeactivate: _bzzToDeactivate,
           );
@@ -452,7 +452,7 @@ class UserOps{
   Future<dynamic> superDeleteUserOps({BuildContext context, UserModel userModel}) async {
 
     /// A - initial bool dialog alert
-    bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await CenterDialog.showCenterDialog(
       context: context,
       title: 'This will Delete all your data',
       body: 'all pictures, flyers, businesses, your user records will be deleted for good\nDo you want to proceed ?',
@@ -486,18 +486,18 @@ class UserOps{
         );
 
         /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
-        Map<String, dynamic> _userBzzMap = await BzOps.readAndFilterTeamlessBzzByUserModel(
+        final Map<String, dynamic> _userBzzMap = await BzOps.readAndFilterTeamlessBzzByUserModel(
           context: context,
           userModel: userModel,
         );
-        List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
-        List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
+        final List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
+        final List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
 
         /// CLOSE WAITING DIALOG
         Nav.goBack(context);
 
         /// C - show deactivable bzz dialog
-        bool _bzzReviewResult = await Dialogz.bzzDeactivationDialog(
+        final bool _bzzReviewResult = await Dialogz.bzzDeactivationDialog(
           context: context,
           bzzToDeactivate: _bzzToDeactivate,
           bzzToKeep: _bzzToKeep,
@@ -514,7 +514,7 @@ class UserOps{
         else {
 
           /// E - show flyers that will be DELETED
-          bool _flyersReviewResult = await Dialogz.flyersDeactivationDialog(
+          final bool _flyersReviewResult = await Dialogz.flyersDeactivationDialog(
             context: context,
             bzzToDeactivate: _bzzToDeactivate,
           );
@@ -663,7 +663,7 @@ class UserOps{
   Future<Map<String, dynamic>> getOrCreateUserModelFromUser({BuildContext context, User user,Zone zone}) async {
 
     /// E - read user ops if existed
-    UserModel _existingUserModel = await UserOps().readUserOps(
+    final UserModel _existingUserModel = await UserOps().readUserOps(
       context: context,
       userID: user.uid,
     );
@@ -675,7 +675,7 @@ class UserOps{
       // print('lng : ${Wordz.languageCode(context)}');
 
       /// E1 - create initial user model
-      UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
+      final UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
         context: context,
         user: user,
         zone: zone,
@@ -684,7 +684,7 @@ class UserOps{
       print('googleSignInOps : _initialUserModel : $_initialUserModel');
 
       /// E2 - create user ops
-      UserModel _finalUserModel = await UserOps().createUserOps(
+      final UserModel _finalUserModel = await UserOps().createUserOps(
         context: context,
         userModel: _initialUserModel,
       );

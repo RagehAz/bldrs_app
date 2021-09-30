@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
@@ -10,11 +9,12 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/main.dart';
+import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/views/widgets/general/buttons/rageh_button.dart';
+import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
-import 'package:bldrs/views/widgets/general/pyramids/pyramids.dart';
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/general/textings/the_golden_scroll.dart';
 import 'package:flutter/cupertino.dart';
@@ -694,14 +694,14 @@ class _FontLabState extends State<FontLab> {
 
             Rageh(
               tappingRageh:
-                Wordz.activeLanguage(context) == Lingo.Arabic ?
+                Wordz.activeLanguage(context) == Lingo.arabicLingo.code ?
                     () async {
-                Locale temp = await Localizer.setLocale(Lingo.English);
+                Locale temp = await Localizer.setLocale(Lingo.englishLingo.code);
                 BldrsApp.setLocale(context, temp);
               }
               :
                   () async {
-                Locale temp = await Localizer.setLocale(Lingo.Arabic);
+                Locale temp = await Localizer.setLocale(Lingo.arabicLingo.code);
                 BldrsApp.setLocale(context, temp);
               },
 

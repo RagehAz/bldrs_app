@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
@@ -10,6 +9,7 @@ import 'package:bldrs/views/widgets/general/buttons/dream_wrapper.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog_row.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,28 +32,28 @@ class dashboardUserButton extends StatelessWidget {
     return 60;
   }
 // -----------------------------------------------------------------------------
+  static SuperVerse _titleVerse(String title){
+    return SuperVerse(
+      verse: title,
+      size: 0,
+      color: Colorz.Grey80,
+    );
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, userModel.zone.countryID);
-    String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, userModel.zone.cityID);
-    String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, userModel.zone.districtID);
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, userModel.zone.countryID);
+    final String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, userModel.zone.cityID);
+    final String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, userModel.zone.districtID);
 
-    List<ContactModel> _stringyContacts = ContactModel.getContactsWithStringsFromContacts(userModel.contacts);
-    List<String> _stringyContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
-    List<String> _stringyContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_stringyContacts);
+    final List<ContactModel> _stringyContacts = ContactModel.getContactsWithStringsFromContacts(userModel.contacts);
+    final List<String> _stringyContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
+    final List<String> _stringyContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_stringyContacts);
 
-    List<ContactModel> _socialContacts = ContactModel.getSocialMediaContactsFromContacts(userModel.contacts);
-    List<String> _socialContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_socialContacts);
-    List<String> _socialContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_socialContacts);
-
-    SuperVerse _titleVerse(String title){
-      return SuperVerse(
-        verse: title,
-        size: 0,
-        color: Colorz.Grey80,
-      );
-    }
+    final List<ContactModel> _socialContacts = ContactModel.getSocialMediaContactsFromContacts(userModel.contacts);
+    final List<String> _socialContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_socialContacts);
+    final List<String> _socialContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_socialContacts);
 
 
     return DreamBox(
@@ -69,7 +69,7 @@ class dashboardUserButton extends StatelessWidget {
       margins: EdgeInsets.symmetric(vertical: 5),
       onTap: () async {
 
-        double _clearDialogWidth = BottomDialog.dialogClearWidth(context);
+        final double _clearDialogWidth = BottomDialog.dialogClearWidth(context);
 
         await BottomDialog.showBottomDialog(
           context: context,

@@ -41,12 +41,12 @@ class Localizer{
   static const LocalizationsDelegate<Localizer> delegate = _DemoLocalizationDelegate();
 // -----------------------------------------------------------------------------
   Future load() async {
-    String jsonStringValues =
+    final String _jsonStringValues =
         await rootBundle.loadString('assets/languages/${locale.languageCode}.json');
 
-    Map<String, dynamic> mappedJson = json.decode(jsonStringValues);
+    final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
 
-    _localizedValues = mappedJson.map((key, value) => MapEntry(key, value.toString()));
+    _localizedValues = _mappedJson.map((key, value) => MapEntry(key, value.toString()));
   }
 // -----------------------------------------------------------------------------
   String getTranslatedValue(String key) {
@@ -58,7 +58,9 @@ class Localizer{
   }
 // -----------------------------------------------------------------------------
   static Future<void> changeAppLanguage(BuildContext context, String code) async {
-    Locale _temp = await setLocale(code);
+
+    final Locale _temp = await setLocale(code);
+
     BldrsApp.setLocale(context, _temp);
 
     if (superUserID() != null){
@@ -76,43 +78,45 @@ class Localizer{
   }
 // -----------------------------------------------------------------------------
   static Future<void> switchBetweenArabicAndEnglish(BuildContext context) async {
-    Wordz.languageCode(context) == Lingo.English ?
-    await changeAppLanguage(context, Lingo.Arabic) :
-    await changeAppLanguage(context, Lingo.English);
+    Wordz.languageCode(context) == Lingo.englishLingo.code ?
+    await changeAppLanguage(context, Lingo.arabicLingo.code)
+        :
+    await changeAppLanguage(context, Lingo.englishLingo.code);
   }
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
   static Future<Locale> setLocale(String languageCode) async{
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    final SharedPreferences _prefs = await SharedPreferences.getInstance();
     await _prefs.setString('languageCode', languageCode);
 
     return _locale(languageCode);
   }
 // -----------------------------------------------------------------------------
-  static Locale _locale(String languageCode){
+  static Locale _locale(String lingoCode){
     Locale _temp;
-    switch(languageCode){
-      case Lingo.English:     _temp = Locale(languageCode, 'US'); break;
-      case Lingo.Arabic:      _temp = Locale(languageCode, 'EG'); break;
-      case Lingo.Spanish:     _temp = Locale(languageCode, 'ES'); break;
-      case Lingo.French:      _temp = Locale(languageCode, 'FR'); break;
-      case Lingo.Chinese:     _temp = Locale(languageCode, 'CN'); break;
-      case Lingo.German:      _temp = Locale(languageCode, 'DE'); break;
-      case Lingo.Italian:     _temp = Locale(languageCode, 'IT'); break;
-      default:        _temp = Locale(Lingo.English, 'US');
+    switch(lingoCode){
+      case Lingo.englishCode:     _temp = Locale(lingoCode, 'US'); break;
+      case Lingo.arabicCode:      _temp = Locale(lingoCode, 'EG'); break;
+      case Lingo.spanishCode:     _temp = Locale(lingoCode, 'ES'); break;
+      case Lingo.frenchCode:      _temp = Locale(lingoCode, 'FR'); break;
+      case Lingo.chineseCode:     _temp = Locale(lingoCode, 'CN'); break;
+      case Lingo.germanCode:      _temp = Locale(lingoCode, 'DE'); break;
+      case Lingo.italianCode:     _temp = Locale(lingoCode, 'IT'); break;
+      default:
+        _temp = Locale(Lingo.englishLingo.code, 'US');
     }
     return _temp;
   }
 // -----------------------------------------------------------------------------
   static Future<Locale> getLocale() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    String languageCode = _prefs.getString('languageCode') ?? Lingo.English;
-    return _locale(languageCode);
+    final SharedPreferences _prefs = await SharedPreferences.getInstance();
+    final String _languageCode = _prefs.getString('languageCode') ?? Lingo.englishLingo.code;
+    return _locale(_languageCode);
 //  await _prefs.setString(Language_Code, languageCode);
   }
 // -----------------------------------------------------------------------------
   static bool appIsArabic(BuildContext context){
-    bool _isArabic = Wordz.languageCode(context) == Lingo.Arabic ? true : false;
+    final bool _isArabic = Wordz.languageCode(context) == Lingo.arabicLingo.code ? true : false;
     return _isArabic;
   }
 // -----------------------------------------------------------------------------

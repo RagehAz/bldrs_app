@@ -14,7 +14,7 @@ enum Section{
 // -----------------------------------------------------------------------------
 class SectionClass{
 
-  static List<Section> SectionsList = <Section>[
+  static const List<Section> SectionsList = const <Section>[
     Section.NewProperties,
     Section.ResaleProperties,
     Section.RentalProperties,

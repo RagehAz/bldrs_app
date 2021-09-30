@@ -47,7 +47,7 @@ class NotiModel{
   final bool sendFCM;
   final dynamic metaData; /// of type : InternalLinkedHashMap<dynamic, dynamic>
 
-  NotiModel({
+  const NotiModel({
     @required this.id,
     @required this.name,
     @required this.sudo,
@@ -127,13 +127,13 @@ class NotiModel{
   }
 // -----------------------------------------------------------------------------
   static List<NotiModel> decipherNotiModels(List<dynamic> maps){
-    List<NotiModel> _notiModels = [];
+    final List<NotiModel> _notiModels = <NotiModel>[];
 
     if (maps != null && maps.length != 0){
 
       for (var map in maps){
 
-        NotiModel _notiModel = decipherNotiModel(map);
+        final NotiModel _notiModel = decipherNotiModel(map);
 
         _notiModels.add(_notiModel);
 
@@ -187,7 +187,7 @@ class NotiModel{
   }
 // -----------------------------------------------------------------------------
   static List<NotiAttachmentType> notiAttachmentTypesList(){
-    return <NotiAttachmentType>[
+    return const <NotiAttachmentType>[
       NotiAttachmentType.non,
       NotiAttachmentType.flyers,
       NotiAttachmentType.banner,
@@ -216,11 +216,9 @@ class NotiModel{
     print('$methodName : PRINTING NotiModel ---------------- END -- ');
   }
 // -----------------------------------------------------------------------------
-
-  // -----------------------------------------------------------------------------
   static List<NotiModel> getNotiModelsFromSnapshot(DocumentSnapshot doc){
-    var _maps = doc.data();
-    List<NotiModel> _notiModels = decipherNotiModels(_maps);
+    final Object _maps = doc.data();
+    final List<NotiModel> _notiModels = decipherNotiModels(_maps);
     return _notiModels;
   }
 // -----------------------------------------------------------------------------

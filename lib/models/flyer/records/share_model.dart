@@ -8,7 +8,7 @@ class ShareModel{
   final List<DateTime> timeStamps;
   // final String sharedTo;
 
-  ShareModel({
+  const ShareModel({
   this.slideIndexes,
   this.timeStamps,
   // this.sharedTo,
@@ -65,7 +65,7 @@ class LinkModel{
   final String url;
   final String description;
 
-  LinkModel({
+  const LinkModel({
     @required this.url,
     @required this.description,
   });
@@ -78,17 +78,17 @@ class LinkModel{
   }
 
 // -----------------------------------------------------------------------------
-  static LinkModel bldrsWebSiteLink = LinkModel(
+  static const LinkModel bldrsWebSiteLink = const LinkModel(
     url: 'www.bldrs.net',
     description: 'Download Bldrs.net App',
   );
 // -----------------------------------------------------------------------------
-  static LinkModel bldrsAppStoreLink = LinkModel(
+  static const LinkModel bldrsAppStoreLink = const LinkModel(
     url: 'www.google.com', // temp
     description: 'Download Bldrs.net App',
   );
 // -----------------------------------------------------------------------------
-  static LinkModel bldrsPlayStoreLink = LinkModel(
+  static const LinkModel bldrsPlayStoreLink = const LinkModel(
     url: 'www.google.com', // temp
     description: 'Download Bldrs.net App',
   );

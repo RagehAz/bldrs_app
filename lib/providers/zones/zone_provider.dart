@@ -60,18 +60,21 @@ class CountryProvider with ChangeNotifier{
 // -----------------------------------------------------------------------------
   /// get available countries
   List<Map<String,String>> getAvailableCountries(BuildContext context){
-    List<Map<String,String>> _countriesMaps = [];
+    final List<Map<String,String>> _countriesMaps = <Map<String,String>>[];
     _countries.forEach((co) {
-      if (co.isActivated){_countriesMaps.add(
-        { "id" : co.iso3, "value" : Localizer.translate(context, co.iso3)}
-      );}
-    });
+      if (co.isActivated){
+        _countriesMaps.add(
+            { "id" : co.iso3, "value" : Localizer.translate(context, co.iso3)}
+        );
+      }
+    }
+    );
     return _countriesMaps;
   }
 // -----------------------------------------------------------------------------
   /// get available countries
   List<String> getCountriesIDsByContinent({BuildContext context,String continent}){
-    List<String> _countriesIDs = [];
+    final List<String> _countriesIDs = <String>[];
 
     _countries.forEach((co) {
       if (
@@ -86,20 +89,48 @@ class CountryProvider with ChangeNotifier{
 // -----------------------------------------------------------------------------
   /// get Cities list by country iso3
   List<Map<String,String>> getCitiesNamesMapsByIso3(BuildContext context, String iso3){
-    List<Map<String,String>> _citiesNames = [];
-    String _currentLanguageCode = Wordz.languageCode(context);
+
+    final List<Map<String,String>> _citiesNames = <Map<String,String>>[];
+    final String _currentLanguageCode = Wordz.languageCode(context);
 
     _cities.forEach((pr) {
+
       if (pr.iso3 == iso3){
-        if (_currentLanguageCode == 'en'){_citiesNames.add({'id': pr.name, 'value': pr.name});}
-        else
-          {
-            String _areaNameInCurrentLanguage = pr.namez.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
-            if (_areaNameInCurrentLanguage == null){_citiesNames.add({'id': pr.name, 'value': pr.name});}
-            else {_citiesNames.add({'id': pr.name, 'value': _areaNameInCurrentLanguage});}
+        if (_currentLanguageCode == 'en'){
+          _citiesNames.add(
+              {
+                'id': pr.name,
+                'value': pr.name,
+              }
+          );
+        }
+
+        else {
+
+          final String _areaNameInCurrentLanguage = pr.namez.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+
+            if (_areaNameInCurrentLanguage == null){
+              _citiesNames.add(
+                  {
+                    'id': pr.name,
+                    'value': pr.name
+                  }
+                  );
+            }
+
+            else {
+              _citiesNames.add(
+                  {
+                    'id': pr.name,
+                    'value': _areaNameInCurrentLanguage
+                  }
+                  );
+            }
           }
       }
-    });
+
+    }
+    );
 
     return _citiesNames;
   }
@@ -107,11 +138,12 @@ class CountryProvider with ChangeNotifier{
   /// get Areas list by City name
   /// uses cityName in English as ID
   List<Map<String, String>> getDistrictsNameMapsByCityID(BuildContext context, String cityID){
-    List<Map<String, String>> _districtsNames = [];
-    String _currentLanguageCode = Wordz.languageCode(context);
+    final List<Map<String, String>> _districtsNames = <Map<String, String>>[];
+    final String _currentLanguageCode = Wordz.languageCode(context);
+
     _districts.forEach((ar) {
       if(ar.city == cityID){
-          String _districtNameInCurrentLanguage = ar.namez.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+          final String _districtNameInCurrentLanguage = ar.namez.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
           if (_districtNameInCurrentLanguage == null){_districtsNames.add({'id': ar.id, 'value': ar.name});}
           else {_districtsNames.add({'id': ar.id, 'value': _districtNameInCurrentLanguage});}
       }
@@ -120,7 +152,7 @@ class CountryProvider with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   List<District> getDistrictsByCityID(BuildContext context, String cityID){
-    List<District> _cityDistricts = [];
+    final List<District> _cityDistricts = <District>[];
 
     _districts.forEach((ar) {
       if(ar.city == cityID){
@@ -132,9 +164,9 @@ class CountryProvider with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   String getDistrictNameWithCurrentLanguageIfPossible(BuildContext context, String districtID){
-    String _currentLanguageCode = Wordz.languageCode(context);
-    District _district = _districts.singleWhere((ar) => ar.id == districtID, orElse: ()=> null);
-    String _nameInCurrentLanguage = _district?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+    final String _currentLanguageCode = Wordz.languageCode(context);
+    final District _district = _districts.singleWhere((ar) => ar.id == districtID, orElse: ()=> null);
+    final String _nameInCurrentLanguage = _district?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
     // print('Area _nameInCurrentLanguage = ($_nameInCurrentLanguage) ,,_district?.name is (${_district?.name}) ');
 
@@ -142,27 +174,27 @@ class CountryProvider with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   String getCityNameWithCurrentLanguageIfPossible(BuildContext context, String cityID){
-  City _city = _cities.firstWhere((ar) => ar.name == cityID, orElse: ()=> null);
-  // String _nameInCurrentLanguage = _city?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+    final City _city = _cities.firstWhere((ar) => ar.name == cityID, orElse: ()=> null);
+    // String _nameInCurrentLanguage = _city?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
-  // print('city is : ${_city.iso3} : ${_city.name} : ${_city.districts.length} : ${_city.namez}');
+    // print('city is : ${_city.iso3} : ${_city.name} : ${_city.districts.length} : ${_city.namez}');
 
-  String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(context, _city?.namez);
+    final String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(context, _city?.namez);
 
-  return _nameInCurrentLanguage == null ? cityID : _nameInCurrentLanguage;
+    return _nameInCurrentLanguage == null ? cityID : _nameInCurrentLanguage;
 }
 // -----------------------------------------------------------------------------
   String getCityIDByCityName(BuildContext context, String cityName){
     String _cityName;
 
-    String _languageCode = Wordz.languageCode(context);
+    final String _languageCode = Wordz.languageCode(context);
 
     if (_languageCode != 'en'){
-      for (var city in _cities){
+      for (City city in _cities){
 
         for (var nmz in city.namez){
 
-          bool _searchIsTrue = nmz.code == _languageCode && nmz.value == cityName ? true : false;
+          final bool _searchIsTrue = nmz.code == _languageCode && nmz.value == cityName ? true : false;
 
           if (_searchIsTrue == true){
             _cityName = city.name;

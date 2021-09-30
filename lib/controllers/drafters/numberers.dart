@@ -22,11 +22,11 @@ class Numberers {
         final _number = number.floor();
         final String _digits = _number.abs().toString();
         final StringBuffer _separatedNumberWithoutFractions = StringBuffer(_number < 0 ? '-' : '');
-        final int maxDigitIndex = _digits.length - 1;
+        final int _maxDigitIndex = _digits.length - 1;
 
-        for (int i = 0; i <= maxDigitIndex; i += 1) {
+        for (int i = 0; i <= _maxDigitIndex; i += 1) {
           _separatedNumberWithoutFractions.write(_digits[i]);
-          if (i < maxDigitIndex && (maxDigitIndex - i) % 3 == 0) _separatedNumberWithoutFractions.write('\'');
+          if (i < _maxDigitIndex && (_maxDigitIndex - i) % 3 == 0) _separatedNumberWithoutFractions.write('\'');
         }
 
         if (_fractions > 0){
@@ -45,14 +45,15 @@ class Numberers {
     // if (number == null) return '0';
     // if (number > -1000 && number < 1000) return number.toString();
 
-    final String digits = number.abs().toString();
-    final StringBuffer result = StringBuffer(number < 0 ? '-' : '');
-    final int maxDigitIndex = digits.length - 1;
+    final String _digits = number.abs().toString();
+    final StringBuffer _resultStringBuffer = StringBuffer(number < 0 ? '-' : '');
+    final int maxDigitIndex = _digits.length - 1;
+
     for (int i = 0; i <= maxDigitIndex; i += 1) {
-      result.write(digits[i]);
-      if (i < maxDigitIndex && (maxDigitIndex - i) % 3 == 0) result.write('\'');
+      _resultStringBuffer.write(_digits[i]);
+      if (i < maxDigitIndex && (maxDigitIndex - i) % 3 == 0) _resultStringBuffer.write('\'');
     }
-    return result.toString();
+    return _resultStringBuffer.toString();
   }
 // -----------------------------------------------------------------------------
   static String counterCaliber(BuildContext context, int x) {
@@ -105,18 +106,18 @@ class Numberers {
   }
 // -----------------------------------------------------------------------------
   static int lastTwoIntegersFromAString(String string) {
-    String _lastTwoSubStrings = TextMod.lastTwoSubStringsFromAString(string);
-    int _asIntegers = stringToInt(_lastTwoSubStrings);
+    final String _lastTwoSubStrings = TextMod.lastTwoSubStringsFromAString(string);
+    final int _asIntegers = stringToInt(_lastTwoSubStrings);
     return _asIntegers;
   }
 // -----------------------------------------------------------------------------
   static int createRandomIndex({int listLength}){
-    Random _random = new Random();
+    final Random _random = new Random();
     return _random.nextInt(listLength);
   }
 // -----------------------------------------------------------------------------
   static int createUniqueIndex({@required List<int> existingIndexes, int maxIndex = 999999}) {
-    Random _random = new Random();
+    final Random _random = new Random();
 
     /// from 0 up to 999'999 included
     int _randomNumber = _random.nextInt(maxIndex+1);
@@ -145,25 +146,25 @@ class Numberers {
   }
 // -----------------------------------------------------------------------------
   static List<ValueKey> addUniqueKeyToKeys({@required List<ValueKey> keys}) {
-    List<int> _numbers = getValuesFromKeys(keys: keys);
+    final List<int> _numbers = getValuesFromKeys(keys: keys);
 
-    int _newValue = createUniqueIndex(existingIndexes: _numbers);
+    final int _newValue = createUniqueIndex(existingIndexes: _numbers);
 
-    List<ValueKey> _newKeys = <ValueKey>[...keys, ValueKey(_newValue)];
+    final List<ValueKey> _newKeys = <ValueKey>[...keys, ValueKey(_newValue)];
 
     return _newKeys;
   }
 // -----------------------------------------------------------------------------
   static ValueKey createUniqueKeyFrom({@required List<ValueKey> existingKeys}) {
-    List<int> _existingValues = getValuesFromKeys(keys: existingKeys);
+    final List<int> _existingValues = getValuesFromKeys(keys: existingKeys);
 
-    int _newValue = createUniqueIndex(existingIndexes: _existingValues);
+    final int _newValue = createUniqueIndex(existingIndexes: _existingValues);
 
     return ValueKey(_newValue);
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> createListWithDummyValue({@required int length, @required int value}){
-    List<dynamic> _dummies = [];
+    List<dynamic> _dummies = <dynamic>[];
 
     for (int i = 0; i < length; i++){
       _dummies.add(value);
@@ -191,8 +192,8 @@ class Numberers {
   }
 // -----------------------------------------------------------------------------
   static double roundFractions(double value, int fractions){
-    String _roundedAsString = value.toStringAsFixed(fractions);
-    double _rounded = stringToDouble(_roundedAsString);
+    final String _roundedAsString = value.toStringAsFixed(fractions);
+    final double _rounded = stringToDouble(_roundedAsString);
     return _rounded;
   }
 // -----------------------------------------------------------------------------
@@ -212,12 +213,12 @@ class Numberers {
   }
 // -----------------------------------------------------------------------------
   static int discountPercentage({double oldPrice, double currentPrice}){
-    double percent = ((oldPrice - currentPrice) / oldPrice ) * 100;
-    return percent.round();
+    final double _percent = ((oldPrice - currentPrice) / oldPrice ) * 100;
+    return _percent.round();
   }
 // -----------------------------------------------------------------------------
   static List<int> getRandomIndexes({int numberOfIndexes, @required int maxIndex}){
-    List<int> _indexes = [];
+    List<int> _indexes = <int>[];
     for (int i = 0; i < numberOfIndexes; i++) {
       int _newIndex = createUniqueIndex(existingIndexes: _indexes, maxIndex: maxIndex);
       _indexes.add(_newIndex);

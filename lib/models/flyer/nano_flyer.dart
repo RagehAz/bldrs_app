@@ -62,9 +62,9 @@ class NanoFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<NanoFlyer> replaceNanoFlyerInAList({List<NanoFlyer> originalNanoFlyers, NanoFlyer finalNanoFlyer}){
-    List<NanoFlyer> _finalNanoFlyers = originalNanoFlyers;
+    final List<NanoFlyer> _finalNanoFlyers = originalNanoFlyers;
 
-    int _nanoFlyerIndex = _finalNanoFlyers.indexWhere((nano) => nano.flyerID == finalNanoFlyer.flyerID);
+    final int _nanoFlyerIndex = _finalNanoFlyers.indexWhere((nano) => nano.flyerID == finalNanoFlyer.flyerID);
     _finalNanoFlyers.removeAt(_nanoFlyerIndex);
     _finalNanoFlyers.insert(_nanoFlyerIndex, finalNanoFlyer);
 
@@ -72,10 +72,12 @@ class NanoFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<NanoFlyer> decipherNanoFlyersMaps(List<dynamic> nanoFlyersMaps){
-    List<NanoFlyer> _nanoFlyers = [];
+    final List<NanoFlyer> _nanoFlyers = <NanoFlyer>[];
+
     nanoFlyersMaps.forEach((map) {
       _nanoFlyers.add(decipherNanoFlyerMap(map));
     });
+
     return _nanoFlyers;
   }
 // -----------------------------------------------------------------------------
@@ -91,7 +93,7 @@ class NanoFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> cipherNanoFlyers (List<NanoFlyer> nanoFlyers){
-    List<dynamic> _nanoFlyersMaps = [];
+    final List<dynamic> _nanoFlyersMaps = <dynamic>[];
 
     nanoFlyers.forEach((f) {
       _nanoFlyersMaps.add(f.toMap());
@@ -101,7 +103,7 @@ class NanoFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<String> getListOfFlyerIDsFromNanoFlyers(List<NanoFlyer> nanoFlyers){
-    List<String> _flyerIDs = [];
+    final List<String> _flyerIDs = <String>[];
 
     nanoFlyers.forEach((nano) {
       _flyerIDs.add(nano.flyerID);
@@ -111,7 +113,7 @@ class NanoFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<NanoFlyer> removeNanoFlyerFromNanoFlyers(List<NanoFlyer> nanoFlyers, String flyerID){
-    int _flyerIndex = nanoFlyers.indexWhere((nano) => nano.flyerID == flyerID, );
+    final int _flyerIndex = nanoFlyers.indexWhere((nano) => nano.flyerID == flyerID, );
 
     print('removeNanoFlyerFromNanoFlyers : _flyerIndex : $_flyerIndex');
 
@@ -148,5 +150,6 @@ class NanoFlyer with ChangeNotifier{
 
     return _nano;
   }
+// -----------------------------------------------------------------------------
 }
 

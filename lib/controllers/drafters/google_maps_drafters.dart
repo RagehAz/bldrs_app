@@ -11,17 +11,17 @@ import 'package:flutter/material.dart';
 //   List<City> cityDataBase = dbCities;
   List<Country> countryDataBase = DbCountries.dbCountries();
 // -----------------------------------------------------------------------------
-Widget aDot (){
-  return
-Container(
-  width: 2,
-  height: 2,
-  decoration: BoxDecoration(
-    color: Color.fromARGB(1000, 255, 192, 0),
-    shape: BoxShape.circle
-  ),
-);
-}
+// Widget aDot (){
+//   return
+//     Container(
+//       width: 2,
+//       height: 2,
+//       decoration: BoxDecoration(
+//           color: Color.fromARGB(1000, 255, 192, 0),
+//           shape: BoxShape.circle
+//       ),
+//     );
+// }
 // -----------------------------------------------------------------------------
 // List<Widget> worldDots(double width){
 //   final dots = <Widget>[];
@@ -138,13 +138,14 @@ class CityLabel extends StatelessWidget {
 // }
 // -----------------------------------------------------------------------------
 Future<BitmapDescriptor> getTheFuckingMarker()async{
-  BitmapDescriptor customMarker;
-   customMarker = await BitmapDescriptor.fromAssetImage(
+
+  final BitmapDescriptor customMarker = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration
             .empty,
           // (size: Size(50,50),),
         Iconz.DumBzPNG
     );
+
    return customMarker;
   }
 // -----------------------------------------------------------------------------
@@ -172,7 +173,8 @@ Future<BitmapDescriptor> getTheFuckingMarker()async{
 // }
 // -----------------------------------------------------------------------------
 HashSet<Marker> someMarker (BitmapDescriptor customMarker, double latitude, double longitude){
-  var someMarker = HashSet<Marker>();
+  final HashSet<Marker> someMarker = HashSet<Marker>();
+
    someMarker.add(
       Marker(
         markerId: MarkerId('${latitude}_$longitude'),
@@ -186,6 +188,7 @@ HashSet<Marker> someMarker (BitmapDescriptor customMarker, double latitude, doub
         ),
       ),
    );
+
    return someMarker;
    }
 // -----------------------------------------------------------------------------

@@ -7,7 +7,7 @@ class FollowModel{
    final List<DateTime> timeStamps;
    final FollowState followState;
 
-   FollowModel({
+   const FollowModel({
      this.timeStamps,
      this.followState,
  });
@@ -36,12 +36,12 @@ class FollowModel{
   }
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> cipherUserFollows (List<String> followedBzIDs){
-     Map<String, dynamic> _userFollowsMap = TextMod.getValueAndTrueMap(followedBzIDs);
+     final Map<String, dynamic> _userFollowsMap = TextMod.getValueAndTrueMap(followedBzIDs);
      return _userFollowsMap;
   }
 // -----------------------------------------------------------------------------
   static List<String> decipherUserFollowsMap (Map<String, dynamic> map){
-     List<dynamic> _followedBzzIds = TextMod.getValuesFromValueAndTrueMap(map);
+    final List<dynamic> _followedBzzIds = TextMod.getValuesFromValueAndTrueMap(map);
      return _followedBzzIds;
   }
 // -----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ class FollowModel{
   }
 // -----------------------------------------------------------------------------
   static List<String> editFollows(List<String> existingFollowsList, String bzID){
-     List<String> _updatedBzzFollows = [];
+    List<String> _updatedBzzFollows = <String>[];
 
      /// --- IF BZ IS NOT FOLLOWED
      if (existingFollowsList == null || existingFollowsList.contains(bzID) == false){
@@ -67,7 +67,7 @@ class FollowModel{
         else {
 
           /// REMOVE BZID FROM THE LIST
-       int _bzIDIndex = existingFollowsList.indexWhere((id) => id == bzID);
+       final int _bzIDIndex = existingFollowsList.indexWhere((id) => id == bzID);
        existingFollowsList.removeAt(_bzIDIndex);
        _updatedBzzFollows = <String>[...existingFollowsList];
         }
@@ -82,7 +82,7 @@ class FollowModel{
 
       /// create a new follow model
       return FollowModel(
-        timeStamps: [DateTime.now()],
+        timeStamps: <DateTime>[DateTime.now()],
         followState: FollowState.following,
       );
 
@@ -122,7 +122,7 @@ class FollowedBzz {
   final String userID;
   final List<TinyBz> followedBz;
 
-  FollowedBzz({
+  const FollowedBzz({
     @required this.userID,
     @required this.followedBz,
   });
@@ -142,4 +142,4 @@ class FollowedBzz {
   }
 
 }
-
+// -----------------------------------------------------------------------------

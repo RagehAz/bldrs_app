@@ -11,7 +11,7 @@ class AuthorModel{
   final bool authorIsMaster;
   final List<ContactModel> authorContacts;
 
-  AuthorModel({
+  const AuthorModel({
     this.userID,
     this.authorName,
     this.authorPic,
@@ -32,10 +32,10 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static int getAuthorGalleryCountFromBzModel(BzModel bzModel, AuthorModel author){
-    String _authorID = author.userID;
-    List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
+    final String _authorID = author.userID;
+    final List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
 
-    List<String> _authorFlyersIDs = [];
+    final List<String> _authorFlyersIDs = <String>[];
 
     for (var flyer in _nanoFlyers){
       if(flyer.authorID == _authorID){
@@ -60,7 +60,7 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static List<AuthorModel> decipherBzAuthorsMaps(List<dynamic> listOfMaps){
-    List<AuthorModel> _authorsList = [];
+    final List<AuthorModel> _authorsList = <AuthorModel>[];
 
     listOfMaps.forEach((map) {
       _authorsList.add(decipherBzAuthorMap(map));
@@ -70,7 +70,7 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String,Object>> cipherAuthorsModels(List<AuthorModel> authorsList){
-    List<Map<String,Object>> listOfAuthorsMaps = [];
+    final List<Map<String,Object>> listOfAuthorsMaps = <Map<String,Object>>[];
     authorsList?.forEach((author) {
       listOfAuthorsMaps.add(author.toMap());
     });
@@ -78,15 +78,15 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static AuthorModel getAuthorFromBzByAuthorID(BzModel bz, String authorID){
-    AuthorModel author = bz?.bzAuthors?.singleWhere((au) => au.userID == authorID, orElse: ()=>null);
+    final AuthorModel author = bz?.bzAuthors?.singleWhere((au) => au.userID == authorID, orElse: ()=> null );
     return author;
   }
 // -----------------------------------------------------------------------------
   /// temp
   static AuthorModel createAuthorModelFromUserModelAndBzModel(UserModel user, BzModel bz){
-    String authorID = user?.userID;
-    AuthorModel authorFromBz = getAuthorFromBzByAuthorID(bz, authorID);
-    AuthorModel author = AuthorModel(
+    final String authorID = user?.userID;
+    final AuthorModel authorFromBz = getAuthorFromBzByAuthorID(bz, authorID);
+    final AuthorModel author = AuthorModel(
       userID: user?.userID,
       // bzID: bz?.bzID,
       authorName: user?.name,
@@ -111,20 +111,20 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static int getAuthorIndexByAuthorID(List<AuthorModel> authors, String authorID){
-    int _currentAuthorIndex = authors.indexWhere((au) => authorID == au.userID);
+    final int _currentAuthorIndex = authors.indexWhere((au) => authorID == au.userID);
     return _currentAuthorIndex;
   }
 // -----------------------------------------------------------------------------
   static BzModel replaceAuthorModelInBzModel({BzModel bzModel, AuthorModel oldAuthor, AuthorModel newAuthor}){
 
-    List<AuthorModel> _modifiedAuthorsList =
+    final List<AuthorModel> _modifiedAuthorsList =
     replaceAuthorModelInAuthorsList(
       originalAuthors: bzModel.bzAuthors,
       oldAuthor: oldAuthor,
       newAuthor: newAuthor,
     );
 
-    List<String> _modifiedAuthorsIDsList =
+    final List<String> _modifiedAuthorsIDsList =
     replaceAuthorIDInAuthorsIDsList(
         originalAuthors: bzModel.bzAuthors,
         oldAuthor: oldAuthor,
@@ -163,8 +163,8 @@ class AuthorModel{
 // -----------------------------------------------------------------------------
   static List<AuthorModel> replaceAuthorModelInAuthorsList({List<AuthorModel> originalAuthors, AuthorModel oldAuthor, AuthorModel newAuthor}){
     List<AuthorModel> _modifiedAuthorsList;
-    List<AuthorModel> _originalAuthors = originalAuthors;
-    int _indexOfOldAuthor = getAuthorIndexByAuthorID(_originalAuthors, oldAuthor.userID);
+    final List<AuthorModel> _originalAuthors = originalAuthors;
+    final int _indexOfOldAuthor = getAuthorIndexByAuthorID(_originalAuthors, oldAuthor.userID);
 
     if (_indexOfOldAuthor != -1){
 
@@ -179,9 +179,9 @@ class AuthorModel{
 // -----------------------------------------------------------------------------
   static List<String> replaceAuthorIDInAuthorsIDsList({List<AuthorModel> originalAuthors, AuthorModel oldAuthor, AuthorModel newAuthor}){
     List<String> _modifiedAuthorsIDsList;
-    List<String> _originalAuthorsIDs = getAuthorsIDsFromAuthors(originalAuthors);
+    final List<String> _originalAuthorsIDs = getAuthorsIDsFromAuthors(originalAuthors);
     print('getAuthorsIDsFromAuthors : _originalAuthorsIDs : $_originalAuthorsIDs');
-    int _indexOfOldAuthor = getAuthorIndexByAuthorID(originalAuthors, oldAuthor.userID);
+    final int _indexOfOldAuthor = getAuthorIndexByAuthorID(originalAuthors, oldAuthor.userID);
 
     if (_indexOfOldAuthor != -1){
 
@@ -195,7 +195,7 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static List<String> getAuthorsIDsFromAuthors(List<AuthorModel> authors){
-    List<String> _authorsIDs = [];
+    final List<String> _authorsIDs = <String>[];
 
     for (var author in authors){
       _authorsIDs.add(author.userID);
@@ -205,12 +205,12 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static String generateAuthorPicID(String authorID, String bzID){
-    String _authorPicID = '$authorID---$bzID';
+    final String _authorPicID = '$authorID---$bzID';
     return _authorPicID;
   }
 // -----------------------------------------------------------------------------
   static AuthorModel getAuthorModelFromUserModel({UserModel userModel}){
-    AuthorModel _author = AuthorModel(
+    final AuthorModel _author = AuthorModel(
       userID : userModel.userID,
       authorName : userModel.name,
       authorPic : userModel.pic,

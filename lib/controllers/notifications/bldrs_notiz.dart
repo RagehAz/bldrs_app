@@ -84,24 +84,24 @@ import 'package:flutter/foundation.dart';
 
 class BldrsNotiModelz {
 
-  static String notiSound = 'default';
-  static String notiStatus = 'done';
+  static const String notiSound = 'default';
+  static const String notiStatus = 'done';
 
-  static dynamic notiDefaultMap = {
+  static const dynamic notiDefaultMap = {
     "click_action": "FLUTTER_NOTIFICATION_CLICK",
     "sound": notiSound,
     "status": notiStatus,
     "screen": "",
   };
 
-  static String bldrsSenderID = 'bldrs';
+  static const String bldrsSenderID = 'bldrs';
 // -----------------------------------------------------------------------------
-  static String bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
+  static const String bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
 
-  static TinyBz _dummyTinyBz = TinyBz.dummyTinyBz('ar1');
-  static TinyFlyer _dummyTinyFlyer = TinyFlyer.dummyTinyFlyer('f001');
-  static TinyUser _dummyTinyUser = TinyUser.dummyTinyUser();
-  static TinyUser _dummyTinyAuthor = TinyUser.dummyTinyAuthor();
+  static final TinyBz _dummyTinyBz = TinyBz.dummyTinyBz('ar1');
+  static final TinyFlyer _dummyTinyFlyer = TinyFlyer.dummyTinyFlyer('f001');
+  static final TinyUser _dummyTinyUser = TinyUser.dummyTinyUser();
+  static final TinyUser _dummyTinyAuthor = TinyUser.dummyTinyAuthor();
   // -----------------------------------------------------------------------------
   /// 1 - 28 days reminder
   static NotiModel buildSomething(){

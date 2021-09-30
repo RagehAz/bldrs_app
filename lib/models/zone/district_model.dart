@@ -13,7 +13,7 @@ class District{
   final bool isPublic;
 
 
-  District({
+  const District({
     this.iso3,
     this.city,
     this.id,
@@ -36,7 +36,7 @@ class District{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String,dynamic>> cipherDistricts(List<District> districts){
-    List<Map<String, dynamic>> _districtsList = [];
+    final List<Map<String, dynamic>> _districtsList = <Map<String, dynamic>>[];
     districts.forEach((ar) {
       _districtsList.add(ar.toMap());
     });
@@ -56,7 +56,7 @@ class District{
   }
 // -----------------------------------------------------------------------------
   static List<District> decipherDistrictsMaps(List<dynamic> maps){
-    List<District> _districts = [];
+    final List<District> _districts = <District>[];
     maps?.forEach((map) {
       _districts.add(decipherDistrictMap(map));
     });

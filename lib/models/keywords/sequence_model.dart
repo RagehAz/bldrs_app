@@ -15,7 +15,7 @@ class Sequence {
   final bool isActive;
   final Group secondKeywords;
 
-  Sequence({
+  const Sequence({
     @required this.titleID,
     @required this.idType,
     @required this.isActive,
@@ -23,14 +23,13 @@ class Sequence {
   });
 // -----------------------------------------------------------------------------
   static String getSequenceImage(String id){
-    String _path = 'assets/keywords/$id.jpg';
-
+    final String _path = 'assets/keywords/$id.jpg';
     return _path;
   }
 // -----------------------------------------------------------------------------
   static List<Sequence> getActiveSequencesBySection({BuildContext context, Section section}){
 
-    List<Sequence> _sequencesBySection =
+    final List<Sequence> _sequencesBySection =
     section == Section.NewProperties ? Sequence.propertiesSequences(context) :
     section == Section.ResaleProperties ? Sequence.propertiesSequences(context) :
     section == Section.RentalProperties ? Sequence.propertiesSequences(context) :
@@ -42,9 +41,9 @@ class Sequence {
     section == Section.Products ? Sequence.productsSequence() :
     section == Section.Equipment ? Sequence.equipmentSequences() :
 
-    [] ;
+    <Sequence>[] ;
 
-    List<Sequence> _activeSequences = [];
+    final List<Sequence> _activeSequences = <Sequence>[];
 
     _sequencesBySection.forEach((sequence) {
       if(sequence.isActive == true){
@@ -105,7 +104,7 @@ class Sequence {
   }
 // -----------------------------------------------------------------------------
   static bool sequenceSecondKeysAreZoneDistricts(Sequence group){
-    List<String> _sequencesFirstKeyIDsUsingZoneDistrictsAsSecondKeywords = <String>[
+    const List<String> _sequencesFirstKeyIDsUsingZoneDistrictsAsSecondKeywords = const <String>[
       'con_trade_carpentry',
       'con_trade_electricity',
       'con_trade_insulation',

@@ -8,13 +8,13 @@ class GoldenScroll extends StatelessWidget {
   final String scrollScript;
   final String scrollTitle;
 
-  GoldenScroll({@required this.scrollScript, @required this.scrollTitle});
+  const GoldenScroll({@required this.scrollScript, @required this.scrollTitle});
 
   @override
   Widget build(BuildContext context) {
 
-    double flyerTagsCornerValue = MediaQuery.of(context).size.height * 0.0073892;
-    double flyerTagTextPaddingValue = MediaQuery.of(context).size.height * 0.0064542;
+    final double flyerTagsCornerValue = MediaQuery.of(context).size.height * 0.0073892;
+    final double flyerTagTextPaddingValue = MediaQuery.of(context).size.height * 0.0064542;
 
     return
       Container(

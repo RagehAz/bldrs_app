@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -12,6 +11,7 @@ import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/mini_header_strip.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -75,10 +75,10 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   }
 // -----------------------------------------------------------------------------
   QueryDocumentSnapshot _lastSnapshot;
-  List<TinyBz> _tinyBzz = [];
+  List<TinyBz> _tinyBzz = <TinyBz>[];
   Future<dynamic> _readMoreBzz() async {
 
-    List<dynamic> _bzzMaps = await Fire.readCollectionDocs(
+    final List<dynamic> _bzzMaps = await Fire.readCollectionDocs(
       collectionName: FireCollection.tinyBzz,
       orderBy: 'bzID',
       limit: 100,
@@ -98,10 +98,10 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   List<TinyBz> _searchedTinyBzz = [];
   void _onSearchChanged(String value){
 
-    String val = TextMod.removeSpacesFromAString(value);
+    final String val = TextMod.removeSpacesFromAString(value);
 
-    bool _searchValueIsEmpty =  val == '';
-    bool _searchResultIsEmpty = _searchedTinyBzz.length == 0;
+    final bool _searchValueIsEmpty =  val == '';
+    final bool _searchResultIsEmpty = _searchedTinyBzz.length == 0;
 
     /// A - when field has NO value
     if (_searchValueIsEmpty){
@@ -124,14 +124,14 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
       for (var tinyBz in _tinyBzz){
 
-        bool _matchFound = TextChecker.stringContainsSubString(
+        final bool _matchFound = TextChecker.stringContainsSubString(
           caseSensitive: false,
           string: TextMod.lowerCase(tinyBz.bzName),
           subString: TextMod.lowerCase(val),
           multiLine: false,
         );
 
-        bool _alreadyInList = TinyBz.tinyBzzContainThisTinyBz(
+        final bool _alreadyInList = TinyBz.tinyBzzContainThisTinyBz(
           tinyBzz: _searchedTinyBzz,
           tinyBz: tinyBz,
         ) == true;
@@ -175,15 +175,15 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
-    double _bzButtonHeight = 60;
-    double _bzButtonMargin = Ratioz.appBarPadding;
+    const double _bzButtonHeight = 60;
+    const double _bzButtonMargin = Ratioz.appBarPadding;
 
-    double _clearDialogWidth = BottomDialog.dialogClearWidth(context);
+    final double _clearDialogWidth = BottomDialog.dialogClearWidth(context);
 
-    List<TinyBz> _bzz = _searchedTinyBzz.length == 0 ? _tinyBzz : _searchedTinyBzz;
+    final List<TinyBz> _bzz = _searchedTinyBzz.length == 0 ? _tinyBzz : _searchedTinyBzz;
 
     return
 
@@ -218,8 +218,8 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
               padding: const EdgeInsets.only(bottom: Ratioz.stratosphere, top: Stratosphere.bigAppBarStratosphere),
               itemBuilder: (ctx, index){
 
-                TinyBz _tinyBz = _bzz[index];
-                String _bzName = _tinyBz.bzName == null || _tinyBz.bzName == '' ? '.....' : _tinyBz.bzName;
+                final TinyBz _tinyBz = _bzz[index];
+                final String _bzName = _tinyBz.bzName == null || _tinyBz.bzName == '' ? '.....' : _tinyBz.bzName;
 
                 return
 
@@ -235,12 +235,12 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                     secondLine: _tinyBz.bzID,
                     onTap: () async {
 
-                      BzModel _bz = await BzOps.readBzOps(
+                      final BzModel _bz = await BzOps.readBzOps(
                         context: context,
                         bzID: _tinyBz.bzID,
                       );
 
-                      double _dialogHeight = _screenHeight * 0.8;
+                      final double _dialogHeight = _screenHeight * 0.8;
 
                       await BottomDialog.showBottomDialog(
                         context: context,

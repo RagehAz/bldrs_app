@@ -11,7 +11,7 @@ class ReviewModel {
   // final List<ReviewPost> posts; // ReviewPost(body:, time: , bzReply:, bzReplyTime: ,replyAuthorID: )
   // final DateTime lastTimeStamp; // to help firebase query
 
-  ReviewModel ({
+  const ReviewModel ({
     this.reviewID,
     @required this.body,
     @required this.userID,
@@ -42,7 +42,7 @@ class ReviewModel {
   }
 
   static List<ReviewModel> decipherReviews(List<dynamic> maps){
-    List<ReviewModel> _reviews = [];
+    final List<ReviewModel> _reviews = <ReviewModel>[];
 
     if (maps != null && maps.length != 0){
 

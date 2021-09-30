@@ -37,7 +37,7 @@ class FireSearch {
 
       Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
 
-    List<Map<String, dynamic>> _maps = [];
+    List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     await tryAndCatch(
         context: context,
@@ -46,7 +46,7 @@ class FireSearch {
 
       QuerySnapshot _collectionSnapshot;
 
-      CollectionReference _collRef = Fire.getCollectionRef(collName);
+      final CollectionReference _collRef = Fire.getCollectionRef(collName);
 
       /// IF EQUAL TO
       if (valueIs == ValueIs.EqualTo){
@@ -138,7 +138,7 @@ class FireSearch {
     bool addDocsIDs,
 }) async {
 
-    List<Map<String, dynamic>> _maps = [];
+    List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     await tryAndCatch(
         context: context,
@@ -179,7 +179,7 @@ class FireSearch {
     bool addDocsIDs,
 }) async {
 
-    List<Map<String, dynamic>> _maps = [];
+    List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     await tryAndCatch(
         context: context,
@@ -214,19 +214,19 @@ class FireSearch {
     FlyerType flyerType,
   }) async {
 
-      List<TinyFlyer> _tinyFlyers = [];
+      List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
 
       await tryAndCatch(
           context: context,
           methodName: 'mapsByTwoValuesEqualTo',
           functions: () async {
 
-            CollectionReference _flyersCollection = Fire.getCollectionRef(FireCollection.tinyFlyers);
+            final CollectionReference _flyersCollection = Fire.getCollectionRef(FireCollection.tinyFlyers);
 
             QuerySnapshot _collectionSnapshot;
 
-            int _flyerType = FlyerTypeClass.cipherFlyerType(flyerType);
-            Zone _zone = zone;
+            final int _flyerType = FlyerTypeClass.cipherFlyerType(flyerType);
+            final Zone _zone = zone;
 
             print('searching tiny flyers of type : $_flyerType : in $_zone');
 
@@ -273,7 +273,7 @@ class FireSearch {
     //   addDocsIDs: false,
     // );
 
-    dynamic _result = await mapsByFieldValue(
+    final dynamic _result = await mapsByFieldValue(
       context: context,
       collName: FireCollection.users,
       field: 'nameTrigram',
@@ -282,9 +282,9 @@ class FireSearch {
       valueIs: ValueIs.ArrayContains,
     );
 
-      List<UserModel> _usersModels = [];
+      List<UserModel> _usersModels = <UserModel>[];
 
-      if (_result != [] || _result != null){
+      if (_result != <UserModel>[] || _result != null){
         _usersModels = UserModel.decipherUsersMaps(_result);
       }
 

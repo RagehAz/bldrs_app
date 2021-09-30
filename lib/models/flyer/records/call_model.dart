@@ -4,7 +4,7 @@ class CallModel {
   final List<dynamic> slidesIndexes;
   final List<DateTime> timeStamps;
 
-  CallModel({
+  const CallModel({
     this.slidesIndexes,
     this.timeStamps,
   });
@@ -29,8 +29,8 @@ class CallModel {
 
       /// create a new call model
       return CallModel(
-        timeStamps: [DateTime.now()],
-        slidesIndexes: [slideIndex],
+        timeStamps: <DateTime>[DateTime.now()],
+        slidesIndexes: <int>[slideIndex],
       );
 
     }

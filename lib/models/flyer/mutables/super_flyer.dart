@@ -135,8 +135,8 @@ class SuperFlyer{
     @required this.priceTagIsOn,
   });
 // -----------------------------------------------------------------------------
-  static String draftID = 'draft';
-  static String emptyFlyerBzOnlyFlyerID = 'bzOnly';
+  static const String draftID = 'draft';
+  static const String emptyFlyerBzOnlyFlyerID = 'bzOnly';
 // -----------------------------------------------------------------------------
   static SuperFlyer createEmptySuperFlyer({@required double flyerBoxWidth, @required goesToEditor}){
 
@@ -276,11 +276,11 @@ class SuperFlyer{
     @required double initialInfoScrollOffset,
   }){
 
-    int _initialPage = initialPage == null ? 0 : initialPage;
+    final int _initialPage = initialPage == null ? 0 : initialPage;
 
-    FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+    final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
 
-    ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
+    final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);
 
     return
@@ -431,7 +431,7 @@ class SuperFlyer{
 
     // print('CREATING view super flyer from tiny flyer : ${tinyFlyer.flyerID} : ${tinyFlyer?.midColor} : : ${tinyFlyer?.tinyBz?.bzName}');
 
-    FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+    final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
 
     return
       SuperFlyer(
@@ -625,9 +625,9 @@ class SuperFlyer{
 
     print('CREATING draft super flyer from nothing for bz  : ${bzModel.bzName} : id : ${bzModel.bzID}');
 
-    CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
+    final CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
 
-    ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
+    final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);
 
     return
@@ -809,7 +809,7 @@ class SuperFlyer{
 
     print('CREATING draft super flyer from FLYER : ${flyerModel.flyerID} for bz  : ${bzModel.bzName} : id : ${bzModel.bzID}');
 
-    ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
+    final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);
 
     return

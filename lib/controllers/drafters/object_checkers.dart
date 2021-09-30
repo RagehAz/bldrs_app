@@ -18,7 +18,7 @@ class ObjectChecker {
 // -----------------------------------------------------------------------------
   static bool listCanBeUsed(List<dynamic> list){
 
-    bool _canBeUsed =
+    final bool _canBeUsed =
     list == null ? false :
     list.length == 0 ? false : true;
 
@@ -35,18 +35,17 @@ class ObjectChecker {
   }
 // -----------------------------------------------------------------------------
   static bool objectIsString(dynamic value) {
-    bool valueIsString = value.runtimeType == String ? true : false;
-    return valueIsString;
+    final bool _valueIsString = value.runtimeType == String ? true : false;
+    return _valueIsString;
   }
 // -----------------------------------------------------------------------------
   static bool objectIsList(dynamic value) {
-    bool valueIsString = value.runtimeType == List ? true : false;
-    return valueIsString;
+    final bool _valueIsString = value.runtimeType == List ? true : false;
+    return _valueIsString;
   }
 // -----------------------------------------------------------------------------
   static bool objectIsURL(dynamic file) {
-    bool _validURL =
-        objectIsString(file) == true ? Uri.parse(file).isAbsolute : false;
+    final bool _validURL = objectIsString(file) == true ? Uri.parse(file).isAbsolute : false;
     return _validURL;
   }
 // -----------------------------------------------------------------------------
@@ -80,7 +79,7 @@ class ObjectChecker {
 // -----------------------------------------------------------------------------
   static bool objectIsAsset(dynamic object){
 
-    bool _objectIsAsset =
+    final bool _objectIsAsset =
     object == null ? null
         :
     object.runtimeType == Asset ? true : false;
@@ -90,16 +89,17 @@ class ObjectChecker {
   }
 // -----------------------------------------------------------------------------
   static bool objectIsJPGorPNG(dynamic object) {
+
     return fileExtensionOf(object) == 'jpeg' ||
             fileExtensionOf(object) == 'jpg' ||
-            fileExtensionOf(object) == 'png'
-        ? true
-        : false;
+            fileExtensionOf(object) == 'png' ?
+
+    true : false;
   }
 // -----------------------------------------------------------------------------
   static bool objectIsColor(dynamic object) {
-    bool objectIsColor = object.runtimeType == Color ? true : false;
-    return objectIsColor;
+    final bool _objectIsColor = object.runtimeType == Color ? true : false;
+    return _objectIsColor;
   }
 // -----------------------------------------------------------------------------
   static Future<bool> objectIsIntInString(BuildContext context, dynamic string) async {
@@ -128,7 +128,7 @@ class ObjectChecker {
 // -----------------------------------------------------------------------------
   static Future<bool> objectIsDoubleInString(BuildContext context, dynamic string) async {
 
-    bool objectIsDoubleInString;
+    bool _objectIsDoubleInString;
     double _double;
 
     if (string != null){
@@ -136,15 +136,14 @@ class ObjectChecker {
     }
 
     if (_double == null){
-      objectIsDoubleInString = false;
+      _objectIsDoubleInString = false;
     } else {
-      objectIsDoubleInString = true;
+      _objectIsDoubleInString = true;
     }
-
 
     print('objectIsDoubleInString : _double is : $_double');
 
-    return objectIsDoubleInString;
+    return _objectIsDoubleInString;
 
   }
 // -----------------------------------------------------------------------------

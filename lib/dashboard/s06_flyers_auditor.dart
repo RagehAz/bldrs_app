@@ -24,11 +24,11 @@ class FlyersAuditor extends StatefulWidget {
 
 class _FlyersAuditorState extends State<FlyersAuditor> {
   PageController _pageController;
-  List<FlyerModel> _flyers = [];
+  List<FlyerModel> _flyers = <FlyerModel>[];
   FlyerModel _currentFlyer;
   int _currentPageIndex;
   SwipeDirection _lastSwipeDirection;
-  List<double> _pagesOpacities = [];
+  List<double> _pagesOpacities = <double>[];
   double _progressBarOpacity = 1;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -91,7 +91,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       });
     }
 
-    List<dynamic> _maps = await Fire.readCollectionDocs(
+    final List<dynamic> _maps = await Fire.readCollectionDocs(
       collectionName:  FireCollection.flyers,
       orderBy: 'flyerID',
       limit: 5,
@@ -99,7 +99,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       addDocSnapshotToEachMap: true,
     );
 
-    List<FlyerModel> _fetchedModels = FlyerModel.decipherFlyersMaps(_maps);
+    final List<FlyerModel> _fetchedModels = FlyerModel.decipherFlyersMaps(_maps);
 
     _fetchedModels[1].printFlyer();
 
@@ -295,8 +295,8 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     /// 2 - if more than two slides
     else {
 
-      int _originalNumberOfPages = _flyers.length;
-      int _decreasedNumberOfPages =  _flyers.length - 1;
+      final int _originalNumberOfPages = _flyers.length;
+      final int _decreasedNumberOfPages =  _flyers.length - 1;
       // int _originalIndex = 0;
       // int _decreasedIndex = 0;
 
@@ -355,7 +355,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   Future<void> _deleteMiddleOrLastSlide() async {
     print('XXXXX ----- DELETING STARTS AT (MIDDLE) index : ${_currentPageIndex}, numberOfSlides : ${_flyers.length}');
 
-    int _originalIndex = _currentPageIndex;
+    final int _originalIndex = _currentPageIndex;
 
     /// A - decrease progress bar and trigger visibility
     setState(() {
@@ -474,7 +474,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   }
 // -----------------------------------------------------o
   List<double> _createPagesOpacities(int numberOfPages){
-    List<double> _opacities = [];
+    final List<double> _opacities = <double>[];
 
     for (int i = 1; i <= numberOfPages; i++){
       _opacities.add(1.0);
@@ -485,7 +485,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 // -----------------------------------------------------o
   void _onPageChange (int newIndex){
     // print('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
-    SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentPageIndex,);
+    final SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentPageIndex,);
 
     // /// A - if Keyboard is active
     // if (Keyboarders.keyboardIsOn(context) == true){
@@ -538,12 +538,12 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _clearScreenHeight = DashBoardLayout.clearScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _clearScreenHeight = DashBoardLayout.clearScreenHeight(context);
     const double _footerZoneHeight = 70;
-    double _progressBarHeight = Strips.boxHeight(_screenWidth);
-    double _bodyZoneHeight = _clearScreenHeight - _footerZoneHeight - _progressBarHeight;
-    double _flyerSizeFactor = 0.7;
+    final double _progressBarHeight = Strips.boxHeight(_screenWidth);
+    final double _bodyZoneHeight = _clearScreenHeight - _footerZoneHeight - _progressBarHeight;
+    const double _flyerSizeFactor = 0.7;
 
     return DashBoardLayout(
       pageTitle: 'Flyers Auditor',
@@ -673,7 +673,7 @@ class AuditorButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const int _numberOfItems = 2;
-    double _buttonWidth = Scale.getUniformRowItemWidth(context, _numberOfItems);
+    final double _buttonWidth = Scale.getUniformRowItemWidth(context, _numberOfItems);
 
     return DreamBox(
       height: 50,

@@ -17,14 +17,11 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/general/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/black_hole.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/storage_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/forms_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dio_test.dart';
-import 'package:bldrs/dashboard/emoji_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/flyer_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/random_test_space.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/sql_test.dart';
@@ -34,8 +31,6 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/trigram_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_lab.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x06_swiper_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x10_pro_flyer_page_view.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x11_pro_flyer_grid_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -175,8 +170,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           oButton('Cloud Functions', Iconz.Gears, CloudFunctionsTest()),
 
-          oButton('Emojis', Iconz.DvDonaldDuck, EmojiTest()),
-
           oButton('Web view test', Iconz.Terms, WebViewTestScreen()),
 
           oButton('DIO Test Screen', Iconz.Terms, DioTestScreen()),
@@ -187,7 +180,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           oButton('Awesome Notification test', Iconz.News, AwesomeNotiTestScreen()),
 
-          oButton('FLYER TEST', Iconz.Flyer, FlyerTestScreen()),
 
           // oButton('HERO TEST', Iconz.DvDonaldDuck, HeroMinScreen()),
 
@@ -203,15 +195,9 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           oButton('Dialog Test', Iconz.More, DialogTestScreen(), color: Colorz.BloodTest),
 
-          oButton('Storage testing', Iconz.ArrowDown, FireStorageTest()),
-
           oButton('10 - Font lab', Iconz.Language, FontLab()),
 
           oButton('12 - Swiper Layout', Iconz.Gallery, SwiperScreen()),
-
-          oButton('13 - FlyersPageView', Iconz.Statistics, FlyersPageView()),
-
-          oButton('14 - FlyersGridView', Iconz.FlyerGrid, FlyersGridView()),
 
           // oButton('21 - Soundz', Iconz.News, SoundzScreen()),
 
@@ -232,28 +218,28 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           // --- BLDRS DEVELOPMENT SCROLLS --------------------------------
           Column(
             children: <Widget>[
-              GoldenScroll(
+              const GoldenScroll(
                 scrollTitle: 'To run on my Note3 mobile',
                 scrollScript: 'flutter run --release -d 4d00c32746ba80bf',
               ),
-              GoldenScroll(
+              const GoldenScroll(
                 scrollTitle: 'To run on all emulators',
                 scrollScript: 'flutter run -d all',
               ),
-              GoldenScroll(
+              const GoldenScroll(
                 scrollTitle: 'Google Maps API key',
                 scrollScript: 'AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI',
               ),
-              GoldenScroll(
+              const GoldenScroll(
                 scrollTitle: 'Google Maps Platform API key',
                 scrollScript:
                     'AIzaSyDp6MMLw2LJflspqJ0x2uZCmQuZ32vS3XU', // AIzaSyD5CBTWvMaL6gU0X7gfdcnkpFmo-aNfgx4
               ),
-              GoldenScroll(
+              const GoldenScroll(
                 scrollTitle: 'To change terminal Directory',
                 scrollScript: 'cd H:\\bldrs\\bldrs',
               ),
-              GoldenScroll(
+              const GoldenScroll(
                 scrollTitle: 'Git repo URL',
                 scrollScript:
                     'git remote add origin https://github.com/RagehAz/bldrs.net \n'

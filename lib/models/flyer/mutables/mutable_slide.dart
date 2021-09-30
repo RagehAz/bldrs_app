@@ -67,7 +67,7 @@ class MutableSlide {
   }
 // -----------------------------------------------------------------------------
   static Future<MutableSlide> getDraftMutableSlideFromSlideModel(SlideModel slide) async {
-    File _file = await Imagers.urlToFile(slide.pic);
+    final File _file = await Imagers.urlToFile(slide.pic);
     return
       MutableSlide(
         slideIndex : slide.slideIndex,
@@ -90,7 +90,7 @@ class MutableSlide {
   }
 // -----------------------------------------------------------------------------
   static List<MutableSlide> getViewMutableSlidesFromSlidesModels(List<SlideModel> slides) {
-    List<MutableSlide> _slides = [];
+    final List<MutableSlide> _slides = <MutableSlide>[];
 
     if(slides != null){
       for (SlideModel slide in slides){
@@ -107,12 +107,12 @@ class MutableSlide {
   }
 // -----------------------------------------------------------------------------
   static Future<List<MutableSlide>> getDraftMutableSlidesFromSlidesModels(List<SlideModel> slides) async {
-    List<MutableSlide> _slides = [];
+    final List<MutableSlide> _slides = <MutableSlide>[];
 
     if(slides != null){
       for (SlideModel slide in slides){
 
-        MutableSlide _mutableSlide = await getDraftMutableSlideFromSlideModel(slide);
+        final MutableSlide _mutableSlide = await getDraftMutableSlideFromSlideModel(slide);
 
         _slides.add(_mutableSlide);
       }
@@ -170,14 +170,14 @@ class MutableSlide {
     int _trueIndex;
 
     /// A - search for first slide where its picture of object type asset
-    MutableSlide _firstSlideWithAssetPicture = mutableSlides.firstWhere((slide) => ObjectChecker.objectIsAsset(slide.picURL) == true, orElse: ()=> null);
+    final MutableSlide _firstSlideWithAssetPicture = mutableSlides.firstWhere((slide) => ObjectChecker.objectIsAsset(slide.picURL) == true, orElse: ()=> null);
 
     /// B - when found
     if(_firstSlideWithAssetPicture != null){
 
       /// C - get number of slides with files
-      int _firstAssetIndex = _firstSlideWithAssetPicture.slideIndex;
-      int _numberOfFiles = _firstAssetIndex;
+      final int _firstAssetIndex = _firstSlideWithAssetPicture.slideIndex;
+      final int _numberOfFiles = _firstAssetIndex;
 
       /// C - conclude true index
       _trueIndex = slideIndex - _numberOfFiles;
@@ -199,7 +199,7 @@ class MutableSlide {
   }
 // -----------------------------------------------------------------------------
 static List<Asset> getAssetsFromMutableSlides(List<MutableSlide> mSlides){
-    List<Asset> _assets = [];
+    final List<Asset> _assets = <Asset>[];
 
     for (MutableSlide mSlide in mSlides){
       if (mSlide.picAsset != null){

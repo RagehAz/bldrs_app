@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 class DynamicLinksApi {
 // -----------------------------------------------------------------------------
 //   final String _ragehURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=9a9db754-7d0c-40f8-b285-1df5e660c282';
-  final String _uranus = 'https://en.m.wikipedia.org/wiki/Uranus';
+  static const String _uranus = 'https://en.m.wikipedia.org/wiki/Uranus';
 // -----------------------------------------------------------------------------
-  final dynamicLink = FirebaseDynamicLinks.instance;
+  final FirebaseDynamicLinks dynamicLink = FirebaseDynamicLinks.instance;
 // -----------------------------------------------------------------------------
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 // -----------------------------------------------------------------------------
@@ -64,15 +64,15 @@ class DynamicLinksApi {
 // -----------------------------------------------------------------------------
   Future<void> initializeDynamicLinks(BuildContext context) async {
 
-    final PendingDynamicLinkData data = await FirebaseDynamicLinks.instance.getInitialLink();
-    final Uri deepLink = data?.link;
+    final PendingDynamicLinkData _data = await FirebaseDynamicLinks.instance.getInitialLink();
+    final Uri _deepLink = _data?.link;
 
     /// THIS WORKS WHEN APP IS DEAD
-    if(deepLink != null){
+    if(_deepLink != null){
 
       await goToFlyerScreenByDynamicLink(
         context: context,
-        link: deepLink.toString(),
+        link: _deepLink.toString(),
       );
 
     }
@@ -108,13 +108,13 @@ class DynamicLinksApi {
   static String getFlyerIDFromDynamicLink(String link){
     /// sample link
     /// https://bldrs.page.link/flyer/5FzRLxTgRekkRzKflsjs/0
-    String _withoutIndex = TextMod.trimTextAfterLastSpecialCharacter(link, '/');
-    String _flyerID = TextMod.trimTextBeforeLastSpecialCharacter(_withoutIndex, '/');
+    final String _withoutIndex = TextMod.trimTextAfterLastSpecialCharacter(link, '/');
+    final String _flyerID = TextMod.trimTextBeforeLastSpecialCharacter(_withoutIndex, '/');
     return _flyerID;
   }
 // -----------------------------------------------------------------------------
   static int getSlideIndexFromDynamicLink(String link){
-    String indexString = TextMod.trimTextBeforeLastSpecialCharacter(link, '/');
+    final String indexString = TextMod.trimTextBeforeLastSpecialCharacter(link, '/');
 
     int _index = Numberers.stringToInt(indexString);
 
@@ -127,8 +127,8 @@ class DynamicLinksApi {
 // -----------------------------------------------------------------------------
   Future<void> goToFlyerScreenByDynamicLink({BuildContext context, String link}) async {
 
-    String _flyerID = DynamicLinksApi.getFlyerIDFromDynamicLink(link);
-    int _index = DynamicLinksApi.getSlideIndexFromDynamicLink(link);
+    final String _flyerID = DynamicLinksApi.getFlyerIDFromDynamicLink(link);
+    final int _index = DynamicLinksApi.getSlideIndexFromDynamicLink(link);
 
     await Nav.goToNewScreen(
       context,
@@ -156,7 +156,7 @@ class DynamicLinksApi {
     //   ),
     // );
 
-    final DynamicLinkParameters parameters = DynamicLinkParameters(
+    final DynamicLinkParameters _parameters = DynamicLinkParameters(
       uriPrefix: 'https://bldrs.page.link',
       link: Uri.parse('https://bldrs.page.link/flyer'),
       androidParameters: AndroidParameters(
@@ -175,25 +175,27 @@ class DynamicLinksApi {
       ),
     );
 
-    final ShortDynamicLink shortLink =
-    await parameters.buildShortLink();
+    final ShortDynamicLink _shortLink = await _parameters.buildShortLink();
 
-    final Uri dynamicUrl = shortLink.shortUrl;
-    print(dynamicUrl);
-    return dynamicUrl.toString();
+    final Uri _dynamicUrl = _shortLink.shortUrl;
+
+    print(_dynamicUrl);
+    return _dynamicUrl.toString();
   }
 // -----------------------------------------------------------------------------
   void handleSuccessLinking(PendingDynamicLinkData data) {
-    final Uri deepLink = data?.link;
+    final Uri _deepLink = data?.link;
 
-    if (deepLink != null) {
-      var isRefer = deepLink.pathSegments.contains('refer');
-      if (isRefer) {
-        var code = deepLink.queryParameters['code'];
-        print(code.toString());
-        if (code != null) {
+    if (_deepLink != null) {
 
-          navigatorKey.currentState.pushNamed(Routez.DynamicLinkTest, arguments: code);
+      final bool _isRefer = _deepLink.pathSegments.contains('refer');
+
+      if (_isRefer) {
+        var _code = _deepLink.queryParameters['code'];
+        print(_code.toString());
+        if (_code != null) {
+
+          navigatorKey.currentState.pushNamed(Routez.DynamicLinkTest, arguments: _code);
 
         }
       }

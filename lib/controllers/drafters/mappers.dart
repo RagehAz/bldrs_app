@@ -10,14 +10,14 @@ class Mapper{
   /// {'key' : 'firstValue' , 'key' : 'secondValue' },
   /// ]
   static List<String> getFirstValuesFromMaps(List<Map<String, Object>> listOfMaps){
-    List<String> listOfFirstValues = [];
+    List<String> _listOfFirstValues = <String>[];
 
     for (int x = 0; x<listOfMaps.length; x++){
-      String firstValue = (listOfMaps[x].values.toList())[0];
-      listOfFirstValues.add(firstValue);
+      final String _firstValue = (listOfMaps[x].values.toList())[0];
+      _listOfFirstValues.add(_firstValue);
     }
 
-    return listOfFirstValues;
+    return _listOfFirstValues;
   }
 // -----------------------------------------------------------------------------
   /// TODO : check getFirstValuesFromMaps if not used in production
@@ -26,18 +26,18 @@ class Mapper{
   /// {'key' : 'firstValue' , 'key' : 'secondValue' },
   /// ]
   static List<String> getSecondValuesFromMaps(List<Map<String, Object>> listOfMaps){
-    List<String> listOfValues = [];
+    List<String> _listOfValues = <String>[];
 
     for (int x = 0; x<listOfMaps.length; x++){
-      String secondValue = (listOfMaps[x].values.toList())[1];
-      listOfValues.add(secondValue);
+      final String _secondValue = (listOfMaps[x].values.toList())[1];
+      _listOfValues.add(_secondValue);
     }
 
-    return listOfValues;
+    return _listOfValues;
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> cloneListOfStrings(List<dynamic> list){
-    List<dynamic> _newList = [];
+    List<dynamic> _newList = <dynamic>[];
 
     for (var x in list){
       _newList.add(x);
@@ -65,11 +65,11 @@ class Mapper{
     bool addDocsIDs,
   }){
 
-    List<Map<String, dynamic>> _maps = [];
+    List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     for (var docSnapshot in queryDocumentSnapshots){
-      String _docID = docSnapshot.id;
-      Map<String, dynamic> _map = docSnapshot.data();
+      final String _docID = docSnapshot.id;
+      final Map<String, dynamic> _map = docSnapshot.data();
 
       if (addDocsIDs == true){
         _map['id'] = _docID;
@@ -82,7 +82,7 @@ class Mapper{
   }
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> getMapFromDocumentSnapshot(DocumentSnapshot documentSnapshot){
-    Map<String, dynamic> _map = documentSnapshot.data();
+    final Map<String, dynamic> _map = documentSnapshot.data();
     return _map;
 
   }
@@ -116,7 +116,7 @@ class Mapper{
 
     bool _listOfMapContainsTheMap;
 
-    bool _inputsAreInvalid = listOfMaps == null || listOfMaps.length == 0 || map == null ? true : false;
+    final bool _inputsAreInvalid = listOfMaps == null || listOfMaps.length == 0 || map == null ? true : false;
 
     if(_inputsAreInvalid == true){
       _listOfMapContainsTheMap = false;
@@ -171,18 +171,18 @@ class Mapper{
   static bool mapsAreTheSame(Map<String, dynamic> map1, Map<String, dynamic> map2){
     bool _mapsAreTheSame;
 
-    bool _inputsAreInvalid = map1 == null || map2 == null ? true : false;
+    final bool _inputsAreInvalid = map1 == null || map2 == null ? true : false;
 
     if (_inputsAreInvalid == true){
       _mapsAreTheSame = null;
     }
 
     else {
-      List<String> _map1Keys = map1.keys.toList();
-      List<dynamic> _map1Values = map1.values.toList();
+      final List<String> _map1Keys = map1.keys.toList();
+      final List<dynamic> _map1Values = map1.values.toList();
 
-      List<String> _map2Keys = map2.keys.toList();
-      List<dynamic> _map2Values = map2.values.toList();
+      final List<String> _map2Keys = map2.keys.toList();
+      final List<dynamic> _map2Values = map2.values.toList();
 
       if(_map1Keys.length != _map2Keys.length){
         _mapsAreTheSame = false;
@@ -191,7 +191,7 @@ class Mapper{
       else{
 
         if (
-        listsAreTheSame(list1: _map1Keys, list2: _map2Keys) == true
+            listsAreTheSame(list1: _map1Keys, list2: _map2Keys) == true
             &&
             listsAreTheSame(list1: _map1Values, list2: _map2Values) == true
         ){
@@ -206,17 +206,16 @@ class Mapper{
 
     }
 
-
     return _mapsAreTheSame;
   }
 // -----------------------------------------------------------------------------
   static int indexOfMapInListOfMaps(List<Map<String, dynamic>> listOfMaps, Map<String,dynamic> map){
-      int _indexOfTheMap = listOfMaps.indexWhere((m) => Mapper.mapsAreTheSame(m, map));
-      return _indexOfTheMap;
+    final int _indexOfTheMap = listOfMaps.indexWhere((m) => Mapper.mapsAreTheSame(m, map));
+    return _indexOfTheMap;
   }
 // -----------------------------------------------------------------------------
   static int indexOfMapByValueInListOfMaps({List<Map<String, dynamic>> listOfMaps, String key, dynamic value}){
-    int _indexOfTheMap = listOfMaps.indexWhere((map) => map[key] == value);
+    final int _indexOfTheMap = listOfMaps.indexWhere((map) => map[key] == value);
     return _indexOfTheMap;
   }
 // -----------------------------------------------------------------------------
@@ -236,15 +235,15 @@ class Mapper{
 
     Map<String, dynamic> _output = {};
 
-    int _numberOfAnds = '&'.allMatches(urlQuery).length;
-    int _numberOfEquals = '='.allMatches(urlQuery).length;
-    bool _countsOfPairsAreGood = _numberOfAnds + 1 == _numberOfEquals;
+    final int _numberOfAnds = '&'.allMatches(urlQuery).length;
+    final int _numberOfEquals = '='.allMatches(urlQuery).length;
+    final bool _countsOfPairsAreGood = _numberOfAnds + 1 == _numberOfEquals;
 
     /// if urlQuery counts are good
     if (_countsOfPairsAreGood == true){
 
       /// pairs should look like this : key=value
-      List<String> _pairs = [];
+      final List<String> _pairs = <String>[];
 
       /// holds temp trimmed url in here while trimming loops
       String _trimmedURL = urlQuery;
@@ -254,10 +253,10 @@ class Mapper{
       /// trim urlQuery into string pairs
       for (int i = 0; i < _numberOfAnds; i++){
 
-        String _beforeAnd = TextMod.trimTextAfterFirstSpecialCharacter(_trimmedURL, '&');
+        final String _beforeAnd = TextMod.trimTextAfterFirstSpecialCharacter(_trimmedURL, '&');
         _pairs.add(_beforeAnd);
 
-        String _afterAnd = TextMod.trimTextBeforeFirstSpecialCharacter(_trimmedURL, '&');
+        final String _afterAnd = TextMod.trimTextBeforeFirstSpecialCharacter(_trimmedURL, '&');
 
         if (i == _numberOfAnds - 1){
           _pairs.add(_afterAnd);
@@ -270,8 +269,8 @@ class Mapper{
       /// add pairs to a map
       for (String pair in _pairs){
 
-        String _key = TextMod.trimTextAfterFirstSpecialCharacter(pair, '=');
-        String _value = TextMod.trimTextBeforeFirstSpecialCharacter(pair, '=');
+        final String _key = TextMod.trimTextAfterFirstSpecialCharacter(pair, '=');
+        final String _value = TextMod.trimTextBeforeFirstSpecialCharacter(pair, '=');
 
         _output = Mapper.insertPairInMap(map: _output, key: _key,value: _value,);
 
@@ -290,7 +289,7 @@ class Mapper{
   }
 // -----------------------------------------------------------------------------
   static List<String> getStringsFromDynamics({List<dynamic> dynamics}){
-    List<String> _strings = [];
+    List<String> _strings = <String>[];
 
     for (dynamic thing in dynamics){
 

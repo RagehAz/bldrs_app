@@ -11,7 +11,7 @@ class ViewModel{
   final int slideIndex;
   final DateTime viewTime;
 // -----------------------------------------------------------------------------
-  ViewModel({
+  const ViewModel({
     this.viewID,
     this.userID,
     this.flyerID,
@@ -30,7 +30,7 @@ Map<String, Object> toMap(){
 }
 // -----------------------------------------------------------------------------
   static List<LDBColumn> _createLDBColumns(){
-    List<LDBColumn> _columns = <LDBColumn>[
+    const List<LDBColumn> _columns = const <LDBColumn>[
       LDBColumn(key: 'viewID', type: 'INTEGER', isPrimary: true),
       LDBColumn(key: 'userID', type: 'TEXT'),
       LDBColumn(key: 'flyerID', type: 'TEXT'),
@@ -43,7 +43,7 @@ Map<String, Object> toMap(){
 // -----------------------------------------------------------------------------
   static Future<LDBTable> createLDBTable({BuildContext context}) async {
 
-    List<LDBColumn> _columns = _createLDBColumns();
+    final List<LDBColumn> _columns = _createLDBColumns();
 
 
     LDBTable _dbTable = LDBTable(

@@ -6,10 +6,11 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_counter.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
-import 'package:bldrs/views/widgets/general/pyramids/bldrs_name.dart';
+import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class GeneralStatistics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
+    final double _screenWidth = MediaQuery.of(context).size.width;
 
     return MainLayout(
       pyramids: Iconz.PyramidsYellow,
@@ -26,12 +27,12 @@ class GeneralStatistics extends StatelessWidget {
       pageTitle: Wordz.allahoAkbar(context),
       tappingRageh: () async {
 
-        FlyerModel _flyer = await FlyerOps().readFlyerOps(
+        final FlyerModel _flyer = await FlyerOps().readFlyerOps(
           context: context,
           flyerID: 'dlfd1m7S28ND2GIuEA1r',
         );
 
-        FlyerModel _testFlyer = FlyerModel(
+        final FlyerModel _testFlyer = FlyerModel(
           flyerID: '000000000000xxxxxx1saaa',
           flyerType: _flyer.flyerType,
           flyerState: _flyer.flyerState,
@@ -43,7 +44,7 @@ class GeneralStatistics extends StatelessWidget {
           createdAt: _flyer.createdAt,
           flyerPosition: _flyer.flyerPosition,
           ankhIsOn: _flyer.ankhIsOn,
-          slides: [..._flyer.slides,..._flyer.slides,..._flyer.slides],
+          slides: <SlideModel>[..._flyer.slides,..._flyer.slides,..._flyer.slides],
           flyerIsBanned: _flyer.flyerIsBanned,
           deletionTime: _flyer.deletionTime,
           specs: _flyer.specs,
@@ -88,13 +89,14 @@ class GeneralStatistics extends StatelessWidget {
             return Loading(loading: true,);
 
           } else {
-            dynamic map = snapshot.data;
 
-            int _numberOfUsers = map['numberOfUsers'];
-            int _numberOfCountries = map['numberOfCountries'];
-            int _numberOfBzz = map['numberOfBzz'];
-            int _numberOfFlyers = map['numberOfFlyers'];
-            int _numberOfSlides = map['numberOfSlides'];
+            final dynamic map = snapshot.data;
+
+            final int _numberOfUsers = map['numberOfUsers'];
+            final int _numberOfCountries = map['numberOfCountries'];
+            final int _numberOfBzz = map['numberOfBzz'];
+            final int _numberOfFlyers = map['numberOfFlyers'];
+            final int _numberOfSlides = map['numberOfSlides'];
 
             return
             ListView(
@@ -115,7 +117,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: 'Users',
                   count: _numberOfUsers,
                   icon: Iconz.NormalUser,
@@ -123,7 +125,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: 'Countries',
                   count: _numberOfCountries,
                   icon: Iconz.Earth,
@@ -131,7 +133,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.businesses(context),
                   count: _numberOfBzz,
                   icon: Iconz.Bz,
@@ -139,7 +141,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.flyers(context),
                   count: _numberOfFlyers,
                   icon: Iconz.Gallery,
@@ -147,7 +149,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: 'slides',//Wordz.slides,
                   count: _numberOfSlides,
                   icon: Iconz.Flyer,
@@ -156,8 +158,8 @@ class GeneralStatistics extends StatelessWidget {
 
                 /// --- SECTION SEPARATOR
                 Container(
-                  width: screenWidth,
-                  height: screenWidth * 0.002,
+                  width: _screenWidth,
+                  height: _screenWidth * 0.002,
                   color: Colorz.Yellow255,
                   // margin: EdgeInsets.only(top: screenWidth * 0.05),
                 ),
@@ -173,7 +175,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: 'Realtors',
                   count: 0,
                   icon: Iconz.BxPropertiesOn,
@@ -181,7 +183,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.propertyFlyer(context),
                   count: 0,
                   icon: Iconz.Flyer,
@@ -189,17 +191,17 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 // ------------------------------------------------
-                // -- SEPARATOR
+                /// -- SEPARATOR
                 Center(
                   child: Container(
-                    width: screenWidth * 0.9,
-                    height: screenWidth * 0.001,
+                    width: _screenWidth * 0.9,
+                    height: _screenWidth * 0.001,
                     color: Colorz.Yellow80,
                   ),
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.designers(context),
                   count: 0,
                   icon: Iconz.BxDesignsOn,
@@ -207,7 +209,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.designFlyer(context),
                   count: 0,
                   icon: Iconz.Flyer,
@@ -215,17 +217,17 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 // ------------------------------------------------
-                // -- SEPARATOR
+                /// -- SEPARATOR
                 Center(
                   child: Container(
-                    width: screenWidth * 0.9,
-                    height: screenWidth * 0.001,
+                    width: _screenWidth * 0.9,
+                    height: _screenWidth * 0.001,
                     color: Colorz.Yellow80,
                   ),
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.suppliers(context),
                   count: 0,
                   icon: Iconz.BxEquipmentOn,
@@ -233,7 +235,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.productFlyer(context),
                   count: 0,
                   icon: Iconz.Flyer,
@@ -241,7 +243,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.equipmentFlyer(context),
                   count: 0,
                   icon: Iconz.Flyer,
@@ -249,17 +251,17 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 // ------------------------------------------------
-                // -- SEPARATOR
+                /// -- SEPARATOR
                 Center(
                   child: Container(
-                    width: screenWidth * 0.9,
-                    height: screenWidth * 0.001,
+                    width: _screenWidth * 0.9,
+                    height: _screenWidth * 0.001,
                     color: Colorz.Yellow80,
                   ),
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.contractors(context),
                   count: 0,
                   icon: Iconz.BxProjectsOn,
@@ -267,7 +269,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.projectFlyer(context),
                   count: 0,
                   icon: Iconz.Flyer,
@@ -275,17 +277,17 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 // ------------------------------------------------
-                // -- SEPARATOR
+                /// -- SEPARATOR
                 Center(
                   child: Container(
-                    width: screenWidth * 0.9,
-                    height: screenWidth * 0.001,
+                    width: _screenWidth * 0.9,
+                    height: _screenWidth * 0.001,
                     color: Colorz.Yellow80,
                   ),
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.craftsmen(context),
                   count: 0,
                   icon: Iconz.BxCraftsOn,
@@ -293,7 +295,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.craftFlyer(context),
                   count: 0,
                   icon: Iconz.Flyer,
@@ -301,12 +303,12 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 // ------------------------------------------------
-                // --- SECTION SEPARATOR
+                /// --- SECTION SEPARATOR
                 Container(
-                  width: screenWidth,
-                  height: screenWidth * 0.002,
+                  width: _screenWidth,
+                  height: _screenWidth * 0.002,
                   color: Colorz.Yellow255,
-                  margin: EdgeInsets.only(top: screenWidth * 0.05),
+                  margin: EdgeInsets.only(top: _screenWidth * 0.05),
                 ),
 
                 SuperVerse(
@@ -316,11 +318,11 @@ class GeneralStatistics extends StatelessWidget {
                   shadow: true,
                   weight: VerseWeight.black,
                   centered: false,
-                  margin: screenWidth * 0.05,
+                  margin: _screenWidth * 0.05,
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.totalSaves(context), // Wordz.saves
                   count: 0,
                   icon: Iconz.SaveOn,
@@ -328,7 +330,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.views(context),
                   count: 0,
                   icon: Iconz.Views,
@@ -336,7 +338,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.totalShares(context), // Wordz.shares
                   count: 0,
                   icon: Iconz.Share,
@@ -344,7 +346,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.followers(context),
                   count: 0,
                   icon: Iconz.Follow,
@@ -352,7 +354,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: Wordz.bldrsConnected(context),
                   count: 0,
                   icon: Iconz.HandShake,
@@ -360,7 +362,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 BzPgCounter(
-                  flyerBoxWidth: screenWidth,
+                  flyerBoxWidth: _screenWidth,
                   verse: 'Contact me clicks',
                   count: 0,
                   icon: Iconz.ComPhone,
@@ -369,8 +371,8 @@ class GeneralStatistics extends StatelessWidget {
 
                 // --- THE END
                 Container(
-                  width: screenWidth,
-                  height: screenWidth * 0.5,
+                  width: _screenWidth,
+                  height: _screenWidth * 0.5,
                 ),
 
               ],

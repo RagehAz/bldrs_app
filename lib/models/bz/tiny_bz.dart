@@ -76,7 +76,7 @@ class TinyBz with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> cipherTinyBzzModels(List<TinyBz> tinyBzz){
-    List<dynamic> _tinyBzzMaps = [];
+    final List<dynamic> _tinyBzzMaps = <dynamic>[];
     tinyBzz.forEach((b) {
       _tinyBzzMaps.add(b.toMap());
     });
@@ -101,7 +101,7 @@ class TinyBz with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TinyBz> decipherTinyBzzMaps(List<dynamic> maps){
-    List<TinyBz> _tinyBzz = [];
+    final List<TinyBz> _tinyBzz = <TinyBz>[];
     maps.forEach((map){
       _tinyBzz.add(decipherTinyBzMap(map));
     });
@@ -109,7 +109,7 @@ class TinyBz with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<String> getBzzIDsFromTinyBzz(List<TinyBz> _tinyBzz){
-    List<String> _ids = [];
+    final List<String> _ids = <String>[];
 
     if (_tinyBzz != null){
       _tinyBzz.forEach((tinyBz) {
@@ -121,7 +121,7 @@ class TinyBz with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TinyBz> getTinyBzzFromBzzModels(List<BzModel> bzzModels){
-    List<TinyBz> _tinyBzz = [];
+    final List<TinyBz> _tinyBzz = <TinyBz>[];
 
     bzzModels.forEach((bz) {
       _tinyBzz.add(getTinyBzFromBzModel(bz));
@@ -132,7 +132,7 @@ class TinyBz with ChangeNotifier{
 // -----------------------------------------------------------------------------
   static TinyBz dummyTinyBz(String bzID){
 
-    String _bzID = bzID ?? 'ytLfMwdqK565ByP1p56G';
+    final String _bzID = bzID ?? 'ytLfMwdqK565ByP1p56G';
 
     return
         TinyBz(
@@ -169,15 +169,15 @@ class TinyBz with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static TinyBz getTinyBzModelFromSnapshot(DocumentSnapshot doc){
-    var _map = doc.data();
-    TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_map);
+    final Object _map = doc.data();
+    final TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_map);
     return _tinyBz;
   }
 // -----------------------------------------------------------------------------
   static bool tinyBzzContainThisTinyBz({List<TinyBz> tinyBzz, TinyBz tinyBz}){
     bool _contains = false;
 
-    bool _canLoop = tinyBzz != null && tinyBzz.length > 0 && tinyBz != null;
+    final bool _canLoop = tinyBzz != null && tinyBzz.length > 0 && tinyBz != null;
 
     if (_canLoop == true){
 

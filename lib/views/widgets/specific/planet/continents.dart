@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart' show Sky;
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
-import 'package:bldrs/views/widgets/general/pyramids/pyramids.dart';
 import 'package:flutter/material.dart';
 
 class Continents extends StatelessWidget {
@@ -9,8 +9,8 @@ class Continents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
 
     // double questionHeight = screenHeight * 0.35;
     // double wheelHeight = screenHeight * 0.65;

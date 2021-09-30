@@ -48,14 +48,14 @@ Map<String, dynamic> toFlyerSaveMap(){
     ///   'userID' : {'slidesIndexes' : [2, 1, 0], 'saveState' : 1, 'timeStamps' : [{'0' : 'save1'}, {'1': 'unsave1'},{'2': 'save2'}] }
     /// }
     /// always keeping last index interaction as the slideIndex
-    Map<String, dynamic> _mapOfSaves = {};
+    final Map<String, dynamic> _mapOfSaves = {};
     int _index = 0;
     await Future.forEach(saveModels, (saveModel){
 
-      String _flyerID = saveModels[_index].flyerID;
-      List<dynamic> slideIndexes = saveModels[_index].slideIndexes;
-      int _saveState = cipherSaveState(saveModels[_index].saveState);
-      List<String> _timeStamps = Timers.cipherListOfDateTimes(saveModels[_index].timeStamps);
+      final String _flyerID = saveModels[_index].flyerID;
+      final List<dynamic> slideIndexes = saveModels[_index].slideIndexes;
+      final int _saveState = cipherSaveState(saveModels[_index].saveState);
+      final List<String> _timeStamps = Timers.cipherListOfDateTimes(saveModels[_index].timeStamps);
 
       _mapOfSaves.addAll({
 
@@ -75,33 +75,33 @@ Map<String, dynamic> toFlyerSaveMap(){
   }
 // -----------------------------------------------------------------------------
   static List<SaveModel> decipherUserSavesMap(dynamic userSavesMap){
-  List<SaveModel> _savesModels = [];
+    final List<SaveModel> _savesModels = <SaveModel>[];
 
-  List<dynamic> _flyersIDs = userSavesMap.keys.toList();
-  List<dynamic> _savesMaps = userSavesMap.values.toList();
+    final List<dynamic> _flyersIDs = userSavesMap.keys.toList();
+    final List<dynamic> _savesMaps = userSavesMap.values.toList();
 
-  for (int i = 0; i<_flyersIDs.length; i++){
-    _savesModels.add(SaveModel(
-      // userID: superUserID(), // no need for this
-      flyerID: _flyersIDs[i],
-      slideIndexes: _savesMaps[i]['slideIndexes'],
-      saveState: SaveModel.decipherSaveState(_savesMaps[i]['saveState']),
-      timeStamps: Timers.decipherListOfDateTimesStrings(_savesMaps[i]['timeStamps']),
-    ));
-  }
+    for (int i = 0; i<_flyersIDs.length; i++){
+      _savesModels.add(SaveModel(
+        // userID: superUserID(), // no need for this
+        flyerID: _flyersIDs[i],
+        slideIndexes: _savesMaps[i]['slideIndexes'],
+        saveState: SaveModel.decipherSaveState(_savesMaps[i]['saveState']),
+        timeStamps: Timers.decipherListOfDateTimesStrings(_savesMaps[i]['timeStamps']),
+      ));
+    }
 
   return _savesModels;
   }
 // -----------------------------------------------------------------------------
   static List<SaveModel> editSavesModels(List<SaveModel> originalSavesModels, String flyerID, int slideIndex){
 
-    List<SaveModel> _updatedSavesModels = [];
+    final List<SaveModel> _updatedSavesModels = <SaveModel>[];
 
     /// --- IF FLYER WAS NEVER SAVED
     if (_flyerIsSaved(originalSavesModels, flyerID) == null){
 
       /// create a new SaveModel
-      SaveModel _newSaveModel = SaveModel(
+      final SaveModel _newSaveModel = SaveModel(
         flyerID: flyerID,
         slideIndexes: [slideIndex],
         saveState: SaveState.Saved,
@@ -124,10 +124,12 @@ Map<String, dynamic> toFlyerSaveMap(){
     else {
 
       /// get the SlideModel from the List
-      SaveModel _existingSaveModel = originalSavesModels.singleWhere((sm) => sm.flyerID == flyerID);
+      final SaveModel _existingSaveModel = originalSavesModels.singleWhere((sm) => sm.flyerID == flyerID, orElse: () => null);
+
+      /// TASK : check if _existingSaveModel = null, wtf will happen
 
       /// overwrite slideIndex with the new one, add new timeStamp, and change state to saved
-      SaveModel _updatedSaveModel = new SaveModel(
+      final SaveModel _updatedSaveModel = new SaveModel(
         flyerID: flyerID,
         slideIndexes: [...(_existingSaveModel.slideIndexes), slideIndex],
         saveState: _existingSaveModel.saveState == SaveState.Saved ? SaveState.UnSaved : SaveState.Saved,
@@ -135,7 +137,7 @@ Map<String, dynamic> toFlyerSaveMap(){
       );
 
       /// update the List with the new Model
-      int _existingSaveModelIndex = originalSavesModels.indexWhere((sm) => sm.flyerID == flyerID);
+      final int _existingSaveModelIndex = originalSavesModels.indexWhere((sm) => sm.flyerID == flyerID);
 
       _updatedSavesModels.addAll(originalSavesModels);
       _updatedSavesModels.removeAt(_existingSaveModelIndex);
@@ -152,12 +154,12 @@ Map<String, dynamic> toFlyerSaveMap(){
     ///   'flyerID' : true,
     ///   'flyerID' : true,
     /// }
-    Map<String, dynamic> _savedIDsMap = TextMod.getValueAndTrueMap(savedIDs);
+    final Map<String, dynamic> _savedIDsMap = TextMod.getValueAndTrueMap(savedIDs);
     return _savedIDsMap;
   }
 // -----------------------------------------------------------------------------
   static List<String> decipherSavedIDsMap(Map<String, dynamic> savedFlyersMap){
-    List<dynamic> _flyersIDs = TextMod.getValuesFromValueAndTrueMap(savedFlyersMap);
+    final List<dynamic> _flyersIDs = TextMod.getValuesFromValueAndTrueMap(savedFlyersMap);
     return _flyersIDs;
   }
 // -----------------------------------------------------------------------------
@@ -191,7 +193,7 @@ Map<String, dynamic> toFlyerSaveMap(){
 
     if (_flyerWasSavedOnce(originalSavesModels, flyerID) == true){
 
-      SaveModel _thisFlyersSaveModel = originalSavesModels.singleWhere((saveModel) => saveModel.flyerID == flyerID);
+      final SaveModel _thisFlyersSaveModel = originalSavesModels.singleWhere((saveModel) => saveModel.flyerID == flyerID, orElse: () => null);
 
       if (_thisFlyersSaveModel.saveState == SaveState.Saved){
         _flyerIsSaved = true; // is saved

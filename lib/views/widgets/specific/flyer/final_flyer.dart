@@ -953,7 +953,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       else {
 
         /// launch call
-        launchCall('tel: $_contact');
+        await Launchers.launchCall('tel: $_contact');
 
         /// start call bz ops
         await RecordOps.callBzOPs(
@@ -1004,9 +1004,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       _superFlyer.rec.reviewController.text = review.body;
     }
 
-    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.8);
-    double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
-    double _dialogInnerCorners = BottomDialog.dialogClearCornerValue();
+    final double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.8);
+    final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+    final double _dialogInnerCorners = BottomDialog.dialogClearCornerValue();
 
     bool _canUploadReview = false;
 
@@ -1053,7 +1053,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                           fieldIsFormField: false,
                           onChanged: (val){
 
-                            bool _reviewControllerHasValue = TextChecker.textControllerHasNoValue(_superFlyer.rec.reviewController) == false;
+                            final bool _reviewControllerHasValue = TextChecker.textControllerHasNoValue(_superFlyer.rec.reviewController) == false;
 
                             print('_existingReview : $_existingReview');
                             print('_reviewControllerHasValue : $_reviewControllerHasValue');
@@ -1141,17 +1141,16 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onShowReviewOptions(ReviewModel review) async {
 
-    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
+    final double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
 
-
-    final int _numberOfButtons = 2;
+    const int _numberOfButtons = 2;
     final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
     final double _dialogClearHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _dialogHeight, titleIsOn: true, draggable: true);
-    final double _spacing = Ratioz.appBarMargin;
+    const double _spacing = Ratioz.appBarMargin;
     final double _buttonWidth = (_dialogClearWidth - ((_numberOfButtons + 1) * _spacing) ) / _numberOfButtons;
 
-    Color _buttonColor = Colorz.White20;
-    Color _verseColor = Colorz.White255;
+    const Color _buttonColor = Colorz.White20;
+    const Color _verseColor = Colorz.White255;
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -1346,10 +1345,10 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           for (int i = 0; i < _phoneAssets.length; i++){
 
             /// D1 - declare private asset
-            Asset _newAsset = _phoneAssets[i];
+            final Asset _newAsset = _phoneAssets[i];
 
             /// D2 - search index of _newAsset in the existing asset if possible
-            int _assetIndexInAssets =  MutableSlide.getMutableSlideIndexThatContainsThisAsset(
+            final int _assetIndexInAssets =  MutableSlide.getMutableSlideIndexThatContainsThisAsset(
               mSlides: _tempMutableSlides,
               assetToSearchFor: _newAsset,
             );

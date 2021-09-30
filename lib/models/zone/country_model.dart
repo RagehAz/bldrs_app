@@ -1,5 +1,7 @@
-import 'city_model.dart';
+
 // -----------------------------------------------------------------------------
+import 'package:bldrs/models/zone/city_model.dart';
+
 class Country{
   final String iso3;
   final String name;
@@ -25,7 +27,7 @@ class Country{
   /// TL:Tagalog, TE:Telugu, MR:Marathi, KO:Korean,
   final String language;
 
-  Country({
+  const Country({
     this.iso3,
     this.name,
     this.region,
@@ -66,7 +68,7 @@ class Country{
   }
 // -----------------------------------------------------------------------------
   static List<Country> decipherCountriesMaps(List<dynamic> maps){
-    List<Country> _countries = [];
+    final List<Country> _countries = <Country>[];
     maps?.forEach((map) {
       _countries.add(decipherCountryMap(map));
     });
