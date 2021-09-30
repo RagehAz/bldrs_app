@@ -8,7 +8,7 @@ import 'package:bldrs/models/bz/target/target_progress.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
-import 'package:bldrs/views/widgets/specific/bz/dialog_of_target_achievement.dart';
+import 'package:bldrs/views/widgets/specific/bz/dialogs/dialog_of_target_achievement.dart';
 import 'package:flutter/material.dart';
 
 class TargetsBubble extends StatelessWidget {
