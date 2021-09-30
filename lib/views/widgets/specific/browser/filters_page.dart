@@ -9,7 +9,7 @@ class FiltersPage extends StatelessWidget {
   final Function onTap;
   final Group selectedGroup;
 
-  FiltersPage({
+  const FiltersPage({
     Key key,
     @required this.groups,
     @required this.onTap,
@@ -27,9 +27,8 @@ class FiltersPage extends StatelessWidget {
           padding: const EdgeInsets.all(Ratioz.appBarMargin),
           itemBuilder: (context, keyIndex){
 
-            Group _group = groups[keyIndex];
-
-            Color _color = selectedGroup?.groupID == _group.groupID ? Colorz.Yellow255 : Colorz.Nothing;
+            final Group _group = groups[keyIndex];
+            final Color _color = selectedGroup?.groupID == _group.groupID ? Colorz.Yellow255 : Colorz.Nothing;
 
             return
               DreamBox(

@@ -9,7 +9,7 @@ class BzPageHeadline extends StatelessWidget {
   final bool bzPageIsOn;
   final TinyBz tinyBz;
 
-  BzPageHeadline({
+  const BzPageHeadline({
     @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
     @required this.tinyBz,
@@ -27,7 +27,7 @@ class BzPageHeadline extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            // -- BUSINESS NAME
+            /// BUSINESS NAME
             SuperVerse(
               verse: tinyBz.bzName,
               size: 5,
@@ -36,7 +36,7 @@ class BzPageHeadline extends StatelessWidget {
               maxLines: 2,
               // softWrap: true,
             ),
-            // -- BUSINESS LOCALE
+            /// BUSINESS LOCALE
             SuperVerse(
               verse: TextGenerator.zoneStringer(
                 context: context,

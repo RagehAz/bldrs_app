@@ -24,13 +24,13 @@ class _FlyerTypeSelectorState extends State<FlyerTypeSelector> {
   @override
   Widget build(BuildContext context) {
 
-    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
+    final double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
 
     final List<FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: widget.superFlyer.bz.bzType);
     final int _numberOfButtons = _possibleFlyerTypes.length;
     final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
     final double _dialogClearHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _dialogHeight, titleIsOn: true, draggable: true);
-    final double _spacing = Ratioz.appBarMargin;
+    const double _spacing = Ratioz.appBarMargin;
     final double _buttonWidth = (_dialogClearWidth - ((_numberOfButtons + 1) * _spacing) ) / _numberOfButtons;
 
 
@@ -46,10 +46,10 @@ class _FlyerTypeSelectorState extends State<FlyerTypeSelector> {
               _numberOfButtons,
                   (index) {
 
-                FlyerType _flyerType = _possibleFlyerTypes[index];
-                String _flyerTypeName = TextGenerator.flyerTypeSingleStringer(context, _flyerType);
-                Color _buttonColor = widget.superFlyer.flyerType == _flyerType ? Colorz.Yellow255 : Colorz.White20;
-                Color _verseColor = widget.superFlyer.flyerType == _flyerType ? Colorz.Black230 : Colorz.White255;
+                final FlyerType _flyerType = _possibleFlyerTypes[index];
+                final String _flyerTypeName = TextGenerator.flyerTypeSingleStringer(context, _flyerType);
+                final Color _buttonColor = widget.superFlyer.flyerType == _flyerType ? Colorz.Yellow255 : Colorz.White20;
+                final Color _verseColor = widget.superFlyer.flyerType == _flyerType ? Colorz.Black230 : Colorz.White255;
 
                 return
 

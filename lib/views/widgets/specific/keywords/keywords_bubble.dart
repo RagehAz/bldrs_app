@@ -19,7 +19,7 @@ class KeywordsBubble extends StatelessWidget {
   final bool addButtonIsOn;
   final Key key;
 
-  KeywordsBubble({
+  const KeywordsBubble({
     @required this.title,
     @required this.keywords,
     this.verseSize = 2,
@@ -38,7 +38,7 @@ class KeywordsBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     /// the keyword bottom bubble corner when set in flyer info page
-    double _bottomPadding = ((bubbleWidth) * Ratioz.xxflyerBottomCorners) - Ratioz.appBarPadding - Ratioz.appBarMargin;
+    final double _bottomPadding = ((bubbleWidth) * Ratioz.xxflyerBottomCorners) - Ratioz.appBarPadding - Ratioz.appBarMargin;
 
     return Bubble(
       key: key,
@@ -51,7 +51,7 @@ class KeywordsBubble extends StatelessWidget {
       bubbleOnTap: passKeywordOnTap == true ? null : onTap,
       columnChildren: <Widget>[
 
-        // --- STRINGS
+        /// STRINGS
         if(keywords != null && keywords?.length != 0)
         Wrap(
           children: <Widget>[
@@ -85,7 +85,7 @@ class KeywordsBubble extends StatelessWidget {
           ),
 
 
-    Container(
+        Container(
           height: _bottomPadding,
         ),
 

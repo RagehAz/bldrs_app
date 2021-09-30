@@ -23,7 +23,7 @@ class AuthorLabel extends StatelessWidget {
   final bool labelIsOn;
   final Function onTap;
 
-  AuthorLabel({
+  const AuthorLabel({
     @required this.flyerBoxWidth,
     @required this.tinyAuthor,
     @required this.tinyBz,
@@ -47,29 +47,29 @@ class AuthorLabel extends StatelessWidget {
     const bool _versesDesignMode = false;
     const bool _versesShadow = false;
 // -----------------------------------------------------------------------------
-    double _headerTextSidePadding = flyerBoxWidth * Ratioz.xxflyersGridSpacing;
+    final double _headerTextSidePadding = flyerBoxWidth * Ratioz.xxflyersGridSpacing;
 // -----------------------------------------------------------------------------
-    double _authorDataHeight =
+    final double _authorDataHeight =
     // flyerShowsAuthor == true ?
     (flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth)
     //     :
     // (flyerBoxWidth * ((Ratioz.xxflyerHeaderHeight* 0.3)-(2*Ratioz.xxflyerHeaderMainPadding)) )
     ;
 // -----------------------------------------------------------------------------
-    double _authorDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth+Ratioz.xxflyerAuthorNameWidth);
+    final double _authorDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth+Ratioz.xxflyerAuthorNameWidth);
 // -----------------------------------------------------------------------------
-    // --- FOLLOWERS COUNTER --- --- --- --- --- --- --- --- --- --- --- FOLLOWERS COUNTER
-    int _followersCount = tinyBz.bzTotalFollowers;
-    int _bzGalleryCount = tinyBz.bzTotalFlyers;
+    /// --- FOLLOWERS COUNTER
+    final int _followersCount = tinyBz.bzTotalFollowers;
+    final int _bzGalleryCount = tinyBz.bzTotalFlyers;
 
-    String _galleryCountCalibrated = Numberers.counterCaliber(context, _bzGalleryCount);
-    String _followersCounter =
+    final String _galleryCountCalibrated = Numberers.counterCaliber(context, _bzGalleryCount);
+    final String _followersCounter =
     (authorGalleryCount == 0 && _followersCount == 0) || (authorGalleryCount == null && _followersCount == null) ? '' :
     showLabel == true ?
         '${Numberers.separateKilos(number: authorGalleryCount)} ${Wordz.flyers(context)}' :
         '${Numberers.counterCaliber(context, _followersCount)} ${Wordz.followers(context)} . $_galleryCountCalibrated ${Wordz.flyers(context)}';
 // -----------------------------------------------------------------------------
-    double _authorImageCorners = flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
+    final double _authorImageCorners = flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
 // -----------------------------------------------------------------------------
 
     return
@@ -87,7 +87,8 @@ class AuthorLabel extends StatelessWidget {
                     enTopLeft: _authorImageCorners,
                     enBottomLeft: 0,
                     enBottomRight: _authorImageCorners,
-                    enTopRight: _authorImageCorners)
+                    enTopRight: _authorImageCorners
+                ),
             ),
 
             child:
@@ -114,7 +115,7 @@ class AuthorLabel extends StatelessWidget {
                     children:
                     <Widget>[
 
-                      // --- AUTHOR NAME
+                      /// AUTHOR NAME
                       SuperVerse(
                         verse: tinyAuthor?.name,
                         italic: false,
@@ -126,7 +127,7 @@ class AuthorLabel extends StatelessWidget {
                         maxLines: 1,
                       ),
 
-                          // --- AUTHOR TITLE
+                          /// AUTHOR TITLE
                       SuperVerse(
                         verse: tinyAuthor?.title,
                         designMode: _versesDesignMode,
@@ -139,7 +140,7 @@ class AuthorLabel extends StatelessWidget {
                         maxLines: 1,
                       ),
 
-                      // --- FOLLOWERS COUNTER
+                      /// FOLLOWERS COUNTER
                       SuperVerse(
                         verse: _followersCounter,
                         italic: true,

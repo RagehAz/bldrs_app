@@ -130,7 +130,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
            iconBoxColor: Colorz.Grey50,
          ),
 
-          BubblesSeparator(),
+          const BubblesSeparator(),
 
           /// --- NAME
           TextFieldBubble(
@@ -169,7 +169,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             leadingIcon: _flag,
           ),
 
-          BubblesSeparator(),
+          const BubblesSeparator(),
 
           /// --- REGION
           TextFieldBubble(
@@ -195,7 +195,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             actionBtFunction: () => _updateCountryFieldOnFirestore('continent', _continent),
           ),
 
-          BubblesSeparator(),
+          const BubblesSeparator(),
 
           /// --- IS ACTIVATED
           TileBubble(
@@ -229,7 +229,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             },
           ),
 
-          BubblesSeparator(),
+          const BubblesSeparator(),
 
           KeywordsBubble(
             title: '${_provincesNames.length} Provinces',

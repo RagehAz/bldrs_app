@@ -24,7 +24,7 @@ class BrowserPages extends StatefulWidget {
   final Function onKeywordTap;
   final List<Keyword> selectedKeywords;
 
-  BrowserPages({
+  const BrowserPages({
     @required this.browserZoneHeight,
     @required this.browserIsOn,
     @required this.closeBrowser,
@@ -44,9 +44,9 @@ class _BrowserPagesState extends State<BrowserPages> {
 
   // List<Group> _groups;
   Group _currentGroup;
-  List<String> _groups = [];
+  List<String> _groups = <String>[];
   String _currentGroupID;
-  List<Keyword> _keywords = [];
+  List<Keyword> _keywords = <Keyword>[];
   // List<KeywordModel> _selectedKeywords = [];
 
   // List<Widget> _pages = [];
@@ -168,21 +168,21 @@ class _BrowserPagesState extends State<BrowserPages> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    List<Group> _filtersBySection = _flyersProvider.getSectionFilters;
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final List<Group> _filtersBySection = _flyersProvider.getSectionFilters;
 
-    List<Widget> _pages = generatePages(_filtersBySection);
-    int _numberOfPages = _pages.length;
+    final List<Widget> _pages = generatePages(_filtersBySection);
+    final int _numberOfPages = _pages.length;
 
     print('rebuilding browser pages with ${widget.filtersModels.length} filters');
 
-    double _clearWidth = widget.browserIsOn == true ? Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2 - Ratioz.appBarPadding * 2 : 0;
-    double _clearHeight = widget.browserZoneHeight - Ratioz.appBarPadding * 2;
-    double _titleZoneHeight = widget.browserIsOn == true ? Ratioz.keywordsBarHeight : 0;
-    double _progressBarHeight = _clearWidth * Ratioz.xxProgressBarHeightRatio;
-    double _pagesZoneHeight = widget.browserIsOn == true ? _clearHeight - _titleZoneHeight - _progressBarHeight : 0;
+    final double _clearWidth = widget.browserIsOn == true ? Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2 - Ratioz.appBarPadding * 2 : 0;
+    final double _clearHeight = widget.browserZoneHeight - Ratioz.appBarPadding * 2;
+    final double _titleZoneHeight = widget.browserIsOn == true ? Ratioz.keywordsBarHeight : 0;
+    final double _progressBarHeight = _clearWidth * Ratioz.xxProgressBarHeightRatio;
+    final double _pagesZoneHeight = widget.browserIsOn == true ? _clearHeight - _titleZoneHeight - _progressBarHeight : 0;
 
-    double _titleIconSize = 40;
+    const double _titleIconSize = 40;
 
     return Center(
       child: AnimatedContainer(
@@ -195,7 +195,7 @@ class _BrowserPagesState extends State<BrowserPages> {
         ),
         alignment: Alignment.center,
         child: ListView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
 
             /// TITLE ZONE
@@ -272,7 +272,7 @@ class _BrowserPagesState extends State<BrowserPages> {
                           // color: Colorz.BloodTest,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             children: <Widget>[
                               DreamBox(
                                 height: _titleIconSize,

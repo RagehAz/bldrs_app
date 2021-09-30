@@ -21,7 +21,7 @@ class MaxHeader extends StatelessWidget {
   final SuperFlyer superFlyer;
 
 
-  MaxHeader({
+  const MaxHeader({
     @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
     @required this.tinyBz,
@@ -46,25 +46,25 @@ class MaxHeader extends StatelessWidget {
       bzID: tinyBz.bzID,
       builder: (ctx, bz){
 // -----------------------------------------------------------------------------
-        String _bzScope = bz != null ? bz.bzScope : '';
+        final String _bzScope = bz != null ? bz.bzScope : '';
 // -----------------------------------------------------------------------------
 //         final List<NanoFlyer> _galleryFlyers = bz.nanoFlyers;
 // -----------------------------------------------------------------------------
-        List<AuthorModel> _bzAuthors = bz != null ? bz?.bzAuthors : [];
+        final List<AuthorModel> _bzAuthors = bz != null ? bz?.bzAuthors : <AuthorModel>[];
 // -----------------------------------------------------------------------------
-        List<String> _bzTeamIDs = <String>[];
+        final List<String> _bzTeamIDs = <String>[];
         if(_bzAuthors != null) {
           _bzAuthors.forEach((au) {
             _bzTeamIDs.add(au.userID);
           });
         }
 // -----------------------------------------------------------------------------
-        int _followersCount  = bz != null ? bz.bzTotalFollowers  : 0;
-        int _bzTotalSaves    = bz != null ? bz.bzTotalSaves      : 0;
-        int _bzTotalShares   = bz != null ? bz.bzTotalShares     : 0;
-        int _bzTotalSlides   = bz != null ? bz.bzTotalSlides     : 0;
-        int _bzTotalViews    = bz != null ? bz.bzTotalViews      : 0;
-        int _callsCount      = bz != null ? bz.bzTotalCalls      : 0;
+        final int _followersCount  = bz != null ? bz.bzTotalFollowers  : 0;
+        final int _bzTotalSaves    = bz != null ? bz.bzTotalSaves      : 0;
+        final int _bzTotalShares   = bz != null ? bz.bzTotalShares     : 0;
+        final int _bzTotalSlides   = bz != null ? bz.bzTotalSlides     : 0;
+        final int _bzTotalViews    = bz != null ? bz.bzTotalViews      : 0;
+        final int _callsCount      = bz != null ? bz.bzTotalCalls      : 0;
 // -----------------------------------------------------------------------------
 
         superFlyer.bz = bz;
@@ -73,14 +73,14 @@ class MaxHeader extends StatelessWidget {
           Column(
             children: <Widget>[
 
-              // --- BUSINESS FIELD
+              /// BUSINESS FIELD
               BzPgFields(
                 flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
                 bzScope: _bzScope,
               ),
 
-              // --- BUSINESS BIRTH YEAR
+              /// BUSINESS BIRTH YEAR
               BzPgVerse(
                 flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
@@ -88,7 +88,7 @@ class MaxHeader extends StatelessWidget {
                 size: 2,
               ),
 
-              // --- BUSINESS DESCRIPTION
+              /// BUSINESS DESCRIPTION
               BzAboutVerse(
                 flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
@@ -96,7 +96,7 @@ class MaxHeader extends StatelessWidget {
                 bzName:  bz != null ? bz.bzName : '',
               ),
 
-              // --- FOLLOWERS
+              /// FOLLOWERS
               BzPgCounter(
                 bzPageIsOn: bzPageIsOn,
                 flyerBoxWidth: flyerBoxWidth,
@@ -106,7 +106,7 @@ class MaxHeader extends StatelessWidget {
                 iconSizeFactor: 0.8,
               ),
 
-              // --- CALLS
+              /// CALLS
               BzPgCounter(
                 bzPageIsOn: bzPageIsOn,
                 flyerBoxWidth: flyerBoxWidth,
@@ -116,7 +116,7 @@ class MaxHeader extends StatelessWidget {
                 iconSizeFactor: 0.8,
               ),
 
-              // --- PUBLISHED SLIDE & FLYERS
+              /// PUBLISHED SLIDE & FLYERS
               BzPgCounter(
                 flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
@@ -126,7 +126,7 @@ class MaxHeader extends StatelessWidget {
                 iconSizeFactor: 0.85,
               ),
 
-              // --- TOTAL VIEWS
+              /// TOTAL VIEWS
               BzPgCounter(
                 flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
@@ -136,7 +136,7 @@ class MaxHeader extends StatelessWidget {
                 iconSizeFactor: 0.85,
               ),
 
-              // --- TOTAL SHARES
+              /// TOTAL SHARES
               BzPgCounter(
                 flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
@@ -146,7 +146,7 @@ class MaxHeader extends StatelessWidget {
                 iconSizeFactor: 0.85,
               ),
 
-              // --- TOTAL ANKHS
+              /// TOTAL ANKHS
               BzPgCounter(
                 flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
@@ -156,7 +156,7 @@ class MaxHeader extends StatelessWidget {
                 iconSizeFactor: 0.95,
               ),
 
-              // --- BZ GALLERY
+              /// BZ GALLERY
               // if (superFlyer.mSlides.length != 0)
               if (superFlyer.bz.nanoFlyers != null)
               Gallery(

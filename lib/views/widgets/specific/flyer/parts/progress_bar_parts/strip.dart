@@ -10,7 +10,7 @@ class Strip extends StatelessWidget {
   final EdgeInsets margins;
   final bool isWhite;
 
-  Strip({
+  const Strip({
     @required this.flyerBoxWidth,
     @required this.stripWidth,
     @required this.numberOfSlides,
@@ -23,15 +23,15 @@ class Strip extends StatelessWidget {
     // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
 // -----------------------------------------------------------------------------
 //     double _stripsTotalLength = Strips.stripsTotalLength(flyerBoxWidth);
-    double _aStripThickness = Strips.stripThickness(flyerBoxWidth);
-    double _aStripOnePadding = _aStripThickness / 2;
-    double _aStripLength = Strips.oneStripLength(flyerBoxWidth: flyerBoxWidth, numberOfStrips: numberOfSlides);
-    double _stripCorner = Strips.stripCornerValue(flyerBoxWidth);
-    Color _stripColor = Strips.stripColor(isWhite: isWhite, numberOfSlides: numberOfSlides);
+    final double _aStripThickness = Strips.stripThickness(flyerBoxWidth);
+    final double _aStripOnePadding = _aStripThickness / 2;
+    final double _aStripLength = Strips.oneStripLength(flyerBoxWidth: flyerBoxWidth, numberOfStrips: numberOfSlides);
+    final double _stripCorner = Strips.stripCornerValue(flyerBoxWidth);
+    final Color _stripColor = Strips.stripColor(isWhite: isWhite, numberOfSlides: numberOfSlides);
 // -----------------------------------------------------------------------------
 
     /// DESIGN MODE
-    bool _designMode = false;
+    const bool _designMode = false;
 
     return
       _designMode == true ?

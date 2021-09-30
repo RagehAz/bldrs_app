@@ -35,40 +35,40 @@ class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
+    final double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
 
-    double _bubbleWidth = flyerBoxWidth - (Ratioz.appBarPadding * 2);
+    final double _bubbleWidth = flyerBoxWidth - (Ratioz.appBarPadding * 2);
 
     // double _peopleBubbleBoxHeight = flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
     // double _peopleIconSize = flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 0.7;
     // double _peopleNameHeight = _peopleBubbleBoxHeight - _peopleIconSize;
 
-    double _headerHeight = FlyerBox.headerBoxHeight(false, flyerBoxWidth);
+    final double _headerHeight = FlyerBox.headerBoxHeight(false, flyerBoxWidth);
 
-    EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
+    final EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
     // double _cornerSmall = flyerBoxWidth * Ratioz.xxflyerTopCorners;
     // double _cornerBig = (flyerBoxWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
-    BorderRadius _bubbleCorners = Borderers.superBorderAll(context, flyerBoxWidth * Ratioz.xxflyerTopCorners);
+    final BorderRadius _bubbleCorners = Borderers.superBorderAll(context, flyerBoxWidth * Ratioz.xxflyerTopCorners);
 
-    BorderRadius _keywordsBubbleCorners = Borderers.superBorderAll(context, flyerBoxWidth * Ratioz.xxflyerTopCorners);
+    final BorderRadius _keywordsBubbleCorners = Borderers.superBorderAll(context, flyerBoxWidth * Ratioz.xxflyerTopCorners);
 
-    FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType) : superFlyer.flyerType;
+    final FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType) : superFlyer.flyerType;
 
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, superFlyer.flyerZone.countryID);
-    String _cityNameRetrieved = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, superFlyer.flyerZone.cityID);
-    String _cityName = _cityNameRetrieved == null ? '.....' : _cityNameRetrieved;
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, superFlyer.flyerZone.countryID);
+    final String _cityNameRetrieved = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, superFlyer.flyerZone.cityID);
+    final String _cityName = _cityNameRetrieved == null ? '.....' : _cityNameRetrieved;
 
     // List<TinyUser> _users = TinyUser.dummyTinyUsers();
 
-    bool _editMode = superFlyer.edit.editMode == true;
+    final bool _editMode = superFlyer.edit.editMode == true;
 
-    String _flyerInfoParagraph =
+    final String _flyerInfoParagraph =
     _editMode == true && superFlyer.infoController.text.length == 0 ? '...' :
     _editMode == true && superFlyer.infoController.text.length > 0 ? superFlyer.infoController.text :
     _editMode == false ? superFlyer.flyerInfo : superFlyer.flyerInfo;
 
-    bool _flyerInfoExists = _flyerInfoParagraph == null ? false : _flyerInfoParagraph.length == 0 ? false : true;
+    final bool _flyerInfoExists = _flyerInfoParagraph == null ? false : _flyerInfoParagraph.length == 0 ? false : true;
 
     final List<FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: superFlyer.bz.bzType);
 
@@ -219,7 +219,6 @@ class InfoPage extends StatelessWidget {
             addButtonIsOn: superFlyer.edit.editMode,
           ),
 
-
         ReviewBubble(
           key: ValueKey<String>('info_page_review_bubble'),
           flyerBoxWidth: flyerBoxWidth,
@@ -244,7 +243,7 @@ class NeedToSaveScrollPosition extends StatefulWidget {
   final double flyerZoneHeight;
   final List<Widget> children;
 
-  NeedToSaveScrollPosition({
+  const NeedToSaveScrollPosition({
     @required this.superFlyer,
     @required this.flyerZoneHeight,
     @required this.children,
@@ -271,26 +270,26 @@ class _NeedToSaveScrollPositionState extends State<NeedToSaveScrollPosition> wit
   Widget build(BuildContext context) {
     super.build(context);
 
-    String _flyerID = widget.superFlyer.flyerID;
+    final String _flyerID = widget.superFlyer.flyerID;
 
-    double _offsetPixels = widget.superFlyer.nav.infoScrollController?.hasClients != true ? 0 :  widget.superFlyer.nav.infoScrollController.position.pixels;
+    final double _offsetPixels = widget.superFlyer.nav.infoScrollController?.hasClients != true ? 0 :  widget.superFlyer.nav.infoScrollController.position.pixels;
 
     Tracer.traceWidgetBuild(widgetName: 'NeedToSaveScrollPosition', varName: 'scrollController.position', varValue: _offsetPixels);
     return NotificationListener<ScrollNotification>(
       key: ValueKey('${_flyerID} scroll_listener'),
       onNotification: (ScrollNotification pos) {
-          double _offset = pos.metrics.pixels;
+          final double _offset = pos.metrics.pixels;
 
           // if (pos is ScrollEndNotification) {
             widget.superFlyer.nav.onSaveInfoScrollOffset();
             // print(_offset);
           // }
 
-          double _bounceLimit = widget.flyerZoneHeight * 0.2 * (-1);
+          final double _bounceLimit = widget.flyerZoneHeight * 0.2 * (-1);
 
-          bool _canPageUp = _offset < _bounceLimit;
+          final bool _canPageUp = _offset < _bounceLimit;
 
-          bool _goingDown = Scrollers.isGoingDown(widget.superFlyer.nav.infoScrollController);
+          final bool _goingDown = Scrollers.isGoingDown(widget.superFlyer.nav.infoScrollController);
 
           if(_goingDown == true && _canPageUp == true){
             Sliders.slideToBackFrom(widget.superFlyer.nav.verticalController, 1, curve: Curves.easeOut);

@@ -65,8 +65,8 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
 // -----------------------------------------------------------------------------
   Widget button({BuildContext context, String icon, String verse, Function onTap, bool isSelected}){
 
-    Color _buttonColor = isSelected == true ? Colorz.Yellow255 : Colorz.White10;
-    Color _verseColor = isSelected == true ? Colorz.Black255 : Colorz.White255;
+    final Color _buttonColor = isSelected == true ? Colorz.Yellow255 : Colorz.White10;
+    final Color _verseColor = isSelected == true ? Colorz.Black255 : Colorz.White255;
 
     return
       GestureDetector(

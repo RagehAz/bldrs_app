@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class ReviewUserLabel extends StatelessWidget {
@@ -37,9 +38,7 @@ class ReviewUserLabel extends StatelessWidget {
           onTap: () => print('aho'),
         ),
 
-        Expanded(
-          child: Container(),
-        ),
+        const Expander(),
 
         if(tinyUser?.userID == superUserID() && hasEditButton == true)
         DreamBox(

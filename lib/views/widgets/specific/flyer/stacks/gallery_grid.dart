@@ -19,7 +19,7 @@ class GalleryGrid extends StatelessWidget {
   // final Function flyerOnTap;
   final Function addPublishedFlyerToGallery;
 
-  GalleryGrid({
+  const GalleryGrid({
     @required this.gridZoneWidth,
     this.galleryFlyers,
     @required this.flyersVisibilities,
@@ -32,48 +32,48 @@ class GalleryGrid extends StatelessWidget {
 });
 // -----------------------------------------------------------------------------
   bool _concludeUserIsAuthor(){
-    List<String> _authorsIDsList = [];
+    final List<String> _authorsIDsList = <String>[];
 
     if (bzAuthors != null){
       bzAuthors.forEach((au) {_authorsIDsList.add(au.userID);});
     }
 
-    String _viewerID = superUserID();
+    final String _viewerID = superUserID();
 
-    bool _viewerIsAuthor = _authorsIDsList.contains(_viewerID);
+    final bool _viewerIsAuthor = _authorsIDsList.contains(_viewerID);
     return _viewerIsAuthor;
   }
 // -----------------------------------------------------------------------------
   static const double _spacingRatioToGridWidth = 0.15;
 // -----------------------------------------------------------------------------
   static int gridColumnCount(int flyersLength){
-    int _gridColumnsCount = flyersLength > 12 ? 3 : flyersLength > 6 ? 2 : 2;
+    final int _gridColumnsCount = flyersLength > 12 ? 3 : flyersLength > 6 ? 2 : 2;
     return _gridColumnsCount;
   }
 // -----------------------------------------------------------------------------
   static double gridflyerBoxWidth({double gridZoneWidth, int flyersLength}){
-    int _gridColumnsCount = gridColumnCount(flyersLength);
-    double _gridFlyerWidth = gridZoneWidth / (_gridColumnsCount + (_gridColumnsCount * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
+    final int _gridColumnsCount = gridColumnCount(flyersLength);
+    final double _gridFlyerWidth = gridZoneWidth / (_gridColumnsCount + (_gridColumnsCount * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     return _gridFlyerWidth;
   }
 // -----------------------------------------------------------------------------
   static double gridSpacing({double gridZoneWidth, int flyersLength}){
-    double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: flyersLength);
+    final double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: flyersLength);
     return  _gridFlyerWidth * _spacingRatioToGridWidth;
   }
 // -----------------------------------------------------------------------------
   static int numOfRows(int flyersLength){
-    int _gridColumnsCount = gridColumnCount(flyersLength);
+    final int _gridColumnsCount = gridColumnCount(flyersLength);
     return
       (flyersLength/_gridColumnsCount).ceil();
   }
 // -----------------------------------------------------------------------------
   static double gridHeight({BuildContext context, double gridZoneWidth, bool gridHasAddButton, int flyersLength}){
     // int _flyersCount = gridHasAddButton ? flyersLength + 1 : flyersLength;
-    double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: flyersLength);
-    double _gridFlyerHeight = _gridFlyerWidth * Ratioz.xxflyerZoneHeight;
-    int _numOfRows = numOfRows(flyersLength);
-    double _gridHeight = _gridFlyerHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
+    final double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: flyersLength);
+    final double _gridFlyerHeight = _gridFlyerWidth * Ratioz.xxflyerZoneHeight;
+    final int _numOfRows = numOfRows(flyersLength);
+    final double _gridHeight = _gridFlyerHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     return _gridHeight;
   }
 // -----------------------------------------------------------------------------
@@ -81,12 +81,12 @@ class GalleryGrid extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final List<TinyFlyer> _gridFlyers = galleryFlyers == null ? <TinyFlyer>[] : galleryFlyers;//pro.getAllFlyers;
-    bool _viewerIsAuthor = _concludeUserIsAuthor();
+    final bool _viewerIsAuthor = _concludeUserIsAuthor();
 // -----------------------------------------------------------------------------
-    double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: _gridFlyers.length);
-    double _gridSpacing = gridSpacing(gridZoneWidth: gridZoneWidth, flyersLength: _gridFlyers.length);
+    final double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: _gridFlyers.length);
+    final double _gridSpacing = gridSpacing(gridZoneWidth: gridZoneWidth, flyersLength: _gridFlyers.length);
 // -----------------------------------------------------------------------------
-    double _gridHeight = gridHeight(
+    final double _gridHeight = gridHeight(
         context : context,
         gridZoneWidth : gridZoneWidth,
         gridHasAddButton : _viewerIsAuthor,

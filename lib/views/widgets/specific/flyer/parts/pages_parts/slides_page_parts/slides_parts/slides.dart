@@ -45,7 +45,7 @@ class Slides extends StatelessWidget {
       numberOfScreens: superFlyer.numberOfSlides,
       onNavigate: (){
 
-        SwipeDirection _direction = superFlyer.currentSlideIndex == null || superFlyer.currentSlideIndex == 0 ? SwipeDirection.back : SwipeDirection.next;
+        final SwipeDirection _direction = superFlyer.currentSlideIndex == null || superFlyer.currentSlideIndex == 0 ? SwipeDirection.back : SwipeDirection.next;
 
         superFlyer.nav.onSwipeFlyer(_direction ?? SwipeDirection.back);
 
@@ -63,14 +63,14 @@ class Slides extends StatelessWidget {
 
           ...List.generate(superFlyer.numberOfSlides, (i){
 
-            BoxFit _currentPicFit = FlyerMethod.getCurrentBoxFitFromSuperFlyer(superFlyer: superFlyer);
+            final BoxFit _currentPicFit = FlyerMethod.getCurrentBoxFitFromSuperFlyer(superFlyer: superFlyer);
             // ------------------------------------------------------o
-            dynamic _slidePic = superFlyer.edit.editMode == true || superFlyer.mSlides[i].picURL == null?
+            final dynamic _slidePic = superFlyer.edit.editMode == true || superFlyer.mSlides[i].picURL == null?
             superFlyer.mSlides[i].picFile
                 :
             superFlyer.mSlides[i].picURL;
             // ------------------------------------------------------o
-            String _slideHeadline = superFlyer.edit.editMode == true ?
+            final String _slideHeadline = superFlyer.edit.editMode == true ?
             superFlyer.mSlides[i].headlineController.text
                 :
             superFlyer.mSlides[i].headline ;

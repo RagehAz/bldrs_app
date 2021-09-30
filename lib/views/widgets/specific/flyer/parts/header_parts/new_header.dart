@@ -167,14 +167,14 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
 
-    double _followCallScaleEnd = 1.5;
-    double _followCallPaddingEnd = FollowAndCallBTs.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) * _followCallScaleEnd;
-    double _followCallBoxWidthEnd = (FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5);
-    double _logoSizeBegin = FlyerBox.logoWidth(false, widget.flyerBoxWidth);
-    double _logoSizeEnd = widget.flyerBoxWidth * 0.6;
-    double _logoScaleRatio = _logoSizeEnd / _logoSizeBegin;
+    const double _followCallScaleEnd = 1.5;
+    final double _followCallPaddingEnd = FollowAndCallBTs.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) * _followCallScaleEnd;
+    final double _followCallBoxWidthEnd = (FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5);
+    final double _logoSizeBegin = FlyerBox.logoWidth(false, widget.flyerBoxWidth);
+    final double _logoSizeEnd = widget.flyerBoxWidth * 0.6;
+    final double _logoScaleRatio = _logoSizeEnd / _logoSizeBegin;
 
-    bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
+    final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
     //--------------------------------o
     _backgroundColorTween
@@ -255,7 +255,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                 alignment: Alignment.topCenter,
                 child: ClipRRect(
                   borderRadius: _headerBorders,
-                  child: new MaxBounceNavigator(
+                  child: MaxBounceNavigator(
                     // onNavigate: collapse,
                     child: ListView(
                       shrinkWrap: false,

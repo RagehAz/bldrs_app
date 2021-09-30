@@ -23,7 +23,7 @@ class RegisterForm extends StatefulWidget {
   // final Function passwordTextOnChanged;
 
 
-  RegisterForm({
+  const RegisterForm({
     @required this.switchSignIn,
     @required this.email,
     @required this.password,
@@ -39,9 +39,9 @@ class _RegisterFormState extends State<RegisterForm> {
   final AuthOps _auth = AuthOps();
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   bool _passwordObscured = true;
 // -----------------------------------------------------------------------------
@@ -118,7 +118,7 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 // -----------------------------------------------------------------------------
   bool _allFieldsAreValid(){
-    bool _areValid = _formKey.currentState.validate();
+    final bool _areValid = _formKey.currentState.validate();
     print('_allFieldsAreValid() = $_areValid');
     return _areValid;
   }
@@ -139,7 +139,7 @@ class _RegisterFormState extends State<RegisterForm> {
       _triggerLoading();
 
       /// start register ops
-      dynamic _result = await _auth.emailRegisterOps(context, currentZone, _emailController.text, _passwordController.text);
+      final dynamic _result = await _auth.emailRegisterOps(context, currentZone, _emailController.text, _passwordController.text);
 
       /// pop dialog if sign in fails otherwise check user required field then route
       print('_registerOnTap() _result.runtimeType : ${_result.runtimeType} : $_result');
@@ -166,8 +166,8 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
 
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    Zone _currentZone = _countryPro.currentZone;
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final Zone _currentZone = _countryPro.currentZone;
 
     return Form(
       key: _formKey,
@@ -180,7 +180,7 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 20,
           ),
 
-          // --- ENTER E-MAIL
+          /// ENTER E-MAIL
           TextFieldBubble(
             key: ValueKey('email'),
             textController: _emailController,
@@ -197,7 +197,7 @@ class _RegisterFormState extends State<RegisterForm> {
             validator: (val) => _emailValidator(val),
           ),
 
-          // --- ENTER PASSWORD
+          /// ENTER PASSWORD
           TextFieldBubble(
             key: ValueKey('password'),
             textController: _passwordController,
@@ -218,7 +218,7 @@ class _RegisterFormState extends State<RegisterForm> {
               horusOnTap: _horusOnTap,
           ),
 
-          // --- ENTER CONFIRM PASSWORD
+          /// ENTER CONFIRM PASSWORD
           TextFieldBubble(
             key: ValueKey('confirm'),
             textController: _confirmPasswordController,

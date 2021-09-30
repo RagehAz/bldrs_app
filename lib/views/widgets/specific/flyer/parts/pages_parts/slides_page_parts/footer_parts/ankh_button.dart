@@ -126,13 +126,13 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
 //     ) ;
 
 
-    String _saveBTVerse = widget.ankhIsOn == true ? Localizer.translate(context, 'Saved') :
+    final String _saveBTVerse = widget.ankhIsOn == true ? Localizer.translate(context, 'Saved') :
     Localizer.translate(context, 'Save');
     // Color _saveBTColor = _ankhIsOn == true ? Colorz.Yellow80 : Colorz.White10;
 // -----------------------------------------------------------------------------
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
 // -----------------------------------------------------------------------------
-    bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
+    final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
     // print('AnkhButton : _ankhColorAni : $_ankhColorAni');
     return
