@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/bz/target/target_model.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
-import 'package:bldrs/views/widgets/specific/bz/dialog_of_slides_and_ankhs.dart';
+import 'package:bldrs/views/widgets/specific/bz/dialogs/dialog_of_slides_and_ankhs.dart';
 import 'package:flutter/material.dart';
 
 class DialogOfTargetAchievement extends StatelessWidget {
