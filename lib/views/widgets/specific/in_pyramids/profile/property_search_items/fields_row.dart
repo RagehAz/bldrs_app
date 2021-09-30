@@ -26,7 +26,7 @@ class FieldsRow extends StatelessWidget {
 
     const bool _designMode = false;
 
-    // - ROW OF BUTTONS
+    /// - ROW OF BUTTONS
     const double _buttonSpacing = Ratioz.appBarMargin * 2;
     double _buttonsZoneWidth = (_screenWidth - (Ratioz.appBarMargin * 12));
 
@@ -39,7 +39,7 @@ class FieldsRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
 
-        // --- FIELDS TITLE
+        /// --- FIELDS TITLE
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: _buttonSpacing * 2, vertical: _buttonSpacing * 0.5),
           child: SuperVerse(
@@ -54,7 +54,7 @@ class FieldsRow extends StatelessWidget {
           ),
         ),
 
-        // --- WRAP OF FIELDS
+        /// --- WRAP OF FIELDS
         GestureDetector(
           onTap: openList,
           child: Center(

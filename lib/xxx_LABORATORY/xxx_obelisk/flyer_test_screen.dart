@@ -6,7 +6,7 @@ import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/bz_streamer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/new_header.dart';
-import 'package:bldrs/views/widgets/general/layouts/test_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:flutter/material.dart';
 
 class FlyerTestScreen extends StatefulWidget {
@@ -191,7 +191,7 @@ class _FlyerTestScreenState extends State<FlyerTestScreen> {
     // bool _canBuildFlyer = _flyerID != null || _tinyFlyer != null || _flyerModel != null || _bzModel != null ? true : false;
     // bool _canFadeFlyer = _flyerOpacity != null ? true : false;
 
-    return TestLayout(
+    return TestingLayout(
       screenTitle: 'Flyer Test Screen',
       appbarButtonVerse: 'opacity',
       appbarButtonOnTap:

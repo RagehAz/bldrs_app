@@ -10,7 +10,7 @@ import 'package:bldrs/models/user/fcm_token.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/general/layouts/test_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -158,7 +158,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
     double _screenWidth = Scale.superScreenWidth(context);
 
-    return TestLayout(
+    return TestingLayout(
         screenTitle: 'Notifications',
         appbarButtonVerse: 'button',
         appbarButtonOnTap: (){

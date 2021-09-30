@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/views/widgets/general/bubbles/targets_bubble.dart';
+import 'package:bldrs/views/widgets/specific/bz/targets_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/tab_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';

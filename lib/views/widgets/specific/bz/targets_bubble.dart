@@ -1,16 +1,14 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/targetz.dart';
 import 'package:bldrs/models/bz/target/target_model.dart';
 import 'package:bldrs/models/bz/target/target_progress.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/bz/dialog_of_target_achievement.dart';
 import 'package:flutter/material.dart';
 
 class TargetsBubble extends StatelessWidget {
@@ -23,49 +21,9 @@ class TargetsBubble extends StatelessWidget {
 // -----------------------------------------------------------------------------
   Future<void> _onClaimTap({BuildContext context, TargetModel target}) async {
 
-    await CenterDialog.showCenterDialog(
+    await DialogOfTargetAchievement.show(
       context: context,
-      title: 'Congratulations',
-      body: 'You have achieved the ${target.name} target and your account increased\n${target.reward.slides} Slides & ${target.reward.ankh} Ankhs',
-      boolDialog: false,
-      confirmButtonText: 'CLAIM',
-      child: Column(
-        children: <Widget>[
-
-          SuperVerse(
-            verse: 'To know more about Slides and Ankhs\nTap here',
-            maxLines: 3,
-            weight: VerseWeight.thin,
-            italic: true,
-            size: 1,
-            color: Colorz.Blue225,
-            labelColor: Colorz.White10,
-            onTap: () async {
-
-              await CenterDialog.showCenterDialog(
-                context: context,
-                height: Scale.superScreenHeight(context) - Ratioz.appBarMargin * 4,
-                boolDialog: false,
-                confirmButtonText: 'Tamam',
-                title: 'Ankhs & Slides',
-                body: 'Blah blah blah',
-                child: Column(
-                  children: <Widget>[
-
-                    SuperVerse(
-                      verse: 'Blo blo blo',
-                      size: 1,
-                    ),
-
-                  ],
-                ),
-              );
-
-            },
-          ),
-
-        ],
-      ),
+      target: target,
     );
 
   }
