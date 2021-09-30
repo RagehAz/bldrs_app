@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/device_checkers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/views/widgets/general/layouts/test_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/platform_interface.dart';
@@ -83,7 +83,7 @@ class _WebViewTestScreenState extends State<WebViewTestScreen> {
     double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
 
-    return TestLayout(
+    return TestingLayout(
         screenTitle: 'web view test screen',
         appbarButtonVerse: 'button',
         appbarButtonOnTap: (){

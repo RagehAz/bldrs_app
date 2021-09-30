@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_manipulators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/views/widgets/general/layouts/test_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class _TrigramTestState extends State<TrigramTest> {
 
     double _screenWidth = Scale.superScreenWidth(context);
 
-    return TestLayout(
+    return TestingLayout(
         screenTitle: 'Trigram Test',
         appbarButtonVerse: null,
         appbarButtonOnTap: null,
