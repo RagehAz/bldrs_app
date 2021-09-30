@@ -26,8 +26,8 @@ class Standards{
     bool _canAdd = false;
 
     if (superFlyer != null){
-      int _maxSlides = getMaxSlidesCount(superFlyer.bz.accountType);
-      int _numberOfSlides = superFlyer.mSlides.length;
+      final int _maxSlides = getMaxSlidesCount(superFlyer.bz.accountType);
+      final int _numberOfSlides = superFlyer.mSlides.length;
 
       if (_numberOfSlides < _maxSlides){
         _canAdd = true;

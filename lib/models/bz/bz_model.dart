@@ -147,7 +147,7 @@ class BzModel with ChangeNotifier{
 // ###############################
 Map<String, dynamic> toMap(){
 
-  List<dynamic> _nanoFlyersMaps = NanoFlyer.cipherNanoFlyers(nanoFlyers);
+  final List<dynamic> _nanoFlyersMaps = NanoFlyer.cipherNanoFlyers(nanoFlyers);
 
   return {
     'bzID' : bzID,
@@ -245,7 +245,7 @@ Map<String, dynamic> toMap(){
   }
 // -----------------------------------------------------------------------------
   static List<BzModel> decipherBzMapsFromRealTimeDatabase(Map<String, dynamic> bigMap){
-    List<BzModel> _bzList = [];
+    final List<BzModel> _bzList = <BzModel>[];
 
     bigMap?.forEach((bzID, bzMap) {
       _bzList.add(decipherBzMap(bzMap));
@@ -255,7 +255,7 @@ Map<String, dynamic> toMap(){
   }
 // -----------------------------------------------------------------------------
   static List<BzModel> decipherBzzMapsFromFireStore(List<dynamic> maps) {
-    List<BzModel> _bzList = [];
+    final List<BzModel> _bzList = <BzModel>[];
 
     maps?.forEach((map) {
       _bzList.add(decipherBzMap(map));
@@ -293,7 +293,7 @@ Map<String, dynamic> toMap(){
       bzTotalViews: 0,
       bzTotalCalls: 0,
       // -------------------------
-      nanoFlyers: [],
+      nanoFlyers: <NanoFlyer>[],
       bzTotalFlyers: 0,
       authorsIDs: <String>[userModel.userID],
       createdAt: DateTime.now(),
@@ -350,18 +350,18 @@ Map<String, dynamic> toMap(){
     }
   }
 // -----------------------------------------------------------------------------
-  static List<BzForm> bzFormsList = <BzForm>[
+  static const List<BzForm> bzFormsList = <BzForm>[
     BzForm.Individual,
     BzForm.Company,
   ];
 // -----------------------------------------------------------------------------
-  static List<BzAccountType> bzAccountTypesList = <BzAccountType>[
+  static const List<BzAccountType> bzAccountTypesList = <BzAccountType>[
     BzAccountType.Default,
     BzAccountType.Premium,
     BzAccountType.Super,
   ];
 // -----------------------------------------------------------------------------
-  static List<BzType> bzTypesList = <BzType>[
+  static const List<BzType> bzTypesList = <BzType>[
     BzType.Developer,
     BzType.Broker,
 
@@ -374,27 +374,27 @@ Map<String, dynamic> toMap(){
   ];
 // -----------------------------------------------------------------------------
   static List<String> getBzTeamIDs(BzModel bzModel){
-  List<AuthorModel> _authors = bzModel.bzAuthors;
-  List<String> _bzTeamIDs = [];
+    final List<AuthorModel> _authors = bzModel.bzAuthors;
+    final List<String> _bzTeamIDs = <String>[];
 
-  if (_authors != null){
-    _authors.forEach((au) {
-      _bzTeamIDs.add(au.userID);
-    });
+    if (_authors != null){
+      _authors.forEach((au) {
+        _bzTeamIDs.add(au.userID);
+      });
 
-  }
+    }
 
   return _bzTeamIDs;
 }
 // -----------------------------------------------------------------------------
   static BzModel getBzFromBzzByBzID(List<BzModel> bzz, String bzID){
-    BzModel _bz = bzz.singleWhere((_b) => _b.bzID == bzID, orElse: ()=> null);
+    final BzModel _bz = bzz.singleWhere((_b) => _b.bzID == bzID, orElse: ()=> null);
     return _bz;
   }
 // -----------------------------------------------------------------------------
   static List<String> getBzFlyersIDs(BzModel bzModel){
-    List<String> _flyersIDs = [];
-    List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
+    final List<String> _flyersIDs = <String>[];
+    final List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
 
     for (var nano in _nanoFlyers){
       _flyersIDs.add(nano.flyerID);
@@ -440,13 +440,12 @@ Map<String, dynamic> toMap(){
         authorsIDs: <String>[],
       );
     }
-
     return _bz;
   }
 // -----------------------------------------------------------------------------
   static BzModel getBzModelFromSnapshot(DocumentSnapshot doc){
-    var _map = doc.data();
-    BzModel _bzModel = BzModel.decipherBzMap(_map);
+    final DocumentSnapshot _map = doc.data();
+    final BzModel _bzModel = BzModel.decipherBzMap(_map);
     return _bzModel;
   }
 // -----------------------------------------------------------------------------

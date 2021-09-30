@@ -37,82 +37,84 @@ class FlyerOps{
 
     print('1- staring create flyer ops');
 
-  /// create empty firestore flyer document to get back _flyerID
-  DocumentReference _docRef = await Fire.createDoc(
-    context: context,
-    collName: FireCollection.flyers,
-    input: inputFlyerModel.toMap(),
-  );
-  String _flyerID = _docRef.id;
+    /// create empty firestore flyer document to get back _flyerID
+    final DocumentReference _docRef = await Fire.createDoc(
+      context: context,
+      collName: FireCollection.flyers,
+      input: inputFlyerModel.toMap(),
+    );
 
-  print('2- flyer doc ID created : $_flyerID');
+    final String _flyerID = _docRef.id;
+
+    print('2- flyer doc ID created : $_flyerID');
 
     /// save slide pictures on fireStorage and get back their URLs
-  List<String> _picturesURLs = await Fire.createStorageSlidePicsAndGetURLs(
+    final List<String> _picturesURLs = await Fire.createStorageSlidePicsAndGetURLs(
       context: context,
       slides: inputFlyerModel.slides,
       flyerID: _flyerID,
-  );
+    );
 
-  print('3- _picturesURLs created index 0 is : ${_picturesURLs[0]}');
+    print('3- _picturesURLs created index 0 is : ${_picturesURLs[0]}');
 
     /// update slides with URLs
-  List<SlideModel> _updatedSlides = await SlideModel.replaceSlidesPicturesWithNewURLs(_picturesURLs, inputFlyerModel.slides);
+    final List<SlideModel> _updatedSlides = await SlideModel.replaceSlidesPicturesWithNewURLs(_picturesURLs, inputFlyerModel.slides);
 
-  print('4- slides updated with URLs');
+    print('4- slides updated with URLs');
 
-  /// update FlyerModel with newSlides & flyerURL
-  FlyerModel _finalFlyerModel = FlyerModel(
-    flyerID: _flyerID,
-    // -------------------------
-    flyerType: inputFlyerModel.flyerType,
-    flyerState: inputFlyerModel.flyerState,
-    keywords: inputFlyerModel.keywords,
-    flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
-    flyerZone: inputFlyerModel.flyerZone,
-    // -------------------------
-    tinyAuthor: inputFlyerModel.tinyAuthor,
-    tinyBz: inputFlyerModel.tinyBz,
-    // -------------------------
-    createdAt: DateTime.now(),
-    flyerPosition: inputFlyerModel.flyerPosition,
-    // -------------------------
-    ankhIsOn: false,
-    // -------------------------
-    slides: _updatedSlides,
-    // -------------------------
-    flyerIsBanned: inputFlyerModel.flyerIsBanned,
-    deletionTime: inputFlyerModel.deletionTime,
-    times: inputFlyerModel.times,
-    info: inputFlyerModel.info,
-    specs: inputFlyerModel.specs,
-    priceTagIsOn: inputFlyerModel.priceTagIsOn,
-  );
+    /// update FlyerModel with newSlides & flyerURL
+    final FlyerModel _finalFlyerModel = FlyerModel(
+      flyerID: _flyerID,
+      // -------------------------
+      flyerType: inputFlyerModel.flyerType,
+      flyerState: inputFlyerModel.flyerState,
+      keywords: inputFlyerModel.keywords,
+      flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
+      flyerZone: inputFlyerModel.flyerZone,
+      // -------------------------
+      tinyAuthor: inputFlyerModel.tinyAuthor,
+      tinyBz: inputFlyerModel.tinyBz,
+      // -------------------------
+      createdAt: DateTime.now(),
+      flyerPosition: inputFlyerModel.flyerPosition,
+      // -------------------------
+      ankhIsOn: false,
+      // -------------------------
+      slides: _updatedSlides,
+      // -------------------------
+      flyerIsBanned: inputFlyerModel.flyerIsBanned,
+      deletionTime: inputFlyerModel.deletionTime,
+      times: inputFlyerModel.times,
+      info: inputFlyerModel.info,
+      specs: inputFlyerModel.specs,
+      priceTagIsOn: inputFlyerModel.priceTagIsOn,
+    );
 
     print('5- flyer model updated with flyerID, flyerURL & updates slides pic URLs');
 
     /// replace empty flyer document with the new refactored one _finalFlyerModel
-  await Fire.updateDoc(
-    context: context,
-    collName: FireCollection.flyers,
-    docName: _flyerID,
-    input: _finalFlyerModel.toMap(),
-  );
+    await Fire.updateDoc(
+      context: context,
+      collName: FireCollection.flyers,
+      docName: _flyerID,
+      input: _finalFlyerModel.toMap(),
+    );
 
     print('6- flyer model added to flyers/$_flyerID');
 
     /// add new TinyFlyer in firestore
-  TinyFlyer _finalTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_finalFlyerModel);
-  await Fire.createNamedDoc(
-    context: context,
-    collName: FireCollection.tinyFlyers,
-    docName: _flyerID,
-    input: _finalTinyFlyer.toMap(),
-  );
+    final TinyFlyer _finalTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_finalFlyerModel);
+
+    await Fire.createNamedDoc(
+      context: context,
+      collName: FireCollection.tinyFlyers,
+      docName: _flyerID,
+      input: _finalTinyFlyer.toMap(),
+    );
 
     print('7- Tiny flyer model added to tinyFlyers/$_flyerID');
 
-  //   /// add new flyerKeys in fireStore
+    //   /// add new flyerKeys in fireStore
   //   /// TASK : perform string.toLowerCase() on each string before upload
   // await Fire.createNamedDoc(
   //   context: context,
@@ -133,40 +135,41 @@ class FlyerOps{
     input: await SlideModel.cipherSlidesCounters(_updatedSlides),
   );
 
-    print('9- flyer counters added');
+  print('9- flyer counters added');
 
-    /// add nano flyer to bz document in 'nanoFlyers' field
-  List<NanoFlyer> _bzNanoFlyers = bzModel.nanoFlyers;
-  NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyerModel);
+  /// add nano flyer to bz document in 'nanoFlyers' field
+    final List<NanoFlyer> _bzNanoFlyers = bzModel.nanoFlyers;
+    final NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyerModel);
     _bzNanoFlyers.add(_finalNanoFlyer);
-  await Fire.updateDocField(
-    context: context,
-    collName: FireCollection.bzz,
-    docName: _finalFlyerModel.tinyBz.bzID,
-    field: 'nanoFlyers',
-    input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
-  );
+    await Fire.updateDocField(
+      context: context,
+      collName: FireCollection.bzz,
+      docName: _finalFlyerModel.tinyBz.bzID,
+      field: 'nanoFlyers',
+      input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
+    );
 
     print('10- tiny flyer added to bzID in bzz/${_finalFlyerModel.tinyBz.bzID}');
 
     return _finalFlyerModel;
-}
+  }
 // -----------------------------------------------------------------------------
   Future<FlyerModel> readFlyerOps({BuildContext context, String flyerID}) async {
 
-    dynamic _flyerMap = await Fire.readDoc(
+    final dynamic _flyerMap = await Fire.readDoc(
         context: context,
         collName: FireCollection.flyers,
         docName: flyerID
     );
-    FlyerModel _flyer = FlyerModel.decipherFlyerMap(_flyerMap);
+
+    final FlyerModel _flyer = FlyerModel.decipherFlyerMap(_flyerMap);
 
     return _flyer;
   }
 // -----------------------------------------------------------------------------
   Future<TinyFlyer> readTinyFlyerOps({BuildContext context, String flyerID}) async {
 
-    Map<String, dynamic> _tinyFlyerMap = await Fire.readDoc(
+    final Map<String, dynamic> _tinyFlyerMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.tinyFlyers,
       docName: flyerID,
@@ -174,7 +177,7 @@ class FlyerOps{
 
     // print(_tinyFlyerMap);
 
-    TinyFlyer _tinyFlyer = _tinyFlyerMap == null ? null : TinyFlyer.decipherTinyFlyerMap(_tinyFlyerMap);
+    final TinyFlyer _tinyFlyer = _tinyFlyerMap == null ? null : TinyFlyer.decipherTinyFlyerMap(_tinyFlyerMap);
 
     // print(' ')
 
@@ -215,7 +218,7 @@ class FlyerOps{
       print('A -  slides are not the same');
 
       /// A1 - loop each slide in updated slides to check which changed
-      List<SlideModel> _finalSlides = [];
+      final List<SlideModel> _finalSlides = <SlideModel>[];
       for (var slide in updatedFlyer.slides){
 
         print('A1 - checking slide ${slide.slideIndex}');
@@ -226,19 +229,19 @@ class FlyerOps{
           print('x1 - slide ${slide.slideIndex} is FILE');
 
           /// a - upload File to fireStorage/slidesPics/slideID and get URL
-          String _newPicURL = await Fire.createStoragePicAndGetURL(
+          final String _newPicURL = await Fire.createStoragePicAndGetURL(
             context: context,
             picType: PicType.slideHighRes,
             fileName: SlideModel.generateSlideID(updatedFlyer.flyerID, slide.slideIndex),
             inputFile: slide.pic,
           );
 
-          ImageSize _imageSize = await ImageSize.superImageSize(slide.pic);
+          final ImageSize _imageSize = await ImageSize.superImageSize(slide.pic);
 
           print('a - slide ${slide.slideIndex} got this URL : $_newPicURL');
 
           /// b - recreate SlideModel with new pic URL
-          SlideModel _updatedSlide = SlideModel(
+          final SlideModel _updatedSlide = SlideModel(
             slideIndex : slide.slideIndex,
             pic : _newPicURL,
             headline : slide.headline,
@@ -274,7 +277,7 @@ class FlyerOps{
       }
 
       /// A2 - replace slides in updatedFlyer with the finalSlides
-      FlyerModel _updatedFlyer = FlyerModel.replaceSlides(updatedFlyer, _finalSlides);
+      final FlyerModel _updatedFlyer = FlyerModel.replaceSlides(updatedFlyer, _finalSlides);
 
       /// A3 - clone updatedFlyer into finalFlyer
       _finalFlyer = _updatedFlyer.clone();
@@ -282,7 +285,7 @@ class FlyerOps{
 
     /// B - Delete fire storage pictures if updatedFlyer.slides.length > originalFlyer.slides.length
     if(originalFlyer.slides.length > _finalFlyer.slides.length){
-      List<String> _slidesIDsToBeDeleted = [];
+      final List<String> _slidesIDsToBeDeleted = <String>[];
 
       /// B1 - get slides IDs which should be deleted starting first index after updatedFlyer.slides.length
       for (int i = _finalFlyer.slides.length; i < originalFlyer.slides.length; i++){
@@ -330,10 +333,10 @@ class FlyerOps{
     if(NanoFlyer.nanoFlyersAreTheSame(_finalFlyer, originalFlyer) == false){
 
       /// E1 - get finalNanoFlyer from finalFlyer
-      NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyer);
+      final NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyer);
 
       /// E2 - replace originalNanoFlyer in bzModel with the finalNanoFlyer
-      List<NanoFlyer> _finalnanoFlyers = NanoFlyer.replaceNanoFlyerInAList(
+      final List<NanoFlyer> _finalNanoFlyers = NanoFlyer.replaceNanoFlyerInAList(
           originalNanoFlyers : bzModel.nanoFlyers,
           finalNanoFlyer: _finalNanoFlyer
       );
@@ -344,7 +347,7 @@ class FlyerOps{
         collName: FireCollection.bzz,
         docName: bzModel.bzID,
         field: 'nanoFlyers',
-        input: NanoFlyer.cipherNanoFlyers(_finalnanoFlyers),
+        input: NanoFlyer.cipherNanoFlyers(_finalNanoFlyers),
       );
 
       print('E - nano flyer updated');
@@ -357,7 +360,7 @@ class FlyerOps{
     if(TinyFlyer.tinyFlyersAreTheSame(_finalFlyer, originalFlyer) == false){
 
       /// F1 - get FinalTinyFlyer from final Flyer
-      TinyFlyer _finalTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_finalFlyer);
+      final TinyFlyer _finalTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_finalFlyer);
 
       /// F2 - update fireStore/tinyFlyers/flyerID
       await Fire.updateDoc(
@@ -384,7 +387,7 @@ class FlyerOps{
   Future<void> deactivateFlyerOps({BuildContext context,String flyerID, BzModel bzModel}) async {
 
     /// A1 - remove nano flyer from bz nanoFlyers
-    List<NanoFlyer> _updatedBzNanoFlyers = NanoFlyer.removeNanoFlyerFromNanoFlyers(bzModel.nanoFlyers, flyerID);
+    final List<NanoFlyer> _updatedBzNanoFlyers = NanoFlyer.removeNanoFlyerFromNanoFlyers(bzModel.nanoFlyers, flyerID);
 
     /// A2 - update fireStore/bzz/bzID['nanoFlyers']
     await Fire.updateDocField(
@@ -404,7 +407,7 @@ class FlyerOps{
 
     /// TASK : can merge the below two doc writes into one method later in optimization
     /// C - update fireStore/flyers/flyerID['deletionTime']
-    DateTime _deletionTime = DateTime.now();
+    final DateTime _deletionTime = DateTime.now();
     await Fire.updateDocField(
       context: context,
       collName: FireCollection.flyers,
@@ -438,7 +441,7 @@ class FlyerOps{
 
     /// A1 - remove nano flyer from bz nanoFlyers
     print('A1 - remove nano flyer from bz nanoFlyers');
-    List<NanoFlyer> _modifiedNanoFlyers= NanoFlyer.removeNanoFlyerFromNanoFlyers(bzModel.nanoFlyers, flyerModel.flyerID);
+    final List<NanoFlyer> _modifiedNanoFlyers= NanoFlyer.removeNanoFlyerFromNanoFlyers(bzModel.nanoFlyers, flyerModel.flyerID);
 
     /// A2 - update fireStore/bzz/bzID['nanoFlyers']
     if (_modifiedNanoFlyers != null){
@@ -506,7 +509,7 @@ class FlyerOps{
 
     /// H - delete fireStorage/slidesPics/slideID for all flyer slides
     print('H - delete flyer slide pics');
-    List<String> _slidesIDs = SlideModel.generateSlidesIDs(flyerModel);
+    final List<String> _slidesIDs = SlideModel.generateSlidesIDs(flyerModel);
     for (var id in _slidesIDs){
 
       print('a - delete slideHighRes : $id from ${_slidesIDs.length} slides');
@@ -541,7 +544,7 @@ class FlyerOps{
   }
 // -----------------------------------------------------------------------------
   static Future<List<ReviewModel>> readAllReviews({BuildContext context, String flyerID,}) async {
-    List<dynamic> _maps = await Fire.readSubCollectionDocs(
+    final List<dynamic> _maps = await Fire.readSubCollectionDocs(
       context: context,
       collName: FireCollection.flyers,
       docName: flyerID,
@@ -549,7 +552,7 @@ class FlyerOps{
       addDocsIDs: true,
     );
 
-    List<ReviewModel> _reviews = ReviewModel.decipherReviews(_maps);
+    final List<ReviewModel> _reviews = ReviewModel.decipherReviews(_maps);
 
     return _reviews;
   }

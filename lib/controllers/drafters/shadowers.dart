@@ -57,7 +57,7 @@ class Shadowz {
   ];
 // -----------------------------------------------------------------------------
   static List<BoxShadow> flyerZoneShadow(double flyerBoxWidth){
-    List<BoxShadow> _flyerZoneShadow = <BoxShadow>[
+    final List<BoxShadow> _flyerZoneShadow = <BoxShadow>[
       CustomBoxShadow(
           color: Colorz.Black230,
           blurRadius: flyerBoxWidth * 0.055,
@@ -69,7 +69,7 @@ class Shadowz {
   }
 // -----------------------------------------------------------------------------
   static List<BoxShadow> flyerHeaderShadow(double flyerBoxWidth){
-    List<BoxShadow> _shadows = <BoxShadow>[
+    final List<BoxShadow> _shadows = <BoxShadow>[
       CustomBoxShadow(
         color: Colorz.Black200,
         offset: Offset(0, 0),

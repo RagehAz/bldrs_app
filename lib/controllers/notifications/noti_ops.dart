@@ -17,8 +17,8 @@ class NotiOps{
 // -----------------------------------------------------------------------------
 //   static String _ahmedURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/slidesPics%2FXmwKpOsu1RZW3YfDAkli_00.jpg?alt=media&token=a4c8a548-74d2-4086-b3db-1678f46db00a';
 
-  static String _redBldrsBanner = 'resource://drawable/res_red_bldrs';
-  static String _flatBldrsNotiIcon = 'resource://drawable/res_flat_logo';
+  static const String _redBldrsBanner = 'resource://drawable/res_red_bldrs';
+  static const String _flatBldrsNotiIcon = 'resource://drawable/res_flat_logo';
 
   // -----------------------------------------------------------------------------
   /// THIS GOES BEFORE RUNNING THE BLDRS APP
@@ -26,7 +26,7 @@ class NotiOps{
 
     FirebaseMessaging.onBackgroundMessage(fcmPushHandler);
 
-    AwesomeNotifications _awesomeNotification = AwesomeNotifications();
+    final AwesomeNotifications _awesomeNotification = AwesomeNotifications();
 
     _awesomeNotification.initialize(
       _flatBldrsNotiIcon,
@@ -42,7 +42,7 @@ class NotiOps{
   /// THIS GOES IN MAIN WIDGET INIT
   static Future<void> initializeNoti() async  {
 
-    RemoteMessage initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
+    final RemoteMessage initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
 
     if (initialRemoteMessage != null){
 
@@ -56,9 +56,9 @@ class NotiOps{
     }
 
 
-    final fbm = FirebaseMessaging.instance;
+    final _fbm = FirebaseMessaging.instance;
 
-    fbm.requestPermission(
+    _fbm.requestPermission(
       criticalAlert: true,
       carPlay: true,
       announcement: true,
@@ -71,9 +71,9 @@ class NotiOps{
 
     /// when app running in foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) {
-      Map<String, dynamic> msgMap = remoteMessage.data;
+      final Map<String, dynamic> _msgMap = remoteMessage.data;
 
-      receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onMessage);
+      receiveAndActUponNoti(msgMap: _msgMap, notiType: NotiType.onMessage);
 
     });
 
@@ -85,8 +85,8 @@ class NotiOps{
         remoteMessage: event,
       );
 
-      Map<String, dynamic> msgMap = event.data;
-      receiveAndActUponNoti(msgMap: msgMap, notiType: NotiType.onLaunch);
+      final Map<String, dynamic> _msgMap = event.data;
+      receiveAndActUponNoti(msgMap: _msgMap, notiType: NotiType.onLaunch);
 
       /// to display the notification while app in foreground
       LocalNotificationService.display(event);
@@ -98,7 +98,7 @@ class NotiOps{
 
 
     // fbm.getToken();
-    fbm.subscribeToTopic('flyers');
+    _fbm.subscribeToTopic('flyers');
 
 
 }
@@ -132,9 +132,9 @@ class NotiOps{
       remoteMessage: message,
     );
 
-    bool thing = await AwesomeNotifications().createNotificationFromJsonData(message.data);
+    final bool _thing = await AwesomeNotifications().createNotificationFromJsonData(message.data);
 
-    print ('thing is : $thing');
+    print ('thing is : $_thing');
 
     // if (!kIsWeb) {
     //   channel = const AndroidNotificationChannel(
@@ -191,8 +191,6 @@ class NotiOps{
   }
 // -----------------------------------------------------------------------------
   static Future<void> createScheduledNotification() async {
-
-
 
     await AwesomeNotifications().createNotification(
 
@@ -325,19 +323,19 @@ class NotiOps{
 // -----------------------------------------------------------------------------
   static printRemoteMessage({String methodName, RemoteMessage remoteMessage}){
 
-    RemoteNotification remoteNotification = remoteMessage.notification;
-    String category = remoteMessage.category;
-    String collapseKey = remoteMessage.collapseKey;
-    bool contentAvailable = remoteMessage.contentAvailable;
-    String from = remoteMessage.from;
-    String messageId = remoteMessage.messageId;
-    String messageType = remoteMessage.messageType;
-    bool mutableContent = remoteMessage.mutableContent;
-    String senderId = remoteMessage.senderId;
-    DateTime sentTime = remoteMessage.sentTime;
-    String threadId = remoteMessage.threadId;
-    int ttl = remoteMessage.ttl;
-    Map<String, dynamic> data = remoteMessage.data;
+    final RemoteNotification remoteNotification = remoteMessage.notification;
+    final String category = remoteMessage.category;
+    final String collapseKey = remoteMessage.collapseKey;
+    final bool contentAvailable = remoteMessage.contentAvailable;
+    final String from = remoteMessage.from;
+    final String messageId = remoteMessage.messageId;
+    final String messageType = remoteMessage.messageType;
+    final bool mutableContent = remoteMessage.mutableContent;
+    final String senderId = remoteMessage.senderId;
+    final DateTime sentTime = remoteMessage.sentTime;
+    final String threadId = remoteMessage.threadId;
+    final int ttl = remoteMessage.ttl;
+    final Map<String, dynamic> data = remoteMessage.data;
 
     print('PRINTING REMOTE MESSAGE ATTRIBUTES ------------- START -');
 
@@ -382,7 +380,7 @@ Widget notiStreamBuilder({
           return LoadingFullScreenLayer();
         } else {
 
-          List<NotiModel> notiModels = snapshot.data;
+          final List<NotiModel> notiModels = snapshot.data;
 
           print('the shit is getting reaaaaaaaaaaaaaaaaaaaaaaal');
 

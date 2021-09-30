@@ -11,7 +11,7 @@ class RecordOps{
   static Future<List<SaveModel>> readUserSavesOps(BuildContext context) async {
 
     /// 1 - read db/users/userID/saves/flyers and return its map
-    Map<String, dynamic> _userSavesMap = await Fire.readSubDoc(
+    final Map<String, dynamic> _userSavesMap = await Fire.readSubDoc(
       context: context,
       collName: FireCollection.users,
       docName: superUserID(),
@@ -20,14 +20,14 @@ class RecordOps{
     );
 
     /// 2- decipher the User's saves map into List<SaveModel>
-    List<SaveModel> _userSavesModels = _userSavesMap == null ? [] : SaveModel.decipherUserSavesMap(_userSavesMap);
+    final List<SaveModel> _userSavesModels = _userSavesMap == null ? <SaveModel>[] : SaveModel.decipherUserSavesMap(_userSavesMap);
 
-    return _userSavesMap == null ? [] : _userSavesModels;
+    return _userSavesMap == null ? <SaveModel>[] : _userSavesModels;
   }
 // -----------------------------------------------------------------------------
   static Future<List<SaveModel>> readFlyerSavesOps() async {
     /// TASK : paginate in Flyer saves to get batches of tiny users after getting those savesModels
-    List<SaveModel> _flyerSaves = [];
+    final List<SaveModel> _flyerSaves = <SaveModel>[];
     return _flyerSaves;
   }
 // -----------------------------------------------------------------------------
@@ -37,10 +37,10 @@ class RecordOps{
     /// A - SavesOps in User/saves/flyers subDoc
     //-------------------------------------------
     /// 1 - get User's SavesMap doc and decipher it into List<SaveModel>
-    List<SaveModel> _userSavesModels = await readUserSavesOps(context);
+    final List<SaveModel> _userSavesModels = await readUserSavesOps(context);
 
     /// 2 - update the list with the new save entry and get back the updated list
-    List<SaveModel> _updatedUserSavesModel = SaveModel.editSavesModels(_userSavesModels, flyerID, slideIndex);
+    final List<SaveModel> _updatedUserSavesModel = SaveModel.editSavesModels(_userSavesModels, flyerID, slideIndex);
 
     /// 3 - update sub doc with new SavesTopMap in db/flyers/flyerID/saves
     await Fire.createNamedSubDoc(
@@ -55,7 +55,7 @@ class RecordOps{
     /// B - SavesOps in flyers/saves/users subDoc
     //-------------------------------------------
     /// 1 - get the updated saveModel from the updated list of SaveModels
-    SaveModel _flyerSaveModel = _updatedUserSavesModel.singleWhere((save) => save.flyerID == flyerID);
+    final SaveModel _flyerSaveModel = _updatedUserSavesModel.singleWhere((save) => save.flyerID == flyerID);
 
     /// 2 - override flyer save sub document
     await Fire.createNamedSubDoc(
@@ -71,7 +71,7 @@ class RecordOps{
 // -----------------------------------------------------------------------------
   static Future<ShareModel> readFlyerShareOps({BuildContext context, String flyerID, String userID}) async {
 
-    Map<String, dynamic> _userShareMap = await Fire.readSubDoc(
+    final Map<String, dynamic> _userShareMap = await Fire.readSubDoc(
       context: context,
       collName: FireCollection.flyers,
       docName: flyerID,
@@ -79,7 +79,7 @@ class RecordOps{
       subDocName: userID,
     );
 
-    ShareModel _shareModel = _userShareMap == null ? null : ShareModel.decipherShareMap(_userShareMap);
+    final ShareModel _shareModel = _userShareMap == null ? null : ShareModel.decipherShareMap(_userShareMap);
 
     return _userShareMap == null ? null : _shareModel;
   }
@@ -87,14 +87,14 @@ class RecordOps{
   static Future<void> shareFlyerOPs({BuildContext context, String flyerID, int slideIndex, String userID}) async {
 
     /// get existing share model if existed
-    ShareModel _existingShareModel = await readFlyerShareOps(
+    final ShareModel _existingShareModel = await readFlyerShareOps(
       context: context,
       flyerID: flyerID,
       userID: userID,
     );
 
     /// update shareModel if existed, otherWise create a new one
-    ShareModel _updatedShareModel = ShareModel.addToShareModel(_existingShareModel, slideIndex);
+    final ShareModel _updatedShareModel = ShareModel.addToShareModel(_existingShareModel, slideIndex);
 
     /// add new share model into dc/flyers/flyerID/shares/userID
     await Fire.createNamedSubDoc(
@@ -113,7 +113,7 @@ class RecordOps{
   static Future<List<String>> readUserFollowsOps(BuildContext context) async {
 
     /// 1 - read db/users/userID/saves/bzz and return its map
-    Map<String, dynamic> _userFollowsMap = await Fire.readSubDoc(
+    final Map<String, dynamic> _userFollowsMap = await Fire.readSubDoc(
       context: context,
       collName: FireCollection.users,
       docName: superUserID(),
@@ -124,7 +124,7 @@ class RecordOps{
     print('_userFollowsMap = $_userFollowsMap');
 
     /// 2- decipher the User's saves map into List<SaveModel>
-    List<String> _userFollowedBzIDs = _userFollowsMap == null ? null : FollowModel.decipherUserFollowsMap(_userFollowsMap);
+    final List<String> _userFollowedBzIDs = _userFollowsMap == null ? null : FollowModel.decipherUserFollowsMap(_userFollowsMap);
 
     return _userFollowsMap == null ? null : _userFollowedBzIDs;
   }
@@ -132,7 +132,7 @@ class RecordOps{
   static Future<FollowModel> readBzFollowOps(BuildContext context,String bzID, String userID) async {
 
     /// 1 - read db/bzz/bzID/follows/userID and return its map
-    Map<String, dynamic> _userFollowMap = await Fire.readSubDoc(
+    final Map<String, dynamic> _userFollowMap = await Fire.readSubDoc(
       context: context,
       collName: FireCollection.bzz,
       docName: bzID,
@@ -143,7 +143,7 @@ class RecordOps{
     print('_userFollowMap = $_userFollowMap');
 
     /// 2- decipher the follo map into FollowModel
-    FollowModel _follow = _userFollowMap == null ? null : FollowModel.decipherBzFollowMap(_userFollowMap);
+    final FollowModel _follow = _userFollowMap == null ? null : FollowModel.decipherBzFollowMap(_userFollowMap);
 
     return _userFollowMap == null ? null : _follow;
   }
@@ -153,10 +153,10 @@ class RecordOps{
     /// A - FollowOps in User/saves/bzz subDoc
     //-------------------------------------------
     /// 1 - get User's FollowsMap doc and decipher it into List<String> bzIDs
-    List<String> _userFollowedBzzIDs = await readUserFollowsOps(context);
+    final List<String> _userFollowedBzzIDs = await readUserFollowsOps(context);
 
     /// 2 - update the list with the new save entry and get back the updated list
-    List<String> _updatedFollowedBzzIDs = FollowModel.editFollows(_userFollowedBzzIDs, bzID);
+    final List<String> _updatedFollowedBzzIDs = FollowModel.editFollows(_userFollowedBzzIDs, bzID);
 
     /// 3 - update sub doc with new SavesTopMap in db/flyers/flyerID/saves
     await Fire.createNamedSubDoc(
@@ -171,10 +171,10 @@ class RecordOps{
     /// B - FollowOps in bzz/follows/userID subDoc
     //-------------------------------------------
     /// 1 - get existing FollowModel
-    FollowModel _existingFollowModel = await RecordOps.readBzFollowOps(context, bzID, userID);
+    final FollowModel _existingFollowModel = await RecordOps.readBzFollowOps(context, bzID, userID);
 
     /// 2 - update the follow model
-    FollowModel _updatedFollowModel = FollowModel.editFollowModel(_existingFollowModel);
+    final FollowModel _updatedFollowModel = FollowModel.editFollowModel(_existingFollowModel);
 
     /// 3 - override bz follow sub document
     await Fire.createNamedSubDoc(
@@ -192,7 +192,7 @@ class RecordOps{
   static Future<CallModel> readCallModelOps({BuildContext context, String bzID, String userID}) async {
 
     /// 1 - read db/bzz/bzID/calls/userID and return its map
-    Map<String, dynamic> _userCallMap = await Fire.readSubDoc(
+    final Map<String, dynamic> _userCallMap = await Fire.readSubDoc(
       context: context,
       collName: FireCollection.bzz,
       docName: bzID,
@@ -203,7 +203,7 @@ class RecordOps{
     print('_userCallMap = $_userCallMap');
 
     /// 2- decipher the call map into FollowModel
-    CallModel _callModel = _userCallMap == null ? null : CallModel.decipherCallMap(_userCallMap);
+    final CallModel _callModel = _userCallMap == null ? null : CallModel.decipherCallMap(_userCallMap);
 
     return _userCallMap == null ? null : _callModel;
   }
@@ -213,14 +213,14 @@ class RecordOps{
     /// A - CallOps in bzz/calls/userID subDoc
     //-------------------------------------------
     /// 1 - get the existing call model
-    CallModel _existingCallModel = await RecordOps.readCallModelOps(
+    final CallModel _existingCallModel = await RecordOps.readCallModelOps(
       context: context,
       bzID: bzID,
       userID: userID,
     );
 
     /// 2 - update the call model
-    CallModel _updatedCallModel = CallModel.editCallModel(_existingCallModel, slideIndex);
+    final CallModel _updatedCallModel = CallModel.editCallModel(_existingCallModel, slideIndex);
 
     /// 3 - override bz Call sub document
     await Fire.createNamedSubDoc(

@@ -5,7 +5,7 @@ import 'package:intl/intl.dart' as international;
 class TextChecker{
 // -----------------------------------------------------------------------------
   static bool textIsEnglish (String val){
-    RegExp exp = RegExp("[a-zA-Z]", multiLine: true, unicode: true);
+    final RegExp exp = RegExp("[a-zA-Z]", multiLine: true, unicode: true);
     bool textIsEnglish;
 
     /// if you want to check the last character input by user let the [characterNumber = val.length-1;]
@@ -22,7 +22,7 @@ class TextChecker{
   }
 // -----------------------------------------------------------------------------
   static bool textControllerHasNoValue(TextEditingController controller){
-    bool controllerIsEmpty =
+    final bool controllerIsEmpty =
     controller == null || controller.text == '' || controller.text.length == 0 ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) == '' ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) == null
@@ -87,7 +87,7 @@ class TextChecker{
 //   }
 // -----------------------------------------------------------------------------
   static bool stringHasNoValue(String val){
-    bool controllerIsEmpty =
+    final bool controllerIsEmpty =
     val == null || val == '' || val.length == 0 ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(val) == '' ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(val) == null
@@ -112,28 +112,28 @@ class TextChecker{
     // "[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufc3f]|[\ufe70-\ufefc]"
 
     /// This works for Arabic/Persian even numbers.
-    String _reg = r"^[؀-ۿ]+$" ;
+    const String _reg = r"^[؀-ۿ]+$" ;
 
-    RegExp exp = RegExp(_reg, unicode: false, multiLine: true);
+    final RegExp _exp = RegExp(_reg, unicode: false, multiLine: true);
     // bool isArabic;
 
-    String _firstCharacter = TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
+    final String _firstCharacter = TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
 
     return
       _firstCharacter == null  || _firstCharacter == '' ? false :
-      exp.hasMatch(_firstCharacter) == true ? true : false;
+      _exp.hasMatch(_firstCharacter) == true ? true : false;
 
   }
 // -----------------------------------------------------------------------------
   static bool textStartsInEnglish (String val){
     // bool isEnglish;
-    String _reg = r"[a-zA-Z]";
-    RegExp exp = RegExp(_reg, unicode: false, multiLine: true);
-    String _firstCharacter = TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
+    const String _reg = r"[a-zA-Z]";
+    final RegExp _exp = RegExp(_reg, unicode: false, multiLine: true);
+    final String _firstCharacter = TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
 
     return
       _firstCharacter == null  || _firstCharacter == '' ? false :
-      exp.hasMatch(_firstCharacter) == true ? true : false;
+      _exp.hasMatch(_firstCharacter) == true ? true : false;
 
   }
 // -----------------------------------------------------------------------------
@@ -150,7 +150,7 @@ class TextChecker{
       _itContainsIt = true;
     }
 
-    String _blah = _itContainsIt == true ? 'CONTAIN' : 'DOES NOT CONTAIN';
+    final String _blah = _itContainsIt == true ? 'CONTAIN' : 'DOES NOT CONTAIN';
     print('string : $string : $_blah this : $subString');
 
     return _itContainsIt;

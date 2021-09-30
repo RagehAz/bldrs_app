@@ -44,12 +44,12 @@ class BzOps{
     // inputBz has inputBz.bzLogo & inputBz.authors[0].authorPic as Files not URLs
 
     /// create empty firestore bz doc to get back _bzID
-    DocumentReference _docRef = await Fire.createDoc(
+    final DocumentReference _docRef = await Fire.createDoc(
       context: context,
       collName: FireCollection.bzz,
       input: {},
     );
-    String _bzID = _docRef.id;
+    final String _bzID = _docRef.id;
 
     /// save bzLogo to fire storage and get URL
     String _bzLogoURL;
@@ -77,7 +77,7 @@ class BzOps{
     }
 
     /// update authorModel with _authorPicURL
-    AuthorModel _masterAuthor = AuthorModel(
+    final AuthorModel _masterAuthor = AuthorModel(
       userID: userModel.userID,
       authorName: inputBz.bzAuthors[0].authorName,
       authorTitle: inputBz.bzAuthors[0].authorTitle,
@@ -87,7 +87,7 @@ class BzOps{
     );
 
     /// refactor the bzModel with new pics URLs generated above
-    BzModel _outputBz = BzModel(
+    final BzModel _outputBz = BzModel(
       bzID : _bzID,
       // -------------------------
       bzType : inputBz.bzType,
@@ -138,7 +138,7 @@ class BzOps{
     );
 
     /// add bzID in user's myBzIDs
-    List<dynamic> _userBzzIDs = userModel.myBzzIDs;
+    final List<dynamic> _userBzzIDs = userModel.myBzzIDs;
     _userBzzIDs.insert(0, _bzID);
     await Fire.updateDocField(
       context: context,
@@ -153,25 +153,25 @@ class BzOps{
 // -----------------------------------------------------------------------------
   static Future<BzModel> readBzOps({BuildContext context, String bzID}) async {
 
-    dynamic _bzMap = await Fire.readDoc(
+    final dynamic _bzMap = await Fire.readDoc(
         context: context,
         collName: FireCollection.bzz,
         docName: bzID
     );
-    BzModel _bz = BzModel.decipherBzMap(_bzMap);
+    final BzModel _bz = BzModel.decipherBzMap(_bzMap);
 
     return _bz;
   }
 // -----------------------------------------------------------------------------
   static Future<TinyBz> readTinyBzOps({BuildContext context, String bzID}) async {
 
-    Map<String, dynamic> _tinyBzMap = await Fire.readDoc(
+    final Map<String, dynamic> _tinyBzMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.tinyBzz,
       docName: bzID,
     );
 
-    TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_tinyBzMap);
+    final TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_tinyBzMap);
 
     return _tinyBz;
   }
@@ -201,13 +201,13 @@ class BzOps{
     }
 
     /// 2 - update authorPic if changed
-    AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(modifiedBz, superUserID());
+    final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(modifiedBz, superUserID());
     String _authorPicURL;
     if(authorPicFile == null) {
       // do Nothing, author pic was not changed, will keep as
     } else {
 
-      String _authorID = superUserID();
+      final String _authorID = superUserID();
 
       _authorPicURL = await Fire.createStoragePicAndGetURL(
           context: context,
@@ -218,7 +218,7 @@ class BzOps{
     }
 
     /// update authorsList if authorPicChanged
-    AuthorModel _newAuthor = AuthorModel(
+    final AuthorModel _newAuthor = AuthorModel(
       userID : _oldAuthor.userID,
       authorName : _oldAuthor.authorName,
       authorPic : _authorPicURL ?? originalBz.bzAuthors[AuthorModel.getAuthorIndexByAuthorID(originalBz.bzAuthors, _oldAuthor.userID)].authorPic,
@@ -226,14 +226,15 @@ class BzOps{
       authorIsMaster : _oldAuthor.authorIsMaster,
       authorContacts : _oldAuthor.authorContacts,
     );
-    List<AuthorModel> _finalAuthorList = AuthorModel.replaceAuthorModelInAuthorsList(
+
+    final List<AuthorModel> _finalAuthorList = AuthorModel.replaceAuthorModelInAuthorsList(
         originalAuthors: modifiedBz.bzAuthors,
         oldAuthor: _oldAuthor,
         newAuthor: _newAuthor,
     );
 
     /// update bzModel if images changed
-    BzModel _finalBz = BzModel(
+    final BzModel _finalBz = BzModel(
       bzID: modifiedBz.bzID,
       // -------------------------
       bzType: modifiedBz.bzType,
@@ -285,8 +286,9 @@ class BzOps{
         _finalBz.bzZone.cityID != originalBz.bzZone.cityID ||
         _finalBz.bzZone.districtID != originalBz.bzZone.districtID
     ){
-    TinyBz _modifiedTinyBz = TinyBz.getTinyBzFromBzModel(_finalBz)  ;
-    Map<String, dynamic> _modifiedTinyBzMap = _modifiedTinyBz.toMap();
+
+      final TinyBz _modifiedTinyBz = TinyBz.getTinyBzFromBzModel(_finalBz)  ;
+      final Map<String, dynamic> _modifiedTinyBzMap = _modifiedTinyBz.toMap();
 
     /// update tinyBz document
     await Fire.updateDoc(
@@ -298,7 +300,7 @@ class BzOps{
 
     /// update tinyBz in all flyers
     /// TASK : this may require firestore batch write
-      List<String> _bzFlyersIDs = NanoFlyer.getListOfFlyerIDsFromNanoFlyers(_finalBz.nanoFlyers);
+      final List<String> _bzFlyersIDs = NanoFlyer.getListOfFlyerIDsFromNanoFlyers(_finalBz.nanoFlyers);
       if(_bzFlyersIDs.length > 0){
         for (var id in _bzFlyersIDs){
           await Fire.updateDocField(
@@ -338,8 +340,8 @@ class BzOps{
   Future<void> deactivateBzOps({BuildContext context, BzModel bzModel}) async {
 
     /// 1 - perform deactivate flyer ops for all flyers
-    List<String> _flyersIDs = [];
-    List<NanoFlyer> _bzNanoFlyers = bzModel.nanoFlyers;
+    final List<String> _flyersIDs = <String>[];
+    final List<NanoFlyer> _bzNanoFlyers = bzModel.nanoFlyers;
     _bzNanoFlyers.forEach((flyer) {
       _flyersIDs.add(flyer.flyerID);
     });
@@ -363,14 +365,14 @@ class BzOps{
     );
 
     /// 3 - delete bzID from myBzzIDs for each author
-    List<AuthorModel> _authors = bzModel.bzAuthors;
-    List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(_authors);
+    final List<AuthorModel> _authors = bzModel.bzAuthors;
+    final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(_authors);
     for (var id in _authorsIDs){
 
-      UserModel _user = await UserOps().readUserOps(context: context, userID: id);
+      final UserModel _user = await UserOps().readUserOps(context: context, userID: id);
 
-      List<dynamic> _myBzzIDs = _user.myBzzIDs;
-      int _bzIndex = _myBzzIDs.indexWhere((id) => id == bzModel.bzID);
+      final List<dynamic> _myBzzIDs = _user.myBzzIDs;
+      final int _bzIndex = _myBzzIDs.indexWhere((id) => id == bzModel.bzID);
       _myBzzIDs.removeAt(_bzIndex);
 
       await Fire.updateDocField(
@@ -406,11 +408,11 @@ class BzOps{
   Future<void> superDeleteBzOps({BuildContext context, BzModel bzModel}) async {
 
     print('1 - start delete flyer ops for all flyers');
-    List<String> _flyersIDs = BzModel.getBzFlyersIDs(bzModel);
+    final List<String> _flyersIDs = BzModel.getBzFlyersIDs(bzModel);
     for (var id in _flyersIDs){
 
       print('a - getting flyer : $id');
-      FlyerModel _flyerModel = await FlyerOps().readFlyerOps(
+      final FlyerModel _flyerModel = await FlyerOps().readFlyerOps(
         context: context,
         flyerID: id,
       );
@@ -432,17 +434,17 @@ class BzOps{
     );
 
     print('3 - delete bzID : ${bzModel.bzID} in all author\'s myBzIDs lists');
-    List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(bzModel.bzAuthors);
+    final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(bzModel.bzAuthors);
     for (var authorID in _authorsIDs){
 
       print('a - get user model');
-      UserModel _user = await UserOps().readUserOps(
+      final UserModel _user = await UserOps().readUserOps(
         context: context,
         userID: authorID,
       );
 
       print('b - update user\'s myBzzIDs');
-      List<dynamic> _modifiedMyBzzIDs = UserModel.removeBzIDFromMyBzzIDs(_user.myBzzIDs, bzModel.bzID);
+      final List<dynamic> _modifiedMyBzzIDs = UserModel.removeBzIDFromMyBzzIDs(_user.myBzzIDs, bzModel.bzID);
 
       print('c - update myBzzIDs field in user doc');
       await Fire.updateDocField(
@@ -522,11 +524,11 @@ class BzOps{
   /// 2 - filters which bz can be deleted and which can not be deleted
   /// 3 - return {'bzzToKeep' : _bzzToKeep, 'bzzToDeactivate' : _bzzToDeactivate, }
   static Future<dynamic> readAndFilterTeamlessBzzByUserModel({BuildContext context, UserModel userModel}) async {
-    List<BzModel> _bzzToDeactivate = [];
-    List<BzModel> _bzzToKeep = [];
+    final List<BzModel> _bzzToDeactivate = <BzModel>[];
+    final List<BzModel> _bzzToKeep = <BzModel>[];
     for (var id in userModel.myBzzIDs){
 
-      BzModel _bz = await BzOps.readBzOps(
+      final BzModel _bz = await BzOps.readBzOps(
         context: context,
         bzID: id,
       );
@@ -539,7 +541,7 @@ class BzOps{
 
     }
 
-    Map<String, dynamic> _bzzMap = {
+    final Map<String, dynamic> _bzzMap = {
       'bzzToKeep' : _bzzToKeep,
       'bzzToDeactivate' : _bzzToDeactivate,
     };

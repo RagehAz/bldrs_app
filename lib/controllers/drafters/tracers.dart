@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 
 class Tracer{
 
-  static bool _traceScreenBuild = true;
-  static bool _traceWidgetBuild = true;
-  static bool _traceSetState = false;
+  static const bool _traceScreenBuild = true;
+  static const bool _traceWidgetBuild = true;
+  static const bool _traceSetState = false;
 // -----------------------------------------------------------------------------
   static void traceScreenBuild({@required String screenName, bool tracerIsOn = true}){
     if(_traceScreenBuild == true && tracerIsOn == true){
@@ -14,7 +14,7 @@ class Tracer{
 // -----------------------------------------------------------------------------
   static void traceWidgetBuild({@required String widgetName, @required String varName, @required dynamic varValue, bool tracerIsOn = true, int number}){
     if(_traceWidgetBuild == true && tracerIsOn == true){
-      String _numString = number == null ? 'x' : '$number';
+      final String _numString = number == null ? 'x' : '$number';
       print('${_numString} - WB---> ${widgetName} : ${varName} : ${varValue.toString()}');
     }
   }

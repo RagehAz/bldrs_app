@@ -4,10 +4,10 @@ import 'dart:math';
 
 class Audioz{
 // -----------------------------------------------------------------------------
-  static String _soundFile_name_nicole = 'res_name_nicole';
-  static String _soundFile_name_justina = 'res_name_justina';
-  static String _soundFile_name_emma = 'res_name_emma';
-  static String _soundFile_name_amy = 'res_name_amy';
+  static const String _soundFile_name_nicole = 'res_name_nicole';
+  static const String _soundFile_name_justina = 'res_name_justina';
+  static const String _soundFile_name_emma = 'res_name_emma';
+  static const String _soundFile_name_amy = 'res_name_amy';
 // -----------------------------------------------------------------------------
   static String getNotificationFilesPath(String fileNameWithoutExtension){
     return
@@ -16,14 +16,14 @@ class Audioz{
 // -----------------------------------------------------------------------------
   static String  randomBldrsNameSoundPath(){
 
-    List<String> _notiSounds = <String>[
+    final List<String> _notiSounds = <String>[
       _soundFile_name_nicole,
       _soundFile_name_justina,
       _soundFile_name_emma,
       _soundFile_name_amy,
     ];
     
-    int _randomIndex = Random().nextInt(_notiSounds.length); // from 0 up to _notiSounds.length included
+    final int _randomIndex = Random().nextInt(_notiSounds.length); // from 0 up to _notiSounds.length included
 
     return getNotificationFilesPath(_notiSounds[_randomIndex]);
   }

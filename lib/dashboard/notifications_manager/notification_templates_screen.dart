@@ -82,7 +82,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
 
     return MainLayout(
       appBarType: AppBarType.Basic,
@@ -146,7 +146,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
         padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
         itemBuilder: (ctx, index){
 
-          NotiModel _notiModel = _notifications[index];
+          final NotiModel _notiModel = _notifications[index];
 
           return Dismissible(
             // onResize: (){

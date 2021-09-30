@@ -34,13 +34,13 @@ class _KeywordsManagerState extends State<KeywordsManager> {
   @override
   Widget build(BuildContext context) {
 
-    List<Keyword> _allKeywords = Keyword.bldrsKeywords();
+    final List<Keyword> _allKeywords = Keyword.bldrsKeywords();
 
-    double _screenWidth  = Scale.superScreenWidth(context);
+    final double _screenWidth  = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
 
-    double _keywordButtonHeight = 90;
-    double _buttonWidth = _screenWidth * 0.8;
+    const double _keywordButtonHeight = 90;
+    final double _buttonWidth = _screenWidth * 0.8;
     const double _spacing = Ratioz.appBarPadding;
 
     return MainLayout(
@@ -64,27 +64,29 @@ class _KeywordsManagerState extends State<KeywordsManager> {
             itemExtent: _keywordButtonHeight + _spacing,
             itemBuilder: (ctx, index){
 
-              Keyword _keyword = _allKeywords[index];
-              String _keywordID = _allKeywords[index].keywordID;
-              String _icon = Keyword.getImagePath(_keyword);
-              String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
-              String _groupID = _keyword.groupID;
-              String _subGroupID = _keyword.subGroupID == '' ? '...' : _keyword.subGroupID;
+              final Keyword _keyword = _allKeywords[index];
+              final String _keywordID = _allKeywords[index].keywordID;
+              final String _icon = Keyword.getImagePath(_keyword);
+              final String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
+              final String _groupID = _keyword.groupID;
+              final String _subGroupID = _keyword.subGroupID == '' ? '...' : _keyword.subGroupID;
               // int _uses = _keyword.uses;
               // FlyerType _keywordFlyerType = _keyword.flyerType;
               // List<Name> _keywordNames = _keyword.names;
-              String _arabicName = Keyword.getKeywordArabicName(_keyword);
+              final String _arabicName = Keyword.getKeywordArabicName(_keyword);
 
               return
                   Container(
                     width: _buttonWidth,
-                    height: _keywordButtonHeight,
+                    // height: _keywordButtonHeight,
                     margin: const EdgeInsets.only(bottom: _spacing),
                     decoration: BoxDecoration(
                       borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
                       color: Colorz.BloodTest,
                     ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
 
                         DreamBox(
@@ -109,16 +111,22 @@ class _KeywordsManagerState extends State<KeywordsManager> {
                               size: 1,
                             ),
 
-                            /// name
+                            /// english name
                             SuperVerse(
                               verse: _keywordName,
                               size: 2,
                             ),
 
+                            /// arabic name
+                            SuperVerse(
+                              verse: _arabicName,
+                              size: 1,
+                            ),
+
                             /// GroupID
                             SuperVerse(
                               verse: _groupID,
-                              size: 1,
+                              size: 0,
                               weight: VerseWeight.thin,
                             ),
 
@@ -126,13 +134,10 @@ class _KeywordsManagerState extends State<KeywordsManager> {
                             /// subGroupID
                             SuperVerse(
                               verse: _subGroupID,
-                              size: 1,
+                              size: 0,
                               weight: VerseWeight.thin,
                             ),
 
-                            SuperVerse(
-                              verse: _arabicName,
-                            ),
 
                           ],
                         ),

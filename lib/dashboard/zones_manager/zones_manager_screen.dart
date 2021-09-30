@@ -68,9 +68,9 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
     final Stream<QuerySnapshot> _countriesList = _countriesCollection.snapshots();
     // List<Country> _countriesList = dbCountries;
 
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
 
-    double _countryButtonWidth = _screenWidth - superVerseRealHeight(context, 2, 1, null);
+    final double _countryButtonWidth = _screenWidth - superVerseRealHeight(context, 2, 1, null);
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,

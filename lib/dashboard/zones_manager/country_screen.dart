@@ -75,7 +75,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
   @override
   Widget build(BuildContext context) {
 
-    List<String> _provincesNames = City.getCitiesNamesFromCountryModel(widget.country);
+    final List<String> _provincesNames = City.getCitiesNamesFromCountryModel(widget.country);
 
     return MainLayout(
       sky: Sky.Black,
@@ -109,7 +109,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           Stratosphere(),
 
-          // --- ISO3
+          /// --- ISO3
           TileBubble(
              verse: '${widget.country.name}\'s ISO3 is : ( ${widget.country.iso3} )',
              icon: Iconz.Info,
@@ -119,7 +119,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           BubblesSeparator(),
 
-          // --- NAME
+          /// --- NAME
           TextFieldBubble(
             title: 'Country Name',
             textOnChanged: (val) => setState(() {_name = val;}),
@@ -222,7 +222,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             title: '${_provincesNames.length} Provinces',
             keywords: City.getKeywordsFromCities(context, _provinces),
             onTap: (val) {print(val);},
-            selectedWords: [],
+            selectedWords: <dynamic>[],
             addButtonIsOn: false,
           ),
 

@@ -1,15 +1,15 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/views/widgets/specific/ask/enum_lister/enum_lister.dart';
 import 'package:bldrs/views/widgets/specific/ask/quest/quests_screen.dart';
 import 'package:bldrs/views/widgets/specific/ask/question/ask_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/general/pyramids/enum_lister.dart';
 import 'package:flutter/material.dart';
 
-Map<String, Object> bzTypesMap = {
+const Map<String, Object> bzTypesMap = {
   'Title' : 'Business Types',
-  'Strings' : [
+  'Strings' : <String>[
     'developers',
     'brokers',
     'designers',
@@ -18,7 +18,7 @@ Map<String, Object> bzTypesMap = {
     'manufacturers',
     'suppliers',
   ],
-  'Triggers' : [false, false, false, false, false, false, false],
+  'Triggers' : <bool>[false, false, false, false, false, false, false],
 };
 
 class OldAskScreen extends StatefulWidget {

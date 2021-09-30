@@ -21,7 +21,7 @@ class UserProvider {
       // List<dynamic> _followedBzzIDs = doc.data()['followedBzzIDs'] as List<dynamic>;
       // List<dynamic> _publishedFlyersIDs = doc.data()['publishedFlyersIDs'] as List<dynamic>;
 
-      Map<String, dynamic> _map = doc.data() as Map;
+      final Map<String, dynamic> _map = doc.data() as Map;
 
       return UserModel(
         userID: _map['userID'] ?? '',
@@ -38,7 +38,7 @@ class UserProvider {
         position: _map['position'] ?? GeoPoint(0, 0),
         contacts: ContactModel.decipherContactsMaps(_map['contacts'] ?? []),
         // -------------------------
-        myBzzIDs: _map['myBzzIDs'] ?? [],
+        myBzzIDs: _map['myBzzIDs'] ?? <dynamic>[],
         authBy: _map['authBy'] ?? null,
 
         /// TASK : user auth by in stream,
@@ -61,11 +61,13 @@ class UserProvider {
         Map<String, dynamic> _map = doc.data() as Map;
 
 
-        List<dynamic> _myBzzIDs = _map == null
-            ? []
-            : _map['myBzzIDs'] == null
-                ? []
-                : _map['myBzzIDs'] as List<dynamic>;
+        List<dynamic> _myBzzIDs = _map == null ?
+        <dynamic>[]
+            :
+        _map['myBzzIDs'] == null ?
+        <dynamic>[]
+            :
+        _map['myBzzIDs'] as List<dynamic>;
 
         _userModel = UserModel(
           userID: _map['userID'] ?? '',
@@ -82,7 +84,7 @@ class UserProvider {
           position: _map['position'] ?? GeoPoint(0, 0),
           contacts: ContactModel.decipherContactsMaps(_map['contacts'] ?? []),
           // -------------------------
-          myBzzIDs: _myBzzIDs ?? [],
+          myBzzIDs: _myBzzIDs ?? <String>[],
           emailIsVerified: _map['emailIsVerified'] ?? false,
           authBy: UserModel.decipherAuthBy(_map['authBy']) ?? AuthBy.Unknown,
           isAdmin: _map['isAdmin'] ?? false,
@@ -101,14 +103,14 @@ class UserProvider {
 // -----------------------------------------------------------------------------
   /// get users streams
   Stream<List<UserModel>> get allUsersStream {
-    CollectionReference _userCollection = UserOps().userCollectionRef();
+    final CollectionReference _userCollection = UserOps().userCollectionRef();
     return _userCollection.snapshots().map(_usersListFromSnapshot);
   }
 
 // -----------------------------------------------------------------------------
   /// get user doc stream
   Stream<UserModel> get userData {
-    CollectionReference _userCollection = UserOps().userCollectionRef();
+    final CollectionReference _userCollection = UserOps().userCollectionRef();
     return _userCollection.doc(userID).snapshots().map(_userModelFromSnapshot);
   }
 // -----------------------------------------------------------------------------
@@ -124,7 +126,7 @@ class UserProvider {
 // -----------------------------------------------------------------------------
 
   Future<dynamic> getSavedFlyersIDs(BuildContext context) async {
-    Map<String, dynamic> _savedFlyersMap = await Fire.readSubDoc(
+    final Map<String, dynamic> _savedFlyersMap = await Fire.readSubDoc(
       context: context,
       collName: FireCollection.users,
       docName: userID,

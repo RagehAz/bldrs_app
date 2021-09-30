@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/device_checkers.dart';
 import 'package:bldrs/controllers/drafters/launchers.dart';
-import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -19,6 +18,8 @@ import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/general/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/flagbox_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:flutter/material.dart';
 
 class MoreScreen extends StatelessWidget {
@@ -61,7 +62,9 @@ class MoreScreen extends StatelessWidget {
                 icon: DeviceChecker.deviceIsIOS() ? Iconz.ComApple : DeviceChecker.deviceIsAndroid() ? Iconz.ComGooglePlay : Iconz.Share,
                 iconBoxColor: Colorz.Black230,
                 verseColor: Colorz.White255,
-                btOnTap: () => shareLink(context, LinkModel.bldrsWebSiteLink),
+                btOnTap: () async {
+                  await Launchers.shareLink(context, LinkModel.bldrsWebSiteLink);
+                },
               ),
 
               TileBubble(

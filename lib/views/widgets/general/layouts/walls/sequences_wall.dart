@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/animators.dart';
-import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
@@ -11,6 +10,7 @@ import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/views/screens/b_landing/b_3_sequence_flyers_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/flyer_stack.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

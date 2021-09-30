@@ -1,6 +1,3 @@
-// import 'package:path_provider/path_provider.dart' as sysPaths;
-// import 'package:path/path.dart' as path;
-// import 'dart:io';
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -42,66 +39,64 @@ enum PicType{
 class Imagers{
 // -----------------------------------------------------------------------------
   static DecorationImage superImage(String picture, BoxFit boxFit){
-  DecorationImage image = DecorationImage(
+  final DecorationImage _image = DecorationImage(
     image: AssetImage(picture),
     fit: boxFit,
   );
 
-  return picture == '' ? null : image;
+  return picture == '' ? null : _image;
 }
 // -----------------------------------------------------------------------------
   static Widget superImageWidget(dynamic pic, {double width, double height, BoxFit fit, double scale, Color iconColor}){
 
-  BoxFit _boxFit = fit == null ? BoxFit.cover : fit;
+    final BoxFit _boxFit = fit == null ? BoxFit.cover : fit;
+    // int _width = fit == BoxFit.fitWidth ? width : null;
+    // int _height = fit == BoxFit.fitHeight ? height : null;
+    // Asset _asset = ObjectChecker.objectIsAsset(pic) == true ? pic : null;
+    final double _scale = scale == null ? 1 : scale;
+    final Color _iconColor = iconColor == null ? null : iconColor;
 
-  // int _width = fit == BoxFit.fitWidth ? width : null;
-  // int _height = fit == BoxFit.fitHeight ? height : null;
+    return
+      pic == null ? null :
+      Transform.scale(
+        scale: _scale,
+        child:
+        ObjectChecker.objectIsJPGorPNG(pic)?
+        Image.asset(pic, fit: _boxFit)
+            :
+        ObjectChecker.objectIsSVG(pic)?
+        WebsafeSvg.asset(pic, fit: _boxFit,color: _iconColor)
+            :
+        /// max user NetworkImage(userPic), to try it later
+        ObjectChecker.objectIsURL(pic)?
+        Image.network(pic, fit: _boxFit)
+            :
+        ObjectChecker.objectIsFile(pic)?
+        Image.file(
+          pic,
+          fit: _boxFit,
+          width: width,
+          height: height,
+        )
+            :
+        ObjectChecker.objectIsUint8List(pic)?
+        Image.memory(pic,
+          fit: _boxFit,
+          // width: width?.toDouble(),
+          // height: height?.toDouble(),
+        )
+            :
+        ObjectChecker.objectIsAsset(pic)?
+        AssetThumb(
+          asset: pic,
+          width: (pic.originalWidth).toInt(),
+          height: (pic.originalHeight).toInt(),
+          spinner: Loading(loading: true,),
+        )
+            :
+        Container(),
 
-  // Asset _asset = ObjectChecker.objectIsAsset(pic) == true ? pic : null;
-
-  double _scale = scale == null ? 1 : scale;
-  Color _iconColor = iconColor == null ? null : iconColor;
-
-  return
-  pic == null ? null :
-    Transform.scale(
-      scale: _scale,
-      child:
-      ObjectChecker.objectIsJPGorPNG(pic)?
-      Image.asset(pic, fit: _boxFit)
-          :
-      ObjectChecker.objectIsSVG(pic)?
-      WebsafeSvg.asset(pic, fit: _boxFit,color: _iconColor)
-          :
-      /// max user NetworkImage(userPic), to try it later
-      ObjectChecker.objectIsURL(pic)?
-      Image.network(pic, fit: _boxFit)
-          :
-      ObjectChecker.objectIsFile(pic)?
-      Image.file(
-        pic,
-        fit: _boxFit,
-        width: width,
-        height: height,
-      )
-          :
-      ObjectChecker.objectIsUint8List(pic)?
-      Image.memory(pic,
-        fit: _boxFit,
-        // width: width?.toDouble(),
-        // height: height?.toDouble(),
-      )
-          :
-      ObjectChecker.objectIsAsset(pic)?
-      AssetThumb(
-        asset: pic,
-        width: (pic.originalWidth).toInt(),
-        height: (pic.originalHeight).toInt(),
-        spinner: Loading(loading: true,),
-      )
-          :
-      Container(),
-    );
+      );
 
 }
 // -----------------------------------------------------------------------------
@@ -160,7 +155,7 @@ class Imagers{
     // maxHeight: concludeImageMaxHeight(picType)
   );
 
-  File _result = _imageFile != null ? File(_imageFile.path) : null;
+  final File _result = _imageFile != null ? File(_imageFile.path) : null;
 
   return _result;
 }
@@ -175,18 +170,17 @@ class Imagers{
     // maxHeight: concludeImageMaxHeight(picType)
   );
 
-  File _result = _imageFile != null ? File(_imageFile.path) : null;
+  final File _result = _imageFile != null ? File(_imageFile.path) : null;
 
   return _result;
-
 }
 // -----------------------------------------------------------------------------
   static Future<List<Asset>> takeGalleryMultiPictures({BuildContext context, List<Asset> images, bool mounted, @required BzAccountType accountType}) async {
-    List<Asset> resultList = <Asset>[];
-    String error = 'No Error Detected';
+    List<Asset> _resultList = <Asset>[];
+    String _error = 'No Error Detected';
 
     try {
-      resultList = await MultiImagePicker.pickImages(
+      _resultList = await MultiImagePicker.pickImages(
         maxImages: Standards.getMaxSlidesCount(accountType),
         enableCamera: true,
         selectedAssets: images,
@@ -213,27 +207,27 @@ class Imagers{
         ),
       );
     } on Exception catch (e) {
-      error = e.toString();
+      _error = e.toString();
 
-      if (error != 'The user has cancelled the selection'){
+      if (_error != 'The user has cancelled the selection'){
         await CenterDialog.showCenterDialog(
           context: context,
           boolDialog: false,
           title: 'Error',
-          body: error,
+          body: _error,
         );
 
       }
 
     }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
+    /// If the widget was removed from the tree while the asynchronous platform
+    /// message was in flight, we want to discard the reply rather than calling
+    /// setState to update our non-existent appearance.
     if (!mounted){
       return null;
     } else {
-      return resultList;
+      return _resultList;
 
     }
 
@@ -250,50 +244,58 @@ class Imagers{
   }
 // -----------------------------------------------------------------------------
   static Future<Uint8List> getBytesFromLocalAsset(String iconPath, int width) async {
-  ByteData data = await rootBundle.load(iconPath);
-  ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
-  ui.FrameInfo fi = await codec.getNextFrame();
-  return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
-}
+    final ByteData _data = await rootBundle.load(iconPath);
+    final ui.Codec _codec = await ui.instantiateImageCodec(_data.buffer.asUint8List(), targetWidth: width);
+    final ui.FrameInfo _fi = await _codec.getNextFrame();
+    final Uint8List _result = (await _fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
+    return _result;
+  }
 // -----------------------------------------------------------------------------
-  static Future <Uint8List> getBytesFromCanvas(int width, int height,String urlAsset) async {
-  final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
-  final Canvas canvas = Canvas(pictureRecorder);
-  final Paint paint = Paint()..color = Colors.transparent;
-  final Radius radius = Radius.circular(20.0);
-  canvas.drawRRect(
+  static Future<Uint8List> getBytesFromCanvas(int width, int height,String urlAsset) async {
+
+  final ui.PictureRecorder _pictureRecorder = ui.PictureRecorder();
+  final Canvas _canvas = Canvas(_pictureRecorder);
+  final Paint _paint = Paint()..color = Colors.transparent;
+  final Radius _radius = Radius.circular(20.0);
+
+  _canvas.drawRRect(
       RRect.fromRectAndCorners(
         Rect.fromLTWH(0.0, 0.0, width.toDouble(), height.toDouble()),
-        topLeft: radius,
-        topRight: radius,
-        bottomLeft: radius,
-        bottomRight: radius,
+        topLeft: _radius,
+        topRight: _radius,
+        bottomLeft: _radius,
+        bottomRight: _radius,
       ),
-      paint);
+      _paint
+  );
 
   final ByteData _detail = await rootBundle.load(urlAsset);
+  final ui.Image _imaged = await loadImage(new Uint8List.view(_detail.buffer));
 
-  var imaged = await loadImage(new Uint8List.view(_detail.buffer));
+  _canvas.drawImage(_imaged, new Offset(0, 0), new Paint());
 
-  canvas.drawImage(imaged, new Offset(0, 0), new Paint());
+  final _img = await _pictureRecorder.endRecording().toImage(width, height);
+  final _data = await _img.toByteData(format: ui.ImageByteFormat.png);
 
-  final img = await pictureRecorder.endRecording().toImage(width, height);
-  final data = await img.toByteData(format: ui.ImageByteFormat.png);
-  return data.buffer.asUint8List();
+  return _data.buffer.asUint8List();
 }
 // -----------------------------------------------------------------------------
-  static Future <ui.Image> loadImage(List<int> img) async {
-  final Completer < ui.Image > completer = new Completer();
-  ui.decodeImageFromList(img, (ui.Image img) {
+  static Future<ui.Image> loadImage(List<int> img) async {
 
+  final Completer < ui.Image > completer = new Completer();
+
+  ui.decodeImageFromList(img, (ui.Image img) {
     return completer.complete(img);
   });
+
   return completer.future;
 }
 // -----------------------------------------------------------------------------
   static Future<File> getImageFileFromLocalAsset(BuildContext context, String inputAsset) async {
+
   File _file;
-  String _asset = ObjectChecker.objectIsSVG(inputAsset) ? Iconz.DumBusinessLogo : inputAsset;
+  final String _asset = ObjectChecker.objectIsSVG(inputAsset) ? Iconz.DumBusinessLogo : inputAsset;
+
   await tryAndCatch(
       context: context,
       methodName : 'getImageFileFromAssets',
@@ -315,6 +317,7 @@ class Imagers{
 
       }
   );
+
   return _file;
 }
 // -----------------------------------------------------------------------------
@@ -324,7 +327,7 @@ class Imagers{
   }
 // -----------------------------------------------------------------------------
   static Uint8List getUint8ListFromByteData(ByteData byteData){
-    Uint8List _uInts = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+    final Uint8List _uInts = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
     return _uInts;
   }
 // -----------------------------------------------------------------------------
@@ -337,29 +340,31 @@ class Imagers{
   static Future<File> writeBytesOnFile({@required File file, @required ByteData byteData}) async {
   File _file;
 
-  Uint8List _uInts = getUint8ListFromByteData(byteData);
-  _file = await writeUint8ListOnFile(file: file, uint8list: _uInts);
+  if (file != null){
+    final Uint8List _uInts = getUint8ListFromByteData(byteData);
+    _file = await writeUint8ListOnFile(file: file, uint8list: _uInts);
+  }
 
   return _file;
 }
 // -----------------------------------------------------------------------------
   static Future<File> urlToFile(String imageUrl) async {
 /// generate random number.
-  var rng = new Random();
+  final Random _rng = new Random();
 /// get temporary directory of device.
-  Directory tempDir = await getTemporaryDirectory();
+  final Directory _tempDir = await getTemporaryDirectory();
 /// get temporary path from temporary directory.
-  String tempPath = tempDir.path;
+  final String _tempPath = _tempDir.path;
 /// create a new file in temporary path with random file name.
-  File file = new File('$tempPath'+ (rng.nextInt(100)).toString() +'.png');
+  final File _file = new File('$_tempPath'+ (_rng.nextInt(100)).toString() +'.png');
 /// call http.get method and pass imageUrl into it to get response.
-  Uri imageUri = Uri.parse(imageUrl);
-  http.Response response = await http.get(imageUri);
+  final Uri _imageUri = Uri.parse(imageUrl);
+  final http.Response _response = await http.get(_imageUri);
 /// write bodyBytes received in response to file.
-  await file.writeAsBytes(response.bodyBytes);
+  await _file.writeAsBytes(_response.bodyBytes);
 /// now return the file which is created with random name in
 /// temporary directory and image bytes from response is written to // that file.
-  return file;
+  return _file;
 }
 // -----------------------------------------------------------------------------
   static Future<Asset> urlToAsset(String imageUrl) async {
@@ -417,7 +422,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
 
   for (Asset asset in assets) {
 
-    File _file = await Imagers.getFileFromAsset(asset);
+    final File _file = await Imagers.getFileFromAsset(asset);
     _files.add(_file);
 
   }
@@ -425,7 +430,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
 }
 // -----------------------------------------------------------------------------
   static List<CropAspectRatioPreset> getAndroidCropAspectRatioPresets(){
-    List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
+    const List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
       CropAspectRatioPreset.square,
       CropAspectRatioPreset.ratio3x2,
       CropAspectRatioPreset.original,
@@ -435,7 +440,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
   }
 // -----------------------------------------------------------------------------
   static List<CropAspectRatioPreset> getIOSCropAspectRatioPresets(){
-    List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
+    const List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
       CropAspectRatioPreset.original,
       CropAspectRatioPreset.square,
       CropAspectRatioPreset.ratio3x2,
@@ -451,10 +456,10 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
   static Future<File> cropImage(BuildContext context, File file) async {
 
     /// flyer ratio is : (1 x 1.74)
-    double _flyerHeightRatio = Ratioz.xxflyerZoneHeight; // 1.74
-    double _maxWidth = 1000;
+    const double _flyerHeightRatio = Ratioz.xxflyerZoneHeight; // 1.74
+    const double _maxWidth = 1000;
 
-    File _croppedFile = await ImageCropper.cropImage(
+    final File _croppedFile = await ImageCropper.cropImage(
       sourcePath: file.path,
       aspectRatio: CropAspectRatio(ratioX: 1, ratioY: Ratioz.xxflyerZoneHeight),
       aspectRatioPresets: Platform.isAndroid ? getAndroidCropAspectRatioPresets() : getIOSCropAspectRatioPresets(),
@@ -544,7 +549,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
 
     bool _blurIsOn = false;
 
-    bool _imageSizeIsValid =
+    final bool _imageSizeIsValid =
     imageSize == null ? false :
     imageSize.width == null ? false :
     imageSize.height == null ? false :
@@ -555,13 +560,13 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     if(_imageSizeIsValid == true){
 
       /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
-      int _originalImageWidth = imageSize.width.toInt();
-      int _originalImageHeight= imageSize.height.toInt();
-      double _originalImageRatio = _originalImageWidth / _originalImageHeight
+      final int _originalImageWidth = imageSize.width.toInt();
+      final int _originalImageHeight= imageSize.height.toInt();
+      final double _originalImageRatio = _originalImageWidth / _originalImageHeight
       ;
       /// slide aspect ratio : 1 / 1.74 ~= 0.575
-      double _flyerZoneHeight = flyerBoxWidth * Ratioz.xxflyerZoneHeight;
-      double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
+      final double _flyerZoneHeight = flyerBoxWidth * Ratioz.xxflyerZoneHeight;
+      final double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
 
       double _fittedImageWidth;
       double _fittedImageHeight;
@@ -578,15 +583,15 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
         _fittedImageHeight= _flyerZoneHeight;
       }
 
-      double _fittedImageRatio = _fittedImageWidth / _fittedImageHeight;
+      final double _fittedImageRatio = _fittedImageWidth / _fittedImageHeight;
 
 
       /// so
       /// if _originalImageRatio < 0.575 image is narrower than slide,
       /// if ratio > 0.575 image is wider than slide
-      double _errorPercentage = Ratioz.slideFitWidthLimit; // ~= max limit from flyer width => flyerBoxWidth * 90%
-      double _maxRatioForBlur = _slideRatio / (_errorPercentage / 100);
-      double _minRatioForBlur = _slideRatio * (_errorPercentage / 100);
+      final double _errorPercentage = Ratioz.slideFitWidthLimit; // ~= max limit from flyer width => flyerBoxWidth * 90%
+      final double _maxRatioForBlur = _slideRatio / (_errorPercentage / 100);
+      final double _minRatioForBlur = _slideRatio * (_errorPercentage / 100);
 
       /// so if narrower more than 10% or wider more than 10%, blur should be active and boxFit shouldn't be cover
       if(_minRatioForBlur > _fittedImageRatio || _fittedImageRatio > _maxRatioForBlur){
@@ -605,8 +610,6 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
 
     }
 
-
-
     return _blurIsOn;
 }
 // -----------------------------------------------------------------------------
@@ -619,9 +622,9 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     // double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
 
     // double _fittedImageWidth = flyerBoxWidth; // for info only
-    double _fittedImageHeight = (viewWidth * picHeight) / picWidth;
+    final double _fittedImageHeight = (viewWidth * picHeight) / picWidth;
 
-    double _heightAllowingFitHeight = (Ratioz.slideFitWidthLimit/100) * viewHeight;
+    final double _heightAllowingFitHeight = (Ratioz.slideFitWidthLimit/100) * viewHeight;
 
     /// if fitted height is less than the limit
     if(_fittedImageHeight < _heightAllowingFitHeight){
@@ -640,12 +643,12 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
   BoxFit _boxFit;
 
   /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
-  double _originalImageWidth = asset.originalWidth.toDouble();
-  double _originalImageHeight= asset.originalHeight.toDouble();
+  final double _originalImageWidth = asset.originalWidth.toDouble();
+  final double _originalImageHeight= asset.originalHeight.toDouble();
   // double _originalImageRatio = _originalImageWidth / _originalImageHeight
   ;
   /// slide aspect ratio : 1 / 1.74 ~= 0.575
-  double _flyerZoneHeight = flyerBoxWidth * Ratioz.xxflyerZoneHeight;
+  final double _flyerZoneHeight = flyerBoxWidth * Ratioz.xxflyerZoneHeight;
 
   _boxFit = concludeBoxFit(
     picWidth: _originalImageWidth,
@@ -670,7 +673,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     // }
 
     /// boss ba2a
-    BoxFit _fit = concludeBoxFitForAsset(asset: asset, flyerBoxWidth: flyerBoxWidth);
+    final BoxFit _fit = concludeBoxFitForAsset(asset: asset, flyerBoxWidth: flyerBoxWidth);
 
     _fits.add(_fit);
   }
@@ -705,7 +708,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
   }
 // -----------------------------------------------------------------------------
   static Future<List<Uint8List>> getScreenShotsFromFiles(List<File> files) async {
-    List<Uint8List> _screenShots = [];
+    List<Uint8List> _screenShots = <Uint8List>[];
 
     if (files != null && files.length != 0){
       for (File file in files){
@@ -730,7 +733,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
   }
 // -----------------------------------------------------------------------------
   static List<Asset> getOnlyAssetsFromDynamics(List<dynamic> inputs){
-    List<Asset> _assets = [];
+    List<Asset> _assets = <Asset>[];
 
     if(inputs != null){
       if(inputs.length > 0){

@@ -31,7 +31,7 @@ class NotiSudo{
   final CityState cityState;
   final NotiRecieverType reciever;
 
-  NotiSudo({
+  const NotiSudo({
     @required this.subject,
     @required this.eventTrigger,
     @required this.scheduledTiming,

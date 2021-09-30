@@ -22,7 +22,7 @@ class Group{
 // -----------------------------------------------------------------------------
   static List<Group> getGroupBySection({Section section}){
 
-    List<Group> _group =
+    final List<Group> _group =
         section == Section.NewProperties ? getPropertiesGroups() :
         section == Section.ResaleProperties ? getPropertiesGroups() :
         section == Section.RentalProperties ? getPropertiesGroups() :
@@ -57,33 +57,33 @@ class Group{
     }
   }
 // -----------------------------------------------------------------------------
-  static Group propertyFormsGroups = Group(groupID: 'group_ppt_form', canPickMany: false, keywords: FilterKeywords.propertyForms());
-  static Group propertyTypesGroup = Group(groupID: 'group_ppt_type', canPickMany: false, keywords: FilterKeywords.propertyTypes());
-  static Group propertyAreaGroup = Group(groupID: 'group_ppt_area', canPickMany: false, keywords: FilterKeywords.propertyArea());
-  static Group propertySpacesGroup = Group(groupID: 'group_ppt_spaces', canPickMany: true, keywords: FilterKeywords.spaceTypes());
-  static Group propertyFeaturesGroup = Group(groupID: 'group_ppt_features', canPickMany: true, keywords: FilterKeywords.propertyFeatures());
-  static Group propertyPricesGroup = Group(groupID: 'group_ppt_price', canPickMany: true, keywords: FilterKeywords.propertyPrices());
-  static Group propertyLicenseGroup = Group(groupID: 'group_ppt_license', canPickMany: false, keywords: FilterKeywords.propertyLicenses());
+  static final Group propertyFormsGroups = Group(groupID: 'group_ppt_form', canPickMany: false, keywords: FilterKeywords.propertyForms());
+  static final Group propertyTypesGroup = Group(groupID: 'group_ppt_type', canPickMany: false, keywords: FilterKeywords.propertyTypes());
+  static final Group propertyAreaGroup = Group(groupID: 'group_ppt_area', canPickMany: false, keywords: FilterKeywords.propertyArea());
+  static final Group propertySpacesGroup = Group(groupID: 'group_ppt_spaces', canPickMany: true, keywords: FilterKeywords.spaceTypes());
+  static final Group propertyFeaturesGroup = Group(groupID: 'group_ppt_features', canPickMany: true, keywords: FilterKeywords.propertyFeatures());
+  static final Group propertyPricesGroup = Group(groupID: 'group_ppt_price', canPickMany: true, keywords: FilterKeywords.propertyPrices());
+  static final Group propertyLicenseGroup = Group(groupID: 'group_ppt_license', canPickMany: false, keywords: FilterKeywords.propertyLicenses());
 // -----------------------------------------------------------------------------
-  static Group designTypesGroup = Group(groupID: 'group_dz_type', canPickMany: false, keywords: FilterKeywords.designTypes());
-  static Group architecturalStylesGroup = Group(groupID: 'group_dz_style', canPickMany: false, keywords: FilterKeywords.architecturalStyles());
-  static Group spaceTypeGroup = Group(groupID: 'group_space_type', canPickMany: true, keywords: FilterKeywords.spaceTypes());
-  static Group kioskTypeGroup = Group(groupID: 'group_dz_kioskType', canPickMany: false, keywords: FilterKeywords.kioskTypes());
+  static final Group designTypesGroup = Group(groupID: 'group_dz_type', canPickMany: false, keywords: FilterKeywords.designTypes());
+  static final Group architecturalStylesGroup = Group(groupID: 'group_dz_style', canPickMany: false, keywords: FilterKeywords.architecturalStyles());
+  static final Group spaceTypeGroup = Group(groupID: 'group_space_type', canPickMany: true, keywords: FilterKeywords.spaceTypes());
+  static final Group kioskTypeGroup = Group(groupID: 'group_dz_kioskType', canPickMany: false, keywords: FilterKeywords.kioskTypes());
 // -----------------------------------------------------------------------------
-  static Group constructionTradesGroup = Group(groupID: 'group_craft_trade', canPickMany: true, keywords: FilterKeywords.constructionTrades());
+  static final Group constructionTradesGroup = Group(groupID: 'group_craft_trade', canPickMany: true, keywords: FilterKeywords.constructionTrades());
 // -----------------------------------------------------------------------------
-  static Group productsGroup = Group(groupID: 'product', canPickMany: true, keywords: FilterKeywords.products());
-  static Group productPricesGroup = Group(groupID: 'productPrices', canPickMany: true, keywords: FilterKeywords.productPrices());
+  static final Group productsGroup = Group(groupID: 'product', canPickMany: true, keywords: FilterKeywords.products());
+  static final Group productPricesGroup = Group(groupID: 'productPrices', canPickMany: true, keywords: FilterKeywords.productPrices());
 // -----------------------------------------------------------------------------
   static Group getGroupFromCurrentDistricts(BuildContext context){
 
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    String _provinceID = _countryPro.currentCityID;
-    List<District> _districts = _countryPro.getDistrictsByCityID(context, _provinceID);
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final String _provinceID = _countryPro.currentCityID;
+    final List<District> _districts = _countryPro.getDistrictsByCityID(context, _provinceID);
 
-    List<Keyword> _districtsAsKeywords = Keyword.getKeywordsModelsFromDistricts(_districts);
+    final List<Keyword> _districtsAsKeywords = Keyword.getKeywordsModelsFromDistricts(_districts);
 
-    Group _group = Group(
+    final Group _group = Group(
         groupID: _districtsAsKeywords[0].groupID,
         canPickMany: false,
         keywords: _districtsAsKeywords
@@ -93,12 +93,12 @@ class Group{
   }
 // -----------------------------------------------------------------------------
   static Group zoneDistrictsAsGroup (BuildContext context){
-    Group _zoneDistrictsGroup = getGroupFromCurrentDistricts(context);
+    final Group _zoneDistrictsGroup = getGroupFromCurrentDistricts(context);
     return _zoneDistrictsGroup;
   }
 // -----------------------------------------------------------------------------
   static List<Group> getAllGroups(){
-    List<Group> _allGroups = <Group>[
+    final List<Group> _allGroups = <Group>[
       ...getPropertiesGroups(),
       ...getDesignsGroups(),
       ...getProjectsGroups(),
@@ -168,7 +168,7 @@ class Group{
   static bool getCanGroupPickManyByKeyword(Keyword keyword){
 
     bool _canPickMany;
-    Group _group = getGroupByKeyword(keyword);
+    final Group _group = getGroupByKeyword(keyword);
 
     if (_group == null){
       // keep can pick many null
@@ -181,8 +181,7 @@ class Group{
   }
 // -----------------------------------------------------------------------------
   static Group getGroupByKeyword(Keyword keyword){
-
-    Group _group = getAllGroups().firstWhere((filter) => filter.groupID == keyword.groupID, orElse: () => null);
+    final Group _group = getAllGroups().firstWhere((filter) => filter.groupID == keyword.groupID, orElse: () => null);
     return _group;
   }
 // -----------------------------------------------------------------------------

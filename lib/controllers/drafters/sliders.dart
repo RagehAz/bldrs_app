@@ -49,7 +49,7 @@ class Sliders{
 // -----------------------------------------------------------------------------
   static Future<void> slideToBackFrom(PageController slidingController, int currentSlide, {Curve curve}) async {
 
-    Curve _curve = curve == null ? Curves.easeInOutCirc : curve;
+    final Curve _curve = curve == null ? Curves.easeInOutCirc : curve;
 
   if (currentSlide == 0){print('can not slide back');} else {
     await slidingController.animateToPage(currentSlide - 1,
@@ -88,13 +88,13 @@ class Sliders{
 }
 // -----------------------------------------------------------------------------
   static SwipeDirection slidingDecision(int numberOfSlides, int currentSlide){
-  SwipeDirection decision =
+  final SwipeDirection _decision =
   numberOfSlides == 0 ? SwipeDirection.freeze :
   numberOfSlides == 1 ? SwipeDirection.freeze :
   numberOfSlides > 1 && currentSlide + 1 == numberOfSlides ? SwipeDirection.back :
   numberOfSlides > 1 && currentSlide == 0 ? SwipeDirection.next :
   SwipeDirection.back;
-  return decision;
+  return _decision;
 }
 // -----------------------------------------------------------------------------
   static Future<void> slidingAction(PageController slidingController, int numberOfSlides, int currentSlide) async {

@@ -15,7 +15,7 @@ class City{
   final bool isPublic;
   final List<Name> namez; // English
 
-  City({
+  const City({
     this.iso3,
     this.name,
     this.districts,
@@ -38,7 +38,7 @@ class City{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String, dynamic>> cipherCities(List<City> cities){
-    List<Map<String, dynamic>> _citiesMaps = [];
+    final List<Map<String, dynamic>> _citiesMaps = <Map<String, dynamic>>[];
     cities.forEach((pr) {
       _citiesMaps.add(pr.toMap());
     });
@@ -58,7 +58,7 @@ class City{
   }
 // -----------------------------------------------------------------------------
   static List<City> decipherCitiesMaps(List<dynamic> maps){
-    List<City> _cities = [];
+    final List<City> _cities = <City>[];
     maps?.forEach((map) {
       _cities.add(decipherCityMap(map));
     });
@@ -66,9 +66,9 @@ class City{
   }
 // -----------------------------------------------------------------------------
   static List<String> getCitiesNamesFromCountryModel(Country country){
-    List<String> _citiesNames = [];
+    List<String> _citiesNames = <String>[];
 
-    List<City> _cities = country.cities;
+    final List<City> _cities = country.cities;
 
     _cities.forEach((pr) {
       _citiesNames.add(pr.name);
@@ -85,7 +85,7 @@ class City{
 
     // String _name = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, city.name);
 
-    Keyword _keyword = Keyword(
+    final Keyword _keyword = Keyword(
         keywordID: city.name,
         flyerType: FlyerType.non,
         groupID: city.iso3,
@@ -98,11 +98,11 @@ class City{
   }
 // -----------------------------------------------------------------------------
   static List<Keyword> getKeywordsFromCities(BuildContext context, List<City> cities){
-    List<Keyword> _keywords = [];
+    final List<Keyword> _keywords = <Keyword>[];
 
     cities.forEach((city) {
 
-      Keyword _cityKeyword = getKeywordFromCity(context, city);
+      final Keyword _cityKeyword = getKeywordFromCity(context, city);
 
       _keywords.add(_cityKeyword);
 

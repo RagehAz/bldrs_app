@@ -14,11 +14,11 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/providers/users/user_provider.dart';
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
+import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/views/widgets/general/buttons/back_anb_search_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/pyramids/pyramids.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/general/buttons/rageh_button.dart';
 import 'package:provider/provider.dart';
@@ -167,13 +167,13 @@ class MainLayout extends StatelessWidget {
           Rageh(
             tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
             doubleTappingRageh:
-            Wordz.activeLanguage(context) == Lingo.Arabic ?
+            Wordz.activeLanguage(context) == Lingo.arabicLingo.code ?
                 () async {
-              Locale temp = await Localizer.setLocale(Lingo.English);
+              Locale temp = await Localizer.setLocale(Lingo.englishLingo.code);
               BldrsApp.setLocale(context, temp);
             } :
                 () async {
-              Locale temp = await Localizer.setLocale(Lingo.Arabic);
+              Locale temp = await Localizer.setLocale(Lingo.arabicLingo.code);
               BldrsApp.setLocale(context, temp);
             },
           ),

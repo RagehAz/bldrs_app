@@ -1,13 +1,13 @@
 import 'dart:ui';
-import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/general/artworks/blur_layer.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'enum_lister_items/enum_lister_tile.dart';
+import 'enum_lister_tile.dart';
 
 class EnumLister extends StatelessWidget {
   final String listTitle;
@@ -26,23 +26,22 @@ class EnumLister extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    // double safeAreaHeight = MediaQuery.of(context).padding.top;
-
-    double listHeight = screenHeight - Ratioz.appBarSmallHeight * 3;
-    double listWidth = screenWidth - Ratioz.appBarSmallHeight * 1;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double listHeight = screenHeight - Ratioz.appBarSmallHeight * 3;
+    final double listWidth = screenWidth - Ratioz.appBarSmallHeight * 1;
 
     return Stack(
       children: <Widget>[
-        // --- BLACK BACKGROUND LAYER
+
+        /// --- BLACK BACKGROUND LAYER
         Container(
           width: screenWidth,
           height: screenHeight,
           color: Colorz.Black80,
         ),
 
-        // --- THE LIST PAGE
+        /// --- THE LIST PAGE
         Positioned(
           bottom: 0,
           left: 0,
@@ -71,7 +70,7 @@ class EnumLister extends StatelessWidget {
             child: Stack(
               children: <Widget>[
 
-                // --- BLUR LAYER
+                /// --- BLUR LAYER
                 BlurLayer(
                   width: listWidth,
                   height: listHeight,
@@ -82,14 +81,14 @@ class EnumLister extends StatelessWidget {
                   blur: 10,
                 ),
 
-                // --- LIST CONTENTS
+                /// --- LIST CONTENTS
                 Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
 
-                      // --- LIST TITLE
+                      /// --- LIST TITLE
                       Container(
                         // padding: EdgeInsets.all(Ratioz.ddAppBarMargin * 2),
                         child: Row(
@@ -171,10 +170,10 @@ class EnumLister extends StatelessWidget {
 }
 
 
-                          // ...List<Widget>.generate(12, (int index) {
-                          //   return EnumListerTile(
-                          //     verse: stringsList[index],
-                          //     onTap: () => triggerTile(index),
-                          //     tileIsOn: triggersList[index],
-                          //   );
-                          // })
+// ...List<Widget>.generate(12, (int index) {
+//   return EnumListerTile(
+//     verse: stringsList[index],
+//     onTap: () => triggerTile(index),
+//     tileIsOn: triggersList[index],
+//   );
+// })

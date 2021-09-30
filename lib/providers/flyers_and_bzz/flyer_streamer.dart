@@ -94,8 +94,8 @@ typedef FlyerModelWidgetBuilder = Widget Function(
 
 /// get flyer doc stream
 Stream<FlyerModel> getFlyerStream(String flyerID) {
-  Stream<DocumentSnapshot> _flyerSnapshot = Fire.streamDoc(FireCollection.flyers, flyerID);
-  Stream<FlyerModel> _flyerStream = _flyerSnapshot.map(FlyerModel.getFlyerModelFromSnapshot);
+  final Stream<DocumentSnapshot> _flyerSnapshot = Fire.streamDoc(FireCollection.flyers, flyerID);
+  final Stream<FlyerModel> _flyerStream = _flyerSnapshot.map(FlyerModel.getFlyerModelFromSnapshot);
   return _flyerStream;
 }
 // -----------------------------------------------------------------------------
@@ -111,7 +111,7 @@ Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
 
   // print('getFlyerReviewsStream : _reviewsStream : $_reviewsStream');
   //
-  Stream<List<ReviewModel>> _reviews = _reviewsStream.map(
+  final Stream<List<ReviewModel>> _reviews = _reviewsStream.map(
           (qShot) => qShot.docs.map((doc) => ReviewModel(
             userID: doc['userID'],
             time: Timers.decipherDateTimeString(doc['time']),
@@ -150,7 +150,7 @@ Widget reviewsStreamBuilder({
           return Loading(loading: true,);
         } else {
 
-          List<ReviewModel> reviews = snapshot?.data;
+          final List<ReviewModel> reviews = snapshot?.data;
 
           return
             builder(context, reviews);

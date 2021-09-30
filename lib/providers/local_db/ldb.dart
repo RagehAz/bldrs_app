@@ -45,7 +45,7 @@ abstract class LDB{
     print('createLDB : _dbPath : $_dbPath');
 
     /// this open the ldb from the given path, or creates a new one if does not exist
-    Database _db = await openDatabase(
+    final Database _db = await openDatabase(
       path.join(_dbPath, table.tableName),
       version: 1,
       onCreate: (database, version) async {
@@ -57,7 +57,7 @@ abstract class LDB{
           methodName: 'createDB',
           functions: () async {
 
-            String _createSQLQuery = table.toCreateSQLQuery();
+            final String _createSQLQuery = table.toCreateSQLQuery();
             await database.execute(_createSQLQuery);
 
             print('createDB : database is created : database.path : ${database.path} : _createSQLQuery : $_createSQLQuery');
@@ -105,12 +105,12 @@ abstract class LDB{
 
           await table.db.transaction((txn) async {
 
-            String _rawInsertSQLQuery = LDBTable.getRawInsertSQLQuery(
+            final String _rawInsertSQLQuery = LDBTable.getRawInsertSQLQuery(
               tableName: table.tableName,
               map: input,
               columns: table.columns,
             );
-            List<dynamic> _arguments = [];
+            final List<dynamic> _arguments = <dynamic>[];
 
             /// fields below do not include the integer primary key
             await txn.rawInsert(_rawInsertSQLQuery, _arguments);
@@ -148,7 +148,7 @@ abstract class LDB{
 // -----------------------------------------------------------------------------
   /// RAW READ FROM LOCAL DATABASE
   static Future<List<dynamic>> readRawFromLDB({BuildContext context, LDBTable table}) async {
-    List<Map<String, Object>> _sqfMaps = [];
+    List<Map<String, Object>> _sqfMaps = <Map<String, Object>>[];
 
     await tryAndCatch(
       context: context,
@@ -158,8 +158,8 @@ abstract class LDB{
         print('readRawFromLDB : reading tableName : ${table.tableName} : db.isOpen : ${table.db.isOpen} : db == null : ${table.db != null}');
 
         if (table.db != null && table.db.isOpen == true){
-          String _tableName = table.tableName;
-          String _sql = 'SELECT * FROM $_tableName';
+          final String _tableName = table.tableName;
+          final String _sql = 'SELECT * FROM $_tableName';
 
           print('readRawFromLDB : starting rawQuery for _sql: $_sql');
 
@@ -190,7 +190,7 @@ abstract class LDB{
       functions: () async {
 
         final String dbPath = await getDatabasesPath();
-        String _path = path.join(dbPath, table.tableName);
+        final String _path = path.join(dbPath, table.tableName);
 
         await table.db.close();
         await deleteDatabase(_path);
@@ -212,9 +212,9 @@ abstract class LDB{
     //
     // await db.rawUpdate(_rawUpdateSQLQuery, _arguments,);
 
-    String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
+    final String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
 
-    var _result = await table.db.update(
+    final dynamic _result = await table.db.update(
       table.tableName,
       input,
       where: "$_primaryKey = ?",
@@ -228,9 +228,9 @@ abstract class LDB{
 // -----------------------------------------------------------------------------
   static Future<void> deleteRow({BuildContext context, LDBTable table, int rowNumber}) async {
 
-    String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
+    final String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
 
-    var result = await table.db.delete(
+    final dynamic result = await table.db.delete(
       table.tableName,
       where: "$_primaryKey = ?",
       whereArgs: [rowNumber],

@@ -5,7 +5,7 @@ class PublishTime {
   final FlyerState state;
   final DateTime timeStamp;
 
-  PublishTime({
+  const PublishTime({
     @required this.state,
     @required this.timeStamp,
   });
@@ -41,7 +41,7 @@ static bool flyerIsBanned(List<PublishTime> times) {
 
   if (times != null){
     for (int i = 0; i < times.length; i++){
-      PublishTime _time = times[i];
+      final PublishTime _time = times[i];
       if (_time.state == FlyerState.Banned){
         _flyerIsBanned = true;
         break;
