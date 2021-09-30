@@ -59,7 +59,9 @@ class SectionDialogButton extends StatelessWidget {
               DialogButton(
                 verse: 'Inform a friend',
                 width: 133,
-                onTap: () => shareLink(context, LinkModel.bldrsWebSiteLink),
+                onTap: () async {
+                  await Launchers.shareLink(context, LinkModel.bldrsWebSiteLink);
+                },
               ),
 
               DialogButton(

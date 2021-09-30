@@ -67,10 +67,10 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
   ScrollController _scrollController = ScrollController();
 // -----------------------------------------------------------------------------
   QueryDocumentSnapshot _lastSnapshot;
-  List<UserModel> _usersModels = [];
+  List<UserModel> _usersModels = <UserModel>[];
   Future<void> _readMoreUsers() async {
 
-    List<dynamic> _maps = await Fire.readCollectionDocs(
+    final List<dynamic> _maps = await Fire.readCollectionDocs(
       collectionName:  FireCollection.users,
       orderBy: 'userID',
       limit: 5,
@@ -78,7 +78,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
       addDocSnapshotToEachMap: true,
     );
 
-    List<UserModel> _fetchedModel = UserModel.decipherUsersMaps(_maps);
+    final List<UserModel> _fetchedModel = UserModel.decipherUsersMaps(_maps);
 
     setState(() {
       _lastSnapshot = _maps[_maps.length - 1]['docSnapshot'];
@@ -96,7 +96,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onDeleteUser(UserModel userModel) async {
 
-    String _result = await CloudFunctionz.deleteFirebaseUser(userID: userModel.userID);
+    final String _result = await CloudFunctionz.deleteFirebaseUser(userID: userModel.userID);
 
     if (_result == 'stop'){
       print('operation stopped');
@@ -104,7 +104,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
     else if (_result == 'deleted'){
 
-      int _userIndex = _usersModels.indexWhere((user) => user.userID == userModel.userID);
+      final int _userIndex = _usersModels.indexWhere((user) => user.userID == userModel.userID);
       setState(() {
       _usersModels.removeAt(_userIndex);
       });

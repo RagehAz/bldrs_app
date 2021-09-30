@@ -36,7 +36,7 @@ Widget userStreamBuilder({
         if(StreamChecker.connectionIsLoading(snapshot) == true){
           return Loading(loading: true,);
         } else {
-          UserModel userModel = snapshot.data;
+          final UserModel userModel = snapshot.data;
           return
             builder(context, userModel);
         }
@@ -65,8 +65,8 @@ Widget userModelBuilder({
           return Container(); // superDialog(context, snapshot.error, 'error');
         } else {
 
-          Map<String, dynamic> _map = snapshot.data;
-          UserModel userModel = UserModel.decipherUserMap(_map);
+          final Map<String, dynamic> _map = snapshot.data;
+          final UserModel userModel = UserModel.decipherUserMap(_map);
 
           return builder(context, userModel);
         }
@@ -100,8 +100,8 @@ Widget tinyUserModelBuilder({
 
         else {
 
-          Map<String, dynamic> _map = snapshot.data;
-          TinyUser tinyUser = TinyUser.decipherTinyUserMap(_map);
+          final Map<String, dynamic> _map = snapshot.data;
+          final TinyUser tinyUser = TinyUser.decipherTinyUserMap(_map);
 
           return builder(context, tinyUser);
         }

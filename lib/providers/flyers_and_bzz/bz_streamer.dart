@@ -27,7 +27,7 @@ Widget bzModelStreamBuilder({
         if(StreamChecker.connectionIsLoading(snapshot) == true){
           return Loading(loading: true,);
         } else {
-          BzModel bzModel = snapshot.data;
+          final BzModel bzModel = snapshot.data;
           return
             builder(context, bzModel);
         }
@@ -58,8 +58,8 @@ Widget bzModelBuilder({
             return Container(); // superDialog(context, snapshot.error, 'error');
           } else {
 
-            Map<String, dynamic> _map = snapshot.data;
-            BzModel bzModel = BzModel.decipherBzMap(_map);
+            final Map<String, dynamic> _map = snapshot.data;
+            final BzModel bzModel = BzModel.decipherBzMap(_map);
 
             return builder(context, bzModel);
           }
@@ -98,7 +98,7 @@ Widget tinyBzModelStreamBuilder({
         if(StreamChecker.connectionIsLoading(snapshot) == true){
           return Loading(loading: true,);
         } else {
-          TinyBz tinyBz = snapshot.data;
+          final TinyBz tinyBz = snapshot.data;
           return
             builder(context, tinyBz);
         }
@@ -128,8 +128,8 @@ Widget tinyBzModelBuilder({
             return Container(); // superDialog(context, snapshot.error, 'error');
           } else {
 
-            Map<String, dynamic> _map = snapshot.data;
-            TinyBz tinyBz = TinyBz.decipherTinyBzMap(_map);
+            final Map<String, dynamic> _map = snapshot.data;
+            final TinyBz tinyBz = TinyBz.decipherTinyBzMap(_map);
 
             return builder(context, tinyBz);
           }
@@ -140,15 +140,15 @@ Widget tinyBzModelBuilder({
 // -----------------------------------------------------------------------------
 /// get bz doc stream
 Stream<BzModel> getBzStream(String bzID) {
-  Stream<DocumentSnapshot> _bzSnapshot = Fire.streamDoc(FireCollection.bzz, bzID);
-  Stream<BzModel> _bzStream = _bzSnapshot.map(BzModel.getBzModelFromSnapshot);
+  final Stream<DocumentSnapshot> _bzSnapshot = Fire.streamDoc(FireCollection.bzz, bzID);
+  final Stream<BzModel> _bzStream = _bzSnapshot.map(BzModel.getBzModelFromSnapshot);
   return _bzStream;
 }
 // -----------------------------------------------------------------------------
 /// get bz doc stream
 Stream<TinyBz> getTinyBzStream(String bzID) {
-  Stream<DocumentSnapshot> _bzSnapshot = Fire.streamDoc(FireCollection.tinyBzz, bzID);
-  Stream<TinyBz> _tinyBzStream = _bzSnapshot.map(TinyBz.getTinyBzModelFromSnapshot);
+  final Stream<DocumentSnapshot> _bzSnapshot = Fire.streamDoc(FireCollection.tinyBzz, bzID);
+  final Stream<TinyBz> _tinyBzStream = _bzSnapshot.map(TinyBz.getTinyBzModelFromSnapshot);
   return _tinyBzStream;
 }
 // -----------------------------------------------------------------------------

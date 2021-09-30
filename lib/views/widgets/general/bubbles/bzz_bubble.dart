@@ -46,7 +46,7 @@ class BzzBubble extends StatelessWidget {
 
         BzGrid(
             gridZoneWidth: Bubble.clearWidth(context),
-            tinyBzz: tinyBzz == null ? [] : tinyBzz,
+            tinyBzz: tinyBzz == null ? <TinyBz>[] : tinyBzz,
             numberOfColumns: numberOfColumns,
             numberOfRows: numberOfRows,
             scrollDirection: scrollDirection,

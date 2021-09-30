@@ -50,7 +50,7 @@ class AuthOps {
 
     print('deleting firebase user');
 
-    var _result = await tryCatchAndReturn(
+    final dynamic _result = await tryCatchAndReturn(
       context: context,
       methodName: 'deleteFirebaseUser',
       functions: () async {
@@ -68,7 +68,7 @@ class AuthOps {
   dynamic getFirebaseUserProviderData ()  {
     // dynamic _thing = _auth.currentUser.
 
-    User user = _auth.currentUser;
+    final User user = _auth.currentUser;
 
     print(user.providerData);
 
@@ -86,10 +86,10 @@ class AuthOps {
   /// create firebase user
   Future<User> _createFirebaseUser({String email, String password}) async {
 
-    UserCredential _result = await _auth.createUserWithEmailAndPassword(
+    final UserCredential _result = await _auth.createUserWithEmailAndPassword(
         email: email.trim(), password: password);
 
-    User _user = _result.user;
+    final User _user = _result.user;
 
     return _user;
   }
@@ -136,7 +136,7 @@ class AuthOps {
     UserCredential _userCredential;
 
     /// try sign in and check result
-    bool _opSucceeded = await tryCatchAndReturn(
+    final bool _opSucceeded = await tryCatchAndReturn(
         context: context,
         methodName: 'signInWithEmailAndPassword in emailSignInOps',
         functions: () async {
@@ -156,14 +156,14 @@ class AuthOps {
 
     } else {
       /// get user ID
-      User user = _userCredential.user;
-      String userID = user.uid;
-      print('x2 - emailSignInOps userID : $userID');
+      final User _user = _userCredential.user;
+      final String _userID = _user.uid;
+      print('x2 - emailSignInOps userID : $_userID');
 
       /// read user ops
-      UserModel _userModel = await UserOps().readUserOps(
+      final UserModel _userModel = await UserOps().readUserOps(
           context: context,
-          userID: userID
+          userID: _userID
       );
       print('x2 - emailSignInOps _userModel : $_userModel');
 
@@ -185,7 +185,7 @@ class AuthOps {
     User _user;
 
     /// try register and check result
-    dynamic _registerError = await tryCatchAndReturn(
+    final dynamic _registerError = await tryCatchAndReturn(
       context: context,
       methodName: 'emailRegisterOps',
       functions: () async {
@@ -210,7 +210,7 @@ class AuthOps {
 
 
       /// when register succeeded returning firebase user, convert it to userModel
-      UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
+      final UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
         context: context,
         user: _user,
         zone: currentZone,
@@ -219,7 +219,7 @@ class AuthOps {
 
 
       /// create a new firestore document for the user with the userID
-      UserModel _finalUserModel = await UserOps().createUserOps(userModel: _initialUserModel);
+      final UserModel _finalUserModel = await UserOps().createUserOps(userModel: _initialUserModel);
 
       /// return the final userModel
       return _finalUserModel;
@@ -268,7 +268,7 @@ class AuthOps {
     /// X1 - try get firebase user or return error
     // -------------------------------------------------------
     /// xx - try catch return facebook auth
-    dynamic _registerError = await tryCatchAndReturn(
+    final dynamic _registerError = await tryCatchAndReturn(
         context: context,
         methodName: 'facebookSignInOps',
         functions: () async {
@@ -320,7 +320,7 @@ class AuthOps {
       print('2 language: ${Wordz.languageCode(context)},');
 
       /// E - get Or Create UserModel From User
-      Map<String, dynamic> _userModelMap = await UserOps().getOrCreateUserModelFromUser(
+      final Map<String, dynamic> _userModelMap = await UserOps().getOrCreateUserModelFromUser(
         context: context,
         zone: currentZone,
         user: _user,
@@ -365,7 +365,7 @@ class AuthOps {
     /// X1 - try get firebase user or return error
     // -------------------------------------------------------
     /// xx - try catch return google auth
-    dynamic _registerError = await tryCatchAndReturn(
+    final dynamic _registerError = await tryCatchAndReturn(
         context: context,
         methodName: 'googleSignInOps',
         functions: () async {
@@ -377,7 +377,7 @@ class AuthOps {
             print('googleSignInOps : kIsWeb : $kIsWeb');
 
             /// B - get [auth provider]
-            GoogleAuthProvider authProvider = GoogleAuthProvider();
+            final GoogleAuthProvider authProvider = GoogleAuthProvider();
 
             /// C - get [user credential] from [auth provider]
             final UserCredential _userCredential = await _auth.signInWithPopup(authProvider);
@@ -443,7 +443,7 @@ class AuthOps {
       print('2 language: ${Wordz.languageCode(context)},');
 
       /// E - get Or Create UserModel From User
-      Map<String, dynamic> _userModelMap = await UserOps().getOrCreateUserModelFromUser(
+      final Map<String, dynamic> _userModelMap = await UserOps().getOrCreateUserModelFromUser(
         context: context,
         zone: currentZone,
         user: _user,
@@ -559,9 +559,9 @@ class AuthOps {
       methodName: 'sendVerificationEmail',
       functions: () async {
 
-        User _currentUser = superFirebaseUser();
+        final User _currentUser = superFirebaseUser();
 
-        ActionCodeSettings actionCodeSettings = ActionCodeSettings(
+        final ActionCodeSettings actionCodeSettings = ActionCodeSettings(
           url: '',
           androidInstallApp: true,
           androidMinimumVersion: '',
@@ -588,12 +588,12 @@ class AuthOps {
 }
 // =============================================================================
   String superUserID(){
-  String userID = superFirebaseUser()?.uid;
+    final String userID = superFirebaseUser()?.uid;
   return userID;
 }
 // =============================================================================
   User superFirebaseUser(){
-  User _user = FirebaseAuth.instance.currentUser;
+    final User _user = FirebaseAuth.instance.currentUser;
   return _user;
 }
 // =============================================================================

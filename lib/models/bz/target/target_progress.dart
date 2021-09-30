@@ -5,7 +5,7 @@ class TargetProgress{
   final int objective;
   final int current;
 
-  TargetProgress({
+  const TargetProgress({
     @required this.targetID,
     @required this.objective,
     @required this.current,

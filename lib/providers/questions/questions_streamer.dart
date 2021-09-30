@@ -33,7 +33,7 @@ Widget chatStreamBuilder({
         if (StreamChecker.connectionIsLoading(snapshot) == true) {
           return Loading(loading: true,);
         } else {
-          ChatModel chatModel = snapshot.data;
+          final ChatModel chatModel = snapshot.data;
           return
             builder(context, chatModel);
         }
@@ -44,7 +44,7 @@ Widget chatStreamBuilder({
   /// get chat doc stream
   Stream<ChatModel> getChatStream(String questionID, String bzID) {
 
-  Stream<DocumentSnapshot> _bzSnapshot = Fire.streamSubDoc(
+    final Stream<DocumentSnapshot> _bzSnapshot = Fire.streamSubDoc(
     collName: FireCollection.questions,
     docName: questionID,
     subCollName: FireCollection.questions_question_chats,
@@ -53,7 +53,7 @@ Widget chatStreamBuilder({
 
 
 
-  Stream<ChatModel> _tinyBzStream = _bzSnapshot.map(ChatModel.getChatModelFromSnapshot);
+    final Stream<ChatModel> _tinyBzStream = _bzSnapshot.map(ChatModel.getChatModelFromSnapshot);
   return _tinyBzStream;
   }
 // -----------------------------------------------------------------------------

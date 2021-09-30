@@ -92,10 +92,12 @@ class TinyFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TinyFlyer> decipherTinyFlyersMaps(List<dynamic> tinyFlyersMaps){
-    List<TinyFlyer> _tinyFlyers = [];
+    final List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
+
     tinyFlyersMaps.forEach((map) {
       _tinyFlyers.add(decipherTinyFlyerMap(map));
     });
+
     return _tinyFlyers;
   }
 // -----------------------------------------------------------------------------
@@ -147,7 +149,7 @@ class TinyFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> cipherTinyFlyers (List<TinyFlyer> tinyFlyers){
-    List<dynamic> _tinyFlyersMaps = [];
+    final List<dynamic> _tinyFlyersMaps = <dynamic>[];
 
     tinyFlyers.forEach((f) {
       _tinyFlyersMaps.add(f.toMap());
@@ -157,14 +159,14 @@ class TinyFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TinyFlyer> getTinyFlyersFromBzModel(BzModel bzModel){
-    List<TinyFlyer> _tinyFlyers = [];
+    final List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
 
-    List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
+    final List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
 
     if (_nanoFlyers != null){
       for (var nano in _nanoFlyers){
 
-        TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromNanoFlyerAndBzModel(nano: nano, bzModel: bzModel);
+        final TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromNanoFlyerAndBzModel(nano: nano, bzModel: bzModel);
 
         _tinyFlyers.add(_tinyFlyer);
       }
@@ -175,10 +177,10 @@ class TinyFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TinyFlyer> getTinyFlyersFromFlyersModels(List<FlyerModel> flyers){
-    List<TinyFlyer> _tinyFlyers = [];
+    final List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
 
     for (var flyer in flyers){
-      TinyFlyer _tinyFlyer = getTinyFlyerFromFlyerModel(flyer);
+      final TinyFlyer _tinyFlyer = getTinyFlyerFromFlyerModel(flyer);
       _tinyFlyers.add(_tinyFlyer);
     }
 
@@ -186,7 +188,7 @@ class TinyFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<String> getListOfFlyerIDsFromTinyFlyers(List<TinyFlyer> tinyFlyers){
-    List<String> _flyerIDs = [];
+    final List<String> _flyerIDs = <String>[];
 
     tinyFlyers?.forEach((flyer) {
       _flyerIDs.add(flyer.flyerID);
@@ -196,7 +198,7 @@ class TinyFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static TinyFlyer getTinyFlyerFromTinyFlyers({List<TinyFlyer> tinyFlyers, String flyerID}){
-    TinyFlyer _tinyFlyer = tinyFlyers.singleWhere((tinyFlyer) => tinyFlyer.flyerID == flyerID, orElse: () => null);
+    final TinyFlyer _tinyFlyer = tinyFlyers.singleWhere((tinyFlyer) => tinyFlyer.flyerID == flyerID, orElse: () => null);
     return _tinyFlyer;
   }
 // -----------------------------------------------------------------------------
@@ -272,7 +274,7 @@ class TinyFlyer with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TinyFlyer> filterTinyFlyersBySection({List<TinyFlyer> tinyFlyers, Section section}){
-    List<TinyFlyer> _filteredTinyFlyers = [];
+    List<TinyFlyer> _filteredTinyFlyers = <TinyFlyer>[];
 
     if (section == Section.All){
       _filteredTinyFlyers = tinyFlyers;
@@ -280,7 +282,7 @@ class TinyFlyer with ChangeNotifier{
 
     else {
 
-      FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
+      final FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
 
       for (TinyFlyer tiny in tinyFlyers){
         if (tiny.flyerType == _flyerType){

@@ -74,19 +74,15 @@ class Aligners{
   /// gets [right position] of object that [aligns right] when app is english (LTR)
   static double rightPositionInRightAlignmentEn(BuildContext context, double offsetFromRight){
 
-    double _leftOffset = leftPositionInLeftAlignmentEn(context, offsetFromRight);
-
     return
-      _leftOffset;
+      leftPositionInLeftAlignmentEn(context, offsetFromRight);
   }
 // -----------------------------------------------------------------------------
   /// gets [left position] of object that [aligns right] when app is english (LTR)
   static double leftPositionInRightAlignmentEn(BuildContext context, double offsetFromLeft){
 
-    double _leftOffset = rightPositionInLeftAlignmentEn(context, offsetFromLeft);
-
     return
-      _leftOffset;
+      rightPositionInLeftAlignmentEn(context, offsetFromLeft);
   }
 // -----------------------------------------------------------------------------
 }

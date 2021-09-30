@@ -6,7 +6,7 @@ class ContactModel{
   final String contact;
   final ContactType contactType;
 
-  ContactModel({
+  const ContactModel({
     @required this.contact,
     @required this.contactType,
   });
@@ -19,7 +19,7 @@ class ContactModel{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String,Object>> cipherContactsModels(List<ContactModel> contactsList){
-    List<Map<String,Object>> listOfMaps = [];
+    final List<Map<String,Object>> listOfMaps = <Map<String,Object>>[];
     contactsList?.forEach((contact) {
       listOfMaps.add(contact.toMap());
     });
@@ -34,7 +34,7 @@ class ContactModel{
   }
 // -----------------------------------------------------------------
   static List<ContactModel> decipherContactsMaps(List<dynamic> maps){
-    List<ContactModel> contacts = [];
+    final List<ContactModel> contacts = <ContactModel>[];
     maps?.forEach((map) {
       contacts.add(decipherContactMap(map));
     });
@@ -75,13 +75,13 @@ class ContactModel{
   }
   // -----------------------------------------------------------------------------
   static ContactModel getAContactModelFromContacts(List<ContactModel> contacts, ContactType contactType){
-    ContactModel contactValue = contacts?.singleWhere((x) => x.contactType == contactType,
+    final ContactModel contactValue = contacts?.singleWhere((x) => x.contactType == contactType,
         orElse: ()=>null);
     return contactValue;
   }
 // -----------------------------------------------------------------------------
   static String getAContactValueFromContacts(List<ContactModel> contacts, ContactType contactType){
-    String contactValue = getAContactModelFromContacts(contacts, contactType)?.contact;
+    final String contactValue = getAContactModelFromContacts(contacts, contactType)?.contact;
     return contactValue;
   }
 // -----------------------------------------------------------------------------
@@ -89,11 +89,11 @@ class ContactModel{
   /// are Phone, Email, WhatsApp, website
   /// which are presented by both string of value and an icon
   static List<ContactModel> getContactsWithStringsFromContacts(List<ContactModel> contacts){
-    List<ContactModel> _contactsList = [];
+    final List<ContactModel> _contactsList = <ContactModel>[];
 
-    ContactModel _phone = getAContactModelFromContacts(contacts, ContactType.Phone);
-    ContactModel _email = getAContactModelFromContacts(contacts, ContactType.Email);
-    ContactModel _website = getAContactModelFromContacts(contacts, ContactType.WebSite);
+    final ContactModel _phone = getAContactModelFromContacts(contacts, ContactType.Phone);
+    final ContactModel _email = getAContactModelFromContacts(contacts, ContactType.Email);
+    final ContactModel _website = getAContactModelFromContacts(contacts, ContactType.WebSite);
 
     if(_phone   != null || _phone?.contact?.isNotEmpty  == true){_contactsList.add(_phone);}
     if(_email   != null || _email?.contact?.isNotEmpty  == true){_contactsList.add(_email);}
@@ -105,15 +105,15 @@ class ContactModel{
   /// contacts without strings
   /// are Facebook LinkedIn YouTube Instagram Pinterest TikTok Twitter
   static List<ContactModel> getSocialMediaContactsFromContacts(List<ContactModel> contacts){
-    List<ContactModel> _contactsList = [];
+    final List<ContactModel> _contactsList = <ContactModel>[];
 
-    ContactModel _facebook = getAContactModelFromContacts(contacts, ContactType.Facebook);
-    ContactModel _linkedin = getAContactModelFromContacts(contacts, ContactType.LinkedIn);
-    ContactModel _youtube = getAContactModelFromContacts(contacts, ContactType.YouTube);
-    ContactModel _instagram = getAContactModelFromContacts(contacts, ContactType.Instagram);
-    ContactModel _pinterest = getAContactModelFromContacts(contacts, ContactType.Pinterest);
-    ContactModel _tiktok = getAContactModelFromContacts(contacts, ContactType.TikTok);
-    ContactModel _twitter = getAContactModelFromContacts(contacts, ContactType.Twitter);
+    final ContactModel _facebook = getAContactModelFromContacts(contacts, ContactType.Facebook);
+    final ContactModel _linkedin = getAContactModelFromContacts(contacts, ContactType.LinkedIn);
+    final ContactModel _youtube = getAContactModelFromContacts(contacts, ContactType.YouTube);
+    final ContactModel _instagram = getAContactModelFromContacts(contacts, ContactType.Instagram);
+    final ContactModel _pinterest = getAContactModelFromContacts(contacts, ContactType.Pinterest);
+    final ContactModel _tiktok = getAContactModelFromContacts(contacts, ContactType.TikTok);
+    final ContactModel _twitter = getAContactModelFromContacts(contacts, ContactType.Twitter);
 
     if(_facebook  != null && _facebook?.contact?.isNotEmpty  == true ){_contactsList.add(_facebook);}else{}
     if(_linkedin  != null && _linkedin?.contact?.isNotEmpty  == true ){_contactsList.add(_linkedin);}else{}
@@ -129,7 +129,7 @@ class ContactModel{
   /// will let user to only have one phone contact
   static String getFirstPhoneFromContacts(List<ContactModel> contacts){
     // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
-    List<String> phones = [];
+    final List<String> phones = <String>[];
     contacts?.forEach((co) {
       if(co.contactType == ContactType.Phone){phones.add(co.contact);}
     });
@@ -143,12 +143,12 @@ class ContactModel{
       List<ContactModel> newContacts,
       ){
 
-    String _existingContactValue = getAContactValueFromContacts(existingContacts, type);
+    final String _existingContactValue = getAContactValueFromContacts(existingContacts, type);
 
-    bool _contactExistsInExistingContacts =
+    final bool _contactExistsInExistingContacts =
     _existingContactValue == null || _existingContactValue == ''? false : true;
 
-    bool _userChangedValue = value == null ? false : true;
+    final bool _userChangedValue = value == null ? false : true;
 
     /// when contact already exists in existingContacts
     if (_contactExistsInExistingContacts == true){
@@ -167,19 +167,19 @@ class ContactModel{
   }
 // -----------------------------------------------------------------------------
   static List<String> getListOfValuesFromContactsModelsList(List<ContactModel> contacts){
-    List<String> values = [];
+    final List<String> values = <String>[];
     contacts.forEach((co) {values.add(co.contact); });
     return values;
   }
 // -----------------------------------------------------------------------------
   static List<String> getListOfIconzFromContactsModelsList(List<ContactModel> contacts){
-    List<String> icons = [];
+    final List<String> icons = <String>[];
     contacts.forEach((co) {icons.add(Iconizer.superContactIcon(co.contactType));});
     return icons;
   }
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-  static List<ContactType> contactTypesList = <ContactType>[
+  static const List<ContactType> contactTypesList = const <ContactType>[
     ContactType.Phone,
     ContactType.Email,
     ContactType.WebSite,
@@ -205,7 +205,7 @@ class ContactModel{
     String tikTok,
     String twitter,
   }){
-    List<ContactModel> _newContacts = [];
+    final List<ContactModel> _newContacts = <ContactModel>[];
     // ---------------
     addContactIfPossibleToANewContactsList(existingContacts, phone, ContactType.Phone, _newContacts);
     addContactIfPossibleToANewContactsList(existingContacts, email, ContactType.Email, _newContacts);
@@ -222,9 +222,9 @@ class ContactModel{
   }
 // -----------------------------------------------------------------------------
   static List<ContactModel> getContactsFromFirebaseUser(User user){
-    List<ContactModel> _userContacts = [];
-    String _userEmail = user.email;
-    String _userPhone = user.phoneNumber;
+    final List<ContactModel> _userContacts = <ContactModel>[];
+    final String _userEmail = user.email;
+    final String _userPhone = user.phoneNumber;
 
     if (_userEmail != null){
       _userContacts.add(

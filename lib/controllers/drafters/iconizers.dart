@@ -66,7 +66,7 @@ class Iconizer{
   }
 // -----------------------------------------------------------------------------
   static String bzTypeIconOff (BzType bzType){
-    String icon =
+    final String icon =
     bzType == BzType.Developer ? Iconz.BxPropertiesOff :
     bzType == BzType.Broker ? Iconz.BxPropertiesOff :
     bzType == BzType.Manufacturer ? Iconz.BxProductsOff :
@@ -79,7 +79,7 @@ class Iconizer{
   }
 // -----------------------------------------------------------------------------
   static String bzTypeIconOn (BzType bzType){
-    String icon =
+    final String icon =
     bzType == BzType.Developer ? Iconz.BxPropertiesOn :
     bzType == BzType.Broker ? Iconz.BxPropertiesOn :
     bzType == BzType.Manufacturer ? Iconz.BxProductsOn :
@@ -92,7 +92,7 @@ class Iconizer{
   }
 // -----------------------------------------------------------------------------
   static String flyerTypeIconOn (FlyerType flyerType){
-    String icon =
+    final String icon =
     flyerType == FlyerType.rentalProperty ? Iconz.BxPropertiesOn :
     flyerType == FlyerType.design ? Iconz.BxDesignsOn :
     flyerType == FlyerType.project ? Iconz.BxProjectsOn :
@@ -104,7 +104,7 @@ class Iconizer{
   }
 // -----------------------------------------------------------------------------
   static String flyerTypeIconOff (FlyerType flyerType){
-    String _icon =
+    final String _icon =
     flyerType == FlyerType.newProperty ? Iconz.BxNewPropertiesOff :
     flyerType == FlyerType.resaleProperty ? Iconz.BxResalePropertiesOff :
     flyerType == FlyerType.rentalProperty ? Iconz.BxRentPropertiesOff :
@@ -118,7 +118,7 @@ class Iconizer{
   }
 // -----------------------------------------------------------------------------
   static CustomClipper<Path> userBalloon(UserStatus userType) {
-    CustomClipper<Path> userBalloon =
+    final CustomClipper<Path> userBalloon =
     userType == UserStatus.Normal ? NormalCircle() :
     userType == UserStatus.SearchingThinking ? SearchingThinking() :
     userType == UserStatus.Finishing ? FinishingBalloon() :
@@ -181,7 +181,7 @@ class Iconizer{
   }
 // -----------------------------------------------------------------------------
   static bool iconIsContinent(String icon){
-    bool _iconIsContinent =
+    final bool _iconIsContinent =
             icon == Iconz.ContAfrica ||
             icon == Iconz.ContAsia ||
             icon == Iconz.ContSouthAmerica ||

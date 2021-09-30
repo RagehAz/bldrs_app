@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
-import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -7,6 +6,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/appbar/search_bar.dart';
 import 'package:bldrs/views/widgets/general/appbar/sections_button.dart';
 import 'package:bldrs/views/widgets/general/appbar/zone_button.dart';
+import 'package:bldrs/views/widgets/general/artworks/blur_layer.dart';
 import 'package:bldrs/views/widgets/general/buttons/back_anb_search_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';

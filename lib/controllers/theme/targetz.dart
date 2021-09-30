@@ -193,34 +193,35 @@ abstract class Targetz {
 // -----------------------------------------------------------------------------
   static List<TargetProgress> dummyTargetsProgress(){
     return
-        <TargetProgress>[
-          TargetProgress(targetID: 'startup', objective: 1, current: 1),
-          TargetProgress(targetID: 'completeAccount', objective: 12, current: 12),
-          TargetProgress(targetID: 'verifyAccount', objective: 1, current: 0),
-          TargetProgress(targetID: 'perfectFlyer', objective: 1, current: 1),
-          TargetProgress(targetID: 'threeFlyersAWeek', objective: 3, current: 3),
-          TargetProgress(targetID: 'aFlyerADay', objective: 4, current: 7),
-          TargetProgress(targetID: 'communityGrowth', objective: 5, current: 2),
-          TargetProgress(targetID: 'payItBack', objective: 5, current: 2),
-          TargetProgress(targetID: 'makeARhythm', objective: 0, current: 1),
-          TargetProgress(targetID: 'tenPotentialCustomers', objective: 10, current: 9),
-          TargetProgress(targetID: 'richGallery', objective: 30, current: 24),
-          TargetProgress(targetID: 'callToAction', objective: 10, current: 4),
-          TargetProgress(targetID: 'shareWorthy', objective: 10, current: 3),
-          TargetProgress(targetID: 'diversity', objective: 20, current: 12),
-          TargetProgress(targetID: 'publisher', objective: 3, current: 0),
-          TargetProgress(targetID: 'influencer', objective: 10, current: 8),
-          TargetProgress(targetID: 'masterBldr', objective: 1, current: 0),
+        const <TargetProgress>[
+          const TargetProgress(targetID: 'startup', objective: 1, current: 1),
+          const TargetProgress(targetID: 'completeAccount', objective: 12, current: 12),
+          const TargetProgress(targetID: 'verifyAccount', objective: 1, current: 0),
+          const TargetProgress(targetID: 'perfectFlyer', objective: 1, current: 1),
+          const TargetProgress(targetID: 'threeFlyersAWeek', objective: 3, current: 3),
+          const TargetProgress(targetID: 'aFlyerADay', objective: 4, current: 7),
+          const TargetProgress(targetID: 'communityGrowth', objective: 5, current: 2),
+          const TargetProgress(targetID: 'payItBack', objective: 5, current: 2),
+          const TargetProgress(targetID: 'makeARhythm', objective: 0, current: 1),
+          const TargetProgress(targetID: 'tenPotentialCustomers', objective: 10, current: 9),
+          const TargetProgress(targetID: 'richGallery', objective: 30, current: 24),
+          const TargetProgress(targetID: 'callToAction', objective: 10, current: 4),
+          const TargetProgress(targetID: 'shareWorthy', objective: 10, current: 3),
+          const TargetProgress(targetID: 'diversity', objective: 20, current: 12),
+          const TargetProgress(targetID: 'publisher', objective: 3, current: 0),
+          const TargetProgress(targetID: 'influencer', objective: 10, current: 8),
+          const TargetProgress(targetID: 'masterBldr', objective: 1, current: 0),
         ];
   }
 // -----------------------------------------------------------------------------
   static List<TargetModel> insertTargetsProgressIntoTargetsModels({List<TargetModel> allTargets, List<TargetProgress> targetsProgress}){
-    List<TargetModel> _targets = [];
+    List<TargetModel> _targets = <TargetModel>[];
 
     for (TargetModel target in allTargets){
-      TargetProgress _progress = targetsProgress.singleWhere((prog) => prog.targetID == target.id, orElse: () => null);
 
-      TargetModel _target = TargetModel(
+      final TargetProgress _progress = targetsProgress.singleWhere((prog) => prog.targetID == target.id, orElse: () => null);
+
+      final TargetModel _target = TargetModel(
         id: target.id,
         name: target.name,
         description: target.description,

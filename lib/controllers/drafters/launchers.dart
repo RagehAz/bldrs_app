@@ -3,36 +3,37 @@ import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+class Launchers{
 // -----------------------------------------------------------------------------
-void launchURL(String link) async {
-  // should make a condition
-  // if it starts with http:// or not
-  // then do whats necessary, as the link should include http://
-  if (await canLaunch(link)) {
-    await launch(link);
-  }else{
-    print('Can Not launch link');
+  static Future<void> launchURL(String link) async {
+    /// should make a condition
+    /// if it starts with http:// or not
+    /// then do whats necessary, as the link should include http://
+    if (await canLaunch(link)) {
+      await launch(link);
+    }else{
+      print('Can Not launch link');
+    }
   }
-}
 // -----------------------------------------------------------------------------
-void launchCall(String link) async {
-  if (await canLaunch(link)) {
-    await launch(link);
-  }else{
-    print('cant call');
+  static Future<void> launchCall(String link) async {
+    if (await canLaunch(link)) {
+      await launch(link);
+    }else{
+      print('cant call');
+    }
   }
-}
 // -----------------------------------------------------------------------------
-void shareLink (BuildContext context, LinkModel link) {
-  final RenderBox box = context.findRenderObject();
-  // final String url = '${flyerLink.url} & ${flyerLink.description}';
+  static Future<void> shareLink (BuildContext context, LinkModel link) async {
+    final RenderBox _box = context.findRenderObject();
+    // final String url = '${flyerLink.url} & ${flyerLink.description}';
 
-  Share.share(
-    link.url,
-    subject: link.description,
-    sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
-  );
-}
+    await Share.share(
+      link.url,
+      subject: link.description,
+      sharePositionOrigin: _box.localToGlobal(Offset.zero) & _box.size,
+    );
+  }
 // -----------------------------------------------------------------------------
 // /// old method test
 // void _onShare(BuildContext context) async {
@@ -65,4 +66,7 @@ void shareLink (BuildContext context, LinkModel link) {
 // //   await Share.share("text");
 // // }
 // -----------------------------------------------------------------------------
+
+}
+
 

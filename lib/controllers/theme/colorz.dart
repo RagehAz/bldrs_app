@@ -100,9 +100,7 @@ class Colorz {
   static const AppBarColor = White20;
   static const bzPageBGColor = Colorz.Black80;
 // -------------------------------------------------------------------------
-  static List<Color> allColorz(){
-    return
-      <Color>[
+  static const List<Color> allColorz = <Color>[
         BloodTest,
         DrugTest,
         WaterTest,
@@ -174,5 +172,5 @@ class Colorz {
         bzPageBGColor,
     ];
 
-  }
+
 }

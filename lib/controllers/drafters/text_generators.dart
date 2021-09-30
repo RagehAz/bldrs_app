@@ -28,7 +28,7 @@ class TextGenerator{
   }
 // -----------------------------------------------------------------------------
   static String sectionDescriptionStringer(BuildContext context, Section section){
-    String _description =
+    final String _description =
     section == Section.NewProperties ? 'By RealEstate Developers.' : //Wordz.realEstateTagLine(context) :
     section == Section.ResaleProperties ? 'By RealEstate Brokers.' : //Wordz.realEstateTagLine(context) :
     section == Section.RentalProperties ? 'By Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
@@ -46,21 +46,21 @@ class TextGenerator{
   }
 // -----------------------------------------------------------------------------
   static List<String> sectionsListStrings (BuildContext context){
-    List<Section> sections = SectionClass.SectionsList;
-    List<String> sectionsStrings = [];
-    for(Section bs in sections){
-      sectionsStrings.add(sectionStringer(context, bs));
+    const List<Section> _sections = SectionClass.SectionsList;
+    final List<String> _sectionsStrings = <String>[];
+    for(Section bs in _sections){
+      _sectionsStrings.add(sectionStringer(context, bs));
     }
-    return sectionsStrings;
+    return _sectionsStrings;
   }
 // -----------------------------------------------------------------------------
   static List<String> bzTypesStrings (BuildContext context){
-    List<String> bzTypesStrings = [];
+    final List<String> _bzTypesStrings = <String>[];
 
     for(BzType bt in BzModel.bzTypesList){
-      bzTypesStrings.add(bzTypeSingleStringer(context, bt));
+      _bzTypesStrings.add(bzTypeSingleStringer(context, bt));
     }
-    return bzTypesStrings;
+    return _bzTypesStrings;
   }
 // -----------------------------------------------------------------------------
   static String bzTypeSingleStringer (BuildContext context, BzType bzType){
@@ -102,8 +102,8 @@ class TextGenerator{
   }
 // -----------------------------------------------------------------------------
   static String flyerTypeSingleStringerByBzType(BuildContext context, BzType bzType){
-    FlyerType _defaultFlyerType = FlyerTypeClass.concludeFlyerType(bzType);
-    String _string = flyerTypeSingleStringer(context, _defaultFlyerType);
+    final FlyerType _defaultFlyerType = FlyerTypeClass.concludeFlyerType(bzType);
+    final String _string = flyerTypeSingleStringer(context, _defaultFlyerType);
     return _string;
   }
 // -----------------------------------------------------------------------------
@@ -127,56 +127,57 @@ class TextGenerator{
   }
 // -----------------------------------------------------------------------------
   static List<String> bzFormStrings (BuildContext context){
-    List<String> bzFormStrings = [];
+    final List<String> _bzFormStrings = <String>[];
 
     for(BzForm bt in BzModel.bzFormsList){
-      bzFormStrings.add(bzFormStringer(context, bt));
+      _bzFormStrings.add(bzFormStringer(context, bt));
     }
-    return bzFormStrings;
+    return _bzFormStrings;
   }
 // -----------------------------------------------------------------------------
   static String zoneStringer ({BuildContext context, Zone zone,}){
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
-    String _countryID = zone.countryID;
-    String _provinceID = zone.cityID;
-    String _districtID = zone.districtID;
+    final String _countryID = zone.countryID;
+    final String _provinceID = zone.cityID;
+    final String _districtID = zone.districtID;
 
-    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, _countryID);
-    String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _provinceID);
-    String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _districtID);
+    final String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, _countryID);
+    final String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _provinceID);
+    final String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _districtID);
 
-    String verse =
+    final String _verse =
     _countryID == null || _provinceID == null ? '...' :
     '${Wordz.inn(context)} $_districtName , $_provinceName , $_countryName . ';
-    return verse;
+
+    return _verse;
   }
 // -----------------------------------------------------------------------------
   static String cityCountryStringer ({BuildContext context, Zone zone,}){
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
-    String _countryID = zone.countryID;
-    String _cityID = zone.cityID;
+    final String _countryID = zone.countryID;
+    final String _cityID = zone.cityID;
 
-    String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, _countryID);
-    String _cityName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _cityID);
+    final String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, _countryID);
+    final String _cityName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _cityID);
 
-    String verse =
+    final String _verse =
     _countryID == null || _cityID == null ? '...' :
     '${Wordz.inn(context)}, $_cityName , $_countryName . ';
-    return verse;
+    return _verse;
   }
 // -----------------------------------------------------------------------------
   static String functionStringer(Function function) {
-    String functionNameAsAString = function.toString();
-    int s = functionNameAsAString.indexOf('\'');
-    int e = functionNameAsAString.lastIndexOf('\'');
+    final String _functionNameAsAString = function.toString();
+    final int _s = _functionNameAsAString.indexOf('\'');
+    final int _e = _functionNameAsAString.lastIndexOf('\'');
     // print('functionNameAsAString : ${functionNameAsAString.substring(s + 1, e)}');
-    return functionNameAsAString.substring(s+1, e);  // return functionNameAsAString;
+    return _functionNameAsAString.substring(_s+1, _e);  // return functionNameAsAString;
   }
 // -----------------------------------------------------------------------------
   static String askHinter (BuildContext context, BzType bzType){
-    String askHint =
+    final String _askHint =
     bzType == BzType.Developer ? 'I\'m Looking for a property directly from the developer ...' :
     bzType == BzType.Broker ? 'I\'m Looking for a property from brokers and re-sellers ...' :
     bzType == BzType.Manufacturer ? 'I want to Manufacture or get big quantities ...' :
@@ -185,7 +186,7 @@ class TextGenerator{
     bzType == BzType.Contractor ? 'I\'m Looking for a contractor to build a project ...' :
     bzType == BzType.Artisan ? 'I want a craftsman to fix or build something ...' :
     Wordz.askHint(context);
-    return askHint;
+    return _askHint;
   }
 // -----------------------------------------------------------------------------
   static String bldrsTypePageTitle(BuildContext context, BzType bzType) {
