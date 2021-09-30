@@ -526,8 +526,7 @@ class _SearchScreenState extends State<SearchScreen> {
               height: _screenHeight,
               // color: Colorz.BlackPlastic,
               child: ListView(
-                physics: BouncingScrollPhysics(),
-                children: <Widget>[
+                physics: const BouncingScrollPhysics(),                children: <Widget>[
 
                   Stratosphere(heightFactor: 1.65,),
 
@@ -557,7 +556,7 @@ class _SearchScreenState extends State<SearchScreen> {
               children: <Widget>[
 
                 /// TOP MARGIN
-                SizedBox(height: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2),
+                const SizedBox(height: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2),
 
                 /// KEYWORDS BAR
                 if (_selectedKeywords.isNotEmpty)

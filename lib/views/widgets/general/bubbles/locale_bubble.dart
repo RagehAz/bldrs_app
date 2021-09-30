@@ -21,7 +21,7 @@ class LocaleBubble extends StatefulWidget {
   final Zone currentZone;
   final String title;
 
-  LocaleBubble({
+  const LocaleBubble({
     @required this.changeCountry,
     @required this.changeCity,
     @required this.changeDistrict,
@@ -55,9 +55,11 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     Navigator.of(context).pop();
   }
 // -----------------------------------------------------------------------------
-  void _tapCountryButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> flags}){
+  Future<void> _tapCountryButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> flags}) async {
+
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
-    BottomDialog.showBottomDialog(
+
+    await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: null,
@@ -81,9 +83,11 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     );
   }
 // -----------------------------------------------------------------------------
-  void _tapCityButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> cities}){
+  Future<void> _tapCityButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> cities}) async {
+
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
-    BottomDialog.showBottomDialog(
+
+    await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: null,
@@ -106,9 +110,11 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     );
   }
 // -----------------------------------------------------------------------------
-  void _tapDistrictButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> districts}){
+  Future<void> _tapDistrictButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> districts}) async {
+
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
-    BottomDialog.showBottomDialog(
+
+    await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: null,
@@ -132,16 +138,16 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
 
-    List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
-    List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _chosenCountryID);//_chosenCountry);
-    List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _chosenCityID);//_chosenProvince);
+    final List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
+    final List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _chosenCountryID);//_chosenCountry);
+    final List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _chosenCityID);//_chosenProvince);
 
-    String _chosenCountryName = _chosenCountryID == null ? '...' : Localizer.translate(context, _chosenCountryID);
-    String _chosenCountryFlag = _chosenCountryID == null ? '' : Flagz.getFlagByIso3(_chosenCountryID);
-    String _chosenCityName = _chosenCityID == null ? '...' : _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _chosenCityID);
-    String _chosenDistrictName = _chosenDistrictID == null ? '...' : _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _chosenDistrictID);
+    final String _chosenCountryName = _chosenCountryID == null ? '...' : Localizer.translate(context, _chosenCountryID);
+    final String _chosenCountryFlag = _chosenCountryID == null ? '' : Flagz.getFlagByIso3(_chosenCountryID);
+    final String _chosenCityName = _chosenCityID == null ? '...' : _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _chosenCityID);
+    final String _chosenDistrictName = _chosenDistrictID == null ? '...' : _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _chosenDistrictID);
 
 
     // double _bubbleClearWidth = Scale.superBubbleClearWidth(context);
@@ -158,7 +164,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
-              // --- COUNTRY BUTTON
+              /// COUNTRY BUTTON
               LocaleButton(
                   title: Wordz.country(context),
                   icon: _chosenCountryFlag, //geebCountryFlagByCountryName(context),
@@ -166,14 +172,14 @@ class _LocaleBubbleState extends State<LocaleBubble> {
                   onTap: () => _tapCountryButton(context: context, flags: _flags, countryPro: _countryPro ),
               ),
 
-              // --- PROVINCE BUTTON
+              /// PROVINCE BUTTON
               LocaleButton(
                 title: 'City', //Wordz.province(context),
                 verse: _chosenCityName,
                 onTap: () => _tapCityButton(context: context, cities: _cities, countryPro: _countryPro ),
               ),
 
-              // --- AREA BUTTON
+              /// AREA BUTTON
               LocaleButton(
                 title: 'Area', //Wordz.area(context),
                 verse: _chosenDistrictName,
@@ -203,9 +209,9 @@ class LocaleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _bubbleClearWidth = Bubble.clearWidth(context);
+    final double _bubbleClearWidth = Bubble.clearWidth(context);
     const double _buttonsSpacing = Ratioz.appBarPadding;
-    double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
+    final double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: _buttonsSpacing),
@@ -214,7 +220,7 @@ class LocaleButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
-          // --- TITLE
+          /// TITLE
           Container(
             width: _buttonWidth,
             child: SuperVerse(
@@ -227,7 +233,7 @@ class LocaleButton extends StatelessWidget {
             ),
           ),
 
-          // --- BUTTON CONTENTS
+          /// BUTTON CONTENTS
           DreamBox(
             height: 40,
             // width: _buttonWidth,

@@ -245,7 +245,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
 
     return TestingLayout(
@@ -378,8 +378,8 @@ class SmallFuckingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _buttonWidth = _screenWidth / 8;
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _buttonWidth = _screenWidth / 8;
 
     return DreamBox(
       height: 30,

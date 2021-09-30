@@ -30,7 +30,7 @@ class QuestionBubble extends StatefulWidget {
   final BzType bzType;
   final Function tappingAskInfo;
 
-  QuestionBubble({
+  const QuestionBubble({
     this.bzType,
     @required this.tappingAskInfo,
   });
@@ -79,7 +79,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
     _titleController = new TextEditingController();
     _bodyController.addListener(textListener);
 
-    _questionPics = [];
+    _questionPics = <File>[];
   }
   // ----------------------------------------------------------------------
   @override
@@ -93,7 +93,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   // ----------------------------------------------------------------------
   void textListener(){
     // print('ask body text controller value is : ${_askBodyController.text}');
-    String _text = _bodyController.text;
+    final String _text = _bodyController.text;
     if (_text.length == 1 || _text.length == 0){
       setState(() {
         _askButtonInactive = _text.length > 0 ? false : true;
@@ -146,7 +146,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
       else {
 
-        QuestionModel _question = QuestionModel(
+        final QuestionModel _question = QuestionModel(
           questionID: 'mafeesh id',
           body: _bodyController.text,
           pics: _questionPics,
@@ -184,32 +184,32 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   @override
   Widget build(BuildContext context) {
     // final _questionsProvider = Provider.of<QuestionsProvider>(context);
-    UserStatus _userStatus = UserStatus.PlanningTalking;
-    double _abPadding = Ratioz.appBarPadding;
-    double _abHeight = Ratioz.appBarSmallHeight;
-    double _abButtonsHeight = _abHeight - (_abPadding);
+    const UserStatus _userStatus = UserStatus.PlanningTalking;
+    const double _abPadding = Ratioz.appBarPadding;
+    const double _abHeight = Ratioz.appBarSmallHeight;
+    const double _abButtonsHeight = _abHeight - (_abPadding);
 
-    String askHint = TextGenerator.askHinter(context, widget.bzType);
+    final String askHint = TextGenerator.askHinter(context, widget.bzType);
 
     // bool _askButtonInactive = _askBodyController.text.length == 0 ? true : false;
 // ---------------------------------------------------------------------------
 
-    int numberOfColumns = 3;
+    const int numberOfColumns = 3;
     // int numberOfRows = 1;
 
     // int _gridColumnsCount = numberOfColumns;
-    double gridZoneWidth = Bubble.clearWidth(context);
-    List<Color> _boxesColors = [Colorz.White30, Colorz.White20, Colorz.White10];
-    double _spacingRatioToGridWidth = 0.1;
-    double _gridBzWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
+    final double gridZoneWidth = Bubble.clearWidth(context);
+    const List<Color> _boxesColors = <Color>[Colorz.White30, Colorz.White20, Colorz.White10];
+    const double _spacingRatioToGridWidth = 0.1;
+    final double _gridBzWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     // double _gridBzHeight = _gridBzWidth;
-    double _gridSpacing = _gridBzWidth * _spacingRatioToGridWidth;
+    final double _gridSpacing = _gridBzWidth * _spacingRatioToGridWidth;
     // int _picCount = _questionPics.length == 0 ? _boxesColors.length : _questionPics.length;
     // int _numOfGridRows(int _bzCount){return (_bzCount/_gridColumnsCount).ceil();}
     // int _numOfRows = numberOfRows == null ? _numOfGridRows(_picCount) : numberOfRows;
     // double _gridHeight = _gridBzHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
 
-    SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
+    final SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
       crossAxisSpacing: _gridSpacing,
       mainAxisSpacing: _gridSpacing,
       childAspectRatio: 1 / 1,
@@ -339,7 +339,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
-              SuperVerse(
+              const SuperVerse(
                 verse: 'Attach images to your Question',
                 color: Colorz.White10,
                 weight: VerseWeight.thin,

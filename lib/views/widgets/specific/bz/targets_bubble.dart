@@ -70,7 +70,7 @@ class TargetsBubble extends StatelessWidget {
               width: _bubbleClearWidth,
               decoration: BoxDecoration(
                 color: Colorz.White10,
-                borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue()),
+                borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue),
               ),
               margin: EdgeInsets.only(bottom: 5),
               padding: EdgeInsets.all(5),

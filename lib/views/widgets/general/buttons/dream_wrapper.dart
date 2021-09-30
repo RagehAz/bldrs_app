@@ -15,7 +15,7 @@ class DreamWrapper extends StatelessWidget {
   final double boxWidth;
   final double boxHeight;
 
-  DreamWrapper({
+  const DreamWrapper({
     this.verses,
     this.icons,
     this.spacing = Ratioz.appBarPadding,
@@ -32,7 +32,7 @@ class DreamWrapper extends StatelessWidget {
     print(verses);
     print(icons);
 
-    int _listLength =
+    final int _listLength =
         verses == null && icons == null ? 0 :
         verses == null ? icons.length :
         icons == null ? verses.length : verses.length;
@@ -53,7 +53,7 @@ class DreamWrapper extends StatelessWidget {
               _listLength,
                   (index){
 
-                String _verse = verses[index];
+                final String _verse = verses[index];
 
                 return
                   DreamBox(

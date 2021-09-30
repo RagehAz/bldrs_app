@@ -31,7 +31,7 @@ class SuperVerse extends StatelessWidget {
   final bool redDot;
   final bool strikethrough;
 
-  SuperVerse({
+  const SuperVerse({
     this.verse = 'Bldrs.net will shock planet Earth isa',
     this.size = 2,
     this.color = Colorz.White255,
@@ -126,21 +126,21 @@ class SuperVerse extends StatelessWidget {
     }){
 
       const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
-      Color _boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
-      String _verseFont = superVerseFont(context, weight);
-      FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
-      double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
-      double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
-      double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
-      double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
-      FontWeight _verseWeight = superVerseWeight(weight);
+      final Color _boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
+      final String _verseFont = superVerseFont(context, weight);
+      final FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
+      final double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
+      final double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
+      final double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
+      final double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
+      final FontWeight _verseWeight = superVerseWeight(weight);
       // --- SHADOWS -----------------------------------------------
       const double _shadowBlur = 0;
       const double _shadowYOffset = 0;
-      double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
-      double _secondShadowXOffset = -0.35 * _shadowXOffset;
-      Color _leftShadow = Colorizer.isBlack(color) == true ? Colorz.White200 : Colorz.Black230;
-      Color _rightShadow = Colorizer.isBlack(color) == true ? Colorz.White80 : Colorz.White20;
+      final double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
+      final double _secondShadowXOffset = -0.35 * _shadowXOffset;
+      final Color _leftShadow = Colorizer.isBlack(color) == true ? Colorz.White200 : Colorz.Black230;
+      final Color _rightShadow = Colorizer.isBlack(color) == true ? Colorz.White80 : Colorz.White20;
 
       return
         TextStyle(
@@ -199,10 +199,9 @@ class SuperVerse extends StatelessWidget {
 
     // Color _boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
     // const double verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
-    double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
-    int _maxLines =  maxLines;
+    final double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
     /// takes values from 0 to 8 in the entire app
-    double verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
+    final double verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
     /// --- AVAILABLE FONT WEIGHTS -----------------------------------------------
     // FontWeight verseWeight = superVerseWeight(weight);
     /// --- AVAILABLE FONTS -----------------------------------------------
@@ -221,15 +220,15 @@ class SuperVerse extends StatelessWidget {
     /// --- ITALIC -----------------------------------------------
     // FontStyle verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
     /// --- VERSE BOX MARGIN -----------------------------------------------
-    double _margin = margin == null ? 0 : margin;
+    final double _margin = margin == null ? 0 : margin;
     /// --- LABEL -----------------------------------------------
-    double _labelCornerValues = superVerseLabelCornerValue(context, size);
-    double _labelCorner = labelColor == null ? 0 : _labelCornerValues;
-    double _sidePaddingValues = superVerseSidePaddingValues(context, size);
-    double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
-    double _labelHeight = superVerseRealHeight(context, size, scaleFactor, labelColor);
+    final double _labelCornerValues = superVerseLabelCornerValue(context, size);
+    final double _labelCorner = labelColor == null ? 0 : _labelCornerValues;
+    final double _sidePaddingValues = superVerseSidePaddingValues(context, size);
+    final double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
+    final double _labelHeight = superVerseRealHeight(context, size, scaleFactor, labelColor);
     // --- DOTS -----------------------------------------------
-    double _dotSize = verseSizeValue * 0.3;
+    final double _dotSize = verseSizeValue * 0.3;
     // --- RED DOT -----------------------------------------------
 
 
@@ -266,7 +265,7 @@ class SuperVerse extends StatelessWidget {
                     verse,
                     softWrap: false,
                     overflow: TextOverflow.ellipsis,
-                    maxLines: _maxLines,
+                    maxLines: maxLines,
                     textAlign: getTextAlign(centered),
                     textScaleFactor: 1,
                     style:

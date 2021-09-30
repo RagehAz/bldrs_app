@@ -142,7 +142,7 @@ class AuthorBubble extends StatelessWidget {
                                   labelIsOn: selectedAuthorID == bzAuthors[authorIndex].userID ? true : false,
                                 ),
 
-                                SizedBox(width: Ratioz.appBarPadding),
+                                const SizedBox(width: Ratioz.appBarPadding),
 
                               ],
                             );

@@ -9,7 +9,7 @@ class AppBarButton extends StatelessWidget {
   final Color buttonColor;
   final Function onTap;
 
-  AppBarButton({
+  const AppBarButton({
     @required this.verse,
     this.verseColor = Colorz.White255,
     this.buttonColor = Colorz.White20,

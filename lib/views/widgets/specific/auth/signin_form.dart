@@ -164,7 +164,7 @@ class _SignInFormState extends State<SignInForm> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
 

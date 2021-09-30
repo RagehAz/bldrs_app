@@ -19,7 +19,7 @@ class SectionDialogButton extends StatelessWidget {
   final Section section;
   final bool inActiveMode;
 
-  SectionDialogButton({
+  const SectionDialogButton({
     @required this.dialogHeight,
     @required this.section,
     @required this.inActiveMode,
@@ -40,8 +40,8 @@ class SectionDialogButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   Future<void> _onSectionTap({BuildContext context, FlyersProvider pro, Section section, bool inActiveMode}) async {
 
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    String _currentProvince = _countryPro.currentZone.cityID;
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final String _currentProvince = _countryPro.currentZone.cityID;
 
     /// A - if section is not active * if user is author or not
     if(inActiveMode == true){
@@ -92,7 +92,7 @@ class SectionDialogButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    FlyersProvider _pro =  Provider.of<FlyersProvider>(context, listen: true);
+    final FlyersProvider _pro =  Provider.of<FlyersProvider>(context, listen: true);
 
     return DreamBox(
       height: dialogHeight * 0.06,

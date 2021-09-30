@@ -24,7 +24,7 @@ class AddGalleryPicBubble extends StatelessWidget {
   final String title;
   final BubbleType bubbleType;
 
-  AddGalleryPicBubble({
+  const AddGalleryPicBubble({
     @required this.addBtFunction,
     @required this.pic,
     @required this.deletePicFunction,
@@ -34,13 +34,13 @@ class AddGalleryPicBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double picWidth = 100;
-    final double btZoneWidth = picWidth * 0.5;
-    final double btWidth = btZoneWidth * 0.8;
+    const double picWidth = 100;
+    const double btZoneWidth = picWidth * 0.5;
+    const double btWidth = btZoneWidth * 0.8;
 
-    final double corner = Ratioz.boxCorner12;
+    const double corner = Ratioz.boxCorner12;
 
-    BorderRadius _picBorders =
+    final BorderRadius _picBorders =
     bubbleType == BubbleType.bzLogo ?
     Borderers.superBorderOnly(context:context, enTopLeft:corner, enBottomLeft:corner, enBottomRight:0, enTopRight:corner)
         :
@@ -48,7 +48,6 @@ class AddGalleryPicBubble extends StatelessWidget {
     Borderers.superBorderOnly(context: context, enTopLeft: corner, enBottomLeft: 0, enBottomRight: corner, enTopRight: corner,)
         :
     Borderers.superBorderOnly(context: context, enTopLeft: corner, enBottomLeft: corner, enBottomRight: corner, enTopRight: corner,);
-
 
     return Bubble(
         centered: true,
@@ -58,25 +57,25 @@ class AddGalleryPicBubble extends StatelessWidget {
             alignment: Alignment.center,
             children: <Widget>[
 
-              // --- GALLERY & DELETE LAYER
+              /// GALLERY & DELETE LAYER
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
 
-                  // --- FAKE LEFT FOOTPRINT TO CENTER THE ROW IN THE MIDDLE O BUBBLE
+                  /// FAKE LEFT FOOTPRINT TO CENTER THE ROW IN THE MIDDLE O BUBBLE
                   Container(
                     width: btZoneWidth,
                     height: picWidth,
                   ),
 
-                  // --- FAKE FOOTPRINT UNDER PIC
+                  /// FAKE FOOTPRINT UNDER PIC
                   Container(
                     width: picWidth*1.1,
                     height: picWidth,
                   ),
 
-                  // --- GALLERY & DELETE BUTTONS
+                  /// GALLERY & DELETE BUTTONS
                   Container(
                     width: btZoneWidth,
                     height: picWidth,
@@ -85,7 +84,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
 
-                        // --- GALLERY BUTTON
+                        /// GALLERY BUTTON
                         DreamBox(
                           width: btWidth,
                           height: btWidth,
@@ -95,7 +94,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                           onTap: addBtFunction,
                         ),
 
-                        // --- DELETE pic
+                        /// DELETE pic
                         DreamBox(
                           width: btWidth,
                           height: btWidth,
@@ -112,7 +111,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                 ],
               ),
 
-              // --- PICTURE LAYER
+              /// PICTURE LAYER
               GestureDetector(
                 onTap: pic == null ? (){} : addBtFunction,
                 child:
@@ -141,7 +140,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                 ),
               ),
 
-              // --- PLUS ICON LAYER
+              /// PLUS ICON LAYER
               if (pic == null)
               DreamBox(
                 height: picWidth,
@@ -157,7 +156,7 @@ class AddGalleryPicBubble extends StatelessWidget {
             ],
           ),
 
-          // --- BUBBLE TITLE
+          /// BUBBLE TITLE
           SuperVerse(
             verse: title,
             centered: true,

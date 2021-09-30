@@ -42,7 +42,7 @@ class SuperTextField extends StatefulWidget {
   final bool autofocus;
   final Function onMaxLinesReached;
 
-  SuperTextField({
+  const SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
     this.inputColor = Colorz.White255,
     this.designMode = false,

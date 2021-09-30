@@ -48,17 +48,16 @@ class TileBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double iconWidth = (iconSizeFactor * iconBoxWidth);
-    double iconBoxPadding = iconBoxWidth - iconWidth;
+    final double iconWidth = (iconSizeFactor * iconBoxWidth);
+    final double iconBoxPadding = iconBoxWidth - iconWidth;
 
-    double _switchButtonWidth = switchIsOn == null && moreBtOnTap == null ? 0 : 50;
+    final double _switchButtonWidth = switchIsOn == null && moreBtOnTap == null ? 0 : 50;
 
-    double _verseWidth =
+    final double _verseWidth =
         insideDialog == true ?
         CenterDialog.dialogWidth(context: context) - 30 - 50 - _switchButtonWidth
             :
-        Bubble.clearWidth(context) - iconBoxWidth - 50 - _switchButtonWidth
-    ;
+        Bubble.clearWidth(context) - iconBoxWidth - 50 - _switchButtonWidth;
 
     return Bubble(
       bubbleOnTap: btOnTap,
@@ -181,7 +180,7 @@ class TileBubble extends StatelessWidget {
                 // height: 200,
                 decoration: BoxDecoration(
                   color: Colorz.White10,
-                  borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue())
+                  borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue)
                 ),
                 alignment: Alignment.center,
                 child: child,

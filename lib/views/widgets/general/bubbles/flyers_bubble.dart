@@ -14,7 +14,7 @@ class FlyersBubble extends StatelessWidget {
   final Function onTap;
   final double bubbleWidth;
 
-  FlyersBubble({
+  const FlyersBubble({
     @required this.tinyFlyers,
     this.title  = 'Flyers',
     this.numberOfColumns = 5,
@@ -27,6 +27,7 @@ class FlyersBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Bubble(
       bubbleColor: Colorz.White10,
       title: title,

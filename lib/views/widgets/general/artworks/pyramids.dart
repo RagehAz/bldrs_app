@@ -8,7 +8,7 @@ class Pyramids extends StatefulWidget {
   final Function onDoubleTap;
   final bool loading;
 
-  Pyramids({
+  const Pyramids({
     @required this.pyramidsIcon,
     this.onDoubleTap,
     @required this.loading,
@@ -21,7 +21,7 @@ class Pyramids extends StatefulWidget {
 class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
 AnimationController _controller;
 // Animation _pyramidsAnimation;
-int _fadeCycleDuration = 750;
+static const int _fadeCycleDuration = 750;
 
   @override
   void initState() {
@@ -58,8 +58,8 @@ int _fadeCycleDuration = 750;
         width: Ratioz.pyramidsWidth,
         height: Ratioz.pyramidsHeight,
         // padding: const EdgeInsets.all(0),
-//          color: Ratioz.ccBloodTest,
-//           alignment: Alignment.bottomRight,
+        // color: Ratioz.ccBloodTest,
+        // alignment: Alignment.bottomRight,
 
         child: GestureDetector(
           onDoubleTap: widget.onDoubleTap,

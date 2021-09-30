@@ -15,7 +15,7 @@ class BzzButton extends StatelessWidget {
   final double circleWidth;
   final List<dynamic> bzzIDs;
 
-  BzzButton({
+  const BzzButton({
     this.barType = BarType.maxWithText,
     this.onTap,
     @required this.width,
@@ -49,7 +49,7 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
 
     final double _circleWidth = circleWidth;
     final double _buttonCircleCorner = _circleWidth * 0.5;
-    final double _paddings = Ratioz.appBarPadding * 1.5;
+    const double _paddings = Ratioz.appBarPadding * 1.5;
 
     const double _textScaleFactor = 0.95;
     const int _textSize = 1;
@@ -84,7 +84,7 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
             children: <Widget>[
 
               /// --- TOP MARGIN
-              SizedBox(
+              const SizedBox(
                 height: _paddings,
               ),
 
@@ -282,7 +282,7 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
                   height: _textBoxHeight,
                   // color: Colorz.YellowLingerie,
                   alignment: Alignment.center,
-                  child: SuperVerse(
+                  child: const SuperVerse(
                     verse: 'Accounts',
                     maxLines: 2,
                     size: _textSize,

@@ -20,8 +20,8 @@ class SlideFullScreen extends StatelessWidget {
 
     print('Building full screen with width : ${imageSize.width} : height : ${imageSize.height} ');
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
 
     return MainLayout(
       pageTitle: 'Create flyers',

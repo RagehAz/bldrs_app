@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -15,8 +16,7 @@ class StatusBubble extends StatelessWidget {
   final UserStatus currentUserStatus;
   final Function openEnumLister;
 
-
-  StatusBubble({
+  const StatusBubble({
     @required this.status,
     @required this.userStatus,
     @required this.switchUserStatus,
@@ -27,7 +27,7 @@ class StatusBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
+    final double screenWidth = Scale.superScreenWidth(context);
     // double screenHeight = MediaQuery.of(context).size.height;
     const double pageMargin = Ratioz.appBarMargin * 2;
 
@@ -43,7 +43,7 @@ class StatusBubble extends StatelessWidget {
       centered: true,
       columnChildren: <Widget>[
 
-        // --- HEADLINE QUESTION
+        /// HEADLINE QUESTION
         SuperVerse(
             verse: 'Let the Builders know',
             size: 2,
@@ -55,6 +55,7 @@ class StatusBubble extends StatelessWidget {
             weight: VerseWeight.thin,
             maxLines: 2,
           ),
+
         SuperVerse(
             verse: 'What are you looking for ?',
             size: 3,
@@ -66,11 +67,11 @@ class StatusBubble extends StatelessWidget {
             maxLines: 2,
           ),
 
-        SizedBox(
+        const SizedBox(
           height: pageMargin,
         ),
 
-        // --- USER STATUS MAIN BUTTONS
+        /// USER STATUS MAIN BUTTONS
         StatusButtons(
           status: status,
           stateIndex: 0,
@@ -78,15 +79,17 @@ class StatusBubble extends StatelessWidget {
           currentUserStatus: currentUserStatus,
         ),
 
-        // --- IF USER IS SEARCHING FOR PROPERTIES
+        /// IF USER IS SEARCHING FOR PROPERTIES
         currentUserStatus == UserStatus.SearchingThinking ?
         PropertySearchCriteria(
           openEnumLister: openEnumLister,
-        ) :
+        )
 
-            // --- IF USER WANT TO SELL OR RENT HIS PROPERTY
+            :
+
+        /// IF USER WANT TO SELL OR RENT HIS PROPERTY
         currentUserStatus == UserStatus.Selling ?
-            Container(
+        Container(
           width: screenWidth - (abPadding * 4),
           height: 100,
           color: Colorz.Yellow255,
@@ -94,19 +97,24 @@ class StatusBubble extends StatelessWidget {
           child: SuperVerse(
             verse: 'SELL SELL SELL FUCKERS !!',
           ),
-            ) :
+        )
 
-            // --- IF USER IS IN CONSTRUCTION
+            :
+
+        /// IF USER IS IN CONSTRUCTION
         currentUserStatus == UserStatus.Finishing ||
-            currentUserStatus == UserStatus.PlanningTalking||
-            currentUserStatus == UserStatus.Building ?
+        currentUserStatus == UserStatus.PlanningTalking||
+        currentUserStatus == UserStatus.Building ?
         StatusButtons(
           status: status,
           stateIndex: 1,
           switchUserStatus: switchUserStatus,
           currentUserStatus: currentUserStatus,
-        ) :
-            Container(),
+        )
+
+            :
+
+        Container(),
 
       ],
     );

@@ -7,7 +7,7 @@ class MessageModel{
   final String body;
   final DateTime time;
 
-  MessageModel({
+  const MessageModel({
     @required this.ownerID,
     @required this.body,
     @required this.time,
@@ -30,7 +30,7 @@ class MessageModel{
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> cipherMessages(List<MessageModel> messages){
-    List<Map<String, dynamic>> _messagesMaps = [];
+    final List<Map<String, dynamic>> _messagesMaps = <Map<String, dynamic>>[];
     messages.forEach((msg) {
       _messagesMaps.add(msg.toMap());
     });
@@ -46,7 +46,7 @@ class MessageModel{
   }
 // -----------------------------------------------------------------------------
   static List<MessageModel> decipherMessages(List<dynamic> msgsMaps){
-    List<MessageModel> _postsModels = [];
+    final List<MessageModel> _postsModels = <MessageModel>[];
 
     msgsMaps.forEach((postMap) {
       _postsModels.add(decipherMessage(postMap));
@@ -57,15 +57,15 @@ class MessageModel{
 // -----------------------------------------------------------------------------
   static List<MessageModel> addToMessages({String body, List<MessageModel> existingMsgs}){
 
-    MessageModel _newMessage = MessageModel(
+    final MessageModel _newMessage = MessageModel(
       ownerID: superUserID(),
       body: body,
       time: DateTime.now(),
     );
 
-    List<MessageModel> _newMessages = <MessageModel>[...existingMsgs, _newMessage];
+    final List<MessageModel> _newMessages = <MessageModel>[...existingMsgs, _newMessage];
 
     return _newMessages;
   }
-
+// -----------------------------------------------------------------------------
 }

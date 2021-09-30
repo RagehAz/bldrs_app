@@ -17,9 +17,9 @@ class EarthScreenState extends State<EarthScreen> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
-    double _countrySizeFactor = 1;
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
+    const double _countrySizeFactor = 1;
 
     return MainLayout(
       pageTitle: 'The Entire Fucking Planet',

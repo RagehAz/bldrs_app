@@ -63,7 +63,7 @@ class _SearchBarState extends State<SearchBar> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
-          SizedBox(
+          const SizedBox(
             width: _padding,
             height: _padding,
           ),
@@ -87,7 +87,7 @@ class _SearchBarState extends State<SearchBar> {
           ),
 
           if (widget.historyButtonIsOn)
-          SizedBox(
+          const SizedBox(
             width: _padding,
             height: _padding,
           ),
@@ -129,7 +129,7 @@ class _SearchBarState extends State<SearchBar> {
             ),
           ),
 
-          SizedBox(
+          const SizedBox(
             width: _padding,
             height: _padding,
           ),

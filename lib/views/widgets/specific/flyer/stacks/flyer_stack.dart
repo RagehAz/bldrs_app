@@ -38,18 +38,18 @@ class FlyerStack extends StatelessWidget {
     // final List<TinyBz> _tinyBzz = _pro.getTinyBzzOfTinyFlyersList(_tinyFlyers);
 
 // -----------------------------------------------------------------------------
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    double _titleSpacing = Ratioz.appBarMargin;
-    double flyerBoxWidth = FlyerBox.width(context, flyerSizeFactor);
-    double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
+    final double _titleSpacing = Ratioz.appBarMargin;
+    final double flyerBoxWidth = FlyerBox.width(context, flyerSizeFactor);
+    final double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
 //     bool _slidingIsOn = false;
-    double _titleIconWidth = Ratioz.appBarButtonSize;
-    double _titleIconCorner = Ratioz.appBarButtonCorner;
-    double _titleIconMargin = 0;
-    double _titleIconWidthWithMargin = _titleIconWidth + _titleIconMargin;
+    final double _titleIconWidth = Ratioz.appBarButtonSize;
+    final double _titleIconCorner = Ratioz.appBarButtonCorner;
+    final double _titleIconMargin = 0;
+    final double _titleIconWidthWithMargin = _titleIconWidth + _titleIconMargin;
 // -----------------------------------------------------------------------------
     return
 
@@ -97,7 +97,7 @@ class FlyerStack extends StatelessWidget {
                         ),
 
                       if (titleIcon != null)
-                        SizedBox(width: Ratioz.appBarMargin,),
+                        const SizedBox(width: Ratioz.appBarMargin,),
 
                       Container(
                         width: _screenWidth - (Ratioz.appBarMargin * 5) - _titleIconWidthWithMargin,
@@ -141,7 +141,7 @@ class FlyerStack extends StatelessWidget {
 
 
             /// --- BENEATH FLYERS SPACING
-              SizedBox(
+            SizedBox(
                 width: _screenWidth,
                 height: _titleSpacing,
               ),

@@ -30,15 +30,15 @@ class DataStrip extends StatelessWidget {
 
     const double _rowHeight = 60;
     const double _margin = 2.5;
-    double _rowWidth = width ?? BottomDialog.dialogClearWidth(context) - _margin * 2;
+    final double _rowWidth = width ?? BottomDialog.dialogClearWidth(context) - _margin * 2;
     const double _keyButtonMargin = Ratioz.appBarPadding;
 
-    double _keyRowHeight = _rowHeight * 0.4;
-    double _valueRowHeight = _rowHeight * 0.6;
+    const double _keyRowHeight = _rowHeight * 0.4;
+    const double _valueRowHeight = _rowHeight * 0.6;
 
-    bool _valueIsPercentage = isPercent == true && dataValue.runtimeType == double;
+    final bool _valueIsPercentage = isPercent == true && dataValue.runtimeType == double;
 
-    String _valueString = _valueIsPercentage == true ? '$dataValue %' : dataValue.toString();
+    final String _valueString = _valueIsPercentage == true ? '$dataValue %' : dataValue.toString();
 
     return Center(
       child: Container(

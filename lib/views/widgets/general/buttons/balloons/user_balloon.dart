@@ -24,7 +24,7 @@ class UserBalloon extends StatelessWidget {
   final dynamic pic;
   final bool shadowIsOn;
 
-  UserBalloon({
+  const UserBalloon({
     this.balloonType,
     @required this.balloonWidth,
     this.blackAndWhite = false,
@@ -60,7 +60,7 @@ class UserBalloon extends StatelessWidget {
               onTap: () => Nav.goToRoute(context, Routez.Starting),
             );
           } else {
-            UserModel userModel = snapshot.data;
+            final UserModel userModel = snapshot.data;
             return
               Balloona(
                   balloonWidth: balloonWidth,
@@ -123,7 +123,7 @@ class Balloona extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    CustomClipper _clipper = balloonType == null ? Iconizer.userBalloon(userModel?.userStatus) : Iconizer.userBalloon(balloonType);
+    final CustomClipper _clipper = balloonType == null ? Iconizer.userBalloon(userModel?.userStatus) : Iconizer.userBalloon(balloonType);
 
     return Container(
       width: balloonWidth,

@@ -22,6 +22,9 @@ class HomeWall extends StatefulWidget {
 
   @override
   _HomeWallState createState() => _HomeWallState();
+
+  static const Widget spacer = const SizedBox(height: Ratioz.appBarMargin, width: Ratioz.appBarMargin,);
+
 }
 
 class _HomeWallState extends State<HomeWall> {
@@ -29,16 +32,11 @@ class _HomeWallState extends State<HomeWall> {
   @override
   Widget build(BuildContext context) {
 
-// -----------------------------------------------------------------------------
-    FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
-    List<TinyBz> _userTinyBzz = _prof.getUserTinyBzz;
-// -----------------------------------------------------------------------------
-    Widget _spacer = SizedBox(height: Ratioz.appBarMargin, width: Ratioz.appBarMargin,);
-// -----------------------------------------------------------------------------
+    final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+    final List<TinyBz> _userTinyBzz = _prof.getUserTinyBzz;
+    final double _sponsoredFlyerWidth = FlyerBox.width(context, 0.45);
 
-    double _sponsoredFlyerWidth = FlyerBox.width(context, 0.45);
-
-    List<Widget> _homeWallWidgets = <Widget>[
+    final List<Widget> _homeWallWidgets = <Widget>[
 
       /// BUSINESSES
       BzzBubble(
@@ -49,7 +47,7 @@ class _HomeWallState extends State<HomeWall> {
         title: '${TextGenerator.bldrsTypePageTitle(context, BzType.Designer)} in Province',
       ),
 
-      _spacer,
+      HomeWall.spacer,
 
       /// PROMOTED
       Container(
@@ -62,7 +60,7 @@ class _HomeWallState extends State<HomeWall> {
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-              child: SuperVerse(
+              child: const SuperVerse(
                 verse: 'Promoted',
                 size: 1,
                 centered: false,
@@ -71,7 +69,7 @@ class _HomeWallState extends State<HomeWall> {
               ),
             ),
 
-            _spacer,
+            HomeWall.spacer,
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -92,7 +90,7 @@ class _HomeWallState extends State<HomeWall> {
                   onFlyerZoneTap: null,
                 ),
 
-                _spacer,
+                HomeWall.spacer,
 
                 FlyerBox(
                   flyerBoxWidth: _sponsoredFlyerWidth,
@@ -110,8 +108,8 @@ class _HomeWallState extends State<HomeWall> {
         ),
       ),
 
-      _spacer,
-      _spacer,
+      HomeWall.spacer,
+      HomeWall.spacer,
 
       /// NEW FLYERS
       FlyerStack(
@@ -120,8 +118,8 @@ class _HomeWallState extends State<HomeWall> {
         tinyFlyers: TinyFlyer.dummyTinyFlyers(),
       ),
 
-      _spacer,
-      _spacer,
+      HomeWall.spacer,
+      HomeWall.spacer,
 
       /// SEQUENCES
       SequencesBubble(
@@ -130,8 +128,8 @@ class _HomeWallState extends State<HomeWall> {
         numberOfColumns: 3,
       ),
 
-      _spacer,
-      _spacer,
+      HomeWall.spacer,
+      HomeWall.spacer,
 
       /// RECENTLY VIEWED
       FlyerStack(
@@ -147,7 +145,7 @@ class _HomeWallState extends State<HomeWall> {
 // -----------------------------------------------------------------------------
 
     return ListView.builder(
-      padding: EdgeInsets.only(top: Ratioz.stratosphere),
+      padding: const EdgeInsets.only(top: Ratioz.stratosphere),
       physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
         itemCount: _homeWallWidgets.length,

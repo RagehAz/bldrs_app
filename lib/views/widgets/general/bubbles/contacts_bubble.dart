@@ -15,7 +15,7 @@ class ContactsBubble extends StatelessWidget {
   final bool stretchy;
   final Function onTap;
 
-  ContactsBubble({
+  const ContactsBubble({
     @required this.contacts,
     this.stretchy = false,
     this.onTap,
@@ -24,13 +24,11 @@ class ContactsBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
-
     const double _abPadding = Ratioz.appBarPadding;
     const double _contactBoxHeight = 35;
 
-    List<ContactModel> _contactsWithStrings = ContactModel.getContactsWithStringsFromContacts(contacts);
-    List<ContactModel> _socialMediaContacts = ContactModel.getSocialMediaContactsFromContacts(contacts);
+    final List<ContactModel> _contactsWithStrings = ContactModel.getContactsWithStringsFromContacts(contacts);
+    final List<ContactModel> _socialMediaContacts = ContactModel.getSocialMediaContactsFromContacts(contacts);
 
     return Bubble(
       centered: false,
@@ -38,52 +36,52 @@ class ContactsBubble extends StatelessWidget {
       title: '${Wordz.contacts(context)} :',
       columnChildren: <Widget>[
 
-        // --- CONTACTS WITH STRINGS
+        /// CONTACTS WITH STRINGS
         Wrap(
           spacing: _abPadding,
-            children: <Widget>[
+          children: <Widget>[
 
-              ...List<Widget>.generate(
-                  _contactsWithStrings.length,
-                  (index){
+            ...List<Widget>.generate(
+                _contactsWithStrings.length,
+                    (index){
 
-                    String _value = _contactsWithStrings[index].contact;
+                  final String _value = _contactsWithStrings[index].contact;
 
-                    return
-                        DreamBox(
-                          height: _contactBoxHeight,
-                          icon: Iconizer.superContactIcon(_contactsWithStrings[index].contactType),
-                          margins: const EdgeInsets.all(_abPadding),
-                          verse: _value,
-                          verseColor: Colorz.White255,
-                          verseWeight: VerseWeight.thin,
-                          verseItalic: true,
-                          iconSizeFactor: 0.6,
-                          color: Colorz.BloodTest,
-                          onTap:
-                              onTap == null ?
-                              () async { await Launchers.launchURL('https://${_contactsWithStrings[index].contact}');}
-                              :
-                              () => onTap(_value)
-                        );
-                  }
-              ),
+                  return
+                    DreamBox(
+                        height: _contactBoxHeight,
+                        icon: Iconizer.superContactIcon(_contactsWithStrings[index].contactType),
+                        margins: const EdgeInsets.all(_abPadding),
+                        verse: _value,
+                        verseColor: Colorz.White255,
+                        verseWeight: VerseWeight.thin,
+                        verseItalic: true,
+                        iconSizeFactor: 0.6,
+                        color: Colorz.BloodTest,
+                        onTap:
+                        onTap == null ?
+                            () async { await Launchers.launchURL('https://${_contactsWithStrings[index].contact}');}
+                            :
+                            () => onTap(_value)
+                    );
+                }
+                ),
 
-            ],
-          ),
+          ],
+        ),
 
-        // --- SOCIAL MEDIA CONTACTS
+        /// SOCIAL MEDIA CONTACTS
         Wrap(
-            children: <Widget>[
+          children: <Widget>[
 
-              ...List<Widget>.generate(
-                  _socialMediaContacts.length,
-                      (index){
+            ...List<Widget>.generate(
+                _socialMediaContacts.length,
+                    (index){
 
-                        String _value = _socialMediaContacts[index].contact;
+                  final String _value = _socialMediaContacts[index].contact;
 
-                        return
-                      DreamBox(
+                  return
+                    DreamBox(
                         height: _contactBoxHeight,
                         icon: Iconizer.superContactIcon(_socialMediaContacts[index]?.contactType),
                         margins: const EdgeInsets.all(_abPadding),
@@ -93,12 +91,12 @@ class ContactsBubble extends StatelessWidget {
                             :
                             () => onTap(_value)
 
-                      );
-                  }
-              ),
+                    );
+                }
+                ),
 
-              // --- USER LOCATION
-              DreamBox(
+            /// USER LOCATION
+            DreamBox(
                 height: _contactBoxHeight,
                 icon: Iconz.ComMap,
                 margins: const EdgeInsets.all(_abPadding),

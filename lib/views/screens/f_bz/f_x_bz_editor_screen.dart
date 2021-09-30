@@ -150,10 +150,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  void _showBzCard (){
+  Future<void> _showBzCard () async {
     setState(() {});
 
-    BottomDialog.slideBzBottomDialog(
+    await BottomDialog.slideBzBottomDialog(
       context: context,
       bz: BzModel(
         bzID: '',

@@ -43,7 +43,7 @@ class AuthorLabel extends StatelessWidget {
   Widget build(BuildContext context) {
 
 // -----------------------------------------------------------------------------
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
     const bool _versesDesignMode = false;
     const bool _versesShadow = false;
 // -----------------------------------------------------------------------------
