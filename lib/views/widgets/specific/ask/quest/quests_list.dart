@@ -1,9 +1,8 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart' show Stratosphere;
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/ask/quest/quest_model.dart';
 import 'package:flutter/material.dart';
-
-import 'quest_model.dart';
 
 class QuestList extends StatelessWidget {
   const QuestList({Key key, this.questions}) : super(key: key);
