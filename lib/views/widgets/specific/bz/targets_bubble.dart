@@ -31,12 +31,12 @@ class TargetsBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _bubbleClearWidth = Bubble.clearWidth(context);
-    double _titleBoxWidth = _bubbleClearWidth / 2 + 20;
-    double _titleBoxHeight = 30;
-    double _progressBoxWidth = _bubbleClearWidth / 2 - 30;
-    double _barHeight = 12;
-    double _iconsHeight = 15;
+    final double _bubbleClearWidth = Bubble.clearWidth(context);
+    final double _titleBoxWidth = _bubbleClearWidth / 2 + 20;
+    const double _titleBoxHeight = 30;
+    final double _progressBoxWidth = _bubbleClearWidth / 2 - 30;
+    const double _barHeight = 12;
+    const double _iconsHeight = 15;
     const EdgeInsets _barMargin = const EdgeInsets.only(top: 9);
 
     return Bubble(
@@ -59,10 +59,10 @@ class TargetsBubble extends StatelessWidget {
             _allTargets.length
             , (index) {
 
-          TargetModel _target = _allTargets[index];
-          TargetProgress _progress = _target.progress;//_allProgress.singleWhere((prog) => prog.targetID == _target.id, orElse: () => null);
+          final TargetModel _target = _allTargets[index];
+          final TargetProgress _progress = _target.progress;//_allProgress.singleWhere((prog) => prog.targetID == _target.id, orElse: () => null);
 
-          bool _targetReached = _progress.current == _progress.objective;
+          final bool _targetReached = _progress.current == _progress.objective;
 
           return
 

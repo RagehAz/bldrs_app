@@ -40,28 +40,28 @@ class BldrsAppBar extends StatelessWidget {
   });
 // -----------------------------------------------------------------------------
   static double width(BuildContext context){
-    double _abWidth = Scale.superScreenWidth(context) - (2 * Ratioz.appBarMargin);
+    final double _abWidth = Scale.superScreenWidth(context) - (2 * Ratioz.appBarMargin);
     return _abWidth;
   }
 // -----------------------------------------------------------------------------
   static double height(BuildContext context, AppBarType appBarType){
-    double _abHeight = appBarType == AppBarType.Search ? Ratioz.appBarBigHeight : Ratioz.appBarSmallHeight;
+    final double _abHeight = appBarType == AppBarType.Search ? Ratioz.appBarBigHeight : Ratioz.appBarSmallHeight;
     return _abHeight;
   }
 // -----------------------------------------------------------------------------
   static double scrollWidth(BuildContext context){
-    double _appBarScrollWidth = Scale.superScreenWidth(context) - (Ratioz.appBarMargin * 2) - (Ratioz.appBarPadding * 2) - Ratioz.appBarButtonSize - Ratioz.appBarPadding;
+    final double _appBarScrollWidth = Scale.superScreenWidth(context) - (Ratioz.appBarMargin * 2) - (Ratioz.appBarPadding * 2) - Ratioz.appBarButtonSize - Ratioz.appBarPadding;
     return _appBarScrollWidth;
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _abWidth = width(context);
-    double _abHeight = height(context, appBarType);
-    double _blurValue = Ratioz.blur1;
-    bool _backButtonIsOn =
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _abWidth = width(context);
+    final double _abHeight = height(context, appBarType);
+    final double _blurValue = Ratioz.blur1;
+    final bool _backButtonIsOn =
     appBarType == AppBarType.Basic ? true :
     appBarType == AppBarType.Scrollable ? true :
     appBarType == AppBarType.Main ? false :
@@ -70,7 +70,7 @@ class BldrsAppBar extends StatelessWidget {
     appBarType == AppBarType.Non ? false :
     false;
 // -----------------------------------------------------------------------------
-    bool _searchButtonIsOn =
+    final bool _searchButtonIsOn =
     appBarType == AppBarType.Basic ? false :
     appBarType == AppBarType.Scrollable ? false :
     appBarType == AppBarType.Main ? true :
@@ -79,7 +79,7 @@ class BldrsAppBar extends StatelessWidget {
     appBarType == AppBarType.Non ? false :
     false;
 // -----------------------------------------------------------------------------
-    bool _sectionButtonIsOn =
+    final bool _sectionButtonIsOn =
     sectionButtonIsOn == true ? true :
     sectionButtonIsOn == false ? false :
     appBarType == AppBarType.Basic ? false :
@@ -90,7 +90,7 @@ class BldrsAppBar extends StatelessWidget {
     appBarType == AppBarType.Non ? false :
     false;
 // -----------------------------------------------------------------------------
-    bool _zoneButtonIsOn =
+    final bool _zoneButtonIsOn =
     appBarType == AppBarType.Basic ? false :
     appBarType == AppBarType.Scrollable ? false :
     appBarType == AppBarType.Main ? true :
@@ -99,10 +99,10 @@ class BldrsAppBar extends StatelessWidget {
     appBarType == AppBarType.Non ? false :
     false;
 // -----------------------------------------------------------------------------
-    double _backButtonWidth = _backButtonIsOn == true ? 50 : 0;
+    final double _backButtonWidth = _backButtonIsOn == true ? 50 : 0;
 // -----------------------------------------------------------------------------
-    bool _scrollable = appBarType == AppBarType.Scrollable ? true : false;
-    double _titleHorizontalMargins = _backButtonIsOn == true ? 5 : 15;
+    final bool _scrollable = appBarType == AppBarType.Scrollable ? true : false;
+    final double _titleHorizontalMargins = _backButtonIsOn == true ? 5 : 15;
 // -----------------------------------------------------------------------------
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,

@@ -103,9 +103,9 @@ class MainLayout extends StatelessWidget {
 // -----------------------------------------------------------------------------
   Future<void> _refresh(BuildContext context) async {
 
-    FlyersProvider _pro = Provider.of<FlyersProvider>(context,listen: false);
+    final FlyersProvider _pro = Provider.of<FlyersProvider>(context,listen: false);
 
-    Section _currentSection = _pro.getCurrentSection;
+    final Section _currentSection = _pro.getCurrentSection;
 
     await _pro.fetchAndSetTinyFlyersBySection(context, _currentSection);
   }
@@ -115,10 +115,10 @@ class MainLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
-    List<TinyBz> _userTinyBzz = appBarType == AppBarType.Main ? _prof.getUserTinyBzz : [];
+    final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+    final List<TinyBz> _userTinyBzz = appBarType == AppBarType.Main ? _prof.getUserTinyBzz : [];
 
-    bool _ragehIsOn = tappingRageh == null ? false : true;
+    final bool _ragehIsOn = tappingRageh == null ? false : true;
 
 // -----------------------------------------------------------------------------
     List<Widget> _mainLayoutStackWidgets() {
@@ -193,7 +193,7 @@ class MainLayout extends StatelessWidget {
     // ------------------------------------------------------------------
     // print('superScreenHeightWithoutSafeArea(context) = ${superScreenHeightWithoutSafeArea(context)},, superScreenHeight(context) = ${superScreenHeight(context)}');
 
-    Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.Black230 : Colorz.SkyDarkBlue;
+    final Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.Black230 : Colorz.SkyDarkBlue;
 
     return StreamProvider<List<UserModel>>.value(
       value: UserProvider().allUsersStream,
@@ -307,7 +307,7 @@ class Stratosphere extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _height = bigAppBar == true ? bigAppBarStratosphere : smallAppBarStratosphere;
+    final double _height = bigAppBar == true ? bigAppBarStratosphere : smallAppBarStratosphere;
 
     return Container(
       width: Scale.superScreenWidth(context),

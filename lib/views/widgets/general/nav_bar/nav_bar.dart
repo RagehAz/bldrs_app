@@ -51,8 +51,8 @@ class NavBar extends StatelessWidget {
   static const double _buttonWidth = Scale.navBarButtonWidth;
 // -----------------------------------------------------------------------------
   double _myBzzListSlideHeight(BuildContext context){
-    double _wantedHeight = (Scale.superScreenWidth(context) * 0.3 * myTinyBzz.length);
-    double _maxHeight = Scale.superScreenHeight(context) * 0.5;
+    final double _wantedHeight = (Scale.superScreenWidth(context) * 0.3 * myTinyBzz.length);
+    final double _maxHeight = Scale.superScreenHeight(context) * 0.5;
     double _finalHeight;
     if(_wantedHeight >= _maxHeight){
       _finalHeight = _maxHeight;
@@ -62,19 +62,19 @@ class NavBar extends StatelessWidget {
     return _finalHeight;
   }
 // -----------------------------------------------------------------------------
-  void _multiBzzSlider(BuildContext context, UserModel userModel){
+  Future<void> _multiBzzSlider(BuildContext context, UserModel userModel) async {
 
-    double _sliderHeight = _myBzzListSlideHeight(context);
+    final double _sliderHeight = _myBzzListSlideHeight(context);
     // double _sliderHeightRatio = _sliderHeight / Scale.superScreenHeight(context);
-    double _bzButtonWidth = Scale.superScreenWidth(context) - BottomDialog.draggerZoneHeight(draggable: true) * 2;
+    final double _bzButtonWidth = Scale.superScreenWidth(context) - BottomDialog.draggerZoneHeight(draggable: true) * 2;
 
     // int _titleSize = 2;
     // double _titleMargin = 5;
     // double _titleZoneHeight = superVerseRealHeight(context, _titleSize, 1, null) + (_titleMargin * 2);
 
-    double _bzzButtonsZoneHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _sliderHeight, titleIsOn: true, draggable: true);
+    final double _bzzButtonsZoneHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _sliderHeight, titleIsOn: true, draggable: true);
 
-    BottomDialog.showBottomDialog(
+    await BottomDialog.showBottomDialog(
             context: context,
             draggable: true,
             height: _sliderHeight,
@@ -145,17 +145,17 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _buttonCircleCorner = Scale.buttonCircleCorner;
-    BarType _barType = barType == null ? BarType.min : barType;
-    BorderRadius _boxCorners = Scale.navBarCorners(context: context, barType: _barType);
-    double _boxHeight = Scale.navBarHeight(context: context, barType: _barType);
-    double _bottomOffset = Scale.navBarBottomOffset(barType: _barType);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _buttonCircleCorner = Scale.buttonCircleCorner;
+    final BarType _barType = barType == null ? BarType.min : barType;
+    final BorderRadius _boxCorners = Scale.navBarCorners(context: context, barType: _barType);
+    final double _boxHeight = Scale.navBarHeight(context: context, barType: _barType);
+    final double _bottomOffset = Scale.navBarBottomOffset(barType: _barType);
 // -----------------------------------------------------------------------------
     /// TASK : IOS back button needs revision
-    bool _deviceIsIOS = false;//DeviceChecker.deviceIsIOS();
+    final bool _deviceIsIOS = false;//DeviceChecker.deviceIsIOS();
 // -----------------------------------------------------------------------------
-    Widget _expander = _deviceIsIOS ? Expanded(child: Container(),) : Container();
+    final Widget _expander = _deviceIsIOS ? Expanded(child: Container(),) : Container();
 // -----------------------------------------------------------------------------
     return
 
@@ -164,13 +164,13 @@ class NavBar extends StatelessWidget {
            listen: false,
            builder: (context, UserModel userModel){
 
-             double _spacerWidth = Scale.navBarSpacerWidth(context, userModel);
-             Widget _spacer = SizedBox(width: _spacerWidth,);
-             Widget _halfSpacer = SizedBox(width: _spacerWidth * 0.5,);
+             final double _spacerWidth = Scale.navBarSpacerWidth(context, userModel);
+             final Widget _spacer = SizedBox(width: _spacerWidth,);
+             final Widget _halfSpacer = SizedBox(width: _spacerWidth * 0.5,);
 
-             double _boxWidth = Scale.navBarWidth(context: context, userModel: userModel);
+             final double _boxWidth = Scale.navBarWidth(context: context, userModel: userModel);
 
-             List<String> _userBzzIDs = TinyBz.getBzzIDsFromTinyBzz(myTinyBzz);
+             final List<String> _userBzzIDs = TinyBz.getBzzIDsFromTinyBzz(myTinyBzz);
 
              // List<dynamic> _followedBzzIDs = userModel != null ? userModel?.followedBzzIDs : [];
              // String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
@@ -214,7 +214,7 @@ class NavBar extends StatelessWidget {
                          child: Stack(
                            children: <Widget>[
 
-                             // --- BLUR LAYER
+                             /// --- BLUR LAYER
                              BlurLayer(
                                width: _boxWidth,
                                height: _boxHeight,

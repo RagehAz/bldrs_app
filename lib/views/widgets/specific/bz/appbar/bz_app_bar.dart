@@ -33,10 +33,10 @@ class BzAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _appBarBzButtonWidth = Scale.superScreenWidth(context) - (Ratioz.appBarMargin * 2) -
+    final double _appBarBzButtonWidth = Scale.superScreenWidth(context) - (Ratioz.appBarMargin * 2) -
         (Ratioz.appBarButtonSize * 2) - (Ratioz.appBarPadding * 4) - (Ratioz.appBarButtonSize * 1.4) - Ratioz.appBarPadding;
 
-    String _zoneString = TextGenerator.cityCountryStringer(context: context, zone: bzModel.bzZone);
+    final String _zoneString = TextGenerator.cityCountryStringer(context: context, zone: bzModel.bzZone);
 
     return Row(
       children: <Widget>[

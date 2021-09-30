@@ -27,20 +27,20 @@ class ZoneButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
-    String _lastCountryID = _countryPro.currentCountryID;
-    String _lastProvinceID = _countryPro.currentCityID;
-    String _lastDistrictID = _countryPro.currentDistrictsID;
-    String _lastCountryName = Localizer.translate(context, _lastCountryID);
-    String _lastCountryFlag = Flagz.getFlagByIso3(_lastCountryID);
-    String _lastProvinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _lastProvinceID);
-    String _lastDistrictName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _lastDistrictID);
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final String _lastCountryID = _countryPro.currentCountryID;
+    final String _lastProvinceID = _countryPro.currentCityID;
+    final String _lastDistrictID = _countryPro.currentDistrictsID;
+    final String _lastCountryName = Localizer.translate(context, _lastCountryID);
+    final String _lastCountryFlag = Flagz.getFlagByIso3(_lastCountryID);
+    final String _lastProvinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _lastProvinceID);
+    final String _lastDistrictName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _lastDistrictID);
 
     // print('country ID : $_lastCountryID, provinceID : $_lastProvinceID, '
     //     'districtID : $_lastDistrictID, CountryName : $_lastCountryName,'
     //     ' ProvinceName : $_lastProvinceName, DistrictName : $_lastDistrictName');
 
-    String _countryAndProvinceNames =
+    final String _countryAndProvinceNames =
         appIsLeftToRight(context) ? '$_lastProvinceName - $_lastCountryName'
     : '$_lastCountryName - $_lastProvinceName';
 
@@ -96,7 +96,7 @@ class ZoneButton extends StatelessWidget {
                 alignment: Alignment.center,
                 children: <Widget>[
 
-                  // --- FAKE FOOTPRINT to occupy space for flag while loading
+                  /// --- FAKE FOOTPRINT to occupy space for flag while loading
                   Container(
                     width: 30,
                     height: 30,
