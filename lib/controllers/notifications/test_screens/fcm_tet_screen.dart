@@ -166,7 +166,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
         },
         listViewWidgets: <Widget>[
 
-          Stratosphere(),
+          const Stratosphere(),
 
           DreamBox(
             height: 50,

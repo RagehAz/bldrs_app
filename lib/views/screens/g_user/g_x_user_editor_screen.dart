@@ -61,10 +61,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
  TextEditingController _tiktokController = TextEditingController();
  TextEditingController _twitterController = TextEditingController();
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
@@ -149,7 +162,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   List<ContactModel> _createContactList({List<ContactModel> existingContacts}){
   /// takes current contacts, overrides them on existing contact list, then
   /// return a new contacts list with all old values and new overridden values
-    List<ContactModel> newContacts = ContactModel.createContactsList(
+    final List<ContactModel> newContacts = ContactModel.createContactsList(
       existingContacts: existingContacts,
       phone: TextMod.removeSpacesFromAString(_phoneController.text),
       email: TextMod.removeSpacesFromAString(_emailController.text),
@@ -208,7 +221,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       _triggerLoading();
 
       /// create new UserModel
-      UserModel _newUserModel = UserModel(
+      final UserModel _newUserModel = UserModel(
           userID : widget.user.userID,
         createdAt : DateTime.now(), // will be overridden in createUserOps
           userStatus : UserStatus.Normal,
@@ -227,7 +240,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           position : _currentPosition,
           contacts : _createContactList(existingContacts : widget.user.contacts),
           // -------------------------
-          myBzzIDs: [],
+          myBzzIDs: <dynamic>[],
         // -------------------------
         isAdmin: widget.user.isAdmin,
         authBy: widget.user.authBy,
@@ -275,7 +288,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       _triggerLoading();
 
       /// create new updated user model
-      UserModel _updatedModel = UserModel(
+      final UserModel _updatedModel = UserModel(
         // -------------------------
         userID : widget.user.userID,
         createdAt : widget.user.createdAt,
@@ -345,7 +358,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           physics: const BouncingScrollPhysics(),
           children: <Widget>[
 
-            Stratosphere(),
+            const Stratosphere(),
 
             AddGalleryPicBubble(
               pic: _currentPicFile == null ? _currentPicURL : _currentPicFile,
@@ -526,7 +539,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               onTap: _confirmEdits,
             ),
 
-            PyramidsHorizon()
+            const PyramidsHorizon(),
 
           ],
         ),

@@ -124,7 +124,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
       sky: Sky.Black,
       appBarRowWidgets: <Widget>[
 
-        Expander(),
+        const Expander(),
 
         DreamBox(
           width: 150,

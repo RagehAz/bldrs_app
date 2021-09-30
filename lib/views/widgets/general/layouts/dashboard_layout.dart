@@ -36,7 +36,7 @@ class DashBoardLayout extends StatelessWidget {
       loading: loading,
       appBarRowWidgets: [
 
-          Expander(),
+        const Expander(),
 
           GestureDetector(
             onTap: onBldrsTap,
@@ -54,7 +54,7 @@ class DashBoardLayout extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: <Widget>[
 
-            Stratosphere(),
+            const Stratosphere(),
 
             ...listWidgets,
 

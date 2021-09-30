@@ -16,7 +16,7 @@ class SequenceFlyersScreen extends StatelessWidget {
   final Keyword secondKeyword;
   final Sequence sequence;
 
-  SequenceFlyersScreen({
+  const SequenceFlyersScreen({
     @required this.firstKeyword,
     @required this.secondKeyword,
     @required this.sequence,
@@ -25,8 +25,8 @@ class SequenceFlyersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    FlyersProvider _pro =  Provider.of<FlyersProvider>(context, listen: true);
-    Section _currentSection = _pro.getCurrentSection;
+    final FlyersProvider _pro =  Provider.of<FlyersProvider>(context, listen: true);
+    final Section _currentSection = _pro.getCurrentSection;
 
     return MainLayout(
       appBarType: AppBarType.Scrollable,

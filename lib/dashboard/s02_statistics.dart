@@ -67,7 +67,7 @@ class GeneralStatistics extends StatelessWidget {
       },
       appBarRowWidgets: <Widget>[
 
-        Expander(),
+        const Expander(),
 
         Padding(
           padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
@@ -104,7 +104,7 @@ class GeneralStatistics extends StatelessWidget {
               shrinkWrap: false,
               children: <Widget>[
 
-                Stratosphere(),
+                const Stratosphere(),
 
                 SuperVerse(
                   verse: 'General states :-',

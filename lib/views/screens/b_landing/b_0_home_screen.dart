@@ -21,14 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   // List<TinyBz> _tinyBzz;
   // List<TinyBz> _myTinyBzz;
 // -----------------------------------------------------------------------------
-//   /// --- LOADING BLOCK
-//   bool _loading = false;
-//   void _triggerLoading(){
-//     setState(() {_loading = !_loading;});
-//     _loading == true?
-//     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-//   }
-// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();

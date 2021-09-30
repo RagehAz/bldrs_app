@@ -40,16 +40,9 @@ enum Sky {
   Non,
 }
 // -----------------------------------------------------------------------------
-// // ---------------------------------------------------------------------------
-// /// --- LOADING BLOCK
-// bool _loading = false;
-// void _triggerLoading(){
-//   setState(() {_loading = !_loading;});
-//   _loading == true?
-//   print('LOADING') : print('LOADING COMPLETE');
-// }
-// // ---------------------------------------------------------------------------
 class Expander extends StatelessWidget {
+
+  const Expander();
 
   @override
   Widget build(BuildContext context) {
@@ -272,7 +265,7 @@ Widget zorar({Function function, String functionName}){
 class PyramidsHorizon extends StatelessWidget {
   final double heightFactor;
 
-  PyramidsHorizon({
+  const PyramidsHorizon({
     this.heightFactor = 1,
   });
 
@@ -291,7 +284,7 @@ class Stratosphere extends StatelessWidget {
   final double heightFactor;
   final bool bigAppBar;
 
-  Stratosphere({
+  const Stratosphere({
     this.heightFactor = 1,
     this.bigAppBar = false,
 });

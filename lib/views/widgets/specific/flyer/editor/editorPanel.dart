@@ -5,6 +5,7 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/specific/flyer/editor/panel_button.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +24,6 @@ class EditorPanel extends StatelessWidget {
     @required this.panelWidth,
 });
 // -----------------------------------------------------------------------------
-  Widget _expander(){
-    return
-        // Container();
-      Expanded(child: Container(),);
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -37,16 +32,16 @@ class EditorPanel extends StatelessWidget {
     // double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
 
-    double _panelWidth = panelWidth;
-    double _buttonSize = panelWidth;//_panelWidth - (Ratioz.appBarMargin * 2);
+    final double _panelWidth = panelWidth;
+    final double _buttonSize = panelWidth;//_panelWidth - (Ratioz.appBarMargin * 2);
 
-    double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
+    final double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
 
     // double _panelButtonSize = _buttonSize * 0.8;
 
-    double _panelHeight = _flyerZoneHeight;
+    final double _panelHeight = _flyerZoneHeight;
 
-    AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(bzModel, superFlyer?.authorID);
+    final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(bzModel, superFlyer?.authorID);
 
     // BoxFit _currentPicFit = superFlyer?.currentPicFit;
 
@@ -55,8 +50,7 @@ class EditorPanel extends StatelessWidget {
     //   height: _assets[_draft.currentSlideIndex].originalHeight,
     // );
 
-    double _authorButtonHeight = Ratioz.xxflyerLogoWidth * flyerBoxWidth;
-
+    final double _authorButtonHeight = Ratioz.xxflyerLogoWidth * flyerBoxWidth;
 // -----------------------------------------------------------------------------
 
     return Container(
@@ -86,8 +80,8 @@ class EditorPanel extends StatelessWidget {
             onTap: superFlyer.edit.onShowAuthorTap,
           ),
 
-              /// SPACER
-          _expander(),
+          /// SPACER
+          const Expander(),
 
           // PanelButton.panelDot(panelButtonWidth: _panelButtonSize),
 

@@ -26,15 +26,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
   // final List<Area> _areas = dbAreas;
   final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
   CollectionReference _countriesCollection;
-// ---------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  bool _loading = false;
-  // void _triggerLoading(){
-  //   setState(() {_loading = !_loading;});
-  //   _loading == true?
-  //   print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  // }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -65,11 +57,10 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final Stream<QuerySnapshot> _countriesList = _countriesCollection.snapshots();
     // List<Country> _countriesList = dbCountries;
-
     final double _screenWidth = Scale.superScreenWidth(context);
-
     final double _countryButtonWidth = _screenWidth - superVerseRealHeight(context, 2, 1, null);
 
     return MainLayout(
@@ -78,11 +69,10 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
       pageTitle: 'Zones Manager',
       // appBarBackButton: true,
       sky: Sky.Black,
-      loading: _loading,
       layoutWidget: ListView(
         children: <Widget>[
 
-          Stratosphere(),
+          const Stratosphere(),
 
           // DreamBox(
           //   width: _screenWidth * 0.9,
@@ -127,7 +117,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
                           List<Country> _countries = Country.decipherCountriesMaps(_countriesMaps);
 
                           if (StreamChecker.connectionIsLoading(streamSnapshots)){
-                            return Loading(loading: _loading,);
+                            return Loading(loading: true,);
                           }
                           return ListView.builder(
                             itemCount: _countries.length,

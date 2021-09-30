@@ -69,7 +69,7 @@ class BzFlyersTab extends StatelessWidget {
             ],
           ),
 
-        PyramidsHorizon(),
+        const PyramidsHorizon(),
 
       ],
     );

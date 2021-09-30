@@ -32,7 +32,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   // List<FilterModel> _filters = [];
   // List<KeywordModel> _keywords = [];
-  List<Keyword> _selectedKeywords = [];
+  List<Keyword> _selectedKeywords = <Keyword>[];
   Keyword _highlightedKeyword;
   bool _browserIsOn = false;
   String _currentGroupID;
@@ -42,14 +42,6 @@ class _SearchScreenState extends State<SearchScreen> {
   // FlyersProvider _flyersProvider;
   // FlyerType _currentFlyerType;
   // List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = [];
-// -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  bool _loading = false;
-//   void _triggerLoading(){
-//     setState(() {_loading = !_loading;});
-//     _loading == true?
-//     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-//   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -143,15 +135,15 @@ class _SearchScreenState extends State<SearchScreen> {
               itemCount: _selectedKeywords.length,
               itemBuilder: (ctx, index){
 
-                Keyword _keyword = index >= 0 ? _selectedKeywords[index] : null;
+                final Keyword _keyword = index >= 0 ? _selectedKeywords[index] : null;
 
-                bool _highlightedMapIsCity =
+                final bool _highlightedMapIsCity =
                 _highlightedKeyword == null ? false
                     :
                 _highlightedKeyword.flyerType == 'cities' ? true
                     : false;
 
-                bool _isHighlighted =
+                final bool _isHighlighted =
                 _highlightedMapIsCity == true && _keyword.flyerType == 'cities'? true
                     :
                 _highlightedMapIsCity == true && _keyword.flyerType == 'area'? true
@@ -271,13 +263,13 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _removeKeyword(int index, List<Group> filtersModels) async {
 
-    String _groupID = _selectedKeywords[index].groupID;
+    final String _groupID = _selectedKeywords[index].groupID;
     // String _keywordID = _selectedKeywords[index].keywordID;
 
     bool _isCity = false;
     bool _isArea = false;
 
-    Keyword _keywordModel = _selectedKeywords[index];
+    final Keyword _keywordModel = _selectedKeywords[index];
 
 
     if (_isCity == true){
@@ -303,7 +295,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     else {
 
-      bool _canPickMany = filtersModels.singleWhere((filter) => filter.groupID == _groupID).canPickMany;
+      final bool _canPickMany = filtersModels.singleWhere((filter) => filter.groupID == _groupID).canPickMany;
 
       await _highlightKeyword(_keywordModel, _canPickMany);
 
@@ -325,9 +317,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
     // bool _canPickMany = filtersModels.singleWhere((filterModel) => filterModel.filterID == _currentFilterID).canPickMany;
 
-   bool _canPickMany = Group.getCanGroupPickManyByKeyword(keyword);
+    final bool _canPickMany = Group.getCanGroupPickManyByKeyword(keyword);
 
-    bool _isSelected = _selectedKeywords.contains(keyword);
+    final bool _isSelected = _selectedKeywords.contains(keyword);
 
     /// when filter accepts many keywords [Poly]
     if (_canPickMany == true){
@@ -349,7 +341,7 @@ class _SearchScreenState extends State<SearchScreen> {
     else {
 
       /// check if SINGULAR keyword is selected by filterTitle
-      bool _keywordsContainThisFilterID = Keyword.keywordsContainThisFlyerType(keywords : _selectedKeywords, flyerType: keyword.flyerType);
+      final bool _keywordsContainThisFilterID = Keyword.keywordsContainThisFlyerType(keywords : _selectedKeywords, flyerType: keyword.flyerType);
 
       /// when SINGULAR keyword already selected
       if (_keywordsContainThisFilterID == true){
@@ -475,7 +467,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     _scrollToIndex(_index);
 
-    Keyword _keyword = _index >= 0 ? _selectedKeywords[_index] : null;
+    final Keyword _keyword = _index >= 0 ? _selectedKeywords[_index] : null;
 
     setState(() {
       _highlightedKeyword = _keyword;
@@ -491,23 +483,23 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
-    List<Group> _filtersBySection = _flyersProvider.getSectionFilters;
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
+    final List<Group> _filtersBySection = _flyersProvider.getSectionFilters;
 
     print('rebuilding search screen with section : ${_filtersBySection.length} filters');
 
-    double _buttonPadding = _browserIsOn == true ? Ratioz.appBarPadding * 1.5 : Ratioz.appBarPadding * 1.5;
+    final double _buttonPadding = _browserIsOn == true ? Ratioz.appBarPadding * 1.5 : Ratioz.appBarPadding * 1.5;
 
-    double _browserMinZoneHeight = 40 + _buttonPadding * 2 + superVerseRealHeight(context, 0, 0.95, null);
-    double _browserMaxZoneHeight = Scale.superScreenHeightWithoutSafeArea(context) - Ratioz.appBarBigHeight - Ratioz.keywordsBarHeight - Ratioz.appBarMargin * 4;
+    final double _browserMinZoneHeight = 40 + _buttonPadding * 2 + superVerseRealHeight(context, 0, 0.95, null);
+    final double _browserMaxZoneHeight = Scale.superScreenHeightWithoutSafeArea(context) - Ratioz.appBarBigHeight - Ratioz.keywordsBarHeight - Ratioz.appBarMargin * 4;
 
-    double _browserMinZoneWidth = 40 + _buttonPadding * 2;
-    double _browserMaxZoneWidth = Scale.superScreenWidth(context) - _buttonPadding * 2;
+    final double _browserMinZoneWidth = 40 + _buttonPadding * 2;
+    final double _browserMaxZoneWidth = Scale.superScreenWidth(context) - _buttonPadding * 2;
 
-    double _browserZoneHeight = _browserIsOn == true ? _browserMaxZoneHeight : _browserMinZoneHeight;
-    double _browserZoneWidth = _browserIsOn == true ? _browserMaxZoneWidth : _browserMinZoneWidth;
-    double _browserZoneMargins = _browserIsOn == true ? _buttonPadding : _buttonPadding;
-    BorderRadius _browserZoneCorners = Borderers.superBorderAll(context, Ratioz.appBarCorner);
+    final double _browserZoneHeight = _browserIsOn == true ? _browserMaxZoneHeight : _browserMinZoneHeight;
+    final double _browserZoneWidth = _browserIsOn == true ? _browserMaxZoneWidth : _browserMinZoneWidth;
+    final double _browserZoneMargins = _browserIsOn == true ? _buttonPadding : _buttonPadding;
+    final BorderRadius _browserZoneCorners = Borderers.superBorderAll(context, Ratioz.appBarCorner);
 
     // double _browserScrollZoneWidth = _browserZoneWidth * 0.96;
     // double _browserScrollZoneHeight = _browserZoneHeight * 0.94;
@@ -516,14 +508,13 @@ class _SearchScreenState extends State<SearchScreen> {
 
     // List<Keyword> _currentFilterKeywords = _generateFilterKeywords(_filtersBySection);
 
-    double _screenHeight = Scale.superScreenHeight(context);
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
 
     return MainLayout(
       appBarType: AppBarType.Search,
       // appBarBackButton: true,
       pyramids: Iconz.DvBlankSVG,
-      loading: _loading,
       layoutWidget: Stack(
         children: <Widget>[
 

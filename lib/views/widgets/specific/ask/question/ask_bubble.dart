@@ -279,7 +279,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
 
               /// EXPANDER SPACE
-              Expander(),
+              const Expander(),
 
               /// INFO BUTTON
               DreamBox(

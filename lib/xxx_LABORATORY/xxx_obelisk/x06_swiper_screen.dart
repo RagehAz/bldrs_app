@@ -149,7 +149,7 @@ class _SwiperScreenState extends State<SwiperScreen> {
                     Column(
                       children: <Widget>[
 
-                        Stratosphere(),
+                        const Stratosphere(),
 
                         FinalFlyer(
                           flyerBoxWidth: FlyerBox.width(context, _flyerSizeFactor),

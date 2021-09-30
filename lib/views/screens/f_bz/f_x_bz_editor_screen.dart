@@ -83,10 +83,23 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   TextEditingController _authorTitleTextController = TextEditingController();
   List<ContactModel> _currentAuthorContacts;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
@@ -229,7 +242,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     } else {
       /// TASK : FIX THIS SHIT
 
-      Section _section = SectionClass.getSectionByBzType(_currentBzType);
+      final Section _section = SectionClass.getSectionByBzType(_currentBzType);
 
       setState(() {
         _currentSection = _section;
@@ -325,7 +338,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       _triggerLoading();
 
       /// create new master AuthorModel
-      AuthorModel _firstMasterAuthor = AuthorModel(
+      final AuthorModel _firstMasterAuthor = AuthorModel(
         userID: widget.userModel.userID,
         authorName: _authorNameTextController.text,
         authorPic: _currentAuthorPicFile, // if null createBzOps uses user.pic URL instead
@@ -333,10 +346,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         authorIsMaster: true,
         authorContacts: _currentAuthorContacts,
       );
-      List<AuthorModel> _firstTimeAuthorsList = <AuthorModel>[_firstMasterAuthor,];
+      final List<AuthorModel> _firstTimeAuthorsList = <AuthorModel>[_firstMasterAuthor,];
 
       /// create new first time bzModel
-      BzModel _newBzModel = BzModel(
+      final BzModel _newBzModel = BzModel(
         bzID: null, // will be generated in createBzOps
         // -------------------------
         bzType: _currentBzType,
@@ -375,14 +388,14 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       );
 
       /// start createBzOps
-      BzModel _bzModel = await BzOps().createBzOps(
+      final BzModel _bzModel = await BzOps().createBzOps(
           context: context,
           inputBz : _newBzModel,
           userModel: widget.userModel
       );
 
-      // /// add the final tinyBz to local list and notifyListeners
-      TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_bzModel);
+      /// /// add the final tinyBz to local list and notifyListeners
+      final TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_bzModel);
       // _prof.addTinyBzToUserTinyBzz(_tinyBz);
 
       /// add the final tinyBz to _userTinyBzz
@@ -420,7 +433,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       _triggerLoading();
 
       /// create modified authorModel
-      AuthorModel _newAuthor = AuthorModel(
+      final AuthorModel _newAuthor = AuthorModel(
         userID: widget.userModel.userID,
         authorName: _authorNameTextController.text,
         authorPic: _currentAuthorPicFile ?? _currentAuthorPicURL,
@@ -429,22 +442,22 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         authorContacts: _currentAuthorContacts,
       );
 
-      AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(widget.bzModel, widget.userModel.userID);
+      final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(widget.bzModel, widget.userModel.userID);
 
-      List<AuthorModel> _modifiedAuthorsList = AuthorModel.replaceAuthorModelInAuthorsList(
+      final List<AuthorModel> _modifiedAuthorsList = AuthorModel.replaceAuthorModelInAuthorsList(
         originalAuthors: _currentBzAuthors,
         oldAuthor: _oldAuthor,
         newAuthor: _newAuthor,
       );
 
-      List<String> _modifiedAuthorsIDsList = AuthorModel.replaceAuthorIDInAuthorsIDsList(
+      final List<String> _modifiedAuthorsIDsList = AuthorModel.replaceAuthorIDInAuthorsIDsList(
         originalAuthors: _currentBzAuthors,
         oldAuthor: _oldAuthor,
         newAuthor: _newAuthor,
       );
 
       /// create modified bzModel
-      BzModel _modifiedBzModel = BzModel(
+      final BzModel _modifiedBzModel = BzModel(
         bzID: widget.bzModel.bzID,
         // -------------------------
         bzType: _currentBzType,
@@ -483,7 +496,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       );
 
       /// start updateBzOps
-      BzModel _finalBzModel = await BzOps().updateBzOps(
+      final BzModel _finalBzModel = await BzOps().updateBzOps(
         context: context,
         modifiedBz: _modifiedBzModel,
         originalBz: _bz,
@@ -492,7 +505,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       );
 
       /// update _TinyBzModel in local list with the modified one and notifyListeners
-      TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_finalBzModel);
+      final TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_finalBzModel);
       _prof.updateTinyBzInLocalList(_tinyBz);
 
       /// update tinyBz in local list of _userTinyBz
@@ -532,9 +545,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   @override
   Widget build(BuildContext context) {
 
-    Widget _separator = BubblesSeparator();
-
-    String _bzAboutBubbleTitle = Wordz.about(context);
+    final String _bzAboutBubbleTitle = Wordz.about(context);
 
     // _bzNameTextController.text == null || _bzNameTextController.text == '' ?
     // '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' :
@@ -552,14 +563,14 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       layoutWidget: Stack(
         children: <Widget>[
 
-          //--- BUBBLES
+          ///--- BUBBLES
           ListView(
             physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
-              Stratosphere(),
+              const Stratosphere(),
 
-              // --- CHOOSE SECTION
+              /// --- CHOOSE SECTION
               MultipleChoiceBubble(
                 title: Wordz.sections(context),
                 buttonsList: TextGenerator.sectionsListStrings(context),
@@ -567,7 +578,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 chosenButton: TextGenerator.sectionStringer(context, _currentSection),
               ),
 
-              // --- CHOOSE BzType
+              /// --- CHOOSE BzType
               MultipleChoiceBubble(
                 title: 'Profession',
                 buttonsList: TextGenerator.bzTypesStrings(context),
@@ -576,7 +587,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 buttonsInActivityList: _bzTypeInActivityList,
               ),
 
-              // --- CHOOSE BzForm
+              /// --- CHOOSE BzForm
               MultipleChoiceBubble(
                 title: Wordz.businessForm(context),
                 buttonsList: TextGenerator.bzFormStrings(context),
@@ -585,9 +596,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 buttonsInActivityList: _bzFormInActivityList,
               ),
 
-              _separator,
+              const BubblesSeparator(),
 
-              // --- ADD LOGO
+              /// --- ADD LOGO
               AddGalleryPicBubble(
                 pic: _currentBzLogoFile == null ? _currentBzLogoURL : _currentBzLogoFile,
                 addBtFunction: _takeBzLogo,
@@ -596,7 +607,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 bubbleType: BubbleType.bzLogo,
               ),
 
-              // --- type BzName
+              /// --- type BzName
               TextFieldBubble(
                 textController: _bzNameTextController,
                 key: Key('bzName'),
@@ -610,7 +621,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 fieldIsFormField: true,
               ),
 
-              // --- type BzScope
+              /// --- type BzScope
               TextFieldBubble(
                 textController: _bzScopeTextController,
                 key: Key('bzScope'),
@@ -624,7 +635,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 fieldIsFormField: true,
               ),
 
-              // --- type BzAbout
+              /// --- type BzAbout
               TextFieldBubble(
                 textController: _bzAboutTextController,
                 key: Key('bzAbout'),
@@ -636,9 +647,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 keyboardTextInputType: TextInputType.multiline,
               ),
 
-              _separator,
+              const BubblesSeparator(),
 
-              // --- bzLocale
+              /// --- bzLocale
               LocaleBubble(
                 changeCountry : (countryID) => setState(() {_currentBzCountry = countryID;}),
                 changeCity : (cityID) => setState(() {_currentBzCity = cityID;}),
@@ -647,9 +658,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 title: 'Headquarters District',//Wordz.hqCity(context),
               ),
 
-              _separator,
+              const BubblesSeparator(),
 
-              // --- type AuthorName
+              /// --- type AuthorName
               TextFieldBubble(
                 textController: _authorNameTextController,
                 key: Key('authorName'),
@@ -663,7 +674,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 fieldIsFormField: true,
               ),
 
-              // --- type AuthorTitle
+              /// --- type AuthorTitle
               TextFieldBubble(
                 textController: _authorTitleTextController,
                 key: Key('authorTitle'),
@@ -677,7 +688,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 fieldIsFormField: true,
               ),
 
-              // --- ADD AUTHOR PIC
+              /// --- ADD AUTHOR PIC
               AddGalleryPicBubble(
                 pic: _currentAuthorPicFile ?? _currentAuthorPicURL,
                 addBtFunction: _takeAuthorPicture,
@@ -686,19 +697,19 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 bubbleType: BubbleType.authorPic,
               ),
 
-              PyramidsHorizon(),
+              const PyramidsHorizon(),
 
             ],
           ),
 
-          // ---  BOTTOM BUTTONS
+          /// ---  BOTTOM BUTTONS
           Positioned(
             bottom: 0,
             left: 0,
             child: Row(
               children: <Widget>[
 
-                // --- SHOW BZCARD
+                /// --- SHOW BZCARD
                 DreamBox(
                   height: 50,
                   color: Colorz.Blue225,
@@ -712,7 +723,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   onTap: _showBzCard,
                 ),
 
-                // --- CONFIRM BUTTON
+                /// --- CONFIRM BUTTON
                 DreamBox(
                   height: 50,
                   color: Colorz.Yellow255,

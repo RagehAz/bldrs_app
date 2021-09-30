@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 
 class BubblesSeparator extends StatelessWidget {
 
+  const BubblesSeparator();
+
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = Scale.superScreenWidth(context);
+    final double screenWidth = Scale.superScreenWidth(context);
 
     return Container(
       width: screenWidth,

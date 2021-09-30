@@ -33,7 +33,7 @@ class MoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Widget _separator = BubblesSeparator();
+    final Widget _separator = BubblesSeparator();
 
     return MainLayout(
       appBarType: AppBarType.Basic,
@@ -47,7 +47,8 @@ class MoreScreen extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
-              Stratosphere(),
+              const Stratosphere(),
+
               TileBubble(
                 verse: Wordz.createBzAccount(context),
                 icon: Iconz.Bz,
@@ -172,7 +173,7 @@ class MoreScreen extends StatelessWidget {
                 btOnTap: () => Nav.goToRoute(context, Routez.Obelisk),
               ),
 
-              PyramidsHorizon(),
+              const PyramidsHorizon(),
 
             ],
           ),

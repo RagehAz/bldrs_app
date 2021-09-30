@@ -20,10 +20,23 @@ class FeedBack extends StatefulWidget {
 class _FeedBackState extends State<FeedBack> {
   TextEditingController _feedbackController;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
@@ -81,7 +94,7 @@ class _FeedBackState extends State<FeedBack> {
       layoutWidget: ListView(
         children: <Widget>[
 
-          Stratosphere(),
+          const Stratosphere(),
 
           SuperVerse(
             verse: 'Your opinion Matters !',
@@ -126,7 +139,7 @@ class _FeedBackState extends State<FeedBack> {
             onTap: _uploadFeedBack,
           ),
 
-          PyramidsHorizon(),
+          const PyramidsHorizon(),
 
         ],
       ),
