@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
-class TestLayout extends StatelessWidget {
+class TestingLayout extends StatelessWidget {
   final List<Widget> listViewWidgets;
   final String screenTitle;
   final String appbarButtonVerse;
@@ -10,7 +10,7 @@ class TestLayout extends StatelessWidget {
   final Key scaffoldKey;
   final bool scrollable;
 
-  const TestLayout({
+  const TestingLayout({
     @required this.listViewWidgets,
     @required this.screenTitle,
     @required this.appbarButtonVerse,
@@ -22,7 +22,6 @@ class TestLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     return MainLayout(
       appBarType: AppBarType.Basic,
       pyramids: Iconz.DvBlankSVG,
@@ -30,7 +29,7 @@ class TestLayout extends StatelessWidget {
       scaffoldKey: scaffoldKey,
 
       // loading: _loading,
-      appBarRowWidgets: [
+      appBarRowWidgets: <Widget>[
 
         if (appbarButtonVerse != null)
         AppBarButton(
