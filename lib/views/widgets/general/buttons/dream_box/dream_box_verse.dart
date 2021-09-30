@@ -4,12 +4,11 @@ import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
-
-
 
 class DreamBoxIconVerseSecondLine extends StatelessWidget {
   final String verse;
@@ -74,26 +73,9 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required this.secondLineColor,
     @required this.centered,
   });
-
-  @override
-  Widget build(BuildContext context) {
-
-    TextDirection _textDirection = textDirection == null ? superTextDirection(context) : textDirection;
-
-    double _svgGraphicWidth = height * iconSizeFactor;
-    double _jpgGraphicWidth = height * iconSizeFactor;
-
-    double _graphicWidth = icon == null && loading == false ? 0 :
-    ObjectChecker.fileExtensionOf(icon) == 'svg' ? _svgGraphicWidth :
-    ObjectChecker.fileExtensionOf(icon) == 'jpg' ||
-        ObjectChecker.fileExtensionOf(icon) == 'jpeg' ||
-        ObjectChecker.fileExtensionOf(icon) == 'png' ? _jpgGraphicWidth : height;
-
-    double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
-
-    double _verseWidth = width != null ? width - (iconMargin * 2) - _graphicWidth - ((_verseIconSpacing * 2) + iconMargin) : width;
-
-    CrossAxisAlignment _versesCrossAlignment =
+// -----------------------------------------------------------------------------
+  static CrossAxisAlignment versesCrossAlignment({String icon, TextDirection textDirection, String secondLine, bool verseCentered}){
+    final CrossAxisAlignment _versesCrossAlignment =
     icon == null && textDirection == null && secondLine == null ? CrossAxisAlignment.center
         :
     textDirection != null ? CrossAxisAlignment.start // dunno why
@@ -102,10 +84,68 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
         :
     CrossAxisAlignment.center; // verseCentered
 
-    MainAxisAlignment _mainAxisAlignment = centered == true ? MainAxisAlignment.center : MainAxisAlignment.start;
-
-    Alignment _verseAlignment = centered == true ? Alignment.center : Aligners.superCenterAlignment(context);
-
+    return _versesCrossAlignment;
+  }
+// -----------------------------------------------------------------------------
+  static double verseWidth ({double width, double iconMargin, double verseIconSpacing, double graphicWidth}){
+    final double _verseWidth = width != null ? width - (iconMargin * 2) - graphicWidth - ((verseIconSpacing * 2) + iconMargin) : width;
+    return _verseWidth;
+  }
+// -----------------------------------------------------------------------------
+  static double verseIconSpacing({double height, String verse, double iconSizeFactor, double verseScaleFactor}){
+    final double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
+    return _verseIconSpacing;
+  }
+// -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+// ---------------------------------------------------------
+    final TextDirection _textDirection = textDirection == null ?
+    superTextDirection(context)
+        :
+    textDirection;
+// ---------------------------------------------------------
+    final double _svgGraphicWidth = height * iconSizeFactor;
+    final double _jpgGraphicWidth = height * iconSizeFactor;
+// ---------------------------------------------------------
+    final double _graphicWidth = DreamBox.graphicWidth(
+      icon: icon,
+      height: height,
+      loading: loading,
+      iconSizeFactor: iconSizeFactor,
+    );
+// ---------------------------------------------------------
+    final double _verseIconSpacing = verseIconSpacing(
+      iconSizeFactor: iconSizeFactor,
+      height: height,
+      verse: verse,
+      verseScaleFactor: verseScaleFactor,
+    );
+// ---------------------------------------------------------
+    final double _verseWidth = verseWidth(
+      graphicWidth: _graphicWidth,
+      width: width,
+      iconMargin: iconMargin,
+      verseIconSpacing: _verseIconSpacing,
+    );
+// ---------------------------------------------------------
+    final CrossAxisAlignment _versesCrossAlignment = versesCrossAlignment(
+      icon: icon,
+      secondLine: secondLine,
+      textDirection: textDirection,
+      verseCentered: verseCentered,
+    ); // verseCentered
+// ---------------------------------------------------------
+    final MainAxisAlignment _mainAxisAlignment = centered == true ?
+    MainAxisAlignment.center
+        :
+    MainAxisAlignment.start;
+// ---------------------------------------------------------
+    final Alignment _verseAlignment = centered == true ?
+    Alignment.center
+        :
+    Aligners.superCenterAlignment(context);
+// ---------------------------------------------------------
     return Row(
       mainAxisAlignment: _mainAxisAlignment,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -263,7 +303,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                           :
                       Container(),
 
-                      // --- BUTTON BLACK LAYER IF GREYED OUT
+                      /// --- BUTTON BLACK LAYER IF GREYED OUT
                       blackAndWhite == true && icon != null && ObjectChecker.fileExtensionOf(icon) != 'svg'?
                       Container(
                         height:

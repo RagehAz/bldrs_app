@@ -33,20 +33,20 @@ class SectionsButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
 @override
 Widget build(BuildContext context) {
-  FlyersProvider _pro =  Provider.of<FlyersProvider>(context, listen: true);
-  Section _currentSection = _pro.getCurrentSection;
+  final FlyersProvider _pro =  Provider.of<FlyersProvider>(context, listen: true);
+  final Section _currentSection = _pro.getCurrentSection;
 
-  double _corners = Ratioz.boxCorner12;
+  final double _corners = Ratioz.boxCorner12;
 
-  bool _designMode = false;
+  final bool _designMode = false;
 
-  String _buttonTitle = Wordz.section(context) ;
+  final String _buttonTitle = Wordz.section(context) ;
 
   // double _btThirdsOfScreenWidth = (_screenWidth - (6*_abPadding))/3;
 
   // double _buttonWidth = _sectionsAreExpanded == true ? _btThirdsOfScreenWidth : null;
 
-  String _sectionName = TextGenerator.sectionStringer(context, _currentSection);
+  final String _sectionName = TextGenerator.sectionStringer(context, _currentSection);
 
   return GestureDetector(
     onTap: onTap == null ? () => _changeSection(context, _pro) : onTap,

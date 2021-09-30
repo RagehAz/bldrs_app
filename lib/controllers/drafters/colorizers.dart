@@ -189,7 +189,7 @@ class BlurLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    bool _blurIsOn = blurIsOn == null ? false : blurIsOn;
+    final bool _blurIsOn = blurIsOn == null ? false : blurIsOn;
 
     return Container(
       width: width,

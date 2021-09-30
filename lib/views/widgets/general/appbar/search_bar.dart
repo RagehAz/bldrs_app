@@ -43,13 +43,13 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
 
-    double _appBarClearWidth = BldrsAppBar.width(context);
+    final double _appBarClearWidth = BldrsAppBar.width(context);
 
     const double _padding = Ratioz.appBarPadding;
-    double _historyButtonWidth = widget.historyButtonIsOn == true ? 40 : 0;
+    final double _historyButtonWidth = widget.historyButtonIsOn == true ? 40 : 0;
     const double _historyButtonHeight = 40;
-    int _numberOFPaddings = widget.historyButtonIsOn == true ? 3 : 2;
-    double _textFieldWidth = _appBarClearWidth - _historyButtonWidth - _padding * _numberOFPaddings;
+    final int _numberOFPaddings = widget.historyButtonIsOn == true ? 3 : 2;
+    final double _textFieldWidth = _appBarClearWidth - _historyButtonWidth - _padding * _numberOFPaddings;
 
         // _appBarClearWidth - (Ratioz.appBarButtonSize + Ratioz.appBarPadding * 3) - 3;
 
