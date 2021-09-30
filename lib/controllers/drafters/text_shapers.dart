@@ -54,7 +54,7 @@ double superVerseSizeValue (BuildContext context, int verseSize, double scalingF
   // _screenHeight * Ratioz.fontSize1
   // ;
 
-  double _verseSizeValue =
+  final double _verseSizeValue =
   (verseSize == 0) ? 8 * scalingFactor
       :
   (verseSize == 1) ? 12 * scalingFactor
@@ -80,7 +80,7 @@ double superVerseSizeValue (BuildContext context, int verseSize, double scalingF
 }
 // -----------------------------------------------------------------------------
 FontWeight superVerseWeight(VerseWeight weight){
-  FontWeight _verseWeight =
+  final FontWeight _verseWeight =
   weight == VerseWeight.thin ? FontWeight.w100 :
   weight == VerseWeight.regular ? FontWeight.w600 :
   weight == VerseWeight.bold ? FontWeight.w100 :
@@ -90,7 +90,7 @@ FontWeight superVerseWeight(VerseWeight weight){
 }
 // -----------------------------------------------------------------------------
 String superVerseFont(BuildContext context, VerseWeight weight){
-  String _verseFont =
+  final String _verseFont =
   weight == VerseWeight.thin ? Wordz.bodyFont(context) :
   weight == VerseWeight.regular ? Wordz.bodyFont(context) :
   weight == VerseWeight.bold ? Wordz.headlineFont(context) :
@@ -100,7 +100,7 @@ String superVerseFont(BuildContext context, VerseWeight weight){
 }
 // -----------------------------------------------------------------------------
 double superVerseLetterSpacing(VerseWeight weight, double verseSizeValue){
-  double _verseLetterSpacing =
+  final double _verseLetterSpacing =
   weight == VerseWeight.thin ? verseSizeValue * 0.035 :
   weight == VerseWeight.regular ? verseSizeValue * 0.03 :
   weight == VerseWeight.bold ? verseSizeValue * 0.05 :
@@ -112,7 +112,7 @@ double superVerseLetterSpacing(VerseWeight weight, double verseSizeValue){
 }
 // -----------------------------------------------------------------------------
 double superVerseWordSpacing(double verseSize){
-  double _verseWordSpacing =
+  final double _verseWordSpacing =
   // weight == VerseWeight.thin ? verseSize * 0.1 :
   // weight == VerseWeight.regular ? verseSize * 0.1 :
   // weight == VerseWeight.bold ? verseSize * 0.1 :
@@ -123,7 +123,7 @@ double superVerseWordSpacing(double verseSize){
 }
 // -----------------------------------------------------------------------------
 double superVerseXOffset(VerseWeight weight, double verseSize){
-  double _shadowXOffset =
+  final double _shadowXOffset =
   weight == VerseWeight.thin ? verseSize * -0.07 :
   weight == VerseWeight.regular ? verseSize * -0.09 :
   weight == VerseWeight.bold ? verseSize * -0.11 :
@@ -133,9 +133,9 @@ double superVerseXOffset(VerseWeight weight, double verseSize){
 }
 // -----------------------------------------------------------------------------
 double superVerseLabelCornerValue(BuildContext context, int size,){
-  double _screenHeight = Scale.superScreenHeight(context);
-  double _labelCornerRatio = 0.4;
-  double _labelCornerValues =
+  final double _screenHeight = Scale.superScreenHeight(context);
+  const double _labelCornerRatio = 0.4;
+  final double _labelCornerValues =
   (size == 0) ? _screenHeight * Ratioz.fontSize0 * _labelCornerRatio// -- 8 -- A77A
       :
   (size == 1) ? _screenHeight * Ratioz.fontSize1 * _labelCornerRatio// -- 10 -- Nano
@@ -160,9 +160,9 @@ double superVerseLabelCornerValue(BuildContext context, int size,){
 }
 // -----------------------------------------------------------------------------
 double superVerseSidePaddingValues(BuildContext context, int size){
-  double _screenHeight = Scale.superScreenHeight(context);
-  double _sidePaddingRatio = 0.45;
-  double _sidePaddingValues =
+  final double _screenHeight = Scale.superScreenHeight(context);
+  const double _sidePaddingRatio = 0.45;
+  final double _sidePaddingValues =
   (size == 0) ? _screenHeight * Ratioz.fontSize0 * _sidePaddingRatio// -- 8 -- A77A
       :
   (size == 1) ? _screenHeight * Ratioz.fontSize1 * _sidePaddingRatio// -- 10 -- Nano
@@ -188,19 +188,18 @@ double superVerseSidePaddingValues(BuildContext context, int size){
 // -----------------------------------------------------------------------------
 /// when SuperVerse has label color, it gets extra margin height, and is included in the final value of this function
 double superVerseRealHeight(BuildContext context, int verseSize, double scalingFactor, Color labelColor){
-  double _sidePaddingValues = superVerseSidePaddingValues(context, verseSize);
-  double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
-  double _verseHeight = (superVerseSizeValue(context, verseSize, scalingFactor) * 1.42) + (_sidePaddings * 0.25 * 0);
+  final double _sidePaddingValues = superVerseSidePaddingValues(context, verseSize);
+  final double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
+  final double _verseHeight = (superVerseSizeValue(context, verseSize, scalingFactor) * 1.42) + (_sidePaddings * 0.25 * 0);
   return _verseHeight;
 }
 // -----------------------------------------------------------------------------
 double superVerseLabelMargin(BuildContext context, int verseSize, double scalingFactor, bool labelIsOn){
-  double _sidePaddingValues = superVerseSidePaddingValues(context, verseSize);
-  double _sidePaddings = labelIsOn == false ? 0 : _sidePaddingValues;
-  double _superVerseLabelMargin = _sidePaddings * 0.25;
+  final double _sidePaddingValues = superVerseSidePaddingValues(context, verseSize);
+  final double _sidePaddings = labelIsOn == false ? 0 : _sidePaddingValues;
+  final double _superVerseLabelMargin = _sidePaddings * 0.25;
   return _superVerseLabelMargin;
 }
-// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 TextStyle superVerseDefaultStyle(BuildContext context){
   return

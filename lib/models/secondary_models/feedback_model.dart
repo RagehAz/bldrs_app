@@ -7,7 +7,7 @@ class FeedbackModel{
   final DateTime timeStamp;
   final String feedback;
 
-  FeedbackModel({
+  const FeedbackModel({
     this.id,
     @required this.userID,
     @required this.timeStamp,
@@ -34,7 +34,7 @@ static FeedbackModel decipherFeedbackMap(Map<String, dynamic> map){
 }
 // -----------------------------------------------------------------------------
 static List<FeedbackModel> decipherFeedbacks(List<dynamic> maps){
-    List<FeedbackModel> _feedbacks = [];
+    final List<FeedbackModel> _feedbacks = <FeedbackModel>[];
 
     if (maps != null && maps.isNotEmpty){
 

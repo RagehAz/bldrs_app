@@ -7,7 +7,7 @@ class Namez{
   final String id;
   final List<Name> names;
 
-  Namez({
+  const Namez({
     @required this.id,
     @required this.names,
 });
@@ -21,7 +21,7 @@ class Name {
   /// name in this language
   final String value;
 
-  Name({
+  const Name({
     @required this.code,
     @required this.value,
   });
@@ -34,7 +34,7 @@ class Name {
   }
 // -----------------------------------------------------------------------------
   static List<Map<String, dynamic>> cipherNamezz(List<Name> namezz) {
-    List<Map<String, dynamic>> _namezMaps = [];
+    final List<Map<String, dynamic>> _namezMaps = <Map<String, dynamic>>[];
     namezz.forEach((nm) {
       _namezMaps.add(nm.toMap());
     });
@@ -49,7 +49,7 @@ class Name {
   }
 // -----------------------------------------------------------------------------
   static List<Name> decipherNamezzMaps(List<dynamic> maps) {
-    List<Name> _namez = [];
+    final List<Name> _namez = <Name>[];
     maps?.forEach((map) {
       _namez.add(decipherNamezMap(map));
     });
@@ -57,7 +57,7 @@ class Name {
   }
 // -----------------------------------------------------------------------------
   static String getNameByCurrentLingoFromNames(BuildContext context, List<Name> namez,) {
-    String _currentLanguageCode = Wordz.languageCode(context);
+    final String _currentLanguageCode = Wordz.languageCode(context);
     String _name;
 
       _name = getNameByLingoFromNames(
@@ -75,10 +75,10 @@ class Name {
 
     if (names != null && names.length != 0) {
 
-      Name _englishName = names.firstWhere((name) =>
-      name.code == Lingo.English, orElse: () => null);
+      final Name _englishName = names.firstWhere((name) =>
+      name.code == Lingo.englishLingo.code, orElse: () => null);
 
-      Name _nameByLingo = names.firstWhere((name) =>
+      final Name _nameByLingo = names.firstWhere((name) =>
       name.code == LingoCode, orElse: () => null);
 
       _foundName = _nameByLingo == null ? _englishName?.value : _nameByLingo?.value;

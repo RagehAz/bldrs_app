@@ -29,7 +29,7 @@ class MapModel{
   }
 // -----------------------------------------------------------------------------
   static List<MapModel> getModelsFromMap(Map<String, dynamic> map){
-    List<MapModel> _models = <MapModel>[];
+    final List<MapModel> _models = <MapModel>[];
 
     if (map != null){
       map.forEach((key, value) => _models.add(MapModel(key: key, value: value)));

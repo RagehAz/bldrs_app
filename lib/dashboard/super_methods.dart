@@ -11,49 +11,49 @@ class SuperBldrsMethod{
 // -----------------------------------------------------------------------------
   static Future<List<UserModel>> readAllUserModels({int limit}) async {
 
-    List<dynamic> _maps = await Fire.readCollectionDocs(
+    final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
       collectionName: FireCollection.users,
       addDocSnapshotToEachMap: false,
       orderBy: 'userID',
     );
 
-    List<UserModel> _allModels = UserModel.decipherUsersMaps(_maps);
+    final List<UserModel> _allModels = UserModel.decipherUsersMaps(_maps);
 
     return _allModels;
   }
 // -----------------------------------------------------------------------------
   static Future<List<NotiModel>> readAllNotiModels({BuildContext context, String userID,}) async {
 
-    List<dynamic> _maps = await Fire.readSubCollectionDocs(
+    final List<dynamic> _maps = await Fire.readSubCollectionDocs(
       context: context,
       collName: FireCollection.users,
       docName: userID,
       subCollName: FireCollection.users_user_notifications,
     );
 
-    List<NotiModel> _allModels = NotiModel.decipherNotiModels(_maps);
+    final List<NotiModel> _allModels = NotiModel.decipherNotiModels(_maps);
 
     return _allModels;
   }
 // -----------------------------------------------------------------------------
   static Future<List<BzModel>> readAllBzzModels({BuildContext context, int limit,}) async {
 
-    List<dynamic> _maps = await Fire.readCollectionDocs(
+    final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
       collectionName: FireCollection.bzz,
       addDocSnapshotToEachMap: false,
       orderBy: 'bzID',
     );
 
-    List<BzModel> _allModels = BzModel.decipherBzzMapsFromFireStore(_maps);
+    final List<BzModel> _allModels = BzModel.decipherBzzMapsFromFireStore(_maps);
 
     return _allModels;
   }
 // -----------------------------------------------------------------------------
   static Future<List<FeedbackModel>> readAllFeedbacks({BuildContext context, int limit,}) async {
 
-    List<dynamic> _maps = await Fire.readCollectionDocs(
+    final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
       collectionName: FireCollection.feedbacks,
       addDocSnapshotToEachMap: false,
@@ -61,14 +61,14 @@ class SuperBldrsMethod{
       orderBy: 'timeStamp',
     );
 
-    List<FeedbackModel> _allModels = FeedbackModel.decipherFeedbacks(_maps);
+    final List<FeedbackModel> _allModels = FeedbackModel.decipherFeedbacks(_maps);
 
     return _allModels;
   }
 // -----------------------------------------------------------------------------
   static Future<List<FlyerModel>> readAllFlyers({BuildContext context, int limit,}) async {
 
-    List<dynamic> _maps = await Fire.readCollectionDocs(
+    final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
       collectionName: FireCollection.flyers,
       addDocSnapshotToEachMap: false,
@@ -76,14 +76,14 @@ class SuperBldrsMethod{
       orderBy: 'flyerID',
     );
 
-    List<FlyerModel> _allModels = FlyerModel.decipherFlyersMaps(_maps);
+    final List<FlyerModel> _allModels = FlyerModel.decipherFlyersMaps(_maps);
 
     return _allModels;
   }
 // -----------------------------------------------------------------------------
   static Future<List<TinyFlyer>> readAllTinyFlyers({BuildContext context, int limit,}) async {
 
-    List<dynamic> _maps = await Fire.readCollectionDocs(
+    final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
       collectionName: FireCollection.tinyFlyers,
       addDocSnapshotToEachMap: false,
@@ -91,7 +91,7 @@ class SuperBldrsMethod{
       orderBy: 'flyerID',
     );
 
-    List<TinyFlyer> _allModels = TinyFlyer.decipherTinyFlyersMaps(_maps);
+    final List<TinyFlyer> _allModels = TinyFlyer.decipherTinyFlyersMaps(_maps);
 
     return _allModels;
   }

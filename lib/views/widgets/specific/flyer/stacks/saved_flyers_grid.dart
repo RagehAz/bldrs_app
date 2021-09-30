@@ -1,11 +1,11 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/gallery_grid.dart';

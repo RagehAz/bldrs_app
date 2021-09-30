@@ -6,10 +6,10 @@ class TextMod {
 
     List<String> _result = strings;
 
-    bool _containsIt = strings.contains(stringToAdd) == true;
+    final bool _containsIt = strings.contains(stringToAdd) == true;
 
     if (_containsIt == false){
-      _result = [...strings, stringToAdd];
+      _result = <String> [...strings, stringToAdd];
     }
 
     return _result;
@@ -17,14 +17,14 @@ class TextMod {
 
 // -----------------------------------------------------------------------------
   static List<String> sortAlphabetically(List<String> inputList){
-  List<String> _outputList = [];
+  List<String> _outputList = <String>[];
   inputList.sort();
   _outputList = inputList;
   return _outputList;
 }
 // -----------------------------------------------------------------------------
   static List<String> sortAlphabetically2(List<String> inputList){
-  // List<String> _outputList = [];
+  // List<String> _outputList = <String>[];
 
   inputList.sort((a, b) => a.toString().compareTo(b.toString()));
 
@@ -34,11 +34,11 @@ class TextMod {
   static String firstCharacterAfterRemovingSpacesFromAString(String string){
   String _output;
 
-  String _stringTrimmed = string.trim();
+  final String _stringTrimmed = string.trim();
 
-  String _stringWithoutSpaces = removeSpacesFromAString(_stringTrimmed);
+  final String _stringWithoutSpaces = removeSpacesFromAString(_stringTrimmed);
 
-  String _firstCharacter = firstCharacterOfAString(_stringWithoutSpaces);
+  final String _firstCharacter = firstCharacterOfAString(_stringWithoutSpaces);
 
   _output =
   _stringWithoutSpaces == null || _stringWithoutSpaces == '' || _stringWithoutSpaces == ' '? null :
@@ -50,7 +50,7 @@ class TextMod {
 }
 // -----------------------------------------------------------------------------
   static String removeFirstCharacterFromAString(String string){
-  String stringWithoutFirstCharacter = string.length >0 ? string?.substring(1) : null;
+    final String stringWithoutFirstCharacter = string.length >0 ? string?.substring(1) : null;
   return stringWithoutFirstCharacter;
 }
 // -----------------------------------------------------------------------------
@@ -106,7 +106,7 @@ class TextMod {
       /// solution 4
       // string.split(" ").join("");
       /// solution 5
-      String _output = string.toLowerCase().replaceAll(' ', '');
+      final String _output = string.toLowerCase().replaceAll(' ', '');
       /// solution 6
       /// String replaceWhitespacesUsingRegex(String s, String replace) {
       ///   if (s == null) {
@@ -121,9 +121,9 @@ class TextMod {
       ///
       /// ---> I'm just going to shortcut the above method here below
       // string?.replaceAll(new RegExp('\\s+'),'');
-      String _output2 = _output?.replaceAll('‎', '');
-      String _output3 = _output2?.replaceAll('‏', '');
-      String _output4 = _output3?.replaceAll('‎ ', '');
+      final String _output2 = _output?.replaceAll('‎', '');
+      final String _output3 = _output2?.replaceAll('‏', '');
+      final String _output4 = _output3?.replaceAll('‎ ', '');
       _output5 = _output4?.replaceAll(' ‏', '');
     }
 
@@ -132,7 +132,7 @@ class TextMod {
 }
 // -----------------------------------------------------------------------------
   static String firstCharacterOfAString(String string){
-  String _output = string == null || string.length == 0 || string == '' || string == ' '? null :
+    final String _output = string == null || string.length == 0 || string == '' || string == ' '? null :
   string?.substring(0,1);
 
 
@@ -142,10 +142,10 @@ class TextMod {
 }
 // -----------------------------------------------------------------------------
   static String lastTwoSubStringsFromAString(String string){
-  List<String> _stringSplit = string.split('');
-  int _listLength = _stringSplit.length;
-  int _lastIndex = _listLength - 1;
-  int _beforeLastIndex = _listLength - 2;
+    final List<String> _stringSplit = string.split('');
+    final int _listLength = _stringSplit.length;
+    final int _lastIndex = _listLength - 1;
+    final int _beforeLastIndex = _listLength - 2;
 
   return
     _listLength == 0 ? null :
@@ -155,31 +155,31 @@ class TextMod {
   static String trimTextAfterFirstSpecialCharacter(String verse, String specialCharacter){
     // int _position = verse == null ? null : verse.indexOf(specialCharacter);
 
-    String _result = verse == null ? null : verse.substring(0, verse.indexOf(specialCharacter));
+    final String _result = verse == null ? null : verse.substring(0, verse.indexOf(specialCharacter));
   return _result;
 }
 // -----------------------------------------------------------------------------
   static String trimTextBeforeFirstSpecialCharacter(String verse, String specialCharacter){
-  int _position = verse == null ? null : verse.indexOf(specialCharacter);
-  String _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
-  return _result;
+    final int _position = verse == null ? null : verse.indexOf(specialCharacter);
+    final String _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
+    return _result;
 }
 // -----------------------------------------------------------------------------
   static String trimTextAfterLastSpecialCharacter(String verse, String specialCharacter){
-  String _result = verse == null ? null : verse.substring(0, verse.lastIndexOf(specialCharacter));
+    final String _result = verse == null ? null : verse.substring(0, verse.lastIndexOf(specialCharacter));
   return _result;
 }
 // -----------------------------------------------------------------------------
   static String trimTextBeforeLastSpecialCharacter(String verse, String specialCharacter){
-  int _position = verse == null ? null : verse.lastIndexOf(specialCharacter);
-  String _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
+    final int _position = verse == null ? null : verse.lastIndexOf(specialCharacter);
+    final String _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
   return _result;
 }
 // -----------------------------------------------------------------------------
 /// this trims paths like
 /// 'assets/xx/pp_sodic/builds_1.jpg' to 'builds_1.jpg'
   static String getFileNameFromAsset(String asset){
-  String _fileName = trimTextBeforeLastSpecialCharacter(asset, '/');
+    final String _fileName = trimTextBeforeLastSpecialCharacter(asset, '/');
   return _fileName;
 }
 // -----------------------------------------------------------------------------
@@ -223,12 +223,12 @@ class TextMod {
 }
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> getValueAndTrueMap(List<String> list){
-  Map<String, dynamic> _result = { for (var string in list) string : true };
+    final Map<String, dynamic> _result = { for (var string in list) string : true };
   return _result;
 }
 // -----------------------------------------------------------------------------
   static List<dynamic> getValuesFromValueAndTrueMap(Map<String, dynamic> map){
-    List<dynamic> _flyersIDs = map.keys.toList();
+    final List<dynamic> _flyersIDs = map.keys.toList();
     return _flyersIDs;
 }
 // -----------------------------------------------------------------------------
@@ -237,7 +237,7 @@ class TextMod {
   }
 // -----------------------------------------------------------------------------
   static List<String> createTrigram({@required String input, int maxTrigramLength}){
-    List<String> _trigram = [];
+    List<String> _trigram = <String>[];
 
     /// 0 - to lower cases
     final String _lowerCased = input.toLowerCase();
@@ -257,7 +257,7 @@ class TextMod {
     /// 4 - loop through trigram length 3 -> 4 -> 5 -> ... -> _charactersLength
     for (int trigramLength = 3; trigramLength <= _maxTrigramLength; trigramLength++){
 
-      int _difference = trigramLength - 1;
+      final int _difference = trigramLength - 1;
 
       /// 5 - loop in characters
       for (int i = 0; i < _charactersLength - _difference; i++){

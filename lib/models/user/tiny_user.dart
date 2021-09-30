@@ -15,7 +15,7 @@ class TinyUser {
   final String email;
   final String phone;
 
-  TinyUser({
+  const TinyUser({
     this.userID,
     this.name,
     this.title,
@@ -92,8 +92,8 @@ class TinyUser {
   }
 // -----------------------------------------------------------------------------
   static TinyUser getTinyAuthorFromBzModel({BzModel bzModel, String authorID}){
-    AuthorModel _author = bzModel.bzAuthors.singleWhere((au) => au.userID == authorID, orElse: ()=> null);
-    TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
+    final AuthorModel _author = bzModel.bzAuthors.singleWhere((au) => au.userID == authorID, orElse: ()=> null);
+    final TinyUser _tinyAuthor = getTinyAuthorFromAuthorModel(_author);
     return _tinyAuthor;
   }
 // -----------------------------------------------------------------------------
@@ -148,32 +148,32 @@ class TinyUser {
 // -----------------------------------------------------------------------------
   static List<TinyUser> dummyTinyUsers({int numberOfUsers}){
 
-    List<TinyUser> _users = <TinyUser>[
-      TinyUser(
+    List<TinyUser> _users = const <TinyUser>[
+      const TinyUser(
         name: 'Ahmad Ali',
         pic: Iconz.DumAuthorPic,
         userID: '1',
         title: 'CEO and Founder',
       ),
-      TinyUser(
+      const TinyUser(
         name: 'Morgan Darwish',
         pic: Dumz.XXabohassan_author,
         userID: '2',
         title: 'Chairman',
       ),
-      TinyUser(
+      const TinyUser(
         name: 'Zahi Fayez',
         pic: Dumz.XXzah_author,
         userID: '3',
         title: ' Marketing Director',
       ),
-      TinyUser(
+      const TinyUser(
         name: 'Hani Wani',
         pic: Dumz.XXhs_author,
         userID: '4',
         title: 'Operations Manager',
       ),
-      TinyUser(
+      const TinyUser(
         name: 'Nada Mohsen',
         pic: Dumz.XXmhdh_author,
         userID: '5',
@@ -182,8 +182,8 @@ class TinyUser {
     ];
 
     if (numberOfUsers != null){
-      List<int> _randomIndexes = Numberers.getRandomIndexes(numberOfIndexes: numberOfUsers, maxIndex: _users.length - 1);
-      List<TinyUser> _finalList = [];
+      final List<int> _randomIndexes = Numberers.getRandomIndexes(numberOfIndexes: numberOfUsers, maxIndex: _users.length - 1);
+      final List<TinyUser> _finalList = <TinyUser>[];
 
       for (int i = 0; i < _randomIndexes.length; i++){
         _finalList.add(_users[_randomIndexes[i]]);

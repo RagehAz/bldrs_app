@@ -5,20 +5,20 @@ import 'package:flutter/material.dart';
 
 class CloudFunctionz{
 
-  static String funcName_myFunction = 'myFunction';
+  static const String funcName_myFunction = 'myFunction';
   // static String callable_toBlackHole = 'toBlackHole';
-  static String callable_randomNumber = 'randomNumber';
-  static String callable_sayHello = 'x_sayHello';
+  static const String callable_randomNumber = 'randomNumber';
+  static const String callable_sayHello = 'x_sayHello';
 
   /// http trigger -> ( callable function - end point request )
   static Future<dynamic> callFunction({@required BuildContext context, String cloudFunctionName, Map<String, dynamic> toDBMap}) async {
-    final HttpsCallable function = _getCallableFunction(funcName: cloudFunctionName);
+    final HttpsCallable _function = _getCallableFunction(funcName: cloudFunctionName);
 
     try {
 
-      Map<String, dynamic> arguments = toDBMap == null ? {} : toDBMap;
+      final Map<String, dynamic> _arguments = toDBMap == null ? {} : toDBMap;
 
-      final _result = await function.call(arguments);
+      final _result = await _function.call(_arguments);
 
       return _result.data;
     }
@@ -27,17 +27,17 @@ class CloudFunctionz{
 
       print('THE ERROR IS : xxxxx[${e.toString()}]xxxxx');
 
-      bool unauthenticated = TextChecker.stringContainsSubString(
+      final bool _unauthenticated = TextChecker.stringContainsSubString(
         string: e.toString(),
         subString: '/unauthenticated]',
         caseSensitive: true,
         multiLine: true,
       );
 
-      print('unauthenticated IS $unauthenticated');
+      print('unauthenticated IS $_unauthenticated');
 
 
-      if (unauthenticated == true){
+      if (_unauthenticated == true){
 
         await CenterDialog.showCenterDialog(
           context: context,

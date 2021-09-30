@@ -17,8 +17,8 @@ class SelectLanguageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<Lingo> _languagesModels = Lingo.allLanguages();
-    List<Map<String ,String>> _languageMaps = Lingo.cipherLingosToMaps(_languagesModels);
+    const List<Lingo> _languagesModels = Lingo.allLanguages;
+    final List<Map<String ,String>> _languageMaps = Lingo.cipherLingosToMaps(_languagesModels);
 
     return ListLayout(
       pyramids: Iconz.PyramidzYellow,

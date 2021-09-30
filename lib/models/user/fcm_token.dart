@@ -5,14 +5,13 @@ class FCMToken {
   final DateTime createdAt;
   final String platform;
 
-  FCMToken({
+  const FCMToken({
     @required this.token,
     @required this.createdAt,
     @required this.platform,
 });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
-
     return
         {
           'token' : token,

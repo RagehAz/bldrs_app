@@ -6,7 +6,7 @@ class LDBColumn{
   final String type;
   final bool isPrimary;
 
-  LDBColumn({
+  const LDBColumn({
     @required this.key,
     @required this.type,
     this.isPrimary = false,
@@ -14,7 +14,7 @@ class LDBColumn{
 // -----------------------------------------------------------------------------
   static String _getSQLQueryFromColumn({LDBColumn column}){
 
-    String _primary = column.isPrimary == true ? ' PRIMARY KEY' : '';
+    final String _primary = column.isPrimary == true ? ' PRIMARY KEY' : '';
 
     return
       '${column.key} ${column.type}$_primary, ';
@@ -30,7 +30,7 @@ class LDBColumn{
 
     });
 
-    String _sqlWithoutLastSpace = TextMod.trimTextAfterLastSpecialCharacter(_sqlQuery, ',');
+    final String _sqlWithoutLastSpace = TextMod.trimTextAfterLastSpecialCharacter(_sqlQuery, ',');
 
     return _sqlWithoutLastSpace;
   }
@@ -48,16 +48,16 @@ class LDBColumn{
 
     }
 
-    String _outputAfterRemovingLastComma = TextMod.trimTextAfterLastSpecialCharacter(_output, ',');
+    final String _outputAfterRemovingLastComma = TextMod.trimTextAfterLastSpecialCharacter(_output, ',');
 
-    String _finalOutput = '($_outputAfterRemovingLastComma)';
+    final String _finalOutput = '($_outputAfterRemovingLastComma)';
 
     return _finalOutput;
   }
 // -----------------------------------------------------------------------------
   static String getPrimaryKeyFromColumns(List<LDBColumn> columns){
-    LDBColumn _primaryColumn = columns.singleWhere((column) => column.isPrimary == true, orElse: ()=> null);
-    String _primaryKey = _primaryColumn == null ? null : _primaryColumn.key;
+    final LDBColumn _primaryColumn = columns.singleWhere((column) => column.isPrimary == true, orElse: ()=> null);
+    final String _primaryKey = _primaryColumn == null ? null : _primaryColumn.key;
     return _primaryKey;
   }
 // -----------------------------------------------------------------------------

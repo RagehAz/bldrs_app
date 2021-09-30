@@ -27,7 +27,7 @@ class UserModel {
   final bool isAdmin;
   final FCMToken fcmToken;
 // ###############################
-  UserModel({
+  const UserModel({
     this.userID,
     this.authBy,
     this.createdAt,
@@ -104,7 +104,7 @@ class UserModel {
   }
 // -----------------------------------------------------------------------------
   static List<UserModel> decipherUsersMaps(List<dynamic> maps){
-    List<UserModel> _users = [];
+    final List<UserModel> _users = <UserModel>[];
 
     if (maps != null && maps.length != 0){
 
@@ -195,7 +195,7 @@ class UserModel {
       _userIsAuthor;
   }
 // -----------------------------------------------------------------------------
-  static List<UserStatus> userTypesList = <UserStatus>[
+  static const List<UserStatus> userTypesList = const <UserStatus>[
     UserStatus.Normal,
     UserStatus.SearchingThinking,
     UserStatus.Finishing,
@@ -207,7 +207,7 @@ class UserModel {
   ];
 // -----------------------------------------------------------------------------
   static List<dynamic> removeBzIDFromMyBzzIDs(List<dynamic> myBzzIDs, String bzID){
-    int _bzIndex = myBzzIDs.indexWhere((id) => id == bzID,);
+    final int _bzIndex = myBzzIDs.indexWhere((id) => id == bzID,);
 
     if (_bzIndex != null){
       myBzzIDs.removeAt(_bzIndex);
@@ -236,9 +236,9 @@ class UserModel {
         zone: null,
         language: 'en',
         position: GeoPoint(0, 0),
-        contacts: [],
+        contacts: <ContactModel>[],
         // -------------------------
-        myBzzIDs: [],
+        myBzzIDs: <String>[],
         emailIsVerified: user.emailVerified,
         isAdmin: false,
         fcmToken: null,
@@ -261,7 +261,7 @@ class UserModel {
     print('createInitialUserModelFromUser : _user.getIdToken() != null : ${user.getIdToken() != null}');
 
 
-    UserModel _userModel = UserModel(
+    final UserModel _userModel = UserModel(
       userID: user.uid,
       authBy: authBy,
       createdAt: DateTime.now(),
@@ -276,7 +276,7 @@ class UserModel {
       position: null,
       contacts: ContactModel.getContactsFromFirebaseUser(user),
       // -------------------------
-      myBzzIDs: [],
+      myBzzIDs: <String>[],
       emailIsVerified: user.emailVerified,
       isAdmin: false,
       company: null,
@@ -289,7 +289,7 @@ class UserModel {
 }
 // -----------------------------------------------------------------------------
   static List<String> missingFields(UserModel userModel){
-    List<String> _missingFields = [];
+    final List<String> _missingFields = <String>[];
 
     if (userModel?.name == null || userModel?.name == ''){_missingFields.add('name');}
     if (userModel?.pic == null || userModel?.pic == ''){_missingFields.add('pic');}
@@ -328,7 +328,7 @@ class UserModel {
 // -----------------------------------------------------------------------------
   static Future<UserModel> dummyUserModel(BuildContext context) async {
 
-    UserModel _user = await UserOps().readUserOps(
+    final UserModel _user = await UserOps().readUserOps(
       context: context,
       userID: '60a1SPzftGdH6rt15NF96m0j9Et2',
     );

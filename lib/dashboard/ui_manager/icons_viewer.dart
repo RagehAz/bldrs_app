@@ -14,16 +14,15 @@ class BldrsIconsViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<String> _icons = Iconz.allIconz();
+    final List<String> _icons = Iconz.allIconz();
 
+    const double _gridSpacing = Ratioz.appBarMargin;
 
-    double _gridSpacing = Ratioz.appBarMargin;
+    const int _numberOfIconsInARow = 3;
 
-    int _numberOfIconsInARow = 3;
+    final double _iconBoxSize = Scale.getUniformRowItemWidth(context, _numberOfIconsInARow);
 
-    double _iconBoxSize = Scale.getUniformRowItemWidth(context, _numberOfIconsInARow);
-
-    SliverGridDelegate _gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+    final SliverGridDelegate _gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisSpacing: _gridSpacing,
       mainAxisSpacing: _gridSpacing,
       childAspectRatio: 1 / 1.25,

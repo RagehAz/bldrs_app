@@ -40,15 +40,15 @@ TextDirection superInverseTextDirection(BuildContext context){
 TextDirection superTextDirectionSwitcherByController(TextEditingController controller){
   TextDirection _textDirection;
 
-  bool controllerIsEmpty = TextChecker.textControllerHasNoValue(controller);
+  final bool controllerIsEmpty = TextChecker.textControllerHasNoValue(controller);
 
   if (!controllerIsEmpty){
 
-    String _string = controller.text;
+    final String _string = controller.text;
 
-    String _trimmedVal = TextMod.removeSpacesFromAString(_string.trim());
+    final String _trimmedVal = TextMod.removeSpacesFromAString(_string.trim());
 
-    String _firstCharacter = TextMod.firstCharacterOfAString(_trimmedVal);
+    final String _firstCharacter = TextMod.firstCharacterOfAString(_trimmedVal);
 
     // String _val = _trimmedVal; // first character defines the direction
 
@@ -74,16 +74,14 @@ TextDirection superTextDirectionSwitcher(String val){
   // TextDirection _defaultByLang = _appIsLeftToRight == true ? TextDirection.ltr : TextDirection.rtl;
 
 
-  bool controllerIsEmpty = TextChecker.stringHasNoValue(val);
+  final bool _controllerIsEmpty = TextChecker.stringHasNoValue(val);
 
   /// when val has a value
-  if (!controllerIsEmpty){
+  if (!_controllerIsEmpty){
 
-    String _string = val;
+    final String _trimmedVal = TextMod.removeSpacesFromAString(val.trim());
 
-    String _trimmedVal = TextMod.removeSpacesFromAString(_string.trim());
-
-    String _firstCharacter = TextMod.firstCharacterOfAString(_trimmedVal);
+    final String _firstCharacter = TextMod.firstCharacterOfAString(_trimmedVal);
 
     // String _val = _trimmedVal; // first character defines the direction
 

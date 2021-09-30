@@ -17,7 +17,7 @@ class Lingo{
   final String code;
   final String name;
 
-  Lingo ({
+  const Lingo ({
     @required this.code,
     @required this.name,
   });
@@ -31,7 +31,7 @@ class Lingo{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String, String>> cipherLingosToMaps(List<Lingo> lingos){
-    List<Map<String, String>> _maps = [];
+    List<Map<String, String>> _maps = <Map<String, String>>[];
 
     for (Lingo lingo in lingos){
       _maps.add(cipherLingoToMap(lingo));
@@ -52,26 +52,39 @@ class Lingo{
     return _lingo;
   }
 // -----------------------------------------------------------------------------
-  static List<Lingo> allLanguages(){
-    return <Lingo>[
-      Lingo(code: 'en' , name: 'English'),
-      Lingo(code: 'ar' , name: 'عربي'),
-      Lingo(code: 'es' , name: 'Español'),
-      Lingo(code: 'fr' , name: 'Française'),
-      Lingo(code: 'zh' , name: '中文'),
-      Lingo(code: 'de' , name: 'Deutsche'),
-      Lingo(code: 'it' , name: 'Italiano'),
+  static const List<Lingo> allLanguages = <Lingo>[
+      englishLingo,
+      arabicLingo,
+      spanishLingo,
+      frenchLingo,
+      russianLingo,
+      chineseLingo,
+      germanLingo,
     ];
-  }
 // -----------------------------------------------------------------------------
-  static const String English = 'en';
-  static const String Arabic = 'ar';
-  static const String Spanish = 'es';
-  static const String French = 'fr';
-  static const String Russian = 'ru';
-  static const String Chinese = 'zh';
-  static const String German = 'de';
-  static const String Italian = 'it';
+  static const String englishCode = 'en';
+  static const Lingo englishLingo = const Lingo(code: englishCode, name: 'English');
+
+  static const String arabicCode = 'ar';
+  static const Lingo arabicLingo = const Lingo(code: arabicCode, name: 'عربي');
+
+  static const String spanishCode = 'ar';
+  static const Lingo spanishLingo = const Lingo(code: spanishCode, name: 'Español');
+
+  static const String frenchCode = 'fr';
+  static const Lingo frenchLingo = const Lingo(code: frenchCode, name: 'Française');
+
+  static const String russianCode = 'ru';
+  static const Lingo russianLingo = const Lingo(code: russianCode, name: 'русский');
+
+  static const String chineseCode = 'zh';
+  static const Lingo chineseLingo = const Lingo(code: chineseCode, name: '中文');
+
+  static const String germanCode = 'de';
+  static const Lingo germanLingo = const Lingo(code: germanCode, name: 'Deutsche');
+
+  static const String italianCode = 'it';
+  static const Lingo italianLingo = const Lingo(code: italianCode, name: 'Italiano');
 // -----------------------------------------------------------------------------
 
 }

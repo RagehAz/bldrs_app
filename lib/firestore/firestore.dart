@@ -49,14 +49,14 @@ class FireCollection{
 }
 
 class StorageDoc{
-  static String usersPics     = 'usersPics';   // uses userID as file name
-  static String authorsPics   = 'authorsPics'; // uses userID as file name
-  static String bzLogos       = 'bzLogos';     // uses bzID as file name
-  static String slideHighRes  = 'slidesPics';  // uses flyerID_slideIndex as file name
-  static String slideLowRes   = 'slidesPicsLow';  // uses flyerID_slideIndex as file name
-  static String dumz          = 'dumz';
-  static String askPics       = 'askPics';
-  static String notiBanners = 'notiBanners';
+  static const String usersPics     = 'usersPics';   // uses userID as file name
+  static const String authorsPics   = 'authorsPics'; // uses userID as file name
+  static const String bzLogos       = 'bzLogos';     // uses bzID as file name
+  static const String slideHighRes  = 'slidesPics';  // uses flyerID_slideIndex as file name
+  static const String slideLowRes   = 'slidesPicsLow';  // uses flyerID_slideIndex as file name
+  static const String dumz          = 'dumz';
+  static const String askPics       = 'askPics';
+  static const String notiBanners = 'notiBanners';
 // -----------------------------------------------------------------------------
   static String docName(PicType picType){
     switch (picType){
@@ -103,13 +103,13 @@ class Fire{
 // =============================================================================
   static CollectionReference getCollectionRef (String collName){
     final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
-    CollectionReference _collection = _fireInstance.collection(collName);
+    final CollectionReference _collection = _fireInstance.collection(collName);
     return _collection;
   }
 // -----------------------------------------------------------------------------
   static DocumentReference getDocRef ({String collName, String docName}){
-    CollectionReference _collection = Fire.getCollectionRef(collName);
-    DocumentReference _doc =  _collection.doc(docName);
+    final CollectionReference _collection = Fire.getCollectionRef(collName);
+    final DocumentReference _doc =  _collection.doc(docName);
 
     // or this syntax
     // final DocumentReference _doc =
@@ -153,7 +153,7 @@ class Fire{
   static Future<dynamic> _getMapByDocRef(DocumentReference docRef) async {
     dynamic _map;
 
-    DocumentSnapshot snapshot = await docRef.get();
+    final DocumentSnapshot snapshot = await docRef.get();
 
     if (snapshot.exists == true){
       _map = Mapper.getMapFromDocumentSnapshot(snapshot);
@@ -245,7 +245,7 @@ class Fire{
     /// updates the sub doc if existed
     /// and creates random name for sub doc if sub doc name is null
 
-    DocumentReference _subDocRef = await createNamedSubDoc(
+    final DocumentReference _subDocRef = await createNamedSubDoc(
       context: context,
       collName: collName,
       docName: docName,
@@ -302,7 +302,7 @@ class Fire{
     bool addDocID,
   }) async {
 
-    QueryDocumentSnapshot _startAfter = startAfter ?? null;
+    final QueryDocumentSnapshot _startAfter = startAfter ?? null;
 
     QuerySnapshot _collectionSnapshot;
 
@@ -317,11 +317,12 @@ class Fire{
 
 
 
-    List<QueryDocumentSnapshot> _docsSnapshots = _collectionSnapshot.docs;
+    final List<QueryDocumentSnapshot> _docsSnapshots = _collectionSnapshot.docs;
 
     /// to return maps
-    List<dynamic> _maps = [];
-    for (var docSnapshot in _docsSnapshots){
+    final List<dynamic> _maps = <dynamic>[];
+
+    for (QueryDocumentSnapshot docSnapshot in _docsSnapshots){
 
       Map<String, dynamic> _map = docSnapshot.data();
 
@@ -362,7 +363,7 @@ class Fire{
 
     // print('readDoc() : _map starts as : $_map');
 
-    dynamic _result = await tryCatchAndReturn(
+    final dynamic _result = await tryCatchAndReturn(
       context: context,
       methodName: 'readDoc',
       functions: () async {
@@ -421,7 +422,7 @@ class Fire{
     String subCollName,
   }) async {
 
-    List<Map<String, dynamic>> _maps = [];
+    List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     await tryAndCatch(
         context: context,
@@ -507,8 +508,8 @@ class Fire{
   }
 // ====================================---
   static Stream<QuerySnapshot> streamCollection(String collectionName){
-    CollectionReference _collection = Fire.getCollectionRef(collectionName);
-    Stream<QuerySnapshot> _snapshots = _collection.snapshots();
+    final CollectionReference _collection = Fire.getCollectionRef(collectionName);
+    final Stream<QuerySnapshot> _snapshots = _collection.snapshots();
     return _snapshots;
   }
 // -----------------------------------------------------------------------------
@@ -521,7 +522,8 @@ class Fire{
     String field,
     dynamic compareValue,
   }){
-    CollectionReference _collection = Fire.getSubCollectionRef(
+
+    final CollectionReference _collection = Fire.getSubCollectionRef(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
@@ -548,11 +550,11 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Stream<DocumentSnapshot> streamDoc(String collectionName, String documentName){
-    DocumentReference _document = Fire.getDocRef(
+    final DocumentReference _document = Fire.getDocRef(
         collName: collectionName,
         docName: documentName
     );
-    Stream<DocumentSnapshot> _snapshots = _document.snapshots();
+    final Stream<DocumentSnapshot> _snapshots = _document.snapshots();
     return _snapshots;
   }
 // -----------------------------------------------------------------------------
@@ -562,15 +564,16 @@ class Fire{
     String subCollName,
     String subDocName,
   }){
-    DocumentReference _document = Fire.getSubDocRef(
+
+    final DocumentReference _document = Fire.getSubDocRef(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
       subDocName: subDocName,
     );
 
+    final Stream<DocumentSnapshot> _snapshots = _document.snapshots();
 
-    Stream<DocumentSnapshot> _snapshots = _document.snapshots();
     return _snapshots;
   }
 // =============================================================================
@@ -611,7 +614,7 @@ class Fire{
     dynamic input
   }) async {
 
-    DocumentReference _doc =  Fire.getDocRef(
+    final DocumentReference _doc =  Fire.getDocRef(
         collName: collName,
         docName: docName
     );
@@ -680,7 +683,7 @@ class Fire{
     dynamic input
   }) async {
 
-    DocumentReference _subDoc =  Fire.getSubDocRef(
+    final DocumentReference _subDoc =  Fire.getSubDocRef(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
@@ -708,7 +711,7 @@ class Fire{
         methodName: 'deleteDoc',
         functions: () async {
 
-          DocumentReference _doc = Fire.getDocRef(
+          final DocumentReference _doc = Fire.getDocRef(
             collName: collName,
             docName: docName,
           );
@@ -732,7 +735,7 @@ class Fire{
         methodName: 'deleteSubDoc',
         functions: () async {
 
-          DocumentReference _subDoc = Fire.getSubDocRef(
+          final DocumentReference _subDoc = Fire.getSubDocRef(
             collName: collName,
             docName: docName,
             subCollName: subCollName,
@@ -774,7 +777,7 @@ class Fire{
   }) async {
 
     /// a - read all sub docs
-    List<dynamic> _subDocs = await Fire.readSubCollectionDocs(
+    final List<dynamic> _subDocs = await Fire.readSubCollectionDocs(
       context: context,
       addDocsIDs: true,
       collName: collName,
@@ -784,7 +787,7 @@ class Fire{
 
     for(var map in _subDocs){
 
-      String _docID = map['id'];
+      final String _docID = map['id'];
 
       await Fire.deleteSubDoc(
         context: context,
@@ -805,7 +808,7 @@ class Fire{
     String field,
   }) async {
 
-    DocumentReference _docRef = Fire.getDocRef(
+    final DocumentReference _docRef = Fire.getDocRef(
       collName: collName,
       docName: docName,
     );
@@ -816,7 +819,7 @@ class Fire{
     //     functions: () async {
 
     // Remove field from the document
-    Map<String, Object> updates = new Map();
+    final Map<String, Object> updates = new Map();
 
     updates.addAll({
       field : FieldValue.delete(),
@@ -838,7 +841,7 @@ class Fire{
     String subDocName,
   }) async {
 
-    DocumentReference _docRef = Fire.getSubDocRef(
+    final DocumentReference _docRef = Fire.getSubDocRef(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
@@ -851,7 +854,7 @@ class Fire{
         functions: () async {
 
           // Remove field from the document
-          Map<String, Object> updates = new Map();
+          final Map<String, Object> updates = new Map();
 
           updates.addAll({
             field : FieldValue.delete(),
@@ -906,11 +909,11 @@ class Fire{
 
           print('X1 - getting storage ref : $_ref');
 
-          ImageSize imageSize = await ImageSize.superImageSize(inputFile);
+          final ImageSize imageSize = await ImageSize.superImageSize(inputFile);
 
           print('X2 - image size is ${imageSize.height} * ${imageSize.width}');
 
-          SettableMetadata metaData = SettableMetadata(
+          final SettableMetadata metaData = SettableMetadata(
               customMetadata: {'width': '${imageSize.width}', 'height': '${imageSize.height}'}
           );
 
@@ -936,16 +939,20 @@ class Fire{
     List<SlideModel> slides,
     String flyerID
   }) async {
-    List<String> _picturesURLs = [];
+
+    final List<String> _picturesURLs = <String>[];
 
     for (var slide in slides) {
-      String _picURL = await Fire.createStoragePicAndGetURL(
+
+      final String _picURL = await Fire.createStoragePicAndGetURL(
         context: context,
         inputFile: slide.pic,
         picType: PicType.slideHighRes,
         fileName: SlideModel.generateSlideID(flyerID, slide.slideIndex),
       );
+
       _picturesURLs.add(_picURL);
+
     }
 
     return _picturesURLs;
@@ -956,19 +963,20 @@ class Fire{
     List<dynamic> pics,
     List<String> names,
   }) async {
-    List<String> picsURLs = [];
+
+    final List<String> _picsURLs = <String>[];
 
     for (int i =0; i < pics.length; i++) {
-      String _picURL = await Fire.createStoragePicAndGetURL(
+      final String _picURL = await Fire.createStoragePicAndGetURL(
         context: context,
         inputFile: pics[i],
         picType: PicType.slideHighRes,
         fileName: names[i],
       );
-      picsURLs.add(_picURL);
+      _picsURLs.add(_picURL);
     }
 
-    return picsURLs;
+    return _picsURLs;
   }
 // -----------------------------------------------------------------------------
   /// TASK : createStoragePicFromAssetAndGetURL not tested properly
@@ -980,7 +988,7 @@ class Fire{
   }) async {
     String _url;
 
-    File _result = await Imagers.getImageFileFromLocalAsset(context, asset);
+    final File _result = await Imagers.getImageFileFromLocalAsset(context, asset);
 
     print('uploading $fileName pic to fireStorage in folder of $picType');
 
@@ -1006,7 +1014,7 @@ class Fire{
         fileName: fileName
     );
 
-    String _url = await _ref.getDownloadURL();
+    final String _url = await _ref.getDownloadURL();
 
     return _url;
   }
@@ -1022,12 +1030,12 @@ class Fire{
         methodName: 'deleteStoragePic',
         functions: () async {
 
-          Reference _picRef  = getStorageRef(
+          final Reference _picRef  = getStorageRef(
               docName: StorageDoc.docName(picType),
               fileName: fileName
           );
 
-          FullMetadata _metaData = await _picRef?.getMetadata();
+          final FullMetadata _metaData = await _picRef?.getMetadata();
 
           print('_metaData ------------------------- : $_metaData');
 
@@ -1042,7 +1050,7 @@ class Fire{
 
       /// only if the error is not
       /// [firebase_storage/object-not-found] No object exists at the desired reference.
-      String _fileDoesNotExistError = '[firebase_storage/object-not-found] No object exists at the desired reference.';
+      const String _fileDoesNotExistError = '[firebase_storage/object-not-found] No object exists at the desired reference.';
 
       if (_result == _fileDoesNotExistError){
 

@@ -110,19 +110,19 @@ class FlyersProvider with ChangeNotifier {
     print('fetching sponsors');
 
     /// 1 - get sponsors map from db/admin/sponsors
-    Map<String, dynamic> _sponsorsIDsMap = await Fire.readDoc(
+    final Map<String, dynamic> _sponsorsIDsMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.admin,
       docName: FireCollection.admin_sponsors,
     );
 
     /// 2 - transform sponsors map into list<String>
-    List<String> _sponsorsIDs = TextMod.getValuesFromValueAndTrueMap(_sponsorsIDsMap);
+    final List<String> _sponsorsIDs = TextMod.getValuesFromValueAndTrueMap(_sponsorsIDsMap);
 
     /// 3- get tinyBz for each id
-    List<TinyBz> _sponsorsTinyBzz = [];
+    final List<TinyBz> _sponsorsTinyBzz = <TinyBz>[];
     for (var id in _sponsorsIDs){
-      TinyBz _tinyBz = await BzOps.readTinyBzOps(context: context, bzID: id);
+      final TinyBz _tinyBz = await BzOps.readTinyBzOps(context: context, bzID: id);
       _sponsorsTinyBzz.add(_tinyBz);
     }
 
@@ -144,7 +144,7 @@ class FlyersProvider with ChangeNotifier {
 // -----------------------------------------------------------------------------
   void setSectionFilters(){
 
-    List<Group> _filtersBySection = Group.getGroupBySection(
+    final List<Group> _filtersBySection = Group.getGroupBySection(
         section: _currentSection,
     );
 
@@ -153,29 +153,29 @@ class FlyersProvider with ChangeNotifier {
 // -----------------------------------------------------------------------------
   /// if a user is an Author, this READs & sets user tiny bzz form db/users/userID['myBzzIDs']
   Future<void> fetchAndSetUserTinyBzz(BuildContext context) async {
-    String _userID = superUserID();
+    final String _userID = superUserID();
 
-    Map<String, dynamic> _userMap = await Fire.readDoc(
+    final Map<String, dynamic> _userMap = await Fire.readDoc(
       context: context,
       collName: FireCollection.users,
       docName: _userID,
     );
 
-    UserModel _userModel = UserModel.decipherUserMap(_userMap);
+    final UserModel _userModel = UserModel.decipherUserMap(_userMap);
 
-    List<dynamic> _userBzzIDs = _userModel.myBzzIDs;
+    final List<dynamic> _userBzzIDs = _userModel.myBzzIDs;
 
-    List<TinyBz> _userTinyBzzList = [];
+    final List<TinyBz> _userTinyBzzList = <TinyBz>[];
 
     for (var id in _userBzzIDs){
-      dynamic _tinyBzMap = await Fire.readDoc(
+      final dynamic _tinyBzMap = await Fire.readDoc(
         context: context,
         collName: FireCollection.tinyBzz,
         docName: id,
       );
 
       if (_tinyBzMap != null){
-        TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_tinyBzMap);
+        final TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_tinyBzMap);
         _userTinyBzzList.add(_tinyBz);
       }
 
@@ -189,15 +189,15 @@ class FlyersProvider with ChangeNotifier {
   Future<void> fetchAndSetSavedFlyers(BuildContext context) async {
 
     /// read user's saves doc
-    List<SaveModel> _userSaveModels = await RecordOps.readUserSavesOps(context);
+    final List<SaveModel> _userSaveModels = await RecordOps.readUserSavesOps(context);
 
     /// from saveModels, get a list of saved tinyFlyers
-    List<TinyFlyer> _savedTinyFlyers = [];
+    final List<TinyFlyer> _savedTinyFlyers = <TinyFlyer>[];
 
     if (_userSaveModels != null || _userSaveModels?.length != 0){
       for (var saveModel in _userSaveModels){
         if (saveModel.saveState == SaveState.Saved) {
-          TinyFlyer _tinyFlyer = await FlyerOps().readTinyFlyerOps(context: context, flyerID: saveModel.flyerID);
+          final TinyFlyer _tinyFlyer = await FlyerOps().readTinyFlyerOps(context: context, flyerID: saveModel.flyerID);
 
           if (_tinyFlyer != null){
             _savedTinyFlyers.add(_tinyFlyer);
@@ -219,9 +219,9 @@ class FlyersProvider with ChangeNotifier {
   Future<void> fetchAndSetFollows(BuildContext context) async {
 
     /// read user's follows list
-    List<String> _follows = await RecordOps.readUserFollowsOps(context);
+    final List<String> _follows = await RecordOps.readUserFollowsOps(context);
 
-    _loadedFollows = _follows ?? [];
+    _loadedFollows = _follows ?? <String>[];
     print('_loadedFollows = $_loadedFollows');
     notifyListeners();
   }
@@ -298,10 +298,10 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   Future<void> fetchAndSetTinyFlyersBySection(BuildContext context, Section section) async {
-    CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    Zone _currentZone = _countryPro.currentZone;
+    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final Zone _currentZone = _countryPro.currentZone;
 
-    String _zoneString = TextGenerator.zoneStringer(
+    final String _zoneString = TextGenerator.zoneStringer(
       context: context,
       zone: _currentZone,
     );
@@ -313,14 +313,14 @@ class FlyersProvider with ChangeNotifier {
         methodName: 'fetchAndSetTinyFlyersBySectionType',
         functions: () async {
 
-          FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
+          final FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
 
           // print('_flyerType is : ${_flyerType.toString()}');
 
           /// READ data from cloud Firestore flyers collection
 
 
-            List<TinyFlyer> _foundTinyFlyers = await FireSearch.flyersByZoneAndFlyerType(
+          final List<TinyFlyer> _foundTinyFlyers = await FireSearch.flyersByZoneAndFlyerType(
               context: context,
               zone: _currentZone,
               flyerType: _flyerType,
@@ -341,14 +341,14 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   void removeTinyFlyerFromLocalList(String flyerID){
-    int _index = _loadedTinyFlyers.indexWhere((tinyFlyer) => tinyFlyer.flyerID == flyerID);
+    final int _index = _loadedTinyFlyers.indexWhere((tinyFlyer) => tinyFlyer.flyerID == flyerID);
     _loadedTinyFlyers.removeAt(_index);
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
   void removeTinyBzFromLocalList(String bzID){
     if (_loadedTinyBzz != null){
-      int _index = _loadedTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID,);
+      final int _index = _loadedTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID,);
       _loadedTinyBzz.removeAt(_index);
       notifyListeners();
     }
@@ -356,31 +356,31 @@ class FlyersProvider with ChangeNotifier {
 // -----------------------------------------------------------------------------
   void removeTinyBzFromLocalUserTinyBzz(String bzID){
     if (_loadedTinyBzz != null){
-      int _index = _userTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
+      final int _index = _userTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
       _userTinyBzz.removeAt(_index);
       notifyListeners();
     }
   }
 // -----------------------------------------------------------------------------
   FlyerModel getFlyerByFlyerID (String flyerID){
-    FlyerModel _flyer = _loadedFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
+    final FlyerModel _flyer = _loadedFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
     return _flyer;
   }
 // -----------------------------------------------------------------------------
   TinyFlyer getTinyFlyerByFlyerID (String flyerID){
-    TinyFlyer _tinyFlyer = _loadedTinyFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
+    final TinyFlyer _tinyFlyer = _loadedTinyFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
 
     return _tinyFlyer;
   }
 // -----------------------------------------------------------------------------
   List<FlyerModel> getFlyersByFlyersIDs(List<dynamic> flyersIDs){
-    List<FlyerModel> flyers = [];
+    final List<FlyerModel> flyers = <FlyerModel>[];
     flyersIDs?.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
     return flyers;
   }
 // -----------------------------------------------------------------------------
   List<String> getTinyFlyersIDsByFlyerType(FlyerType flyerType){
-    List<String> flyersIDs = [];
+    final List<String> flyersIDs = <String>[];
     _loadedTinyFlyers?.forEach((fl) {
       if(fl.flyerType == flyerType){flyersIDs.add(fl.flyerID);}
     });
@@ -388,8 +388,8 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   List<FlyerModel> getFlyersByFlyerType(FlyerType flyerType){
-    List<FlyerModel> _flyers = [];
-    List<String> _flyersIDs = getTinyFlyersIDsByFlyerType(flyerType);
+    final List<FlyerModel> _flyers = <FlyerModel>[];
+    final List<String> _flyersIDs = getTinyFlyersIDsByFlyerType(flyerType);
     _flyersIDs.forEach((fID) {
       _flyers.add(getFlyerByFlyerID(fID));
     });
@@ -397,8 +397,8 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   List<TinyFlyer> getTinyFlyersByFlyerType(FlyerType flyerType){
-    List<TinyFlyer> _tinyFlyers = [];
-    List<String> _flyersIDs = getTinyFlyersIDsByFlyerType(flyerType);
+    final List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
+    final List<String> _flyersIDs = getTinyFlyersIDsByFlyerType(flyerType);
     _flyersIDs.forEach((fID) {
       _tinyFlyers.add(getTinyFlyerByFlyerID(fID));
     });
@@ -408,7 +408,7 @@ class FlyersProvider with ChangeNotifier {
   bool checkAnkh(String flyerID){
     bool _ankhIsOn = false;
 
-      TinyFlyer _tinyFlyer = _loadedSavedTinyFlyers?.firstWhere((flyer) => flyer.flyerID == flyerID, orElse: () => null);
+    final TinyFlyer _tinyFlyer = _loadedSavedTinyFlyers?.firstWhere((flyer) => flyer.flyerID == flyerID, orElse: () => null);
 
       if(_tinyFlyer == null){
         _ankhIsOn = false;
@@ -422,7 +422,7 @@ class FlyersProvider with ChangeNotifier {
   bool checkFollow(String bzID){
     bool _followIsOn = false;
 
-    String _id = _loadedFollows?.firstWhere((id) => id == bzID, orElse: () => null);
+    final String _id = _loadedFollows?.firstWhere((id) => id == bzID, orElse: () => null);
 
     if(_id == null){
       _followIsOn = false;
@@ -444,7 +444,7 @@ class FlyersProvider with ChangeNotifier {
 //   }
 // -----------------------------------------------------------------------------
   List<FlyerModel> getFlyersByAuthorID(String authorID){
-    List<FlyerModel> authorFlyers = [];
+    final List<FlyerModel> authorFlyers = <FlyerModel>[];
     for (FlyerModel fl in _loadedFlyers){
       if (fl.tinyAuthor.userID == authorID){
         authorFlyers.add(fl);
@@ -469,7 +469,7 @@ class FlyersProvider with ChangeNotifier {
 //   }
 // -----------------------------------------------------------------------------
   BzModel getBzByBzID(String bzID){
-    BzModel bz = _loadedBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
+    final BzModel bz = _loadedBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
     return bz;
   }
 
@@ -482,13 +482,13 @@ class FlyersProvider with ChangeNotifier {
 
 // -----------------------------------------------------------------------------
   TinyBz getTinyBzByBzID(String bzID){
-    TinyBz _tinyBz = _loadedTinyBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
+    final TinyBz _tinyBz = _loadedTinyBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
     return _tinyBz;
   }
 // -----------------------------------------------------------------------------
 
   List<BzModel> getBzzOfFlyersList(List<FlyerModel> flyersList){
-    List<BzModel> _bzz = [];
+    final List<BzModel> _bzz = <BzModel>[];
     flyersList.forEach((fl) {
       _bzz.add(getBzByBzID(fl.tinyBz.bzID));
     });
@@ -496,7 +496,7 @@ class FlyersProvider with ChangeNotifier {
 }
 // -----------------------------------------------------------------------------
   List<TinyBz> getTinyBzzOfTinyFlyersList(List<TinyFlyer> tinyFlyersList){
-    List<TinyBz> _tinyBzz = [];
+    final List<TinyBz> _tinyBzz = <TinyBz>[];
     tinyFlyersList.forEach((fl) {
       _tinyBzz.add(getTinyBzByBzID(fl?.tinyBz?.bzID));
     });
@@ -504,7 +504,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   List<BzModel> getBzzByBzzIDs(List<String> bzzIDs){
-    List<BzModel> bzz = [];
+    final List<BzModel> bzz = <BzModel>[];
     bzzIDs.forEach((bzID) {bzz.add(getBzByBzID(bzID));});
     return bzz;
 }
@@ -529,7 +529,7 @@ class FlyersProvider with ChangeNotifier {
   void updateTinyBzInLocalList(TinyBz modifiedTinyBz){
 
     if (_loadedTinyBzz != null){
-    int _indexOfOldTinyBz = _loadedTinyBzz.indexWhere((bz) => modifiedTinyBz.bzID == bz.bzID);
+      final int _indexOfOldTinyBz = _loadedTinyBzz.indexWhere((bz) => modifiedTinyBz.bzID == bz.bzID);
     _loadedTinyBzz.removeAt(_indexOfOldTinyBz);
     _loadedTinyBzz.insert(_indexOfOldTinyBz, modifiedTinyBz);
     notifyListeners();
@@ -538,7 +538,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // ############################################################################
   void updateTinyBzInUserTinyBzz(TinyBz modifiedTinyBz){
-    int _indexOfOldTinyBz = _userTinyBzz.indexWhere((bz) => modifiedTinyBz.bzID == bz.bzID);
+    final int _indexOfOldTinyBz = _userTinyBzz.indexWhere((bz) => modifiedTinyBz.bzID == bz.bzID);
     _userTinyBzz.removeAt(_indexOfOldTinyBz);
     _userTinyBzz.insert(_indexOfOldTinyBz, modifiedTinyBz);
     notifyListeners();
@@ -564,7 +564,7 @@ class FlyersProvider with ChangeNotifier {
 // ############################################################################
   void addOrDeleteTinyFlyerInLocalSavedTinyFlyers(TinyFlyer _inputTinyFlyer){
 
-    TinyFlyer _savedTinyFlyer =
+    final TinyFlyer _savedTinyFlyer =
     _loadedSavedTinyFlyers.singleWhere((tf) => tf.flyerID == _inputTinyFlyer.flyerID, orElse: ()=> null);
 
     if (_savedTinyFlyer == null){
@@ -572,7 +572,7 @@ class FlyersProvider with ChangeNotifier {
       _loadedSavedTinyFlyers.add(_inputTinyFlyer);
     } else {
       /// so flyer is already saved, so we remove it
-      int _savedTinyFlyerIndex =
+      final int _savedTinyFlyerIndex =
       _loadedSavedTinyFlyers.indexWhere((tf) => tf.flyerID == _inputTinyFlyer.flyerID, );
 
       _loadedSavedTinyFlyers.removeAt(_savedTinyFlyerIndex);
@@ -627,7 +627,7 @@ class FlyersProvider with ChangeNotifier {
 //   }
 // -----------------------------------------------------------------------------
   TinyFlyer getSavedTinyFlyerByFlyerID(String flyerID){
-    TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromTinyFlyers(
+    final TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromTinyFlyers(
       tinyFlyers: _loadedSavedTinyFlyers,
       flyerID: flyerID,
     );

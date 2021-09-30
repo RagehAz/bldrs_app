@@ -5,7 +5,7 @@ import 'package:bldrs/views/widgets/general/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
-import 'package:bldrs/views/widgets/general/pyramids/bldrs_name.dart';
+import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:flutter/material.dart';
 
 class NotificationSenderBalloon extends StatelessWidget {

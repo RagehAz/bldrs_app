@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
@@ -8,6 +7,7 @@ import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_bubble.dart';
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:flutter/material.dart';
 
 class SectionDialog extends StatelessWidget {

@@ -34,7 +34,7 @@ class Zone {
 // -----------------------------------------------------------------------------
   static Zone decipherZoneMap(Map<String, dynamic> map){
 
-    Zone _zone = map == null ? null :
+    final Zone _zone = map == null ? null :
     Zone(
       countryID: map['countryID'],
       cityID: map['provinceID'],
@@ -56,9 +56,9 @@ class Zone {
   }
 // -----------------------------------------------------------------------------
   static Zone decipherZoneString(String zoneString){
-    String _countryID = decipherZoneStringToCountryID(zoneString);
-    String _cityID = decipherZoneStringToCityID(zoneString);
-    String _districtID = decipherZoneStringToDistrictID(zoneString);
+    final String _countryID = decipherZoneStringToCountryID(zoneString);
+    final String _cityID = decipherZoneStringToCityID(zoneString);
+    final String _districtID = decipherZoneStringToDistrictID(zoneString);
 
     return Zone(
       countryID: _countryID,
@@ -68,18 +68,18 @@ class Zone {
   }
 // -----------------------------------------------------------------------------
   static String decipherZoneStringToCountryID(String zoneString){
-    String _countryID = TextMod.trimTextAfterFirstSpecialCharacter(zoneString, '/');
+    final String _countryID = TextMod.trimTextAfterFirstSpecialCharacter(zoneString, '/');
     return _countryID;
   }
 // -----------------------------------------------------------------------------
   static String decipherZoneStringToCityID(String zoneString){
-    String _cityAndDistrict = TextMod.trimTextBeforeFirstSpecialCharacter(zoneString, '/');
-    String _cityID = TextMod.trimTextAfterLastSpecialCharacter(_cityAndDistrict, '/');
+    final String _cityAndDistrict = TextMod.trimTextBeforeFirstSpecialCharacter(zoneString, '/');
+    final String _cityID = TextMod.trimTextAfterLastSpecialCharacter(_cityAndDistrict, '/');
     return _cityID;
   }
 // -----------------------------------------------------------------------------
   static String decipherZoneStringToDistrictID(String zoneString){
-    String _districtID = TextMod.trimTextBeforeLastSpecialCharacter(zoneString, '/');
+    final String _districtID = TextMod.trimTextBeforeLastSpecialCharacter(zoneString, '/');
     return _districtID;
   }
 // -----------------------------------------------------------------------------
@@ -93,6 +93,5 @@ class Zone {
 //   static Zone getZoneFromBzModel(BzModel bzModel){
 //       return bzModel.bzZone;
 //   }
-// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 }

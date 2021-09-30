@@ -33,7 +33,7 @@ class Nav{
 // -----------------------------------------------------------------------------
   static Future<dynamic> goToNewScreen (BuildContext context, Widget screen, {PageTransitionType transitionType}) async {
 
-    PageTransitionType _transition = transitionType == null ? PageTransitionType.bottomToTop : transitionType;
+    final PageTransitionType _transition = transitionType == null ? PageTransitionType.bottomToTop : transitionType;
 
     dynamic _result = await Navigator.push(context,
       PageTransition(
@@ -49,14 +49,14 @@ class Nav{
   return _result;
   }
 // -----------------------------------------------------------------------------
-  static goToRoute(BuildContext context, String routezName, {dynamic arguments}){
-    Navigator.of(context).pushNamed(routezName, arguments: arguments);
+  static Future<void> goToRoute(BuildContext context, String routezName, {dynamic arguments}) async {
+    await Navigator.of(context).pushNamed(routezName, arguments: arguments);
   }
 // -----------------------------------------------------------------------------
-  static void openFlyerOldWay(BuildContext context, String flyerID){
-    Navigator.of(context).push(
+  static Future<void> openFlyerOldWay(BuildContext context, String flyerID) async {
+    await Navigator.of(context).push(
         PageRouteBuilder(
-          transitionDuration: Duration(milliseconds: 750),
+          transitionDuration: const Duration(milliseconds: 750),
           pageBuilder: (_,__,___){
             return Hero(
               tag: flyerID, // galleryCoFlyers[index].flyer.flyerID,
@@ -84,15 +84,15 @@ class Nav{
       await goToRoute(context, Routez.FlyerScreen, arguments: flyerID);
     }
 
-    /// A - nothing give
-    else {
-      // do nothing
-    }
+    // /// A - nothing give
+    // else {
+    //   // do nothing
+    // }
 
   }
 // -----------------------------------------------------------------------------
   static Future<void> goBack(BuildContext context, {argument}) async {
-    // you can send whatever you want in Navigator.pop(context,whatever you want to pass)
+    /// you can send whatever you want in Navigator.pop(context,whatever you want to pass)
     await Navigator.pop(context, argument);
   }
 // -----------------------------------------------------------------------------
@@ -128,13 +128,12 @@ class Nav{
   }
 // -----------------------------------------------------------------------------
   static Future<dynamic> replaceScreen(BuildContext context, Widget screen) async {
-    var _result = await Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => screen));
+    final dynamic _result = await Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => screen));
     return _result;
   }
 // -----------------------------------------------------------------------------
-  static Future<dynamic> removeRouteBelow(BuildContext context, Widget screen) async {
-    var _result = Navigator.removeRouteBelow(context, MaterialPageRoute(builder: (BuildContext context) => screen));
-    return _result;
+  static Future<void> removeRouteBelow(BuildContext context, Widget screen) async {
+    Navigator.removeRouteBelow(context, MaterialPageRoute(builder: (BuildContext context) => screen));
   }
 // -----------------------------------------------------------------------------
   static Future<void> pushNamedAndRemoveAllBelow(BuildContext context, String goToRoute) async {
@@ -142,8 +141,7 @@ class Nav{
         .pushNamedAndRemoveUntil(goToRoute, (Route<dynamic> route) => false);
   }
 // -----------------------------------------------------------------------------
-  static void pushAndRemoveUntil({BuildContext context, Widget screen}) async {
-
+  static Future<void> pushAndRemoveUntil({BuildContext context, Widget screen}) async {
 
     await Navigator.pushAndRemoveUntil(
         context,

@@ -22,20 +22,20 @@ class LDBTable{
 
     String _output = '';
 
-      List<Object> _mapKeys = map.keys.toList();
+    final List<Object> _mapKeys = map.keys.toList();
       // print('A - _getValuesRawInsertString : _mapKeys : $_mapKeys');
 
-      List<Object> _mapValues = map.values.toList();
+    final List<Object> _mapValues = map.values.toList();
       // print('B - _getValuesRawInsertString : _mapValues : $_mapValues');
 
     for (int i = 0; i < map.values.length; i++){
 
-      bool _isPrimary = _mapKeys[i] == LDBColumn.getPrimaryKeyFromColumns(columns);
+      final bool _isPrimary = _mapKeys[i] == LDBColumn.getPrimaryKeyFromColumns(columns);
       // print('C1 - i:$i - _getValuesRawInsertString : _isPrimary : $_isPrimary');
 
       if (_isPrimary == false){
 
-        dynamic _value = _mapValues[i].toString();
+        final dynamic _value = _mapValues[i].toString();
         // print('C2 - i:$i - _getValuesRawInsertString : _value : $_value');
 
         _output = _output + '"$_value", ';
@@ -44,10 +44,10 @@ class LDBTable{
 
     }
 
-    String _outputAfterRemovingLastComma = TextMod.trimTextAfterLastSpecialCharacter(_output, ',');
+    final String _outputAfterRemovingLastComma = TextMod.trimTextAfterLastSpecialCharacter(_output, ',');
     // print('D - _getValuesRawInsertString : _outputAfterRemovingLastComma $_outputAfterRemovingLastComma');
 
-    String _finalOutput = '($_outputAfterRemovingLastComma)';
+    final String _finalOutput = '($_outputAfterRemovingLastComma)';
     // print('E - _getValuesRawInsertString : _finalOutput $_finalOutput');
 
     return _finalOutput;
@@ -55,26 +55,26 @@ class LDBTable{
 // -----------------------------------------------------------------------------
   String toCreateSQLQuery(){
 
-    String _columnsQuery = LDBColumn.getSQLQueryFromColumns(columns: columns);
+    final String _columnsQuery = LDBColumn.getSQLQueryFromColumns(columns: columns);
 
-    String _createTableQuery = 'CREATE TABLE $tableName ($_columnsQuery)';
+    final String _createTableQuery = 'CREATE TABLE $tableName ($_columnsQuery)';
 
     return _createTableQuery;
   }
 // -----------------------------------------------------------------------------
   static String getRawInsertSQLQuery({Map<String, dynamic> map, List<LDBColumn> columns, String tableName}){
 
-    String _fieldsRawInsertString = LDBColumn.getFieldsRawInsertString(columns);
+    final String _fieldsRawInsertString = LDBColumn.getFieldsRawInsertString(columns);
     // print('1 - getRawInsertSQLQuery : _fieldsRawInsertString : $_fieldsRawInsertString');
 
-    String _valuesRawInsertString = _getValuesRawInsertString(
+    final String _valuesRawInsertString = _getValuesRawInsertString(
       columns: columns,
       map: map,
     );
     // print('2 - getRawInsertSQLQuery : _valuesRawInsertString : $_valuesRawInsertString');
 
     /// 'INSERT INTO dbName(field, field, field, field) VALUES("value", "value", "value", "value")'
-    String _rawInsertString = 'INSERT INTO $tableName$_fieldsRawInsertString VALUES$_valuesRawInsertString';
+    final String _rawInsertString = 'INSERT INTO $tableName$_fieldsRawInsertString VALUES$_valuesRawInsertString';
 
     return _rawInsertString;
   }

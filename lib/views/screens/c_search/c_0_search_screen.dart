@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -12,6 +11,7 @@ import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/screens/c_search/c_2_search_filters_screen.dart';
+import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/specific/browser/browser_pages.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';

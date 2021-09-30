@@ -26,8 +26,8 @@ class ImageSize{
     ImageSize _imageSize;
     if(map != null){
 // -----------------------------------------------------------------------------
-      dynamic _widthInInt = map['width'];
-      dynamic _heightInInt = map['height'];
+      final dynamic _widthInInt = map['width'];
+      final dynamic _heightInInt = map['height'];
 
       _imageSize = ImageSize(
         width: _widthInInt.toDouble(),
@@ -52,27 +52,27 @@ class ImageSize{
 
     if(image != null){
       // -----------------------------------------------------------o
-      bool _isURL = ObjectChecker.objectIsURL(image) == true;
+      final bool _isURL = ObjectChecker.objectIsURL(image) == true;
       // print('_isURL : $_isURL');
-      bool _isAsset = ObjectChecker.objectIsAsset(image) == true;
+      final bool _isAsset = ObjectChecker.objectIsAsset(image) == true;
       // print('_isAsset : $_isAsset');
-      bool _isFile = ObjectChecker.objectIsFile(image) == true;
+      final bool _isFile = ObjectChecker.objectIsFile(image) == true;
       // print('_isFile : $_isFile');
-      bool _isUints = ObjectChecker.objectIsUint8List(image) == true;
+      final bool _isUints = ObjectChecker.objectIsUint8List(image) == true;
       // print('_isUints : $_isUints');
       // -----------------------------------------------------------o
       var _decodedImage;
       Uint8List _uInt8List;
       // -----------------------------------------------------------o
       if (_isURL == true) {
-        File _file = await Imagers.urlToFile(image);
+        final File _file = await Imagers.urlToFile(image);
         _uInt8List = await _file.readAsBytesSync();
         _decodedImage = await Imagers.decodeUint8List(_uInt8List);
       }
       // --------------------------o
       else if(_isAsset == true){
-        Asset _asset = image;
-        ByteData _byteData = await _asset.getByteData();
+        final Asset _asset = image;
+        final ByteData _byteData = await _asset.getByteData();
         _uInt8List = await Imagers.getUint8ListFromByteData(_byteData);
         _imageSize = ImageSize.getImageSizeFromAsset(image);
       }

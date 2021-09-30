@@ -173,7 +173,7 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<FlyerModel> decipherFlyersMaps(List<dynamic> maps){
-    List<FlyerModel> _flyersList = [];
+    final List<FlyerModel> _flyersList = <FlyerModel>[];
 
     maps?.forEach((map) {
       _flyersList.add(decipherFlyerMap(map));
@@ -214,7 +214,7 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<String> getListOfFlyerIDsFromFlyers(List<FlyerModel> flyers){
-    List<String> _flyerIDs = [];
+    final List<String> _flyerIDs = <String>[];
 
     flyers.forEach((flyer) {
       _flyerIDs.add(flyer.flyerID);
@@ -245,7 +245,7 @@ class FlyerModel with ChangeNotifier{
     );
   }
 // -----------------------------------------------------------------------------
-  static List<FlyerState> flyerStatesList = <FlyerState>[
+  static const List<FlyerState> flyerStatesList = const <FlyerState>[
     FlyerState.Published,
     FlyerState.Draft,
     FlyerState.Deleted,
@@ -316,7 +316,7 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel flyerModel){
-  List<TextEditingController> _controllers = [];
+  final List<TextEditingController> _controllers = <TextEditingController>[];
 
   flyerModel.slides.forEach((slide) {
     TextEditingController _controller = new TextEditingController(text: slide.headline);
@@ -327,7 +327,7 @@ class FlyerModel with ChangeNotifier{
 }
 // -----------------------------------------------------------------------------
   static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel flyerModel){
-    List<TextEditingController> _controllers = [];
+    final List<TextEditingController> _controllers = <TextEditingController>[];
 
     flyerModel.slides.forEach((slide) {
       TextEditingController _controller = new TextEditingController(text: slide.description);
@@ -338,8 +338,8 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static FlyerModel getFlyerModelFromSnapshot(DocumentSnapshot doc){
-    var _map = doc.data();
-    FlyerModel _flyerModel = FlyerModel.decipherFlyerMap(_map);
+    final Object _map = doc.data();
+    final FlyerModel _flyerModel = FlyerModel.decipherFlyerMap(_map);
     return _flyerModel;
   }
 // -----------------------------------------------------------------------------
@@ -364,7 +364,7 @@ class FlyerModel with ChangeNotifier{
         ankhIsOn: superFlyer.rec.ankhIsOn,
         specs: superFlyer.specs,
         info: superFlyer?.infoController?.text,
-          priceTagIsOn : superFlyer?.priceTagIsOn,
+        priceTagIsOn : superFlyer?.priceTagIsOn,
         // times:
       );
     }
