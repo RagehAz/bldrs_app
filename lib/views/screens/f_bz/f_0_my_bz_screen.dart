@@ -90,7 +90,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
       _triggerLoading().then((_) async {
 
         print('2 - retrieving bzModel from firebase');
-        BzModel _bzFromDB = await BzOps.readBzOps(context: context, bzID: widget.tinyBz.bzID);
+        final BzModel _bzFromDB = await BzOps.readBzOps(context: context, bzID: widget.tinyBz.bzID);
         print('3 - got the bzModel');
         // setState(() {
         // _bzModel = _bzFromDB;
@@ -98,7 +98,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
         // });
         print('4 - rebuilt tree with the retrieved bzModel');
 
-        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+        final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
         _prof.setCurrentBzModel(_bzFromDB);
 
         /// X - REBUILD : TASK : check previous set states malhomsh lazma keda ba2a
@@ -123,9 +123,9 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  List<TabModel> _tabModels = [];
+  List<TabModel> _tabModels = <TabModel>[];
   List<TabModel> createBzTabModels(){
-    List<TabModel> _models = <TabModel>[
+    final List<TabModel> _models = <TabModel>[
 
       /// 0 : Flyers
       BzFlyersTab.flyersTabModel(

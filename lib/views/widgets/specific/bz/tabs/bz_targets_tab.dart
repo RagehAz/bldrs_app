@@ -42,7 +42,7 @@ class BzTargetsTab extends StatelessWidget {
 
         TargetsBubble(),
 
-        PyramidsHorizon(),
+        const PyramidsHorizon(),
 
       ],
     );

@@ -793,7 +793,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
           ),
 
           /// HORIZON
-          PyramidsHorizon(),
+          const PyramidsHorizon(),
 
         ],
     );

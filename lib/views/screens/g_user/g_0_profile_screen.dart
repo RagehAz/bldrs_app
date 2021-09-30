@@ -69,8 +69,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _followedTinyBzz = [];
-    _followedBzzIDs = [];
+    _followedTinyBzz = <TinyBz>[];
+    _followedBzzIDs = <String>[];
   }
 // -----------------------------------------------------------------------------
   @override
@@ -78,14 +78,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     if (_isInit) {
       _triggerLoading().then((_) async {
 
-        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+        final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
 
         await _prof.fetchAndSetFollows(context);
 
         _followedBzzIDs = _prof.getFollows;
 
         for (var id in _followedBzzIDs) {
-          TinyBz _tinyBz = await BzOps.readTinyBzOps(
+          final TinyBz _tinyBz = await BzOps.readTinyBzOps(
             context: context,
             bzID: id,
           );
@@ -101,7 +101,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  final _status = <Map<String, dynamic>>[
+  static const List<Map<String, dynamic>> _status = <Map<String, dynamic>>[
     {
       'title': 'Property Status',
       'buttons': [
@@ -143,7 +143,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     Nav.goBack(context);
 
     /// pop confirmation dialog
-    bool _dialogResult = await CenterDialog.showCenterDialog(
+    final bool _dialogResult = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
       body: 'Are you sure you want to Delete your account ?',
@@ -162,7 +162,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       _triggerLoading();
 
       /// start delete bz ops
-      dynamic _result = await UserOps().superDeleteUserOps(
+      final dynamic _result = await UserOps().superDeleteUserOps(
         context: context,
         userModel: userModel,
       );
@@ -198,7 +198,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     Nav.goBack(context);
 
     /// pop confirmation dialog
-    bool _dialogResult = await CenterDialog.showCenterDialog(
+    final bool _dialogResult = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
       body: 'Are you sure you want to Deactivate your account ?',
@@ -218,7 +218,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       _triggerLoading();
 
       /// start deactivate user ops
-      dynamic _result = await UserOps().deactivateUserOps(
+      final dynamic _result = await UserOps().deactivateUserOps(
         context: context,
         userModel: userModel,
       );
@@ -254,10 +254,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       Nav.goToNewScreen(context, EditProfileScreen(user: userModel,));
     }
 // -----------------------------------------------------------------------------
-    void _slideUserOptions(BuildContext context, UserModel userModel) {
-      double _buttonHeight = 50;
+    Future<void> _slideUserOptions(BuildContext context, UserModel userModel) async {
+      const double _buttonHeight = 50;
 
-      BottomDialog.showButtonsBottomDialog(
+      await BottomDialog.showButtonsBottomDialog(
         context: context,
         draggable: true,
         buttonHeight: _buttonHeight,
@@ -325,7 +325,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
-              Stratosphere(),
+              const Stratosphere(),
 
               UserBubble(
                 user: widget.userModel,
@@ -339,7 +339,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 tinyBzz: _followedTinyBzz,
               ),
 
-              // --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA
+              /// --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA
               StatusBubble(
                 status: _status,
                 switchUserStatus: (type) => _switchUserStatus(type),
@@ -353,8 +353,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 contacts: widget.userModel.contacts,
               ),
 
-              PyramidsHorizon(),
-
+              const PyramidsHorizon(),
 
             ],
           ),

@@ -31,10 +31,23 @@ class _StartingScreenState extends State<StartingScreen> {
   CountryProvider _countryPro;
   Zone _currentZone;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
@@ -91,7 +104,7 @@ class _StartingScreenState extends State<StartingScreen> {
     else {
 
       /// so sign in succeeded returning a userModel
-      UserModel _userModel = _authResult['userModel'];
+      final UserModel _userModel = _authResult['userModel'];
       print('_tapGoogleContinue : _userModel : $_userModel');
 
       Nav.replaceScreen(context, UserChecker());
@@ -120,7 +133,7 @@ class _StartingScreenState extends State<StartingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
-              Stratosphere(),
+              const Stratosphere(),
 
               LogoSlogan(
                 showTagLine: true,

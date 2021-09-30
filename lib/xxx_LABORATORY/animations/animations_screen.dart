@@ -123,7 +123,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           // width > 200 ? Container() :
           // ScaleTransition(
           //   scale: Tween(begin: 1.0, end: 0.0).animate(_controller),
-          //     child: Stratosphere()
+          //     child: const Stratosphere()
           // ),
           
           InkWell(
@@ -167,8 +167,8 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               ),
             ),
           ),
-          
-          Stratosphere(),
+
+          const Stratosphere(),
           
           Container(
             width: screenWidth,
@@ -337,8 +337,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
             boxFunction: (){},
             ),
 
-          PyramidsHorizon(),
-
+          const PyramidsHorizon(),
 
         ],
       ),

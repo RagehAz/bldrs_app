@@ -104,7 +104,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
       },
       appBarRowWidgets: <Widget>[
 
-        Expander(),
+        const Expander(),
 
         DreamBox(
           width: 40,

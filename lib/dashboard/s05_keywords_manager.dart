@@ -18,14 +18,6 @@ class KeywordsManager extends StatefulWidget {
 class _KeywordsManagerState extends State<KeywordsManager> {
   // List<Keyword> _selectedKeywords = [];
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  bool _loading = false;
-//   void _triggerLoading(){
-//     setState(() {_loading = !_loading;});
-//     _loading == true?
-//     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-//   }
-// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -47,7 +39,6 @@ class _KeywordsManagerState extends State<KeywordsManager> {
       pageTitle: 'All Keywords',
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidsYellow,
-      loading: _loading,
       sky: Sky.Night,
       layoutWidget: Container(
         width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2, // this dictates overall width

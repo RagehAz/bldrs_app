@@ -8,8 +8,10 @@ import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:flutter/material.dart';
 
 class AboutBldrsScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+
     return MainLayout(
       pyramids: Iconz.PyramidsYellow,
       appBarType: AppBarType.Basic,
@@ -21,11 +23,11 @@ class AboutBldrsScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: <Widget>[
 
-            Stratosphere(),
+            const Stratosphere(),
 
-            LogoSlogan(sizeFactor: 0.87,),
+            const LogoSlogan(sizeFactor: 0.87,),
 
-            ParagraphBubble(
+            const ParagraphBubble(
               maxLines: 1000,
                 title: 'Bldrs.net',
                 paragraph: 'Is the Network of builders\n'
@@ -33,25 +35,25 @@ class AboutBldrsScreen extends StatelessWidget {
                     'Real-estate, Construction & Supplies.\n'
             ),
 
-            ParagraphBubble(
+            const ParagraphBubble(
               paragraph: 'So whenever you need to connect with a professional '
                   'or a company in a specific field or trade to aid you in '
                   'building you projects, you have all Businesses here for you',
             ),
 
-            BubblesSeparator(),
+            const BubblesSeparator(),
 
-            ParagraphBubble(
+            const ParagraphBubble(
               title: 'Bldrs.net Business types',
               centered: true,
               editMode: false,
               maxLines: 100,
-              onParagraphTap: (){},
+              onParagraphTap: null,
               bubbleWidth: 200,
               paragraph: '',
             ),
 
-            TileBubble(
+            const TileBubble(
               verse: 'Developers',
               icon: Iconz.BxPropertiesOn,
               iconSizeFactor: 1,
@@ -63,7 +65,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'its creator, then these are the companies to contact',
             ),
 
-            TileBubble(
+            const TileBubble(
               verse: 'Brokers',
               icon: Iconz.BxPropertiesOn,
               iconSizeFactor: 1,
@@ -75,7 +77,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'property deals, these are the ones to contact',
             ),
 
-            TileBubble(
+            const TileBubble(
               verse: 'Designers',
               icon: Iconz.BxDesignsOn,
               iconSizeFactor: 1,
@@ -87,7 +89,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'construction, you must contact these people',
             ),
 
-            TileBubble(
+            const TileBubble(
               verse: 'Contractors',
               icon: Iconz.BxProjectsOn,
               iconSizeFactor: 1,
@@ -99,7 +101,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'they build it for you',
             ),
 
-            TileBubble(
+            const TileBubble(
               verse: 'Crafts-men',
               icon: Iconz.BxCraftsOn,
               iconSizeFactor: 1,
@@ -109,7 +111,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'in Short... The Work-force and the actual builders of all constructs',
             ),
 
-            TileBubble(
+            const TileBubble(
               verse: 'Manufacturers',
               icon: Iconz.BxProductsOn,
               iconSizeFactor: 1,
@@ -121,7 +123,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'to contact',
             ),
 
-            TileBubble(
+            const TileBubble(
               verse: 'Suppliers',
               icon: Iconz.BxProductsOn,
               iconSizeFactor: 1,
@@ -137,9 +139,9 @@ class AboutBldrsScreen extends StatelessWidget {
                   'to contact',
             ),
 
-            BubblesSeparator(),
+            const BubblesSeparator(),
 
-            PyramidsHorizon(),
+            const PyramidsHorizon(),
 
           ],
         ),

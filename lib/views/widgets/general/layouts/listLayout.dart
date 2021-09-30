@@ -51,7 +51,7 @@ class ListLayout extends StatelessWidget {
 
         children: <Widget>[
 
-          Stratosphere(),
+          const Stratosphere(),
 
           if (pageIcon != null)
           DreamBox(

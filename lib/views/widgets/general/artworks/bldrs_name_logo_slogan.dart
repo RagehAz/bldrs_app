@@ -11,7 +11,7 @@ import 'package:websafe_svg/websafe_svg.dart';
       final bool showTagLine;
       final bool showSlogan;
 
-      LogoSlogan({
+      const LogoSlogan({
         this.sizeFactor = 1,
         this.showTagLine = false,
         this.showSlogan = false,

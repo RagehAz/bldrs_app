@@ -23,7 +23,7 @@ class TileBubble extends StatelessWidget {
   final Function moreBtOnTap;
   final Widget child;
 
-  TileBubble({
+  const TileBubble({
     @required this.verse,
     @required this.icon,
     this.iconBoxColor = Colorz.Nothing,
@@ -130,7 +130,7 @@ class TileBubble extends StatelessWidget {
               ),
             ),
 
-            Expander(),
+            const Expander(),
 
             if (switchIsOn != null)
             Container(

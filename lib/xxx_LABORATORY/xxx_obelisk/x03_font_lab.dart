@@ -96,7 +96,7 @@ class _FontLabState extends State<FontLab> {
 
                 children: <Widget>[
 
-                  Stratosphere(),
+                  const Stratosphere(),
 
                   _superVerse(0),
                   _superVerse(1),

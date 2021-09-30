@@ -52,14 +52,6 @@ class ObeliskScreen extends StatefulWidget {
 class _ObeliskScreenState extends State<ObeliskScreen>{
   bool _isSignedIn;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  // bool _loading = false;
-  // void _triggerLoading(){
-  //   setState(() {_loading = !_loading;});
-  //   _loading == true?
-  //   print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  // }
-// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -128,7 +120,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
         ),
 
         /// SPACER
-        Expander(),
+        const Expander(),
 
         /// DASHBOARD
         DreamBox(
@@ -149,7 +141,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
         physics: const BouncingScrollPhysics(),
         children: <Widget>[
 
-          Stratosphere(),
+          const Stratosphere(),
 
           SuperVerse(
             verse: 'Dear Lord\nPlease give me the power to finish this project and succeed',
@@ -254,7 +246,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
             ],
           ),
 
-          PyramidsHorizon(),
+          const PyramidsHorizon(),
 
         ],
       ),
