@@ -97,7 +97,7 @@ class _DashBoardState extends State<DashBoard> {
             onTap: () => Nav.goToNewScreen(context, UIManager()),
           ),
 
-          PyramidsHorizon(),
+          const PyramidsHorizon(),
 
         ]
     );

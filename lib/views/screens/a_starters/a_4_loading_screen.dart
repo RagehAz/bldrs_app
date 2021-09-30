@@ -24,10 +24,23 @@ class _LoadingScreenState extends State<LoadingScreen> {
   // bool _canContinue = false;
   double _progress = 0;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
@@ -64,7 +77,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
       if (AuthOps.userIsSignedIn() == true){
 
-        FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+        final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
 
         // _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
         print('fetching sponsors');
@@ -151,7 +164,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             corners: Ratioz.appBarCorner * 2,
           ),
 
-          Expander(),
+          const Expander(),
 
           /// PROGRESS BAR
           // if(_progress != 0)
@@ -163,14 +176,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
               color: Colorz.White80,
               alignment: Aligners.superCenterAlignment(context),
               child: AnimatedContainer(
-                duration: Duration(milliseconds: 4000),
+                duration: const Duration(milliseconds: 4000),
                 width: Scale.superScreenWidth(context) * _progress / 100,
                 color: Colorz.Yellow255,
               ),
             ),
           ),
 
-          // PyramidsHorizon(),
+          // const PyramidsHorizon(),
         ],
       ),
     );

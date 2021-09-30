@@ -151,7 +151,7 @@ class BzPowersTab extends StatelessWidget {
         ),
 
 
-        PyramidsHorizon(),
+        const PyramidsHorizon(),
 
       ],
     );

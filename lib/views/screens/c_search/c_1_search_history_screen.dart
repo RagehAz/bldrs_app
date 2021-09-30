@@ -10,7 +10,7 @@ class SearchHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<String> _searchList = <String>['Interior', 'Architecture', 'sallab', 'grohe', 'hanafeya', 'tagamoo'];
+    final List<String> _searchList = <String>['Interior', 'Architecture', 'sallab', 'grohe', 'hanafeya', 'tagamoo'];
 
     return MainLayout(
       appBarType: AppBarType.Basic,
@@ -22,7 +22,7 @@ class SearchHistoryScreen extends StatelessWidget {
           padding: const EdgeInsets.only(top: Ratioz.stratosphere),
           itemBuilder: (context, index){
 
-            String _searchWord = _searchList[index];
+            final String _searchWord = _searchList[index];
 
             return TileBubble(
               verse: _searchWord,

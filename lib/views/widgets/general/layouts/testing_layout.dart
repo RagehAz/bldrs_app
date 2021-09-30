@@ -42,7 +42,7 @@ class TestingLayout extends StatelessWidget {
         physics: scrollable == true ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
         children: <Widget>[
 
-          Stratosphere(),
+          const Stratosphere(),
 
           ...listViewWidgets,
 

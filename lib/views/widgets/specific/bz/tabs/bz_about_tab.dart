@@ -115,7 +115,7 @@ class BzAboutTab extends StatelessWidget {
               ]
           ),
 
-        PyramidsHorizon(),
+        const PyramidsHorizon(),
 
       ],
     );

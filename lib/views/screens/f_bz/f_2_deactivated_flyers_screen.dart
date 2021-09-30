@@ -33,10 +33,23 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
   List<TinyFlyer> _tinyFlyers;
   List<FlyerModel> _deactivatedFlyers;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
     _loading == true?
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
@@ -47,7 +60,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 
       _triggerLoading();
 
-      FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+      final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
 
       // _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
       _prof.fetchAndSetBzDeactivatedFlyers(context, widget.bz)
@@ -55,7 +68,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 
         _deactivatedFlyers = _prof.getBzDeactivatedFlyers;
 
-        List<TinyFlyer> _bzTinyFlyers = TinyFlyer.getTinyFlyersFromFlyersModels(_deactivatedFlyers);
+        final List<TinyFlyer> _bzTinyFlyers = TinyFlyer.getTinyFlyersFromFlyersModels(_deactivatedFlyers);
 
         setState(() {
           _tinyFlyers = _bzTinyFlyers;
@@ -70,15 +83,15 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 // -----------------------------------------------------------------------------
   FlyerModel _searchFlyerByTinyFlyer({TinyFlyer tinyFlyer}){
 
-    int _index = _deactivatedFlyers.indexWhere((flyer) => flyer.flyerID == tinyFlyer.flyerID, );
+    final int _index = _deactivatedFlyers.indexWhere((flyer) => flyer.flyerID == tinyFlyer.flyerID, );
 
-    FlyerModel _flyer = _deactivatedFlyers[_index];
+    final FlyerModel _flyer = _deactivatedFlyers[_index];
     return _flyer;
   }
 
   void _slideFlyerOptions(BuildContext context, TinyFlyer tinyFlyer){
 
-    double _buttonHeight = 50;
+    const double _buttonHeight = 50;
 
     BottomDialog.showButtonsBottomDialog(
       context: context,
@@ -86,7 +99,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
       buttonHeight: _buttonHeight,
       buttons: <Widget>[
 
-        // --- DELETE Flyer
+        /// --- DELETE Flyer
         DreamBox(
           height: _buttonHeight,
           width: BottomDialog.dialogClearWidth(context),
@@ -101,7 +114,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
           onTap: () => _deleteFlyerOnTap(tinyFlyer),
         ),
 
-        // --- RE-PUBLISH FLYER
+        /// --- RE-PUBLISH FLYER
         DreamBox(
             height: _buttonHeight,
             width: BottomDialog.dialogClearWidth(context),
@@ -116,7 +129,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 
         ),
 
-        // --- EDIT FLYER
+        /// --- EDIT FLYER
         DreamBox(
           height: _buttonHeight,
           width: BottomDialog.dialogClearWidth(context),
@@ -147,7 +160,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
       bzModel: widget.bz,
     );
 
-    int _flyerIndex = _tinyFlyers.indexWhere((tFlyer) => tFlyer.flyerID == tinyFlyer.flyerID);
+    final int _flyerIndex = _tinyFlyers.indexWhere((tFlyer) => tFlyer.flyerID == tinyFlyer.flyerID);
 
     setState(() {
       _tinyFlyers.removeAt(_flyerIndex);
@@ -177,7 +190,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 
     // FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
     // List<TinyFlyer> _tinyFlyers = _prof.getSavedTinyFlyers;
-    List<String> _ids = TinyFlyer.getListOfFlyerIDsFromTinyFlyers(_tinyFlyers);
+    final List<String> _ids = TinyFlyer.getListOfFlyerIDsFromTinyFlyers(_tinyFlyers);
     print(_ids);
 
     return MainLayout(

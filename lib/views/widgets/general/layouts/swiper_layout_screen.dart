@@ -97,7 +97,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
             Column(
               children: <Widget>[
 
-                Stratosphere(),
+                const Stratosphere(),
 
                 Container(
                   width: _screenWidth,

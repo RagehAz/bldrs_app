@@ -14,7 +14,7 @@ class _AuthScreenState extends State<AuthScreen> {
   String _email = '';
   String _password = '';
   ScrollController _scrollController;
-  final _keyboardHeight = EdgeInsets.fromWindowPadding(WidgetsBinding.instance.window.viewInsets,WidgetsBinding.instance.window.devicePixelRatio).bottom;
+  // final _keyboardHeight = EdgeInsets.fromWindowPadding(WidgetsBinding.instance.window.viewInsets,WidgetsBinding.instance.window.devicePixelRatio).bottom;
   // final _keyboardHeight = viewInsets.bottom;
   // -----------------------------------------------------------------------------
 
@@ -32,10 +32,10 @@ class _AuthScreenState extends State<AuthScreen> {
     });
   }
 // -----------------------------------------------------------------------------
-  void moveScreen(double keyboardHeight){
+  Future<void> moveScreen(double keyboardHeight) async {
     // double _keyBoardHeight = keyboard.keyboardHeight;
     // print('_keyBoardHeight : ${keyboardHeight}');
-    _scrollController.animateTo(keyboardHeight, duration: Duration(milliseconds: 200), curve: Curves.bounceInOut);
+    await _scrollController.animateTo(keyboardHeight, duration: const Duration(milliseconds: 200), curve: Curves.bounceInOut);
   }
 // -----------------------------------------------------------------------------
 //   void emailTextOnChanged(String val){
@@ -56,10 +56,6 @@ class _AuthScreenState extends State<AuthScreen> {
       pyramids: Iconz.PyramidzYellow,
       sky: Sky.Black,
       appBarType: AppBarType.Non,
-      tappingRageh: (){
-        print('keyboard height is : $_keyboardHeight');
-        setState(() {});
-        },
       layoutWidget: Stack(
         children: <Widget>[
 
@@ -86,7 +82,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 password: _password,
               ),
 
-              PyramidsHorizon(),
+              const PyramidsHorizon(),
 
             ],
           ),

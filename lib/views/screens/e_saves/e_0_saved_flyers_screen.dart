@@ -67,14 +67,14 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
   }
 // -----------------------------------------------------------------------------
   List<Section> addAllButtonToSections(){
-    List<Section> _originalList = SectionClass.SectionsList;
-    List<Section> _newListWithAddButton = <Section>[Section.All,..._originalList];
+    const List<Section> _originalList = SectionClass.SectionsList;
+    const List<Section> _newListWithAddButton = <Section>[Section.All,..._originalList];
     return _newListWithAddButton;
   }
 // -----------------------------------------------------------------------------
   List<TabModel> _tabModels = [];
   List<TabModel> createTabModels(){
-    List<TabModel> _models = <TabModel>[];
+    final List<TabModel> _models = <TabModel>[];
 
     for (int i = 0; i < _sectionsList.length; i++){
       _models.add(
@@ -124,7 +124,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
 
     print('selecting flyer : ${tinyFlyer.flyerID}');
 
-    bool _alreadySelected = TinyFlyer.tinyFlyersContainThisID(
+    final bool _alreadySelected = TinyFlyer.tinyFlyersContainThisID(
       tinyFlyers: _selectedTinyFlyers,
       flyerID: tinyFlyer.flyerID,
     );

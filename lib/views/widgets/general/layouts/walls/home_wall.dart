@@ -140,7 +140,7 @@ class _HomeWallState extends State<HomeWall> {
         tinyFlyers: TinyFlyer.dummyTinyFlyers(),
       ),
 
-      PyramidsHorizon(),
+      const PyramidsHorizon(),
 
 
     ];

@@ -115,7 +115,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
             controller: ScrollController(),
             children: <Widget>[
 
-              Stratosphere(),
+              const Stratosphere(),
 
               DreamBox(
                 height: 50,

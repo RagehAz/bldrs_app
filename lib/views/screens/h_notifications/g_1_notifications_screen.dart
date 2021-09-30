@@ -108,7 +108,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       appBarType: AppBarType.Basic,
       appBarRowWidgets: <Widget>[
 
-        Expander(),
+        const Expander(),
 
         DreamBox(
           width: 40,

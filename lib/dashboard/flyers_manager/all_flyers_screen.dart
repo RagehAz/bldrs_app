@@ -15,11 +15,11 @@ class AllFlyersScreen extends StatefulWidget {
 class _AllFlyersScreenState extends State<AllFlyersScreen> {
   List<TinyFlyer> _tinyFlyers;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
+  /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  Future <void> _triggerLoading({dynamic oldValue, dynamic newValue}) async {
+  Future <void> _triggerLoading({Function function}) async {
 
-    if (oldValue == null || newValue == null){
+    if (function == null){
       setState(() {
         _loading = !_loading;
       });
@@ -28,8 +28,8 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
     else {
       setState(() {
         _loading = !_loading;
-        oldValue = newValue;
-        ;});
+        function();
+      });
     }
 
     _loading == true?

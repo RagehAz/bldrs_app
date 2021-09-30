@@ -78,8 +78,7 @@ class _OldAskScreenState extends State<OldAskScreen> {
                 // key: ,
                 delegate: SliverChildListDelegate(<Widget>[
 
-                  Stratosphere(),
-
+                  const Stratosphere(),
 
                   QuestionBubble(
                     tappingAskInfo: () {
@@ -101,7 +100,7 @@ class _OldAskScreenState extends State<OldAskScreen> {
                     onTap: () => Nav.goToNewScreen(context, QuesScreen()),
                   ),
 
-                  PyramidsHorizon(),
+                  const PyramidsHorizon(),
 
                 ]),
               ),

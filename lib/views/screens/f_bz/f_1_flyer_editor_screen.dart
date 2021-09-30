@@ -24,8 +24,8 @@ class FlyerEditorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _flyerBoxWidth = _screenWidth - (Ratioz.appBarMargin * 3) - FlyerBox.editorPanelWidth();
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _flyerBoxWidth = _screenWidth - (Ratioz.appBarMargin * 3) - FlyerBox.editorPanelWidth();
 
     // double _panelWidth = _screenWidth - _flyerBoxWidth - (Ratioz.appBarMargin * 3);
     // AuthorModel _author = widget.firstTimer ?
@@ -40,7 +40,7 @@ class FlyerEditorScreen extends StatelessWidget {
 
         SlidesCounter(),
 
-        Expander(),
+        const Expander(),
 
         // PublishButton(
         //     firstTimer: firstTimer,
@@ -60,7 +60,7 @@ class FlyerEditorScreen extends StatelessWidget {
         // physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
 
-          Stratosphere(),
+          const Stratosphere(),
 
           /// FLYER & PANEL ZONES
           Container(
