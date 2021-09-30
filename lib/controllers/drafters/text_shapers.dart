@@ -102,7 +102,7 @@ String superVerseFont(BuildContext context, VerseWeight weight){
 double superVerseLetterSpacing(VerseWeight weight, double verseSizeValue){
   double _verseLetterSpacing =
   weight == VerseWeight.thin ? verseSizeValue * 0.035 :
-  weight == VerseWeight.regular ? verseSizeValue * 0.09 :
+  weight == VerseWeight.regular ? verseSizeValue * 0.03 :
   weight == VerseWeight.bold ? verseSizeValue * 0.05 :
   weight == VerseWeight.black ? verseSizeValue * 0.07
       :
