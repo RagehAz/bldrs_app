@@ -18,7 +18,7 @@ class Numberers {
 
       else {
 
-        final double _fractions = getFractions(number: number);
+        final double _fractions = getFractions(number: number.toDouble());
         final _number = number.floor();
         final String _digits = _number.abs().toString();
         final StringBuffer _separatedNumberWithoutFractions = StringBuffer(_number < 0 ? '-' : '');
