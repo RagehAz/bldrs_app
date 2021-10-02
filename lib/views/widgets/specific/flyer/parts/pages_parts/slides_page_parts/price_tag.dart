@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/pricing.dart';
@@ -32,7 +32,7 @@ class PriceTag extends StatelessWidget {
     final double _currentPrice = 14999.99;
     final String _currency = BigMac.getCurrencyByIso3(_iso3);
     final double _oldPrice = 17800;
-    final int _discountPercentage = Numberers.discountPercentage(
+    final int _discountPercentage = Numeric.discountPercentage(
       oldPrice: _oldPrice,
       currentPrice: _currentPrice,
     );

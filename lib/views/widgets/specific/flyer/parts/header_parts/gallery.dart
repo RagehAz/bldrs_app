@@ -2,7 +2,6 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
@@ -38,26 +37,26 @@ class _GalleryState extends State<Gallery> {
   BzModel _bzModel;
   List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
 // -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future <void> _triggerLoading({Function function}) async {
-
-    if (function == null){
-      setState(() {
-        _loading = !_loading;
-      });
-    }
-
-    else {
-      setState(() {
-        _loading = !_loading;
-        function();
-      });
-    }
-
-    _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  }
+  // /// --- FUTURE LOADING BLOCK
+  // bool _loading = false;
+  // Future <void> _triggerLoading({Function function}) async {
+  //
+  //   if (function == null){
+  //     setState(() {
+  //       _loading = !_loading;
+  //     });
+  //   }
+  //
+  //   else {
+  //     setState(() {
+  //       _loading = !_loading;
+  //       function();
+  //     });
+  //   }
+  //
+  //   _loading == true?
+  //   print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  // }
 // -----------------------------------------------------------------------------
   @override
   void initState(){
@@ -139,7 +138,7 @@ class _GalleryState extends State<Gallery> {
     return Container(
       width: widget.galleryBoxWidth,
       margin: EdgeInsets.only(top: widget.galleryBoxWidth * 0.005),
-      color: Colorz.BloodTest, //widget.addAuthorButtonIsOn == false ? Colorz.bzPageBGColor : null,
+      color: widget.addAuthorButtonIsOn == false ? Colorz.bzPageBGColor : null,
       child:
       widget.showFlyers == false ?
       Container()

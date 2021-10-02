@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
-import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -116,7 +116,7 @@ class DynamicLinksApi {
   static int getSlideIndexFromDynamicLink(String link){
     final String indexString = TextMod.trimTextBeforeLastSpecialCharacter(link, '/');
 
-    int _index = Numberers.stringToInt(indexString);
+    int _index = Numeric.stringToInt(indexString);
 
     if (_index == null){
       _index = 0;

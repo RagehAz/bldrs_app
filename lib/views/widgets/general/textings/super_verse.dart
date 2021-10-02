@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 
 enum VerseWeight {
   black,
@@ -78,7 +78,7 @@ class SuperVerse extends StatelessWidget {
         children: <Widget>[
 
           SuperVerse(
-            verse: '${Numberers.separateKilos(number: price, fractions: 3)}',
+            verse: '${Numeric.separateKilos(number: price, fractions: 3)}',
             color: color,
             weight: VerseWeight.black,
             size: 6,

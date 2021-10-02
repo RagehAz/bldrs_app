@@ -1,12 +1,49 @@
 import 'dart:async';
 import 'dart:collection';
+import 'package:bldrs/controllers/drafters/numeric.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/zones_manager/db_countries.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
+
+class Atlas{
+// -----------------------------------------------------------------------------
+  static String sqlCipherGeoPoint(GeoPoint point){
+    String string;
+
+    if(point != null){
+
+      final String lat = '${point.latitude}';
+      final String lng = '${point.longitude}';
+      string = '${lat}_${lng}';
+    }
+
+    return string;
+
+  }
+// -----------------------------------------------------------------------------
+  static GeoPoint sqlDecipherGeoPoint(String sqlGeoPointString){
+    GeoPoint _point;
+
+    if (sqlGeoPointString != null){
+      final String _latString = TextMod.trimTextAfterLastSpecialCharacter(sqlGeoPointString, '_');
+      final double _lat = Numeric.stringToDouble(_latString);
+      final String _lngString = TextMod.trimTextBeforeFirstSpecialCharacter(sqlGeoPointString, '_');
+      final double _lng = Numeric.stringToDouble(_lngString);
+
+      _point = GeoPoint(_lat, _lng);
+    }
+
+    return _point;
+  }
+// -----------------------------------------------------------------------------
+}
+
 // -----------------------------------------------------------------------------
 //   List<City> cityDataBase = dbCities;
   List<Country> countryDataBase = DbCountries.dbCountries();

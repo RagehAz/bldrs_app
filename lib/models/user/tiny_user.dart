@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
@@ -182,7 +182,7 @@ class TinyUser {
     ];
 
     if (numberOfUsers != null){
-      final List<int> _randomIndexes = Numberers.getRandomIndexes(numberOfIndexes: numberOfUsers, maxIndex: _users.length - 1);
+      final List<int> _randomIndexes = Numeric.getRandomIndexes(numberOfIndexes: numberOfUsers, maxIndex: _users.length - 1);
       final List<TinyUser> _finalList = <TinyUser>[];
 
       for (int i = 0; i < _randomIndexes.length; i++){

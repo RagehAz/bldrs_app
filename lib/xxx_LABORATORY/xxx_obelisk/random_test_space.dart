@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -88,7 +88,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  int _numberOfFields = 0;
+//   int _numberOfFields = 0;
 // -----------------------------------------------------------------------------
   List<MapModel> _theData = <MapModel>[];
   Future<void> _createBlocks() async {
@@ -98,7 +98,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
     List<MapModel> _data = <MapModel>[];
     int numberOfFields = 10001;
     for (int i = 0; i < numberOfFields; i++){
-      final String _numString = Numberers.separateKilos(number: i+1);
+      final String _numString = Numeric.separateKilos(number: i+1);
 
       final String _value = 'num -> $_numString';
       final String _key = '$i';
