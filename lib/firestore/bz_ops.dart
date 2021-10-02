@@ -7,7 +7,6 @@ import 'package:bldrs/firestore/user_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';
-import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -116,7 +115,7 @@ class BzOps{
       bzTotalViews : inputBz.bzTotalViews,
       bzTotalCalls : inputBz.bzTotalCalls,
       // -------------------------
-      nanoFlyers : inputBz.nanoFlyers,
+      flyersIDs : inputBz.flyersIDs,
       bzTotalFlyers: inputBz.bzTotalFlyers,
       authorsIDs: inputBz.authorsIDs,
     );
@@ -263,7 +262,7 @@ class BzOps{
       bzTotalViews: modifiedBz.bzTotalViews,
       bzTotalCalls: modifiedBz.bzTotalCalls,
       // -------------------------
-      nanoFlyers: modifiedBz.nanoFlyers,
+      flyersIDs: modifiedBz.flyersIDs,
       bzTotalFlyers: modifiedBz.bzTotalFlyers,
       authorsIDs: modifiedBz.authorsIDs,
     );
@@ -300,7 +299,7 @@ class BzOps{
 
     /// update tinyBz in all flyers
     /// TASK : this may require firestore batch write
-      final List<String> _bzFlyersIDs = NanoFlyer.getListOfFlyerIDsFromNanoFlyers(_finalBz.nanoFlyers);
+      final List<String> _bzFlyersIDs = _finalBz.flyersIDs;
       if(_bzFlyersIDs.length > 0){
         for (var id in _bzFlyersIDs){
           await Fire.updateDocField(
@@ -340,11 +339,7 @@ class BzOps{
   Future<void> deactivateBzOps({BuildContext context, BzModel bzModel}) async {
 
     /// 1 - perform deactivate flyer ops for all flyers
-    final List<String> _flyersIDs = <String>[];
-    final List<NanoFlyer> _bzNanoFlyers = bzModel.nanoFlyers;
-    _bzNanoFlyers.forEach((flyer) {
-      _flyersIDs.add(flyer.flyerID);
-    });
+    final List<String> _flyersIDs = bzModel.flyersIDs;
 
     if (_flyersIDs.length > 0){
       for (var id in _flyersIDs){
@@ -408,22 +403,24 @@ class BzOps{
   Future<void> superDeleteBzOps({BuildContext context, BzModel bzModel}) async {
 
     print('1 - start delete flyer ops for all flyers');
-    final List<String> _flyersIDs = BzModel.getBzFlyersIDs(bzModel);
-    for (var id in _flyersIDs){
+    final List<String> _flyersIDs = bzModel.flyersIDs;
+    if(_flyersIDs != null && _flyersIDs.length != 0){
+      for (var id in _flyersIDs){
 
-      print('a - getting flyer : $id');
-      final FlyerModel _flyerModel = await FlyerOps().readFlyerOps(
-        context: context,
-        flyerID: id,
-      );
+        print('a - getting flyer : $id');
+        final FlyerModel _flyerModel = await FlyerOps().readFlyerOps(
+          context: context,
+          flyerID: id,
+        );
 
-      print('b - starting delete flyer ops aho rabbena yostor ------------ - - - ');
-      await FlyerOps().deleteFlyerOps(
-        context: context,
-        bzModel: bzModel,
-        flyerModel: _flyerModel,
-      );
+        print('b - starting delete flyer ops aho rabbena yostor ------------ - - - ');
+        await FlyerOps().deleteFlyerOps(
+          context: context,
+          bzModel: bzModel,
+          flyerModel: _flyerModel,
+        );
 
+      }
     }
 
     print('2 - delete tiny bz doc');

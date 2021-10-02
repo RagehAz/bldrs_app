@@ -8,7 +8,6 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
-import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -137,16 +136,15 @@ class FlyerOps{
 
   print('9- flyer counters added');
 
-  /// add nano flyer to bz document in 'nanoFlyers' field
-    final List<NanoFlyer> _bzNanoFlyers = bzModel.nanoFlyers;
-    final NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyerModel);
-    _bzNanoFlyers.add(_finalNanoFlyer);
+  /// add flyerID to bz document in 'flyersIDs' field
+    final List<String> _bzFlyersIDs = bzModel.flyersIDs;
+    _bzFlyersIDs.add(_flyerID);
     await Fire.updateDocField(
       context: context,
       collName: FireCollection.bzz,
       docName: _finalFlyerModel.tinyBz.bzID,
-      field: 'nanoFlyers',
-      input: NanoFlyer.cipherNanoFlyers(_bzNanoFlyers),
+      field: 'flyersIDs',
+      input: _bzFlyersIDs,
     );
 
     print('10- tiny flyer added to bzID in bzz/${_finalFlyerModel.tinyBz.bzID}');
@@ -200,10 +198,6 @@ class FlyerOps{
   ///   B2 - delete pictures from fireStorage/slidesPics/slideID : slide ID is "flyerID_index"
   /// C - update flyer doc in fireStore/flyers/flyerID
   /// D - if keywords changed, update flyerKeys doc in : fireStore/flyersKeys/flyerID
-  /// E - if nanoFlyer is changed, update it in Bz doc
-  ///   E1 - get finalNanoFlyer from finalFlyer
-  ///   E2 - replace originalNanoFlyer in bzModel with the finalNanoFlyer
-  ///   E3 - update fireStore/bzz/bzID['nanoFlyers'] with the updated nanoFlyers list
   /// F - if tinyFlyer is changed, update tinyFlyer doc
   ///   F1 - get FinalTinyFlyer from final Flyer
   ///   F2 - update fireStore/tinyFlyers/flyerID
@@ -329,33 +323,6 @@ class FlyerOps{
     }
 
 
-    /// E - if nanoFlyer is changed, update it in Bz doc
-    if(NanoFlyer.nanoFlyersAreTheSame(_finalFlyer, originalFlyer) == false){
-
-      /// E1 - get finalNanoFlyer from finalFlyer
-      final NanoFlyer _finalNanoFlyer = NanoFlyer.getNanoFlyerFromFlyerModel(_finalFlyer);
-
-      /// E2 - replace originalNanoFlyer in bzModel with the finalNanoFlyer
-      final List<NanoFlyer> _finalNanoFlyers = NanoFlyer.replaceNanoFlyerInAList(
-          originalNanoFlyers : bzModel.nanoFlyers,
-          finalNanoFlyer: _finalNanoFlyer
-      );
-
-      /// E3 - update fireStore/bzz/bzID['nanoFlyers'] with the updated nanoFlyers list
-      await Fire.updateDocField(
-        context: context,
-        collName: FireCollection.bzz,
-        docName: bzModel.bzID,
-        field: 'nanoFlyers',
-        input: NanoFlyer.cipherNanoFlyers(_finalNanoFlyers),
-      );
-
-      print('E - nano flyer updated');
-
-    }
-
-    print('E - nano flyer checked and checking tiny flyer');
-
     /// F - if tinyFlyer is changed, update tinyFlyer doc
     if(TinyFlyer.tinyFlyersAreTheSame(_finalFlyer, originalFlyer) == false){
 
@@ -379,31 +346,32 @@ class FlyerOps{
     return _finalFlyer;
   }
 // -----------------------------------------------------------------------------
-  /// A1 - remove nano flyer from bz nanoFlyers
-  /// A2 - update fireStore/bzz/bzID['nanoFlyers']
-  /// B - Delete fireStore/tinyFlyers/flyerID
+  // /// A1 - remove nano flyer from bz nanoFlyers
+  // /// A2 - update fireStore/bzz/bzID['nanoFlyers']
+  // ///  B - Delete fireStore/tinyFlyers/flyerID
   /// C - update fireStore/flyers/flyerID['deletionTime']
   /// D - Update fireStore/flyers/flyerID['flyerState'] to Deactivated
   Future<void> deactivateFlyerOps({BuildContext context,String flyerID, BzModel bzModel}) async {
 
-    /// A1 - remove nano flyer from bz nanoFlyers
-    final List<NanoFlyer> _updatedBzNanoFlyers = NanoFlyer.removeNanoFlyerFromNanoFlyers(bzModel.nanoFlyers, flyerID);
+    // /// A1 - remove nano flyer from bz nanoFlyers
+    // final List<String> _bzFlyersIDs = bzModel.flyersIDs;
+    // _bzFlyersIDs.remove(flyerID);
 
-    /// A2 - update fireStore/bzz/bzID['nanoFlyers']
-    await Fire.updateDocField(
-      context: context,
-      collName: FireCollection.bzz,
-      docName: bzModel.bzID,
-      field: 'nanoFlyers',
-      input: NanoFlyer.cipherNanoFlyers(_updatedBzNanoFlyers),
-    );
+    // /// A2 - update fireStore/bzz/bzID['nanoFlyers']
+    // await Fire.updateDocField(
+    //   context: context,
+    //   collName: FireCollection.bzz,
+    //   docName: bzModel.bzID,
+    //   field: 'nanoFlyers',
+    //   input: NanoFlyer.cipherNanoFlyers(_updatedBzNanoFlyers),
+    // );
 
-    /// B - Delete fireStore/tinyFlyers/flyerID
-    await Fire.deleteDoc(
-      context: context,
-      collName: FireCollection.tinyFlyers,
-      docName: flyerID,
-    );
+    // /// B - Delete fireStore/tinyFlyers/flyerID
+    // await Fire.deleteDoc(
+    //   context: context,
+    //   collName: FireCollection.tinyFlyers,
+    //   docName: flyerID,
+    // );
 
     /// TASK : can merge the below two doc writes into one method later in optimization
     /// C - update fireStore/flyers/flyerID['deletionTime']
@@ -441,16 +409,19 @@ class FlyerOps{
 
     /// A1 - remove nano flyer from bz nanoFlyers
     print('A1 - remove nano flyer from bz nanoFlyers');
-    final List<NanoFlyer> _modifiedNanoFlyers= NanoFlyer.removeNanoFlyerFromNanoFlyers(bzModel.nanoFlyers, flyerModel.flyerID);
+    final List<String> _bzFlyersIDs = bzModel.flyersIDs;
 
     /// A2 - update fireStore/bzz/bzID['nanoFlyers']
-    if (_modifiedNanoFlyers != null){
+    if (_bzFlyersIDs != null && _bzFlyersIDs.length != 0){
+
+      _bzFlyersIDs.remove(flyerModel.flyerID);
+
       await Fire.updateDocField(
         context: context,
         collName: FireCollection.bzz,
         docName: bzModel.bzID,
-        field: 'nanoFlyers',
-        input: NanoFlyer.cipherNanoFlyers(_modifiedNanoFlyers),
+        field: 'flyersIDs',
+        input: _bzFlyersIDs,
       );
     }
 
@@ -555,6 +526,43 @@ class FlyerOps{
     final List<ReviewModel> _reviews = ReviewModel.decipherReviews(_maps);
 
     return _reviews;
+  }
+// -----------------------------------------------------------------------------
+  Future<List<TinyFlyer>> readBzTinyFlyers({BuildContext context, BzModel bzModel}) async {
+    final List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
+
+    if (bzModel.flyersIDs != null && bzModel.flyersIDs.length != 0){
+      for (String id in bzModel.flyersIDs){
+
+        final _tinyFlyer = await readTinyFlyerOps(
+          context: context,
+          flyerID: id,
+        );
+
+        _tinyFlyers.add(_tinyFlyer);
+      }
+    }
+
+    return _tinyFlyers;
+  }
+// -----------------------------------------------------------------------------
+  Future<List<TinyFlyer>> readBzzTinyFlyers({BuildContext context, List<BzModel> bzzModels}) async {
+    final List<TinyFlyer> _allTinyFlyers = <TinyFlyer>[];
+
+    if (bzzModels != null && bzzModels.length != 0){
+      for (BzModel bz in bzzModels){
+
+        List<TinyFlyer> _bzTinyFlyer = await readBzTinyFlyers(
+          context: context,
+          bzModel: bz,
+        );
+
+        _allTinyFlyers.addAll(_bzTinyFlyer);
+
+      }
+    }
+
+    return _allTinyFlyers;
   }
 // -----------------------------------------------------------------------------
 }

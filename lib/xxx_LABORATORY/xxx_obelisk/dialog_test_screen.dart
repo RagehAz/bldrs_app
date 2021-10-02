@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/providers/users/user_streamer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -138,9 +139,15 @@ class DialogTestScreen extends StatelessWidget {
                             List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
                             // List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
 
+                            List<TinyFlyer> _bzzTinyFlyers = await FlyerOps().readBzzTinyFlyers(
+                              context: context,
+                              bzzModels: _bzzToDeactivate,
+                            );
+
                             await Dialogz.flyersDeactivationDialog(
                               context: context,
                               bzzToDeactivate: _bzzToDeactivate,
+                              tinyFlyers: _bzzTinyFlyers,
                             );
 
                           },

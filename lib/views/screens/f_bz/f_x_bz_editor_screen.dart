@@ -183,7 +183,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzTotalSlides: _bz.bzTotalSlides,
         bzTotalViews: _bz.bzTotalViews,
         bzTotalCalls: _bz.bzTotalCalls,
-        nanoFlyers: _bz.nanoFlyers,
+        flyersIDs: _bz.flyersIDs,
         bzTotalFlyers: _bz.bzTotalFlyers,
         authorsIDs: _bz.authorsIDs,
       ),
@@ -382,7 +382,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzTotalViews: 0,
         bzTotalCalls: 0,
         // -------------------------
-        nanoFlyers: [],
+        flyersIDs: <String>[],
         bzTotalFlyers: 0,
         authorsIDs: <String>[widget.userModel.userID],
       );
@@ -490,7 +490,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzTotalViews: widget.bzModel.bzTotalViews,
         bzTotalCalls: widget.bzModel.bzTotalCalls,
         // -------------------------
-        nanoFlyers: widget.bzModel.nanoFlyers,
+        flyersIDs: widget.bzModel.flyersIDs,
         bzTotalFlyers: widget.bzModel.bzTotalFlyers,
         authorsIDs: _modifiedAuthorsIDsList,
       );

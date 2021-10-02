@@ -1,14 +1,11 @@
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:flutter/foundation.dart';
@@ -158,23 +155,23 @@ class TinyFlyer with ChangeNotifier{
     return _tinyFlyersMaps;
   }
 // -----------------------------------------------------------------------------
-  static List<TinyFlyer> getTinyFlyersFromBzModel(BzModel bzModel){
-    final List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
-
-    final List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
-
-    if (_nanoFlyers != null){
-      for (var nano in _nanoFlyers){
-
-        final TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromNanoFlyerAndBzModel(nano: nano, bzModel: bzModel);
-
-        _tinyFlyers.add(_tinyFlyer);
-      }
-
-    }
-
-    return _tinyFlyers;
-  }
+//   static List<TinyFlyer> getTinyFlyersFromBzModel(BzModel bzModel){
+//     final List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
+//
+//     final List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
+//
+//     if (_nanoFlyers != null){
+//       for (var nano in _nanoFlyers){
+//
+//         final TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromNanoFlyerAndBzModel(nano: nano, bzModel: bzModel);
+//
+//         _tinyFlyers.add(_tinyFlyer);
+//       }
+//
+//     }
+//
+//     return _tinyFlyers;
+//   }
 // -----------------------------------------------------------------------------
   static List<TinyFlyer> getTinyFlyersFromFlyersModels(List<FlyerModel> flyers){
     final List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
@@ -251,27 +248,27 @@ class TinyFlyer with ChangeNotifier{
     return _tinyFlyer;
   }
 // -----------------------------------------------------------------------------
-  static TinyFlyer getTinyFlyerFromNanoFlyerAndBzModel({NanoFlyer nano, BzModel bzModel}){
-    TinyFlyer _tiny;
-    if(nano != null){
-      _tiny = TinyFlyer(
-        flyerID: nano.flyerID,
-        flyerType: nano.flyerType,
-        authorID: nano.authorID,
-        slideIndex: 0,
-        slidePic: nano.slidePic,
-        flyerZone: nano.flyerZone,
-        midColor: nano.midColor,
-        keywords: null, /// TASK : add keywords to tinyFlyers from nano flyers
-        picFit: null, /// TASK : add picFit to tinyFlyers from nano flyers
-        imageSize: null, /// TASK : add imageSize to tinyFlyers from nano flyers
-        headline: 'fix nano headline',
-        tinyBz: TinyBz.getTinyBzFromBzModel(bzModel),
-        priceTagIsOn: true, /// Task : sheel mayteen om el nano flyers dih and change with tiny flyers instead
-      );
-    }
-    return _tiny;
-  }
+//   static TinyFlyer getTinyFlyerFromNanoFlyerAndBzModel({NanoFlyer nano, BzModel bzModel}){
+//     TinyFlyer _tiny;
+//     if(nano != null){
+//       _tiny = TinyFlyer(
+//         flyerID: nano.flyerID,
+//         flyerType: nano.flyerType,
+//         authorID: nano.authorID,
+//         slideIndex: 0,
+//         slidePic: nano.slidePic,
+//         flyerZone: nano.flyerZone,
+//         midColor: nano.midColor,
+//         keywords: null, /// TASK : add keywords to tinyFlyers from nano flyers
+//         picFit: null, /// TASK : add picFit to tinyFlyers from nano flyers
+//         imageSize: null, /// TASK : add imageSize to tinyFlyers from nano flyers
+//         headline: 'fix nano headline',
+//         tinyBz: TinyBz.getTinyBzFromBzModel(bzModel),
+//         priceTagIsOn: true, /// Task : sheel mayteen om el nano flyers dih and change with tiny flyers instead
+//       );
+//     }
+//     return _tiny;
+//   }
 // -----------------------------------------------------------------------------
   static List<TinyFlyer> filterTinyFlyersBySection({List<TinyFlyer> tinyFlyers, Section section}){
     List<TinyFlyer> _filteredTinyFlyers = <TinyFlyer>[];
