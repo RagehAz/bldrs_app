@@ -5,7 +5,9 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -316,10 +318,16 @@ class UserOps{
         /// D - if user wants to continue
         else  {
 
+          List<TinyFlyer> _bzTinyFlyers = await FlyerOps().readBzzTinyFlyers(
+            context: context,
+            bzzModels: _bzzToDeactivate,
+          );
+
           /// E - show flyers that will be DEACTIVATED
           final bool _flyersReviewResult = await Dialogz.flyersDeactivationDialog(
             context: context,
             bzzToDeactivate: _bzzToDeactivate,
+            tinyFlyers: _bzTinyFlyers,
           );
 
           /// F - if user wants to stop
@@ -513,10 +521,16 @@ class UserOps{
         /// D - if user wants to continue
         else {
 
+          final List<TinyFlyer> _bzzTinyFlyers = await FlyerOps().readBzzTinyFlyers(
+            context: context,
+            bzzModels: _bzzToDeactivate,
+          );
+
           /// E - show flyers that will be DELETED
           final bool _flyersReviewResult = await Dialogz.flyersDeactivationDialog(
             context: context,
             bzzToDeactivate: _bzzToDeactivate,
+            tinyFlyers: _bzzTinyFlyers,
           );
 
           /// F - if user wants to stop

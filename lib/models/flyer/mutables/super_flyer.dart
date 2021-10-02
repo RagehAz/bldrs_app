@@ -372,7 +372,7 @@ class SuperFlyer{
           bzTotalSlides: null,
           bzTotalViews: null,
           bzTotalCalls: null,
-          nanoFlyers: null,
+          flyersIDs: <String>[],
           bzTotalFlyers: null,
           authorsIDs: <String>[flyerModel.tinyAuthor.userID],
         ),
@@ -530,7 +530,7 @@ class SuperFlyer{
           bzIsVerified: null,
           bzAccountIsDeactivated: null,
           bzAccountIsBanned: null,
-          nanoFlyers: null,
+          flyersIDs: <String>[],
           bzTotalFollowers: tinyFlyer.tinyBz.bzTotalFollowers,
           bzTotalFlyers: tinyFlyer.tinyBz.bzTotalFlyers,
           bzTotalSaves: null,
@@ -713,9 +713,9 @@ class SuperFlyer{
           bzIsVerified: bzModel.bzIsVerified,
           bzAccountIsDeactivated: bzModel.bzAccountIsDeactivated,
           bzAccountIsBanned: bzModel.bzAccountIsBanned,
-          nanoFlyers: bzModel.nanoFlyers,
+          flyersIDs: bzModel.flyersIDs,
           bzTotalFollowers: bzModel.bzTotalFollowers,
-          bzTotalFlyers: bzModel.nanoFlyers.length,
+          bzTotalFlyers: bzModel.flyersIDs.length,
           bzTotalSaves: bzModel.bzTotalSaves,
           bzTotalShares: bzModel.bzTotalShares,
           bzTotalSlides: bzModel.bzTotalSlides,
@@ -740,7 +740,7 @@ class SuperFlyer{
         verticalIndex: 0,
 
         /// flyer identifiers
-        key: ValueKey('${bzModel.bzID} : ${bzModel.nanoFlyers.length + 1} : ${superUserID()}'),
+        key: ValueKey('${bzModel.bzID} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
         flyerID: SuperFlyer.draftID,
         authorID: superUserID(),
 
@@ -752,8 +752,8 @@ class SuperFlyer{
 
         /// flyer tags
         flyerInfo: null,
-        specs: [],
-        keywords: [],
+        specs: <Spec>[],
+        keywords: <Keyword>[],
 
         /// flyer location
         flyerZone: _countryPro.currentZone,
@@ -893,9 +893,9 @@ class SuperFlyer{
           bzIsVerified: bzModel.bzIsVerified,
           bzAccountIsDeactivated: bzModel.bzAccountIsDeactivated,
           bzAccountIsBanned: bzModel.bzAccountIsBanned,
-          nanoFlyers: bzModel.nanoFlyers,
+          flyersIDs: bzModel.flyersIDs,
           bzTotalFollowers: bzModel.bzTotalFollowers,
-          bzTotalFlyers: bzModel.nanoFlyers.length,
+          bzTotalFlyers: bzModel.flyersIDs.length,
           bzTotalSaves: bzModel.bzTotalSaves,
           bzTotalShares: bzModel.bzTotalShares,
           bzTotalSlides: bzModel.bzTotalSlides,
@@ -919,7 +919,7 @@ class SuperFlyer{
         verticalIndex: 0,
 
         /// flyer identifiers
-        key: ValueKey('${SuperFlyer.draftID} : ${bzModel.bzID} : ${bzModel.nanoFlyers.length + 1} : ${superUserID()}'),
+        key: ValueKey('${SuperFlyer.draftID} : ${bzModel.bzID} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
         flyerID: flyerModel.flyerID,
         authorID: superUserID(),
 

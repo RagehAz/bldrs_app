@@ -1,5 +1,5 @@
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/flyer/nano_flyer.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 // -----------------------------------------------------------------------------
@@ -31,15 +31,14 @@ class AuthorModel{
     };
   }
 // -----------------------------------------------------------------------------
-  static int getAuthorGalleryCountFromBzModel(BzModel bzModel, AuthorModel author){
+  static int getAuthorGalleryCountFromBzModel({BzModel bzModel, AuthorModel author, List<TinyFlyer> bzTinyFlyers}){
     final String _authorID = author.userID;
-    final List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
 
     final List<String> _authorFlyersIDs = <String>[];
 
-    for (var flyer in _nanoFlyers){
-      if(flyer.authorID == _authorID){
-        _authorFlyersIDs.add(flyer.flyerID);
+    for (var tinyFlyer in bzTinyFlyers){
+      if(tinyFlyer.authorID == _authorID){
+        _authorFlyersIDs.add(tinyFlyer.flyerID);
       }
     }
 
@@ -155,7 +154,7 @@ class AuthorModel{
       bzTotalSlides : bzModel.bzTotalSlides,
       bzTotalViews : bzModel.bzTotalViews,
       bzTotalCalls : bzModel.bzTotalCalls,
-      nanoFlyers : bzModel.nanoFlyers,
+      flyersIDs : bzModel.flyersIDs,
       bzTotalFlyers: bzModel.bzTotalFlyers,
       authorsIDs: _modifiedAuthorsIDsList,
     );
