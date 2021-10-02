@@ -301,7 +301,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                                 DataStrip(dataKey: 'bzTotalSlides', dataValue: _bz.bzTotalSlides, ),
                                 DataStrip(dataKey: 'bzTotalViews', dataValue: _bz.bzTotalViews, ),
                                 DataStrip(dataKey: 'bzTotalCalls', dataValue: _bz.bzTotalCalls, ),
-                                DataStrip(dataKey: 'nanoFlyers,', dataValue: _bz.nanoFlyers, ),
+                                DataStrip(dataKey: 'flyersIDs,', dataValue: _bz.flyersIDs, ),
                                 DataStrip(dataKey: 'bzTotalFlyers', dataValue: _bz.bzTotalFlyers, ),
                                 DataStrip(dataKey: 'authorsIDs', dataValue: _bz.authorsIDs, ),
 

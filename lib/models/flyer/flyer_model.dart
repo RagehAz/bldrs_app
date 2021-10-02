@@ -259,7 +259,7 @@ class FlyerModel with ChangeNotifier{
   static int getNumberOfFlyersFromBzzModels(List<BzModel> bzzModels){
     int _totalFlyers = 0;
     bzzModels.forEach((bzModel) {
-      _totalFlyers = _totalFlyers + (bzModel.nanoFlyers.length);
+      _totalFlyers = _totalFlyers + (bzModel.flyersIDs.length);
     });
     return _totalFlyers;
   }
