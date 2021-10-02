@@ -12,7 +12,7 @@ import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/general/layouts/walls/sequences_bubble.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
-import 'package:bldrs/views/widgets/specific/flyer/stacks/flyer_stack.dart';
+import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -112,7 +112,7 @@ class _HomeWallState extends State<HomeWall> {
       HomeWall.spacer,
 
       /// NEW FLYERS
-      FlyerStack(
+      FlyersShelf(
         flyersType: FlyerType.rentalProperty,
         title: 'New By section flyers in Heliopolis',
         tinyFlyers: TinyFlyer.dummyTinyFlyers(),
@@ -132,7 +132,7 @@ class _HomeWallState extends State<HomeWall> {
       HomeWall.spacer,
 
       /// RECENTLY VIEWED
-      FlyerStack(
+      FlyersShelf(
         flyersType: FlyerType.rentalProperty,
         title: 'Recently viewed flyers',
         tinyFlyers: TinyFlyer.dummyTinyFlyers(),

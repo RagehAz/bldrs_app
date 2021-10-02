@@ -11,7 +11,7 @@ import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/views/screens/b_landing/b_3_sequence_flyers_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/views/widgets/specific/flyer/stacks/flyer_stack.dart';
+import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -149,7 +149,7 @@ class SequencesWall extends StatelessWidget {
 
       _spacer,
 
-      FlyerStack(
+      FlyersShelf(
         flyersType: FlyerType.rentalProperty,
         title: 'New ${sequence.titleID} flyers in Heliopolis',
         tinyFlyers: TinyFlyer.dummyTinyFlyers(),
@@ -176,7 +176,7 @@ class SequencesWall extends StatelessWidget {
                 return
               Padding(
                 padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin * 2),
-                child: FlyerStack(
+                child: FlyersShelf(
                   flyersType: null,
                   title: _stackTitle(context: context, sequence: sequence, index: index),
                   tinyFlyers: TinyFlyer.dummyTinyFlyers(),
@@ -203,7 +203,7 @@ class SequencesWall extends StatelessWidget {
             return
               Padding(
                 padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin * 2),
-                child: FlyerStack(
+                child: FlyersShelf(
                   flyersType: null,
                   titleIcon: Keyword.getImagePath(_keywordsByGroupID[index]),
                   title: _stackTitle(context: context, sequence: sequence, index: index),//'${KeywordModel.getKeywordNameByKeywordID(context, _keywordsByGroupID[index].keywordID)} in Cairo',

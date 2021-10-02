@@ -103,7 +103,7 @@ class FlyersLDB{
     }
 
     /// insert sql flyer
-    final Map<String, Object> _sqlFlyerMap = FlyerModel.sqlCipherFlyerModel(flyer);
+    final Map<String, Object> _sqlFlyerMap = FlyerModel.sqlCipherFlyer(flyer);
     await LDB.insert(
       table: flyersLDB.flyersTable,
       input: _sqlFlyerMap,
@@ -112,7 +112,7 @@ class FlyersLDB{
     print('flyer : ${flyer.flyerID} : added to : ${flyersLDB.tableName} : LDB');
   }
 // -----------------------------------------------------------------------------
-  static Future<FlyerModel> readFlyerFromLDB({FlyersLDB flyersLDB, String flyerID}) async {
+  static Future<FlyerModel> readAFlyerFromLDB({FlyersLDB flyersLDB, String flyerID}) async {
 
     print('3ala allah 7kaytak');
 

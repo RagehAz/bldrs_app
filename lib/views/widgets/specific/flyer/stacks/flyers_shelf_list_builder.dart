@@ -5,13 +5,13 @@ import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 
-class FlyerStackList extends StatefulWidget {
+class FlyersShelfListBuilder extends StatefulWidget {
   final List<TinyFlyer> tinyFlyers;
   final double flyerSizeFactor;
   final Function flyerOnTap;
   final Function onScrollEnd;
 
-  const FlyerStackList({
+  const FlyersShelfListBuilder({
     @required this.tinyFlyers,
     @required this.flyerSizeFactor,
     @required this.flyerOnTap,
@@ -19,10 +19,10 @@ class FlyerStackList extends StatefulWidget {
 });
 
   @override
-  _FlyerStackListState createState() => _FlyerStackListState();
+  _FlyersShelfListBuilderState createState() => _FlyersShelfListBuilderState();
 }
 
-class _FlyerStackListState extends State<FlyerStackList> {
+class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
   final _controller = ScrollController();
 
   @override
@@ -137,10 +137,19 @@ class _FlyerStackListState extends State<FlyerStackList> {
           //   // },
           // );
         ///
-          FinalFlyer(
-            flyerBoxWidth: _flyerBoxWidth,
-            tinyFlyer: _tinyFlyers[_x],
-            goesToEditor: false,
+          GestureDetector(
+            onTap: widget.flyerOnTap == null ? null : (){
+              widget.flyerOnTap(_tinyFlyers[_x]);
+            },
+            child: AbsorbPointer(
+              absorbing: widget.flyerOnTap == null ? false : true,
+              child: FinalFlyer(
+                flyerBoxWidth: _flyerBoxWidth,
+                tinyFlyer: _tinyFlyers[_x],
+                goesToEditor: false,
+
+              ),
+            ),
           );
 
       },
