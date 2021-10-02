@@ -147,14 +147,14 @@ class PublishTime {
   }
 // -----------------------------------------------------------------------------
   static List<PublishTime> sqlDecipherPublishTimes(String timesString){
-    List<PublishTime> _times = <PublishTime>[];
+    final List<PublishTime> _times = <PublishTime>[];
 
     if (timesString != null){
 
       List<String> _sqlStrings = TextMod.sqlDecipherStrings(timesString);
 
       for (String sqlString in _sqlStrings){
-        PublishTime _time = sqlDecipherPublishTime(sqlString);
+        final PublishTime _time = sqlDecipherPublishTime(sqlString);
         _times.add(_time);
       }
 
