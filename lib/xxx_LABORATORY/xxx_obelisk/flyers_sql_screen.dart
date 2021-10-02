@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
@@ -9,6 +10,7 @@ import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/providers/local_db/sql_ops/flyer_sql.dart';
+import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -258,6 +260,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
               itemBuilder: (ctx, index){
 
                 Map<String, Object> _map = _flyersLDB?.flyersTable?.maps[index];
+
                 List<Object> _keys = _map.keys.toList();
                 List<Object> _values = _map.values.toList();
 
@@ -278,6 +281,28 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
                           height: 37,
                           width: 37,
                           icon: Iconz.DumBusinessLogo,
+                          onTap: () async {
+
+                            print('a777aaa');
+
+                            List<SlideModel> _allFlyersSlides = SlideModel.sqlDecipherSlides(
+                              maps: _flyersLDB.slidesTable.maps,
+                            );
+
+                            List<SlideModel> _flyerSlides = SlideModel.getSlidesFromSlidesByFlyerID(_allFlyersSlides, _flyerID);
+
+                            FlyerModel _flyer = FlyerModel.sqlDecipherFlyer(
+                              flyerMap: _map,
+                              slides: _flyerSlides,
+                            );
+
+                            _flyer.printFlyer();
+
+                            await Nav.goToNewScreen(context, FlyerScreen(
+                              flyerModel: _flyer,
+                            ));
+
+                          },
                           // margins: EdgeInsets.all(5),
                         ),
 
