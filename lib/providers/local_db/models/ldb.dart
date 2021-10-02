@@ -1,4 +1,3 @@
-import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/providers/local_db/models/ldb_column.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/providers/local_db/models/ldb_table.dart';

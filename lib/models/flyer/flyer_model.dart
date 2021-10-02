@@ -460,7 +460,7 @@ class FlyerModel with ChangeNotifier{
       // -------------------------
       LDBColumn(key: 'numberOfSlides', type: 'INTEGER'),
       // -------------------------
-      LDBColumn(key: 'flyerIsBanned', type: 'TEXT'),
+      LDBColumn(key: 'flyerIsBanned', type: 'INTEGER'),
       LDBColumn(key: 'deletionTime', type: 'TEXT'),
       LDBColumn(key: 'specs', type: 'TEXT'),
       LDBColumn(key: 'info', type: 'TEXT'),
@@ -472,9 +472,9 @@ class FlyerModel with ChangeNotifier{
     return _columns;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, Object> sqlCipherFlyerModel(FlyerModel flyer){
+  static Map<String, Object> sqlCipherFlyer(FlyerModel flyer){
 
-    Map<String, Object> _flyerSQLMap = {
+    final Map<String, Object> _flyerSQLMap = {
 
       'flyerID' : flyer.flyerID,
       'flyerType' : FlyerTypeClass.cipherFlyerType(flyer.flyerType),
@@ -517,6 +517,22 @@ class FlyerModel with ChangeNotifier{
     };
 
     return _flyerSQLMap;
+  }
+// -----------------------------------------------------------------------------
+  static List<Map<String, Object>> sqlCipherFlyers(List<FlyerModel> flyers){
+    final List<Map<String, Object>> _maps = <Map<String, Object>>[];
+
+    if (flyers != null && flyers.length != 0){
+
+      for (FlyerModel flyer in flyers){
+
+        final Map<String, Object> _map = sqlCipherFlyer(flyer);
+        _maps.add(_map);
+      }
+
+    }
+
+    return _maps;
   }
 // -----------------------------------------------------------------------------
   static FlyerModel sqlDecipherFlyer({Map<String, Object> flyerMap, List<SlideModel> slides}){
@@ -579,14 +595,14 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<FlyerModel> sqlDecipherFlyers({List<dynamic> sqlFlyersMaps, List<SlideModel> allSlides}){
-    List<FlyerModel> _allFlyers = <FlyerModel>[];
+    final List<FlyerModel> _allFlyers = <FlyerModel>[];
 
     if (sqlFlyersMaps != null && allSlides != null && sqlFlyersMaps.length != 0 && allSlides.length != 0){
 
       for (var sqlFlyerMap in sqlFlyersMaps){
 
         final String _flyerID =  sqlFlyerMap['flyerID'];
-        final List<SlideModel> _slides = allSlides.where((slide) => slide.flyerID == _flyerID);
+        final List<SlideModel> _slides = SlideModel.getSlidesFromSlidesByFlyerID(allSlides, _flyerID);
 
         final FlyerModel _flyer = sqlDecipherFlyer(
           flyerMap: sqlFlyerMap,
@@ -602,6 +618,7 @@ class FlyerModel with ChangeNotifier{
     return _allFlyers;
   }
 // -----------------------------------------------------------------------------
+
 }
 // -----------------------------------------------------------------------------
 enum FlyerState{

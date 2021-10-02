@@ -329,13 +329,17 @@ class TextMod {
   static String sqlCipherStrings(List<String> strings){
     String _output;
 
-    for (String string in strings){
+    if (strings != null && strings.length != 0){
 
-      if (_output == null){
-        _output = '$string';
-      }
-      else {
-        _output = '${_output}__$string';
+      for (String string in strings){
+
+        if (_output == null){
+          _output = '$string';
+        }
+        else {
+          _output = '${_output}__$string';
+        }
+
       }
 
     }
