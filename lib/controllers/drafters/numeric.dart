@@ -110,6 +110,8 @@ class Numeric {
   static double stringToDouble(String string){
     double _value;
 
+    print('stringToDouble : string : $string');
+
     if (string != null){
       _value = double.parse(string);
     }
