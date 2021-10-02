@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
@@ -135,6 +137,25 @@ class ImageSize{
       case 7 : return BoxFit.contain         ;
       default : return null;
     }
+  }
+// -----------------------------------------------------------------------------
+  /// Task : not Tested
+  static String sqlCipherImageSize(ImageSize size){
+    return '${size.width}#${size.height}';
+  }
+// -----------------------------------------------------------------------------
+  /// TASK : not tested
+  static ImageSize sqlDecipherImageSize(String sqlImageSize){
+    final String _widthString = TextMod.trimTextAfterFirstSpecialCharacter(sqlImageSize, '#');
+    final double _width = Numeric.stringToDouble(_widthString);
+
+    final String _heightString = TextMod.trimTextBeforeFirstSpecialCharacter(sqlImageSize, '#');
+    final double _height = Numeric.stringToDouble(_heightString);
+
+    return ImageSize(
+      width: _width,
+      height: _height,
+    );
   }
 // -----------------------------------------------------------------------------
 

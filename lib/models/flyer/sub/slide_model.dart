@@ -22,6 +22,8 @@ class SlideModel {
   ImageSize imageSize;
   Color midColor;
 
+  final String flyerID; /// only used in sql ops
+
   SlideModel({
     this.slideIndex,
     this.pic,
@@ -33,6 +35,8 @@ class SlideModel {
     @required this.picFit, /// TASK : update all methods below to include this boxfit parameter
     @required this.imageSize,
     @required this.midColor,
+
+    this.flyerID, /// only used in sql ops
   });
   // -------------------------
   Map<String, dynamic> toMap() {
@@ -347,11 +351,91 @@ class SlideModel {
     return _columns;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, Object> sqlCipherSlides(List<SlideModel> slides){
+  static Map<String, Object> sqlCipherSlide({SlideModel slide, String flyerID}) {
+    Map<String, Object> _map;
 
+    if (slide != null) {
+      _map = {
+        'flyerID': flyerID,
+        'slideIndex': slide.slideIndex,
+        'pic': Imagers.sqlCipherImage(slide.pic),
+        'headline': slide.headline,
+        'description': slide.description,
+        'sharesCount': slide.sharesCount,
+        'viewsCount': slide.viewsCount,
+        'savesCount': slide.savesCount,
+        'picFit': ImageSize.cipherBoxFit(slide.picFit),
+        'imageSize': ImageSize.sqlCipherImageSize(slide.imageSize),
+        'midColor': Colorizer.cipherColor(slide.midColor),
+      };
+
+      return _map;
+    }
+
+    return _map;
   }
+// -----------------------------------------------------------------------------
+  static SlideModel sqlDecipherSlide({Map<String, Object> map}){
+    SlideModel _slide;
 
-  static List<SlideModel> sqlDecipherSlides(Map<String, Object> map){
+    if (map != null){
 
+      _slide = SlideModel(
+        flyerID: map['flyerID'],
+        slideIndex: map['slideIndex'],
+        pic: Imagers.sqlDecipherImage(map['pic']),
+        headline: map['headline'],
+        description: map['description'],
+        sharesCount: map['sharesCount'],
+        viewsCount: map['viewsCount'],
+        savesCount: map['savesCount'],
+        picFit: ImageSize.decipherBoxFit(map['picFit']),
+        imageSize: ImageSize.sqlDecipherImageSize(map['imageSize']),
+        midColor: Colorizer.decipherColor(map['midColor']),
+      );
+
+    }
+
+    return _slide;
   }
+// -----------------------------------------------------------------------------
+  static List<Map<String, Object>> sqlCipherSlides({List<SlideModel> slides, String flyerID}){
+    List<Map<String, Object>> _maps = <Map<String, Object>>[];
+
+    if (slides != null && slides.length != 0){
+
+      for (SlideModel slide in slides){
+
+        final Map<String, Object> _map = sqlCipherSlide(
+          flyerID: flyerID,
+          slide: slide,
+        );
+
+        _maps.add(_map);
+
+      }
+
+    }
+
+    return _maps;
+  }
+// -----------------------------------------------------------------------------
+  static List<SlideModel> sqlDecipherSlides({List<Map<String, Object>> maps}){
+    List<SlideModel> _slides = <SlideModel>[];
+
+    if (maps != null && maps.length != 0){
+
+      for (var map in maps){
+
+        final SlideModel _slide = sqlDecipherSlide(map: map);
+
+        _slides.add(_slide);
+
+      }
+
+    }
+
+    return _slides;
+  }
+// -----------------------------------------------------------------------------
 }
