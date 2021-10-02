@@ -158,12 +158,13 @@ class MaxHeader extends StatelessWidget {
 
               /// BZ GALLERY
               // if (superFlyer.mSlides.length != 0)
-              if (superFlyer.bz.nanoFlyers != null)
+              if (superFlyer.bz.flyersIDs != null)
               Gallery(
                 superFlyer: superFlyer,
                 showFlyers: true,
                 galleryBoxWidth: flyerBoxWidth,
                 addAuthorButtonIsOn: false,
+                tinyFlyers: [],
               ),
 
               Container(

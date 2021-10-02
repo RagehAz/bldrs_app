@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
@@ -15,12 +16,14 @@ class Gallery extends StatefulWidget {
   final double galleryBoxWidth;
   final bool showFlyers; // why ?
   final bool addAuthorButtonIsOn;
+  final List<TinyFlyer> tinyFlyers;
 
   const Gallery({
     @required this.superFlyer,
     @required this.galleryBoxWidth,
     @required this.showFlyers,
     this.addAuthorButtonIsOn = true,
+    @required this.tinyFlyers,
   });
 
   @override
@@ -31,22 +34,47 @@ class _GalleryState extends State<Gallery> {
   List<bool> _flyersVisibilities;
   // List<bool> _authorsVisibilities;
   String _selectedAuthorID;
-  List<TinyFlyer> _tinyFlyers;
   List<String> _bzTeamIDs;
   BzModel _bzModel;
+  List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
+// -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
+  bool _loading = false;
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
 // -----------------------------------------------------------------------------
   @override
   void initState(){
     super.initState();
+
+    print('starting gallery init');
+
     _bzModel = widget.superFlyer.bz;
+    _tinyFlyers = widget.tinyFlyers;
 
-    print('nano flyers are ${_bzModel.nanoFlyers}');
+    print('flyersIDs are ${_bzModel.flyersIDs}');
 
-    _tinyFlyers = TinyFlyer.getTinyFlyersFromBzModel(_bzModel);
     _bzTeamIDs = BzModel.getBzTeamIDs(_bzModel);
     setFlyersVisibility();
   }
 // -----------------------------------------------------------------------------
+
   List<bool> _createVisibilities({bool fillingValue}){
     final List<bool> _visibilities = <bool>[];
 
@@ -111,7 +139,7 @@ class _GalleryState extends State<Gallery> {
     return Container(
       width: widget.galleryBoxWidth,
       margin: EdgeInsets.only(top: widget.galleryBoxWidth * 0.005),
-      color: widget.addAuthorButtonIsOn == false ? Colorz.bzPageBGColor : null,
+      color: Colorz.BloodTest, //widget.addAuthorButtonIsOn == false ? Colorz.bzPageBGColor : null,
       child:
       widget.showFlyers == false ?
       Container()
@@ -157,15 +185,15 @@ class _GalleryState extends State<Gallery> {
             /// AUTHORS BUBBLE
             if (widget.superFlyer.bz.bzShowsTeam != false)
               AuthorBubble(
-                  flyerBoxWidth: widget.galleryBoxWidth,
-                  addAuthorButtonIsOn: widget.addAuthorButtonIsOn,
-                  bzAuthors: widget.superFlyer.bz.bzAuthors,
-                  showFlyers: widget.showFlyers,
-                  bzModel: widget.superFlyer.bz,
-                  onAuthorLabelTap: (id) => _onAuthorLabelTap(id),
-                  selectedAuthorID: _selectedAuthorID,
+                flyerBoxWidth: widget.galleryBoxWidth,
+                addAuthorButtonIsOn: widget.addAuthorButtonIsOn,
+                bzAuthors: widget.superFlyer.bz.bzAuthors,
+                showFlyers: widget.showFlyers,
+                bzModel: widget.superFlyer.bz,
+                onAuthorLabelTap: (id) => _onAuthorLabelTap(id),
+                selectedAuthorID: _selectedAuthorID,
+                bzTinyFlyers: _tinyFlyers,
               ),
-
 
             /// FLYERS
             if (widget.galleryBoxWidth != null)

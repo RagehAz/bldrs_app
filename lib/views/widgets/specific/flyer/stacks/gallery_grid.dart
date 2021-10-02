@@ -83,14 +83,15 @@ class GalleryGrid extends StatelessWidget {
     final List<TinyFlyer> _gridFlyers = galleryFlyers == null ? <TinyFlyer>[] : galleryFlyers;//pro.getAllFlyers;
     final bool _viewerIsAuthor = _concludeUserIsAuthor();
 // -----------------------------------------------------------------------------
-    final double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: _gridFlyers.length);
-    final double _gridSpacing = gridSpacing(gridZoneWidth: gridZoneWidth, flyersLength: _gridFlyers.length);
+    final int _flyersLength = addButtonIsOn == true ? _gridFlyers.length + 1 : _gridFlyers.length;
+    final double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: _flyersLength);
+    final double _gridSpacing = gridSpacing(gridZoneWidth: gridZoneWidth, flyersLength: _flyersLength);
 // -----------------------------------------------------------------------------
     final double _gridHeight = gridHeight(
         context : context,
         gridZoneWidth : gridZoneWidth,
         gridHasAddButton : _viewerIsAuthor,
-        flyersLength : _gridFlyers.length,
+        flyersLength : _flyersLength,
     );
 // -----------------------------------------------------------------------------
 

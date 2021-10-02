@@ -25,7 +25,6 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/random_test_space.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/sql_test.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/tab_bar_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/timer_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/trigram_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_lab.dart';
@@ -154,7 +153,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           LogoSlogan(sizeFactor: 0.8,),
 
-          oButton('TAB BAR TEST', Iconz.Phone, TabBarTest()),
 
           oButton('TimersTest', Iconz.Clock, TimerTest()),
 

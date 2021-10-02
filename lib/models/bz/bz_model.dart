@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/models/flyer/nano_flyer.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
@@ -75,7 +74,7 @@ class BzModel with ChangeNotifier{
   int bzTotalCalls;
   int bzTotalFlyers;
   // -------------------------
-  final List<NanoFlyer> nanoFlyers;
+  final List<String> flyersIDs;
   final List<String> authorsIDs;
 
 // ###############################
@@ -108,7 +107,7 @@ class BzModel with ChangeNotifier{
     this.bzTotalViews,
     this.bzTotalCalls,
     // -------------------------
-    this.nanoFlyers,
+    this.flyersIDs,
     @required this.bzTotalFlyers,
     @required this.authorsIDs,
   });
@@ -147,8 +146,6 @@ class BzModel with ChangeNotifier{
 // ###############################
 Map<String, dynamic> toMap(){
 
-  final List<dynamic> _nanoFlyersMaps = NanoFlyer.cipherNanoFlyers(nanoFlyers);
-
   return {
     'bzID' : bzID,
     // -------------------------
@@ -178,8 +175,8 @@ Map<String, dynamic> toMap(){
     'bzTotalViews' : bzTotalViews,
     'bzTotalCalls' : bzTotalCalls,
     // -------------------------
-    'nanoFlyers' : _nanoFlyersMaps,
-    'bzTotalFlyers' : _nanoFlyersMaps.length,
+    'flyersIDs' : flyersIDs,
+    'bzTotalFlyers' : flyersIDs.length,
     'authorsIDs' : authorsIDs,
     };
 }
@@ -235,7 +232,7 @@ Map<String, dynamic> toMap(){
       bzTotalViews : map['bzTotalViews'],
       bzTotalCalls : map['bzTotalCalls'],
       // -------------------------
-      nanoFlyers: NanoFlyer.decipherNanoFlyersMaps(map['nanoFlyers']),
+      flyersIDs: Mapper.getStringsFromDynamics(dynamics: map['flyersIDs']),
       bzTotalFlyers: map['bzTotalFlyers'],
       authorsIDs: Mapper.getStringsFromDynamics(dynamics: map['authorsIDs']),
     );
@@ -293,7 +290,7 @@ Map<String, dynamic> toMap(){
       bzTotalViews: 0,
       bzTotalCalls: 0,
       // -------------------------
-      nanoFlyers: <NanoFlyer>[],
+      flyersIDs: <String>[],
       bzTotalFlyers: 0,
       authorsIDs: <String>[userModel.userID],
       createdAt: DateTime.now(),
@@ -392,17 +389,6 @@ Map<String, dynamic> toMap(){
     return _bz;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getBzFlyersIDs(BzModel bzModel){
-    final List<String> _flyersIDs = <String>[];
-    final List<NanoFlyer> _nanoFlyers = bzModel.nanoFlyers;
-
-    for (var nano in _nanoFlyers){
-      _flyersIDs.add(nano.flyerID);
-    }
-
-    return   _flyersIDs;
-  }
-// -----------------------------------------------------------------------------
   static BzModel getTempBzModelFromTinyBz(TinyBz tinyBz){
     BzModel _bz;
     if (tinyBz != null){
@@ -435,7 +421,7 @@ Map<String, dynamic> toMap(){
         bzTotalViews : null,
         bzTotalCalls : null,
         // -------------------------
-        nanoFlyers: null,
+        flyersIDs: <String>[],
         bzTotalFlyers: null,
         authorsIDs: <String>[],
       );
@@ -476,7 +462,7 @@ Map<String, dynamic> toMap(){
     print('bzTotalSlides : $bzTotalSlides');
     print('bzTotalViews : $bzTotalViews');
     print('bzTotalCalls : $bzTotalCalls');
-    print('nanoFlyers : $nanoFlyers');
+    print('flyersIDs : $flyersIDs');
     print('bzTotalFlyers : $bzTotalFlyers');
     print('authorsIDs : $authorsIDs');
 

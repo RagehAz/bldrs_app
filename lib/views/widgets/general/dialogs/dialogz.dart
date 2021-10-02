@@ -141,6 +141,7 @@ class Dialogz{
   static Future<bool> flyersDeactivationDialog({
     BuildContext context,
     List<BzModel> bzzToDeactivate,
+    @required List<TinyFlyer> tinyFlyers,
   }) async {
 
     final int _totalNumOfFlyers = FlyerModel.getNumberOfFlyersFromBzzModels(bzzToDeactivate);
@@ -166,7 +167,7 @@ class Dialogz{
 
                 return
                   FlyersBubble(
-                    tinyFlyers: TinyFlyer.getTinyFlyersFromBzModel(bzzToDeactivate[index]),
+                    tinyFlyers: tinyFlyers,
                     flyerSizeFactor: 0.2,
                     numberOfColumns: 2,
                     title: 'flyers of ${bzzToDeactivate[index].bzName}',

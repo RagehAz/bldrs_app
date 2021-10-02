@@ -84,7 +84,7 @@ class BzAboutTab extends StatelessWidget {
 
                 /// SLIDES & FLYERS
                 StatsLine(
-                  verse: '${bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${bzModel.nanoFlyers.length} ${Wordz.flyers(context)}',
+                  verse: '${bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${bzModel.flyersIDs.length} ${Wordz.flyers(context)}',
                   icon: Iconz.Gallery,
                 ),
 

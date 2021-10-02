@@ -71,7 +71,7 @@ class TinyBz with ChangeNotifier{
         bzType: bzModel.bzType,
         bzZone: bzModel.bzZone,
         bzTotalFollowers: bzModel.bzTotalFollowers,
-        bzTotalFlyers: bzModel.nanoFlyers.length,
+        bzTotalFlyers: bzModel.flyersIDs.length,
       );
   }
 // -----------------------------------------------------------------------------

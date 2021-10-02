@@ -6,6 +6,7 @@ import 'package:bldrs/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -19,6 +20,7 @@ class AuthorBubble extends StatelessWidget {
   final BzModel bzModel;
   final Function onAuthorLabelTap;
   final String selectedAuthorID;
+  final List<TinyFlyer> bzTinyFlyers;
 
   const AuthorBubble({
     @required this.flyerBoxWidth,
@@ -28,6 +30,7 @@ class AuthorBubble extends StatelessWidget {
     @required this.bzModel,
     @required this.onAuthorLabelTap,
     @required this.selectedAuthorID,
+    @required this.bzTinyFlyers,
 });
 // -----------------------------------------------------------------------------
   static double bubbleWidth(double flyerBoxWidth){
@@ -127,7 +130,11 @@ class AuthorBubble extends StatelessWidget {
                                   flyerBoxWidth: flyerBoxWidth,
                                   tinyAuthor: _tinyAuthor,
                                   tinyBz: _tinyBz,
-                                  authorGalleryCount: AuthorModel.getAuthorGalleryCountFromBzModel(bzModel, _author),
+                                  authorGalleryCount: AuthorModel.getAuthorGalleryCountFromBzModel(
+                                    bzModel: bzModel,
+                                    author: _author,
+                                    bzTinyFlyers: bzTinyFlyers,
+                                  ),
                                   onTap:
                                   // widget.bzTeamIDs.length == 1 ?
                                       (id) {
