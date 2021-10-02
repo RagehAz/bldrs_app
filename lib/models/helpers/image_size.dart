@@ -141,21 +141,36 @@ class ImageSize{
 // -----------------------------------------------------------------------------
   /// Task : not Tested
   static String sqlCipherImageSize(ImageSize size){
-    return '${size.width}#${size.height}';
+    String _string;
+
+    if (size != null && size.width != null && size.height != null){
+      _string = '${size.width}#${size.height}';
+    }
+
+    return _string;
   }
 // -----------------------------------------------------------------------------
   /// TASK : not tested
   static ImageSize sqlDecipherImageSize(String sqlImageSize){
-    final String _widthString = TextMod.trimTextAfterFirstSpecialCharacter(sqlImageSize, '#');
-    final double _width = Numeric.stringToDouble(_widthString);
 
-    final String _heightString = TextMod.trimTextBeforeFirstSpecialCharacter(sqlImageSize, '#');
-    final double _height = Numeric.stringToDouble(_heightString);
+    ImageSize _imageSize;
 
-    return ImageSize(
-      width: _width,
-      height: _height,
-    );
+    if (sqlImageSize != null){
+
+      final String _widthString = TextMod.trimTextAfterFirstSpecialCharacter(sqlImageSize, '#');
+      final double _width = Numeric.stringToDouble(_widthString);
+
+      final String _heightString = TextMod.trimTextBeforeFirstSpecialCharacter(sqlImageSize, '#');
+      final double _height = Numeric.stringToDouble(_heightString);
+
+      _imageSize = ImageSize(
+        width: _width,
+        height: _height,
+      );
+
+    }
+
+    return _imageSize;
   }
 // -----------------------------------------------------------------------------
 
