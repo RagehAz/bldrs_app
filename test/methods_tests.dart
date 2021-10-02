@@ -1,5 +1,8 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -224,8 +227,37 @@ void main(){
 
     bool _specsListsAreTheSame = Spec.specsListsAreTheSame(_specs, specsBack);
 
-    dynamic _expected =  false;
+    dynamic _expected =  true;
     expect(_specsListsAreTheSame, _expected);
+
+  });
+
+  test('sqlCipherPublishTimes and sqlDecipherPublishTimes', (){
+
+    final PublishTime timeA = PublishTime(state: FlyerState.Suspended, timeStamp: Timers.createDate(year: 1987, month: 06, day: 10));
+    final PublishTime timeB = PublishTime(state: FlyerState.Banned, timeStamp: Timers.createDate(year: 2011, month: 02, day: 26));
+    final List<PublishTime> _times = [timeA, timeB];
+
+    String sql = PublishTime.sqlCipherPublishTimes(_times);
+
+    final List<PublishTime> _back = PublishTime.sqlDecipherPublishTimes(sql);
+
+
+    print('1 : sql : $sql');
+
+    print('2 : _times[0].timeStamp : ${_times[0].timeStamp}');
+    print('3 : _times[0].state : ${_times[0].state}');
+    print('4 : _times[1].timeStamp : ${_times[1].timeStamp}');
+    print('5 : _times[1].state : ${_times[1].state}');
+
+
+    print('2 : _times[0].timeStamp : ${_back[0].timeStamp}');
+    print('3 : _times[0].state : ${_back[0].state}');
+    print('4 : _times[1].timeStamp : ${_back[1].timeStamp}');
+    print('5 : _times[1].state : ${_back[1].state}');
+
+    // dynamic _expected =  false;
+    expect(1, 1);
 
   });
 // -----------------------------------------------------------------------------

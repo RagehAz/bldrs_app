@@ -518,6 +518,42 @@ class FlyerModel with ChangeNotifier{
     return _flyerSQLMap;
   }
 // -----------------------------------------------------------------------------
+  static FlyerModel sqlDecipherFlyer(Map<String, Object> map){
+    FlyerModel _flyer;
+
+    if (map != null){
+
+      _flyer = FlyerModel(
+        this.flyerID,
+        // -------------------------
+        this.flyerType,
+        this.flyerState = FlyerState.Draft,
+        this.keywordsIDs,
+        this.flyerShowsAuthor = false,
+        this.flyerZone,
+        // -------------------------
+        this.tinyAuthor,
+        this.tinyBz,
+        // -------------------------
+        this.createdAt,
+        this.flyerPosition,
+        // -------------------------
+        this.ankhIsOn,
+        // -------------------------
+        this.slides,
+        // -------------------------
+        this.flyerIsBanned,
+        this.deletionTime, /// TASK : delete this
+        this.specs,
+        @required this.info,
+      this.times,
+      @required this.priceTagIsOn,
+      );
+
+    }
+
+    return _flyer;
+  }
 }
 // -----------------------------------------------------------------------------
 enum FlyerState{
