@@ -503,6 +503,7 @@ class FlyerModel with ChangeNotifier{
       'tinyBz_bzZone_districtID' : flyer.tinyBz.bzZone.districtID,
       'tinyBz_bzTotalFollowers' : flyer.tinyBz.bzTotalFollowers,
       'tinyBz_bzTotalFlyers' : flyer.tinyBz.bzTotalFlyers,
+
       'createdAt' : Timers.cipherDateTimeIso8601(flyer.createdAt),
       'flyerPosition' : Atlas.sqlCipherGeoPoint(flyer.flyerPosition),
       'ankhIsOn' : Numeric.sqlCipherBool(flyer.ankhIsOn),
@@ -518,36 +519,58 @@ class FlyerModel with ChangeNotifier{
     return _flyerSQLMap;
   }
 // -----------------------------------------------------------------------------
-  static FlyerModel sqlDecipherFlyer(Map<String, Object> map){
+  static FlyerModel sqlDecipherFlyer(Map<String, Object> flyerMap, Map<String, Object> slidesMap){
     FlyerModel _flyer;
 
-    if (map != null){
+    if (flyerMap != null && slidesMap != null){
 
       _flyer = FlyerModel(
-        this.flyerID,
-        // -------------------------
-        this.flyerType,
-        this.flyerState = FlyerState.Draft,
-        this.keywordsIDs,
-        this.flyerShowsAuthor = false,
-        this.flyerZone,
-        // -------------------------
-        this.tinyAuthor,
-        this.tinyBz,
-        // -------------------------
-        this.createdAt,
-        this.flyerPosition,
-        // -------------------------
-        this.ankhIsOn,
-        // -------------------------
-        this.slides,
-        // -------------------------
-        this.flyerIsBanned,
-        this.deletionTime, /// TASK : delete this
-        this.specs,
-        @required this.info,
-      this.times,
-      @required this.priceTagIsOn,
+        flyerID: flyerMap['flyerID'],
+        flyerType: FlyerTypeClass.decipherFlyerType(flyerMap['flyerType']),
+        flyerState: decipherFlyerState(flyerMap['flyerState']),
+        keywordsIDs: TextMod.sqlDecipherStrings(flyerMap['keywordsIDs']),
+        flyerShowsAuthor: Numeric.sqlDecipherBool(flyerMap['flyerShowsAuthor']),
+
+        flyerZone: Zone(
+          countryID: flyerMap['zone_countryID'],
+          cityID: flyerMap['zone_cityID'],
+          districtID: flyerMap['zone_districtID'],
+        ),
+
+        tinyAuthor: TinyUser(
+          userID:  flyerMap['tinyAuthor_userID'],
+          name: flyerMap['tinyAuthor_name'],
+          title: flyerMap['tinyAuthor_title'],
+          pic: Imagers.sqlDecipherImage(flyerMap['tinyAuthor_pic']),
+          userStatus: UserModel.decipherUserStatus(flyerMap['tinyAuthor_userStatus']),
+          email: flyerMap['tinyAuthor_email'],
+          phone: flyerMap['tinyAuthor_phone'],
+        ),
+
+        tinyBz: TinyBz(
+          bzID: flyerMap['tinyBz_bzID'],
+          bzLogo: Imagers.sqlDecipherImage(flyerMap['tinyBz_bzLogo']),
+          bzName: flyerMap['tinyBz_bzName'],
+          bzType: BzModel.decipherBzType(flyerMap['tinyBz_bzType']),
+          bzZone: Zone(
+            countryID: flyerMap['tinyBz_bzZone_countryID'],
+            cityID: flyerMap['tinyBz_bzZone_cityID'],
+            districtID: flyerMap['tinyBz_bzZone_districtID'],
+          ),
+          bzTotalFollowers: flyerMap['tinyBz_bzTotalFollowers'],
+          bzTotalFlyers: flyerMap['tinyBz_bzTotalFlyers'],
+        ),
+
+        createdAt: Timers.decipherDateTimeIso8601(flyerMap['createdAt']),
+        flyerPosition: Atlas.sqlDecipherGeoPoint(flyerMap['flyerPosition']),
+        ankhIsOn: Numeric.sqlDecipherBool(flyerMap['ankhIsOn']),
+        slides: SlideModel.sqlDecipherSlides(slidesMap),
+        flyerIsBanned: Numeric.sqlDecipherBool(flyerMap['flyerIsBanned']),
+        deletionTime: Timers.decipherDateTimeIso8601(flyerMap['deletionTime']),
+        specs: Spec.sqlDecipherSpecs(flyerMap['specs']),
+        info: flyerMap['info'],
+        times: PublishTime.sqlDecipherPublishTimes(flyerMap['times']),
+        priceTagIsOn: Numeric.sqlDecipherBool(flyerMap['priceTagIsOn']),
       );
 
     }

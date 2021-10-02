@@ -44,7 +44,7 @@ class SlideModel {
       'sharesCount': sharesCount,
       'viewsCount': viewsCount,
       'savesCount': savesCount,
-      'boxFit' : cipherBoxFit(picFit),
+      'boxFit' : ImageSize.cipherBoxFit(picFit),
       'imageSize' : imageSize.toMap(),
       'midColor' : Colorizer.cipherColor(midColor),
     };
@@ -140,7 +140,7 @@ class SlideModel {
       sharesCount : map['sharesCount'],
       viewsCount : map['viewsCount'],
       savesCount : map['savesCount'],
-      picFit: decipherBoxFit(map['boxFit']),
+      picFit: ImageSize.decipherBoxFit(map['boxFit']),
       imageSize: ImageSize.decipherImageSize(map['imageSize']),
       midColor: Colorizer.decipherColor(map['midColor'])
     );
@@ -296,32 +296,6 @@ class SlideModel {
     return _visibilityList;
   }
 // -----------------------------------------------------------------------------
-  static int cipherBoxFit(BoxFit boxFit){
-    switch (boxFit){
-      case BoxFit.fitHeight       :    return  1;  break;
-      case BoxFit.fitWidth        :    return  2;  break;
-      case BoxFit.cover           :    return  3;  break;
-      case BoxFit.none            :    return  4;  break;
-      case BoxFit.fill            :    return  5;  break;
-      case BoxFit.scaleDown       :    return  6;  break;
-      case BoxFit.contain         :    return  7;  break;
-      default : return null;
-    }
-  }
-// -----------------------------------------------------------------------------
-  static BoxFit decipherBoxFit(int boxFit){
-    switch (boxFit){
-      case 1 : return BoxFit.fitHeight       ;
-      case 2 : return BoxFit.fitWidth        ;
-      case 3 : return BoxFit.cover           ;
-      case 4 : return BoxFit.none            ;
-      case 5 : return BoxFit.fill            ;
-      case 6 : return BoxFit.scaleDown       ;
-      case 7 : return BoxFit.contain         ;
-      default : return null;
-    }
-  }
-// -----------------------------------------------------------------------------
   static SlideModel getSlideFromMutableSlide(MutableSlide mSlide){
 
     SlideModel _slideModel;
@@ -373,5 +347,11 @@ class SlideModel {
     return _columns;
   }
 // -----------------------------------------------------------------------------
+  static Map<String, Object> sqlCipherSlides(List<SlideModel> slides){
 
+  }
+
+  static List<SlideModel> sqlDecipherSlides(Map<String, Object> map){
+
+  }
 }
