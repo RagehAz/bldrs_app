@@ -254,12 +254,6 @@ abstract class LDB{
 
   }
 // -----------------------------------------------------------------------------
-  static String sqlCipherSlides(List<SlideModel> slides){
-    String _string;
-
-    return _string;
-  }
-// -----------------------------------------------------------------------------
 }
 
 // To avoid ping-pong between dart and native code, you can use Batch:

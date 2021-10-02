@@ -519,10 +519,10 @@ class FlyerModel with ChangeNotifier{
     return _flyerSQLMap;
   }
 // -----------------------------------------------------------------------------
-  static FlyerModel sqlDecipherFlyer(Map<String, Object> flyerMap, Map<String, Object> slidesMap){
+  static FlyerModel sqlDecipherFlyer({Map<String, Object> flyerMap, List<SlideModel> slides}){
     FlyerModel _flyer;
 
-    if (flyerMap != null && slidesMap != null){
+    if (flyerMap != null && slides != null && slides.length != 0){
 
       _flyer = FlyerModel(
         flyerID: flyerMap['flyerID'],
@@ -564,7 +564,7 @@ class FlyerModel with ChangeNotifier{
         createdAt: Timers.decipherDateTimeIso8601(flyerMap['createdAt']),
         flyerPosition: Atlas.sqlDecipherGeoPoint(flyerMap['flyerPosition']),
         ankhIsOn: Numeric.sqlDecipherBool(flyerMap['ankhIsOn']),
-        slides: SlideModel.sqlDecipherSlides(slidesMap),
+        slides: slides,
         flyerIsBanned: Numeric.sqlDecipherBool(flyerMap['flyerIsBanned']),
         deletionTime: Timers.decipherDateTimeIso8601(flyerMap['deletionTime']),
         specs: Spec.sqlDecipherSpecs(flyerMap['specs']),
@@ -577,6 +577,31 @@ class FlyerModel with ChangeNotifier{
 
     return _flyer;
   }
+// -----------------------------------------------------------------------------
+  static List<FlyerModel> sqlDecipherFlyers({List<dynamic> sqlFlyersMaps, List<SlideModel> allSlides}){
+    List<FlyerModel> _allFlyers = <FlyerModel>[];
+
+    if (sqlFlyersMaps != null && allSlides != null && sqlFlyersMaps.length != 0 && allSlides.length != 0){
+
+      for (var sqlFlyerMap in sqlFlyersMaps){
+
+        final String _flyerID =  sqlFlyerMap['flyerID'];
+        final List<SlideModel> _slides = allSlides.where((slide) => slide.flyerID == _flyerID);
+
+        final FlyerModel _flyer = sqlDecipherFlyer(
+          flyerMap: sqlFlyerMap,
+          slides: _slides,
+        );
+
+        _allFlyers.add(_flyer);
+
+      }
+
+    }
+
+    return _allFlyers;
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 enum FlyerState{
