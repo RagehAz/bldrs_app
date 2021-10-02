@@ -165,7 +165,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           oButton('DIO Test Screen', Iconz.Terms, DioTestScreen()),
 
-          oButton('FlyersSQL Screen', Iconz.FlyerScale, FlyersSQL()),
+          oButton('FlyersSQL Screen', Iconz.FlyerScale, FlyersSQLScreen()),
           oButton('SQL Test Screen', Iconz.Terms, SQLTestScreen()),
 
           oButton('Notification test', Iconz.News, FCMTestScreen()),

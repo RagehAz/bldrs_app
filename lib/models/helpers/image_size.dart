@@ -3,8 +3,10 @@ import 'dart:typed_data';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
+/// TASK : may combine this with some methods from Imagers
 class ImageSize{
   final double width;
   final double height;
@@ -109,4 +111,31 @@ class ImageSize{
     print('END - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- END ---');
   }
 // -----------------------------------------------------------------------------
+  static int cipherBoxFit(BoxFit boxFit){
+    switch (boxFit){
+      case BoxFit.fitHeight       :    return  1;  break;
+      case BoxFit.fitWidth        :    return  2;  break;
+      case BoxFit.cover           :    return  3;  break;
+      case BoxFit.none            :    return  4;  break;
+      case BoxFit.fill            :    return  5;  break;
+      case BoxFit.scaleDown       :    return  6;  break;
+      case BoxFit.contain         :    return  7;  break;
+      default : return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static BoxFit decipherBoxFit(int boxFit){
+    switch (boxFit){
+      case 1 : return BoxFit.fitHeight       ;
+      case 2 : return BoxFit.fitWidth        ;
+      case 3 : return BoxFit.cover           ;
+      case 4 : return BoxFit.none            ;
+      case 5 : return BoxFit.fill            ;
+      case 6 : return BoxFit.scaleDown       ;
+      case 7 : return BoxFit.contain         ;
+      default : return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+
 }
