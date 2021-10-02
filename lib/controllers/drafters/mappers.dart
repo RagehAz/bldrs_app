@@ -291,17 +291,20 @@ class Mapper{
   static List<String> getStringsFromDynamics({List<dynamic> dynamics}){
     List<String> _strings = <String>[];
 
-    for (dynamic thing in dynamics){
+    if (dynamics != null && dynamics.length != 0){
+      for (dynamic thing in dynamics){
 
-      if (ObjectChecker.objectIsString(thing) == true){
-        _strings.add(thing);
+        if (ObjectChecker.objectIsString(thing) == true){
+          _strings.add(thing);
+        }
+
+        else {
+          _strings.add(thing.toString());
+        }
+
       }
-
-      else {
-        _strings.add(thing.toString());
-      }
-
     }
+
 
     return _strings;
   }
