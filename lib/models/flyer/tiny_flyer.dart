@@ -3,7 +3,6 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
@@ -56,7 +55,7 @@ class TinyFlyer with ChangeNotifier{
       'flyerZone' : flyerZone.toMap(),
       'midColor' : Colorizer.cipherColor(midColor),
       'keywordsIDs' : keywordsIDs,
-      'picFit' : SlideModel.cipherBoxFit(picFit),
+      'picFit' : ImageSize.cipherBoxFit(picFit),
       'imageSize' : imageSize.toMap(),
       'headline' : headline,
       'priceTagIsOn' : priceTagIsOn,
@@ -110,7 +109,7 @@ class TinyFlyer with ChangeNotifier{
       flyerZone: Zone.decipherZoneMap(map['flyerZone']),
       midColor: Colorizer.decipherColor(map['midColor']),
       keywordsIDs: Mapper.getStringsFromDynamics(dynamics: map['keywordsIDs']),
-      picFit: SlideModel.decipherBoxFit(map['picFit']),
+      picFit: ImageSize.decipherBoxFit(map['picFit']),
       imageSize: ImageSize.decipherImageSize(map['imageSize']),
       headline: map['headline'],
       priceTagIsOn: map['priceTagIsOn'],

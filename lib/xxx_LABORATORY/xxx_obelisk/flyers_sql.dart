@@ -12,14 +12,14 @@ import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class FlyersSQL extends StatefulWidget {
+class FlyersSQLScreen extends StatefulWidget {
 
 
   @override
-  _FlyersSQLState createState() => _FlyersSQLState();
+  _FlyersSQLScreenState createState() => _FlyersSQLScreenState();
 }
 
-class _FlyersSQLState extends State<FlyersSQL> {
+class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
   ScrollController _verticalController = ScrollController();
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
