@@ -19,7 +19,7 @@ class Spec {
   final SpecType specType;
   final dynamic value; // string, int, double
 
-  Spec({
+  const Spec({
     @required this.specType,
     @required this.value,
   });
@@ -40,7 +40,7 @@ class Spec {
   }
 // -----------------------------------------------------------------------------
   static List<Spec> cloneSpecs(List<Spec> specs){
-    List<Spec> _specs = <Spec>[];
+    final List<Spec> _specs = <Spec>[];
 
     if (specs != null){
       for (Spec spec in specs){
@@ -139,7 +139,7 @@ class Spec {
   }
 // -----------------------------------------------------------------------------
   static List<Map<String, dynamic>> cipherSpecs(List<Spec> specs){
-    List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     if (specs != null && specs.length != 0){
       for (Spec spec in specs){
@@ -147,11 +147,11 @@ class Spec {
       }
     }
 
-  return _maps;
+    return _maps;
   }
 // -----------------------------------------------------------------------------
   static List<Spec> decipherSpecs(List<dynamic> maps){
-    List<Spec> _specs = <Spec>[];
+    final List<Spec> _specs = <Spec>[];
 
     if(maps != null && maps.length != 0){
       for (var map in maps){
@@ -211,7 +211,7 @@ class Spec {
 
       final SpecType _specType = decipherSpecType(_specTypeString);
 
-      dynamic _specValue = assignValueDataTypeAccordingToSpecType(specType: _specType, specValueString: _specValueString);
+      final dynamic _specValue = assignValueDataTypeAccordingToSpecType(specType: _specType, specValueString: _specValueString);
 
       spec = Spec(
         specType: _specType,
@@ -222,6 +222,92 @@ class Spec {
     return spec;
   }
 // -----------------------------------------------------------------------------
+  static String sqlCipherSpecs(List<Spec> specs){
 
+    String _output;
+
+    if (specs != null && specs.length != 0){
+
+      final List<String> _specsSQLStrings = <String>[];
+
+      for (Spec spec in specs){
+        final String _specString = sqlCipherSpec(spec);
+        _specsSQLStrings.add(_specString);
+      }
+
+      final String _sqlString = TextMod.sqlCipherStrings(_specsSQLStrings);
+
+      _output = _sqlString;
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+  static List<Spec> sqlDecipherSpecs(String sqlSpecsString){
+
+    final List<Spec> _specs = <Spec>[];
+
+    if (sqlSpecsString != null){
+
+      final List<String> _sqlSpecsStrings = TextMod.sqlDecipherStrings(sqlSpecsString);
+
+      for (String sqlString in _sqlSpecsStrings){
+        final Spec _spec = sqlDecipherSpec(sqlString);
+        _specs.add(_spec);
+      }
+    }
+
+    return _specs;
+  }
+// -----------------------------------------------------------------------------
+  static bool specsAreTheSame(Spec specA, Spec specB){
+    bool _areTheSame = false;
+
+    if (specA != null && specB != null){
+
+      if (specA.specType == specB.specType){
+
+        if (specA.value == specB.value){
+
+          _areTheSame = true;
+
+        }
+
+      }
+
+    }
+
+    return _areTheSame;
+  }
+// -----------------------------------------------------------------------------
+  static bool specsListsAreTheSame(List<Spec> specsA, List<Spec> specsB){
+    bool _listsAreTheSame = false;
+
+    if (specsA != null && specsB != null && specsA.length != 0 && specsA.length == specsB.length){
+
+      bool _stillTheSame;
+
+      for (int i = 0; i < specsA.length; i++){
+
+        final bool _specsAreTheSame = specsAreTheSame(specsA[i], specsB[i]);
+
+
+        if (_specsAreTheSame == false){
+          _stillTheSame = false;
+          break;
+        }{
+          _stillTheSame = true;
+        };
+
+      }
+
+      if (_stillTheSame == true){
+        _listsAreTheSame = true;
+      }
+
+    }
+
+    return _listsAreTheSame;
+  }
 }
 /// ============================================================================

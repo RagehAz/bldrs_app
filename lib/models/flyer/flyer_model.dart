@@ -474,48 +474,48 @@ class FlyerModel with ChangeNotifier{
 // -----------------------------------------------------------------------------
   static Map<String, Object> sqlCipherFlyerModel(FlyerModel flyer){
 
-    // Map<String, Object> _flyerSQLMap = {
-    //
-    //   'flyerID' : flyer.flyerID,
-    //   'flyerType' : FlyerTypeClass.cipherFlyerType(flyer.flyerType),
-    //   'flyerState' : FlyerModel.cipherFlyerState(flyer.flyerState),
-    //   'keywords' : TextMod.sqlCipherStrings(flyer.keywordsIDs),
-    //   'flyerShowsAuthor' : Numeric.sqlCipherBool(flyer.flyerShowsAuthor),
-    //
-    //   'zone_countryID' : flyer.flyerZone.countryID,
-    //   'zone_cityID' : flyer.flyerZone.cityID,
-    //   'zone_districtID' : flyer.flyerZone.districtID,
-    //
-    //   'tinyAuthor_userID' : flyer.tinyAuthor.userID,
-    //   'tinyAuthor_name' : flyer.tinyAuthor.name,
-    //   'tinyAuthor_title' : flyer.tinyAuthor.title,
-    //   'tinyAuthor_pic' : Imagers.sqlCipherImage(flyer.tinyAuthor.pic),
-    //   'tinyAuthor_userStatus' : UserModel.cipherUserStatus(flyer.tinyAuthor.userStatus),
-    //   'tinyAuthor_email' : flyer.tinyAuthor.email,
-    //   'tinyAuthor_phone' : flyer.tinyAuthor.phone,
-    //
-    //   'tinyBz_bzID' : flyer.tinyBz.bzID,
-    //   'tinyBz_bzLogo' : Imagers.sqlCipherImage(flyer.tinyBz.bzLogo),
-    //   'tinyBz_bzName' : flyer.tinyBz.bzName,
-    //   'tinyBz_bzType' : BzModel.cipherBzType(flyer.tinyBz.bzType),
-    //   'tinyBz_bzZone_countryID' : flyer.tinyBz.bzZone.countryID,
-    //   'tinyBz_bzZone_cityID' : flyer.tinyBz.bzZone.cityID,
-    //   'tinyBz_bzZone_districtID' : flyer.tinyBz.bzZone.districtID,
-    //   'tinyBz_bzTotalFollowers' : flyer.tinyBz.bzTotalFollowers,
-    //   'tinyBz_bzTotalFlyers' : flyer.tinyBz.bzTotalFlyers,
-    //   'createdAt' : Timers.cipherDateTimeIso8601(flyer.createdAt),
-    //   'flyerPosition' : Atlas.sqlCipherGeoPoint(flyer.flyerPosition),
-    //   'ankhIsOn' : Numeric.sqlCipherBool(flyer.ankhIsOn),
-    //   'numberOfSlides' : flyer.slides.length,
-    //   'flyerIsBanned' : Numeric.sqlCipherBool(flyer.flyerIsBanned),
-    //   'deletionTime' : Timers.cipherDateTimeIso8601(flyer.deletionTime),
-    //   'specs' : ,
-    //   'info' : ,
-    //   'times' : ,
-    //   'priceTagIsOn' : ,
-    // };
+    Map<String, Object> _flyerSQLMap = {
 
-    return {};//_flyerSQLMap;
+      'flyerID' : flyer.flyerID,
+      'flyerType' : FlyerTypeClass.cipherFlyerType(flyer.flyerType),
+      'flyerState' : FlyerModel.cipherFlyerState(flyer.flyerState),
+      'keywords' : TextMod.sqlCipherStrings(flyer.keywordsIDs),
+      'flyerShowsAuthor' : Numeric.sqlCipherBool(flyer.flyerShowsAuthor),
+
+      'zone_countryID' : flyer.flyerZone.countryID,
+      'zone_cityID' : flyer.flyerZone.cityID,
+      'zone_districtID' : flyer.flyerZone.districtID,
+
+      'tinyAuthor_userID' : flyer.tinyAuthor.userID,
+      'tinyAuthor_name' : flyer.tinyAuthor.name,
+      'tinyAuthor_title' : flyer.tinyAuthor.title,
+      'tinyAuthor_pic' : Imagers.sqlCipherImage(flyer.tinyAuthor.pic),
+      'tinyAuthor_userStatus' : UserModel.cipherUserStatus(flyer.tinyAuthor.userStatus),
+      'tinyAuthor_email' : flyer.tinyAuthor.email,
+      'tinyAuthor_phone' : flyer.tinyAuthor.phone,
+
+      'tinyBz_bzID' : flyer.tinyBz.bzID,
+      'tinyBz_bzLogo' : Imagers.sqlCipherImage(flyer.tinyBz.bzLogo),
+      'tinyBz_bzName' : flyer.tinyBz.bzName,
+      'tinyBz_bzType' : BzModel.cipherBzType(flyer.tinyBz.bzType),
+      'tinyBz_bzZone_countryID' : flyer.tinyBz.bzZone.countryID,
+      'tinyBz_bzZone_cityID' : flyer.tinyBz.bzZone.cityID,
+      'tinyBz_bzZone_districtID' : flyer.tinyBz.bzZone.districtID,
+      'tinyBz_bzTotalFollowers' : flyer.tinyBz.bzTotalFollowers,
+      'tinyBz_bzTotalFlyers' : flyer.tinyBz.bzTotalFlyers,
+      'createdAt' : Timers.cipherDateTimeIso8601(flyer.createdAt),
+      'flyerPosition' : Atlas.sqlCipherGeoPoint(flyer.flyerPosition),
+      'ankhIsOn' : Numeric.sqlCipherBool(flyer.ankhIsOn),
+      'numberOfSlides' : flyer.slides.length,
+      'flyerIsBanned' : Numeric.sqlCipherBool(flyer.flyerIsBanned),
+      'deletionTime' : Timers.cipherDateTimeIso8601(flyer.deletionTime),
+      'specs' : Spec.sqlCipherSpecs(flyer.specs),
+      'info' : flyer.info,
+      'times' : PublishTime.sqlCipherPublishTimes(flyer.times),
+      'priceTagIsOn' : Numeric.sqlCipherBool(flyer.priceTagIsOn),
+    };
+
+    return _flyerSQLMap;
   }
 // -----------------------------------------------------------------------------
 }
