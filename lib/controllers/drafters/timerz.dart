@@ -117,11 +117,23 @@ class Timers {
   }
 // -----------------------------------------------------------------------------
   static String cipherDateTimeIso8601(DateTime dateTime){
-    return dateTime.toIso8601String();
+    String _string;
+
+    if (dateTime != null){
+      _string = dateTime.toIso8601String();
+    }
+
+    return _string;
   }
 // -----------------------------------------------------------------------------
   static DateTime decipherDateTimeIso8601(String cipheredDateTimeIso8601){
-    return DateTime.parse(cipheredDateTimeIso8601);
+    DateTime _time;
+
+    if (cipheredDateTimeIso8601 != null){
+      _time = DateTime.parse(cipheredDateTimeIso8601);
+    }
+
+    return _time;
   }
 // -----------------------------------------------------------------------------
   static DateTime createDateTime({int year, int month, int day, int hour, int minute, int second, int millisecond, int microsecond}){

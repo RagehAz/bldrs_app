@@ -98,11 +98,23 @@ class Numeric {
   }
 // -----------------------------------------------------------------------------
   static int stringToInt(String string) {
-    return int.parse(string);
+    int _value;
+
+    if (string != null){
+      _value = int.parse(string);
+    }
+
+    return _value;
   }
 // -----------------------------------------------------------------------------
   static double stringToDouble(String string){
-    return double.parse(string);
+    double _value;
+
+    if (string != null){
+      _value = double.parse(string);
+    }
+
+    return _value;
   }
 // -----------------------------------------------------------------------------
   static int lastTwoIntegersFromAString(String string) {

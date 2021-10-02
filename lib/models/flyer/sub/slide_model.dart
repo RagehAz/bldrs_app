@@ -71,7 +71,7 @@ class SlideModel {
   }
 // -------------------------
   static List<SlideModel> cloneSlides(List<SlideModel> slides){
-    List<SlideModel> _newSlides = [];
+    final List<SlideModel> _newSlides = <SlideModel>[];
 
     for (var slide in slides){
       _newSlides.add(slide.clone());
@@ -98,7 +98,7 @@ class SlideModel {
 
       for (int i = 0; i < finalFlyer.slides.length; i++){
 
-        bool _slidesAreTheSame = slidesPicsAreTheSame(finalFlyer.slides[i], originalFlyer.slides[i]);
+        final bool _slidesAreTheSame = slidesPicsAreTheSame(finalFlyer.slides[i], originalFlyer.slides[i]);
 
         if (_slidesAreTheSame == false){
           _allSlidesPicsAreTheSame = false;
@@ -117,7 +117,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<Map<String,Object>> cipherSlidesModels(List<SlideModel> slidesList) {
-    List<Map<String,Object>> _slidesMaps = [];
+    final List<Map<String,Object>> _slidesMaps = [];
     slidesList.forEach((sl) {
       _slidesMaps.add(sl.toMap());
     });
@@ -125,11 +125,13 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<SlideModel> decipherSlidesMaps(List<dynamic> maps){
-    List<SlideModel> _slidesList = [];
+    final List<SlideModel> _slidesList = <SlideModel> [];
 
-    maps?.forEach((map) {
-      _slidesList.add(decipherSlideMap(map));
-    });
+    if (maps!= null && maps.length != 0){
+      maps?.forEach((map) {
+        _slidesList.add(decipherSlideMap(map));
+      });
+    }
 
     return _slidesList;
   }
@@ -153,16 +155,16 @@ class SlideModel {
   static String generateSlideID(String flyerID, int slideIndex){
     // slide index shall never have more than two digits
     // ass flyer should never be more than 10 slides long
-    String _slideIndexString = slideIndex <= 9 ? '0$slideIndex' : '$slideIndex';
-    String _slideID = '${flyerID}_$_slideIndexString';
+    final String _slideIndexString = slideIndex <= 9 ? '0$slideIndex' : '$slideIndex';
+    final String _slideID = '${flyerID}_$_slideIndexString';
     return _slideID;
   }
 // -----------------------------------------------------------------------------
   static List<String> generateSlidesIDs(FlyerModel flyerModel){
-    List<String> _slidesIDs = [];
+    final List<String> _slidesIDs = <String>[];
 
     flyerModel.slides.forEach((slide) {
-      String _slideID = generateSlideID(flyerModel.flyerID, slide.slideIndex);
+      final String _slideID = generateSlideID(flyerModel.flyerID, slide.slideIndex);
       _slidesIDs.add(_slideID);
     });
 
@@ -171,18 +173,18 @@ class SlideModel {
 // -----------------------------------------------------------------------------
   static int getSlideIndexFromSlideID(String slideID){
     // slide index shall never have more than two digits
-    int _slideIndex = Numeric.lastTwoIntegersFromAString(slideID);
+    final int _slideIndex = Numeric.lastTwoIntegersFromAString(slideID);
     return _slideIndex;
   }
 // -----------------------------------------------------------------------------
   static Future<List<SlideModel>> replaceSlidesPicturesWithNewURLs(List<String> newPicturesURLs, List<SlideModel> inputSlides) async {
-    List<SlideModel> _outputSlides = [];
+    final List<SlideModel> _outputSlides = [];
 
     for (var slide in inputSlides){
 
-      int i = slide.slideIndex;
+      final int i = slide.slideIndex;
 
-      SlideModel _newSlide = SlideModel(
+      final SlideModel _newSlide = SlideModel(
         slideIndex: inputSlides[i].slideIndex,
         pic: newPicturesURLs[i],
         headline: inputSlides[i].headline,
@@ -222,12 +224,12 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static Future <List<File>> getImageFilesFromPublishedSlides(List<SlideModel> slides) async {
-    List<File> _files = [];
+    final List<File> _files = <File>[];
 
     if (slides != null && slides.length != 0){
       for (SlideModel slide in slides){
 
-        File _file = await Imagers.urlToFile(slide.pic);
+        final File _file = await Imagers.urlToFile(slide.pic);
 
         _files.add(_file);
 
@@ -238,17 +240,17 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static Future <List<Asset>> getImageAssetsFromPublishedSlides(List<SlideModel> slides) async {
-    List<Asset> _assets = [];
+    final List<Asset> _assets = [];
 
 
     if (slides != null && slides.length != 0){
       for (SlideModel slide in slides){
 
-        File _file = await Imagers.urlToFile(slide.pic);
-        ImageSize imageSize = await ImageSize.superImageSize(_file);
+        final File _file = await Imagers.urlToFile(slide.pic);
+        final ImageSize imageSize = await ImageSize.superImageSize(_file);
 
 
-        Asset _asset = new Asset(
+        final Asset _asset = new Asset(
           // identifier
           '${slide.slideIndex}',
           // _name
@@ -268,12 +270,12 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<BoxFit> getSlidesBoxFits(List<SlideModel> slides) {
-    List<BoxFit> _boxFits = [];
+    final List<BoxFit> _boxFits = [];
 
     if (slides != null && slides.length != 0){
       for (SlideModel slide in slides){
 
-        BoxFit _fit = slide.picFit;
+        final BoxFit _fit = slide.picFit;
 
         if (_fit == null){
           _boxFits.add(BoxFit.cover);
@@ -289,7 +291,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<bool> createVisibilityListFromSlides(List<SlideModel> slides){
-    List<bool> _visibilityList = [];
+    final List<bool> _visibilityList = <bool> [];
 
     if (slides != null && slides.length != 0){
       for (int i = 0; i < slides.length; i++){
@@ -322,7 +324,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<SlideModel> getSlidesFromMutableSlides(List<MutableSlide> mSlides){
-    List<SlideModel> _slides = [];
+    final List<SlideModel> _slides = [];
     if (mSlides != null && mSlides.length != 0){
       for (var mSlide in mSlides){
         _slides.add(getSlideFromMutableSlide(mSlide));
@@ -400,7 +402,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<Map<String, Object>> sqlCipherSlides({List<SlideModel> slides, String flyerID}){
-    List<Map<String, Object>> _maps = <Map<String, Object>>[];
+    final List<Map<String, Object>> _maps = <Map<String, Object>>[];
 
     if (slides != null && slides.length != 0){
 
@@ -421,7 +423,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<SlideModel> sqlDecipherSlides({List<Map<String, Object>> maps}){
-    List<SlideModel> _slides = <SlideModel>[];
+    final List<SlideModel> _slides = <SlideModel>[];
 
     if (maps != null && maps.length != 0){
 
@@ -436,6 +438,47 @@ class SlideModel {
     }
 
     return _slides;
+  }
+// -----------------------------------------------------------------------------
+  static List<SlideModel> getSlidesFromSlidesByFlyerID(List<SlideModel> allSlides, String flyerID){
+    final List<SlideModel> _foundSlides = <SlideModel>[];
+
+    if(allSlides != null && flyerID != null && allSlides.length != 0){
+
+      for (SlideModel slide in allSlides){
+
+        if (slide.flyerID == flyerID){
+          _foundSlides.add(slide);
+        }
+
+      }
+
+    }
+
+    _foundSlides.sort((a,b) => a.slideIndex.compareTo(b.slideIndex));
+
+    return _foundSlides;
+  }
+// -----------------------------------------------------------------------------
+  static List<Map<String, Object>> sqlCipherFlyersSlides(List<FlyerModel> flyers){
+    final List<Map<String, Object>> _allSlidesSQLMaps = <Map<String, Object>>[];
+
+    if (flyers != null && flyers.length != 0){
+
+      for (FlyerModel flyer in flyers){
+
+        final List<Map<String, Object>> _slidesMaps = sqlCipherSlides(
+          slides: flyer.slides,
+          flyerID: flyer.flyerID
+        );
+
+        _allSlidesSQLMaps.addAll(_slidesMaps);
+
+      }
+
+    }
+
+    return _allSlidesSQLMaps;
   }
 // -----------------------------------------------------------------------------
 }
