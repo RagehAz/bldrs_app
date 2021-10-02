@@ -507,7 +507,7 @@ class FlyerModel with ChangeNotifier{
       'createdAt' : Timers.cipherDateTimeIso8601(flyer.createdAt),
       'flyerPosition' : Atlas.sqlCipherGeoPoint(flyer.flyerPosition),
       'ankhIsOn' : Numeric.sqlCipherBool(flyer.ankhIsOn),
-      'numberOfSlides' : flyer.slides.length,
+      // 'numberOfSlides' : flyer.slides.length,
       'flyerIsBanned' : Numeric.sqlCipherBool(flyer.flyerIsBanned),
       'deletionTime' : Timers.cipherDateTimeIso8601(flyer.deletionTime),
       'specs' : Spec.sqlCipherSpecs(flyer.specs),
