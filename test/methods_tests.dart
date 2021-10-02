@@ -207,7 +207,27 @@ void main(){
     expect(_specAgain.value, _expected);
 
   });
+// -----------------------------------------------------------------------------
+  test('sqlCipherSpecs and sqlDecipherSpecs', (){
 
+    const Spec _specA = Spec(specType: SpecType.inStock, value: false);
+    const Spec _specB = Spec(specType: SpecType.height, value: 10.4);
+    const Spec _specC = Spec(specType: SpecType.count, value: 12);
+
+    final List<Spec> _specs = <Spec>[_specA, _specB, _specC];
+
+    final String _specsString = Spec.sqlCipherSpecs(_specs);
+
+    final List<Spec> specsBack = Spec.sqlDecipherSpecs(_specsString);
+
+    print('specs back are : ${specsBack.toString()}');
+
+    bool _specsListsAreTheSame = Spec.specsListsAreTheSame(_specs, specsBack);
+
+    dynamic _expected =  false;
+    expect(_specsListsAreTheSame, _expected);
+
+  });
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
