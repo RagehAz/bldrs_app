@@ -57,6 +57,12 @@ class FlyerBox extends StatelessWidget {
     return _flyerSizeFactor;
   }
 // -----------------------------------------------------------------------------
+  static double heightBySizeFactor({BuildContext context, double flyerSizeFactor}){
+    final double _flyerBoxWidth = width(context, flyerSizeFactor);
+    final double _flyerZoneHeight = height(context, _flyerBoxWidth);
+    return _flyerZoneHeight;
+  }
+// -----------------------------------------------------------------------------
   static double topCornerValue(double flyerBoxWidth){
     return flyerBoxWidth * Ratioz.xxflyerTopCorners;
   }

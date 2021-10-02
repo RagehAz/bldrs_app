@@ -2,15 +2,21 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/records/view_model.dart';
-import 'package:bldrs/providers/local_db/models/ldb.dart';
-import 'package:bldrs/providers/local_db/models/ldb_table.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/slide_model.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/providers/local_db/sql_ops/flyer_sql.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
+import 'package:bldrs/views/widgets/specific/flyer/stacks/keyword_stacks.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FlyersSQLScreen extends StatefulWidget {
 
@@ -62,7 +68,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     if(_isInit){
       _triggerLoading().then((_) async {
 
-        await createFlyersLDB();
+        await _createFlyersLDB();
 
 
       });
@@ -73,7 +79,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
   }
 // -----------------------------------------------------------------------------
   FlyersLDB _flyersLDB;
-  Future<void> createFlyersLDB() async {
+  Future<void> _createFlyersLDB() async {
 
     _flyersLDB = await FlyersLDB.createFlyersLDB(
       context: context,
@@ -81,117 +87,73 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     );
 
     if (_flyersLDB.flyersTable.db.isOpen == true && _flyersLDB.slidesTable.db.isOpen == true){
-      await _readLDB();
+      await _readFlyersLDB();
     }
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _A_insertToLDB(FlyerModel flyer) async {
+  List<FlyerModel> _flyers;
+  Future<void> _readFlyersLDB() async {
 
-    print('1 - creating map');
-
-
-    Map<String, Object> _map = FlyerModel.sqlCipherFlyerModel(flyer);
-
-    print('2 - inserting table');
-
-    await LDB.InsertRawToLDB(
+    final List<FlyerModel> _flyersFromLDB = await FlyersLDB.readFlyersLDB(
       context: context,
-      table: _flyersLDB,
-      input: _map,
+      flyersLDB: _flyersLDB,
     );
 
-    await _readLDB();
-    print('3 - done inserting table');
-
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _B_insertToDB(String id) async {
-
-    ViewModel _newView = ViewModel(
-      userID: 'xxx',
-      slideIndex: 0,
-      flyerID: 'xxx',
-      viewTime: DateTime.now(),
-      viewID: 21,
-    );
-
-    Map<String, Object> _newMap = _newView.toMap();
-    print('new map');
-
-    await LDB.insert(
-      table: _flyersLDB,
-      input: _newMap,
-    );
-    print('inserted');
-
-    await _readLDB();
-    print('read done');
-
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _readLDB() async {
-
-    List<Map<String, Object>> _maps = await LDB.readRawFromLDB(
-      table: _flyersLDB,
-    );
+    final List<Map<String, Object>> _slidesMaps = SlideModel.sqlCipherFlyersSlides(_flyersFromLDB);
+    final List<Map<String, Object>> _flyersMaps = FlyerModel.sqlCipherFlyers(_flyersFromLDB);
 
     setState(() {
-      _flyersLDB.maps =  _maps;
+      _flyers = _flyersFromLDB;
+      _flyersLDB.flyersTable.maps =  _flyersMaps;
+      _flyersLDB.slidesTable.maps = _slidesMaps;
       _loading = false;
     });
 
     await _scrollToBottomOfListView();
 
-    return _maps;
   }
 // -----------------------------------------------------------------------------
-  Future<void> _deleteLDB() async {
+  Future<void> _insertFlyerToLDB({FlyerModel flyer}) async {
 
-    print('_deleteLDB : starting delete LDB : _table.tableName : ${_flyersLDB.tableName}');
-
-    await LDB.deleteLDB(
-      context: context,
-      table: _flyersLDB,
+    await FlyersLDB.insertFlyerToLDB(
+      flyersLDB: _flyersLDB,
+      flyer: flyer,
     );
 
-    print('_deleteLDB : deleted LDB');
-
-    await _readLDB();
+    await _readFlyersLDB();
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _updateRow(int viewID) async {
-    print('_updateRow : starting to update row');
+  Future<void> _deleteFlyersLDB() async {
 
-    ViewModel _newView = ViewModel(
-      viewID: 10,
-      flyerID: 'kos o5tak',
-      userID: 'abo omak',
-      slideIndex: 4,
-      viewTime: DateTime.now(),
-    );
-
-    await LDB.updateRow(
+    await FlyersLDB.deleteFlyersLDB(
       context: context,
-      table: _flyersLDB,
-      rowNumber: 22,
-      input: _newView.toMap(),
+      flyersLDB: _flyersLDB,
     );
 
-    await _readLDB();
+    await _readFlyersLDB();
 
-    print('_updateRow : finished updating row');
   }
 // -----------------------------------------------------------------------------
-  Future<void> _deleteRow(int id) async {
-    await LDB.deleteRow(
-      context: context,
-      table: _flyersLDB,
-      rowNumber: id,
+  Future<void> _replaceFlyerInLDB({String oldFlyerID, FlyerModel newFlyer}) async {
+
+    await FlyersLDB.updateFlyerInLDB(
+      flyersLDB: _flyersLDB,
+      oldFlyerID: oldFlyerID,
+      newFlyer: newFlyer,
     );
 
-    await _readLDB();
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _deleteFlyerFromLDB({String flyerID}) async {
+
+    await FlyersLDB.deleteFlyerFromLDB(
+      flyersLDB: _flyersLDB,
+      flyerID: flyerID,
+    );
+
+    await _readFlyersLDB();
 
   }
 // -----------------------------------------------------------------------------
@@ -244,31 +206,62 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     final double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
 
+    final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+    List<TinyFlyer> _savedTinyFlyers =  _prof.getSavedTinyFlyers;
+    double _flyerSizeFactor = 0.25;
+
     return TestingLayout(
       screenTitle: 'SQL Test Screen',
-      appbarButtonVerse: _loading == true ? 'xxx Loading ......... ' : _flyersLDB.db.isOpen == true ? ' ---> Loaded' : 'LDB IS OFF',
+      appbarButtonVerse: _loading == true ? 'xxx Loading ......... ' : _flyersLDB.flyersTable.db.isOpen == true ? ' ---> Loaded' : 'LDB IS OFF',
+      scrollable: true,
       appbarButtonOnTap: (){
         print('Button');
         _triggerLoading();
         },
       listViewWidgets: <Widget>[
 
+        /// SAVED TINY FLYERS
+        Container(
+          height: FlyersShelf.shelfHeight(context: context, flyerSizeFactor: _flyerSizeFactor),
+          width: _screenWidth,
+          color: Colorz.BlackSemi230,
+          child: FlyersShelf(
+            title: 'Saved Flyers',
+            titleIcon: Iconz.SavedFlyers,
+            flyersType: FlyerType.non,
+            tinyFlyers: _savedTinyFlyers,
+            flyerOnTap: (TinyFlyer tinyFlyer) async {
+              print('tapped on ${tinyFlyer.flyerID}');
+
+              final FlyerModel _flyer = await FlyerOps().readFlyerOps(
+                context: context,
+                flyerID: tinyFlyer.flyerID,
+              );
+
+              await _insertFlyerToLDB(flyer: _flyer);
+            },
+
+            onScrollEnd: (){print('fuck this');},
+            flyerSizeFactor: _flyerSizeFactor,
+          ),
+        ),
+
         /// LDB data
         Container(
           width: _screenWidth,
-          height: 550,
+          height: 300,
           color: Colorz.White10,
           child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               controller: _verticalController,
-              itemCount: _flyersLDB?.maps?.length ?? 0,
+              itemCount: _flyersLDB?.flyersTable?.maps?.length ?? 0,
               itemBuilder: (ctx, index){
 
-                Map<String, Object> _map = _flyersLDB.maps[index];
+                Map<String, Object> _map = _flyersLDB?.flyersTable?.maps[index];
                 List<Object> _keys = _map.keys.toList();
                 List<Object> _values = _map.values.toList();
 
-                int _id = _map['viewID'];
+                String _flyerID = _map['flyerID'];
                 // int _idInt = Numberers.stringToInt(_id);
 
                 return
@@ -294,7 +287,9 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
                           verse: '${index + 1}',
                           verseScaleFactor: 0.6,
                           margins: EdgeInsets.all(5),
-                          onTap: () => _deleteRow(_id),
+                          onTap: () => _deleteFlyerFromLDB(
+                            flyerID: _flyerID,
+                          ),
                         ),
 
                         ...List.generate(
@@ -326,38 +321,39 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 
               /// CREATE LDB
               SmallFuckingButton(
-                  verse: 'Create LDB',
-                  onTap: createFlyersLDB,
+                  verse: 'create Flyers LDB',
+                  onTap: _createFlyersLDB,
               ),
 
               /// Delete LDB
               SmallFuckingButton(
-                verse: 'Delete LDB',
-                onTap: _deleteLDB,
+                verse: 'delete Flyers LDB',
+                onTap: _deleteFlyersLDB,
               ),
 
               /// INSERT A
               SmallFuckingButton(
-                verse: 'raw Insert A to LDB',
-                onTap: _A_insertToLDB,
-              ),
-
-              /// INSERT B
-              SmallFuckingButton(
-                  verse: 'raw insert B To LDB',
-                  onTap: () => _B_insertToDB('5'),
+                verse: 'insert Flyer ToLDB',
+                onTap: () => _insertFlyerToLDB(
+                  flyer: null,
+                ),
               ),
 
               /// Update row LDB
               SmallFuckingButton(
                 verse: 'Update row',
-                onTap: () => _updateRow(5),
+                onTap: () => _replaceFlyerInLDB(
+                  oldFlyerID: 'x',
+                  newFlyer: null,
+                ),
               ),
 
               /// Delete row
               SmallFuckingButton(
                 verse: 'Delete row',
-                onTap: () => _deleteRow(11),
+                onTap: () => _deleteFlyerFromLDB(
+                  flyerID: 'x',
+                ),
               ),
 
             ],

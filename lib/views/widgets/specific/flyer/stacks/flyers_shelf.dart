@@ -6,30 +6,40 @@ import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
-import 'package:bldrs/views/widgets/specific/flyer/stacks/flyer_stack_list.dart';
+import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf_list_builder.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class FlyerStack extends StatelessWidget {
+class FlyersShelf extends StatelessWidget {
   final FlyerType flyersType;
-  final double flyerSizeFactor;
   final String title;
   final List<TinyFlyer> tinyFlyers;
   final String titleIcon;
   final Function flyerOnTap;
   final Function onScrollEnd;
+  final double flyerSizeFactor;
 
-
-  const FlyerStack({
+  const FlyersShelf({
     this.flyersType,
-    this.flyerSizeFactor = 0.3,
     this.title,
     this.tinyFlyers,
     this.titleIcon,
     this.flyerOnTap,
     this.onScrollEnd,
+    this.flyerSizeFactor = 0.3,
 });
+// -----------------------------------------------------------------------------
+  static const double spacing = Ratioz.appBarMargin;
+  static const double titleIconWidth = Ratioz.appBarButtonSize;
+  static const double titleIconCorner = Ratioz.appBarButtonCorner;
+// -----------------------------------------------------------------------------
+  static double shelfHeight ({BuildContext context, double flyerSizeFactor}){
+    final _flyerZoneHeight = FlyerBox.heightBySizeFactor(context: context, flyerSizeFactor: flyerSizeFactor);
+    final double _height = spacing + titleIconWidth + spacing + _flyerZoneHeight + spacing;
+    return _height;
+  }
+// -----------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +51,11 @@ class FlyerStack extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    final double _titleSpacing = Ratioz.appBarMargin;
-    final double flyerBoxWidth = FlyerBox.width(context, flyerSizeFactor);
-    final double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
+    final double _flyerZoneHeight = FlyerBox.heightBySizeFactor(context: context, flyerSizeFactor: flyerSizeFactor);
 // -----------------------------------------------------------------------------
 //     bool _slidingIsOn = false;
-    final double _titleIconWidth = Ratioz.appBarButtonSize;
-    final double _titleIconCorner = Ratioz.appBarButtonCorner;
-    final double _titleIconMargin = 0;
-    final double _titleIconWidthWithMargin = _titleIconWidth + _titleIconMargin;
+    const double _titleIconMargin = 0;
+    final double _titleIconWidthWithMargin = titleIconWidth + _titleIconMargin;
 // -----------------------------------------------------------------------------
     return
 
@@ -74,7 +80,7 @@ class FlyerStack extends StatelessWidget {
             if (title != null)
               SizedBox(
                 width: _screenWidth,
-                height: _titleSpacing,
+                height: spacing,
               ),
 
             /// --- COLLECTION TITLE
@@ -90,10 +96,10 @@ class FlyerStack extends StatelessWidget {
 
                       if (titleIcon != null)
                         DreamBox(
-                          height: _titleIconWidth,
+                          height: titleIconWidth,
                           icon: titleIcon,
                           margins: EdgeInsets.symmetric(horizontal: _titleIconMargin),
-                          corners: _titleIconCorner,
+                          corners: titleIconCorner,
                         ),
 
                       if (titleIcon != null)
@@ -121,7 +127,7 @@ class FlyerStack extends StatelessWidget {
             if (title != null)
               SizedBox(
                 width: _screenWidth,
-                height: _titleSpacing,
+                height: spacing,
               ),
 
             /// --- COLLECTION FLYER'S ZONE
@@ -129,7 +135,7 @@ class FlyerStack extends StatelessWidget {
               width: _screenWidth,
               height: _flyerZoneHeight,
               // color: Colorz.WhiteAir,
-              child: FlyerStackList(
+              child: FlyersShelfListBuilder(
                 tinyFlyers: _tinyFlyers,
                 flyerSizeFactor: flyerSizeFactor,
                 flyerOnTap: flyerOnTap,
@@ -143,7 +149,7 @@ class FlyerStack extends StatelessWidget {
             /// --- BENEATH FLYERS SPACING
             SizedBox(
                 width: _screenWidth,
-                height: _titleSpacing,
+                height: spacing,
               ),
 
           ],

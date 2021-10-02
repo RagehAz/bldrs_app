@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/views/widgets/specific/flyer/stacks/flyer_stack.dart';
+import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:flutter/material.dart';
 
 class FlyersBubble extends StatelessWidget {
@@ -35,7 +35,7 @@ class FlyersBubble extends StatelessWidget {
       width: bubbleWidth,
       columnChildren: <Widget>[
 
-        FlyerStack(
+        FlyersShelf(
           flyersType: null,
           flyerSizeFactor: flyerSizeFactor,
           title: null,
