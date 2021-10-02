@@ -1,15 +1,21 @@
+import 'package:bldrs/controllers/drafters/atlas.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/providers/local_db/models/ldb_column.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -18,7 +24,7 @@ class FlyerModel with ChangeNotifier{
   // -------------------------
   final FlyerType flyerType;
   final FlyerState flyerState;
-  final List<Keyword> keywords;
+  final List<String> keywordsIDs;
   final bool flyerShowsAuthor;
   final Zone flyerZone;
   // -------------------------
@@ -44,7 +50,7 @@ class FlyerModel with ChangeNotifier{
     // -------------------------
     this.flyerType,
     this.flyerState = FlyerState.Draft,
-    this.keywords,
+    this.keywordsIDs,
     this.flyerShowsAuthor = false,
     this.flyerZone,
     // -------------------------
@@ -77,7 +83,7 @@ class FlyerModel with ChangeNotifier{
       // -------------------------
       'flyerType' : FlyerTypeClass.cipherFlyerType(flyerType),
       'flyerState' : cipherFlyerState(flyerState),
-      'keyWords' : Keyword.cipherKeywordsToKeywordsIds(keywords),
+      'keywordsIDs' : keywordsIDs,
       'flyerShowsAuthor' : flyerShowsAuthor,
       'flyerZone' : flyerZone.toMap(),
       // -------------------------
@@ -104,7 +110,7 @@ class FlyerModel with ChangeNotifier{
       flyerID: flyerID,
       flyerType: flyerType,
       flyerState: flyerState,
-      keywords: Mapper.cloneListOfStrings(keywords),
+      keywordsIDs: Mapper.cloneListOfStrings(keywordsIDs),
       flyerShowsAuthor: flyerShowsAuthor,
       flyerZone: flyerZone,
       tinyAuthor: tinyAuthor.clone(),
@@ -128,7 +134,7 @@ class FlyerModel with ChangeNotifier{
           flyerID: flyer.flyerID,
           flyerType: flyer.flyerType,
           flyerState: flyer.flyerState,
-          keywords: flyer.keywords,
+          keywordsIDs: flyer.keywordsIDs,
           flyerShowsAuthor: flyer.flyerShowsAuthor,
           flyerZone: flyer.flyerZone,
           tinyAuthor: flyer.tinyAuthor,
@@ -190,7 +196,7 @@ class FlyerModel with ChangeNotifier{
         // -------------------------
         flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
         flyerState: FlyerModel.decipherFlyerState(map['flyerState']),
-        keywords: Keyword.decipherKeywordsIDsToKeywords(map['keyWords']),
+        keywordsIDs: Mapper.getStringsFromDynamics(dynamics: map['keywordsIDs']),
         flyerShowsAuthor: map['flyerShowsAuthor'],
         flyerZone: Zone.decipherZoneMap(map['flyerZone']),
         // -------------------------
@@ -234,7 +240,7 @@ class FlyerModel with ChangeNotifier{
       slides: updatedSlides,
       flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
       flyerState: inputFlyerModel.flyerState,
-      keywords: inputFlyerModel.keywords,
+      keywordsIDs: inputFlyerModel.keywordsIDs,
       flyerPosition: inputFlyerModel.flyerPosition,
       ankhIsOn: inputFlyerModel.ankhIsOn,
       flyerIsBanned: inputFlyerModel.flyerIsBanned,
@@ -342,6 +348,7 @@ class FlyerModel with ChangeNotifier{
     final FlyerModel _flyerModel = FlyerModel.decipherFlyerMap(_map);
     return _flyerModel;
   }
+
 // -----------------------------------------------------------------------------
   static FlyerModel getFlyerModelFromSuperFlyer(SuperFlyer superFlyer){
     FlyerModel _flyer;
@@ -351,7 +358,7 @@ class FlyerModel with ChangeNotifier{
         flyerID: superFlyer.flyerID,
         flyerType: superFlyer.flyerType,
         flyerState: superFlyer.flyerState,
-        keywords: superFlyer.keywords,
+        keywordsIDs: Keyword.getKeywordsIDsFromKeywords(superFlyer.keywords),
         flyerShowsAuthor: superFlyer.flyerShowsAuthor,
         flyerZone: superFlyer.flyerZone,
         tinyAuthor: superFlyer.flyerTinyAuthor,
@@ -371,12 +378,13 @@ class FlyerModel with ChangeNotifier{
 
     return _flyer;
   }
+// -----------------------------------------------------------------------------
   void printFlyer(){
     print('FLYER-PRINT --------------------------------------------------START');
     print('FLYER-PRINT : flyerID : ${flyerID}');
     print('FLYER-PRINT : flyerType : ${flyerType}');
     print('FLYER-PRINT : flyerState : ${flyerState}');
-    print('FLYER-PRINT : keywords : ${keywords}');
+    print('FLYER-PRINT : keywordsIDs : ${keywordsIDs}');
     print('FLYER-PRINT : flyerShowsAuthor : ${flyerShowsAuthor}');
     print('FLYER-PRINT : flyerZone : ${flyerZone}');
     print('FLYER-PRINT : tinyAuthor : ${tinyAuthor}');
@@ -412,7 +420,104 @@ class FlyerModel with ChangeNotifier{
 
       return _hasTheID;
   }
+// -----------------------------------------------------------------------------
+  static List<LDBColumn> createFlyersLDBColumns(){
 
+    const List<LDBColumn> _columns = const <LDBColumn>[
+      // -------------------------
+      LDBColumn(key: 'flyerID', type: 'TEXT', isPrimary: true),
+      LDBColumn(key: 'flyerType', type: 'INTEGER'),
+      LDBColumn(key: 'flyerState', type: 'INTEGER'),
+      LDBColumn(key: 'keywords', type: 'TEXT'),
+      LDBColumn(key: 'flyerShowsAuthor', type: 'INTEGER'),
+      // -------------------------
+      LDBColumn(key: 'zone_countryID', type: 'TEXT'),
+      LDBColumn(key: 'zone_cityID', type: 'TEXT'),
+      LDBColumn(key: 'zone_districtID', type: 'TEXT'),
+      // -------------------------
+      LDBColumn(key: 'tinyAuthor_userID', type: 'TEXT'),
+      LDBColumn(key: 'tinyAuthor_name', type: 'TEXT'),
+      LDBColumn(key: 'tinyAuthor_title', type: 'TEXT'),
+      LDBColumn(key: 'tinyAuthor_pic', type: 'TEXT'), // or BLOB if we use Uint8List
+      LDBColumn(key: 'tinyAuthor_userStatus', type: 'INTEGER'),
+      LDBColumn(key: 'tinyAuthor_email', type: 'TEXT'),
+      LDBColumn(key: 'tinyAuthor_phone', type: 'TEXT'),
+      // -------------------------
+      LDBColumn(key: 'tinyBz_bzID', type: 'TEXT'),
+      LDBColumn(key: 'tinyBz_bzLogo', type: 'TEXT'), // or BLOB if we use Uint8List
+      LDBColumn(key: 'tinyBz_bzName', type: 'TEXT'),
+      LDBColumn(key: 'tinyBz_bzType', type: 'INTEGER'),
+      LDBColumn(key: 'tinyBz_bzZone_countryID', type: 'TEXT'),
+      LDBColumn(key: 'tinyBz_bzZone_cityID', type: 'TEXT'),
+      LDBColumn(key: 'tinyBz_bzZone_districtID', type: 'TEXT'),
+      LDBColumn(key: 'tinyBz_bzTotalFollowers', type: 'INTEGER'),
+      LDBColumn(key: 'tinyBz_bzTotalFlyers', type: 'INTEGER'),
+      // -------------------------
+      LDBColumn(key: 'createdAt', type: 'TEXT'),
+      LDBColumn(key: 'flyerPosition', type: 'TEXT'),
+      // -------------------------
+      LDBColumn(key: 'ankhIsOn', type: 'INTEGER'),
+      // -------------------------
+      LDBColumn(key: 'numberOfSlides', type: 'INTEGER'),
+      // -------------------------
+      LDBColumn(key: 'flyerIsBanned', type: 'TEXT'),
+      LDBColumn(key: 'deletionTime', type: 'TEXT'),
+      LDBColumn(key: 'specs', type: 'TEXT'),
+      LDBColumn(key: 'info', type: 'TEXT'),
+      LDBColumn(key: 'times', type: 'TEXT'),
+      LDBColumn(key: 'priceTagIsOn', type: 'INTEGER'),
+
+    ];
+
+    return _columns;
+  }
+// -----------------------------------------------------------------------------
+  static Map<String, Object> sqlCipherFlyerModel(FlyerModel flyer){
+
+    // Map<String, Object> _flyerSQLMap = {
+    //
+    //   'flyerID' : flyer.flyerID,
+    //   'flyerType' : FlyerTypeClass.cipherFlyerType(flyer.flyerType),
+    //   'flyerState' : FlyerModel.cipherFlyerState(flyer.flyerState),
+    //   'keywords' : TextMod.sqlCipherStrings(flyer.keywordsIDs),
+    //   'flyerShowsAuthor' : Numeric.sqlCipherBool(flyer.flyerShowsAuthor),
+    //
+    //   'zone_countryID' : flyer.flyerZone.countryID,
+    //   'zone_cityID' : flyer.flyerZone.cityID,
+    //   'zone_districtID' : flyer.flyerZone.districtID,
+    //
+    //   'tinyAuthor_userID' : flyer.tinyAuthor.userID,
+    //   'tinyAuthor_name' : flyer.tinyAuthor.name,
+    //   'tinyAuthor_title' : flyer.tinyAuthor.title,
+    //   'tinyAuthor_pic' : Imagers.sqlCipherImage(flyer.tinyAuthor.pic),
+    //   'tinyAuthor_userStatus' : UserModel.cipherUserStatus(flyer.tinyAuthor.userStatus),
+    //   'tinyAuthor_email' : flyer.tinyAuthor.email,
+    //   'tinyAuthor_phone' : flyer.tinyAuthor.phone,
+    //
+    //   'tinyBz_bzID' : flyer.tinyBz.bzID,
+    //   'tinyBz_bzLogo' : Imagers.sqlCipherImage(flyer.tinyBz.bzLogo),
+    //   'tinyBz_bzName' : flyer.tinyBz.bzName,
+    //   'tinyBz_bzType' : BzModel.cipherBzType(flyer.tinyBz.bzType),
+    //   'tinyBz_bzZone_countryID' : flyer.tinyBz.bzZone.countryID,
+    //   'tinyBz_bzZone_cityID' : flyer.tinyBz.bzZone.cityID,
+    //   'tinyBz_bzZone_districtID' : flyer.tinyBz.bzZone.districtID,
+    //   'tinyBz_bzTotalFollowers' : flyer.tinyBz.bzTotalFollowers,
+    //   'tinyBz_bzTotalFlyers' : flyer.tinyBz.bzTotalFlyers,
+    //   'createdAt' : Timers.cipherDateTimeIso8601(flyer.createdAt),
+    //   'flyerPosition' : Atlas.sqlCipherGeoPoint(flyer.flyerPosition),
+    //   'ankhIsOn' : Numeric.sqlCipherBool(flyer.ankhIsOn),
+    //   'numberOfSlides' : flyer.slides.length,
+    //   'flyerIsBanned' : Numeric.sqlCipherBool(flyer.flyerIsBanned),
+    //   'deletionTime' : Timers.cipherDateTimeIso8601(flyer.deletionTime),
+    //   'specs' : ,
+    //   'info' : ,
+    //   'times' : ,
+    //   'priceTagIsOn' : ,
+    // };
+
+    return {};//_flyerSQLMap;
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 enum FlyerState{

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
-import 'package:bldrs/controllers/drafters/numberers.dart';
-import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
@@ -93,21 +93,21 @@ class Colorizer{
 
       /// ALPHA
       final String _a = TextMod.trimTextAfterFirstSpecialCharacter(colorString, '*');
-      final int _alpha = Numberers.stringToInt(_a);
+      final int _alpha = Numeric.stringToInt(_a);
 
       /// RED
       final String _rX_gX_b = TextMod.trimTextBeforeFirstSpecialCharacter(colorString, '*');
       final String _r = TextMod.trimTextAfterFirstSpecialCharacter(_rX_gX_b, '*');
-      final int _red = Numberers.stringToInt(_r);
+      final int _red = Numeric.stringToInt(_r);
 
       /// GREEN
       final String _gX_b = TextMod.trimTextBeforeFirstSpecialCharacter(_rX_gX_b, '*');
       final String _g = TextMod.trimTextAfterFirstSpecialCharacter(_gX_b, '*');
-      final int _green = Numberers.stringToInt(_g);
+      final int _green = Numeric.stringToInt(_g);
 
       /// BLUE
       final String _b = TextMod.trimTextBeforeFirstSpecialCharacter(_gX_b, '*');
-      final int _blue = Numberers.stringToInt(_b);
+      final int _blue = Numeric.stringToInt(_b);
 
       _color = Color.fromARGB(_alpha, _red, _green, _blue);
 
@@ -149,7 +149,7 @@ class Colorizer{
 // -----------------------------------------------------------------------------
   static Color getRandomColor(){
     const List<Color> _bldrsColors = Colorz.allColorz;
-    final int _randomIndex = Numberers.createRandomIndex(listLength: _bldrsColors.length);
+    final int _randomIndex = Numeric.createRandomIndex(listLength: _bldrsColors.length);
     return _bldrsColors[_randomIndex];
   }
 // -----------------------------------------------------------------------------

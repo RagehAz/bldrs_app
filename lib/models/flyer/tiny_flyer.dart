@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/colorizers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
@@ -23,7 +24,7 @@ class TinyFlyer with ChangeNotifier{
   final Zone flyerZone;
   final BoxFit picFit;
   final Color midColor;
-  final List<Keyword> keywords;
+  final List<String> keywordsIDs;
   final ImageSize imageSize;
   final String headline;
   final bool priceTagIsOn;
@@ -37,7 +38,7 @@ class TinyFlyer with ChangeNotifier{
     @required this.slidePic,
     @required this.flyerZone,
     @required this.midColor,
-    @required this.keywords, /// TASK : integrate keywords in tiny flyers
+    @required this.keywordsIDs, /// TASK : integrate keywords in tiny flyers
     @required this.picFit, /// TASK : integrate this in all below methods
     @required this.imageSize,
     @required this.headline,
@@ -54,7 +55,7 @@ class TinyFlyer with ChangeNotifier{
       'slidePic' : slidePic,
       'flyerZone' : flyerZone.toMap(),
       'midColor' : Colorizer.cipherColor(midColor),
-      'keywords' : Keyword.cipherKeywordsToKeywordsIds(keywords),
+      'keywordsIDs' : keywordsIDs,
       'picFit' : SlideModel.cipherBoxFit(picFit),
       'imageSize' : imageSize.toMap(),
       'headline' : headline,
@@ -67,7 +68,7 @@ class TinyFlyer with ChangeNotifier{
 
     if (finalFlyer.flyerType != originalFlyer.flyerType) {tinyFlyersAreTheSame = false;}
     else if (TinyBz.tinyBzzAreTheSame(finalFlyer.tinyBz, originalFlyer.tinyBz) == false) {tinyFlyersAreTheSame = false;}
-    else if(Keyword.KeywordsListsAreTheSame(finalFlyer.keywords, originalFlyer.keywords) == false) {tinyFlyersAreTheSame = false;}
+    else if(Mapper.listsAreTheSame(list1: finalFlyer.keywordsIDs, list2: originalFlyer.keywordsIDs) == false) {tinyFlyersAreTheSame = false;}
 
     else if (finalFlyer.slides[0].pic != originalFlyer.slides[0].pic) {tinyFlyersAreTheSame = false;}
     else if (finalFlyer.slides[0].picFit != originalFlyer.slides[0].picFit) {tinyFlyersAreTheSame = false;}
@@ -108,7 +109,7 @@ class TinyFlyer with ChangeNotifier{
       slidePic: map['slidePic'],
       flyerZone: Zone.decipherZoneMap(map['flyerZone']),
       midColor: Colorizer.decipherColor(map['midColor']),
-      keywords: Keyword.decipherKeywordsIDsToKeywords(map['keywords']),
+      keywordsIDs: Mapper.getStringsFromDynamics(dynamics: map['keywordsIDs']),
       picFit: SlideModel.decipherBoxFit(map['picFit']),
       imageSize: ImageSize.decipherImageSize(map['imageSize']),
       headline: map['headline'],
@@ -133,7 +134,7 @@ class TinyFlyer with ChangeNotifier{
             picFit: flyerModel?.slides[0]?.picFit,
             tinyBz: flyerModel?.tinyBz,
             flyerZone: flyerModel?.flyerZone,
-            keywords: flyerModel?.keywords,
+            keywordsIDs: flyerModel?.keywordsIDs,
             imageSize: flyerModel?.slides[0]?.imageSize,
             headline: flyerModel?.slides[0]?.headline,
             priceTagIsOn: flyerModel?.priceTagIsOn,
@@ -210,7 +211,7 @@ class TinyFlyer with ChangeNotifier{
       tinyBz: TinyBz.dummyTinyBz('bzID'),
       picFit: BoxFit.cover,
       midColor: Colorz.Black255,
-      keywords: [Keyword.bldrsKeywords()[50]],
+      keywordsIDs: [Keyword.bldrsKeywords()[50].keywordID],
       imageSize: ImageSize(height: 630, width: 460),
       headline: 'Headline',
       priceTagIsOn: true,
@@ -238,7 +239,7 @@ class TinyFlyer with ChangeNotifier{
       flyerZone: superFlyer.flyerZone,
       tinyBz: TinyBz.getTinyBzFromSuperFlyer(superFlyer),
       picFit: superFlyer.mSlides[superFlyer.currentSlideIndex].picFit,
-      keywords: superFlyer.keywords,
+      keywordsIDs: Keyword.getKeywordsIDsFromKeywords(superFlyer.keywords,),
       midColor: superFlyer.mSlides[superFlyer.currentSlideIndex].midColor,
       imageSize: superFlyer.mSlides[superFlyer.currentSlideIndex].imageSize,
       headline: superFlyer.mSlides[superFlyer.currentSlideIndex].headline,

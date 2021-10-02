@@ -36,7 +36,7 @@ class GeneralStatistics extends StatelessWidget {
           flyerID: '000000000000xxxxxx1saaa',
           flyerType: _flyer.flyerType,
           flyerState: _flyer.flyerState,
-          keywords: _flyer.keywords,
+          keywordsIDs: _flyer.keywordsIDs,
           flyerShowsAuthor: _flyer.flyerShowsAuthor,
           flyerZone: _flyer.flyerZone,
           tinyAuthor: _flyer.tinyAuthor,
