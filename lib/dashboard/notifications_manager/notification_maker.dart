@@ -2,10 +2,10 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
-import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
-import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/notifications/bldrs_notiz.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -397,7 +397,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     if (_confirmSend == true){
 
-      String _id = '${Numberers.createUniqueID()}';
+      String _id = '${Numeric.createUniqueID()}';
 
       dynamic _outputAttachment;
 

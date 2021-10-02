@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -63,7 +63,7 @@ class BzPgCounter extends StatelessWidget {
                 ),
 
                 SuperVerse(
-                  verse: Numberers.separateKilos(number: count),//formatDecimal(count),
+                  verse: Numeric.separateKilos(number: count),//formatDecimal(count),
                   size: 2,
                   weight: VerseWeight.bold,
                   margin: bzPageStripSideMargin * 0.1,

@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
-import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -67,7 +67,7 @@ class FlyerOps{
       // -------------------------
       flyerType: inputFlyerModel.flyerType,
       flyerState: inputFlyerModel.flyerState,
-      keywords: inputFlyerModel.keywords,
+      keywordsIDs: inputFlyerModel.keywordsIDs,
       flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
       flyerZone: inputFlyerModel.flyerZone,
       // -------------------------
@@ -310,12 +310,12 @@ class FlyerOps{
     print('C - flyer updated on fireStore in fireStore/flyers/${_finalFlyer.flyerID}');
 
     /// D - if keywords changed, update flyerKeys doc in : fireStore/flyersKeys/flyerID
-    if (Mapper.listsAreTheSame(list1: _finalFlyer.keywords, list2: originalFlyer.keywords) == false){
+    if (Mapper.listsAreTheSame(list1: _finalFlyer.keywordsIDs, list2: originalFlyer.keywordsIDs) == false){
       await Fire.updateDoc(
           context: context,
           collName: FireCollection.flyersKeys,
           docName: _finalFlyer.flyerID,
-          input: await TextMod.getKeywordsMap(_finalFlyer.keywords)
+          input: await TextMod.getKeywordsMap(_finalFlyer.keywordsIDs)
       );
 
       print('D - flyer keywords updated on FireStore');

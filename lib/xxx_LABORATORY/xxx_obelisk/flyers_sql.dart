@@ -2,22 +2,24 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/view_model.dart';
 import 'package:bldrs/providers/local_db/models/ldb.dart';
 import 'package:bldrs/providers/local_db/models/ldb_table.dart';
+import 'package:bldrs/providers/local_db/sql_ops/flyer_sql.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class SQLTestScreen extends StatefulWidget {
+class FlyersSQL extends StatefulWidget {
 
 
   @override
-  _SQLTestScreenState createState() => _SQLTestScreenState();
+  _FlyersSQLState createState() => _FlyersSQLState();
 }
 
-class _SQLTestScreenState extends State<SQLTestScreen> {
+class _FlyersSQLState extends State<FlyersSQL> {
   ScrollController _verticalController = ScrollController();
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -60,10 +62,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     if(_isInit){
       _triggerLoading().then((_) async {
 
-        _table = await ViewModel.createLDBTable(
-          context: context,
-        );
-        await _readLDB();
+        await createFlyersLDB();
 
 
       });
@@ -73,39 +72,32 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  LDBTable _table;
-  Future<void> createLDB() async {
+  LDBTable _flyersTable;
+  Future<void> createFlyersLDB() async {
 
-    _table = await ViewModel.createLDBTable(
+    _flyersTable = await FlyerSQL.createFlyersLDBTable(
       context: context,
-      tableName: 'elFlyerElFolani'
+      tableName: 'savedFlyers',
     );
 
-    if (_table.db.isOpen == true){
+    if (_flyersTable.db.isOpen == true){
       await _readLDB();
     }
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _A_insertToLDB() async {
+  Future<void> _A_insertToLDB(FlyerModel flyer) async {
 
     print('1 - creating map');
 
-    ViewModel _viewModel = ViewModel(
-      viewID: '1',
-      viewTime: DateTime.now(),
-      userID: 'sharmota',
-      flyerID: 'sho5a5',
-      slideIndex: 0,
-    );
 
-    Map<String, Object> _map = _viewModel.toMap();
+    Map<String, Object> _map = FlyerModel.sqlCipherFlyerModel(flyer);
 
     print('2 - inserting table');
 
     await LDB.InsertRawToLDB(
       context: context,
-      table: _table,
+      table: _flyersTable,
       input: _map,
     );
 
@@ -128,7 +120,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     print('new map');
 
     await LDB.insert(
-      table: _table,
+      table: _flyersTable,
       input: _newMap,
     );
     print('inserted');
@@ -141,11 +133,11 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
   Future<void> _readLDB() async {
 
     List<Map<String, Object>> _maps = await LDB.readRawFromLDB(
-      table: _table,
+      table: _flyersTable,
     );
 
     setState(() {
-      _table.maps =  _maps;
+      _flyersTable.maps =  _maps;
       _loading = false;
     });
 
@@ -156,11 +148,11 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _deleteLDB() async {
 
-    print('_deleteLDB : starting delete LDB : _table.tableName : ${_table.tableName}');
+    print('_deleteLDB : starting delete LDB : _table.tableName : ${_flyersTable.tableName}');
 
     await LDB.deleteLDB(
       context: context,
-      table: _table,
+      table: _flyersTable,
     );
 
     print('_deleteLDB : deleted LDB');
@@ -182,7 +174,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
     await LDB.updateRow(
       context: context,
-      table: _table,
+      table: _flyersTable,
       rowNumber: 22,
       input: _newView.toMap(),
     );
@@ -195,7 +187,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
   Future<void> _deleteRow(int id) async {
     await LDB.deleteRow(
       context: context,
-      table: _table,
+      table: _flyersTable,
       rowNumber: id,
     );
 
@@ -254,7 +246,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
     return TestingLayout(
       screenTitle: 'SQL Test Screen',
-      appbarButtonVerse: _loading == true ? 'xxx Loading ......... ' : _table.db.isOpen == true ? ' ---> Loaded' : 'LDB IS OFF',
+      appbarButtonVerse: _loading == true ? 'xxx Loading ......... ' : _flyersTable.db.isOpen == true ? ' ---> Loaded' : 'LDB IS OFF',
       appbarButtonOnTap: (){
         print('Button');
         _triggerLoading();
@@ -269,10 +261,10 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
           child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               controller: _verticalController,
-              itemCount: _table?.maps?.length ?? 0,
+              itemCount: _flyersTable?.maps?.length ?? 0,
               itemBuilder: (ctx, index){
 
-                Map<String, Object> _map = _table.maps[index];
+                Map<String, Object> _map = _flyersTable.maps[index];
                 List<Object> _keys = _map.keys.toList();
                 List<Object> _values = _map.values.toList();
 
@@ -335,7 +327,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
               /// CREATE LDB
               SmallFuckingButton(
                   verse: 'Create LDB',
-                  onTap: createLDB,
+                  onTap: createFlyersLDB,
               ),
 
               /// Delete LDB

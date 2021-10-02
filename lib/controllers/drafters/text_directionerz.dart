@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/material.dart';
 
 import 'text_checkers.dart';
-import 'text_manipulators.dart';
+import 'text_mod.dart';
 // -----------------------------------------------------------------------------
 /// TASK : need to test this method to detect text direction
 // import 'package:intl/intl.dart' as international;

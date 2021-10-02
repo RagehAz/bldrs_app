@@ -1,3 +1,5 @@
+import 'package:bldrs/controllers/drafters/numeric.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:flutter/cupertino.dart';
 // -----------------------------------------------------------------------------
 enum SpecType {
@@ -10,6 +12,7 @@ enum SpecType {
   weight,
   oldPrice,
   currentPrice,
+  inStock,
 }
 /// ----------------------------------------------------------------------------
 class Spec {
@@ -23,7 +26,7 @@ class Spec {
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
     return {
-      'specType': specType.toString(),
+      'specType': cipherSpecType(specType),
       'value': value,
     };
   }
@@ -37,7 +40,7 @@ class Spec {
   }
 // -----------------------------------------------------------------------------
   static List<Spec> cloneSpecs(List<Spec> specs){
-    List<Spec> _specs = [];
+    List<Spec> _specs = <Spec>[];
 
     if (specs != null){
       for (Spec spec in specs){
@@ -55,9 +58,25 @@ class Spec {
         value: map['value'],
       );
   }
-
 // -----------------------------------------------------------------------------
-  static SpecType decipherSpecType(dynamic input) {
+  static String cipherSpecType(SpecType specType){
+    switch (specType) {
+      case SpecType.width         : return 'width'        ; break;
+      case SpecType.length        : return 'length'       ; break;
+      case SpecType.height        : return 'height'       ; break;
+      case SpecType.volume        : return 'volume'       ; break;
+      case SpecType.area          : return 'area'         ; break;
+      case SpecType.count         : return 'count'        ; break;
+      case SpecType.weight        : return 'weight'       ; break;
+      case SpecType.oldPrice      : return 'oldPrice'     ; break;
+      case SpecType.currentPrice  : return 'currentPrice' ; break;
+      case SpecType.inStock       : return 'inStock' ; break;
+      default :
+        return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static SpecType decipherSpecType(String input) {
     switch (input) {
       case 'width':return SpecType.width;break;
       case 'length':return SpecType.length;break;
@@ -68,13 +87,59 @@ class Spec {
       case 'weight':return SpecType.weight;break;
       case 'oldPrice' : return SpecType.oldPrice; break;
       case 'currentPrice' : return SpecType.currentPrice; break;
+      case 'inStock' : return SpecType.inStock; break;
       default :
         return null;
     }
   }
 // -----------------------------------------------------------------------------
+  static String getDataTypeOfSpecType({SpecType specType}){
+    switch (specType) {
+      case SpecType.width         : return 'double'     ; break;
+      case SpecType.length        : return 'double'     ; break;
+      case SpecType.height        : return 'double'     ; break;
+      case SpecType.volume        : return 'double'     ; break;
+      case SpecType.area          : return 'double'     ; break;
+      case SpecType.count         : return 'int'        ; break;
+      case SpecType.weight        : return 'double'     ; break;
+      case SpecType.oldPrice      : return 'double'     ; break;
+      case SpecType.currentPrice  : return 'double'     ; break;
+      case SpecType.inStock       : return 'bool'     ; break;
+      default :
+        return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static dynamic assignValueDataTypeAccordingToSpecType({SpecType specType, String specValueString}){
+    final String _dataType = getDataTypeOfSpecType(specType: specType);
+    dynamic _output;
+
+    if(_dataType == 'double'){
+      final double _value = Numeric.stringToDouble(specValueString);
+      _output = _value;
+    }
+
+    else if (_dataType == 'int'){
+      final int _value = Numeric.stringToInt(specValueString);
+      _output = _value;
+    }
+
+    else if (_dataType == 'String'){
+      final String _value = specValueString;
+      _output = _value;
+    }
+
+    else if (_dataType == 'bool'){
+      final int _boolAsInt = Numeric.stringToInt(specValueString);
+      final bool _value = Numeric.sqlDecipherBool(_boolAsInt);
+      _output = _value;
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
   static List<Map<String, dynamic>> cipherSpecs(List<Spec> specs){
-    List<Map<String, dynamic>> _maps = [];
+    List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     if (specs != null && specs.length != 0){
       for (Spec spec in specs){
@@ -86,7 +151,7 @@ class Spec {
   }
 // -----------------------------------------------------------------------------
   static List<Spec> decipherSpecs(List<dynamic> maps){
-    List<Spec> _specs = [];
+    List<Spec> _specs = <Spec>[];
 
     if(maps != null && maps.length != 0){
       for (var map in maps){
@@ -98,5 +163,65 @@ class Spec {
     return _specs;
   }
 // -----------------------------------------------------------------------------
+  static String cipherSpecValue(Spec spec){
+    final String _dataType = getDataTypeOfSpecType(specType: spec.specType);
+    String _output;
+
+    if(_dataType == 'double'){
+      _output = spec.value.toString();
+    }
+
+    else if (_dataType == 'int'){
+      _output = spec.value.toString();
+    }
+
+    else if (_dataType == 'String'){
+      _output = spec.value;
+    }
+
+    else if (_dataType == 'bool'){
+      final int _valueAsInt = Numeric.sqlCipherBool(spec.value);
+      _output = '$_valueAsInt';
+    }
+
+    return _output;
+
+  }
+// -----------------------------------------------------------------------------
+  static String sqlCipherSpec(Spec spec){
+    String _string;
+
+    if (spec != null){
+
+      final String _specTypeString = cipherSpecType(spec.specType);
+      final String _specValueString = cipherSpecValue(spec);
+
+      _string = '${_specTypeString}#${_specValueString}';
+    }
+
+    return _string;
+  }
+// -----------------------------------------------------------------------------
+  static Spec sqlDecipherSpec(String string){
+    Spec spec;
+
+    if (string != null){
+      final String _specTypeString = TextMod.trimTextAfterLastSpecialCharacter(string, '#');
+      final String _specValueString = TextMod.trimTextBeforeFirstSpecialCharacter(string, '#');
+
+      final SpecType _specType = decipherSpecType(_specTypeString);
+
+      dynamic _specValue = assignValueDataTypeAccordingToSpecType(specType: _specType, specValueString: _specValueString);
+
+      spec = Spec(
+        specType: _specType,
+        value: _specValue,
+      );
+    }
+
+    return spec;
+  }
+// -----------------------------------------------------------------------------
+
 }
 /// ============================================================================

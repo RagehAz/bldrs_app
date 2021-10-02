@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
-class Numberers {
+class Numeric {
   /// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
   static String separateKilos({dynamic number, int fractions = 2}) {
 
@@ -224,6 +224,22 @@ class Numberers {
       _indexes.add(_newIndex);
     }
     return _indexes;
+  }
+// -----------------------------------------------------------------------------
+  static int sqlCipherBool(bool bool){
+    switch (bool){
+      case true: return 1; break;
+      case false: return 0; break;
+      default: return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static bool sqlDecipherBool(int int){
+    switch (int){
+      case 1: return true; break;
+      case 0: return false; break;
+      default: return null;
+    }
   }
 // -----------------------------------------------------------------------------
 }

@@ -28,6 +28,7 @@ import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
@@ -2371,7 +2372,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         // -------------------------
         flyerType: _superFlyer.flyerType,
         flyerState: _superFlyer.flyerState,
-        keywords: _superFlyer.keywords,
+        keywordsIDs: Keyword.getKeywordsIDsFromKeywords(_superFlyer.keywords),
         flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
         flyerZone: _superFlyer.flyerZone,
         // -------------------------
@@ -2431,7 +2432,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         // -------------------------
         flyerType: _superFlyer.flyerType,
         flyerState: _superFlyer.flyerState,
-        keywords: _superFlyer.keywords,
+        keywordsIDs: Keyword.getKeywordsIDsFromKeywords(_superFlyer.keywords),
         flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
         flyerZone: _superFlyer.flyerZone,
         // -------------------------

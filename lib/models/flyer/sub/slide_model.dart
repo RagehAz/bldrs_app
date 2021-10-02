@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
-import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
+import 'package:bldrs/providers/local_db/models/ldb_column.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
@@ -166,7 +167,7 @@ class SlideModel {
 // -----------------------------------------------------------------------------
   static int getSlideIndexFromSlideID(String slideID){
     // slide index shall never have more than two digits
-    int _slideIndex = Numberers.lastTwoIntegersFromAString(slideID);
+    int _slideIndex = Numeric.lastTwoIntegersFromAString(slideID);
     return _slideIndex;
   }
 // -----------------------------------------------------------------------------
@@ -352,4 +353,25 @@ class SlideModel {
     return _slides;
   }
 // -----------------------------------------------------------------------------
+  static List<LDBColumn> createSlidesLDBColumns(){
+    const List<LDBColumn> _columns = const <LDBColumn>[
+      // -------------------------
+      LDBColumn(key: 'flyerID', type: 'TEXT', isPrimary: true),
+      LDBColumn(key: 'slideIndex', type: 'INTEGER'),
+      LDBColumn(key: 'pic', type: 'TEXT'), // or BLOB if we use Uint8List
+      LDBColumn(key: 'headline', type: 'TEXT'),
+      LDBColumn(key: 'description', type: 'TEXT'),
+      LDBColumn(key: 'sharesCount', type: 'INTEGER'),
+      LDBColumn(key: 'viewsCount', type: 'INTEGER'),
+      LDBColumn(key: 'savesCount', type: 'INTEGER'),
+      LDBColumn(key: 'picFit', type: 'INTEGER'),
+      LDBColumn(key: 'imageSize', type: 'TEXT'),
+      LDBColumn(key: 'midColor', type: 'TEXT'),
+
+    ];
+
+    return _columns;
+  }
+// -----------------------------------------------------------------------------
+
 }

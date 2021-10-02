@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -776,6 +776,15 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
   static double concludeHeightByGraphicSizes({double width, double graphicWidth, double graphicHeight}){
     /// height / width = graphicHeight / graphicWidth
     return (graphicHeight * width) / graphicWidth;
+  }
+// -----------------------------------------------------------------------------
+  static String sqlCipherImage(String image){
+
+    return image;
+  }
+// -----------------------------------------------------------------------------
+  static String sqlDecipherImage(String image){
+    return image;
   }
 // -----------------------------------------------------------------------------
 }

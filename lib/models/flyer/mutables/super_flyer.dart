@@ -405,7 +405,7 @@ class SuperFlyer{
         /// flyer tags
         flyerInfo: flyerModel.info,
         specs: flyerModel.specs,
-        keywords: flyerModel.keywords,
+        keywords: Keyword.getKeywordsByKeywordsIDs(flyerModel.keywordsIDs),
 
         /// flyer location
         flyerZone: flyerModel.flyerZone,
@@ -573,7 +573,7 @@ class SuperFlyer{
         /// flyer tags
         flyerInfo: null,
         specs: null,
-        keywords: tinyFlyer.keywords,
+        keywords: Keyword.getKeywordsByKeywordsIDs(tinyFlyer.keywordsIDs),
 
         /// flyer location
         flyerZone: tinyFlyer.flyerZone,
@@ -932,7 +932,7 @@ class SuperFlyer{
         /// flyer tags
         flyerInfo: flyerModel.info,
         specs: flyerModel.specs,
-        keywords: flyerModel.keywords,
+        keywords: Keyword.getKeywordsByKeywordsIDs(flyerModel.keywordsIDs),
 
         /// flyer location
         flyerZone: flyerModel.flyerZone,
