@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
-import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Mapper{
@@ -36,7 +36,7 @@ class Mapper{
     return _listOfValues;
   }
 // -----------------------------------------------------------------------------
-  static List<dynamic> cloneListOfStrings(List<dynamic> list){
+  static List<String> cloneListOfStrings(List<String> list){
     List<dynamic> _newList = <dynamic>[];
 
     for (var x in list){

@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -110,7 +110,7 @@ class SlideCounters extends StatelessWidget {
                                   child: WebsafeSvg.asset(Iconz.Share),
                                 ),
                                 SuperVerse(
-                                  verse: Numberers.counterCaliber(context, shares),
+                                  verse: Numeric.counterCaliber(context, shares),
                                   color: Colorz.White255,
                                   size: 1,
                                   weight: VerseWeight.regular,
@@ -140,7 +140,7 @@ class SlideCounters extends StatelessWidget {
                                     ),
                                     child: WebsafeSvg.asset(Iconz.Views)),
                                 SuperVerse(
-                                  verse: Numberers.counterCaliber(context, views),
+                                  verse: Numeric.counterCaliber(context, views),
                                   color: Colorz.White255,
                                   size: 1,
                                   weight: VerseWeight.regular,
@@ -173,7 +173,7 @@ class SlideCounters extends StatelessWidget {
                                   ),
                                 ),
                                 SuperVerse(
-                                  verse: Numberers.counterCaliber(context, saves),
+                                  verse: Numeric.counterCaliber(context, saves),
                                   color: Colorz.White255,
                                   size: 1,
                                   weight: VerseWeight.regular,

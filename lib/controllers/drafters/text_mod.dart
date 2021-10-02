@@ -2,6 +2,7 @@
 import 'package:flutter/foundation.dart';
 
 class TextMod {
+// -----------------------------------------------------------------------------
   static List<String> addStringToListIfDoesNotContainIt({List<String> strings, String stringToAdd}){
 
     List<String> _result = strings;
@@ -14,7 +15,6 @@ class TextMod {
 
     return _result;
   }
-
 // -----------------------------------------------------------------------------
   static List<String> sortAlphabetically(List<String> inputList){
   List<String> _outputList = <String>[];
@@ -176,31 +176,33 @@ class TextMod {
   return _result;
 }
 // -----------------------------------------------------------------------------
-/// this trims paths like
-/// 'assets/xx/pp_sodic/builds_1.jpg' to 'builds_1.jpg'
+/// this trims paths like 'assets/xx/pp_sodic/builds_1.jpg' to 'builds_1.jpg'
   static String getFileNameFromAsset(String asset){
     final String _fileName = trimTextBeforeLastSpecialCharacter(asset, '/');
   return _fileName;
 }
 // -----------------------------------------------------------------------------
   /// converts list of strings to map of keywords with true map value
-  /// List<String> listExample = <String>['construction', 'architecture', 'decor'];
-  /// will result a map like this :-
-  /// {
-  ///   construction : true,
-  ///   architecture : true,
-  ///   decor        : true,
-  /// }
-///
-/// UPDATE
-///
-/// MAP SHOULD LOOK LIKE THIS
-/// {
-///   construction : 0 ,
-///   architecture : 1 ,
-///   decor : 2 ,
-/// }
   static Future<Map<String, dynamic>> getKeywordsMap(List<dynamic> list) async {
+    /// example
+    ///
+    /// List<String> listExample = <String>['construction', 'architecture', 'decor'];
+    /// will result a map like this :-
+    /// {
+    ///   construction : true,
+    ///   architecture : true,
+    ///   decor        : true,
+    /// }
+    ///
+    /// UPDATE
+    ///
+    /// MAP SHOULD LOOK LIKE THIS
+    /// {
+    ///   construction : 0 ,
+    ///   architecture : 1 ,
+    ///   decor : 2 ,
+    /// }
+
   // old solution
   // Map<String, dynamic> _result = { for (var keyword in list) keyword : true };
 
@@ -323,6 +325,33 @@ class TextMod {
 
     return _trigram;
   }
+// -----------------------------------------------------------------------------
+  static String sqlCipherStrings(List<String> strings){
+    String _output;
 
+    for (String string in strings){
+
+      if (_output == null){
+        _output = '$string';
+      }
+      else {
+        _output = '${_output}__$string';
+      }
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> sqlDecipherStrings(String text){
+    List<String> _strings;
+
+    if (text != null){
+      _strings = text.split('__');
+    }
+
+    return _strings;
+  }
+// -----------------------------------------------------------------------------
 }
 

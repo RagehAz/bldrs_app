@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/notifications/noti_ops.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';

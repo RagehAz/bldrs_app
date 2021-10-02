@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
-import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -62,12 +62,12 @@ class AuthorLabel extends StatelessWidget {
     final int _followersCount = tinyBz.bzTotalFollowers;
     final int _bzGalleryCount = tinyBz.bzTotalFlyers;
 
-    final String _galleryCountCalibrated = Numberers.counterCaliber(context, _bzGalleryCount);
+    final String _galleryCountCalibrated = Numeric.counterCaliber(context, _bzGalleryCount);
     final String _followersCounter =
     (authorGalleryCount == 0 && _followersCount == 0) || (authorGalleryCount == null && _followersCount == null) ? '' :
     showLabel == true ?
-        '${Numberers.separateKilos(number: authorGalleryCount)} ${Wordz.flyers(context)}' :
-        '${Numberers.counterCaliber(context, _followersCount)} ${Wordz.followers(context)} . $_galleryCountCalibrated ${Wordz.flyers(context)}';
+        '${Numeric.separateKilos(number: authorGalleryCount)} ${Wordz.flyers(context)}' :
+        '${Numeric.counterCaliber(context, _followersCount)} ${Wordz.followers(context)} . $_galleryCountCalibrated ${Wordz.flyers(context)}';
 // -----------------------------------------------------------------------------
     final double _authorImageCorners = flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
 // -----------------------------------------------------------------------------

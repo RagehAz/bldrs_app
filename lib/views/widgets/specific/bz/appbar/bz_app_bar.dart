@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -63,8 +63,8 @@ class BzAppBar extends StatelessWidget {
 
         BzCreditsCounter(
           width: Ratioz.appBarButtonSize * 1.4,
-          slidesCredit: Numberers.counterCaliber(context, 1234),
-          ankhsCredit: Numberers.counterCaliber(context, 123),
+          slidesCredit: Numeric.counterCaliber(context, 1234),
+          ankhsCredit: Numeric.counterCaliber(context, 123),
         ),
 
         /// -- SLIDE BZ ACCOUNT OPTIONS

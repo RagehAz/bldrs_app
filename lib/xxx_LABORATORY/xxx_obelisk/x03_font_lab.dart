@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
-import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/localization/lingo.dart';

@@ -1,6 +1,7 @@
-import 'package:bldrs/providers/local_db/ldb_column.dart';
-import 'package:bldrs/providers/local_db/ldb_table.dart';
+import 'package:bldrs/models/flyer/sub/slide_model.dart';
+import 'package:bldrs/providers/local_db/models/ldb_column.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
+import 'package:bldrs/providers/local_db/models/ldb_table.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
@@ -11,6 +12,7 @@ enum LDBDataType{
   TEXT,
   INTEGER,
   REAL,
+  BLOB,
 }
 
 /// LDB : LOCAL DATA BASE
@@ -31,14 +33,26 @@ abstract class LDB{
       case LDBDataType.TEXT:      return 'TEXT'; break;
       case LDBDataType.INTEGER:   return 'INTEGER'; break;
       case LDBDataType.REAL:      return 'REAL'; break;
+      case LDBDataType.BLOB:      return  'BLOB'; break;
       default :                   return 'TEXT';
     }
   }
 // -----------------------------------------------------------------------------
   /// CREATE LOCAL DATABASE
-  static Future<LDBTable> createAndSetLDB({@required BuildContext context, @required LDBTable table,}) async {
+  static Future<LDBTable> createAndSetLDB({
+    @required BuildContext context,
+    @required List<LDBColumn> columns,
+    @required String tableName,
+  }) async {
 
-    print('createLDB : starting to open LDB : table.tableName : ${table.tableName}');
+    LDBTable _dbTable = LDBTable(
+      tableName: tableName,
+      columns: columns,
+      maps: [],
+      db: null,
+    );
+
+    print('createLDB : starting to open LDB : table.tableName : ${_dbTable.tableName}');
 
     final String _dbPath = await getDatabasesPath();
 
@@ -46,7 +60,7 @@ abstract class LDB{
 
     /// this open the ldb from the given path, or creates a new one if does not exist
     final Database _db = await openDatabase(
-      path.join(_dbPath, table.tableName),
+      path.join(_dbPath, _dbTable.tableName),
       version: 1,
       onCreate: (database, version) async {
 
@@ -57,7 +71,7 @@ abstract class LDB{
           methodName: 'createDB',
           functions: () async {
 
-            final String _createSQLQuery = table.toCreateSQLQuery();
+            final String _createSQLQuery = _dbTable.toCreateSQLQuery();
             await database.execute(_createSQLQuery);
 
             print('createDB : database is created : database.path : ${database.path} : _createSQLQuery : $_createSQLQuery');
@@ -71,10 +85,10 @@ abstract class LDB{
       },
       onOpen: (database) async {
 
-        table.db = database;
+        _dbTable.db = database;
 
         await readRawFromLDB(
-          table: table,
+          table: _dbTable,
         );
 
         print('createDB : database is opened : database.path : ${database.path}');
@@ -88,9 +102,9 @@ abstract class LDB{
 
     print('createLDB : _db.isOpen : ${_db.isOpen}');
 
-    table.db = _db;
+    _dbTable.db = _db;
 
-    return table;
+    return _dbTable;
   }
 // -----------------------------------------------------------------------------
   /// RAW INSERT TO LOCAL DATABASE ( inserts new row to LDB )
@@ -238,6 +252,12 @@ abstract class LDB{
 
     print(result);
 
+  }
+// -----------------------------------------------------------------------------
+  static String sqlCipherSlides(List<SlideModel> slides){
+    String _string;
+
+    return _string;
   }
 // -----------------------------------------------------------------------------
 }

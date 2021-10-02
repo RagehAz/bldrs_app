@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
-import 'package:bldrs/controllers/drafters/numberers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 
@@ -80,7 +80,7 @@ void main(){
     bool _allLoopsAreGood;
 
     for (int i = 0; i <= 1000; i++){
-      int _uniqueVal = Numberers.createUniqueIndex(existingIndexes: _numbers);
+      int _uniqueVal = Numeric.createUniqueIndex(existingIndexes: _numbers);
 
       if (_numbers.contains(_uniqueVal)){
         _allLoopsAreGood == false;

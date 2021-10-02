@@ -394,7 +394,7 @@ class Keyword {
     return _keywords;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getKeywordsIDs(List<Keyword> keywords){
+  static List<String> getKeywordsIDsFromKeywords(List<Keyword> keywords){
     final List<String> _keywordIDs = <String>[];
 
     keywords.forEach((key) {
@@ -402,6 +402,25 @@ class Keyword {
     });
 
     return _keywordIDs;
+  }
+// -----------------------------------------------------------------------------
+  static List<Keyword> getKeywordsByKeywordsIDs(List<String> keywordsIDs){
+    final List<Keyword> _keywords = <Keyword>[];
+
+    if (keywordsIDs != null && keywordsIDs.length != 0){
+
+      for (String id in keywordsIDs){
+
+        final _Keyword = getKeywordByKeywordID(id);
+
+        if (_Keyword != null){
+          _keywords.add(_Keyword);
+        }
+      }
+
+    }
+
+    return _keywords;
   }
 // =============================================================================
 

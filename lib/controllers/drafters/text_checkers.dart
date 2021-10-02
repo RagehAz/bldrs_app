@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/text_manipulators.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as international;
 
