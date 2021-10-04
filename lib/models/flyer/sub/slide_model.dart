@@ -203,13 +203,13 @@ class SlideModel {
     return _slideID;
   }
 // -----------------------------------------------------------------------------
-  static List<String> generateSlidesIDs(FlyerModel flyerModel){
+  static List<String> generateSlidesIDs({String flyerID, int numberOfSlides,}){
     final List<String> _slidesIDs = <String>[];
 
-    flyerModel.slides.forEach((slide) {
-      final String _slideID = generateSlideID(flyerModel.flyerID, slide.slideIndex);
+    for (int i = 0; i < numberOfSlides; i++){
+      final String _slideID = SlideModel.generateSlideID(flyerID, i);
       _slidesIDs.add(_slideID);
-    });
+    }
 
     return _slidesIDs;
   }
