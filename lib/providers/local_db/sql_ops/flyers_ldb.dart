@@ -169,13 +169,6 @@ class FlyersLDB{
     return _flyer;
   }
 // -----------------------------------------------------------------------------
-  static Future<void> replaceAFlyerInLDB({FlyersLDB flyersLDB, String oldFlyerID, FlyerModel newFlyer}) async {
-
-    print('replaceAFlyerInLDB : oldFlyerID : $oldFlyerID : newFlyer.flyerID : ${newFlyer.flyerID}');
-
-    return null;
-  }
-// -----------------------------------------------------------------------------
   static Future<void> deleteFlyerFromLDB({FlyersLDB flyersLDB, String flyerID}) async {
 
     final FlyerModel _flyer = await readAFlyerFromLDB(

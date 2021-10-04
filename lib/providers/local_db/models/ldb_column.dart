@@ -56,13 +56,20 @@ class LDBColumn{
   }
 // -----------------------------------------------------------------------------
   static String getPrimaryKeyFromColumns(List<LDBColumn> columns){
-    final LDBColumn _primaryColumn = columns.singleWhere((column) => column.isPrimary == true, orElse: ()=> null);
-    final String _primaryKey = _primaryColumn == null ? null : _primaryColumn.key;
+    String _primaryKey;
+
+    if (columns != null && columns.isNotEmpty){
+
+      final LDBColumn _primaryColumn = columns.singleWhere((column) => column.isPrimary == true, orElse: ()=> null);
+      _primaryKey = _primaryColumn == null ? null : _primaryColumn.key;
+
+    }
+
     return _primaryKey;
   }
 // -----------------------------------------------------------------------------
   static List<String> getColumnsName(List<LDBColumn> ldbColumns){
-    List<String> _columnsNames = <String>[];
+    final List<String> _columnsNames = <String>[];
 
     if (ldbColumns != null && ldbColumns.length != 0){
 
@@ -76,7 +83,6 @@ class LDBColumn{
 
     return _columnsNames;
   }
-// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 //   static List<LDBColumn> getColumnsFromMap({Map<String, Object> map, String primaryKey}){
 //     List<LDBColumn> _columns = [];

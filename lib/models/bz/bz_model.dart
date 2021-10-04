@@ -435,7 +435,7 @@ Map<String, dynamic> toMap(){
     return _bzModel;
   }
 // -----------------------------------------------------------------------------
-  void printBzModel({@required String methodName}){
+  void printBzModel({String methodName = 'printBzModel'}){
 
     print('$methodName : PRINTING BZ MODEL ---------------- START -- ');
 
@@ -472,6 +472,7 @@ Map<String, dynamic> toMap(){
 // -----------------------------------------------------------------------------
   static const List<String> bzPagesTabsTitles = <String>['Flyers', 'About', 'Targets', 'Powers'];
 // -----------------------------------------------------------------------------
+
 }
 
 
