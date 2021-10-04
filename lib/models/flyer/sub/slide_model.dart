@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
@@ -70,6 +71,48 @@ class SlideModel {
     );
   }
 // -------------------------
+  void printSlide(){
+
+    print('SLIDE-PRINT --------------------------------------------------START');
+
+    // print('SLIDE-PRINT : flyerID : ${flyerID}');
+    print('SLIDE-PRINT : slideIndex : ${slideIndex}');
+    print('SLIDE-PRINT : pic : ${pic}');
+    print('SLIDE-PRINT : headline : ${headline}');
+    print('SLIDE-PRINT : description : ${description}');
+    print('SLIDE-PRINT : sharesCount : ${sharesCount}');
+    print('SLIDE-PRINT : viewsCount : ${viewsCount}');
+    print('SLIDE-PRINT : savesCount : ${savesCount}');
+    print('SLIDE-PRINT : picFit : ${picFit}');
+    print('SLIDE-PRINT : imageSize : ${imageSize}');
+    print('SLIDE-PRINT : midColor : ${midColor}');
+
+    print('SLIDE-PRINT --------------------------------------------------END');
+
+  }
+// -------------------------
+  static void printSlides(List<SlideModel> slides){
+    if (slides == null || slides.length == 0){
+
+      print('slides can not be printed : slides are : ${slides}');
+
+    }
+
+    else {
+
+      print('XXX - STARTING TO PRINT ALL ${slides.length} SLIDES');
+
+      for (SlideModel slide in slides){
+
+        slide.printSlide();
+
+      }
+
+      print('XXX - ENDED PRINTING ALL ${slides.length} SLIDES');
+
+    }
+  }
+// -------------------------
   static List<SlideModel> cloneSlides(List<SlideModel> slides){
     final List<SlideModel> _newSlides = <SlideModel>[];
 
@@ -91,8 +134,8 @@ class SlideModel {
   static bool allSlidesPicsAreTheSame({FlyerModel finalFlyer, FlyerModel originalFlyer}){
     bool _allSlidesPicsAreTheSame;
 
-    print('finalFlyer.slides.length = ${finalFlyer.slides.length}');
-    print('originalFlyer.slides.length = ${originalFlyer.slides.length}');
+    // print('finalFlyer.slides.length = ${finalFlyer.slides.length}');
+    // print('originalFlyer.slides.length = ${originalFlyer.slides.length}');
 
     if (finalFlyer.slides.length == originalFlyer.slides.length){
 
@@ -177,8 +220,13 @@ class SlideModel {
     return _slideIndex;
   }
 // -----------------------------------------------------------------------------
+  static String getFlyerIDFromSlideID(String slideID){
+    final String _flyerID = TextMod.trimTextAfterFirstSpecialCharacter(slideID, '_');
+    return _flyerID;
+  }
+// -----------------------------------------------------------------------------
   static Future<List<SlideModel>> replaceSlidesPicturesWithNewURLs(List<String> newPicturesURLs, List<SlideModel> inputSlides) async {
-    final List<SlideModel> _outputSlides = [];
+    final List<SlideModel> _outputSlides = <SlideModel>[];
 
     for (var slide in inputSlides){
 
@@ -336,8 +384,7 @@ class SlideModel {
   static List<LDBColumn> createSlidesLDBColumns(){
     const List<LDBColumn> _columns = const <LDBColumn>[
       // -------------------------
-      LDBColumn(key: 'flyerID', type: 'TEXT', isPrimary: true),
-      LDBColumn(key: 'slideIndex', type: 'INTEGER'),
+      LDBColumn(key: 'slideID', type: 'TEXT', isPrimary: true),
       LDBColumn(key: 'pic', type: 'TEXT'), // or BLOB if we use Uint8List
       LDBColumn(key: 'headline', type: 'TEXT'),
       LDBColumn(key: 'description', type: 'TEXT'),
@@ -358,8 +405,7 @@ class SlideModel {
 
     if (slide != null) {
       _map = {
-        'flyerID': flyerID,
-        'slideIndex': slide.slideIndex,
+        'slideID': SlideModel.generateSlideID(flyerID, slide.slideIndex),
         'pic': Imagers.sqlCipherImage(slide.pic),
         'headline': slide.headline,
         'description': slide.description,
@@ -382,9 +428,12 @@ class SlideModel {
 
     if (map != null){
 
+      final String _flyerID = getFlyerIDFromSlideID(map['slideID']);
+      final int _slideIndex = getSlideIndexFromSlideID(map['slideID']);
+
       _slide = SlideModel(
-        flyerID: map['flyerID'],
-        slideIndex: map['slideIndex'],
+        flyerID: _flyerID,
+        slideIndex: _slideIndex,
         pic: Imagers.sqlDecipherImage(map['pic']),
         headline: map['headline'],
         description: map['description'],

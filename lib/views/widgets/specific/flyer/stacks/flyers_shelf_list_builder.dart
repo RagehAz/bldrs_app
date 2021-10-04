@@ -23,7 +23,7 @@ class FlyersShelfListBuilder extends StatefulWidget {
 }
 
 class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
-  final _controller = ScrollController();
+  final ScrollController _controller = ScrollController();
 
   @override
   void initState() {

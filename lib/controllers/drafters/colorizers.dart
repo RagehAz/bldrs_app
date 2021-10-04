@@ -87,7 +87,7 @@ class Colorizer{
   static Color decipherColor(String colorString){
     Color _color;
 
-    print('decipherColor : colorString : $colorString');
+    // print('decipherColor : colorString : $colorString');
 
     if(colorString != null){
       /// reference ciphered color code
