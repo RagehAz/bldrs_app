@@ -61,6 +61,23 @@ class LDBColumn{
     return _primaryKey;
   }
 // -----------------------------------------------------------------------------
+  static List<String> getColumnsName(List<LDBColumn> ldbColumns){
+    List<String> _columnsNames = <String>[];
+
+    if (ldbColumns != null && ldbColumns.length != 0){
+
+      for (LDBColumn ldbColumn in ldbColumns){
+
+        _columnsNames.add(ldbColumn.key);
+
+      }
+
+    }
+
+    return _columnsNames;
+  }
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //   static List<LDBColumn> getColumnsFromMap({Map<String, Object> map, String primaryKey}){
 //     List<LDBColumn> _columns = [];
 //

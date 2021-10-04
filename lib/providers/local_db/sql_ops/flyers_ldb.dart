@@ -52,14 +52,14 @@ class FlyersLDB{
 // -----------------------------------------------------------------------------
   static Future<List<FlyerModel>> readFlyersLDB({BuildContext context, FlyersLDB flyersLDB}) async {
 
-    List<Map<String, Object>> _sqlFlyersMaps = await LDB.readRawFromLDB(
+    final List<Map<String, Object>> _sqlFlyersMaps = await LDB.readRawFromLDB(
       context: context,
       table: flyersLDB.flyersTable,
     );
 
-    List<Map<String, Object>> _sqlSlidesMaps = await LDB.readRawFromLDB(
+    final List<Map<String, Object>> _sqlSlidesMaps = await LDB.readRawFromLDB(
       context: context,
-      table: flyersLDB.flyersTable,
+      table: flyersLDB.slidesTable,
     );
 
     final List<SlideModel> _allSlides = SlideModel.sqlDecipherSlides(maps: _sqlSlidesMaps);
@@ -92,6 +92,7 @@ class FlyersLDB{
 
     /// inset sql slides
     for (SlideModel slide in flyer.slides){
+
       final Map<String, Object> _sqlSlideMap = SlideModel.sqlCipherSlide(
         slide: slide,
         flyerID: flyer.flyerID,

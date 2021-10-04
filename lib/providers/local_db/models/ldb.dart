@@ -157,6 +157,8 @@ abstract class LDB{
 
     }
 
+    print('LDB insert into : ${table.tableName} : input : ${input}');
+
   }
 // -----------------------------------------------------------------------------
   /// RAW READ FROM LOCAL DATABASE
@@ -251,6 +253,31 @@ abstract class LDB{
 
     print(result);
 
+  }
+// -----------------------------------------------------------------------------
+  static Future<List<dynamic>> getData({BuildContext context, LDBTable table, String key, String value}) async {
+    //  Future<T> getTodo(int id) async {
+    //     List<Map> maps = await db.query(tableTodo,
+    //         columns: [columnId, columnDone, columnTitle],
+    //         where: '$columnId = ?',
+    //         whereArgs: [id]);
+    //     if (maps.length > 0) {
+    //       return T.fromMap(maps.first);
+    //     }
+    //     return null;
+    //   }
+
+    List<dynamic> _maps = await table.db.query(
+      table.tableName,
+      columns: LDBColumn.getColumnsName(table.columns),
+      where: '$key = ?',
+      whereArgs: [value],
+    );
+
+    if (_maps.length > 0) {
+      return _maps;
+    }
+    return null;
   }
 // -----------------------------------------------------------------------------
 }
