@@ -12,6 +12,7 @@ import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/providers/local_db/sql_ops/flyers_ldb.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
@@ -141,7 +142,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _replaceFlyerInLDB({String oldFlyerID, FlyerModel newFlyer}) async {
 
-    await FlyersLDB.updateFlyerInLDB(
+    await FlyersLDB.replaceAFlyerInLDB(
       flyersLDB: _flyersLDB,
       oldFlyerID: oldFlyerID,
       newFlyer: newFlyer,
@@ -157,6 +158,21 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     );
 
     await _readFlyersLDB();
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _readAFlyerFromLDB(String flyerID) async {
+
+    final FlyerModel _flyer = await FlyersLDB.readAFlyerFromLDB(
+      flyersLDB: _flyersLDB,
+      flyerID: flyerID,
+    );
+
+    _flyer.printFlyer();
+
+    await Nav.goToNewScreen(context, FlyerScreen(
+      flyerModel: _flyer,
+    ));
 
   }
 // -----------------------------------------------------------------------------
@@ -219,6 +235,48 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     return _pics;
   }
 // -----------------------------------------------------------------------------
+  Future<void> _onLDBFlyerTap(String flyerID) async {
+
+    await BottomDialog.showButtonsBottomDialog(
+      context: context,
+      draggable: true,
+      buttonHeight: 40,
+      buttons: <Widget>[
+
+        DreamBox(
+          height: 40,
+          width: BottomDialog.dialogClearWidth(context),
+          verse: 'READ FLYER',
+          verseItalic: true,
+          onTap: () async {
+
+            await _readAFlyerFromLDB(flyerID);
+
+            await Nav.goBack(context);
+
+          },
+        ),
+
+
+        DreamBox(
+          height: 40,
+          width: BottomDialog.dialogClearWidth(context),
+          verse: 'DELETE FLYER',
+          verseItalic: true,
+          onTap: () async {
+
+            await _deleteFlyerFromLDB(flyerID: flyerID,);
+
+            await Nav.goBack(context);
+
+          },
+        ),
+
+      ],
+    );
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -258,31 +316,6 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
               onTap: _deleteFlyersLDB,
             ),
 
-            /// INSERT A
-            SmallFuckingButton(
-              verse: 'insert Flyer ToLDB',
-              onTap: () => _insertFlyerToLDB(
-                flyer: null,
-              ),
-            ),
-
-            /// Update row LDB
-            SmallFuckingButton(
-              verse: 'Update row',
-              onTap: () => _replaceFlyerInLDB(
-                oldFlyerID: 'x',
-                newFlyer: null,
-              ),
-            ),
-
-            /// Delete row
-            SmallFuckingButton(
-              verse: 'Delete row',
-              onTap: () => _deleteFlyerFromLDB(
-                flyerID: 'x',
-              ),
-            ),
-
           ],
         ),
 
@@ -312,6 +345,14 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
           ),
         ),
 
+        SlidesShelf(
+          shelfHeight: FlyersShelf.shelfHeight(context: context, flyerSizeFactor: _flyerSizeFactor),
+          title: 'All Slides',
+          onImageTap: (){print('tapped');},
+          pics: _slidesPics,
+          onAddButtonOnTap: (){print('xxx');},
+        ),
+
         /// Flyers LDB data
         Container(
           width: _screenWidth,
@@ -326,12 +367,12 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
                     _flyersLDB?.flyersTable?.maps?.length ?? 0,
                         (index){
 
-                          Map<String, Object> _flyersMap = _flyersLDB?.flyersTable?.maps[index];
+                          Map<String, Object> _flyerMap = _flyersLDB?.flyersTable?.maps[index];
 
-                          List<Object> _keys = _flyersMap.keys.toList();
-                          List<Object> _values = _flyersMap.values.toList();
+                          List<Object> _keys = _flyerMap.keys.toList();
+                          List<Object> _values = _flyerMap.values.toList();
 
-                          String _flyerID = _flyersMap['flyerID'];
+                          String _flyerID = _flyerMap['flyerID'];
                           // int _idInt = Numberers.stringToInt(_id);
 
                           return
@@ -349,31 +390,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
                                     width: 37,
                                     icon: Iconz.Flyer,
                                     iconSizeFactor: 0.7,
-                                    onTap: () async {
-
-                                      print('a777aaa');
-
-                                      List<SlideModel> _allFlyersSlides = SlideModel.sqlDecipherSlides(
-                                        maps: _flyersLDB.slidesTable.maps,
-                                      );
-
-                                      List<SlideModel> _flyerSlides = SlideModel.getSlidesFromSlidesByFlyerID(_allFlyersSlides, _flyerID);
-
-
-                                      FlyerModel _flyer = FlyerModel.sqlDecipherFlyer(
-                                        flyerMap: _flyersMap,
-                                        slides: _flyerSlides,
-                                      );
-
-                                      _flyer.printFlyer();
-
-                                      SlideModel.printSlides(_flyerSlides);
-
-                                      await Nav.goToNewScreen(context, FlyerScreen(
-                                        flyerModel: _flyer,
-                                      ));
-
-                                    },
+                                    onTap: () => _onLDBFlyerTap(_flyerID),
                                     // margins: EdgeInsets.all(5),
                                   ),
 
@@ -383,9 +400,8 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
                                     verse: '${index + 1}',
                                     verseScaleFactor: 0.6,
                                     margins: EdgeInsets.all(5),
-                                    onTap: () => _deleteFlyerFromLDB(
-                                      flyerID: _flyerID,
-                                    ),
+                                    bubble: false,
+                                    color: Colorz.White10,
                                   ),
 
                                   ...List.generate(
@@ -415,102 +431,6 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
           ),
         ),
 
-        // /// Flyers LDB data
-        // Container(
-        //   width: _screenWidth,
-        //   height: 150,
-        //   color: Colorz.White10,
-        //   child: ListView.builder(
-        //       physics: const BouncingScrollPhysics(),
-        //       controller: _verticalController,
-        //       itemCount: _flyersLDB?.flyersTable?.maps?.length ?? 0,
-        //       itemBuilder: (ctx, index){
-        //
-        //         Map<String, Object> _flyersMap = _flyersLDB?.flyersTable?.maps[index];
-        //
-        //         List<Object> _keys = _flyersMap.keys.toList();
-        //         List<Object> _values = _flyersMap.values.toList();
-        //
-        //         String _flyerID = _flyersMap['flyerID'];
-        //         // int _idInt = Numberers.stringToInt(_id);
-        //
-        //         return
-        //           Container(
-        //             width: _screenWidth,
-        //             height: 42,
-        //             child: ListView(
-        //               physics: const BouncingScrollPhysics(),
-        //               shrinkWrap: false,
-        //               scrollDirection: Axis.horizontal,
-        //               children: <Widget>[
-        //
-        //                 DreamBox(
-        //                   height: 37,
-        //                   width: 37,
-        //                   icon: Iconz.Flyer,
-        //                   iconSizeFactor: 0.7,
-        //                   onTap: () async {
-        //
-        //                     print('a777aaa');
-        //
-        //                     List<SlideModel> _allFlyersSlides = SlideModel.sqlDecipherSlides(
-        //                       maps: _flyersLDB.slidesTable.maps,
-        //                     );
-        //
-        //                     List<SlideModel> _flyerSlides = SlideModel.getSlidesFromSlidesByFlyerID(_allFlyersSlides, _flyerID);
-        //
-        //
-        //                     FlyerModel _flyer = FlyerModel.sqlDecipherFlyer(
-        //                       flyerMap: _flyersMap,
-        //                       slides: _flyerSlides,
-        //                     );
-        //
-        //                     _flyer.printFlyer();
-        //
-        //                     SlideModel.printSlides(_flyerSlides);
-        //
-        //                     await Nav.goToNewScreen(context, FlyerScreen(
-        //                       flyerModel: _flyer,
-        //                     ));
-        //
-        //                   },
-        //                   // margins: EdgeInsets.all(5),
-        //                 ),
-        //
-        //                 DreamBox(
-        //                   height: 40,
-        //                   width: 40,
-        //                   verse: '${index + 1}',
-        //                   verseScaleFactor: 0.6,
-        //                   margins: EdgeInsets.all(5),
-        //                   onTap: () => _deleteFlyerFromLDB(
-        //                     flyerID: _flyerID,
-        //                   ),
-        //                 ),
-        //
-        //                 ...List.generate(
-        //                     _values.length,
-        //                         (i){
-        //
-        //                       String _key = _keys[i];
-        //                       String _value = _values[i].toString();
-        //
-        //                       return
-        //                         valueBox(
-        //                           key: _key,
-        //                           value: _value,
-        //                         );
-        //
-        //                     }
-        //                     ),
-        //
-        //               ],
-        //             ),
-        //           );
-        //       }
-        //       ),
-        // ),
-
         /// Slides LDB data
         Container(
           width: _screenWidth,
@@ -530,7 +450,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
                           List<Object> _keys = _slideMap.keys.toList();
                           List<Object> _values = _slideMap.values.toList();
 
-                          String _flyerID = SlideModel.getFlyerIDFromSlideID(_slideMap['slideID']);
+                          // String _flyerID = SlideModel.getFlyerIDFromSlideID(_slideMap['slideID']);
 
                       return
                         Container(
@@ -547,33 +467,8 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
                                 width: 37,
                                 icon: Iconz.FlyerScale,
                                 iconSizeFactor: 0.7,
-                                onTap: () async {
-
-                                  print('a777aaa');
-
-                                  List<SlideModel> _allFlyersSlides = SlideModel.sqlDecipherSlides(
-                                    maps: _flyersLDB.slidesTable.maps,
-                                  );
-
-                                  List<SlideModel> _flyerSlides = SlideModel.getSlidesFromSlidesByFlyerID(_allFlyersSlides, _flyerID);
-
-
-
-                                  FlyerModel _flyer = FlyerModel.sqlDecipherFlyer(
-                                    flyerMap: _slideMap,
-                                    slides: _flyerSlides,
-                                  );
-
-                                  _flyer.printFlyer();
-
-                                  SlideModel.printSlides(_flyerSlides);
-
-                                  await Nav.goToNewScreen(context, FlyerScreen(
-                                    flyerModel: _flyer,
-                                  ));
-
-                                },
-                                // margins: EdgeInsets.all(5),
+                                bubble: false,
+                                color: Colorz.White10,
                               ),
 
                               DreamBox(
@@ -582,9 +477,8 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
                                 verse: '${index + 1}',
                                 verseScaleFactor: 0.6,
                                 margins: EdgeInsets.all(5),
-                                onTap: () => _deleteFlyerFromLDB(
-                                  flyerID: _flyerID,
-                                ),
+                                bubble: false,
+                                color: Colorz.White10,
                               ),
 
                               ...List.generate(
@@ -614,33 +508,6 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
             ),
           ),
         ),
-
-        SlidesShelf(
-          shelfHeight: FlyersShelf.shelfHeight(context: context, flyerSizeFactor: _flyerSizeFactor),
-          title: 'All Slides',
-          onImageTap: (){print('tapped');},
-          pics: _slidesPics,
-          onAddButtonOnTap: (){print('xxx');},
-        ),
-
-        // /// CONVERTED LDB FLYERS
-        // Container(
-        //   height: FlyersShelf.shelfHeight(context: context, flyerSizeFactor: _flyerSizeFactor),
-        //   width: _screenWidth,
-        //   color: Colorz.Blue125,
-        //   child: FlyersShelf(
-        //     title: 'Converted Flyers',
-        //     titleIcon: Iconz.SaveOff,
-        //     flyersType: FlyerType.non,
-        //     tinyFlyers: _convertedTinyFlyers,
-        //     flyerOnTap: (TinyFlyer tinyFlyer) async {
-        //       print('tapped on ${tinyFlyer.flyerID}');
-        //       },
-        //
-        //     onScrollEnd: (){print('fuck this');},
-        //     flyerSizeFactor: _flyerSizeFactor,
-        //   ),
-        // ),
 
 
       ],
