@@ -29,26 +29,20 @@ Map<String, Object> toMap(){
   };
 }
 // -----------------------------------------------------------------------------
-  static List<LDBColumn> _createViewsLDBColumns(){
-    const List<LDBColumn> _columns = const <LDBColumn>[
+    static const List<LDBColumn> columns = const <LDBColumn>[
       LDBColumn(key: 'viewID', type: 'INTEGER', isPrimary: true),
       LDBColumn(key: 'userID', type: 'TEXT'),
       LDBColumn(key: 'flyerID', type: 'TEXT'),
       LDBColumn(key: 'slideIndex', type: 'INTEGER'),
       LDBColumn(key: 'viewTime', type: 'TEXT'),
     ];
-
-    return _columns;
-  }
 // -----------------------------------------------------------------------------
   static Future<LDBTable> createLDBTable({BuildContext context, String tableName}) async {
-
-    final List<LDBColumn> _columns = _createViewsLDBColumns();
 
     final LDBTable _dbTable = await LDB.createAndSetLDB(
       context: context,
       tableName: tableName,
-      columns: _columns,
+      columns: columns,
     );
 
     return _dbTable;

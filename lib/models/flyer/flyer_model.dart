@@ -36,7 +36,7 @@ class FlyerModel with ChangeNotifier{
   // -------------------------
   bool ankhIsOn;
   // -------------------------
-  final List<SlideModel> slides;
+  final List<SlideModel> slides; // TASK : only 10 max slides per flyer
   // -------------------------
   final bool flyerIsBanned;
   final DateTime deletionTime;
@@ -426,6 +426,7 @@ class FlyerModel with ChangeNotifier{
     const List<LDBColumn> _columns = const <LDBColumn>[
       // -------------------------
       LDBColumn(key: 'flyerID', type: 'TEXT', isPrimary: true),
+      LDBColumn(key: 'numberOfSlides', type: 'INTEGER'),
       LDBColumn(key: 'flyerType', type: 'INTEGER'),
       LDBColumn(key: 'flyerState', type: 'INTEGER'),
       LDBColumn(key: 'keywords', type: 'TEXT'),
@@ -458,8 +459,6 @@ class FlyerModel with ChangeNotifier{
       // -------------------------
       LDBColumn(key: 'ankhIsOn', type: 'INTEGER'),
       // -------------------------
-      LDBColumn(key: 'numberOfSlides', type: 'INTEGER'),
-      // -------------------------
       LDBColumn(key: 'flyerIsBanned', type: 'INTEGER'),
       LDBColumn(key: 'deletionTime', type: 'TEXT'),
       LDBColumn(key: 'specs', type: 'TEXT'),
@@ -477,6 +476,8 @@ class FlyerModel with ChangeNotifier{
     final Map<String, Object> _flyerSQLMap = {
 
       'flyerID' : flyer.flyerID,
+      'numberOfSlides' : flyer.slides.length,
+
       'flyerType' : FlyerTypeClass.cipherFlyerType(flyer.flyerType),
       'flyerState' : FlyerModel.cipherFlyerState(flyer.flyerState),
       'keywords' : TextMod.sqlCipherStrings(flyer.keywordsIDs),
