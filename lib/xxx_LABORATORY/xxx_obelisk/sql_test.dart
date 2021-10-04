@@ -4,7 +4,6 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/flyer/records/view_model.dart';
 import 'package:bldrs/providers/local_db/models/ldb.dart';
-import 'package:bldrs/providers/local_db/models/ldb_column.dart';
 import 'package:bldrs/providers/local_db/models/ldb_table.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';

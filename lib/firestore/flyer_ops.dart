@@ -480,7 +480,10 @@ class FlyerOps{
 
     /// H - delete fireStorage/slidesPics/slideID for all flyer slides
     print('H - delete flyer slide pics');
-    final List<String> _slidesIDs = SlideModel.generateSlidesIDs(flyerModel);
+    final List<String> _slidesIDs = SlideModel.generateSlidesIDs(
+      flyerID: flyerModel.flyerID,
+      numberOfSlides: flyerModel.slides.length,
+    );
     for (var id in _slidesIDs){
 
       print('a - delete slideHighRes : $id from ${_slidesIDs.length} slides');
