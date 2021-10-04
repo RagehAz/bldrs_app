@@ -3,7 +3,11 @@ import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/dashboard/widgets/ldb_viewer.dart';
+import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
@@ -11,6 +15,7 @@ import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/providers/local_db/sql_ops/flyers_ldb.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
+import 'package:bldrs/views/widgets/general/bubbles/following_bzz_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
@@ -55,11 +60,16 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
+  List<TinyFlyer> _savedTinyFlyers = <TinyFlyer>[];
+  FlyersProvider _prof;
+  List<BzModel> _followedBzz = <BzModel>[];
+
   @override
   void initState() {
     super.initState();
 
-
+    _prof = Provider.of<FlyersProvider>(context, listen: false);
+    _savedTinyFlyers =  _prof.getSavedTinyFlyers;
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -69,6 +79,8 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 
     if(_isInit){
       _triggerLoading().then((_) async {
+
+        _followedBzz = await getFollowedBzz(_prof.getFollows);
 
         await _createFlyersLDB();
 
@@ -94,7 +106,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  List<TinyFlyer> _convertedTinyFlyers = <TinyFlyer>[];
+//   List<TinyFlyer> _convertedTinyFlyers = <TinyFlyer>[];
   Future<void> _readFlyersLDB() async {
 
     final List<FlyerModel> _flyersFromLDB = await FlyersLDB.readFlyersLDB(
@@ -102,13 +114,13 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
       flyersLDB: _flyersLDB,
     );
 
-    final List<TinyFlyer> _tinyFlyersFromLDB = TinyFlyer.getTinyFlyersFromFlyersModels(_flyersFromLDB);
+    // final List<TinyFlyer> _tinyFlyersFromLDB = TinyFlyer.getTinyFlyersFromFlyersModels(_flyersFromLDB);
 
     final List<Map<String, Object>> _slidesMaps = SlideModel.sqlCipherFlyersSlides(_flyersFromLDB);
     final List<Map<String, Object>> _flyersMaps = FlyerModel.sqlCipherFlyers(_flyersFromLDB);
 
     setState(() {
-      _convertedTinyFlyers = _tinyFlyersFromLDB;
+      // _convertedTinyFlyers = _tinyFlyersFromLDB;
       _flyersLDB.flyersTable.maps =  _flyersMaps;
       _flyersLDB.slidesTable.maps = _slidesMaps;
       _loading = false;
@@ -137,16 +149,6 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     );
 
     await _readFlyersLDB();
-
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _replaceFlyerInLDB({String oldFlyerID, FlyerModel newFlyer}) async {
-
-    await FlyersLDB.replaceAFlyerInLDB(
-      flyersLDB: _flyersLDB,
-      oldFlyerID: oldFlyerID,
-      newFlyer: newFlyer,
-    );
 
   }
 // -----------------------------------------------------------------------------
@@ -277,14 +279,27 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  Future<List<BzModel>> getFollowedBzz(List<String> followedBzzIDs) async {
+
+    List<BzModel> _bzz = <BzModel>[];
+
+    for (var id in followedBzzIDs) {
+      final BzModel _bz = await BzOps.readBzOps(
+        context: context,
+        bzID: id,
+      );
+      _bzz.add(_bz);
+    }
+
+    return _bzz;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
 
-    final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-    final List<TinyFlyer> _savedTinyFlyers =  _prof.getSavedTinyFlyers;
     const double _flyerSizeFactor = 0.25;
 
     final List<dynamic> _slidesPics = getSlidesFromMaps(_flyersLDB?.slidesTable?.maps);
@@ -319,32 +334,51 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
           ],
         ),
 
-        /// SAVED TINY FLYERS
-        Container(
-          height: FlyersShelf.shelfHeight(context: context, flyerSizeFactor: _flyerSizeFactor),
-          width: _screenWidth,
-          color: Colorz.BlackSemi230,
-          child: FlyersShelf(
-            title: 'Saved Flyers',
-            titleIcon: Iconz.SavedFlyers,
-            flyersType: FlyerType.non,
-            tinyFlyers: _savedTinyFlyers,
-            flyerOnTap: (TinyFlyer tinyFlyer) async {
-              print('tapped on ${tinyFlyer.flyerID}');
+        FollowingBzzBubble(
+          tinyBzz: TinyBz.getTinyBzzFromBzzModels(_followedBzz),
+          onBzTap: (String bzID) async {
 
-              final FlyerModel _flyer = await FlyerOps().readFlyerOps(
-                context: context,
-                flyerID: tinyFlyer.flyerID,
-              );
+            final BzModel _bz = BzModel.getBzFromBzzByBzID(_followedBzz, bzID);
 
-              await _insertFlyerToLDB(flyer: _flyer);
-            },
+            _bz.printBzModel();
 
-            onScrollEnd: (){print('fuck this');},
-            flyerSizeFactor: _flyerSizeFactor,
-          ),
+          },
         ),
 
+        /// BZZ LDB
+        LDBViewer(
+          table: _flyersLDB?.flyersTable,
+          onRowTap: (String flyerID) => _onLDBFlyerTap(flyerID),
+        ),
+
+        /// FLYERS SHELF
+        FlyersShelf(
+          title: 'Saved Flyers',
+          titleIcon: Iconz.SavedFlyers,
+          flyersType: FlyerType.non,
+          tinyFlyers: _savedTinyFlyers,
+          flyerOnTap: (TinyFlyer tinyFlyer) async {
+            print('tapped on ${tinyFlyer.flyerID}');
+
+            final FlyerModel _flyer = await FlyerOps().readFlyerOps(
+              context: context,
+              flyerID: tinyFlyer.flyerID,
+            );
+
+            await _insertFlyerToLDB(flyer: _flyer);
+          },
+
+          onScrollEnd: (){print('fuck this');},
+          flyerSizeFactor: _flyerSizeFactor,
+        ),
+
+        /// Flyers LDB
+        LDBViewer(
+          table: _flyersLDB?.flyersTable,
+          onRowTap: (String flyerID) => _onLDBFlyerTap(flyerID),
+        ),
+
+        /// SLIDES SHELF
         SlidesShelf(
           shelfHeight: FlyersShelf.shelfHeight(context: context, flyerSizeFactor: _flyerSizeFactor),
           title: 'All Slides',
@@ -353,162 +387,12 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
           onAddButtonOnTap: (){print('xxx');},
         ),
 
-        /// Flyers LDB data
-        Container(
-          width: _screenWidth,
-          color: Colorz.White10,
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            controller: ScrollController(),
-            child: Column(
-              children: <Widget>[
-
-                ...List.generate(
-                    _flyersLDB?.flyersTable?.maps?.length ?? 0,
-                        (index){
-
-                          Map<String, Object> _flyerMap = _flyersLDB?.flyersTable?.maps[index];
-
-                          List<Object> _keys = _flyerMap.keys.toList();
-                          List<Object> _values = _flyerMap.values.toList();
-
-                          String _flyerID = _flyerMap['flyerID'];
-                          // int _idInt = Numberers.stringToInt(_id);
-
-                          return
-                            Container(
-                              width: _screenWidth,
-                              height: 42,
-                              child: ListView(
-                                physics: const BouncingScrollPhysics(),
-                                shrinkWrap: false,
-                                scrollDirection: Axis.horizontal,
-                                children: <Widget>[
-
-                                  DreamBox(
-                                    height: 37,
-                                    width: 37,
-                                    icon: Iconz.Flyer,
-                                    iconSizeFactor: 0.7,
-                                    onTap: () => _onLDBFlyerTap(_flyerID),
-                                    // margins: EdgeInsets.all(5),
-                                  ),
-
-                                  DreamBox(
-                                    height: 40,
-                                    width: 40,
-                                    verse: '${index + 1}',
-                                    verseScaleFactor: 0.6,
-                                    margins: EdgeInsets.all(5),
-                                    bubble: false,
-                                    color: Colorz.White10,
-                                  ),
-
-                                  ...List.generate(
-                                      _values.length,
-                                          (i){
-
-                                        String _key = _keys[i];
-                                        String _value = _values[i].toString();
-
-                                        return
-                                          valueBox(
-                                            key: _key,
-                                            value: _value,
-                                          );
-
-                                      }
-                                  ),
-
-                                ],
-                              ),
-                            );
-
-                    }),
-
-              ],
-            ),
-          ),
+        /// SLIDES LDB
+        LDBViewer(
+          table:_flyersLDB?.slidesTable,
+          color: Colorz.Green125,
+          // onRowTap: (String flyerID) => _onLDBFlyerTap(flyerID),
         ),
-
-        /// Slides LDB data
-        Container(
-          width: _screenWidth,
-          color: Colorz.Black10,
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            controller: ScrollController(),
-            child: Column(
-              children: <Widget>[
-
-                ...List.generate(
-                    _flyersLDB?.slidesTable?.maps?.length ?? 0,
-                        (index){
-
-                          Map<String, Object> _slideMap = _flyersLDB?.slidesTable?.maps[index];
-
-                          List<Object> _keys = _slideMap.keys.toList();
-                          List<Object> _values = _slideMap.values.toList();
-
-                          // String _flyerID = SlideModel.getFlyerIDFromSlideID(_slideMap['slideID']);
-
-                      return
-                        Container(
-                          width: _screenWidth,
-                          height: 42,
-                          child: ListView(
-                            physics: const BouncingScrollPhysics(),
-                            shrinkWrap: false,
-                            scrollDirection: Axis.horizontal,
-                            children: <Widget>[
-
-                              DreamBox(
-                                height: 37,
-                                width: 37,
-                                icon: Iconz.FlyerScale,
-                                iconSizeFactor: 0.7,
-                                bubble: false,
-                                color: Colorz.White10,
-                              ),
-
-                              DreamBox(
-                                height: 40,
-                                width: 40,
-                                verse: '${index + 1}',
-                                verseScaleFactor: 0.6,
-                                margins: EdgeInsets.all(5),
-                                bubble: false,
-                                color: Colorz.White10,
-                              ),
-
-                              ...List.generate(
-                                  _values.length,
-                                      (i){
-
-                                    String _key = _keys[i];
-                                    String _value = _values[i].toString();
-
-                                    return
-                                      valueBox(
-                                          key: _key,
-                                          value: _value,
-                                          color: Colorz.Green125
-                                      );
-
-                                  }
-                              ),
-
-                            ],
-                          ),
-                        );
-
-                        }),
-
-              ],
-            ),
-          ),
-        ),
-
 
       ],
     );
