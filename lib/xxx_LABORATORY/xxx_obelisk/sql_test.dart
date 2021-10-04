@@ -10,6 +10,7 @@ import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:sqflite/sql.dart';
 
 class SQLTestScreen extends StatefulWidget {
 
@@ -84,14 +85,15 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  int _viewID = 0;
   Future<void> _A_insertToLDB() async {
 
     print('1 - creating map');
 
     ViewModel _viewModel = ViewModel(
-      viewID: '1',
+      viewID: '$_viewID',
       viewTime: DateTime.now(),
-      userID: 'sharmota',
+      userID: 'bobo',
       flyerID: 'sho5a5',
       slideIndex: 0,
     );
@@ -100,10 +102,16 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
     print('2 - inserting table');
 
-    await LDB.InsertRawToLDB(
-      context: context,
+    // await LDB.InsertRawToLDB(
+    //   context: context,
+    //   table: _table,
+    //   input: _map,
+    // );
+
+    await LDB.insert(
       table: _table,
       input: _map,
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
 
     await _readLDB();
@@ -144,6 +152,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     setState(() {
       _table.maps =  _maps;
       _loading = false;
+      _viewID++;
     });
 
     await _scrollToBottomOfListView();
@@ -170,17 +179,15 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     print('_updateRow : starting to update row');
 
     ViewModel _newView = ViewModel(
-      viewID: 10,
-      flyerID: 'kos o5tak',
-      userID: 'abo omak',
-      slideIndex: 4,
+      viewID: 1,
+      flyerID: 'ءءءءءء',
+      userID: 'ثثثثث',
+      slideIndex: 18,
       viewTime: DateTime.now(),
     );
 
     await LDB.updateRow(
-      context: context,
       table: _table,
-      rowNumber: 22,
       input: _newView.toMap(),
     );
 
@@ -189,11 +196,22 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     print('_updateRow : finished updating row');
   }
 // -----------------------------------------------------------------------------
-  Future<void> _deleteRow(int id) async {
-    await LDB.deleteRow(
-      context: context,
+  Future<void> _deleteRowByRowNumber(int id) async {
+    await LDB.deleteRowByRowNumber(
       table: _table,
       rowNumber: id,
+    );
+
+    await _readLDB();
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _deleteByKeyAndValue() async {
+
+    await LDB.deleteRowsByKeyAndValue(
+      table: _table,
+      key: 'userID',
+      value: 'bobo',
     );
 
     await _readLDB();
@@ -252,10 +270,9 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     print('searching for : key : ${key} : value : ${value}');
 
     List<dynamic> result = await LDB.getData(
-      context: context,
       table: _table,
-      key: 'viewID',
-      value: '7',
+      key: 'userID',
+      value: 'sharmota',
     );
 
     // final dynamic result = await _table.db.query(
@@ -271,7 +288,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     //   // offset: ,
     // );
 
-    print('result is : ${result.length} files : ${result}');
+    print('result is : ${result?.length} files : ${result}');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -290,52 +307,62 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
       listViewWidgets: <Widget>[
 
         /// LDB Buttons
-        Row(
-          children: <Widget>[
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+          child: Row(
+            children: <Widget>[
 
-            /// CREATE LDB
-            SmallFuckingButton(
-              verse: 'Create LDB',
-              onTap: createLDB,
-            ),
+              /// CREATE LDB
+              SmallFuckingButton(
+                verse: 'Create LDB',
+                onTap: createLDB,
+              ),
 
-            /// Delete LDB
-            SmallFuckingButton(
-              verse: 'Delete LDB',
-              onTap: _deleteLDB,
-            ),
+              /// Delete LDB
+              SmallFuckingButton(
+                verse: 'Delete LDB',
+                onTap: _deleteLDB,
+              ),
 
-            /// INSERT A
-            SmallFuckingButton(
-              verse: 'raw Insert A to LDB',
-              onTap: _A_insertToLDB,
-            ),
+              /// INSERT A
+              SmallFuckingButton(
+                verse: 'raw Insert A to LDB',
+                onTap: _A_insertToLDB,
+              ),
 
-            /// INSERT B
-            SmallFuckingButton(
-              verse: 'raw insert B To LDB',
-              onTap: () => _B_insertToDB('5'),
-            ),
+              /// INSERT B
+              SmallFuckingButton(
+                verse: 'raw insert B To LDB',
+                onTap: () => _B_insertToDB('5'),
+              ),
 
-            /// Update row LDB
-            SmallFuckingButton(
-              verse: 'Update row',
-              onTap: () => _updateRow(5),
-            ),
+              /// Update row LDB
+              SmallFuckingButton(
+                verse: 'Update row',
+                onTap: () => _updateRow(5),
+              ),
 
-            /// Delete row
-            SmallFuckingButton(
-              verse: 'Delete row',
-              onTap: () => _deleteRow(11),
-            ),
+              /// Delete row
+              SmallFuckingButton(
+                verse: 'Delete row by num',
+                onTap: () => _deleteRowByRowNumber(11),
+              ),
 
-            /// Delete row
-            SmallFuckingButton(
-              verse: 'Search',
-              onTap: () => _searchLDB(),
-            ),
+              /// Search row
+              SmallFuckingButton(
+                verse: 'Search',
+                onTap: () => _searchLDB(),
+              ),
 
-          ],
+              /// Delete row by ID
+              SmallFuckingButton(
+                verse: 'Delete By Key & Value',
+                onTap: () => _deleteByKeyAndValue(),
+              ),
+
+            ],
+          ),
         ),
 
         /// LDB data
@@ -379,7 +406,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
                           verse: '${index + 1}',
                           verseScaleFactor: 0.6,
                           margins: EdgeInsets.all(5),
-                          onTap: () => _deleteRow(_id),
+                          onTap: () => _deleteRowByRowNumber(_id),
                         ),
 
                         ...List.generate(

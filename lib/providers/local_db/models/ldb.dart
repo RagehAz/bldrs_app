@@ -106,53 +106,54 @@ abstract class LDB{
     return _dbTable;
   }
 // -----------------------------------------------------------------------------
-  /// RAW INSERT TO LOCAL DATABASE ( inserts new row to LDB )
-  static Future<void> InsertRawToLDB({BuildContext context, LDBTable table, Map<String, Object> input}) async {
-
-    if (table.db.isOpen == true){
-
-      await tryAndCatch(
-        context: context,
-        methodName: 'insertToDB',
-        functions: () async {
-
-          await table.db.transaction((txn) async {
-
-            final String _rawInsertSQLQuery = LDBTable.getRawInsertSQLQuery(
-              tableName: table.tableName,
-              map: input,
-              columns: table.columns,
-            );
-            final List<dynamic> _arguments = <dynamic>[];
-
-            /// fields below do not include the integer primary key
-            await txn.rawInsert(_rawInsertSQLQuery, _arguments);
-
-            // print ('insertToDB : added data to ${db.path} : and dbTable.toRawInsertString() is : $_rawInsertSQLQuery');
-
-            return null;
-          });
-
-        },
-        // onError: (e){
-        //
-        // }
-
-      );
-
-    }
-
-  }
+  /// RAW INSERT doesn't get the data when u query,, returns null
+//   /// RAW INSERT TO LOCAL DATABASE ( inserts new row to LDB )
+//   static Future<void> InsertRawToLDB({BuildContext context, LDBTable table, Map<String, Object> input}) async {
+//
+//     if (table.db.isOpen == true){
+//
+//       await tryAndCatch(
+//         context: context,
+//         methodName: 'insertToDB',
+//         functions: () async {
+//
+//           await table.db.transaction((txn) async {
+//
+//             final String _rawInsertSQLQuery = LDBTable.getRawInsertSQLQuery(
+//               tableName: table.tableName,
+//               map: input,
+//               columns: table.columns,
+//             );
+//             final List<dynamic> _arguments = <dynamic>[];
+//
+//             /// fields below do not include the integer primary key
+//             await txn.rawInsert(_rawInsertSQLQuery, _arguments);
+//
+//             // print ('insertToDB : added data to ${db.path} : and dbTable.toRawInsertString() is : $_rawInsertSQLQuery');
+//
+//             return null;
+//           });
+//
+//         },
+//         // onError: (e){
+//         //
+//         // }
+//
+//       );
+//
+//     }
+//
+//   }
 // -----------------------------------------------------------------------------
   /// INSERT TO LOCAL DATABASE
-  static Future<void> insert({LDBTable table, Map<String, Object> input}) async {
+  static Future<void> insert({LDBTable table, Map<String, Object> input, ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.replace}) async {
 
     if (table.db.isOpen == true){
 
       await table.db.insert(
         table.tableName,
         input,
-        conflictAlgorithm: ConflictAlgorithm.replace,
+        conflictAlgorithm: conflictAlgorithm,
       );
 
     }
@@ -218,14 +219,7 @@ abstract class LDB{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> updateRow({BuildContext context, LDBTable table, int rowNumber, Map<String, Object> input}) async {
-
-    // String _time = Timers.cipherDateTimeToString(DateTime.now());
-    // String _tableName = table.tableName;
-    // String _rawUpdateSQLQuery = 'UPDATE $_tableName SET userID = userIteez, flyerID = flyerIteez, slideIndex = 9, viewTime = 5555 WHERE viewID = 7';
-    // List<String> _arguments = <String>['userID','flyerID', 'slideIndex', 'viewTime'];
-    //
-    // await db.rawUpdate(_rawUpdateSQLQuery, _arguments,);
+  static Future<void> updateRowByRowNumber({LDBTable table, int rowNumber, Map<String, Object> input}) async {
 
     final String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
 
@@ -237,11 +231,31 @@ abstract class LDB{
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
 
-    print('_result : $_result');
+    print('updateRowByRowNumber : _result : $_result');
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> deleteRow({BuildContext context, LDBTable table, int rowNumber}) async {
+  static Future<void> updateRow({LDBTable table, Map<String, Object> input,}) async {
+
+    final String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
+
+    final dynamic _primaryValue = input['$_primaryKey'];
+
+    print('updateRow : _primaryKey : $_primaryKey : _primaryValue : $_primaryValue');
+
+    final dynamic _result = await table.db.update(
+      table.tableName,
+      input,
+      where: '$_primaryKey = ?',
+      whereArgs: [_primaryValue],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+
+    print('updateRow : _result : $_result');
+
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> deleteRowByRowNumber({LDBTable table, int rowNumber}) async {
 
     final String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
 
@@ -255,7 +269,21 @@ abstract class LDB{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<List<dynamic>> getData({BuildContext context, LDBTable table, String key, String value}) async {
+  static Future<void> deleteRowsByKeyAndValue({LDBTable table, String key, dynamic value}) async {
+
+    print('updateRow : key : $key : idValue : $value');
+
+    final dynamic _result = await table.db.delete(
+      table.tableName,
+      where: '$key = ?',
+      whereArgs: [value],
+    );
+
+    print('delete Row by ID : _result : $_result');
+
+  }
+// -----------------------------------------------------------------------------
+  static Future<List<dynamic>> getData({LDBTable table, String key, String value}) async {
     //  Future<T> getTodo(int id) async {
     //     List<Map> maps = await db.query(tableTodo,
     //         columns: [columnId, columnDone, columnTitle],
@@ -278,6 +306,10 @@ abstract class LDB{
       return _maps;
     }
     return null;
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> closeLDB(LDBTable table,) async {
+    await table.db.close();
   }
 // -----------------------------------------------------------------------------
 }

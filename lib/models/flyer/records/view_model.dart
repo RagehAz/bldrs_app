@@ -21,7 +21,7 @@ class ViewModel{
 // -----------------------------------------------------------------------------
 Map<String, Object> toMap(){
   return {
-    // 'viewID' : viewID,
+    'viewID' : viewID,
     'userID' : userID,
     'flyerID' : flyerID,
     'slideIndex' : slideIndex,
