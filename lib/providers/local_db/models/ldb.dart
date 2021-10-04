@@ -171,17 +171,17 @@ abstract class LDB{
       methodName: 'readRawFromLDB',
       functions: () async {
 
-        print('readRawFromLDB : reading tableName : ${table.tableName} : db.isOpen : ${table.db.isOpen} : db == null : ${table.db != null}');
+        // print('readRawFromLDB : reading tableName : ${table.tableName} : db.isOpen : ${table.db.isOpen} : db == null : ${table.db != null}');
 
         if (table.db != null && table.db.isOpen == true){
           final String _tableName = table.tableName;
           final String _sql = 'SELECT * FROM $_tableName';
 
-          print('readRawFromLDB : starting rawQuery for _sql: $_sql');
+          // print('readRawFromLDB : starting rawQuery for _sql: $_sql');
 
           _sqfMaps = await table.db.rawQuery(_sql);
 
-          print('readRawFromLDB : finished rawQuery with _sqfMaps: $_sqfMaps');
+          // print('readRawFromLDB : finished rawQuery with _sqfMaps: $_sqfMaps');
 
         }
 

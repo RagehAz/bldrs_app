@@ -113,25 +113,99 @@ class FlyersLDB{
     print('flyer : ${flyer.flyerID} : added to : ${flyersLDB.tableName} : LDB');
   }
 // -----------------------------------------------------------------------------
-  static Future<FlyerModel> readAFlyerFromLDB({FlyersLDB flyersLDB, String flyerID}) async {
+  static Future<List<SlideModel>> _getSlidesFromLDB({FlyersLDB flyersLDB, String flyerID, int numberOfSlides}) async {
 
-    print('3ala allah 7kaytak');
+    final List<String> _slidesIDs = SlideModel.generateSlidesIDs(
+      flyerID: flyerID,
+      numberOfSlides: numberOfSlides,
+    );
 
-    return null;
+    final List<Map<String,Object>> _allSlidesMaps = <Map<String,Object>>[];
+    for (String slideID in _slidesIDs){
+
+      final List<Map<String,Object>> _slideMapInAList = await LDB.getData(
+        table: flyersLDB.slidesTable,
+        key: 'slideID',
+        value: slideID,
+      );
+
+      _allSlidesMaps.addAll(_slideMapInAList);
+
+    }
+
+    final List<SlideModel> _flyerSlides = SlideModel.sqlDecipherSlides(maps: _allSlidesMaps);
+
+    return _flyerSlides;
   }
 // -----------------------------------------------------------------------------
-  static Future<void> updateFlyerInLDB({FlyersLDB flyersLDB, String oldFlyerID, FlyerModel newFlyer}) async {
+  static Future<FlyerModel> readAFlyerFromLDB({FlyersLDB flyersLDB, String flyerID}) async {
+    FlyerModel _flyer;
 
-    print('3ala allah 7kaytak');
+    final List<Map<String,Object>> _flyerMapInAList = await LDB.getData(
+      table: flyersLDB.flyersTable,
+      key: 'flyerID',
+      value: flyerID,
+    );
+
+    if (_flyerMapInAList != null && _flyerMapInAList.length > 0){
+
+      final Map<String, Object> _flyerMap = _flyerMapInAList[0];
+
+      final List<SlideModel> _flyerSlides = await _getSlidesFromLDB(
+        flyerID: flyerID,
+        flyersLDB: flyersLDB,
+        numberOfSlides: _flyerMap['numberOfSlides'],
+      );
+
+      _flyer = FlyerModel.sqlDecipherFlyer(
+        flyerMap: _flyerMap,
+        slides: _flyerSlides,
+      );
+
+    }
+
+    print('readAFlyerFromLDB : _flyerMapInAList.length : ${_flyerMapInAList.length} : _flyerMapInAList : ${_flyerMapInAList}');
+
+    return _flyer;
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> replaceAFlyerInLDB({FlyersLDB flyersLDB, String oldFlyerID, FlyerModel newFlyer}) async {
+
+    print('replaceAFlyerInLDB : oldFlyerID : $oldFlyerID : newFlyer.flyerID : ${newFlyer.flyerID}');
 
     return null;
   }
 // -----------------------------------------------------------------------------
   static Future<void> deleteFlyerFromLDB({FlyersLDB flyersLDB, String flyerID}) async {
 
-    print('3ala allah 7kaytak');
+    final FlyerModel _flyer = await readAFlyerFromLDB(
+      flyersLDB: flyersLDB,
+      flyerID: flyerID,
+    );
 
-    return null;
+    final List<String> _slidesIDs = SlideModel.generateSlidesIDs(
+      flyerID: flyerID,
+      numberOfSlides: _flyer.slides.length,
+    );
+
+    for (String slideID in _slidesIDs){
+
+      await LDB.deleteRowsByKeyAndValue(
+        table: flyersLDB.slidesTable,
+        key: 'slideID',
+        value: slideID,
+      );
+
+    }
+
+    await LDB.deleteRowsByKeyAndValue(
+      table: flyersLDB.flyersTable,
+      key: 'flyerID',
+      value: flyerID,
+    );
+
+    print('Deleted flyer : flyerID : $flyerID : slidesIDs : ${_slidesIDs}');
+
   }
 // -----------------------------------------------------------------------------
 
