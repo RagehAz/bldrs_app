@@ -11,9 +11,11 @@ import 'package:provider/provider.dart';
 
 class FollowingBzzBubble extends StatelessWidget {
   final List<TinyBz> tinyBzz;
+  final Function onBzTap;
 
   const FollowingBzzBubble({
     @required this.tinyBzz,
+    this.onBzTap,
 });
 
   @override
@@ -34,9 +36,18 @@ class FollowingBzzBubble extends StatelessWidget {
           tinyBzz: tinyBzz,
           numberOfColumns: 7,
           scrollDirection: Axis.horizontal,
-          itemOnTap: (bzID){
+          itemOnTap: (bzID) async {
+
             print('bzID = $bzID');
-            Nav.goToNewScreen(context, BzCardScreen(bzID: bzID, flyerBoxWidth: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,));
+
+            if (onBzTap == null){
+              await Nav.goToNewScreen(context, BzCardScreen(bzID: bzID, flyerBoxWidth: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,));
+            }
+
+            else {
+              onBzTap(bzID);
+            }
+
           },
         ),
 
