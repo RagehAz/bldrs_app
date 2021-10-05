@@ -1,4 +1,6 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
@@ -18,8 +20,8 @@ class ContactModel{
     };
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String,Object>> cipherContactsModels(List<ContactModel> contactsList){
-    final List<Map<String,Object>> listOfMaps = <Map<String,Object>>[];
+  static List<Map<String, Object>> cipherContactsModels(List<ContactModel> contactsList){
+    final List<Map<String, Object>> listOfMaps = <Map<String,Object>>[];
     contactsList?.forEach((contact) {
       listOfMaps.add(contact.toMap());
     });
@@ -239,6 +241,61 @@ class ContactModel{
     }
 
     return _userContacts;
+  }
+// -----------------------------------------------------------------------------
+  static String _sqlCipherContact({ContactModel contact}){
+    final String _string = '${cipherContactType(contact.contactType)}#${contact.contact}';
+    return _string;
+  }
+// -----------------------------------------------------------------------------
+  static String sqlCipherContacts(List<ContactModel> contacts){
+    final List<String> _strings = <String>[];
+
+    for (ContactModel contact in contacts){
+      _strings.add(_sqlCipherContact(contact: contact));
+    }
+
+    final String _sqlString = TextMod.sqlCipherStrings(_strings);
+
+    return _sqlString;
+  }
+// -----------------------------------------------------------------------------
+  static ContactModel _sqlDecipherContact({String sqlString}){
+    final String _contactTypeString = TextMod.trimTextAfterFirstSpecialCharacter(sqlString, '#');
+    final int _contactTypeInt = Numeric.stringToInt(_contactTypeString);
+    final ContactType _contactType = decipherContactType(_contactTypeInt);
+
+    final String _contactString = TextMod.trimTextBeforeFirstSpecialCharacter(sqlString, '#');
+
+    final ContactModel _contact = ContactModel(
+      contact: _contactString,
+      contactType: _contactType,
+    );
+
+    return _contact;
+  }
+// -----------------------------------------------------------------------------
+  static List<ContactModel> sqlDecipherContacts(String sqlContactsStrings){
+    final List<ContactModel> _contacts = <ContactModel>[];
+
+    if (sqlContactsStrings != null){
+
+      List<String> _sqlContactsStrings = TextMod.sqlDecipherStrings(sqlContactsStrings);
+
+      if (_sqlContactsStrings != null && _sqlContactsStrings.isNotEmpty){
+
+        for (String sqlString in _sqlContactsStrings){
+
+          final ContactModel _contact = _sqlDecipherContact(sqlString: sqlString);
+          _contacts.add(_contact);
+
+        }
+
+      }
+
+    }
+
+    return _contacts;
   }
 // -----------------------------------------------------------------------------
 
