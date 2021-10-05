@@ -19,7 +19,86 @@ class LDBViewer extends StatelessWidget {
     this.onRowTap,
     this.color = Colorz.BloodTest,
 });
+// -----------------------------------------------------------------------------
+  static List<Widget> rows({BuildContext context, List<Map<String, Object>>maps, String primaryKey, Function onRowTap, Color color = Colorz.BloodTest}){
 
+    final String _primaryKey = primaryKey;
+    final double _screenWidth = Scale.superScreenWidth(context);
+
+    return
+      List.generate(
+          maps?.length ?? 0,
+              (index){
+
+            final Map<String, Object> _map = maps[index];
+
+            final List<Object> _keys = _map.keys.toList();
+            final List<Object> _values = _map.values.toList();
+
+
+            final String _primaryValue = _map['$_primaryKey'];
+            // int _idInt = Numberers.stringToInt(_id);
+
+            return
+              Container(
+                width: _screenWidth,
+                height: 42,
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: false,
+                  scrollDirection: Axis.horizontal,
+                  children: <Widget>[
+
+                    DreamBox(
+                      height: 37,
+                      width: 37,
+                      icon: Iconz.Flyer,
+                      iconSizeFactor: 0.7,
+                      bubble: onRowTap ==  null ? false : true,
+                      onTap: (){
+
+                        if (onRowTap !=  null){
+                          onRowTap(_primaryValue);
+                        }
+
+                      },
+                      // margins: EdgeInsets.all(5),
+                    ),
+
+                    DreamBox(
+                      height: 40,
+                      width: 40,
+                      verse: '${index + 1}',
+                      verseScaleFactor: 0.6,
+                      margins: EdgeInsets.all(5),
+                      bubble: false,
+                      color: Colorz.White10,
+                    ),
+
+                    ...List.generate(
+                        _values.length,
+                            (i){
+
+                          String _key = _keys[i];
+                          String _value = _values[i].toString();
+
+                          return
+                            ValueBox(
+                              dataKey: _key,
+                              value: _value,
+                              color: color,
+                            );
+
+                        }
+                    ),
+
+                  ],
+                ),
+              );
+
+          });
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -35,77 +114,13 @@ class LDBViewer extends StatelessWidget {
         child: Column(
           children: <Widget>[
 
-            ...List.generate(
-                table?.maps?.length ?? 0,
-                    (index){
-
-                  final Map<String, Object> _map = table?.maps[index];
-
-                  final List<Object> _keys = _map.keys.toList();
-                  final List<Object> _values = _map.values.toList();
-
-
-                  final String _primaryValue = _map['$_primaryKey'];
-                  // int _idInt = Numberers.stringToInt(_id);
-
-                  return
-                    Container(
-                      width: _screenWidth,
-                      height: 42,
-                      child: ListView(
-                        physics: const BouncingScrollPhysics(),
-                        shrinkWrap: false,
-                        scrollDirection: Axis.horizontal,
-                        children: <Widget>[
-
-                          DreamBox(
-                            height: 37,
-                            width: 37,
-                            icon: Iconz.Flyer,
-                            iconSizeFactor: 0.7,
-                            bubble: onRowTap ==  null ? false : true,
-                            onTap: (){
-
-                              if (onRowTap !=  null){
-                                onRowTap(_primaryValue);
-                              }
-
-                            },
-                            // margins: EdgeInsets.all(5),
-                          ),
-
-                          DreamBox(
-                            height: 40,
-                            width: 40,
-                            verse: '${index + 1}',
-                            verseScaleFactor: 0.6,
-                            margins: EdgeInsets.all(5),
-                            bubble: false,
-                            color: Colorz.White10,
-                          ),
-
-                          ...List.generate(
-                              _values.length,
-                                  (i){
-
-                                String _key = _keys[i];
-                                String _value = _values[i].toString();
-
-                                return
-                                  ValueBox(
-                                    dataKey: _key,
-                                    value: _value,
-                                    color: color,
-                                  );
-
-                              }
-                          ),
-
-                        ],
-                      ),
-                    );
-
-                }),
+            ...rows(
+              context: context,
+              color: color,
+              maps: table.maps,
+              primaryKey: _primaryKey,
+              onRowTap: onRowTap,
+            ),
 
           ],
         ),
