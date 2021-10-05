@@ -38,10 +38,12 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
       print('isTOp is : $isTop');
 
       if(isTop){
-        print('we reached the top');
+        print('we reached the scroll start');
       } else {
-        print('we reached the end');
-        widget.onScrollEnd();
+        print('we reached the scroll end');
+        if (widget.onScrollEnd != null){
+          widget.onScrollEnd();
+        }
       }
 
     }
