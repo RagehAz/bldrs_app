@@ -1,9 +1,6 @@
-
-
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/providers/local_db/models/ldb.dart';
 import 'package:bldrs/providers/local_db/models/ldb_column.dart';
 import 'package:bldrs/providers/local_db/models/ldb_table.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -65,7 +62,14 @@ class LDBViewer extends StatelessWidget {
                             width: 37,
                             icon: Iconz.Flyer,
                             iconSizeFactor: 0.7,
-                            onTap: () => onRowTap(_primaryValue),
+                            bubble: onRowTap ==  null ? false : true,
+                            onTap: (){
+
+                              if (onRowTap !=  null){
+                                onRowTap(_primaryValue);
+                              }
+
+                            },
                             // margins: EdgeInsets.all(5),
                           ),
 
