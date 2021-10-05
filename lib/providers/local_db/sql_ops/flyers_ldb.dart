@@ -16,8 +16,8 @@ class FlyersLDB{
     @required this.slidesTable,
 });
 // -----------------------------------------------------------------------------
-  static String _slidesTableName(String tableName){
-    return '${tableName}_slides';
+  static String _slidesTableName(String LDBName){
+    return '${LDBName}_slides';
   }
 // -----------------------------------------------------------------------------
   static Future<FlyersLDB> createFlyersLDB({BuildContext context, String LDBName}) async {
