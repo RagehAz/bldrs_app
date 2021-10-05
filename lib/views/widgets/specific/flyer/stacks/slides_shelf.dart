@@ -48,12 +48,12 @@ class SlidesShelf extends StatelessWidget {
       Container(
         width: Scale.superScreenWidth(context),
         height: _stackZoneHeight,
-        // color: Colorz.WhiteAir,
+        // color: Colorz.BloodTest,
         alignment: Aligners.superCenterAlignment(context),
         child: ListView.builder(
           itemCount: pics.length,
           scrollDirection: Axis.horizontal,
-          itemExtent: _flyerZoneWidth,
+          itemExtent: _flyerZoneWidth + Ratioz.appBarPadding* 1.5,
           physics: BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           addAutomaticKeepAlives: true,
