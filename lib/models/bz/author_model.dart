@@ -1,7 +1,10 @@
+import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/providers/local_db/models/ldb_column.dart';
 // -----------------------------------------------------------------------------
 class AuthorModel{
   final String userID;
@@ -220,4 +223,126 @@ class AuthorModel{
     return _author;
   }
 // -----------------------------------------------------------------------------
+  static List<AuthorModel> getAuthorsFromAuthorsByAuthorsIDs(List<AuthorModel> allAuthors, List<String> authorsIDs){
+    List<AuthorModel> _bzAuthors = <AuthorModel>[];
+
+    if (allAuthors != null && authorsIDs != null && allAuthors.isNotEmpty && authorsIDs.isNotEmpty){
+
+      for (String id in authorsIDs){
+
+        final AuthorModel _author = allAuthors.singleWhere((author) => author.userID == id, orElse: () => null);
+
+        if (_author != null){
+          _bzAuthors.add(_author);
+        }
+
+      }
+
+    }
+
+    return _bzAuthors;
+  }
+// -----------------------------------------------------------------------------
+  static List<AuthorModel> combineAllBzzAuthors(List<BzModel> allBzz){
+    List<AuthorModel> _allAuthors = <AuthorModel>[];
+
+    if (allBzz != null && allBzz.isNotEmpty){
+
+      for (BzModel bz in allBzz){
+
+        _allAuthors.addAll(bz.bzAuthors);
+
+      }
+
+    }
+
+    return _allAuthors;
+  }
+// -----------------------------------------------------------------------------
+  static List<LDBColumn> createAuthorsLDBColumns(){
+
+    const List<LDBColumn> _authorsColumns = const <LDBColumn>[
+      LDBColumn(key: 'userID', type: 'TEXT', isPrimary: true),
+      LDBColumn(key: 'authorName', type: 'TEXT'),
+      LDBColumn(key: 'authorPic', type: 'TEXT'),
+      LDBColumn(key: 'authorTitle', type: 'TEXT'),
+      LDBColumn(key: 'authorIsMaster', type: 'INTEGER'),
+      LDBColumn(key: 'authorContacts', type: 'TEXT'),
+    ];
+
+    return _authorsColumns;
+  }
+// -----------------------------------------------------------------------------
+  static Map<String, Object> sqlCipherAuthor({AuthorModel author}){
+
+    final Map<String, Object> _authorSQLMap = {
+      'userID' : author.userID,
+      'authorName' : author.authorName,
+      'authorPic' : Imagers.sqlCipherImage(author.authorPic),
+      'authorTitle' : author.authorTitle,
+      'authorIsMaster' : Numeric.sqlCipherBool(author.authorIsMaster),
+      'authorContacts' : ContactModel.sqlCipherContacts(author.authorContacts),
+    };
+
+    return _authorSQLMap;
+  }
+// -----------------------------------------------------------------------------
+  static List<Map<String, Object>> sqlCipherAuthors({List<AuthorModel> authors}){
+    List<Map<String, Object>> _authorsMaps = <Map<String, Object>>[];
+
+    if (authors != null && authors.isNotEmpty){
+
+      for (AuthorModel author in authors){
+
+        final Map<String, Object> _sqlAuthorMap = sqlCipherAuthor(
+          author: author,
+        );
+
+        _authorsMaps.add(_sqlAuthorMap);
+
+      }
+
+    }
+
+    return _authorsMaps;
+  }
+// -----------------------------------------------------------------------------
+  static AuthorModel sqlDecipherAuthor({Map<String, Object> map}){
+    AuthorModel _author;
+
+    if (map != null){
+
+      _author = AuthorModel(
+        userID : map['userID'],
+        authorName : map['authorName'],
+        authorPic : Imagers.sqlDecipherImage(map['authorPic']),
+        authorTitle : map['authorTitle'],
+        authorIsMaster : Numeric.sqlDecipherBool(map['authorIsMaster']),
+        authorContacts : ContactModel.sqlDecipherContacts(map['authorContacts']),
+      );
+
+    }
+
+    return _author;
+  }
+// -----------------------------------------------------------------------------
+  static List<AuthorModel> sqlDecipherAuthors({List<Map<String, Object>> maps}){
+    List<AuthorModel> _authors = <AuthorModel>[];
+
+    if (maps != null && maps.isNotEmpty){
+
+      for (var map in maps){
+
+        final AuthorModel _author = sqlDecipherAuthor(map: map);
+
+        _authors.add(_author);
+
+      }
+
+    }
+
+    return _authors;
+  }
+// -----------------------------------------------------------------------------
+
 }

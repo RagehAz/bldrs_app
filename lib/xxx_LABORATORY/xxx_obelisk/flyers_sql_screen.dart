@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/ldb_viewer.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
+import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -13,6 +14,7 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/local_db/sql_ops/bzz_ldb.dart';
 import 'package:bldrs/providers/local_db/sql_ops/flyers_ldb.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/following_bzz_bubble.dart';
@@ -83,6 +85,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
         _followedBzz = await getFollowedBzz(_prof.getFollows);
 
         await _createFlyersLDB();
+        await _createBzzLDB();
 
 
       });
@@ -279,6 +282,62 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  BzzLDB _bzzLDB;
+  Future<void> _createBzzLDB() async {
+
+    _bzzLDB = await BzzLDB.createBzzLDB(
+      context: context,
+      LDBName: 'followedBzz',
+    );
+
+    if (_bzzLDB.bzzTable.db.isOpen == true){
+      await _readBzzLDB();
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _readBzzLDB() async {
+
+    final List<BzModel> _allBzzFromLDB = await BzzLDB.readBzzLDB(
+      context: context,
+      bzzLDB: _bzzLDB,
+    );
+
+    final List<AuthorModel> _allAuthors = AuthorModel.combineAllBzzAuthors(_allBzzFromLDB);
+
+
+    final List<Map<String, Object>> _authorsMaps = AuthorModel.sqlCipherAuthors(authors: _allAuthors);
+    final List<Map<String, Object>> _bzzMaps = BzModel.sqlCipherBzz(_allBzzFromLDB);
+
+    setState(() {
+      // _convertedTinyFlyers = _tinyFlyersFromLDB;
+      _bzzLDB.authorsTable.maps = _authorsMaps;
+      _bzzLDB.bzzTable.maps =  _bzzMaps;
+      _loading = false;
+    });
+
+    await _scrollToBottomOfListView();
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _insertBzToLDB({BzModel bz}) async {
+
+    await BzzLDB.insertBzToLDB(
+      bzzLDB: _bzzLDB,
+      bz: bz,
+    );
+
+    await _readBzzLDB();
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onBzLDBTap(BzModel bz) async {
+
+     await _insertBzToLDB(bz: bz);
+
+  }
+
+// -----------------------------------------------------------------------------
   Future<List<BzModel>> getFollowedBzz(List<String> followedBzzIDs) async {
 
     List<BzModel> _bzz = <BzModel>[];
@@ -294,14 +353,66 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     return _bzz;
   }
 // -----------------------------------------------------------------------------
+  Future<void> _deleteBzFromBzzLDB(String bzID) async {
+
+    await BzzLDB.deleteBzFromLDB(
+      bzzLDB: _bzzLDB,
+      bzID: bzID,
+    );
+
+    _readBzzLDB();
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onBzRowTap(String bzID) async {
+
+    final BzModel _bz = BzModel.getBzFromBzzByBzID(_followedBzz, bzID);
+
+    await BottomDialog.showButtonsBottomDialog(
+      context: context,
+      draggable: true,
+      buttonHeight: 40,
+      buttons: <Widget>[
+
+        DreamBox(
+          height: 40,
+          width: BottomDialog.dialogClearWidth(context),
+          verse: 'PRINT BZ',
+          verseItalic: true,
+          onTap: () async {
+
+            _bz.printBzModel();
+
+            await Nav.goBack(context);
+
+          },
+        ),
+
+
+        DreamBox(
+          height: 40,
+          width: BottomDialog.dialogClearWidth(context),
+          verse: 'DELETE BZ',
+          verseItalic: true,
+          onTap: () async {
+
+            await _deleteBzFromBzzLDB(bzID);
+
+            await Nav.goBack(context);
+
+          },
+        ),
+
+      ],
+    );
+
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth = Scale.superScreenWidth(context);
-    // double _screenHeight = Scale.superScreenHeight(context);
-
-    const double _flyerSizeFactor = 0.25;
-
+    const double _flyerSizeFactor = 0.2;
     final List<dynamic> _slidesPics = getSlidesFromMaps(_flyersLDB?.slidesTable?.maps);
 
     return TestingLayout(
@@ -340,15 +451,23 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 
             final BzModel _bz = BzModel.getBzFromBzzByBzID(_followedBzz, bzID);
 
-            _bz.printBzModel();
+            await _onBzLDBTap(_bz);
 
           },
         ),
 
         /// BZZ LDB
         LDBViewer(
-          table: _flyersLDB?.flyersTable,
-          onRowTap: (String flyerID) => _onLDBFlyerTap(flyerID),
+          table: _bzzLDB?.bzzTable,
+          onRowTap: (String bzID) => _onBzRowTap(bzID),
+          color: Colorz.Yellow80,
+        ),
+
+        /// BZZ LDB
+        LDBViewer(
+          table: _bzzLDB?.authorsTable,
+          onRowTap: null,
+          color: Colorz.Black125,
         ),
 
         /// FLYERS SHELF
