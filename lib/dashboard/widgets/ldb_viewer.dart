@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -126,31 +127,37 @@ class ValueBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      width: 80,
-      color: color,
-      margin: const EdgeInsets.all(2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+    return GestureDetector(
+      onTap: () => Keyboarders.copyToClipboard(
+        context: context,
+        copy: value,
+      ),
+      child: Container(
+        height: 40,
+        width: 80,
+        color: color,
+        margin: const EdgeInsets.all(2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
 
-          SuperVerse(
-            verse: dataKey,
-            weight: VerseWeight.thin,
-            italic: true,
-            size: 1,
-          ),
+            SuperVerse(
+              verse: dataKey,
+              weight: VerseWeight.thin,
+              italic: true,
+              size: 1,
+            ),
 
-          SuperVerse(
-            verse: '${value.toString()}',
-            weight: VerseWeight.bold,
-            italic: false,
-            size: 1,
-          ),
+            SuperVerse(
+              verse: '${value.toString()}',
+              weight: VerseWeight.bold,
+              italic: false,
+              size: 1,
+            ),
 
-        ],
+          ],
+        ),
       ),
     );
   }
