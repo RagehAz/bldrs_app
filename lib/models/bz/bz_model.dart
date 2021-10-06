@@ -524,7 +524,7 @@ Map<String, dynamic> toMap(){
 
   }
 // -----------------------------------------------------------------------------
-  static Map<String, Object> sqlCipherBz(BzModel bz){
+  static Future<Map<String, Object>> sqlCipherBz(BzModel bz) async {
     Map<String, Object> _map;
 
     if (bz != null) {
@@ -535,7 +535,7 @@ Map<String, dynamic> toMap(){
         'createdAt' : Timers.cipherDateTimeIso8601(bz.createdAt),
         'accountType' : cipherBzAccountType(bz.accountType),
         'bzName' : bz.bzName,
-        'bzLogo' : Imagers.sqlCipherImage(bz.bzLogo),
+        'bzLogo' : await Imagers.urlOrImageFileToBase64(bz.bzLogo),
         'bzScope' : bz.bzScope,
         'bzZone_countryID' : bz.bzZone.countryID,
         'bzZone_cityID' : bz.bzZone.cityID,
@@ -567,7 +567,7 @@ Map<String, dynamic> toMap(){
     return _map;
   }
 // -----------------------------------------------------------------------------
-  static BzModel sqlDecipherBz(Map<String, Object> map, List<AuthorModel> authors){
+  static Future<BzModel> sqlDecipherBz(Map<String, Object> map, List<AuthorModel> authors) async {
     BzModel _bz;
 
     if (map != null){
@@ -581,7 +581,7 @@ Map<String, dynamic> toMap(){
         accountType : decipherBzAccountType(map['accountType']),
         // -------------------------
         bzName : map['bzName'],
-        bzLogo : Imagers.sqlDecipherImage(map['bzLogo']),
+        bzLogo : await Imagers.base64ToFile(map['bzLogo']),
         bzScope : map['bzScope'],
         bzZone : Zone(
           countryID: map['bzZone_countryID'],
@@ -615,14 +615,14 @@ Map<String, dynamic> toMap(){
     return _bz;
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, Object>> sqlCipherBzz(List<BzModel> bzz){
+  static Future<List<Map<String, Object>>> sqlCipherBzz(List<BzModel> bzz) async {
     List<Map<String, Object>> _maps = <Map<String, Object>>[];
 
     if (bzz != null && bzz.isNotEmpty){
 
       for (BzModel bz in bzz){
 
-        final Map<String, Object> _map = sqlCipherBz(bz);
+        final Map<String, Object> _map = await sqlCipherBz(bz);
 
         _maps.add(_map);
 
@@ -633,7 +633,7 @@ Map<String, dynamic> toMap(){
     return _maps;
   }
 // -----------------------------------------------------------------------------
-  static List<BzModel> sqlDecipherBzz({List<Map<String, Object>> maps, List<AuthorModel> allAuthors}){
+  static Future<List<BzModel>> sqlDecipherBzz({List<Map<String, Object>> maps, List<AuthorModel> allAuthors}) async {
     List<BzModel> _bzz = <BzModel>[];
 
     if (maps != null && maps.isNotEmpty){
@@ -644,7 +644,7 @@ Map<String, dynamic> toMap(){
 
         final List<AuthorModel> _bzAuthors = AuthorModel.getAuthorsFromAuthorsByAuthorsIDs(allAuthors, _bzAuthorsIDs);
 
-        final BzModel _bz = sqlDecipherBz(map, _bzAuthors);
+        final BzModel _bz = await sqlDecipherBz(map, _bzAuthors);
 
         _bzz.add(_bz);
 

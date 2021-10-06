@@ -62,9 +62,9 @@ class BzzLDB{
       table: bzzLDB.authorsTable,
     );
 
-    final List<AuthorModel> _allAuthors = AuthorModel.sqlDecipherAuthors(maps: _sqlAuthorsMaps);
+    final List<AuthorModel> _allAuthors = await AuthorModel.sqlDecipherAuthors(maps: _sqlAuthorsMaps);
 
-    final List<BzModel> _allBzz = BzModel.sqlDecipherBzz(
+    final List<BzModel> _allBzz = await BzModel.sqlDecipherBzz(
       maps: _sqlBzzMaps,
       allAuthors: _allAuthors,
     );
@@ -94,7 +94,7 @@ class BzzLDB{
     /// inset sql authors
     for (AuthorModel author in bz.bzAuthors){
 
-      final Map<String, Object> _sqlAuthorMap = AuthorModel.sqlCipherAuthor(
+      final Map<String, Object> _sqlAuthorMap = await AuthorModel.sqlCipherAuthor(
         author: author,
       );
 
@@ -105,7 +105,7 @@ class BzzLDB{
     }
 
     /// insert sql bz
-    final Map<String, Object> _sqlBzMap = BzModel.sqlCipherBz(bz);
+    final Map<String, Object> _sqlBzMap = await BzModel.sqlCipherBz(bz);
     await LDB.insert(
       table: bzzLDB.bzzTable,
       input: _sqlBzMap,
@@ -153,7 +153,7 @@ class BzzLDB{
 
           if (_authorMapInList != null && _authorMapInList.isNotEmpty){
 
-            final AuthorModel _author = AuthorModel.sqlDecipherAuthor(map: _authorMapInList[0]);
+            final AuthorModel _author = await AuthorModel.sqlDecipherAuthor(map: _authorMapInList[0]);
             _authors.add(_author);
 
           }
@@ -181,7 +181,7 @@ class BzzLDB{
     );
 
     if (_bzMap != null){
-      _bz = BzModel.sqlDecipherBz(_bzMap, _bzAuthors);
+      _bz = await BzModel.sqlDecipherBz(_bzMap, _bzAuthors);
     }
 
 

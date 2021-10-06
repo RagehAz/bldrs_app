@@ -101,7 +101,7 @@ class Balloona extends StatelessWidget {
   final UserModel userModel;
   final UserStatus balloonType;
   final bool shadowIsOn;
-  final String pic;
+  final dynamic pic;
   final Widget child;
   final bool loading;
   final Color balloonColor;
@@ -173,7 +173,7 @@ class BalloonComponents extends StatelessWidget {
   final Color balloonColor;
   final bool blackAndWhite;
   final bool loading;
-  final String pic;
+  final dynamic pic;
   final UserModel userModel;
   final Widget child;
 

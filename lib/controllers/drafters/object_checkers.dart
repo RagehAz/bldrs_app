@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
-
 // -----------------------------------------------------------------------------
 extension FileExtention on FileSystemEntity {
   String get fileNameWithExtension {
@@ -47,6 +46,26 @@ class ObjectChecker {
   static bool objectIsURL(dynamic file) {
     final bool _validURL = objectIsString(file) == true ? Uri.parse(file).isAbsolute : false;
     return _validURL;
+  }
+// -----------------------------------------------------------------------------
+  static bool isBase64(dynamic value) {
+
+    if (objectIsString(value) == true){
+      final RegExp rx = RegExp(r'^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$', multiLine: true, unicode: true);
+
+      final bool isBase64Valid = rx.hasMatch(value);
+
+      if (isBase64Valid == true) {
+
+        return true;
+      } else {
+        return false;
+      }
+
+    } else {
+      return false;
+    }
+
   }
 // -----------------------------------------------------------------------------
   static bool objectIsFile(dynamic file) {

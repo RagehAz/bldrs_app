@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -25,63 +26,80 @@ class Dialogz{
   static Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
 
     final List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
-
-      // SIGN IN ERROR
+      /// SIGN IN ERROR
       {
-        'error' : '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.',
+        'error' : '[firebase_auth/user-not-found]',// There is no user record corresponding to this identifier. The user may have been deleted.',
         'reply' : Wordz.emailNotFound(context),
       },
       {
-        'error' : '[firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+        'error' : '[firebase_auth/network-request-failed]',// A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
         'reply' : 'No Internet connection available',
       },
       {
-        'error' : '[firebase_auth/invalid-email] The email address is badly formatted.',
+        'error' : '[firebase_auth/invalid-email]',// The email address is badly formatted.',
         'reply' : Wordz.emailWrong(context),
       },
       {
-        'error' : '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.',
+        'error' : '[firebase_auth/wrong-password]',// The password is invalid or the user does not have a password.',
         'reply' : Wordz.wrongPassword(context), /// TASK : should link accounts authentication
       },
       {
-        'error' : '[firebase_auth/too-many-requests] We have blocked all requests from this device due to unusual activity. Try again later.',
+        'error' : '[firebase_auth/too-many-requests]',// We have blocked all requests from this device due to unusual activity. Try again later.',
         'reply' : 'Too many failed sign in attempts.\nThis device is put on hold for some time to secure the account', /// TASK : should link accounts authentication and delete this dialog
       },
       {
         'error' : 'PlatformException(sign_in_failed, com.google.android.gms.common.api.ApiException: 10: , null, null)',
         'reply' : 'Sorry, Could not sign in by google.',
       },
-
-      // REGISTER ERRORS
+      /// REGISTER ERRORS
       {
-        'error' : '[firebase_auth/email-already-in-use] The email address is already in use by another account.',
+        'error' : '[firebase_auth/email-already-in-use]',// The email address is already in use by another account.',
         'reply' : Wordz.emailAlreadyRegistered(context),
       },
       {
-        'error' : '[firebase_auth/invalid-email] The email address is badly formatted.',
+        'error' : '[firebase_auth/invalid-email]',// The email address is badly formatted.',
         'reply' : Wordz.emailWrong(context),
       },
-
-      // SHARED ERRORS
+      /// SHARED ERRORS
       {
         'error' : null,
         'reply' : Wordz.somethingIsWrong(context),
       },
-
     ];
 
-    print('authErrorDialog result : $result');
+    // print('authErrorDialog result : $result');
 
-    Map<String, dynamic> _errorMap = _errors.firstWhere((map) => map['error'] == result.toString(), orElse: () => null) ;
-    print('_errorMap : $_errorMap');
+    String _errorReply;
 
-    String _errorReply = _errorMap == null ? null : _errorMap['reply'];
+    for (var map in _errors){
+
+      bool _mapContainsTheError = TextChecker.stringContainsSubString(
+        string: result,
+        subString: map['error'],
+        multiLine: false,
+        caseSensitive: true,
+      );
+
+      if (_mapContainsTheError == true){
+        _errorReply = map['reply'];
+        break;
+      }
+
+      else {
+        _errorReply = 'Sorry, Something went wrong, please try again.';
+      }
+
+    }
+
+    // [firebase_auth/user-not-found]
+    // [firebase_auth/user-not-found]
+
     print('_errorReply : $_errorReply');
 
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Ops!',
-      body: _errorMap == null ? result : _errorReply,
+      title: 'Could not continue !',
+      body: _errorReply,
       boolDialog: false,
     );
 
