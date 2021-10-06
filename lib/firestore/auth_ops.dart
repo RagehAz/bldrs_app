@@ -294,7 +294,7 @@ class AuthOps {
     /// X1 - try get firebase user or return error
     // -------------------------------------------------------
     /// xx - try catch return facebook auth
-    final bool _registerError = await tryCatchAndReturn(
+    final bool _signInResult = await tryCatchAndReturn(
         context: context,
         methodName: 'facebookSignInOps',
         functions: () async {
@@ -337,6 +337,8 @@ class AuthOps {
       }
 
     );
+
+    print('facebookSignInOps : _signInResult : $_signInResult');
     // ==============================================================
 
     /// X2 - process firebase user to return UserModel
@@ -399,7 +401,7 @@ class AuthOps {
     /// X1 - try get firebase user or return error
     // -------------------------------------------------------
     /// xx - try catch return google auth
-    final bool _registerResult = await tryCatchAndReturn(
+    final bool _signInResult = await tryCatchAndReturn(
         context: context,
         methodName: 'googleSignInOps',
         functions: () async {
@@ -467,6 +469,9 @@ class AuthOps {
 
       }
     );
+
+    print('facebookSignInOps : _signInResult : $_signInResult');
+
     // ==============================================================
 
     /// X2 - process firebase user to return UserModel

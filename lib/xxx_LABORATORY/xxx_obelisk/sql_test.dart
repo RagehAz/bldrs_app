@@ -3,8 +3,8 @@ import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/flyer/records/view_model.dart';
-import 'package:bldrs/providers/local_db/models/ldb.dart';
-import 'package:bldrs/providers/local_db/models/ldb_table.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_db.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_table.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -70,7 +70,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  LDBTable _table;
+  SQLTable _table;
   Future<void> createLDB() async {
 
     _table = await ViewModel.createLDBTable(
@@ -107,7 +107,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     //   input: _map,
     // );
 
-    await LDB.insert(
+    await SQLdb.insert(
       table: _table,
       input: _map,
       conflictAlgorithm: ConflictAlgorithm.replace,
@@ -131,7 +131,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
     Map<String, Object> _newMap = _newView.toMap();
     print('new map');
 
-    await LDB.insert(
+    await SQLdb.insert(
       table: _table,
       input: _newMap,
     );
@@ -144,7 +144,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _readLDB() async {
 
-    List<Map<String, Object>> _maps = await LDB.readRawFromLDB(
+    List<Map<String, Object>> _maps = await SQLdb.readRaw(
       table: _table,
     );
 
@@ -163,7 +163,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
     print('_deleteLDB : starting delete LDB : _table.tableName : ${_table.tableName}');
 
-    await LDB.deleteLDB(
+    await SQLdb.deleteDB(
       context: context,
       table: _table,
     );
@@ -185,7 +185,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
       viewTime: DateTime.now(),
     );
 
-    await LDB.updateRow(
+    await SQLdb.updateRow(
       table: _table,
       input: _newView.toMap(),
     );
@@ -196,7 +196,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _deleteRowByRowNumber(int id) async {
-    await LDB.deleteRowByRowNumber(
+    await SQLdb.deleteRowByRowNumber(
       table: _table,
       rowNumber: id,
     );
@@ -207,7 +207,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _deleteByKeyAndValue() async {
 
-    await LDB.deleteRowsByKeyAndValue(
+    await SQLdb.deleteRowsByKeyAndValue(
       table: _table,
       key: 'userID',
       value: 'bobo',
@@ -268,7 +268,7 @@ class _SQLTestScreenState extends State<SQLTestScreen> {
 
     print('searching for : key : ${key} : value : ${value}');
 
-    List<dynamic> result = await LDB.getData(
+    List<dynamic> result = await SQLdb.getData(
       table: _table,
       key: 'userID',
       value: 'sharmota',

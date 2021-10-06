@@ -7,7 +7,7 @@ import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/dashboard/widgets/ldb_viewer.dart';
+import 'package:bldrs/dashboard/widgets/sql_viewer.dart';
 import 'package:bldrs/firestore/bz_ops.dart';
 import 'package:bldrs/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/author_model.dart';
@@ -19,8 +19,8 @@ import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
-import 'package:bldrs/providers/local_db/sql_ops/bzz_ldb.dart';
-import 'package:bldrs/providers/local_db/sql_ops/flyers_ldb.dart';
+import 'package:bldrs/providers/local_db/sql_db/bz_sql_db.dart';
+import 'package:bldrs/providers/local_db/sql_db/flyer_sql_db.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/views/screens/i_flyer/x_3_slide_full_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/following_bzz_bubble.dart';
@@ -101,10 +101,10 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  FlyersLDB _flyersLDB;
+  FlyerSQLdb _flyersLDB;
   Future<void> _createFlyersLDB() async {
 
-    _flyersLDB = await FlyersLDB.createFlyersLDB(
+    _flyersLDB = await FlyerSQLdb.createFlyersSQLdb(
       context: context,
       LDBName: 'savedFlyers',
     );
@@ -118,7 +118,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 //   List<TinyFlyer> _convertedTinyFlyers = <TinyFlyer>[];
   Future<void> _readFlyersLDB() async {
 
-    final List<FlyerModel> _flyersFromLDB = await FlyersLDB.readFlyersLDB(
+    final List<FlyerModel> _flyersFromLDB = await FlyerSQLdb.readFlyers(
       context: context,
       flyersLDB: _flyersLDB,
     );
@@ -141,7 +141,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _insertFlyerToLDB({FlyerModel flyer}) async {
 
-    await FlyersLDB.insertFlyerToLDB(
+    await FlyerSQLdb.insertFlyer(
       flyersLDB: _flyersLDB,
       flyer: flyer,
     );
@@ -152,7 +152,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _deleteFlyersLDB() async {
 
-    await FlyersLDB.deleteFlyersLDB(
+    await FlyerSQLdb.deleteFlyersSQLdb(
       context: context,
       flyersLDB: _flyersLDB,
     );
@@ -163,7 +163,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _deleteFlyerFromLDB({String flyerID}) async {
 
-    await FlyersLDB.deleteFlyerFromLDB(
+    await FlyerSQLdb.deleteFlyerFromSQLdb(
       flyersLDB: _flyersLDB,
       flyerID: flyerID,
     );
@@ -174,7 +174,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _readAFlyerFromLDB(String flyerID) async {
 
-    final FlyerModel _flyer = await FlyersLDB.readAFlyerFromLDB(
+    final FlyerModel _flyer = await FlyerSQLdb.readAFlyerFromSQLdb(
       flyersLDB: _flyersLDB,
       flyerID: flyerID,
     );
@@ -246,7 +246,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     return _pics;
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onLDBFlyerTap(String flyerID) async {
+  Future<void> _onSQLFlyerTap(String flyerID) async {
 
     await BottomDialog.showButtonsBottomDialog(
       context: context,
@@ -288,15 +288,15 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  BzzLDB _bzzLDB;
+  BzSQLdb _bzDB;
   Future<void> _createBzzLDB() async {
 
-    _bzzLDB = await BzzLDB.createBzzLDB(
+    _bzDB = await BzSQLdb.createBzzLDB(
       context: context,
       LDBName: 'followedBzz',
     );
 
-    if (_bzzLDB.bzzTable.db.isOpen == true){
+    if (_bzDB.bzzTable.db.isOpen == true){
       await _readBzzLDB();
     }
 
@@ -304,9 +304,9 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _readBzzLDB() async {
 
-    final List<BzModel> _allBzzFromLDB = await BzzLDB.readBzzLDB(
+    final List<BzModel> _allBzzFromLDB = await BzSQLdb.readBzzLDB(
       context: context,
-      bzzLDB: _bzzLDB,
+      bzzLDB: _bzDB,
     );
 
     final List<AuthorModel> _allAuthors = AuthorModel.combineAllBzzAuthors(_allBzzFromLDB);
@@ -317,8 +317,8 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 
     setState(() {
       // _convertedTinyFlyers = _tinyFlyersFromLDB;
-      _bzzLDB.authorsTable.maps = _authorsMaps;
-      _bzzLDB.bzzTable.maps =  _bzzMaps;
+      _bzDB.authorsTable.maps = _authorsMaps;
+      _bzDB.bzzTable.maps =  _bzzMaps;
       _loading = false;
     });
 
@@ -328,8 +328,8 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _insertBzToLDB({BzModel bz}) async {
 
-    await BzzLDB.insertBzToLDB(
-      bzzLDB: _bzzLDB,
+    await BzSQLdb.insertBzToLDB(
+      bzzLDB: _bzDB,
       bz: bz,
     );
 
@@ -361,8 +361,8 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _deleteBzFromBzzLDB(String bzID) async {
 
-    await BzzLDB.deleteBzFromLDB(
-      bzzLDB: _bzzLDB,
+    await BzSQLdb.deleteBzFromLDB(
+      bzzLDB: _bzDB,
       bzID: bzID,
     );
 
@@ -480,15 +480,15 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
         ),
 
         /// BZZ LDB
-        LDBViewer(
-          table: _bzzLDB?.bzzTable,
+        SQLViewer(
+          table: _bzDB?.bzzTable,
           onRowTap: (String bzID) => _onBzRowTap(bzID),
           color: Colorz.Yellow80,
         ),
 
         /// BZZ LDB
-        LDBViewer(
-          table: _bzzLDB?.authorsTable,
+        SQLViewer(
+          table: _bzDB?.authorsTable,
           onRowTap: null,
           color: Colorz.Black125,
         ),
@@ -515,9 +515,9 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
         ),
 
         /// Flyers LDB
-        LDBViewer(
+        SQLViewer(
           table: _flyersLDB?.flyersTable,
-          onRowTap: (String flyerID) => _onLDBFlyerTap(flyerID),
+          onRowTap: (String flyerID) => _onSQLFlyerTap(flyerID),
         ),
 
         /// SLIDES SHELF
@@ -560,7 +560,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
           ),
 
         /// SLIDES LDB
-        LDBViewer(
+        SQLViewer(
           table:_flyersLDB?.slidesTable,
           color: Colorz.Green125,
           // onRowTap: (String flyerID) => _onLDBFlyerTap(flyerID),

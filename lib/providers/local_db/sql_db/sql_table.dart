@@ -1,23 +1,23 @@
 import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/providers/local_db/models/ldb_column.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_column.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 
-class LDBTable{
+class SQLTable{
   Database db;
   final String tableName;
-  final List<LDBColumn> columns;
+  final List<SQLColumn> columns;
   /// each map is a row in the table, map keys are the column fields
   List<Map<String, dynamic>> maps;
 
-  LDBTable({
+  SQLTable({
     @required this.db,
     @required this.tableName,
     @required this.columns,
     @required this.maps,
   });
 // -----------------------------------------------------------------------------
-  static String _getValuesRawInsertString({Map<String, Object> map, List<LDBColumn> columns}){
+  static String _getValuesRawInsertString({Map<String, Object> map, List<SQLColumn> columns}){
     /// should return ("value", "value", "value", "value")
 
     String _output = '';
@@ -30,7 +30,7 @@ class LDBTable{
 
     for (int i = 0; i < map.values.length; i++){
 
-      final bool _isPrimary = _mapKeys[i] == LDBColumn.getPrimaryKeyFromColumns(columns);
+      final bool _isPrimary = _mapKeys[i] == SQLColumn.getPrimaryKeyFromColumns(columns);
       // print('C1 - i:$i - _getValuesRawInsertString : _isPrimary : $_isPrimary');
 
       if (_isPrimary == false){
@@ -55,16 +55,16 @@ class LDBTable{
 // -----------------------------------------------------------------------------
   String toCreateSQLQuery(){
 
-    final String _columnsQuery = LDBColumn.getSQLQueryFromColumns(columns: columns);
+    final String _columnsQuery = SQLColumn.getSQLQueryFromColumns(columns: columns);
 
     final String _createTableQuery = 'CREATE TABLE $tableName ($_columnsQuery)';
 
     return _createTableQuery;
   }
 // -----------------------------------------------------------------------------
-  static String getRawInsertSQLQuery({Map<String, dynamic> map, List<LDBColumn> columns, String tableName}){
+  static String getRawInsertSQLQuery({Map<String, dynamic> map, List<SQLColumn> columns, String tableName}){
 
-    final String _fieldsRawInsertString = LDBColumn.getFieldsRawInsertString(columns);
+    final String _fieldsRawInsertString = SQLColumn.getFieldsRawInsertString(columns);
     // print('1 - getRawInsertSQLQuery : _fieldsRawInsertString : $_fieldsRawInsertString');
 
     final String _valuesRawInsertString = _getValuesRawInsertString(

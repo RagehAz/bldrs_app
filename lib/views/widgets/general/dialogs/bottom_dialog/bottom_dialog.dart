@@ -10,6 +10,7 @@ import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/views/widgets/general/artworks/blur_layer.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -267,6 +268,20 @@ class BottomDialog extends StatelessWidget {
 
           ),
         ));
+  }
+// -----------------------------------------------------------------------------
+  static Widget wideButton({BuildContext context, String verse, Function onTap, String icon}){
+
+    return
+      DreamBox(
+        height: 40,
+        width: dialogClearWidth(context),
+        verse: verse.toUpperCase(),
+        verseWeight: VerseWeight.black,
+        verseItalic: true,
+        icon: icon,
+        onTap: onTap,
+      );
   }
 // -----------------------------------------------------------------------------
   @override

@@ -1,18 +1,18 @@
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:flutter/foundation.dart';
 
-class LDBColumn{
+class SQLColumn{
   final String key;
   final String type;
   final bool isPrimary;
 
-  const LDBColumn({
+  const SQLColumn({
     @required this.key,
     @required this.type,
     this.isPrimary = false,
   });
 // -----------------------------------------------------------------------------
-  static String _getSQLQueryFromColumn({LDBColumn column}){
+  static String _getSQLQueryFromColumn({SQLColumn column}){
 
     final String _primary = column.isPrimary == true ? ' PRIMARY KEY' : '';
 
@@ -20,7 +20,7 @@ class LDBColumn{
       '${column.key} ${column.type}$_primary, ';
   }
 // -----------------------------------------------------------------------------
-  static String getSQLQueryFromColumns({List<LDBColumn> columns}){
+  static String getSQLQueryFromColumns({List<SQLColumn> columns}){
     String _sqlQuery = '';
 
     columns.forEach((column) {
@@ -35,12 +35,12 @@ class LDBColumn{
     return _sqlWithoutLastSpace;
   }
 // -----------------------------------------------------------------------------
-  static String getFieldsRawInsertString(List<LDBColumn> columns){
+  static String getFieldsRawInsertString(List<SQLColumn> columns){
     /// should return '(field, field, field, field)'
 
     String _output = '';
 
-    for (LDBColumn column in columns){
+    for (SQLColumn column in columns){
 
       if (column.isPrimary != true){
         _output = _output + '${column.key}, ';
@@ -55,12 +55,12 @@ class LDBColumn{
     return _finalOutput;
   }
 // -----------------------------------------------------------------------------
-  static String getPrimaryKeyFromColumns(List<LDBColumn> columns){
+  static String getPrimaryKeyFromColumns(List<SQLColumn> columns){
     String _primaryKey;
 
     if (columns != null && columns.isNotEmpty){
 
-      final LDBColumn _primaryColumn = columns.singleWhere((column) => column.isPrimary == true, orElse: ()=> null);
+      final SQLColumn _primaryColumn = columns.singleWhere((column) => column.isPrimary == true, orElse: ()=> null);
       _primaryKey = _primaryColumn == null ? null : _primaryColumn.key;
 
     }
@@ -68,12 +68,12 @@ class LDBColumn{
     return _primaryKey;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getColumnsName(List<LDBColumn> ldbColumns){
+  static List<String> getColumnsName(List<SQLColumn> ldbColumns){
     final List<String> _columnsNames = <String>[];
 
     if (ldbColumns != null && ldbColumns.length != 0){
 
-      for (LDBColumn ldbColumn in ldbColumns){
+      for (SQLColumn ldbColumn in ldbColumns){
 
         _columnsNames.add(ldbColumn.key);
 
