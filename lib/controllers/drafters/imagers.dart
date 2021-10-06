@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -79,8 +81,8 @@ class Imagers{
           height: height,
         )
             :
-        ObjectChecker.objectIsUint8List(pic)?
-        Image.memory(pic,
+        ObjectChecker.objectIsUint8List(pic) || ObjectChecker.isBase64(pic) ? // Image.memory(logoBase64!);
+        Image.memory(base64Decode(pic),
           fit: _boxFit,
           // width: width?.toDouble(),
           // height: height?.toDouble(),
@@ -347,6 +349,18 @@ class Imagers{
 
   return _file;
 }
+// -----------------------------------------------------------------------------
+  static Future<File> getFileFromUint8List({@required Uint8List Uint8List, @required String fileName}) async {
+    File _file = await createTempEmptyFile(fileName);
+
+
+    _file = await writeUint8ListOnFile(
+      uint8list: Uint8List,
+      file: _file,
+    );
+
+    return _file;
+  }
 // -----------------------------------------------------------------------------
   static Future<File> urlToFile(String imageUrl) async {
 /// generate random number.
@@ -778,13 +792,49 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     return (graphicHeight * width) / graphicWidth;
   }
 // -----------------------------------------------------------------------------
-  static String sqlCipherImage(String image){
+  static Future<String> urlOrImageFileToBase64(dynamic image) async {
 
-    return image;
+    File _file;
+
+    bool _isFile = ObjectChecker.objectIsFile(image);
+    // bool _isString = ObjectChecker.objectIsString(image);
+
+    if (_isFile == true){
+      _file = image;
+    } else {
+      _file = await Imagers.urlToFile(image);
+    }
+
+    final List<int> imageBytes = _file.readAsBytesSync();
+
+    final String _base64Image = base64Encode(imageBytes);
+
+    /*
+
+        Uint8List _bytesImage;
+
+        String _imgString = 'iVBORw0KGgoAAAANSUhEUg.....';
+
+        _bytesImage = Base64Decoder().convert(_imgString);
+
+        Image.memory(_bytesImage)
+
+     */
+
+
+    return _base64Image;
   }
 // -----------------------------------------------------------------------------
-  static String sqlDecipherImage(String image){
-    return image;
+  static Future<File> base64ToFile(String base64) async {
+
+    final Uint8List _fileAgainAsInt = await base64Decode(base64);
+
+    final File _fileAgain = await Imagers.getFileFromUint8List(
+      Uint8List: _fileAgainAsInt,
+      fileName: '${Numeric.createUniqueID()}',
+    );
+
+    return _fileAgain;
   }
 // -----------------------------------------------------------------------------
 }

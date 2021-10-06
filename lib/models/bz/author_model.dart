@@ -273,12 +273,12 @@ class AuthorModel{
     return _authorsColumns;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, Object> sqlCipherAuthor({AuthorModel author}){
+  static Future<Map<String, Object>> sqlCipherAuthor({AuthorModel author}) async {
 
     final Map<String, Object> _authorSQLMap = {
       'userID' : author.userID,
       'authorName' : author.authorName,
-      'authorPic' : Imagers.sqlCipherImage(author.authorPic),
+      'authorPic' : await Imagers.urlOrImageFileToBase64(author.authorPic),
       'authorTitle' : author.authorTitle,
       'authorIsMaster' : Numeric.sqlCipherBool(author.authorIsMaster),
       'authorContacts' : ContactModel.sqlCipherContacts(author.authorContacts),
@@ -287,14 +287,14 @@ class AuthorModel{
     return _authorSQLMap;
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, Object>> sqlCipherAuthors({List<AuthorModel> authors}){
+  static Future<List<Map<String, Object>>> sqlCipherAuthors({List<AuthorModel> authors}) async {
     List<Map<String, Object>> _authorsMaps = <Map<String, Object>>[];
 
     if (authors != null && authors.isNotEmpty){
 
       for (AuthorModel author in authors){
 
-        final Map<String, Object> _sqlAuthorMap = sqlCipherAuthor(
+        final Map<String, Object> _sqlAuthorMap = await sqlCipherAuthor(
           author: author,
         );
 
@@ -307,7 +307,7 @@ class AuthorModel{
     return _authorsMaps;
   }
 // -----------------------------------------------------------------------------
-  static AuthorModel sqlDecipherAuthor({Map<String, Object> map}){
+  static Future<AuthorModel> sqlDecipherAuthor({Map<String, Object> map}) async {
     AuthorModel _author;
 
     if (map != null){
@@ -315,7 +315,7 @@ class AuthorModel{
       _author = AuthorModel(
         userID : map['userID'],
         authorName : map['authorName'],
-        authorPic : Imagers.sqlDecipherImage(map['authorPic']),
+        authorPic : await Imagers.base64ToFile(map['authorPic']),
         authorTitle : map['authorTitle'],
         authorIsMaster : Numeric.sqlDecipherBool(map['authorIsMaster']),
         authorContacts : ContactModel.sqlDecipherContacts(map['authorContacts']),
@@ -326,14 +326,14 @@ class AuthorModel{
     return _author;
   }
 // -----------------------------------------------------------------------------
-  static List<AuthorModel> sqlDecipherAuthors({List<Map<String, Object>> maps}){
+  static Future<List<AuthorModel>> sqlDecipherAuthors({List<Map<String, Object>> maps}) async {
     List<AuthorModel> _authors = <AuthorModel>[];
 
     if (maps != null && maps.isNotEmpty){
 
       for (var map in maps){
 
-        final AuthorModel _author = sqlDecipherAuthor(map: map);
+        final AuthorModel _author = await sqlDecipherAuthor(map: map);
 
         _authors.add(_author);
 

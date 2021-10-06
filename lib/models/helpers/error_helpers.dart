@@ -41,7 +41,7 @@ Future<void> tryAndCatch({Function onError, BuildContext context, Function funct
   }
 }
 // -----------------------------------------------------------------------------
-Future<bool> tryCatchAndReturn({Function onError, BuildContext context, Function functions, String methodName,}) async {
+Future<bool> tryCatchAndReturn({Function onError, BuildContext context, Function functions, String methodName}) async {
   try{
     await functions();
     return true;
@@ -54,16 +54,15 @@ Future<bool> tryCatchAndReturn({Function onError, BuildContext context, Function
       await onError(error);
 
     }
-    else {
+    // else {
+      // await CenterDialog.showCenterDialog(
+      //   context: context,
+      //   boolDialog: false,
+      //   body: error,
+      //   title: 'Something Went Wrong !',
+      // );
+    // }
 
-      await CenterDialog.showCenterDialog(
-        context: context,
-        boolDialog: false,
-        body: error,
-        title: 'Something Went Wrong !',
-      );
-
-    }
 
     // throw(error);
     return error == null ? true : false;

@@ -49,8 +49,9 @@ class AuthOps {
   Future<dynamic> deleteFirebaseUser(BuildContext context, String userID) async {
 
     print('deleting firebase user');
+    String _error;
 
-    final dynamic _result = await tryCatchAndReturn(
+    final bool _result = await tryCatchAndReturn(
       context: context,
       methodName: 'deleteFirebaseUser',
       functions: () async {
@@ -58,10 +59,21 @@ class AuthOps {
         _auth.currentUser.delete();
 
 
+      },
+
+      onError: (error) {
+        _error = error.toString();
       }
     );
 
-    return _result;
+    if (_result == true){
+      return _result;
+    }
+
+    else {
+      return _error;
+    }
+
   }
 // -----------------------------------------------------------------------------
   /// firebase user provider data
@@ -134,27 +146,34 @@ class AuthOps {
   Future<dynamic> emailSignInOps(BuildContext context, String email, String password) async {
 
     UserCredential _userCredential;
+    String _error;
 
     /// try sign in and check result
-    final bool _opSucceeded = await tryCatchAndReturn(
+    final bool _signInResult = await tryCatchAndReturn(
         context: context,
         methodName: 'signInWithEmailAndPassword in emailSignInOps',
         functions: () async {
           _userCredential = await _auth.signInWithEmailAndPassword(email: email.trim(), password: password);
           print('_userCredential : $_userCredential');
+        },
+        onError: (error) async {
+
+          {
+
+            print('emailSignInOps returns error : $error');
+            _error = error.toString();
+
+          }
+
         }
         );
 
-    print('_opSucceeded : $_opSucceeded');
+    print('_signInResult : $_signInResult');
     print('_userCredential : $_userCredential');
 
     /// if sign in results user credentials and not an error string, get user id and read user ops
-    if (_opSucceeded == false){
+    if (_signInResult == true){
 
-      print('emailSignInOps returns _opSucceeded : $_opSucceeded');
-      return _opSucceeded.toString();
-
-    } else {
       /// get user ID
       final User _user = _userCredential.user;
       final String _userID = _user.uid;
@@ -170,6 +189,11 @@ class AuthOps {
 
       return _userModel;
 
+
+    }
+
+    else {
+      return _error;
     }
 
   }
@@ -183,9 +207,10 @@ class AuthOps {
       ) async {
 
     User _user;
+    String _error;
 
     /// try register and check result
-    final dynamic _registerError = await tryCatchAndReturn(
+    final bool _registerResult = await tryCatchAndReturn(
       context: context,
       methodName: 'emailRegisterOps',
       functions: () async {
@@ -193,23 +218,17 @@ class AuthOps {
         /// create firebase user
         _user = await _createFirebaseUser(email: email, password: password);
 
+      },
+      onError: (error) async {
+        _error = error.toString();
       }
     );
 
-    print('_registerError : $_registerError');
+    print('_registerResult : $_registerResult');
     print('_user : $_user');
 
-    /// if sign it results User and not an error string, create initial user
-    if (_user == null) {
+    if (_registerResult == true){
 
-      /// when _user is null the register fails and returns this error string
-      return _registerError;
-
-    } else {
-
-
-
-      /// when register succeeded returning firebase user, convert it to userModel
       final UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
         context: context,
         user: _user,
@@ -217,13 +236,19 @@ class AuthOps {
         authBy: AuthBy.email,
       );
 
-
       /// create a new firestore document for the user with the userID
       final UserModel _finalUserModel = await UserOps().createUserOps(userModel: _initialUserModel);
 
-      /// return the final userModel
       return _finalUserModel;
+
     }
+
+    else {
+
+      return _error;
+
+    }
+
 
   }
 // -----------------------------------------------------------------------------
@@ -261,14 +286,15 @@ class AuthOps {
   ///   xx - return error : if auth fails
   ///   xx - return firebase user : if auth succeeds
   ///      E - get Or Create UserModel From User
-  dynamic facebookSignInOps(BuildContext context, Zone currentZone) async {
+  Future<dynamic> facebookSignInOps(BuildContext context, Zone currentZone) async {
     User _user;
     final FirebaseAuth _auth = FirebaseAuth.instance;
+    String _error;
 
     /// X1 - try get firebase user or return error
     // -------------------------------------------------------
     /// xx - try catch return facebook auth
-    final dynamic _registerError = await tryCatchAndReturn(
+    final bool _registerError = await tryCatchAndReturn(
         context: context,
         methodName: 'facebookSignInOps',
         functions: () async {
@@ -302,7 +328,14 @@ class AuthOps {
               print('Facebook Access token is null');
             }
 
-        }
+        },
+
+      onError: (error) async {
+
+        _error =  error.toString();
+
+      }
+
     );
     // ==============================================================
 
@@ -312,7 +345,7 @@ class AuthOps {
     if (_user == null) {
 
       /// when _user is null the register fails and returns this error string
-      return _registerError.toString();
+      return _error;
     }
 
     /// xx - return firebase user : if auth succeeds
@@ -361,11 +394,12 @@ class AuthOps {
   // /            E3 - return existing userMode inside userModel-firstTimer map
   Future<dynamic> googleSignInOps(BuildContext context, Zone currentZone) async {
     User _user;
+    String _error;
 
     /// X1 - try get firebase user or return error
     // -------------------------------------------------------
     /// xx - try catch return google auth
-    final dynamic _registerError = await tryCatchAndReturn(
+    final bool _registerResult = await tryCatchAndReturn(
         context: context,
         methodName: 'googleSignInOps',
         functions: () async {
@@ -425,7 +459,13 @@ class AuthOps {
 
           }
 
-        }
+        },
+
+      onError: (error) async {
+
+        _error =  error.toString();
+
+      }
     );
     // ==============================================================
 
@@ -435,7 +475,7 @@ class AuthOps {
     if (_user == null) {
 
       /// when _user is null the register fails and returns this error string
-      return _registerError.toString();
+      return _error;
     }
 
     /// xx - return firebase user : if auth succeeds

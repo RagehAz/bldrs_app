@@ -471,7 +471,7 @@ class FlyerModel with ChangeNotifier{
     return _columns;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, Object> sqlCipherFlyer(FlyerModel flyer){
+  static Future<Map<String, Object>> sqlCipherFlyer(FlyerModel flyer) async {
 
     final Map<String, Object> _flyerSQLMap = {
 
@@ -490,13 +490,13 @@ class FlyerModel with ChangeNotifier{
       'tinyAuthor_userID' : flyer.tinyAuthor.userID,
       'tinyAuthor_name' : flyer.tinyAuthor.name,
       'tinyAuthor_title' : flyer.tinyAuthor.title,
-      'tinyAuthor_pic' : Imagers.sqlCipherImage(flyer.tinyAuthor.pic),
+      'tinyAuthor_pic' : await Imagers.urlOrImageFileToBase64(flyer.tinyAuthor.pic),
       'tinyAuthor_userStatus' : UserModel.cipherUserStatus(flyer.tinyAuthor.userStatus),
       'tinyAuthor_email' : flyer.tinyAuthor.email,
       'tinyAuthor_phone' : flyer.tinyAuthor.phone,
 
       'tinyBz_bzID' : flyer.tinyBz.bzID,
-      'tinyBz_bzLogo' : Imagers.sqlCipherImage(flyer.tinyBz.bzLogo),
+      'tinyBz_bzLogo' : await Imagers.urlOrImageFileToBase64(flyer.tinyBz.bzLogo),
       'tinyBz_bzName' : flyer.tinyBz.bzName,
       'tinyBz_bzType' : BzModel.cipherBzType(flyer.tinyBz.bzType),
       'tinyBz_bzZone_countryID' : flyer.tinyBz.bzZone.countryID,
@@ -520,14 +520,14 @@ class FlyerModel with ChangeNotifier{
     return _flyerSQLMap;
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, Object>> sqlCipherFlyers(List<FlyerModel> flyers){
+  static Future<List<Map<String, Object>>> sqlCipherFlyers(List<FlyerModel> flyers) async {
     final List<Map<String, Object>> _maps = <Map<String, Object>>[];
 
     if (flyers != null && flyers.length != 0){
 
       for (FlyerModel flyer in flyers){
 
-        final Map<String, Object> _map = sqlCipherFlyer(flyer);
+        final Map<String, Object> _map = await sqlCipherFlyer(flyer);
         _maps.add(_map);
       }
 
@@ -536,7 +536,7 @@ class FlyerModel with ChangeNotifier{
     return _maps;
   }
 // -----------------------------------------------------------------------------
-  static FlyerModel sqlDecipherFlyer({Map<String, Object> flyerMap, List<SlideModel> slides}){
+  static Future<FlyerModel> sqlDecipherFlyer({Map<String, Object> flyerMap, List<SlideModel> slides}) async {
     FlyerModel _flyer;
 
     if (flyerMap != null && slides != null && slides.length != 0){
@@ -558,7 +558,7 @@ class FlyerModel with ChangeNotifier{
           userID:  flyerMap['tinyAuthor_userID'],
           name: flyerMap['tinyAuthor_name'],
           title: flyerMap['tinyAuthor_title'],
-          pic: Imagers.sqlDecipherImage(flyerMap['tinyAuthor_pic']),
+          pic: await Imagers.base64ToFile(flyerMap['tinyAuthor_pic']),
           userStatus: UserModel.decipherUserStatus(flyerMap['tinyAuthor_userStatus']),
           email: flyerMap['tinyAuthor_email'],
           phone: flyerMap['tinyAuthor_phone'],
@@ -566,7 +566,7 @@ class FlyerModel with ChangeNotifier{
 
         tinyBz: TinyBz(
           bzID: flyerMap['tinyBz_bzID'],
-          bzLogo: Imagers.sqlDecipherImage(flyerMap['tinyBz_bzLogo']),
+          bzLogo: await Imagers.base64ToFile(flyerMap['tinyBz_bzLogo']),
           bzName: flyerMap['tinyBz_bzName'],
           bzType: BzModel.decipherBzType(flyerMap['tinyBz_bzType']),
           bzZone: Zone(
@@ -595,7 +595,7 @@ class FlyerModel with ChangeNotifier{
     return _flyer;
   }
 // -----------------------------------------------------------------------------
-  static List<FlyerModel> sqlDecipherFlyers({List<dynamic> sqlFlyersMaps, List<SlideModel> allSlides}){
+  static Future<List<FlyerModel>> sqlDecipherFlyers({List<dynamic> sqlFlyersMaps, List<SlideModel> allSlides}) async {
     final List<FlyerModel> _allFlyers = <FlyerModel>[];
 
     if (sqlFlyersMaps != null && allSlides != null && sqlFlyersMaps.length != 0 && allSlides.length != 0){
@@ -605,7 +605,7 @@ class FlyerModel with ChangeNotifier{
         final String _flyerID =  sqlFlyerMap['flyerID'];
         final List<SlideModel> _slides = SlideModel.getSlidesFromSlidesByFlyerID(allSlides, _flyerID);
 
-        final FlyerModel _flyer = sqlDecipherFlyer(
+        final FlyerModel _flyer = await sqlDecipherFlyer(
           flyerMap: sqlFlyerMap,
           slides: _slides,
         );

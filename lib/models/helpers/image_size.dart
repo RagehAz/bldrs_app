@@ -96,7 +96,7 @@ class ImageSize{
       if (_decodedImage != null){
         _imageSize = ImageSize(
           width: _decodedImage.width.toDouble(), // was _decodedImage.size.toDouble() I don't know why,, needs a test
-          height: _decodedImage.boxDistance.toDouble(),
+          height: _decodedImage.height.toDouble(),
         );
       }
       // -----------------------------------------------------------o
@@ -139,7 +139,6 @@ class ImageSize{
     }
   }
 // -----------------------------------------------------------------------------
-  /// Task : not Tested
   static String sqlCipherImageSize(ImageSize size){
     String _string;
 
@@ -150,7 +149,6 @@ class ImageSize{
     return _string;
   }
 // -----------------------------------------------------------------------------
-  /// TASK : not tested
   static ImageSize sqlDecipherImageSize(String sqlImageSize){
 
     ImageSize _imageSize;
