@@ -32,7 +32,8 @@ class ProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    print('B---> ProgressBar : numberOfSlides : ${numberOfSlides}');
+
+    // print('B---> ProgressBar : numberOfSlides : ${numberOfSlides}');
 
     return Container(
       width: flyerBoxWidth,
