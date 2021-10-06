@@ -198,8 +198,8 @@ class Timers {
 // -----------------------------------------------------------------------------
   static int getTimeDifferenceInSeconds({DateTime from, DateTime to}){
 
-    print('from is : $from');
-    print('to is : $to');
+    // print('from is : $from');
+    // print('to is : $to');
 
     return (to.difference(from).inSeconds);
   }

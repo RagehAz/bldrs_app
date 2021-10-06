@@ -837,7 +837,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
 
     /// start save flyer ops
-    RecordOps.saveFlyerOps(
+    await RecordOps.saveFlyerOps(
         context: context,
         userID: superUserID(),
         flyerID: _superFlyer.flyerID,
