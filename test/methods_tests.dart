@@ -1,9 +1,13 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
+import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
@@ -231,7 +235,7 @@ void main(){
     expect(_specsListsAreTheSame, _expected);
 
   });
-
+// -----------------------------------------------------------------------------
   test('sqlCipherPublishTimes and sqlDecipherPublishTimes', (){
 
     final PublishTime timeA = PublishTime(state: FlyerState.Suspended, timeStamp: Timers.createDate(year: 1987, month: 06, day: 10));
@@ -260,6 +264,49 @@ void main(){
     expect(1, 1);
 
   });
+// -----------------------------------------------------------------------------
+  test('base64 ', () async {
+
+    final TinyFlyer _tinyFlyer = TinyFlyer.dummyTinyFlyer('z');
+
+    final dynamic _pic = _tinyFlyer.slidePic;
+
+
+    final String _base64 = await Imagers.urlOrImageFileToBase64(_pic);
+
+    // final bool _isURL = ObjectChecker.objectIsString(_pic);
+
+    // final bool _base64IsString = ObjectChecker.objectIsString(_base64);
+    //
+    final bool _base64IsBase64 = ObjectChecker.isBase64(_pic);
+
+    // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
+
+    print('pic is : $_pic');
+    print('_base64 : $_base64');
+
+    expect(_base64IsBase64, false);
+
+  });
+
+  test('stringContainsSubString', () async {
+
+    final String _string =  '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.';
+    final String _substring = '[firebase_auth/user-not-found]';
+
+    bool _mapContainsTheError = TextChecker.stringContainsSubString(
+      string: _string,
+      subString: _substring,
+      multiLine: false,
+      caseSensitive: true,
+    );
+
+    // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
+
+    expect(_mapContainsTheError, true);
+
+  });
+// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------

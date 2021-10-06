@@ -1,12 +1,7 @@
-
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/dashboard/widgets/ldb_viewer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
-import 'package:bldrs/xxx_LABORATORY/sembast/sembast.dart';
 import 'package:bldrs/xxx_LABORATORY/sembast/sembast_ops.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/flyers_sql_screen.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +54,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
     if(_isInit){
       _triggerLoading().then((_) async {
 
-
+        await _readSembast();
 
       });
 
@@ -101,6 +96,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 
     setState(() {
       _tinyFlyersMaps = _maps;
+      _loading = false;
     });
 
   }

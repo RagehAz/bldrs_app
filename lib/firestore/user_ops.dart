@@ -590,6 +590,7 @@ class UserOps{
 
             /// L - DELETE firebase user : auth/userID
             print('L - deleting firebase user');
+            /// TASK : NEED TO MANAGE IF THIS FAILS
             await AuthOps().deleteFirebaseUser(context, userModel.userID);
 
             /// K - SIGN OUT
@@ -648,6 +649,7 @@ class UserOps{
 
         /// L - DELETE firebase user : auth/userID
         print('L - deleting firebase user');
+        /// TASK : NEED TO MANAGE IF THIS FAILS
         await AuthOps().deleteFirebaseUser(context, userModel.userID);
 
         /// K - SIGN OUT
