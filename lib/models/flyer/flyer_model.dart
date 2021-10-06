@@ -15,7 +15,7 @@ import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
-import 'package:bldrs/providers/local_db/models/ldb_column.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_column.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -103,6 +103,20 @@ class FlyerModel with ChangeNotifier{
       'info' : info,
       'priceTagIsOn' : priceTagIsOn,
     };
+  }
+// -----------------------------------------------------------------------------
+  static List<Map<String, Object>> cipherFlyers(List<FlyerModel> flyers){
+    final List<Map<String, Object>> _maps = <Map<String, Object>>[];
+
+    for (FlyerModel flyer in flyers){
+
+      final Map<String, Object> _flyerMap = flyer.toMap();
+
+      _maps.add(_flyerMap);
+
+    }
+
+    return _maps;
   }
 // -----------------------------------------------------------------------------
   FlyerModel clone(){
@@ -421,50 +435,50 @@ class FlyerModel with ChangeNotifier{
       return _hasTheID;
   }
 // -----------------------------------------------------------------------------
-  static List<LDBColumn> createFlyersLDBColumns(){
+  static List<SQLColumn> createFlyersLDBColumns(){
 
-    const List<LDBColumn> _columns = const <LDBColumn>[
+    const List<SQLColumn> _columns = const <SQLColumn>[
       // -------------------------
-      LDBColumn(key: 'flyerID', type: 'TEXT', isPrimary: true),
-      LDBColumn(key: 'numberOfSlides', type: 'INTEGER'),
-      LDBColumn(key: 'flyerType', type: 'INTEGER'),
-      LDBColumn(key: 'flyerState', type: 'INTEGER'),
-      LDBColumn(key: 'keywords', type: 'TEXT'),
-      LDBColumn(key: 'flyerShowsAuthor', type: 'INTEGER'),
+      SQLColumn(key: 'flyerID', type: 'TEXT', isPrimary: true),
+      SQLColumn(key: 'numberOfSlides', type: 'INTEGER'),
+      SQLColumn(key: 'flyerType', type: 'INTEGER'),
+      SQLColumn(key: 'flyerState', type: 'INTEGER'),
+      SQLColumn(key: 'keywords', type: 'TEXT'),
+      SQLColumn(key: 'flyerShowsAuthor', type: 'INTEGER'),
       // -------------------------
-      LDBColumn(key: 'zone_countryID', type: 'TEXT'),
-      LDBColumn(key: 'zone_cityID', type: 'TEXT'),
-      LDBColumn(key: 'zone_districtID', type: 'TEXT'),
+      SQLColumn(key: 'zone_countryID', type: 'TEXT'),
+      SQLColumn(key: 'zone_cityID', type: 'TEXT'),
+      SQLColumn(key: 'zone_districtID', type: 'TEXT'),
       // -------------------------
-      LDBColumn(key: 'tinyAuthor_userID', type: 'TEXT'),
-      LDBColumn(key: 'tinyAuthor_name', type: 'TEXT'),
-      LDBColumn(key: 'tinyAuthor_title', type: 'TEXT'),
-      LDBColumn(key: 'tinyAuthor_pic', type: 'TEXT'), // or BLOB if we use Uint8List
-      LDBColumn(key: 'tinyAuthor_userStatus', type: 'INTEGER'),
-      LDBColumn(key: 'tinyAuthor_email', type: 'TEXT'),
-      LDBColumn(key: 'tinyAuthor_phone', type: 'TEXT'),
+      SQLColumn(key: 'tinyAuthor_userID', type: 'TEXT'),
+      SQLColumn(key: 'tinyAuthor_name', type: 'TEXT'),
+      SQLColumn(key: 'tinyAuthor_title', type: 'TEXT'),
+      SQLColumn(key: 'tinyAuthor_pic', type: 'TEXT'), // or BLOB if we use Uint8List
+      SQLColumn(key: 'tinyAuthor_userStatus', type: 'INTEGER'),
+      SQLColumn(key: 'tinyAuthor_email', type: 'TEXT'),
+      SQLColumn(key: 'tinyAuthor_phone', type: 'TEXT'),
       // -------------------------
-      LDBColumn(key: 'tinyBz_bzID', type: 'TEXT'),
-      LDBColumn(key: 'tinyBz_bzLogo', type: 'TEXT'), // or BLOB if we use Uint8List
-      LDBColumn(key: 'tinyBz_bzName', type: 'TEXT'),
-      LDBColumn(key: 'tinyBz_bzType', type: 'INTEGER'),
-      LDBColumn(key: 'tinyBz_bzZone_countryID', type: 'TEXT'),
-      LDBColumn(key: 'tinyBz_bzZone_cityID', type: 'TEXT'),
-      LDBColumn(key: 'tinyBz_bzZone_districtID', type: 'TEXT'),
-      LDBColumn(key: 'tinyBz_bzTotalFollowers', type: 'INTEGER'),
-      LDBColumn(key: 'tinyBz_bzTotalFlyers', type: 'INTEGER'),
+      SQLColumn(key: 'tinyBz_bzID', type: 'TEXT'),
+      SQLColumn(key: 'tinyBz_bzLogo', type: 'TEXT'), // or BLOB if we use Uint8List
+      SQLColumn(key: 'tinyBz_bzName', type: 'TEXT'),
+      SQLColumn(key: 'tinyBz_bzType', type: 'INTEGER'),
+      SQLColumn(key: 'tinyBz_bzZone_countryID', type: 'TEXT'),
+      SQLColumn(key: 'tinyBz_bzZone_cityID', type: 'TEXT'),
+      SQLColumn(key: 'tinyBz_bzZone_districtID', type: 'TEXT'),
+      SQLColumn(key: 'tinyBz_bzTotalFollowers', type: 'INTEGER'),
+      SQLColumn(key: 'tinyBz_bzTotalFlyers', type: 'INTEGER'),
       // -------------------------
-      LDBColumn(key: 'createdAt', type: 'TEXT'),
-      LDBColumn(key: 'flyerPosition', type: 'TEXT'),
+      SQLColumn(key: 'createdAt', type: 'TEXT'),
+      SQLColumn(key: 'flyerPosition', type: 'TEXT'),
       // -------------------------
-      LDBColumn(key: 'ankhIsOn', type: 'INTEGER'),
+      SQLColumn(key: 'ankhIsOn', type: 'INTEGER'),
       // -------------------------
-      LDBColumn(key: 'flyerIsBanned', type: 'INTEGER'),
-      LDBColumn(key: 'deletionTime', type: 'TEXT'),
-      LDBColumn(key: 'specs', type: 'TEXT'),
-      LDBColumn(key: 'info', type: 'TEXT'),
-      LDBColumn(key: 'times', type: 'TEXT'),
-      LDBColumn(key: 'priceTagIsOn', type: 'INTEGER'),
+      SQLColumn(key: 'flyerIsBanned', type: 'INTEGER'),
+      SQLColumn(key: 'deletionTime', type: 'TEXT'),
+      SQLColumn(key: 'specs', type: 'TEXT'),
+      SQLColumn(key: 'info', type: 'TEXT'),
+      SQLColumn(key: 'times', type: 'TEXT'),
+      SQLColumn(key: 'priceTagIsOn', type: 'INTEGER'),
 
     ];
 

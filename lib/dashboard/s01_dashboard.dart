@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/bzz_manager/bzz_manager_screen.dart';
 import 'package:bldrs/dashboard/flyers_manager/all_flyers_screen.dart';
+import 'package:bldrs/dashboard/ldb_manager/ldb_manager_screen.dart';
 import 'package:bldrs/dashboard/notifications_manager/s04_notifications_manager.dart';
 import 'package:bldrs/dashboard/pricing_manager/pricing_screen.dart';
 import 'package:bldrs/dashboard/s02_statistics.dart';
@@ -95,6 +96,12 @@ class _DashBoardState extends State<DashBoard> {
             verse: 'UI Manager',
             icon: Iconz.Star,
             onTap: () => Nav.goToNewScreen(context, UIManager()),
+          ),
+
+          WideButton(
+            verse: 'Local db viewers',
+            icon: Iconz.Terms,
+            onTap: () => Nav.goToNewScreen(context, LDBViewersScreen()),
           ),
 
           const PyramidsHorizon(),

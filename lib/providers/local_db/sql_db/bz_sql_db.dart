@@ -1,16 +1,16 @@
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/providers/local_db/models/ldb.dart';
-import 'package:bldrs/providers/local_db/models/ldb_column.dart';
-import 'package:bldrs/providers/local_db/models/ldb_table.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_db.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_column.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_table.dart';
 import 'package:flutter/material.dart';
 
-class BzzLDB{
+class BzSQLdb{
   final String tableName;
-  final LDBTable bzzTable;
-  final LDBTable authorsTable;
+  final SQLTable bzzTable;
+  final SQLTable authorsTable;
 
-  BzzLDB({
+  BzSQLdb({
     @required this.tableName,
     @required this.bzzTable,
     @required this.authorsTable,
@@ -20,26 +20,26 @@ class BzzLDB{
     return '${tableName}_authors';
   }
 // -----------------------------------------------------------------------------
-  static Future<BzzLDB> createBzzLDB({BuildContext context, String LDBName}) async {
+  static Future<BzSQLdb> createBzzLDB({BuildContext context, String LDBName}) async {
 
     /// 1 - CREATE BZZ LDB
-    final List<LDBColumn> _bzzColumns = BzModel.createBzzLDBColumns();
-    final LDBTable _bzzTable = await LDB.createAndSetLDB(
+    final List<SQLColumn> _bzzColumns = BzModel.createBzzLDBColumns();
+    final SQLTable _bzzTable = await SQLdb.createAndSetSQLdb(
       context: context,
       tableName: LDBName,
       columns: _bzzColumns,
     );
 
     /// 2 - CREATE Authors SLAVE LDB FOR PREVIOUS BZZ LDB
-    final List<LDBColumn> _authorsColumns = AuthorModel.createAuthorsLDBColumns();
-    final LDBTable _authorsTable = await LDB.createAndSetLDB(
+    final List<SQLColumn> _authorsColumns = AuthorModel.createAuthorsLDBColumns();
+    final SQLTable _authorsTable = await SQLdb.createAndSetSQLdb(
       context: context,
       tableName: _authorsTableName(LDBName),
       columns: _authorsColumns,
     );
 
     /// 3 - COMBINE BZZ AND AUTHORS LDBs  AND RETURN
-    final BzzLDB _bzzLDB = BzzLDB(
+    final BzSQLdb _bzzLDB = BzSQLdb(
       tableName: LDBName,
       bzzTable: _bzzTable,
       authorsTable: _authorsTable,
@@ -50,14 +50,14 @@ class BzzLDB{
     return _bzzLDB;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<BzModel>> readBzzLDB({BuildContext context, BzzLDB bzzLDB}) async {
+  static Future<List<BzModel>> readBzzLDB({BuildContext context, BzSQLdb bzzLDB}) async {
 
-    final List<Map<String, Object>> _sqlBzzMaps = await LDB.readRawFromLDB(
+    final List<Map<String, Object>> _sqlBzzMaps = await SQLdb.readRaw(
       context: context,
       table: bzzLDB.bzzTable,
     );
 
-    final List<Map<String, Object>> _sqlAuthorsMaps = await LDB.readRawFromLDB(
+    final List<Map<String, Object>> _sqlAuthorsMaps = await SQLdb.readRaw(
       context: context,
       table: bzzLDB.authorsTable,
     );
@@ -74,14 +74,14 @@ class BzzLDB{
     return _allBzz;
   }
 // -----------------------------------------------------------------------------
-  static Future<void> deleteBzzLDB({BuildContext context, BzzLDB bzzLDB}) async {
+  static Future<void> deleteBzzLDB({BuildContext context, BzSQLdb bzzLDB}) async {
 
-    await LDB.deleteLDB(
+    await SQLdb.deleteDB(
       context: context,
       table: bzzLDB.authorsTable,
     );
 
-    await LDB.deleteLDB(
+    await SQLdb.deleteDB(
       context: context,
       table: bzzLDB.bzzTable,
     );
@@ -89,7 +89,7 @@ class BzzLDB{
     print('Deleted bzzLDB : ${bzzLDB.tableName}');
   }
 // -----------------------------------------------------------------------------
-  static Future<void> insertBzToLDB({BzzLDB bzzLDB, BzModel bz}) async {
+  static Future<void> insertBzToLDB({BzSQLdb bzzLDB, BzModel bz}) async {
 
     /// inset sql authors
     for (AuthorModel author in bz.bzAuthors){
@@ -98,7 +98,7 @@ class BzzLDB{
         author: author,
       );
 
-      await LDB.insert(
+      await SQLdb.insert(
         table: bzzLDB.authorsTable,
         input: _sqlAuthorMap,
       );
@@ -106,7 +106,7 @@ class BzzLDB{
 
     /// insert sql bz
     final Map<String, Object> _sqlBzMap = await BzModel.sqlCipherBz(bz);
-    await LDB.insert(
+    await SQLdb.insert(
       table: bzzLDB.bzzTable,
       input: _sqlBzMap,
     );
@@ -114,9 +114,9 @@ class BzzLDB{
     print('bz : ${bz.bzID} : added to : ${bzzLDB.tableName} : LDB');
   }
 // -----------------------------------------------------------------------------
-  static Future<Map<String, Object>> _getBzFromLDB({BzzLDB bzzLDB, String bzID}) async {
+  static Future<Map<String, Object>> _getBzFromLDB({BzSQLdb bzzLDB, String bzID}) async {
 
-    final List<Map<String, Object>> _bzMapInList = await LDB.getData(
+    final List<Map<String, Object>> _bzMapInList = await SQLdb.getData(
       table: bzzLDB.bzzTable,
       key: 'bzID',
       value: bzID,
@@ -131,7 +131,7 @@ class BzzLDB{
     return _bzMap;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<AuthorModel>> _getAuthorsFromLDBByBzID({BzzLDB bzzLDB, String bzID}) async {
+  static Future<List<AuthorModel>> _getAuthorsFromLDBByBzID({BzSQLdb bzzLDB, String bzID}) async {
 
     List<AuthorModel> _authors = <AuthorModel>[];
 
@@ -145,7 +145,7 @@ class BzzLDB{
 
         for (String id in _authorsIDs){
 
-          final List<Map<String, Object>> _authorMapInList = await LDB.getData(
+          final List<Map<String, Object>> _authorMapInList = await SQLdb.getData(
             table: bzzLDB.authorsTable,
             key: 'userID',
             value: id,
@@ -167,7 +167,7 @@ class BzzLDB{
     return _authors;
   }
 // -----------------------------------------------------------------------------
-  static Future<BzModel> readABzFromLDB({BzzLDB bzzLDB, String bzID}) async {
+  static Future<BzModel> readABzFromLDB({BzSQLdb bzzLDB, String bzID}) async {
     BzModel _bz;
 
     final Map<String,Object> _bzMap = await _getBzFromLDB(
@@ -190,7 +190,7 @@ class BzzLDB{
     return _bz;
   }
 // -----------------------------------------------------------------------------
-  static Future<void> deleteBzFromLDB({BzzLDB bzzLDB, String bzID}) async {
+  static Future<void> deleteBzFromLDB({BzSQLdb bzzLDB, String bzID}) async {
 
     final List<AuthorModel> _bzAuthors = await _getAuthorsFromLDBByBzID(
       bzzLDB: bzzLDB,
@@ -199,7 +199,7 @@ class BzzLDB{
 
     for (AuthorModel author in _bzAuthors){
 
-      await LDB.deleteRowsByKeyAndValue(
+      await SQLdb.deleteRowsByKeyAndValue(
         table: bzzLDB.authorsTable,
         key: 'userID',
         value: author.userID,
@@ -207,7 +207,7 @@ class BzzLDB{
 
     }
 
-    await LDB.deleteRowsByKeyAndValue(
+    await SQLdb.deleteRowsByKeyAndValue(
       table: bzzLDB.bzzTable,
       key: 'bzID',
       value: bzID,
