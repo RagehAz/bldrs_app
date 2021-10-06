@@ -1,8 +1,8 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/dashboard/widgets/ldb_viewer.dart';
+import 'package:bldrs/dashboard/widgets/sql_viewer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/providers/local_db/sembast/sembast.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
-import 'package:bldrs/xxx_LABORATORY/sembast/sembast_ops.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/flyers_sql_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -74,7 +74,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
     TinyBz _tinyBz = TinyBz.dummyTinyBz('bolbol');
     Map<String, Object> _map = _tinyBz.toMap();
 
-    await SembastOps.insert(
+    await Sembast.insert(
       docName: 'blah',
       inputs: [_map],
     );
@@ -90,7 +90,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
   List<Map<String, Object>>_tinyFlyersMaps;
   Future<void> _readSembast() async {
 
-    final List<Map<String, Object>> _maps = await SembastOps.readAll(
+    final List<Map<String, Object>> _maps = await Sembast.readAll(
       docName: 'blah',
     );
 
@@ -103,7 +103,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _delete() async {
 
-    await SembastOps.delete(
+    await Sembast.delete(
       docName: 'blah',
       searchPrimaryValue: 'bolbol',
       searchPrimaryKey: 'bzID',
@@ -117,7 +117,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 
     Map<String, Object> _map = TinyBz.dummyTinyBz('gogo').toMap();
 
-    await SembastOps.update(
+    await Sembast.update(
       docName: 'blah',
       searchPrimaryKey: 'bzID',
       searchPrimaryValue: 'bolbol',
@@ -171,7 +171,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 
 
         if (_tinyFlyersMaps != null && _tinyFlyersMaps.isNotEmpty)
-        ...LDBViewer.rows(
+        ...SQLViewer.rows(
           context: context,
           color: Colorz.Green125,
           primaryKey: 'flyerID',

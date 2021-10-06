@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 // -----------------------------------------------------------------------------
@@ -164,6 +165,21 @@ class ObjectChecker {
 
     return _objectIsDoubleInString;
 
+  }
+// -----------------------------------------------------------------------------
+  static bool objectIsDateTime(dynamic object){
+
+    final bool _isDatTime = object.runtimeType == DateTime;
+
+    return _isDatTime;
+
+  }
+// -----------------------------------------------------------------------------
+  static bool objectIsGeoPoint(dynamic object){
+
+    final bool _isGeoPoint = object.runtimeType == GeoPoint;
+
+    return _isGeoPoint;
   }
 // -----------------------------------------------------------------------------
 }

@@ -7,7 +7,7 @@ import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
-import 'package:bldrs/providers/local_db/models/ldb_column.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_column.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
@@ -381,19 +381,19 @@ class SlideModel {
     return _slides;
   }
 // -----------------------------------------------------------------------------
-  static List<LDBColumn> createSlidesLDBColumns(){
-    const List<LDBColumn> _columns = const <LDBColumn>[
+  static List<SQLColumn> createSlidesLDBColumns(){
+    const List<SQLColumn> _columns = const <SQLColumn>[
       // -------------------------
-      LDBColumn(key: 'slideID', type: 'TEXT', isPrimary: true),
-      LDBColumn(key: 'pic', type: 'TEXT'), // or BLOB if we use Uint8List
-      LDBColumn(key: 'headline', type: 'TEXT'),
-      LDBColumn(key: 'description', type: 'TEXT'),
-      LDBColumn(key: 'sharesCount', type: 'INTEGER'),
-      LDBColumn(key: 'viewsCount', type: 'INTEGER'),
-      LDBColumn(key: 'savesCount', type: 'INTEGER'),
-      LDBColumn(key: 'picFit', type: 'INTEGER'),
-      LDBColumn(key: 'imageSize', type: 'TEXT'),
-      LDBColumn(key: 'midColor', type: 'TEXT'),
+      SQLColumn(key: 'slideID', type: 'TEXT', isPrimary: true),
+      SQLColumn(key: 'pic', type: 'TEXT'), // or BLOB if we use Uint8List
+      SQLColumn(key: 'headline', type: 'TEXT'),
+      SQLColumn(key: 'description', type: 'TEXT'),
+      SQLColumn(key: 'sharesCount', type: 'INTEGER'),
+      SQLColumn(key: 'viewsCount', type: 'INTEGER'),
+      SQLColumn(key: 'savesCount', type: 'INTEGER'),
+      SQLColumn(key: 'picFit', type: 'INTEGER'),
+      SQLColumn(key: 'imageSize', type: 'TEXT'),
+      SQLColumn(key: 'midColor', type: 'TEXT'),
 
     ];
 

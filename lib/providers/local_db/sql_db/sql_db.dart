@@ -1,13 +1,13 @@
-import 'package:bldrs/providers/local_db/models/ldb_column.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_column.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
-import 'package:bldrs/providers/local_db/models/ldb_table.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_table.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as path;
 
 
-enum LDBDataType{
+enum SQLDataType{
   TEXT,
   INTEGER,
   REAL,
@@ -25,26 +25,26 @@ enum LDBDataType{
 ///   ...
 ///
 
-abstract class LDB{
+abstract class SQLdb{
 // -----------------------------------------------------------------------------
-  static String dataType(LDBDataType dataType){
+  static String dataType(SQLDataType dataType){
     switch (dataType){
-      case LDBDataType.TEXT:      return 'TEXT'; break;
-      case LDBDataType.INTEGER:   return 'INTEGER'; break;
-      case LDBDataType.REAL:      return 'REAL'; break;
-      case LDBDataType.BLOB:      return  'BLOB'; break;
+      case SQLDataType.TEXT:      return 'TEXT'; break;
+      case SQLDataType.INTEGER:   return 'INTEGER'; break;
+      case SQLDataType.REAL:      return 'REAL'; break;
+      case SQLDataType.BLOB:      return  'BLOB'; break;
       default :                   return 'TEXT';
     }
   }
 // -----------------------------------------------------------------------------
   /// CREATE LOCAL DATABASE
-  static Future<LDBTable> createAndSetLDB({
+  static Future<SQLTable> createAndSetSQLdb({
     @required BuildContext context,
-    @required List<LDBColumn> columns,
+    @required List<SQLColumn> columns,
     @required String tableName,
   }) async {
 
-    LDBTable _dbTable = LDBTable(
+    SQLTable _dbTable = SQLTable(
       tableName: tableName,
       columns: columns,
       maps: [],
@@ -86,7 +86,7 @@ abstract class LDB{
 
         _dbTable.db = database;
 
-        await readRawFromLDB(
+        await readRaw(
           table: _dbTable,
         );
 
@@ -146,7 +146,7 @@ abstract class LDB{
 //   }
 // -----------------------------------------------------------------------------
   /// INSERT TO LOCAL DATABASE
-  static Future<void> insert({LDBTable table, Map<String, Object> input, ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.replace}) async {
+  static Future<void> insert({SQLTable table, Map<String, Object> input, ConflictAlgorithm conflictAlgorithm = ConflictAlgorithm.replace}) async {
 
     if (table.db.isOpen == true){
 
@@ -163,7 +163,7 @@ abstract class LDB{
   }
 // -----------------------------------------------------------------------------
   /// RAW READ FROM LOCAL DATABASE
-  static Future<List<dynamic>> readRawFromLDB({BuildContext context, LDBTable table}) async {
+  static Future<List<dynamic>> readRaw({BuildContext context, SQLTable table}) async {
     List<Map<String, Object>> _sqfMaps = <Map<String, Object>>[];
 
     await tryAndCatch(
@@ -193,12 +193,12 @@ abstract class LDB{
     return _sqfMaps;
   }
 // -----------------------------------------------------------------------------
-  /// works exactly like [readRawFromLDB]
-  static Future<List<dynamic>> readFromLDB({LDBTable table}) async {
+  /// works exactly like [readRaw]
+  static Future<List<dynamic>> readFromSQLdb({SQLTable table}) async {
     return table.db.query(table.tableName);
   }
 // -----------------------------------------------------------------------------
-  static Future<void> deleteLDB({BuildContext context, LDBTable table,}) async {
+  static Future<void> deleteDB({BuildContext context, SQLTable table,}) async {
 
     await tryAndCatch(
       context: context,
@@ -219,9 +219,9 @@ abstract class LDB{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> updateRowByRowNumber({LDBTable table, int rowNumber, Map<String, Object> input}) async {
+  static Future<void> updateRowByRowNumber({SQLTable table, int rowNumber, Map<String, Object> input}) async {
 
-    final String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
+    final String _primaryKey = SQLColumn.getPrimaryKeyFromColumns(table.columns);
 
     final dynamic _result = await table.db.update(
       table.tableName,
@@ -235,9 +235,9 @@ abstract class LDB{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> updateRow({LDBTable table, Map<String, Object> input,}) async {
+  static Future<void> updateRow({SQLTable table, Map<String, Object> input,}) async {
 
-    final String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
+    final String _primaryKey = SQLColumn.getPrimaryKeyFromColumns(table.columns);
 
     final dynamic _primaryValue = input['$_primaryKey'];
 
@@ -255,9 +255,9 @@ abstract class LDB{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> deleteRowByRowNumber({LDBTable table, int rowNumber}) async {
+  static Future<void> deleteRowByRowNumber({SQLTable table, int rowNumber}) async {
 
-    final String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table.columns);
+    final String _primaryKey = SQLColumn.getPrimaryKeyFromColumns(table.columns);
 
     final dynamic result = await table.db.delete(
       table.tableName,
@@ -269,7 +269,7 @@ abstract class LDB{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> deleteRowsByKeyAndValue({LDBTable table, String key, dynamic value}) async {
+  static Future<void> deleteRowsByKeyAndValue({SQLTable table, String key, dynamic value}) async {
 
     print('updateRow : key : $key : idValue : $value');
 
@@ -283,7 +283,7 @@ abstract class LDB{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<List<dynamic>> getData({LDBTable table, String key, String value}) async {
+  static Future<List<dynamic>> getData({SQLTable table, String key, String value}) async {
     //  Future<T> getTodo(int id) async {
     //     List<Map> maps = await db.query(tableTodo,
     //         columns: [columnId, columnDone, columnTitle],
@@ -297,7 +297,7 @@ abstract class LDB{
 
     List<dynamic> _maps = await table.db.query(
       table.tableName,
-      columns: LDBColumn.getColumnsName(table.columns),
+      columns: SQLColumn.getColumnsName(table.columns),
       where: '$key = ?',
       whereArgs: [value],
     );
@@ -308,7 +308,7 @@ abstract class LDB{
     return null;
   }
 // -----------------------------------------------------------------------------
-  static Future<void> closeLDB(LDBTable table,) async {
+  static Future<void> closeLDB(SQLTable table,) async {
     await table.db.close();
   }
 // -----------------------------------------------------------------------------

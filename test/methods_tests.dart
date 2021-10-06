@@ -13,43 +13,28 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 
 void main(){
-
-  List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
-    {
-      'id' : 'a',
-      'name' : 'Ahmad',
-    },
-    {
-      'id' : 'b',
-      'name' : 'meshmesh',
-    },
-  ];
-
-  Map<String, dynamic> _aMapInTheList = {
-    'id' : 'b',
-    'name' : 'meshmesh',
-  };
-
-  Map<String, dynamic> _aMapInTheListCopy = {
-    'id' : 'b',
-    'name' : 'meshmesh',
-  };
-
-  Map<String, dynamic> _aMapNotInTheListByOneField = {
-    'id' : 'b',
-    'name' : 'meshmeshaaaaaaaaayaaaaaaa',
-  };
-
-  Map<String, dynamic> _aMapNotInTheListByTwoFields = {
-    'id' : 'beeeeeeee',
-    'name' : 'meshmeshaaaaaaaaayaaaaaaa',
-  };
-
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   test('correct input _aMapInTheList', (){
 
-    bool _result = Mapper.listOfMapsContainMap(
+
+    final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
+      {
+        'id' : 'a',
+        'name' : 'Ahmad',
+      },
+      {
+        'id' : 'b',
+        'name' : 'meshmesh',
+      },
+    ];
+
+    final Map<String, dynamic> _aMapInTheList = {
+      'id' : 'b',
+      'name' : 'meshmesh',
+    };
+
+
+    final bool _result = Mapper.listOfMapsContainMap(
       listOfMaps: _listOfMaps,
       map: _aMapInTheList,
     );
@@ -60,7 +45,23 @@ void main(){
 // -----------------------------------------------------------------------------
   test('in-correct _aMapNotInTheListByOneField', (){
 
-    bool _result = Mapper.listOfMapsContainMap(
+    final Map<String, dynamic> _aMapNotInTheListByOneField = {
+      'id' : 'b',
+      'name' : 'meshmeshaaaaaaaaayaaaaaaa',
+    };
+
+    final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
+      {
+        'id' : 'a',
+        'name' : 'Ahmad',
+      },
+      {
+        'id' : 'b',
+        'name' : 'meshmesh',
+      },
+    ];
+
+    final bool _result = Mapper.listOfMapsContainMap(
       listOfMaps: _listOfMaps,
       map: _aMapNotInTheListByOneField,
     );
@@ -70,6 +71,23 @@ void main(){
   });
 // -----------------------------------------------------------------------------
   test('in-correct _aMapNotInTheListByTwoFields', (){
+
+    final Map<String, dynamic> _aMapNotInTheListByTwoFields = {
+      'id' : 'beeeeeeee',
+      'name' : 'meshmeshaaaaaaaaayaaaaaaa',
+    };
+
+    final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
+      {
+        'id' : 'a',
+        'name' : 'Ahmad',
+      },
+      {
+        'id' : 'b',
+        'name' : 'meshmesh',
+      },
+    ];
+
 
     bool _result = Mapper.listOfMapsContainMap(
       listOfMaps: _listOfMaps,
@@ -82,6 +100,18 @@ void main(){
 // -----------------------------------------------------------------------------
   test('map == map', (){
 
+    final Map<String, dynamic> _aMapInTheList = {
+      'id' : 'b',
+      'name' : 'meshmesh',
+    };
+
+
+    final Map<String, dynamic> _aMapInTheListCopy = {
+      'id' : 'b',
+      'name' : 'meshmesh',
+    };
+
+
     bool _result = Mapper.mapsAreTheSame(_aMapInTheList, _aMapInTheListCopy);
 
     expect(_result, true);
@@ -89,6 +119,18 @@ void main(){
   });
 // -----------------------------------------------------------------------------
   test('maps are not equal', (){
+
+    final Map<String, dynamic> _aMapInTheList = {
+      'id' : 'b',
+      'name' : 'meshmesh',
+    };
+
+
+    final Map<String, dynamic> _aMapNotInTheListByOneField = {
+      'id' : 'b',
+      'name' : 'meshmeshaaaaaaaaayaaaaaaa',
+    };
+
 
     bool _result = Mapper.mapsAreTheSame(_aMapInTheList, _aMapNotInTheListByOneField);
 
@@ -122,11 +164,28 @@ void main(){
 // -----------------------------------------------------------------------------
   test('index of a map in list of maps', (){
 
-    List<Map<String,dynamic>> _theList = _listOfMaps;
+    final Map<String, dynamic> _aMapInTheList = {
+      'id' : 'b',
+      'name' : 'meshmesh',
+    };
 
-    int _indexOfTheMap = Mapper.indexOfMapInListOfMaps(_theList, _aMapInTheList);
+    final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
+      {
+        'id' : 'a',
+        'name' : 'Ahmad',
+      },
+      {
+        'id' : 'b',
+        'name' : 'meshmesh',
+      },
+    ];
 
-    int _result = _indexOfTheMap;
+
+    final List<Map<String,dynamic>> _theList = _listOfMaps;
+
+    final int _indexOfTheMap = Mapper.indexOfMapInListOfMaps(_theList, _aMapInTheList);
+
+    final int _result = _indexOfTheMap;
 
     expect(_result, 1);
 
@@ -134,17 +193,46 @@ void main(){
 // -----------------------------------------------------------------------------
   test('index of a map not in the list of maps', (){
 
-    List<Map<String,dynamic>> _theList = _listOfMaps;
+    final Map<String, dynamic> _aMapNotInTheListByOneField = {
+      'id' : 'b',
+      'name' : 'meshmeshaaaaaaaaayaaaaaaa',
+    };
 
-    int _indexOfTheMap = Mapper.indexOfMapInListOfMaps(_theList, _aMapNotInTheListByOneField);
+    final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
+      {
+        'id' : 'a',
+        'name' : 'Ahmad',
+      },
+      {
+        'id' : 'b',
+        'name' : 'meshmesh',
+      },
+    ];
 
-    int _result = _indexOfTheMap;
+
+    final List<Map<String,dynamic>> _theList = _listOfMaps;
+
+    final int _indexOfTheMap = Mapper.indexOfMapInListOfMaps(_theList, _aMapNotInTheListByOneField);
+
+    final int _result = _indexOfTheMap;
 
     expect(_result, -1);
 
   });
 // -----------------------------------------------------------------------------
   test('get index of a map by key value', (){
+
+    final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
+      {
+        'id' : 'a',
+        'name' : 'Ahmad',
+      },
+      {
+        'id' : 'b',
+        'name' : 'meshmesh',
+      },
+    ];
+
 
     List<Map<String,dynamic>> _theList = _listOfMaps;
 
@@ -288,7 +376,7 @@ void main(){
     expect(_base64IsBase64, false);
 
   });
-
+// -----------------------------------------------------------------------------
   test('stringContainsSubString', () async {
 
     final String _string =  '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.';
@@ -307,7 +395,42 @@ void main(){
 
   });
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
+  test('objectIsDatTime', () async {
 
+    final dynamic _object = DateTime.now();
+    final dynamic _object2 = Timers.cipherDateTimeIso8601(_object);
+    bool _isDateTime = ObjectChecker.objectIsDateTime(_object2);
+
+    // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
+
+    expect(_isDateTime, false);
+
+  });
 // -----------------------------------------------------------------------------
+  test('replace map pair', () async {
+
+    final Map<String, Object> map = {
+      'one' : 'wa7ed',
+      'two' : 'etneen',
+      'three' : 'talata',
+    };
+
+    final Map<String, Object> _newMap = Mapper.replacePair(
+      map: map,
+      fieldKey: 'two',
+      inputValue: 'it works'
+    );
+
+    final Map<String, Object> _expected = {
+      'one' : 'wa7ed',
+      'two' : 'it works',
+      'three' : 'talata',
+    };
+
+    // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
+
+    expect(_newMap, _expected);
+
+  });
+
 }

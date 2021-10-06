@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 // -----------------------------------------------------------------------------
+/// GoHomeOnMaxBounce
 class MaxBounceNavigator extends StatefulWidget {
   final double boxDistance;
   final int numberOfScreens;

@@ -1,13 +1,63 @@
-import 'package:bldrs/xxx_LABORATORY/sembast/sembast.dart';
-import 'package:sembast/sembast.dart';
+import 'dart:async';
+import 'dart:io';
 
-class SembastOps{
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sembast/sembast.dart';
+import 'package:sembast/sembast_io.dart';
+
+/// Simple Embedded Application Store database
+class Sembast {
+// -----------------------------------------------------------------------------
+  /// private constructor to create instances of this class only in itself
+  Sembast._thing();
+// -----------------------------------------------------------------------------
+  /// Singleton instance
+  static final Sembast _singleton = Sembast._thing();
+// -----------------------------------------------------------------------------
+  /// Singleton accessor
+  static Sembast get instance => _singleton;
+// -----------------------------------------------------------------------------
+  /// to transform from synchronous into asynchronous
+  Completer<Database> _dbOpenCompleter;
+// -----------------------------------------------------------------------------
+  /// db object accessor
+  Future<Database> get database async {
+
+    if (_dbOpenCompleter == null){
+      _dbOpenCompleter = Completer();
+
+      _openDatabase();
+    }
+
+    return _dbOpenCompleter.future;
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _openDatabase() async {
+
+    final Directory _appDocDir = await getApplicationDocumentsDirectory();
+
+    final String _dbPath = join(_appDocDir.path, 'bldrs_sembast.db');
+
+    final Database _db = await databaseFactoryIo.openDatabase(_dbPath);
+
+    _dbOpenCompleter.complete(_db);
+
+    return _db;
+
+  }
+// -----------------------------------------------------------------------------
+
+/// SEMBAST OPS
+
+// -----------------------------------------------------------------------------
+
   /// static const String _storeName = 'blah';
   /// final StoreRef<int, Map<String, Object>> _doc = intMapStoreFactory.store(_storeName);
   /// Future<Database> get _db async => await AppDatabase.instance.database;
 // -----------------------------------------------------------------------------
   static Future<Database> _getDB() async {
-    return await AppDatabase.instance.database;
+    return await Sembast.instance.database;
   }
 // -----------------------------------------------------------------------------
   static StoreRef<int, Map<String, Object>> _getStore({String docName}) {
@@ -60,10 +110,10 @@ class SembastOps{
     final Database _db = await _getDB();
 
     final _finder = Finder(
-        filter: Filter.equals(searchField, searchValue, anyInList: true),
-        sortOrders: <SortOrder>[
-          SortOrder(fieldToSortBy)
-        ],
+      filter: Filter.equals(searchField, searchValue, anyInList: true),
+      sortOrders: <SortOrder>[
+        SortOrder(fieldToSortBy)
+      ],
     );
 
     final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots = await _doc.find(
@@ -76,7 +126,7 @@ class SembastOps{
     }).toList();
 
     return _maps;
-}
+  }
 // -----------------------------------------------------------------------------
   static Future<List<Map<String, Object>>> readAll({String docName,}) async {
 
@@ -95,4 +145,6 @@ class SembastOps{
     return _maps;
   }
 // -----------------------------------------------------------------------------
+
+
 }

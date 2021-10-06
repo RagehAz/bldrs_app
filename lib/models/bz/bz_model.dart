@@ -9,7 +9,7 @@ import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/local_db/models/ldb_column.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_column.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -478,45 +478,45 @@ Map<String, dynamic> toMap(){
 // -----------------------------------------------------------------------------
   static const List<String> bzPagesTabsTitles = <String>['Flyers', 'About', 'Targets', 'Powers'];
 // -----------------------------------------------------------------------------
-  static List<LDBColumn> createBzzLDBColumns(){
+  static List<SQLColumn> createBzzLDBColumns(){
 
-  const List<LDBColumn> _columns = const <LDBColumn>[
+  const List<SQLColumn> _columns = const <SQLColumn>[
     // -------------------------
-    LDBColumn(key: 'bzID', type: 'TEXT', isPrimary: true),
+    SQLColumn(key: 'bzID', type: 'TEXT', isPrimary: true),
     // -------------------------
-    LDBColumn(key: 'bzType', type: 'INTEGER'),
-    LDBColumn(key: 'bzForm', type: 'INTEGER'),
-    LDBColumn(key: 'createdAt', type: 'TEXT'),
-    LDBColumn(key: 'accountType', type: 'INTEGER'),
+    SQLColumn(key: 'bzType', type: 'INTEGER'),
+    SQLColumn(key: 'bzForm', type: 'INTEGER'),
+    SQLColumn(key: 'createdAt', type: 'TEXT'),
+    SQLColumn(key: 'accountType', type: 'INTEGER'),
     // -------------------------
-    LDBColumn(key: 'bzName', type: 'TEXT'),
-    LDBColumn(key: 'bzLogo', type: 'TEXT'),
-    LDBColumn(key: 'bzScope', type: 'TEXT'),
+    SQLColumn(key: 'bzName', type: 'TEXT'),
+    SQLColumn(key: 'bzLogo', type: 'TEXT'),
+    SQLColumn(key: 'bzScope', type: 'TEXT'),
     // -------------------------
-    LDBColumn(key: 'bzZone_countryID', type: 'TEXT'),
-    LDBColumn(key: 'bzZone_cityID', type: 'TEXT'),
-    LDBColumn(key: 'bzZone_districtID', type: 'TEXT'),
+    SQLColumn(key: 'bzZone_countryID', type: 'TEXT'),
+    SQLColumn(key: 'bzZone_cityID', type: 'TEXT'),
+    SQLColumn(key: 'bzZone_districtID', type: 'TEXT'),
     // -------------------------
-    LDBColumn(key: 'bzAbout', type: 'TEXT'),
-    LDBColumn(key: 'bzPosition', type: 'TEXT'),
-    LDBColumn(key: 'bzContacts', type: 'TEXT'),
+    SQLColumn(key: 'bzAbout', type: 'TEXT'),
+    SQLColumn(key: 'bzPosition', type: 'TEXT'),
+    SQLColumn(key: 'bzContacts', type: 'TEXT'),
     // LDBColumn(key: 'bzAuthors', type: 'TEXT'), // separated in separate LDB
-    LDBColumn(key: 'bzShowsTeam', type: 'INTEGER'),
+    SQLColumn(key: 'bzShowsTeam', type: 'INTEGER'),
     // -------------------------
-    LDBColumn(key: 'bzIsVerified', type: 'INTEGER'),
-    LDBColumn(key: 'bzAccountIsDeactivated', type: 'INTEGER'),
-    LDBColumn(key: 'bzAccountIsBanned', type: 'INTEGER'),
+    SQLColumn(key: 'bzIsVerified', type: 'INTEGER'),
+    SQLColumn(key: 'bzAccountIsDeactivated', type: 'INTEGER'),
+    SQLColumn(key: 'bzAccountIsBanned', type: 'INTEGER'),
     // -------------------------
-    LDBColumn(key: 'bzTotalFollowers', type: 'INTEGER'),
-    LDBColumn(key: 'bzTotalSaves', type: 'INTEGER'),
-    LDBColumn(key: 'bzTotalShares', type: 'INTEGER'),
-    LDBColumn(key: 'bzTotalSlides', type: 'INTEGER'),
-    LDBColumn(key: 'bzTotalViews', type: 'INTEGER'),
-    LDBColumn(key: 'bzTotalCalls', type: 'INTEGER'),
-    LDBColumn(key: 'bzTotalFlyers', type: 'INTEGER'),
+    SQLColumn(key: 'bzTotalFollowers', type: 'INTEGER'),
+    SQLColumn(key: 'bzTotalSaves', type: 'INTEGER'),
+    SQLColumn(key: 'bzTotalShares', type: 'INTEGER'),
+    SQLColumn(key: 'bzTotalSlides', type: 'INTEGER'),
+    SQLColumn(key: 'bzTotalViews', type: 'INTEGER'),
+    SQLColumn(key: 'bzTotalCalls', type: 'INTEGER'),
+    SQLColumn(key: 'bzTotalFlyers', type: 'INTEGER'),
     // -------------------------
-    LDBColumn(key: 'flyersIDs', type: 'TEXT'),
-    LDBColumn(key: 'authorsIDs', type: 'TEXT'),
+    SQLColumn(key: 'flyersIDs', type: 'TEXT'),
+    SQLColumn(key: 'authorsIDs', type: 'TEXT'),
   ];
 
   return _columns;

@@ -4,7 +4,7 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/local_db/models/ldb_column.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_column.dart';
 // -----------------------------------------------------------------------------
 class AuthorModel{
   final String userID;
@@ -259,15 +259,15 @@ class AuthorModel{
     return _allAuthors;
   }
 // -----------------------------------------------------------------------------
-  static List<LDBColumn> createAuthorsLDBColumns(){
+  static List<SQLColumn> createAuthorsLDBColumns(){
 
-    const List<LDBColumn> _authorsColumns = const <LDBColumn>[
-      LDBColumn(key: 'userID', type: 'TEXT', isPrimary: true),
-      LDBColumn(key: 'authorName', type: 'TEXT'),
-      LDBColumn(key: 'authorPic', type: 'TEXT'),
-      LDBColumn(key: 'authorTitle', type: 'TEXT'),
-      LDBColumn(key: 'authorIsMaster', type: 'INTEGER'),
-      LDBColumn(key: 'authorContacts', type: 'TEXT'),
+    const List<SQLColumn> _authorsColumns = const <SQLColumn>[
+      SQLColumn(key: 'userID', type: 'TEXT', isPrimary: true),
+      SQLColumn(key: 'authorName', type: 'TEXT'),
+      SQLColumn(key: 'authorPic', type: 'TEXT'),
+      SQLColumn(key: 'authorTitle', type: 'TEXT'),
+      SQLColumn(key: 'authorIsMaster', type: 'INTEGER'),
+      SQLColumn(key: 'authorContacts', type: 'TEXT'),
     ];
 
     return _authorsColumns;
