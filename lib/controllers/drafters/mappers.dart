@@ -1,6 +1,8 @@
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sembast/utils/value_utils.dart';
 
 class Mapper{
 // -----------------------------------------------------------------------------
@@ -289,7 +291,7 @@ class Mapper{
   }
 // -----------------------------------------------------------------------------
   static List<String> getStringsFromDynamics({List<dynamic> dynamics}){
-    List<String> _strings = <String>[];
+    final List<String> _strings = <String>[];
 
     if (dynamics != null && dynamics.length != 0){
       for (dynamic thing in dynamics){
@@ -309,5 +311,33 @@ class Mapper{
     return _strings;
   }
 // -----------------------------------------------------------------------------
+  static Map<String, Object> replacePair({Map<String, Object> map, String fieldKey, dynamic inputValue}){
 
+    final Map<String, Object> _aMap = cloneMap(map);
+
+    try {
+
+      _aMap[fieldKey] = inputValue;
+
+    } catch (e){
+
+      print('error is : $e');
+      print('map is : ${map}');
+      print('fieldKey is : $fieldKey');
+      print('inputValue : $inputValue');
+
+    }
+
+    return _aMap;
+}
+// -----------------------------------------------------------------------------
+  static Map<String, Object> removePair({Map<String, Object> map, String fieldKey}){
+
+    final Map<String, Object> _map = cloneMap(map);
+
+    _map.remove(fieldKey);
+
+    return _map;
+  }
+// -----------------------------------------------------------------------------
 }

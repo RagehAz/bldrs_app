@@ -2,19 +2,19 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/providers/local_db/models/ldb_column.dart';
-import 'package:bldrs/providers/local_db/models/ldb_table.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_column.dart';
+import 'package:bldrs/providers/local_db/sql_db/sql_table.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class LDBViewer extends StatelessWidget {
-  final LDBTable table;
+class SQLViewer extends StatelessWidget {
+  final SQLTable table;
   final Function onRowTap;
   final Color color;
 
 
-  const LDBViewer({
+  const SQLViewer({
     @required this.table,
     this.onRowTap,
     this.color = Colorz.BloodTest,
@@ -102,7 +102,7 @@ class LDBViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _primaryKey = LDBColumn.getPrimaryKeyFromColumns(table?.columns);
+    final String _primaryKey = SQLColumn.getPrimaryKeyFromColumns(table?.columns);
     final double _screenWidth = Scale.superScreenWidth(context);
 
     return Container(
