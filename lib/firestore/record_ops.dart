@@ -4,6 +4,7 @@ import 'package:bldrs/models/flyer/records/call_model.dart';
 import 'package:bldrs/models/flyer/records/follow_model.dart';
 import 'package:bldrs/models/flyer/records/save_model.dart';
 import 'package:bldrs/models/flyer/records/share_model.dart';
+import 'package:bldrs/providers/local_db/bldrs_local_dbs.dart';
 import 'package:flutter/material.dart';
 
 class RecordOps{
@@ -42,6 +43,13 @@ class RecordOps{
     /// 2 - update the list with the new save entry and get back the updated list
     final List<SaveModel> _updatedUserSavesModel = SaveModel.editSavesModels(_userSavesModels, flyerID, slideIndex);
 
+    final Map<String, Object> _savesMaps = await SaveModel.cipherSavesModelsToUser(_updatedUserSavesModel);
+
+    await BLDBMethod.insert(
+      bldb: BLDB.mySaves,
+      inputs: [_savesMaps],
+    );
+
     /// 3 - update sub doc with new SavesTopMap in db/flyers/flyerID/saves
     await Fire.createNamedSubDoc(
       context: context,
@@ -49,7 +57,7 @@ class RecordOps{
       docName: userID,
       subCollName: FireCollection.users_user_saves,
       subDocName: FireCollection.flyers,
-      input: await SaveModel.cipherSavesModelsToUser(_updatedUserSavesModel),
+      input: _savesMaps,
     );
 
     /// B - SavesOps in flyers/saves/users subDoc
