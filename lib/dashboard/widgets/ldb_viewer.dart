@@ -114,10 +114,11 @@ class LDBViewer extends StatelessWidget {
         child: Column(
           children: <Widget>[
 
+            if (table != null && table?.maps != null && table.maps.length != 0)
             ...rows(
               context: context,
               color: color,
-              maps: table.maps,
+              maps: table?.maps,
               primaryKey: _primaryKey,
               onRowTap: onRowTap,
             ),

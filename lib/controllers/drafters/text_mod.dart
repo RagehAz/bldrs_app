@@ -357,5 +357,19 @@ class TextMod {
     return _strings;
   }
 // -----------------------------------------------------------------------------
+
+/*
+
+ENCODE AND DECODE STRINGS for encryption
+
+https://stackoverflow.com/questions/56201074/how-to-encode-and-decode-base64-and-base64url-in-flutter-dart
+
+String credentials = "username:password";
+Codec<String, String> stringToBase64 = utf8.fuse(base64);
+String encoded = stringToBase64.encode(credentials);      // dXNlcm5hbWU6cGFzc3dvcmQ=
+String decoded = stringToBase64.decode(encoded);          // username:password
+
+ */
+
 }
 

@@ -78,7 +78,7 @@ class SembastOps{
     return _maps;
 }
 // -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> readAll({String docName, }) async {
+  static Future<List<Map<String, Object>>> readAll({String docName,}) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();

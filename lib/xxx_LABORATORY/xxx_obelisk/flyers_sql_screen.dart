@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -13,10 +17,12 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
 import 'package:bldrs/providers/local_db/sql_ops/bzz_ldb.dart';
 import 'package:bldrs/providers/local_db/sql_ops/flyers_ldb.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
+import 'package:bldrs/views/screens/i_flyer/x_3_slide_full_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/following_bzz_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -119,8 +125,8 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 
     // final List<TinyFlyer> _tinyFlyersFromLDB = TinyFlyer.getTinyFlyersFromFlyersModels(_flyersFromLDB);
 
-    final List<Map<String, Object>> _slidesMaps = SlideModel.sqlCipherFlyersSlides(_flyersFromLDB);
-    final List<Map<String, Object>> _flyersMaps = FlyerModel.sqlCipherFlyers(_flyersFromLDB);
+    final List<Map<String, Object>> _slidesMaps = await SlideModel.sqlCipherFlyersSlides(_flyersFromLDB);
+    final List<Map<String, Object>> _flyersMaps = await FlyerModel.sqlCipherFlyers(_flyersFromLDB);
 
     setState(() {
       // _convertedTinyFlyers = _tinyFlyersFromLDB;
@@ -306,8 +312,8 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     final List<AuthorModel> _allAuthors = AuthorModel.combineAllBzzAuthors(_allBzzFromLDB);
 
 
-    final List<Map<String, Object>> _authorsMaps = AuthorModel.sqlCipherAuthors(authors: _allAuthors);
-    final List<Map<String, Object>> _bzzMaps = BzModel.sqlCipherBzz(_allBzzFromLDB);
+    final List<Map<String, Object>> _authorsMaps = await AuthorModel.sqlCipherAuthors(authors: _allAuthors);
+    final List<Map<String, Object>> _bzzMaps = await BzModel.sqlCipherBzz(_allBzzFromLDB);
 
     setState(() {
       // _convertedTinyFlyers = _tinyFlyersFromLDB;
@@ -409,6 +415,23 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  List<String> _convertedPics = <String>[];
+  List<String> _convertedPicsStrings = <String>[];
+  Future<void> _convertImageURL({String url}) async {
+
+    print('staring to convert image url : $url');
+
+    final String _base64 = await Imagers.urlOrImageFileToBase64(url);
+
+    print('_base64Image is : ${_base64}');
+
+    setState(() {
+    _convertedPicsStrings.add(_base64);
+    _convertedPics.add(url);
+    });
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -501,10 +524,40 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
         SlidesShelf(
           shelfHeight: FlyersShelf.shelfHeight(context: context, flyerSizeFactor: _flyerSizeFactor),
           title: 'All Slides',
-          onImageTap: (){print('tapped');},
+          onImageTap: (int index) async {
+            await _convertImageURL(url: _slidesPics[index]);
+          },
           pics: _slidesPics,
           onAddButtonOnTap: (){print('xxx');},
         ),
+
+        /// CONVERTED SLIDES SHELF
+        if (_convertedPicsStrings != null && _convertedPicsStrings.length != 0)
+          SlidesShelf(
+            shelfHeight: FlyersShelf.shelfHeight(context: context, flyerSizeFactor: _flyerSizeFactor),
+            title: 'Converted Slides',
+            onImageTap: (int index) async {
+
+              final Uint8List _fileAgainAsInt = await base64Decode(_convertedPicsStrings[index]);
+
+              final File _fileAgain = await Imagers.getFileFromUint8List(
+                Uint8List: _fileAgainAsInt,
+                fileName: 'p#${index}',
+              );
+
+              final ImageSize _size = await ImageSize.superImageSize(_fileAgain);
+
+              await Nav.goToNewScreen(context, SlideFullScreen(
+                image: _fileAgain,
+                imageSize: _size,
+              ),
+              );
+
+              },
+
+            pics: _convertedPics,
+            onAddButtonOnTap: (){print('xxx');},
+          ),
 
         /// SLIDES LDB
         LDBViewer(

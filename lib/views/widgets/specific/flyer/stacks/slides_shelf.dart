@@ -43,131 +43,159 @@ class SlidesShelf extends StatelessWidget {
       color: Colorz.White10,
     );
 
+    final double _titleZoneHeight = _flyerZoneWidth * 0.5;
+
+    final double _screenWidth = Scale.superScreenWidth(context);
 
     return
       Container(
-        width: Scale.superScreenWidth(context),
-        height: _stackZoneHeight,
+        width: _screenWidth,
+        height: _stackZoneHeight + _titleZoneHeight,
         // color: Colorz.BloodTest,
-        alignment: Aligners.superCenterAlignment(context),
-        child: ListView.builder(
-          itemCount: pics.length,
-          scrollDirection: Axis.horizontal,
-          itemExtent: _flyerZoneWidth + Ratioz.appBarPadding* 1.5,
-          physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-          addAutomaticKeepAlives: true,
-          itemBuilder: (ctx, index){
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
 
-            final dynamic _pic = pics[index];
+            Container(
+              width: _screenWidth,
+              height: _titleZoneHeight,
+              alignment: Aligners.superCenterAlignment(context),
+              padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+              child: SuperVerse(
+                verse: title.toUpperCase(),
+                size: 4,
+                scaleFactor: _flyerSizeFactor * 4,
+                weight: VerseWeight.black,
+                italic: true,
+                shadow: true,
+              )
+            ),
 
-            return
-              Container(
-                margin: EdgeInsets.only(left: Ratioz.appBarPadding, right: Ratioz.appBarPadding, bottom: Ratioz.appBarPadding),
-                alignment: Alignment.center,
-                child: Column(
-                  children: <Widget>[
+            Container(
+              height: _stackZoneHeight,
+              alignment: Aligners.superCenterAlignment(context),
+              child: ListView.builder(
+                itemCount: pics.length,
+                scrollDirection: Axis.horizontal,
+                itemExtent: _flyerZoneWidth + Ratioz.appBarPadding* 1.5,
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+                addAutomaticKeepAlives: true,
+                itemBuilder: (ctx, index){
 
-                    /// PIC NUMBER
+                  final dynamic _pic = pics[index];
+
+                  return
                     Container(
-                      width: _flyerZoneWidth,
-                      height: _flyerNumberTagZoneHeight,
-                      // padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-                      decoration: BoxDecoration(
-                        borderRadius: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner * 0.5),
-                        // color: Colorz.WhiteAir,
-                      ),
-                      alignment: Aligners.superCenterAlignment(context),
-                      child:
-                      index < pics.length ?
-                      SuperVerse(
-                        verse: '${index + 1}',
-                        size: 1,
-                        color: Colorz.White200,
-                        labelColor: Colorz.White10,
-                      ) : Container(),
-                    ),
+                      margin: EdgeInsets.only(left: Ratioz.appBarPadding, right: Ratioz.appBarPadding, bottom: Ratioz.appBarPadding),
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: <Widget>[
 
-                    /// SPACER
-                    SizedBox(
-                      height: Ratioz.appBarPadding,
-                    ),
-
-                    /// IMAGE
-                    Container(
-                        width: _flyerZoneWidth,
-                        height: _flyerZoneHeight,
-                        // decoration: _flyerDecoration,
-                        child:
-                        index < pics.length ?
-
-                        /// IMAGE
-                        GestureDetector(
-                          onTap: () => onImageTap(index),
-                          child: Container(
+                          /// PIC NUMBER
+                          Container(
                             width: _flyerZoneWidth,
-                            height: _flyerZoneHeight,
-                            child: ClipRRect(
-                              borderRadius: _flyerBorderRadius,
-                              child:
-                              Imagers.superImageWidget(_pic, width: _flyerZoneWidth, height: _flyerZoneHeight),
+                            height: _flyerNumberTagZoneHeight,
+                            // padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+                            decoration: BoxDecoration(
+                              borderRadius: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner * 0.5),
+                              // color: Colorz.WhiteAir,
                             ),
+                            alignment: Aligners.superCenterAlignment(context),
+                            child:
+                            index < pics.length ?
+                            SuperVerse(
+                              verse: '${index + 1}',
+                              size: 1,
+                              color: Colorz.White200,
+                              labelColor: Colorz.White10,
+                            ) : Container(),
                           ),
-                        )
 
-                            :
+                          /// SPACER
+                          SizedBox(
+                            height: Ratioz.appBarPadding,
+                          ),
 
-                        /// ADD IMAGE BUTTON
-                        GestureDetector(
-                          onTap: () => onAddButtonOnTap(_pic),
-                          child: Container(
-                            width: _flyerZoneWidth,
-                            height: _flyerZoneHeight,
-                            decoration: _flyerDecoration,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
+                          /// IMAGE
+                          Container(
+                              width: _flyerZoneWidth,
+                              height: _flyerZoneHeight,
+                              // decoration: _flyerDecoration,
+                              child:
+                              index < pics.length ?
 
-                                /// PLUS ICON
-                                DreamBox(
-                                  height: _flyerZoneWidth * 0.5,
-                                  width: _flyerZoneWidth * 0.5,
-                                  icon: Iconz.Plus,
-
-                                  iconColor: Colorz.White20,
-                                  bubble: false,
-                                  onTap: null,//() => _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth),
-                                ),
-
-                                SizedBox(
-                                  height: _flyerZoneWidth * 0.05,
-                                ),
-
-                                Container(
-                                  width: _flyerZoneWidth * 0.95,
-                                  child: SuperVerse(
-                                    verse: 'Add Photos',
-                                    size: 2,
-                                    color: Colorz.White20,
-                                    maxLines: 2,
+                              /// IMAGE
+                              GestureDetector(
+                                onTap: () => onImageTap(index),
+                                child: Container(
+                                  width: _flyerZoneWidth,
+                                  height: _flyerZoneHeight,
+                                  child: ClipRRect(
+                                    borderRadius: _flyerBorderRadius,
+                                    child:
+                                    Imagers.superImageWidget(_pic, width: _flyerZoneWidth, height: _flyerZoneHeight),
                                   ),
                                 ),
+                              )
 
-                              ],
-                            ),
+                                  :
+
+                              /// ADD IMAGE BUTTON
+                              GestureDetector(
+                                onTap: () => onAddButtonOnTap(_pic),
+                                child: Container(
+                                  width: _flyerZoneWidth,
+                                  height: _flyerZoneHeight,
+                                  decoration: _flyerDecoration,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+
+                                      /// PLUS ICON
+                                      DreamBox(
+                                        height: _flyerZoneWidth * 0.5,
+                                        width: _flyerZoneWidth * 0.5,
+                                        icon: Iconz.Plus,
+
+                                        iconColor: Colorz.White20,
+                                        bubble: false,
+                                        onTap: null,//() => _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth),
+                                      ),
+
+                                      SizedBox(
+                                        height: _flyerZoneWidth * 0.05,
+                                      ),
+
+                                      Container(
+                                        width: _flyerZoneWidth * 0.95,
+                                        child: SuperVerse(
+                                          verse: 'Add Photos',
+                                          size: 2,
+                                          color: Colorz.White20,
+                                          maxLines: 2,
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                ),
+                              )
+
                           ),
-                        )
 
-                    ),
-
-                  ],
-                ),
-              );
+                        ],
+                      ),
+                    );
 
 
 
-          },
+                },
+              ),
+            ),
+          ],
         ),
       );
 

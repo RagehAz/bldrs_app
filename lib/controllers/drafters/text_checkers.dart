@@ -146,9 +146,14 @@ class TextChecker{
     bool _itContainsIt = false;
     // string.contains(new RegExp(subString, caseSensitive: caseSensitive, multiLine: multiLine));
 
-    if (string.toLowerCase().contains(subString.toLowerCase())){
-      _itContainsIt = true;
+    if (string != null && subString != null){
+
+      if (string.toLowerCase().contains(subString?.toLowerCase())){
+        _itContainsIt = true;
+      }
+
     }
+
 
     final String _blah = _itContainsIt == true ? 'CONTAIN' : 'DOES NOT CONTAIN';
     print('string : $string : $_blah this : $subString');

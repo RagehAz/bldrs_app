@@ -400,13 +400,13 @@ class SlideModel {
     return _columns;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, Object> sqlCipherSlide({SlideModel slide, String flyerID}) {
+  static Future<Map<String, Object>> sqlCipherSlide({SlideModel slide, String flyerID}) async {
     Map<String, Object> _map;
 
     if (slide != null) {
       _map = {
         'slideID': SlideModel.generateSlideID(flyerID, slide.slideIndex),
-        'pic': Imagers.sqlCipherImage(slide.pic),
+        'pic': await Imagers.urlOrImageFileToBase64(slide.pic),
         'headline': slide.headline,
         'description': slide.description,
         'sharesCount': slide.sharesCount,
@@ -423,7 +423,7 @@ class SlideModel {
     return _map;
   }
 // -----------------------------------------------------------------------------
-  static SlideModel sqlDecipherSlide({Map<String, Object> map}){
+  static Future<SlideModel> sqlDecipherSlide({Map<String, Object> map}) async {
     SlideModel _slide;
 
     if (map != null){
@@ -434,7 +434,7 @@ class SlideModel {
       _slide = SlideModel(
         flyerID: _flyerID,
         slideIndex: _slideIndex,
-        pic: Imagers.sqlDecipherImage(map['pic']),
+        pic: await Imagers.base64ToFile(map['pic']),
         headline: map['headline'],
         description: map['description'],
         sharesCount: map['sharesCount'],
@@ -450,14 +450,14 @@ class SlideModel {
     return _slide;
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, Object>> sqlCipherSlides({List<SlideModel> slides, String flyerID}){
+  static Future<List<Map<String, Object>>> sqlCipherSlides({List<SlideModel> slides, String flyerID}) async {
     final List<Map<String, Object>> _maps = <Map<String, Object>>[];
 
     if (slides != null && slides.length != 0){
 
       for (SlideModel slide in slides){
 
-        final Map<String, Object> _map = sqlCipherSlide(
+        final Map<String, Object> _map = await sqlCipherSlide(
           flyerID: flyerID,
           slide: slide,
         );
@@ -471,14 +471,14 @@ class SlideModel {
     return _maps;
   }
 // -----------------------------------------------------------------------------
-  static List<SlideModel> sqlDecipherSlides({List<Map<String, Object>> maps}){
+  static Future<List<SlideModel>> sqlDecipherSlides({List<Map<String, Object>> maps}) async {
     final List<SlideModel> _slides = <SlideModel>[];
 
     if (maps != null && maps.length != 0){
 
       for (var map in maps){
 
-        final SlideModel _slide = sqlDecipherSlide(map: map);
+        final SlideModel _slide = await sqlDecipherSlide(map: map);
 
         _slides.add(_slide);
 
@@ -509,14 +509,14 @@ class SlideModel {
     return _foundSlides;
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, Object>> sqlCipherFlyersSlides(List<FlyerModel> flyers){
+  static Future<List<Map<String, Object>>> sqlCipherFlyersSlides(List<FlyerModel> flyers) async {
     final List<Map<String, Object>> _allSlidesSQLMaps = <Map<String, Object>>[];
 
     if (flyers != null && flyers.length != 0){
 
       for (FlyerModel flyer in flyers){
 
-        final List<Map<String, Object>> _slidesMaps = sqlCipherSlides(
+        final List<Map<String, Object>> _slidesMaps = await sqlCipherSlides(
           slides: flyer.slides,
           flyerID: flyer.flyerID
         );

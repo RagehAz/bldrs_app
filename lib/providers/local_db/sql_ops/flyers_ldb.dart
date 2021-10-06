@@ -62,9 +62,9 @@ class FlyersLDB{
       table: flyersLDB.slidesTable,
     );
 
-    final List<SlideModel> _allSlides = SlideModel.sqlDecipherSlides(maps: _sqlSlidesMaps);
+    final List<SlideModel> _allSlides = await SlideModel.sqlDecipherSlides(maps: _sqlSlidesMaps);
 
-    final List<FlyerModel> _allFlyers = FlyerModel.sqlDecipherFlyers(
+    final List<FlyerModel> _allFlyers = await FlyerModel.sqlDecipherFlyers(
       sqlFlyersMaps: _sqlFlyersMaps,
       allSlides: _allSlides,
     );
@@ -93,7 +93,7 @@ class FlyersLDB{
     /// inset sql slides
     for (SlideModel slide in flyer.slides){
 
-      final Map<String, Object> _sqlSlideMap = SlideModel.sqlCipherSlide(
+      final Map<String, Object> _sqlSlideMap = await SlideModel.sqlCipherSlide(
         slide: slide,
         flyerID: flyer.flyerID,
       );
@@ -104,7 +104,7 @@ class FlyersLDB{
     }
 
     /// insert sql flyer
-    final Map<String, Object> _sqlFlyerMap = FlyerModel.sqlCipherFlyer(flyer);
+    final Map<String, Object> _sqlFlyerMap = await FlyerModel.sqlCipherFlyer(flyer);
     await LDB.insert(
       table: flyersLDB.flyersTable,
       input: _sqlFlyerMap,
@@ -133,7 +133,7 @@ class FlyersLDB{
 
     }
 
-    final List<SlideModel> _flyerSlides = SlideModel.sqlDecipherSlides(maps: _allSlidesMaps);
+    final List<SlideModel> _flyerSlides = await SlideModel.sqlDecipherSlides(maps: _allSlidesMaps);
 
     return _flyerSlides;
   }
@@ -157,7 +157,7 @@ class FlyersLDB{
         numberOfSlides: _flyerMap['numberOfSlides'],
       );
 
-      _flyer = FlyerModel.sqlDecipherFlyer(
+      _flyer = await FlyerModel.sqlDecipherFlyer(
         flyerMap: _flyerMap,
         slides: _flyerSlides,
       );
