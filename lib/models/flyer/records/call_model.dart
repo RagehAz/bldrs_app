@@ -1,5 +1,7 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 
+
+
 class CallModel {
   final List<dynamic> slidesIndexes;
   final List<DateTime> timeStamps;

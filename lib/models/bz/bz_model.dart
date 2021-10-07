@@ -247,16 +247,6 @@ Map<String, dynamic> toMap(){
     return _bzModel;
   }
 // -----------------------------------------------------------------------------
-  static List<BzModel> decipherBzMapsFromRealTimeDatabase(Map<String, dynamic> bigMap){
-    final List<BzModel> _bzList = <BzModel>[];
-
-    bigMap?.forEach((bzID, bzMap) {
-      _bzList.add(decipherBzMap(bzMap));
-    });
-
-    return _bzList;
-  }
-// -----------------------------------------------------------------------------
   static List<BzModel> decipherBzzMapsFromFireStore(List<dynamic> maps) {
     final List<BzModel> _bzList = <BzModel>[];
 
