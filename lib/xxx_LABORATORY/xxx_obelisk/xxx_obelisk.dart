@@ -155,7 +155,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           LogoSlogan(sizeFactor: 0.8,),
 
-
           oButton('TimersTest', Iconz.Clock, TimerTest()),
 
           oButton('Trigram Test', Iconz.More, TrigramTest()),

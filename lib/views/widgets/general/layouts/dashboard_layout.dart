@@ -4,7 +4,6 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:flutter/material.dart';
 
 class DashBoardLayout extends StatelessWidget {

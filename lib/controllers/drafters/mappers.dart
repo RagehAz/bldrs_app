@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sembast/utils/value_utils.dart';
 
