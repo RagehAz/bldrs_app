@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/firestore/bz_ops.dart';
-import 'package:bldrs/firestore/flyer_ops.dart';
+import 'package:bldrs/db/firestore/bz_ops.dart';
+import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
@@ -101,7 +101,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
         // });
         print('4 - rebuilt tree with the retrieved bzModel');
 
-        final List<TinyFlyer> _bzTinyFlyers = await FlyerOps().readBzTinyFlyers(
+        final List<TinyFlyer> _bzTinyFlyers = await  FlyerOps().readBzTinyFlyers(
           context: context,
           bzModel: _bzFromDB,
         );

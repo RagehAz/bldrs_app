@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/views/widgets/specific/ask/question/question_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

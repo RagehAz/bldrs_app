@@ -4,7 +4,6 @@ import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer/records/share_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
@@ -60,7 +59,7 @@ class SectionDialogButton extends StatelessWidget {
                 verse: 'Inform a friend',
                 width: 133,
                 onTap: () async {
-                  await Launchers.shareLink(context, LinkModel.bldrsWebSiteLink);
+                  await Launch.shareLink(context, LinkModel.bldrsWebSiteLink);
                 },
               ),
 

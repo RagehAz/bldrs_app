@@ -1,6 +1,6 @@
-import 'package:bldrs/providers/local_db/sql_db/sql_column.dart';
+import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
+import 'package:bldrs/db/ldb/sql_db/sql_table.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
-import 'package:bldrs/providers/local_db/sql_db/sql_table.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';

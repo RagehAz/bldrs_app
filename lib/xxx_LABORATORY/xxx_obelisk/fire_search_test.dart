@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/firestore/search_ops.dart';
+import 'package:bldrs/db/firestore/search_ops.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';

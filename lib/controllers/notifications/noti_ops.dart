@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/notifications/local_notification_service.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
@@ -9,7 +10,6 @@ import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/notifications/audioz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/drafters/stream_checkers.dart';
-import 'package:bldrs/firestore/firestore.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 

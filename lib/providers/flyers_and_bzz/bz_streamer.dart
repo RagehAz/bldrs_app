@@ -1,7 +1,5 @@
-
-// -----------------------------------------------------------------------------
 import 'package:bldrs/controllers/drafters/stream_checkers.dart';
-import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';

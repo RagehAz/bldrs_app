@@ -60,7 +60,7 @@ class ContactsBubble extends StatelessWidget {
                         color: Colorz.BloodTest,
                         onTap:
                         onTap == null ?
-                            () async { await Launchers.launchURL('https://${_contactsWithStrings[index].contact}');}
+                            () async { await Launch.launchURL('https://${_contactsWithStrings[index].contact}');}
                             :
                             () => onTap(_value)
                     );
@@ -87,7 +87,7 @@ class ContactsBubble extends StatelessWidget {
                         margins: const EdgeInsets.all(_abPadding),
                         onTap:
                         onTap == null ?
-                            () async {await Launchers.launchURL('https://${_socialMediaContacts[index].contact}');}
+                            () async {await Launch.launchURL('https://${_socialMediaContacts[index].contact}');}
                             :
                             () => onTap(_value)
 

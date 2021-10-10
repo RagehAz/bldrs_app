@@ -1,10 +1,10 @@
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
+import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/local_db/sql_db/sql_column.dart';
 // -----------------------------------------------------------------------------
 class AuthorModel{
   final String userID;

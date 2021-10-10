@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/providers/questions/questions_streamer.dart';
 import 'package:bldrs/views/widgets/specific/ask/question/question_model.dart';
 import 'package:bldrs/views/widgets/specific/ask/chat/chat_model.dart';
