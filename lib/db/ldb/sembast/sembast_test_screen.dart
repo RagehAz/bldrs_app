@@ -74,7 +74,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
     TinyBz _tinyBz = TinyBz.dummyTinyBz('bolbol');
     Map<String, Object> _map = _tinyBz.toMap();
 
-    await Sembast.insert(
+    await Sembast.insertAll(
       docName: 'blah',
       inputs: [_map],
     );

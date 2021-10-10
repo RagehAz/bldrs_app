@@ -441,7 +441,7 @@ class BzOps{
       );
 
       print('b - update user\'s myBzzIDs');
-      final List<dynamic> _modifiedMyBzzIDs = UserModel.removeBzIDFromMyBzzIDs(_user.myBzzIDs, bzModel.bzID);
+      final List<dynamic> _modifiedMyBzzIDs = UserModel.removeIDFromIDs(_user.myBzzIDs, bzModel.bzID);
 
       print('c - update myBzzIDs field in user doc');
       await Fire.updateDocField(

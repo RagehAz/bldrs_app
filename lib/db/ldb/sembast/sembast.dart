@@ -64,12 +64,22 @@ class Sembast {
     return intMapStoreFactory.store(docName);
   }
 // -----------------------------------------------------------------------------
-  static Future<void> insert({List<Map<String, Object>> inputs, String docName}) async {
+  static Future<void> insert({String primaryKey, Map<String, Object> map, String docName}) async {
+
+
+  final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+  final Database _db = await _getDB();
+
+  await _doc.add(_db, map);
+
+  }
+
+  static Future<void> insertAll({List<Map<String, Object>> inputs, String docName}) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
 
-    await _doc.addAll(await _db, inputs);
+    await _doc.addAll(_db, inputs);
 
   }
 // -----------------------------------------------------------------------------
@@ -81,7 +91,7 @@ class Sembast {
     final Finder _finder = Finder(filter: Filter.equals(searchPrimaryKey, searchPrimaryValue));
 
     await _doc.update(
-      await _db,
+      _db,
       map,
       finder: _finder,
     );
@@ -117,7 +127,7 @@ class Sembast {
     );
 
     final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots = await _doc.find(
-      await _db,
+      _db,
       finder: _finder,
     );
 
@@ -134,19 +144,23 @@ class Sembast {
     final Database _db = await _getDB();
 
     final _finder = Finder(
-      filter: Filter.equals(searchField, searchValue, anyInList: true),
-      sortOrders: <SortOrder>[
-        SortOrder(fieldToSortBy)
-      ],
+      filter: Filter.equals(searchField, searchValue, anyInList: false),
+      // sortOrders: <SortOrder>[
+      //   SortOrder(fieldToSortBy)
+      // ],
     );
 
+    // print('_finder is : $_finder');
 
     final RecordSnapshot<int, Map<String, Object>> _recordSnapshot = await _doc.findFirst(
-      await _db,
+      _db,
       finder: _finder,
     );
 
-    final Map<String, Object> _map = _recordSnapshot.value;
+    // print('_recordSnapshot : $_recordSnapshot');
+
+
+    final Map<String, Object> _map = _recordSnapshot?.value;
 
     return _map;
   }
@@ -157,7 +171,7 @@ class Sembast {
     final Database _db = await _getDB();
 
     final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots = await _doc.find(
-      await _db,
+      _db,
       // finder: _finder,
     );
 
