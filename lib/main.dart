@@ -191,7 +191,7 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
           ),
 
           ChangeNotifierProvider(
-            create: (ctx) => UserProvider(),
+            create: (ctx) => UsersProvider(),
           ),
 
           ChangeNotifierProvider(

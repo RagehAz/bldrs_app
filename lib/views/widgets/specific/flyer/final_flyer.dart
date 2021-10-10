@@ -1,4 +1,6 @@
 import 'dart:io';
+
+import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
@@ -15,21 +17,22 @@ import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/firestore/dynamic_links.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/db/firestore/flyer_ops.dart';
+import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
-import 'package:bldrs/models/bz/author_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/zones/old_zone_provider.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/screens/f_bz/f_1_flyer_editor_screen.dart';
 import 'package:bldrs/views/screens/x_select_keywords_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -39,20 +42,18 @@ import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.
 import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/dialogs/flyer_type_selector.dart';
 import 'package:bldrs/views/widgets/specific/flyer/flyer_methods.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_pages.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/new_header.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/stats_dialog.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/progress_bar.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
-import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/new_header.dart';
-import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FinalFlyer extends StatefulWidget {
@@ -94,7 +95,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   @override
   bool get wantKeepAlive => true;
 
-  OldFlyersProvider _prof;
+
   SuperFlyer _superFlyer;
   BzModel _bzModel;
   FlyerModel _originalFlyer;
@@ -129,7 +130,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     super.initState();
 
     /// get current bzModel when this flyer goes to editor
-    _prof = Provider.of<OldFlyersProvider>(context, listen: false);
+    // _prof = Provider.of<OldFlyersProvider>(context, listen: false);
     _bzModel = widget.bzModel;
     // print('FINAL FINAL initialized _bzModel as : ${_bzModel.bzID} as bzName : ${_bzModel.bzName}');
 
@@ -844,8 +845,10 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     final TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromSuperFlyer(_superFlyer);
 
+    FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+
     /// add or remove tiny flyer in local saved flyersList
-    _prof.addOrDeleteTinyFlyerInLocalSavedTinyFlyers(_tinyFlyer);
+    _flyersProvider.addOrDeleteTinyFlyerInLocalSavedTinyFlyers(_tinyFlyer);
 
     print('ankh is ${_superFlyer.rec.ankhIsOn}');
 
@@ -943,8 +946,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     else {
 
-      final String _userID = superUserID();
-      final String _bzID = _superFlyer.bz.bzID;
+      // final String _userID = superUserID();
+      // final String _bzID = _superFlyer.bz.bzID;
       final String _contact = _superFlyer.flyerTinyAuthor.email;
 
       /// alert user there is no contact to call

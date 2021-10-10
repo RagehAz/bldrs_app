@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
@@ -131,6 +132,18 @@ class Timers {
 
     if (cipheredDateTimeIso8601 != null){
       _time = DateTime.parse(cipheredDateTimeIso8601);
+    }
+
+    return _time;
+  }
+// -----------------------------------------------------------------------------
+  /// we may revise datetimes timestamps isoStrings for firebase, sembast & sql
+  static Timestamp decipherDateTimeIso8601ToTimeStamp(String cipheredDateTimeIso8601){
+    Timestamp _time;
+
+    if (cipheredDateTimeIso8601 != null){
+      DateTime _dateTime = decipherDateTimeIso8601(cipheredDateTimeIso8601);
+      _time = Timestamp.fromDate(_dateTime);
     }
 
     return _time;

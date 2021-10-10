@@ -26,6 +26,8 @@ class UserModel {
   final bool emailIsVerified;
   final bool isAdmin;
   final FCMToken fcmToken;
+  final List<String> savedFlyersIDs;
+  final List<String> followedBzzIDs;
 // ###############################
   const UserModel({
     this.userID,
@@ -47,6 +49,8 @@ class UserModel {
     this.emailIsVerified,
     this.isAdmin,
     this.fcmToken,
+    this.savedFlyersIDs,
+    this.followedBzzIDs,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
@@ -70,6 +74,8 @@ class UserModel {
       'emailIsVerified' : emailIsVerified,
       'isAdmin': isAdmin,
       'fcmToken' : fcmToken.toMap(),
+      'savedFlyersIDs' : savedFlyersIDs,
+      'followedBzzIDs' : followedBzzIDs,
     };
   }
 // -----------------------------------------------------------------------------
@@ -99,6 +105,8 @@ class UserModel {
         emailIsVerified : map['emailIsVerified'],
         isAdmin: map['isAdmin'],
         fcmToken: FCMToken.decipherFCMToken(map['fcmToken']),
+        savedFlyersIDs: map['savedFlyersIDs'],
+        followedBzzIDs: map['followedBzzIDs'],
       );
 
   }
@@ -206,12 +214,12 @@ class UserModel {
     UserStatus.Deactivated,
   ];
 // -----------------------------------------------------------------------------
-  static List<dynamic> removeBzIDFromMyBzzIDs(List<dynamic> myBzzIDs, String bzID){
-    final int _bzIndex = myBzzIDs.indexWhere((id) => id == bzID,);
+  static List<String> removeIDFromIDs(List<String> ids, String id){
+    final int _idIndex = ids.indexWhere((_id) => _id == id,);
 
-    if (_bzIndex != null){
-      myBzzIDs.removeAt(_bzIndex);
-      return myBzzIDs;
+    if (_idIndex != null){
+      ids.removeAt(_idIndex);
+      return ids;
     } else {
       return null;
     }
@@ -243,6 +251,8 @@ class UserModel {
         isAdmin: false,
         fcmToken: null,
         company: null,
+        savedFlyersIDs: <String>[],
+        followedBzzIDs: <String>[],
       );
 
   }
@@ -281,6 +291,8 @@ class UserModel {
       isAdmin: false,
       company: null,
       fcmToken: null,
+      savedFlyersIDs: <String>[],
+      followedBzzIDs: <String>[],
     );
 
     _userModel.printUserModel(methodName: 'createInitialUserModelFromUser');
