@@ -7,7 +7,6 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
-import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/zones/old_zone_provider.dart';
@@ -18,14 +17,11 @@ import 'package:provider/provider.dart';
 /// this provides tiny flyers and tiny bzz
 class OldFlyersProvider with ChangeNotifier {
 
-  Section _currentSection;
-  List<Group> _sectionGroups;
 
   List<FlyerModel> _loadedFlyers;
   List<TinyFlyer> _wallTinyFlyers;
   List<BzModel> _loadedBzz;
   List<TinyBz> _loadedTinyBzz;
-  List<String> _loadedFollows;
   List<FlyerModel> _bzDeactivatedFlyers;
 
   BzModel _myCurrentBzModel;
@@ -48,17 +44,6 @@ class OldFlyersProvider with ChangeNotifier {
     _myCurrentBzModel = bzModel;
     notifyListeners();
   }
-
-// -----------------------------------------------------------------------------
-  Section get getCurrentSection {
-    return _currentSection ?? Section.NewProperties;
-  }
-
-  List<Group> get getSectionFilters {
-    return <Group>[..._sectionGroups];
-  }
-
-// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
   List<FlyerModel> get getAllFlyers {
     return <FlyerModel>[..._loadedFlyers];
@@ -77,48 +62,8 @@ class OldFlyersProvider with ChangeNotifier {
 //   }
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-  List<String> get getFollows{
-    return <String>[..._loadedFollows];
-  }
-// -----------------------------------------------------------------------------
   List<FlyerModel> get getBzDeactivatedFlyers{
     return <FlyerModel>[..._bzDeactivatedFlyers];
-  }
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-  Future<void> changeSection(BuildContext context, Section section) async {
-    print('Changing section to $section');
-    _currentSection = section;
-
-    _setSectionFilters();
-
-    await fetchAndSetTinyFlyersBySection(context, section);
-
-    // notifyListeners();
-  }
-// -----------------------------------------------------------------------------
-  void _setSectionFilters(){
-
-    final List<Group> _filtersBySection = Group.getGroupBySection(
-        section: _currentSection,
-    );
-
-    _sectionGroups = _filtersBySection;
-  }
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-  /// READs and sets db/users/userID/saves/bzz document
-  Future<void> fetchAndSetFollows(BuildContext context) async {
-
-    // /// read user's follows list
-    // final List<String> _follows = await RecordOps.readUserFollowsOps(context);
-
-    _loadedFollows =
-        // _follows ??
-        <String>[];
-
-    print('_loadedFollows = $_loadedFollows');
-    notifyListeners();
   }
 // -----------------------------------------------------------------------------
   /// READs all TinyBzz in firebase realtime database
@@ -294,20 +239,6 @@ class OldFlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-  bool checkFollow(String bzID){
-    bool _followIsOn = false;
-
-    final String _id = _loadedFollows?.firstWhere((id) => id == bzID, orElse: () => null);
-
-    if(_id == null){
-      _followIsOn = false;
-    } else {
-      _followIsOn = true;
-    }
-    // print('_followIsOn = $_followIsOn');
-
-    return _followIsOn;
-  }
 // -----------------------------------------------------------------------------
 //   List<FlyerModel> getSavedFlyersFromFlyersList (List<FlyerModel> inputList, String userID){
 //     List<FlyerModel> savedFlyers = [];
@@ -428,10 +359,6 @@ class OldFlyersProvider with ChangeNotifier {
   }
 // ############################################################################
 // ############################################################################
-  void updatedFollowsInLocalList(List<String> updatedFollows){
-    _loadedFollows = updatedFollows;
-    notifyListeners();
-  }
 // ############################################################################
   void replaceTinyFlyerInLocalList(TinyFlyer tinyFlyer){
     // int _tinyFlyerIndex = _loadedTinyFlyers.indexWhere((t) => t.flyerID == tinyFlyer.flyerID);

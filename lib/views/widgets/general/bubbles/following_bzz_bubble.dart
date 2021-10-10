@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/screens/i_flyer/h_1_bz_card_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/specific/in_pyramids/profile/bz_grid.dart';
@@ -21,9 +21,8 @@ class FollowingBzzBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final OldFlyersProvider pro = Provider.of<OldFlyersProvider>(context, listen: false);
-    // final user = Provider.of<UserModel>(context);
-    final List<dynamic> followedBzzIDs = pro.getFollows;
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final List<dynamic> followedBzzIDs = _usersProvider.myUserModel.followedBzzIDs;
 
     return Bubble(
       centered: false,
