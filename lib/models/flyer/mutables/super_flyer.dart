@@ -1,26 +1,27 @@
 import 'dart:typed_data';
+
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/mutables/flyer_editor.dart';
+import 'package:bldrs/models/flyer/mutables/flyer_navigator.dart';
+import 'package:bldrs/models/flyer/mutables/flyer_recorder.dart';
 import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/models/flyer/records/publish_time_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
+import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/zones/old_zone_provider.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/models/flyer/mutables/flyer_navigator.dart';
-import 'package:bldrs/models/flyer/mutables/flyer_recorder.dart';
-import 'package:bldrs/models/flyer/mutables/flyer_editor.dart';
 
 /// need to add
 /// string mapImageURL
@@ -279,8 +280,8 @@ class SuperFlyer{
 
     final int _initialPage = initialPage == null ? 0 : initialPage;
 
-    final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
     final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);
@@ -320,7 +321,7 @@ class SuperFlyer{
             onCountersTap: onCountersTap,
             /// user based bool triggers
             ankhIsOn: _flyersProvider.checkAnkh(flyerModel.flyerID),
-            followIsOn: _prof.checkFollow(flyerModel.tinyBz.bzID),
+            followIsOn: _bzzProvider.checkFollow(context: context, bzID: flyerModel.tinyBz.bzID),
             onEditReview: onEditReview,
             onSubmitReview: onSubmitReview,
             reviewController: new TextEditingController(),
@@ -433,8 +434,8 @@ class SuperFlyer{
 
     // print('CREATING view super flyer from tiny flyer : ${tinyFlyer.flyerID} : ${tinyFlyer?.midColor} : : ${tinyFlyer?.tinyBz?.bzName}');
 
-    final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
     return
       SuperFlyer(
@@ -470,7 +471,7 @@ class SuperFlyer{
           onCountersTap: null,
           /// user based bool triggers
           ankhIsOn: _flyersProvider.checkAnkh(tinyFlyer.flyerID),
-          followIsOn: _prof.checkFollow(tinyFlyer.tinyBz.bzID),
+          followIsOn: _bzzProvider.checkFollow(context: context, bzID: tinyFlyer.tinyBz.bzID),
           onEditReview: null,
           onSubmitReview: null,
           reviewController: null,

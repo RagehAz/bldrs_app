@@ -9,19 +9,19 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/views/screens/c_search/c_2_search_filters_screen.dart';
-import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/views/widgets/specific/browser/browser_pages.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/views/widgets/general/nav_bar/bar_button.dart';
+import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/browser/browser_pages.dart';
 import 'package:bldrs/views/widgets/specific/keywords/keyword_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:bldrs/views/widgets/general/nav_bar/bar_button.dart';
-import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 
 class SearchScreen extends StatefulWidget {
 
@@ -483,10 +483,12 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final OldFlyersProvider _flyersProvider = Provider.of<OldFlyersProvider>(context, listen: true);
-    final List<Group> _filtersBySection = _flyersProvider.getSectionFilters;
 
-    print('rebuilding search screen with section : ${_filtersBySection.length} filters');
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
+    final List<Group> _groupsBySection = _generalProvider.sectionGroups;
+
+
+    print('rebuilding search screen with section : ${_groupsBySection.length} filters');
 
     final double _buttonPadding = _browserIsOn == true ? Ratioz.appBarPadding * 1.5 : Ratioz.appBarPadding * 1.5;
 
@@ -506,7 +508,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     // double _filtersZoneWidth = (_browserScrollZoneWidth - _buttonPadding) / 2 ;
 
-    // List<Keyword> _currentFilterKeywords = _generateFilterKeywords(_filtersBySection);
+    // List<Keyword> _currentFilterKeywords = _generateFilterKeywords(_groupsBySection);
 
     final double _screenHeight = Scale.superScreenHeight(context);
     final double _screenWidth = Scale.superScreenWidth(context);
@@ -572,7 +574,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      ... _selectedKeywordsWidgets(_filtersBySection)
+                      ... _selectedKeywordsWidgets(_groupsBySection)
                     ],
                   ),
                 ),
@@ -606,7 +608,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   browserZoneHeight: _browserZoneHeight,
                   browserIsOn: _browserIsOn,
                   closeBrowser: _triggerBrowser,
-                  filtersModels: _filtersBySection,
+                  filtersModels: _groupsBySection,
                   onKeywordTap: (keywordModel) => _selectKeyword(keywordModel),
                   selectedKeywords: _selectedKeywords,
                 )

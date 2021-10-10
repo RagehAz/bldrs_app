@@ -7,10 +7,11 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bzz_bubble.dart';
@@ -79,7 +80,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
     if (_isInit) {
       _triggerLoading();
 
-      final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: true);
       final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: true);
       final UserModel _userModel = _userProvider.myUserModel;
 
@@ -87,6 +87,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
         final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
         final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+        final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
 
         print('x - fetching sponsors');
         _bzzProvider.fetchSponsors(context).then((_) async {
@@ -105,15 +106,19 @@ class _LoadingScreenState extends State<LoadingScreen> {
           _increaseProgressTo(85);
 
           /// TASK : should get only first 10 followed tiny bzz, then paginate in all when entering followed bzz screen
-          await _prof.fetchAndSetFollows(context);
+          await _bzzProvider.fetchFollowedBzz(context);
           _increaseProgressTo(95);
 
           /// TASK : wallahi mana 3aref hane3mel eh hena
-          await _prof.fetchAndSetTinyFlyersBySection(context, _prof.getCurrentSection);
+          final Section _currentSection = _generalProvider.currentSection;
+          await _flyersProvider.fetchFlyersBySection(
+              context: context,
+              section: _currentSection,
+          );
           _increaseProgressTo(99);
 
 
-          _prof.changeSection(context, _prof.getCurrentSection);
+          _generalProvider.changeSection(context, _generalProvider.currentSection);
 
           setState(() {
             // _canContinue = true;

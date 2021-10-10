@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_bubble.dart';
@@ -18,7 +17,7 @@ class SectionDialog extends StatelessWidget {
   });
 
 // -----------------------------------------------------------------------------
-  static Future<void> slideDialog({BuildContext context, OldFlyersProvider pro, double dialogHeight}) async {
+  static Future<void> slideDialog({BuildContext context, double dialogHeight}) async {
     await BottomDialog.showBottomDialog(
       context: context,
       title: 'Select a section',

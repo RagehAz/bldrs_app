@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/views/widgets/general/appbar/sections_button.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -25,8 +25,8 @@ class SequenceFlyersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final OldFlyersProvider _pro =  Provider.of<OldFlyersProvider>(context, listen: true);
-    final Section _currentSection = _pro.getCurrentSection;
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
+    final Section _currentSection = _generalProvider.currentSection;
 
     return MainLayout(
       appBarType: AppBarType.Scrollable,

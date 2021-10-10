@@ -5,8 +5,8 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
+import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/zones/old_zone_provider.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/dialog_button.dart';
@@ -37,9 +37,10 @@ class SectionDialogButton extends StatelessWidget {
     return _icon;
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onSectionTap({BuildContext context, OldFlyersProvider pro, Section section, bool inActiveMode}) async {
+  Future<void> _onSectionTap({BuildContext context, Section section, bool inActiveMode}) async {
 
     final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     final String _currentProvince = _countryPro.currentZone.cityID;
 
     /// A - if section is not active * if user is author or not
@@ -78,7 +79,7 @@ class SectionDialogButton extends StatelessWidget {
 
     /// A - if section is active
     else {
-      await pro.changeSection(context, section);
+      await _generalProvider.changeSection(context, section);
 
       /// B - close dialog
       Nav.goBack(context);
@@ -90,8 +91,6 @@ class SectionDialogButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    final OldFlyersProvider _pro =  Provider.of<OldFlyersProvider>(context, listen: true);
 
     return DreamBox(
       height: dialogHeight * 0.06,
@@ -107,7 +106,6 @@ class SectionDialogButton extends StatelessWidget {
           _onSectionTap(
               context: context,
               section: section,
-              pro: _pro,
               inActiveMode: inActiveMode
           ),
     );
