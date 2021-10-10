@@ -11,6 +11,7 @@ import 'package:bldrs/main.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/providers/users/old_user_provider.dart';
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
@@ -107,8 +108,8 @@ class MainLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: true);
-    final List<TinyBz> _userTinyBzz = appBarType == AppBarType.Main ? _prof.getUserTinyBzz : [];
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
+    final List<TinyBz> _userTinyBzz = appBarType == AppBarType.Main ? _bzzProvider.userTinyBzz : <TinyBz>[];
 
     final bool _ragehIsOn = tappingRageh == null ? false : true;
 

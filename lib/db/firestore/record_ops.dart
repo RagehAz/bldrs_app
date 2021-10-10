@@ -1,4 +1,3 @@
-import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/flyer/records/customer_journey.dart';
 import 'package:flutter/material.dart';
 
@@ -22,19 +21,19 @@ abstract class RecordOps{
 
   }
 
-  static Future<List<String>> readUserFollows({BuildContext context, String userID, }) async {
+  // static Future<List<String>> readUserFollows({BuildContext context, String userID, }) async {
+  //
+  //   Map<String, dynamic> _followsMap = await Fire.readSubDoc(
+  //     context: context,
+  //     collName: FireCollection.users,
+  //     docName: userID,
+  //     subCollName: FireCollection.users_user_records,
+  //     subDocName: FireCollection.users_user_records_bzz,
+  //   );
+  // }
 
-    Map<String, dynamic> _followsMap = await Fire.readSubDoc(
-      context: context,
-      collName: FireCollection.users,
-      docName: userID,
-      subCollName: FireCollection.users_user_records,
-      subDocName: FireCollection.users_user_records_bzz,
-    );
-  }
-
-  static Future<List<Record>> readBzFollowers({BuildContext context, String bzID}) async {
-
-  }
+  // static Future<List<Record>> readBzFollowers({BuildContext context, String bzID}) async {
+  //
+  // }
 
 }

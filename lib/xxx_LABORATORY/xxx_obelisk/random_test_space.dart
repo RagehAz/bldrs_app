@@ -6,19 +6,15 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/db/firestore/aggredocs.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
-import 'package:bldrs/db/ldb/sembast/sembast.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/helpers/app_updates.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class RandomTestSpace extends StatefulWidget {
 final double flyerBoxWidth;

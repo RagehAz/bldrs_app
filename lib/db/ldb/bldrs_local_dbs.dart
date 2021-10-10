@@ -22,6 +22,7 @@ class LDBDoc {
   static const String myBzzFlyers = 'myBzzFlyers';
   static const String sessionFlyers = 'sessionFlyers';
   static const String sessionBzz = 'sessionBzz';
+  static const String sessionUsers = 'sessionUsers';
   static const String keywords = 'keywords';
 
   static const List<String> bzModelsDocs = const <String>[
@@ -34,6 +35,11 @@ class LDBDoc {
     mySavedFlyers,
     myBzzFlyers,
     sessionFlyers,
+  ];
+
+  static const List<String> userModelsDocs = const <String>[
+    myUserModel,
+    sessionUsers,
   ];
 }
 
@@ -57,6 +63,7 @@ abstract class LDBOps{
       case LDBDoc.myBzzFlyers : return 'flyerID';
       case LDBDoc.sessionFlyers : return 'flyerID';
       case LDBDoc.sessionBzz : return 'bzID';
+      case LDBDoc.sessionUsers : return 'sessionUsers';
       case LDBDoc.keywords : return 'keywordID';
       default : return null;
     }
@@ -66,15 +73,16 @@ abstract class LDBOps{
   static Future<void> insertMap({Map<String, Object> input, String docName}) async {
 
     await insertMaps(
-      inputs: <Map<String, Object>>[input],
+      inputs: _cipherFirebaseMapsToSembastMaps(<Map<String, Object>>[input]),
       docName: docName,
     );
 
+    print('LDBOps inserted int ${docName} : this input : ${input}');
   }
 // -----------------------------------------------------------------------------
   static Future<void> insertMaps({List<Map<String, Object>> inputs,String docName}) async {
 
-    await Sembast.insert(
+    await Sembast.insertAll(
       inputs: _cipherFirebaseMapsToSembastMaps(inputs),
       docName: docName,
     );
@@ -90,6 +98,8 @@ abstract class LDBOps{
       searchValue: searchValue,
     );
 
+    print('LDBOps.searchMap : _result : $_result');
+
     final Map<String, Object> _fixedMap = _decipherSembastMapToFirebaseMap(_result);
 
     return _fixedMap;
@@ -104,6 +114,8 @@ abstract class LDBOps{
       searchField: searchField,
       searchValue: searchValue,
     );
+
+    // print('searchMaps : _result : $_result');
 
     final List<Map<String, Object>> _fixedMaps = _decipherSembastMapsToFirebaseMaps(_result);
 
@@ -221,57 +233,62 @@ abstract class LDBOps{
   static Map<String, Object> _decipherSembastMapToFirebaseMap(Map<String, Object> sembastMap){
 
     Map<String, Object> _fixedMap = sembastMap;
-    final List<String> _keys = sembastMap.keys.toList();
-    final List<Object> _values = sembastMap.values.toList();
 
-    String _keyOfCipheredDateTime;
-    String _keyOfCipheredGeoPoint;
+    if (_fixedMap != null){
 
-    for (int i = 0; i<_keys.length; i++){
+      final List<String> _keys = sembastMap.keys.toList();
+      final List<Object> _values = sembastMap.values.toList();
 
-      final String _key = _keys[i];
-      final dynamic _value = _values[i];
+      String _keyOfCipheredDateTime;
+      String _keyOfCipheredGeoPoint;
 
-      final bool _isACipheredDateTime = _key == 'cipheredDateTime';
-      final bool _isACipheredGeoPoint = _key == 'cipheredGeoPoint';
+      for (int i = 0; i<_keys.length; i++){
 
-      if (_isACipheredDateTime == true){
-        _keyOfCipheredDateTime = _value;
+        final String _key = _keys[i];
+        final dynamic _value = _values[i];
+
+        final bool _isACipheredDateTime = _key == 'cipheredDateTime';
+        final bool _isACipheredGeoPoint = _key == 'cipheredGeoPoint';
+
+        if (_isACipheredDateTime == true){
+          _keyOfCipheredDateTime = _value;
+        }
+
+        if (_isACipheredGeoPoint == true){
+          _keyOfCipheredGeoPoint = _value;
+        }
+
       }
 
-      if (_isACipheredGeoPoint == true){
-        _keyOfCipheredGeoPoint = _value;
+      if (_keyOfCipheredDateTime != null){
+
+        _fixedMap = Mapper.replacePair(
+          map: _fixedMap,
+          fieldKey: _keyOfCipheredDateTime,
+          inputValue: Timers.decipherDateTimeIso8601ToTimeStamp(_fixedMap[_keyOfCipheredDateTime]),
+        );
+
+        _fixedMap = Mapper.removePair(
+          map: _fixedMap,
+          fieldKey: 'cipheredDateTime',
+        );
+
       }
 
-    }
+      if (_keyOfCipheredGeoPoint != null){
 
-    if (_keyOfCipheredDateTime != null){
+        _fixedMap = Mapper.replacePair(
+          map: _fixedMap,
+          fieldKey: _keyOfCipheredGeoPoint,
+          inputValue: Atlas.sqlDecipherGeoPoint(_fixedMap[_keyOfCipheredGeoPoint]),
+        );
 
-      _fixedMap = Mapper.replacePair(
-        map: _fixedMap,
-        fieldKey: _keyOfCipheredDateTime,
-        inputValue: Timers.decipherDateTimeIso8601(_fixedMap[_keyOfCipheredDateTime]),
-      );
+        _fixedMap = Mapper.removePair(
+          map: _fixedMap,
+          fieldKey: 'cipheredGeoPoint',
+        );
 
-      _fixedMap = Mapper.removePair(
-        map: _fixedMap,
-        fieldKey: 'cipheredDateTime',
-      );
-
-    }
-
-    if (_keyOfCipheredGeoPoint != null){
-
-      _fixedMap = Mapper.replacePair(
-        map: _fixedMap,
-        fieldKey: _keyOfCipheredGeoPoint,
-        inputValue: Atlas.sqlDecipherGeoPoint(_fixedMap[_keyOfCipheredGeoPoint]),
-      );
-
-      _fixedMap = Mapper.removePair(
-        map: _fixedMap,
-        fieldKey: 'cipheredGeoPoint',
-      );
+      }
 
     }
 

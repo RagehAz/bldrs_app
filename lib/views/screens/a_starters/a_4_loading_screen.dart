@@ -7,7 +7,11 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -75,25 +79,29 @@ class _LoadingScreenState extends State<LoadingScreen> {
     if (_isInit) {
       _triggerLoading();
 
-      if (AuthOps.userIsSignedIn() == true){
+      final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: true);
+      final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: true);
+      final UserModel _userModel = _userProvider.myUserModel;
 
-        final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: true);
+      if (AuthOps.userIsSignedIn() == true && _userModel != null){
 
-        // _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
-        print('fetching sponsors');
-        _prof.fetchAndSetSponsors(context)
-            .then((_) async {
+        final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+        final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+
+        print('x - fetching sponsors');
+        _bzzProvider.fetchSponsors(context).then((_) async {
 
           setState(() {
-            _sponsors = _prof.getSponsors;
+            _sponsors = _bzzProvider.sponsors;
             _progress = 40;
           });
 
-          await _prof.fetchAndSetUserTinyBzz(context);
+          print('x - fetching UserBzz');
+          await _bzzProvider.fetchUserBzz(context);
           _increaseProgressTo(80);
 
           // TASK : should get only first 10 saved tiny flyers,, and continue paginating when entering the savedFlyers screen
-          await _prof.fetchAndSetSavedFlyers(context);
+          await _flyersProvider.fetchSavedFlyers(context);
           _increaseProgressTo(85);
 
           /// TASK : should get only first 10 followed tiny bzz, then paginate in all when entering followed bzz screen

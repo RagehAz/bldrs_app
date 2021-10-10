@@ -2,11 +2,9 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/ldb_manager/ldb_viewer_screen.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
@@ -97,47 +95,18 @@ class LDBViewersScreen extends StatelessWidget {
 
     return DashBoardLayout(
       pageTitle: 'LDB viewers',
-        loading: false,
+      loading: false,
       onBldrsTap: () async {
 
         print('starting the thing');
 
-        final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
-        List<TinyFlyer> _allTinyFlyers =  _prof.getSavedTinyFlyers;
-
-        print('got tinyflyers from provider');
-
-        List<FlyerModel> _flyers = <FlyerModel>[];
-
-        for (TinyFlyer tinyFlyer in _allTinyFlyers){
-
-          final FlyerModel _flyer = await FlyerOps().readFlyerOps(
-            context: context,
-            flyerID: tinyFlyer.flyerID,
-          );
-
-          _flyers.add(_flyer);
-
-          print('got ${_flyer.flyerID} from firebase');
-
-
-        }
-
-        // ---
-
-        print('got all saved flyers from firebase');
-
-
-        List<Map<String, Object>> _maps = FlyerModel.cipherFlyers(_flyers);
-
-        print('starting local insertion');
-
-        await LDBOps.insertMaps(
-          docName: LDBDoc.mySavedFlyers,
-          inputs: _maps,
+        final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+        final FlyerModel _flyer = await _prof.fetchFlyerByID(
+          context: context,
+          flyerID: 'f002',
         );
 
-        print('tamam, inserted all,, shoof keda,, thank you lord');
+        _flyer.printFlyer();
 
 
         },
@@ -188,7 +157,7 @@ class LDBViewersScreen extends StatelessWidget {
 
           WideButton(
             verse: 'Session flyers',
-            onTap: () => goToLDBViewer(context, LDBDoc.myBzzFlyers,),
+            onTap: () => goToLDBViewer(context, LDBDoc.sessionFlyers,),
             icon: Iconz.FlyerGrid,
           ),
 

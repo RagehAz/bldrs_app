@@ -41,7 +41,7 @@ class GeneralProvider extends ChangeNotifier {
     print('Changing section to $section');
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    await _flyersProvider.fetchFlyersBySection(context, section);
+    await _flyersProvider.fetchFlyersBySection(context: context, section: section);
 
     _currentSection = section;
     setSectionGroups();

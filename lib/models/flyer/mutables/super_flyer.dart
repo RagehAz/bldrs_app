@@ -12,6 +12,7 @@ import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -279,6 +280,7 @@ class SuperFlyer{
     final int _initialPage = initialPage == null ? 0 : initialPage;
 
     final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
     final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);
@@ -317,7 +319,7 @@ class SuperFlyer{
             onCallTap: onCallTap,
             onCountersTap: onCountersTap,
             /// user based bool triggers
-            ankhIsOn: _prof.checkAnkh(flyerModel.flyerID),
+            ankhIsOn: _flyersProvider.checkAnkh(flyerModel.flyerID),
             followIsOn: _prof.checkFollow(flyerModel.tinyBz.bzID),
             onEditReview: onEditReview,
             onSubmitReview: onSubmitReview,
@@ -432,6 +434,7 @@ class SuperFlyer{
     // print('CREATING view super flyer from tiny flyer : ${tinyFlyer.flyerID} : ${tinyFlyer?.midColor} : : ${tinyFlyer?.tinyBz?.bzName}');
 
     final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
     return
       SuperFlyer(
@@ -466,7 +469,7 @@ class SuperFlyer{
           onCallTap: null,
           onCountersTap: null,
           /// user based bool triggers
-          ankhIsOn: _prof.checkAnkh(tinyFlyer.flyerID),
+          ankhIsOn: _flyersProvider.checkAnkh(tinyFlyer.flyerID),
           followIsOn: _prof.checkFollow(tinyFlyer.tinyBz.bzID),
           onEditReview: null,
           onSubmitReview: null,

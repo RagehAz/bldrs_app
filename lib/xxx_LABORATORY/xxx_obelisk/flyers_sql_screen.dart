@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
@@ -20,7 +21,7 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/views/screens/i_flyer/x_3_slide_full_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/following_bzz_bubble.dart';
@@ -69,15 +70,16 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
   }
 // -----------------------------------------------------------------------------
   List<TinyFlyer> _savedTinyFlyers = <TinyFlyer>[];
-  OldFlyersProvider _prof;
+  FlyersProvider _flyersProvider;
   List<BzModel> _followedBzz = <BzModel>[];
 
   @override
   void initState() {
     super.initState();
 
-    _prof = Provider.of<OldFlyersProvider>(context, listen: false);
-    _savedTinyFlyers =  _prof.getSavedTinyFlyers;
+    _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+
+    _savedTinyFlyers =  _flyersProvider.savedTinyFlyers;
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -88,7 +90,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     if(_isInit){
       _triggerLoading().then((_) async {
 
-        _followedBzz = await getFollowedBzz(_prof.getFollows);
+        // _followedBzz = await getFollowedBzz(_flyersProvider.getFollows);
 
         await _createFlyersLDB();
         await _createBzzLDB();
