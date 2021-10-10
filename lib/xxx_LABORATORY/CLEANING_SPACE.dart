@@ -113,4 +113,50 @@
 //
 // }
 // //-----------------------------------------------------------------------------
-
+// List<String> _loadedFollows;
+// List<String> get getFollows{
+//   return <String>[..._loadedFollows];
+// }
+// /// READs and sets db/users/userID/saves/bzz document
+// Future<void> fetchAndSetFollows(BuildContext context) async {
+//
+//   // /// read user's follows list
+//   // final List<String> _follows = await RecordOps.readUserFollowsOps(context);
+//
+//   _loadedFollows =
+//   // _follows ??
+//   <String>[];
+//
+//   print('_loadedFollows = $_loadedFollows');
+//   notifyListeners();
+// }
+// void updatedFollowsInLocalList(List<String> updatedFollows){
+//   _loadedFollows = updatedFollows;
+//   notifyListeners();
+// }
+// //-----------------------------------------------------------------------------
+// Section _currentSection;
+// List<Group> _sectionGroups;
+// Section get getCurrentSection {
+//   return _currentSection ?? Section.NewProperties;
+// }
+// List<Group> get getSectionFilters {
+//   return <Group>[..._sectionGroups];
+// }
+// Future<void> changeSection(BuildContext context, Section section) async {
+//   print('Changing section to $section');
+//   _currentSection = section;
+//
+//   _setSectionFilters();
+//
+//   await fetchAndSetTinyFlyersBySection(context, section);
+//
+//   // notifyListeners();
+// }
+// void _setSectionFilters(){
+//   final List<Group> _filtersBySection = Group.getGroupBySection(
+//     section: _currentSection,
+//   );
+//   _sectionGroups = _filtersBySection;
+// }
+// //-----------------------------------------------------------------------------

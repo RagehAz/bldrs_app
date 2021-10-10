@@ -6,7 +6,7 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+// final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
 class GeneralProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   /// APP STATE
@@ -33,7 +33,7 @@ class GeneralProvider extends ChangeNotifier {
   /// SECTION & GROUPS
   Section _currentSection;
 // -------------------------------------
-  Section get getCurrentSection {
+  Section get currentSection {
     return _currentSection ?? Section.Designs;
   }
 // -------------------------------------
