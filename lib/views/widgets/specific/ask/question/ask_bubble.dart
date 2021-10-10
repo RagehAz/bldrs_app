@@ -13,7 +13,7 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/users/user_streamer.dart';
+import 'package:bldrs/providers/streamers/user_streamer.dart';
 import 'package:bldrs/views/widgets/specific/ask/question/question_model.dart';
 import 'package:bldrs/views/widgets/specific/ask/question/question_ops.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';

@@ -8,7 +8,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/views/screens/a_starters/a_3_auth_screen.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
@@ -28,7 +28,7 @@ class StartingScreen extends StatefulWidget {
 class _StartingScreenState extends State<StartingScreen> {
 /// TASK : should fetch user current location automatically and suggest them here
 //   final Zone currentZone = Zone(countryID: '', cityID: '', districtID: '');
-  CountryProvider _countryPro;
+  OldCountryProvider _countryPro;
   Zone _currentZone;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -57,7 +57,7 @@ class _StartingScreenState extends State<StartingScreen> {
     super.initState();
     /// get user current location
     // TASK : need to trace user current location and pass it here while creating the userModel from firebase User
-    _countryPro = Provider.of<CountryProvider>(context, listen: false);
+    _countryPro = Provider.of<OldCountryProvider>(context, listen: false);
     _currentZone = _countryPro.currentZone;
   }
 // -----------------------------------------------------------------------------

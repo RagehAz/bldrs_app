@@ -3,7 +3,7 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -136,7 +136,7 @@ class TextGenerator{
   }
 // -----------------------------------------------------------------------------
   static String zoneStringer ({BuildContext context, Zone zone,}){
-    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
 
     final String _countryID = zone.countryID;
     final String _provinceID = zone.cityID;
@@ -154,7 +154,7 @@ class TextGenerator{
   }
 // -----------------------------------------------------------------------------
   static String cityCountryStringer ({BuildContext context, Zone zone,}){
-    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
 
     final String _countryID = zone.countryID;
     final String _cityID = zone.cityID;

@@ -17,7 +17,7 @@ import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/bubbles/add_gallery_pic_bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/general/bubbles/locale_bubble.dart';
@@ -48,7 +48,7 @@ class BzEditorScreen extends StatefulWidget {
 }
 
 class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStateMixin{
-  FlyersProvider _prof;
+  OldFlyersProvider _prof;
   // -------------------------
   // final _formKey = GlobalKey<FormState>();
   // -------------------------
@@ -107,7 +107,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   void initState(){
     super.initState();
     // -------------------------
-    _prof = Provider.of<FlyersProvider>(context, listen: false);
+    _prof = Provider.of<OldFlyersProvider>(context, listen: false);
     _bz = widget.firstTimer == true ? BzModel.createInitialBzModelFromUserData(widget.userModel) : widget.bzModel;
     // -------------------------
     // _currentBzID = _bz.bzID;

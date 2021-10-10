@@ -13,7 +13,7 @@ import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/test_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,13 +21,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 /// this provides tiny flyers and tiny bzz
-class FlyersProvider with ChangeNotifier {
+class OldFlyersProvider with ChangeNotifier {
   List<TinyBz> _sponsors;
+
   Section _currentSection;
-  List<Group> _sectionFilters;
+  List<Group> _sectionGroups;
+
   List<TinyBz> _userTinyBzz;
   List<FlyerModel> _loadedFlyers;
-  List<TinyFlyer> _loadedTinyFlyers;
+  List<TinyFlyer> _wallTinyFlyers;
   List<BzModel> _loadedBzz;
   List<TinyBz> _loadedTinyBzz;
   List<TinyFlyer> _loadedSavedTinyFlyers;
@@ -64,7 +66,7 @@ class FlyersProvider with ChangeNotifier {
   }
 
   List<Group> get getSectionFilters {
-    return <Group>[..._sectionFilters];
+    return <Group>[..._sectionGroups];
   }
 
 // -----------------------------------------------------------------------------
@@ -78,7 +80,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   List<TinyFlyer> get getAllTinyFlyers {
-    return <TinyFlyer>[..._loadedTinyFlyers];
+    return <TinyFlyer>[..._wallTinyFlyers];
   }
 // -----------------------------------------------------------------------------
   List<BzModel> get getAllBzz {
@@ -133,20 +135,20 @@ class FlyersProvider with ChangeNotifier {
     print('Changing section to $section');
     _currentSection = section;
 
-    setSectionFilters();
+    _setSectionFilters();
 
     await fetchAndSetTinyFlyersBySection(context, section);
 
     // notifyListeners();
   }
 // -----------------------------------------------------------------------------
-  void setSectionFilters(){
+  void _setSectionFilters(){
 
     final List<Group> _filtersBySection = Group.getGroupBySection(
         section: _currentSection,
     );
 
-    _sectionFilters = _filtersBySection;
+    _sectionGroups = _filtersBySection;
   }
 // -----------------------------------------------------------------------------
   /// if a user is an Author, this READs & sets user tiny bzz form db/users/userID['myBzzIDs']
@@ -299,7 +301,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   Future<void> fetchAndSetTinyFlyersBySection(BuildContext context, Section section) async {
-    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
     final Zone _currentZone = _countryPro.currentZone;
 
     final String _zoneString = TextGenerator.zoneStringer(
@@ -330,7 +332,7 @@ class FlyersProvider with ChangeNotifier {
 
           // print('${(TinyFlyer.cipherTinyFlyers(_foundTinyFlyers)).toString()}');
 
-          _loadedTinyFlyers = _foundTinyFlyers;
+          _wallTinyFlyers = _foundTinyFlyers;
 
           notifyListeners();
           print('_loadedTinyBzz :::: --------------- $_loadedTinyBzz');
@@ -342,8 +344,8 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   void removeTinyFlyerFromLocalList(String flyerID){
-    final int _index = _loadedTinyFlyers.indexWhere((tinyFlyer) => tinyFlyer.flyerID == flyerID);
-    _loadedTinyFlyers.removeAt(_index);
+    final int _index = _wallTinyFlyers.indexWhere((tinyFlyer) => tinyFlyer.flyerID == flyerID);
+    _wallTinyFlyers.removeAt(_index);
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
@@ -369,7 +371,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   TinyFlyer getTinyFlyerByFlyerID (String flyerID){
-    final TinyFlyer _tinyFlyer = _loadedTinyFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
+    final TinyFlyer _tinyFlyer = _wallTinyFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
 
     return _tinyFlyer;
   }
@@ -382,7 +384,7 @@ class FlyersProvider with ChangeNotifier {
 // -----------------------------------------------------------------------------
   List<String> getTinyFlyersIDsByFlyerType(FlyerType flyerType){
     final List<String> flyersIDs = <String>[];
-    _loadedTinyFlyers?.forEach((fl) {
+    _wallTinyFlyers?.forEach((fl) {
       if(fl.flyerType == flyerType){flyersIDs.add(fl.flyerID);}
     });
     return flyersIDs;
@@ -552,7 +554,7 @@ class FlyersProvider with ChangeNotifier {
   }
 // ############################################################################
   void addTinyFlyerToLocalList(TinyFlyer tinyFlyer){
-    _loadedTinyFlyers.add(tinyFlyer);
+    _wallTinyFlyers.add(tinyFlyer);
     notifyListeners();
   }
 // ############################################################################

@@ -6,9 +6,12 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/db/firestore/aggredocs.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
+import 'package:bldrs/db/ldb/sembast/sembast.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/helpers/app_updates.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
@@ -292,32 +295,27 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
               WideButton(
                 color: Colorz.BloodTest,
-                verse: 'print providers Inception',
+                verse: 'upload app state',
                 icon: Iconz.DvBlackHole,
                 onTap: () async {
 
-                  final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+                  AppState _appState = AppState.initialState() ;
 
-                  final String _thing = _prof.inception;
+                  _appState.sponsors = <String>[
+                    'ar1',
+                    'br1',
+                    'dr2',
+                    'mn2',
+                    'pp2',
+                    'sp2',
+                  ];
 
-                  print('inception is : ${_thing}');
-
-                },
-              ),
-
-              WideButton(
-                color: Colorz.BloodTest,
-                verse: 'set providers Inception',
-                icon: Iconz.DvBlackHole,
-                onTap: () async {
-
-                  final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-
-                  final String setter = 'x lance';
-
-                  _prof.setInception(context: context, input: setter);
-
-                  print('inception is set to ${setter}');
+                  await Fire.createNamedDoc(
+                    context: context,
+                    collName: FireCollection.admin,
+                    docName: FireCollection.admin_appState,
+                    input: _appState.toMap(),
+                  );
 
                 },
               ),

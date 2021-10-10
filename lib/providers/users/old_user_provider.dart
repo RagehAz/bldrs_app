@@ -7,10 +7,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
-class UserProvider {
+class OldUserProvider {
   final String userID;
 
-  UserProvider({this.userID});
+  OldUserProvider({this.userID});
 // -----------------------------------------------------------------------------
 //   /// users list from snapshot
   List<UserModel> _usersListFromSnapshot(QuerySnapshot snapshot) {

@@ -6,7 +6,7 @@ import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/db/firestore/user_ops.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/screens/g_user/g_x_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/following_bzz_bubble.dart';
@@ -78,7 +78,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     if (_isInit) {
       _triggerLoading().then((_) async {
 
-        final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+        final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
 
         await _prof.fetchAndSetFollows(context);
 

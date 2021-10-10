@@ -6,7 +6,7 @@ import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
@@ -60,7 +60,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 
       _triggerLoading();
 
-      final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+      final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: true);
 
       // _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
       _prof.fetchAndSetBzDeactivatedFlyers(context, widget.bz)

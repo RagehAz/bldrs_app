@@ -10,7 +10,7 @@ import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
-class CountryProvider with ChangeNotifier{
+class OldCountryProvider with ChangeNotifier{
   /// get user country
   String _currentCountryID = 'egy';
   String _currentCityID = 'Cairo';

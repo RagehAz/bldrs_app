@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_dialog.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class SectionsButton extends StatelessWidget {
     this.color = Colorz.White10,
 });
 // -----------------------------------------------------------------------------
-  void _changeSection(BuildContext context, FlyersProvider pro) async {
+  void _changeSection(BuildContext context, OldFlyersProvider pro) async {
 
   final double _dialogHeight = Scale.superScreenHeight(context) * 0.95;
 
@@ -33,7 +33,7 @@ class SectionsButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
 @override
 Widget build(BuildContext context) {
-  final FlyersProvider _pro =  Provider.of<FlyersProvider>(context, listen: true);
+  final OldFlyersProvider _pro =  Provider.of<OldFlyersProvider>(context, listen: true);
   final Section _currentSection = _pro.getCurrentSection;
 
   final double _corners = Ratioz.boxCorner12;

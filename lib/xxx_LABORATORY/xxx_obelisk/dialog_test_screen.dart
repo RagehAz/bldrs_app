@@ -2,12 +2,12 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/db/firestore/flyer_ops.dart';
-import 'package:bldrs/providers/users/user_streamer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/providers/streamers/user_streamer.dart';
 import 'package:bldrs/views/widgets/general/bubbles/flyers_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
@@ -21,7 +21,7 @@ class DialogTestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+    OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
     // List<TinyFlyer> _designFlyers = _prof.getTinyFlyersByFlyerType(FlyerType.Design);
     List<TinyFlyer> _flyers = _prof.getAllTinyFlyers;
 

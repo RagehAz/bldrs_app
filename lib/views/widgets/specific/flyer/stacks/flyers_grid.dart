@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
@@ -40,7 +40,7 @@ class _FlyersGridState extends State<FlyersGrid> {
   @override
   void initState() {
     super.initState();
-    final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+    final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
     // savedFlyers = await pro.getSavedFlyers;
     _tinyFlyers = widget.tinyFlyers == null ? _prof.getSavedTinyFlyers : widget.tinyFlyers;
   }

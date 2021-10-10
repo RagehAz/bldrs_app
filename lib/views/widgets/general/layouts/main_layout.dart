@@ -11,8 +11,8 @@ import 'package:bldrs/main.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
-import 'package:bldrs/providers/users/user_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/providers/users/old_user_provider.dart';
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/views/widgets/general/buttons/back_anb_search_button.dart';
@@ -95,7 +95,7 @@ class MainLayout extends StatelessWidget {
 // -----------------------------------------------------------------------------
   Future<void> _refresh(BuildContext context) async {
 
-    final FlyersProvider _pro = Provider.of<FlyersProvider>(context,listen: false);
+    final OldFlyersProvider _pro = Provider.of<OldFlyersProvider>(context,listen: false);
 
     final Section _currentSection = _pro.getCurrentSection;
 
@@ -107,7 +107,7 @@ class MainLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+    final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: true);
     final List<TinyBz> _userTinyBzz = appBarType == AppBarType.Main ? _prof.getUserTinyBzz : [];
 
     final bool _ragehIsOn = tappingRageh == null ? false : true;
@@ -194,7 +194,7 @@ class MainLayout extends StatelessWidget {
     final Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.Black230 : Colorz.SkyDarkBlue;
 
     return StreamProvider<List<UserModel>>.value(
-      value: UserProvider().allUsersStream,
+      value: OldUserProvider().allUsersStream,
       initialData: [],
       child: GestureDetector(
         onTap: (){Keyboarders.minimizeKeyboardOnTapOutSide(context);},
