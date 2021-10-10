@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';

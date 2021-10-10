@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';

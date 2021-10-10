@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/firestore/flyer_ops.dart';
-import 'package:bldrs/firestore/user_ops.dart';
+import 'package:bldrs/db/firestore/auth_ops.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/firestore/flyer_ops.dart';
+import 'package:bldrs/db/firestore/user_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';

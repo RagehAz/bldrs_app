@@ -1,9 +1,9 @@
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/firestore/bz_ops.dart';
-import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/firestore/user_ops.dart';
+import 'package:bldrs/db/firestore/bz_ops.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/firestore/user_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/bz/author_model.dart';

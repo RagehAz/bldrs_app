@@ -5,8 +5,8 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/providers/local_db/sembast/sembast_test_screen.dart';
+import 'package:bldrs/db/firestore/auth_ops.dart';
+import 'package:bldrs/db/ldb/sembast/sembast_test_screen.dart';
 import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
@@ -22,11 +22,10 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/flyers_sql_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/forms_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dio_test.dart';
+import 'package:bldrs/xxx_LABORATORY/dio/dio_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/random_test_space.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/sql_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/timer_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/trigram_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_lab.dart';
@@ -167,7 +166,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           oButton('Sembast Screen', Iconz.DvGouran, SembastTestScreen()),
           oButton('FlyersSQL Screen', Iconz.FlyerScale, FlyersSQLScreen()),
-          oButton('SQL Test Screen', Iconz.Terms, SQLTestScreen()),
 
           oButton('Notification test', Iconz.News, FCMTestScreen()),
 

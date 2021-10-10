@@ -1,8 +1,8 @@
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/firestore/user_ops.dart';
+import 'package:bldrs/db/firestore/auth_ops.dart';
+import 'package:bldrs/db/firestore/user_ops.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/screens/a_starters/a_2_starting_screen.dart';
 import 'package:bldrs/views/screens/a_starters/a_4_loading_screen.dart';

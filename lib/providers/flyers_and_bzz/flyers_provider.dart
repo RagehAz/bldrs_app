@@ -1,13 +1,10 @@
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/firestore/bz_ops.dart';
-import 'package:bldrs/firestore/flyer_ops.dart';
-import 'package:bldrs/firestore/record_ops.dart';
-import 'package:bldrs/firestore/search_ops.dart';
-import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/db/firestore/auth_ops.dart';
+import 'package:bldrs/db/firestore/bz_ops.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/firestore/search_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/flyer/records/save_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -18,6 +15,7 @@ import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/zones/zone_provider.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
+import 'package:bldrs/xxx_LABORATORY/camera_and_location/test_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -188,24 +186,24 @@ class FlyersProvider with ChangeNotifier {
   /// READs and sets  db/users/userID/saves/flyers document
   Future<void> fetchAndSetSavedFlyers(BuildContext context) async {
 
-    /// read user's saves doc
-    final List<SaveModel> _userSaveModels = await RecordOps.readUserSavesOps(context);
+    // /// read user's saves doc
+    // final List<SaveModel> _userSaveModels = await RecordOps.readUserSavesOps(context);
 
     /// from saveModels, get a list of saved tinyFlyers
     final List<TinyFlyer> _savedTinyFlyers = <TinyFlyer>[];
 
-    if (_userSaveModels != null || _userSaveModels?.length != 0){
-      for (var saveModel in _userSaveModels){
-        if (saveModel.saveState == SaveState.Saved) {
-          final TinyFlyer _tinyFlyer = await FlyerOps().readTinyFlyerOps(context: context, flyerID: saveModel.flyerID);
-
-          if (_tinyFlyer != null){
-            _savedTinyFlyers.add(_tinyFlyer);
-          }
-
-        }
-      }
-    }
+    // if (_userSaveModels != null || _userSaveModels?.length != 0){
+    //   for (var saveModel in _userSaveModels){
+    //     if (saveModel.saveState == SaveState.Saved) {
+    //       final TinyFlyer _tinyFlyer = await FlyerOps().readTinyFlyerOps(context: context, flyerID: saveModel.flyerID);
+    //
+    //       if (_tinyFlyer != null){
+    //         _savedTinyFlyers.add(_tinyFlyer);
+    //       }
+    //
+    //     }
+    //   }
+    // }
 
     /// assign the value to local variable
     _loadedSavedTinyFlyers = _savedTinyFlyers;
@@ -218,10 +216,13 @@ class FlyersProvider with ChangeNotifier {
   /// READs and sets db/users/userID/saves/bzz document
   Future<void> fetchAndSetFollows(BuildContext context) async {
 
-    /// read user's follows list
-    final List<String> _follows = await RecordOps.readUserFollowsOps(context);
+    // /// read user's follows list
+    // final List<String> _follows = await RecordOps.readUserFollowsOps(context);
 
-    _loadedFollows = _follows ?? <String>[];
+    _loadedFollows =
+        // _follows ??
+        <String>[];
+
     print('_loadedFollows = $_loadedFollows');
     notifyListeners();
   }
@@ -634,5 +635,27 @@ class FlyersProvider with ChangeNotifier {
     return _tinyFlyer;
   }
 // -----------------------------------------------------------------------------
+
+  String _inceptionInFlyer;
+  String get inception{
+    return _inceptionInFlyer;
+  }
+
+  void setInception({BuildContext context, String input}){
+
+    if (input != null){
+      _inceptionInFlyer = input;
+    }
+
+    else {
+
+      final GreatPlaces _pro = Provider.of<GreatPlaces>(context, listen: false);
+      final String _fromSecondPro = _pro.inception;
+      _inceptionInFlyer = _fromSecondPro;
+    }
+
+    notifyListeners();
+
+  }
 
 }
