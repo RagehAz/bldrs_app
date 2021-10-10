@@ -1,5 +1,4 @@
-import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/firestore/user_ops.dart';
+import 'package:bldrs/db/firestore/user_ops.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/fcm_token.dart';
@@ -126,15 +125,19 @@ class UserProvider {
 // -----------------------------------------------------------------------------
 
   Future<dynamic> getSavedFlyersIDs(BuildContext context) async {
-    final Map<String, dynamic> _savedFlyersMap = await Fire.readSubDoc(
-      context: context,
-      collName: FireCollection.users,
-      docName: userID,
-      subCollName: FireCollection.users_user_saves,
-      subDocName: FireCollection.flyers,
-    );
+    // final Map<String, dynamic> _savedFlyersMap = await Fire.readSubDoc(
+    //   context: context,
+    //   collName: FireCollection.users,
+    //   docName: userID,
+    //   subCollName: FireCollection.users_user_records_flyers,
+    //   subDocName: FireCollection.flyers,
+    // );
+    //
+    // print('saved flyers on db are : ${_savedFlyersMap.toString()}');
+    // return _savedFlyersMap == null ? {} : _savedFlyersMap;
 
-    print('saved flyers on db are : ${_savedFlyersMap.toString()}');
-    return _savedFlyersMap == null ? {} : _savedFlyersMap;
+    /// TASK : fix this
+    return null;
   }
+
 }

@@ -1,4 +1,4 @@
-import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:flutter/material.dart';

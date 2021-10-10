@@ -1,5 +1,5 @@
 import 'package:bldrs/dashboard/widgets/sql_viewer.dart';
-import 'package:bldrs/providers/local_db/bldrs_local_dbs.dart';
+import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 

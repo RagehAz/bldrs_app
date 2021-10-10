@@ -1,4 +1,4 @@
-import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';

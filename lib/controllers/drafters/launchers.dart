@@ -1,9 +1,8 @@
-import 'package:bldrs/models/flyer/records/share_model.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Launchers{
+abstract class Launch{
 // -----------------------------------------------------------------------------
   static Future<void> launchURL(String link) async {
     /// should make a condition
@@ -66,6 +65,53 @@ class Launchers{
 // //   await Share.share("text");
 // // }
 // -----------------------------------------------------------------------------
+
+  static Future<void> shareFlyer (BuildContext context, LinkModel flyerLink) async {
+    final RenderBox box = context.findRenderObject();
+
+    await Share.share(
+      flyerLink.url,
+      subject: flyerLink.description,
+      sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
+    );
+
+  }
+
+}
+
+class LinkModel{
+  final String url;
+  final String description;
+
+  const LinkModel({
+    @required this.url,
+    @required this.description,
+  });
+
+  Map<String, Object> toMap(){
+    return {
+      'url' : url,
+      'description' : description,
+    };
+  }
+
+// -----------------------------------------------------------------------------
+  static const LinkModel bldrsWebSiteLink = const LinkModel(
+    url: 'www.bldrs.net',
+    description: 'Download Bldrs.net App',
+  );
+// -----------------------------------------------------------------------------
+  static const LinkModel bldrsAppStoreLink = const LinkModel(
+    url: 'www.google.com', // temp
+    description: 'Download Bldrs.net App',
+  );
+// -----------------------------------------------------------------------------
+  static const LinkModel bldrsPlayStoreLink = const LinkModel(
+    url: 'www.google.com', // temp
+    description: 'Download Bldrs.net App',
+  );
+// -----------------------------------------------------------------------------
+
 
 }
 

@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/firestore/firestore.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
