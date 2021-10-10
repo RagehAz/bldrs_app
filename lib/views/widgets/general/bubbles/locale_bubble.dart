@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -55,7 +55,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     Navigator.of(context).pop();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _tapCountryButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> flags}) async {
+  Future<void> _tapCountryButton({BuildContext context, OldCountryProvider countryPro, List<Map<String, String>> flags}) async {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
@@ -83,7 +83,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     );
   }
 // -----------------------------------------------------------------------------
-  Future<void> _tapCityButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> cities}) async {
+  Future<void> _tapCityButton({BuildContext context, OldCountryProvider countryPro, List<Map<String, String>> cities}) async {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
@@ -110,7 +110,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     );
   }
 // -----------------------------------------------------------------------------
-  Future<void> _tapDistrictButton({BuildContext context, CountryProvider countryPro, List<Map<String, String>> districts}) async {
+  Future<void> _tapDistrictButton({BuildContext context, OldCountryProvider countryPro, List<Map<String, String>> districts}) async {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
@@ -138,7 +138,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
 
     final List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
     final List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _chosenCountryID);//_chosenCountry);

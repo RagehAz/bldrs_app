@@ -12,8 +12,8 @@ import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -278,7 +278,7 @@ class SuperFlyer{
 
     final int _initialPage = initialPage == null ? 0 : initialPage;
 
-    final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+    final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
 
     final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);
@@ -431,7 +431,7 @@ class SuperFlyer{
 
     // print('CREATING view super flyer from tiny flyer : ${tinyFlyer.flyerID} : ${tinyFlyer?.midColor} : : ${tinyFlyer?.tinyBz?.bzName}');
 
-    final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+    final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
 
     return
       SuperFlyer(
@@ -625,7 +625,7 @@ class SuperFlyer{
 
     print('CREATING draft super flyer from nothing for bz  : ${bzModel.bzName} : id : ${bzModel.bzID}');
 
-    final CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
+    final OldCountryProvider _countryPro = Provider.of<OldCountryProvider>(context, listen: false);
 
     final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);

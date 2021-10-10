@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/specific/browser/filters_page.dart';
 import 'package:bldrs/views/widgets/specific/browser/groups_page.dart';
 import 'package:bldrs/views/widgets/specific/browser/keywords_page.dart';
@@ -168,7 +168,7 @@ class _BrowserPagesState extends State<BrowserPages> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final OldFlyersProvider _flyersProvider = Provider.of<OldFlyersProvider>(context, listen: false);
     final List<Group> _filtersBySection = _flyersProvider.getSectionFilters;
 
     final List<Widget> _pages = generatePages(_filtersBySection);

@@ -3,176 +3,158 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/db/ldb/sembast/sembast.dart';
+import 'package:flutter/foundation.dart';
 
-/// Bldrs Local DataBases
-/// using noSQL 'sembast' LDB
-enum BLDB{
-  meAndPrefs,
-  mySavedFlyers,
-  myFollowedBzz,
 
-  myFollows,
-  myCalls,
-  myShares,
-  myViews,
-  mySaves,
-  myReviews,
-  myQuestions, // includes draft questions
-  myAnswers, // includes draft answers
+class LDBDoc {
+  static const String myUserModel = 'myUserModel';
+  static const String mySavedFlyers = 'mySavedFlyers';
+  static const String myFollowedBzz = 'myFollowedBzz';
+  static const String myFollows = 'myFollows';
+  static const String myCalls = 'myCalls';
+  static const String myShares = 'myShares';
+  static const String myViews = 'myViews';
+  static const String mySaves = 'mySaves';
+  static const String myReviews = 'myReviews';
+  static const String myQuestions = 'myQuestions';
+  static const String myAnswers = 'myAnswers';
+  static const String myBzz = 'myBzz';
+  static const String myBzzFlyers = 'myBzzFlyers';
+  static const String sessionFlyers = 'sessionFlyers';
+  static const String sessionBzz = 'sessionBzz';
+  static const String keywords = 'keywords';
 
-  myBzz,
-  myBzzFlyers,
+  static const List<String> bzModelsDocs = const <String>[
+    myFollowedBzz,
+    myBzz,
+    sessionBzz,
+  ];
 
-  sessionFlyers,
-  sessionBzz,
-
-  keywords,
-
+  static const List<String> flyerModelsDocs = const <String>[
+    mySavedFlyers,
+    myBzzFlyers,
+    sessionFlyers,
+  ];
 }
 
-abstract class BLDBMethod{
+abstract class LDBOps{
 // -----------------------------------------------------------------------------
-  static String getDocName(BLDB bldb){
-
-    switch (bldb){
-      case BLDB.meAndPrefs : return 'meAndPrefs';
-      case BLDB.mySavedFlyers : return 'mySavedFlyers';
-      case BLDB.myFollowedBzz : return 'myFollowedBzz';
-      case BLDB.myFollows : return 'myFollows';
-      case BLDB.myCalls : return 'myCalls';
-      case BLDB.myShares : return 'myShares';
-      case BLDB.myViews : return 'myViews';
-      case BLDB.mySaves : return 'mySaves';
-      case BLDB.myReviews : return 'myReviews';
-      case BLDB.myQuestions : return 'myQuestions';
-      case BLDB.myAnswers : return 'myAnswers';
-      case BLDB.myBzz : return 'myBzz';
-      case BLDB.myBzzFlyers : return 'myBzzFlyers';
-      case BLDB.sessionFlyers : return 'sessionFlyers';
-      case BLDB.sessionBzz : return 'sessionBzz';
-      case BLDB.keywords : return 'keywords';
-      default : return null;
-    }
-
-  }
-// -----------------------------------------------------------------------------
-  static BLDB getBLDBByDocName(String docName){
+  static String getPrimaryKey(String docName){
 
     switch (docName){
-      case 'meAndPrefs' : return BLDB.meAndPrefs;
-      case 'mySavedFlyers' : return BLDB.mySavedFlyers;
-      case 'myFollowedBzz' : return BLDB.myFollowedBzz;
-      case 'myFollows' : return BLDB.myFollows;
-      case 'myCalls' : return BLDB.myCalls;
-      case 'myShares' : return BLDB.myShares;
-      case 'myViews' : return BLDB.myViews;
-      case 'mySaves' : return BLDB.mySaves;
-      case 'myReviews' : return BLDB.myReviews;
-      case 'myQuestions' : return BLDB.myQuestions;
-      case 'myAnswers' : return BLDB.myAnswers;
-      case 'myBzz' : return BLDB.myBzz;
-      case 'myBzzFlyers' : return BLDB.myBzzFlyers;
-      case 'sessionFlyers' : return BLDB.sessionFlyers;
-      case 'sessionBzz' : return BLDB.sessionBzz;
-      case 'keywords' : return BLDB.keywords;
+      case LDBDoc.myUserModel : return 'userID';
+      case LDBDoc.mySavedFlyers : return 'flyerID';
+      case LDBDoc.myFollowedBzz : return 'bzID';
+      case LDBDoc.myFollows : return 'followID';
+      case LDBDoc.myCalls : return 'callID';
+      case LDBDoc.myShares : return 'shareID';
+      case LDBDoc.myViews : return 'viewID';
+      case LDBDoc.mySaves : return 'saveID';
+      case LDBDoc.myReviews : return 'reviewID';
+      case LDBDoc.myQuestions : return 'questionID';
+      case LDBDoc.myAnswers : return 'answerID';
+      case LDBDoc.myBzz : return 'bzID';
+      case LDBDoc.myBzzFlyers : return 'flyerID';
+      case LDBDoc.sessionFlyers : return 'flyerID';
+      case LDBDoc.sessionBzz : return 'bzID';
+      case LDBDoc.keywords : return 'keywordID';
       default : return null;
     }
 
   }
 // -----------------------------------------------------------------------------
-  static String getPrimaryKey(BLDB bldb){
+  static Future<void> insertMap({Map<String, Object> input, String docName}) async {
 
-    switch (bldb){
-      case BLDB.meAndPrefs : return 'userID'; /// TASK : this is wrong
-      case BLDB.mySavedFlyers : return 'flyerID';
-      case BLDB.myFollowedBzz : return 'bzID';
-      case BLDB.myFollows : return 'followID';
-      case BLDB.myCalls : return 'callID';
-      case BLDB.myShares : return 'shareID';
-      case BLDB.myViews : return 'viewID';
-      case BLDB.mySaves : return 'saveID';
-      case BLDB.myReviews : return 'reviewID';
-      case BLDB.myQuestions : return 'questionID';
-      case BLDB.myAnswers : return 'answerID';
-      case BLDB.myBzz : return 'bzID';
-      case BLDB.myBzzFlyers : return 'flyerID';
-      case BLDB.sessionFlyers : return 'flyerID';
-      case BLDB.sessionBzz : return 'bzID';
-      case BLDB.keywords : return 'keywordID';
-      default : return null;
-    }
+    await insertMaps(
+      inputs: <Map<String, Object>>[input],
+      docName: docName,
+    );
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> insert({List<Map<String, Object>> inputs,BLDB bldb}) async {
-
-    final String _docName = getDocName(bldb);
+  static Future<void> insertMaps({List<Map<String, Object>> inputs,String docName}) async {
 
     await Sembast.insert(
-      inputs: cipherFirebaseMapsToSembastMaps(inputs),
-      docName: _docName,
+      inputs: _cipherFirebaseMapsToSembastMaps(inputs),
+      docName: docName,
     );
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> update({Map<String, Object> input, String objectID, BLDB bldb}) async {
+  static Future<Map<String, Object>> searchMap({String fieldToSortBy, String searchField, dynamic searchValue, String docName}) async {
 
-    final String _docName = getDocName(bldb);
-    final String _primaryKey = getPrimaryKey(bldb);
-
-    await Sembast.update(
-      map: cipherFirebaseMapToSembastMap(input),
-      docName: _docName,
-      searchPrimaryKey: _primaryKey,
-      searchPrimaryValue: objectID,
-    );
-
-}
-// -----------------------------------------------------------------------------
-  static Future<void> delete({String objectID, BLDB bldb}) async {
-
-    final String _docName = getDocName(bldb);
-    final String _primaryKey = getPrimaryKey(bldb);
-
-    await Sembast.delete(
-      docName: _docName,
-      searchPrimaryKey: _primaryKey,
-      searchPrimaryValue: objectID,
-    );
-
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> search({String fieldToSortBy, String searchField, dynamic searchValue, BLDB bldb}) async {
-
-    final String _docName = getDocName(bldb);
-
-    final List<Map<String, Object>> _result = await Sembast.search(
-      docName: _docName,
+    final Map<String, Object> _result = await Sembast.findFirst(
+      docName: docName,
       fieldToSortBy: fieldToSortBy,
       searchField: searchField,
       searchValue: searchValue,
     );
 
-    final List<Map<String, Object>> _fixedMaps = decipherSembastMapsToFirebaseMaps(_result);
+    final Map<String, Object> _fixedMap = _decipherSembastMapToFirebaseMap(_result);
+
+    return _fixedMap;
+
+  }
+// -----------------------------------------------------------------------------
+  static Future<List<Map<String, Object>>> searchMaps({String fieldToSortBy, String searchField, dynamic searchValue, String docName}) async {
+
+    final List<Map<String, Object>> _result = await Sembast.search(
+      docName: docName,
+      fieldToSortBy: fieldToSortBy,
+      searchField: searchField,
+      searchValue: searchValue,
+    );
+
+    final List<Map<String, Object>> _fixedMaps = _decipherSembastMapsToFirebaseMaps(_result);
 
     return _fixedMaps;
 
-}
+  }
 // -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> readAll({BLDB bldb}) async {
-
-    final String _docName = getDocName(bldb);
+  static Future<List<Map<String, Object>>> readAllMaps({String docName}) async {
 
     final List<Map<String, Object>> _result = await Sembast.readAll(
-      docName: _docName,
+      docName: docName,
     );
 
-    final List<Map<String, Object>> _fixedMaps = decipherSembastMapsToFirebaseMaps(_result);
+    final List<Map<String, Object>> _fixedMaps = _decipherSembastMapsToFirebaseMaps(_result);
 
     return _fixedMaps;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, Object> cipherFirebaseMapToSembastMap(Map<String, Object> mapOfFirebase){
+  static Future<void> updateMap({
+    @required Map<String, Object> input,
+    @required String objectID,
+    @required String docName,
+  }) async {
+
+    final String _primaryKey = getPrimaryKey(docName);
+
+    await Sembast.update(
+      map: _cipherFirebaseMapToSembastMap(input),
+      docName: docName,
+      searchPrimaryKey: _primaryKey,
+      searchPrimaryValue: objectID,
+    );
+
+}
+// -----------------------------------------------------------------------------
+  static Future<void> delete({
+    @required String objectID,
+    @required String docName,
+  }) async {
+
+    final String _primaryKey = getPrimaryKey(docName);
+
+    await Sembast.delete(
+      docName: docName,
+      searchPrimaryKey: _primaryKey,
+      searchPrimaryValue: objectID,
+    );
+
+  }
+// -----------------------------------------------------------------------------
+  static Map<String, Object> _cipherFirebaseMapToSembastMap(Map<String, Object> mapOfFirebase){
 
     Map<String, Object> _fixedMap = mapOfFirebase;
     final List<String> _keys = mapOfFirebase.keys.toList();
@@ -222,13 +204,13 @@ abstract class BLDBMethod{
 
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, Object>> cipherFirebaseMapsToSembastMaps(List<Map<String, Object>> firebaseMaps){
+  static List<Map<String, Object>> _cipherFirebaseMapsToSembastMaps(List<Map<String, Object>> firebaseMaps){
 
     final List<Map<String, Object>> _fixedMaps = <Map<String, Object>>[];
 
     for (var firebaseMap in firebaseMaps){
 
-      final Map<String, Object> _fixedMap = cipherFirebaseMapToSembastMap(firebaseMap);
+      final Map<String, Object> _fixedMap = _cipherFirebaseMapToSembastMap(firebaseMap);
 
       _fixedMaps.add(_fixedMap);
     }
@@ -236,7 +218,7 @@ abstract class BLDBMethod{
     return _fixedMaps;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, Object> decipherSembastMapToFirebaseMap(Map<String, Object> sembastMap){
+  static Map<String, Object> _decipherSembastMapToFirebaseMap(Map<String, Object> sembastMap){
 
     Map<String, Object> _fixedMap = sembastMap;
     final List<String> _keys = sembastMap.keys.toList();
@@ -296,12 +278,12 @@ abstract class BLDBMethod{
     return _fixedMap;
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, Object>> decipherSembastMapsToFirebaseMaps(List<Map<String, Object>> sembastMaps){
+  static List<Map<String, Object>> _decipherSembastMapsToFirebaseMaps(List<Map<String, Object>> sembastMaps){
     final List<Map<String, Object>> _fixedMaps = <Map<String, Object>>[];
 
     for (var sembastMap in sembastMaps){
 
-      final Map<String, Object> _fixedMap = decipherSembastMapToFirebaseMap(sembastMap);
+      final Map<String, Object> _fixedMap = _decipherSembastMapToFirebaseMap(sembastMap);
 
       _fixedMaps.add(_fixedMap);
     }

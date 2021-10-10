@@ -7,7 +7,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -77,7 +77,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
       if (AuthOps.userIsSignedIn() == true){
 
-        final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+        final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: true);
 
         // _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
         print('fetching sponsors');

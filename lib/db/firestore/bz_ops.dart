@@ -547,4 +547,19 @@ class BzOps{
 
 }
 // -----------------------------------------------------------------------------
+  static Future<List<TinyBz>> readTinyBzz({BuildContext context, List<String> bzzIDs}) async {
+    final List<TinyBz> _tinyBzz = <TinyBz>[];
+
+    if (bzzIDs != null && bzzIDs.isNotEmpty){
+
+      for (var id in bzzIDs){
+        final TinyBz _tinyBz = await BzOps.readTinyBzOps(context: context, bzID: id);
+        _tinyBzz.add(_tinyBz);
+      }
+
+    }
+
+    return _tinyBzz;
+  }
+// -----------------------------------------------------------------------------
 }
