@@ -2,6 +2,7 @@ import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -160,5 +161,53 @@ class BzzProvider extends ChangeNotifier {
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
-  ///
+  /// FOLLOWED BZZ
+  List<TinyBz> _followedBzz;
+// -------------------------------------
+  List<TinyBz> get followedBzz{
+    return <TinyBz>[..._followedBzz];
+  }
+// -------------------------------------
+  Future<void> fetchFollowedBzz(BuildContext context) async {
+
+    /// 1 - get user saved followed bzz IDs
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final UserModel _myUserModel = _usersProvider.myUserModel;
+    final List<String> _followedBzzIDs = _myUserModel?.followedBzzIDs;
+
+    if (_followedBzzIDs != null && _followedBzzIDs.isNotEmpty){
+
+      final List<BzModel> _bz = await fetchBzzModels(
+        context: context,
+        bzzIDs: _followedBzzIDs,
+      );
+
+      final List<TinyBz> _tinyBzz = TinyBz.getTinyBzzFromBzzModels(_bz);
+
+      _followedBzz = _tinyBzz;
+      notifyListeners();
+
+    }
+
+  }
+// -------------------------------------
+  bool checkFollow({BuildContext context, String bzID}){
+    bool _isFollowing = false;
+
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final UserModel _myUserModel = _usersProvider.myUserModel;
+
+
+    final String _id = _myUserModel.followedBzzIDs?.firstWhere((id) => id == bzID, orElse: () => null);
+
+    if(_id == null){
+      _isFollowing = false;
+    } else {
+      _isFollowing = true;
+    }
+    // print('_isFollowing = $_isFollowing');
+
+    return _isFollowing;
+  }
+// -----------------------------------------------------------------------------
 }

@@ -1,18 +1,18 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/providers/general_provider.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/browser/filters_page.dart';
 import 'package:bldrs/views/widgets/specific/browser/groups_page.dart';
 import 'package:bldrs/views/widgets/specific/browser/keywords_page.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/progress_bar_parts/strips.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -168,10 +168,11 @@ class _BrowserPagesState extends State<BrowserPages> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final OldFlyersProvider _flyersProvider = Provider.of<OldFlyersProvider>(context, listen: false);
-    final List<Group> _filtersBySection = _flyersProvider.getSectionFilters;
 
-    final List<Widget> _pages = generatePages(_filtersBySection);
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
+    final List<Group> _groupsBySection = _generalProvider.sectionGroups;
+
+    final List<Widget> _pages = generatePages(_groupsBySection);
     final int _numberOfPages = _pages.length;
 
     print('rebuilding browser pages with ${widget.filtersModels.length} filters');

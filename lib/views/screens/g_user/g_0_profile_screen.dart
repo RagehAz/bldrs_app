@@ -1,12 +1,14 @@
 import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/db/firestore/user_ops.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/providers/bzz_provider.dart';
+import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/screens/g_user/g_x_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/contacts_bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/following_bzz_bubble.dart';
@@ -20,7 +22,6 @@ import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_naviga
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/controllers/router/route_names.dart';
 
 class UserProfileScreen extends StatefulWidget {
   final UserModel userModel;
@@ -78,11 +79,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     if (_isInit) {
       _triggerLoading().then((_) async {
 
-        final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
+        final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+        final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+        await _bzzProvider.fetchFollowedBzz(context);
 
-        await _prof.fetchAndSetFollows(context);
-
-        _followedBzzIDs = _prof.getFollows;
+        _followedBzzIDs = _usersProvider.myUserModel.followedBzzIDs;;
 
         for (var id in _followedBzzIDs) {
           final TinyBz _tinyBz = await BzOps.readTinyBzOps(

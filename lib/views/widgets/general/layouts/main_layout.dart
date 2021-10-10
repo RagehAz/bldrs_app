@@ -1,29 +1,31 @@
 import 'package:bldrs/controllers/drafters/device_checkers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/localization/lingo.dart';
+import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/main.dart';
-import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/users/old_user_provider.dart';
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/views/widgets/general/buttons/back_anb_search_button.dart';
+import 'package:bldrs/views/widgets/general/buttons/rageh_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/views/widgets/general/buttons/rageh_button.dart';
 import 'package:provider/provider.dart';
-export 'package:bldrs/views/widgets/general/appbar/app_bar_button.dart';
+
 export 'package:bldrs/controllers/drafters/tracers.dart';
+export 'package:bldrs/views/widgets/general/appbar/app_bar_button.dart';
 // -----------------------------------------------------------------------------
 enum AppBarType{
   Basic,
@@ -96,11 +98,13 @@ class MainLayout extends StatelessWidget {
 // -----------------------------------------------------------------------------
   Future<void> _refresh(BuildContext context) async {
 
-    final OldFlyersProvider _pro = Provider.of<OldFlyersProvider>(context,listen: false);
-
-    final Section _currentSection = _pro.getCurrentSection;
-
-    await _pro.fetchAndSetTinyFlyersBySection(context, _currentSection);
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
+    final Section _currentSection = _generalProvider.currentSection;
+    await _flyersProvider.fetchFlyersBySection(
+        context: context,
+        section: _currentSection
+    );
   }
 // -----------------------------------------------------------------------------
   // final static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

@@ -1,7 +1,8 @@
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/zones/old_zone_provider.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/layouts/listLayout.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart' show Sky;
 import 'package:flutter/material.dart';
@@ -18,7 +19,8 @@ class SelectAreaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final OldFlyersProvider _pro =  Provider.of<OldFlyersProvider>(context, listen: true);
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
 // -----------------------------------------------------------------------------
     final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
     final String _cityName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, cityID);
@@ -43,7 +45,10 @@ class SelectAreaScreen extends StatelessWidget {
         print('selected city id is : $cityID');
         print('selected district id is : $districtID');
 
-        await _pro.fetchAndSetTinyFlyersBySection(context, _pro.getCurrentSection);
+        await _flyersProvider.fetchFlyersBySection(
+            context: context,
+            section: _generalProvider.currentSection
+        );
 
         Nav.goBackToHomeScreen(context);
       },
