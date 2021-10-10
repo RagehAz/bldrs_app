@@ -1,7 +1,10 @@
 import 'package:bldrs/dashboard/widgets/sql_viewer.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LDBViewerScreen extends StatefulWidget {
   final String ldbDocName;
@@ -92,7 +95,26 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
     return DashBoardLayout(
       pageTitle: 'Local db : ${_bldbName}',
       loading: false,
-      onBldrsTap: (){print(widget.ldbDocName);},
+      onBldrsTap: () async {
+
+        // print(widget.ldbDocName);
+
+        // dynamic _result = await LDBOps.searchMap(
+        //   docName: widget.ldbDocName,
+        //   searchValue: 'f002',
+        //   searchField: 'flyerID',
+        //   fieldToSortBy: 'flyerID',
+        // );
+        final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+        FlyerModel _result = await _flyersProvider.fetchFlyerByID(context: context, flyerID: 'f003');
+
+        // var store = StoreRef.main();
+        // var _result = await store.record(widget.ldbDocName).get(await Sembast.instance.database) as String;
+        //
+        print('_result is : $_result');
+
+        },
+
       listWidgets: <Widget>[
 
         if (_maps != null && _maps.isNotEmpty)

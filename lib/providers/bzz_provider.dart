@@ -3,9 +3,11 @@ import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/providers/general_provider.dart';
+import 'package:bldrs/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 class BzzProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   /// FETCHING BZZ
@@ -82,10 +84,11 @@ class BzzProvider extends ChangeNotifier {
   /// SPONSORS
   List<TinyBz> _sponsors = <TinyBz>[];
 // -------------------------------------
-  List<TinyBz> get getSponsors {
+  List<TinyBz> get sponsors {
     return <TinyBz> [..._sponsors];
   }
 // -------------------------------------
+  /// TASK : sponsors tiny bzz should depend on which city
   /// FETCH SPONSORS
   /// 1 - get sponsors from app state
   /// 2 - fetch each bzID if found
@@ -95,14 +98,67 @@ class BzzProvider extends ChangeNotifier {
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     final List<String> _sponsorsBzzIDs = _generalProvider.appState.sponsors;
 
-    /// 2 - fetch bzz
-    List<BzModel> _bzzSponsors = await fetchBzzModels(context: context, bzzIDs: _sponsorsBzzIDs);
+    if (_sponsorsBzzIDs != null && _sponsorsBzzIDs.isNotEmpty){
 
-    List<TinyBz> _tinyBzz = TinyBz.getTinyBzzFromBzzModels(_bzzSponsors);
+      /// 2 - fetch bzz
+      List<BzModel> _bzzSponsors = await fetchBzzModels(context: context, bzzIDs: _sponsorsBzzIDs);
 
-    _sponsors = _tinyBzz;
+      List<TinyBz> _tinyBzz = TinyBz.getTinyBzzFromBzzModels(_bzzSponsors);
+
+      _sponsors = _tinyBzz;
+      notifyListeners();
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  /// USER BZZ
+  List<TinyBz> _userTinyBzz = <TinyBz>[];
+// -------------------------------------
+  List<TinyBz> get userTinyBzz {
+    return <TinyBz> [..._userTinyBzz];
+  }
+// -------------------------------------
+  Future<void> fetchUserBzz(BuildContext context) async {
+
+    /// 1 - get userBzzIDs from userModel
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final List<String> _userBzzIDs = _usersProvider.myUserModel.myBzzIDs;
+
+    if (_userBzzIDs != null && _userBzzIDs.isNotEmpty){
+
+      /// 2 - fetch bzz
+      List<BzModel> _userBzz = await fetchBzzModels(context: context, bzzIDs: _userBzzIDs);
+
+      List<TinyBz> _tinyBzz = TinyBz.getTinyBzzFromBzzModels(_userBzz);
+
+      _sponsors = _tinyBzz;
+      notifyListeners();
+
+
+    }
+  }
+// -------------------------------------
+  void removeTinyBzFromUserTinyBzz({String bzID}){
+
+    if (_userTinyBzz != null && _userTinyBzz.length != 0){
+      final int _index = _userTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
+      _userTinyBzz.removeAt(_index);
+      notifyListeners();
+    }
+  }
+// -------------------------------------
+  void addTinyBzToUserTinyBzz(TinyBz tinyBz){
+    _userTinyBzz.add(tinyBz);
+    notifyListeners();
+  }
+// -------------------------------------
+  void updateTinyBzInUserTinyBzz(TinyBz modifiedTinyBz){
+    final int _indexOfOldTinyBz = _userTinyBzz.indexWhere((bz) => modifiedTinyBz.bzID == bz.bzID);
+    _userTinyBzz.removeAt(_indexOfOldTinyBz);
+    _userTinyBzz.insert(_indexOfOldTinyBz, modifiedTinyBz);
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
-
+  ///
 }
