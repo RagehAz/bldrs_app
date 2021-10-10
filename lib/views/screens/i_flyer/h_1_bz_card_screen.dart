@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/providers/flyers_and_bzz/bz_streamer.dart';
+import 'package:bldrs/providers/streamers/bz_streamer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';

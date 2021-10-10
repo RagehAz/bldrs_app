@@ -48,6 +48,7 @@ class FireCollection{
   static const String admin = 'admin';
   static const String admin_sponsors = 'sponsors';
   static const String admin_statistics = 'statistics';
+  static const String admin_appState = 'appState';
 }
 
 class StorageDoc{

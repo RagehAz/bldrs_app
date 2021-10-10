@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -86,7 +86,7 @@ class _SwiperScreenState extends State<SwiperScreen> {
     final double _screenHeight = Scale.superScreenHeight(context);
     const double _flyerSizeFactor = 0.8;
 // -----------------------------------------------------------------------------
-    final FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
+    final OldFlyersProvider pro = Provider.of<OldFlyersProvider>(context, listen: false);
     // final List<TinyFlyer> _allTinyFlyers = pro.getAllTinyFlyers;
 // -----------------------------------------------------------------------------
     List<FlyerType> _flyerTypesList = FlyerTypeClass.flyerTypesList;

@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/tab_button.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/saved_flyers_grid.dart';
 import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';
@@ -36,7 +36,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
      _sectionsList = addAllButtonToSections();
      _currentTabIndex = 0;
 
-     final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+     final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
      _allTinyFlyers =  _prof.getSavedTinyFlyers;
 
      _tabModels = createTabModels();

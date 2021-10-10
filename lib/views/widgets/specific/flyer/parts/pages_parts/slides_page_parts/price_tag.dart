@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/pricing.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -26,7 +26,7 @@ class PriceTag extends StatelessWidget {
 
     final double _footerHeight = FlyerFooter.boxHeight(context: context, flyerBoxWidth: flyerBoxWidth);
 
-    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
     final String _iso3 = _countryPro.currentCountryID;
 
     final double _currentPrice = 14999.99;

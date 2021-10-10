@@ -10,7 +10,7 @@ import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:provider/provider.dart';
 
 class DialogOfBzOptions extends StatefulWidget {
@@ -102,7 +102,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       );
 
       // /// remove tinyBz from Local list
-      final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+      final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
       // _prof.removeTinyBzFromLocalList(bzModel.bzID);
 
       /// remove tinyBz from local userTinyBzz
@@ -147,7 +147,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       );
 
       /// remove tinyBz from Local list
-      final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+      final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
       _prof.removeTinyBzFromLocalList(bzModel.bzID);
 
       /// remove tinyBz from local userTinyBzz

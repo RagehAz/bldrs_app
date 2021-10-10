@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class BottomDialogButtons extends StatelessWidget {
   final MapValueIs mapValueIs;
   final Alignment alignment;
   final Function buttonTap;
-  final CountryProvider provider;
+  final OldCountryProvider provider;
   final BottomSheetType sheetType;
 
   const BottomDialogButtons({

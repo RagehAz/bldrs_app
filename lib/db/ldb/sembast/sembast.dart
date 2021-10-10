@@ -128,6 +128,29 @@ class Sembast {
     return _maps;
   }
 // -----------------------------------------------------------------------------
+  static Future<Map<String, Object>> findFirst({String fieldToSortBy, String searchField, dynamic searchValue, String docName}) async {
+
+    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+    final Database _db = await _getDB();
+
+    final _finder = Finder(
+      filter: Filter.equals(searchField, searchValue, anyInList: true),
+      sortOrders: <SortOrder>[
+        SortOrder(fieldToSortBy)
+      ],
+    );
+
+
+    final RecordSnapshot<int, Map<String, Object>> _recordSnapshot = await _doc.findFirst(
+      await _db,
+      finder: _finder,
+    );
+
+    final Map<String, Object> _map = _recordSnapshot.value;
+
+    return _map;
+  }
+// -----------------------------------------------------------------------------
   static Future<List<Map<String, Object>>> readAll({String docName,}) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);

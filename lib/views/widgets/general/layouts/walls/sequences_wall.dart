@@ -7,7 +7,7 @@ import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/views/screens/b_landing/b_3_sequence_flyers_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
@@ -37,7 +37,7 @@ class SequencesWall extends StatelessWidget {
 
     final bool _groupSecondKeysAreZoneAreas = Sequence.sequenceSecondKeysAreZoneDistricts(sequence);
 
-    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
     final String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _countryPro.currentCityID);
 
     if(_groupSecondKeysAreZoneAreas == true){
@@ -66,7 +66,7 @@ class SequencesWall extends StatelessWidget {
 
   void _onScrollEnd({BuildContext context, int index,Sequence sequence}){
 
-    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
     final String _currentProvinceID = _countryPro.currentCityID;
 
     final bool _sequenceIsNewFlyers = index == null ? true : false;

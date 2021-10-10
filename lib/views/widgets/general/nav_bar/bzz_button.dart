@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/providers/flyers_and_bzz/bz_streamer.dart';
+import 'package:bldrs/providers/streamers/bz_streamer.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';

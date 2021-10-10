@@ -3,7 +3,7 @@ import 'package:bldrs/models/keywords/keywordz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/zone/district_model.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -77,7 +77,7 @@ class Group{
 // -----------------------------------------------------------------------------
   static Group getGroupFromCurrentDistricts(BuildContext context){
 
-    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
     final String _provinceID = _countryPro.currentCityID;
     final List<District> _districts = _countryPro.getDistrictsByCityID(context, _provinceID);
 

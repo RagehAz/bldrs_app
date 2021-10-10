@@ -12,7 +12,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/users/user_streamer.dart';
+import 'package:bldrs/providers/streamers/user_streamer.dart';
 import 'package:bldrs/views/screens/d_more/d_0_more_screen.dart';
 import 'package:bldrs/views/screens/g_user/g_0_profile_screen.dart';
 import 'package:bldrs/views/screens/f_bz/f_0_my_bz_screen.dart';

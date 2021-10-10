@@ -7,7 +7,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/info_page_parts/review_bubble.dart';
 import 'package:bldrs/views/widgets/specific/keywords/keywords_bubble.dart';
@@ -54,7 +54,7 @@ class InfoPage extends StatelessWidget {
 
     final FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType) : superFlyer.flyerType;
 
-    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
     final String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, superFlyer.flyerZone.countryID);
     final String _cityNameRetrieved = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, superFlyer.flyerZone.cityID);
     final String _cityName = _cityNameRetrieved == null ? '.....' : _cityNameRetrieved;

@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/views/screens/d_more/d_3_select_area_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/listLayout.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart' show Sky;
@@ -18,7 +18,7 @@ class SelectCityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
     final String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, countryID);
     final List<Map<String, dynamic>> _citiesMaps = _countryPro.getCitiesNamesMapsByIso3(context, countryID);
     final String _countryFlag = Flagz.getFlagByIso3(countryID);

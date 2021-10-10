@@ -5,7 +5,7 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/specific/bz/tabs/bz_about_tab.dart';
 import 'package:bldrs/views/widgets/specific/bz/appbar/bz_app_bar.dart';
 import 'package:bldrs/views/widgets/specific/bz/tabs/bz_flyers_tab.dart';
@@ -107,7 +107,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
         );
 
 
-        final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+        final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
         _prof.setCurrentBzModel(_bzFromDB);
 
         /// X - REBUILD : TASK : check previous set states malhomsh lazma keda ba2a

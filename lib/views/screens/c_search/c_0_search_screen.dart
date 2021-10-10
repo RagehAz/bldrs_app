@@ -9,7 +9,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/screens/c_search/c_2_search_filters_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/specific/browser/browser_pages.dart';
@@ -483,7 +483,7 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
+    final OldFlyersProvider _flyersProvider = Provider.of<OldFlyersProvider>(context, listen: true);
     final List<Group> _filtersBySection = _flyersProvider.getSectionFilters;
 
     print('rebuilding search screen with section : ${_filtersBySection.length} filters');
