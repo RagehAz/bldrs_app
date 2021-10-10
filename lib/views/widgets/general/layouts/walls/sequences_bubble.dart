@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/screens/b_landing/b_2_sequence_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -33,7 +33,7 @@ class SequencesBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final _prof = Provider.of<FlyersProvider>(context, listen: true);
+    final _prof = Provider.of<OldFlyersProvider>(context, listen: true);
     final Section _currentSection = _prof.getCurrentSection;
     final List<Sequence> _sequences = Sequence.getActiveSequencesBySection(context: context,section: _currentSection);
 

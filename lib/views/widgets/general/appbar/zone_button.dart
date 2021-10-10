@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/views/screens/d_more/d_2_select_city_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -27,7 +27,7 @@ class ZoneButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
     final String _lastCountryID = _countryPro.currentCountryID;
     final String _lastProvinceID = _countryPro.currentCityID;
     final String _lastDistrictID = _countryPro.currentDistrictsID;

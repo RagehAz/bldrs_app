@@ -7,7 +7,7 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/general/layouts/walls/sequences_bubble.dart';
@@ -32,7 +32,7 @@ class _HomeWallState extends State<HomeWall> {
   @override
   Widget build(BuildContext context) {
 
-    final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
+    final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: true);
     final List<TinyBz> _userTinyBzz = _prof.getUserTinyBzz;
     final double _sponsoredFlyerWidth = FlyerBox.width(context, 0.45);
 

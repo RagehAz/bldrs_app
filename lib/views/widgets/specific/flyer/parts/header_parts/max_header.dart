@@ -7,7 +7,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/providers/flyers_and_bzz/bz_streamer.dart';
+import 'package:bldrs/providers/streamers/bz_streamer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_counter.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_fields.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_verse.dart';

@@ -28,8 +28,8 @@ import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/screens/f_bz/f_1_flyer_editor_screen.dart';
 import 'package:bldrs/views/screens/x_select_keywords_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -94,7 +94,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   @override
   bool get wantKeepAlive => true;
 
-  FlyersProvider _prof;
+  OldFlyersProvider _prof;
   SuperFlyer _superFlyer;
   BzModel _bzModel;
   FlyerModel _originalFlyer;
@@ -129,7 +129,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     super.initState();
 
     /// get current bzModel when this flyer goes to editor
-    _prof = Provider.of<FlyersProvider>(context, listen: false);
+    _prof = Provider.of<OldFlyersProvider>(context, listen: false);
     _bzModel = widget.bzModel;
     // print('FINAL FINAL initialized _bzModel as : ${_bzModel.bzID} as bzName : ${_bzModel.bzName}');
 
@@ -1768,7 +1768,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onChangeZone() async {
 
-    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
 
     final List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
     List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _superFlyer.flyerZone.countryID);

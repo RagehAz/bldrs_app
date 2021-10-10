@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/views/screens/d_more/d_2_select_city_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/swiper_layout_screen.dart';
@@ -17,12 +17,12 @@ class SelectCountryScreen extends StatefulWidget {
 }
 
 class _SelectCountryScreenState extends State<SelectCountryScreen> {
-    CountryProvider _countryPro;
+    OldCountryProvider _countryPro;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _countryPro =  Provider.of<CountryProvider>(context, listen: false);
+    _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
 
   }
 // -----------------------------------------------------------------------------

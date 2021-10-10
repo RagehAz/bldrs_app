@@ -4,11 +4,11 @@ import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 
 class LDBViewerScreen extends StatefulWidget {
-  final BLDB bldb;
+  final String ldbDocName;
 
 
   const LDBViewerScreen({
-    @required this.bldb,
+    @required this.ldbDocName,
 });
 
   @override
@@ -45,7 +45,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _bldbName = BLDBMethod.getDocName(widget.bldb);
+    _bldbName = widget.ldbDocName;
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -69,8 +69,8 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
   List<Map<String, Object>> _maps;
   Future<void> _readSembast() async {
 
-    final List<Map<String, Object>> _sembastMaps = await BLDBMethod.readAll(
-      bldb: widget.bldb,
+    final List<Map<String, Object>> _sembastMaps = await LDBOps.readAllMaps(
+      docName: widget.ldbDocName,
     );
 
     setState(() {
@@ -92,14 +92,14 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
     return DashBoardLayout(
       pageTitle: 'Local db : ${_bldbName}',
       loading: false,
-      onBldrsTap: (){print(widget.bldb);},
+      onBldrsTap: (){print(widget.ldbDocName);},
       listWidgets: <Widget>[
 
         if (_maps != null && _maps.isNotEmpty)
           ...SQLViewer.rows(
             context: context,
             // color: Colorz.Green125,
-            primaryKey: BLDBMethod.getPrimaryKey(widget.bldb),
+            primaryKey: LDBOps.getPrimaryKey(widget.ldbDocName),
             maps: _maps,
             onRowTap: (String id) => _onRowTap(id),
           ),

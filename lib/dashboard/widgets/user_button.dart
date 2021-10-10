@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/zones/zone_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_wrapper.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -42,7 +42,7 @@ class dashboardUserButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: true);
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
     final String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, userModel.zone.countryID);
     final String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, userModel.zone.cityID);
     final String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, userModel.zone.districtID);

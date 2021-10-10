@@ -6,7 +6,7 @@ import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/providers/flyers_and_bzz/flyers_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
@@ -17,9 +17,9 @@ import 'package:provider/provider.dart';
 
 class LDBViewersScreen extends StatelessWidget {
 // -----------------------------------------------------------------------------
-  Future<void> goToLDBViewer(BuildContext context, BLDB bldb) async {
+  Future<void> goToLDBViewer(BuildContext context, String ldbDocName) async {
     await Nav.goToNewScreen(context, LDBViewerScreen(
-      bldb: bldb,
+      ldbDocName: ldbDocName,
     ));
   }
 // -----------------------------------------------------------------------------
@@ -35,56 +35,56 @@ class LDBViewersScreen extends StatelessWidget {
           context: context,
           verse: 'My follows',
           icon: Iconz.Follow,
-          onTap: () => goToLDBViewer(context, BLDB.myFollows,),
+          onTap: () => goToLDBViewer(context, LDBDoc.myFollows,),
         ),
 
         BottomDialog.wideButton(
           context: context,
           verse: 'My calls',
           icon: Iconz.Phone,
-          onTap: () => goToLDBViewer(context, BLDB.myCalls,),
+          onTap: () => goToLDBViewer(context, LDBDoc.myCalls,),
         ),
 
         BottomDialog.wideButton(
           context: context,
           verse: 'My shares',
           icon: Iconz.Share,
-          onTap: () => goToLDBViewer(context, BLDB.myShares,),
+          onTap: () => goToLDBViewer(context, LDBDoc.myShares,),
         ),
 
         BottomDialog.wideButton(
           context: context,
           verse: 'My views',
           icon: Iconz.Views,
-          onTap: () => goToLDBViewer(context, BLDB.myViews,),
+          onTap: () => goToLDBViewer(context, LDBDoc.myViews,),
         ),
 
         BottomDialog.wideButton(
           context: context,
           verse: 'My saves',
           icon: Iconz.Save,
-          onTap: () => goToLDBViewer(context, BLDB.mySaves,),
+          onTap: () => goToLDBViewer(context, LDBDoc.mySaves,),
         ),
 
         BottomDialog.wideButton(
           context: context,
           verse: 'My reviews',
           icon: Iconz.UTSearching,
-          onTap: () => goToLDBViewer(context, BLDB.myReviews,),
+          onTap: () => goToLDBViewer(context, LDBDoc.myReviews,),
         ),
 
         BottomDialog.wideButton(
           context: context,
           verse: 'My questions',
           icon: Iconz.DvGouran,
-          onTap: () => goToLDBViewer(context, BLDB.myQuestions,),
+          onTap: () => goToLDBViewer(context, LDBDoc.myQuestions,),
         ),
 
         BottomDialog.wideButton(
           context: context,
           verse: 'My answers',
           icon: Iconz.DvGouran,
-          onTap: () => goToLDBViewer(context, BLDB.myAnswers,),
+          onTap: () => goToLDBViewer(context, LDBDoc.myAnswers,),
         ),
 
       ],
@@ -102,7 +102,7 @@ class LDBViewersScreen extends StatelessWidget {
 
         print('starting the thing');
 
-        final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
+        final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
         List<TinyFlyer> _allTinyFlyers =  _prof.getSavedTinyFlyers;
 
         print('got tinyflyers from provider');
@@ -132,8 +132,8 @@ class LDBViewersScreen extends StatelessWidget {
 
         print('starting local insertion');
 
-        await BLDBMethod.insert(
-          bldb: BLDB.mySavedFlyers,
+        await LDBOps.insertMaps(
+          docName: LDBDoc.mySavedFlyers,
           inputs: _maps,
         );
 
@@ -146,7 +146,7 @@ class LDBViewersScreen extends StatelessWidget {
 
           WideButton(
             verse: 'Me & preferences', // notifications prefs, my user model
-            onTap: () => goToLDBViewer(context, BLDB.meAndPrefs,),
+            onTap: () => goToLDBViewer(context, LDBDoc.myUserModel,),
             icon: Iconz.Users,
           ),
 
@@ -154,13 +154,13 @@ class LDBViewersScreen extends StatelessWidget {
 
           WideButton(
             verse: 'My Saved Flyers',
-            onTap: () => goToLDBViewer(context, BLDB.mySavedFlyers,),
+            onTap: () => goToLDBViewer(context, LDBDoc.mySavedFlyers,),
             icon: Iconz.SavedFlyers,
           ),
 
           WideButton(
             verse: 'My Followed Businesses',
-            onTap: () => goToLDBViewer(context, BLDB.myFollowedBzz,),
+            onTap: () => goToLDBViewer(context, LDBDoc.myFollowedBzz,),
             icon: Iconz.Follow,
           ),
 
@@ -174,13 +174,13 @@ class LDBViewersScreen extends StatelessWidget {
 
           WideButton(
             verse: 'My Businesses',
-            onTap: () => goToLDBViewer(context, BLDB.myBzz,),
+            onTap: () => goToLDBViewer(context, LDBDoc.myBzz,),
             icon: Iconz.Bz,
           ),
 
           WideButton(
             verse: 'My Businesses Flyers', // includes deactivated flyers and draft flyers
-            onTap: () => goToLDBViewer(context, BLDB.myBzzFlyers,),
+            onTap: () => goToLDBViewer(context, LDBDoc.myBzzFlyers,),
             icon: Iconz.VerifyFlyer,
           ),
 
@@ -188,13 +188,13 @@ class LDBViewersScreen extends StatelessWidget {
 
           WideButton(
             verse: 'Session flyers',
-            onTap: () => goToLDBViewer(context, BLDB.myBzzFlyers,),
+            onTap: () => goToLDBViewer(context, LDBDoc.myBzzFlyers,),
             icon: Iconz.FlyerGrid,
           ),
 
           WideButton(
             verse: 'Session bzz',
-            onTap: () => goToLDBViewer(context, BLDB.sessionBzz,),
+            onTap: () => goToLDBViewer(context, LDBDoc.sessionBzz,),
             icon: Iconz.Bz,
           ),
 
@@ -202,7 +202,7 @@ class LDBViewersScreen extends StatelessWidget {
 
           WideButton(
             verse: 'Keywords',
-            onTap: () => goToLDBViewer(context, BLDB.keywords,),
+            onTap: () => goToLDBViewer(context, LDBDoc.keywords,),
             icon: Iconz.Keyword,
           ),
 
