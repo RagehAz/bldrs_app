@@ -6,8 +6,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/models/flyer/records/share_model.dart';
+import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/screens/d_more/d_2_select_city_screen.dart';
 import 'package:bldrs/views/screens/d_more/d_4_change_language_screen.dart';
@@ -64,7 +63,7 @@ class MoreScreen extends StatelessWidget {
                 iconBoxColor: Colorz.Black230,
                 verseColor: Colorz.White255,
                 btOnTap: () async {
-                  await Launchers.shareLink(context, LinkModel.bldrsWebSiteLink);
+                  await Launch.shareLink(context, LinkModel.bldrsWebSiteLink);
                 },
               ),
 

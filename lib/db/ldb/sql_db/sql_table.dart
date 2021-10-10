@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/providers/local_db/sql_db/sql_column.dart';
+import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 

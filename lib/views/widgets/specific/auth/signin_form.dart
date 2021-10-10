@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
+import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart' show Expander;

@@ -11,17 +11,15 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
-import 'package:bldrs/firestore/auth_ops.dart';
-import 'package:bldrs/firestore/dynamic_links.dart';
-import 'package:bldrs/firestore/firestore.dart';
-import 'package:bldrs/firestore/flyer_ops.dart';
-import 'package:bldrs/firestore/record_ops.dart';
+import 'package:bldrs/db/firestore/auth_ops.dart';
+import 'package:bldrs/db/firestore/dynamic_links.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/records/review_model.dart';
-import 'package:bldrs/models/flyer/records/share_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';
@@ -836,13 +834,13 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     });
 
 
-    /// start save flyer ops
-    await RecordOps.saveFlyerOps(
-        context: context,
-        userID: superUserID(),
-        flyerID: _superFlyer.flyerID,
-        slideIndex: _superFlyer.currentSlideIndex,
-    );
+    /// TASK : start save flyer ops
+    // await RecordOps.saveFlyerOps(
+    //     context: context,
+    //     userID: superUserID(),
+    //     flyerID: _superFlyer.flyerID,
+    //     slideIndex: _superFlyer.currentSlideIndex,
+    // );
 
     final TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromSuperFlyer(_superFlyer);
 
@@ -884,15 +882,16 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               '- ${_superFlyer.mSlides[_i].headline} .\n'
       );
 
+      /// TASK : START SHARE OPS
       // don't await this method
-      RecordOps.shareFlyerOPs(
-        context: context,
-        flyerID: _superFlyer.flyerID,
-        userID: superUserID(),
-        slideIndex: _superFlyer.currentSlideIndex,
-      );
+      // RecordOps.shareFlyerOPs(
+      //   context: context,
+      //   flyerID: _superFlyer.flyerID,
+      //   userID: superUserID(),
+      //   slideIndex: _superFlyer.currentSlideIndex,
+      // );
 
-      await ShareModel.shareFlyer(context, _theFlyerLink);
+      await Launch.shareFlyer(context, _theFlyerLink);
 
     }
 
@@ -910,15 +909,16 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     }
 
     else {
-      /// start follow bz ops
-      final List<String> _updatedBzFollows = await RecordOps.followBzOPs(
-        context: context,
-        bzID: _superFlyer.bz.bzID,
-        userID: superUserID(),
-      );
 
-      /// add or remove tinyBz from local followed bzz
-      _prof.updatedFollowsInLocalList(_updatedBzFollows);
+      /// TASK : start follow bz ops
+      // final List<String> _updatedBzFollows = await RecordOps.followBzOPs(
+      //   context: context,
+      //   bzID: _superFlyer.bz.bzID,
+      //   userID: superUserID(),
+      // );
+      //
+      // /// add or remove tinyBz from local followed bzz
+      // _prof.updatedFollowsInLocalList(_updatedBzFollows);
 
       /// trigger current follow value
       setState(() {
@@ -954,15 +954,15 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       else {
 
         /// launch call
-        await Launchers.launchCall('tel: $_contact');
+        await Launch.launchCall('tel: $_contact');
 
-        /// start call bz ops
-        await RecordOps.callBzOPs(
-          context: context,
-          bzID: _bzID,
-          userID: _userID,
-          slideIndex: _superFlyer.currentSlideIndex,
-        );
+        /// TASK : start call bz ops
+        // await RecordOps.callBzOPs(
+        //   context: context,
+        //   bzID: _bzID,
+        //   userID: _userID,
+        //   slideIndex: _superFlyer.currentSlideIndex,
+        // );
 
       }
 

@@ -76,4 +76,9 @@ class GreatPlaces with ChangeNotifier {
 //     ).toList();
 //     notifyListeners();
 }
+
+  /// test
+  String get inception {
+    return 'inception of provider withinProvider';
+  }
 }

@@ -13,7 +13,9 @@ class FireCollection{
   static const String users = 'users';
   static const String tinyUsers = 'tinyUsers';
   static const String users_user_asks = 'asks' ;
-  static const String users_user_saves = 'saves';
+  static const String users_user_records = 'records';
+  static const String users_user_records_bzz = 'follows';
+  static const String users_user_records_flyers = 'saves';
   static const String users_user_notifications = 'notifications';
 
   static const String countries = 'countries';
