@@ -73,7 +73,7 @@ class BzFlyersTab extends StatelessWidget {
                   onHeaderTap: () => print('on header tap in f 0 my bz Screen'),
                 ),
                 showFlyers: true,
-                tinyFlyers: tinyFlyers,
+                // tinyFlyers: tinyFlyers,
               ),
 
               if (tinyFlyers == null)

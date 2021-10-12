@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/material.dart';
@@ -138,7 +139,7 @@ class Numeric {
 
     // print('random number is : $_randomNumber');
 
-    if (existingIndexes != null && existingIndexes.length != 0){
+    if (Mapper.canLoopList(existingIndexes)){
       if (existingIndexes.contains(_randomNumber)){
         _randomNumber = createUniqueIndex(existingIndexes: existingIndexes, maxIndex: maxIndex);
       }
@@ -148,9 +149,9 @@ class Numeric {
   }
 // -----------------------------------------------------------------------------
   static List<int> getValuesFromKeys({@required List<ValueKey> keys}) {
-    List<int> _values = [];
+    List<int> _values = <int>[];
 
-    if (keys != null && keys.length != 0) {
+    if (Mapper.canLoopList(keys)) {
       keys.forEach((key) {
         _values.add(key.value);
       });

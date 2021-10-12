@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/db/firestore/flyer_ops.dart';
@@ -407,7 +408,7 @@ class BzOps{
 
     print('1 - start delete flyer ops for all flyers');
     final List<String> _flyersIDs = bzModel.flyersIDs;
-    if(_flyersIDs != null && _flyersIDs.length != 0){
+    if(Mapper.canLoopList(_flyersIDs)){
       for (var id in _flyersIDs){
 
         print('a - getting flyer : $id');

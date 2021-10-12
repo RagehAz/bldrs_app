@@ -169,7 +169,7 @@ class ObjectChecker {
 // -----------------------------------------------------------------------------
   static bool objectIsDateTime(dynamic object){
 
-    final bool _isDatTime = object.runtimeType == DateTime;
+    final bool _isDatTime = object?.runtimeType == DateTime;
 
     return _isDatTime;
 
@@ -177,9 +177,15 @@ class ObjectChecker {
 // -----------------------------------------------------------------------------
   static bool objectIsGeoPoint(dynamic object){
 
-    final bool _isGeoPoint = object.runtimeType == GeoPoint;
+    final bool _isGeoPoint = object?.runtimeType == GeoPoint;
 
     return _isGeoPoint;
   }
 // -----------------------------------------------------------------------------
+  static bool objectIsTimeStamp(dynamic object){
+
+    final bool _isTimestamp = object?.runtimeType == Timestamp;
+
+    return _isTimestamp;
+  }
 }

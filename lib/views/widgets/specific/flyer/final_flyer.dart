@@ -31,6 +31,7 @@ import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/views/screens/f_bz/f_1_flyer_editor_screen.dart';
@@ -521,6 +522,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     final TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromSuperFlyer(_superFlyer);
     print('opening tiny flyer : ${_tinyFlyer.flyerID} while THE FUCKING widget.goesToEditor IS : ${widget.goesToEditor}');
+
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    await _bzzProvider.setActiveBz(_superFlyer.bz);
 
     /// opening editor
     if (widget.goesToEditor == true){
@@ -2382,18 +2386,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         tinyAuthor: _tinyAuthor,
         tinyBz: _tinyBz,
         // -------------------------
-        createdAt: null, // will be overriden in createFlyerOps
         flyerPosition: _superFlyer.position,
-        // -------------------------
-        ankhIsOn: false, // shouldn't be saved here but will leave this now
         // -------------------------
         slides: _slides,
         // -------------------------
         flyerIsBanned: false,
-        deletionTime: null,
         info: _superFlyer.infoController.text,
         specs: _superFlyer.specs,
-        times: <PublishTime>[PublishTime(timeStamp: DateTime.now(), state: FlyerState.Published)],
+        times: <PublishTime>[PublishTime(time: DateTime.now(), state: FlyerState.published)],
         priceTagIsOn: _superFlyer.priceTagIsOn,
       );
 
@@ -2442,19 +2442,15 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         tinyAuthor: _superFlyer.flyerTinyAuthor,
         tinyBz: TinyBz.getTinyBzFromSuperFlyer(_superFlyer),
         // -------------------------
-        createdAt: PublishTime.getPublishTimeFromTimes(times: _superFlyer.flyerTimes, state: FlyerState.Published),
         flyerPosition: _superFlyer.position,
-        // -------------------------
-        ankhIsOn: false, // shouldn't be saved here but will leave this now
         // -------------------------
         slides: _updatedSlides,
         // -------------------------
-        flyerIsBanned: PublishTime.flyerIsBanned(_superFlyer.flyerTimes),
-        deletionTime: PublishTime.getPublishTimeFromTimes(times: _superFlyer.flyerTimes, state: FlyerState.Deleted),
+        flyerIsBanned: PublishTime.flyerIsBanned(_superFlyer.times),
         info: _superFlyer.infoController.text,
         specs: _superFlyer.specs,
         priceTagIsOn: _superFlyer.priceTagIsOn,
-        // times: _superFlyer.times,
+        times: _superFlyer.times,
         // specs: _draft.specs,
       );
 

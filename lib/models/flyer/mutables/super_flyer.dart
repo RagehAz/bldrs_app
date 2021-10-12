@@ -73,8 +73,7 @@ class SuperFlyer{
   GeoPoint position; // MutableFlyer -- ?
 
   /// publishing times
-  List<PublishTime> flyerTimes; // MutableFlyer -- ?
-  DateTime createdAt;
+  List<PublishTime> times; // MutableFlyer -- ?
   bool priceTagIsOn;
 
 
@@ -131,8 +130,7 @@ class SuperFlyer{
     @required this.position,
 
     /// publishing times
-    @required this.flyerTimes,
-    @required this.createdAt,
+    @required this.times,
 
     @required this.priceTagIsOn,
   });
@@ -244,8 +242,7 @@ class SuperFlyer{
           position: null,
 
           /// publishing times
-          flyerTimes: null,
-          createdAt: null,
+          times: null,
 
           priceTagIsOn: null,
 
@@ -415,11 +412,7 @@ class SuperFlyer{
         position: flyerModel.flyerPosition,
 
         /// publishing times
-        flyerTimes: <PublishTime>[
-          PublishTime(state: FlyerState.Published, timeStamp: flyerModel.createdAt),
-          PublishTime(state: FlyerState.Deleted, timeStamp: flyerModel.deletionTime),
-        ],
-        createdAt: flyerModel.createdAt,
+        times: flyerModel.times,
         priceTagIsOn: flyerModel.priceTagIsOn,
       );
   }
@@ -584,8 +577,7 @@ class SuperFlyer{
         position: null,
 
         /// publishing times
-        flyerTimes: null,
-        createdAt: null,
+        times: null,
         priceTagIsOn: tinyFlyer.priceTagIsOn,
       );
   }
@@ -750,7 +742,7 @@ class SuperFlyer{
 
         /// flyer data
         flyerType: FlyerTypeClass.concludeFlyerType(bzModel.bzType),
-        flyerState: FlyerState.Draft,
+        flyerState: FlyerState.draft,
         flyerTinyAuthor: TinyUser.getTinyAuthorFromBzModel(bzModel: bzModel, authorID: superUserID()),
         flyerShowsAuthor: FlyerModel.canFlyerShowAuthor(bzModel: bzModel),
 
@@ -764,10 +756,9 @@ class SuperFlyer{
         position: null,
 
         /// publishing times
-        flyerTimes: <PublishTime>[
-          PublishTime(state: FlyerState.Draft, timeStamp: DateTime.now()),
+        times: <PublishTime>[
+          PublishTime(state: FlyerState.draft, time: DateTime.now()),
         ],
-        createdAt: DateTime.now(),
         priceTagIsOn: false,
       );
 
@@ -943,12 +934,7 @@ class SuperFlyer{
         position: flyerModel.flyerPosition,
 
         /// publishing times
-        flyerTimes: <PublishTime>[
-          PublishTime(state: FlyerState.Published, timeStamp: flyerModel.createdAt),
-          PublishTime(state: FlyerState.Deleted, timeStamp: flyerModel.deletionTime),
-          PublishTime(state: FlyerState.Draft, timeStamp: DateTime.now()),
-        ],
-        createdAt: flyerModel.createdAt,
+        times: flyerModel.times,
         priceTagIsOn: flyerModel.priceTagIsOn,
       );
 
@@ -1073,8 +1059,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         position: null,
 
         /// publishing times
-        flyerTimes: null,
-        createdAt: null,
+        times: null,
 
         priceTagIsOn: null,
       );

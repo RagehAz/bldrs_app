@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -7,7 +8,6 @@ import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/db/firestore/aggredocs.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/models/helpers/app_updates.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -291,31 +291,58 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
               WideButton(
                 color: Colorz.BloodTest,
-                verse: 'upload app state',
+                verse: 'delete ankh is on',
                 icon: Iconz.DvBlackHole,
                 onTap: () async {
 
-                  AppState _appState = AppState.initialState() ;
-
-                  _appState.sponsors = <String>[
-                    'ar1',
-                    'br1',
-                    'dr2',
-                    'mn2',
-                    'pp2',
-                    'sp2',
-                  ];
-
-                  await Fire.createNamedDoc(
-                    context: context,
-                    collName: FireCollection.admin,
-                    docName: FireCollection.admin_appState,
-                    input: _appState.toMap(),
+                  List<dynamic> _maps = await Fire.readCollectionDocs(
+                    limit: 200,
+                    addDocID: true,
+                    orderBy: 'flyerID',
+                    collectionName: FireCollection.flyers,
+                    addDocSnapshotToEachMap: false,
                   );
+
+
+                  for (Map map in _maps){
+
+
+
+                    // Mapper.printMap(_fixedMap);
+
+                    await Fire.deleteDocField(
+                      context: context,
+                      collName: FireCollection.flyers,
+                      docName: map['flyerID'],
+                      field: 'ankhIsOn',
+                    );
+
+
+                  }
 
                 },
               ),
 
+
+              WideButton(
+                color: Colorz.BloodTest,
+                verse: 'object is timestamp',
+                icon: Iconz.DvBlackHole,
+                onTap: () async {
+
+                  final String flyerID = '1eFVUCIodzzX6dTL49FS';
+
+                  dynamic map = await Fire.readDoc(context: context, collName: FireCollection.flyers , docName: flyerID);
+
+                  dynamic _createdAt = map['deletionTime'];
+
+                  bool isTimestamp = ObjectChecker.objectIsTimeStamp(_createdAt);
+
+                  print('done with all isTimestamp : $isTimestamp');
+
+
+                },
+              ),
 
               Container(
                 width: Scale.superScreenWidth(context),

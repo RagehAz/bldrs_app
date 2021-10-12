@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -66,7 +67,7 @@ class BzzProvider extends ChangeNotifier {
 
     List<BzModel> _bzz = <BzModel>[];
 
-    if (bzzIDs != null && bzzIDs.isNotEmpty){
+    if (Mapper.canLoopList(bzzIDs)){
 
       for (String bzID in bzzIDs){
 
@@ -102,7 +103,7 @@ class BzzProvider extends ChangeNotifier {
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     final List<String> _sponsorsBzzIDs = _generalProvider.appState.sponsors;
 
-    if (_sponsorsBzzIDs != null && _sponsorsBzzIDs.isNotEmpty){
+    if (Mapper.canLoopList(_sponsorsBzzIDs)){
 
       /// 2 - fetch bzz
       List<BzModel> _bzzSponsors = await fetchBzzModels(context: context, bzzIDs: _sponsorsBzzIDs);
@@ -129,7 +130,7 @@ class BzzProvider extends ChangeNotifier {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final List<String> _userBzzIDs = _usersProvider.myUserModel.myBzzIDs;
 
-    if (_userBzzIDs != null && _userBzzIDs.isNotEmpty){
+    if (Mapper.canLoopList(_userBzzIDs)){
 
       /// 2 - fetch bzz
       List<BzModel> _userBzz = await fetchBzzModels(context: context, bzzIDs: _userBzzIDs);
@@ -145,7 +146,7 @@ class BzzProvider extends ChangeNotifier {
 // -------------------------------------
   void removeTinyBzFromUserTinyBzz({String bzID}){
 
-    if (_userTinyBzz != null && _userTinyBzz.length != 0){
+    if (Mapper.canLoopList(_userTinyBzz)){
       final int _index = _userTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
       _userTinyBzz.removeAt(_index);
       notifyListeners();
@@ -178,7 +179,7 @@ class BzzProvider extends ChangeNotifier {
     final UserModel _myUserModel = _usersProvider.myUserModel;
     final List<String> _followedBzzIDs = _myUserModel?.followedBzzIDs;
 
-    if (_followedBzzIDs != null && _followedBzzIDs.isNotEmpty){
+    if (Mapper.canLoopList(_followedBzzIDs)){
 
       final List<BzModel> _bz = await fetchBzzModels(
         context: context,
@@ -213,6 +214,20 @@ class BzzProvider extends ChangeNotifier {
     return _isFollowing;
   }
 // -----------------------------------------------------------------------------
+  /// ACTIVE BZ
+  BzModel _activeBz;
+// -----------------------------------------------------------------------------
+  BzModel get activeBz{
+    return _activeBz;
+  }
+// -----------------------------------------------------------------------------
+  Future<void> setActiveBz(BzModel bzModel) async {
+    print('setting active bz to ${bzModel.bzID}');
+    _activeBz = bzModel;
+    notifyListeners();
+  }
+// -----------------------------------------------------------------------------
+
 }
 
 /*

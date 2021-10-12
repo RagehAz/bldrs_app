@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
@@ -36,7 +37,7 @@ static FeedbackModel decipherFeedbackMap(Map<String, dynamic> map){
 static List<FeedbackModel> decipherFeedbacks(List<dynamic> maps){
     final List<FeedbackModel> _feedbacks = <FeedbackModel>[];
 
-    if (maps != null && maps.isNotEmpty){
+    if (Mapper.canLoopList(maps)){
 
       for (var map in maps){
 

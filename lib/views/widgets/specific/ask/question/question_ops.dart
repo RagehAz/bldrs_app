@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/views/widgets/specific/ask/question/question_model.dart';
@@ -55,7 +56,7 @@ class QuestionOps {
     QuestionModel _question;
 
     /// A - save image attachments if existed
-    if (question.pics != null && question.pics.length !=0){
+    if (Mapper.canLoopList(question?.pics)){
 
       /// A2 - create pics names
       List<String> _picsNames = <String>[];

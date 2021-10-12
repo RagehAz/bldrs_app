@@ -295,7 +295,7 @@ class TinyFlyer with ChangeNotifier{
   static bool tinyFlyersContainThisID({String flyerID, List<TinyFlyer> tinyFlyers}){
     bool _hasTheID = false;
 
-    if (flyerID != null && tinyFlyers != null && tinyFlyers.length != 0){
+    if (flyerID != null && Mapper.canLoopList(tinyFlyers)){
 
       for (TinyFlyer tinyFlyer in tinyFlyers){
 

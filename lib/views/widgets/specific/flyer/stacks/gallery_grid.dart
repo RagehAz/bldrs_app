@@ -95,6 +95,8 @@ class GalleryGrid extends StatelessWidget {
     );
 // -----------------------------------------------------------------------------
 
+    print('the fucking flyers hena are : ${galleryFlyers}');
+
     return
       Container(
           width: gridZoneWidth,
@@ -104,7 +106,7 @@ class GalleryGrid extends StatelessWidget {
             physics: NeverScrollableScrollPhysics(),
             addAutomaticKeepAlives: true,
             padding: EdgeInsets.only(right: _gridSpacing, left: _gridSpacing, top: _gridSpacing , bottom: _gridSpacing ),
-            // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
+            key: PageStorageKey<String>('gridFlyers_${bzID}'),//new Key(loadedFlyers[flyerIndex].f01flyerID),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               crossAxisSpacing: _gridSpacing,
               mainAxisSpacing: _gridSpacing,

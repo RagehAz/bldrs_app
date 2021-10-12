@@ -240,7 +240,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           position : _currentPosition,
           contacts : _createContactList(existingContacts : widget.user.contacts),
           // -------------------------
-          myBzzIDs: <dynamic>[],
+          myBzzIDs: <String>[],
         // -------------------------
         isAdmin: widget.user.isAdmin,
         authBy: widget.user.authBy,

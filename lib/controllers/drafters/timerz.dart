@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -70,14 +71,14 @@ abstract class Timers {
   }
 // -----------------------------------------------------------------------------
   static DateTime decipherTime({@required dynamic time, @required bool fromJSON}){
-    final DateTime _output = fromJSON == true ? _decipherDateTimeIso8601(time) : time.toDate();
+    final DateTime _output = fromJSON == true ? _decipherDateTimeIso8601(time) : time?.toDate();
     return _output;
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> cipherTimes({@required List<DateTime> times, @required bool toJSON}){
     final List<dynamic> _times = <String>[];
 
-    if (times != null && times.isNotEmpty){
+    if (Mapper.canLoopList(times)){
 
       for (var time in times){
         _times.add(cipherTime(
@@ -371,13 +372,9 @@ abstract class Timers {
     return _output;
   }
 // -----------------------------------------------------------------------------
-}
 
-/*
 
-  ZEBALA
-
-  static String cipherDateTimeToString(DateTime dateTime){
+  static String tempCipherDateTimeToString(DateTime dateTime){
     if(dateTime == null){
       return null;
     } else {
@@ -385,13 +382,20 @@ abstract class Timers {
     }
   }
 
-  static DateTime decipherDateTimeString(String dateTimeString){
+  static DateTime tempDecipherDateTimeString(String dateTimeString){
     if (dateTimeString == null){
       return null;
     } else {
       return dateFormat?.parse(dateTimeString);
     }
   }
+
+}
+
+/*
+
+  ZEBALA
+
 
 
  */

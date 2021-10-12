@@ -2,6 +2,7 @@
 
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
@@ -26,7 +27,7 @@ class SQLMethods{
 
     if (time != null){
       final String _state = '${FlyerModel.cipherFlyerState(time.state)}';
-      final String _timeString = Timers.cipherTime(time: time.timeStamp, toJSON: true);
+      final String _timeString = Timers.cipherTime(time: time.time, toJSON: true);
 
       _output = '${_state}#${_timeString}';
     }
@@ -39,14 +40,14 @@ class SQLMethods{
 
     if (sqkTimeString != null){
       final String _stateString = TextMod.trimTextAfterFirstSpecialCharacter(sqkTimeString, '#');
-      final int _stateInt = Numeric.stringToInt(_stateString);
-      final FlyerState _state = FlyerModel.decipherFlyerState(_stateInt);
+      // final int _stateInt = Numeric.stringToInt(_stateString);
+      final FlyerState _state = FlyerModel.decipherFlyerState(_stateString);
       final String _timeString = TextMod.trimTextBeforeFirstSpecialCharacter(sqkTimeString, '#');
       final DateTime _time = Timers.decipherTime(time: _timeString, fromJSON: true);
 
       time = PublishTime(
         state: _state,
-        timeStamp: _time,
+        time: _time,
       );
 
     }
@@ -57,7 +58,7 @@ class SQLMethods{
   static String sqlCipherPublishTimes(List<PublishTime> times){
     String _output;
 
-    if (times != null && times.length != 0){
+    if (Mapper.canLoopList(times)){
 
       final List<String> _sqlTimesStrings = <String>[];
 
@@ -230,7 +231,7 @@ class SQLMethods{
   static Future<List<Map<String, Object>>> sqlCipherBzz(List<BzModel> bzz) async {
     List<Map<String, Object>> _maps = <Map<String, Object>>[];
 
-    if (bzz != null && bzz.isNotEmpty){
+    if (Mapper.canLoopList(bzz)){
 
       for (BzModel bz in bzz){
 
@@ -248,7 +249,7 @@ class SQLMethods{
   static Future<List<BzModel>> sqlDecipherBzz({List<Map<String, Object>> maps, List<AuthorModel> allAuthors}) async {
     List<BzModel> _bzz = <BzModel>[];
 
-    if (maps != null && maps.isNotEmpty){
+    if (Mapper.canLoopList(maps)){
 
       for (var map in maps){
 
@@ -351,15 +352,12 @@ class SQLMethods{
       'tinyBz_bzTotalFollowers' : flyer.tinyBz.bzTotalFollowers,
       'tinyBz_bzTotalFlyers' : flyer.tinyBz.bzTotalFlyers,
 
-      'createdAt' : Timers.cipherTime(time: flyer.createdAt, toJSON: true),
       'flyerPosition' : Atlas.cipherGeoPoint(point : flyer.flyerPosition, toJSON: true),
-      'ankhIsOn' : Numeric.sqlCipherBool(flyer.ankhIsOn),
       // 'numberOfSlides' : flyer.slides.length,
       'flyerIsBanned' : Numeric.sqlCipherBool(flyer.flyerIsBanned),
-      'deletionTime' : Timers.cipherTime(time: flyer.deletionTime, toJSON: true),
       'specs' : Spec.sqlCipherSpecs(flyer.specs),
       'info' : flyer.info,
-      'times' : PublishTime.cipherPublishTimes(publishTimes: flyer.times, toJSON: true),
+      'times' : PublishTime.cipherPublishTimesToMap(times: flyer.times, toJSON: true),
       'priceTagIsOn' : Numeric.sqlCipherBool(flyer.priceTagIsOn),
     };
 
@@ -369,7 +367,7 @@ class SQLMethods{
   static Future<List<Map<String, Object>>> sqlCipherFlyers(List<FlyerModel> flyers) async {
     final List<Map<String, Object>> _maps = <Map<String, Object>>[];
 
-    if (flyers != null && flyers.length != 0){
+    if (Mapper.canLoopList(flyers)){
 
       for (FlyerModel flyer in flyers){
 
@@ -385,7 +383,7 @@ class SQLMethods{
   static Future<FlyerModel> sqlDecipherFlyer({Map<String, Object> flyerMap, List<SlideModel> slides}) async {
     FlyerModel _flyer;
 
-    if (flyerMap != null && slides != null && slides.length != 0){
+    if (flyerMap != null && Mapper.canLoopList(slides)){
 
       _flyer = FlyerModel(
         flyerID: flyerMap['flyerID'],
@@ -424,15 +422,12 @@ class SQLMethods{
           bzTotalFlyers: flyerMap['tinyBz_bzTotalFlyers'],
         ),
 
-        createdAt: Timers.decipherTime(time: flyerMap['createdAt'], fromJSON: true),
         flyerPosition: Atlas.decipherGeoPoint(point: flyerMap['flyerPosition'], fromJSON: true),
-        ankhIsOn: Numeric.sqlDecipherBool(flyerMap['ankhIsOn']),
         slides: slides,
         flyerIsBanned: Numeric.sqlDecipherBool(flyerMap['flyerIsBanned']),
-        deletionTime: Timers.decipherTime(time: flyerMap['deletionTime'], fromJSON: true),
         specs: Spec.sqlDecipherSpecs(flyerMap['specs']),
         info: flyerMap['info'],
-        times: PublishTime.decipherPublishTimes(maps: flyerMap['times'], fromJSON: true),
+        times: PublishTime.decipherPublishTimesFromMap(map: flyerMap['times'], fromJSON: true),
         priceTagIsOn: Numeric.sqlDecipherBool(flyerMap['priceTagIsOn']),
       );
 
@@ -444,7 +439,7 @@ class SQLMethods{
   static Future<List<FlyerModel>> sqlDecipherFlyers({List<dynamic> sqlFlyersMaps, List<SlideModel> allSlides}) async {
     final List<FlyerModel> _allFlyers = <FlyerModel>[];
 
-    if (sqlFlyersMaps != null && allSlides != null && sqlFlyersMaps.length != 0 && allSlides.length != 0){
+    if (Mapper.canLoopList(sqlFlyersMaps) && Mapper.canLoopList(allSlides)){
 
       for (var sqlFlyerMap in sqlFlyersMaps){
 

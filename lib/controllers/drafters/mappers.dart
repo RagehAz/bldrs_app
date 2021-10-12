@@ -292,7 +292,7 @@ class Mapper{
   static List<String> getStringsFromDynamics({List<dynamic> dynamics}){
     final List<String> _strings = <String>[];
 
-    if (dynamics != null && dynamics.length != 0){
+    if (Mapper.canLoopList(dynamics)){
       for (dynamic thing in dynamics){
 
         if (ObjectChecker.objectIsString(thing) == true){
@@ -339,4 +339,57 @@ class Mapper{
     return _map;
   }
 // -----------------------------------------------------------------------------
+  static bool canLoopList(List<dynamic> list){
+
+    bool _canLoop = false;
+
+    if (list != null && list.length > 0){
+      _canLoop = true;
+    }
+    return _canLoop;
+  }
+// -----------------------------------------------------------------------------
+  static void printMap(Map<String, dynamic> map){
+
+    print('MAP-PRINT --------------------------------------------------START');
+
+    final List<String> _keys = map.keys.toList();
+    final List<dynamic> _values = map.values.toList();
+
+    for (int i = 0; i <_keys.length; i++){
+      print('MAP-PRINT : ${_keys[i]} : ${_values[i]}');
+    }
+
+    print('MAP-PRINT --------------------------------------------------END');
+
+  }
+// -----------------------------------------------------------------------------
+  static void printMaps(List<dynamic> maps){
+
+    if (canLoopList(maps)){
+
+      maps.forEach((map) {
+        printMap(map);
+      });
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  static List<Map<String, dynamic>> getMapsFromDynamics(List<dynamic> dynamics){
+
+    List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+
+    if (canLoopList(dynamics)){
+
+      for (dynamic map in dynamics){
+
+        _maps.add(map);
+
+      }
+
+    }
+
+    return _maps;
+  }
 }

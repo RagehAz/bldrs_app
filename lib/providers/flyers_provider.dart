@@ -1,6 +1,8 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/db/firestore/search_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
@@ -8,6 +10,7 @@ import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
+import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +74,7 @@ class FlyersProvider extends ChangeNotifier {
   Future<List<FlyerModel>> fetchFlyersByIDs({BuildContext context, List<String> flyersIDs}) async {
     List<FlyerModel> _flyers = <FlyerModel>[];
 
-    if (flyersIDs != null && flyersIDs.isNotEmpty){
+    if (Mapper.canLoopList(flyersIDs)){
 
       for (String flyerID in flyersIDs){
 
@@ -91,7 +94,7 @@ class FlyersProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   /// SAVED FLYERS
-  List<TinyFlyer> _savedFlyers;
+  List<TinyFlyer> _savedFlyers = <TinyFlyer>[];
 // -------------------------------------
   List<TinyFlyer> get savedTinyFlyers {
     return <TinyFlyer>[..._savedFlyers];
@@ -104,7 +107,7 @@ class FlyersProvider extends ChangeNotifier {
     final UserModel _myUserModel = _usersProvider.myUserModel;
     final List<String> _savedFlyersIDs = _myUserModel?.savedFlyersIDs;
 
-    if (_savedFlyersIDs != null && _savedFlyersIDs.isNotEmpty){
+    if (Mapper.canLoopList(_savedFlyersIDs)){
 
       final List<FlyerModel> _flyers = await fetchFlyersByIDs(
         context: context,
@@ -210,5 +213,32 @@ class FlyersProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
+  /// ACTIVE BZ FLYERS
+  List<TinyFlyer> _activeBzTinyFlyers = <TinyFlyer>[];
+// -------------------------------------
+  List<TinyFlyer> get activeBzFlyer{
+    return _activeBzTinyFlyers;
+  }
+// -------------------------------------
+  Future<void> fetchActiveBzFlyers({BuildContext context, String bzID}) async {
+    List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
 
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzModel _activeBz = _bzzProvider.activeBz;
+    final List<String> _activeBzFlyers = _activeBz.flyersIDs;
+
+    if (Mapper.canLoopList(_activeBzFlyers)){
+
+      final List<FlyerModel> _flyers = await fetchFlyersByIDs(context: context, flyersIDs: _activeBzFlyers);
+
+      if (Mapper.canLoopList(_flyers)){
+        _tinyFlyers = TinyFlyer.getTinyFlyersFromFlyersModels(_flyers);
+      }
+
+    }
+
+    _activeBzTinyFlyers = _tinyFlyers;
+    notifyListeners();
+  }
+// -------------------------------------
 }
