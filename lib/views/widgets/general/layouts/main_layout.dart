@@ -23,7 +23,6 @@ import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 export 'package:bldrs/controllers/drafters/tracers.dart';
 export 'package:bldrs/views/widgets/general/appbar/app_bar_button.dart';
 // -----------------------------------------------------------------------------

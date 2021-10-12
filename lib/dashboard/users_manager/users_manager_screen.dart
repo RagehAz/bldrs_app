@@ -78,7 +78,10 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
       addDocSnapshotToEachMap: true,
     );
 
-    final List<UserModel> _fetchedModel = UserModel.decipherUsersMaps(_maps);
+    final List<UserModel> _fetchedModel = UserModel.decipherUsersMaps(
+      maps: _maps,
+      fromJSON: false,
+    );
 
     setState(() {
       _lastSnapshot = _maps[_maps.length - 1]['docSnapshot'];

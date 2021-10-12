@@ -18,7 +18,10 @@ class SuperBldrsMethod{
       orderBy: 'userID',
     );
 
-    final List<UserModel> _allModels = UserModel.decipherUsersMaps(_maps);
+    final List<UserModel> _allModels = UserModel.decipherUsersMaps(
+      maps: _maps,
+      fromJSON: false,
+    );
 
     return _allModels;
   }
@@ -32,7 +35,10 @@ class SuperBldrsMethod{
       subCollName: FireCollection.users_user_notifications,
     );
 
-    final List<NotiModel> _allModels = NotiModel.decipherNotiModels(_maps);
+    final List<NotiModel> _allModels = NotiModel.decipherNotiModels(
+      maps: _maps,
+      fromJSON: false,
+    );
 
     return _allModels;
   }
@@ -46,7 +52,10 @@ class SuperBldrsMethod{
       orderBy: 'bzID',
     );
 
-    final List<BzModel> _allModels = BzModel.decipherBzzMapsFromFireStore(_maps);
+    final List<BzModel> _allModels = BzModel.decipherBzzMapsFromFireStore(
+      maps: _maps,
+      fromJSON: false,
+    );
 
     return _allModels;
   }
@@ -76,7 +85,7 @@ class SuperBldrsMethod{
       orderBy: 'flyerID',
     );
 
-    final List<FlyerModel> _allModels = FlyerModel.decipherFlyersMaps(_maps);
+    final List<FlyerModel> _allModels = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
 
     return _allModels;
   }

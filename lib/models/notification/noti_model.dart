@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/notification/noti_sudo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -66,7 +67,7 @@ class NotiModel{
     @required this.metaData,
   });
 // -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap({@required bool toJSON}){
     return
         {
           'id' : id,
@@ -76,7 +77,7 @@ class NotiModel{
           'senderID' : senderID,
           'pic' : pic,
           'picType' : cipherNotiPicType(notiPicType),
-          'timeStamp' : timeStamp,
+          'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: toJSON),
           /// {notification: {body: Bldrs.net is super Awesome, title: Bldrs.net}, data: {}}
           'notification' : {
             'notification' : {
@@ -94,7 +95,7 @@ class NotiModel{
 
   }
 // -----------------------------------------------------------------------------
-  static NotiModel decipherNotiModel(dynamic map){
+  static NotiModel decipherNotiModel({@required dynamic map, @required fromJSON}){
     NotiModel _noti;
 
     if (map != null){
@@ -108,7 +109,7 @@ class NotiModel{
         pic: map['pic'],
         notiPicType: decipherNotiPicType(map['picType']),
         title: map['notification']['notification']['title'],
-        timeStamp: map['timeStamp'].toDate(),
+        timeStamp: Timers.decipherTime(time: map['timeStamp'], fromJSON: fromJSON),
         body: map['notification']['notification']['body'],
         attachment: map['attachment'],
         attachmentType: decipherNotiAttachmentType(map['attachmentType']),
@@ -126,14 +127,17 @@ class NotiModel{
     return _noti;
   }
 // -----------------------------------------------------------------------------
-  static List<NotiModel> decipherNotiModels(List<dynamic> maps){
+  static List<NotiModel> decipherNotiModels({@required List<dynamic> maps, @required bool fromJSON}){
     final List<NotiModel> _notiModels = <NotiModel>[];
 
     if (maps != null && maps.length != 0){
 
       for (var map in maps){
 
-        final NotiModel _notiModel = decipherNotiModel(map);
+        final NotiModel _notiModel = decipherNotiModel(
+          map: map,
+          fromJSON: fromJSON,
+        );
 
         _notiModels.add(_notiModel);
 
@@ -218,7 +222,10 @@ class NotiModel{
 // -----------------------------------------------------------------------------
   static List<NotiModel> getNotiModelsFromSnapshot(DocumentSnapshot doc){
     final Object _maps = doc.data();
-    final List<NotiModel> _notiModels = decipherNotiModels(_maps);
+    final List<NotiModel> _notiModels = decipherNotiModels(
+      maps: _maps,
+      fromJSON: false,
+    );
     return _notiModels;
   }
 // -----------------------------------------------------------------------------

@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/db/ldb/sql_db/sql_methods.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
@@ -282,9 +283,9 @@ void main(){
 
     GeoPoint _point = new GeoPoint(12.3, 45.6);
 
-    String _string = Atlas.sqlCipherGeoPoint(_point);
+    String _string = Atlas.cipherGeoPoint(point: _point, toJSON: true);
 
-    GeoPoint _pointAgain = Atlas.sqlDecipherGeoPoint(_string);
+    GeoPoint _pointAgain = Atlas.decipherGeoPoint(point: _string, fromJSON: true);
 
     dynamic _expected = GeoPoint(12.3, 45.6);
     expect(_pointAgain, _expected);
@@ -330,9 +331,9 @@ void main(){
     final PublishTime timeB = PublishTime(state: FlyerState.Banned, timeStamp: Timers.createDate(year: 2011, month: 02, day: 26));
     final List<PublishTime> _times = [timeA, timeB];
 
-    String sql = PublishTime.sqlCipherPublishTimes(_times);
+    String sql = SQLMethods.sqlCipherPublishTimes(_times);
 
-    final List<PublishTime> _back = PublishTime.sqlDecipherPublishTimes(sql);
+    final List<PublishTime> _back = SQLMethods.sqlDecipherPublishTimes(sql);
 
 
     print('1 : sql : $sql');
@@ -398,7 +399,7 @@ void main(){
   test('objectIsDatTime', () async {
 
     final dynamic _object = DateTime.now();
-    final dynamic _object2 = Timers.cipherDateTimeIso8601(_object);
+    final dynamic _object2 = Timers.cipherTime(time: _object, toJSON: false);
     bool _isDateTime = ObjectChecker.objectIsDateTime(_object2);
 
     // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;

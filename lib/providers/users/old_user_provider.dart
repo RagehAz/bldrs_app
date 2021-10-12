@@ -1,7 +1,4 @@
 import 'package:bldrs/db/firestore/user_ops.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/models/secondary_models/contact_model.dart';
-import 'package:bldrs/models/user/fcm_token.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -22,31 +19,10 @@ class OldUserProvider {
 
       final Map<String, dynamic> _map = doc.data() as Map;
 
-      return UserModel(
-        userID: _map['userID'] ?? '',
-        createdAt: _map['createdAt'].toDate(),
-        userStatus: UserModel.decipherUserStatus(_map['userStatus'] ?? 1),
-        // -------------------------
-        name: _map['name'] ?? '',
-        pic: _map['pic'] ?? '',
-        title: _map['title'] ?? '',
-        company: _map['company'] ?? '',
-        gender: UserModel.decipherGender(_map['gender'] ?? 2),
-        zone: _map['zone'] ?? '',
-        language: _map['language'] ?? 'en',
-        position: _map['position'] ?? GeoPoint(0, 0),
-        contacts: ContactModel.decipherContactsMaps(_map['contacts'] ?? []),
-        // -------------------------
-        myBzzIDs: _map['myBzzIDs'] ?? <dynamic>[],
-        authBy: _map['authBy'] ?? null,
+      final UserModel _userModel = UserModel.decipherUserMap(map: _map, fromJSON: false,);
 
-        /// TASK : user auth by in stream,
-        emailIsVerified: _map['emailIsVerified'] ?? false,
+      return _userModel;
 
-        /// TASK : make sure about this,
-        isAdmin: _map['isAdmin'] ?? false,
-        fcmToken: FCMToken.decipherFCMToken(_map['fcmToken']) ?? null,
-      );
     }).toList();
   }
 
@@ -59,36 +35,9 @@ class OldUserProvider {
       try {
         Map<String, dynamic> _map = doc.data() as Map;
 
+        _userModel = UserModel.decipherUserMap(map: _map, fromJSON: false);
 
-        List<dynamic> _myBzzIDs = _map == null ?
-        <dynamic>[]
-            :
-        _map['myBzzIDs'] == null ?
-        <dynamic>[]
-            :
-        _map['myBzzIDs'] as List<dynamic>;
 
-        _userModel = UserModel(
-          userID: _map['userID'] ?? '',
-          createdAt: _map['createdAt'].toDate() ?? null,
-          userStatus: UserModel.decipherUserStatus(_map['userStatus'] ?? 1),
-          // -------------------------
-          name: _map['name'] ?? '',
-          pic: _map['pic'] ?? '',
-          title: _map['title'] ?? '',
-          company: _map['company'] ?? '',
-          gender: UserModel.decipherGender(_map['gender'] ?? 2),
-          zone: Zone.decipherZoneMap(_map['zone']) ?? null,
-          language: _map['language'] ?? 'en',
-          position: _map['position'] ?? GeoPoint(0, 0),
-          contacts: ContactModel.decipherContactsMaps(_map['contacts'] ?? []),
-          // -------------------------
-          myBzzIDs: _myBzzIDs ?? <String>[],
-          emailIsVerified: _map['emailIsVerified'] ?? false,
-          authBy: UserModel.decipherAuthBy(_map['authBy']) ?? AuthBy.Unknown,
-          isAdmin: _map['isAdmin'] ?? false,
-          fcmToken: FCMToken.decipherFCMToken(_map['fcmToken']) ?? null,
-        );
       } catch (error) {
         print(
             '_userModelFromSnapshot error is : $error');

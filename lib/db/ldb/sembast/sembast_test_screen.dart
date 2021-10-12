@@ -3,7 +3,7 @@ import 'package:bldrs/dashboard/widgets/sql_viewer.dart';
 import 'package:bldrs/db/ldb/sembast/sembast.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/flyers_sql_screen.dart';
+import 'package:bldrs/db/ldb/sql_db/flyers_sql_screen.dart';
 import 'package:flutter/material.dart';
 
 class SembastTestScreen extends StatefulWidget {

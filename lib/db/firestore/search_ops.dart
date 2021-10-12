@@ -285,7 +285,10 @@ class FireSearch {
       List<UserModel> _usersModels = <UserModel>[];
 
       if (_result != <UserModel>[] || _result != null){
-        _usersModels = UserModel.decipherUsersMaps(_result);
+        _usersModels = UserModel.decipherUsersMaps(
+          maps: _result,
+          fromJSON: false,
+        );
       }
 
       return _usersModels;

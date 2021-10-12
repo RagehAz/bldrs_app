@@ -13,43 +13,43 @@ class MessageModel{
     @required this.time,
   });
 // -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap({@required bool toJSON}){
     return {
       'ownerID' : ownerID,
       'body' : body,
-      'time' : Timers.cipherDateTimeToString(time),
+      'time' : Timers.cipherTime(time: time, toJSON: toJSON),
     };
   }
 // -----------------------------------------------------------------------------
-  factory MessageModel.fromMap(map) {
+  factory MessageModel.fromMap({@required dynamic map, @required bool fromJSON}) {
     return MessageModel(
       body: map['body'],
       ownerID: map['ownerID'],
-      time: Timers.decipherDateTimeString(map['time']),
+      time: Timers.decipherTime(time: map['time'], fromJSON: fromJSON),
     );
   }
 // -----------------------------------------------------------------------------
-  static List<dynamic> cipherMessages(List<MessageModel> messages){
+  static List<dynamic> cipherMessages({@required List<MessageModel> messages, @required bool toJSON}){
     final List<Map<String, dynamic>> _messagesMaps = <Map<String, dynamic>>[];
     messages.forEach((msg) {
-      _messagesMaps.add(msg.toMap());
+      _messagesMaps.add(msg.toMap(toJSON: toJSON));
     });
     return _messagesMaps;
   }
 // -----------------------------------------------------------------------------
-  static MessageModel decipherMessage(Map<String, dynamic> msgMap){
+  static MessageModel decipherMessage({@required Map<String, dynamic> msgMap, @required bool fromJSON}){
     return MessageModel(
       ownerID: msgMap['ownerID'],
       body: msgMap['body'],
-      time: Timers.decipherDateTimeString(msgMap['time']),
+      time: Timers.decipherTime(time: msgMap['time'], fromJSON: fromJSON),
     );
   }
 // -----------------------------------------------------------------------------
-  static List<MessageModel> decipherMessages(List<dynamic> msgsMaps){
+  static List<MessageModel> decipherMessages({@required List<dynamic> msgsMaps, @required bool fromJSON}){
     final List<MessageModel> _postsModels = <MessageModel>[];
 
     msgsMaps.forEach((postMap) {
-      _postsModels.add(decipherMessage(postMap));
+      _postsModels.add(decipherMessage(msgMap: postMap, fromJSON: fromJSON));
     });
 
     return _postsModels;
