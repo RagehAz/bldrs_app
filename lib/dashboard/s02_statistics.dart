@@ -50,7 +50,7 @@ class GeneralStatistics extends StatelessWidget {
           priceTagIsOn: _flyer.priceTagIsOn,
         );
 
-        print('the fucking fucking slides length is : ${_testFlyer.slides.length}');
+        print('the slides length is : ${_testFlyer.slides.length}');
 
         await Fire.createNamedDoc(
           context: context,
@@ -59,7 +59,7 @@ class GeneralStatistics extends StatelessWidget {
           input: _testFlyer.toMap(toJSON: false),
         );
 
-        print('done bitch');
+        print('done this is done');
 
       },
       appBarRowWidgets: <Widget>[

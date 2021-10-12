@@ -103,7 +103,8 @@ class GalleryGrid extends StatelessWidget {
           height: _gridHeight,
           child:
           GridView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: false,
             addAutomaticKeepAlives: true,
             padding: EdgeInsets.only(right: _gridSpacing, left: _gridSpacing, top: _gridSpacing , bottom: _gridSpacing ),
             key: PageStorageKey<String>('gridFlyers_${bzID}'),//new Key(loadedFlyers[flyerIndex].f01flyerID),
