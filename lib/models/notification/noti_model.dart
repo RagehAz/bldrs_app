@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/notification/noti_sudo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -130,7 +131,7 @@ class NotiModel{
   static List<NotiModel> decipherNotiModels({@required List<dynamic> maps, @required bool fromJSON}){
     final List<NotiModel> _notiModels = <NotiModel>[];
 
-    if (maps != null && maps.length != 0){
+    if (Mapper.canLoopList(maps)){
 
       for (var map in maps){
 

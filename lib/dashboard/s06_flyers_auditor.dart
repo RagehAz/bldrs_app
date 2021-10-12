@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/animators.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -140,14 +141,14 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   Future<void> _onVerify() async {
     print('currentFlyer : ${_currentFlyer.slides.length} slides');
 
-    if (_currentFlyer.flyerState != FlyerState.Verified){
+    if (_currentFlyer.flyerState != FlyerState.verified){
 
       await Fire.updateDocField(
         context: context,
         collName: FireCollection.flyers,
         docName: _currentFlyer.flyerID,
         field: 'flyerState',
-        input: FlyerModel.cipherFlyerState(FlyerState.Verified),
+        input: FlyerModel.cipherFlyerState(FlyerState.verified),
       );
 
       await _onRemoveFlyerFromStack(_currentFlyer);
@@ -586,7 +587,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                 alignment: Alignment.center,
                 child:
 
-                _flyers != null && _flyers.isNotEmpty == true ?
+                Mapper.canLoopList(_flyers) == true ?
 
                 PageView.builder(
                     scrollDirection: Axis.horizontal,

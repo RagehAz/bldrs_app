@@ -42,34 +42,46 @@ class FlyerTypeClass {
     // FlyerType.General,
   ];
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-  static FlyerType decipherFlyerType (int x){
+  static String fixFlyerTypeFromIntToString (int x){
     switch (x){
-      case 1:   return  FlyerType.rentalProperty;     break;
-      case 2:   return  FlyerType.design;             break;
-      case 3:   return  FlyerType.product;            break;
-      case 4:   return  FlyerType.project;            break;
-      case 5:   return  FlyerType.craft;              break;
-      case 6:   return  FlyerType.equipment;          break;
-
-      case 7:   return  FlyerType.newProperty;        break;
-      case 8:   return  FlyerType.resaleProperty;     break;
+      case 1 :   return  'rentalProperty';     break; // 1
+      case 2 :   return  'design'        ;     break; // 2
+      case 3 :   return  'product'       ;     break; // 3
+      case 4 :   return  'project'       ;     break; // 4
+      case 5 :   return  'craft'         ;     break; // 5
+      case 6 :   return  'equipment'     ;     break; // 6
+      case 7 :   return  'newProperty'   ;     break; // 7
+      case 8 :   return  'resaleProperty';     break; // 8
 
       default : return   null;
     }
   }
 // -----------------------------------------------------------------------------
-  static int cipherFlyerType (FlyerType x){
+  static FlyerType decipherFlyerType (String x){
     switch (x){
-      case FlyerType.rentalProperty   :    return  1;  break;
-      case FlyerType.design           :    return  2;  break;
-      case FlyerType.product          :    return  3;  break;
-      case FlyerType.project          :    return  4;  break;
-      case FlyerType.craft            :    return  5;  break;
-      case FlyerType.equipment        :    return  6;  break;
+      case 'rentalProperty' :   return  FlyerType.rentalProperty;     break; // 1
+      case 'design'         :   return  FlyerType.design;             break; // 2
+      case 'product'        :   return  FlyerType.product;            break; // 3
+      case 'project'        :   return  FlyerType.project;            break; // 4
+      case 'craft'          :   return  FlyerType.craft;              break; // 5
+      case 'equipment'      :   return  FlyerType.equipment;          break; // 6
+      case 'newProperty'    :   return  FlyerType.newProperty;        break; // 7
+      case 'resaleProperty' :   return  FlyerType.resaleProperty;     break; // 8
 
-      case FlyerType.newProperty      :    return  7;  break;
-      case FlyerType.resaleProperty   :    return  8;  break;
+      default : return   null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static String cipherFlyerType (FlyerType x){
+    switch (x){
+      case FlyerType.rentalProperty   :    return  'rentalProperty';  break;
+      case FlyerType.design           :    return  'design'        ;  break;
+      case FlyerType.product          :    return  'product'       ;  break;
+      case FlyerType.project          :    return  'project'       ;  break;
+      case FlyerType.craft            :    return  'craft'         ;  break;
+      case FlyerType.equipment        :    return  'equipment'     ;  break;
+      case FlyerType.newProperty      :    return  'newProperty'   ;  break;
+      case FlyerType.resaleProperty   :    return  'resaleProperty';  break;
 
       default : return null;
     }

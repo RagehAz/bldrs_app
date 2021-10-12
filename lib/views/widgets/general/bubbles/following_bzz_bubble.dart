@@ -26,7 +26,7 @@ class FollowingBzzBubble extends StatelessWidget {
 
     return Bubble(
       centered: false,
-      title: 'Following ${followedBzzIDs.length} Businesses',
+      title: 'Following ${followedBzzIDs?.length} Businesses',
       columnChildren: <Widget>[
 
         /// FOLLOWING BZZ GRID

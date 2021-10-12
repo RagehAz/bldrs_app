@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
@@ -74,19 +75,19 @@ class FlyerOps{
       tinyAuthor: inputFlyerModel.tinyAuthor,
       tinyBz: inputFlyerModel.tinyBz,
       // -------------------------
-      createdAt: DateTime.now(),
       flyerPosition: inputFlyerModel.flyerPosition,
-      // -------------------------
-      ankhIsOn: false,
       // -------------------------
       slides: _updatedSlides,
       // -------------------------
       flyerIsBanned: inputFlyerModel.flyerIsBanned,
-      deletionTime: inputFlyerModel.deletionTime,
-      times: inputFlyerModel.times,
+      times: <PublishTime>[
+        ...inputFlyerModel.times,
+        PublishTime(state: FlyerState.published, time: DateTime.now()),
+      ],
       info: inputFlyerModel.info,
       specs: inputFlyerModel.specs,
       priceTagIsOn: inputFlyerModel.priceTagIsOn,
+
     );
 
     print('5- flyer model updated with flyerID, flyerURL & updates slides pic URLs');
@@ -393,7 +394,7 @@ class FlyerOps{
       collName: FireCollection.flyers,
       docName: flyerID,
       field: 'flyerState',
-      input: FlyerModel.cipherFlyerState(FlyerState.Unpublished),
+      input: FlyerModel.cipherFlyerState(FlyerState.unpublished),
     );
 
 }
@@ -415,7 +416,7 @@ class FlyerOps{
     final List<String> _bzFlyersIDs = bzModel.flyersIDs;
 
     /// A2 - update fireStore/bzz/bzID['nanoFlyers']
-    if (_bzFlyersIDs != null && _bzFlyersIDs.length != 0){
+    if (Mapper.canLoopList(_bzFlyersIDs)){
 
       _bzFlyersIDs.remove(flyerModel.flyerID);
 
@@ -537,7 +538,7 @@ class FlyerOps{
   Future<List<TinyFlyer>> readBzTinyFlyers({BuildContext context, BzModel bzModel}) async {
     final List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
 
-    if (bzModel.flyersIDs != null && bzModel.flyersIDs.length != 0){
+    if (Mapper.canLoopList(bzModel?.flyersIDs)){
       for (String id in bzModel.flyersIDs){
 
         final _tinyFlyer = await readTinyFlyerOps(
@@ -555,7 +556,7 @@ class FlyerOps{
   Future<List<TinyFlyer>> readBzzTinyFlyers({BuildContext context, List<BzModel> bzzModels}) async {
     final List<TinyFlyer> _allTinyFlyers = <TinyFlyer>[];
 
-    if (bzzModels != null && bzzModels.length != 0){
+    if (Mapper.canLoopList(bzzModels)){
       for (BzModel bz in bzzModels){
 
         List<TinyFlyer> _bzTinyFlyer = await readBzTinyFlyers(

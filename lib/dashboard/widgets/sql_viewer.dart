@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -114,7 +115,7 @@ class SQLViewer extends StatelessWidget {
         child: Column(
           children: <Widget>[
 
-            if (table != null && table?.maps != null && table.maps.length != 0)
+            if (table != null && Mapper.canLoopList(table?.maps))
             ...rows(
               context: context,
               color: color,

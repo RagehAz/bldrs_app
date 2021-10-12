@@ -1,12 +1,13 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
-import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/providers/streamers/bz_streamer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_counter.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_fields.dart';
@@ -68,6 +69,8 @@ class MaxHeader extends StatelessWidget {
 // -----------------------------------------------------------------------------
 
         superFlyer.bz = bz;
+
+
 
         return
           Column(
@@ -157,14 +160,14 @@ class MaxHeader extends StatelessWidget {
               ),
 
               /// BZ GALLERY
-              // if (superFlyer.mSlides.length != 0)
-              if (superFlyer.bz.flyersIDs != null)
+              if (Mapper.canLoopList(superFlyer.bz.flyersIDs))
               Gallery(
                 superFlyer: superFlyer,
                 showFlyers: true,
                 galleryBoxWidth: flyerBoxWidth,
                 addAuthorButtonIsOn: false,
-                tinyFlyers: [],
+                // tinyFlyers: _bzTinyFlyers,
+
               ),
 
               Container(

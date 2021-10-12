@@ -5,6 +5,8 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/providers/zones/old_zone_provider.dart';
@@ -106,7 +108,7 @@ class InfoPage extends StatelessWidget {
 
               /// PUBLISH TIME
               StatsLine(
-                verse: 'Published ${Timers.getSuperTimeDifferenceString(from: superFlyer.createdAt, to: DateTime.now())}',
+                verse: 'Published ${Timers.getSuperTimeDifferenceString(from: PublishTime.getPublishTimeFromTimes(times: superFlyer.times, state: FlyerState.published), to: DateTime.now())}',
                 icon: Iconz.Calendar,
                 bubbleWidth: _bubbleWidth,
               ),

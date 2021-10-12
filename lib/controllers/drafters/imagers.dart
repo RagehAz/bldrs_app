@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -724,7 +725,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
   static Future<List<Uint8List>> getScreenShotsFromFiles(List<File> files) async {
     List<Uint8List> _screenShots = <Uint8List>[];
 
-    if (files != null && files.length != 0){
+    if (Mapper.canLoopList(files)){
       for (File file in files){
 
         Uint8List _uInt = await file.readAsBytes();

@@ -17,7 +17,6 @@ import 'package:provider/provider.dart';
 /// this provides tiny flyers and tiny bzz
 class OldFlyersProvider with ChangeNotifier {
 
-
   List<FlyerModel> _loadedFlyers;
   List<TinyFlyer> _wallTinyFlyers;
   List<BzModel> _loadedBzz;
@@ -114,7 +113,7 @@ class OldFlyersProvider with ChangeNotifier {
       fieldA: 'tinyBz',
       valueA: _tinyBz.toMap(),
       fieldB: 'flyerState',
-      valueB: FlyerModel.cipherFlyerState(FlyerState.Unpublished),
+      valueB: FlyerModel.cipherFlyerState(FlyerState.unpublished),
     );
 
     final List<FlyerModel> _deactivatedFlyers = FlyerModel.decipherFlyers(maps: maps, fromJSON: false);
@@ -194,7 +193,6 @@ class OldFlyersProvider with ChangeNotifier {
     }
   }
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
   FlyerModel getFlyerByFlyerID (String flyerID){
     final FlyerModel _flyer = _loadedFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
     return _flyer;
@@ -237,8 +235,6 @@ class OldFlyersProvider with ChangeNotifier {
     });
     return _tinyFlyers;
   }
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 //   List<FlyerModel> getSavedFlyersFromFlyersList (List<FlyerModel> inputList, String userID){
 //     List<FlyerModel> savedFlyers = [];
@@ -292,7 +288,6 @@ class OldFlyersProvider with ChangeNotifier {
     return _tinyBz;
   }
 // -----------------------------------------------------------------------------
-
   List<BzModel> getBzzOfFlyersList(List<FlyerModel> flyersList){
     final List<BzModel> _bzz = <BzModel>[];
     flyersList.forEach((fl) {
@@ -326,8 +321,7 @@ class OldFlyersProvider with ChangeNotifier {
     _loadedTinyBzz.add(tinyBz);
     notifyListeners();
   }
-// ############################################################################
-// ############################################################################
+// -----------------------------------------------------------------------------
   void updateTinyBzInLocalList(TinyBz modifiedTinyBz){
 
     if (_loadedTinyBzz != null){
@@ -338,28 +332,25 @@ class OldFlyersProvider with ChangeNotifier {
     }
 
   }
-// ############################################################################
-// ############################################################################
+// -----------------------------------------------------------------------------
   /// add flyer to local list
   void addFlyerModelToLocalList(FlyerModel flyer){
     _loadedFlyers.add(flyer);
     notifyListeners();
   }
-// ############################################################################
+// -----------------------------------------------------------------------------
   void addTinyFlyerToLocalList(TinyFlyer tinyFlyer){
     _wallTinyFlyers.add(tinyFlyer);
     notifyListeners();
   }
-// ############################################################################
+// -----------------------------------------------------------------------------
   void updateTineFlyerInBzTinyFlyers(TinyFlyer tinyFlyer){
 
     print('TASK HERE TO ADD THIS updateTineFlyerInBzTinyFlyers');
 
     // _bzTinyFlyers.indexWhere
   }
-// ############################################################################
-// ############################################################################
-// ############################################################################
+// -----------------------------------------------------------------------------
   void replaceTinyFlyerInLocalList(TinyFlyer tinyFlyer){
     // int _tinyFlyerIndex = _loadedTinyFlyers.indexWhere((t) => t.flyerID == tinyFlyer.flyerID);
     // _loadedTinyFlyers.removeAt(_tinyFlyerIndex);

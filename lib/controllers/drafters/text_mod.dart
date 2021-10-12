@@ -1,4 +1,5 @@
 
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:flutter/foundation.dart';
 
 class TextMod {
@@ -329,7 +330,7 @@ class TextMod {
   static String sqlCipherStrings(List<String> strings){
     String _output;
 
-    if (strings != null && strings.length != 0){
+    if (Mapper.canLoopList(strings)){
 
       for (String string in strings){
 

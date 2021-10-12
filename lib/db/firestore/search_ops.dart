@@ -225,7 +225,7 @@ class FireSearch {
 
             QuerySnapshot _collectionSnapshot;
 
-            final int _flyerType = FlyerTypeClass.cipherFlyerType(flyerType);
+            final String _flyerType = FlyerTypeClass.cipherFlyerType(flyerType);
             final Zone _zone = zone;
 
             print('searching tiny flyers of type : $_flyerType : in $_zone');

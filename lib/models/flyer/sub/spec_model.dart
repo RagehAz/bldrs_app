@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:flutter/cupertino.dart';
@@ -141,7 +142,7 @@ class Spec {
   static List<Map<String, dynamic>> cipherSpecs(List<Spec> specs){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (specs != null && specs.length != 0){
+    if (Mapper.canLoopList(specs)){
       for (Spec spec in specs){
         _maps.add(spec.toMap());
       }
@@ -153,7 +154,7 @@ class Spec {
   static List<Spec> decipherSpecs(List<dynamic> maps){
     final List<Spec> _specs = <Spec>[];
 
-    if(maps != null && maps.length != 0){
+    if(Mapper.canLoopList(maps)){
       for (var map in maps){
         _specs.add(Spec.decipherSpec(map));
       }
@@ -226,7 +227,7 @@ class Spec {
 
     String _output;
 
-    if (specs != null && specs.length != 0){
+    if (Mapper.canLoopList(specs)){
 
       final List<String> _specsSQLStrings = <String>[];
 
@@ -283,7 +284,7 @@ class Spec {
   static bool specsListsAreTheSame(List<Spec> specsA, List<Spec> specsB){
     bool _listsAreTheSame = false;
 
-    if (specsA != null && specsB != null && specsA.length != 0 && specsA.length == specsB.length){
+    if (Mapper.canLoopList(specsA) && Mapper.canLoopList(specsB)){
 
       bool _stillTheSame;
 

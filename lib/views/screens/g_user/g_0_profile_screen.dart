@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
@@ -85,12 +86,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
         _followedBzzIDs = _usersProvider.myUserModel.followedBzzIDs;;
 
-        for (var id in _followedBzzIDs) {
-          final TinyBz _tinyBz = await BzOps.readTinyBzOps(
-            context: context,
-            bzID: id,
-          );
-          _followedTinyBzz.add(_tinyBz);
+        if (Mapper.canLoopList(_followedBzzIDs)){
+          for (var id in _followedBzzIDs) {
+            final TinyBz _tinyBz = await BzOps.readTinyBzOps(
+              context: context,
+              bzID: id,
+            );
+            _followedTinyBzz.add(_tinyBz);
+          }
         }
 
         _triggerLoading();
