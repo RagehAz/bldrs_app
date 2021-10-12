@@ -99,7 +99,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       addDocSnapshotToEachMap: true,
     );
 
-    final List<FlyerModel> _fetchedModels = FlyerModel.decipherFlyersMaps(_maps);
+    final List<FlyerModel> _fetchedModels = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
 
     _fetchedModels[1].printFlyer();
 

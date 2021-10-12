@@ -114,7 +114,7 @@ Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
   final Stream<List<ReviewModel>> _reviews = _reviewsStream.map(
           (qShot) => qShot.docs.map((doc) => ReviewModel(
             userID: doc['userID'],
-            time: Timers.decipherDateTimeString(doc['time']),
+            time: Timers.decipherTime(time: doc['time'], fromJSON: false),
             body: doc['body'],
             reviewID: doc.id,
           )

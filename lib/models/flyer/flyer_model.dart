@@ -1,21 +1,16 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
-import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/numeric.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
-import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/models/flyer/records/publish_time_model.dart';
-import 'package:bldrs/models/flyer/sub/slide_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -77,7 +72,7 @@ class FlyerModel with ChangeNotifier{
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap({@required bool toJSON}){
     return {
       'flyerID' : flyerID,
       // -------------------------
@@ -90,33 +85,82 @@ class FlyerModel with ChangeNotifier{
       'tinyAuthor' : tinyAuthor.toMap(),
       'tinyBz' : tinyBz.toMap(),
       // -------------------------
-      'createdAt' : createdAt,
-      'flyerPosition' : flyerPosition,
+      'createdAt' : Timers.cipherTime(time: createdAt, toJSON: toJSON),
+      'flyerPosition' : Atlas.cipherGeoPoint(point: flyerPosition, toJSON: toJSON),
       // -------------------------
       'ankhIsOn' : ankhIsOn,
       // -------------------------
       'slides' : SlideModel.cipherSlidesModels(slides),
       // -------------------------
       'flyerIsBanned' : flyerIsBanned,
-      'deletionTime' : Timers.cipherDateTimeToString(deletionTime),
+      'deletionTime' : Timers.cipherTime(time: deletionTime, toJSON: toJSON),
       'specs' : Spec.cipherSpecs(specs),
       'info' : info,
       'priceTagIsOn' : priceTagIsOn,
     };
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, Object>> cipherFlyers(List<FlyerModel> flyers){
+  static FlyerModel decipherFlyer({@required dynamic map, @required bool fromJSON}){
+    FlyerModel _flyerModel;
+    if (map != null){
+      _flyerModel = FlyerModel(
+        flyerID: map['flyerID'],
+        // -------------------------
+        flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
+        flyerState: FlyerModel.decipherFlyerState(map['flyerState']),
+        keywordsIDs: Mapper.getStringsFromDynamics(dynamics: map['keywordsIDs']),
+        flyerShowsAuthor: map['flyerShowsAuthor'],
+        flyerZone: Zone.decipherZoneMap(map['flyerZone']),
+        // -------------------------
+        tinyAuthor: TinyUser.decipherTinyUserMap(map['tinyAuthor']),
+        tinyBz: TinyBz.decipherTinyBzMap(map['tinyBz']),
+        // -------------------------
+        createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
+        flyerPosition: Atlas.decipherGeoPoint(point: map['flyerPosition'], fromJSON: fromJSON),
+        // -------------------------
+        slides: SlideModel.decipherSlidesMaps(map['slides']),
+        // -------------------------
+        flyerIsBanned: map['flyerIsBanned'],
+        deletionTime: Timers.decipherTime(time: map['deletionTime'], fromJSON: fromJSON),
+        specs: Spec.decipherSpecs(map['specs']),
+        info: map['info'],
+        priceTagIsOn: map['priceTagIsOn'],
+      );
+
+    }
+    return _flyerModel;
+  }
+// -----------------------------------------------------------------------------
+  static List<Map<String, Object>> cipherFlyers({@required List<FlyerModel> flyers, @required bool toJSON}){
     final List<Map<String, Object>> _maps = <Map<String, Object>>[];
 
     for (FlyerModel flyer in flyers){
 
-      final Map<String, Object> _flyerMap = flyer.toMap();
+      final Map<String, Object> _flyerMap = flyer.toMap(toJSON: toJSON);
 
       _maps.add(_flyerMap);
 
     }
 
     return _maps;
+  }
+// -----------------------------------------------------------------------------
+  static List<FlyerModel> decipherFlyers({@required List<dynamic> maps, @required bool fromJSON}){
+    final List<FlyerModel> _flyersList = <FlyerModel>[];
+
+    if (maps != null && maps.isNotEmpty){
+
+      maps?.forEach((map) {
+        _flyersList.add(decipherFlyer(
+          map: map,
+          fromJSON: fromJSON,
+        ));
+      });
+
+
+    }
+
+    return _flyersList;
   }
 // -----------------------------------------------------------------------------
   FlyerModel clone(){
@@ -190,47 +234,6 @@ class FlyerModel with ChangeNotifier{
       case FlyerState.Suspended     :     return  7;  break;
       default : return null;
     }
-  }
-// -----------------------------------------------------------------------------
-  static List<FlyerModel> decipherFlyersMaps(List<dynamic> maps){
-    final List<FlyerModel> _flyersList = <FlyerModel>[];
-
-    maps?.forEach((map) {
-      _flyersList.add(decipherFlyerMap(map));
-    });
-
-    return _flyersList;
-  }
-// -----------------------------------------------------------------------------
-  static FlyerModel decipherFlyerMap(dynamic map){
-    FlyerModel _flyerModel;
-    if (map != null){
-      _flyerModel = FlyerModel(
-        flyerID: map['flyerID'],
-        // -------------------------
-        flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
-        flyerState: FlyerModel.decipherFlyerState(map['flyerState']),
-        keywordsIDs: Mapper.getStringsFromDynamics(dynamics: map['keywordsIDs']),
-        flyerShowsAuthor: map['flyerShowsAuthor'],
-        flyerZone: Zone.decipherZoneMap(map['flyerZone']),
-        // -------------------------
-        tinyAuthor: TinyUser.decipherTinyUserMap(map['tinyAuthor']),
-        tinyBz: TinyBz.decipherTinyBzMap(map['tinyBz']),
-        // -------------------------
-        createdAt: map['createdAt'].toDate(),
-        flyerPosition: map['flyerPosition'],
-        // -------------------------
-        slides: SlideModel.decipherSlidesMaps(map['slides']),
-        // -------------------------
-        flyerIsBanned: map['flyerIsBanned'],
-        deletionTime: Timers.decipherDateTimeString(map['deletionTime']),
-        specs: Spec.decipherSpecs(map['specs']),
-        info: map['info'],
-        priceTagIsOn: map['priceTagIsOn'],
-      );
-
-    }
-    return _flyerModel;
   }
 // -----------------------------------------------------------------------------
   static List<String> getListOfFlyerIDsFromFlyers(List<FlyerModel> flyers){
@@ -359,7 +362,10 @@ class FlyerModel with ChangeNotifier{
 // -----------------------------------------------------------------------------
   static FlyerModel getFlyerModelFromSnapshot(DocumentSnapshot doc){
     final Object _map = doc.data();
-    final FlyerModel _flyerModel = FlyerModel.decipherFlyerMap(_map);
+    final FlyerModel _flyerModel = FlyerModel.decipherFlyer(
+      map: _map,
+      fromJSON: false,
+    );
     return _flyerModel;
   }
 
@@ -433,204 +439,6 @@ class FlyerModel with ChangeNotifier{
     }
 
       return _hasTheID;
-  }
-// -----------------------------------------------------------------------------
-  static List<SQLColumn> createFlyersLDBColumns(){
-
-    const List<SQLColumn> _columns = const <SQLColumn>[
-      // -------------------------
-      SQLColumn(key: 'flyerID', type: 'TEXT', isPrimary: true),
-      SQLColumn(key: 'numberOfSlides', type: 'INTEGER'),
-      SQLColumn(key: 'flyerType', type: 'INTEGER'),
-      SQLColumn(key: 'flyerState', type: 'INTEGER'),
-      SQLColumn(key: 'keywords', type: 'TEXT'),
-      SQLColumn(key: 'flyerShowsAuthor', type: 'INTEGER'),
-      // -------------------------
-      SQLColumn(key: 'zone_countryID', type: 'TEXT'),
-      SQLColumn(key: 'zone_cityID', type: 'TEXT'),
-      SQLColumn(key: 'zone_districtID', type: 'TEXT'),
-      // -------------------------
-      SQLColumn(key: 'tinyAuthor_userID', type: 'TEXT'),
-      SQLColumn(key: 'tinyAuthor_name', type: 'TEXT'),
-      SQLColumn(key: 'tinyAuthor_title', type: 'TEXT'),
-      SQLColumn(key: 'tinyAuthor_pic', type: 'TEXT'), // or BLOB if we use Uint8List
-      SQLColumn(key: 'tinyAuthor_userStatus', type: 'INTEGER'),
-      SQLColumn(key: 'tinyAuthor_email', type: 'TEXT'),
-      SQLColumn(key: 'tinyAuthor_phone', type: 'TEXT'),
-      // -------------------------
-      SQLColumn(key: 'tinyBz_bzID', type: 'TEXT'),
-      SQLColumn(key: 'tinyBz_bzLogo', type: 'TEXT'), // or BLOB if we use Uint8List
-      SQLColumn(key: 'tinyBz_bzName', type: 'TEXT'),
-      SQLColumn(key: 'tinyBz_bzType', type: 'INTEGER'),
-      SQLColumn(key: 'tinyBz_bzZone_countryID', type: 'TEXT'),
-      SQLColumn(key: 'tinyBz_bzZone_cityID', type: 'TEXT'),
-      SQLColumn(key: 'tinyBz_bzZone_districtID', type: 'TEXT'),
-      SQLColumn(key: 'tinyBz_bzTotalFollowers', type: 'INTEGER'),
-      SQLColumn(key: 'tinyBz_bzTotalFlyers', type: 'INTEGER'),
-      // -------------------------
-      SQLColumn(key: 'createdAt', type: 'TEXT'),
-      SQLColumn(key: 'flyerPosition', type: 'TEXT'),
-      // -------------------------
-      SQLColumn(key: 'ankhIsOn', type: 'INTEGER'),
-      // -------------------------
-      SQLColumn(key: 'flyerIsBanned', type: 'INTEGER'),
-      SQLColumn(key: 'deletionTime', type: 'TEXT'),
-      SQLColumn(key: 'specs', type: 'TEXT'),
-      SQLColumn(key: 'info', type: 'TEXT'),
-      SQLColumn(key: 'times', type: 'TEXT'),
-      SQLColumn(key: 'priceTagIsOn', type: 'INTEGER'),
-
-    ];
-
-    return _columns;
-  }
-// -----------------------------------------------------------------------------
-  static Future<Map<String, Object>> sqlCipherFlyer(FlyerModel flyer) async {
-
-    final Map<String, Object> _flyerSQLMap = {
-
-      'flyerID' : flyer.flyerID,
-      'numberOfSlides' : flyer.slides.length,
-
-      'flyerType' : FlyerTypeClass.cipherFlyerType(flyer.flyerType),
-      'flyerState' : FlyerModel.cipherFlyerState(flyer.flyerState),
-      'keywords' : TextMod.sqlCipherStrings(flyer.keywordsIDs),
-      'flyerShowsAuthor' : Numeric.sqlCipherBool(flyer.flyerShowsAuthor),
-
-      'zone_countryID' : flyer.flyerZone.countryID,
-      'zone_cityID' : flyer.flyerZone.cityID,
-      'zone_districtID' : flyer.flyerZone.districtID,
-
-      'tinyAuthor_userID' : flyer.tinyAuthor.userID,
-      'tinyAuthor_name' : flyer.tinyAuthor.name,
-      'tinyAuthor_title' : flyer.tinyAuthor.title,
-      'tinyAuthor_pic' : await Imagers.urlOrImageFileToBase64(flyer.tinyAuthor.pic),
-      'tinyAuthor_userStatus' : UserModel.cipherUserStatus(flyer.tinyAuthor.userStatus),
-      'tinyAuthor_email' : flyer.tinyAuthor.email,
-      'tinyAuthor_phone' : flyer.tinyAuthor.phone,
-
-      'tinyBz_bzID' : flyer.tinyBz.bzID,
-      'tinyBz_bzLogo' : await Imagers.urlOrImageFileToBase64(flyer.tinyBz.bzLogo),
-      'tinyBz_bzName' : flyer.tinyBz.bzName,
-      'tinyBz_bzType' : BzModel.cipherBzType(flyer.tinyBz.bzType),
-      'tinyBz_bzZone_countryID' : flyer.tinyBz.bzZone.countryID,
-      'tinyBz_bzZone_cityID' : flyer.tinyBz.bzZone.cityID,
-      'tinyBz_bzZone_districtID' : flyer.tinyBz.bzZone.districtID,
-      'tinyBz_bzTotalFollowers' : flyer.tinyBz.bzTotalFollowers,
-      'tinyBz_bzTotalFlyers' : flyer.tinyBz.bzTotalFlyers,
-
-      'createdAt' : Timers.cipherDateTimeIso8601(flyer.createdAt),
-      'flyerPosition' : Atlas.sqlCipherGeoPoint(flyer.flyerPosition),
-      'ankhIsOn' : Numeric.sqlCipherBool(flyer.ankhIsOn),
-      // 'numberOfSlides' : flyer.slides.length,
-      'flyerIsBanned' : Numeric.sqlCipherBool(flyer.flyerIsBanned),
-      'deletionTime' : Timers.cipherDateTimeIso8601(flyer.deletionTime),
-      'specs' : Spec.sqlCipherSpecs(flyer.specs),
-      'info' : flyer.info,
-      'times' : PublishTime.sqlCipherPublishTimes(flyer.times),
-      'priceTagIsOn' : Numeric.sqlCipherBool(flyer.priceTagIsOn),
-    };
-
-    return _flyerSQLMap;
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> sqlCipherFlyers(List<FlyerModel> flyers) async {
-    final List<Map<String, Object>> _maps = <Map<String, Object>>[];
-
-    if (flyers != null && flyers.length != 0){
-
-      for (FlyerModel flyer in flyers){
-
-        final Map<String, Object> _map = await sqlCipherFlyer(flyer);
-        _maps.add(_map);
-      }
-
-    }
-
-    return _maps;
-  }
-// -----------------------------------------------------------------------------
-  static Future<FlyerModel> sqlDecipherFlyer({Map<String, Object> flyerMap, List<SlideModel> slides}) async {
-    FlyerModel _flyer;
-
-    if (flyerMap != null && slides != null && slides.length != 0){
-
-      _flyer = FlyerModel(
-        flyerID: flyerMap['flyerID'],
-        flyerType: FlyerTypeClass.decipherFlyerType(flyerMap['flyerType']),
-        flyerState: decipherFlyerState(flyerMap['flyerState']),
-        keywordsIDs: TextMod.sqlDecipherStrings(flyerMap['keywordsIDs']),
-        flyerShowsAuthor: Numeric.sqlDecipherBool(flyerMap['flyerShowsAuthor']),
-
-        flyerZone: Zone(
-          countryID: flyerMap['zone_countryID'],
-          cityID: flyerMap['zone_cityID'],
-          districtID: flyerMap['zone_districtID'],
-        ),
-
-        tinyAuthor: TinyUser(
-          userID:  flyerMap['tinyAuthor_userID'],
-          name: flyerMap['tinyAuthor_name'],
-          title: flyerMap['tinyAuthor_title'],
-          pic: await Imagers.base64ToFile(flyerMap['tinyAuthor_pic']),
-          userStatus: UserModel.decipherUserStatus(flyerMap['tinyAuthor_userStatus']),
-          email: flyerMap['tinyAuthor_email'],
-          phone: flyerMap['tinyAuthor_phone'],
-        ),
-
-        tinyBz: TinyBz(
-          bzID: flyerMap['tinyBz_bzID'],
-          bzLogo: await Imagers.base64ToFile(flyerMap['tinyBz_bzLogo']),
-          bzName: flyerMap['tinyBz_bzName'],
-          bzType: BzModel.decipherBzType(flyerMap['tinyBz_bzType']),
-          bzZone: Zone(
-            countryID: flyerMap['tinyBz_bzZone_countryID'],
-            cityID: flyerMap['tinyBz_bzZone_cityID'],
-            districtID: flyerMap['tinyBz_bzZone_districtID'],
-          ),
-          bzTotalFollowers: flyerMap['tinyBz_bzTotalFollowers'],
-          bzTotalFlyers: flyerMap['tinyBz_bzTotalFlyers'],
-        ),
-
-        createdAt: Timers.decipherDateTimeIso8601(flyerMap['createdAt']),
-        flyerPosition: Atlas.sqlDecipherGeoPoint(flyerMap['flyerPosition']),
-        ankhIsOn: Numeric.sqlDecipherBool(flyerMap['ankhIsOn']),
-        slides: slides,
-        flyerIsBanned: Numeric.sqlDecipherBool(flyerMap['flyerIsBanned']),
-        deletionTime: Timers.decipherDateTimeIso8601(flyerMap['deletionTime']),
-        specs: Spec.sqlDecipherSpecs(flyerMap['specs']),
-        info: flyerMap['info'],
-        times: PublishTime.sqlDecipherPublishTimes(flyerMap['times']),
-        priceTagIsOn: Numeric.sqlDecipherBool(flyerMap['priceTagIsOn']),
-      );
-
-    }
-
-    return _flyer;
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<FlyerModel>> sqlDecipherFlyers({List<dynamic> sqlFlyersMaps, List<SlideModel> allSlides}) async {
-    final List<FlyerModel> _allFlyers = <FlyerModel>[];
-
-    if (sqlFlyersMaps != null && allSlides != null && sqlFlyersMaps.length != 0 && allSlides.length != 0){
-
-      for (var sqlFlyerMap in sqlFlyersMaps){
-
-        final String _flyerID =  sqlFlyerMap['flyerID'];
-        final List<SlideModel> _slides = SlideModel.getSlidesFromSlidesByFlyerID(allSlides, _flyerID);
-
-        final FlyerModel _flyer = await sqlDecipherFlyer(
-          flyerMap: sqlFlyerMap,
-          slides: _slides,
-        );
-
-        _allFlyers.add(_flyer);
-
-      }
-
-    }
-
-    return _allFlyers;
   }
 // -----------------------------------------------------------------------------
 

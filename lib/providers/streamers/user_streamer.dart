@@ -66,7 +66,10 @@ Widget userModelBuilder({
         } else {
 
           final Map<String, dynamic> _map = snapshot.data;
-          final UserModel userModel = UserModel.decipherUserMap(_map);
+          final UserModel userModel = UserModel.decipherUserMap(
+            map: _map,
+            fromJSON: false,
+          );
 
           return builder(context, userModel);
         }

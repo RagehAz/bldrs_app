@@ -1,10 +1,15 @@
 import 'package:bldrs/db/firestore/flyer_ops.dart';
+import 'package:bldrs/db/firestore/search_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/user_provider.dart';
+import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +36,7 @@ class FlyersProvider extends ChangeNotifier {
 
       if (_map != null && _map != {}){
         print('fetchFlyerByID : flyer found in local db : ${doc}');
-        _flyer = FlyerModel.decipherFlyerMap(_map);
+        _flyer = FlyerModel.decipherFlyer(map: _map, fromJSON: true);
         break;
       }
 
@@ -52,7 +57,7 @@ class FlyersProvider extends ChangeNotifier {
         print('fetchFlyerByID : flyer found in firestore db');
 
         await LDBOps.insertMap(
-          input: _flyer.toMap(),
+          input: _flyer.toMap(toJSON: true),
           docName: LDBDoc.sessionFlyers,
         );
 
@@ -164,8 +169,8 @@ class FlyersProvider extends ChangeNotifier {
   }
 // -------------------------------------
   Future<void> fetchFlyersBySection({BuildContext context, Section section}) async {
-    // final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
-    // final Zone _currentZone = _countryPro.currentZone;
+    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
+    final Zone _currentZone = _countryPro.currentZone;
     //
     // // final String _zoneString = TextGenerator.zoneStringer(
     // //   context: context,
@@ -173,34 +178,34 @@ class FlyersProvider extends ChangeNotifier {
     // // );
     //
     //
-    // await tryAndCatch(
-    //     context: context,
-    //     methodName: 'fetchAndSetTinyFlyersBySectionType',
-    //     functions: () async {
-    //
-    //       final FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
-    //
-    //       // print('_flyerType is : ${_flyerType.toString()}');
-    //
-    //       /// READ data from cloud Firestore flyers collection
-    //
-    //
-    //       final List<TinyFlyer> _foundTinyFlyers = await FireSearch.flyersByZoneAndFlyerType(
-    //         context: context,
-    //         zone: _currentZone,
-    //         flyerType: _flyerType,
-    //       );
-    //
-    //
-    //       // print('${(TinyFlyer.cipherTinyFlyers(_foundTinyFlyers)).toString()}');
-    //
-    //       _wallTinyFlyers = _foundTinyFlyers;
-    //
-    //       notifyListeners();
-    //       // print('_loadedTinyBzz :::: --------------- $_loadedTinyBzz');
-    //
-    //     }
-    // );
+    await tryAndCatch(
+        context: context,
+        methodName: 'fetchAndSetTinyFlyersBySectionType',
+        functions: () async {
+
+          final FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
+
+          // print('_flyerType is : ${_flyerType.toString()}');
+
+          /// READ data from cloud Firestore flyers collection
+
+
+          final List<TinyFlyer> _foundTinyFlyers = await FireSearch.flyersByZoneAndFlyerType(
+            context: context,
+            zone: _currentZone,
+            flyerType: _flyerType,
+          );
+
+
+          // print('${(TinyFlyer.cipherTinyFlyers(_foundTinyFlyers)).toString()}');
+
+          _wallTinyFlyers = _foundTinyFlyers;
+
+          notifyListeners();
+          // print('_loadedTinyBzz :::: --------------- $_loadedTinyBzz');
+
+        }
+    );
 
 
   }

@@ -59,45 +59,71 @@ Examples Using the US Locale:
 
  */
 
-class Timers {
+abstract class Timers {
 // -----------------------------------------------------------------------------
   /// "2019-07-19 8:40:23"
   static final DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
 // -----------------------------------------------------------------------------
-  static String cipherDateTimeToString(DateTime dateTime){
-    if(dateTime == null){
-      return null;
-    } else {
-      return dateFormat?.format(dateTime);
-    }
+  static dynamic cipherTime({@required DateTime time, @required toJSON}){
+    final dynamic _output = toJSON ? _cipherDateTimeIso8601(time) : time;
+    return _output;
   }
 // -----------------------------------------------------------------------------
-  static List<String> cipherListOfDateTimes(List<DateTime> dateTimes){
-    final List<String> _dateTimesStringsList = <String>[];
+  static DateTime decipherTime({@required dynamic time, @required bool fromJSON}){
+    final DateTime _output = fromJSON == true ? _decipherDateTimeIso8601(time) : time.toDate();
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+  static List<dynamic> cipherTimes({@required List<DateTime> times, @required bool toJSON}){
+    final List<dynamic> _times = <String>[];
 
-    for (var dateTime in dateTimes){
-      _dateTimesStringsList.add(cipherDateTimeToString(dateTime));
+    if (times != null && times.isNotEmpty){
+
+      for (var time in times){
+        _times.add(cipherTime(
+          time: time,
+          toJSON: toJSON,
+        ));
+      }
+
     }
 
-    return _dateTimesStringsList;
+    return _times;
   }
 // -----------------------------------------------------------------------------
-  static DateTime decipherDateTimeString(String dateTimeString){
-    if (dateTimeString == null){
-      return null;
-    } else {
-      return dateFormat?.parse(dateTimeString);
-    }
-  }
-// -----------------------------------------------------------------------------
-  static List<DateTime> decipherListOfDateTimesStrings(List<dynamic> dateTimesStrings){
+  static List<DateTime> decipherTimes({@required List<dynamic> times, @required bool fromJSON}){
     final List<DateTime> _dateTimes = <DateTime>[];
 
-    for (var string in dateTimesStrings){
-      _dateTimes.add(decipherDateTimeString(string));
+    for (dynamic time in times){
+      _dateTimes.add(
+          decipherTime(
+            time: time,
+            fromJSON: fromJSON,
+          )
+      );
     }
 
     return _dateTimes;
+  }
+// -----------------------------------------------------------------------------
+  static String _cipherDateTimeIso8601(DateTime dateTime){
+    String _string;
+
+    if (dateTime != null){
+      _string = dateTime.toIso8601String();
+    }
+
+    return _string;
+  }
+// -----------------------------------------------------------------------------
+  static DateTime _decipherDateTimeIso8601(String cipheredDateTimeIso8601){
+    DateTime _time;
+
+    if (cipheredDateTimeIso8601 != null){
+      _time = DateTime.parse(cipheredDateTimeIso8601);
+    }
+
+    return _time;
   }
 // -----------------------------------------------------------------------------
   static String getMonthNameByInt(BuildContext context, int month){
@@ -117,32 +143,12 @@ class Timers {
     }
   }
 // -----------------------------------------------------------------------------
-  static String cipherDateTimeIso8601(DateTime dateTime){
-    String _string;
-
-    if (dateTime != null){
-      _string = dateTime.toIso8601String();
-    }
-
-    return _string;
-  }
-// -----------------------------------------------------------------------------
-  static DateTime decipherDateTimeIso8601(String cipheredDateTimeIso8601){
-    DateTime _time;
-
-    if (cipheredDateTimeIso8601 != null){
-      _time = DateTime.parse(cipheredDateTimeIso8601);
-    }
-
-    return _time;
-  }
-// -----------------------------------------------------------------------------
   /// we may revise datetimes timestamps isoStrings for firebase, sembast & sql
   static Timestamp decipherDateTimeIso8601ToTimeStamp(String cipheredDateTimeIso8601){
     Timestamp _time;
 
     if (cipheredDateTimeIso8601 != null){
-      DateTime _dateTime = decipherDateTimeIso8601(cipheredDateTimeIso8601);
+      DateTime _dateTime = _decipherDateTimeIso8601(cipheredDateTimeIso8601);
       _time = Timestamp.fromDate(_dateTime);
     }
 
@@ -366,3 +372,26 @@ class Timers {
   }
 // -----------------------------------------------------------------------------
 }
+
+/*
+
+  ZEBALA
+
+  static String cipherDateTimeToString(DateTime dateTime){
+    if(dateTime == null){
+      return null;
+    } else {
+      return dateFormat?.format(dateTime);
+    }
+  }
+
+  static DateTime decipherDateTimeString(String dateTimeString){
+    if (dateTimeString == null){
+      return null;
+    } else {
+      return dateFormat?.parse(dateTimeString);
+    }
+  }
+
+
+ */

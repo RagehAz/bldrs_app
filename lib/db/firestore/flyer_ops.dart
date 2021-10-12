@@ -40,7 +40,7 @@ class FlyerOps{
     final DocumentReference _docRef = await Fire.createDoc(
       context: context,
       collName: FireCollection.flyers,
-      input: inputFlyerModel.toMap(),
+      input: inputFlyerModel.toMap(toJSON: false),
     );
 
     final String _flyerID = _docRef.id;
@@ -96,7 +96,7 @@ class FlyerOps{
       context: context,
       collName: FireCollection.flyers,
       docName: _flyerID,
-      input: _finalFlyerModel.toMap(),
+      input: _finalFlyerModel.toMap(toJSON: false),
     );
 
     print('6- flyer model added to flyers/$_flyerID');
@@ -160,7 +160,7 @@ class FlyerOps{
         docName: flyerID
     );
 
-    final FlyerModel _flyer = FlyerModel.decipherFlyerMap(_flyerMap);
+    final FlyerModel _flyer = FlyerModel.decipherFlyer(map: _flyerMap, fromJSON: false);
 
     return _flyer;
   }
@@ -304,7 +304,7 @@ class FlyerOps{
       context: context,
       collName: FireCollection.flyers,
       docName: _finalFlyer.flyerID,
-      input: _finalFlyer.toMap(),
+      input: _finalFlyer.toMap(toJSON: false),
     );
 
     print('C - flyer updated on fireStore in fireStore/flyers/${_finalFlyer.flyerID}');
@@ -381,7 +381,10 @@ class FlyerOps{
       collName: FireCollection.flyers,
       docName: flyerID,
       field: 'deletionTime',
-      input: Timers.cipherDateTimeToString(_deletionTime),
+      input: Timers.cipherTime(
+        time: _deletionTime,
+        toJSON: false,
+      ),
     );
 
     /// D - Update fireStore/flyers/flyerID['flyerState'] to Deactivated
@@ -526,7 +529,7 @@ class FlyerOps{
       addDocsIDs: true,
     );
 
-    final List<ReviewModel> _reviews = ReviewModel.decipherReviews(_maps);
+    final List<ReviewModel> _reviews = ReviewModel.decipherReviews(maps: _maps, fromJSON: false);
 
     return _reviews;
   }

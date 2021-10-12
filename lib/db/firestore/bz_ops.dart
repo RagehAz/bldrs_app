@@ -125,7 +125,7 @@ class BzOps{
       context: context,
       collName: FireCollection.bzz,
       docName: _bzID,
-      input: _outputBz.toMap(),
+      input: _outputBz.toMap(toJSON: false),
     );
 
     /// add new TinyBz in firestore
@@ -157,7 +157,10 @@ class BzOps{
         collName: FireCollection.bzz,
         docName: bzID
     );
-    final BzModel _bz = BzModel.decipherBzMap(_bzMap);
+    final BzModel _bz = BzModel.decipherBzMap(
+      map: _bzMap,
+      fromJSON: false,
+    );
 
     return _bz;
   }
@@ -272,7 +275,7 @@ class BzOps{
       context: context,
       collName: FireCollection.bzz,
       docName: modifiedBz.bzID,
-      input: _finalBz.toMap(),
+      input: _finalBz.toMap(toJSON: false),
     );
 
     /// only if TinyBz changed :-

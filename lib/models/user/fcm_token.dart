@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class FCMToken {
@@ -11,23 +12,25 @@ class FCMToken {
     @required this.platform,
 });
 // -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap({@required bool toJSON}){
+
     return
         {
           'token' : token,
-          'createdAt' : createdAt,
+          'createdAt' : Timers.cipherTime(time: createdAt, toJSON: toJSON),
           'platform' : platform,
         };
   }
 // -----------------------------------------------------------------------------
-  static FCMToken decipherFCMToken(Map<String, dynamic> map){
+  static FCMToken decipherFCMToken({@required Map<String, dynamic> map, @required bool fromJSON}){
     FCMToken _token;
 
     if (map != null){
 
+
       _token = FCMToken(
           token: map['token'],
-          createdAt: map['createdAt'].toDate(),
+          createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
           platform: map['platform'],
       );
 

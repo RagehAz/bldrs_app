@@ -13,33 +13,52 @@ import 'package:flutter/material.dart';
 
 class Atlas{
 // -----------------------------------------------------------------------------
-  static String sqlCipherGeoPoint(GeoPoint point){
-    String string;
+  static dynamic cipherGeoPoint({@required GeoPoint point, @required bool toJSON}){
+    dynamic _output;
 
     if(point != null){
 
-      final String lat = '${point.latitude}';
-      final String lng = '${point.longitude}';
-      string = '${lat}_${lng}';
+      if (toJSON == true){
+        final String lat = '${point.latitude}';
+        final String lng = '${point.longitude}';
+        _output = '${lat}_${lng}';
+      }
+
+      else {
+        _output = point;
+      }
+
     }
 
-    return string;
+    return _output;
 
   }
 // -----------------------------------------------------------------------------
-  static GeoPoint sqlDecipherGeoPoint(String sqlGeoPointString){
-    GeoPoint _point;
+  static GeoPoint decipherGeoPoint({@required dynamic point, @required bool fromJSON}){
+    GeoPoint _output;
 
-    if (sqlGeoPointString != null){
-      final String _latString = TextMod.trimTextAfterLastSpecialCharacter(sqlGeoPointString, '_');
-      final double _lat = Numeric.stringToDouble(_latString);
-      final String _lngString = TextMod.trimTextBeforeFirstSpecialCharacter(sqlGeoPointString, '_');
-      final double _lng = Numeric.stringToDouble(_lngString);
+    if (point != null){
 
-      _point = GeoPoint(_lat, _lng);
+      if (fromJSON == true){
+
+        final String _latString = TextMod.trimTextAfterLastSpecialCharacter(point, '_');
+        final double _lat = Numeric.stringToDouble(_latString);
+        final String _lngString = TextMod.trimTextBeforeFirstSpecialCharacter(point, '_');
+        final double _lng = Numeric.stringToDouble(_lngString);
+
+        _output = GeoPoint(_lat, _lng);
+
+      }
+
+      else {
+
+        _output = point;
+
+      }
+
     }
 
-    return _point;
+    return _output;
   }
 // -----------------------------------------------------------------------------
 }

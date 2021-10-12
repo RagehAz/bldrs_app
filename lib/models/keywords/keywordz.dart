@@ -1,7 +1,7 @@
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 
-class FilterKeywords {
+abstract class FilterKeywords {
 // -----------------------------------------------------------------------------
   static  List<Keyword> propertyForms(){
     const String _groupID = 'group_ppt_form';

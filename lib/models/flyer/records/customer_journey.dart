@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -42,14 +43,14 @@ class Record {
     @required this.duration,
   });
 // -----------------------------------------------------------------------------
-  Map<String, dynamic> cipher(){
+  Map<String, dynamic> cipher({@required bool toJSON}){
 
     return
       {
         'userID' : userID,
         'bzID' : bzID,
         'activity' : cipherActivity(activity),
-        'timeStamp' : timeStamp,
+        'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: toJSON),
         'flyerID' : flyerID,
         'slideIndex' : slideIndex,
         'duration' : duration,
@@ -57,7 +58,7 @@ class Record {
 
   }
 // -----------------------------------------------------------------------------
-  static Record decipherRecord(Map<String, dynamic> map){
+  static Record decipherRecord({@required Map<String, dynamic> map, @required bool fromJSON}){
 
     Record _record;
 
@@ -67,7 +68,7 @@ class Record {
         userID : map['userID'],
         bzID : map['bzID'],
         activity : decipherActivity(map['activity']),
-        timeStamp : map['timeStamp'].toDate(),
+        timeStamp : Timers.decipherTime(time: map['timeStamp'], fromJSON: fromJSON),
         flyerID : map['flyerID'],
         slideIndex : map['slideIndex'],
         duration : map['duration'],

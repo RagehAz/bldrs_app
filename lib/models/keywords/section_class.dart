@@ -12,7 +12,7 @@ enum Section{
   Equipment,
 }
 // -----------------------------------------------------------------------------
-class SectionClass{
+abstract class SectionClass{
 
   static const List<Section> SectionsList = const <Section>[
     Section.NewProperties,

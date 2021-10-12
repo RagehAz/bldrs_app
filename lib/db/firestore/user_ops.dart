@@ -47,7 +47,7 @@ class UserOps{
       context: context,
       collName: FireCollection.users,
       docName: userModel.userID,
-      input: userModel.toMap(),
+      input: userModel.toMap(toJSON: false),
     );
 
   }
@@ -123,7 +123,10 @@ class UserOps{
     print('readUserOps : _userMap _userMap[\'userID\'] is : ${_userMap['userID']}');
     // print('lng : ${Wordz.languageCode(context)}');
 
-    final UserModel _user = _userMap == null ? null : UserModel.decipherUserMap(_userMap);
+    final UserModel _user = _userMap == null ? null : UserModel.decipherUserMap(
+      map: _userMap,
+      fromJSON: false,
+    );
 
     // print('_userModel is : $_user');
     // print('lng : ${Wordz.languageCode(context)}');

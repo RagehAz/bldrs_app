@@ -1,3 +1,5 @@
+import 'package:bldrs/controllers/drafters/atlas.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/db/firestore/user_ops.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
@@ -53,11 +55,12 @@ class UserModel {
     this.followedBzzIDs,
   });
 // -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap({@required bool toJSON}){
+
     return {
       'userID' : userID,
       'authBy' : cipherAuthBy(authBy),
-      'createdAt' : createdAt,
+      'createdAt' : Timers.cipherTime(time: createdAt, toJSON: toJSON),
       'userStatus' : cipherUserStatus(userStatus),
 // -------------------------
       'name' : name,
@@ -67,28 +70,26 @@ class UserModel {
       'gender' : cipherGender(gender),
       'zone' : zone.toMap(),
       'language' : language,
-      'position' : position,
+      'position' : Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
       'contacts' : ContactModel.cipherContactsModels(contacts),
 // -------------------------
       'myBzzIDs' : myBzzIDs,
       'emailIsVerified' : emailIsVerified,
       'isAdmin': isAdmin,
-      'fcmToken' : fcmToken.toMap(),
+      'fcmToken' : fcmToken.toMap(toJSON: toJSON),
       'savedFlyersIDs' : savedFlyersIDs,
       'followedBzzIDs' : followedBzzIDs,
     };
   }
 // -----------------------------------------------------------------------------
-  static UserModel decipherUserMap(Map<String, dynamic> map){
-
-    // List<dynamic> _myBzzIDs = map['myBzzIDs'] ?? [];
+  static UserModel decipherUserMap({@required Map<String, dynamic> map, @required bool fromJSON}){
 
     return
       map == null ? null :
       UserModel(
         userID : map['userID'] ?? '',
         authBy: decipherAuthBy(map['authBy'] ?? 0),
-        createdAt : map['createdAt'].toDate() ?? null,
+        createdAt : Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
         userStatus : decipherUserStatus(map['userStatus'] ?? 1),
         // -------------------------
         name : map['name'] ?? '',
@@ -98,27 +99,27 @@ class UserModel {
         gender : decipherGender(map['gender'] ?? 2),
         zone : Zone.decipherZoneMap(map['zone']) ?? '',
         language : map['language'] ?? 'en',
-        position : map['position'] ?? GeoPoint(0, 0),
+        position : Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
         contacts : ContactModel.decipherContactsMaps(map['contacts'] ?? []),
         // -------------------------
         myBzzIDs: map['myBzzIDs'],
         emailIsVerified : map['emailIsVerified'],
         isAdmin: map['isAdmin'],
-        fcmToken: FCMToken.decipherFCMToken(map['fcmToken']),
+        fcmToken: FCMToken.decipherFCMToken(map: map['fcmToken'], fromJSON: fromJSON),
         savedFlyersIDs: map['savedFlyersIDs'],
         followedBzzIDs: map['followedBzzIDs'],
       );
 
   }
 // -----------------------------------------------------------------------------
-  static List<UserModel> decipherUsersMaps(List<dynamic> maps){
+  static List<UserModel> decipherUsersMaps({@required List<dynamic> maps, @required bool fromJSON}){
     final List<UserModel> _users = <UserModel>[];
 
     if (maps != null && maps.length != 0){
 
       for (var map in maps){
 
-        _users.add(decipherUserMap(map));
+        _users.add(decipherUserMap(map: map, fromJSON: fromJSON));
 
       }
 

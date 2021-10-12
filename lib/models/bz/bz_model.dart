@@ -1,16 +1,11 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
-import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/numeric.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
-import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';
-import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -118,47 +113,15 @@ class BzModel with ChangeNotifier{
     @required this.bzTotalFlyers,
     @required this.authorsIDs,
   });
-// ###############################
-  // TASK : this technique to revert back the status if firestore operation fails needs to be adapted elsewhere
-//   void _setFollowValue(bool newValue){
-//     followIsOn = newValue;
-//     notifyListeners();
-//   }
-
-  // Future<void> toggleFollow() async {
-  //   final oldStatus = followIsOn;
-  //   print('oldStatus is : $oldStatus');
-  //   _setFollowValue(!followIsOn);
-  //   print('new followIsOn is : $followIsOn');
-  //   final url = 'https://bldrsnet.firebaseio.com/bzz/$bzID.json';
-  //   print('url is : $url');
-  //   try {
-  //     final response = await http.patch(url,
-  //         body: json.encode({
-  //           'followIsOn' : followIsOn,
-  //         }));
-  //     if (response.statusCode >= 400){
-  //       _setFollowValue(oldStatus);
-  //       print('response.statusCode is : ${response.body}');
-  //     } else {
-  //     print('followIsOn changed on server to : $followIsOn');
-  //     // add the id in user's firebase document in  followedBzzIDs
-  //     }
-  //   } catch (error){
-  //     _setFollowValue(oldStatus);
-  //     print('error is : $error');
-  //
-  //   }
-  // }
-// ###############################
-Map<String, dynamic> toMap(){
+// -----------------------------------------------------------------------------
+  Map<String, dynamic> toMap({@required bool toJSON}){
 
   return {
     'bzID' : bzID,
     // -------------------------
     'bzType' : cipherBzType(bzType),
     'bzForm' : cipherBzForm(bzForm),
-    'createdAt' : createdAt,
+    'createdAt' : Timers.cipherTime(time: createdAt, toJSON: toJSON),
     'accountType' : cipherBzAccountType(accountType),
     // -------------------------
     'bzName' : bzName,
@@ -166,7 +129,7 @@ Map<String, dynamic> toMap(){
     'bzScope' : bzScope,
     'bzZone' : bzZone.toMap(),
     'bzAbout' : bzAbout,
-    'bzPosition' : bzPosition,
+    'bzPosition' : Atlas.cipherGeoPoint(point: bzPosition, toJSON: toJSON),
     'bzContacts' : ContactModel.cipherContactsModels(bzContacts),
     'bzAuthors' : AuthorModel.cipherAuthorsModels(bzAuthors),
     'bzShowsTeam' : bzShowsTeam,
@@ -188,6 +151,62 @@ Map<String, dynamic> toMap(){
     };
 }
 // -----------------------------------------------------------------------------
+  static BzModel decipherBzMap({@required dynamic map, @required bool fromJSON}){
+    BzModel _bzModel;
+
+    if (map != null){
+
+      _bzModel = BzModel(
+        bzID : map['bzID'],
+        // -------------------------
+        bzType : decipherBzType(map['bzType']),
+        bzForm : decipherBzForm(map['bzForm']),
+        createdAt : Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
+        accountType : decipherBzAccountType(map['accountType']),
+        // -------------------------
+        bzName : map['bzName'],
+        bzLogo : map['bzLogo'],
+        bzScope : map['bzScope'],
+        bzZone : Zone.decipherZoneMap(map['bzZone']),
+        bzAbout : map['bzAbout'],
+        bzPosition : Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
+        bzContacts : ContactModel.decipherContactsMaps(map['bzContacts']),
+        bzAuthors : AuthorModel.decipherBzAuthorsMaps(map['bzAuthors']),
+        bzShowsTeam : map['bzShowsTeam'],
+        // -------------------------
+        bzIsVerified : map['bzIsVerified'],
+        bzAccountIsDeactivated : map['bzAccountIsDeactivated'],
+        bzAccountIsBanned : map['bzAccountIsBanned'],
+        // -------------------------
+        bzTotalFollowers : map['bzTotalFollowers'],
+        bzTotalSaves : map['bzTotalSaves'],
+        bzTotalShares : map['bzTotalShares'],
+        bzTotalSlides : map['bzTotalSlides'],
+        bzTotalViews : map['bzTotalViews'],
+        bzTotalCalls : map['bzTotalCalls'],
+        // -------------------------
+        flyersIDs: Mapper.getStringsFromDynamics(dynamics: map['flyersIDs']),
+        bzTotalFlyers: map['bzTotalFlyers'],
+        authorsIDs: Mapper.getStringsFromDynamics(dynamics: map['authorsIDs']),
+      );
+    }
+
+    return _bzModel;
+  }
+// -----------------------------------------------------------------------------
+  static List<BzModel> decipherBzzMapsFromFireStore({@required List<dynamic> maps,@required bool fromJSON}) {
+    final List<BzModel> _bzList = <BzModel>[];
+
+    maps?.forEach((map) {
+      _bzList.add(decipherBzMap(
+        map: map,
+        fromJSON: fromJSON,
+      ));
+    });
+
+    return _bzList;
+  }
+// -----------------------------------------------------------------------------
   static BzAccountType decipherBzAccountType (int bzAccountType){
     switch (bzAccountType){
       case 1:   return  BzAccountType.Default;     break;
@@ -204,58 +223,6 @@ Map<String, dynamic> toMap(){
       case BzAccountType.Super        :    return  3;  break;
       default : return null;
     }
-  }
-// -----------------------------------------------------------------------------
-  static BzModel decipherBzMap(dynamic map){
-  BzModel _bzModel;
-
-  if (map != null){
-    _bzModel = BzModel(
-      bzID : map['bzID'],
-      // -------------------------
-      bzType : decipherBzType(map['bzType']),
-      bzForm : decipherBzForm(map['bzForm']),
-      createdAt : map['createdAt'].toDate(),
-      accountType : decipherBzAccountType(map['accountType']),
-      // -------------------------
-      bzName : map['bzName'],
-      bzLogo : map['bzLogo'],
-      bzScope : map['bzScope'],
-      bzZone : Zone.decipherZoneMap(map['bzZone']),
-      bzAbout : map['bzAbout'],
-      bzPosition : map['bzPosition'],
-      bzContacts : ContactModel.decipherContactsMaps(map['bzContacts']),
-      bzAuthors : AuthorModel.decipherBzAuthorsMaps(map['bzAuthors']),
-      bzShowsTeam : map['bzShowsTeam'],
-      // -------------------------
-      bzIsVerified : map['bzIsVerified'],
-      bzAccountIsDeactivated : map['bzAccountIsDeactivated'],
-      bzAccountIsBanned : map['bzAccountIsBanned'],
-      // -------------------------
-      bzTotalFollowers : map['bzTotalFollowers'],
-      bzTotalSaves : map['bzTotalSaves'],
-      bzTotalShares : map['bzTotalShares'],
-      bzTotalSlides : map['bzTotalSlides'],
-      bzTotalViews : map['bzTotalViews'],
-      bzTotalCalls : map['bzTotalCalls'],
-      // -------------------------
-      flyersIDs: Mapper.getStringsFromDynamics(dynamics: map['flyersIDs']),
-      bzTotalFlyers: map['bzTotalFlyers'],
-      authorsIDs: Mapper.getStringsFromDynamics(dynamics: map['authorsIDs']),
-    );
-  }
-
-    return _bzModel;
-  }
-// -----------------------------------------------------------------------------
-  static List<BzModel> decipherBzzMapsFromFireStore(List<dynamic> maps) {
-    final List<BzModel> _bzList = <BzModel>[];
-
-    maps?.forEach((map) {
-      _bzList.add(decipherBzMap(map));
-    });
-
-    return _bzList;
   }
 // -----------------------------------------------------------------------------
   static BzModel createInitialBzModelFromUserData(UserModel userModel){
@@ -428,7 +395,10 @@ Map<String, dynamic> toMap(){
 // -----------------------------------------------------------------------------
   static BzModel getBzModelFromSnapshot(DocumentSnapshot doc){
     final DocumentSnapshot _map = doc.data();
-    final BzModel _bzModel = BzModel.decipherBzMap(_map);
+    final BzModel _bzModel = BzModel.decipherBzMap(
+      map: _map,
+      fromJSON: false,
+    );
     return _bzModel;
   }
 // -----------------------------------------------------------------------------
@@ -468,183 +438,6 @@ Map<String, dynamic> toMap(){
   }
 // -----------------------------------------------------------------------------
   static const List<String> bzPagesTabsTitles = <String>['Flyers', 'About', 'Targets', 'Powers'];
-// -----------------------------------------------------------------------------
-  static List<SQLColumn> createBzzLDBColumns(){
-
-  const List<SQLColumn> _columns = const <SQLColumn>[
-    // -------------------------
-    SQLColumn(key: 'bzID', type: 'TEXT', isPrimary: true),
-    // -------------------------
-    SQLColumn(key: 'bzType', type: 'INTEGER'),
-    SQLColumn(key: 'bzForm', type: 'INTEGER'),
-    SQLColumn(key: 'createdAt', type: 'TEXT'),
-    SQLColumn(key: 'accountType', type: 'INTEGER'),
-    // -------------------------
-    SQLColumn(key: 'bzName', type: 'TEXT'),
-    SQLColumn(key: 'bzLogo', type: 'TEXT'),
-    SQLColumn(key: 'bzScope', type: 'TEXT'),
-    // -------------------------
-    SQLColumn(key: 'bzZone_countryID', type: 'TEXT'),
-    SQLColumn(key: 'bzZone_cityID', type: 'TEXT'),
-    SQLColumn(key: 'bzZone_districtID', type: 'TEXT'),
-    // -------------------------
-    SQLColumn(key: 'bzAbout', type: 'TEXT'),
-    SQLColumn(key: 'bzPosition', type: 'TEXT'),
-    SQLColumn(key: 'bzContacts', type: 'TEXT'),
-    // LDBColumn(key: 'bzAuthors', type: 'TEXT'), // separated in separate LDB
-    SQLColumn(key: 'bzShowsTeam', type: 'INTEGER'),
-    // -------------------------
-    SQLColumn(key: 'bzIsVerified', type: 'INTEGER'),
-    SQLColumn(key: 'bzAccountIsDeactivated', type: 'INTEGER'),
-    SQLColumn(key: 'bzAccountIsBanned', type: 'INTEGER'),
-    // -------------------------
-    SQLColumn(key: 'bzTotalFollowers', type: 'INTEGER'),
-    SQLColumn(key: 'bzTotalSaves', type: 'INTEGER'),
-    SQLColumn(key: 'bzTotalShares', type: 'INTEGER'),
-    SQLColumn(key: 'bzTotalSlides', type: 'INTEGER'),
-    SQLColumn(key: 'bzTotalViews', type: 'INTEGER'),
-    SQLColumn(key: 'bzTotalCalls', type: 'INTEGER'),
-    SQLColumn(key: 'bzTotalFlyers', type: 'INTEGER'),
-    // -------------------------
-    SQLColumn(key: 'flyersIDs', type: 'TEXT'),
-    SQLColumn(key: 'authorsIDs', type: 'TEXT'),
-  ];
-
-  return _columns;
-
-
-  }
-// -----------------------------------------------------------------------------
-  static Future<Map<String, Object>> sqlCipherBz(BzModel bz) async {
-    Map<String, Object> _map;
-
-    if (bz != null) {
-      _map = {
-        'bzID': bz.bzID,
-        'bzType' : cipherBzType(bz.bzType),
-        'bzForm' : cipherBzForm(bz.bzForm),
-        'createdAt' : Timers.cipherDateTimeIso8601(bz.createdAt),
-        'accountType' : cipherBzAccountType(bz.accountType),
-        'bzName' : bz.bzName,
-        'bzLogo' : await Imagers.urlOrImageFileToBase64(bz.bzLogo),
-        'bzScope' : bz.bzScope,
-        'bzZone_countryID' : bz.bzZone.countryID,
-        'bzZone_cityID' : bz.bzZone.cityID,
-        'bzZone_districtID' : bz.bzZone.districtID,
-        'bzAbout' : bz.bzAbout,
-        'bzPosition' : Atlas.sqlCipherGeoPoint(bz.bzPosition),
-        'bzContacts' : ContactModel.sqlCipherContacts(bz.bzContacts),
-        'bzShowsTeam' : Numeric.sqlCipherBool(bz.bzShowsTeam),
-        'bzIsVerified' : Numeric.sqlCipherBool(bz.bzIsVerified),
-        'bzAccountIsDeactivated' : Numeric.sqlCipherBool(bz.bzAccountIsDeactivated),
-        'bzAccountIsBanned' : Numeric.sqlCipherBool(bz.bzAccountIsBanned),
-        'bzTotalFollowers' : bz.bzTotalFollowers,
-        'bzTotalSaves' : bz.bzTotalSaves,
-        'bzTotalShares' : bz.bzTotalShares,
-        'bzTotalSlides' : bz.bzTotalSlides,
-        'bzTotalViews' : bz.bzTotalViews,
-        'bzTotalCalls' : bz.bzTotalCalls,
-        'bzTotalFlyers' : bz.bzTotalFlyers,
-        'flyersIDs' : TextMod.sqlCipherStrings(bz.flyersIDs),
-        'authorsIDs' : TextMod.sqlCipherStrings(bz.authorsIDs),
-
-        // 'bzAuthors' // separated in separate LDB
-
-      };
-
-      return _map;
-    }
-
-    return _map;
-  }
-// -----------------------------------------------------------------------------
-  static Future<BzModel> sqlDecipherBz(Map<String, Object> map, List<AuthorModel> authors) async {
-    BzModel _bz;
-
-    if (map != null){
-
-      _bz = BzModel(
-        bzID : map['bzID'],
-        // -------------------------
-        bzType : decipherBzType(map['bzType']),
-        bzForm : decipherBzForm(map['bzForm']),
-        createdAt : Timers.decipherDateTimeIso8601(map['createdAt']),
-        accountType : decipherBzAccountType(map['accountType']),
-        // -------------------------
-        bzName : map['bzName'],
-        bzLogo : await Imagers.base64ToFile(map['bzLogo']),
-        bzScope : map['bzScope'],
-        bzZone : Zone(
-          countryID: map['bzZone_countryID'],
-          cityID: map['bzZone_cityID'],
-          districtID: map['bzZone_districtID'],
-        ),
-        bzAbout : map['bzAbout'],
-        bzPosition : Atlas.sqlDecipherGeoPoint(map['bzPosition']),
-        bzContacts : ContactModel.sqlDecipherContacts(map['bzContacts']),
-        bzAuthors : authors,
-        bzShowsTeam : Numeric.sqlDecipherBool(map['bzShowsTeam']),
-        // -------------------------
-        bzIsVerified : Numeric.sqlDecipherBool(map['bzIsVerified']),
-        bzAccountIsDeactivated : Numeric.sqlDecipherBool(map['bzAccountIsDeactivated']),
-        bzAccountIsBanned : Numeric.sqlDecipherBool(map['bzAccountIsBanned']),
-        // -------------------------
-        bzTotalFollowers : map['bzTotalFollowers'],
-        bzTotalSaves : map['bzTotalSaves'],
-        bzTotalShares : map['bzTotalShares'],
-        bzTotalSlides : map['bzTotalSlides'],
-        bzTotalViews : map['bzTotalViews'],
-        bzTotalCalls : map['bzTotalCalls'],
-        bzTotalFlyers: map['bzTotalFlyers'],
-        // -------------------------
-        flyersIDs: TextMod.sqlDecipherStrings(map['flyersIDs']),
-        authorsIDs: TextMod.sqlDecipherStrings(map['authorsIDs']),
-      );
-
-    }
-
-    return _bz;
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> sqlCipherBzz(List<BzModel> bzz) async {
-    List<Map<String, Object>> _maps = <Map<String, Object>>[];
-
-    if (bzz != null && bzz.isNotEmpty){
-
-      for (BzModel bz in bzz){
-
-        final Map<String, Object> _map = await sqlCipherBz(bz);
-
-        _maps.add(_map);
-
-      }
-
-    }
-
-    return _maps;
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<BzModel>> sqlDecipherBzz({List<Map<String, Object>> maps, List<AuthorModel> allAuthors}) async {
-    List<BzModel> _bzz = <BzModel>[];
-
-    if (maps != null && maps.isNotEmpty){
-
-      for (var map in maps){
-
-        final List<String> _bzAuthorsIDs = TextMod.sqlDecipherStrings(map['authorsIDs']);
-
-        final List<AuthorModel> _bzAuthors = AuthorModel.getAuthorsFromAuthorsByAuthorsIDs(allAuthors, _bzAuthorsIDs);
-
-        final BzModel _bz = await sqlDecipherBz(map, _bzAuthors);
-
-        _bzz.add(_bz);
-
-      }
-
-    }
-
-    return _bzz;
-  }
 // -----------------------------------------------------------------------------
 }
 
