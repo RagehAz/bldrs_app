@@ -1,42 +1,41 @@
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/views/widgets/specific/ask/chat/chat_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 /// db/questions/questionID/chats/chatID/messages/messageID
 class ChatOps{
 // -----------------------------------------------------------------------------
-  /// chats sub collection reference
-  CollectionReference chatsSubCollectionRef(){
-    return Fire.getCollectionRef(FireCollection.questions_question_chats);
-  }
-// -----------------------------------------------------------------------------
-  /// chat doc ref
-  DocumentReference chatSubDocRef(String questionID, String chatID){
-    return
-        Fire.getSubDocRef(
-          collName: FireCollection.questions,
-          docName: questionID,
-          subCollName: FireCollection.questions_question_chats,
-          subDocName: chatID
-        );
-  }
+//   /// chats sub collection reference
+//   CollectionReference _chatsSubCollectionRef(){
+//     return Fire.getCollectionRef(FireCollection.questions_question_chats);
+//   }
+// // -----------------------------------------------------------------------------
+//   /// chat doc ref
+//   DocumentReference _chatSubDocRef(String questionID, String chatID){
+//     return
+//         Fire.getSubDocRef(
+//           collName: FireCollection.questions,
+//           docName: questionID,
+//           subCollName: FireCollection.questions_question_chats,
+//           subDocName: chatID
+//         );
+//   }
 // -----------------------------------------------------------------------------
   /// create
-  static Future<void> createChatOps({BuildContext context, ChatModel chatModel, String questionID}) async {
+  static Future<void> createChatOps({@required BuildContext context, @required ChatModel chatModel, @required String questionID}) async {
 
     await Fire.createSubDoc(
       context: context,
       collName: FireCollection.questions,
       docName: questionID,
       subCollName: chatModel.bzID,
-      input: chatModel.toMap(),
+      input: chatModel.toMap(toJSON: false),
     );
 
   }
 // -----------------------------------------------------------------------------
   /// read
-  static Future<ChatModel> readChatOps({BuildContext context, String bzID, String questionID}) async {
+  static Future<ChatModel> readChatOps({@required BuildContext context, @required String bzID, @required String questionID}) async {
 
     final dynamic _chatMap = await Fire.readSubDoc(
       context: context,
@@ -46,13 +45,13 @@ class ChatOps{
       subDocName: bzID,
     );
 
-    final ChatModel _chat = ChatModel.decipherChatMap(_chatMap);
+    final ChatModel _chat = ChatModel.decipherChatMap(map: _chatMap, fromJSON: false);
 
     return _chat;
   }
 // -----------------------------------------------------------------------------
   /// edit
-  static Future<void> updateChatOps({BuildContext context, ChatModel updatedChat, String questionID}) async {
+  static Future<void> updateChatOps({@required BuildContext context, @required ChatModel updatedChat, @required String questionID}) async {
 
     await Fire.updateSubDoc(
       context: context,
@@ -60,7 +59,7 @@ class ChatOps{
       docName: questionID,
       subCollName: FireCollection.questions_question_chats,
       subDocName: updatedChat.bzID,
-      input: updatedChat.toMap(),
+      input: updatedChat.toMap(toJSON: false),
     );
 
   }

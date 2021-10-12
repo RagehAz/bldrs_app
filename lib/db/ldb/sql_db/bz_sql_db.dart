@@ -1,3 +1,4 @@
+import 'package:bldrs/db/ldb/sql_db/sql_methods.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_db.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_table.dart';
@@ -23,7 +24,7 @@ class BzSQLdb{
   static Future<BzSQLdb> createBzzLDB({BuildContext context, String LDBName}) async {
 
     /// 1 - CREATE BZZ LDB
-    final List<SQLColumn> _bzzColumns = BzModel.createBzzLDBColumns();
+    final List<SQLColumn> _bzzColumns = SQLMethods.createBzzLDBColumns();
     final SQLTable _bzzTable = await SQLdb.createAndSetSQLdb(
       context: context,
       tableName: LDBName,
@@ -64,7 +65,7 @@ class BzSQLdb{
 
     final List<AuthorModel> _allAuthors = await AuthorModel.sqlDecipherAuthors(maps: _sqlAuthorsMaps);
 
-    final List<BzModel> _allBzz = await BzModel.sqlDecipherBzz(
+    final List<BzModel> _allBzz = await SQLMethods.sqlDecipherBzz(
       maps: _sqlBzzMaps,
       allAuthors: _allAuthors,
     );
@@ -105,7 +106,7 @@ class BzSQLdb{
     }
 
     /// insert sql bz
-    final Map<String, Object> _sqlBzMap = await BzModel.sqlCipherBz(bz);
+    final Map<String, Object> _sqlBzMap = await SQLMethods.sqlCipherBz(bz);
     await SQLdb.insert(
       table: bzzLDB.bzzTable,
       input: _sqlBzMap,
@@ -181,7 +182,7 @@ class BzSQLdb{
     );
 
     if (_bzMap != null){
-      _bz = await BzModel.sqlDecipherBz(_bzMap, _bzAuthors);
+      _bz = await SQLMethods.sqlDecipherBz(_bzMap, _bzAuthors);
     }
 
 

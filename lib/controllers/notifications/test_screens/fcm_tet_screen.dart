@@ -83,7 +83,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
         collName: FireCollection.users,
         docName: _userID,
         field: 'fcmToken',
-        input: _token.toMap(),
+        input: _token.toMap(toJSON: false),
       );
 
     }
@@ -113,7 +113,10 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
       onError: (error) => print(error),
       methodName: 'receiveAndActUponNoti',
       functions: (){
-        _noti = NotiModel.decipherNotiModel(msgMap);
+        _noti = NotiModel.decipherNotiModel(
+          map: msgMap,
+          fromJSON: false,
+        );
       },
     );
 

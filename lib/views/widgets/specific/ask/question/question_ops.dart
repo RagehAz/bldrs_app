@@ -108,7 +108,7 @@ class QuestionOps {
       docName: questionID,
     );
 
-    final QuestionModel _question = QuestionModel.decipherQuestion(_questionMap);
+    final QuestionModel _question = QuestionModel.decipherQuestion(map: _questionMap, fromJSON: false);
 
     return _question;
 

@@ -59,7 +59,7 @@ class GeneralStatistics extends StatelessWidget {
           context: context,
           collName: FireCollection.flyers,
           docName: '000000000000xxxxxx1saaa',
-          input: _testFlyer.toMap(),
+          input: _testFlyer.toMap(toJSON: false),
         );
 
         print('done bitch');

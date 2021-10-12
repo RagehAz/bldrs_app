@@ -117,7 +117,7 @@ class OldFlyersProvider with ChangeNotifier {
       valueB: FlyerModel.cipherFlyerState(FlyerState.Unpublished),
     );
 
-    final List<FlyerModel> _deactivatedFlyers = FlyerModel.decipherFlyersMaps(maps);
+    final List<FlyerModel> _deactivatedFlyers = FlyerModel.decipherFlyers(maps: maps, fromJSON: false);
 
     _bzDeactivatedFlyers = _deactivatedFlyers;
     notifyListeners();
