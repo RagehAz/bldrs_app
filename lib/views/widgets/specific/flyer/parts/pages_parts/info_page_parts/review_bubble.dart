@@ -71,15 +71,20 @@ class _ReviewBubbleState extends State<ReviewBubble> {
     if(_isInit){
       _triggerLoading().then((_) async {
 
-        _tinyUser = await UserOps().readTinyUserOps(
-          context: context,
-          userID: superUserID(),
-        );
 
-        _reviews = await FlyerOps.readAllReviews(
-          context: context,
-          flyerID: widget.superFlyer.flyerID,
-        );
+        if(mounted){
+
+          _tinyUser = await UserOps().readTinyUserOps(
+            context: context,
+            userID: superUserID(),
+          );
+
+          _reviews = await FlyerOps.readAllReviews(
+            context: context,
+            flyerID: widget.superFlyer.flyerID,
+          );
+
+        }
 
       });
 

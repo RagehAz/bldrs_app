@@ -256,7 +256,6 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                 child: ClipRRect(
                   borderRadius: _headerBorders,
                   child: MaxBounceNavigator(
-                    // onNavigate: collapse,
                     child: ListView(
                       shrinkWrap: false,
                       physics: _tinyMode == true || _isExpanded == false ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
@@ -285,6 +284,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             physics: const NeverScrollableScrollPhysics(),
+                            key: PageStorageKey<String>('miniHeaderStrip'),
                             // mainAxisAlignment: MainAxisAlignment.center,
                             // crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[

@@ -104,8 +104,6 @@ class _GalleryState extends State<Gallery> {
     _isInit = false;
   }
 // -----------------------------------------------------------------------------
-
-
   List<bool> _createVisibilities({bool fillingValue}){
     final List<bool> _visibilities = <bool>[];
 
@@ -186,7 +184,7 @@ class _GalleryState extends State<Gallery> {
               width: widget.galleryBoxWidth,
               // height: ,
               alignment: Aligners.superCenterAlignment(context),
-              padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+              padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
               child:
               widget.superFlyer.bz.bzShowsTeam == false ?
               SuperVerse(
@@ -228,7 +226,7 @@ class _GalleryState extends State<Gallery> {
               ),
 
             /// FLYERS
-            if (widget.galleryBoxWidth != null)
+            // if (widget.galleryBoxWidth != null)
               GalleryGrid(
                 gridZoneWidth: widget.galleryBoxWidth,
                 bzID: widget.superFlyer.bz.bzAuthors == null || widget.superFlyer.bz.bzAuthors == [] || widget.superFlyer.bz.bzAuthors.isEmpty ?  '': widget.superFlyer.bz.bzID,
