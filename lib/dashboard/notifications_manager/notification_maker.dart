@@ -442,7 +442,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
             collName: FireCollection.users,
             docName: sendToMyself == true ? superUserID() : _selectedUser.userID,
             subCollName: FireCollection.users_user_notifications,
-            input: _newNoti.toMap(),
+            input: _newNoti.toMap(toJSON: false),
             subDocName: _id,
           );
         },

@@ -18,36 +18,39 @@ class ReviewModel {
     @required this.time,
 });
 // -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap({bool toJSON = false}){
     return
         {
           'body' : body,
           'userID' : userID,
-          'time' : Timers.cipherDateTimeToString(time),
+          'time' : Timers.cipherTime(time: time, toJSON: toJSON),
         };
   }
 // -----------------------------------------------------------------------------
-  static ReviewModel decipherReview(Map<String, dynamic> map){
+  static ReviewModel decipherReview({@required Map<String, dynamic> map, bool fromJSON}){
     ReviewModel _review;
 
     if (map != null){
       _review = ReviewModel(
           body: map['body'],
           userID: map['userID'],
-          time: Timers.decipherDateTimeString(map['time']),
+          time: Timers.decipherTime(time: map['time'], fromJSON: fromJSON),
       );
     }
 
     return _review;
   }
 
-  static List<ReviewModel> decipherReviews(List<dynamic> maps){
+  static List<ReviewModel> decipherReviews({@required List<dynamic> maps, bool fromJSON}){
     final List<ReviewModel> _reviews = <ReviewModel>[];
 
     if (maps != null && maps.length != 0){
 
       for (var map in maps){
-        _reviews.add(decipherReview(map));
+        _reviews.add(decipherReview(
+          map: map,
+          fromJSON: fromJSON,
+        ));
       }
 
     }

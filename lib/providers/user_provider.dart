@@ -115,7 +115,7 @@ class UsersProvider extends ChangeNotifier {
           /// insert in LDB
           await LDBOps.insertMap(
             docName: LDBDoc.myUserModel,
-            input: _firebaseUserModel.toMap(),
+            input: _firebaseUserModel.toMap(toJSON: true),
           );
 
           _userModel = _firebaseUserModel;
@@ -125,7 +125,10 @@ class UsersProvider extends ChangeNotifier {
 
       /// if found in LDB
       else {
-        _userModel = UserModel.decipherUserMap(_map);
+        _userModel = UserModel.decipherUserMap(
+          map: _map,
+          fromJSON: true,
+        );
       }
 
 

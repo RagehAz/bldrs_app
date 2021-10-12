@@ -35,12 +35,12 @@ class QuestionModel {
     @required this.userDeletedQuestion,
 });
 // -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap({bool toJSON = false}){
     return {
     'questionID' : questionID,
     'userID' : ownerID,
     'questionType' : FlyerTypeClass.cipherFlyerType(questionType),
-    'askTime' : Timers.cipherDateTimeToString(time),
+    'askTime' : Timers.cipherTime(time: time, toJSON: toJSON),
     'keywords' : keywords,
     'pics' : pics,
     'body' : body,
@@ -53,7 +53,7 @@ class QuestionModel {
     };
   }
 // -----------------------------------------------------------------------------
-  static QuestionModel decipherQuestion(dynamic map){
+  static QuestionModel decipherQuestion({@required dynamic map, bool fromJSON}){
     QuestionModel _question;
 
     if (map != null){
@@ -62,7 +62,7 @@ class QuestionModel {
           ownerID: map['userID'],
           body: map['body'],
           questionType: FlyerTypeClass.decipherFlyerType(map['questionType']),
-          time: map['askTime'],
+          time: Timers.decipherTime(time: map['askTime'], fromJSON: fromJSON),
           keywords: map['keywords'],
           pics: map['pics'],
           title: map['title'],

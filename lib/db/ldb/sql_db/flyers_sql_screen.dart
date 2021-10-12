@@ -13,6 +13,7 @@ import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/db/ldb/sql_db/bz_sql_db.dart';
 import 'package:bldrs/db/ldb/sql_db/flyer_sql_db.dart';
+import 'package:bldrs/db/ldb/sql_db/sql_methods.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
@@ -128,7 +129,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     // final List<TinyFlyer> _tinyFlyersFromLDB = TinyFlyer.getTinyFlyersFromFlyersModels(_flyersFromLDB);
 
     final List<Map<String, Object>> _slidesMaps = await SlideModel.sqlCipherFlyersSlides(_flyersFromLDB);
-    final List<Map<String, Object>> _flyersMaps = await FlyerModel.sqlCipherFlyers(_flyersFromLDB);
+    final List<Map<String, Object>> _flyersMaps = await SQLMethods.sqlCipherFlyers(_flyersFromLDB);
 
     setState(() {
       // _convertedTinyFlyers = _tinyFlyersFromLDB;
@@ -315,7 +316,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 
 
     final List<Map<String, Object>> _authorsMaps = await AuthorModel.sqlCipherAuthors(authors: _allAuthors);
-    final List<Map<String, Object>> _bzzMaps = await BzModel.sqlCipherBzz(_allBzzFromLDB);
+    final List<Map<String, Object>> _bzzMaps = await SQLMethods.sqlCipherBzz(_allBzzFromLDB);
 
     setState(() {
       // _convertedTinyFlyers = _tinyFlyersFromLDB;

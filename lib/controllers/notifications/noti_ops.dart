@@ -113,7 +113,10 @@ class NotiOps{
       onError: (error) => print(error),
       methodName: 'receiveAndActUponNoti',
       functions: (){
-        _noti = NotiModel.decipherNotiModel(msgMap);
+        _noti = NotiModel.decipherNotiModel(
+          map: msgMap,
+          fromJSON: false,
+        );
       },
     );
 
@@ -416,7 +419,10 @@ Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID)
 
       _notiModelsStream = _querySnapshots.map(
               (qShot) => qShot.docs.map((doc) =>
-                  NotiModel.decipherNotiModel(doc)
+                  NotiModel.decipherNotiModel(
+                    map: doc,
+                    fromJSON: false,
+                  )
           ).toList()
       );
 

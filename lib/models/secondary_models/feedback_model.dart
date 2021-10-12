@@ -18,7 +18,7 @@ class FeedbackModel{
     return {
       'id' : id,
       'userID' : userID,
-      'timeStamp' : Timers.cipherDateTimeToString(timeStamp),
+      'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: false),
       'feedback' : feedback,
     };
   }
@@ -28,7 +28,7 @@ static FeedbackModel decipherFeedbackMap(Map<String, dynamic> map){
         FeedbackModel(
           id: map['id'],
           userID: map['userID'],
-          timeStamp: Timers.decipherDateTimeString(map['timeStamp']),
+          timeStamp: Timers.decipherTime(time: map['timeStamp'], fromJSON: false),
           feedback: map['feedback'],
         );
 }

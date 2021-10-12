@@ -1,3 +1,4 @@
+import 'package:bldrs/db/ldb/sql_db/sql_methods.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_db.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_table.dart';
@@ -23,7 +24,7 @@ class FlyerSQLdb{
   static Future<FlyerSQLdb> createFlyersSQLdb({BuildContext context, String LDBName}) async {
 
     /// 1 - CREATE FLYERS LDB
-    final List<SQLColumn> _FlyersColumns = FlyerModel.createFlyersLDBColumns();
+    final List<SQLColumn> _FlyersColumns = SQLMethods.createFlyersLDBColumns();
     final SQLTable _flyers = await SQLdb.createAndSetSQLdb(
       context: context,
       tableName: LDBName,
@@ -64,7 +65,7 @@ class FlyerSQLdb{
 
     final List<SlideModel> _allSlides = await SlideModel.sqlDecipherSlides(maps: _sqlSlidesMaps);
 
-    final List<FlyerModel> _allFlyers = await FlyerModel.sqlDecipherFlyers(
+    final List<FlyerModel> _allFlyers = await SQLMethods.sqlDecipherFlyers(
       sqlFlyersMaps: _sqlFlyersMaps,
       allSlides: _allSlides,
     );
@@ -104,7 +105,7 @@ class FlyerSQLdb{
     }
 
     /// insert sql flyer
-    final Map<String, Object> _sqlFlyerMap = await FlyerModel.sqlCipherFlyer(flyer);
+    final Map<String, Object> _sqlFlyerMap = await SQLMethods.sqlCipherFlyer(flyer);
     await SQLdb.insert(
       table: flyersLDB.flyersTable,
       input: _sqlFlyerMap,
@@ -157,7 +158,7 @@ class FlyerSQLdb{
         numberOfSlides: _flyerMap['numberOfSlides'],
       );
 
-      _flyer = await FlyerModel.sqlDecipherFlyer(
+      _flyer = await SQLMethods.sqlDecipherFlyer(
         flyerMap: _flyerMap,
         slides: _flyerSlides,
       );

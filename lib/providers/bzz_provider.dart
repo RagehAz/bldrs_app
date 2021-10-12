@@ -31,7 +31,10 @@ class BzzProvider extends ChangeNotifier {
       );
 
       if (_map != null && _map != {}){
-        _bz = BzModel.decipherBzMap(_map);
+        _bz = BzModel.decipherBzMap(
+          map: _map,
+          fromJSON: true,
+        );
         break;
       }
 
@@ -49,7 +52,7 @@ class BzzProvider extends ChangeNotifier {
       /// 2.2 if found on firebase, store in ldb sessionBzz
       if (_bz != null){
         await LDBOps.insertMap(
-          input: _bz.toMap(),
+          input: _bz.toMap(toJSON: true),
           docName: LDBDoc.sessionBzz,
         );
       }
@@ -211,3 +214,41 @@ class BzzProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 }
+
+/*
+
+  // TASK : this technique to revert back the status if firestore operation fails needs to be adapted elsewhere
+//   void _setFollowValue(bool newValue){
+//     followIsOn = newValue;
+//     notifyListeners();
+//   }
+
+  // Future<void> toggleFollow() async {
+  //   final oldStatus = followIsOn;
+  //   print('oldStatus is : $oldStatus');
+  //   _setFollowValue(!followIsOn);
+  //   print('new followIsOn is : $followIsOn');
+  //   final url = 'https://bldrsnet.firebaseio.com/bzz/$bzID.json';
+  //   print('url is : $url');
+  //   try {
+  //     final response = await http.patch(url,
+  //         body: json.encode({
+  //           'followIsOn' : followIsOn,
+  //         }));
+  //     if (response.statusCode >= 400){
+  //       _setFollowValue(oldStatus);
+  //       print('response.statusCode is : ${response.body}');
+  //     } else {
+  //     print('followIsOn changed on server to : $followIsOn');
+  //     // add the id in user's firebase document in  followedBzzIDs
+  //     }
+  //   } catch (error){
+  //     _setFollowValue(oldStatus);
+  //     print('error is : $error');
+  //
+  //   }
+  // }
+// ###############################
+
+
+ */
