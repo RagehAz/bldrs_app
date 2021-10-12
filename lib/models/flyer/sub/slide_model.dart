@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
@@ -170,7 +171,7 @@ class SlideModel {
   static List<SlideModel> decipherSlidesMaps(List<dynamic> maps){
     final List<SlideModel> _slidesList = <SlideModel> [];
 
-    if (maps!= null && maps.length != 0){
+    if (Mapper.canLoopList(maps)){
       maps?.forEach((map) {
         _slidesList.add(decipherSlideMap(map));
       });
@@ -274,7 +275,7 @@ class SlideModel {
   static Future <List<File>> getImageFilesFromPublishedSlides(List<SlideModel> slides) async {
     final List<File> _files = <File>[];
 
-    if (slides != null && slides.length != 0){
+    if (Mapper.canLoopList(slides)){
       for (SlideModel slide in slides){
 
         final File _file = await Imagers.urlToFile(slide.pic);
@@ -291,7 +292,7 @@ class SlideModel {
     final List<Asset> _assets = [];
 
 
-    if (slides != null && slides.length != 0){
+    if (Mapper.canLoopList(slides)){
       for (SlideModel slide in slides){
 
         final File _file = await Imagers.urlToFile(slide.pic);
@@ -318,9 +319,9 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<BoxFit> getSlidesBoxFits(List<SlideModel> slides) {
-    final List<BoxFit> _boxFits = [];
+    final List<BoxFit> _boxFits = <BoxFit>[];
 
-    if (slides != null && slides.length != 0){
+    if (Mapper.canLoopList(slides)){
       for (SlideModel slide in slides){
 
         final BoxFit _fit = slide.picFit;
@@ -341,7 +342,7 @@ class SlideModel {
   static List<bool> createVisibilityListFromSlides(List<SlideModel> slides){
     final List<bool> _visibilityList = <bool> [];
 
-    if (slides != null && slides.length != 0){
+    if (Mapper.canLoopList(slides)){
       for (int i = 0; i < slides.length; i++){
         _visibilityList.add(true);
       }

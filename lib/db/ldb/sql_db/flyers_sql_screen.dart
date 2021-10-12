@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -236,7 +237,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
   List<dynamic> getSlidesFromMaps(var maps){
     List<dynamic> _pics = <dynamic>[];
 
-    if (maps != null && maps.length != 0){
+    if (Mapper.canLoopList(maps)){
       for (var x in maps){
 
         final String _pic = x['pic'];
@@ -535,7 +536,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
         ),
 
         /// CONVERTED SLIDES SHELF
-        if (_convertedPicsStrings != null && _convertedPicsStrings.length != 0)
+        if (Mapper.canLoopList(_convertedPicsStrings))
           SlidesShelf(
             shelfHeight: FlyersShelf.shelfHeight(context: context, flyerSizeFactor: _flyerSizeFactor),
             title: 'Converted Slides',

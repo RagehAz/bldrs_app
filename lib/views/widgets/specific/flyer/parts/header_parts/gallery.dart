@@ -5,24 +5,26 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/author_bubble/author_bubble.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/gallery_grid.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Gallery extends StatefulWidget {
   final SuperFlyer superFlyer;
   final double galleryBoxWidth;
   final bool showFlyers; // why ?
   final bool addAuthorButtonIsOn;
-  final List<TinyFlyer> tinyFlyers;
+  // final List<TinyFlyer> tinyFlyers;
 
   const Gallery({
     @required this.superFlyer,
     @required this.galleryBoxWidth,
     @required this.showFlyers,
     this.addAuthorButtonIsOn = true,
-    @required this.tinyFlyers,
+    // @required this.tinyFlyers,
   });
 
   @override
@@ -37,35 +39,35 @@ class _GalleryState extends State<Gallery> {
   BzModel _bzModel;
   List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
 // -----------------------------------------------------------------------------
-  // /// --- FUTURE LOADING BLOCK
-  // bool _loading = false;
-  // Future <void> _triggerLoading({Function function}) async {
-  //
-  //   if (function == null){
-  //     setState(() {
-  //       _loading = !_loading;
-  //     });
-  //   }
-  //
-  //   else {
-  //     setState(() {
-  //       _loading = !_loading;
-  //       function();
-  //     });
-  //   }
-  //
-  //   _loading == true?
-  //   print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
-  // }
+  /// --- FUTURE LOADING BLOCK
+  bool _loading = false;
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
 // -----------------------------------------------------------------------------
   @override
   void initState(){
     super.initState();
 
     print('starting gallery init');
-
     _bzModel = widget.superFlyer.bz;
-    _tinyFlyers = widget.tinyFlyers;
+
+    _tinyFlyers = <TinyFlyer>[];
 
     print('flyersIDs are ${_bzModel.flyersIDs}');
 
@@ -73,6 +75,36 @@ class _GalleryState extends State<Gallery> {
     setFlyersVisibility();
   }
 // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_isInit) {
+
+      _triggerLoading(function: (){}).then((_) async {
+        /// ---------------------------------------------------------0
+
+        final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+        await _flyersProvider.fetchActiveBzFlyers(context: context, bzID: _bzModel.bzID);
+
+        List<TinyFlyer> _flyersFromProvider = _flyersProvider.activeBzFlyer;
+
+        print('active bz flyers are : $_flyersFromProvider');
+
+        setState(() {
+          _tinyFlyers = _flyersFromProvider;
+          _loading = false;
+        });
+
+        /// ---------------------------------------------------------0
+      });
+
+    }
+    _isInit = false;
+  }
+// -----------------------------------------------------------------------------
+
 
   List<bool> _createVisibilities({bool fillingValue}){
     final List<bool> _visibilities = <bool>[];
@@ -134,6 +166,7 @@ class _GalleryState extends State<Gallery> {
   Widget build(BuildContext context) {
 
     // bool _thisIsMyBz = _bzTeamIDs.contains(superUserID());
+
 
     return Container(
       width: widget.galleryBoxWidth,

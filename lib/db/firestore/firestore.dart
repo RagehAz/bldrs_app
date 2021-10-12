@@ -81,17 +81,17 @@ class Fire{
 
 
 // -----------------------------------------------------------------------------
-  static String pathOfColl({String collName, String docName,}){
+  static String pathOfColl({@required String collName, @required String docName,}){
     return
       '$collName/$docName';
   }
 // -----------------------------------------------------------------------------
-  static String pathOfSubColl({String collName, String docName, String subCollName}){
+  static String pathOfSubColl({@required String collName, @required String docName, @required String subCollName}){
     return
       '$collName/$docName/$subCollName';
   }
 // -----------------------------------------------------------------------------
-  static String pathOfSubDoc({String collName, String docName, String subCollName, String subDocName}){
+  static String pathOfSubDoc({@required String collName, @required String docName, @required String subCollName, @required String subDocName}){
     return
       '$collName/$docName/$subCollName/$subDocName';
   }
@@ -110,7 +110,7 @@ class Fire{
     return _collection;
   }
 // -----------------------------------------------------------------------------
-  static DocumentReference getDocRef ({String collName, String docName}){
+  static DocumentReference getDocRef ({@required String collName, @required String docName}){
     final CollectionReference _collection = Fire.getCollectionRef(collName);
     final DocumentReference _doc =  _collection.doc(docName);
 
@@ -123,7 +123,7 @@ class Fire{
     return _doc;
   }
 // -----------------------------------------------------------------------------
-  static CollectionReference getSubCollectionRef ({String collName, String docName, String subCollName}){
+  static CollectionReference getSubCollectionRef ({@required String collName, @required String docName, @required String subCollName}){
     final CollectionReference _subCollection = FirebaseFirestore.instance
         .collection('$collName/$docName/$subCollName');
 
@@ -137,7 +137,7 @@ class Fire{
     return _subCollection;
   }
 // -----------------------------------------------------------------------------
-  static DocumentReference getSubDocRef ({String collName, String docName, String subCollName, String subDocName}){
+  static DocumentReference getSubDocRef ({@required String collName, @required String docName, @required String subCollName, @required String subDocName}){
     final CollectionReference _subCollection = FirebaseFirestore.instance
         .collection('$collName/$docName/$subCollName');
     final DocumentReference _subDocRef = _subCollection.doc(subDocName);
@@ -172,10 +172,10 @@ class Fire{
 // =============================================================================
   /// creates firestore doc with auto generated ID then returns doc reference
   static Future<DocumentReference> createDoc({
-    BuildContext context,
-    String collName,
-    bool addDocID,
-    Map<String, dynamic> input,
+    @required BuildContext context,
+    @required String collName,
+    bool addDocID = false,
+    @required Map<String, dynamic> input,
   }) async {
 
     DocumentReference _docRef;
@@ -208,10 +208,10 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<DocumentReference> createNamedDoc({
-    BuildContext context,
-    String collName,
-    String docName,
-    Map<String, dynamic> input,
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required Map<String, dynamic> input,
   }) async {
 
     DocumentReference _docRef;
@@ -236,11 +236,11 @@ class Fire{
 // -----------------------------------------------------------------------------
   /// creates firestore sub doc with auto ID
   static Future<DocumentReference> createSubDoc({
-    BuildContext context,
-    String collName,
-    String docName,
-    String subCollName,
-    Map<String, dynamic> input,
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required String subCollName,
+    @required Map<String, dynamic> input,
   }) async {
 
     /// creates a new sub doc and new sub collection if didn't exists
@@ -261,12 +261,12 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<DocumentReference> createNamedSubDoc({
-    BuildContext context,
-    String collName,
-    String docName,
-    String subCollName,
-    String subDocName,
-    Map<String, dynamic> input,
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required String subCollName,
+    @required String subDocName,
+    @required Map<String, dynamic> input,
   }) async {
 
     /// creates a new sub doc and new sub collection if didn't exists
@@ -297,12 +297,12 @@ class Fire{
   }
 // =============================================================================
   static Future<List<dynamic>> readCollectionDocs({
-    String collectionName,
-    String orderBy,
+    @required String collectionName,
+    @required String orderBy,
     @required int limit,
     QueryDocumentSnapshot startAfter,
-    bool addDocSnapshotToEachMap,
-    bool addDocID,
+    bool addDocSnapshotToEachMap = false,
+    bool addDocID = false,
   }) async {
 
     final QueryDocumentSnapshot _startAfter = startAfter ?? null;
@@ -354,9 +354,9 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<dynamic> readDoc({
-    BuildContext context,
-    String collName,
-    String docName
+    @required BuildContext context,
+    @required String collName,
+    @required String docName
   }) async {
 
     print('readDoc() : starting to read doc : firestore/$collName/$docName');
@@ -393,10 +393,10 @@ class Fire{
 // -----------------------------------------------------------------------------
   /// TODO : delete Fire.readDocField if not used in release mode
   static Future<dynamic> readDocField({
-    BuildContext context,
-    String collName,
-    String docName,
-    String fieldName,
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required String fieldName,
   }) async {
 
     dynamic _map;
@@ -418,11 +418,11 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<dynamic> readSubCollectionDocs({
-    BuildContext context,
-    bool addDocsIDs,
-    String collName,
-    String docName,
-    String subCollName,
+    @required BuildContext context,
+    @required bool addDocsIDs,
+    @required String collName,
+    @required String docName,
+    @required String subCollName,
   }) async {
 
     List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -452,11 +452,11 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<dynamic> readSubDoc({
-    BuildContext context,
-    String collName,
-    String docName,
-    String subCollName,
-    String subDocName
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required String subCollName,
+    @required String subDocName
   }) async {
 
     dynamic _map;
@@ -482,33 +482,35 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
 
-  /// TODO : delete Fire.readSubDocField if not used in release mode
-  static Future<dynamic> readSubDocField({
-    BuildContext context,
-    String collName,
-    String docName,
-    String subCollName,
-    String subDocName,
-    String fieldName,
-  }) async {
-
-    dynamic _map;
-
-    tryAndCatch(
-        context: context,
-        methodName: 'readSubDocField',
-        functions: () async {
-          _map = await Fire.readSubDoc(
-            context: context,
-            collName: collName,
-            docName: docName,
-          );
-
-        }
-    );
-
-    return _map[fieldName];
-  }
+  // /// TODO : delete Fire.readSubDocField if not used in release mode
+  // static Future<dynamic> readSubDocField({
+  //   @required BuildContext context,
+  //   @required String collName,
+  //   @required String docName,
+  //   @required String subCollName,
+  //   @required String subDocName,
+  //   @required String fieldName,
+  // }) async {
+  //
+  //   dynamic _map;
+  //
+  //   tryAndCatch(
+  //       context: context,
+  //       methodName: 'readSubDocField',
+  //       functions: () async {
+  //         _map = await Fire.readSubDoc(
+  //           context: context,
+  //           collName: collName,
+  //           docName: docName,
+  //           subDocName: subDocName,
+  //           subCollName: subCollName,
+  //         );
+  //
+  //       }
+  //   );
+  //
+  //   return _map[fieldName];
+  // }
 // ====================================---
   static Stream<QuerySnapshot> streamCollection(String collectionName){
     final CollectionReference _collection = Fire.getCollectionRef(collectionName);
@@ -562,10 +564,10 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Stream<DocumentSnapshot> streamSubDoc({
-    String collName,
-    String docName,
-    String subCollName,
-    String subDocName,
+    @required String collName,
+    @required String docName,
+    @required String subCollName,
+    @required String subDocName,
   }){
 
     final DocumentReference _document = Fire.getSubDocRef(
@@ -583,10 +585,10 @@ class Fire{
   /// this creates a new doc that overrides existing doc
   /// same as createNamedDoc method
   static Future<void> updateDoc({
-    BuildContext context,
-    String collName,
-    String docName,
-    Map<String, dynamic> input,
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required Map<String, dynamic> input,
   }) async {
 
     await createNamedDoc(
@@ -610,11 +612,11 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<void> updateDocField({
-    BuildContext context ,
-    String collName,
-    String docName,
-    String field,
-    dynamic input
+    @required BuildContext context ,
+    @required String collName,
+    @required String docName,
+    @required String field,
+    @required dynamic input
   }) async {
 
     final DocumentReference _doc =  Fire.getDocRef(
@@ -637,12 +639,12 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<void> updateDocFieldKeyValue({
-    BuildContext context ,
-    String collName,
-    String docName,
-    String field,
-    String key,
-    dynamic input,
+    @required BuildContext context ,
+    @required String collName,
+    @required String docName,
+    @required String field,
+    @required String key,
+    @required dynamic input,
   }) async {
 
     await updateDocField(
@@ -656,12 +658,12 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<void> updateSubDoc({
-    BuildContext context,
-    String collName,
-    String docName,
-    String subCollName,
-    String subDocName,
-    Map<String, dynamic> input,
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required String subCollName,
+    @required String subDocName,
+    @required Map<String, dynamic> input,
   }) async {
 
     await createNamedSubDoc(
@@ -677,13 +679,13 @@ class Fire{
 // -----------------------------------------------------------------------------
   /// this updates a field if exists, if absent it creates a new field and inserts the value
   static Future<void> updateSubDocField({
-    BuildContext context ,
-    String collName,
-    String docName,
-    String subCollName,
-    String subDocName,
-    String field,
-    dynamic input
+    @required BuildContext context ,
+    @required String collName,
+    @required String docName,
+    @required String subCollName,
+    @required String subDocName,
+    @required String field,
+    @required dynamic input
   }) async {
 
     final DocumentReference _subDoc =  Fire.getSubDocRef(
@@ -704,9 +706,9 @@ class Fire{
   }
 // =============================================================================
   static Future<void> deleteDoc({
-    BuildContext context,
-    String collName,
-    String docName,
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
   }) async {
 
     await tryAndCatch(
@@ -726,11 +728,11 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<void> deleteSubDoc({
-    BuildContext context,
-    String collName,
-    String docName,
-    String subCollName,
-    String subDocName,
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required String subCollName,
+    @required String subDocName,
   }) async {
 
     await tryAndCatch(
@@ -752,8 +754,8 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<void> deleteCollection({
-    BuildContext context,
-    String collName,
+    @required BuildContext context,
+    @required String collName,
   }) async {
 
     /// TASK : deleting collection and all its docs, sub collections & sub docs require a cloud function
@@ -761,10 +763,10 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<void> deleteSubCollection({
-    BuildContext context,
-    String collName,
-    String docName,
-    String subCollName,
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required String subCollName,
   }) async {
 
     /// TASK : deleting sub collection and all its sub docs require a cloud function
@@ -773,10 +775,10 @@ class Fire{
 // -----------------------------------------------------------------------------
   /// ALERT : deleting all sub docs from client device is super dangerous
   static Future<void> deleteAllSubDocs({
-    BuildContext context,
-    String collName,
-    String docName,
-    String subCollName,
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required String subCollName,
   }) async {
 
     /// a - read all sub docs
@@ -805,10 +807,10 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<void> deleteDocField({
-    BuildContext context,
-    String collName,
-    String docName,
-    String field,
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required String field,
   }) async {
 
     final DocumentReference _docRef = Fire.getDocRef(
@@ -836,12 +838,12 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<void> deleteSubDocField({
-    BuildContext context,
-    String collName,
-    String docName,
-    String field,
-    String subCollName,
-    String subDocName,
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required String field,
+    @required String subCollName,
+    @required String subDocName,
   }) async {
 
     final DocumentReference _docRef = Fire.getSubDocRef(
@@ -875,9 +877,9 @@ class Fire{
 
 // =============================================================================
   static Reference getStorageRef({
-    BuildContext context,
-    String docName,
-    String fileName,
+    @required BuildContext context,
+    @required String docName,
+    @required String fileName,
   }) {
 
     print('getting fire storage reference');
@@ -893,10 +895,10 @@ class Fire{
   /// creates new pic in document name according to pic type,
   /// and overrides existing pic if already exists
   static Future<String> createStoragePicAndGetURL({
-    BuildContext context,
-    File inputFile,
-    String fileName,
-    PicType picType
+    @required BuildContext context,
+    @required File inputFile,
+    @required String fileName,
+    @required PicType picType
   }) async {
     String _imageURL;
 
@@ -906,6 +908,7 @@ class Fire{
         functions: () async {
 
           final Reference _ref = getStorageRef(
+            context: context,
             docName: StorageDoc.docName(picType),
             fileName: fileName,
           );
@@ -938,9 +941,9 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<List<String>> createStorageSlidePicsAndGetURLs({
-    BuildContext context,
-    List<SlideModel> slides,
-    String flyerID
+    @required BuildContext context,
+    @required List<SlideModel> slides,
+    @required String flyerID
   }) async {
 
     final List<String> _picturesURLs = <String>[];
@@ -962,9 +965,9 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<List<String>> createMultipleStoragePicsAndGetURLs({
-    BuildContext context,
-    List<dynamic> pics,
-    List<String> names,
+    @required BuildContext context,
+    @required List<dynamic> pics,
+    @required List<String> names,
   }) async {
 
     final List<String> _picsURLs = <String>[];
@@ -984,10 +987,10 @@ class Fire{
 // -----------------------------------------------------------------------------
   /// TASK : createStoragePicFromAssetAndGetURL not tested properly
   static Future<String> createStoragePicFromLocalAssetAndGetURL ({
-    BuildContext context,
-    String asset,
-    String fileName,
-    PicType picType
+    @required BuildContext context,
+    @required String asset,
+    @required String fileName,
+    @required PicType picType
   }) async {
     String _url;
 
@@ -1008,13 +1011,15 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<String> readStoragePicURL({
-    PicType picType,
-    String fileName
+    @required BuildContext context,
+    @required PicType picType,
+    @required String fileName
   }) async {
 
     final Reference _ref = getStorageRef(
-        docName: StorageDoc.docName(picType),
-        fileName: fileName
+      context: context,
+      docName: StorageDoc.docName(picType),
+      fileName: fileName,
     );
 
     final String _url = await _ref.getDownloadURL();
@@ -1023,9 +1028,9 @@ class Fire{
   }
 // -----------------------------------------------------------------------------
   static Future<void> deleteStoragePic({
-    BuildContext context,
-    String fileName,
-    PicType picType
+    @required BuildContext context,
+    @required String fileName,
+    @required PicType picType
   }) async {
 
     dynamic _result = await tryCatchAndReturn(
@@ -1034,6 +1039,7 @@ class Fire{
         functions: () async {
 
           final Reference _picRef  = getStorageRef(
+              context: context,
               docName: StorageDoc.docName(picType),
               fileName: fileName
           );

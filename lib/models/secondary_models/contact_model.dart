@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -282,7 +283,7 @@ class ContactModel{
 
       List<String> _sqlContactsStrings = TextMod.sqlDecipherStrings(sqlContactsStrings);
 
-      if (_sqlContactsStrings != null && _sqlContactsStrings.isNotEmpty){
+      if (Mapper.canLoopList(_sqlContactsStrings)){
 
         for (String sqlString in _sqlContactsStrings){
 

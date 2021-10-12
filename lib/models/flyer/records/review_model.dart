@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:flutter/foundation.dart';
 
@@ -44,7 +45,7 @@ class ReviewModel {
   static List<ReviewModel> decipherReviews({@required List<dynamic> maps, bool fromJSON}){
     final List<ReviewModel> _reviews = <ReviewModel>[];
 
-    if (maps != null && maps.length != 0){
+    if (Mapper.canLoopList(maps)){
 
       for (var map in maps){
         _reviews.add(decipherReview(

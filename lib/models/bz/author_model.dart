@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -226,7 +227,7 @@ class AuthorModel{
   static List<AuthorModel> getAuthorsFromAuthorsByAuthorsIDs(List<AuthorModel> allAuthors, List<String> authorsIDs){
     List<AuthorModel> _bzAuthors = <AuthorModel>[];
 
-    if (allAuthors != null && authorsIDs != null && allAuthors.isNotEmpty && authorsIDs.isNotEmpty){
+    if (Mapper.canLoopList(allAuthors) && Mapper.canLoopList(authorsIDs)){
 
       for (String id in authorsIDs){
 
@@ -246,7 +247,7 @@ class AuthorModel{
   static List<AuthorModel> combineAllBzzAuthors(List<BzModel> allBzz){
     List<AuthorModel> _allAuthors = <AuthorModel>[];
 
-    if (allBzz != null && allBzz.isNotEmpty){
+    if (Mapper.canLoopList(allBzz)){
 
       for (BzModel bz in allBzz){
 
@@ -290,7 +291,7 @@ class AuthorModel{
   static Future<List<Map<String, Object>>> sqlCipherAuthors({List<AuthorModel> authors}) async {
     List<Map<String, Object>> _authorsMaps = <Map<String, Object>>[];
 
-    if (authors != null && authors.isNotEmpty){
+    if (Mapper.canLoopList(authors)){
 
       for (AuthorModel author in authors){
 
@@ -329,7 +330,7 @@ class AuthorModel{
   static Future<List<AuthorModel>> sqlDecipherAuthors({List<Map<String, Object>> maps}) async {
     List<AuthorModel> _authors = <AuthorModel>[];
 
-    if (maps != null && maps.isNotEmpty){
+    if (Mapper.canLoopList(maps)){
 
       for (var map in maps){
 

@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:flutter/foundation.dart';
 
@@ -58,7 +59,7 @@ class SQLColumn{
   static String getPrimaryKeyFromColumns(List<SQLColumn> columns){
     String _primaryKey;
 
-    if (columns != null && columns.isNotEmpty){
+    if (Mapper.canLoopList(columns)){
 
       final SQLColumn _primaryColumn = columns.singleWhere((column) => column.isPrimary == true, orElse: ()=> null);
       _primaryKey = _primaryColumn == null ? null : _primaryColumn.key;
@@ -71,7 +72,7 @@ class SQLColumn{
   static List<String> getColumnsName(List<SQLColumn> ldbColumns){
     final List<String> _columnsNames = <String>[];
 
-    if (ldbColumns != null && ldbColumns.length != 0){
+    if (Mapper.canLoopList(ldbColumns)){
 
       for (SQLColumn ldbColumn in ldbColumns){
 

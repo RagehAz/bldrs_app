@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
@@ -80,7 +81,7 @@ class QuestionModel {
   static QuestionModel updatePicsWithURLs({QuestionModel question, List<String> picsURLS}){
     QuestionModel _question;
 
-    if (picsURLS != null && picsURLS.length != 0){
+    if (Mapper.canLoopList(picsURLS)){
 
       _question = QuestionModel(
         questionID : question.questionID,

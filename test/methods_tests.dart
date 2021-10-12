@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
@@ -11,9 +12,10 @@ import 'package:bldrs/models/flyer/sub/spec_model.dart';
 import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bldrs/controllers/drafters/mappers.dart';
+
 
 void main(){
+
   // -----------------------------------------------------------------------------
   test('correct input _aMapInTheList', (){
 
@@ -327,8 +329,8 @@ void main(){
 // -----------------------------------------------------------------------------
   test('sqlCipherPublishTimes and sqlDecipherPublishTimes', (){
 
-    final PublishTime timeA = PublishTime(state: FlyerState.Suspended, timeStamp: Timers.createDate(year: 1987, month: 06, day: 10));
-    final PublishTime timeB = PublishTime(state: FlyerState.Banned, timeStamp: Timers.createDate(year: 2011, month: 02, day: 26));
+    final PublishTime timeA = PublishTime(state: FlyerState.suspended, time: Timers.createDate(year: 1987, month: 06, day: 10));
+    final PublishTime timeB = PublishTime(state: FlyerState.banned, time: Timers.createDate(year: 2011, month: 02, day: 26));
     final List<PublishTime> _times = [timeA, timeB];
 
     String sql = SQLMethods.sqlCipherPublishTimes(_times);
@@ -338,15 +340,15 @@ void main(){
 
     print('1 : sql : $sql');
 
-    print('2 : _times[0].timeStamp : ${_times[0].timeStamp}');
+    print('2 : _times[0].timeStamp : ${_times[0].time}');
     print('3 : _times[0].state : ${_times[0].state}');
-    print('4 : _times[1].timeStamp : ${_times[1].timeStamp}');
+    print('4 : _times[1].timeStamp : ${_times[1].time}');
     print('5 : _times[1].state : ${_times[1].state}');
 
 
-    print('2 : _times[0].timeStamp : ${_back[0].timeStamp}');
+    print('2 : _times[0].timeStamp : ${_back[0].time}');
     print('3 : _times[0].state : ${_back[0].state}');
-    print('4 : _times[1].timeStamp : ${_back[1].timeStamp}');
+    print('4 : _times[1].timeStamp : ${_back[1].time}');
     print('5 : _times[1].state : ${_back[1].state}');
 
     // dynamic _expected =  false;
@@ -433,5 +435,23 @@ void main(){
     expect(_newMap, _expected);
 
   });
+// -----------------------------------------------------------------------------
+
+  // testWidgets('object is time stamp', (WidgetTester tester) async {
+  //
+  //   await tester.pumpWidget(MaterialApp(home: Material(child: Container())));
+  //   final BuildContext context = tester.element(find.byType(Container));
+  //
+  //   final String flyerID = '1eFVUCIodzzX6dTL49FS';
+  //
+  //   dynamic map = await Fire.readDoc(context: context, collName: FireCollection.flyers , docName: flyerID);
+  //
+  //   dynamic _createdAt = map['createdAt'];
+  //
+  //   bool isTimestamp = ObjectChecker.objectIsTimeStamp(_createdAt);
+  //
+  //   expect(isTimestamp, true);
+  //
+  // });
 
 }

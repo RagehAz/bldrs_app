@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -26,15 +25,11 @@ class FlyerModel with ChangeNotifier{
   final TinyUser tinyAuthor;
   final TinyBz tinyBz;
   // -------------------------
-  final DateTime createdAt;
   final GeoPoint flyerPosition;
-  // -------------------------
-  bool ankhIsOn;
   // -------------------------
   final List<SlideModel> slides; // TASK : only 10 max slides per flyer
   // -------------------------
   final bool flyerIsBanned;
-  final DateTime deletionTime;
   final List<Spec> specs;
   final String info;
   final List<PublishTime> times;
@@ -44,7 +39,7 @@ class FlyerModel with ChangeNotifier{
     this.flyerID,
     // -------------------------
     this.flyerType,
-    this.flyerState = FlyerState.Draft,
+    this.flyerState = FlyerState.draft,
     this.keywordsIDs,
     this.flyerShowsAuthor = false,
     this.flyerZone,
@@ -52,25 +47,16 @@ class FlyerModel with ChangeNotifier{
     this.tinyAuthor,
     this.tinyBz,
     // -------------------------
-    this.createdAt,
     this.flyerPosition,
-    // -------------------------
-    this.ankhIsOn,
     // -------------------------
     this.slides,
     // -------------------------
     this.flyerIsBanned,
-    this.deletionTime, /// TASK : delete this
     this.specs,
     @required this.info,
     this.times,
     @required this.priceTagIsOn,
   });
-// -----------------------------------------------------------------------------
-  void toggleAnkh(){
-    ankhIsOn = !ankhIsOn;
-    notifyListeners();
-  }
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
     return {
@@ -85,18 +71,15 @@ class FlyerModel with ChangeNotifier{
       'tinyAuthor' : tinyAuthor.toMap(),
       'tinyBz' : tinyBz.toMap(),
       // -------------------------
-      'createdAt' : Timers.cipherTime(time: createdAt, toJSON: toJSON),
       'flyerPosition' : Atlas.cipherGeoPoint(point: flyerPosition, toJSON: toJSON),
-      // -------------------------
-      'ankhIsOn' : ankhIsOn,
       // -------------------------
       'slides' : SlideModel.cipherSlidesModels(slides),
       // -------------------------
       'flyerIsBanned' : flyerIsBanned,
-      'deletionTime' : Timers.cipherTime(time: deletionTime, toJSON: toJSON),
       'specs' : Spec.cipherSpecs(specs),
       'info' : info,
       'priceTagIsOn' : priceTagIsOn,
+      'times' : PublishTime.cipherPublishTimesToMap(times: times, toJSON: toJSON),
     };
   }
 // -----------------------------------------------------------------------------
@@ -115,16 +98,15 @@ class FlyerModel with ChangeNotifier{
         tinyAuthor: TinyUser.decipherTinyUserMap(map['tinyAuthor']),
         tinyBz: TinyBz.decipherTinyBzMap(map['tinyBz']),
         // -------------------------
-        createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
         flyerPosition: Atlas.decipherGeoPoint(point: map['flyerPosition'], fromJSON: fromJSON),
         // -------------------------
         slides: SlideModel.decipherSlidesMaps(map['slides']),
         // -------------------------
         flyerIsBanned: map['flyerIsBanned'],
-        deletionTime: Timers.decipherTime(time: map['deletionTime'], fromJSON: fromJSON),
         specs: Spec.decipherSpecs(map['specs']),
         info: map['info'],
         priceTagIsOn: map['priceTagIsOn'],
+        times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: fromJSON),
       );
 
     }
@@ -134,11 +116,15 @@ class FlyerModel with ChangeNotifier{
   static List<Map<String, Object>> cipherFlyers({@required List<FlyerModel> flyers, @required bool toJSON}){
     final List<Map<String, Object>> _maps = <Map<String, Object>>[];
 
-    for (FlyerModel flyer in flyers){
+    if (Mapper.canLoopList(flyers)){
 
-      final Map<String, Object> _flyerMap = flyer.toMap(toJSON: toJSON);
+      for (FlyerModel flyer in flyers){
 
-      _maps.add(_flyerMap);
+        final Map<String, Object> _flyerMap = flyer.toMap(toJSON: toJSON);
+
+        _maps.add(_flyerMap);
+
+      }
 
     }
 
@@ -148,7 +134,7 @@ class FlyerModel with ChangeNotifier{
   static List<FlyerModel> decipherFlyers({@required List<dynamic> maps, @required bool fromJSON}){
     final List<FlyerModel> _flyersList = <FlyerModel>[];
 
-    if (maps != null && maps.isNotEmpty){
+    if (Mapper.canLoopList(maps)){
 
       maps?.forEach((map) {
         _flyersList.add(decipherFlyer(
@@ -173,16 +159,13 @@ class FlyerModel with ChangeNotifier{
       flyerZone: flyerZone,
       tinyAuthor: tinyAuthor.clone(),
       tinyBz: tinyBz.clone(),
-      createdAt: createdAt,
       flyerPosition: flyerPosition,
       slides: SlideModel.cloneSlides(slides),
       flyerIsBanned: flyerIsBanned,
-      deletionTime: deletionTime,
-      ankhIsOn: ankhIsOn,
       specs: Spec.cloneSpecs(specs),
       info: info,
       priceTagIsOn: priceTagIsOn,
-      // times:
+      times: PublishTime.cloneTimes(times),
     );
   }
 // -----------------------------------------------------------------------------
@@ -197,41 +180,38 @@ class FlyerModel with ChangeNotifier{
           flyerZone: flyer.flyerZone,
           tinyAuthor: flyer.tinyAuthor,
           tinyBz: flyer.tinyBz,
-          createdAt: flyer.createdAt,
           flyerPosition: flyer.flyerPosition,
           slides: updatedSlides,
           flyerIsBanned: flyer.flyerIsBanned,
-          deletionTime: flyer.deletionTime,
-          ankhIsOn: flyer.ankhIsOn,
           specs: flyer.specs,
           info: flyer.info,
           priceTagIsOn: flyer.priceTagIsOn,
-          // times:
+          times: flyer.times,
     );
   }
 // -----------------------------------------------------------------------------
-  static FlyerState decipherFlyerState (int x){
+  static FlyerState decipherFlyerState (String x){
     switch (x){
-      case 1:   return  FlyerState.Published;     break;
-      case 2:   return  FlyerState.Draft;         break;
-      case 3:   return  FlyerState.Deleted;       break;
-      case 4:   return  FlyerState.Unpublished;   break;
-      case 5:   return  FlyerState.Banned;        break;
-      case 6:   return  FlyerState.Verified;      break;
-      case 7:   return  FlyerState.Suspended;     break;
+      case 'published'   :   return  FlyerState.published;     break;  // 1
+      case 'draft'       :   return  FlyerState.draft;         break;  // 2
+      case 'deleted'     :   return  FlyerState.deleted;       break;  // 3
+      case 'unpublished' :   return  FlyerState.unpublished;   break;  // 4
+      case 'banned'      :   return  FlyerState.banned;        break;  // 5
+      case 'verified'    :   return  FlyerState.verified;      break;  // 6
+      case 'suspended'   :   return  FlyerState.suspended;     break;  // 7
       default : return   null;
     }
   }
 // -----------------------------------------------------------------------------
-  static int cipherFlyerState (FlyerState x){
+  static String cipherFlyerState (FlyerState x){
     switch (x){
-      case FlyerState.Published     :     return  1;  break;
-      case FlyerState.Draft         :     return  2;  break;
-      case FlyerState.Deleted       :     return  3;  break;
-      case FlyerState.Unpublished   :     return  4;  break;
-      case FlyerState.Banned        :     return  5;  break;
-      case FlyerState.Verified      :     return  6;  break;
-      case FlyerState.Suspended     :     return  7;  break;
+      case FlyerState.published     :     return  'published'   ;  break;
+      case FlyerState.draft         :     return  'draft'       ;  break;
+      case FlyerState.deleted       :     return  'deleted'     ;  break;
+      case FlyerState.unpublished   :     return  'unpublished' ;  break;
+      case FlyerState.banned        :     return  'banned'      ;  break;
+      case FlyerState.verified      :     return  'verified'    ;  break;
+      case FlyerState.suspended     :     return  'suspended'   ;  break;
       default : return null;
     }
   }
@@ -253,29 +233,27 @@ class FlyerModel with ChangeNotifier{
       flyerZone: inputFlyerModel.flyerZone,
       tinyAuthor: inputFlyerModel.tinyAuthor,
       tinyBz: inputFlyerModel.tinyBz,
-      createdAt: inputFlyerModel.createdAt,
       slides: updatedSlides,
       flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
       flyerState: inputFlyerModel.flyerState,
       keywordsIDs: inputFlyerModel.keywordsIDs,
       flyerPosition: inputFlyerModel.flyerPosition,
-      ankhIsOn: inputFlyerModel.ankhIsOn,
       flyerIsBanned: inputFlyerModel.flyerIsBanned,
-      deletionTime: inputFlyerModel.deletionTime,
       specs: inputFlyerModel.specs,
       info: inputFlyerModel.info,
-        priceTagIsOn: inputFlyerModel.priceTagIsOn,
+      priceTagIsOn: inputFlyerModel.priceTagIsOn,
+      times: inputFlyerModel.times,
     );
   }
 // -----------------------------------------------------------------------------
   static const List<FlyerState> flyerStatesList = const <FlyerState>[
-    FlyerState.Published,
-    FlyerState.Draft,
-    FlyerState.Deleted,
-    FlyerState.Unpublished,
-    FlyerState.Banned,
-    FlyerState.Verified,
-    FlyerState.Suspended,
+    FlyerState.published,
+    FlyerState.draft,
+    FlyerState.deleted,
+    FlyerState.unpublished,
+    FlyerState.banned,
+    FlyerState.verified,
+    FlyerState.suspended,
   ];
 // -----------------------------------------------------------------------------
   /// TASK : why ?
@@ -290,7 +268,7 @@ class FlyerModel with ChangeNotifier{
   static int getTotalSaves(FlyerModel flyer){
     int _totalSaves = 0;
 
-    if (flyer != null && flyer?.slides != null && flyer?.slides?.length !=0){
+    if (flyer != null && Mapper.canLoopList(flyer.slides)){
 
       flyer.slides.forEach((slide) {
         _totalSaves = _totalSaves + slide.savesCount;
@@ -303,7 +281,7 @@ class FlyerModel with ChangeNotifier{
   static int getTotalShares(FlyerModel flyer){
     int _totalShares = 0;
 
-    if (flyer != null && flyer?.slides != null && flyer?.slides?.length !=0){
+    if (flyer != null && Mapper.canLoopList(flyer?.slides)){
 
       flyer.slides.forEach((slide) {
         _totalShares = _totalShares + slide.sharesCount;
@@ -316,7 +294,7 @@ class FlyerModel with ChangeNotifier{
   static int getTotalViews(FlyerModel flyer){
     int _totalViews = 0;
 
-    if (flyer != null && flyer?.slides != null && flyer?.slides?.length !=0){
+    if (flyer != null &&Mapper.canLoopList(flyer?.slides)){
 
       flyer.slides.forEach((slide) {
         _totalViews = _totalViews + slide.viewsCount;
@@ -383,16 +361,13 @@ class FlyerModel with ChangeNotifier{
         flyerZone: superFlyer.flyerZone,
         tinyAuthor: superFlyer.flyerTinyAuthor,
         tinyBz: TinyBz.getTinyBzFromSuperFlyer(superFlyer),
-        createdAt: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Published),
         flyerPosition: superFlyer.position,
         slides: SlideModel.getSlidesFromMutableSlides(superFlyer.mSlides),
-        flyerIsBanned: PublishTime.flyerIsBanned(superFlyer.flyerTimes),
-        deletionTime: PublishTime.getPublishTimeFromTimes(times: superFlyer.flyerTimes, state: FlyerState.Deleted),
-        ankhIsOn: superFlyer.rec.ankhIsOn,
+        flyerIsBanned: PublishTime.flyerIsBanned(superFlyer.times),
         specs: superFlyer.specs,
         info: superFlyer?.infoController?.text,
         priceTagIsOn : superFlyer?.priceTagIsOn,
-        // times:
+        times: superFlyer.times,
       );
     }
 
@@ -409,12 +384,9 @@ class FlyerModel with ChangeNotifier{
     print('FLYER-PRINT : flyerZone : ${flyerZone}');
     print('FLYER-PRINT : tinyAuthor : ${tinyAuthor}');
     print('FLYER-PRINT : tinyBz : ${tinyBz}');
-    print('FLYER-PRINT : createdAt : ${createdAt}');
     print('FLYER-PRINT : flyerPosition : ${flyerPosition}');
-    print('FLYER-PRINT : ankhIsOn : ${ankhIsOn}');
     print('FLYER-PRINT : slides : ${slides}');
     print('FLYER-PRINT : flyerIsBanned : ${flyerIsBanned}');
-    print('FLYER-PRINT : deletionTime : ${deletionTime}');
     print('FLYER-PRINT : specs : ${specs}');
     print('FLYER-PRINT : info : ${info}');
     print('FLYER-PRINT : times : ${times}');
@@ -425,7 +397,7 @@ class FlyerModel with ChangeNotifier{
   static bool flyersContainThisID({String flyerID, List<FlyerModel> flyers}){
     bool _hasTheID = false;
 
-      if (flyerID != null && flyers != null && flyers.length != 0){
+      if (flyerID != null && Mapper.canLoopList(flyers)){
 
         for (FlyerModel flyer in flyers){
 
@@ -441,16 +413,44 @@ class FlyerModel with ChangeNotifier{
       return _hasTheID;
   }
 // -----------------------------------------------------------------------------
+  /// TASK : temp : delete me after ur done
+  static String fixFlyerStateFromIntToString (int x){
+    switch (x){
+      case 1 :   return  'published'  ;   break;  // 1
+      case 2 :   return  'draft'      ;   break;  // 2
+      case 3 :   return  'deleted'    ;   break;  // 3
+      case 4 :   return  'unpublished';   break;  // 4
+      case 5 :   return  'banned'     ;   break;  // 5
+      case 6 :   return  'verified'   ;   break;  // 6
+      case 7 :   return  'suspended'  ;   break;  // 7
+      default : return   null;
+    }
+  }
+// -----------------------------------------------------------------------------
 
 }
 // -----------------------------------------------------------------------------
 enum FlyerState{
-  Published,
-  Draft,
-  Deleted,
-  Unpublished,
-  Banned,
-  Verified,
-  Suspended,
+  published,
+  draft,
+  deleted,
+  unpublished,
+  banned,
+  verified,
+  suspended,
 }
 // -----------------------------------------------------------------------------
+
+/*
+
+
+ZEBALA
+
+// -----------------------------------------------------------------------------
+  void toggleAnkh(){
+    ankhIsOn = !ankhIsOn;
+    notifyListeners();
+  }
+
+
+ */
