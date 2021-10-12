@@ -33,6 +33,7 @@ class SuperBldrsMethod{
       collName: FireCollection.users,
       docName: userID,
       subCollName: FireCollection.users_user_notifications,
+      addDocsIDs: true,
     );
 
     final List<NotiModel> _allModels = NotiModel.decipherNotiModels(

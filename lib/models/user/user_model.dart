@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/db/firestore/user_ops.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
@@ -24,7 +25,7 @@ class UserModel {
   final GeoPoint position;
   final List<ContactModel> contacts;
   // -------------------------
-  final List<dynamic> myBzzIDs;
+  final List<String> myBzzIDs;
   final bool emailIsVerified;
   final bool isAdmin;
   final FCMToken fcmToken;
@@ -102,7 +103,7 @@ class UserModel {
         position : Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
         contacts : ContactModel.decipherContactsMaps(map['contacts'] ?? []),
         // -------------------------
-        myBzzIDs: map['myBzzIDs'],
+        myBzzIDs: Mapper.getStringsFromDynamics(dynamics: map['myBzzIDs']),
         emailIsVerified : map['emailIsVerified'],
         isAdmin: map['isAdmin'],
         fcmToken: FCMToken.decipherFCMToken(map: map['fcmToken'], fromJSON: fromJSON),
@@ -115,7 +116,7 @@ class UserModel {
   static List<UserModel> decipherUsersMaps({@required List<dynamic> maps, @required bool fromJSON}){
     final List<UserModel> _users = <UserModel>[];
 
-    if (maps != null && maps.length != 0){
+    if (Mapper.canLoopList(maps)){
 
       for (var map in maps){
 
@@ -196,7 +197,7 @@ class UserModel {
   static bool userIsAuthor(UserModel userModel){
     bool _userIsAuthor = false;
 
-    if (userModel != null && userModel.myBzzIDs != null && userModel.myBzzIDs.length > 0){
+    if (userModel != null && Mapper.canLoopList(userModel?.myBzzIDs)){
       _userIsAuthor = true;
     }
 

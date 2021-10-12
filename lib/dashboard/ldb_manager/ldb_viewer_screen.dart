@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/dashboard/widgets/sql_viewer.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -117,7 +118,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
 
       listWidgets: <Widget>[
 
-        if (_maps != null && _maps.isNotEmpty)
+        if (Mapper.canLoopList(_maps))
           ...SQLViewer.rows(
             context: context,
             // color: Colorz.Green125,

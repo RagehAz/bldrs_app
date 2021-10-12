@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -113,7 +114,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
 
-                  if (chatModel.messages != null && chatModel.messages.length != 0)
+                  if (Mapper.canLoopList(chatModel.messages))
                   Container(
                     width: _screenWidth,
                     height: _screenHeight - _convBoxHeight,

@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_methods.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_db.dart';
@@ -125,7 +126,7 @@ class BzSQLdb{
 
     Map<String, Object> _bzMap;
 
-    if (_bzMapInList != null && _bzMapInList.isNotEmpty){
+    if (Mapper.canLoopList(_bzMapInList)){
       _bzMap = _bzMapInList[0];
     }
 
@@ -142,7 +143,7 @@ class BzSQLdb{
 
       final List<String> _authorsIDs = _bzMap['_authorsIDs'];
 
-      if (_authorsIDs != null && _authorsIDs.isNotEmpty){
+      if (Mapper.canLoopList(_authorsIDs)){
 
         for (String id in _authorsIDs){
 
@@ -152,7 +153,7 @@ class BzSQLdb{
             value: id,
           );
 
-          if (_authorMapInList != null && _authorMapInList.isNotEmpty){
+          if (Mapper.canLoopList(_authorMapInList)){
 
             final AuthorModel _author = await AuthorModel.sqlDecipherAuthor(map: _authorMapInList[0]);
             _authors.add(_author);

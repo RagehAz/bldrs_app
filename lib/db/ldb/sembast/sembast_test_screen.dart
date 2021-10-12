@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/dashboard/widgets/sql_viewer.dart';
 import 'package:bldrs/db/ldb/sembast/sembast.dart';
@@ -170,7 +171,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 
 
 
-        if (_tinyFlyersMaps != null && _tinyFlyersMaps.isNotEmpty)
+        if (Mapper.canLoopList(_tinyFlyersMaps))
         ...SQLViewer.rows(
           context: context,
           color: Colorz.Green125,

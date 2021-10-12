@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_methods.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_db.dart';
@@ -148,7 +149,7 @@ class FlyerSQLdb{
       value: flyerID,
     );
 
-    if (_flyerMapInAList != null && _flyerMapInAList.length > 0){
+    if (Mapper.canLoopList(_flyerMapInAList)){
 
       final Map<String, Object> _flyerMap = _flyerMapInAList[0];
 
