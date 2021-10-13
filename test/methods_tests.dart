@@ -9,7 +9,6 @@ import 'package:bldrs/db/ldb/sql_db/sql_methods.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -358,9 +357,9 @@ void main(){
 // -----------------------------------------------------------------------------
   test('base64 ', () async {
 
-    final TinyFlyer _tinyFlyer = TinyFlyer.dummyTinyFlyer('z');
+    final FlyerModel _flyerModel = FlyerModel.dummyFlyers()[0];
 
-    final dynamic _pic = _tinyFlyer.slidePic;
+    final dynamic _pic = _flyerModel.slides[0].pic;
 
 
     final String _base64 = await Imagers.urlOrImageFileToBase64(_pic);

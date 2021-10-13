@@ -2,7 +2,6 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
@@ -87,10 +86,10 @@ class BzzProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   /// SPONSORS
-  List<TinyBz> _sponsors = <TinyBz>[];
+  List<BzModel> _sponsors = <BzModel>[];
 // -------------------------------------
-  List<TinyBz> get sponsors {
-    return <TinyBz> [..._sponsors];
+  List<BzModel> get sponsors {
+    return <BzModel> [..._sponsors];
   }
 // -------------------------------------
   /// TASK : sponsors tiny bzz should depend on which city
@@ -108,9 +107,8 @@ class BzzProvider extends ChangeNotifier {
       /// 2 - fetch bzz
       List<BzModel> _bzzSponsors = await fetchBzzModels(context: context, bzzIDs: _sponsorsBzzIDs);
 
-      List<TinyBz> _tinyBzz = TinyBz.getTinyBzzFromBzzModels(_bzzSponsors);
 
-      _sponsors = _tinyBzz;
+      _sponsors = _bzzSponsors;
       notifyListeners();
 
     }
@@ -118,10 +116,10 @@ class BzzProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   /// USER BZZ
-  List<TinyBz> _userTinyBzz = <TinyBz>[];
+  List<BzModel> _userBzz = <BzModel>[];
 // -------------------------------------
-  List<TinyBz> get userTinyBzz {
-    return <TinyBz> [..._userTinyBzz];
+  List<BzModel> get userBzz {
+    return <BzModel>[..._userBzz];
   }
 // -------------------------------------
   Future<void> fetchUserBzz(BuildContext context) async {
@@ -133,43 +131,42 @@ class BzzProvider extends ChangeNotifier {
     if (Mapper.canLoopList(_userBzzIDs)){
 
       /// 2 - fetch bzz
-      List<BzModel> _userBzz = await fetchBzzModels(context: context, bzzIDs: _userBzzIDs);
+      List<BzModel> _bzz = await fetchBzzModels(context: context, bzzIDs: _userBzzIDs);
 
-      List<TinyBz> _tinyBzz = TinyBz.getTinyBzzFromBzzModels(_userBzz);
 
-      _sponsors = _tinyBzz;
+      _userBzz = _bzz;
       notifyListeners();
 
 
     }
   }
 // -------------------------------------
-  void removeTinyBzFromUserTinyBzz({String bzID}){
+  void removeBzFromUserBzz({String bzID}){
 
-    if (Mapper.canLoopList(_userTinyBzz)){
-      final int _index = _userTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
-      _userTinyBzz.removeAt(_index);
+    if (Mapper.canLoopList(_userBzz)){
+      final int _index = _userBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
+      _userBzz.removeAt(_index);
       notifyListeners();
     }
   }
 // -------------------------------------
-  void addTinyBzToUserTinyBzz(TinyBz tinyBz){
-    _userTinyBzz.add(tinyBz);
+  void addBzToUserBzz(BzModel bzModel){
+    _userBzz.add(bzModel);
     notifyListeners();
   }
 // -------------------------------------
-  void updateTinyBzInUserTinyBzz(TinyBz modifiedTinyBz){
-    final int _indexOfOldTinyBz = _userTinyBzz.indexWhere((bz) => modifiedTinyBz.bzID == bz.bzID);
-    _userTinyBzz.removeAt(_indexOfOldTinyBz);
-    _userTinyBzz.insert(_indexOfOldTinyBz, modifiedTinyBz);
+  void updateBzInUserBzz(BzModel modifiedBz){
+    final int _indexOfOldTinyBz = _userBzz.indexWhere((bz) => modifiedBz.bzID == bz.bzID);
+    _userBzz.removeAt(_indexOfOldTinyBz);
+    _userBzz.insert(_indexOfOldTinyBz, modifiedBz);
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
   /// FOLLOWED BZZ
-  List<TinyBz> _followedBzz;
+  List<BzModel> _followedBzz;
 // -------------------------------------
-  List<TinyBz> get followedBzz{
-    return <TinyBz>[..._followedBzz];
+  List<BzModel> get followedBzz{
+    return <BzModel>[..._followedBzz];
   }
 // -------------------------------------
   Future<void> fetchFollowedBzz(BuildContext context) async {
@@ -181,14 +178,12 @@ class BzzProvider extends ChangeNotifier {
 
     if (Mapper.canLoopList(_followedBzzIDs)){
 
-      final List<BzModel> _bz = await fetchBzzModels(
+      final List<BzModel> _bzz = await fetchBzzModels(
         context: context,
         bzzIDs: _followedBzzIDs,
       );
 
-      final List<TinyBz> _tinyBzz = TinyBz.getTinyBzzFromBzzModels(_bz);
-
-      _followedBzz = _tinyBzz;
+      _followedBzz = _bzz;
       notifyListeners();
 
     }

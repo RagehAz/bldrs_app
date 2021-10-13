@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -72,11 +72,11 @@ class Nav{
     );
   }
 // -----------------------------------------------------------------------------
-  static Future<void> openFlyer({BuildContext context, String flyerID, TinyFlyer tinyFlyer}) async {
+  static Future<void> openFlyer({BuildContext context, String flyerID, FlyerModel flyer}) async {
 
     /// A - by tinyFlyer
-    if (tinyFlyer != null){
-      await goToNewScreen(context, new FlyerScreen(tinyFlyer: tinyFlyer,));
+    if (flyer != null){
+      await goToNewScreen(context, new FlyerScreen(flyerModel: flyer, flyerID: flyerID,));
     }
 
     /// A - by flyerID

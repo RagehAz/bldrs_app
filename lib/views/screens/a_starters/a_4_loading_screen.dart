@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
@@ -25,7 +25,7 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  List<TinyBz> _sponsors;
+  List<BzModel> _sponsors;
   // bool _canContinue = false;
   double _progress = 0;
 // -----------------------------------------------------------------------------
@@ -169,7 +169,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           Stratosphere(heightFactor: 0.5),
 
           BzzBubble(
-            tinyBzz: _sponsors,
+            bzzModels: _sponsors,
             numberOfRows: 2,
             numberOfColumns: 3,
             title: 'Sponsored by',

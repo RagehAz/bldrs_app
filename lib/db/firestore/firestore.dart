@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 
 class FireCollection{
   static const String users = 'users';
-  static const String tinyUsers = 'tinyUsers';
   static const String users_user_asks = 'asks' ;
   static const String users_user_records = 'records';
   static const String users_user_records_bzz = 'follows';
@@ -25,7 +24,6 @@ class FireCollection{
   static const String questions_question_counters = 'counters';
 
   static const String bzz = 'bzz';
-  static const String tinyBzz = 'tinyBzz';
   static const String bzz_bz_counters = 'counters';
   static const String bzz_bz_follows = 'follows';
   static const String bzz_bz_calls = 'calls';
@@ -36,8 +34,6 @@ class FireCollection{
   static const String bzz_bz_credits_balance = 'balance';
 
   static const String flyers = 'flyers';
-  static const String tinyFlyers = 'tinyFlyers';
-  static const String flyersKeys = 'flyersKeys';
   static const String flyers_flyer_counters = 'counters';
   static const String flyers_flyer_saves = 'saves';
   static const String flyers_flyer_shares = 'shares';

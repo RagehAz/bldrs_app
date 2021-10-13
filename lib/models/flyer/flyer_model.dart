@@ -1,14 +1,14 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +22,8 @@ class FlyerModel with ChangeNotifier{
   final bool flyerShowsAuthor;
   final Zone flyerZone;
   // -------------------------
-  final TinyUser tinyAuthor;
-  final TinyBz tinyBz;
+  final String authorID;
+  final String bzID;
   // -------------------------
   final GeoPoint flyerPosition;
   // -------------------------
@@ -44,8 +44,8 @@ class FlyerModel with ChangeNotifier{
     this.flyerShowsAuthor = false,
     this.flyerZone,
     // -------------------------
-    this.tinyAuthor,
-    this.tinyBz,
+    this.authorID,
+    this.bzID,
     // -------------------------
     this.flyerPosition,
     // -------------------------
@@ -68,8 +68,8 @@ class FlyerModel with ChangeNotifier{
       'flyerShowsAuthor' : flyerShowsAuthor,
       'flyerZone' : flyerZone.toMap(),
       // -------------------------
-      'tinyAuthor' : tinyAuthor.toMap(),
-      'tinyBz' : tinyBz.toMap(),
+      'authorID' : authorID,
+      'bzID' : bzID,
       // -------------------------
       'flyerPosition' : Atlas.cipherGeoPoint(point: flyerPosition, toJSON: toJSON),
       // -------------------------
@@ -95,8 +95,8 @@ class FlyerModel with ChangeNotifier{
         flyerShowsAuthor: map['flyerShowsAuthor'],
         flyerZone: Zone.decipherZoneMap(map['flyerZone']),
         // -------------------------
-        tinyAuthor: TinyUser.decipherTinyUserMap(map['tinyAuthor']),
-        tinyBz: TinyBz.decipherTinyBzMap(map['tinyBz']),
+        authorID: map['authorID'],
+        bzID: map['bzID'],
         // -------------------------
         flyerPosition: Atlas.decipherGeoPoint(point: map['flyerPosition'], fromJSON: fromJSON),
         // -------------------------
@@ -157,8 +157,8 @@ class FlyerModel with ChangeNotifier{
       keywordsIDs: Mapper.cloneListOfStrings(keywordsIDs),
       flyerShowsAuthor: flyerShowsAuthor,
       flyerZone: flyerZone,
-      tinyAuthor: tinyAuthor.clone(),
-      tinyBz: tinyBz.clone(),
+      authorID: authorID,
+      bzID: bzID,
       flyerPosition: flyerPosition,
       slides: SlideModel.cloneSlides(slides),
       flyerIsBanned: flyerIsBanned,
@@ -178,8 +178,8 @@ class FlyerModel with ChangeNotifier{
           keywordsIDs: flyer.keywordsIDs,
           flyerShowsAuthor: flyer.flyerShowsAuthor,
           flyerZone: flyer.flyerZone,
-          tinyAuthor: flyer.tinyAuthor,
-          tinyBz: flyer.tinyBz,
+          authorID: flyer.authorID,
+          bzID: flyer.bzID,
           flyerPosition: flyer.flyerPosition,
           slides: updatedSlides,
           flyerIsBanned: flyer.flyerIsBanned,
@@ -231,8 +231,8 @@ class FlyerModel with ChangeNotifier{
       flyerID: inputFlyerModel.flyerID,
       flyerType: inputFlyerModel.flyerType,
       flyerZone: inputFlyerModel.flyerZone,
-      tinyAuthor: inputFlyerModel.tinyAuthor,
-      tinyBz: inputFlyerModel.tinyBz,
+      authorID: inputFlyerModel.authorID,
+      bzID: inputFlyerModel.bzID,
       slides: updatedSlides,
       flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
       flyerState: inputFlyerModel.flyerState,
@@ -359,8 +359,8 @@ class FlyerModel with ChangeNotifier{
         keywordsIDs: Keyword.getKeywordsIDsFromKeywords(superFlyer.keywords),
         flyerShowsAuthor: superFlyer.flyerShowsAuthor,
         flyerZone: superFlyer.flyerZone,
-        tinyAuthor: superFlyer.flyerTinyAuthor,
-        tinyBz: TinyBz.getTinyBzFromSuperFlyer(superFlyer),
+        authorID: superFlyer.authorID,
+        bzID: superFlyer.bz.bzID,
         flyerPosition: superFlyer.position,
         slides: SlideModel.getSlidesFromMutableSlides(superFlyer.mSlides),
         flyerIsBanned: PublishTime.flyerIsBanned(superFlyer.times),
@@ -382,8 +382,8 @@ class FlyerModel with ChangeNotifier{
     print('FLYER-PRINT : keywordsIDs : ${keywordsIDs}');
     print('FLYER-PRINT : flyerShowsAuthor : ${flyerShowsAuthor}');
     print('FLYER-PRINT : flyerZone : ${flyerZone}');
-    print('FLYER-PRINT : tinyAuthor : ${tinyAuthor}');
-    print('FLYER-PRINT : tinyBz : ${tinyBz}');
+    print('FLYER-PRINT : tinyAuthor : ${authorID}');
+    print('FLYER-PRINT : tinyBz : ${bzID}');
     print('FLYER-PRINT : flyerPosition : ${flyerPosition}');
     print('FLYER-PRINT : slides : ${slides}');
     print('FLYER-PRINT : flyerIsBanned : ${flyerIsBanned}');
@@ -427,7 +427,77 @@ class FlyerModel with ChangeNotifier{
     }
   }
 // -----------------------------------------------------------------------------
+  static FlyerModel getFlyerFromFlyersByID({List<FlyerModel> flyers, String flyerID}){
+    final FlyerModel _flyer = flyers.singleWhere((tinyFlyer) => tinyFlyer.flyerID == flyerID, orElse: () => null);
+    return _flyer;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> getFlyersIDsFromFlyers(List<FlyerModel> flyers){
+    final List<String> _flyerIDs = <String>[];
 
+    if (Mapper.canLoopList(flyers)){
+      flyers?.forEach((flyer) {
+        _flyerIDs.add(flyer.flyerID);
+      });
+
+    }
+
+    return _flyerIDs;
+  }
+// -----------------------------------------------------------------------------
+    static List<FlyerModel> filterFlyersBySection({List<FlyerModel> flyers, Section section}){
+    List<FlyerModel> _filteredFlyers = <FlyerModel>[];
+
+    if (section == Section.All){
+      _filteredFlyers = flyers;
+    }
+
+    else {
+
+      final FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
+
+      for (FlyerModel flyer in flyers){
+        if (flyer.flyerType == _flyerType){
+          _filteredFlyers.add(flyer);
+        }
+      }
+
+    }
+
+    return _filteredFlyers;
+  }
+// -----------------------------------------------------------------------------
+  static FlyerModel dummyFlyer(){
+    return dummyFlyers()[0];
+  }
+// -----------------------------------------------------------------------------
+  static List<FlyerModel> dummyFlyers(){
+    return <FlyerModel>[
+      FlyerModel(
+        flyerID : 'x',
+        flyerType : FlyerType.design,
+        flyerState : FlyerState.published,
+        keywordsIDs : [],
+        flyerShowsAuthor : true,
+        flyerZone : Zone.dummyZone(),
+        authorID : 'y',
+        bzID : 'z',
+        flyerPosition : GeoPoint(0,0),
+        slides : <SlideModel>[
+          SlideModel.dummySlide(),
+        ],
+        flyerIsBanned : false,
+        specs : <Spec>[],
+        info : 'Nothing just dummmy',
+        times : <PublishTime>[
+          PublishTime(state: FlyerState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
+        ],
+        priceTagIsOn : true,
+    ),
+
+    ];
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 enum FlyerState{

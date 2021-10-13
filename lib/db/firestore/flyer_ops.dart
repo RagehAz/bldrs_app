@@ -1,7 +1,6 @@
+import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
-import 'package:bldrs/controllers/drafters/imagers.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -9,7 +8,6 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -72,8 +70,8 @@ class FlyerOps{
       flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
       flyerZone: inputFlyerModel.flyerZone,
       // -------------------------
-      tinyAuthor: inputFlyerModel.tinyAuthor,
-      tinyBz: inputFlyerModel.tinyBz,
+      authorID: inputFlyerModel.authorID,
+      bzID: inputFlyerModel.bzID,
       // -------------------------
       flyerPosition: inputFlyerModel.flyerPosition,
       // -------------------------
@@ -100,30 +98,9 @@ class FlyerOps{
       input: _finalFlyerModel.toMap(toJSON: false),
     );
 
-    print('6- flyer model added to flyers/$_flyerID');
-
-    /// add new TinyFlyer in firestore
-    final TinyFlyer _finalTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_finalFlyerModel);
-
-    await Fire.createNamedDoc(
-      context: context,
-      collName: FireCollection.tinyFlyers,
-      docName: _flyerID,
-      input: _finalTinyFlyer.toMap(),
-    );
 
     print('7- Tiny flyer model added to tinyFlyers/$_flyerID');
 
-    //   /// add new flyerKeys in fireStore
-  //   /// TASK : perform string.toLowerCase() on each string before upload
-  // await Fire.createNamedDoc(
-  //   context: context,
-  //   collName: FireCollection.flyersKeys,
-  //   docName: _flyerID,
-  //   input: await TextMod.getKeyWordsMap(_finalFlyerModel.keywords),
-  // );
-
-    print('8- flyer keys add');
 
     /// add flyer counters sub collection and document in flyer store
   await Fire.createNamedSubDoc(
@@ -143,17 +120,17 @@ class FlyerOps{
     await Fire.updateDocField(
       context: context,
       collName: FireCollection.bzz,
-      docName: _finalFlyerModel.tinyBz.bzID,
+      docName: _finalFlyerModel.bzID,
       field: 'flyersIDs',
       input: _bzFlyersIDs,
     );
 
-    print('10- tiny flyer added to bzID in bzz/${_finalFlyerModel.tinyBz.bzID}');
+    print('10- tiny flyer added to bzID in bzz/${_finalFlyerModel.bzID}');
 
     return _finalFlyerModel;
   }
 // -----------------------------------------------------------------------------
-  Future<FlyerModel> readFlyerOps({BuildContext context, String flyerID}) async {
+  static Future<FlyerModel> readFlyerOps({BuildContext context, String flyerID}) async {
 
     final dynamic _flyerMap = await Fire.readDoc(
         context: context,
@@ -164,24 +141,6 @@ class FlyerOps{
     final FlyerModel _flyer = FlyerModel.decipherFlyer(map: _flyerMap, fromJSON: false);
 
     return _flyer;
-  }
-// -----------------------------------------------------------------------------
-  Future<TinyFlyer> readTinyFlyerOps({BuildContext context, String flyerID}) async {
-
-    final Map<String, dynamic> _tinyFlyerMap = await Fire.readDoc(
-      context: context,
-      collName: FireCollection.tinyFlyers,
-      docName: flyerID,
-    );
-
-    // print(_tinyFlyerMap);
-
-    final TinyFlyer _tinyFlyer = _tinyFlyerMap == null ? null : TinyFlyer.decipherTinyFlyerMap(_tinyFlyerMap);
-
-    // print(' ')
-
-    return _tinyFlyer;
-
   }
 // -----------------------------------------------------------------------------
   /// A - if slides changed
@@ -311,36 +270,18 @@ class FlyerOps{
     print('C - flyer updated on fireStore in fireStore/flyers/${_finalFlyer.flyerID}');
 
     /// D - if keywords changed, update flyerKeys doc in : fireStore/flyersKeys/flyerID
-    if (Mapper.listsAreTheSame(list1: _finalFlyer.keywordsIDs, list2: originalFlyer.keywordsIDs) == false){
-      await Fire.updateDoc(
-          context: context,
-          collName: FireCollection.flyersKeys,
-          docName: _finalFlyer.flyerID,
-          input: await TextMod.getKeywordsMap(_finalFlyer.keywordsIDs)
-      );
+    // if (Mapper.listsAreTheSame(list1: _finalFlyer.keywordsIDs, list2: originalFlyer.keywordsIDs) == false){
+    //   await Fire.updateDoc(
+    //       context: context,
+    //       collName: FireCollection.flyersKeys,
+    //       docName: _finalFlyer.flyerID,
+    //       input: await TextMod.getKeywordsMap(_finalFlyer.keywordsIDs)
+    //   );
+    //
+    //   print('D - flyer keywords updated on FireStore');
+    //
+    // }
 
-      print('D - flyer keywords updated on FireStore');
-
-    }
-
-
-    /// F - if tinyFlyer is changed, update tinyFlyer doc
-    if(TinyFlyer.tinyFlyersAreTheSame(_finalFlyer, originalFlyer) == false){
-
-      /// F1 - get FinalTinyFlyer from final Flyer
-      final TinyFlyer _finalTinyFlyer = TinyFlyer.getTinyFlyerFromFlyerModel(_finalFlyer);
-
-      /// F2 - update fireStore/tinyFlyers/flyerID
-      await Fire.updateDoc(
-        context: context,
-        collName: FireCollection.tinyFlyers,
-        docName: _finalFlyer.flyerID,
-        input: _finalTinyFlyer.toMap(),
-      );
-
-      print('F - tiny flyer updated on FireStore');
-
-    }
 
     print('F - finished uploading flyer');
 
@@ -401,8 +342,6 @@ class FlyerOps{
 // -----------------------------------------------------------------------------
   /// A1 - remove nano flyer from bz nanoFlyers
   /// A2 - update fireStore/bzz/bzID['nanoFlyers']
-  /// B - delete fireStore/tinyFlyers/flyerID
-  /// C - delete fireStore/flyersKeys/flyerID
   /// D - delete fireStore/flyers/flyerID/views/(all sub docs)
   /// E - delete fireStore/flyers/flyerID/shares/(all sub docs)
   /// F - delete fireStore/flyers/flyerID/saves/(all sub docs)
@@ -429,21 +368,6 @@ class FlyerOps{
       );
     }
 
-    /// B - delete fireStore/tinyFlyers/flyerID
-    print('B - delete tiny flyer doc');
-    await Fire.deleteDoc(
-      context: context,
-      collName: FireCollection.tinyFlyers,
-      docName: flyerModel.flyerID,
-    );
-
-    /// C - delete fireStore/flyersKeys/flyerID
-    print('C - delete flyer keys doc');
-    await Fire.deleteDoc(
-      context: context,
-      collName: FireCollection.flyersKeys,
-      docName: flyerModel.flyerID,
-    );
 
     /// D - delete fireStore/flyers/flyerID/views/(all sub docs)
     print('D - delete flyer views sub docs');
@@ -535,41 +459,47 @@ class FlyerOps{
     return _reviews;
   }
 // -----------------------------------------------------------------------------
-  Future<List<TinyFlyer>> readBzTinyFlyers({BuildContext context, BzModel bzModel}) async {
-    final List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
+  static Future<List<FlyerModel>> readBzFlyers({BuildContext context, BzModel bzModel}) async {
+    final List<FlyerModel> _flyers = <FlyerModel>[];
 
     if (Mapper.canLoopList(bzModel?.flyersIDs)){
       for (String id in bzModel.flyersIDs){
 
-        final _tinyFlyer = await readTinyFlyerOps(
+        final FlyerModel _flyer = await readFlyerOps(
           context: context,
           flyerID: id,
         );
 
-        _tinyFlyers.add(_tinyFlyer);
+        if (_flyer != null){
+
+          _flyers.add(_flyer);
+
+        }
       }
     }
 
-    return _tinyFlyers;
+    return _flyers;
   }
 // -----------------------------------------------------------------------------
-  Future<List<TinyFlyer>> readBzzTinyFlyers({BuildContext context, List<BzModel> bzzModels}) async {
-    final List<TinyFlyer> _allTinyFlyers = <TinyFlyer>[];
+  static Future<List<FlyerModel>> readBzzFlyers({BuildContext context, List<BzModel> bzzModels}) async {
+    final List<FlyerModel> _allFlyers = <FlyerModel>[];
 
     if (Mapper.canLoopList(bzzModels)){
       for (BzModel bz in bzzModels){
 
-        List<TinyFlyer> _bzTinyFlyer = await readBzTinyFlyers(
+        final List<FlyerModel> _bzFlyers = await FlyerOps.readBzFlyers(
           context: context,
           bzModel: bz,
         );
 
-        _allTinyFlyers.addAll(_bzTinyFlyer);
+        if (Mapper.canLoopList(_bzFlyers)){
+          _allFlyers.addAll(_bzFlyers);
+        }
 
       }
     }
 
-    return _allTinyFlyers;
+    return _allFlyers;
   }
 // -----------------------------------------------------------------------------
 }

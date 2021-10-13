@@ -3,10 +3,9 @@ import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bzz_bubble.dart';
@@ -33,14 +32,14 @@ class _HomeWallState extends State<HomeWall> {
   Widget build(BuildContext context) {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
-    final List<TinyBz> _userTinyBzz = _bzzProvider.userTinyBzz;
+    final List<BzModel> _userBzz = _bzzProvider.userBzz;
     final double _sponsoredFlyerWidth = FlyerBox.width(context, 0.45);
 
     final List<Widget> _homeWallWidgets = <Widget>[
 
       /// BUSINESSES
       BzzBubble(
-        tinyBzz: _userTinyBzz,
+        bzzModels: _userBzz,
         numberOfRows: 1,
         numberOfColumns: 5,
         onTap: (value){print(value);},
@@ -115,7 +114,7 @@ class _HomeWallState extends State<HomeWall> {
       FlyersShelf(
         flyersType: FlyerType.rentalProperty,
         title: 'New By section flyers in Heliopolis',
-        tinyFlyers: TinyFlyer.dummyTinyFlyers(),
+        flyers: FlyerModel.dummyFlyers(),
       ),
 
       HomeWall.spacer,
@@ -135,7 +134,7 @@ class _HomeWallState extends State<HomeWall> {
       FlyersShelf(
         flyersType: FlyerType.rentalProperty,
         title: 'Recently viewed flyers',
-        tinyFlyers: TinyFlyer.dummyTinyFlyers(),
+        flyers: FlyerModel.dummyFlyers(),
       ),
 
       const PyramidsHorizon(),

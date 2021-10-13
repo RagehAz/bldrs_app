@@ -5,17 +5,14 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_grid.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_grid.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class DeactivatedFlyerScreen extends StatefulWidget {
   final BzModel bz;
@@ -30,7 +27,7 @@ class DeactivatedFlyerScreen extends StatefulWidget {
 
 class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
   bool _isInit = true;
-  List<TinyFlyer> _tinyFlyers;
+  List<FlyerModel> _allFlyers;
   List<FlyerModel> _deactivatedFlyers;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -60,36 +57,37 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 
       _triggerLoading();
 
-      final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: true);
-
-      // _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
-      _prof.fetchAndSetBzDeactivatedFlyers(context, widget.bz)
-          .then((_) async {
-
-        _deactivatedFlyers = _prof.getBzDeactivatedFlyers;
-
-        final List<TinyFlyer> _bzTinyFlyers = TinyFlyer.getTinyFlyersFromFlyersModels(_deactivatedFlyers);
-
-        setState(() {
-          _tinyFlyers = _bzTinyFlyers;
-          _isInit = false;
-        });
+      // final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: true);
+      //
+      // // _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
+      // _prof.fetchAndSetBzDeactivatedFlyers(context, widget.bz)
+      //     .then((_) async {
+      //
+      //   _deactivatedFlyers = _prof.getBzDeactivatedFlyers;
+      //
+      //   final List<TinyFlyer> _bzTinyFlyers = TinyFlyer.getTinyFlyersFromFlyersModels(_deactivatedFlyers);
+      //
+      //   setState(() {
+      //     _tinyFlyers = _bzTinyFlyers;
+      //     _isInit = false;
+      //   }
+      //   );
 
         _triggerLoading();
-      });
+      // });
     }
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  FlyerModel _searchFlyerByTinyFlyer({TinyFlyer tinyFlyer}){
+  FlyerModel _getFlyerFromDeactivatedFlyersByFlyerID({String flyerID}){
 
-    final int _index = _deactivatedFlyers.indexWhere((flyer) => flyer.flyerID == tinyFlyer.flyerID, );
+    final int _index = _deactivatedFlyers.indexWhere((flyer) => flyer.flyerID == flyerID, );
 
     final FlyerModel _flyer = _deactivatedFlyers[_index];
     return _flyer;
   }
 
-  void _slideFlyerOptions(BuildContext context, TinyFlyer tinyFlyer){
+  void _slideFlyerOptions(BuildContext context, FlyerModel flyerModel){
 
     const double _buttonHeight = 50;
 
@@ -111,7 +109,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
           verseWeight: VerseWeight.black,
           verseColor: Colorz.Black230,
           // verseWeight: VerseWeight.thin,
-          onTap: () => _deleteFlyerOnTap(tinyFlyer),
+          onTap: () => _deleteFlyerOnTap(flyerModel),
         ),
 
         /// --- RE-PUBLISH FLYER
@@ -125,7 +123,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
             verseScaleFactor: 1.2,
             verseColor: Colorz.Red255,
             // verseWeight: VerseWeight.thin,
-            onTap: () => _republishFlyerOnTap(tinyFlyer)
+            onTap: () => _republishFlyerOnTap(flyerModel)
 
         ),
 
@@ -138,7 +136,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
           verse: 'Edit flyer',
           verseScaleFactor: 1.2,
           verseColor: Colorz.White255,
-          onTap: () => _editFlyerOnTap(tinyFlyer),
+          onTap: () => _editFlyerOnTap(flyerModel),
         ),
 
       ],
@@ -147,8 +145,8 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _deleteFlyerOnTap(TinyFlyer tinyFlyer) async {
-    print ('deleting flyer : ${tinyFlyer.flyerID}');
+  Future<void> _deleteFlyerOnTap(FlyerModel flyerModel) async {
+    print ('deleting flyer : ${flyerModel.flyerID}');
 
     /// close bottom sheet
     Nav.goBack(context);
@@ -156,14 +154,14 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     /// delete flyer ops
     await FlyerOps().deleteFlyerOps(
       context: context,
-      flyerModel: _searchFlyerByTinyFlyer(tinyFlyer: tinyFlyer),
+      flyerModel: _getFlyerFromDeactivatedFlyersByFlyerID(flyerID: flyerModel.flyerID),
       bzModel: widget.bz,
     );
 
-    final int _flyerIndex = _tinyFlyers.indexWhere((tFlyer) => tFlyer.flyerID == tinyFlyer.flyerID);
+    final int _flyerIndex = _allFlyers.indexWhere((tFlyer) => tFlyer.flyerID == flyerModel.flyerID);
 
     setState(() {
-      _tinyFlyers.removeAt(_flyerIndex);
+      _allFlyers.removeAt(_flyerIndex);
       _deactivatedFlyers.removeAt(_flyerIndex);
     });
 
@@ -176,12 +174,12 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     );
   }
 // -----------------------------------------------------------------------------
-  void _republishFlyerOnTap(TinyFlyer tinyFlyer){
-    print('re-publishing flyer : ${tinyFlyer.flyerID}');
+  void _republishFlyerOnTap(FlyerModel flyerModel){
+    print('re-publishing flyer : ${flyerModel.flyerID}');
   }
 // -----------------------------------------------------------------------------
-  void _editFlyerOnTap(TinyFlyer tinyFlyer){
-    print('Editing flyer : ${tinyFlyer.flyerID}');
+  void _editFlyerOnTap(FlyerModel flyerModel){
+    print('Editing flyer : ${flyerModel.flyerID}');
   }
 // -----------------------------------------------------------------------------
 
@@ -190,7 +188,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 
     // FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
     // List<TinyFlyer> _tinyFlyers = _prof.getSavedTinyFlyers;
-    final List<String> _ids = TinyFlyer.getListOfFlyerIDsFromTinyFlyers(_tinyFlyers);
+    final List<String> _ids = FlyerModel.getFlyersIDsFromFlyers(_allFlyers);
     print(_ids);
 
     return MainLayout(
@@ -202,13 +200,13 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
       loading: _loading,
       layoutWidget:
 
-      _tinyFlyers == null ?
+      _allFlyers == null ?
       Loading(loading: _loading,)
           :
       FlyersGrid(
         gridZoneWidth: Scale.superScreenWidth(context),
         numberOfColumns: 3,
-        tinyFlyers: _tinyFlyers,
+        flyers: _allFlyers,
         scrollable: true,
         stratosphere: true,
         tinyFlyerOnTap: (tinyFlyer){

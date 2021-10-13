@@ -2,25 +2,24 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
-import 'package:bldrs/views/widgets/specific/bz/tabs/bz_about_tab.dart';
+import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';
 import 'package:bldrs/views/widgets/specific/bz/appbar/bz_app_bar.dart';
+import 'package:bldrs/views/widgets/specific/bz/tabs/bz_about_tab.dart';
 import 'package:bldrs/views/widgets/specific/bz/tabs/bz_flyers_tab.dart';
 import 'package:bldrs/views/widgets/specific/bz/tabs/bz_powers_tab.dart';
 import 'package:bldrs/views/widgets/specific/bz/tabs/bz_targets_tab.dart';
-import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MyBzScreen extends StatefulWidget {
-  final TinyBz tinyBz;
+  final BzModel bzModel;
   final UserModel userModel;
 
   MyBzScreen({
-    @required this.tinyBz,
+    @required this.bzModel,
     @required this.userModel,
   });
 
@@ -32,7 +31,7 @@ class MyBzScreen extends StatefulWidget {
 class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateMixin {
   // bool _showOldFlyers;
   BzModel _bzModel;
-  List<TinyFlyer> _tinyFlyers;
+  List<FlyerModel> _flyers;
   // double _bubblesOpacity = 0;
   TabController _tabController;
   int _currentTabIndex = 0;
@@ -63,7 +62,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
     super.initState();
     print('1 - we got temp bzModel');
 
-    _bzModel = BzModel.getTempBzModelFromTinyBz(widget.tinyBz);
+    _bzModel = widget.bzModel;
     // _showOldFlyers = false;
 
     // TODO: implement initState
@@ -93,7 +92,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
       _triggerLoading().then((_) async {
 
         print('2 - retrieving bzModel from firebase');
-        final BzModel _bzFromDB = await BzOps.readBzOps(context: context, bzID: widget.tinyBz.bzID);
+        final BzModel _bzFromDB = await BzOps.readBzOps(context: context, bzID: widget.bzModel.bzID);
         print('3 - got the bzModel');
         // setState(() {
         // _bzModel = _bzFromDB;
@@ -101,7 +100,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
         // });
         print('4 - rebuilt tree with the retrieved bzModel');
 
-        final List<TinyFlyer> _bzTinyFlyers = await  FlyerOps().readBzTinyFlyers(
+        final List<FlyerModel> _bzFlyers = await  FlyerOps.readBzFlyers(
           context: context,
           bzModel: _bzFromDB,
         );
@@ -114,7 +113,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
         _triggerLoading(
             function: (){
               _bzModel = _bzFromDB;
-              _tinyFlyers = _bzTinyFlyers;
+              _flyers = _bzFlyers;
               // _bubblesOpacity = 1;
               _tabModels = createBzTabModels();
             }
@@ -143,7 +142,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
         isSelected: BzModel.bzPagesTabsTitles[_currentTabIndex] == BzModel.bzPagesTabsTitles[0],
         onChangeTab: (int index) => _onChangeTab(index),
         tabIndex: 0,
-        tinyFlyers: _tinyFlyers,
+        tinyFlyers: _flyers,
       ),
 
       /// 1 : ABOUT

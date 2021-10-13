@@ -3,12 +3,12 @@ import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -111,7 +111,7 @@ class _SwiperScreenState extends State<SwiperScreen> {
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index){
 
-          final List<TinyFlyer> _tinyFlyersOfType = pro.getTinyFlyersByFlyerType(_flyerTypesList[index]);
+          final List<FlyerModel> _tinyFlyersOfType = pro.getFlyersByFlyerType(_flyerTypesList[index]);
 
           return
 
@@ -153,7 +153,7 @@ class _SwiperScreenState extends State<SwiperScreen> {
 
                         FinalFlyer(
                           flyerBoxWidth: FlyerBox.width(context, _flyerSizeFactor),
-                          tinyFlyer: _tinyFlyersOfType[index],
+                          flyerModel: _tinyFlyersOfType[index],
                           goesToEditor: false,
                         ),
 

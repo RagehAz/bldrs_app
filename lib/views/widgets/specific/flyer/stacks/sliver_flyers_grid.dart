@@ -1,15 +1,15 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/gallery_grid.dart';
 import 'package:flutter/material.dart';
 
 class SliverFlyersGrid extends StatelessWidget {
-  final List<TinyFlyer> tinyFlyers;
+  final List<FlyerModel> flyers;
 
   SliverFlyersGrid({
-    @required this.tinyFlyers,
+    @required this.flyers,
   });
 // -----------------------------------------------------------------------------
   static const double spacing = Ratioz.appBarMargin;
@@ -26,11 +26,11 @@ class SliverFlyersGrid extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _flyerBoxWidth = calculateFlyerBoxWidth(
-      flyersLength: tinyFlyers.length,
+      flyersLength: flyers.length,
       context: context,
     );
 
-    final int _numberOfColumns = GalleryGrid.gridColumnCount(tinyFlyers.length);
+    final int _numberOfColumns = GalleryGrid.gridColumnCount(flyers.length);
 
     return SliverPadding(
       padding: EdgeInsets.all(spacing),
@@ -50,11 +50,11 @@ class SliverFlyersGrid extends StatelessWidget {
                   FinalFlyer(
                     flyerBoxWidth: _flyerBoxWidth,
                     goesToEditor: false,
-                    tinyFlyer: tinyFlyers[flyerIndex],
-                    flyerKey: Key(tinyFlyers[flyerIndex].flyerID),
+                    flyerModel: flyers[flyerIndex],
+                    flyerKey: Key(flyers[flyerIndex].flyerID),
                   );
                 },
-          childCount: tinyFlyers.length,
+          childCount: flyers.length,
           addAutomaticKeepAlives: true,
           // addSemanticIndexes: false,
           // addRepaintBoundaries: false,

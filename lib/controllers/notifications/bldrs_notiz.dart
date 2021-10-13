@@ -1,9 +1,10 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/bz/author_model.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/notification/noti_sudo.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:flutter/foundation.dart';
 
 // -----------------------------------------------------------------------------
@@ -98,10 +99,10 @@ class BldrsNotiModelz {
 // -----------------------------------------------------------------------------
   static const String bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
 
-  static final TinyBz _dummyTinyBz = TinyBz.dummyTinyBz('ar1');
-  static final TinyFlyer _dummyTinyFlyer = TinyFlyer.dummyTinyFlyer('f001');
-  static final TinyUser _dummyTinyUser = TinyUser.dummyTinyUser();
-  static final TinyUser _dummyTinyAuthor = TinyUser.dummyTinyAuthor();
+  static final BzModel _dummyBz = BzModel.dummyBz('ar1');
+  static final FlyerModel _dummyFlyer = FlyerModel.dummyFlyers()[0];
+  static final UserModel _dummyUser = UserModel.dummyUsers(numberOfUsers: 1)[0];
+  static final AuthorModel _dummyAuthor = AuthorModel.dummyAuthor();
   // -----------------------------------------------------------------------------
   /// 1 - 28 days reminder
   static NotiModel buildSomething(){
@@ -396,7 +397,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 11 - new flyer by followed non free bz account (premium - super)
-  static NotiModel newPublishedFlyer({@required TinyBz tinyBz, @required TinyFlyer tinyFlyer}){
+  static NotiModel newPublishedFlyer({@required BzModel bzModel, @required FlyerModel flyer}){
 
     // String _flyerType = TextGenerator.flyerTypeSingleStringer(context, flyerType);
 
@@ -412,13 +413,13 @@ class BldrsNotiModelz {
             cityState       :   CityState.public,
             reciever        :   NotiRecieverType.users,
         ),
-        senderID: tinyBz.bzID,
-        pic: tinyBz.bzLogo,
+        senderID: bzModel.bzID,
+        pic: bzModel.bzLogo,
         notiPicType: NotiPicType.bz,
         title: 'New flyer',
         timeStamp: DateTime.now(),
-        body: '${tinyBz.bzName} published a new ${tinyFlyer.flyerType.toString()}flyer', // TASK : fix this flyer type localized in notification
-        attachment: tinyFlyer.flyerID,
+        body: '${bzModel.bzName} published a new ${flyer.flyerType.toString()}flyer', // TASK : fix this flyer type localized in notification
+        attachment: flyer.flyerID,
         attachmentType: NotiAttachmentType.flyers,
 
         dismissed: false,
@@ -428,7 +429,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 12 - flyer review reply
-  static NotiModel flyerReviewReply({@required TinyBz tinyBz, @required String reviewBody}){
+  static NotiModel flyerReviewReply({@required BzModel bzModel, @required String reviewBody}){
     return
       NotiModel(
         id: 'n12',
@@ -441,10 +442,10 @@ class BldrsNotiModelz {
             cityState       :   CityState.public,
             reciever        :   NotiRecieverType.user,
         ),
-        senderID: tinyBz.bzID,
-        pic: tinyBz.bzLogo,
+        senderID: bzModel.bzID,
+        pic: bzModel.bzLogo,
         notiPicType: NotiPicType.bz,
-        title: '${tinyBz.bzName} has replied on your review',
+        title: '${bzModel.bzName} has replied on your review',
         timeStamp: DateTime.now(),
         body: reviewBody,
         attachment: null,
@@ -457,7 +458,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 13 - flyerReview
-  static NotiModel flyerReviewed({@required TinyUser tinyUser, @required String reviewBody}){
+  static NotiModel flyerReviewed({@required UserModel userModel, @required String reviewBody}){
     return
       NotiModel(
         id: 'n13',
@@ -470,10 +471,10 @@ class BldrsNotiModelz {
             cityState       :   CityState.public,
             reciever        :   NotiRecieverType.authors,
         ),
-        senderID: tinyUser.userID,
-        pic: tinyUser.pic,
+        senderID: userModel.userID,
+        pic: userModel.pic,
         notiPicType: NotiPicType.user,
-        title: '${tinyUser.name} wrote a review on your flyer',
+        title: '${userModel.name} wrote a review on your flyer',
         timeStamp: DateTime.now(),
         body: reviewBody,
         attachment: null,
@@ -486,7 +487,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 14 - flyer Saved
-  static NotiModel flyerSaved({@required TinyUser tinyUser, @required String flyerID}){
+  static NotiModel flyerSaved({@required UserModel userModel, @required String flyerID}){
     return
       NotiModel(
         id: 'n14',
@@ -499,10 +500,10 @@ class BldrsNotiModelz {
             cityState       :   CityState.public,
             reciever        :   NotiRecieverType.authors,
         ),
-        senderID: tinyUser.userID,
-        pic: tinyUser.pic,
+        senderID: userModel.userID,
+        pic: userModel.pic,
         notiPicType: NotiPicType.user,
-        title: '${tinyUser.name} saved your flyer',
+        title: '${userModel.name} saved your flyer',
         timeStamp: DateTime.now(),
         body: null,
         attachment: flyerID,
@@ -515,7 +516,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 14 - flyer Shared
-  static NotiModel flyerShared({@required TinyUser tinyUser, @required String flyerID}){
+  static NotiModel flyerShared({@required UserModel userModel, @required String flyerID}){
     return
       NotiModel(
         id: 'n15',
@@ -528,10 +529,10 @@ class BldrsNotiModelz {
             cityState       :   CityState.public,
             reciever        :   NotiRecieverType.authors,
         ),
-        senderID: tinyUser.userID,
-        pic: tinyUser.pic,
+        senderID: userModel.userID,
+        pic: userModel.pic,
         notiPicType: NotiPicType.user,
-        title: '${tinyUser.name} shared your flyer',
+        title: '${userModel.name} shared your flyer',
         timeStamp: DateTime.now(),
         body: null,
         attachment: flyerID,
@@ -545,7 +546,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 14 - user follow
-  static NotiModel userFollowed({@required TinyUser tinyUser}){
+  static NotiModel userFollowed({@required UserModel userModel}){
     return
       NotiModel(
         id: 'n16',
@@ -558,12 +559,12 @@ class BldrsNotiModelz {
             cityState       :   CityState.public,
             reciever        :   NotiRecieverType.authors,
         ),
-        senderID: tinyUser.userID,
-        pic: tinyUser.pic,
+        senderID: userModel.userID,
+        pic: userModel.pic,
         notiPicType: NotiPicType.user,
-        title: '${tinyUser.name} followed your business page',
+        title: '${userModel.name} followed your business page',
         timeStamp: DateTime.now(),
-        body: '${tinyUser.name} will be updated with you activity',
+        body: '${userModel.name} will be updated with you activity',
         attachment: null,
         attachmentType: null,
 
@@ -608,7 +609,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 16 - authorInvitation
-  static NotiModel authorInvitation({@required TinyUser tinyAuthor, @required TinyBz tinyBz}){
+  static NotiModel authorInvitation({@required AuthorModel authorModel, @required BzModel bzModel}){
     return
       NotiModel(
         id: 'n18',
@@ -621,12 +622,12 @@ class BldrsNotiModelz {
             cityState       :   CityState.any,
             reciever        :   NotiRecieverType.user,
         ),
-        senderID: tinyAuthor.userID,
-        pic: tinyBz.bzLogo,
+        senderID: authorModel.userID,
+        pic: bzModel.bzLogo,
         notiPicType: NotiPicType.author,
         timeStamp: DateTime.now(),
-        title: '${tinyAuthor.name} invites you',
-        body: 'You are invited to become an author of the Bldr account : ${tinyBz.bzName}',
+        title: '${authorModel.name} invites you',
+        body: 'You are invited to become an author of the Bldr account : ${bzModel.bzName}',
         attachment: null,
         attachmentType: null,
 
@@ -637,7 +638,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 17 - author Invitation reply
-  static NotiModel authorInvitationReply({@required TinyUser tinyUser, @required bool invitationAccepted}){
+  static NotiModel authorInvitationReply({@required UserModel userModel, @required bool invitationAccepted}){
 
     String _reply = invitationAccepted == true ? 'accepted' : 'rejected';
 
@@ -653,10 +654,10 @@ class BldrsNotiModelz {
             cityState       :   CityState.any,
             reciever        :   NotiRecieverType.authors,
         ),
-        senderID: tinyUser.userID,
-        pic: tinyUser.pic,
+        senderID: userModel.userID,
+        pic: userModel.pic,
         notiPicType: NotiPicType.user,
-        title: '${tinyUser.name} Replied on his author invitation',
+        title: '${userModel.name} Replied on his author invitation',
         timeStamp: DateTime.now(),
         body: 'Invitation has been $_reply.',
         attachment: null,
@@ -669,7 +670,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 18 - authorInvitation
-  static NotiModel authorInvitationCC({@required TinyUser sender, @required TinyUser reciever, @required TinyBz tinyBz}){
+  static NotiModel authorInvitationCC({@required AuthorModel sender, @required UserModel reciever, @required BzModel tinyBz}){
     return
       NotiModel(
         id: 'n20',
@@ -757,7 +758,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 21 - monthly bz statistics
-  static NotiModel monthlyBzStatistics({@required TinyBz tinyBz, @required String monthName, @required int followers, @required int calls, @required int saves, @required int views, @required int shares, @required int competitors,}){
+  static NotiModel monthlyBzStatistics({@required BzModel bzModel, @required String monthName, @required int followers, @required int calls, @required int saves, @required int views, @required int shares, @required int competitors,}){
     return
       NotiModel(
         id: 'n23',
@@ -773,9 +774,9 @@ class BldrsNotiModelz {
         senderID: bldrsSenderID,
         pic: bldrsLogoURL,
         notiPicType: NotiPicType.bldrs,
-        title: '${tinyBz.bzName} statistics for $monthName',
+        title: '${bzModel.bzName} statistics for $monthName',
         timeStamp: DateTime.now(),
-        body: 'on $monthName you have got $followers followers, $calls calls, $saves saves, $views views, $shares shares while $competitors new businesses specialized in ${tinyBz.bzType.toString()} have joined Bldrs.net this month',
+        body: 'on $monthName you have got $followers followers, $calls calls, $saves saves, $views views, $shares shares while $competitors new businesses specialized in ${bzModel.bzType.toString()} have joined Bldrs.net this month',
         attachment: null,
         attachmentType: null,
 
@@ -786,7 +787,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 22 - potential customer to bzz
-  static NotiModel potentialCustomerQuestion({@required TinyUser tinyUser, @required String keyword, @required String cityName, @required String district}){
+  static NotiModel potentialCustomerQuestion({@required UserModel userModel, @required String keyword, @required String cityName, @required String district}){
     return
       NotiModel(
         id: 'n24',
@@ -799,12 +800,12 @@ class BldrsNotiModelz {
             cityState       :   CityState.any,
             reciever        :   NotiRecieverType.authors,
         ),
-        senderID: tinyUser.userID,
-        pic: tinyUser.pic,
+        senderID: userModel.userID,
+        pic: userModel.pic,
         notiPicType: NotiPicType.user,
         title: 'Potential customer',
         timeStamp: DateTime.now(),
-        body: '${tinyUser.name} asked a public question about ${keyword} in $district, $cityName',
+        body: '${userModel.name} asked a public question about ${keyword} in $district, $cityName',
         attachment: null,
         attachmentType: null,
 
@@ -815,7 +816,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 23 - question reply
-  static NotiModel questionReply({@required TinyBz tinyBz, @required String reply}){
+  static NotiModel questionReply({@required BzModel bzModel, @required String reply}){
     return
       NotiModel(
         id: 'n25',
@@ -828,12 +829,12 @@ class BldrsNotiModelz {
             cityState       :   CityState.any,
             reciever        :   NotiRecieverType.user,
         ),
-        senderID: tinyBz.bzID,
-        pic: tinyBz.bzLogo,
+        senderID: bzModel.bzID,
+        pic: bzModel.bzLogo,
         notiPicType: NotiPicType.bz,
         title: 'You received an answer',
         timeStamp: DateTime.now(),
-        body: '${tinyBz.bzName} replied to your question :\n$reply',
+        body: '${bzModel.bzName} replied to your question :\n$reply',
         attachment: null,
         attachmentType: null,
 
@@ -911,25 +912,25 @@ class BldrsNotiModelz {
         numberOfNewFlyers: 250,
       ),
       newPublishedFlyer(
-        tinyBz: _dummyTinyBz,
-        tinyFlyer: _dummyTinyFlyer
+        bzModel: _dummyBz,
+        flyer: _dummyFlyer
       ),
 
       ///   o - to AUTHORS
       flyerSaved(
-        flyerID: _dummyTinyFlyer.flyerID,
-        tinyUser: _dummyTinyUser,
+        flyerID: _dummyFlyer.flyerID,
+        userModel: _dummyUser,
       ),
       flyerReviewed(
-        tinyUser: _dummyTinyUser,
+        userModel: _dummyUser,
         reviewBody: 'This is a dummy review on the flyer'
       ),
       flyerShared(
-        tinyUser: _dummyTinyUser,
-        flyerID: _dummyTinyFlyer.flyerID,
+        userModel: _dummyUser,
+        flyerID: _dummyFlyer.flyerID,
       ),
       userFollowed(
-        tinyUser: _dummyTinyUser,
+        userModel: _dummyUser,
       ),
       weeklyBzStatistics(
         calls: 777,
@@ -944,18 +945,18 @@ class BldrsNotiModelz {
         saves: 1245,
         calls: 1254,
         followers: 6666,
-        tinyBz: _dummyTinyBz,
+        bzModel: _dummyBz,
         competitors: 45,
         monthName: 'November',
       ),
       authorInvitationCC(
-        tinyBz: _dummyTinyBz,
-        sender: _dummyTinyAuthor,
-        reciever: _dummyTinyUser,
+        tinyBz: _dummyBz,
+        sender: _dummyAuthor,
+        reciever: _dummyUser,
       ),
       potentialCustomerQuestion(
         keyword: 'dummyKeyword',
-        tinyUser: _dummyTinyUser,
+        userModel: _dummyUser,
         cityName: 'El Suiz',
         district: 'ElMa3moura',
       ),
@@ -973,11 +974,11 @@ class BldrsNotiModelz {
       chooseYourCustomerStatus(),
       flyerReviewReply(
         reviewBody: 'This is a dummy review',
-        tinyBz: _dummyTinyBz,
+        bzModel: _dummyBz,
       ),
       authorInvitation(
-        tinyBz: _dummyTinyBz,
-        tinyAuthor: _dummyTinyAuthor,
+        bzModel: _dummyBz,
+        authorModel: _dummyAuthor,
       ),
 
       countryWentGlobal(
@@ -989,13 +990,13 @@ class BldrsNotiModelz {
       ),
 
       questionReply(
-        tinyBz: _dummyTinyBz,
+        bzModel: _dummyBz,
         reply: 'This is a dummy bz reply'
       ),
 
       ///   o - to AUTHOR
       authorInvitationReply(
-        tinyUser: _dummyTinyUser,
+        userModel: _dummyUser,
         invitationAccepted: true,
       ),
 

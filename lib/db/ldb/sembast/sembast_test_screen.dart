@@ -2,9 +2,9 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/dashboard/widgets/sql_viewer.dart';
 import 'package:bldrs/db/ldb/sembast/sembast.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/db/ldb/sql_db/flyers_sql_screen.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:flutter/material.dart';
 
 class SembastTestScreen extends StatefulWidget {
@@ -72,8 +72,8 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _insert() async {
 
-    TinyBz _tinyBz = TinyBz.dummyTinyBz('bolbol');
-    Map<String, Object> _map = _tinyBz.toMap();
+    BzModel _bzModel = BzModel.dummyBz('bolbol');
+    Map<String, Object> _map = _bzModel.toMap(toJSON: true);
 
     await Sembast.insertAll(
       docName: 'blah',
@@ -116,7 +116,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _replace() async {
 
-    Map<String, Object> _map = TinyBz.dummyTinyBz('gogo').toMap();
+    Map<String, Object> _map = BzModel.dummyBz('gogo').toMap(toJSON: true);
 
     await Sembast.update(
       docName: 'blah',

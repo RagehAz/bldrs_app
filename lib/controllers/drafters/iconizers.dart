@@ -166,16 +166,16 @@ class Iconizer{
 // -----------------------------------------------------------------------------
   static String superContactIcon(ContactType contactType){
     switch (contactType){
-      case ContactType.Phone      :    return  Iconz.ComPhone;  break;
-      case ContactType.Email      :    return  Iconz.ComEmail;  break;
-      case ContactType.WebSite    :    return  Iconz.ComWebsite;  break;
-      case ContactType.Facebook   :    return  Iconz.ComFacebook;  break;
-      case ContactType.LinkedIn   :    return  Iconz.ComLinkedin;  break;
-      case ContactType.YouTube    :    return  Iconz.ComYoutube;  break;
-      case ContactType.Instagram  :    return  Iconz.ComInstagram;  break;
-      case ContactType.Pinterest  :    return  Iconz.ComPinterest;  break;
-      case ContactType.TikTok     :    return  Iconz.ComTikTok;  break;
-      case ContactType.Twitter    :    return  Iconz.ComTwitter; break;
+      case ContactType.phone      :    return  Iconz.ComPhone;  break;
+      case ContactType.email      :    return  Iconz.ComEmail;  break;
+      case ContactType.website    :    return  Iconz.ComWebsite;  break;
+      case ContactType.facebook   :    return  Iconz.ComFacebook;  break;
+      case ContactType.linkedIn   :    return  Iconz.ComLinkedin;  break;
+      case ContactType.youtube    :    return  Iconz.ComYoutube;  break;
+      case ContactType.instagram  :    return  Iconz.ComInstagram;  break;
+      case ContactType.pinterest  :    return  Iconz.ComPinterest;  break;
+      case ContactType.tiktok     :    return  Iconz.ComTikTok;  break;
+      case ContactType.twitter    :    return  Iconz.ComTwitter; break;
       default : return null;
     }
   }

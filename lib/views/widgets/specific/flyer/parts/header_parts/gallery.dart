@@ -3,12 +3,12 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/author_bubble/author_bubble.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/gallery_grid.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +37,7 @@ class _GalleryState extends State<Gallery> {
   String _selectedAuthorID;
   List<String> _bzTeamIDs;
   BzModel _bzModel;
-  List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
+  List<FlyerModel> _flyers = <FlyerModel>[];
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -67,7 +67,7 @@ class _GalleryState extends State<Gallery> {
     print('starting gallery init');
     _bzModel = widget.superFlyer.bz;
 
-    _tinyFlyers = <TinyFlyer>[];
+    _flyers = <FlyerModel>[];
 
     print('flyersIDs are ${_bzModel.flyersIDs}');
 
@@ -88,12 +88,12 @@ class _GalleryState extends State<Gallery> {
         final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
         await _flyersProvider.fetchActiveBzFlyers(context: context, bzID: _bzModel.bzID);
 
-        List<TinyFlyer> _flyersFromProvider = _flyersProvider.activeBzFlyer;
+        List<FlyerModel> _flyersFromProvider = _flyersProvider.activeBzFlyer;
 
         print('active bz flyers are : $_flyersFromProvider');
 
         setState(() {
-          _tinyFlyers = _flyersFromProvider;
+          _flyers = _flyersFromProvider;
           _loading = false;
         });
 
@@ -107,7 +107,7 @@ class _GalleryState extends State<Gallery> {
   List<bool> _createVisibilities({bool fillingValue}){
     final List<bool> _visibilities = <bool>[];
 
-    for (int i = 0; i< _tinyFlyers.length; i++){
+    for (int i = 0; i< _flyers.length; i++){
       _visibilities.add(fillingValue);
     }
 
@@ -133,8 +133,8 @@ class _GalleryState extends State<Gallery> {
         _flyersVisibilities = _createVisibilities(fillingValue: true);
       }
 
-      _tinyFlyers.asMap().forEach((index, flyer) {
-        if(_tinyFlyers[index].authorID == _selectedAuthorID){
+      _flyers.asMap().forEach((index, flyer) {
+        if(_flyers[index].authorID == _selectedAuthorID){
           _flyersVisibilities[index] = true;
         }
       });
@@ -142,21 +142,21 @@ class _GalleryState extends State<Gallery> {
     });
   }
 // -----------------------------------------------------------------------------
-  void _addPublishedFlyerToGallery(TinyFlyer tinyFlyer){
+  void _addPublishedFlyerToGallery(FlyerModel flyerModel){
 
     // TASK : of the tasks
     // _prof.updateTinyFlyerInLocalBzTinyFlyers(tinyFlyer);
 
-    print('starting _addPublishedFlyerToGallery white tiny flyers were ${_tinyFlyers.length} flyers WHILE flyer visibilities were ${_flyersVisibilities.length} visibilities');
+    print('starting _addPublishedFlyerToGallery white tiny flyers were ${_flyers.length} flyers WHILE flyer visibilities were ${_flyersVisibilities.length} visibilities');
 
-    print('tiny flyer is ${tinyFlyer.flyerID}');
+    print('tiny flyer is ${flyerModel.flyerID}');
 
-      _tinyFlyers.add(tinyFlyer);
-    print('_tinyFlyers are now  ${_tinyFlyers.length} flyers');
+      _flyers.add(flyerModel);
+    print('_tinyFlyers are now  ${_flyers.length} flyers');
       _flyersVisibilities.add(true);
     print('_flyersVisibilities are now  ${_flyersVisibilities.length} visibilities');
 
-      _onAuthorLabelTap(tinyFlyer.authorID);
+      _onAuthorLabelTap(flyerModel.authorID);
 
   }
 // -----------------------------------------------------------------------------
@@ -199,7 +199,7 @@ class _GalleryState extends State<Gallery> {
               )
                   :
               SuperVerse(
-                verse: _bzTeamIDs.length == 1 ? '${Wordz.flyersPublishedBy(context)} ${widget.superFlyer.bz.bzAuthors[0].authorName}' :
+                verse: _bzTeamIDs.length == 1 ? '${Wordz.flyersPublishedBy(context)} ${widget.superFlyer.bz.bzAuthors[0].name}' :
                 '${widget.superFlyer.bz.bzName} ${Wordz.authorsTeam(context)}',
                 size: 2,
                 italic: true,
@@ -222,7 +222,7 @@ class _GalleryState extends State<Gallery> {
                 bzModel: widget.superFlyer.bz,
                 onAuthorLabelTap: (id) => _onAuthorLabelTap(id),
                 selectedAuthorID: _selectedAuthorID,
-                bzTinyFlyers: _tinyFlyers,
+                bzFlyers: _flyers,
               ),
 
             /// FLYERS
@@ -231,7 +231,7 @@ class _GalleryState extends State<Gallery> {
                 gridZoneWidth: widget.galleryBoxWidth,
                 bzID: widget.superFlyer.bz.bzAuthors == null || widget.superFlyer.bz.bzAuthors == [] || widget.superFlyer.bz.bzAuthors.isEmpty ?  '': widget.superFlyer.bz.bzID,
                 flyersVisibilities: _flyersVisibilities,
-                galleryFlyers: _tinyFlyers,
+                galleryFlyers: _flyers,
                 bzAuthors: widget.superFlyer.bz.bzAuthors,
                 bz: _bzModel, /// TASK : maybe should remove this as long as super flyer is here
                 // flyerOnTap: widget.flyerOnTap,

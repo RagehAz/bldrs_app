@@ -5,11 +5,9 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:flutter/material.dart';
 
 class AuthorBubble extends StatelessWidget {
@@ -20,7 +18,7 @@ class AuthorBubble extends StatelessWidget {
   final BzModel bzModel;
   final Function onAuthorLabelTap;
   final String selectedAuthorID;
-  final List<TinyFlyer> bzTinyFlyers;
+  final List<FlyerModel> bzFlyers;
 
   const AuthorBubble({
     @required this.flyerBoxWidth,
@@ -30,7 +28,7 @@ class AuthorBubble extends StatelessWidget {
     @required this.bzModel,
     @required this.onAuthorLabelTap,
     @required this.selectedAuthorID,
-    @required this.bzTinyFlyers,
+    @required this.bzFlyers,
 });
 // -----------------------------------------------------------------------------
   static double bubbleWidth(double flyerBoxWidth){
@@ -61,7 +59,7 @@ class AuthorBubble extends StatelessWidget {
 
     final List<String> _bzTeamIDs = BzModel.getBzTeamIDs(bzModel);
     final bool _thisIsMyBz = _bzTeamIDs.contains(superUserID());
-    final TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(bzModel);
+    final BzModel _bz = bzModel;
 
     final double _bubbleWidth = bubbleWidth(flyerBoxWidth);
 
@@ -121,7 +119,6 @@ class AuthorBubble extends StatelessWidget {
                         bzAuthors.length,
                             (authorIndex) {
                           AuthorModel _author = bzAuthors[authorIndex];
-                          TinyUser _tinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(_author);
                           return
                             Row(
                               children: <Widget>[
@@ -129,12 +126,12 @@ class AuthorBubble extends StatelessWidget {
                                 AuthorLabel(
                                   showLabel: showFlyers == true ? true : false,
                                   flyerBoxWidth: flyerBoxWidth,
-                                  tinyAuthor: _tinyAuthor,
-                                  tinyBz: _tinyBz,
+                                  authorID: _author.userID,
+                                  bzModel: _bz,
                                   authorGalleryCount: AuthorModel.getAuthorGalleryCountFromBzModel(
                                     bzModel: bzModel,
                                     author: _author,
-                                    bzTinyFlyers: bzTinyFlyers,
+                                    bzFlyers: bzFlyers,
                                   ),
                                   onTap:
                                   // widget.bzTeamIDs.length == 1 ?
@@ -158,7 +155,6 @@ class AuthorBubble extends StatelessWidget {
                       width: flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth,
                       authorPic: null,
                       isAddAuthorButton: true,
-                      tinyBz: _tinyBz,
                     ),
 
                 ]
