@@ -1,51 +1,52 @@
 import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/providers/streamers/bz_streamer.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BzzButton extends StatelessWidget {
   final BarType barType;
   final Function onTap;
   final double width;
   final double circleWidth;
-  final List<dynamic> bzzIDs;
+  // final List<dynamic> bzzIDs;
 
   const BzzButton({
     this.barType = BarType.maxWithText,
     this.onTap,
     @required this.width,
     @required this.circleWidth,
-    @required this.bzzIDs,
+    // @required this.bzzIDs,
   });
 
-Widget _nanoBzLogo(BuildContext context, String bzID){
+Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
   return Container(
     height: circleWidth * 0.47,
     width: circleWidth * 0.47,
-    child: bzModelStreamBuilder(
-        bzID: bzID,
-        context: context,
-        builder: (ctx, bzModel){
-          return
-            DreamBox(
-              height: circleWidth * 0.47,
-              width: circleWidth * 0.47,
-              corners: circleWidth * 0.47 * 0.25,
-              icon: bzModel.bzLogo,
-              bubble: true,
-              onTap: onTap,
-            );
-        }),
+    child: DreamBox(
+      height: circleWidth * 0.47,
+      width: circleWidth * 0.47,
+      corners: circleWidth * 0.47 * 0.25,
+      icon: bzModel.bzLogo,
+      bubble: true,
+      onTap: onTap,
+    ),
   );
 }
 
   @override
   Widget build(BuildContext context) {
+
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
+    List<BzModel> _userBzz = _bzzProvider.userBzz;
+
+    print('the dude is : _userBzz : ${_userBzz.length} bzz');
 
     final double _circleWidth = circleWidth;
     final double _buttonCircleCorner = _circleWidth * 0.5;
@@ -89,76 +90,60 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
               ),
 
               /// --- BZZ LOGOS
-              bzzIDs.length == 0 ? Container(width: _circleWidth, height: _circleWidth,) :
+              _userBzz.length == 0 ? Container(width: _circleWidth, height: _circleWidth,) :
               Container(
                 width: _circleWidth,
                 height: _circleWidth,
                 alignment: Alignment.center,
                 child:
 
-                bzzIDs.length == 1 ?
-                bzModelStreamBuilder(
-                    bzID: bzzIDs[0],
-                    context: context,
-                    builder: (ctx, bzModel){
-                      return
-                        DreamBox(
-                          width: _circleWidth,
-                          height: _circleWidth,
-                          icon: bzModel.bzLogo,
-                          iconSizeFactor: 1,
-                          bubble: true,
-                          color: Colorz.Nothing,
-                          corners: _buttonCircleCorner,
-                          designMode: _designMode,
-                          onTap: onTap,
-                        );
-                    })
+                _userBzz.length == 1 ?
+                DreamBox(
+                  width: _circleWidth,
+                  height: _circleWidth,
+                  icon: _userBzz[0].bzLogo,
+                  iconSizeFactor: 1,
+                  bubble: true,
+                  color: Colorz.Nothing,
+                  corners: _buttonCircleCorner,
+                  designMode: _designMode,
+                  onTap: onTap,
+                )
 
                     :
 
-                bzzIDs.length == 2 ?
+                _userBzz.length == 2 ?
                 Stack(
                   children: <Widget>[
 
-                    bzModelStreamBuilder(
-                        bzID: bzzIDs[0],
-                        context: context,
-                        builder: (ctx, _bzModel){
-                          return
-                            Positioned(
-                              top: 0,
-                              left: 0,
-                              child: BzLogo(
-                                width: _circleWidth * 0.7,
-                                image: _bzModel.bzLogo,
-                                shadowIsOn: _shadowIsOn,
-                                onTap: onTap,
-                              ),
-                            );
-                        }),
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      child: BzLogo(
+                        width: _circleWidth * 0.7,
+                        image: _userBzz[0].bzLogo,
+                        shadowIsOn: _shadowIsOn,
+                        onTap: onTap,
+                      ),
+                    ),
 
-                    bzModelStreamBuilder(
-                        bzID: bzzIDs[1],
-                        context: context,
-                        builder: (ctx, bzModel){
-                          return
-                            Positioned(
-                              bottom: 0,
-                              right: 0,
-                              child: BzLogo(
-                                width: _circleWidth * 0.7,
-                                image: bzModel.bzLogo,
-                                shadowIsOn: _shadowIsOn,
-                                onTap: onTap,
-                              ),
-                            );
-                        }),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: BzLogo(
+                        width: _circleWidth * 0.7,
+                        image: _userBzz[1].bzLogo,
+                        shadowIsOn: _shadowIsOn,
+                        onTap: onTap,
+                      ),
+                    ),
 
                   ],
                 )
+
                     :
-                bzzIDs.length == 3 ?
+
+                _userBzz.length == 3 ?
                 Container(
                   width: _circleWidth,
                   height: _circleWidth,
@@ -173,9 +158,9 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
 
-                          _nanoBzLogo(context, bzzIDs[0]),
+                          _nanoBzLogo(context, _userBzz[0]),
 
-                          _nanoBzLogo(context, bzzIDs[1]),
+                          _nanoBzLogo(context, _userBzz[1]),
 
                         ],
                       ),
@@ -185,7 +170,7 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
 
-                          _nanoBzLogo(context, bzzIDs[2]),
+                          _nanoBzLogo(context, _userBzz[2]),
 
                           Container(
                             width: _circleWidth * 0.47,
@@ -200,7 +185,7 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
                   ),
                 )
                     :
-                bzzIDs.length == 4 ?
+                _userBzz.length == 4 ?
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -211,9 +196,9 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
 
-                        _nanoBzLogo(context, bzzIDs[0]),
+                        _nanoBzLogo(context, _userBzz[0]),
 
-                        _nanoBzLogo(context, bzzIDs[1]),
+                        _nanoBzLogo(context, _userBzz[1]),
 
                       ],
                     ),
@@ -223,9 +208,9 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
 
-                        _nanoBzLogo(context, bzzIDs[2]),
+                        _nanoBzLogo(context, _userBzz[2]),
 
-                        _nanoBzLogo(context, bzzIDs[3]),
+                        _nanoBzLogo(context, _userBzz[3]),
 
                       ],
                     ),
@@ -243,9 +228,9 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
 
-                        _nanoBzLogo(context, bzzIDs[0]),
+                        _nanoBzLogo(context, _userBzz[0]),
 
-                        _nanoBzLogo(context, bzzIDs[1]),
+                        _nanoBzLogo(context, _userBzz[1]),
 
                       ],
                     ),
@@ -255,12 +240,12 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
 
-                        _nanoBzLogo(context, bzzIDs[2]),
+                        _nanoBzLogo(context, _userBzz[2]),
 
                         DreamBox(
                           height: _circleWidth * 0.47,
                           width: _circleWidth * 0.47,
-                          verse: '+${(bzzIDs.length - 3)}',
+                          verse: '+${(_userBzz.length - 3)}',
                           verseWeight: VerseWeight.thin,
                           verseScaleFactor: 0.35,
                           bubble: false,
