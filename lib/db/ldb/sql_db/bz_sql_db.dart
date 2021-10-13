@@ -33,7 +33,7 @@ class BzSQLdb{
     );
 
     /// 2 - CREATE Authors SLAVE LDB FOR PREVIOUS BZZ LDB
-    final List<SQLColumn> _authorsColumns = AuthorModel.createAuthorsLDBColumns();
+    final List<SQLColumn> _authorsColumns = SQLMethods.createAuthorsLDBColumns();
     final SQLTable _authorsTable = await SQLdb.createAndSetSQLdb(
       context: context,
       tableName: _authorsTableName(LDBName),
@@ -64,7 +64,7 @@ class BzSQLdb{
       table: bzzLDB.authorsTable,
     );
 
-    final List<AuthorModel> _allAuthors = await AuthorModel.sqlDecipherAuthors(maps: _sqlAuthorsMaps);
+    final List<AuthorModel> _allAuthors = await SQLMethods.sqlDecipherAuthors(maps: _sqlAuthorsMaps);
 
     final List<BzModel> _allBzz = await SQLMethods.sqlDecipherBzz(
       maps: _sqlBzzMaps,
@@ -96,7 +96,7 @@ class BzSQLdb{
     /// inset sql authors
     for (AuthorModel author in bz.bzAuthors){
 
-      final Map<String, Object> _sqlAuthorMap = await AuthorModel.sqlCipherAuthor(
+      final Map<String, Object> _sqlAuthorMap = await SQLMethods.sqlCipherAuthor(
         author: author,
       );
 
@@ -155,7 +155,7 @@ class BzSQLdb{
 
           if (Mapper.canLoopList(_authorMapInList)){
 
-            final AuthorModel _author = await AuthorModel.sqlDecipherAuthor(map: _authorMapInList[0]);
+            final AuthorModel _author = await SQLMethods.sqlDecipherAuthor(map: _authorMapInList[0]);
             _authors.add(_author);
 
           }

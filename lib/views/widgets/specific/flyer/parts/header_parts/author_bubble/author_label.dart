@@ -1,14 +1,14 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/models/bz/author_model.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +16,8 @@ import 'package:flutter/painting.dart';
 
 class AuthorLabel extends StatelessWidget {
   final double flyerBoxWidth;
-  final TinyUser tinyAuthor;
-  final TinyBz tinyBz;
+  final String authorID;
+  final BzModel bzModel;
   final bool showLabel;
   final int authorGalleryCount;
   final bool labelIsOn;
@@ -25,8 +25,8 @@ class AuthorLabel extends StatelessWidget {
 
   const AuthorLabel({
     @required this.flyerBoxWidth,
-    @required this.tinyAuthor,
-    @required this.tinyBz,
+    @required this.authorID,
+    @required this.bzModel,
     @required this.showLabel,
     @required this.authorGalleryCount,
     this.labelIsOn = false,
@@ -59,8 +59,8 @@ class AuthorLabel extends StatelessWidget {
     final double _authorDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth+Ratioz.xxflyerAuthorNameWidth);
 // -----------------------------------------------------------------------------
     /// --- FOLLOWERS COUNTER
-    final int _followersCount = tinyBz.bzTotalFollowers;
-    final int _bzGalleryCount = tinyBz.bzTotalFlyers;
+    final int _followersCount = bzModel.bzTotalFollowers;
+    final int _bzGalleryCount = bzModel.bzTotalFlyers;
 
     final String _galleryCountCalibrated = Numeric.counterCaliber(context, _bzGalleryCount);
     final String _followersCounter =
@@ -71,10 +71,11 @@ class AuthorLabel extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final double _authorImageCorners = flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
 // -----------------------------------------------------------------------------
+    final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(bzModel, authorID);
 
     return
       GestureDetector(
-        onTap: showLabel == true ? ()=> onTap(tinyAuthor.userID) : null,
+        onTap: showLabel == true ? ()=> onTap(authorID) : null,
         child:
         Container(
             height: _authorDataHeight,
@@ -100,7 +101,7 @@ class AuthorLabel extends StatelessWidget {
                 /// AUTHOR IMAGE
                 AuthorPic(
                   width: flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth,
-                  authorPic: tinyAuthor?.pic,
+                  authorPic: _author?.pic,
                   // tinyBz:
                 ),
 
@@ -117,7 +118,7 @@ class AuthorLabel extends StatelessWidget {
 
                       /// AUTHOR NAME
                       SuperVerse(
-                        verse: tinyAuthor?.name,
+                        verse: _author?.name,
                         italic: false,
                         centered: false,
                         shadow: _versesShadow,
@@ -129,7 +130,7 @@ class AuthorLabel extends StatelessWidget {
 
                           /// AUTHOR TITLE
                       SuperVerse(
-                        verse: tinyAuthor?.title,
+                        verse: _author?.title,
                         designMode: _versesDesignMode,
                         size: 1,
                         weight: VerseWeight.regular,
@@ -168,14 +169,12 @@ class AuthorPic extends StatelessWidget {
 
   final double width;
   final dynamic authorPic;
-  final TinyBz tinyBz;
 
-  AuthorPic({
+  const AuthorPic({
     this.isAddAuthorButton = false,
 
     this.width,
     this.authorPic,
-    this.tinyBz,
   });
 // -----------------------------------------------------------------------------
   void _tapAddAuthor(BuildContext context){
@@ -194,10 +193,10 @@ class AuthorPic extends StatelessWidget {
   Widget build(BuildContext context) {
 
 // -----------------------------------------------------------------------------
-    double _authorImageHeight = width;
-    double _authorImageCorners = getCornerValue(width / Ratioz.xxflyerAuthorPicWidth);
+    final double _authorImageHeight = width;
+    final double _authorImageCorners = getCornerValue(width / Ratioz.xxflyerAuthorPicWidth);
 // -----------------------------------------------------------------------------
-    BorderRadius _authorPicBorders = Borderers.superBorderOnly(
+    final BorderRadius _authorPicBorders = Borderers.superBorderOnly(
         context: context,
         enTopLeft: _authorImageCorners,
         enBottomLeft: 0,

@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/PersonButton.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ class RecordBubble extends StatelessWidget {
   final double flyerBoxWidth;
   final String bubbleTitle;
   final String bubbleIcon;
-  final List<TinyUser> users;
+  final List<UserModel> users;
   final Key key;
 
   const RecordBubble({

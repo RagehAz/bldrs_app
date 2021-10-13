@@ -47,32 +47,32 @@ class ContactModel{
 // -----------------------------------------------------------------------------
   static ContactType decipherContactType (int contactType){
     switch (contactType){
-      case 1:   return  ContactType.Phone;      break;
-      case 2:   return  ContactType.Email;      break;
-      case 3:   return  ContactType.WebSite;    break;
-      case 4:   return  ContactType.Facebook;   break;
-      case 5:   return  ContactType.LinkedIn;   break;
-      case 6:   return  ContactType.YouTube;    break;
-      case 7:   return  ContactType.Instagram;  break;
-      case 8:   return  ContactType.Pinterest;  break;
-      case 9:   return  ContactType.TikTok;     break;
-      case 10:  return  ContactType.Twitter;    break;
+      case 1:   return  ContactType.phone;      break;
+      case 2:   return  ContactType.email;      break;
+      case 3:   return  ContactType.website;    break;
+      case 4:   return  ContactType.facebook;   break;
+      case 5:   return  ContactType.linkedIn;   break;
+      case 6:   return  ContactType.youtube;    break;
+      case 7:   return  ContactType.instagram;  break;
+      case 8:   return  ContactType.pinterest;  break;
+      case 9:   return  ContactType.tiktok;     break;
+      case 10:  return  ContactType.twitter;    break;
       default : return   null;
     }
   }
 // -----------------------------------------------------------------------------
   static int cipherContactType (ContactType contactType){
     switch (contactType){
-      case ContactType.Phone      :    return  1;  break;
-      case ContactType.Email      :    return  2;  break;
-      case ContactType.WebSite    :    return  3;  break;
-      case ContactType.Facebook   :    return  4;  break;
-      case ContactType.LinkedIn   :    return  5;  break;
-      case ContactType.YouTube    :    return  6;  break;
-      case ContactType.Instagram  :    return  7;  break;
-      case ContactType.Pinterest  :    return  8;  break;
-      case ContactType.TikTok     :    return  9;  break;
-      case ContactType.Twitter    :    return  10; break;
+      case ContactType.phone      :    return  1;  break;
+      case ContactType.email      :    return  2;  break;
+      case ContactType.website    :    return  3;  break;
+      case ContactType.facebook   :    return  4;  break;
+      case ContactType.linkedIn   :    return  5;  break;
+      case ContactType.youtube    :    return  6;  break;
+      case ContactType.instagram  :    return  7;  break;
+      case ContactType.pinterest  :    return  8;  break;
+      case ContactType.tiktok     :    return  9;  break;
+      case ContactType.twitter    :    return  10; break;
       default : return null;
     }
   }
@@ -94,9 +94,9 @@ class ContactModel{
   static List<ContactModel> getContactsWithStringsFromContacts(List<ContactModel> contacts){
     final List<ContactModel> _contactsList = <ContactModel>[];
 
-    final ContactModel _phone = getAContactModelFromContacts(contacts, ContactType.Phone);
-    final ContactModel _email = getAContactModelFromContacts(contacts, ContactType.Email);
-    final ContactModel _website = getAContactModelFromContacts(contacts, ContactType.WebSite);
+    final ContactModel _phone = getAContactModelFromContacts(contacts, ContactType.phone);
+    final ContactModel _email = getAContactModelFromContacts(contacts, ContactType.email);
+    final ContactModel _website = getAContactModelFromContacts(contacts, ContactType.website);
 
     if(_phone   != null || _phone?.contact?.isNotEmpty  == true){_contactsList.add(_phone);}
     if(_email   != null || _email?.contact?.isNotEmpty  == true){_contactsList.add(_email);}
@@ -110,13 +110,13 @@ class ContactModel{
   static List<ContactModel> getSocialMediaContactsFromContacts(List<ContactModel> contacts){
     final List<ContactModel> _contactsList = <ContactModel>[];
 
-    final ContactModel _facebook = getAContactModelFromContacts(contacts, ContactType.Facebook);
-    final ContactModel _linkedin = getAContactModelFromContacts(contacts, ContactType.LinkedIn);
-    final ContactModel _youtube = getAContactModelFromContacts(contacts, ContactType.YouTube);
-    final ContactModel _instagram = getAContactModelFromContacts(contacts, ContactType.Instagram);
-    final ContactModel _pinterest = getAContactModelFromContacts(contacts, ContactType.Pinterest);
-    final ContactModel _tiktok = getAContactModelFromContacts(contacts, ContactType.TikTok);
-    final ContactModel _twitter = getAContactModelFromContacts(contacts, ContactType.Twitter);
+    final ContactModel _facebook = getAContactModelFromContacts(contacts, ContactType.facebook);
+    final ContactModel _linkedin = getAContactModelFromContacts(contacts, ContactType.linkedIn);
+    final ContactModel _youtube = getAContactModelFromContacts(contacts, ContactType.youtube);
+    final ContactModel _instagram = getAContactModelFromContacts(contacts, ContactType.instagram);
+    final ContactModel _pinterest = getAContactModelFromContacts(contacts, ContactType.pinterest);
+    final ContactModel _tiktok = getAContactModelFromContacts(contacts, ContactType.tiktok);
+    final ContactModel _twitter = getAContactModelFromContacts(contacts, ContactType.twitter);
 
     if(_facebook  != null && _facebook?.contact?.isNotEmpty  == true ){_contactsList.add(_facebook);}else{}
     if(_linkedin  != null && _linkedin?.contact?.isNotEmpty  == true ){_contactsList.add(_linkedin);}else{}
@@ -134,7 +134,7 @@ class ContactModel{
     // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
     final List<String> phones = <String>[];
     contacts?.forEach((co) {
-      if(co.contactType == ContactType.Phone){phones.add(co.contact);}
+      if(co.contactType == ContactType.phone){phones.add(co.contact);}
     });
     return phones.length == 0 ? null : phones[0];
   }
@@ -183,16 +183,16 @@ class ContactModel{
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
   static const List<ContactType> contactTypesList = const <ContactType>[
-    ContactType.Phone,
-    ContactType.Email,
-    ContactType.WebSite,
-    ContactType.Facebook,
-    ContactType.LinkedIn,
-    ContactType.YouTube,
-    ContactType.Instagram,
-    ContactType.Pinterest,
-    ContactType.TikTok,
-    ContactType.Twitter,
+    ContactType.phone,
+    ContactType.email,
+    ContactType.website,
+    ContactType.facebook,
+    ContactType.linkedIn,
+    ContactType.youtube,
+    ContactType.instagram,
+    ContactType.pinterest,
+    ContactType.tiktok,
+    ContactType.twitter,
   ];
 // -----------------------------------------------------------------------------
   static List<ContactModel> createContactsList ({
@@ -210,16 +210,16 @@ class ContactModel{
   }){
     final List<ContactModel> _newContacts = <ContactModel>[];
     // ---------------
-    addContactIfPossibleToANewContactsList(existingContacts, phone, ContactType.Phone, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, email, ContactType.Email, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, webSite, ContactType.WebSite, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, facebook, ContactType.Facebook, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, linkedIn, ContactType.LinkedIn, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, youTube, ContactType.YouTube, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, instagram, ContactType.Instagram, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, pinterest, ContactType.Pinterest, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, tikTok, ContactType.TikTok, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, twitter, ContactType.Twitter, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, phone, ContactType.phone, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, email, ContactType.email, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, webSite, ContactType.website, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, facebook, ContactType.facebook, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, linkedIn, ContactType.linkedIn, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, youTube, ContactType.youtube, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, instagram, ContactType.instagram, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, pinterest, ContactType.pinterest, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, tikTok, ContactType.tiktok, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, twitter, ContactType.twitter, _newContacts);
     // ---------------
     return _newContacts;
   }
@@ -231,13 +231,13 @@ class ContactModel{
 
     if (_userEmail != null){
       _userContacts.add(
-          ContactModel(contact: _userEmail, contactType: ContactType.Email)
+          ContactModel(contact: _userEmail, contactType: ContactType.email)
       );
     }
 
     if (_userPhone != null){
       _userContacts.add(
-          ContactModel(contact: _userPhone, contactType: ContactType.Phone)
+          ContactModel(contact: _userPhone, contactType: ContactType.phone)
       );
     }
 
@@ -303,14 +303,14 @@ class ContactModel{
 }
 // -----------------------------------------------------------------------------
 enum ContactType {
-  Phone,
-  Email,
-  WebSite,
-  Facebook,
-  LinkedIn,
-  YouTube,
-  Instagram,
-  Pinterest,
-  TikTok,
-  Twitter,
+  phone,
+  email,
+  website,
+  facebook,
+  linkedIn,
+  youtube,
+  instagram,
+  pinterest,
+  tiktok,
+  twitter,
 }

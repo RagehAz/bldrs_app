@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
@@ -11,17 +10,14 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/sql_viewer.dart';
 import 'package:bldrs/db/firestore/bz_ops.dart';
-import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/db/ldb/sql_db/bz_sql_db.dart';
 import 'package:bldrs/db/ldb/sql_db/flyer_sql_db.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_methods.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
@@ -71,7 +67,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
-  List<TinyFlyer> _savedTinyFlyers = <TinyFlyer>[];
+  List<FlyerModel> _savedFlyers = <FlyerModel>[];
   FlyersProvider _flyersProvider;
   List<BzModel> _followedBzz = <BzModel>[];
 
@@ -81,7 +77,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 
     _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
-    _savedTinyFlyers =  _flyersProvider.savedTinyFlyers;
+    _savedFlyers =  _flyersProvider.savedFlyers;
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -316,7 +312,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
     final List<AuthorModel> _allAuthors = AuthorModel.combineAllBzzAuthors(_allBzzFromLDB);
 
 
-    final List<Map<String, Object>> _authorsMaps = await AuthorModel.sqlCipherAuthors(authors: _allAuthors);
+    final List<Map<String, Object>> _authorsMaps = await SQLMethods.sqlCipherAuthors(authors: _allAuthors);
     final List<Map<String, Object>> _bzzMaps = await SQLMethods.sqlCipherBzz(_allBzzFromLDB);
 
     setState(() {
@@ -473,7 +469,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
         ),
 
         FollowingBzzBubble(
-          tinyBzz: TinyBz.getTinyBzzFromBzzModels(_followedBzz),
+          bzzModels: _followedBzz,
           onBzTap: (String bzID) async {
 
             final BzModel _bz = BzModel.getBzFromBzzByBzID(_followedBzz, bzID);
@@ -502,16 +498,12 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
           title: 'Saved Flyers',
           titleIcon: Iconz.SavedFlyers,
           flyersType: FlyerType.non,
-          tinyFlyers: _savedTinyFlyers,
-          flyerOnTap: (TinyFlyer tinyFlyer) async {
-            print('tapped on ${tinyFlyer.flyerID}');
+          flyers: _savedFlyers,
+          flyerOnTap: (FlyerModel flyer) async {
+            print('tapped on ${flyer.flyerID}');
 
-            final FlyerModel _flyer = await FlyerOps().readFlyerOps(
-              context: context,
-              flyerID: tinyFlyer.flyerID,
-            );
 
-            await _insertFlyerToLDB(flyer: _flyer);
+            await _insertFlyerToLDB(flyer: flyer);
           },
 
           onScrollEnd: (){print('fuck this');},

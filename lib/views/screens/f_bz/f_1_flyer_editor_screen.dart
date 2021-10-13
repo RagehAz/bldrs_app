@@ -3,22 +3,22 @@ import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/slides_counter.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class FlyerEditorScreen extends StatelessWidget {
   final BzModel bzModel;
   final bool firstTimer;
-  final TinyFlyer tinyFlyer;
+  final FlyerModel flyerModel;
 
   FlyerEditorScreen({
     @required this.bzModel,
     @required this.firstTimer,
-    @required this.tinyFlyer,
+    @required this.flyerModel,
   });
 
   @override
@@ -68,8 +68,7 @@ class FlyerEditorScreen extends StatelessWidget {
             alignment: Alignment.center,
             child: FinalFlyer(
               flyerBoxWidth: _flyerBoxWidth,
-              flyerModel: null,
-              tinyFlyer: firstTimer == true ? null : tinyFlyer, // redundant
+              flyerModel: firstTimer == true ? null : flyerModel,
               goesToEditor: true,
               initialSlideIndex: 0,
               inEditor: true,

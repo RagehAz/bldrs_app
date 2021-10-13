@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
@@ -36,18 +36,18 @@ class NotificationFlyers extends StatelessWidget {
           itemBuilder: (ctx, index){
 
             final String _flyerID = flyers[0].runtimeType == String ? flyers[index] : null;
-            final TinyFlyer _tinyFlyer = flyers[0].runtimeType == TinyFlyer ? flyers[index] : null;
+            final FlyerModel _flyer = flyers[0].runtimeType == FlyerModel ? flyers[index] : null;
 
             return
               GestureDetector(
-                onTap: onFlyerTap == null ? null : () => onFlyerTap(_flyerID ?? _tinyFlyer.flyerID),
+                onTap: onFlyerTap == null ? null : () => onFlyerTap(_flyerID ?? _flyer.flyerID),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: AbsorbPointer(
                     absorbing: onFlyerTap == null ? false : true,
                     child: FinalFlyer(
                       flyerBoxWidth: FlyerBox.width(context, FlyerBox.sizeFactorByHeight(context, 200)),
-                      tinyFlyer: _tinyFlyer,
+                      flyerModel: _flyer,
                       flyerID: _flyerID,
                     ),
                   ),

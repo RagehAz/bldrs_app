@@ -1,9 +1,7 @@
 import 'dart:typed_data';
-
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/flyer_editor.dart';
 import 'package:bldrs/models/flyer/mutables/flyer_navigator.dart';
@@ -12,9 +10,7 @@ import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -60,7 +56,6 @@ class SuperFlyer{
   /// flyer data
   FlyerType flyerType; // MutableFlyer -- ?
   FlyerState flyerState; // MutableFlyer -- ?
-  TinyUser flyerTinyAuthor; // tinyAuthor
   bool flyerShowsAuthor; // MutableFlyer -- ?
 
   /// flyer tags
@@ -117,7 +112,6 @@ class SuperFlyer{
     /// flyer data
     @required this.flyerType,
     @required this.flyerState,
-    @required this.flyerTinyAuthor,
     @required this.flyerShowsAuthor,
 
     /// flyer tags
@@ -229,7 +223,6 @@ class SuperFlyer{
           /// flyer data
           flyerType: null,
           flyerState: null,
-          flyerTinyAuthor: null,
           flyerShowsAuthor: null,
 
           /// flyer tags
@@ -252,6 +245,7 @@ class SuperFlyer{
   static SuperFlyer createViewSuperFlyerFromFlyerModel({
     @required BuildContext context,
     @required FlyerModel flyerModel,
+    @required BzModel bzModel,
     @required int initialPage,
     @required Function onHorizontalSlideSwipe,
     @required Function onVerticalPageSwipe,
@@ -318,7 +312,7 @@ class SuperFlyer{
             onCountersTap: onCountersTap,
             /// user based bool triggers
             ankhIsOn: _flyersProvider.checkAnkh(flyerModel.flyerID),
-            followIsOn: _bzzProvider.checkFollow(context: context, bzID: flyerModel.tinyBz.bzID),
+            followIsOn: _bzzProvider.checkFollow(context: context, bzID: flyerModel.bzID),
             onEditReview: onEditReview,
             onSubmitReview: onSubmitReview,
             reviewController: new TextEditingController(),
@@ -348,34 +342,7 @@ class SuperFlyer{
           canDelete: true,
         ),
         mSlides: MutableSlide.getViewMutableSlidesFromSlidesModels(flyerModel.slides),
-        bz: BzModel(
-          bzID: flyerModel.tinyBz.bzID,
-          bzType: flyerModel.tinyBz.bzType,
-          bzForm: null,
-          createdAt: null,
-          accountType: null,
-          bzName: flyerModel.tinyBz.bzName,
-          bzLogo: flyerModel.tinyBz.bzLogo,
-          bzScope: null,
-          bzZone: flyerModel.tinyBz.bzZone,
-          bzAbout: null,
-          bzPosition: null,
-          bzContacts: null,
-          bzAuthors: null,
-          bzShowsTeam: null,
-          bzIsVerified: null,
-          bzAccountIsDeactivated: null,
-          bzAccountIsBanned: null,
-          bzTotalFollowers: flyerModel.tinyBz.bzTotalFollowers,
-          bzTotalSaves: null,
-          bzTotalShares: null,
-          bzTotalSlides: null,
-          bzTotalViews: null,
-          bzTotalCalls: null,
-          flyersIDs: <String>[],
-          bzTotalFlyers: null,
-          authorsIDs: <String>[flyerModel.tinyAuthor.userID],
-        ),
+        bz: bzModel,
 
         loading: false,
 
@@ -394,12 +361,11 @@ class SuperFlyer{
         /// flyer identifiers
         key: ValueKey(flyerModel.flyerID),
         flyerID: flyerModel.flyerID,
-        authorID: flyerModel.tinyAuthor.userID,
+        authorID: flyerModel.authorID,
 
         /// flyer data
         flyerType: flyerModel.flyerType,
         flyerState: flyerModel.flyerState,
-        flyerTinyAuthor: flyerModel.tinyAuthor,
         flyerShowsAuthor: flyerModel.flyerShowsAuthor,
 
         /// flyer tags
@@ -414,171 +380,6 @@ class SuperFlyer{
         /// publishing times
         times: flyerModel.times,
         priceTagIsOn: flyerModel.priceTagIsOn,
-      );
-  }
-// -----------------------------------------------------------------------------
-  static SuperFlyer createViewSuperFlyerFromTinyFlyer({
-    @required BuildContext context,
-    @required TinyFlyer tinyFlyer,
-    @required Function onHeaderTap,
-    @required Function onTinyFlyerTap,
-    @required Function onAnkhTap,
-  }){
-
-    // print('CREATING view super flyer from tiny flyer : ${tinyFlyer.flyerID} : ${tinyFlyer?.midColor} : : ${tinyFlyer?.tinyBz?.bzName}');
-
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-
-    return
-      SuperFlyer(
-        nav: FlyerNavigator(
-          /// animation controller
-          horizontalController: null,
-          verticalController: null,
-          infoScrollController: null,
-          /// animation functions
-          onHorizontalSlideSwipe: null,
-          onVerticalPageSwipe: null,
-          onVerticalPageBack: null,
-          onHeaderTap: onHeaderTap,
-          onSlideRightTap: null,
-          onSlideLeftTap: null,
-          onSwipeFlyer: null,
-          onTinyFlyerTap: onTinyFlyerTap,
-          /// animation parameters
-          progressBarOpacity: 1,
-          swipeDirection: SwipeDirection.next,
-          bzPageIsOn: false,
-          listenToSwipe: false,
-          getInfoScrollOffset: null,
-          onSaveInfoScrollOffset: null,
-        ),
-        rec: FlyerRecorder(
-          /// record functions
-          onViewSlide: null,
-          onAnkhTap: onAnkhTap,
-          onShareTap: null,
-          onFollowTap: null,
-          onCallTap: null,
-          onCountersTap: null,
-          /// user based bool triggers
-          ankhIsOn: _flyersProvider.checkAnkh(tinyFlyer.flyerID),
-          followIsOn: _bzzProvider.checkFollow(context: context, bzID: tinyFlyer.tinyBz.bzID),
-          onEditReview: null,
-          onSubmitReview: null,
-          reviewController: null,
-          onShowReviewOptions: null,
-        ),
-        edit: FlyerEditor(
-          /// editor functions
-          onAddImages: null,
-          onDeleteSlide: null,
-          onCropImage: null,
-          onResetImage: null,
-          onFitImage: null,
-          onFlyerTypeTap: null,
-          onZoneTap: null,
-          onEditInfoTap: null,
-          onEditKeywordsTap: null,
-          onShowAuthorTap: null,
-          onTriggerEditMode: null,
-          onPublishFlyer: null,
-          onDeleteFlyer: null,
-          onUnPublishFlyer: null,
-          onRepublishFlyer: null,
-          /// editor data
-          firstTimer: false,
-          editMode: false,
-          canDelete: true,
-        ),
-        mSlides: <MutableSlide>[MutableSlide(
-            slideIndex: tinyFlyer.slideIndex,
-            picURL: tinyFlyer.slidePic,
-            picFile: null,
-            picAsset: null,
-            headline: tinyFlyer.headline,
-            headlineController: null,
-            description: null,
-            descriptionController: null,
-            picFit: tinyFlyer.picFit,
-            savesCount: null,
-            sharesCount: null,
-            viewsCount: null,
-            imageSize: null,
-            midColor: tinyFlyer.midColor,
-            opacity: 1,
-          ),],
-        bz: BzModel(
-          bzID: tinyFlyer.tinyBz.bzID,
-          bzType: tinyFlyer?.tinyBz?.bzType,
-          bzForm: null,
-          createdAt: null,
-          accountType: null,
-          bzName: tinyFlyer.tinyBz.bzName,
-          bzLogo: tinyFlyer.tinyBz.bzLogo,
-          bzScope: null,
-          bzZone: tinyFlyer.tinyBz.bzZone,
-          bzAbout: null,
-          bzPosition: null,
-          bzContacts: null,
-          bzAuthors: null,
-          bzShowsTeam: null,
-          bzIsVerified: null,
-          bzAccountIsDeactivated: null,
-          bzAccountIsBanned: null,
-          flyersIDs: <String>[],
-          bzTotalFollowers: tinyFlyer.tinyBz.bzTotalFollowers,
-          bzTotalFlyers: tinyFlyer.tinyBz.bzTotalFlyers,
-          bzTotalSaves: null,
-          bzTotalShares: null,
-          bzTotalSlides: null,
-          bzTotalViews: null,
-          bzTotalCalls: null,
-          authorsIDs: <String>[tinyFlyer.authorID],
-
-        ),
-        loading: false,
-
-
-
-        /// editor data
-        infoController: null,
-        screenShots: null,
-
-        /// slides settings
-        numberOfSlides: 1,
-        numberOfStrips: 1,
-
-        /// current slide settings
-        initialSlideIndex: 0,
-        currentSlideIndex: 0,
-        verticalIndex: 0,
-
-
-        /// flyer identifiers
-        key: ValueKey(tinyFlyer.flyerID),
-        flyerID: tinyFlyer.flyerID,
-        authorID: tinyFlyer.authorID,
-
-        /// flyer data
-        flyerType: tinyFlyer.flyerType,
-        flyerState: null,
-        flyerTinyAuthor: null,
-        flyerShowsAuthor: null,
-
-        /// flyer tags
-        flyerInfo: null,
-        specs: null,
-        keywords: Keyword.getKeywordsByKeywordsIDs(tinyFlyer.keywordsIDs),
-
-        /// flyer location
-        flyerZone: tinyFlyer.flyerZone,
-        position: null,
-
-        /// publishing times
-        times: null,
-        priceTagIsOn: tinyFlyer.priceTagIsOn,
       );
   }
 // -----------------------------------------------------------------------------
@@ -743,7 +544,6 @@ class SuperFlyer{
         /// flyer data
         flyerType: FlyerTypeClass.concludeFlyerType(bzModel.bzType),
         flyerState: FlyerState.draft,
-        flyerTinyAuthor: TinyUser.getTinyAuthorFromBzModel(bzModel: bzModel, authorID: superUserID()),
         flyerShowsAuthor: FlyerModel.canFlyerShowAuthor(bzModel: bzModel),
 
         /// flyer tags
@@ -921,7 +721,6 @@ class SuperFlyer{
         /// flyer data
         flyerType: flyerModel.flyerType,
         flyerState: flyerModel.flyerState,
-        flyerTinyAuthor: flyerModel.tinyAuthor,
         flyerShowsAuthor: flyerModel.flyerShowsAuthor,
 
         /// flyer tags
@@ -939,19 +738,6 @@ class SuperFlyer{
       );
 
   }
-// -----------------------------------------------------------------------------
-static TinyBz getTinyBzFromSuperFlyer(SuperFlyer superFlyer){
-    return
-        TinyBz(
-            bzID: superFlyer.bz.bzID,
-            bzLogo: superFlyer.bz.bzLogo,
-            bzName: superFlyer.bz.bzName,
-            bzType: superFlyer.bz.bzType,
-            bzZone: superFlyer.bz.bzZone,
-            bzTotalFollowers: superFlyer.bz.bzTotalFollowers,
-            bzTotalFlyers: superFlyer.bz.bzTotalFlyers,
-        );
-}
 // -----------------------------------------------------------------------------
 static SuperFlyer getSuperFlyerFromBzModelOnly({
   BzModel bzModel,
@@ -1046,7 +832,6 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         /// flyer data
         flyerType: null,
         flyerState: null,
-        flyerTinyAuthor: null,
         flyerShowsAuthor: null,
 
         /// flyer tags

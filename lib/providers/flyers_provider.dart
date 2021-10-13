@@ -5,7 +5,6 @@ import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -50,7 +49,7 @@ class FlyersProvider extends ChangeNotifier {
       print('fetchFlyerByID : flyer NOT found in local db');
 
       /// 2.1 read firebase flyer ops
-      _flyer = await FlyerOps().readFlyerOps(
+      _flyer = await FlyerOps.readFlyerOps(
         context: context,
         flyerID: flyerID,
       );
@@ -94,10 +93,10 @@ class FlyersProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   /// SAVED FLYERS
-  List<TinyFlyer> _savedFlyers = <TinyFlyer>[];
+  List<FlyerModel> _savedFlyers = <FlyerModel>[];
 // -------------------------------------
-  List<TinyFlyer> get savedTinyFlyers {
-    return <TinyFlyer>[..._savedFlyers];
+  List<FlyerModel> get savedFlyers {
+    return <FlyerModel>[..._savedFlyers];
   }
 // -------------------------------------
   Future<void> fetchSavedFlyers(BuildContext context) async {
@@ -114,9 +113,7 @@ class FlyersProvider extends ChangeNotifier {
         flyersIDs: _savedFlyersIDs,
       );
 
-      final List<TinyFlyer> _tinyFlyers = TinyFlyer.getTinyFlyersFromFlyersModels(_flyers);
-
-      _savedFlyers = _tinyFlyers;
+      _savedFlyers = _flyers;
       notifyListeners();
 
     }
@@ -126,9 +123,9 @@ class FlyersProvider extends ChangeNotifier {
   bool checkAnkh(String flyerID){
     bool _ankhIsOn = false;
 
-    final TinyFlyer _tinyFlyer = _savedFlyers?.firstWhere((flyer) => flyer.flyerID == flyerID, orElse: () => null);
+    final FlyerModel _flyer = _savedFlyers?.firstWhere((flyer) => flyer.flyerID == flyerID, orElse: () => null);
 
-    if(_tinyFlyer == null){
+    if(_flyer == null){
       _ankhIsOn = false;
     } else {
       _ankhIsOn = true;
@@ -137,38 +134,38 @@ class FlyersProvider extends ChangeNotifier {
     return _ankhIsOn;
   }
 // -------------------------------------
-  void addOrDeleteTinyFlyerInLocalSavedTinyFlyers(TinyFlyer _inputTinyFlyer){
+  void addOrDeleteFlyerInSavedFlyers(FlyerModel _inputFlyer){
 
-    final TinyFlyer _savedTinyFlyer =
-    _savedFlyers.singleWhere((tf) => tf.flyerID == _inputTinyFlyer.flyerID, orElse: ()=> null);
+    final FlyerModel _savedFlyer =
+    _savedFlyers.singleWhere((tf) => tf.flyerID == _inputFlyer.flyerID, orElse: ()=> null);
 
-    if (_savedTinyFlyer == null){
+    if (_savedFlyer == null){
       /// so flyer is not already saved, so we save it
-      _savedFlyers.add(_inputTinyFlyer);
+      _savedFlyers.add(_inputFlyer);
     } else {
       /// so flyer is already saved, so we remove it
-      final int _savedTinyFlyerIndex =
-      _savedFlyers.indexWhere((tf) => tf.flyerID == _inputTinyFlyer.flyerID, );
+      final int _savedFlyerIndex =
+      _savedFlyers.indexWhere((tf) => tf.flyerID == _inputFlyer.flyerID, );
 
-      _savedFlyers.removeAt(_savedTinyFlyerIndex);
+      _savedFlyers.removeAt(_savedFlyerIndex);
     }
 
     notifyListeners();
   }
 // -------------------------------------
-  TinyFlyer getSavedTinyFlyerByFlyerID(String flyerID){
-    final TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromTinyFlyers(
-      tinyFlyers: _savedFlyers,
+  FlyerModel getSavedFlyerByFlyerID(String flyerID){
+    final FlyerModel  _flyer = FlyerModel.getFlyerFromFlyersByID(
+      flyers: _savedFlyers,
       flyerID: flyerID,
     );
-    return _tinyFlyer;
+    return  _flyer;
   }
 // -----------------------------------------------------------------------------
   /// WALL FLYERS
-  List<TinyFlyer> _wallTinyFlyers;
+  List<FlyerModel> _wallFlyers;
 // -------------------------------------
-  List<TinyFlyer> get wallTinyFlyers {
-    return <TinyFlyer>[..._wallTinyFlyers];
+  List<FlyerModel> get wallTinyFlyers {
+    return <FlyerModel>[..._wallFlyers];
   }
 // -------------------------------------
   Future<void> fetchFlyersBySection({BuildContext context, Section section}) async {
@@ -193,16 +190,16 @@ class FlyersProvider extends ChangeNotifier {
           /// READ data from cloud Firestore flyers collection
 
 
-          final List<TinyFlyer> _foundTinyFlyers = await FireSearch.flyersByZoneAndFlyerType(
+          final List<FlyerModel> _foundFlyers = await FireSearch.flyersByZoneAndFlyerType(
             context: context,
             zone: _currentZone,
             flyerType: _flyerType,
           );
 
 
-          // print('${(TinyFlyer.cipherTinyFlyers(_foundTinyFlyers)).toString()}');
+          // print('${(TinyFlyer.cipherTinyFlyers(_foundFlyers)).toString()}');
 
-          _wallTinyFlyers = _foundTinyFlyers;
+          _wallFlyers = _foundFlyers;
 
           notifyListeners();
           // print('_loadedTinyBzz :::: --------------- $_loadedTinyBzz');
@@ -214,31 +211,27 @@ class FlyersProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   /// ACTIVE BZ FLYERS
-  List<TinyFlyer> _activeBzTinyFlyers = <TinyFlyer>[];
+  List<FlyerModel> _activeBzFlyers = <FlyerModel>[];
 // -------------------------------------
-  List<TinyFlyer> get activeBzFlyer{
-    return _activeBzTinyFlyers;
+  List<FlyerModel> get activeBzFlyer{
+    return _activeBzFlyers;
   }
 // -------------------------------------
   Future<void> fetchActiveBzFlyers({BuildContext context, String bzID}) async {
-    List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     final BzModel _activeBz = _bzzProvider.activeBz;
-    final List<String> _activeBzFlyers = _activeBz.flyersIDs;
+    final List<String> _bzFlyersIDs = _activeBz.flyersIDs;
 
-    if (Mapper.canLoopList(_activeBzFlyers)){
+    if (Mapper.canLoopList(_bzFlyersIDs)){
 
-      final List<FlyerModel> _flyers = await fetchFlyersByIDs(context: context, flyersIDs: _activeBzFlyers);
+      final List<FlyerModel> _flyers = await fetchFlyersByIDs(context: context, flyersIDs: _bzFlyersIDs);
 
-      if (Mapper.canLoopList(_flyers)){
-        _tinyFlyers = TinyFlyer.getTinyFlyersFromFlyersModels(_flyers);
-      }
+      _activeBzFlyers = _flyers;
+      notifyListeners();
 
     }
 
-    _activeBzTinyFlyers = _tinyFlyers;
-    notifyListeners();
   }
 // -------------------------------------
 }

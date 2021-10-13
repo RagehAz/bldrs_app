@@ -59,7 +59,7 @@ class FlyerHeader extends StatelessWidget {
                   BzPageHeadline(
                     flyerBoxWidth: flyerBoxWidth,
                     bzPageIsOn: superFlyer.nav.bzPageIsOn,
-                    tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
+                    bzModel: superFlyer.bz,
                   ),
 
                 ],
@@ -71,7 +71,7 @@ class FlyerHeader extends StatelessWidget {
               superFlyer: superFlyer,
               flyerBoxWidth: flyerBoxWidth,
               bzPageIsOn: superFlyer.nav.bzPageIsOn,
-              tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
+              bzModel: superFlyer.bz,
             ),
 
           ],

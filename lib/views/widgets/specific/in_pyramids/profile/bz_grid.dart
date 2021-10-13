@@ -1,16 +1,16 @@
-import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
+import 'package:flutter/material.dart';
 
 class BzGrid extends StatelessWidget {
 
   final double gridZoneWidth;
   final int numberOfColumns;
-  final List<TinyBz> tinyBzz;
+  final List<BzModel> bzzModels;
   final Function itemOnTap;
   final Axis scrollDirection;
   final int numberOfRows;
@@ -19,7 +19,7 @@ class BzGrid extends StatelessWidget {
   const BzGrid({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
-    @required this.tinyBzz,
+    @required this.bzzModels,
     this.itemOnTap,
     @required this.scrollDirection,
     this.numberOfRows = 1,
@@ -29,14 +29,14 @@ class BzGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final List<TinyBz> _tinyBzz = tinyBzz == null ? <TinyBz>[] : tinyBzz;
+    final List<BzModel> _bzz = bzzModels == null ? <BzModel>[] : bzzModels;
 
     const List<Color> _boxesColors = <Color>[Colorz.White30, Colorz.White20, Colorz.White10];
 
     const double _spacingRatioToGridWidth = 0.1;
     final double _logoWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     final double _gridSpacing = _logoWidth * _spacingRatioToGridWidth;
-    // int _bzCount = _tinyBzz == <TinyBz>[] || _tinyBzz.length == 0 ? _boxesColors.length : tinyBzz.length;
+    // int _bzCount = _bzz == <TinyBz>[] || _bzz.length == 0 ? _boxesColors.length : tinyBzz.length;
     // int _getNumberOfRowsByCount(int _bzCount){return (_bzCount/numberOfColumns).ceil();}
     // int _numOfRows = numberOfRows == null ? _getNumberOfRowsByCount(_bzCount) : numberOfRows;
     final double _logoHeight = _logoWidth;
@@ -70,7 +70,7 @@ class BzGrid extends StatelessWidget {
             children: <Widget>[
 
               /// --- GRID FOOTPRINTS
-              if (_tinyBzz.length == 0)
+              if (_bzz.length == 0)
                 GridView(
                   physics: _physics,
                   scrollDirection: _scrollDirection,
@@ -117,7 +117,7 @@ class BzGrid extends StatelessWidget {
                 ),
 
               /// --- REAL GRID
-              if (_tinyBzz.length != 0)
+              if (_bzz.length != 0)
                 GridView(
                   physics: _physics,
                   scrollDirection: _scrollDirection,
@@ -128,7 +128,7 @@ class BzGrid extends StatelessWidget {
                   gridDelegate: _gridDelegate,
                   children: <Widget>[
 
-                    ..._tinyBzz.map(
+                    ..._bzz.map(
                           (bz) => Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,

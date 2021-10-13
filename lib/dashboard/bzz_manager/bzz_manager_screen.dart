@@ -4,21 +4,19 @@ import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog_row.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/mini_header_strip.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog_row.dart';
 
 class BzzManagerScreen extends StatefulWidget {
 
@@ -75,11 +73,11 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   }
 // -----------------------------------------------------------------------------
   QueryDocumentSnapshot _lastSnapshot;
-  List<TinyBz> _tinyBzz = <TinyBz>[];
+  List<BzModel> _bzzModels = <BzModel>[];
   Future<dynamic> _readMoreBzz() async {
 
     final List<dynamic> _bzzMaps = await Fire.readCollectionDocs(
-      collectionName: FireCollection.tinyBzz,
+      collectionName: FireCollection.bzz,
       orderBy: 'bzID',
       limit: 100,
       startAfter: _lastSnapshot,
@@ -89,19 +87,19 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
     setState(() {
       _lastSnapshot = _bzzMaps[_bzzMaps.length - 1]['docSnapshot'];
-      _tinyBzz.addAll(TinyBz.decipherTinyBzzMaps(_bzzMaps));
+      _bzzModels.addAll(BzModel.decipherBzzMaps(maps: _bzzMaps, fromJSON: false));
       _loading = false;
     });
 
   }
 // -----------------------------------------------------------------------------
-  List<TinyBz> _searchedTinyBzz = [];
+  List<BzModel> _searchedBzz = [];
   void _onSearchChanged(String value){
 
     final String val = TextMod.removeSpacesFromAString(value);
 
     final bool _searchValueIsEmpty =  val == '';
-    final bool _searchResultIsEmpty = _searchedTinyBzz.length == 0;
+    final bool _searchResultIsEmpty = _searchedBzz.length == 0;
 
     /// A - when field has NO value
     if (_searchValueIsEmpty){
@@ -109,7 +107,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
       /// B - when search result has values
       if (_searchResultIsEmpty == false){
         setState(() {
-          _searchedTinyBzz = [];
+          _searchedBzz = [];
         });
       }
 
@@ -122,7 +120,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     /// A - when field has value
     else {
 
-      for (var tinyBz in _tinyBzz){
+      for (var tinyBz in _bzzModels){
 
         final bool _matchFound = TextChecker.stringContainsSubString(
           caseSensitive: false,
@@ -131,9 +129,9 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
           multiLine: false,
         );
 
-        final bool _alreadyInList = TinyBz.tinyBzzContainThisTinyBz(
-          tinyBzz: _searchedTinyBzz,
-          tinyBz: tinyBz,
+        final bool _alreadyInList = BzModel.BzzContainThisBz(
+          bzz: _searchedBzz,
+          bzModel: tinyBz,
         ) == true;
 
         // print('_alreadyInList : ${tinyBz.bzID} : $_alreadyInList');
@@ -146,7 +144,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
           else {
             setState(() {
-              _searchedTinyBzz.remove(tinyBz);
+              _searchedBzz.remove(tinyBz);
             });
           }
 
@@ -156,7 +154,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
           if (_matchFound == true){
             setState(() {
-              _searchedTinyBzz.add(tinyBz);
+              _searchedBzz.add(tinyBz);
             });
           }
 
@@ -183,17 +181,17 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
     final double _clearDialogWidth = BottomDialog.dialogClearWidth(context);
 
-    final List<TinyBz> _bzz = _searchedTinyBzz.length == 0 ? _tinyBzz : _searchedTinyBzz;
+    final List<BzModel> _bzz = _searchedBzz.length == 0 ? _bzzModels : _searchedBzz;
 
     return
 
-    _tinyBzz == null ?
+    _bzzModels == null ?
     LoadingFullScreenLayer()
         :
       MainLayout(
         pyramids: Iconz.PyramidsYellow,
         appBarType: AppBarType.Search,
-        pageTitle: '${_tinyBzz.length} Bzz Manager',
+        pageTitle: '${_bzzModels.length} Bzz Manager',
         // appBarBackButton: true,
         loading: _loading,
         sectionButtonIsOn: false,
@@ -218,8 +216,8 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
               padding: const EdgeInsets.only(bottom: Ratioz.stratosphere, top: Stratosphere.bigAppBarStratosphere),
               itemBuilder: (ctx, index){
 
-                final TinyBz _tinyBz = _bzz[index];
-                final String _bzName = _tinyBz.bzName == null || _tinyBz.bzName == '' ? '.....' : _tinyBz.bzName;
+                final BzModel _bz = _bzz[index];
+                final String _bzName = _bz.bzName == null || _bz.bzName == '' ? '.....' : _bz.bzName;
 
                 return
 
@@ -228,17 +226,12 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                     width: _screenWidth - Ratioz.appBarMargin * 2,
                     color: Colorz.White20,
                     verse: _bzName,
-                    icon: _tinyBz.bzLogo,
+                    icon: _bz.bzLogo,
                     margins: EdgeInsets.only(top: _bzButtonMargin),
                     verseScaleFactor: 0.7,
                     verseCentered: false,
-                    secondLine: _tinyBz.bzID,
+                    secondLine: _bz.bzID,
                     onTap: () async {
-
-                      final BzModel _bz = await BzOps.readBzOps(
-                        context: context,
-                        bzID: _tinyBz.bzID,
-                      );
 
                       final double _dialogHeight = _screenHeight * 0.8;
 

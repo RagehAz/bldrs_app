@@ -5,6 +5,8 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
@@ -531,4 +533,19 @@ class SlideModel {
     return _allSlidesSQLMaps;
   }
 // -----------------------------------------------------------------------------
+  static SlideModel dummySlide(){
+    return
+        SlideModel(
+            slideIndex: 0,
+            pic: Iconz.DumSlide1,
+            headline: 'Headliner',
+            description: 'Descriptor',
+            sharesCount: 2540256,
+            viewsCount: 5442574,
+            savesCount: 5402540,
+            picFit: BoxFit.cover,
+            imageSize: ImageSize(height: 900, width: 600),
+            midColor: Colorz.Black255,
+        );
+  }
 }

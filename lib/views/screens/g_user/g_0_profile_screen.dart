@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/db/firestore/user_ops.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
@@ -37,7 +37,7 @@ class UserProfileScreen extends StatefulWidget {
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
   UserStatus _currentUserStatus;
-  List<TinyBz> _followedTinyBzz;
+  List<BzModel> _followedBzz;
   List<String> _followedBzzIDs;
   // FlyersProvider _pro;
   bool _isInit = true;
@@ -71,7 +71,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _followedTinyBzz = <TinyBz>[];
+    _followedBzz = <BzModel>[];
     _followedBzzIDs = <String>[];
   }
 // -----------------------------------------------------------------------------
@@ -88,11 +88,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
         if (Mapper.canLoopList(_followedBzzIDs)){
           for (var id in _followedBzzIDs) {
-            final TinyBz _tinyBz = await BzOps.readTinyBzOps(
+            final BzModel _bzModel = await BzOps.readBzOps(
               context: context,
               bzID: id,
             );
-            _followedTinyBzz.add(_tinyBz);
+            _followedBzz.add(_bzModel);
           }
         }
 
@@ -166,7 +166,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       _triggerLoading();
 
       /// start delete bz ops
-      final dynamic _result = await UserOps().superDeleteUserOps(
+      final dynamic _result = await UserOps.superDeleteUserOps(
         context: context,
         userModel: userModel,
       );
@@ -222,7 +222,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       _triggerLoading();
 
       /// start deactivate user ops
-      final dynamic _result = await UserOps().deactivateUserOps(
+      final dynamic _result = await UserOps.deactivateUserOps(
         context: context,
         userModel: userModel,
       );
@@ -340,7 +340,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
 
               FollowingBzzBubble(
-                tinyBzz: _followedTinyBzz,
+                bzzModels: _followedBzz,
               ),
 
               /// --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA

@@ -1,8 +1,8 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
-import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/bz/author_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/add_flyer_button.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class GalleryGrid extends StatelessWidget {
 
   final double gridZoneWidth;
-  final List<TinyFlyer> galleryFlyers;
+  final List<FlyerModel> galleryFlyers;
   final List<bool> flyersVisibilities;
   final String bzID;
   final List<AuthorModel> bzAuthors;
@@ -51,14 +51,14 @@ class GalleryGrid extends StatelessWidget {
     return _gridColumnsCount;
   }
 // -----------------------------------------------------------------------------
-  static double gridflyerBoxWidth({double gridZoneWidth, int flyersLength}){
+  static double gridFlyerBoxWidth({double gridZoneWidth, int flyersLength}){
     final int _gridColumnsCount = gridColumnCount(flyersLength);
     final double _gridFlyerWidth = gridZoneWidth / (_gridColumnsCount + (_gridColumnsCount * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     return _gridFlyerWidth;
   }
 // -----------------------------------------------------------------------------
   static double gridSpacing({double gridZoneWidth, int flyersLength}){
-    final double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: flyersLength);
+    final double _gridFlyerWidth = gridFlyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: flyersLength);
     return  _gridFlyerWidth * _spacingRatioToGridWidth;
   }
 // -----------------------------------------------------------------------------
@@ -70,7 +70,7 @@ class GalleryGrid extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static double gridHeight({BuildContext context, double gridZoneWidth, bool gridHasAddButton, int flyersLength}){
     // int _flyersCount = gridHasAddButton ? flyersLength + 1 : flyersLength;
-    final double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: flyersLength);
+    final double _gridFlyerWidth = gridFlyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: flyersLength);
     final double _gridFlyerHeight = _gridFlyerWidth * Ratioz.xxflyerZoneHeight;
     final int _numOfRows = numOfRows(flyersLength);
     final double _gridHeight = _gridFlyerHeight * (_numOfRows + (_numOfRows * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
@@ -80,11 +80,11 @@ class GalleryGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final List<TinyFlyer> _gridFlyers = galleryFlyers == null ? <TinyFlyer>[] : galleryFlyers;//pro.getAllFlyers;
+    final List<FlyerModel> _gridFlyers = galleryFlyers == null ? <FlyerModel>[] : galleryFlyers;//pro.getAllFlyers;
     final bool _viewerIsAuthor = _concludeUserIsAuthor();
 // -----------------------------------------------------------------------------
     final int _flyersLength = addButtonIsOn == true ? _gridFlyers.length + 1 : _gridFlyers.length;
-    final double _gridFlyerWidth = gridflyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: _flyersLength);
+    final double _gridFlyerWidth = gridFlyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: _flyersLength);
     final double _gridSpacing = gridSpacing(gridZoneWidth: gridZoneWidth, flyersLength: _flyersLength);
 // -----------------------------------------------------------------------------
     final double _gridHeight = gridHeight(
@@ -135,7 +135,7 @@ class GalleryGrid extends StatelessWidget {
 
                       FinalFlyer(
                         flyerBoxWidth: _gridFlyerWidth,
-                        tinyFlyer: _gridFlyers[index],
+                        flyerModel: _gridFlyers[index],
                         goesToEditor: true,
                         bzModel: bz,
                         inEditor: false,

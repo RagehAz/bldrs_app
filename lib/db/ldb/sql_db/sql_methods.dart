@@ -9,15 +9,12 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
-import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 
 class SQLMethods{
@@ -283,23 +280,9 @@ class SQLMethods{
       SQLColumn(key: 'zone_cityID', type: 'TEXT'),
       SQLColumn(key: 'zone_districtID', type: 'TEXT'),
       // -------------------------
-      SQLColumn(key: 'tinyAuthor_userID', type: 'TEXT'),
-      SQLColumn(key: 'tinyAuthor_name', type: 'TEXT'),
-      SQLColumn(key: 'tinyAuthor_title', type: 'TEXT'),
-      SQLColumn(key: 'tinyAuthor_pic', type: 'TEXT'), // or BLOB if we use Uint8List
-      SQLColumn(key: 'tinyAuthor_userStatus', type: 'INTEGER'),
-      SQLColumn(key: 'tinyAuthor_email', type: 'TEXT'),
-      SQLColumn(key: 'tinyAuthor_phone', type: 'TEXT'),
+      SQLColumn(key: 'authorID', type: 'TEXT'),
       // -------------------------
-      SQLColumn(key: 'tinyBz_bzID', type: 'TEXT'),
-      SQLColumn(key: 'tinyBz_bzLogo', type: 'TEXT'), // or BLOB if we use Uint8List
-      SQLColumn(key: 'tinyBz_bzName', type: 'TEXT'),
-      SQLColumn(key: 'tinyBz_bzType', type: 'INTEGER'),
-      SQLColumn(key: 'tinyBz_bzZone_countryID', type: 'TEXT'),
-      SQLColumn(key: 'tinyBz_bzZone_cityID', type: 'TEXT'),
-      SQLColumn(key: 'tinyBz_bzZone_districtID', type: 'TEXT'),
-      SQLColumn(key: 'tinyBz_bzTotalFollowers', type: 'INTEGER'),
-      SQLColumn(key: 'tinyBz_bzTotalFlyers', type: 'INTEGER'),
+      SQLColumn(key: 'bzID', type: 'TEXT'),
       // -------------------------
       SQLColumn(key: 'createdAt', type: 'TEXT'),
       SQLColumn(key: 'flyerPosition', type: 'TEXT'),
@@ -334,23 +317,9 @@ class SQLMethods{
       'zone_cityID' : flyer.flyerZone.cityID,
       'zone_districtID' : flyer.flyerZone.districtID,
 
-      'tinyAuthor_userID' : flyer.tinyAuthor.userID,
-      'tinyAuthor_name' : flyer.tinyAuthor.name,
-      'tinyAuthor_title' : flyer.tinyAuthor.title,
-      'tinyAuthor_pic' : await Imagers.urlOrImageFileToBase64(flyer.tinyAuthor.pic),
-      'tinyAuthor_userStatus' : UserModel.cipherUserStatus(flyer.tinyAuthor.userStatus),
-      'tinyAuthor_email' : flyer.tinyAuthor.email,
-      'tinyAuthor_phone' : flyer.tinyAuthor.phone,
+      'authorID' : flyer.authorID,
 
-      'tinyBz_bzID' : flyer.tinyBz.bzID,
-      'tinyBz_bzLogo' : await Imagers.urlOrImageFileToBase64(flyer.tinyBz.bzLogo),
-      'tinyBz_bzName' : flyer.tinyBz.bzName,
-      'tinyBz_bzType' : BzModel.cipherBzType(flyer.tinyBz.bzType),
-      'tinyBz_bzZone_countryID' : flyer.tinyBz.bzZone.countryID,
-      'tinyBz_bzZone_cityID' : flyer.tinyBz.bzZone.cityID,
-      'tinyBz_bzZone_districtID' : flyer.tinyBz.bzZone.districtID,
-      'tinyBz_bzTotalFollowers' : flyer.tinyBz.bzTotalFollowers,
-      'tinyBz_bzTotalFlyers' : flyer.tinyBz.bzTotalFlyers,
+      'bzID' : flyer.bzID,
 
       'flyerPosition' : Atlas.cipherGeoPoint(point : flyer.flyerPosition, toJSON: true),
       // 'numberOfSlides' : flyer.slides.length,
@@ -398,29 +367,9 @@ class SQLMethods{
           districtID: flyerMap['zone_districtID'],
         ),
 
-        tinyAuthor: TinyUser(
-          userID:  flyerMap['tinyAuthor_userID'],
-          name: flyerMap['tinyAuthor_name'],
-          title: flyerMap['tinyAuthor_title'],
-          pic: await Imagers.base64ToFile(flyerMap['tinyAuthor_pic']),
-          userStatus: UserModel.decipherUserStatus(flyerMap['tinyAuthor_userStatus']),
-          email: flyerMap['tinyAuthor_email'],
-          phone: flyerMap['tinyAuthor_phone'],
-        ),
+        authorID: flyerMap['authorID'],
 
-        tinyBz: TinyBz(
-          bzID: flyerMap['tinyBz_bzID'],
-          bzLogo: await Imagers.base64ToFile(flyerMap['tinyBz_bzLogo']),
-          bzName: flyerMap['tinyBz_bzName'],
-          bzType: BzModel.decipherBzType(flyerMap['tinyBz_bzType']),
-          bzZone: Zone(
-            countryID: flyerMap['tinyBz_bzZone_countryID'],
-            cityID: flyerMap['tinyBz_bzZone_cityID'],
-            districtID: flyerMap['tinyBz_bzZone_districtID'],
-          ),
-          bzTotalFollowers: flyerMap['tinyBz_bzTotalFollowers'],
-          bzTotalFlyers: flyerMap['tinyBz_bzTotalFlyers'],
-        ),
+        bzID: flyerMap['bzID'],
 
         flyerPosition: Atlas.decipherGeoPoint(point: flyerMap['flyerPosition'], fromJSON: true),
         slides: slides,
@@ -460,5 +409,89 @@ class SQLMethods{
     return _allFlyers;
   }
 // -----------------------------------------------------------------------------
+  static List<SQLColumn> createAuthorsLDBColumns(){
 
+    const List<SQLColumn> _authorsColumns = const <SQLColumn>[
+      SQLColumn(key: 'userID', type: 'TEXT', isPrimary: true),
+      SQLColumn(key: 'authorName', type: 'TEXT'),
+      SQLColumn(key: 'authorPic', type: 'TEXT'),
+      SQLColumn(key: 'authorTitle', type: 'TEXT'),
+      SQLColumn(key: 'authorIsMaster', type: 'INTEGER'),
+      SQLColumn(key: 'authorContacts', type: 'TEXT'),
+    ];
+
+    return _authorsColumns;
+  }
+// -----------------------------------------------------------------------------
+  static Future<Map<String, Object>> sqlCipherAuthor({AuthorModel author}) async {
+
+    final Map<String, Object> _authorSQLMap = {
+      'userID' : author.userID,
+      'authorName' : author.name,
+      'authorPic' : await Imagers.urlOrImageFileToBase64(author.pic),
+      'authorTitle' : author.title,
+      'authorIsMaster' : Numeric.sqlCipherBool(author.isMaster),
+      'authorContacts' : ContactModel.sqlCipherContacts(author.contacts),
+    };
+
+    return _authorSQLMap;
+  }
+// -----------------------------------------------------------------------------
+  static Future<List<Map<String, Object>>> sqlCipherAuthors({List<AuthorModel> authors}) async {
+    List<Map<String, Object>> _authorsMaps = <Map<String, Object>>[];
+
+    if (Mapper.canLoopList(authors)){
+
+      for (AuthorModel author in authors){
+
+        final Map<String, Object> _sqlAuthorMap = await sqlCipherAuthor(
+          author: author,
+        );
+
+        _authorsMaps.add(_sqlAuthorMap);
+
+      }
+
+    }
+
+    return _authorsMaps;
+  }
+// -----------------------------------------------------------------------------
+  static Future<AuthorModel> sqlDecipherAuthor({Map<String, Object> map}) async {
+    AuthorModel _author;
+
+    if (map != null){
+
+      _author = AuthorModel(
+        userID : map['userID'],
+        name : map['authorName'],
+        pic : await Imagers.base64ToFile(map['authorPic']),
+        title : map['authorTitle'],
+        isMaster : Numeric.sqlDecipherBool(map['authorIsMaster']),
+        contacts : ContactModel.sqlDecipherContacts(map['authorContacts']),
+      );
+
+    }
+
+    return _author;
+  }
+// -----------------------------------------------------------------------------
+  static Future<List<AuthorModel>> sqlDecipherAuthors({List<Map<String, Object>> maps}) async {
+    List<AuthorModel> _authors = <AuthorModel>[];
+
+    if (Mapper.canLoopList(maps)){
+
+      for (var map in maps){
+
+        final AuthorModel _author = await sqlDecipherAuthor(map: map);
+
+        _authors.add(_author);
+
+      }
+
+    }
+
+    return _authors;
+  }
+// -----------------------------------------------------------------------------
 }

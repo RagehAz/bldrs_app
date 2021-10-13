@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/users/old_user_provider.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
@@ -72,41 +71,6 @@ Widget userModelBuilder({
           );
 
           return builder(context, userModel);
-        }
-      }
-
-  );
-}
-// -----------------------------------------------------------------------------
-typedef tinyUserModelWidgetBuilder = Widget Function(
-    BuildContext context,
-    TinyUser tinyUser,
-    );
-// -----------------------------------------------------------------------------
-Widget tinyUserModelBuilder({
-  String userID,
-  BuildContext context,
-  tinyUserModelWidgetBuilder builder,
-}){
-
-  return FutureBuilder(
-      future: Fire.readDoc(
-        context: context,
-        collName: FireCollection.tinyUsers,
-        docName: userID,
-      ),
-      builder: (ctx, snapshot){
-
-        if (StreamChecker.connectionIsLoading(snapshot) == true){
-          return Loading(loading: true,);
-        }
-
-        else {
-
-          final Map<String, dynamic> _map = snapshot.data;
-          final TinyUser tinyUser = TinyUser.decipherTinyUserMap(_map);
-
-          return builder(context, tinyUser);
         }
       }
 

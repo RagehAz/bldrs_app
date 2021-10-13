@@ -1,12 +1,12 @@
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
+import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -208,20 +208,20 @@ class FireSearch {
 /// SEARCHING FLYERS
 // --------------------------------------
 /// SEARCH FLYERS BY AREA AND FLYER TYPE
-  static Future<List<TinyFlyer>> flyersByZoneAndFlyerType({
+  static Future<List<FlyerModel>> flyersByZoneAndFlyerType({
     BuildContext context,
     Zone zone,
     FlyerType flyerType,
   }) async {
 
-      List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
+      List<FlyerModel> _flyers = <FlyerModel>[];
 
       await tryAndCatch(
           context: context,
           methodName: 'mapsByTwoValuesEqualTo',
           functions: () async {
 
-            final CollectionReference _flyersCollection = Fire.getCollectionRef(FireCollection.tinyFlyers);
+            final CollectionReference _flyersCollection = Fire.getCollectionRef(FireCollection.flyers);
 
             QuerySnapshot _collectionSnapshot;
 
@@ -232,7 +232,7 @@ class FireSearch {
 
             _collectionSnapshot = await _flyersCollection
                 .where('flyerType', isEqualTo: _flyerType)
-                .where('flyerZone.provinceID', isEqualTo: _zone.cityID)
+                .where('flyerZone.cityID', isEqualTo: _zone.cityID)
                 .get();
 
 
@@ -241,11 +241,11 @@ class FireSearch {
               addDocsIDs: false,
             );
 
-             _tinyFlyers = TinyFlyer.decipherTinyFlyersMaps(_maps);
+             _flyers = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
 
           });
 
-      return _tinyFlyers;
+      return _flyers;
 
     }
 

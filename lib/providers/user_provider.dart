@@ -105,7 +105,7 @@ class UsersProvider extends ChangeNotifier {
       if (_map == null){
 
         /// search firebase
-        final UserModel _firebaseUserModel =  await UserOps().readUserOps(
+        final UserModel _firebaseUserModel =  await UserOps.readUserOps(
           context: context,
           userID: _userID,
         );

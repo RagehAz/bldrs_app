@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/providers/streamers/bz_streamer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_counter.dart';
@@ -18,14 +18,14 @@ import 'package:flutter/material.dart';
 class MaxHeader extends StatelessWidget {
   final double flyerBoxWidth;
   final bool bzPageIsOn;
-  final TinyBz tinyBz;
+  final BzModel bzModel;
   final SuperFlyer superFlyer;
 
 
   const MaxHeader({
     @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
-    @required this.tinyBz,
+    @required this.bzModel,
     @required this.superFlyer,
   });
 // -----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ class MaxHeader extends StatelessWidget {
 
     return bzModelBuilder(
       context: context,
-      bzID: tinyBz.bzID,
+      bzID: bzModel.bzID,
       builder: (ctx, bz){
 // -----------------------------------------------------------------------------
         final String _bzScope = bz != null ? bz.bzScope : '';

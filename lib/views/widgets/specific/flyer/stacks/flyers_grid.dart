@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
@@ -13,7 +13,7 @@ class FlyersGrid extends StatefulWidget {
 
   final double gridZoneWidth;
   final int numberOfColumns;
-  final List<TinyFlyer> tinyFlyers;
+  final List<FlyerModel> flyers;
   final bool scrollable;
   final bool stratosphere;
   final Axis scrollDirection;
@@ -22,7 +22,7 @@ class FlyersGrid extends StatefulWidget {
   const FlyersGrid({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
-    this.tinyFlyers,
+    this.flyers,
     this.scrollable = false,
     this.stratosphere = false,
     this.scrollDirection = Axis.vertical,
@@ -34,7 +34,7 @@ class FlyersGrid extends StatefulWidget {
 }
 
 class _FlyersGridState extends State<FlyersGrid> {
-  List<TinyFlyer> _tinyFlyers;
+  List<FlyerModel> flyers;
   // bool _isInit = true;
 // -----------------------------------------------------------------------------
   @override
@@ -43,7 +43,7 @@ class _FlyersGridState extends State<FlyersGrid> {
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
     // savedFlyers = await pro.getSavedFlyers;
-    _tinyFlyers = widget.tinyFlyers == null ? _flyersProvider.savedTinyFlyers : widget.tinyFlyers;
+    flyers = widget.flyers == null ? _flyersProvider.savedFlyers : widget.flyers;
   }
 // -----------------------------------------------------------------------------
 //   @override
@@ -89,7 +89,7 @@ class _FlyersGridState extends State<FlyersGrid> {
     final double gridFlyerWidth = widget.gridZoneWidth / (widget.numberOfColumns + (widget.numberOfColumns * spacingRatioToGridWidth) + spacingRatioToGridWidth);
     final double gridFlyerHeight = gridFlyerWidth * Ratioz.xxflyerZoneHeight;
     final double gridSpacing = gridFlyerWidth * spacingRatioToGridWidth;
-    final int flyersCount = _tinyFlyers == null ? 0 : _tinyFlyers.length;
+    final int flyersCount = flyers == null ? 0 : flyers.length;
     int numOfGridRows(int flyersCount){
       return
         (flyersCount/gridColumnsCount).ceil();
@@ -113,7 +113,7 @@ class _FlyersGridState extends State<FlyersGrid> {
           height: gridHeight,
           child:
 
-          _tinyFlyers == null?
+          flyers == null?
           const Center(child: Loading(loading: true,)) :
 
           GridView.builder(
@@ -127,17 +127,17 @@ class _FlyersGridState extends State<FlyersGrid> {
               childAspectRatio: 1 / Ratioz.xxflyerZoneHeight,
               maxCrossAxisExtent: gridFlyerWidth,
             ),
-              itemCount: _tinyFlyers.length,
+              itemCount: flyers.length,
               itemBuilder: (ctx, index){
 
-              print('FlyersGrid : flyerID : ${_tinyFlyers[index].flyerID} : midColor : ${_tinyFlyers[index].midColor}');
+              print('FlyersGrid : flyerID : ${flyers[index].flyerID} : midColor : ${flyers[index].slides[0].midColor}');
 
               return
 
                 FinalFlyer(
                   flyerBoxWidth: FlyerBox.width(context, _flyerSizeFactor),
-                  tinyFlyer: _tinyFlyers[index],
-                  initialSlideIndex: _tinyFlyers[index].slideIndex,
+                  flyerModel: flyers[index],
+                  initialSlideIndex: 0,
                   goesToEditor: false,
                 );
 
