@@ -376,21 +376,23 @@ class FlyerModel with ChangeNotifier{
 // -----------------------------------------------------------------------------
   void printFlyer(){
     print('FLYER-PRINT --------------------------------------------------START');
-    print('FLYER-PRINT : flyerID : ${flyerID}');
-    print('FLYER-PRINT : flyerType : ${flyerType}');
-    print('FLYER-PRINT : flyerState : ${flyerState}');
-    print('FLYER-PRINT : keywordsIDs : ${keywordsIDs}');
-    print('FLYER-PRINT : flyerShowsAuthor : ${flyerShowsAuthor}');
-    print('FLYER-PRINT : flyerZone : ${flyerZone}');
-    print('FLYER-PRINT : tinyAuthor : ${authorID}');
-    print('FLYER-PRINT : tinyBz : ${bzID}');
-    print('FLYER-PRINT : flyerPosition : ${flyerPosition}');
-    print('FLYER-PRINT : slides : ${slides}');
-    print('FLYER-PRINT : flyerIsBanned : ${flyerIsBanned}');
-    print('FLYER-PRINT : specs : ${specs}');
-    print('FLYER-PRINT : info : ${info}');
-    print('FLYER-PRINT : times : ${times}');
-    print('FLYER-PRINT : priceTagIsOn : ${priceTagIsOn}');
+
+    print('FLYER_PRINT : flyerID : ${flyerID}');
+    print('FLYER_PRINT : flyerType : ${flyerType}');
+    print('FLYER_PRINT : flyerState : ${flyerState}');
+    print('FLYER_PRINT : keywordsIDs : ${keywordsIDs}');
+    print('FLYER_PRINT : flyerShowsAuthor : ${flyerShowsAuthor}');
+    print('FLYER_PRINT : flyerZone : ${flyerZone}');
+    print('FLYER_PRINT : authorID : ${authorID}');
+    print('FLYER_PRINT : bzID : ${bzID}');
+    print('FLYER_PRINT : flyerPosition : ${flyerPosition}');
+    print('FLYER_PRINT : slides : ${slides}');
+    print('FLYER_PRINT : flyerIsBanned : ${flyerIsBanned}');
+    print('FLYER_PRINT : specs : ${specs}');
+    print('FLYER_PRINT : info : ${info}');
+    print('FLYER_PRINT : times : ${times}');
+    print('FLYER_PRINT : priceTagIsOn : ${priceTagIsOn}');
+
     print('FLYER-PRINT --------------------------------------------------END');
   }
 // -----------------------------------------------------------------------------
@@ -468,33 +470,36 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static FlyerModel dummyFlyer(){
-    return dummyFlyers()[0];
+    return FlyerModel(
+      flyerID : '2fDlDyF01sw8GEYPJ9GN',
+      authorID: 'r1dqipDtBmRzK6HzL8Ug2vmcYVl1',
+      flyerType : FlyerType.rentalProperty,
+      flyerState : FlyerState.published,
+      keywordsIDs : [],
+      flyerShowsAuthor : true,
+      bzID: 'br1',
+      flyerPosition : GeoPoint(0,0),
+      slides : <SlideModel>[
+        SlideModel.dummySlide(),
+      ],
+      flyerIsBanned : false,
+      specs : <Spec>[],
+      info : 'Nothing just dummmy',
+      times : <PublishTime>[
+        PublishTime(state: FlyerState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
+      ],
+      priceTagIsOn : true,
+      flyerZone: Zone(
+        cityID: 'Cairo',
+        countryID: 'egy',
+        districtID: '13',
+      ),
+    );
   }
 // -----------------------------------------------------------------------------
   static List<FlyerModel> dummyFlyers(){
     return <FlyerModel>[
-      FlyerModel(
-        flyerID : 'x',
-        flyerType : FlyerType.design,
-        flyerState : FlyerState.published,
-        keywordsIDs : [],
-        flyerShowsAuthor : true,
-        flyerZone : Zone.dummyZone(),
-        authorID : 'y',
-        bzID : 'z',
-        flyerPosition : GeoPoint(0,0),
-        slides : <SlideModel>[
-          SlideModel.dummySlide(),
-        ],
-        flyerIsBanned : false,
-        specs : <Spec>[],
-        info : 'Nothing just dummmy',
-        times : <PublishTime>[
-          PublishTime(state: FlyerState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
-        ],
-        priceTagIsOn : true,
-    ),
-
+      dummyFlyer(),
     ];
   }
 // -----------------------------------------------------------------------------

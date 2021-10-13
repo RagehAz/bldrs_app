@@ -265,7 +265,7 @@ class NavBar extends StatelessWidget {
                                    width: _buttonWidth,
                                    circleWidth: _circleWidth,
                                    barType: _barType,
-                                   bzzIDs: _userBzzIDs,
+                                   // bzzIDs: _userBzzIDs,
                                    onTap: (){
                                      print('fish');
 

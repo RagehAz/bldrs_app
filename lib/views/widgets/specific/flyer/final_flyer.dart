@@ -175,17 +175,22 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           inEditor: widget.inEditor,
         );
 
+        final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+
+
         // --------------------------------------------------------------------X
 
         SuperFlyer _builtSuperFlyer;
 
         if (_flyerMode == FlyerMode.tinyModeByFlyerID){
           final FlyerModel _flyer = await _flyersProvider.fetchFlyerByID(context: context, flyerID: widget.flyerID);
-          _builtSuperFlyer = _getSuperFlyerFromFlyer(flyerModel: _flyer, bzModel: widget.bzModel);
+          final BzModel _bz = await _bzzProvider.fetchBzModel(context: context, bzID: _flyer.bzID);
+          _builtSuperFlyer = _getSuperFlyerFromFlyer(flyerModel: _flyer, bzModel: _bz);
         }
 
         else if (_flyerMode == FlyerMode.tinyModeByFlyerModel){
-          _builtSuperFlyer = _getSuperFlyerFromFlyer(flyerModel: widget.flyerModel, bzModel: widget.bzModel);
+          final BzModel _bz = await _bzzProvider.fetchBzModel(context: context, bzID: widget.flyerModel.bzID);
+          _builtSuperFlyer = _getSuperFlyerFromFlyer(flyerModel: widget.flyerModel, bzModel: _bz);
         }
 
         else if (_flyerMode == FlyerMode.tinyModeByBzModel){
@@ -199,12 +204,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         // --------------------------------------------------------------------X
 
         else if (_flyerMode == FlyerMode.bigModeByFlyerID){
-          final FlyerModel _dbFlyerModel = await FlyerOps.readFlyerOps(context: context, flyerID: widget.flyerID);
-          _builtSuperFlyer = _getSuperFlyerFromFlyer(flyerModel: _dbFlyerModel, bzModel: widget.bzModel);
+          final FlyerModel _flyer = await _flyersProvider.fetchFlyerByID(context: context, flyerID: widget.flyerID);
+          final BzModel _bz = await _bzzProvider.fetchBzModel(context: context, bzID: widget.flyerModel.bzID);
+          _builtSuperFlyer = await _getSuperFlyerFromFlyer(flyerModel: _flyer, bzModel: _bz);
         }
 
         else if (_flyerMode == FlyerMode.bigModeByFlyerModel){
-          _builtSuperFlyer = _getSuperFlyerFromFlyer(flyerModel: widget.flyerModel, bzModel: widget.bzModel);
+          final BzModel _bz = await _bzzProvider.fetchBzModel(context: context, bzID: widget.flyerModel.bzID);
+          _builtSuperFlyer = await _getSuperFlyerFromFlyer(flyerModel: widget.flyerModel, bzModel: _bz);
         }
 
         else if (_flyerMode == FlyerMode.bigModeByBzModel){
@@ -218,7 +225,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         // --------------------------------------------------------------------X
 
         else if (_flyerMode == FlyerMode.editorModeByFlyerID){
-          _originalFlyer = await FlyerOps.readFlyerOps(context: context, flyerID: widget.flyerID);
+          _originalFlyer = await _flyersProvider.fetchFlyerByID(context: context, flyerID: widget.flyerID);
           _builtSuperFlyer = await _getDraftSuperFlyerFromFlyer(bzModel: _bzModel, flyerModel: _originalFlyer);
         }
 
@@ -279,7 +286,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     /// A - by flyerModel
 
     if (widget.flyerModel != null){
-      _superFlyer = _getSuperFlyerFromFlyer(flyerModel: widget.flyerModel, bzModel: widget.bzModel);
+      _superFlyer = SuperFlyer.createEmptySuperFlyer(flyerBoxWidth: widget.flyerBoxWidth, goesToEditor: widget.goesToEditor); //_getSuperFlyerFromFlyer(flyerModel: widget.flyerModel);
     }
 
     else if(widget.bzModel != null){
@@ -304,7 +311,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     return _superFlyer;
   }
 // -----------------------------------------------------o
-  SuperFlyer _getSuperFlyerFromFlyer({@required FlyerModel flyerModel, @required BzModel bzModel}){
+  SuperFlyer _getSuperFlyerFromFlyer({@required FlyerModel flyerModel, @required BzModel bzModel})  {
     SuperFlyer _superFlyer;
 
     if (flyerModel != null){
