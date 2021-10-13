@@ -226,13 +226,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       setState(() {
         _currentBzType = BzModel.bzTypesList[index];
         _bzFormInActivityList =
-        _currentBzType == BzType.Developer ?      <bool>[true, false] :
-        _currentBzType == BzType.Broker ?         <bool>[false, false] :
-        _currentBzType == BzType.Designer ?       <bool>[false, false] :
-        _currentBzType == BzType.Contractor ?     <bool>[false, false] :
-        _currentBzType == BzType.Artisan ?        <bool>[false, false] :
-        _currentBzType == BzType.Manufacturer ?   <bool>[true, false] :
-        _currentBzType == BzType.Supplier ?       <bool>[true, false] :
+        _currentBzType == BzType.developer ?      <bool>[true, false] :
+        _currentBzType == BzType.broker ?         <bool>[false, false] :
+        _currentBzType == BzType.designer ?       <bool>[false, false] :
+        _currentBzType == BzType.contractor ?     <bool>[false, false] :
+        _currentBzType == BzType.artisan ?        <bool>[false, false] :
+        _currentBzType == BzType.manufacturer ?   <bool>[true, false] :
+        _currentBzType == BzType.supplier ?       <bool>[true, false] :
         _bzFormInActivityList;
         // _currentBz.bzType = _currentBzType;
       });
@@ -267,13 +267,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       });
     } else {
       _bzFormInActivityList =
-      _currentBzType == BzType.Developer ?      <bool>[true, false] :
-      _currentBzType == BzType.Broker ?         <bool>[false, false] :
-      _currentBzType == BzType.Designer ?       <bool>[false, false] :
-      _currentBzType == BzType.Contractor ?     <bool>[false, false] :
-      _currentBzType == BzType.Artisan ?        <bool>[false, false] :
-      _currentBzType == BzType.Manufacturer ?   <bool>[true, false] :
-      _currentBzType == BzType.Supplier ?       <bool>[true, false] :
+      _currentBzType == BzType.developer ?      <bool>[true, false] :
+      _currentBzType == BzType.broker ?         <bool>[false, false] :
+      _currentBzType == BzType.designer ?       <bool>[false, false] :
+      _currentBzType == BzType.contractor ?     <bool>[false, false] :
+      _currentBzType == BzType.artisan ?        <bool>[false, false] :
+      _currentBzType == BzType.manufacturer ?   <bool>[true, false] :
+      _currentBzType == BzType.supplier ?       <bool>[true, false] :
       _bzFormInActivityList;
     }
   }
@@ -359,7 +359,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzType: _currentBzType,
         bzForm: _currentBzForm,
         createdAt: null, // timestamp will be generated inside createBzOps
-        accountType: BzAccountType.Default, // changing this is not in bzEditor
+        accountType: BzAccountType.normal, // changing this is not in bzEditor
         // -------------------------
         bzName: _bzNameTextController.text,
         bzLogo: _currentBzLogoFile,
@@ -615,7 +615,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               TextFieldBubble(
                 textController: _bzNameTextController,
                 key: Key('bzName'),
-                title: _currentBzForm == BzForm.Individual ? 'Business Entity name' : Wordz.companyName(context),
+                title: _currentBzForm == BzForm.individual ? 'Business Entity name' : Wordz.companyName(context),
                 hintText: '...',
                 counterIsOn: true,
                 maxLength: 72,
