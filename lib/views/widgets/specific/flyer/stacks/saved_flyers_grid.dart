@@ -3,25 +3,25 @@ import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/gallery_grid.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/sliver_flyers_grid.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class SavedFlyersGrid extends StatelessWidget {
-  final List<TinyFlyer> tinyFlyers;
-  final List<TinyFlyer> selectedTinyFlyers;
+  final List<FlyerModel> flyers;
+  final List<FlyerModel> selectedFlyers;
   final bool selectionMode;
   final Function onSelectFlyer;
 
   const SavedFlyersGrid({
-    @required this.tinyFlyers,
-    @required this.selectedTinyFlyers,
+    @required this.flyers,
+    @required this.selectedFlyers,
     @required this.selectionMode,
     @required this.onSelectFlyer,
   });
@@ -29,19 +29,19 @@ class SavedFlyersGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final int _numberOfColumns = GalleryGrid.gridColumnCount(tinyFlyers.length);
+    final int _numberOfColumns = GalleryGrid.gridColumnCount(flyers.length);
     const double _spacing = SliverFlyersGrid.spacing;
 
     final double _flyerBoxWidth = SliverFlyersGrid.calculateFlyerBoxWidth(
-      flyersLength: tinyFlyers.length,
+      flyersLength: flyers.length,
       context: context,
     );
 
     return
-      tinyFlyers.length == 0 ? Container() :
+      flyers.length == 0 ? Container() :
       Scroller(
         child: GridView.builder(
-          itemCount: tinyFlyers.length,
+          itemCount: flyers.length,
           physics: const BouncingScrollPhysics(),
           shrinkWrap: false,
           padding: EdgeInsets.all(_spacing),
@@ -53,9 +53,9 @@ class SavedFlyersGrid extends StatelessWidget {
           ),
           itemBuilder: (ctx, index){
 
-            final bool _isSelected = TinyFlyer.tinyFlyersContainThisID(
-              tinyFlyers: selectedTinyFlyers,
-              flyerID: tinyFlyers[index].flyerID,
+            final bool _isSelected = FlyerModel.flyersContainThisID(
+              flyers: selectedFlyers,
+              flyerID: flyers[index].flyerID,
             );
 
 
@@ -63,7 +63,7 @@ class SavedFlyersGrid extends StatelessWidget {
 
               selectionMode == true ?
               GestureDetector(
-                onTap: () => onSelectFlyer(tinyFlyers[index]),
+                onTap: () => onSelectFlyer(flyers[index]),
                 child: Stack(
                   alignment: Alignment.center,
                   children: <Widget>[
@@ -72,10 +72,10 @@ class SavedFlyersGrid extends StatelessWidget {
                       absorbing:  true,
                       child: FinalFlyer(
                         flyerBoxWidth: _flyerBoxWidth,
-                        tinyFlyer: tinyFlyers[index],
+                        flyerModel: flyers[index],
                         inEditor: false,
                         goesToEditor: false,
-                        initialSlideIndex: tinyFlyers[index].slideIndex,
+                        initialSlideIndex: 0,
                       ),
                     ),
 
@@ -133,10 +133,10 @@ class SavedFlyersGrid extends StatelessWidget {
 
               FinalFlyer(
                 flyerBoxWidth: _flyerBoxWidth,
-                tinyFlyer: tinyFlyers[index],
+                flyerModel: flyers[index],
                 inEditor: false,
                 goesToEditor: false,
-                initialSlideIndex: tinyFlyers[index].slideIndex,
+                initialSlideIndex: 0,
               );
 
           },

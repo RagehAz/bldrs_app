@@ -6,7 +6,7 @@ import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/db/firestore/user_ops.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/review_model.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/info_page_parts/review_card.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/info_page_parts/review_creator.dart';
@@ -28,7 +28,7 @@ class ReviewBubble extends StatefulWidget {
 }
 
 class _ReviewBubbleState extends State<ReviewBubble> {
-  TinyUser _tinyUser;
+  UserModel _userModel;
   List<ReviewModel> _reviews;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -74,7 +74,7 @@ class _ReviewBubbleState extends State<ReviewBubble> {
 
         if(mounted){
 
-          _tinyUser = await UserOps().readTinyUserOps(
+          _userModel = await UserOps.readUserOps(
             context: context,
             userID: superUserID(),
           );
@@ -138,14 +138,14 @@ class _ReviewBubbleState extends State<ReviewBubble> {
         ReviewCreator(
           width: _bubbleWidth,
           corners: _cardCorners,
-          tinyUser: _tinyUser,
+          userModel: _userModel,
           superFlyer: widget.superFlyer,
           reloadReviews: _reloadReviews,
         ),
 
         ReviewsStreamBubbles(
           superFlyer: widget.superFlyer,
-          tinyUser: _tinyUser,
+          userModel: _userModel,
           bubbleWidth: _bubbleWidth,
           cardCorners: _cardCorners,
           reviews: _reviews,
@@ -168,14 +168,14 @@ class ReviewsStreamBubbles extends StatelessWidget {
   final SuperFlyer superFlyer;
   final double bubbleWidth;
   final double cardCorners;
-  final TinyUser tinyUser;
+  final UserModel userModel;
   final List<ReviewModel> reviews;
 
   const ReviewsStreamBubbles({
     @required  this.superFlyer,
     @required this.bubbleWidth,
     @required this.cardCorners,
-    @required this.tinyUser,
+    @required this.userModel,
     @required this.reviews,
   });
 
@@ -196,7 +196,7 @@ class ReviewsStreamBubbles extends StatelessWidget {
                 width: bubbleWidth,
                 corners: cardCorners,
                 review: reviews[index],
-                tinyUser: tinyUser,
+                userModel: userModel,
                 flyerID: superFlyer.flyerID,
                 onShowReviewOptions: () => superFlyer.rec.onShowReviewOptions(reviews[index]),
               ),

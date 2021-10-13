@@ -69,7 +69,7 @@ class EditorPanel extends StatelessWidget {
             // margins: EdgeInsets.symmetric(vertical: (Ratioz.xxflyerHeaderMiniHeight - Ratioz.xxflyerLogoWidth) * _flyerBoxWidth / 2),
             width: _buttonSize,
             color: superFlyer.flyerShowsAuthor == true ? Colorz.White80 : Colorz.White80,
-            icon: _author?.authorPic,
+            icon: _author?.pic,
             iconSizeFactor: 0.5,
             underLine: superFlyer.flyerShowsAuthor == true ? 'Author Shown' : 'Author Hidden',
             underLineShadowIsOn: false,

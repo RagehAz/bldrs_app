@@ -1,41 +1,29 @@
-import 'package:bldrs/controllers/drafters/text_generators.dart';
-import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/db/firestore/search_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/models/helpers/error_helpers.dart';
-import 'package:bldrs/models/keywords/section_class.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 /// this provides tiny flyers and tiny bzz
 class OldFlyersProvider with ChangeNotifier {
 
   List<FlyerModel> _loadedFlyers;
-  List<TinyFlyer> _wallTinyFlyers;
+  List<FlyerModel> _wallFlyers;
   List<BzModel> _loadedBzz;
-  List<TinyBz> _loadedTinyBzz;
   List<FlyerModel> _bzDeactivatedFlyers;
 
   BzModel _myCurrentBzModel;
-  List<TinyFlyer> _bzTinyFlyers;
+  List<FlyerModel> _bzFlyers;
 // -----------------------------------------------------------------------------
   BzModel get myCurrentBzModel {
     return _myCurrentBzModel;
   }
 // -----------------------------------------------------------------------------
-  List<TinyFlyer> get currentBzTinyFlyers{
-    return _bzTinyFlyers;
+  List<FlyerModel> get currentBzTinyFlyers{
+    return _bzFlyers;
   }
 // -----------------------------------------------------------------------------
-  void setCurrentBzTinyFlyers(List<TinyFlyer> tinyFlyers){
-    _bzTinyFlyers = tinyFlyers;
+  void setCurrentBzFlyers(List<FlyerModel> flyers){
+    _bzFlyers = flyers;
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
@@ -46,10 +34,6 @@ class OldFlyersProvider with ChangeNotifier {
 // -----------------------------------------------------------------------------
   List<FlyerModel> get getAllFlyers {
     return <FlyerModel>[..._loadedFlyers];
-  }
-// -----------------------------------------------------------------------------
-  List<TinyFlyer> get getAllTinyFlyers {
-    return <TinyFlyer>[..._wallTinyFlyers];
   }
 // -----------------------------------------------------------------------------
   List<BzModel> get getAllBzz {
@@ -98,97 +82,54 @@ class OldFlyersProvider with ChangeNotifier {
   //
   // }
 // -----------------------------------------------------------------------------
-  /// READs all TinyBzz in firebase realtime database
-  Future<void> fetchAndSetBzDeactivatedFlyers(BuildContext context, BzModel bzModel) async {
-
-    final TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(bzModel);
-    /// get all flyers from db/flyer/{where flyer.tinyBz.bzID == bzID}
-
-    final CollectionReference _flyersColl = Fire.getCollectionRef(FireCollection.flyers);
-
-    final List<dynamic> maps = await FireSearch.mapsByTwoValuesEqualTo(
-      context: context,
-      addDocsIDs: false,
-      collRef: _flyersColl,
-      fieldA: 'tinyBz',
-      valueA: _tinyBz.toMap(),
-      fieldB: 'flyerState',
-      valueB: FlyerModel.cipherFlyerState(FlyerState.unpublished),
-    );
-
-    final List<FlyerModel> _deactivatedFlyers = FlyerModel.decipherFlyers(maps: maps, fromJSON: false);
-
-    _bzDeactivatedFlyers = _deactivatedFlyers;
-    notifyListeners();
-
-    // _flyersColl.get([GetOptions()])
-    //
-    // Future<List<DocumentSnapshot>> getSuggestion(String suggestion) =>
-    //     Firestore.instance
-    //         .collection('your-collection')
-    //         .orderBy('your-document')
-    //         .startAt([searchkey])
-    //         .endAt([searchkey + '\uf8ff'])
-    //         .getDocuments()
-    //         .then((snapshot) {
-    //       return snapshot.documents;
-    //     });
-
-  }
+//   /// READs all TinyBzz in firebase realtime database
+//   Future<void> fetchAndSetBzDeactivatedFlyers(BuildContext context, BzModel bzModel) async {
+//
+//     /// get all flyers from db/flyer/{where flyer.tinyBz.bzID == bzID}
+//
+//     final CollectionReference _flyersColl = Fire.getCollectionRef(FireCollection.flyers);
+//
+//     final List<dynamic> maps = await FireSearch.mapsByTwoValuesEqualTo(
+//       context: context,
+//       addDocsIDs: false,
+//       collRef: _flyersColl,
+//       fieldA: 'tinyBz',
+//       valueA: bzModel.toMap(toJSON: false),
+//       fieldB: 'flyerState',
+//       valueB: FlyerModel.cipherFlyerState(FlyerState.unpublished),
+//     );
+//
+//     final List<FlyerModel> _deactivatedFlyers = FlyerModel.decipherFlyers(maps: maps, fromJSON: false);
+//
+//     _bzDeactivatedFlyers = _deactivatedFlyers;
+//     notifyListeners();
+//
+//     // _flyersColl.get([GetOptions()])
+//     //
+//     // Future<List<DocumentSnapshot>> getSuggestion(String suggestion) =>
+//     //     Firestore.instance
+//     //         .collection('your-collection')
+//     //         .orderBy('your-document')
+//     //         .startAt([searchkey])
+//     //         .endAt([searchkey + '\uf8ff'])
+//     //         .getDocuments()
+//     //         .then((snapshot) {
+//     //       return snapshot.documents;
+//     //     });
+//
+//   }
 // -----------------------------------------------------------------------------
-  Future<void> fetchAndSetTinyFlyersBySection(BuildContext context, Section section) async {
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
-    final Zone _currentZone = _countryPro.currentZone;
-
-    final String _zoneString = TextGenerator.zoneStringer(
-      context: context,
-      zone: _currentZone,
-    );
-
-    print('current zone is : $_zoneString');
-
-    await tryAndCatch(
-        context: context,
-        methodName: 'fetchAndSetTinyFlyersBySectionType',
-        functions: () async {
-
-          final FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
-
-          // print('_flyerType is : ${_flyerType.toString()}');
-
-          /// READ data from cloud Firestore flyers collection
-
-
-          final List<TinyFlyer> _foundTinyFlyers = await FireSearch.flyersByZoneAndFlyerType(
-              context: context,
-              zone: _currentZone,
-              flyerType: _flyerType,
-            );
-
-
-          // print('${(TinyFlyer.cipherTinyFlyers(_foundTinyFlyers)).toString()}');
-
-          _wallTinyFlyers = _foundTinyFlyers;
-
-          notifyListeners();
-          print('_loadedTinyBzz :::: --------------- $_loadedTinyBzz');
-
-        }
-    );
-
-
-  }
 // -----------------------------------------------------------------------------
   void removeTinyFlyerFromLocalList(String flyerID){
-    final int _index = _wallTinyFlyers.indexWhere((tinyFlyer) => tinyFlyer.flyerID == flyerID);
-    _wallTinyFlyers.removeAt(_index);
+    final int _index = _wallFlyers.indexWhere((tinyFlyer) => tinyFlyer.flyerID == flyerID);
+    _wallFlyers.removeAt(_index);
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
-  void removeTinyBzFromLocalList(String bzID){
-    if (_loadedTinyBzz != null){
-      final int _index = _loadedTinyBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID,);
-      _loadedTinyBzz.removeAt(_index);
+  void removeBzFromLocalList(String bzID){
+    if (_loadedBzz != null){
+      final int _index = _loadedBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID,);
+      _loadedBzz.removeAt(_index);
       notifyListeners();
     }
   }
@@ -198,21 +139,15 @@ class OldFlyersProvider with ChangeNotifier {
     return _flyer;
   }
 // -----------------------------------------------------------------------------
-  TinyFlyer getTinyFlyerByFlyerID (String flyerID){
-    final TinyFlyer _tinyFlyer = _wallTinyFlyers?.firstWhere((x) => x.flyerID == flyerID, orElse: ()=>null);
-
-    return _tinyFlyer;
-  }
-// -----------------------------------------------------------------------------
   List<FlyerModel> getFlyersByFlyersIDs(List<dynamic> flyersIDs){
     final List<FlyerModel> flyers = <FlyerModel>[];
     flyersIDs?.forEach((id) {flyers.add(getFlyerByFlyerID(id));});
     return flyers;
   }
 // -----------------------------------------------------------------------------
-  List<String> getTinyFlyersIDsByFlyerType(FlyerType flyerType){
+  List<String> getFlyersIDsByFlyerType(FlyerType flyerType){
     final List<String> flyersIDs = <String>[];
-    _wallTinyFlyers?.forEach((fl) {
+    _wallFlyers?.forEach((fl) {
       if(fl.flyerType == flyerType){flyersIDs.add(fl.flyerID);}
     });
     return flyersIDs;
@@ -220,20 +155,11 @@ class OldFlyersProvider with ChangeNotifier {
 // -----------------------------------------------------------------------------
   List<FlyerModel> getFlyersByFlyerType(FlyerType flyerType){
     final List<FlyerModel> _flyers = <FlyerModel>[];
-    final List<String> _flyersIDs = getTinyFlyersIDsByFlyerType(flyerType);
+    final List<String> _flyersIDs = getFlyersIDsByFlyerType(flyerType);
     _flyersIDs.forEach((fID) {
       _flyers.add(getFlyerByFlyerID(fID));
     });
     return _flyers;
-  }
-// -----------------------------------------------------------------------------
-  List<TinyFlyer> getTinyFlyersByFlyerType(FlyerType flyerType){
-    final List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
-    final List<String> _flyersIDs = getTinyFlyersIDsByFlyerType(flyerType);
-    _flyersIDs.forEach((fID) {
-      _tinyFlyers.add(getTinyFlyerByFlyerID(fID));
-    });
-    return _tinyFlyers;
   }
 // -----------------------------------------------------------------------------
 //   List<FlyerModel> getSavedFlyersFromFlyersList (List<FlyerModel> inputList, String userID){
@@ -248,7 +174,7 @@ class OldFlyersProvider with ChangeNotifier {
   List<FlyerModel> getFlyersByAuthorID(String authorID){
     final List<FlyerModel> authorFlyers = <FlyerModel>[];
     for (FlyerModel fl in _loadedFlyers){
-      if (fl.tinyAuthor.userID == authorID){
+      if (fl.authorID == authorID){
         authorFlyers.add(fl);
       }
     }
@@ -283,51 +209,32 @@ class OldFlyersProvider with ChangeNotifier {
 
 
 // -----------------------------------------------------------------------------
-  TinyBz getTinyBzByBzID(String bzID){
-    final TinyBz _tinyBz = _loadedTinyBzz?.firstWhere((bz) => bz.bzID == bzID, orElse: ()=>null);
-    return _tinyBz;
-  }
-// -----------------------------------------------------------------------------
-  List<BzModel> getBzzOfFlyersList(List<FlyerModel> flyersList){
+  List<BzModel> getBzzOfFlyers(List<FlyerModel> flyersList){
     final List<BzModel> _bzz = <BzModel>[];
     flyersList.forEach((fl) {
-      _bzz.add(getBzByBzID(fl.tinyBz.bzID));
+      _bzz.add(getBzByBzID(fl.bzID));
     });
     return _bzz;
 }
-// -----------------------------------------------------------------------------
-  List<TinyBz> getTinyBzzOfTinyFlyersList(List<TinyFlyer> tinyFlyersList){
-    final List<TinyBz> _tinyBzz = <TinyBz>[];
-    tinyFlyersList.forEach((fl) {
-      _tinyBzz.add(getTinyBzByBzID(fl?.tinyBz?.bzID));
-    });
-    return _tinyBzz;
-  }
 // -----------------------------------------------------------------------------
   List<BzModel> getBzzByBzzIDs(List<String> bzzIDs){
     final List<BzModel> bzz = <BzModel>[];
     bzzIDs.forEach((bzID) {bzz.add(getBzByBzID(bzID));});
     return bzz;
 }
-// ############################################################################
-//   /// add bz to local list
-//   void addBzModelToLocalList(BzModel bzModel){
-//     _loadedBzz.add(bzModel);
-//     notifyListeners();
-//   }
-// ############################################################################
-  /// add TinyBz to local list
-  void addTinyBzToLocalList(TinyBz tinyBz){
-    _loadedTinyBzz.add(tinyBz);
+// -----------------------------------------------------------------------------
+  /// add Bz to local list
+  void addBzToLocalList(BzModel bz){
+    _loadedBzz.add(bz);
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
-  void updateTinyBzInLocalList(TinyBz modifiedTinyBz){
+  void updateBzInLocalList(BzModel modifiedBz){
 
-    if (_loadedTinyBzz != null){
-      final int _indexOfOldTinyBz = _loadedTinyBzz.indexWhere((bz) => modifiedTinyBz.bzID == bz.bzID);
-    _loadedTinyBzz.removeAt(_indexOfOldTinyBz);
-    _loadedTinyBzz.insert(_indexOfOldTinyBz, modifiedTinyBz);
+    if (_loadedBzz != null){
+      final int _indexOfOldTinyBz = _loadedBzz.indexWhere((bz) => modifiedBz.bzID == bz.bzID);
+      _loadedBzz.removeAt(_indexOfOldTinyBz);
+      _loadedBzz.insert(_indexOfOldTinyBz, modifiedBz);
     notifyListeners();
     }
 
@@ -339,19 +246,7 @@ class OldFlyersProvider with ChangeNotifier {
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
-  void addTinyFlyerToLocalList(TinyFlyer tinyFlyer){
-    _wallTinyFlyers.add(tinyFlyer);
-    notifyListeners();
-  }
-// -----------------------------------------------------------------------------
-  void updateTineFlyerInBzTinyFlyers(TinyFlyer tinyFlyer){
-
-    print('TASK HERE TO ADD THIS updateTineFlyerInBzTinyFlyers');
-
-    // _bzTinyFlyers.indexWhere
-  }
-// -----------------------------------------------------------------------------
-  void replaceTinyFlyerInLocalList(TinyFlyer tinyFlyer){
+  void replaceFlyerInLocalList(FlyerModel flyer){
     // int _tinyFlyerIndex = _loadedTinyFlyers.indexWhere((t) => t.flyerID == tinyFlyer.flyerID);
     // _loadedTinyFlyers.removeAt(_tinyFlyerIndex);
     // _loadedTinyFlyers.insert(_tinyFlyerIndex, tinyFlyer);

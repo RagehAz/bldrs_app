@@ -1,30 +1,30 @@
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/screens/f_bz/f_2_deactivated_flyers_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/tab_button.dart';
-import 'package:bldrs/views/widgets/general/loading/loading.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/gallery.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';
+import 'package:bldrs/views/widgets/general/loading/loading.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/gallery.dart';
 import 'package:flutter/material.dart';
 
 class BzFlyersTab extends StatelessWidget {
   final BzModel bzModel;
-  final List<TinyFlyer> tinyFlyers;
+  final List<FlyerModel> flyers;
 
   const BzFlyersTab({
     @required this.bzModel,
-    @required this.tinyFlyers,
+    @required this.flyers,
   });
 // -----------------------------------------------------------------------------
   static TabModel flyersTabModel({
     @required Function onChangeTab,
     @required BzModel bzModel,
-    @required List<TinyFlyer> tinyFlyers,
+    @required List<FlyerModel> tinyFlyers,
     @required bool isSelected,
     @required int tabIndex,
   }) {
@@ -40,7 +40,7 @@ class BzFlyersTab extends StatelessWidget {
         ),
         page: BzFlyersTab(
           bzModel: bzModel,
-          tinyFlyers: tinyFlyers,
+          flyers: tinyFlyers,
         ),
 
       );
@@ -65,7 +65,7 @@ class BzFlyersTab extends StatelessWidget {
             actionBtFunction: () => _showOldFlyersOnTap(context, bzModel),
             columnChildren: <Widget>[
 
-              if (tinyFlyers != null && tinyFlyers.length !=0)
+              if (flyers != null && flyers.length !=0)
               Gallery(
                 galleryBoxWidth: Bubble.clearWidth(context),
                 superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
@@ -76,7 +76,7 @@ class BzFlyersTab extends StatelessWidget {
                 // tinyFlyers: tinyFlyers,
               ),
 
-              if (tinyFlyers == null)
+              if (flyers == null)
                 Container(
                   width: Bubble.clearWidth(context),
                   alignment: Alignment.center,

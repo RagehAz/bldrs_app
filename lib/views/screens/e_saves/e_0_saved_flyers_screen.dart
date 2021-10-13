@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/tab_button.dart';
@@ -26,9 +26,9 @@ class SavedFlyersScreen extends StatefulWidget {
 class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTickerProviderStateMixin {
   int _currentTabIndex;
   List<Section> _sectionsList;
-  List<TinyFlyer> _allTinyFlyers;
+  List<FlyerModel> _allFlyers;
   TabController _tabController;
-  List<TinyFlyer> _selectedTinyFlyers;
+  List<FlyerModel> _selectedFlyers;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
      _currentTabIndex = 0;
 
      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-     _allTinyFlyers =  _flyersProvider.savedTinyFlyers;
+     _allFlyers =  _flyersProvider.savedFlyers;
 
      _tabModels = createTabModels();
 
@@ -56,7 +56,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
 
      ///
      if(widget.selectionMode == true){
-       _selectedTinyFlyers = [];
+       _selectedFlyers = [];
      }
   }
 // -----------------------------------------------------------------------------
@@ -94,10 +94,10 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
 
             page: SavedFlyersGrid(
               selectionMode: widget.selectionMode,
-              onSelectFlyer: (TinyFlyer tinyFlyer) => _onSelectFlyer(tinyFlyer),
-              selectedTinyFlyers: _selectedTinyFlyers,
-              tinyFlyers: TinyFlyer.filterTinyFlyersBySection(
-                tinyFlyers : _allTinyFlyers,
+              onSelectFlyer: (FlyerModel flyer) => _onSelectFlyer(flyer),
+              selectedFlyers: _selectedFlyers,
+              flyers: FlyerModel.filterFlyersBySection(
+                flyers : _allFlyers,
                 section: _sectionsList[i],
               ),
             ),
@@ -120,25 +120,25 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
 
   }
 // -----------------------------------------------------------------------------
-  void _onSelectFlyer(TinyFlyer tinyFlyer){
+  void _onSelectFlyer(FlyerModel flyer){
 
-    print('selecting flyer : ${tinyFlyer.flyerID}');
+    print('selecting flyer : ${flyer.flyerID}');
 
-    final bool _alreadySelected = TinyFlyer.tinyFlyersContainThisID(
-      tinyFlyers: _selectedTinyFlyers,
-      flyerID: tinyFlyer.flyerID,
+    final bool _alreadySelected = FlyerModel.flyersContainThisID(
+      flyers: _selectedFlyers,
+      flyerID: flyer.flyerID,
     );
 
     if (_alreadySelected == true){
       setState(() {
-        _selectedTinyFlyers.remove(tinyFlyer);
+        _selectedFlyers.remove(flyer);
         _tabModels = createTabModels();
       });
     }
 
     else {
       setState(() {
-        _selectedTinyFlyers.add(tinyFlyer);
+        _selectedFlyers.add(flyer);
         _tabModels = createTabModels();
       });
     }
@@ -155,7 +155,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
         tabController: _tabController,
         currentIndex: _currentTabIndex,
         selectionMode: widget.selectionMode,
-        selectedItems: _selectedTinyFlyers,
+        selectedItems: _selectedFlyers,
       );
 
   }

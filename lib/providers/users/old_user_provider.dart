@@ -51,14 +51,14 @@ class OldUserProvider {
 // -----------------------------------------------------------------------------
   /// get users streams
   Stream<List<UserModel>> get allUsersStream {
-    final CollectionReference _userCollection = UserOps().userCollectionRef();
+    final CollectionReference _userCollection = UserOps.userCollectionRef();
     return _userCollection.snapshots().map(_usersListFromSnapshot);
   }
 
 // -----------------------------------------------------------------------------
   /// get user doc stream
   Stream<UserModel> get userData {
-    final CollectionReference _userCollection = UserOps().userCollectionRef();
+    final CollectionReference _userCollection = UserOps.userCollectionRef();
     return _userCollection.doc(userID).snapshots().map(_userModelFromSnapshot);
   }
 // -----------------------------------------------------------------------------

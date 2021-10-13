@@ -180,7 +180,7 @@ class AuthOps {
       print('x2 - emailSignInOps userID : $_userID');
 
       /// read user ops
-      final UserModel _userModel = await UserOps().readUserOps(
+      final UserModel _userModel = await UserOps.readUserOps(
           context: context,
           userID: _userID
       );
@@ -237,7 +237,7 @@ class AuthOps {
       );
 
       /// create a new firestore document for the user with the userID
-      final UserModel _finalUserModel = await UserOps().createUserOps(userModel: _initialUserModel);
+      final UserModel _finalUserModel = await UserOps.createUserOps(userModel: _initialUserModel);
 
       return _finalUserModel;
 
@@ -355,7 +355,7 @@ class AuthOps {
       print('2 language: ${Wordz.languageCode(context)},');
 
       /// E - get Or Create UserModel From User
-      final Map<String, dynamic> _userModelMap = await UserOps().getOrCreateUserModelFromUser(
+      final Map<String, dynamic> _userModelMap = await UserOps.getOrCreateUserModelFromUser(
         context: context,
         zone: currentZone,
         user: _user,
@@ -488,7 +488,7 @@ class AuthOps {
       print('2 language: ${Wordz.languageCode(context)},');
 
       /// E - get Or Create UserModel From User
-      final Map<String, dynamic> _userModelMap = await UserOps().getOrCreateUserModelFromUser(
+      final Map<String, dynamic> _userModelMap = await UserOps.getOrCreateUserModelFromUser(
         context: context,
         zone: currentZone,
         user: _user,

@@ -1,15 +1,15 @@
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/views/screens/i_flyer/h_1_bz_card_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/views/widgets/specific/in_pyramids/profile/bz_grid.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/in_pyramids/profile/bz_grid.dart';
 import 'package:flutter/material.dart';
 
 class BzzBubble extends StatelessWidget {
-  final List<TinyBz> tinyBzz;
+  final List<BzModel> bzzModels;
   final String title;
   final int numberOfColumns;
   final int numberOfRows;
@@ -18,7 +18,7 @@ class BzzBubble extends StatelessWidget {
   final double corners;
 
   const BzzBubble({
-    @required this.tinyBzz,
+    @required this.bzzModels,
     this.title  = 'Businesses',
     this.numberOfColumns = 5,
     this.numberOfRows = 2,
@@ -46,7 +46,7 @@ class BzzBubble extends StatelessWidget {
 
         BzGrid(
             gridZoneWidth: Bubble.clearWidth(context),
-            tinyBzz: tinyBzz == null ? <TinyBz>[] : tinyBzz,
+            bzzModels: bzzModels == null ? <BzModel>[] : bzzModels,
             numberOfColumns: numberOfColumns,
             numberOfRows: numberOfRows,
             scrollDirection: scrollDirection,

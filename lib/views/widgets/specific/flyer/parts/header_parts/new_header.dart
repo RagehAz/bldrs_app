@@ -375,7 +375,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                           child: BzPageHeadline(
                             flyerBoxWidth: widget.flyerBoxWidth,
                             bzPageIsOn: true,
-                            tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(widget.superFlyer),
+                            bzModel: widget.superFlyer.bz,
                           ),
                         ),
 
@@ -393,7 +393,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                                 superFlyer: widget.superFlyer,
                                 flyerBoxWidth: widget.flyerBoxWidth,
                                 bzPageIsOn: _isExpanded,
-                                tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(widget.superFlyer),
+                                bzModel: widget.superFlyer.bz,
                               ),
                             ),
                           ),

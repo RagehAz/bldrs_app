@@ -2,11 +2,11 @@ import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/views/screens/b_landing/b_3_sequence_flyers_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -152,7 +152,7 @@ class SequencesWall extends StatelessWidget {
       FlyersShelf(
         flyersType: FlyerType.rentalProperty,
         title: 'New ${sequence.titleID} flyers in Heliopolis',
-        tinyFlyers: TinyFlyer.dummyTinyFlyers(),
+        flyers: FlyerModel.dummyFlyers(),
         onScrollEnd: () => _onScrollEnd(
           context: context,
           index: null,
@@ -179,7 +179,7 @@ class SequencesWall extends StatelessWidget {
                 child: FlyersShelf(
                   flyersType: null,
                   title: _stackTitle(context: context, sequence: sequence, index: index),
-                  tinyFlyers: TinyFlyer.dummyTinyFlyers(),
+                  flyers: FlyerModel.dummyFlyers(),
                   onScrollEnd: () => _onScrollEnd(
                     context: context,
                     index: index,
@@ -207,7 +207,7 @@ class SequencesWall extends StatelessWidget {
                   flyersType: null,
                   titleIcon: Keyword.getImagePath(_keywordsByGroupID[index]),
                   title: _stackTitle(context: context, sequence: sequence, index: index),//'${KeywordModel.getKeywordNameByKeywordID(context, _keywordsByGroupID[index].keywordID)} in Cairo',
-                  tinyFlyers: TinyFlyer.dummyTinyFlyers(),
+                  flyers: FlyerModel.dummyFlyers(),
                   onScrollEnd: () => _onScrollEnd(
                     context: context,
                     index: index,

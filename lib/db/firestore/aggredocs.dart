@@ -1,6 +1,5 @@
-import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 
 /// AGGREGATED DOCUMENTS
@@ -37,18 +36,6 @@ class Aggredocs{
     Aggredocs _aggredocs = Aggredocs(
       docs: _docs,
       collName: collName,
-    );
-
-    return _aggredocs;
-  }
-// -----------------------------------------------------------------------------
-  static Aggredocs createAggredocsFromTinyFlyers({List<TinyFlyer> tinyFlyers}){
-    List<dynamic> _tinyFlyersMaps = TinyFlyer.cipherTinyFlyers(tinyFlyers);
-
-    Aggredocs _aggredocs = createAggredocsFromMaps(
-      maps: _tinyFlyersMaps,
-      numberOfMapKeys: 12,
-      collName: 'tinyFlyers',
     );
 
     return _aggredocs;

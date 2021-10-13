@@ -27,16 +27,16 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
   return Container(
     height: circleWidth * 0.47,
     width: circleWidth * 0.47,
-    child: tinyBzModelStreamBuilder(
+    child: bzModelStreamBuilder(
         bzID: bzID,
         context: context,
-        builder: (ctx, _tinyBz){
+        builder: (ctx, bzModel){
           return
             DreamBox(
               height: circleWidth * 0.47,
               width: circleWidth * 0.47,
               corners: circleWidth * 0.47 * 0.25,
-              icon: _tinyBz.bzLogo,
+              icon: bzModel.bzLogo,
               bubble: true,
               onTap: onTap,
             );
@@ -97,15 +97,15 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
                 child:
 
                 bzzIDs.length == 1 ?
-                tinyBzModelStreamBuilder(
+                bzModelStreamBuilder(
                     bzID: bzzIDs[0],
                     context: context,
-                    builder: (ctx, _tinyBz){
+                    builder: (ctx, bzModel){
                       return
                         DreamBox(
                           width: _circleWidth,
                           height: _circleWidth,
-                          icon: _tinyBz.bzLogo,
+                          icon: bzModel.bzLogo,
                           iconSizeFactor: 1,
                           bubble: true,
                           color: Colorz.Nothing,
@@ -121,34 +121,34 @@ Widget _nanoBzLogo(BuildContext context, String bzID){
                 Stack(
                   children: <Widget>[
 
-                    tinyBzModelStreamBuilder(
+                    bzModelStreamBuilder(
                         bzID: bzzIDs[0],
                         context: context,
-                        builder: (ctx, _tinyBz){
+                        builder: (ctx, _bzModel){
                           return
                             Positioned(
                               top: 0,
                               left: 0,
                               child: BzLogo(
                                 width: _circleWidth * 0.7,
-                                image: _tinyBz.bzLogo,
+                                image: _bzModel.bzLogo,
                                 shadowIsOn: _shadowIsOn,
                                 onTap: onTap,
                               ),
                             );
                         }),
 
-                    tinyBzModelStreamBuilder(
+                    bzModelStreamBuilder(
                         bzID: bzzIDs[1],
                         context: context,
-                        builder: (ctx, _tinyBz){
+                        builder: (ctx, bzModel){
                           return
                             Positioned(
                               bottom: 0,
                               right: 0,
                               child: BzLogo(
                                 width: _circleWidth * 0.7,
-                                image: _tinyBz.bzLogo,
+                                image: bzModel.bzLogo,
                                 shadowIsOn: _shadowIsOn,
                                 onTap: onTap,
                               ),

@@ -18,25 +18,25 @@ import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/db/firestore/search_ops.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/models/notification/noti_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
+import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/screens/e_saves/e_0_saved_flyers_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/notifications/notification_balloon.dart';
 import 'package:bldrs/views/widgets/specific/notifications/notification_card.dart';
 import 'package:bldrs/views/widgets/specific/notifications/notification_flyers.dart';
-import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class NotificationMaker extends StatefulWidget {
@@ -195,7 +195,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     Keyboarders.closeKeyboard(context);
 
-    List<TinyFlyer> _selectedTinyFlyers = await Nav.goToNewScreen(
+    List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
         context,
         SavedFlyersScreen(
           selectionMode: true,
@@ -204,7 +204,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     setState(() {
       _attachmentType = NotiAttachmentType.flyers;
-      _attachment = _selectedTinyFlyers;
+      _attachment = _selectedFlyers;
     });
 
     await Nav.goBack(context);
@@ -411,7 +411,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
       }
 
       if (_attachment != null && _attachmentType == NotiAttachmentType.flyers){
-        _outputAttachment = TinyFlyer.getListOfFlyerIDsFromTinyFlyers(_attachment);
+        _outputAttachment = FlyerModel.getFlyersIDsFromFlyers(_attachment);
       }
 
       NotiModel _newNoti = NotiModel(
@@ -502,16 +502,16 @@ class _NotificationMakerState extends State<NotificationMaker> {
 // -----------------------------------------------------------------------------
   void _onDeleteFlyer(String flyerID){
 
-    List<TinyFlyer> _tinyFlyers = _attachment;
+    List<FlyerModel> flyers = _attachment;
 
-    TinyFlyer _tinyFlyer = TinyFlyer.getTinyFlyerFromTinyFlyers(tinyFlyers: _tinyFlyers, flyerID: flyerID);
+    FlyerModel _flyer = FlyerModel.getFlyerFromFlyersByID(flyers: flyers, flyerID: flyerID);
 
-    _tinyFlyers.remove(_tinyFlyer);
+    flyers.remove(_flyer);
 
-    bool _attachmentIsEmpty = _tinyFlyers.length == 0 ? true : false;
+    bool _attachmentIsEmpty = flyers.length == 0 ? true : false;
 
     setState(() {
-      _attachment = _tinyFlyers;
+      _attachment = flyers;
 
       if (_attachmentIsEmpty == true){
         _attachmentType = NotiAttachmentType.non;

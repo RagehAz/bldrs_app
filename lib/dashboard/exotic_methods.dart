@@ -1,13 +1,12 @@
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/secondary_models/feedback_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:flutter/material.dart';
 
-class SuperBldrsMethod{
+abstract class ExoticMethods{
 // -----------------------------------------------------------------------------
   static Future<List<UserModel>> readAllUserModels({int limit}) async {
 
@@ -53,7 +52,7 @@ class SuperBldrsMethod{
       orderBy: 'bzID',
     );
 
-    final List<BzModel> _allModels = BzModel.decipherBzzMapsFromFireStore(
+    final List<BzModel> _allModels = BzModel.decipherBzzMaps(
       maps: _maps,
       fromJSON: false,
     );
@@ -87,21 +86,6 @@ class SuperBldrsMethod{
     );
 
     final List<FlyerModel> _allModels = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
-
-    return _allModels;
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<TinyFlyer>> readAllTinyFlyers({BuildContext context, int limit,}) async {
-
-    final List<dynamic> _maps = await Fire.readCollectionDocs(
-      limit: limit ?? 100,
-      collectionName: FireCollection.tinyFlyers,
-      addDocSnapshotToEachMap: false,
-      addDocID: false,
-      orderBy: 'flyerID',
-    );
-
-    final List<TinyFlyer> _allModels = TinyFlyer.decipherTinyFlyersMaps(_maps);
 
     return _allModels;
   }

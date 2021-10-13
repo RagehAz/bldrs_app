@@ -107,7 +107,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       // _prof.removeTinyBzFromLocalList(bzModel.bzID);
 
       /// remove tinyBz from local userTinyBzz
-      _bzzProvider.removeTinyBzFromUserTinyBzz(bzID: bzModel.bzID);
+      _bzzProvider.removeBzFromUserBzz(bzID: bzModel.bzID);
 
       _triggerLoading();
 
@@ -151,10 +151,10 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
       final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
-      _prof.removeTinyBzFromLocalList(bzModel.bzID);
+      _prof.removeBzFromLocalList(bzModel.bzID);
 
       /// remove tinyBz from local userTinyBzz
-      _bzzProvider.removeTinyBzFromUserTinyBzz(bzID: bzModel.bzID);
+      _bzzProvider.removeBzFromUserBzz(bzID: bzModel.bzID);
 
       _triggerLoading();
 

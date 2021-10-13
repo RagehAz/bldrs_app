@@ -1,18 +1,18 @@
 import 'package:bldrs/controllers/drafters/spacers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 
 class FlyersShelfListBuilder extends StatefulWidget {
-  final List<TinyFlyer> tinyFlyers;
+  final List<FlyerModel> flyers;
   final double flyerSizeFactor;
   final Function flyerOnTap;
   final Function onScrollEnd;
 
   const FlyersShelfListBuilder({
-    @required this.tinyFlyers,
+    @required this.flyers,
     @required this.flyerSizeFactor,
     @required this.flyerOnTap,
     this.onScrollEnd,
@@ -52,12 +52,12 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
   @override
   Widget build(BuildContext context) {
 
-    final List<TinyFlyer> _tinyFlyers = widget.tinyFlyers;
+    final List<FlyerModel> _flyers = widget.flyers;
     final double _flyerBoxWidth = FlyerBox.width(context, widget.flyerSizeFactor);
 
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
-      itemCount: _tinyFlyers.length,
+      itemCount: _flyers.length,
       controller: _controller,
       scrollDirection: Axis.horizontal,
       padding: Spacers.superPadding(
@@ -76,12 +76,12 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
       // cacheExtent: screenHeight*5,
       itemBuilder: (context,_x) {
 
-        // print('_tinyFlyers[_x].flyerID = ${_tinyFlyers[_x].flyerID}');
+        // print('_flyers[_x].flyerID = ${_flyers[_x].flyerID}');
 
         // SuperFlyer _superFlyer = SuperFlyer.createViewSuperFlyerFromTinyFlyer(
         //     context: context,
         //     flyerBoxWidth: _flyerBoxWidth,
-        //     tinyFlyer: _tinyFlyers[_x],
+        //     tinyFlyer: _flyers[_x],
         //     onMicroFlyerTap: null,
         //     onAnkhTap: null
         // );
@@ -90,7 +90,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
 
           // --- works
           // ChangeNotifierProvider.value(
-          //   value: _tinyFlyers[_x],
+          //   value: _flyers[_x],
           //   child: ChangeNotifierProvider.value(
           //     value: _tinyBzz[_x],
           //     // child:
@@ -98,7 +98,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
           //     //   flyerSizeFactor: flyerSizeFactor,
           //     //   slidingIsOn: _slidingIsOn,
           //     //   tappingFlyerZone: (){
-          //     //     openFlyer(context, _tinyFlyers[_x].flyerID);
+          //     //     openFlyer(context, _flyers[_x].flyerID);
           //     //     // _slidingIsOff = false;
           //     //     },
           //     // ),
@@ -125,7 +125,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
           // TinyFlyerWidget(
           //   superFlyer: _superFlyer,
           //   // flyerSizeFactor: widget.flyerSizeFactor,
-          //   // tinyFlyer: _tinyFlyers[_x],
+          //   // tinyFlyer: _flyers[_x],
           //   // onTap: (tinyFlyer){
           //   //
           //   //   if (widget.flyerOnTap == null){
@@ -141,13 +141,13 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
         ///
           GestureDetector(
             onTap: widget.flyerOnTap == null ? null : (){
-              widget.flyerOnTap(_tinyFlyers[_x]);
+              widget.flyerOnTap(_flyers[_x]);
             },
             child: AbsorbPointer(
               absorbing: widget.flyerOnTap == null ? false : true,
               child: FinalFlyer(
                 flyerBoxWidth: _flyerBoxWidth,
-                tinyFlyer: _tinyFlyers[_x],
+                flyerModel: _flyers[_x],
                 goesToEditor: false,
 
               ),

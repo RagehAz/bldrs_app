@@ -1,11 +1,11 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:flutter/material.dart';
 
 class FlyersBubble extends StatelessWidget {
-  final List<TinyFlyer> tinyFlyers;
+  final List<FlyerModel> flyers;
   final double flyerSizeFactor;
   final String title;
   final int numberOfColumns;
@@ -15,7 +15,7 @@ class FlyersBubble extends StatelessWidget {
   final double bubbleWidth;
 
   const FlyersBubble({
-    @required this.tinyFlyers,
+    @required this.flyers,
     this.title  = 'Flyers',
     this.numberOfColumns = 5,
     this.numberOfRows = 2,
@@ -39,7 +39,7 @@ class FlyersBubble extends StatelessWidget {
           flyersType: null,
           flyerSizeFactor: flyerSizeFactor,
           title: null,
-          tinyFlyers: tinyFlyers,
+          flyers: flyers,
         ),
 
         // FlyersGrid(

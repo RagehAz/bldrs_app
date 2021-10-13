@@ -10,12 +10,12 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/streamers/user_streamer.dart';
 import 'package:bldrs/views/screens/d_more/d_0_more_screen.dart';
-import 'package:bldrs/views/screens/g_user/g_0_profile_screen.dart';
 import 'package:bldrs/views/screens/f_bz/f_0_my_bz_screen.dart';
+import 'package:bldrs/views/screens/g_user/g_0_profile_screen.dart';
 import 'package:bldrs/views/screens/h_notifications/g_1_notifications_screen.dart';
 import 'package:bldrs/views/widgets/general/artworks/blur_layer.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/user_balloon.dart';
@@ -37,12 +37,12 @@ enum BarType{
 class NavBar extends StatelessWidget {
   final BarType barType;
   final Sky sky;
-  final List<TinyBz> myTinyBzz;
+  final List<BzModel> myBzz;
 
   NavBar({
     this.barType,
     this.sky = Sky.Night,
-    this.myTinyBzz,
+    this.myBzz,
 });
 // -----------------------------------------------------------------------------
   /// --- MAIN CONTROLS
@@ -52,7 +52,7 @@ class NavBar extends StatelessWidget {
   static const double _buttonWidth = Scale.navBarButtonWidth;
 // -----------------------------------------------------------------------------
   double _myBzzListSlideHeight(BuildContext context){
-    final double _wantedHeight = (Scale.superScreenWidth(context) * 0.3 * myTinyBzz.length);
+    final double _wantedHeight = (Scale.superScreenWidth(context) * 0.3 * myBzz.length);
     final double _maxHeight = Scale.superScreenHeight(context) * 0.5;
     double _finalHeight;
     if(_wantedHeight >= _maxHeight){
@@ -105,10 +105,10 @@ class NavBar extends StatelessWidget {
                 padding: const EdgeInsets.all(_paddings),
                 physics: const BouncingScrollPhysics(),
                 // controller: _myBzzListController,
-                itemCount: myTinyBzz.length,
+                itemCount: myBzz.length,
                 itemBuilder: (context, index){
 
-                  final TinyBz _tinyBz = myTinyBzz[index];
+                  final BzModel _bzModel = myBzz[index];
 
                   return Align(
                     alignment: Aligners.superCenterAlignment(context),
@@ -116,20 +116,20 @@ class NavBar extends StatelessWidget {
                       height: 60,
                       width: _bzButtonWidth,
                       margins: const EdgeInsets.all(Ratioz.appBarPadding),
-                      icon: _tinyBz.bzLogo,
-                      verse: _tinyBz.bzName,
-                      secondLine: TextGenerator.bzTypeSingleStringer(context, _tinyBz.bzType),
+                      icon: _bzModel.bzLogo,
+                      verse: _bzModel.bzName,
+                      secondLine: TextGenerator.bzTypeSingleStringer(context, _bzModel.bzType),
                       iconSizeFactor: 1,
                       verseScaleFactor: 0.7,
                       bubble: true,
                       color: Colorz.Nothing,
                       verseCentered: false,
                       onTap: () async {
-                        print('${_tinyBz.bzID}');
+                        print('${_bzModel.bzID}');
                         Nav.goToNewScreen(context,
                             MyBzScreen(
                               userModel: userModel,
-                              tinyBz: _tinyBz,
+                              bzModel: _bzModel,
                             ));
                         },
                     ),
@@ -171,7 +171,7 @@ class NavBar extends StatelessWidget {
 
              final double _boxWidth = Scale.navBarWidth(context: context, userModel: userModel);
 
-             final List<String> _userBzzIDs = TinyBz.getBzzIDsFromTinyBzz(myTinyBzz);
+             final List<String> _userBzzIDs = BzModel.getBzzIDsFromBzz(myBzz);
 
              // List<dynamic> _followedBzzIDs = userModel != null ? userModel?.followedBzzIDs : [];
              // String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
@@ -272,7 +272,7 @@ class NavBar extends StatelessWidget {
                                      if (_userBzzIDs.length == 1){
                                        Nav.goToNewScreen(context, MyBzScreen(
                                          userModel: userModel,
-                                         tinyBz: myTinyBzz[0],
+                                         bzModel: myBzz[0],
                                        ));
                                      } else {
                                        _multiBzzSlider(context, userModel);

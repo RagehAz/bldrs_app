@@ -1,48 +1,45 @@
-import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/numeric.dart';
-import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 // -----------------------------------------------------------------------------
 class AuthorModel{
   final String userID;
-  final String authorName;
-  final dynamic authorPic;
-  final String authorTitle;
-  final bool authorIsMaster;
-  final List<ContactModel> authorContacts;
+  final String name;
+  final dynamic pic;
+  final String title;
+  final bool isMaster;
+  final List<ContactModel> contacts;
 
   const AuthorModel({
     this.userID,
-    this.authorName,
-    this.authorPic,
-    this.authorTitle,
-    this.authorIsMaster,
-    this.authorContacts,
+    this.name,
+    this.pic,
+    this.title,
+    this.isMaster,
+    this.contacts,
 });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return {
       'userID' : userID,
-      'authorName' : authorName,
-      'authorPic' : authorPic,
-      'authorTitle' : authorTitle,
-      'authorIsMaster' : authorIsMaster,
-      'authorContacts' : ContactModel.cipherContactsModels(authorContacts),
+      'authorName' : name,
+      'authorPic' : pic,
+      'authorTitle' : title,
+      'authorIsMaster' : isMaster,
+      'authorContacts' : ContactModel.cipherContactsModels(contacts),
     };
   }
 // -----------------------------------------------------------------------------
-  static int getAuthorGalleryCountFromBzModel({BzModel bzModel, AuthorModel author, List<TinyFlyer> bzTinyFlyers}){
+  static int getAuthorGalleryCountFromBzModel({BzModel bzModel, AuthorModel author, List<FlyerModel> bzFlyers}){
     final String _authorID = author.userID;
 
     final List<String> _authorFlyersIDs = <String>[];
 
-    for (var tinyFlyer in bzTinyFlyers){
-      if(tinyFlyer.authorID == _authorID){
-        _authorFlyersIDs.add(tinyFlyer.flyerID);
+    for (var flyerModel in bzFlyers){
+      if(flyerModel.authorID == _authorID){
+        _authorFlyersIDs.add(flyerModel.flyerID);
       }
     }
 
@@ -54,11 +51,11 @@ class AuthorModel{
   static AuthorModel decipherBzAuthorMap(dynamic map){
     return AuthorModel(
       userID : map['userID'],
-      authorName : map['authorName'],
-      authorPic : map['authorPic'],
-      authorTitle : map['authorTitle'],
-      authorIsMaster : map['authorIsMaster'],
-      authorContacts : ContactModel.decipherContactsMaps(map['authorContacts']),
+      name : map['authorName'],
+      pic : map['authorPic'],
+      title : map['authorTitle'],
+      isMaster : map['authorIsMaster'],
+      contacts : ContactModel.decipherContactsMaps(map['authorContacts']),
     );
   }
 // -----------------------------------------------------------------------------
@@ -92,11 +89,11 @@ class AuthorModel{
     final AuthorModel author = AuthorModel(
       userID: user?.userID,
       // bzID: bz?.bzID,
-      authorName: user?.name,
-      authorPic: user?.pic,
-      authorTitle: user?.title,
-      authorContacts: user?.contacts,
-      authorIsMaster: authorFromBz?.authorIsMaster,
+      name: user?.name,
+      pic: user?.pic,
+      title: user?.title,
+      contacts: user?.contacts,
+      isMaster: authorFromBz?.isMaster,
     );
     return author;
   }
@@ -105,11 +102,11 @@ class AuthorModel{
     return
       AuthorModel(
         userID: userModel.userID,
-        authorName: userModel.name,
-        authorPic: userModel.pic,
-        authorTitle: userModel.title,
-        authorContacts: userModel.contacts,
-        authorIsMaster: true, // need to make sure about this
+        name: userModel.name,
+        pic: userModel.pic,
+        title: userModel.title,
+        contacts: userModel.contacts,
+        isMaster: true, // need to make sure about this
       );
   }
 // -----------------------------------------------------------------------------
@@ -215,11 +212,11 @@ class AuthorModel{
   static AuthorModel getAuthorModelFromUserModel({UserModel userModel}){
     final AuthorModel _author = AuthorModel(
       userID : userModel.userID,
-      authorName : userModel.name,
-      authorPic : userModel.pic,
-      authorTitle : userModel.title,
-      authorIsMaster : false,
-      authorContacts : userModel.contacts,
+      name : userModel.name,
+      pic : userModel.pic,
+      title : userModel.title,
+      isMaster : false,
+      contacts : userModel.contacts,
     );
     return _author;
   }
@@ -260,90 +257,8 @@ class AuthorModel{
     return _allAuthors;
   }
 // -----------------------------------------------------------------------------
-  static List<SQLColumn> createAuthorsLDBColumns(){
-
-    const List<SQLColumn> _authorsColumns = const <SQLColumn>[
-      SQLColumn(key: 'userID', type: 'TEXT', isPrimary: true),
-      SQLColumn(key: 'authorName', type: 'TEXT'),
-      SQLColumn(key: 'authorPic', type: 'TEXT'),
-      SQLColumn(key: 'authorTitle', type: 'TEXT'),
-      SQLColumn(key: 'authorIsMaster', type: 'INTEGER'),
-      SQLColumn(key: 'authorContacts', type: 'TEXT'),
-    ];
-
-    return _authorsColumns;
+  static AuthorModel dummyAuthor(){
+    return null;
   }
 // -----------------------------------------------------------------------------
-  static Future<Map<String, Object>> sqlCipherAuthor({AuthorModel author}) async {
-
-    final Map<String, Object> _authorSQLMap = {
-      'userID' : author.userID,
-      'authorName' : author.authorName,
-      'authorPic' : await Imagers.urlOrImageFileToBase64(author.authorPic),
-      'authorTitle' : author.authorTitle,
-      'authorIsMaster' : Numeric.sqlCipherBool(author.authorIsMaster),
-      'authorContacts' : ContactModel.sqlCipherContacts(author.authorContacts),
-    };
-
-    return _authorSQLMap;
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> sqlCipherAuthors({List<AuthorModel> authors}) async {
-    List<Map<String, Object>> _authorsMaps = <Map<String, Object>>[];
-
-    if (Mapper.canLoopList(authors)){
-
-      for (AuthorModel author in authors){
-
-        final Map<String, Object> _sqlAuthorMap = await sqlCipherAuthor(
-          author: author,
-        );
-
-        _authorsMaps.add(_sqlAuthorMap);
-
-      }
-
-    }
-
-    return _authorsMaps;
-  }
-// -----------------------------------------------------------------------------
-  static Future<AuthorModel> sqlDecipherAuthor({Map<String, Object> map}) async {
-    AuthorModel _author;
-
-    if (map != null){
-
-      _author = AuthorModel(
-        userID : map['userID'],
-        authorName : map['authorName'],
-        authorPic : await Imagers.base64ToFile(map['authorPic']),
-        authorTitle : map['authorTitle'],
-        authorIsMaster : Numeric.sqlDecipherBool(map['authorIsMaster']),
-        authorContacts : ContactModel.sqlDecipherContacts(map['authorContacts']),
-      );
-
-    }
-
-    return _author;
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<AuthorModel>> sqlDecipherAuthors({List<Map<String, Object>> maps}) async {
-    List<AuthorModel> _authors = <AuthorModel>[];
-
-    if (Mapper.canLoopList(maps)){
-
-      for (var map in maps){
-
-        final AuthorModel _author = await sqlDecipherAuthor(map: map);
-
-        _authors.add(_author);
-
-      }
-
-    }
-
-    return _authors;
-  }
-// -----------------------------------------------------------------------------
-
 }

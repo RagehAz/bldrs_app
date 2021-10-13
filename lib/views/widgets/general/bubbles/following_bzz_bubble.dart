@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/screens/i_flyer/h_1_bz_card_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
@@ -10,11 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FollowingBzzBubble extends StatelessWidget {
-  final List<TinyBz> tinyBzz;
+  final List<BzModel> bzzModels;
   final Function onBzTap;
 
   const FollowingBzzBubble({
-    @required this.tinyBzz,
+    @required this.bzzModels,
     this.onBzTap,
 });
 
@@ -32,7 +32,7 @@ class FollowingBzzBubble extends StatelessWidget {
         /// FOLLOWING BZZ GRID
         BzGrid(
           gridZoneWidth: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
-          tinyBzz: tinyBzz,
+          bzzModels: bzzModels,
           numberOfColumns: 7,
           scrollDirection: Axis.horizontal,
           itemOnTap: (bzID) async {

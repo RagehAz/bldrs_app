@@ -52,8 +52,8 @@ class HeaderLabels extends StatelessWidget {
               if (superFlyer.flyerShowsAuthor == true)
               AuthorLabel(
                 flyerBoxWidth: flyerBoxWidth,
-                tinyAuthor: superFlyer.flyerTinyAuthor,
-                tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
+                authorID: superFlyer.authorID,
+                bzModel: superFlyer.bz,
                 showLabel: superFlyer.nav.bzPageIsOn,
                 authorGalleryCount: 0, // is not needed here
                 labelIsOn: true,

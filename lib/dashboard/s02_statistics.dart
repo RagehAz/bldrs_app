@@ -27,7 +27,7 @@ class GeneralStatistics extends StatelessWidget {
       pageTitle: Wordz.allahoAkbar(context),
       tappingRageh: () async {
 
-        final FlyerModel _flyer = await FlyerOps().readFlyerOps(
+        final FlyerModel _flyer = await FlyerOps.readFlyerOps(
           context: context,
           flyerID: 'dlfd1m7S28ND2GIuEA1r',
         );
@@ -39,8 +39,8 @@ class GeneralStatistics extends StatelessWidget {
           keywordsIDs: _flyer.keywordsIDs,
           flyerShowsAuthor: _flyer.flyerShowsAuthor,
           flyerZone: _flyer.flyerZone,
-          tinyAuthor: _flyer.tinyAuthor,
-          tinyBz: _flyer.tinyBz,
+          authorID: _flyer.authorID,
+          bzID: _flyer.bzID,
           flyerPosition: _flyer.flyerPosition,
           slides: <SlideModel>[..._flyer.slides,..._flyer.slides,..._flyer.slides],
           flyerIsBanned: _flyer.flyerIsBanned,

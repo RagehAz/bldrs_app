@@ -1,9 +1,9 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_grid.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class AllFlyersScreen extends StatefulWidget {
@@ -13,7 +13,7 @@ class AllFlyersScreen extends StatefulWidget {
 }
 
 class _AllFlyersScreenState extends State<AllFlyersScreen> {
-  List<TinyFlyer> _tinyFlyers;
+  List<FlyerModel> _flyers;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -45,23 +45,23 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
         print('starting things');
 
         final List<dynamic> _maps = await Fire.readCollectionDocs(
-          collectionName: FireCollection.tinyFlyers,
+          collectionName: FireCollection.flyers,
           orderBy: 'flyerID',
           limit: 5,
         );
 
         print('we got ${_maps.length} maps');
-        final List<TinyFlyer> _tinyFlyersFromMaps = TinyFlyer.decipherTinyFlyersMaps(_maps);
-        print('we got ${_tinyFlyersFromMaps.length} tinyFlyers');
+        final List<FlyerModel> _flyersFromMaps = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
+        print('we got ${_flyersFromMaps.length} flyers');
 
         setState(() {
-          _tinyFlyers = _tinyFlyersFromMaps;
+          _flyers = _flyersFromMaps;
         });
 
         /// X - REBUILD
         _triggerLoading(
           // oldValue: _tinyFlyers,
-          // newValue: _tinyFlyersFromMaps,
+          // newValue: _flyersFromMaps,
         );
 
       });
@@ -82,7 +82,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
       loading: _loading,
       layoutWidget:
 
-      _tinyFlyers == null ?
+      _flyers == null ?
       Container()
           :
       FlyersGrid(
@@ -92,7 +92,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
         numberOfColumns: 2,
         scrollable: true,
         tinyFlyerOnTap: (flyerID) => print('flyerID is : $flyerID'),
-        tinyFlyers: _tinyFlyers,
+        flyers: _flyers,
       ),
 
 

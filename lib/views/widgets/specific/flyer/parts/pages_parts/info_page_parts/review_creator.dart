@@ -5,24 +5,24 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/info_page_parts/review_user_label.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/info_page_parts/review_user_label.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ReviewCreator extends StatelessWidget {
   final double width;
   final double corners;
-  final TinyUser tinyUser;
+  final UserModel userModel;
   final SuperFlyer superFlyer;
   final Function reloadReviews;
 
   const ReviewCreator({
     @required this.width,
     @required this.corners,
-    @required this.tinyUser,
+    @required this.userModel,
     @required this.superFlyer,
     @required this.reloadReviews,
   });
@@ -48,7 +48,7 @@ class ReviewCreator extends StatelessWidget {
 
             /// USER LABEL
             ReviewUserLabel(
-              tinyUser: tinyUser,
+              tinyUser: userModel,
               hasEditButton: false,
               onReviewOptions: null,
             ),

@@ -3,13 +3,13 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/screens/f_bz/f_1_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_header.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class AddFlyerButton extends StatelessWidget {
@@ -33,12 +33,12 @@ class AddFlyerButton extends StatelessWidget {
           new FlyerEditorScreen(
             firstTimer: true,
             bzModel: bzModel,
-            tinyFlyer: null,
+            flyerModel: null,
 
           )
       );
 
-      if (_result.runtimeType == TinyFlyer){
+      if (_result.runtimeType == FlyerModel){
         print('_goToFlyerEditor : adding published flyer model to bzPage screen gallery');
         addPublishedFlyerToGallery(_result);
       }
