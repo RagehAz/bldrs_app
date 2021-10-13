@@ -12,8 +12,13 @@ class Standards{
   static const int flyerTitleMaxLength = 50;
 
   static const int maxAuthorsPerBz = 20;
-  static const int maxBzzPerUser = 10;
+
   // static const int maxSlidesPerFlyer = 10;
+
+  static const int maxUserFollows = 500;
+  static const int maxUserSavedFlyers = 1000;
+  static const int maxUserBzz = 10;
+
 // -----------------------------------------------------------------------------
   static int getMaxSlidesCount(BzAccountType accountType){
 
