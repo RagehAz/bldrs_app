@@ -21,26 +21,26 @@ import 'package:flutter/material.dart';
 /// ];
 /// List<Map<String,Object>> progress; <------
 enum BzType {
-  Developer, // dv -> pp (property flyer - property source flyer)
-  Broker, // br -> pp (property flyer)
+  developer, // dv -> pp (property flyer - property source flyer)
+  broker, // br -> pp (property flyer)
 
-  Designer, // dr - ds (design flyer)
-  Contractor, // cn - pj (project flyer)
-  Artisan, // ar - cr (craft flyer)
+  designer, // dr - ds (design flyer)
+  contractor, // cn - pj (project flyer)
+  artisan, // ar - cr (craft flyer)
 
-  Manufacturer, // mn - pd (product flyer - product source flyer)
-  Supplier, // sp - pd (product flyer)
+  manufacturer, // mn - pd (product flyer - product source flyer)
+  supplier, // sp - pd (product flyer)
 }
 // -----------------------------------------------------------------------------
 enum BzForm {
-  Individual,
-  Company,
+  individual,
+  company,
 }
 // -----------------------------------------------------------------------------
 enum BzAccountType{
-  Default,
-  Premium,
-  Super,
+  normal,
+  premium,
+  sphinx,
 }
 // -----------------------------------------------------------------------------
 class BzModel with ChangeNotifier{
@@ -207,20 +207,20 @@ class BzModel with ChangeNotifier{
     return _bzList;
   }
 // -----------------------------------------------------------------------------
-  static BzAccountType decipherBzAccountType (int bzAccountType){
+  static BzAccountType decipherBzAccountType (String bzAccountType){
     switch (bzAccountType){
-      case 1:   return  BzAccountType.Default;     break;
-      case 2:   return  BzAccountType.Premium;     break;
-      case 3:   return  BzAccountType.Super;       break;
+      case 'normal'  :   return  BzAccountType.normal;     break; // 1
+      case 'premium' :   return  BzAccountType.premium;     break; // 2
+      case 'sphinx'  :   return  BzAccountType.sphinx;       break; // 3
       default : return   null;
     }
   }
 // -----------------------------------------------------------------------------
-  static int cipherBzAccountType (BzAccountType bzAccountType){
+  static String cipherBzAccountType (BzAccountType bzAccountType){
     switch (bzAccountType){
-      case BzAccountType.Default      :    return  1;  break;
-      case BzAccountType.Premium      :    return  2;  break;
-      case BzAccountType.Super        :    return  3;  break;
+      case BzAccountType.normal         :    return 'normal' ;  break;
+      case BzAccountType.premium        :    return 'premium';  break;
+      case BzAccountType.sphinx         :    return 'sphinx' ;  break;
       default : return null;
     }
   }
@@ -258,9 +258,9 @@ class BzModel with ChangeNotifier{
       bzTotalFlyers: 0,
       authorsIDs: <String>[userModel.userID],
       createdAt: DateTime.now(),
-      accountType: BzAccountType.Default,
+      accountType: BzAccountType.normal,
       bzAbout: '',
-      bzForm: BzForm.Individual,
+      bzForm: BzForm.individual,
       bzLogo: userModel.pic,
       bzPosition: null,
       bzScope: null,
@@ -269,69 +269,70 @@ class BzModel with ChangeNotifier{
     );
   }
 // -----------------------------------------------------------------------------
-  static BzType decipherBzType (int x){
+
+  static BzType decipherBzType (String x){
     switch (x){
-      case 1:   return  BzType.Developer;        break;
-      case 2:   return  BzType.Broker;        break;
-      case 3:   return  BzType.Designer;      break;
-      case 4:   return  BzType.Contractor;    break;
-      case 5:   return  BzType.Artisan;       break;
-      case 6:   return  BzType.Manufacturer;  break;
-      case 7:   return  BzType.Supplier;      break;
+      case 'developer'    :   return  BzType.developer;     break; // 1
+      case 'broker'       :   return  BzType.broker;        break; // 2
+      case 'designer'     :   return  BzType.designer;      break; // 3
+      case 'contractor'   :   return  BzType.contractor;    break; // 4
+      case 'artisan'      :   return  BzType.artisan;       break; // 5
+      case 'manufacturer' :   return  BzType.manufacturer;  break; // 6
+      case 'supplier'     :   return  BzType.supplier;      break; // 7
       default : return   null;
     }
   }
 // -----------------------------------------------------------------------------
-  static int cipherBzType (BzType x){
+  static String cipherBzType (BzType x){
     switch (x){
-      case BzType.Developer:      return  1;  break;
-      case BzType.Broker:         return  2;  break;
-      case BzType.Designer:       return  3;  break;
-      case BzType.Contractor:     return  4;  break;
-      case BzType.Artisan:        return  5;  break;
-      case BzType.Manufacturer:   return  6;  break;
-      case BzType.Supplier:       return  7;  break;
+      case BzType.developer:      return  'developer'   ;  break;
+      case BzType.broker:         return  'broker'      ;  break;
+      case BzType.designer:       return  'designer'    ;  break;
+      case BzType.contractor:     return  'contractor'  ;  break;
+      case BzType.artisan:        return  'artisan'     ;  break;
+      case BzType.manufacturer:   return  'manufacturer';  break;
+      case BzType.supplier:       return  'supplier'    ;  break;
       default : return null;
     }
   }
 // -----------------------------------------------------------------------------
-  static BzForm decipherBzForm (int x){
+  static BzForm decipherBzForm (String x){
     switch (x){
-      case 1:   return   BzForm.Individual;   break;
-      case 2:   return   BzForm.Company;      break;
+      case 'individual' :   return   BzForm.individual;   break; // 1
+      case 'company'    :   return   BzForm.company;      break; // 2
       default : return   null;
     }
   }
 // -----------------------------------------------------------------------------
-  static int cipherBzForm (BzForm x){
+  static String cipherBzForm (BzForm x){
     switch (x){
-      case BzForm.Individual:   return 1; break;
-      case BzForm.Company:      return 2; break;
+      case BzForm.individual:   return 'individual'; break;
+      case BzForm.company:      return 'company'   ; break;
       default : return null;
     }
   }
 // -----------------------------------------------------------------------------
   static const List<BzForm> bzFormsList = const <BzForm>[
-    BzForm.Individual,
-    BzForm.Company,
+    BzForm.individual,
+    BzForm.company,
   ];
 // -----------------------------------------------------------------------------
   static const List<BzAccountType> bzAccountTypesList = const <BzAccountType>[
-    BzAccountType.Default,
-    BzAccountType.Premium,
-    BzAccountType.Super,
+    BzAccountType.normal,
+    BzAccountType.premium,
+    BzAccountType.sphinx,
   ];
 // -----------------------------------------------------------------------------
   static const List<BzType> bzTypesList = const <BzType>[
-    BzType.Developer,
-    BzType.Broker,
+    BzType.developer,
+    BzType.broker,
 
-    BzType.Designer,
-    BzType.Contractor,
-    BzType.Artisan,
+    BzType.designer,
+    BzType.contractor,
+    BzType.artisan,
 
-    BzType.Manufacturer,
-    BzType.Supplier,
+    BzType.manufacturer,
+    BzType.supplier,
   ];
 // -----------------------------------------------------------------------------
   static List<String> getBzTeamIDs(BzModel bzModel){
@@ -441,4 +442,39 @@ class BzModel with ChangeNotifier{
 // -----------------------------------------------------------------------------
 }
 
+/*
 
+ZEBALA
+
+
+  static String fixBzAccountTypeFromIntToString(int bzAccountType){
+    switch (bzAccountType){
+      case 1 :   return  'normal' ;     break; // 1
+      case 2 :   return  'premium';     break; // 2
+      case 3 :   return  'sphinx' ;       break; // 3
+      default : return   null;
+    }
+  }
+
+  static String fixBzTypeFromIntToString(int x){
+    switch (x){
+      case  1:   return  'developer'   ;  break; // 1
+      case  2:   return  'broker'      ;  break; // 2
+      case  3:   return  'designer'    ;  break; // 3
+      case  4:   return  'contractor'  ;  break; // 4
+      case  5:   return  'artisan'     ;  break; // 5
+      case  6:   return  'manufacturer';  break; // 6
+      case  7:   return  'supplier'    ;  break; // 7
+      default : return   null;
+    }
+  }
+
+  static String fixBzFormFromIntToString(int x){
+    switch (x){
+      case 1    :   return  'individual' ;  break; // 1
+      case 2    :   return  'company'    ;  break; // 2
+      default : return   null;
+    }
+  }
+
+ */

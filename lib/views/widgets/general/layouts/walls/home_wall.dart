@@ -44,7 +44,7 @@ class _HomeWallState extends State<HomeWall> {
         numberOfRows: 1,
         numberOfColumns: 5,
         onTap: (value){print(value);},
-        title: '${TextGenerator.bldrsTypePageTitle(context, BzType.Designer)} in Province',
+        title: '${TextGenerator.bldrsTypePageTitle(context, BzType.designer)} in Province',
       ),
 
       HomeWall.spacer,

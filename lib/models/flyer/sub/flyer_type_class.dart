@@ -89,26 +89,26 @@ class FlyerTypeClass {
 // -----------------------------------------------------------------------------
   static FlyerType concludeFlyerType(BzType bzType){
     switch (bzType){
-      case BzType.Developer    :   return FlyerType.rentalProperty;   break;
-      case BzType.Broker       :   return FlyerType.rentalProperty;   break;
-      case BzType.Designer     :   return FlyerType.design;     break;
-      case BzType.Contractor   :   return FlyerType.project;    break;
-      case BzType.Artisan      :   return FlyerType.craft;      break;
-      case BzType.Manufacturer :   return FlyerType.product;    break; // product or equipment for author to choose while creating flyer
-      case BzType.Supplier     :   return FlyerType.product;    break; // product or equipment for author to choose while creating flyer
+      case BzType.developer    :   return FlyerType.rentalProperty;   break;
+      case BzType.broker       :   return FlyerType.rentalProperty;   break;
+      case BzType.designer     :   return FlyerType.design;     break;
+      case BzType.contractor   :   return FlyerType.project;    break;
+      case BzType.artisan      :   return FlyerType.craft;      break;
+      case BzType.manufacturer :   return FlyerType.product;    break; // product or equipment for author to choose while creating flyer
+      case BzType.supplier     :   return FlyerType.product;    break; // product or equipment for author to choose while creating flyer
       default : return null;
     }
   }
 // -----------------------------------------------------------------------------
   static List<FlyerType> concludePossibleFlyerTypesForBz({BzType bzType}){
     switch (bzType){
-      case BzType.Developer    :   return <FlyerType>[FlyerType.newProperty, FlyerType.rentalProperty, FlyerType.resaleProperty];   break;
-      case BzType.Broker       :   return <FlyerType>[FlyerType.newProperty, FlyerType.rentalProperty, FlyerType.resaleProperty];   break;
-      case BzType.Designer     :   return <FlyerType>[FlyerType.design];     break;
-      case BzType.Contractor   :   return <FlyerType>[FlyerType.project];    break;
-      case BzType.Artisan      :   return <FlyerType>[FlyerType.craft];      break;
-      case BzType.Manufacturer :   return <FlyerType>[FlyerType.product, FlyerType.equipment];    break; // product or equipment for author to choose while creating flyer
-      case BzType.Supplier     :   return <FlyerType>[FlyerType.product, FlyerType.equipment];    break; // product or equipment for author to choose while creating flyer
+      case BzType.developer    :   return <FlyerType>[FlyerType.newProperty, FlyerType.rentalProperty, FlyerType.resaleProperty];   break;
+      case BzType.broker       :   return <FlyerType>[FlyerType.newProperty, FlyerType.rentalProperty, FlyerType.resaleProperty];   break;
+      case BzType.designer     :   return <FlyerType>[FlyerType.design];     break;
+      case BzType.contractor   :   return <FlyerType>[FlyerType.project];    break;
+      case BzType.artisan      :   return <FlyerType>[FlyerType.craft];      break;
+      case BzType.manufacturer :   return <FlyerType>[FlyerType.product, FlyerType.equipment];    break; // product or equipment for author to choose while creating flyer
+      case BzType.supplier     :   return <FlyerType>[FlyerType.product, FlyerType.equipment];    break; // product or equipment for author to choose while creating flyer
       default : return null;
     }
   }

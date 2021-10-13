@@ -5,6 +5,10 @@ import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
+/// TinyBz
+/// is a small version of BzModel to :-
+/// - (Main Objective) be saved inside FlyerModel to avoid 2 firebase reads if was saved as bzID
+/// - (Trivial Objective) to pass only necessary data
 class TinyBz with ChangeNotifier{
   final String bzID;
   final dynamic bzLogo;
@@ -139,7 +143,7 @@ class TinyBz with ChangeNotifier{
             bzID: _bzID,
             bzLogo: Iconz.DumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
             bzName: 'Business Name',
-            bzType: BzType.Designer,
+            bzType: BzType.designer,
             bzZone: Zone(countryID: 'egy', cityID: 'cairo', districtID: 'heliopolis'),
             bzTotalFollowers: 1000,
             bzTotalFlyers: 10,
