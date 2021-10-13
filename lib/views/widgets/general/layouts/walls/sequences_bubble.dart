@@ -129,13 +129,18 @@ class SequencesBubble extends StatelessWidget {
                                     ),
 
                                     /// GROUP NAME
-                                    SuperVerse(
-                                      verse: _groupName,
-                                      centered: true,
-                                      maxLines: 3,
-                                      margin: Ratioz.appBarPadding,
-                                      size: 2,
-                                      scaleFactor: 0.95,
+                                    Container(
+                                      width: _buttonWidth,
+                                      height: _buttonHeight - _buttonWidth,
+                                      // color: Colorz.BloodTest,
+                                      child: SuperVerse(
+                                        verse: _groupName,
+                                        centered: true,
+                                        maxLines: 3,
+                                        margin: Ratioz.appBarPadding,
+                                        size: 2,
+                                        scaleFactor: 0.95,
+                                      ),
                                     ),
 
                                   ],

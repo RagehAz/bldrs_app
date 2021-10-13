@@ -6,6 +6,8 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/firestore/flyer_ops.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -255,43 +257,80 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
               WideButton(
                 color: Colorz.BloodTest,
-                verse: 'fix bzForm',
-                icon: Iconz.DvBlackHole,
+                verse: 'get a flyer',
+                icon: Iconz.Share,
                 onTap: () async {
 
-                  // List<dynamic> _maps = await Fire.readCollectionDocs(
-                  //   limit: 200,
-                  //   addDocID: true,
-                  //   orderBy: 'bzID',
-                  //   collectionName: FireCollection.bzz,
-                  //   addDocSnapshotToEachMap: false,
-                  // );
+                  FlyerModel _flyer = await FlyerOps.readFlyerOps(
+                    context: context,
+                    flyerID: '2fDlDyF01sw8GEYPJ9GN',
+                  );
 
-
-                  // for (Map map in _maps){
-
-                    /// TASK : fix null bz forms
-
-                    // String _bzFormString = BzModel.fixBzFormFromIntToString(map['bzForm']);
-
-                    // print('_bzTypeString : $_bzTypeString');
-
-                    // Mapper.printMap(_fixedMap);
-
-                    // await Fire.updateDocField(
-                    //   context: context,
-                    //   collName: FireCollection.bzz,
-                    //   docName: map['bzID'],
-                    //   field: 'bzForm',
-                    //   input: _bzFormString,
-                    // );
-
-
-                  // }
+                  _flyer.printFlyer();
 
                 },
               ),
 
+              WideButton(
+                color: Colorz.BloodTest,
+                verse: 'fix flyer',
+                icon: Iconz.DvBlackHole,
+                onTap: () async {
+
+                  List<dynamic> _maps = await Fire.readCollectionDocs(
+                    limit: 200,
+                    addDocID: true,
+                    orderBy: 'flyerID',
+                    collectionName: FireCollection.flyers,
+                    addDocSnapshotToEachMap: false,
+                  );
+                    /// TASK : fix null bz forms
+
+
+                  for (Map map in _maps){
+
+
+                    Map<String, dynamic> _authorMap = map['tinyAuthor'];
+                    Map<String, dynamic> _bzMap = map['tinyBz'];
+
+                    String _authorID = _authorMap['userID'];
+                    String _bzID = _bzMap['bzID'];
+
+                    await Fire.updateDocField(
+                      context: context,
+                      collName: FireCollection.flyers,
+                      docName: map['flyerID'],
+                      field: 'authorID',
+                      input: _authorID,
+                    );
+
+                    await Fire.updateDocField(
+                      context: context,
+                      collName: FireCollection.flyers,
+                      docName: map['flyerID'],
+                      field: 'bzID',
+                      input: _bzID,
+                    );
+
+                    await Fire.deleteDocField(
+                        context: context,
+                        collName: FireCollection.flyers,
+                        docName: map['flyerID'],
+                        field: 'tinyBz',
+                    );
+
+                    await Fire.deleteDocField(
+                      context: context,
+                      collName: FireCollection.flyers,
+                      docName: map['flyerID'],
+                      field: 'tinyAuthor',
+                    );
+
+                  }
+
+                },
+              ),
+              
 
               WideButton(
                 color: Colorz.BloodTest,

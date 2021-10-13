@@ -360,6 +360,9 @@ class BzModel with ChangeNotifier{
       map: _map,
       fromJSON: false,
     );
+
+    print(' map the bz Model is $_bzModel');
+
     return _bzModel;
   }
 // -----------------------------------------------------------------------------

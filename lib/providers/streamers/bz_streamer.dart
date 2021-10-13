@@ -25,6 +25,12 @@ Widget bzModelStreamBuilder({
           return Loading(loading: true,);
         } else {
           final BzModel bzModel = snapshot.data;
+
+          print('xx bzModel in  stream is : $bzModel');
+
+          bzModel.printBzModel();
+
+
           return
             builder(context, bzModel);
         }
@@ -72,6 +78,7 @@ Widget bzModelBuilder({
 Stream<BzModel> getBzStream(String bzID) {
   final Stream<DocumentSnapshot> _bzSnapshot = Fire.streamDoc(FireCollection.bzz, bzID);
   final Stream<BzModel> _bzStream = _bzSnapshot.map(BzModel.getBzModelFromSnapshot);
+
   return _bzStream;
 }
 // -----------------------------------------------------------------------------
