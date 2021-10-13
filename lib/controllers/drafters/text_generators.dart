@@ -65,25 +65,25 @@ class TextGenerator{
 // -----------------------------------------------------------------------------
   static String bzTypeSingleStringer (BuildContext context, BzType bzType){
     return
-      bzType == BzType.Developer ? Wordz.realEstateDeveloper(context) :
-      bzType == BzType.Broker ? Wordz.realEstateBroker(context) :
-      bzType == BzType.Designer ? Wordz.designer(context) :
-      bzType == BzType.Contractor ? Wordz.contractor(context) :
-      bzType == BzType.Artisan ? Wordz.craftsman(context) :
-      bzType == BzType.Manufacturer ? Wordz.manufacturer(context) :
-      bzType == BzType.Supplier ? Wordz.supplier(context) :
+      bzType == BzType.developer ? Wordz.realEstateDeveloper(context) :
+      bzType == BzType.broker ? Wordz.realEstateBroker(context) :
+      bzType == BzType.designer ? Wordz.designer(context) :
+      bzType == BzType.contractor ? Wordz.contractor(context) :
+      bzType == BzType.artisan ? Wordz.craftsman(context) :
+      bzType == BzType.manufacturer ? Wordz.manufacturer(context) :
+      bzType == BzType.supplier ? Wordz.supplier(context) :
       'Builder';
   }
 // -----------------------------------------------------------------------------
   static String bzTypePluralStringer (BuildContext context, BzType bzType){
     return
-      bzType == BzType.Developer ? Wordz.realEstateDevelopers(context) :
-      bzType == BzType.Broker ? Wordz.brokers(context) :
-      bzType == BzType.Designer ? Wordz.designers(context) :
-      bzType == BzType.Contractor ? Wordz.contractors(context) :
-      bzType == BzType.Artisan ? Wordz.craftsmen(context) :
-      bzType == BzType.Manufacturer ? Wordz.manufacturers(context) :
-      bzType == BzType.Supplier ? Wordz.suppliers(context) :
+      bzType == BzType.developer ? Wordz.realEstateDevelopers(context) :
+      bzType == BzType.broker ? Wordz.brokers(context) :
+      bzType == BzType.designer ? Wordz.designers(context) :
+      bzType == BzType.contractor ? Wordz.contractors(context) :
+      bzType == BzType.artisan ? Wordz.craftsmen(context) :
+      bzType == BzType.manufacturer ? Wordz.manufacturers(context) :
+      bzType == BzType.supplier ? Wordz.suppliers(context) :
       'Builders';
   }
 // -----------------------------------------------------------------------------
@@ -120,8 +120,8 @@ class TextGenerator{
 // -----------------------------------------------------------------------------
   static String bzFormStringer (BuildContext context, BzForm bzForm){
     return
-      bzForm == BzForm.Company ? Wordz.company(context) :
-      bzForm == BzForm.Individual ? Wordz.individual(context) :
+      bzForm == BzForm.company ? Wordz.company(context) :
+      bzForm == BzForm.individual ? Wordz.individual(context) :
       Wordz.company(context);
 
   }
@@ -178,26 +178,26 @@ class TextGenerator{
 // -----------------------------------------------------------------------------
   static String askHinter (BuildContext context, BzType bzType){
     final String _askHint =
-    bzType == BzType.Developer ? 'I\'m Looking for a property directly from the developer ...' :
-    bzType == BzType.Broker ? 'I\'m Looking for a property from brokers and re-sellers ...' :
-    bzType == BzType.Manufacturer ? 'I want to Manufacture or get big quantities ...' :
-    bzType == BzType.Supplier ? 'I\'m searching for a product ...' :
-    bzType == BzType.Designer ? 'I need consultation from a designer ...' :
-    bzType == BzType.Contractor ? 'I\'m Looking for a contractor to build a project ...' :
-    bzType == BzType.Artisan ? 'I want a craftsman to fix or build something ...' :
+    bzType == BzType.developer ? 'I\'m Looking for a property directly from the developer ...' :
+    bzType == BzType.broker ? 'I\'m Looking for a property from brokers and re-sellers ...' :
+    bzType == BzType.manufacturer ? 'I want to Manufacture or get big quantities ...' :
+    bzType == BzType.supplier ? 'I\'m searching for a product ...' :
+    bzType == BzType.designer ? 'I need consultation from a designer ...' :
+    bzType == BzType.contractor ? 'I\'m Looking for a contractor to build a project ...' :
+    bzType == BzType.artisan ? 'I want a craftsman to fix or build something ...' :
     Wordz.askHint(context);
     return _askHint;
   }
 // -----------------------------------------------------------------------------
   static String bldrsTypePageTitle(BuildContext context, BzType bzType) {
     return
-      bzType == BzType.Developer ? Wordz.realEstateDeveloper(context) :
-      bzType == BzType.Broker ? Wordz.realEstateBroker(context) :
-      bzType == BzType.Manufacturer ? Wordz.manufacturers(context) :
-      bzType == BzType.Supplier ? Wordz.suppliers(context) : // and distributors
-      bzType == BzType.Designer ? Wordz.constructionTagLine(context) :
-      bzType == BzType.Contractor ? Wordz.contractors(context) :
-      bzType == BzType.Artisan ? Wordz.craftsmen(context) :
+      bzType == BzType.developer ? Wordz.realEstateDeveloper(context) :
+      bzType == BzType.broker ? Wordz.realEstateBroker(context) :
+      bzType == BzType.manufacturer ? Wordz.manufacturers(context) :
+      bzType == BzType.supplier ? Wordz.suppliers(context) : // and distributors
+      bzType == BzType.designer ? Wordz.constructionTagLine(context) :
+      bzType == BzType.contractor ? Wordz.contractors(context) :
+      bzType == BzType.artisan ? Wordz.craftsmen(context) :
       Wordz.bldrsShortName(context);
   }
 // -----------------------------------------------------------------------------

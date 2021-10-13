@@ -55,13 +55,13 @@ abstract class SectionClass{
 // -----------------------------------------------------------------------------
   static Section getSectionByBzType(BzType bzType){
     switch (bzType){
-      case BzType.Developer:    return   Section.NewProperties;     break;
-      case BzType.Broker:       return   Section.ResaleProperties;  break;
-      case BzType.Designer:     return   Section.Designs;           break;
-      case BzType.Contractor:   return   Section.Projects;          break;
-      case BzType.Artisan:      return   Section.Crafts;            break;
-      case BzType.Manufacturer: return   Section.Products;          break;
-      case BzType.Supplier:     return   Section.Products;          break;
+      case BzType.developer:    return   Section.NewProperties;     break;
+      case BzType.broker:       return   Section.ResaleProperties;  break;
+      case BzType.designer:     return   Section.Designs;           break;
+      case BzType.contractor:   return   Section.Projects;          break;
+      case BzType.artisan:      return   Section.Crafts;            break;
+      case BzType.manufacturer: return   Section.Products;          break;
+      case BzType.supplier:     return   Section.Products;          break;
       default : return   null;
     }
   }
