@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
@@ -7,10 +7,9 @@ import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
@@ -20,13 +19,11 @@ import 'package:flutter/cupertino.dart';
 
 /// Should include all user firestore operations
 /// except reading data for widgets injection
-class UserOps{
-// =============================================================================
-  /// user firestore collection reference
-  final CollectionReference _usersCollectionRef = Fire.getCollectionRef(FireCollection.users);
+abstract class UserOps{
 // -----------------------------------------------------------------------------
   /// users firestore collection reference getter
-  CollectionReference userCollectionRef(){
+  static CollectionReference userCollectionRef(){
+    final CollectionReference _usersCollectionRef = Fire.getCollectionRef(FireCollection.users);
     return
       _usersCollectionRef;
   }
@@ -41,7 +38,7 @@ class UserOps{
   }
 // -----------------------------------------------------------------------------
   /// create or update user document
-  Future<void> _createOrUpdateUserDoc({BuildContext context, UserModel userModel}) async {
+  static Future<void> _createOrUpdateUserDoc({BuildContext context, UserModel userModel}) async {
 
     await Fire.updateDoc(
       context: context,
@@ -55,8 +52,7 @@ class UserOps{
   /// this creates :-
   /// 1 - JPG in : storage/userPics/userID.jpg if userModel.pic is File no URL
   /// 2 - userModel in : firestore/users/userID
-  /// 3 - tinyUser in : firestore/tinyUsers/userID
-  Future<UserModel> createUserOps({BuildContext context, UserModel userModel}) async {
+  static Future<UserModel> createUserOps({BuildContext context, UserModel userModel}) async {
 
     /// check if user pic is file to upload or URL from facebook to keep
     String _userPicURL;
@@ -98,19 +94,12 @@ class UserOps{
       userModel: _finalUserModel,
     );
 
-    /// create TinyUser in firestore
-    await Fire.createNamedDoc(
-      context: context,
-      collName: FireCollection.tinyUsers,
-      docName: userModel.userID,
-      input: TinyUser.getTinyUserFromUserModel(_finalUserModel).toMap(),
-    );
 
     return _finalUserModel;
 
   }
 // -----------------------------------------------------------------------------
-  Future<UserModel> readUserOps({BuildContext context, String userID}) async {
+  static Future<UserModel> readUserOps({BuildContext context, String userID}) async {
 
     print('readUserOps : Start reading user $userID while lang is : ${Wordz.languageCode(context)},');
 
@@ -134,29 +123,8 @@ class UserOps{
     return _user;
   }
 // -----------------------------------------------------------------------------
-  Future<TinyUser> readTinyUserOps({BuildContext context, String userID}) async {
-
-    print('readUserOps : Start reading user $userID while lang is : ${Wordz.languageCode(context)},');
-
-    final Map<String, dynamic> _tinyUserMap = await Fire.readDoc(
-      context: context,
-      collName: FireCollection.tinyUsers,
-      docName: userID,
-    );
-
-    print('readUserOps : _tinyUserMap _tinyUserMap[\'userID\'] is : ${_tinyUserMap['userID']}');
-    // print('lng : ${Wordz.languageCode(context)}');
-
-    final TinyUser _tinyUser = _tinyUserMap == null ? null : TinyUser.decipherTinyUserMap(_tinyUserMap);
-
-    // print('_userModel is : $_user');
-    // print('lng : ${Wordz.languageCode(context)}');
-
-    return _tinyUser;
-  }
-// -----------------------------------------------------------------------------
   /// auth change user stream
-  Stream<UserModel> streamInitialUser(){
+  static Stream<UserModel> streamInitialUser(){
     final FirebaseAuth _auth = FirebaseAuth?.instance;
 
     return _auth.authStateChanges()
@@ -171,9 +139,7 @@ class UserOps{
   ///   A1 - save pic to fireStorage/usersPics/userID and get URL
   /// B - create final UserModel
   /// C - update firestore/users/userID
-  /// D - if tinyUser is changed
-  ///   D1 - update fireStore/tinyUsers/userID
-  Future<void> updateUserOps({BuildContext context, UserModel oldUserModel, UserModel updatedUserModel}) async {
+  static Future<void> updateUserOps({BuildContext context, UserModel oldUserModel, UserModel updatedUserModel}) async {
 
     /// A - if user pic changed
     String _userPicURL;
@@ -218,25 +184,6 @@ class UserOps{
     );
 
 
-    /// D - if tinyUser is changed
-    if (
-
-    TinyUser.tinyUsersAreTheSame(
-        finalUserModel: _finalUserModel,
-        originalUserModel: oldUserModel
-    ) == false
-
-    ){
-
-      /// D1 - update fireStore/tinyUsers/userID
-      await Fire.updateDoc(
-        context: context,
-        collName: FireCollection.tinyUsers,
-        docName: updatedUserModel.userID,
-        input: TinyUser.getTinyUserFromUserModel(_finalUserModel).toMap(),
-      );
-    }
-
   }
 // -----------------------------------------------------------------------------
   /// de activate user account
@@ -248,14 +195,12 @@ class UserOps{
   ///   F - check if user wants to continue or not
   ///   G - deactivate all deactivable bzz
   ///   H - change user status in user doc to deactivated
-  ///   I - change user status in TinyUser doc to deactivated
   ///   J - SIGN OUT
   ///
   /// B - if user is not author :-
   ///   H - change user status in user doc to deactivated
-  ///   I - change user status in TinyUser doc to deactivated
   ///   J - SIGN OUT
-  Future<dynamic> deactivateUserOps({BuildContext context, UserModel userModel}) async {
+  static Future<dynamic> deactivateUserOps({BuildContext context, UserModel userModel}) async {
 
     /// A - initial bool dialog alert
     final bool _result = await CenterDialog.showCenterDialog(
@@ -321,7 +266,7 @@ class UserOps{
         /// D - if user wants to continue
         else  {
 
-          List<TinyFlyer> _bzTinyFlyers = await FlyerOps().readBzzTinyFlyers(
+          List<FlyerModel> _bzFlyers = await FlyerOps.readBzzFlyers(
             context: context,
             bzzModels: _bzzToDeactivate,
           );
@@ -330,7 +275,7 @@ class UserOps{
           final bool _flyersReviewResult = await Dialogz.flyersDeactivationDialog(
             context: context,
             bzzToDeactivate: _bzzToDeactivate,
-            tinyFlyers: _bzTinyFlyers,
+            flyers: _bzFlyers,
           );
 
           /// F - if user wants to stop
@@ -371,14 +316,6 @@ class UserOps{
               input: UserModel.cipherUserStatus(UserStatus.Deactivated),
             );
 
-            /// I - change user status in TinyUser doc to deactivated
-            await Fire.updateDocField(
-              context: context,
-              collName: FireCollection.tinyUsers,
-              docName: userModel.userID,
-              field: 'userStatus',
-              input: UserModel.cipherUserStatus(UserStatus.Deactivated),
-            );
 
             ///   J - SIGN OUT
             await AuthOps().signOut(context: context, routeToUserChecker: false);
@@ -409,14 +346,6 @@ class UserOps{
           input: UserModel.cipherUserStatus(UserStatus.Deactivated),
         );
 
-        /// I - change user status in TinyUser doc to deactivated
-        await Fire.updateDocField(
-          context: context,
-          collName: FireCollection.tinyUsers,
-          docName: userModel.userID,
-          field: 'userStatus',
-          input: UserModel.cipherUserStatus(UserStatus.Deactivated),
-        );
 
         CenterDialog.showCenterDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
 
@@ -446,7 +375,6 @@ class UserOps{
   ///   E - show flyers that will be DELETED
   ///   F - return 'stop' or continue ops
   ///   G - DELETE all deactivable bzz : firestore/bzz/bzID
-  ///   H - DELETE tiny user : firestore/tinyUsers/userID
   ///   I - DELETE user image : storage/usersPics/userID
   ///   J - DELETE user doc : firestore/users/userID
   ///   L - DELETE firebase user : auth/userID
@@ -454,13 +382,12 @@ class UserOps{
   ///   M - return 'deleted'
   ///
   /// B - if user is not Author
-  ///   H - DELETE tiny user : firestore/tinyUsers/userID
   ///   I - DELETE user image : storage/usersPics/userID
   ///   J - DELETE user doc : firestore/users/userID
   ///   L - DELETE firebase user : auth/userID
   ///   K - SIGN OUT
   ///   M - return 'deleted'
-  Future<dynamic> superDeleteUserOps({BuildContext context, UserModel userModel}) async {
+  static Future<dynamic> superDeleteUserOps({BuildContext context, UserModel userModel}) async {
 
     /// A - initial bool dialog alert
     final bool _result = await CenterDialog.showCenterDialog(
@@ -524,7 +451,7 @@ class UserOps{
         /// D - if user wants to continue
         else {
 
-          final List<TinyFlyer> _bzzTinyFlyers = await FlyerOps().readBzzTinyFlyers(
+          final List<FlyerModel> _bzzFlyers = await FlyerOps.readBzzFlyers(
             context: context,
             bzzModels: _bzzToDeactivate,
           );
@@ -533,7 +460,7 @@ class UserOps{
           final bool _flyersReviewResult = await Dialogz.flyersDeactivationDialog(
             context: context,
             bzzToDeactivate: _bzzToDeactivate,
-            tinyFlyers: _bzzTinyFlyers,
+            flyers: _bzzFlyers,
           );
 
           /// F - if user wants to stop
@@ -566,14 +493,6 @@ class UserOps{
 
               print('G - DELETED : from ${userModel.userID} : bz :  ${bz.bzID} successfully');
             }
-
-            /// H - DELETE tiny user : firestore/tinyUsers/userID
-            print('H - deleting tinyUser');
-            await Fire.deleteDoc(
-              context: context,
-              collName: FireCollection.tinyUsers,
-              docName: userModel.userID,
-            );
 
             /// I - DELETE user image : storage/usersPics/userID
             print('I - deleting user pic');
@@ -626,13 +545,6 @@ class UserOps{
           child: Loading(loading: true,),
         );
 
-        /// H - DELETE tiny user : firestore/tinyUsers/userID
-        print('H - deleting tinyUser');
-        await Fire.deleteDoc(
-          context: context,
-          collName: FireCollection.tinyUsers,
-          docName: userModel.userID,
-        );
 
         /// I - DELETE user image : storage/usersPics/userID
         print('I - deleting user pic');
@@ -679,10 +591,10 @@ class UserOps{
   ///       E3 - return new userModel inside userModel-firstTimer map
   ///    Ex - if user has existing user model
   ///       E3 - return existing userMode inside userModel-firstTimer map
-  Future<Map<String, dynamic>> getOrCreateUserModelFromUser({BuildContext context, User user,Zone zone}) async {
+  static Future<Map<String, dynamic>> getOrCreateUserModelFromUser({BuildContext context, User user,Zone zone}) async {
 
     /// E - read user ops if existed
-    final UserModel _existingUserModel = await UserOps().readUserOps(
+    final UserModel _existingUserModel = await UserOps.readUserOps(
       context: context,
       userID: user.uid,
     );
@@ -703,7 +615,7 @@ class UserOps{
       print('googleSignInOps : _initialUserModel : $_initialUserModel');
 
       /// E2 - create user ops
-      final UserModel _finalUserModel = await UserOps().createUserOps(
+      final UserModel _finalUserModel = await UserOps.createUserOps(
         context: context,
         userModel: _initialUserModel,
       );

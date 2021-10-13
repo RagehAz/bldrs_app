@@ -8,7 +8,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/main.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
@@ -23,6 +23,7 @@ import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 export 'package:bldrs/controllers/drafters/tracers.dart';
 export 'package:bldrs/views/widgets/general/appbar/app_bar_button.dart';
 // -----------------------------------------------------------------------------
@@ -112,7 +113,7 @@ class MainLayout extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
-    final List<TinyBz> _userTinyBzz = appBarType == AppBarType.Main ? _bzzProvider.userTinyBzz : <TinyBz>[];
+    final List<BzModel> _userBzz = appBarType == AppBarType.Main ? _bzzProvider.userBzz : <BzModel>[];
 
     final bool _ragehIsOn = tappingRageh == null ? false : true;
 
@@ -162,7 +163,7 @@ class MainLayout extends StatelessWidget {
           if (pyramids == null)
             NavBar(
               barType: BarType.minWithText,
-              myTinyBzz: _userTinyBzz,
+              myBzz: _userBzz,
             ),
 
           _ragehIsOn == false ? Container() :

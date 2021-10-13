@@ -5,10 +5,9 @@ import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/db/firestore/user_ops.dart';
+import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/bz/author_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -64,12 +63,12 @@ class BzOps{
 
     /// upload authorPic
     String _authorPicURL;
-    if(inputBz.bzAuthors[0].authorPic == null){
+    if(inputBz.bzAuthors[0].pic == null){
       _authorPicURL = userModel.pic;
     } else {
       _authorPicURL = await Fire.createStoragePicAndGetURL(
           context: context,
-          inputFile: inputBz.bzAuthors[0].authorPic,
+          inputFile: inputBz.bzAuthors[0].pic,
           fileName: AuthorModel.generateAuthorPicID(userModel.userID, _bzID),
           picType: PicType.authorPic
       );
@@ -79,11 +78,11 @@ class BzOps{
     /// update authorModel with _authorPicURL
     final AuthorModel _masterAuthor = AuthorModel(
       userID: userModel.userID,
-      authorName: inputBz.bzAuthors[0].authorName,
-      authorTitle: inputBz.bzAuthors[0].authorTitle,
-      authorPic: _authorPicURL,
-      authorIsMaster: true,
-      authorContacts: inputBz.bzAuthors[0].authorContacts,
+      name: inputBz.bzAuthors[0].name,
+      title: inputBz.bzAuthors[0].title,
+      pic: _authorPicURL,
+      isMaster: true,
+      contacts: inputBz.bzAuthors[0].contacts,
     );
 
     /// refactor the bzModel with new pics URLs generated above
@@ -129,14 +128,6 @@ class BzOps{
       input: _outputBz.toMap(toJSON: false),
     );
 
-    /// add new TinyBz in firestore
-    await Fire.createNamedDoc(
-      context: context,
-      collName: FireCollection.tinyBzz,
-      docName: _bzID,
-      input: (TinyBz.getTinyBzFromBzModel(_outputBz)).toMap(),
-    );
-
     /// add bzID in user's myBzIDs
     final List<dynamic> _userBzzIDs = userModel.myBzzIDs;
     _userBzzIDs.insert(0, _bzID);
@@ -164,19 +155,6 @@ class BzOps{
     );
 
     return _bz;
-  }
-// -----------------------------------------------------------------------------
-  static Future<TinyBz> readTinyBzOps({BuildContext context, String bzID}) async {
-
-    final Map<String, dynamic> _tinyBzMap = await Fire.readDoc(
-      context: context,
-      collName: FireCollection.tinyBzz,
-      docName: bzID,
-    );
-
-    final TinyBz _tinyBz = TinyBz.decipherTinyBzMap(_tinyBzMap);
-
-    return _tinyBz;
   }
 // -----------------------------------------------------------------------------
   /// 1 - update bzLogo if changed
@@ -223,11 +201,11 @@ class BzOps{
     /// update authorsList if authorPicChanged
     final AuthorModel _newAuthor = AuthorModel(
       userID : _oldAuthor.userID,
-      authorName : _oldAuthor.authorName,
-      authorPic : _authorPicURL ?? originalBz.bzAuthors[AuthorModel.getAuthorIndexByAuthorID(originalBz.bzAuthors, _oldAuthor.userID)].authorPic,
-      authorTitle : _oldAuthor.authorTitle,
-      authorIsMaster : _oldAuthor.authorIsMaster,
-      authorContacts : _oldAuthor.authorContacts,
+      name : _oldAuthor.name,
+      pic : _authorPicURL ?? originalBz.bzAuthors[AuthorModel.getAuthorIndexByAuthorID(originalBz.bzAuthors, _oldAuthor.userID)].pic,
+      title : _oldAuthor.title,
+      isMaster : _oldAuthor.isMaster,
+      contacts : _oldAuthor.contacts,
     );
 
     final List<AuthorModel> _finalAuthorList = AuthorModel.replaceAuthorModelInAuthorsList(
@@ -279,58 +257,6 @@ class BzOps{
       input: _finalBz.toMap(toJSON: false),
     );
 
-    /// only if TinyBz changed :-
-    if(
-    // bzID and BzLogo URL will always stay the same after creation
-    _finalBz.bzName != originalBz.bzName ||
-        _finalBz.bzLogo != originalBz.bzLogo ||
-        _finalBz.bzType != originalBz.bzType ||
-        _finalBz.bzZone.countryID != originalBz.bzZone.countryID ||
-        _finalBz.bzZone.cityID != originalBz.bzZone.cityID ||
-        _finalBz.bzZone.districtID != originalBz.bzZone.districtID
-    ){
-
-      final TinyBz _modifiedTinyBz = TinyBz.getTinyBzFromBzModel(_finalBz)  ;
-      final Map<String, dynamic> _modifiedTinyBzMap = _modifiedTinyBz.toMap();
-
-    /// update tinyBz document
-    await Fire.updateDoc(
-      context: context,
-      collName: FireCollection.tinyBzz,
-      docName: _finalBz.bzID,
-      input: _modifiedTinyBzMap,
-    );
-
-    /// update tinyBz in all flyers
-    /// TASK : this may require firestore batch write
-      final List<String> _bzFlyersIDs = _finalBz.flyersIDs;
-      if(_bzFlyersIDs.length > 0){
-        for (var id in _bzFlyersIDs){
-          await Fire.updateDocField(
-            context: context,
-            collName: FireCollection.flyers,
-            docName: id,
-            field: 'tinyBz',
-            input: _modifiedTinyBzMap,
-          );
-        }
-      }
-
-    /// update tinyBz in all Tinyflyers
-    /// TASK : this may require firestore batch write
-    if(_bzFlyersIDs.length > 0){
-      for (var id in _bzFlyersIDs){
-        await Fire.updateDocField(
-          context: context,
-          collName: FireCollection.tinyFlyers,
-          docName: id,
-          field: 'tinyBz',
-          input: _modifiedTinyBzMap,
-        );
-      }
-    }
-
-    }
 
     return _finalBz;
   }
@@ -356,19 +282,12 @@ class BzOps{
     }
 
 
-    /// 2 - delete tiny bz doc
-    await Fire.deleteDoc(
-      context: context,
-      collName: FireCollection.tinyBzz,
-      docName: bzModel.bzID,
-    );
-
     /// 3 - delete bzID from myBzzIDs for each author
     final List<AuthorModel> _authors = bzModel.bzAuthors;
     final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(_authors);
     for (var id in _authorsIDs){
 
-      final UserModel _user = await UserOps().readUserOps(context: context, userID: id);
+      final UserModel _user = await UserOps.readUserOps(context: context, userID: id);
 
       final List<dynamic> _myBzzIDs = _user.myBzzIDs;
       final int _bzIndex = _myBzzIDs.indexWhere((id) => id == bzModel.bzID);
@@ -412,7 +331,7 @@ class BzOps{
       for (var id in _flyersIDs){
 
         print('a - getting flyer : $id');
-        final FlyerModel _flyerModel = await FlyerOps().readFlyerOps(
+        final FlyerModel _flyerModel = await FlyerOps.readFlyerOps(
           context: context,
           flyerID: id,
         );
@@ -427,19 +346,12 @@ class BzOps{
       }
     }
 
-    print('2 - delete tiny bz doc');
-    await Fire.deleteDoc(
-      context: context,
-      collName: FireCollection.tinyBzz,
-      docName: bzModel.bzID,
-    );
-
     print('3 - delete bzID : ${bzModel.bzID} in all author\'s myBzIDs lists');
     final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(bzModel.bzAuthors);
     for (var authorID in _authorsIDs){
 
       print('a - get user model');
-      final UserModel _user = await UserOps().readUserOps(
+      final UserModel _user = await UserOps.readUserOps(
         context: context,
         userID: authorID,
       );
@@ -550,20 +462,5 @@ class BzOps{
     return _bzzMap;
 
 }
-// -----------------------------------------------------------------------------
-  static Future<List<TinyBz>> readTinyBzz({BuildContext context, List<String> bzzIDs}) async {
-    final List<TinyBz> _tinyBzz = <TinyBz>[];
-
-    if (bzzIDs != null && bzzIDs.isNotEmpty){
-
-      for (var id in bzzIDs){
-        final TinyBz _tinyBz = await BzOps.readTinyBzOps(context: context, bzID: id);
-        _tinyBzz.add(_tinyBz);
-      }
-
-    }
-
-    return _tinyBzz;
-  }
 // -----------------------------------------------------------------------------
 }

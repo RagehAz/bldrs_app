@@ -5,9 +5,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/db/firestore/aggredocs.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -169,33 +167,6 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _uploadTinyFlyers() async {
-
-    _triggerLoading();
-
-    final List<TinyFlyer> _tinyFlyers = <TinyFlyer>[];
-
-    for (int i = 0; i < 1000; i++){
-      _tinyFlyers.add(TinyFlyer.dummyTinyFlyer('id_$i'));
-    }
-
-    Aggredocs _aggredocs = Aggredocs.createAggredocsFromTinyFlyers(
-      tinyFlyers: _tinyFlyers,
-    );
-
-    await Aggredocs.uploadAggredocs(
-      context: context,
-      aggredocs: _aggredocs,
-      collName: FireCollection.admin,
-      docName: 'test',
-      subCollName: 'tinyFlyers',
-    );
-
-
-    _triggerLoading();
-
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -280,13 +251,6 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
                 verse: 'upload blocks',
                 icon: Iconz.Share,
                 onTap: _uploadBlocks,
-              ),
-
-              WideButton(
-                color: Colorz.BloodTest,
-                verse: 'upload flyers',
-                icon: Iconz.FlyerCollection,
-                onTap: _uploadTinyFlyers,
               ),
 
               WideButton(

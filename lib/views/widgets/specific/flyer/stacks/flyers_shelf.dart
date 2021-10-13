@@ -1,20 +1,20 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf_list_builder.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FlyersShelf extends StatelessWidget {
   final FlyerType flyersType;
   final String title;
-  final List<TinyFlyer> tinyFlyers;
+  final List<FlyerModel> flyers;
   final String titleIcon;
   final Function flyerOnTap;
   final Function onScrollEnd;
@@ -23,7 +23,7 @@ class FlyersShelf extends StatelessWidget {
   const FlyersShelf({
     this.flyersType,
     this.title,
-    this.tinyFlyers,
+    this.flyers,
     this.titleIcon,
     this.flyerOnTap,
     this.onScrollEnd,
@@ -44,7 +44,7 @@ class FlyersShelf extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final OldFlyersProvider _pro = Provider.of<OldFlyersProvider>(context, listen: true);
-    final List<TinyFlyer> _tinyFlyers = tinyFlyers == null ? _pro.getTinyFlyersByFlyerType(flyersType) : tinyFlyers;
+    final List<FlyerModel> _tinyFlyers = flyers == null ? _pro.getFlyersByFlyerType(flyersType) : flyers;
     // final List<TinyBz> _tinyBzz = _pro.getTinyBzzOfTinyFlyersList(_tinyFlyers);
 
 // -----------------------------------------------------------------------------
@@ -136,7 +136,7 @@ class FlyersShelf extends StatelessWidget {
               height: _flyerZoneHeight,
               // color: Colorz.WhiteAir,
               child: FlyersShelfListBuilder(
-                tinyFlyers: _tinyFlyers,
+                flyers: _tinyFlyers,
                 flyerSizeFactor: flyerSizeFactor,
                 flyerOnTap: flyerOnTap,
                 onScrollEnd: onScrollEnd,

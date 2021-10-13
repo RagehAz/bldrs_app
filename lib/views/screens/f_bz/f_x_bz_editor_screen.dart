@@ -1,6 +1,7 @@
 // import 'package:path_provider/path_provider.dart' as sysPaths;
 // import 'package:path/path.dart' as path;
 import 'dart:io';
+
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
@@ -10,13 +11,12 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/firestore/bz_ops.dart';
+import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/bubbles/add_gallery_pic_bubble.dart';
@@ -27,9 +27,9 @@ import 'package:bldrs/views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -137,10 +137,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _currentBzShowsTeam = _currentBzShowsTeam;
     // -------------------------
     _currentAuthor = AuthorModel.getAuthorFromBzByAuthorID(_bz, widget.userModel.userID);
-    _authorNameTextController.text = _currentAuthor.authorName;
-    _currentAuthorPicURL = _currentAuthor.authorPic;
-    _authorTitleTextController.text = _currentAuthor.authorTitle;
-    _currentAuthorContacts = _currentAuthor.authorContacts;
+    _authorNameTextController.text = _currentAuthor.name;
+    _currentAuthorPicURL = _currentAuthor.pic;
+    _authorTitleTextController.text = _currentAuthor.title;
+    _currentAuthorContacts = _currentAuthor.contacts;
     // -------------------------
   }
 // -----------------------------------------------------------------------------
@@ -194,11 +194,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       author: AuthorModel(
         userID: '',
         // bzID: '',
-        authorName: _authorNameTextController.text,
-        authorTitle: _authorTitleTextController.text,
-        authorPic: _currentAuthorPicFile ?? _currentAuthorPicURL,
-        authorContacts: _currentAuthorContacts,
-        authorIsMaster: _currentAuthor.authorIsMaster,
+        name: _authorNameTextController.text,
+        title: _authorTitleTextController.text,
+        pic: _currentAuthorPicFile ?? _currentAuthorPicURL,
+        contacts: _currentAuthorContacts,
+        isMaster: _currentAuthor.isMaster,
       ),
     );
 
@@ -344,11 +344,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       /// create new master AuthorModel
       final AuthorModel _firstMasterAuthor = AuthorModel(
         userID: widget.userModel.userID,
-        authorName: _authorNameTextController.text,
-        authorPic: _currentAuthorPicFile, // if null createBzOps uses user.pic URL instead
-        authorTitle: _authorTitleTextController.text,
-        authorIsMaster: true,
-        authorContacts: _currentAuthorContacts,
+        name: _authorNameTextController.text,
+        pic: _currentAuthorPicFile, // if null createBzOps uses user.pic URL instead
+        title: _authorTitleTextController.text,
+        isMaster: true,
+        contacts: _currentAuthorContacts,
       );
       final List<AuthorModel> _firstTimeAuthorsList = <AuthorModel>[_firstMasterAuthor,];
 
@@ -398,12 +398,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
           userModel: widget.userModel
       );
 
-      /// /// add the final tinyBz to local list and notifyListeners
-      final TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_bzModel);
-      // _prof.addTinyBzToUserTinyBzz(_tinyBz);
 
-      /// add the final tinyBz to _userTinyBzz
-      _bzzProvider.addTinyBzToUserTinyBzz(_tinyBz);
+      /// add the final _bzModel to _userBzz
+      _bzzProvider.addBzToUserBzz(_bzModel);
 
       _triggerLoading();
 
@@ -439,11 +436,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       /// create modified authorModel
       final AuthorModel _newAuthor = AuthorModel(
         userID: widget.userModel.userID,
-        authorName: _authorNameTextController.text,
-        authorPic: _currentAuthorPicFile ?? _currentAuthorPicURL,
-        authorTitle: _authorTitleTextController.text,
-        authorIsMaster: _currentAuthor.authorIsMaster,
-        authorContacts: _currentAuthorContacts,
+        name: _authorNameTextController.text,
+        pic: _currentAuthorPicFile ?? _currentAuthorPicURL,
+        title: _authorTitleTextController.text,
+        isMaster: _currentAuthor.isMaster,
+        contacts: _currentAuthorContacts,
       );
 
       final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(widget.bzModel, widget.userModel.userID);
@@ -508,12 +505,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         authorPicFile: _currentAuthorPicFile,
       );
 
-      /// update _TinyBzModel in local list with the modified one and notifyListeners
-      final TinyBz _tinyBz = TinyBz.getTinyBzFromBzModel(_finalBzModel);
-      _prof.updateTinyBzInLocalList(_tinyBz);
+      /// update _bzModel in local list with the modified one and notifyListeners
+      _prof.updateBzInLocalList(_finalBzModel);
 
-      /// update tinyBz in local list of _userTinyBz
-      _bzzProvider.updateTinyBzInUserTinyBzz(_tinyBz);
+      /// update _bzModel in local list of _userTinyBz
+      _bzzProvider.updateBzInUserBzz(_finalBzModel);
 
       _triggerLoading();
 

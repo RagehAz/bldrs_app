@@ -1,8 +1,8 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
@@ -194,7 +194,7 @@ class BzModel with ChangeNotifier{
     return _bzModel;
   }
 // -----------------------------------------------------------------------------
-  static List<BzModel> decipherBzzMapsFromFireStore({@required List<dynamic> maps,@required bool fromJSON}) {
+  static List<BzModel> decipherBzzMaps({@required List<dynamic> maps,@required bool fromJSON}) {
     final List<BzModel> _bzList = <BzModel>[];
 
     maps?.forEach((map) {
@@ -232,12 +232,12 @@ class BzModel with ChangeNotifier{
       bzZone: userModel.zone,
       bzContacts: <ContactModel>[
         ContactModel(
-            contact: ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.Email),
-            contactType: ContactType.Email
+            contact: ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.email),
+            contactType: ContactType.email
         ),
         ContactModel(
-            contact: ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.Phone),
-            contactType: ContactType.Phone
+            contact: ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.phone),
+            contactType: ContactType.phone
         ),
       ],
       bzAuthors: <AuthorModel>[AuthorModel.createMasterAuthorModelFromUserModel(userModel)],
@@ -354,46 +354,6 @@ class BzModel with ChangeNotifier{
     return _bz;
   }
 // -----------------------------------------------------------------------------
-  static BzModel getTempBzModelFromTinyBz(TinyBz tinyBz){
-    BzModel _bz;
-    if (tinyBz != null){
-      _bz = BzModel(
-        bzID : tinyBz.bzID,
-        // -------------------------
-        bzType : tinyBz.bzType,
-        bzForm : null,
-        createdAt : null,
-        accountType : null,
-        // -------------------------
-        bzName :tinyBz.bzName,
-        bzLogo : tinyBz.bzLogo,
-        bzScope : null,
-        bzZone : tinyBz.bzZone,
-        bzAbout : null,
-        bzPosition : null,
-        bzContacts : null,
-        bzAuthors : null,
-        bzShowsTeam : null,
-        // -------------------------
-        bzIsVerified : null,
-        bzAccountIsDeactivated : null,
-        bzAccountIsBanned : null,
-        // -------------------------
-        bzTotalFollowers : tinyBz.bzTotalFollowers,
-        bzTotalSaves : null,
-        bzTotalShares : null,
-        bzTotalSlides : null,
-        bzTotalViews : null,
-        bzTotalCalls : null,
-        // -------------------------
-        flyersIDs: <String>[],
-        bzTotalFlyers: null,
-        authorsIDs: <String>[],
-      );
-    }
-    return _bz;
-  }
-// -----------------------------------------------------------------------------
   static BzModel getBzModelFromSnapshot(DocumentSnapshot doc){
     final DocumentSnapshot _map = doc.data();
     final BzModel _bzModel = BzModel.decipherBzMap(
@@ -440,6 +400,60 @@ class BzModel with ChangeNotifier{
 // -----------------------------------------------------------------------------
   static const List<String> bzPagesTabsTitles = <String>['Flyers', 'About', 'Targets', 'Powers'];
 // -----------------------------------------------------------------------------
+  static bool BzzContainThisBz({List<BzModel> bzz, BzModel bzModel}){
+    bool _contains = false;
+
+
+    if (Mapper.canLoopList(bzz) && bzModel != null){
+
+      for (BzModel bz in bzz){
+
+        if (bz.bzID == bzModel.bzID){
+          _contains = true;
+          break;
+        }
+
+      }
+
+    }
+
+    return _contains;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> getBzzIDsFromBzz(List<BzModel> bzzModels){
+    final List<String> _ids = <String>[];
+
+    if (Mapper.canLoopList(bzzModels)){
+
+      if (bzzModels != null){
+        bzzModels.forEach((bz) {
+          _ids.add(bz.bzID);
+        });
+      }
+
+
+    }
+
+    return _ids;
+  }
+// -----------------------------------------------------------------------------
+  static BzModel dummyBz(String bzID){
+
+    final String _bzID = bzID ?? 'ytLfMwdqK565ByP1p56G';
+
+    return
+        BzModel(
+            bzID: _bzID,
+            bzLogo: Iconz.DumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
+            bzName: 'Business Name',
+            bzType: BzType.designer,
+            bzZone: Zone(countryID: 'egy', cityID: 'cairo', districtID: 'heliopolis'),
+            bzTotalFollowers: 1000,
+            bzTotalFlyers: 10,
+          authorsIDs: ['x'],
+        );
+  }
+
 }
 
 /*

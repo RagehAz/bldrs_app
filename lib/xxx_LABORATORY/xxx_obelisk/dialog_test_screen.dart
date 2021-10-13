@@ -1,12 +1,12 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/db/firestore/flyer_ops.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/streamers/user_streamer.dart';
 import 'package:bldrs/views/widgets/general/bubbles/flyers_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
@@ -21,9 +21,9 @@ class DialogTestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
+    FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     // List<TinyFlyer> _designFlyers = _prof.getTinyFlyersByFlyerType(FlyerType.Design);
-    List<TinyFlyer> _flyers = _prof.getAllTinyFlyers;
+    List<FlyerModel> _flyers = _flyersProvider.savedFlyers;
 
 
     return MainLayout(
@@ -52,7 +52,7 @@ class DialogTestScreen extends StatelessWidget {
                     itemBuilder: (context, index){
                       return
                         FlyersBubble(
-                          tinyFlyers: _flyers,
+                          flyers: _flyers,
                           flyerSizeFactor: 0.2,
                           numberOfColumns: 2,
                           title: 'flyers',
@@ -139,7 +139,7 @@ class DialogTestScreen extends StatelessWidget {
                             List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
                             // List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
 
-                            List<TinyFlyer> _bzzTinyFlyers = await FlyerOps().readBzzTinyFlyers(
+                            List<FlyerModel> _bzzFlyers = await FlyerOps.readBzzFlyers(
                               context: context,
                               bzzModels: _bzzToDeactivate,
                             );
@@ -147,7 +147,7 @@ class DialogTestScreen extends StatelessWidget {
                             await Dialogz.flyersDeactivationDialog(
                               context: context,
                               bzzToDeactivate: _bzzToDeactivate,
-                              tinyFlyers: _bzzTinyFlyers,
+                              flyers: _bzzFlyers,
                             );
 
                           },

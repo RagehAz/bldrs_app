@@ -1,17 +1,18 @@
 import 'dart:io';
+
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/firestore/search_ops.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_grid.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_grid.dart';
 import 'package:flutter/material.dart';
 
 class FireSearchTest extends StatefulWidget {
@@ -28,7 +29,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
   // List<SaveModel> _userSavesModels;
   // Map<String, dynamic> _userSavesMap;
   // List<SaveModel> _decipheredSavesModels;
-  List<TinyFlyer> _tinyFlyers;
+  List<FlyerModel> flyers;
   // List<FlyerModel> _allFLyers;
   // String _picURL;
   File _filePic;
@@ -81,7 +82,7 @@ class _FireSearchTestState extends State<FireSearchTest> {
       {'Name' : 'search tiny flyers', 'function' : () async {
         _triggerLoading();
 
-        List<TinyFlyer> _searchedTinyFlyers = await FireSearch.flyersByZoneAndFlyerType(
+        List<FlyerModel> _searchedFlyers = await FireSearch.flyersByZoneAndFlyerType(
           context: context,
           zone: Zone(
               countryID: 'egy',
@@ -91,10 +92,10 @@ class _FireSearchTestState extends State<FireSearchTest> {
           flyerType: FlyerType.rentalProperty,
         );
 
-        printResult('_tinyFlyers : ${_searchedTinyFlyers?.length} : ${_searchedTinyFlyers?.toString()}');
+        printResult('_flyers : ${_searchedFlyers?.length} : ${_searchedFlyers?.toString()}');
 
         setState(() {
-          _tinyFlyers = _searchedTinyFlyers;
+          flyers = _searchedFlyers;
         });
 
         _triggerLoading();
@@ -183,16 +184,16 @@ class _FireSearchTestState extends State<FireSearchTest> {
               // ..._savesWidgets(_decipheredSavesModels),
 
               SuperVerse(
-                verse: _tinyFlyers == null ? 'saved flyers' : 'dbFlyers',
+                verse: flyers == null ? 'saved flyers' : 'dbFlyers',
               ),
 
-              if (_tinyFlyers != null)
+              if (flyers != null)
               FlyersGrid(
                 gridZoneWidth: Scale.superScreenWidth(context),
                 scrollable: false,
                 stratosphere: false,
                 numberOfColumns: 6,
-                tinyFlyers: _tinyFlyers,
+                flyers: flyers,
               ),
 
                 /// test url from asset

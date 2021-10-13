@@ -2,10 +2,9 @@ import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
@@ -19,13 +18,11 @@ import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
 
 class FlyerScreen extends StatelessWidget {
-  final TinyFlyer tinyFlyer;
   final FlyerModel flyerModel;
   final int initialSlideIndex;
   final String flyerID;
 
   FlyerScreen({
-    this.tinyFlyer,
     this.flyerModel,
     this.initialSlideIndex,
     this.flyerID,
@@ -40,7 +37,7 @@ class FlyerScreen extends StatelessWidget {
     String _flyerID = ModalRoute.of(context).settings.arguments as String;
 
     if (_flyerID == null){
-      _flyerID = flyerID ?? tinyFlyer?.flyerID ?? flyerModel?.flyerID;
+      _flyerID = flyerID ?? flyerModel?.flyerID;
     }
 
     print('_flyerID is $_flyerID');
@@ -89,10 +86,9 @@ class FlyerScreen extends StatelessWidget {
 
         FinalFlyer(
           flyerBoxWidth: FlyerBox.width(context, 1),
-          tinyFlyer: tinyFlyer,
           flyerModel: flyerModel,
           flyerID: flyerID,
-          initialSlideIndex: initialSlideIndex ?? tinyFlyer?.slideIndex ?? 0,
+          initialSlideIndex: initialSlideIndex ?? 0,
           goesToEditor: false,
           flyerKey: PageStorageKey<String>(_flyerID),
           onSwipeFlyer: (SwipeDirection direction){

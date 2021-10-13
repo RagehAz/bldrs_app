@@ -50,7 +50,7 @@ class MiniHeader extends StatelessWidget {
               BzPageHeadline(
                 flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: superFlyer.nav.bzPageIsOn,
-                tinyBz: SuperFlyer.getTinyBzFromSuperFlyer(superFlyer),
+                bzModel: superFlyer.bz,
               ),
 
             ],

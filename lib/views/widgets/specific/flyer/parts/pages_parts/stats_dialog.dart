@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/user/tiny_user.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
@@ -32,16 +32,16 @@ class FlyerStatsDialog extends StatefulWidget {
 }
 
 class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
-  List<TinyUser> _tinyUsersShares = TinyUser.dummyTinyUsers(numberOfUsers: 2);
-  List<TinyUser> _tinyUsersViews = TinyUser.dummyTinyUsers(numberOfUsers: 5);
-  List<TinyUser> _tinyUsersSaves = TinyUser.dummyTinyUsers(numberOfUsers: 4);
-  List<TinyUser> _tinyUsers;
+  List<UserModel> _usersShares = UserModel.dummyUsers(numberOfUsers: 2);
+  List<UserModel> _usersViews = UserModel.dummyUsers(numberOfUsers: 5);
+  List<UserModel> _usersSaves = UserModel.dummyUsers(numberOfUsers: 4);
+  List<UserModel> _users;
   String _currentTab = 'views';
 
   @override
   void initState() {
     super.initState();
-    _tinyUsers = _tinyUsersViews;
+    _users = _usersViews;
   }
 // -----------------------------------------------------------------------------
   void _onSelectTab(String tab){
@@ -53,13 +53,13 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
 // -----------------------------------------------------------------------------
   void _statelessSetTabUsers(String tab){
     if(tab == 'views'){
-      _tinyUsers = _tinyUsersViews;
+      _users = _usersViews;
     }
     else if (tab == 'shares'){
-      _tinyUsers = _tinyUsersShares;
+      _users = _usersShares;
     }
     else {
-      _tinyUsers = _tinyUsersSaves;
+      _users = _usersSaves;
     }
   }
 // -----------------------------------------------------------------------------
@@ -188,18 +188,18 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
                   physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.only(top: Ratioz.appBarMargin, left: Ratioz.appBarMargin, right: Ratioz.appBarMargin, bottom: Ratioz.horizon),
                   shrinkWrap: false,
-                  itemCount: _tinyUsers.length,
+                  itemCount: _users.length,
                   itemBuilder: (ctx, index){
 
-                    TinyUser _tinyUser = _tinyUsers[index];
+                    UserModel _userModel = _users[index];
 
                     return
                         DreamBox(
                           height: 50,
                           width: _clearWidth - (Ratioz.appBarMargin * 4),
-                          icon: _tinyUser.pic,
-                          verse: _tinyUser.name,
-                          secondLine: _tinyUser.title,
+                          icon: _userModel.pic,
+                          verse: _userModel.name,
+                          secondLine: _userModel.title,
                           verseScaleFactor: 0.65,
                           secondLineScaleFactor: 0.9,
                           verseCentered: false,

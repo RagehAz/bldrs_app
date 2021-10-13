@@ -3,9 +3,7 @@ import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/bz/tiny_bz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/flyers_bubble.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
@@ -124,7 +122,7 @@ class Dialogz{
 
             if (bzzToDeactivate.length != 0)
               BzzBubble(
-                tinyBzz: TinyBz.getTinyBzzFromBzzModels(bzzToDeactivate),
+                bzzModels: bzzToDeactivate,
                 onTap: (value){print(value);},
                 numberOfColumns: 6,
                 numberOfRows: 1,
@@ -134,7 +132,7 @@ class Dialogz{
 
             if (bzzToKeep.length != 0)
               BzzBubble(
-                tinyBzz: TinyBz.getTinyBzzFromBzzModels(bzzToKeep),
+                bzzModels: bzzToKeep,
                 onTap: (value){print(value);},
                 numberOfColumns: 6,
                 numberOfRows: 1,
@@ -159,7 +157,7 @@ class Dialogz{
   static Future<bool> flyersDeactivationDialog({
     BuildContext context,
     List<BzModel> bzzToDeactivate,
-    @required List<TinyFlyer> tinyFlyers,
+    @required List<FlyerModel> flyers,
   }) async {
 
     final int _totalNumOfFlyers = FlyerModel.getNumberOfFlyersFromBzzModels(bzzToDeactivate);
@@ -185,7 +183,7 @@ class Dialogz{
 
                 return
                   FlyersBubble(
-                    tinyFlyers: tinyFlyers,
+                    flyers: flyers,
                     flyerSizeFactor: 0.2,
                     numberOfColumns: 2,
                     title: 'flyers of ${bzzToDeactivate[index].bzName}',

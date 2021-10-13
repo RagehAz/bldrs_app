@@ -1,6 +1,9 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/controllers/theme/dumz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/db/firestore/user_ops.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
@@ -342,12 +345,61 @@ class UserModel {
 // -----------------------------------------------------------------------------
   static Future<UserModel> dummyUserModel(BuildContext context) async {
 
-    final UserModel _user = await UserOps().readUserOps(
+    final UserModel _user = await UserOps.readUserOps(
       context: context,
       userID: '60a1SPzftGdH6rt15NF96m0j9Et2',
     );
 
     return _user;
+  }
+// -----------------------------------------------------------------------------
+  static List<UserModel> dummyUsers({int numberOfUsers}){
+
+    List<UserModel> _users = const <UserModel>[
+      const UserModel(
+        name: 'Ahmad Ali',
+        pic: Iconz.DumAuthorPic,
+        userID: '1',
+        title: 'CEO and Founder',
+      ),
+      const UserModel(
+        name: 'Morgan Darwish',
+        pic: Dumz.XXabohassan_author,
+        userID: '2',
+        title: 'Chairman',
+      ),
+      const UserModel(
+        name: 'Zahi Fayez',
+        pic: Dumz.XXzah_author,
+        userID: '3',
+        title: ' Marketing Director',
+      ),
+      const UserModel(
+        name: 'Hani Wani',
+        pic: Dumz.XXhs_author,
+        userID: '4',
+        title: 'Operations Manager',
+      ),
+      const UserModel(
+        name: 'Nada Mohsen',
+        pic: Dumz.XXmhdh_author,
+        userID: '5',
+        title: 'Planning and cost control engineer',
+      ),
+    ];
+
+    if (numberOfUsers != null){
+      final List<int> _randomIndexes = Numeric.getRandomIndexes(numberOfIndexes: numberOfUsers, maxIndex: _users.length - 1);
+      final List<UserModel> _finalList = <UserModel>[];
+
+      for (int i = 0; i < _randomIndexes.length; i++){
+        _finalList.add(_users[_randomIndexes[i]]);
+      }
+
+      _users = _finalList;
+    }
+
+    return _users;
   }
 // -----------------------------------------------------------------------------
 }

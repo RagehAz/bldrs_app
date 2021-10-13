@@ -2,25 +2,21 @@ import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/models/flyer/tiny_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 
 enum FlyerMode {
   tinyModeByFlyerID,
-  tinyModeByTinyFlyer,
   tinyModeByFlyerModel,
   tinyModeByBzModel,
   tinyModeByNull,
 
   bigModeByFlyerID,
-  bigModeByTinyFlyer,
   bigModeByFlyerModel,
   bigModeByBzModel,
   bigModeByNull,
 
   editorModeByFlyerID,
-  editorModeByTinyFlyer,
   editorModeByFlyerModel,
   editorModeByBzModel,
   editorModeByNull,
@@ -29,7 +25,6 @@ enum FlyerMode {
 enum FlyerSourceType {
   empty,
   flyerID,
-  tinyFlyer,
   flyerModel,
   bzModel,
 }
@@ -46,10 +41,6 @@ class FlyerMethod{
 
     else if (input.runtimeType == String){
       _source = FlyerSourceType.flyerID;
-    }
-
-    else if (input.runtimeType == TinyFlyer){
-      _source = FlyerSourceType.tinyFlyer;
     }
 
     else if (input.runtimeType == FlyerModel){
@@ -91,11 +82,6 @@ class FlyerMethod{
           _flyerMode = FlyerMode.editorModeByFlyerID;
         }
 
-        /// c - editor + bigMode + tinyFlyer
-        else if (_source == FlyerSourceType.tinyFlyer){
-          _flyerMode = FlyerMode.editorModeByTinyFlyer;
-        }
-
         /// c - editor + bigMode + flyerModel
         else if (_source == FlyerSourceType.flyerModel){
           _flyerMode = FlyerMode.editorModeByFlyerModel;
@@ -131,11 +117,6 @@ class FlyerMethod{
           _flyerMode = FlyerMode.tinyModeByFlyerID;
         }
 
-        /// c - editor + bigMode + tinyFlyer
-        else if (_source == FlyerSourceType.tinyFlyer){
-          _flyerMode = FlyerMode.tinyModeByTinyFlyer;
-        }
-
         /// c - editor + bigMode + flyerModel
         else if (_source == FlyerSourceType.flyerModel){
           _flyerMode = FlyerMode.tinyModeByFlyerModel;
@@ -165,11 +146,6 @@ class FlyerMethod{
         /// c - editor + bigMode + flyerID
         if (_source == FlyerSourceType.flyerID){
           _flyerMode = FlyerMode.bigModeByFlyerID;
-        }
-
-        /// c - editor + bigMode + tinyFlyer
-        else if (_source == FlyerSourceType.tinyFlyer){
-          _flyerMode = FlyerMode.bigModeByTinyFlyer;
         }
 
         /// c - editor + bigMode + flyerModel
@@ -203,20 +179,15 @@ class FlyerMethod{
     return _flyerMode;
   }
 // -----------------------------------------------------------------------------
-  static dynamic selectFlyerSource({String flyerID, BzModel bzModel, FlyerModel flyerModel, TinyFlyer tinyFlyer,}) {
+  static dynamic selectFlyerSource({String flyerID, BzModel bzModel, FlyerModel flyerModel,}) {
     dynamic _flyerSource;
 
     final bool _byFlyerModel = flyerModel != null;
-    final bool _byTinyFlyer = tinyFlyer != null && flyerModel == null;
-    final bool _byFlyerID = flyerID != null && flyerModel == null && tinyFlyer == null;
-    final bool _byBzModel = bzModel != null && flyerID == null && flyerModel == null && tinyFlyer == null;
+    final bool _byFlyerID = flyerID != null && flyerModel == null;
+    final bool _byBzModel = bzModel != null && flyerID == null && flyerModel == null;
 
     if (_byFlyerModel == true){
       _flyerSource = flyerModel;
-    }
-
-    else if (_byTinyFlyer == true){
-      _flyerSource = tinyFlyer;
     }
 
     else if (_byFlyerID == true){
