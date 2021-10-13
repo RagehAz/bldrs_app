@@ -10,13 +10,17 @@ class Standards{
   static const int maxDraftsAtOnce = 5;
 
   static const int flyerTitleMaxLength = 50;
+
+  static const int maxAuthorsPerBz = 20;
+  static const int maxBzzPerUser = 10;
+  // static const int maxSlidesPerFlyer = 10;
 // -----------------------------------------------------------------------------
   static int getMaxSlidesCount(BzAccountType accountType){
 
     switch (accountType){
-      case BzAccountType.Default:   return  maxFlyerSlidesFreeAccount;     break;
-      case BzAccountType.Premium:   return  maxFlyerSlidesPremiumAccount;  break;
-      case BzAccountType.Super:     return  maxFlyerSlidesFreeSuper;       break;
+      case BzAccountType.normal:   return  maxFlyerSlidesFreeAccount;     break;
+      case BzAccountType.premium:   return  maxFlyerSlidesPremiumAccount;  break;
+      case BzAccountType.sphinx:     return  maxFlyerSlidesFreeSuper;       break;
       default : return   maxFlyerSlidesFreeAccount;
     }
 

@@ -67,26 +67,26 @@ class Iconizer{
 // -----------------------------------------------------------------------------
   static String bzTypeIconOff (BzType bzType){
     final String icon =
-    bzType == BzType.Developer ? Iconz.BxPropertiesOff :
-    bzType == BzType.Broker ? Iconz.BxPropertiesOff :
-    bzType == BzType.Manufacturer ? Iconz.BxProductsOff :
-    bzType == BzType.Supplier ? Iconz.BxProductsOff :
-    bzType == BzType.Designer ? Iconz.BxDesignsOff :
-    bzType == BzType.Contractor ? Iconz.BxProjectsOff :
-    bzType == BzType.Artisan ? Iconz.BxCraftsOff :
+    bzType == BzType.developer ? Iconz.BxPropertiesOff :
+    bzType == BzType.broker ? Iconz.BxPropertiesOff :
+    bzType == BzType.manufacturer ? Iconz.BxProductsOff :
+    bzType == BzType.supplier ? Iconz.BxProductsOff :
+    bzType == BzType.designer ? Iconz.BxDesignsOff :
+    bzType == BzType.contractor ? Iconz.BxProjectsOff :
+    bzType == BzType.artisan ? Iconz.BxCraftsOff :
     null;
     return icon;
   }
 // -----------------------------------------------------------------------------
   static String bzTypeIconOn (BzType bzType){
     final String icon =
-    bzType == BzType.Developer ? Iconz.BxPropertiesOn :
-    bzType == BzType.Broker ? Iconz.BxPropertiesOn :
-    bzType == BzType.Manufacturer ? Iconz.BxProductsOn :
-    bzType == BzType.Supplier ? Iconz.BxProductsOn :
-    bzType == BzType.Designer ? Iconz.BxDesignsOn :
-    bzType == BzType.Contractor ? Iconz.BxProjectsOn :
-    bzType == BzType.Artisan ? Iconz.BxCraftsOn :
+    bzType == BzType.developer ? Iconz.BxPropertiesOn :
+    bzType == BzType.broker ? Iconz.BxPropertiesOn :
+    bzType == BzType.manufacturer ? Iconz.BxProductsOn :
+    bzType == BzType.supplier ? Iconz.BxProductsOn :
+    bzType == BzType.designer ? Iconz.BxDesignsOn :
+    bzType == BzType.contractor ? Iconz.BxProjectsOn :
+    bzType == BzType.artisan ? Iconz.BxCraftsOn :
     null;
     return icon;
   }

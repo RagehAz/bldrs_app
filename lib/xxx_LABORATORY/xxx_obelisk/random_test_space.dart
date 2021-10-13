@@ -291,34 +291,39 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
               WideButton(
                 color: Colorz.BloodTest,
-                verse: 'delete ankh is on',
+                verse: 'fix bzForm',
                 icon: Iconz.DvBlackHole,
                 onTap: () async {
 
-                  List<dynamic> _maps = await Fire.readCollectionDocs(
-                    limit: 200,
-                    addDocID: true,
-                    orderBy: 'flyerID',
-                    collectionName: FireCollection.flyers,
-                    addDocSnapshotToEachMap: false,
-                  );
+                  // List<dynamic> _maps = await Fire.readCollectionDocs(
+                  //   limit: 200,
+                  //   addDocID: true,
+                  //   orderBy: 'bzID',
+                  //   collectionName: FireCollection.bzz,
+                  //   addDocSnapshotToEachMap: false,
+                  // );
 
 
-                  for (Map map in _maps){
+                  // for (Map map in _maps){
 
+                    /// TASK : fix null bz forms
 
+                    // String _bzFormString = BzModel.fixBzFormFromIntToString(map['bzForm']);
+
+                    // print('_bzTypeString : $_bzTypeString');
 
                     // Mapper.printMap(_fixedMap);
 
-                    await Fire.deleteDocField(
-                      context: context,
-                      collName: FireCollection.flyers,
-                      docName: map['flyerID'],
-                      field: 'ankhIsOn',
-                    );
+                    // await Fire.updateDocField(
+                    //   context: context,
+                    //   collName: FireCollection.bzz,
+                    //   docName: map['bzID'],
+                    //   field: 'bzForm',
+                    //   input: _bzFormString,
+                    // );
 
 
-                  }
+                  // }
 
                 },
               ),

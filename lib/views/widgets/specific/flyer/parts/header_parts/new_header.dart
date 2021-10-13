@@ -379,6 +379,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                           ),
                         ),
 
+                        /// MAX HEADER
                         if (_isExpanded == true)
                           AnimatedOpacity(
                             duration: Ratioz.durationSliding400,
