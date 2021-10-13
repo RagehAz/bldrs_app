@@ -264,7 +264,7 @@ class TinyFlyer with ChangeNotifier{
 //         imageSize: null, /// TASK : add imageSize to tinyFlyers from nano flyers
 //         headline: 'fix nano headline',
 //         tinyBz: TinyBz.getTinyBzFromBzModel(bzModel),
-//         priceTagIsOn: true, /// Task : sheel mayteen om el nano flyers dih and change with tiny flyers instead
+//         priceTagIsOn: true,
 //       );
 //     }
 //     return _tiny;
