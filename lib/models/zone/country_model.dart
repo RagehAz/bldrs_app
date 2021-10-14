@@ -151,3 +151,17 @@ static String fixCountryName(String input){
 // -----------------------------------------------------------------------------
 
 }
+
+class AmericanState extends CountryModel {
+  final String state;
+  final List<CityModel> cities;
+
+  AmericanState({
+    @required this.state,
+    @required this.cities,
+});
+
+
+
+
+}

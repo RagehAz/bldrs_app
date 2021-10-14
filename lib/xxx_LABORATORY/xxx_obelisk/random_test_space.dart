@@ -1,13 +1,8 @@
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:flutter/material.dart';
 
-import '../mabwala.dart';
 
 class RandomTestSpace extends StatefulWidget {
 final double flyerBoxWidth;
@@ -82,6 +77,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
@@ -135,57 +131,6 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
               //
               //   },
               // ),
-
-              WideButton(
-                color: Colorz.BloodTest,
-                verse: 'add cities palestine',
-                icon: Iconz.DvBlackHole,
-                onTap: () async {
-
-                  _triggerLoading();
-
-                  final List<CityModel> _raw = RawCities.and();
-
-                  final List<CityModel> _fixed = RawCities.getFixedCities(_raw);
-
-                  final List<String> _countriesIDs = <String>[];
-
-                  for (var city in _fixed){
-                    if (!_countriesIDs.contains(city.countryID)){
-                      _countriesIDs.add(city.countryID);
-                    }
-                  }
-
-                  for (String id in _countriesIDs){
-
-                    List<CityModel> _citiesOfThisCountry = <CityModel>[];
-
-                    for (CityModel city in _fixed){
-
-                      if (city.countryID == id){
-                        _citiesOfThisCountry.add(city);
-                      }
-
-                    }
-
-                    await Fire.updateDocField(
-                        context: context,
-                        collName: 'zones',
-                        docName: id,
-                        field: 'cities',
-                        input: CityModel.cipherCities(cities: _citiesOfThisCountry, toJSON: false),
-                    );
-
-                  }
-
-
-                  // print('tamam with country : ${_fixed[0].countryID}, uploaded ${_fixed.length} cities');
-
-                  _triggerLoading();
-
-                },
-              ),
-              
 
 
             ],

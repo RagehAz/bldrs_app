@@ -18,6 +18,7 @@ class CityModel{
   final bool isPublic;
   final List<Name> names;
   final GeoPoint position;
+  final String state; // only for USA
 
   CityModel({
     this.countryID,
@@ -28,6 +29,7 @@ class CityModel{
     this.isPublic,
     this.names,
     this.position,
+    this.state,
   });
 // -----------------------------------------------------------------------------
   Map<String, Object> toMap({@required bool toJSON}){
@@ -166,4 +168,26 @@ class CityModel{
     print('CITY - PRINT --------------------------------------- END');
 
   }
+// -----------------------------------------------------------------------------
+
 }
+
+/*
+
+/// non production method
+
+//   static List<CityModel> getFixedCities(List<CityModel> inputs){
+//
+//     final List<CityModel> _fixed = <CityModel>[];
+//
+//     for (CityModel city in inputs){
+//
+//       final CityModel _fixedCity = city .. cityID = CountryModel.fixCountryName(city.cityID);
+//       _fixed.add(_fixedCity);
+//     }
+//
+//     return _fixed;
+//   }
+
+
+ */
