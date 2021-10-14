@@ -79,7 +79,7 @@ class Group{
 
     final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
     final String _provinceID = _countryPro.currentCityID;
-    final List<District> _districts = _countryPro.getDistrictsByCityID(context, _provinceID);
+    final List<DistrictModel> _districts = _countryPro.getDistrictsByCityID(context, _provinceID);
 
     final List<Keyword> _districtsAsKeywords = Keyword.getKeywordsModelsFromDistricts(_districts);
 

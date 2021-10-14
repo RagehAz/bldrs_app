@@ -1,13 +1,10 @@
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/dashboard/zones_manager/db_districts.dart';
-import 'package:bldrs/dashboard/zones_manager/db_countries.dart';
-import 'package:bldrs/dashboard/zones_manager/db_cities.dart';
-import 'package:bldrs/models/zone/district_model.dart';
+import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/district_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class OldCountryProvider with ChangeNotifier{
@@ -15,9 +12,9 @@ class OldCountryProvider with ChangeNotifier{
   String _currentCountryID = 'egy';
   String _currentCityID = 'Cairo';
   String _currentDistrictID = '1';
-  List<Country> _countries = DbCountries.dbCountries();
-  List<City> _cities = DbCities.dbCities();
-  List<District> _districts = DbDistricts.dbDistricts();
+  List<CountryModel> _countries = []; //DbCountries.dbCountries();
+  List<CityModel> _cities = []; //DbCities.dbCities();
+  List<DistrictModel> _districts = [];// DbDistricts.dbDistricts();
 // -----------------------------------------------------------------------------
   String get currentCountryID {
     return _currentCountryID;
@@ -64,7 +61,7 @@ class OldCountryProvider with ChangeNotifier{
     _countries.forEach((co) {
       if (co.isActivated){
         _countriesMaps.add(
-            { "id" : co.iso3, "value" : Localizer.translate(context, co.iso3)}
+            { "id" : co.countryID, "value" : Localizer.translate(context, co.countryID)}
         );
       }
     }
@@ -80,7 +77,7 @@ class OldCountryProvider with ChangeNotifier{
       if (
       // co.isActivated == true &&
           co.continent == continent) {
-        _countriesIDs.add(co.iso3);
+        _countriesIDs.add(co.countryID);
       }
     });
 
@@ -93,27 +90,27 @@ class OldCountryProvider with ChangeNotifier{
     final List<Map<String,String>> _citiesNames = <Map<String,String>>[];
     final String _currentLanguageCode = Wordz.languageCode(context);
 
-    _cities.forEach((pr) {
+    _cities.forEach((city) {
 
-      if (pr.iso3 == iso3){
+      if (city.countryID == iso3){
         if (_currentLanguageCode == 'en'){
           _citiesNames.add(
               {
-                'id': pr.name,
-                'value': pr.name,
+                'id': city.cityID,
+                'value': Name.getNameByCurrentLingoFromNames(context, city.names),
               }
           );
         }
 
         else {
 
-          final String _areaNameInCurrentLanguage = pr.namez.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+          final String _areaNameInCurrentLanguage = city.names.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
             if (_areaNameInCurrentLanguage == null){
               _citiesNames.add(
                   {
-                    'id': pr.name,
-                    'value': pr.name
+                    'id': city.cityID,
+                    'value': Name.getNameByCurrentLingoFromNames(context, city.names),
                   }
                   );
             }
@@ -121,7 +118,7 @@ class OldCountryProvider with ChangeNotifier{
             else {
               _citiesNames.add(
                   {
-                    'id': pr.name,
+                    'id': city.cityID,
                     'value': _areaNameInCurrentLanguage
                   }
                   );
@@ -141,21 +138,21 @@ class OldCountryProvider with ChangeNotifier{
     final List<Map<String, String>> _districtsNames = <Map<String, String>>[];
     final String _currentLanguageCode = Wordz.languageCode(context);
 
-    _districts.forEach((ar) {
-      if(ar.city == cityID){
-          final String _districtNameInCurrentLanguage = ar.namez.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
-          if (_districtNameInCurrentLanguage == null){_districtsNames.add({'id': ar.id, 'value': ar.name});}
-          else {_districtsNames.add({'id': ar.id, 'value': _districtNameInCurrentLanguage});}
+    _districts.forEach((district) {
+      if(district.cityID == cityID){
+          final String _districtNameInCurrentLanguage = district.names.firstWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+          if (_districtNameInCurrentLanguage == null){_districtsNames.add({'id': district.districtID, 'value': Name.getNameByCurrentLingoFromNames(context, district.names)});}
+          else {_districtsNames.add({'id': district.districtID, 'value': _districtNameInCurrentLanguage});}
       }
     });
     return _districtsNames;
   }
 // -----------------------------------------------------------------------------
-  List<District> getDistrictsByCityID(BuildContext context, String cityID){
-    final List<District> _cityDistricts = <District>[];
+  List<DistrictModel> getDistrictsByCityID(BuildContext context, String cityID){
+    final List<DistrictModel> _cityDistricts = <DistrictModel>[];
 
     _districts.forEach((ar) {
-      if(ar.city == cityID){
+      if(ar.cityID == cityID){
         _cityDistricts.add(ar);
       }
     });
@@ -165,21 +162,21 @@ class OldCountryProvider with ChangeNotifier{
 // -----------------------------------------------------------------------------
   String getDistrictNameWithCurrentLanguageIfPossible(BuildContext context, String districtID){
     final String _currentLanguageCode = Wordz.languageCode(context);
-    final District _district = _districts.singleWhere((ar) => ar.id == districtID, orElse: ()=> null);
-    final String _nameInCurrentLanguage = _district?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
+    final DistrictModel _district = _districts.singleWhere((district) => district.districtID == districtID, orElse: ()=> null);
+    final String _nameInCurrentLanguage = _district?.names?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
     // print('Area _nameInCurrentLanguage = ($_nameInCurrentLanguage) ,,_district?.name is (${_district?.name}) ');
 
-    return _nameInCurrentLanguage == null ? _district?.name : _nameInCurrentLanguage;
+    return _nameInCurrentLanguage == null ? Name.getNameByCurrentLingoFromNames(context, _district?.names) : _nameInCurrentLanguage;
   }
 // -----------------------------------------------------------------------------
   String getCityNameWithCurrentLanguageIfPossible(BuildContext context, String cityID){
-    final City _city = _cities.firstWhere((ar) => ar.name == cityID, orElse: ()=> null);
+    final CityModel _city = _cities.firstWhere((city) => city.cityID == cityID, orElse: ()=> null);
     // String _nameInCurrentLanguage = _city?.namez?.singleWhere((name) => name.code == _currentLanguageCode, orElse: ()=> null)?.value;
 
     // print('city is : ${_city.iso3} : ${_city.name} : ${_city.districts.length} : ${_city.namez}');
 
-    final String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(context, _city?.namez);
+    final String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(context, _city?.names);
 
     return _nameInCurrentLanguage == null ? cityID : _nameInCurrentLanguage;
 }
@@ -190,14 +187,14 @@ class OldCountryProvider with ChangeNotifier{
     final String _languageCode = Wordz.languageCode(context);
 
     if (_languageCode != 'en'){
-      for (City city in _cities){
+      for (CityModel city in _cities){
 
-        for (var nmz in city.namez){
+        for (var nmz in city.names){
 
           final bool _searchIsTrue = nmz.code == _languageCode && nmz.value == cityName ? true : false;
 
           if (_searchIsTrue == true){
-            _cityName = city.name;
+            _cityName = Name.getNameByCurrentLingoFromNames(context, city.names);
             break;
           }
 

@@ -45,7 +45,7 @@ class MiniHeaderStrip extends StatelessWidget {
               /// --- BzLogo
               BzLogo(
                 width: FlyerBox.logoWidth(superFlyer.nav.bzPageIsOn, flyerBoxWidth),
-                image: superFlyer.bz.bzLogo,
+                image: superFlyer.bz.logo,
                 tinyMode: FlyerBox.isTinyMode(context, flyerBoxWidth),
                 corners: Borderers.superLogoCorner(context: context, flyerBoxWidth: flyerBoxWidth, zeroCornerIsOn: superFlyer.flyerShowsAuthor),
                 bzPageIsOn: superFlyer.nav.bzPageIsOn,

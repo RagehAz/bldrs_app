@@ -358,7 +358,13 @@ class TextMod {
     return _strings;
   }
 // -----------------------------------------------------------------------------
+  static String replaceAllCharactersWith({@required String CharacterToReplace, @required String replacement, @required String input}){
 
+    final String _output = input.replaceAll(CharacterToReplace, replacement);
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
 /*
 
 ENCODE AND DECODE STRINGS for encryption

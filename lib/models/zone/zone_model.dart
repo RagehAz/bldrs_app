@@ -23,8 +23,8 @@ class Zone {
   Map<String, dynamic> toMap(){
     return {
       'countryID' : countryID,
-      'provinceID' : cityID,
-      'areaID' : districtID, /// TASK : should update areaID to district ID in firebase
+      'cityID' : cityID,
+      'districtID' : districtID,
     };
   }
 // -----------------------------------------------------------------------------
@@ -37,8 +37,8 @@ class Zone {
     final Zone _zone = map == null ? null :
     Zone(
       countryID: map['countryID'],
-      cityID: map['provinceID'],
-      districtID: map['areaID'], /// TASK : should update areaID to district ID in firebase
+      cityID: map['cityID'],
+      districtID: map['districtID'],
     );
 
     return _zone;
@@ -94,11 +94,10 @@ class Zone {
 //       return bzModel.bzZone;
 //   }
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
   static Zone dummyZone(){
     return Zone(
       countryID: 'egy',
-      cityID: '1',
+      cityID: 'Cairo',
       districtID: '1',
     );
   }

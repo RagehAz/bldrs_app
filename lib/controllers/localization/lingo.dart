@@ -86,5 +86,16 @@ class Lingo{
   static const String italianCode = 'it';
   static const Lingo italianLingo = const Lingo(code: italianCode, name: 'Italiano');
 // -----------------------------------------------------------------------------
+/// lang codes tiers
+/// A:-
+/// AR:Arabic, ES:Spanish, FR:French, ZH:Chinese, DE:German, IT:Italian,
+/// B:-
+/// HI:Hindi, RU:Russian, TR:Turkish, PT:Portuguese
+/// C:-
+/// ID:Indonesian, BN:Bengali, SW:Swahili, FA: Farsi, JA:Japanese
+/// D:-
+/// UK:Ukrainian, PL:Polish, NL:Dutch, MS:Malay, PA:Punjabi,
+/// E:-
+/// TL:Tagalog, TE:Telugu, MR:Marathi, KO:Korean,
 
 }

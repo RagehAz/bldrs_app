@@ -47,11 +47,11 @@ class MaxHeader extends StatelessWidget {
       bzID: bzModel.bzID,
       builder: (ctx, bz){
 // -----------------------------------------------------------------------------
-        final String _bzScope = bz != null ? bz.bzScope : '';
+        final String _bzScope = bz != null ? bz.scope : '';
 // -----------------------------------------------------------------------------
 //         final List<NanoFlyer> _galleryFlyers = bz.nanoFlyers;
 // -----------------------------------------------------------------------------
-        final List<AuthorModel> _bzAuthors = bz != null ? bz?.bzAuthors : <AuthorModel>[];
+        final List<AuthorModel> _bzAuthors = bz != null ? bz?.authors : <AuthorModel>[];
 // -----------------------------------------------------------------------------
         final List<String> _bzTeamIDs = <String>[];
         if(_bzAuthors != null) {
@@ -60,12 +60,12 @@ class MaxHeader extends StatelessWidget {
           });
         }
 // -----------------------------------------------------------------------------
-        final int _followersCount  = bz != null ? bz.bzTotalFollowers  : 0;
-        final int _bzTotalSaves    = bz != null ? bz.bzTotalSaves      : 0;
-        final int _bzTotalShares   = bz != null ? bz.bzTotalShares     : 0;
-        final int _bzTotalSlides   = bz != null ? bz.bzTotalSlides     : 0;
-        final int _bzTotalViews    = bz != null ? bz.bzTotalViews      : 0;
-        final int _callsCount      = bz != null ? bz.bzTotalCalls      : 0;
+        final int _followersCount  = bz != null ? bz.totalFollowers  : 0;
+        final int _bzTotalSaves    = bz != null ? bz.totalSaves      : 0;
+        final int _bzTotalShares   = bz != null ? bz.totalShares     : 0;
+        final int _bzTotalSlides   = bz != null ? bz.totalSlides     : 0;
+        final int _bzTotalViews    = bz != null ? bz.totalViews      : 0;
+        final int _callsCount      = bz != null ? bz.totalCalls      : 0;
 // -----------------------------------------------------------------------------
 
         superFlyer.bz = bz;
@@ -95,8 +95,8 @@ class MaxHeader extends StatelessWidget {
               BzAboutVerse(
                 flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: bzPageIsOn,
-                verse: bz != null ? bz.bzAbout : '',
-                bzName:  bz != null ? bz.bzName : '',
+                verse: bz != null ? bz.about : '',
+                bzName:  bz != null ? bz.name : '',
               ),
 
               /// FOLLOWERS

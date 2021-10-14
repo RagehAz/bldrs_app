@@ -1,77 +1,115 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:bldrs/models/zone/district_model.dart';
-import 'package:bldrs/models/zone/country_model.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/models/helpers/namez_model.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/district_model.dart';
+import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
-class City{
-  final String iso3;
-  final String name; /// TASK : should delete this and get the name from names
-  final List<District> districts;
+class CityModel{
+  final String countryID;
+  final String cityID;
+  final List<DistrictModel> districts;
   final int population;
   final bool isActivated;
   final bool isPublic;
-  final List<Name> namez; // English
+  final List<Name> names;
 
-  const City({
-    this.iso3,
-    this.name,
+  const CityModel({
+    this.countryID,
+    this.cityID,
     this.districts,
     this.population,
     this.isActivated,
     this.isPublic,
-    this.namez,
+    this.names,
   });
 // -----------------------------------------------------------------------------
   Map<String, Object> toMap(){
     return {
-      'iso3' : iso3,
-      'name' : name,
-      'areas' : District.cipherDistricts(districts), /// TASK should update field name areas to districts in firebase
+      'countryID' : countryID,
+      'cityID' : CountryModel.fixCountryName(cityID),
+      'districts' : DistrictModel.cipherDistricts(districts),
       'population' : population,
       'isActivated' : isActivated,
       'isPublic' : isPublic,
-      'namez' : Name.cipherNamezz(namez),
+      'names' : Name.cipherNames(names),
     };
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, dynamic>> cipherCities(List<City> cities){
-    final List<Map<String, dynamic>> _citiesMaps = <Map<String, dynamic>>[];
-    cities.forEach((pr) {
-      _citiesMaps.add(pr.toMap());
-    });
-    return _citiesMaps;
+  static Map<String, dynamic> cipherCities(List<CityModel> cities){
+    Map<String, dynamic> _citiesMap = {};
+
+    if (Mapper.canLoopList(cities)){
+
+      for (CityModel city in cities){
+
+        _citiesMap = Mapper.insertPairInMap(
+          map: _citiesMap,
+          key: CountryModel.fixCountryName(city.cityID),
+          value: city.toMap(),
+        );
+
+      }
+
+    }
+
+    return _citiesMap;
   }
 // -----------------------------------------------------------------------------
-  static City decipherCityMap(Map<String, dynamic> map){
-    return City(
-      iso3 : map['iso3'],
-      name : map['name'],
-      districts : District.decipherDistrictsMaps(map['areas']),/// TASK should update field name areas to districts in firebase
+  static String createCityKey({@required String countryID, @required String cityID}){
+
+    final String _fixedCityName = CountryModel.fixCountryName(cityID);
+
+    final String _cityKey = '${countryID}#${_fixedCityName}';
+
+    return _cityKey;
+  }
+// -----------------------------------------------------------------------------
+  static CityModel decipherCityMap(Map<String, dynamic> map){
+    return CityModel(
+      countryID : map['countryID'],
+      cityID : map['cityID'],
+      districts : DistrictModel.decipherDistrictsMap(map['districts']),
       population : map['population'],
       isActivated : map['isActivated'],
       isPublic : map['isPublic'],
-      namez : Name.decipherNamezzMaps(map['names']),
+      names : Name.decipherNames(map['names']),
     );
   }
 // -----------------------------------------------------------------------------
-  static List<City> decipherCitiesMaps(List<dynamic> maps){
-    final List<City> _cities = <City>[];
-    maps?.forEach((map) {
-      _cities.add(decipherCityMap(map));
-    });
+  static List<CityModel> decipherCitiesMap(Map<String, dynamic> map){
+    final List<CityModel> _cities = <CityModel>[];
+
+    final List<String> _keys = map.keys.toList();
+    final List<dynamic> _values = map.values.toList();
+
+    if (Mapper.canLoopList(_keys)){
+
+      for (int i = 0; i<_keys.length; i++){
+
+        final CityModel _city = decipherCityMap(_values[i]);
+
+        _cities.add(_city);
+
+      }
+
+    }
+
     return _cities;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getCitiesNamesFromCountryModel(Country country){
+  static List<String> getCitiesNamesFromCountryModelByCurrentLingo({@required BuildContext context, @required CountryModel country}){
     List<String> _citiesNames = <String>[];
 
-    final List<City> _cities = country.cities;
+    final List<CityModel> _cities = country.cities;
 
-    _cities.forEach((pr) {
-      _citiesNames.add(pr.name);
+    _cities.forEach((city) {
+
+      String _cityName = Name.getNameByCurrentLingoFromNames(context, city.names);
+
+      _citiesNames.add(_cityName);
     });
 
     _citiesNames = TextMod.sortAlphabetically(_citiesNames);
@@ -79,16 +117,16 @@ class City{
     return _citiesNames;
   }
 // -----------------------------------------------------------------------------
-  static Keyword getKeywordFromCity(BuildContext context, City city){
+  static Keyword getKeywordFromCity(BuildContext context, CityModel city){
 
     // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
     // String _name = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, city.name);
 
     final Keyword _keyword = Keyword(
-        keywordID: city.name,
+        keywordID: city.cityID,
         flyerType: FlyerType.non,
-        groupID: city.iso3,
+        groupID: city.countryID,
         subGroupID: null,
         // name: _name,
         uses: 0
@@ -97,7 +135,7 @@ class City{
     return _keyword;
   }
 // -----------------------------------------------------------------------------
-  static List<Keyword> getKeywordsFromCities(BuildContext context, List<City> cities){
+  static List<Keyword> getKeywordsFromCities(BuildContext context, List<CityModel> cities){
     final List<Keyword> _keywords = <Keyword>[];
 
     cities.forEach((city) {
@@ -111,4 +149,25 @@ class City{
     return _keywords;
   }
 // -----------------------------------------------------------------------------
+}
+
+class City{
+  final String countryID;
+  final String cityID;
+  final List<District> districts;
+  final int population;
+  final bool isActivated;
+  final bool isPublic;
+  final List<Name> names; // English
+
+  const City({
+    this.countryID,
+    this.cityID,
+    this.districts,
+    this.population,
+    this.isActivated,
+    this.isPublic,
+    this.names,
+  });
+
 }

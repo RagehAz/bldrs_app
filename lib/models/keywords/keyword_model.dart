@@ -370,13 +370,13 @@ class Keyword {
     return _nameWithCurrentLanguage;
   }
 // -----------------------------------------------------------------------------
-  static Keyword getKeywordModelFromDistrict(District district){
+  static Keyword getKeywordModelFromDistrict(DistrictModel district){
 
     final Keyword _keywordModel = Keyword(
-      keywordID: district.id,
+      keywordID: district.districtID,
       flyerType: FlyerType.non,
-      groupID: district.iso3,
-      subGroupID: district.city,
+      groupID: district.countryID,
+      subGroupID: district.cityID,
       // name: area.name,
       uses: 0,
     );
@@ -384,10 +384,10 @@ class Keyword {
     return _keywordModel;
   }
 // -----------------------------------------------------------------------------
-  static List<Keyword> getKeywordsModelsFromDistricts(List<District> districts){
+  static List<Keyword> getKeywordsModelsFromDistricts(List<DistrictModel> districts){
     final List<Keyword> _keywords = <Keyword>[];
 
-    for (District district in districts){
+    for (DistrictModel district in districts){
       _keywords.add(getKeywordModelFromDistrict(district));
     }
 
@@ -533,7 +533,7 @@ class Keyword {
     final Namez _namez = getSubGroupNamezBySubGroupID(subGroupID: subGroupID);
     final List<Name> _names = _namez?.names;
 
-    final String _nameInLang = Name.getNameByLingoFromNames(context: context, LingoCode: lingoCode, names: _names);
+    final String _nameInLang = Name.getNameByLingoFromNames(lingoCode: lingoCode, names: _names);
 
     return _nameInLang;
   }

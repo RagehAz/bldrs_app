@@ -366,7 +366,7 @@ class SuperFlyer{
         /// flyer data
         flyerType: flyerModel.flyerType,
         flyerState: flyerModel.flyerState,
-        flyerShowsAuthor: flyerModel.flyerShowsAuthor,
+        flyerShowsAuthor: flyerModel.showsAuthor,
 
         /// flyer tags
         flyerInfo: flyerModel.info,
@@ -374,8 +374,8 @@ class SuperFlyer{
         keywords: Keyword.getKeywordsByKeywordsIDs(flyerModel.keywordsIDs),
 
         /// flyer location
-        flyerZone: flyerModel.flyerZone,
-        position: flyerModel.flyerPosition,
+        flyerZone: flyerModel.zone,
+        position: flyerModel.position,
 
         /// publishing times
         times: flyerModel.times,
@@ -420,7 +420,7 @@ class SuperFlyer{
     @required Function getInfoScrollOffset,
   }){
 
-    print('CREATING draft super flyer from nothing for bz  : ${bzModel.bzName} : id : ${bzModel.bzID}');
+    print('CREATING draft super flyer from nothing for bz  : ${bzModel.name} : id : ${bzModel.bzID}');
 
     final OldCountryProvider _countryPro = Provider.of<OldCountryProvider>(context, listen: false);
 
@@ -492,34 +492,7 @@ class SuperFlyer{
           canDelete: true,
         ),
         mSlides: [],
-        bz: BzModel(
-          bzID: bzModel.bzID,
-          bzType: bzModel.bzType,
-          bzForm: bzModel.bzForm,
-          createdAt: bzModel.createdAt,
-          accountType: bzModel.accountType,
-          bzName: bzModel.bzName,
-          bzLogo: bzModel.bzLogo,
-          bzScope: bzModel.bzScope,
-          bzZone: bzModel.bzZone,
-          bzAbout: bzModel.bzAbout,
-          bzPosition: bzModel.bzPosition,
-          bzContacts: bzModel.bzContacts,
-          bzAuthors: bzModel.bzAuthors,
-          bzShowsTeam: bzModel.bzShowsTeam,
-          bzIsVerified: bzModel.bzIsVerified,
-          bzAccountIsDeactivated: bzModel.bzAccountIsDeactivated,
-          bzAccountIsBanned: bzModel.bzAccountIsBanned,
-          flyersIDs: bzModel.flyersIDs,
-          bzTotalFollowers: bzModel.bzTotalFollowers,
-          bzTotalFlyers: bzModel.flyersIDs.length,
-          bzTotalSaves: bzModel.bzTotalSaves,
-          bzTotalShares: bzModel.bzTotalShares,
-          bzTotalSlides: bzModel.bzTotalSlides,
-          bzTotalViews: bzModel.bzTotalViews,
-          bzTotalCalls: bzModel.bzTotalCalls,
-          authorsIDs: bzModel.authorsIDs,
-        ),
+        bz: bzModel,
 
         loading: false,
 
@@ -602,7 +575,7 @@ class SuperFlyer{
     @required Function getInfoScrollOffset,
   }) async {
 
-    print('CREATING draft super flyer from FLYER : ${flyerModel.flyerID} for bz  : ${bzModel.bzName} : id : ${bzModel.bzID}');
+    print('CREATING draft super flyer from FLYER : ${flyerModel.flyerID} for bz  : ${bzModel.name} : id : ${bzModel.bzID}');
 
     final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);
@@ -670,34 +643,7 @@ class SuperFlyer{
           canDelete: true,
         ),
         mSlides: await MutableSlide.getDraftMutableSlidesFromSlidesModels(flyerModel.slides),
-        bz: BzModel(
-          bzID: bzModel.bzID,
-          bzType: bzModel.bzType,
-          bzForm: bzModel.bzForm,
-          createdAt: bzModel.createdAt,
-          accountType: bzModel.accountType,
-          bzName: bzModel.bzName,
-          bzLogo: bzModel.bzLogo,
-          bzScope: bzModel.bzScope,
-          bzZone: bzModel.bzZone,
-          bzAbout: bzModel.bzAbout,
-          bzPosition: bzModel.bzPosition,
-          bzContacts: bzModel.bzContacts,
-          bzAuthors: bzModel.bzAuthors,
-          bzShowsTeam: bzModel.bzShowsTeam,
-          bzIsVerified: bzModel.bzIsVerified,
-          bzAccountIsDeactivated: bzModel.bzAccountIsDeactivated,
-          bzAccountIsBanned: bzModel.bzAccountIsBanned,
-          flyersIDs: bzModel.flyersIDs,
-          bzTotalFollowers: bzModel.bzTotalFollowers,
-          bzTotalFlyers: bzModel.flyersIDs.length,
-          bzTotalSaves: bzModel.bzTotalSaves,
-          bzTotalShares: bzModel.bzTotalShares,
-          bzTotalSlides: bzModel.bzTotalSlides,
-          bzTotalViews: bzModel.bzTotalViews,
-          bzTotalCalls: bzModel.bzTotalCalls,
-          authorsIDs: bzModel.authorsIDs,
-        ),
+        bz: bzModel,
         loading: false,
 
         /// editor data
@@ -721,7 +667,7 @@ class SuperFlyer{
         /// flyer data
         flyerType: flyerModel.flyerType,
         flyerState: flyerModel.flyerState,
-        flyerShowsAuthor: flyerModel.flyerShowsAuthor,
+        flyerShowsAuthor: flyerModel.showsAuthor,
 
         /// flyer tags
         flyerInfo: flyerModel.info,
@@ -729,8 +675,8 @@ class SuperFlyer{
         keywords: Keyword.getKeywordsByKeywordsIDs(flyerModel.keywordsIDs),
 
         /// flyer location
-        flyerZone: flyerModel.flyerZone,
-        position: flyerModel.flyerPosition,
+        flyerZone: flyerModel.zone,
+        position: flyerModel.position,
 
         /// publishing times
         times: flyerModel.times,

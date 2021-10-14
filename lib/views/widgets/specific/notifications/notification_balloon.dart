@@ -58,7 +58,7 @@ class NotificationSenderBalloon extends StatelessWidget {
       DreamBox(
         width: balloonWidth,
         height: balloonWidth,
-        icon: Flagz.getFlagByIso3(pic),
+        icon: Flagz.getFlagByCountryID(pic),
       )
           :
       DreamBox(

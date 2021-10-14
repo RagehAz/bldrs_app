@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/foundation.dart';
@@ -33,58 +34,85 @@ class Name {
     };
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, dynamic>> cipherNamezz(List<Name> namezz) {
+  static List<Map<String, dynamic>> cipherNames(List<Name> names) {
     final List<Map<String, dynamic>> _namezMaps = <Map<String, dynamic>>[];
-    namezz.forEach((nm) {
-      _namezMaps.add(nm.toMap());
-    });
+
+    if (Mapper.canLoopList(names)){
+
+      names.forEach((name) {
+        _namezMaps.add(name.toMap());
+      });
+
+    }
+
     return _namezMaps;
   }
 // -----------------------------------------------------------------------------
-  static Name decipherNamezMap(Map<String, dynamic> map) {
+  static Name decipherName(Map<String, dynamic> map) {
+
+    // print('decipherName : map : $map : map[\'code\'] : ${map['code']} : map[\'value\'] : ${map['value']}');
+
     return Name(
-      code: 'code',
-      value: 'value',
+      code: map['code'],
+      value: map['value'],
     );
   }
 // -----------------------------------------------------------------------------
-  static List<Name> decipherNamezzMaps(List<dynamic> maps) {
+  static List<Name> decipherNames(List<dynamic> maps) {
     final List<Name> _namez = <Name>[];
-    maps?.forEach((map) {
-      _namez.add(decipherNamezMap(map));
-    });
+
+    if (Mapper.canLoopList(maps)){
+
+      maps?.forEach((map) {
+        _namez.add(decipherName(map));
+      });
+
+    }
+
     return _namez;
   }
 // -----------------------------------------------------------------------------
-  static String getNameByCurrentLingoFromNames(BuildContext context, List<Name> namez,) {
+  static String getNameByCurrentLingoFromNames(BuildContext context, List<Name> names,) {
     final String _currentLanguageCode = Wordz.languageCode(context);
     String _name;
 
       _name = getNameByLingoFromNames(
-        context: context,
-        names: namez,
-        LingoCode: _currentLanguageCode,
+        names: names,
+        lingoCode: _currentLanguageCode,
       );
 
     return _name;
   }
 // -----------------------------------------------------------------------------
-  static String getNameByLingoFromNames({BuildContext context, List<Name> names, String LingoCode}){
+  static String getNameByLingoFromNames({@required List<Name> names, @required String lingoCode}){
 
-    String _foundName;
+    String _nameValue;
 
-    if (names != null && names.length != 0) {
+    if (Mapper.canLoopList(names)) {
 
-      final Name _englishName = names.firstWhere((name) =>
-      name.code == Lingo.englishLingo.code, orElse: () => null);
+      Name _foundName = names.singleWhere((name) => name.code == lingoCode, orElse: () => null);
 
-      final Name _nameByLingo = names.firstWhere((name) =>
-      name.code == LingoCode, orElse: () => null);
+      if (_foundName == null){
+        _nameValue = names.singleWhere((name) => name.code == Lingo.englishCode).value;
+      }
 
-      _foundName = _nameByLingo == null ? _englishName?.value : _nameByLingo?.value;
+      else {
+        _nameValue = _foundName.value;
+      }
+
     }
 
-    return _foundName;
+    return _nameValue;
+  }
+// -----------------------------------------------------------------------------
+  void printName(){
+
+    print('NAME ------------------------------------- START');
+
+    print('code : $code');
+    print('value : $value');
+
+    print('NAME ------------------------------------- END');
   }
 // -----------------------------------------------------------------------------
 }

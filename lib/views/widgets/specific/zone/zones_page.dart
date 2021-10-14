@@ -77,7 +77,7 @@ class ZonesPage extends StatelessWidget {
                           child: DreamBox(
                             height: 35,
                             width: Bubble.clearWidth(context) - 10,
-                            icon: Flagz.getFlagByIso3(_id),
+                            icon: Flagz.getFlagByCountryID(_id),
                             iconSizeFactor: 0.8,
                             verse: OldCountryProvider().getCountryNameInCurrentLanguageByIso3(context, _id),
                             bubble: false,

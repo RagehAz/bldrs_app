@@ -32,7 +32,7 @@ class ZoneButton extends StatelessWidget {
     final String _lastProvinceID = _countryPro.currentCityID;
     final String _lastDistrictID = _countryPro.currentDistrictsID;
     final String _lastCountryName = Localizer.translate(context, _lastCountryID);
-    final String _lastCountryFlag = Flagz.getFlagByIso3(_lastCountryID);
+    final String _lastCountryFlag = Flagz.getFlagByCountryID(_lastCountryID);
     final String _lastProvinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _lastProvinceID);
     final String _lastDistrictName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _lastDistrictID);
 

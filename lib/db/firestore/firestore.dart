@@ -17,8 +17,6 @@ class FireCollection{
   static const String users_user_records_flyers = 'saves';
   static const String users_user_notifications = 'notifications';
 
-  static const String countries = 'countries';
-
   static const String questions = 'questions';
   static const String questions_question_chats = 'chats';
   static const String questions_question_counters = 'counters';
@@ -45,6 +43,8 @@ class FireCollection{
   static const String admin_sponsors = 'sponsors';
   static const String admin_statistics = 'statistics';
   static const String admin_appState = 'appState';
+
+  static const String zones = 'zones';
 }
 
 class StorageDoc{
@@ -224,6 +224,7 @@ class Fire{
 
           await _docRef.set(input);
 
+          print('createNamedDoc : ${_docRef.id}');
         }
     );
 
