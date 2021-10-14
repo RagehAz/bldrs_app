@@ -138,23 +138,50 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
               WideButton(
                 color: Colorz.BloodTest,
-                verse: 'add cities and',
+                verse: 'add cities palestine',
                 icon: Iconz.DvBlackHole,
                 onTap: () async {
 
-                  List<CityModel> _raw = RawCities.and();
+                  _triggerLoading();
 
-                  List<CityModel> _fixed = RawCities.getFixedCities(_raw);
+                  final List<CityModel> _raw = RawCities.and();
 
-                  await Fire.updateDocField(
-                      context: context,
-                      collName: 'zones',
-                      docName: _fixed[0].countryID,
-                      field: 'cities',
-                      input: CityModel.cipherCities(cities: _fixed,toJSON: false),
-                  );
+                  final List<CityModel> _fixed = RawCities.getFixedCities(_raw);
 
-                  print('tamam with country : ${_fixed[0].countryID}, uploaded ${_fixed.length} cities');
+                  final List<String> _countriesIDs = <String>[];
+
+                  for (var city in _fixed){
+                    if (!_countriesIDs.contains(city.countryID)){
+                      _countriesIDs.add(city.countryID);
+                    }
+                  }
+
+                  for (String id in _countriesIDs){
+
+                    List<CityModel> _citiesOfThisCountry = <CityModel>[];
+
+                    for (CityModel city in _fixed){
+
+                      if (city.countryID == id){
+                        _citiesOfThisCountry.add(city);
+                      }
+
+                    }
+
+                    await Fire.updateDocField(
+                        context: context,
+                        collName: 'zones',
+                        docName: id,
+                        field: 'cities',
+                        input: CityModel.cipherCities(cities: _citiesOfThisCountry, toJSON: false),
+                    );
+
+                  }
+
+
+                  // print('tamam with country : ${_fixed[0].countryID}, uploaded ${_fixed.length} cities');
+
+                  _triggerLoading();
 
                 },
               ),
