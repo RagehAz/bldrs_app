@@ -117,7 +117,7 @@ class AddAuthorScreen extends StatelessWidget {
                 userModel: _ragehUserModel,
               );
 
-              final List<AuthorModel> _newAuthorsList = <AuthorModel>[..._bzModel.bzAuthors, _ragehAuthor];
+              final List<AuthorModel> _newAuthorsList = <AuthorModel>[..._bzModel.authors, _ragehAuthor];
 
               await Fire.updateDocField(
                 context: context,

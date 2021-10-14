@@ -67,17 +67,17 @@ class FlyerOps{
       flyerType: inputFlyerModel.flyerType,
       flyerState: inputFlyerModel.flyerState,
       keywordsIDs: inputFlyerModel.keywordsIDs,
-      flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
-      flyerZone: inputFlyerModel.flyerZone,
+      showsAuthor: inputFlyerModel.showsAuthor,
+      zone: inputFlyerModel.zone,
       // -------------------------
       authorID: inputFlyerModel.authorID,
       bzID: inputFlyerModel.bzID,
       // -------------------------
-      flyerPosition: inputFlyerModel.flyerPosition,
+      position: inputFlyerModel.position,
       // -------------------------
       slides: _updatedSlides,
       // -------------------------
-      flyerIsBanned: inputFlyerModel.flyerIsBanned,
+      isBanned: inputFlyerModel.isBanned,
       times: <PublishTime>[
         ...inputFlyerModel.times,
         PublishTime(state: FlyerState.published, time: DateTime.now()),

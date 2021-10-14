@@ -29,7 +29,7 @@ class BzPageHeadline extends StatelessWidget {
           children: <Widget>[
             /// BUSINESS NAME
             SuperVerse(
-              verse: bzModel.bzName,
+              verse: bzModel.name,
               size: 5,
               shadow: true,
               centered: true,
@@ -40,7 +40,7 @@ class BzPageHeadline extends StatelessWidget {
             SuperVerse(
               verse: TextGenerator.zoneStringer(
                 context: context,
-                zone: bzModel.bzZone,
+                zone: bzModel.zone,
               ),
               size: 2,
               centered: true,

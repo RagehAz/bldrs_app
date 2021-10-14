@@ -75,7 +75,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
     print('removing noti with id : $id');
 
     setState(() {
-      _notifications.removeWhere((notiModel) => notiModel.id == id,);
+      _notifications.removeWhere((notiModel) => notiModel.districtID == id,);
     });
   }
 // -----------------------------------------------------------------------------

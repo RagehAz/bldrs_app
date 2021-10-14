@@ -43,6 +43,14 @@ enum BzAccountType{
   sphinx,
 }
 // -----------------------------------------------------------------------------
+enum BzState {
+  online,
+  offline,
+  deactivated,
+  deleted,
+  banned,
+}
+// -----------------------------------------------------------------------------
 class BzModel with ChangeNotifier{
   final String bzID;
   // -------------------------
@@ -51,33 +59,30 @@ class BzModel with ChangeNotifier{
   final DateTime createdAt;
   final BzAccountType accountType;
   // -------------------------
-  final String bzName;
-  final dynamic bzLogo;
-  final String bzScope;
+  final String name;
+  final dynamic logo;
+  final String scope;
 
-  final Zone bzZone;
-  final String bzAbout;
-  final GeoPoint bzPosition;
-  final List<ContactModel> bzContacts;
-  final List<AuthorModel> bzAuthors;
-  final bool bzShowsTeam;
+  final Zone zone;
+  final String about;
+  final GeoPoint position;
+  final List<ContactModel> contacts;
+  final List<AuthorModel> authors;
+  final bool showsTeam;
   // -------------------------
-  final bool bzIsVerified;
+  final bool isVerified;
 
-  /// TASK : create bzState : online - offline - deactivated - deleted - banned
-  final bool bzAccountIsDeactivated;
-  final bool bzAccountIsBanned;
+  final BzState bzState;
   // -------------------------
-  int bzTotalFollowers;
-  int bzTotalSaves;
-  int bzTotalShares;
-  int bzTotalSlides;
-  int bzTotalViews;
-  int bzTotalCalls;
-  int bzTotalFlyers;
+  int totalFollowers;
+  int totalSaves;
+  int totalShares;
+  int totalSlides;
+  int totalViews;
+  int totalCalls;
+  int totalFlyers;
   // -------------------------
   final List<String> flyersIDs;
-  final List<String> authorsIDs;
 
 // ###############################
   BzModel({
@@ -88,68 +93,65 @@ class BzModel with ChangeNotifier{
     this.createdAt,
     this.accountType,
     // -------------------------
-    this.bzName,
-    this.bzLogo,
-    this.bzScope,
-    this.bzZone,
-    this.bzAbout,
-    this.bzPosition,
-    this.bzContacts,
-    this.bzAuthors,
-    this.bzShowsTeam,
+    this.name,
+    this.logo,
+    this.scope,
+    this.zone,
+    this.about,
+    this.position,
+    this.contacts,
+    this.authors,
+    this.showsTeam,
     // -------------------------
-    this.bzIsVerified,
-    this.bzAccountIsDeactivated,
-    this.bzAccountIsBanned,
+    this.isVerified,
+    @required this.bzState,
     // -------------------------
-    this.bzTotalFollowers,
-    this.bzTotalSaves,
-    this.bzTotalShares,
-    this.bzTotalSlides,
-    this.bzTotalViews,
-    this.bzTotalCalls,
+    this.totalFollowers,
+    this.totalSaves,
+    this.totalShares,
+    this.totalSlides,
+    this.totalViews,
+    this.totalCalls,
     // -------------------------
     this.flyersIDs,
-    @required this.bzTotalFlyers,
-    @required this.authorsIDs,
+    @required this.totalFlyers,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
 
-  return {
-    'bzID' : bzID,
-    // -------------------------
-    'bzType' : cipherBzType(bzType),
-    'bzForm' : cipherBzForm(bzForm),
-    'createdAt' : Timers.cipherTime(time: createdAt, toJSON: toJSON),
-    'accountType' : cipherBzAccountType(accountType),
-    // -------------------------
-    'bzName' : bzName,
-    'bzLogo' : bzLogo,
-    'bzScope' : bzScope,
-    'bzZone' : bzZone.toMap(),
-    'bzAbout' : bzAbout,
-    'bzPosition' : Atlas.cipherGeoPoint(point: bzPosition, toJSON: toJSON),
-    'bzContacts' : ContactModel.cipherContactsModels(bzContacts),
-    'bzAuthors' : AuthorModel.cipherAuthorsModels(bzAuthors),
-    'bzShowsTeam' : bzShowsTeam,
-    // -------------------------
-    'bzIsVerified' : bzIsVerified,
-    'bzAccountIsDeactivated' : bzAccountIsDeactivated,
-    'bzAccountIsBanned' : bzAccountIsBanned,
-    // -------------------------
-    'bzTotalFollowers' : bzTotalFollowers,
-    'bzTotalSaves' : bzTotalSaves,
-    'bzTotalShares' : bzTotalShares,
-    'bzTotalSlides' : bzTotalSlides,
-    'bzTotalViews' : bzTotalViews,
-    'bzTotalCalls' : bzTotalCalls,
-    // -------------------------
-    'flyersIDs' : flyersIDs,
-    'bzTotalFlyers' : flyersIDs.length,
-    'authorsIDs' : authorsIDs,
+    return {
+      'bzID' : bzID,
+      // -------------------------
+      'bzType' : cipherBzType(bzType),
+      'bzForm' : cipherBzForm(bzForm),
+      'createdAt' : Timers.cipherTime(time: createdAt, toJSON: toJSON),
+      'accountType' : cipherBzAccountType(accountType),
+      // -------------------------
+      'name' : name,
+      'logo' : logo,
+      'scope' : scope,
+      'zone' : zone.toMap(),
+      'about' : about,
+      'position' : Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
+      'contacts' : ContactModel.cipherContactsModels(contacts),
+      'authors' : AuthorModel.cipherAuthorsModels(authors),
+      'showsTeam' : showsTeam,
+      // -------------------------
+      'isVerified' : isVerified,
+      'bzState' : cipherBzState(bzState),
+      // -------------------------
+      'totalFollowers' : totalFollowers,
+      'totalSaves' : totalSaves,
+      'totalShares' : totalShares,
+      'totalSlides' : totalSlides,
+      'totalViews' : totalViews,
+      'totalCalls' : totalCalls,
+      'totalFlyers' : totalFlyers,
+      // -------------------------
+      'flyersIDs' : flyersIDs,
     };
-}
+  }
+
 // -----------------------------------------------------------------------------
   static BzModel decipherBzMap({@required dynamic map, @required bool fromJSON}){
     BzModel _bzModel;
@@ -164,30 +166,28 @@ class BzModel with ChangeNotifier{
         createdAt : Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
         accountType : decipherBzAccountType(map['accountType']),
         // -------------------------
-        bzName : map['bzName'],
-        bzLogo : map['bzLogo'],
-        bzScope : map['bzScope'],
-        bzZone : Zone.decipherZoneMap(map['bzZone']),
-        bzAbout : map['bzAbout'],
-        bzPosition : Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
-        bzContacts : ContactModel.decipherContactsMaps(map['bzContacts']),
-        bzAuthors : AuthorModel.decipherBzAuthorsMaps(map['bzAuthors']),
-        bzShowsTeam : map['bzShowsTeam'],
+        name : map['name'],
+        logo : map['logo'],
+        scope : map['scope'],
+        zone : Zone.decipherZoneMap(map['zone :']),
+        about : map['about'],
+        position : Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
+        contacts : ContactModel.decipherContactsMaps(map['contacts']),
+        authors : AuthorModel.decipherBzAuthorsMaps(map['authors']),
+        showsTeam : map['showsTeam'],
         // -------------------------
-        bzIsVerified : map['bzIsVerified'],
-        bzAccountIsDeactivated : map['bzAccountIsDeactivated'],
-        bzAccountIsBanned : map['bzAccountIsBanned'],
+        isVerified : map['isVerified'],
+        bzState : decipherBzState(map['bzState']),
         // -------------------------
-        bzTotalFollowers : map['bzTotalFollowers'],
-        bzTotalSaves : map['bzTotalSaves'],
-        bzTotalShares : map['bzTotalShares'],
-        bzTotalSlides : map['bzTotalSlides'],
-        bzTotalViews : map['bzTotalViews'],
-        bzTotalCalls : map['bzTotalCalls'],
+        totalFollowers : map['totalFollowers'],
+        totalSaves : map['totalSaves'],
+        totalShares : map['totalShares'],
+        totalSlides : map['totalSlides'],
+        totalViews : map['totalViews'],
+        totalCalls : map['totalCalls'],
         // -------------------------
         flyersIDs: Mapper.getStringsFromDynamics(dynamics: map['flyersIDs']),
-        bzTotalFlyers: map['bzTotalFlyers'],
-        authorsIDs: Mapper.getStringsFromDynamics(dynamics: map['authorsIDs']),
+        totalFlyers: map['totalFlyers'],
       );
     }
 
@@ -228,9 +228,9 @@ class BzModel with ChangeNotifier{
   static BzModel createInitialBzModelFromUserData(UserModel userModel){
     return BzModel(
       bzID: null,
-      bzName: userModel.company,
-      bzZone: userModel.zone,
-      bzContacts: <ContactModel>[
+      name: userModel.company,
+      zone: userModel.zone,
+      contacts: <ContactModel>[
         ContactModel(
             contact: ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.email),
             contactType: ContactType.email
@@ -240,30 +240,28 @@ class BzModel with ChangeNotifier{
             contactType: ContactType.phone
         ),
       ],
-      bzAuthors: <AuthorModel>[AuthorModel.createMasterAuthorModelFromUserModel(userModel)],
-      bzShowsTeam: true,
+      authors: <AuthorModel>[AuthorModel.createMasterAuthorModelFromUserModel(userModel)],
+      showsTeam: true,
       // -------------------------
-      bzIsVerified: false,
-      bzAccountIsDeactivated: false,
-      bzAccountIsBanned: false,
+      isVerified: false,
+      bzState: BzState.offline,
       // -------------------------
-      bzTotalFollowers: 0,
-      bzTotalSaves: 0,
-      bzTotalShares: 0,
-      bzTotalSlides: 0,
-      bzTotalViews: 0,
-      bzTotalCalls: 0,
+      totalFollowers: 0,
+      totalSaves: 0,
+      totalShares: 0,
+      totalSlides: 0,
+      totalViews: 0,
+      totalCalls: 0,
       // -------------------------
       flyersIDs: <String>[],
-      bzTotalFlyers: 0,
-      authorsIDs: <String>[userModel.userID],
+      totalFlyers: 0,
       createdAt: DateTime.now(),
       accountType: BzAccountType.normal,
-      bzAbout: '',
+      about: '',
       bzForm: BzForm.individual,
-      bzLogo: userModel.pic,
-      bzPosition: null,
-      bzScope: null,
+      logo: userModel.pic,
+      position: null,
+      scope: null,
       bzType: null,
 
     );
@@ -312,6 +310,36 @@ class BzModel with ChangeNotifier{
     }
   }
 // -----------------------------------------------------------------------------
+  static String cipherBzState(BzState state){
+    switch(state){
+      case BzState.online : return 'online'; break;
+      case BzState.offline : return 'offline'; break;
+      case BzState.deactivated : return 'deactivated'; break;
+      case BzState.deleted : return 'deleted'; break;
+      case BzState.banned : return 'banned'; break;
+      default : return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static BzState decipherBzState(String state){
+    switch(state){
+      case 'online' : return BzState.online; break;
+      case 'offline' : return BzState.offline; break;
+      case 'deactivated' : return BzState.deactivated; break;
+      case 'deleted' : return BzState.deleted; break;
+      case 'banned' : return BzState.banned; break;
+      default : return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+  static const List<BzState> bzStatesList = const <BzState>[
+    BzState.online,
+    BzState.offline,
+    BzState.deactivated,
+    BzState.deleted,
+    BzState.banned,
+  ];
+// -----------------------------------------------------------------------------
   static const List<BzForm> bzFormsList = const <BzForm>[
     BzForm.individual,
     BzForm.company,
@@ -336,7 +364,7 @@ class BzModel with ChangeNotifier{
   ];
 // -----------------------------------------------------------------------------
   static List<String> getBzTeamIDs(BzModel bzModel){
-    final List<AuthorModel> _authors = bzModel.bzAuthors;
+    final List<AuthorModel> _authors = bzModel.authors;
     final List<String> _bzTeamIDs = <String>[];
 
     if (_authors != null){
@@ -368,36 +396,36 @@ class BzModel with ChangeNotifier{
 // -----------------------------------------------------------------------------
   void printBzModel({String methodName = 'printBzModel'}){
 
-    print('$methodName : PRINTING BZ MODEL ---------------- START -- ');
+    String _methodName = methodName ?? 'BZ';
+
+    print('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
 
     print('bzID : $bzID');
     print('bzType : $bzType');
     print('bzForm : $bzForm');
     print('createdAt : $createdAt');
     print('accountType : $accountType');
-    print('bzName : $bzName');
-    print('bzLogo : $bzLogo');
-    print('bzScope : $bzScope');
-    print('bzZone : $bzZone');
-    print('bzAbout : $bzAbout');
-    print('bzPosition : $bzPosition');
-    print('bzContacts : $bzContacts');
-    print('bzAuthors : $bzAuthors');
-    print('bzShowsTeam : $bzShowsTeam');
-    print('bzIsVerified : $bzIsVerified');
-    print('bzAccountIsDeactivated : $bzAccountIsDeactivated');
-    print('bzAccountIsBanned : $bzAccountIsBanned');
-    print('bzTotalFollowers : $bzTotalFollowers');
-    print('bzTotalSaves : $bzTotalSaves');
-    print('bzTotalShares : $bzTotalShares');
-    print('bzTotalSlides : $bzTotalSlides');
-    print('bzTotalViews : $bzTotalViews');
-    print('bzTotalCalls : $bzTotalCalls');
+    print('mame : $name');
+    print('logo : $logo');
+    print('scope : $scope');
+    print('zone : $zone');
+    print('about : $about');
+    print('position : $position');
+    print('contacts : $contacts');
+    print('authors : $authors');
+    print('showsTeam : $showsTeam');
+    print('isVerified : $isVerified');
+    print('bzState : $bzState');
+    print('totalFollowers : $totalFollowers');
+    print('totalSaves : $totalSaves');
+    print('totalShares : $totalShares');
+    print('totalSlides : $totalSlides');
+    print('totalViews : $totalViews');
+    print('totalCalls : $totalCalls');
     print('flyersIDs : $flyersIDs');
-    print('bzTotalFlyers : $bzTotalFlyers');
-    print('authorsIDs : $authorsIDs');
+    print('totalFlyers : $totalFlyers');
 
-    print('$methodName : PRINTING BZ MODEL ---------------- END -- ');
+    print('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
 
   }
 // -----------------------------------------------------------------------------
@@ -445,16 +473,17 @@ class BzModel with ChangeNotifier{
     final String _bzID = bzID ?? 'ytLfMwdqK565ByP1p56G';
 
     return
-        BzModel(
-            bzID: _bzID,
-            bzLogo: Iconz.DumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
-            bzName: 'Business Name',
-            bzType: BzType.designer,
-            bzZone: Zone(countryID: 'egy', cityID: 'cairo', districtID: 'heliopolis'),
-            bzTotalFollowers: 1000,
-            bzTotalFlyers: 10,
-          authorsIDs: ['x'],
-        );
+      BzModel(
+        bzID: _bzID,
+        logo: Iconz.DumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
+        name: 'Business Name',
+        bzType: BzType.designer,
+        zone: Zone(countryID: 'egy', cityID: 'cairo', districtID: 'heliopolis'),
+        totalFollowers: 1000,
+        totalFlyers: 10,
+        bzState: BzState.online,
+      );
+
   }
 
 }

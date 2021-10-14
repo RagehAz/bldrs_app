@@ -87,7 +87,7 @@ class dashboardUserButton extends StatelessWidget {
                   DreamBox(
                     height: 25,
                     width: 25,
-                    icon: Flagz.getFlagByIso3(userModel.zone.countryID),
+                    icon: Flagz.getFlagByCountryID(userModel.zone.countryID),
                     corners: 5,
                   ),
 

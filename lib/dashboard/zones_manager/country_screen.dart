@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
@@ -14,7 +15,7 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class CountryEditorScreen extends StatefulWidget {
-  final Country country;
+  final CountryModel country;
 
   CountryEditorScreen({@required this.country});
 
@@ -32,7 +33,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
   String _flag;
   bool _isActivated;
   bool _isGlobal;
-  List<City> _provinces;
+  List<CityModel> _cities;
   String _language;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -60,13 +61,13 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
   void initState() {
     super.initState();
     // _countriesCollection = _fireInstance.collection('countries');
-    _name = widget.country.name;
+    _name = Name.getNameByCurrentLingoFromNames(context, widget.country.names);
     _region = widget.country.region;
     _continent = widget.country.continent;
     _flag = widget.country.flag;
     _isActivated = widget.country.isActivated;
     _isGlobal = widget.country.isGlobal;
-    _provinces = widget.country.cities;
+    _cities = widget.country.cities;
     _language = widget.country.language;
   }
 // ---------------------------------------------------------------------------
@@ -78,7 +79,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     await Fire.updateDocField(
       context: context,
       collName: _countriesCollectionName,
-      docName: widget.country.iso3,
+      docName: widget.country.countryID,
       field: _field,
       input: _input,
     );
@@ -88,7 +89,12 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final List<String> _provincesNames = City.getCitiesNamesFromCountryModel(widget.country);
+    final List<String> _citiesNames = CityModel.getCitiesNamesFromCountryModelByCurrentLingo(
+      context: context,
+      country: widget.country,
+    );
+
+    final String _countryName = Name.getNameByCurrentLingoFromNames(context, widget.country.names);
 
     return MainLayout(
       sky: Sky.Black,
@@ -109,7 +115,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
               await CenterDialog.showCenterDialog(
                 context: context,
                 title: 'Country ISO3',
-                body: widget.country.iso3,
+                body: widget.country.countryID,
                 boolDialog: false,
               );},
         ),
@@ -124,7 +130,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           /// --- ISO3
           TileBubble(
-             verse: '${widget.country.name}\'s ISO3 is : ( ${widget.country.iso3} )',
+             verse: '${_countryName}\'s ISO3 is : ( ${widget.country.countryID} )',
              icon: Iconz.Info,
            verseColor: Colorz.Yellow255,
            iconBoxColor: Colorz.Grey50,
@@ -232,8 +238,8 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
           const BubblesSeparator(),
 
           KeywordsBubble(
-            title: '${_provincesNames.length} Provinces',
-            keywords: City.getKeywordsFromCities(context, _provinces),
+            title: '${_citiesNames.length} Provinces',
+            keywords: CityModel.getKeywordsFromCities(context, _cities),
             onTap: (val) {print(val);},
             selectedWords: <dynamic>[],
             addButtonIsOn: false,

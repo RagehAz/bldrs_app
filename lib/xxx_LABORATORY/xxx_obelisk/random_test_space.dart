@@ -1,19 +1,11 @@
-import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/db/firestore/flyer_ops.dart';
-import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/helpers/map_model.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class RandomTestSpace extends StatefulWidget {
@@ -87,86 +79,6 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
     }
     _isInit = false;
     super.didChangeDependencies();
-  }
-// -----------------------------------------------------------------------------
-//   int _numberOfFields = 0;
-// -----------------------------------------------------------------------------
-  List<MapModel> _theData = <MapModel>[];
-  Future<void> _createBlocks() async {
-
-    _triggerLoading();
-
-    List<MapModel> _data = <MapModel>[];
-    int numberOfFields = 10001;
-    for (int i = 0; i < numberOfFields; i++){
-      final String _numString = Numeric.separateKilos(number: i+1);
-
-      final String _value = 'num -> $_numString';
-      final String _key = '$i';
-
-      final MapModel _mapModel = MapModel(key: _key, value: _value);
-
-      _data.add(_mapModel);
-    }
-
-    setState(() {
-      _theData = _data;
-    });
-
-    _triggerLoading();
-
-    print('fuk');
-
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _uploadBlocks() async {
-
-
-    _triggerLoading();
-
-    /// receive the input
-    List<MapModel> _data = _theData;
-
-    /// see length of input
-    int _inputLength = _data.length;
-
-    /// create list of blocks
-    List<Map<String, dynamic>> _docs = <Map<String, dynamic>>[];
-    const int _blockLength = 500;
-
-    /// add data
-    for (int i = 0; i < _inputLength; i++){
-
-      final MapModel _mapModel = _data[i];
-
-      final int docIndex = (i / _blockLength).floor();
-
-      if(_docs.length <= docIndex){
-        _docs.add({});
-      }
-
-      // Map<String, dynamic> _block = {};
-      Mapper.insertPairInMap(map: _docs[docIndex], key: _mapModel.key, value: _mapModel.value);
-
-    }
-
-    print(_docs.toString());
-
-    for (int i = 0; i < _docs.length; i++){
-
-      await Fire.createNamedSubDoc(
-        context: context,
-        collName: FireCollection.admin,
-        docName: 'test',
-        subCollName: 'blocks',
-        subDocName: 'doc_$i',
-        input: _docs[i],
-      );
-
-    }
-
-    _triggerLoading();
-
   }
 // -----------------------------------------------------------------------------
   @override
@@ -243,90 +155,55 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
               WideButton(
                 color: Colorz.BloodTest,
-                verse: 'Save blocks to db/admin/test/blocks/{docs}',
-                icon: Iconz.Save,
-                onTap: _createBlocks,
-              ),
-
-              WideButton(
-                color: Colorz.BloodTest,
-                verse: 'upload blocks',
-                icon: Iconz.Share,
-                onTap: _uploadBlocks,
-              ),
-
-              WideButton(
-                color: Colorz.BloodTest,
-                verse: 'get a flyer',
+                verse: 'fix zoneszz',
                 icon: Iconz.Share,
                 onTap: () async {
 
-                  FlyerModel _flyer = await FlyerOps.readFlyerOps(
-                    context: context,
-                    flyerID: '2fDlDyF01sw8GEYPJ9GN',
+                  List<dynamic> _maps = await Fire.readCollectionDocs(
+                    limit: 300,
+                    addDocID: true,
+                    orderBy: 'countryID',
+                    collectionName: 'zones',
+                    addDocSnapshotToEachMap: false,
                   );
 
-                  _flyer.printFlyer();
+                  for (var map in _maps){
+
+
+                    final CountryModel _country = CountryModel.decipherCountryMap(map);
+
+                    if (map['countryKey'] != null){
+
+                      await Fire.deleteDoc(
+                        context: context,
+                        collName: 'zones',
+                        docName: map['countryKey'],
+                      );
+
+                      await Fire.createNamedDoc(
+                        context: context,
+                        collName: 'zones',
+                        docName: _country.countryID,
+                        input: _country.toMap(),
+                      );
+
+                    }
+
+
+                      print('tamam with ${_country.countryID}');
+
+
+
+                  }
 
                 },
               ),
 
               WideButton(
                 color: Colorz.BloodTest,
-                verse: 'fix flyer',
+                verse: 'fix life',
                 icon: Iconz.DvBlackHole,
                 onTap: () async {
-
-                  List<dynamic> _maps = await Fire.readCollectionDocs(
-                    limit: 200,
-                    addDocID: true,
-                    orderBy: 'flyerID',
-                    collectionName: FireCollection.flyers,
-                    addDocSnapshotToEachMap: false,
-                  );
-                    /// TASK : fix null bz forms
-
-
-                  for (Map map in _maps){
-
-
-                    Map<String, dynamic> _authorMap = map['tinyAuthor'];
-                    Map<String, dynamic> _bzMap = map['tinyBz'];
-
-                    String _authorID = _authorMap['userID'];
-                    String _bzID = _bzMap['bzID'];
-
-                    await Fire.updateDocField(
-                      context: context,
-                      collName: FireCollection.flyers,
-                      docName: map['flyerID'],
-                      field: 'authorID',
-                      input: _authorID,
-                    );
-
-                    await Fire.updateDocField(
-                      context: context,
-                      collName: FireCollection.flyers,
-                      docName: map['flyerID'],
-                      field: 'bzID',
-                      input: _bzID,
-                    );
-
-                    await Fire.deleteDocField(
-                        context: context,
-                        collName: FireCollection.flyers,
-                        docName: map['flyerID'],
-                        field: 'tinyBz',
-                    );
-
-                    await Fire.deleteDocField(
-                      context: context,
-                      collName: FireCollection.flyers,
-                      docName: map['flyerID'],
-                      field: 'tinyAuthor',
-                    );
-
-                  }
 
                 },
               ),
@@ -352,40 +229,40 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
                 },
               ),
 
-              Container(
-                width: Scale.superScreenWidth(context),
-                alignment: Alignment.center,
-                child: Container(
-                  width: Scale.superScreenWidth(context) * 0.8,
-                  height: 400,
-                  color: Colorz.BloodTest,
-                  child: Scroller(
-                    controller: _ScrollController,
-                    child: ListView.builder(
-                        itemCount: _theData.length,
-                        itemBuilder: (ctx , index){
-
-                          final String key = _theData[index].key;
-                          final String value = _theData[index].value;
-
-                          final string = '$key : $value';
-
-                          return
-                            DreamBox(
-                              height: 30,
-                              width: Scale.superScreenWidth(context) - 100,
-                              verse: '   $string',
-                              verseScaleFactor: 0.6,
-                              verseWeight: VerseWeight.thin,
-                              verseItalic: true,
-                              verseCentered: false,
-                              margins: 3,
-                            );
-
-                        }),
-                  ),
-                ),
-              ),
+              // Container(
+              //   width: Scale.superScreenWidth(context),
+              //   alignment: Alignment.center,
+              //   child: Container(
+              //     width: Scale.superScreenWidth(context) * 0.8,
+              //     height: 400,
+              //     color: Colorz.BloodTest,
+              //     child: Scroller(
+              //       controller: _ScrollController,
+              //       child: ListView.builder(
+              //           itemCount: _theData.length,
+              //           itemBuilder: (ctx , index){
+              //
+              //             final String key = _theData[index].key;
+              //             final String value = _theData[index].value;
+              //
+              //             final string = '$key : $value';
+              //
+              //             return
+              //               DreamBox(
+              //                 height: 30,
+              //                 width: Scale.superScreenWidth(context) - 100,
+              //                 verse: '   $string',
+              //                 verseScaleFactor: 0.6,
+              //                 verseWeight: VerseWeight.thin,
+              //                 verseItalic: true,
+              //                 verseCentered: false,
+              //                 margins: 3,
+              //               );
+              //
+              //           }),
+              //     ),
+              //   ),
+              // ),
 
             ],
           ),

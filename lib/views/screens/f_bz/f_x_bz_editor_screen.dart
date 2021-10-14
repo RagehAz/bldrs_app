@@ -124,16 +124,16 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _createBzTypeInActivityList();
     _createBzFormInActivityLst();
     // -------------------------
-    _bzNameTextController.text = _bz.bzName;
-    _currentBzLogoURL = _bz.bzLogo;
-    _bzScopeTextController.text = _bz.bzScope;
-    _currentBzCountry = _bz.bzZone.countryID;
-    _currentBzCity = _bz.bzZone.cityID;
-    _currentBzDistrict = _bz.bzZone.districtID;
-    _bzAboutTextController.text =  _bz.bzAbout;
-    _currentBzPosition = _bz.bzPosition;
-    _currentBzContacts = _bz.bzContacts;
-    _currentBzAuthors = _bz.bzAuthors;
+    _bzNameTextController.text = _bz.name;
+    _currentBzLogoURL = _bz.logo;
+    _bzScopeTextController.text = _bz.scope;
+    _currentBzCountry = _bz.zone.countryID;
+    _currentBzCity = _bz.zone.cityID;
+    _currentBzDistrict = _bz.zone.districtID;
+    _bzAboutTextController.text =  _bz.about;
+    _currentBzPosition = _bz.position;
+    _currentBzContacts = _bz.contacts;
+    _currentBzAuthors = _bz.authors;
     _currentBzShowsTeam = _currentBzShowsTeam;
     // -------------------------
     _currentAuthor = AuthorModel.getAuthorFromBzByAuthorID(_bz, widget.userModel.userID);
@@ -165,31 +165,29 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzForm: _currentBzForm,
         createdAt: DateTime.now(),
         accountType: _currentAccountType,
-        bzName: _bzNameTextController.text,
-        bzLogo: _currentBzLogoFile ?? _currentBzLogoURL,
-        bzScope: _bzScopeTextController.text,
-        bzZone: Zone(
+        name: _bzNameTextController.text,
+        logo: _currentBzLogoFile ?? _currentBzLogoURL,
+        scope: _bzScopeTextController.text,
+        zone: Zone(
           countryID: _currentBzCountry,
           cityID: _currentBzCity,
           districtID: _currentBzDistrict,
         ),
-        bzAbout: _bzAboutTextController.text,
-        bzPosition: _currentBzPosition,
-        bzContacts: _currentBzContacts,
-        bzAuthors: _currentBzAuthors,
-        bzShowsTeam: _currentBzShowsTeam,
-        bzIsVerified: _bz.bzIsVerified,
-        bzAccountIsDeactivated: _bz.bzAccountIsDeactivated,
-        bzAccountIsBanned: _bz.bzAccountIsBanned,
-        bzTotalFollowers: _bz.bzTotalFollowers,
-        bzTotalSaves: _bz.bzTotalSaves,
-        bzTotalShares: _bz.bzTotalShares,
-        bzTotalSlides: _bz.bzTotalSlides,
-        bzTotalViews: _bz.bzTotalViews,
-        bzTotalCalls: _bz.bzTotalCalls,
+        about: _bzAboutTextController.text,
+        position: _currentBzPosition,
+        contacts: _currentBzContacts,
+        authors: _currentBzAuthors,
+        showsTeam: _currentBzShowsTeam,
+        isVerified: _bz.isVerified,
+        bzState: _bz.bzState,
+        totalFollowers: _bz.totalFollowers,
+        totalSaves: _bz.totalSaves,
+        totalShares: _bz.totalShares,
+        totalSlides: _bz.totalSlides,
+        totalViews: _bz.totalViews,
+        totalCalls: _bz.totalCalls,
         flyersIDs: _bz.flyersIDs,
-        bzTotalFlyers: _bz.bzTotalFlyers,
-        authorsIDs: _bz.authorsIDs,
+        totalFlyers: _bz.totalFlyers,
       ),
       author: AuthorModel(
         userID: '',
@@ -361,34 +359,32 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         createdAt: null, // timestamp will be generated inside createBzOps
         accountType: BzAccountType.normal, // changing this is not in bzEditor
         // -------------------------
-        bzName: _bzNameTextController.text,
-        bzLogo: _currentBzLogoFile,
-        bzScope: _bzScopeTextController.text,
-        bzZone: Zone(
+        name: _bzNameTextController.text,
+        logo: _currentBzLogoFile,
+        scope: _bzScopeTextController.text,
+        zone: Zone(
           countryID: _currentBzCountry,
           cityID: _currentBzCity,
           districtID: _currentBzDistrict,
         ),
-        bzAbout: _bzAboutTextController.text,
-        bzPosition: _currentBzPosition,
-        bzContacts: _currentBzContacts,
-        bzAuthors: _firstTimeAuthorsList,
-        bzShowsTeam: _currentBzShowsTeam,
+        about: _bzAboutTextController.text,
+        position: _currentBzPosition,
+        contacts: _currentBzContacts,
+        authors: _firstTimeAuthorsList,
+        showsTeam: _currentBzShowsTeam,
         // -------------------------
-        bzIsVerified: false,
-        bzAccountIsDeactivated: false,
-        bzAccountIsBanned: false,
+        isVerified: false,
+        bzState: BzState.offline,
         // -------------------------
-        bzTotalFollowers: 0,
-        bzTotalSaves: 0,
-        bzTotalShares: 0,
-        bzTotalSlides: 0,
-        bzTotalViews: 0,
-        bzTotalCalls: 0,
+        totalFollowers: 0,
+        totalSaves: 0,
+        totalShares: 0,
+        totalSlides: 0,
+        totalViews: 0,
+        totalCalls: 0,
         // -------------------------
         flyersIDs: <String>[],
-        bzTotalFlyers: 0,
-        authorsIDs: <String>[widget.userModel.userID],
+        totalFlyers: 0,
       );
 
       /// start createBzOps
@@ -451,12 +447,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         newAuthor: _newAuthor,
       );
 
-      final List<String> _modifiedAuthorsIDsList = AuthorModel.replaceAuthorIDInAuthorsIDsList(
-        originalAuthors: _currentBzAuthors,
-        oldAuthor: _oldAuthor,
-        newAuthor: _newAuthor,
-      );
-
       /// create modified bzModel
       final BzModel _modifiedBzModel = BzModel(
         bzID: widget.bzModel.bzID,
@@ -466,34 +456,32 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         createdAt: widget.bzModel.createdAt,
         accountType: _currentAccountType,
         // -------------------------
-        bzName: _bzNameTextController.text,
-        bzLogo: _currentBzLogoFile ?? _currentBzLogoURL,
-        bzScope: _bzScopeTextController.text,
-        bzZone: Zone(
+        name: _bzNameTextController.text,
+        logo: _currentBzLogoFile ?? _currentBzLogoURL,
+        scope: _bzScopeTextController.text,
+        zone: Zone(
           countryID: _currentBzCountry,
           cityID: _currentBzCity,
           districtID: _currentBzDistrict,
         ),
-        bzAbout: _bzAboutTextController.text,
-        bzPosition: _currentBzPosition,
-        bzContacts: _currentBzContacts,
-        bzAuthors: _modifiedAuthorsList,
-        bzShowsTeam: _currentBzShowsTeam,
+        about: _bzAboutTextController.text,
+        position: _currentBzPosition,
+        contacts: _currentBzContacts,
+        authors: _modifiedAuthorsList,
+        showsTeam: _currentBzShowsTeam,
         // -------------------------
-        bzIsVerified: widget.bzModel.bzIsVerified,
-        bzAccountIsDeactivated: widget.bzModel.bzAccountIsDeactivated,
-        bzAccountIsBanned: widget.bzModel.bzAccountIsBanned,
+        isVerified: widget.bzModel.isVerified,
+        bzState: widget.bzModel.bzState,
         // -------------------------
-        bzTotalFollowers: widget.bzModel.bzTotalFollowers,
-        bzTotalSaves: widget.bzModel.bzTotalSaves,
-        bzTotalShares: widget.bzModel.bzTotalShares,
-        bzTotalSlides: widget.bzModel.bzTotalSlides,
-        bzTotalViews: widget.bzModel.bzTotalViews,
-        bzTotalCalls: widget.bzModel.bzTotalCalls,
+        totalFollowers: widget.bzModel.totalFollowers,
+        totalSaves: widget.bzModel.totalSaves,
+        totalShares: widget.bzModel.totalShares,
+        totalSlides: widget.bzModel.totalSlides,
+        totalViews: widget.bzModel.totalViews,
+        totalCalls: widget.bzModel.totalCalls,
         // -------------------------
         flyersIDs: widget.bzModel.flyersIDs,
-        bzTotalFlyers: widget.bzModel.bzTotalFlyers,
-        authorsIDs: _modifiedAuthorsIDsList,
+        totalFlyers: widget.bzModel.totalFlyers,
       );
 
       /// start updateBzOps
