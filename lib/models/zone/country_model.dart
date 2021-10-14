@@ -1,5 +1,5 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:flutter/foundation.dart';
@@ -30,7 +30,7 @@ class CountryModel{
     @required this.names,
   });
 // -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap({@required bool toJSON}){
 
     return {
       'countryID' : countryID,
@@ -39,24 +39,13 @@ class CountryModel{
       'flag' : flag,
       'isActivated' : isActivated,
       'isGlobal' : isGlobal,
-      'cities' : CityModel.cipherCities(cities),
+      'cities' : CityModel.cipherCities(cities: cities, toJSON: toJSON),
       'language' : language,
       'names': Name.cipherNames(names),
     };
   }
 // -----------------------------------------------------------------------------
-  static String createCountryKey({@required String countryID, @required List<Name> names}){
-    final String _countryNameEN = Name.getNameByLingoFromNames(names: names, lingoCode: Lingo.englishCode);
-
-    final String _fixedName = fixCountryName(_countryNameEN);
-
-    print('createCountryKey : _countryNameTrimmed : $_fixedName');
-
-    final String _countryID_name = '${countryID}_${_fixedName}';
-    return _countryID_name;
-  }
-// -----------------------------------------------------------------------------
-  static CountryModel decipherCountryMap(dynamic map){
+  static CountryModel decipherCountryMap({@required Map<String, dynamic> map, @required bool fromJSON}){
 
     final List<Name> _names = Name.decipherNames(map['names']);
 
@@ -68,16 +57,23 @@ class CountryModel{
       flag : map['flag'],
       isActivated : map['isActivated'],
       isGlobal : map['isGlobal'],
-      cities : CityModel.decipherCitiesMap(map['cities']),
+      cities : CityModel.decipherCitiesMap(map: map['cities'], fromJSON: fromJSON),
       language : map['language'],
     );
   }
 // -----------------------------------------------------------------------------
-  static List<CountryModel> decipherCountriesMaps(List<dynamic> maps){
+  static List<CountryModel> decipherCountriesMaps({@required List<dynamic> maps, @required bool fromJSON}){
     final List<CountryModel> _countries = <CountryModel>[];
-    maps?.forEach((map) {
-      _countries.add(decipherCountryMap(map));
-    });
+
+    if (Mapper.canLoopList(maps)){
+      maps?.forEach((map) {
+        _countries.add(decipherCountryMap(
+          map: map,
+          fromJSON: fromJSON,
+        ));
+      });
+    }
+
     return _countries;
   }
 // -----------------------------------------------------------------------------
@@ -125,7 +121,13 @@ static String fixCountryName(String input){
     replacement: 'o',
   );
 
-  return _countryNameTrimmed7;
+  final String _countryNameTrimmed8 = TextMod.replaceAllCharactersWith(
+    input: _countryNameTrimmed7,
+    CharacterToReplace: '`',
+    replacement: '',
+  );
+
+  return _countryNameTrimmed8;
 
 }
 // -----------------------------------------------------------------------------
