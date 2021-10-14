@@ -127,8 +127,26 @@ static String fixCountryName(String input){
     replacement: '',
   );
 
-  return _countryNameTrimmed8;
+  final String _countryNameTrimmed9 = TextMod.replaceAllCharactersWith(
+    input: _countryNameTrimmed8,
+    CharacterToReplace: '\'',
+    replacement: '',
+  );
 
+  final String _countryNameTrimmed10 = TextMod.replaceAllCharactersWith(
+    input: _countryNameTrimmed9,
+    CharacterToReplace: '.',
+    replacement: '',
+  );
+
+  final String _countryNameTrimmed11 = TextMod.replaceAllCharactersWith(
+    input: _countryNameTrimmed10,
+    CharacterToReplace: '/',
+    replacement: '',
+  );
+
+
+  return _countryNameTrimmed11;
 }
 // -----------------------------------------------------------------------------
 
