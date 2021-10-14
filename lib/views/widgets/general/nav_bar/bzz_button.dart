@@ -33,7 +33,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
       height: circleWidth * 0.47,
       width: circleWidth * 0.47,
       corners: circleWidth * 0.47 * 0.25,
-      icon: bzModel.bzLogo,
+      icon: bzModel.logo,
       bubble: true,
       onTap: onTap,
     ),
@@ -101,7 +101,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
                 DreamBox(
                   width: _circleWidth,
                   height: _circleWidth,
-                  icon: _userBzz[0].bzLogo,
+                  icon: _userBzz[0].logo,
                   iconSizeFactor: 1,
                   bubble: true,
                   color: Colorz.Nothing,
@@ -121,7 +121,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
                       left: 0,
                       child: BzLogo(
                         width: _circleWidth * 0.7,
-                        image: _userBzz[0].bzLogo,
+                        image: _userBzz[0].logo,
                         shadowIsOn: _shadowIsOn,
                         onTap: onTap,
                       ),
@@ -132,7 +132,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
                       right: 0,
                       child: BzLogo(
                         width: _circleWidth * 0.7,
-                        image: _userBzz[1].bzLogo,
+                        image: _userBzz[1].logo,
                         shadowIsOn: _shadowIsOn,
                         onTap: onTap,
                       ),

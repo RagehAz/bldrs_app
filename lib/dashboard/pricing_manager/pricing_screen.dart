@@ -40,7 +40,7 @@ class PricingScreen extends StatelessWidget {
                 final double _toDollarRate = Numeric.roundFractions(_mac.toDollarRate, 2);
                 final double _localPrice = Numeric.roundFractions(_mac.localPrice, 2);
 
-                final String _flag = Flagz.getFlagByIso3(_iso3);
+                final String _flag = Flagz.getFlagByCountryID(_iso3);
                 final String _countryName = '${index + 1} - ${Localizer.translate(context, _iso3)}';
                 final String _countryCurrency = '1 \$ = $_toDollarRate $_currency';
                 final String _localBigMacPrice = 'BigMac = $_localPrice $_currency';

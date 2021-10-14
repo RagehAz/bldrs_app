@@ -21,7 +21,7 @@ class SelectCityScreen extends StatelessWidget {
     final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
     final String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, countryID);
     final List<Map<String, dynamic>> _citiesMaps = _countryPro.getCitiesNamesMapsByIso3(context, countryID);
-    final String _countryFlag = Flagz.getFlagByIso3(countryID);
+    final String _countryFlag = Flagz.getFlagByCountryID(countryID);
 // -----------------------------------------------------------------------------
 
     return  ListLayout(

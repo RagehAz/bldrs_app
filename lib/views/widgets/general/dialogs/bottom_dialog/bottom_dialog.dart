@@ -259,7 +259,7 @@ class BottomDialog extends StatelessWidget {
               flyerID: null,
               bzID: bz.bzID,
               authorID: author.userID,
-              flyerZone: bz.bzZone,
+              zone: bz.zone,
               info: '',
               priceTagIsOn: false,
             ),

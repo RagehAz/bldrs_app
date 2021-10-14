@@ -71,7 +71,7 @@ class BottomDialogButtons extends StatelessWidget {
                 alignment: alignment,
                 child: DreamBox(
                     height: 35,
-                    icon: mapValueIs == MapValueIs.flag ? Flagz.getFlagByIso3(id) : null,
+                    icon: mapValueIs == MapValueIs.flag ? Flagz.getFlagByCountryID(id) : null,
                     iconSizeFactor: 0.8,
                     verse: value,
                     bubble: false,

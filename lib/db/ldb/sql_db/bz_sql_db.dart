@@ -94,7 +94,7 @@ class BzSQLdb{
   static Future<void> insertBzToLDB({BzSQLdb bzzLDB, BzModel bz}) async {
 
     /// inset sql authors
-    for (AuthorModel author in bz.bzAuthors){
+    for (AuthorModel author in bz.authors){
 
       final Map<String, Object> _sqlAuthorMap = await SQLMethods.sqlCipherAuthor(
         author: author,

@@ -9,10 +9,10 @@ class AuthorModel{
   final String name;
   final dynamic pic;
   final String title;
-  final bool isMaster;
+  bool isMaster;
   final List<ContactModel> contacts;
 
-  const AuthorModel({
+  AuthorModel({
     this.userID,
     this.name,
     this.pic,
@@ -24,11 +24,11 @@ class AuthorModel{
   Map<String, dynamic> toMap(){
     return {
       'userID' : userID,
-      'authorName' : name,
-      'authorPic' : pic,
-      'authorTitle' : title,
-      'authorIsMaster' : isMaster,
-      'authorContacts' : ContactModel.cipherContactsModels(contacts),
+      'name' : name,
+      'pic' : pic,
+      'title' : title,
+      'isMaster' : isMaster,
+      'contacts' : ContactModel.cipherContactsModels(contacts),
     };
   }
 // -----------------------------------------------------------------------------
@@ -51,34 +51,44 @@ class AuthorModel{
   static AuthorModel decipherBzAuthorMap(dynamic map){
     return AuthorModel(
       userID : map['userID'],
-      name : map['authorName'],
-      pic : map['authorPic'],
-      title : map['authorTitle'],
-      isMaster : map['authorIsMaster'],
-      contacts : ContactModel.decipherContactsMaps(map['authorContacts']),
+      name : map['name'],
+      pic : map['pic'],
+      title : map['title'],
+      isMaster : map['isMaster'],
+      contacts : ContactModel.decipherContactsMaps(map['contacts']),
     );
   }
 // -----------------------------------------------------------------------------
-  static List<AuthorModel> decipherBzAuthorsMaps(List<dynamic> listOfMaps){
+  static List<AuthorModel> decipherBzAuthorsMaps(List<dynamic> maps){
     final List<AuthorModel> _authorsList = <AuthorModel>[];
 
-    listOfMaps.forEach((map) {
-      _authorsList.add(decipherBzAuthorMap(map));
-    });
+    if (Mapper.canLoopList(maps)){
+
+      maps.forEach((map) {
+        _authorsList.add(decipherBzAuthorMap(map));
+      });
+
+    }
 
     return _authorsList;
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String,Object>> cipherAuthorsModels(List<AuthorModel> authorsList){
+  static List<Map<String,Object>> cipherAuthorsModels(List<AuthorModel> authors){
     final List<Map<String,Object>> listOfAuthorsMaps = <Map<String,Object>>[];
-    authorsList?.forEach((author) {
-      listOfAuthorsMaps.add(author.toMap());
-    });
+
+    if (Mapper.canLoopList(authors)){
+
+      authors?.forEach((author) {
+        listOfAuthorsMaps.add(author.toMap());
+      });
+
+    }
+
     return listOfAuthorsMaps;
   }
 // -----------------------------------------------------------------------------
   static AuthorModel getAuthorFromBzByAuthorID(BzModel bz, String authorID){
-    final AuthorModel author = bz?.bzAuthors?.singleWhere((au) => au.userID == authorID, orElse: ()=> null );
+    final AuthorModel author = bz?.authors?.singleWhere((au) => au.userID == authorID, orElse: ()=> null );
     return author;
   }
 // -----------------------------------------------------------------------------
@@ -119,17 +129,17 @@ class AuthorModel{
 
     final List<AuthorModel> _modifiedAuthorsList =
     replaceAuthorModelInAuthorsList(
-      originalAuthors: bzModel.bzAuthors,
+      originalAuthors: bzModel.authors,
       oldAuthor: oldAuthor,
       newAuthor: newAuthor,
     );
 
-    final List<String> _modifiedAuthorsIDsList =
-    replaceAuthorIDInAuthorsIDsList(
-        originalAuthors: bzModel.bzAuthors,
-        oldAuthor: oldAuthor,
-        newAuthor: newAuthor,
-    );
+    // final List<String> _modifiedAuthorsIDsList =
+    // replaceAuthorIDInAuthorsIDsList(
+    //     originalAuthors: bzModel.authors,
+    //     oldAuthor: oldAuthor,
+    //     newAuthor: newAuthor,
+    // );
 
     return BzModel(
       bzID : bzModel.bzID,
@@ -137,27 +147,25 @@ class AuthorModel{
       bzForm : bzModel.bzForm,
       createdAt : bzModel.createdAt,
       accountType : bzModel.accountType,
-      bzName : bzModel.bzName,
-      bzLogo : bzModel.bzLogo,
-      bzScope : bzModel.bzScope,
-      bzZone : bzModel.bzZone,
-      bzAbout : bzModel.bzAbout,
-      bzPosition : bzModel.bzPosition,
-      bzContacts : bzModel.bzContacts,
-      bzAuthors : _modifiedAuthorsList,
-      bzShowsTeam : bzModel.bzShowsTeam,
-      bzIsVerified : bzModel.bzIsVerified,
-      bzAccountIsDeactivated : bzModel.bzAccountIsDeactivated,
-      bzAccountIsBanned : bzModel.bzAccountIsBanned,
-      bzTotalFollowers : bzModel.bzTotalFollowers,
-      bzTotalSaves : bzModel.bzTotalSaves,
-      bzTotalShares : bzModel.bzTotalShares,
-      bzTotalSlides : bzModel.bzTotalSlides,
-      bzTotalViews : bzModel.bzTotalViews,
-      bzTotalCalls : bzModel.bzTotalCalls,
+      name : bzModel.name,
+      logo : bzModel.logo,
+      scope : bzModel.scope,
+      zone : bzModel.zone,
+      about : bzModel.about,
+      position : bzModel.position,
+      contacts : bzModel.contacts,
+      authors : _modifiedAuthorsList,
+      showsTeam : bzModel.showsTeam,
+      isVerified : bzModel.isVerified,
+      bzState : bzModel.bzState,
+      totalFollowers : bzModel.totalFollowers,
+      totalSaves : bzModel.totalSaves,
+      totalShares : bzModel.totalShares,
+      totalSlides : bzModel.totalSlides,
+      totalViews : bzModel.totalViews,
+      totalCalls : bzModel.totalCalls,
       flyersIDs : bzModel.flyersIDs,
-      bzTotalFlyers: bzModel.bzTotalFlyers,
-      authorsIDs: _modifiedAuthorsIDsList,
+      totalFlyers: bzModel.totalFlyers,
     );
   }
 // -----------------------------------------------------------------------------
@@ -248,7 +256,7 @@ class AuthorModel{
 
       for (BzModel bz in allBzz){
 
-        _allAuthors.addAll(bz.bzAuthors);
+        _allAuthors.addAll(bz.authors);
 
       }
 
@@ -261,4 +269,20 @@ class AuthorModel{
     return null;
   }
 // -----------------------------------------------------------------------------
+  void printAuthor({String methodName}){
+
+    String _methodName = methodName ?? 'AUTHOR';
+
+    print('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
+
+    print('userID : ${userID}');
+    print('name : ${name}');
+    print('pic : ${pic}');
+    print('title : ${title}');
+    print('isMaster : ${isMaster}');
+    print('contacts : ${contacts}');
+
+    print('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
+
+  }
 }

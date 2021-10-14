@@ -922,7 +922,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       // final String _userID = superUserID();
       // final String _bzID = _superFlyer.bz.bzID;
-      final String _contact = ContactModel.getAContactValueFromContacts(_superFlyer.bz.bzContacts, ContactType.email);
+      final String _contact = ContactModel.getAContactValueFromContacts(_superFlyer.bz.contacts, ContactType.email);
 
       /// alert user there is no contact to call
       if (_contact == null){print('no contact here');}
@@ -2347,17 +2347,17 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         flyerType: _superFlyer.flyerType,
         flyerState: _superFlyer.flyerState,
         keywordsIDs: Keyword.getKeywordsIDsFromKeywords(_superFlyer.keywords),
-        flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
-        flyerZone: _superFlyer.flyerZone,
+        showsAuthor: _superFlyer.flyerShowsAuthor,
+        zone: _superFlyer.flyerZone,
         // -------------------------
         authorID: _superFlyer.authorID,
         bzID: _superFlyer.bz.bzID,
         // -------------------------
-        flyerPosition: _superFlyer.position,
+        position: _superFlyer.position,
         // -------------------------
         slides: _slides,
         // -------------------------
-        flyerIsBanned: false,
+        isBanned: false,
         info: _superFlyer.infoController.text,
         specs: _superFlyer.specs,
         times: <PublishTime>[PublishTime(time: DateTime.now(), state: FlyerState.published)],
@@ -2403,17 +2403,17 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         flyerType: _superFlyer.flyerType,
         flyerState: _superFlyer.flyerState,
         keywordsIDs: Keyword.getKeywordsIDsFromKeywords(_superFlyer.keywords),
-        flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
-        flyerZone: _superFlyer.flyerZone,
+        showsAuthor: _superFlyer.flyerShowsAuthor,
+        zone: _superFlyer.flyerZone,
         // -------------------------
         authorID: _superFlyer.authorID,
         bzID: _superFlyer.bz.bzID,
         // -------------------------
-        flyerPosition: _superFlyer.position,
+        position: _superFlyer.position,
         // -------------------------
         slides: _updatedSlides,
         // -------------------------
-        flyerIsBanned: PublishTime.flyerIsBanned(_superFlyer.times),
+        isBanned: PublishTime.flyerIsBanned(_superFlyer.times),
         info: _superFlyer.infoController.text,
         specs: _superFlyer.specs,
         priceTagIsOn: _superFlyer.priceTagIsOn,

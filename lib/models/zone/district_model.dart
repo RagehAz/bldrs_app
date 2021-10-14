@@ -1,11 +1,12 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/models/helpers/namez_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 // -----------------------------------------------------------------------------
-class District{
-  final String iso3;
-  final String city;
-  final String id;
-  final String name;
-  final List<Name> namez;
+class DistrictModel{
+  final String countryID;
+  final String cityID;
+  final String districtID;
+  final List<Name> names;
   /// dashboard manual switch to deactivate entire cities.
   final bool isActivated;
   /// automatic switch when flyers reach 'city publishing-target ~ 1000 flyers'
@@ -13,54 +14,117 @@ class District{
   final bool isPublic;
 
 
-  const District({
-    this.iso3,
-    this.city,
-    this.id,
-    this.name,
-    this.namez,
+  const DistrictModel({
+    this.countryID,
+    this.cityID,
+    this.districtID,
+    this.names,
     this.isActivated,
     this.isPublic,
   });
 
   Map<String, Object> toMap(){
     return {
-      'iso3' : iso3,
-      'province' : city,
-      'id' : id,
-      'name' : name,
-      'namez' : Name.cipherNamezz(namez),
+      'countryID' : countryID,
+      'cityID' : cityID,
+      'districtID' : CountryModel.fixCountryName(districtID),
+      'names' : Name.cipherNames(names),
       'isActivated' : isActivated,
       'isPublic' : isPublic,
     };
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String,dynamic>> cipherDistricts(List<District> districts){
-    final List<Map<String, dynamic>> _districtsList = <Map<String, dynamic>>[];
-    districts.forEach((ar) {
-      _districtsList.add(ar.toMap());
-    });
-    return _districtsList;
+  static Map<String,dynamic> cipherDistricts(List<DistrictModel> districts){
+    Map<String, dynamic> _districtsMap = {};
+
+    for (DistrictModel district in districts){
+
+      _districtsMap = Mapper.insertPairInMap(
+        map: _districtsMap,
+        key: CountryModel.fixCountryName(district.districtID),
+        value: district.toMap(),
+      );
+
+    }
+
+    return _districtsMap;
   }
 // -----------------------------------------------------------------------------
-  static District decipherDistrictMap(Map<String, dynamic> map){
-    return District(
-      iso3 : map['iso3'],
-      city : map['province'],
-      id : map['id'],
-      name : map['name'],
-      namez : Name.decipherNamezzMaps(map['names']),
+  static DistrictModel decipherDistrictMap(Map<String, dynamic> map){
+    return DistrictModel(
+      countryID : map['countryID'],
+      cityID : map['cityID'],
+      districtID : map['districtID'],
+      names : Name.decipherNames(map['names']),
       isActivated : map['isActivated'],
       isPublic : map['isPublic'],
     );
   }
 // -----------------------------------------------------------------------------
-  static List<District> decipherDistrictsMaps(List<dynamic> maps){
-    final List<District> _districts = <District>[];
-    maps?.forEach((map) {
-      _districts.add(decipherDistrictMap(map));
-    });
+  static List<DistrictModel> decipherDistrictsMap(Map<String, dynamic> map){
+    final List<DistrictModel> _districts = <DistrictModel>[];
+
+    final List<String> _keys = map.keys.toList();
+    final List<dynamic> _values = map.values.toList();
+
+    if (Mapper.canLoopList(_keys)){
+
+      for (int i = 0; i<_keys.length; i++){
+
+        final DistrictModel _district = decipherDistrictMap(_values[i]);
+
+        _districts.add(_district);
+
+      }
+
+    }
+
     return _districts;
   }
 // -----------------------------------------------------------------------------
+}
+
+
+class District{
+  final String countryID;
+  final String cityID;
+  final String districtID;
+  final List<Name> names;
+  /// dashboard manual switch to deactivate entire cities.
+  final bool isActivated;
+  /// automatic switch when flyers reach 'city publishing-target ~ 1000 flyers'
+  /// then all flyers will be visible to users not only between bzz
+  final bool isPublic;
+  final String name;
+
+
+  const District({
+    this.countryID,
+    this.cityID,
+    this.districtID,
+    this.names,
+    this.isActivated,
+    this.isPublic,
+    this.name,
+  });
+
+  static DistrictModel getDistrictModelFromDistrict(District district){
+    return
+        DistrictModel(
+          cityID: district.cityID,
+          countryID: district.countryID,
+          names: district.names,
+          isActivated: true,
+          isPublic: true,
+          districtID: district.districtID,
+        );
+  }
+
+  static List<DistrictModel> getDistrictModelsFromDistricts(List<District> districts){
+    List<DistrictModel> dix = [];
+
+    districts.forEach((element) {dix.add(getDistrictModelFromDistrict(element)); });
+
+    return dix;
+  }
 }

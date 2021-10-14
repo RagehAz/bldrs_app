@@ -186,9 +186,9 @@ class _GalleryState extends State<Gallery> {
               alignment: Aligners.superCenterAlignment(context),
               padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
               child:
-              widget.superFlyer.bz.bzShowsTeam == false ?
+              widget.superFlyer.bz.showsTeam == false ?
               SuperVerse(
-                verse: '${Wordz.flyersPublishedBy(context)} ${widget.superFlyer.bz.bzName}',
+                verse: '${Wordz.flyersPublishedBy(context)} ${widget.superFlyer.bz.name}',
                 size: 2,
                 italic: true,
                 margin: widget.galleryBoxWidth * Ratioz.xxflyersGridSpacing,
@@ -199,8 +199,8 @@ class _GalleryState extends State<Gallery> {
               )
                   :
               SuperVerse(
-                verse: _bzTeamIDs.length == 1 ? '${Wordz.flyersPublishedBy(context)} ${widget.superFlyer.bz.bzAuthors[0].name}' :
-                '${widget.superFlyer.bz.bzName} ${Wordz.authorsTeam(context)}',
+                verse: _bzTeamIDs.length == 1 ? '${Wordz.flyersPublishedBy(context)} ${widget.superFlyer.bz.authors[0].name}' :
+                '${widget.superFlyer.bz.name} ${Wordz.authorsTeam(context)}',
                 size: 2,
                 italic: true,
                 margin: widget.galleryBoxWidth * Ratioz.xxflyersGridSpacing,
@@ -213,11 +213,11 @@ class _GalleryState extends State<Gallery> {
             ),
 
             /// AUTHORS BUBBLE
-            if (widget.superFlyer.bz.bzShowsTeam != false)
+            if (widget.superFlyer.bz.showsTeam != false)
               AuthorBubble(
                 flyerBoxWidth: widget.galleryBoxWidth,
                 addAuthorButtonIsOn: widget.addAuthorButtonIsOn,
-                bzAuthors: widget.superFlyer.bz.bzAuthors,
+                bzAuthors: widget.superFlyer.bz.authors,
                 showFlyers: widget.showFlyers,
                 bzModel: widget.superFlyer.bz,
                 onAuthorLabelTap: (id) => _onAuthorLabelTap(id),
@@ -229,10 +229,10 @@ class _GalleryState extends State<Gallery> {
             // if (widget.galleryBoxWidth != null)
               GalleryGrid(
                 gridZoneWidth: widget.galleryBoxWidth,
-                bzID: widget.superFlyer.bz.bzAuthors == null || widget.superFlyer.bz.bzAuthors == [] || widget.superFlyer.bz.bzAuthors.isEmpty ?  '': widget.superFlyer.bz.bzID,
+                bzID: widget.superFlyer.bz.authors == null || widget.superFlyer.bz.authors == [] || widget.superFlyer.bz.authors.isEmpty ?  '': widget.superFlyer.bz.bzID,
                 flyersVisibilities: _flyersVisibilities,
                 galleryFlyers: _flyers,
-                bzAuthors: widget.superFlyer.bz.bzAuthors,
+                bzAuthors: widget.superFlyer.bz.authors,
                 bz: _bzModel, /// TASK : maybe should remove this as long as super flyer is here
                 // flyerOnTap: widget.flyerOnTap,
                 addPublishedFlyerToGallery: (flyerModel) => _addPublishedFlyerToGallery(flyerModel),
