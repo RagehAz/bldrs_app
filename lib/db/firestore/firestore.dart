@@ -287,6 +287,8 @@ class Fire{
 
           await _subDocRef.set(input);
 
+          print('createNamedSubDoc : CREATED ${collName}/${docName}/${subCollName}/${subDocName}/');
+
         }
     );
 
