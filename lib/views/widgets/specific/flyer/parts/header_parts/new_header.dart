@@ -301,7 +301,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                               /// LOGO
                               BzLogo(
                                 width: _logoSizeBegin * _logoSizeRatioTween.value,
-                                image: widget.superFlyer.bz.bzLogo,
+                                image: widget.superFlyer.bz.logo,
                                 tinyMode: FlyerBox.isTinyMode(context, widget.flyerBoxWidth),
                                 corners: _logoBorders,
                                 bzPageIsOn: widget.superFlyer.nav.bzPageIsOn,

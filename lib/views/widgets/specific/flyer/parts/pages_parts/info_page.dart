@@ -116,7 +116,7 @@ class InfoPage extends StatelessWidget {
               /// ZONE
               StatsLine(
                 verse: 'Targeting : ${_cityName} , ${_countryName}',
-                icon: Flagz.getFlagByIso3(superFlyer.flyerZone.countryID),
+                icon: Flagz.getFlagByCountryID(superFlyer.flyerZone.countryID),
                 bubbleWidth: _bubbleWidth,
               ),
 
@@ -156,7 +156,7 @@ class InfoPage extends StatelessWidget {
 
               StatsLine(
                 verse: 'Targeting : ${_cityName} , ${_countryName}',
-                icon: Flagz.getFlagByIso3(superFlyer.flyerZone.countryID),
+                icon: Flagz.getFlagByCountryID(superFlyer.flyerZone.countryID),
                 bubbleWidth: _bubbleWidth,
               ),
             ],

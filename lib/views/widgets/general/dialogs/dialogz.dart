@@ -186,7 +186,7 @@ class Dialogz{
                     flyers: flyers,
                     flyerSizeFactor: 0.2,
                     numberOfColumns: 2,
-                    title: 'flyers of ${bzzToDeactivate[index].bzName}',
+                    title: 'flyers of ${bzzToDeactivate[index].name}',
                     numberOfRows: 1,
                     bubbleWidth: CenterDialog.dialogWidth(context: context) - (Ratioz.appBarMargin * 4),
                     onTap: (value){

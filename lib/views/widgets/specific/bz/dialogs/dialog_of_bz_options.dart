@@ -80,7 +80,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
     final bool _dialogResult = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
-      body: 'Are you sure you want to Delete ${bzModel.bzName} Business account ?',
+      body: 'Are you sure you want to Delete ${bzModel.name} Business account ?',
       boolDialog: true,
     );
 
@@ -125,7 +125,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
     final bool _dialogResult = await CenterDialog.showCenterDialog(
       context: context,
       title: '',
-      body: 'Are you sure you want to Deactivate ${bzModel.bzName} Business account ?',
+      body: 'Are you sure you want to Deactivate ${bzModel.name} Business account ?',
       boolDialog: true,
     );
 

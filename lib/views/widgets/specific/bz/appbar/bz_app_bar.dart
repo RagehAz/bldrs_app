@@ -36,7 +36,7 @@ class BzAppBar extends StatelessWidget {
     final double _appBarBzButtonWidth = Scale.superScreenWidth(context) - (Ratioz.appBarMargin * 2) -
         (Ratioz.appBarButtonSize * 2) - (Ratioz.appBarPadding * 4) - (Ratioz.appBarButtonSize * 1.4) - Ratioz.appBarPadding;
 
-    final String _zoneString = TextGenerator.cityCountryStringer(context: context, zone: bzModel.bzZone);
+    final String _zoneString = TextGenerator.cityCountryStringer(context: context, zone: bzModel.zone);
 
     return Row(
       children: <Widget>[
@@ -45,8 +45,8 @@ class BzAppBar extends StatelessWidget {
         DreamBox(
           height: Ratioz.appBarButtonSize,
           width: _appBarBzButtonWidth,
-          icon: bzModel.bzLogo,
-          verse: '${bzModel.bzName}',
+          icon: bzModel.logo,
+          verse: '${bzModel.name}',
           verseCentered: false,
           bubble: false,
           verseScaleFactor: 0.7,

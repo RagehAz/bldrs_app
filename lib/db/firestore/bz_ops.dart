@@ -52,10 +52,10 @@ class BzOps{
 
     /// save bzLogo to fire storage and get URL
     String _bzLogoURL;
-    if (inputBz.bzLogo != null){
+    if (inputBz.logo != null){
       _bzLogoURL = await Fire.createStoragePicAndGetURL(
           context: context,
-          inputFile: inputBz.bzLogo,
+          inputFile: inputBz.logo,
           fileName: _bzID,
           picType: PicType.bzLogo
       );
@@ -63,12 +63,12 @@ class BzOps{
 
     /// upload authorPic
     String _authorPicURL;
-    if(inputBz.bzAuthors[0].pic == null){
+    if(inputBz.authors[0].pic == null){
       _authorPicURL = userModel.pic;
     } else {
       _authorPicURL = await Fire.createStoragePicAndGetURL(
           context: context,
-          inputFile: inputBz.bzAuthors[0].pic,
+          inputFile: inputBz.authors[0].pic,
           fileName: AuthorModel.generateAuthorPicID(userModel.userID, _bzID),
           picType: PicType.authorPic
       );
@@ -78,11 +78,11 @@ class BzOps{
     /// update authorModel with _authorPicURL
     final AuthorModel _masterAuthor = AuthorModel(
       userID: userModel.userID,
-      name: inputBz.bzAuthors[0].name,
-      title: inputBz.bzAuthors[0].title,
+      name: inputBz.authors[0].name,
+      title: inputBz.authors[0].title,
       pic: _authorPicURL,
       isMaster: true,
-      contacts: inputBz.bzAuthors[0].contacts,
+      contacts: inputBz.authors[0].contacts,
     );
 
     /// refactor the bzModel with new pics URLs generated above
@@ -94,30 +94,28 @@ class BzOps{
       createdAt : DateTime.now(),
       accountType : inputBz.accountType,
       // -------------------------
-      bzName : inputBz.bzName,
-      bzLogo : _bzLogoURL,
-      bzScope : inputBz.bzScope,
-      bzZone : inputBz.bzZone,
-      bzAbout : inputBz.bzAbout,
-      bzPosition : inputBz.bzPosition,
-      bzContacts : inputBz.bzContacts,
-      bzAuthors : <AuthorModel>[_masterAuthor],
-      bzShowsTeam : inputBz.bzShowsTeam,
+      name : inputBz.name,
+      logo : _bzLogoURL,
+      scope : inputBz.scope,
+      zone : inputBz.zone,
+      about : inputBz.about,
+      position : inputBz.position,
+      contacts : inputBz.contacts,
+      authors : <AuthorModel>[_masterAuthor],
+      showsTeam : inputBz.showsTeam,
       // -------------------------
-      bzIsVerified : inputBz.bzIsVerified,
-      bzAccountIsDeactivated : inputBz.bzAccountIsDeactivated,
-      bzAccountIsBanned : inputBz.bzAccountIsBanned,
+      isVerified : inputBz.isVerified,
+      bzState : inputBz.bzState,
       // -------------------------
-      bzTotalFollowers : inputBz.bzTotalFollowers,
-      bzTotalSaves : inputBz.bzTotalSaves,
-      bzTotalShares : inputBz.bzTotalShares,
-      bzTotalSlides : inputBz.bzTotalSlides,
-      bzTotalViews : inputBz.bzTotalViews,
-      bzTotalCalls : inputBz.bzTotalCalls,
+      totalFollowers : inputBz.totalFollowers,
+      totalSaves : inputBz.totalSaves,
+      totalShares : inputBz.totalShares,
+      totalSlides : inputBz.totalSlides,
+      totalViews : inputBz.totalViews,
+      totalCalls : inputBz.totalCalls,
       // -------------------------
       flyersIDs : inputBz.flyersIDs,
-      bzTotalFlyers: inputBz.bzTotalFlyers,
-      authorsIDs: inputBz.authorsIDs,
+      totalFlyers: inputBz.totalFlyers,
     );
 
     /// replace empty bz document with the new refactored one _bz
@@ -202,14 +200,14 @@ class BzOps{
     final AuthorModel _newAuthor = AuthorModel(
       userID : _oldAuthor.userID,
       name : _oldAuthor.name,
-      pic : _authorPicURL ?? originalBz.bzAuthors[AuthorModel.getAuthorIndexByAuthorID(originalBz.bzAuthors, _oldAuthor.userID)].pic,
+      pic : _authorPicURL ?? originalBz.authors[AuthorModel.getAuthorIndexByAuthorID(originalBz.authors, _oldAuthor.userID)].pic,
       title : _oldAuthor.title,
       isMaster : _oldAuthor.isMaster,
       contacts : _oldAuthor.contacts,
     );
 
     final List<AuthorModel> _finalAuthorList = AuthorModel.replaceAuthorModelInAuthorsList(
-        originalAuthors: modifiedBz.bzAuthors,
+        originalAuthors: modifiedBz.authors,
         oldAuthor: _oldAuthor,
         newAuthor: _newAuthor,
     );
@@ -223,30 +221,28 @@ class BzOps{
       createdAt: modifiedBz.createdAt,
       accountType: modifiedBz.accountType,
       // -------------------------
-      bzName: modifiedBz.bzName,
-      bzLogo: _bzLogoURL ?? modifiedBz.bzLogo,
-      bzScope: modifiedBz.bzScope,
-      bzZone  : modifiedBz.bzZone,
-      bzAbout: modifiedBz.bzAbout,
-      bzPosition: modifiedBz.bzPosition,
-      bzContacts: modifiedBz.bzContacts,
-      bzAuthors: _finalAuthorList,
-      bzShowsTeam: modifiedBz.bzShowsTeam,
+      name: modifiedBz.name,
+      logo: _bzLogoURL ?? modifiedBz.logo,
+      scope: modifiedBz.scope,
+      zone  : modifiedBz.zone,
+      about: modifiedBz.about,
+      position: modifiedBz.position,
+      contacts: modifiedBz.contacts,
+      authors: _finalAuthorList,
+      showsTeam: modifiedBz.showsTeam,
       // -------------------------
-      bzIsVerified: modifiedBz.bzIsVerified,
-      bzAccountIsDeactivated: modifiedBz.bzAccountIsDeactivated,
-      bzAccountIsBanned: modifiedBz.bzAccountIsBanned,
+      isVerified: modifiedBz.isVerified,
+      bzState: modifiedBz.bzState,
       // -------------------------
-      bzTotalFollowers: modifiedBz.bzTotalFollowers,
-      bzTotalSaves: modifiedBz.bzTotalSaves,
-      bzTotalShares: modifiedBz.bzTotalShares,
-      bzTotalSlides: modifiedBz.bzTotalSlides,
-      bzTotalViews: modifiedBz.bzTotalViews,
-      bzTotalCalls: modifiedBz.bzTotalCalls,
+      totalFollowers: modifiedBz.totalFollowers,
+      totalSaves: modifiedBz.totalSaves,
+      totalShares: modifiedBz.totalShares,
+      totalSlides: modifiedBz.totalSlides,
+      totalViews: modifiedBz.totalViews,
+      totalCalls: modifiedBz.totalCalls,
       // -------------------------
       flyersIDs: modifiedBz.flyersIDs,
-      bzTotalFlyers: modifiedBz.bzTotalFlyers,
-      authorsIDs: modifiedBz.authorsIDs,
+      totalFlyers: modifiedBz.totalFlyers,
     );
 
     /// update firestore bz document
@@ -283,7 +279,7 @@ class BzOps{
 
 
     /// 3 - delete bzID from myBzzIDs for each author
-    final List<AuthorModel> _authors = bzModel.bzAuthors;
+    final List<AuthorModel> _authors = bzModel.authors;
     final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(_authors);
     for (var id in _authorsIDs){
 
@@ -347,7 +343,7 @@ class BzOps{
     }
 
     print('3 - delete bzID : ${bzModel.bzID} in all author\'s myBzIDs lists');
-    final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(bzModel.bzAuthors);
+    final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(bzModel.authors);
     for (var authorID in _authorsIDs){
 
       print('a - get user model');
@@ -446,7 +442,7 @@ class BzOps{
         bzID: id,
       );
 
-      if (_bz.bzAuthors.length == 1){
+      if (_bz.authors.length == 1){
         _bzzToDeactivate.add(_bz);
       } else{
         _bzzToKeep.add(_bz);

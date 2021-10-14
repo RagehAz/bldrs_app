@@ -139,14 +139,12 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
     final List<String> _subGroupsIDs = Keyword.getSubGroupsIDsFromKeywords(keywords: widget.group.keywords);
     final Namez _groupNamez = Keyword.getGroupNamezByGroupID(_groupID);
     final String _groupEnglishName = Name.getNameByLingoFromNames(
-      context: context,
       names: _groupNamez?.names,
-      LingoCode: Lingo.englishLingo.code,
+      lingoCode: Lingo.englishLingo.code,
     );
     final String _groupArabicName = Name.getNameByLingoFromNames(
-      context: context,
       names: _groupNamez?.names,
-      LingoCode: Lingo.arabicLingo.code,
+      lingoCode: Lingo.arabicLingo.code,
     );//Lingo.getSecondL
     final bool _appIsArabic = Localizer.appIsArabic(context);
     final String _groupFirstName = _appIsArabic == true ? _groupArabicName : _groupEnglishName;

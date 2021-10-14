@@ -313,7 +313,7 @@ class UserModel {
     if (userModel?.title == null || userModel?.title == ''){_missingFields.add('title');}
     if (userModel?.company == null || userModel?.company == ''){_missingFields.add('company');}
     if (userModel?.zone?.countryID == null || userModel?.zone?.countryID == ''){_missingFields.add('country');}
-    if (userModel?.zone?.cityID == null || userModel?.zone?.cityID == ''){_missingFields.add('province');}
+    if (userModel?.zone?.cityID == null || userModel?.zone?.cityID == ''){_missingFields.add('city');}
 
     return _missingFields;
   }

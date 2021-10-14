@@ -137,7 +137,7 @@ class BzGrid extends StatelessWidget {
                               /// BZ LOGO
                               BzLogo(
                                   width: _logoWidth,
-                                  image: bz.bzLogo,
+                                  image: bz.logo,
                                   bzPageIsOn: false,
                                   tinyMode: true,
                                   zeroCornerIsOn: false,
@@ -150,7 +150,7 @@ class BzGrid extends StatelessWidget {
                                 height: _logoWidth * 0.25,
                                 // color: Colorz.BloodTest,
                                 child: SuperVerse(
-                                  verse: bz.bzName,
+                                  verse: bz.name,
                                   scaleFactor: _logoWidth / 120,
                                 ),
                               ),

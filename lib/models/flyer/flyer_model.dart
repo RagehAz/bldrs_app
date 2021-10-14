@@ -19,17 +19,17 @@ class FlyerModel with ChangeNotifier{
   final FlyerType flyerType;
   final FlyerState flyerState;
   final List<String> keywordsIDs;
-  final bool flyerShowsAuthor;
-  final Zone flyerZone;
+  final bool showsAuthor;
+  final Zone zone;
   // -------------------------
   final String authorID;
   final String bzID;
   // -------------------------
-  final GeoPoint flyerPosition;
+  final GeoPoint position;
   // -------------------------
   final List<SlideModel> slides; // TASK : only 10 max slides per flyer
   // -------------------------
-  final bool flyerIsBanned;
+  final bool isBanned;
   final List<Spec> specs;
   final String info;
   final List<PublishTime> times;
@@ -41,17 +41,17 @@ class FlyerModel with ChangeNotifier{
     this.flyerType,
     this.flyerState = FlyerState.draft,
     this.keywordsIDs,
-    this.flyerShowsAuthor = false,
-    this.flyerZone,
+    this.showsAuthor = false,
+    this.zone,
     // -------------------------
     this.authorID,
     this.bzID,
     // -------------------------
-    this.flyerPosition,
+    this.position,
     // -------------------------
     this.slides,
     // -------------------------
-    this.flyerIsBanned,
+    this.isBanned,
     this.specs,
     @required this.info,
     this.times,
@@ -65,17 +65,17 @@ class FlyerModel with ChangeNotifier{
       'flyerType' : FlyerTypeClass.cipherFlyerType(flyerType),
       'flyerState' : cipherFlyerState(flyerState),
       'keywordsIDs' : keywordsIDs,
-      'flyerShowsAuthor' : flyerShowsAuthor,
-      'flyerZone' : flyerZone.toMap(),
+      'showsAuthor' : showsAuthor,
+      'zone' : zone.toMap(),
       // -------------------------
       'authorID' : authorID,
       'bzID' : bzID,
       // -------------------------
-      'flyerPosition' : Atlas.cipherGeoPoint(point: flyerPosition, toJSON: toJSON),
+      'position' : Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
       // -------------------------
       'slides' : SlideModel.cipherSlidesModels(slides),
       // -------------------------
-      'flyerIsBanned' : flyerIsBanned,
+      'isBanned' : isBanned,
       'specs' : Spec.cipherSpecs(specs),
       'info' : info,
       'priceTagIsOn' : priceTagIsOn,
@@ -92,17 +92,17 @@ class FlyerModel with ChangeNotifier{
         flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
         flyerState: FlyerModel.decipherFlyerState(map['flyerState']),
         keywordsIDs: Mapper.getStringsFromDynamics(dynamics: map['keywordsIDs']),
-        flyerShowsAuthor: map['flyerShowsAuthor'],
-        flyerZone: Zone.decipherZoneMap(map['flyerZone']),
+        showsAuthor: map['showsAuthor'],
+        zone: Zone.decipherZoneMap(map['zone']),
         // -------------------------
         authorID: map['authorID'],
         bzID: map['bzID'],
         // -------------------------
-        flyerPosition: Atlas.decipherGeoPoint(point: map['flyerPosition'], fromJSON: fromJSON),
+        position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
         // -------------------------
         slides: SlideModel.decipherSlidesMaps(map['slides']),
         // -------------------------
-        flyerIsBanned: map['flyerIsBanned'],
+        isBanned: map['isBanned'],
         specs: Spec.decipherSpecs(map['specs']),
         info: map['info'],
         priceTagIsOn: map['priceTagIsOn'],
@@ -155,13 +155,13 @@ class FlyerModel with ChangeNotifier{
       flyerType: flyerType,
       flyerState: flyerState,
       keywordsIDs: Mapper.cloneListOfStrings(keywordsIDs),
-      flyerShowsAuthor: flyerShowsAuthor,
-      flyerZone: flyerZone,
+      showsAuthor: showsAuthor,
+      zone: zone,
       authorID: authorID,
       bzID: bzID,
-      flyerPosition: flyerPosition,
+      position: position,
       slides: SlideModel.cloneSlides(slides),
-      flyerIsBanned: flyerIsBanned,
+      isBanned: isBanned,
       specs: Spec.cloneSpecs(specs),
       info: info,
       priceTagIsOn: priceTagIsOn,
@@ -176,13 +176,13 @@ class FlyerModel with ChangeNotifier{
           flyerType: flyer.flyerType,
           flyerState: flyer.flyerState,
           keywordsIDs: flyer.keywordsIDs,
-          flyerShowsAuthor: flyer.flyerShowsAuthor,
-          flyerZone: flyer.flyerZone,
+          showsAuthor: flyer.showsAuthor,
+          zone: flyer.zone,
           authorID: flyer.authorID,
           bzID: flyer.bzID,
-          flyerPosition: flyer.flyerPosition,
+          position: flyer.position,
           slides: updatedSlides,
-          flyerIsBanned: flyer.flyerIsBanned,
+          isBanned: flyer.isBanned,
           specs: flyer.specs,
           info: flyer.info,
           priceTagIsOn: flyer.priceTagIsOn,
@@ -230,15 +230,15 @@ class FlyerModel with ChangeNotifier{
     return FlyerModel(
       flyerID: inputFlyerModel.flyerID,
       flyerType: inputFlyerModel.flyerType,
-      flyerZone: inputFlyerModel.flyerZone,
+      zone: inputFlyerModel.zone,
       authorID: inputFlyerModel.authorID,
       bzID: inputFlyerModel.bzID,
       slides: updatedSlides,
-      flyerShowsAuthor: inputFlyerModel.flyerShowsAuthor,
+      showsAuthor: inputFlyerModel.showsAuthor,
       flyerState: inputFlyerModel.flyerState,
       keywordsIDs: inputFlyerModel.keywordsIDs,
-      flyerPosition: inputFlyerModel.flyerPosition,
-      flyerIsBanned: inputFlyerModel.flyerIsBanned,
+      position: inputFlyerModel.position,
+      isBanned: inputFlyerModel.isBanned,
       specs: inputFlyerModel.specs,
       info: inputFlyerModel.info,
       priceTagIsOn: inputFlyerModel.priceTagIsOn,
@@ -307,7 +307,7 @@ class FlyerModel with ChangeNotifier{
   static bool canFlyerShowAuthor({BzModel bzModel}){
     bool _canShow = true;
 
-    if(bzModel.bzShowsTeam == true){
+    if(bzModel.showsTeam == true){
       _canShow = true;
     }
     else {
@@ -357,13 +357,13 @@ class FlyerModel with ChangeNotifier{
         flyerType: superFlyer.flyerType,
         flyerState: superFlyer.flyerState,
         keywordsIDs: Keyword.getKeywordsIDsFromKeywords(superFlyer.keywords),
-        flyerShowsAuthor: superFlyer.flyerShowsAuthor,
-        flyerZone: superFlyer.flyerZone,
+        showsAuthor: superFlyer.flyerShowsAuthor,
+        zone: superFlyer.flyerZone,
         authorID: superFlyer.authorID,
         bzID: superFlyer.bz.bzID,
-        flyerPosition: superFlyer.position,
+        position: superFlyer.position,
         slides: SlideModel.getSlidesFromMutableSlides(superFlyer.mSlides),
-        flyerIsBanned: PublishTime.flyerIsBanned(superFlyer.times),
+        isBanned: PublishTime.flyerIsBanned(superFlyer.times),
         specs: superFlyer.specs,
         info: superFlyer?.infoController?.text,
         priceTagIsOn : superFlyer?.priceTagIsOn,
@@ -377,21 +377,21 @@ class FlyerModel with ChangeNotifier{
   void printFlyer(){
     print('FLYER-PRINT --------------------------------------------------START');
 
-    print('FLYER_PRINT : flyerID : ${flyerID}');
-    print('FLYER_PRINT : flyerType : ${flyerType}');
-    print('FLYER_PRINT : flyerState : ${flyerState}');
-    print('FLYER_PRINT : keywordsIDs : ${keywordsIDs}');
-    print('FLYER_PRINT : flyerShowsAuthor : ${flyerShowsAuthor}');
-    print('FLYER_PRINT : flyerZone : ${flyerZone}');
-    print('FLYER_PRINT : authorID : ${authorID}');
-    print('FLYER_PRINT : bzID : ${bzID}');
-    print('FLYER_PRINT : flyerPosition : ${flyerPosition}');
-    print('FLYER_PRINT : slides : ${slides}');
-    print('FLYER_PRINT : flyerIsBanned : ${flyerIsBanned}');
-    print('FLYER_PRINT : specs : ${specs}');
-    print('FLYER_PRINT : info : ${info}');
-    print('FLYER_PRINT : times : ${times}');
-    print('FLYER_PRINT : priceTagIsOn : ${priceTagIsOn}');
+    print('flyerID : ${flyerID}');
+    print('flyerType : ${flyerType}');
+    print('flyerState : ${flyerState}');
+    print('keywordsIDs : ${keywordsIDs}');
+    print('showsAuthor : ${showsAuthor}');
+    print('zone : ${zone}');
+    print('authorID : ${authorID}');
+    print('bzID : ${bzID}');
+    print('position : ${position}');
+    print('slides : ${slides}');
+    print('isBanned : ${isBanned}');
+    print('specs : ${specs}');
+    print('info : ${info}');
+    print('times : ${times}');
+    print('priceTagIsOn : ${priceTagIsOn}');
 
     print('FLYER-PRINT --------------------------------------------------END');
   }
@@ -476,20 +476,20 @@ class FlyerModel with ChangeNotifier{
       flyerType : FlyerType.rentalProperty,
       flyerState : FlyerState.published,
       keywordsIDs : [],
-      flyerShowsAuthor : true,
+      showsAuthor : true,
       bzID: 'br1',
-      flyerPosition : GeoPoint(0,0),
+      position : GeoPoint(0,0),
       slides : <SlideModel>[
         SlideModel.dummySlide(),
       ],
-      flyerIsBanned : false,
+      isBanned : false,
       specs : <Spec>[],
       info : 'Nothing just dummmy',
       times : <PublishTime>[
         PublishTime(state: FlyerState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
       ],
       priceTagIsOn : true,
-      flyerZone: Zone(
+      zone: Zone(
         cityID: 'Cairo',
         countryID: 'egy',
         districtID: '13',

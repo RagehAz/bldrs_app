@@ -145,7 +145,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     final List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _chosenCityID);//_chosenProvince);
 
     final String _chosenCountryName = _chosenCountryID == null ? '...' : Localizer.translate(context, _chosenCountryID);
-    final String _chosenCountryFlag = _chosenCountryID == null ? '' : Flagz.getFlagByIso3(_chosenCountryID);
+    final String _chosenCountryFlag = _chosenCountryID == null ? '' : Flagz.getFlagByCountryID(_chosenCountryID);
     final String _chosenCityName = _chosenCityID == null ? '...' : _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _chosenCityID);
     final String _chosenDistrictName = _chosenDistrictID == null ? '...' : _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _chosenDistrictID);
 

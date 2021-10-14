@@ -44,27 +44,27 @@ class BzAboutTab extends StatelessWidget {
       children: <Widget>[
 
         /// --- ABOUT
-        if (bzModel.bzAbout != null)
+        if (bzModel.about != null)
           ParagraphBubble(
-            title: 'About ${bzModel.bzName}',
-            paragraph: bzModel.bzAbout,
+            title: 'About ${bzModel.name}',
+            paragraph: bzModel.about,
             maxLines: 5,
             centered: false,
           ),
 
         /// --- SCOPE
-        if (bzModel.bzScope != null)
+        if (bzModel.scope != null)
           ParagraphBubble(
             title: 'Scope of services',
-            paragraph: bzModel.bzScope,
+            paragraph: bzModel.scope,
             maxLines: 5,
           ),
 
-        if (bzModel.bzScope != null)
+        if (bzModel.scope != null)
           const BubblesSeparator(),
 
         /// --- STATS
-        if (bzModel.bzTotalSlides != null)
+        if (bzModel.totalSlides != null)
           Bubble(
               title: 'Stats',
               centered: false,
@@ -72,37 +72,37 @@ class BzAboutTab extends StatelessWidget {
 
                 /// FOLLOWERS
                 StatsLine(
-                  verse: '${bzModel.bzTotalFollowers} ${Wordz.followers(context)}',
+                  verse: '${bzModel.totalFollowers} ${Wordz.followers(context)}',
                   icon: Iconz.Follow,
                 ),
 
                 /// CALLS
                 StatsLine(
-                  verse: '${bzModel.bzTotalCalls} ${Wordz.callsReceived(context)}',
+                  verse: '${bzModel.totalCalls} ${Wordz.callsReceived(context)}',
                   icon: Iconz.ComPhone,
                 ),
 
                 /// SLIDES & FLYERS
                 StatsLine(
-                  verse: '${bzModel.bzTotalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${bzModel.flyersIDs.length} ${Wordz.flyers(context)}',
+                  verse: '${bzModel.totalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${bzModel.flyersIDs.length} ${Wordz.flyers(context)}',
                   icon: Iconz.Gallery,
                 ),
 
                 /// SAVES
                 StatsLine(
-                  verse: '${bzModel.bzTotalSaves} ${Wordz.totalSaves(context)}',
+                  verse: '${bzModel.totalSaves} ${Wordz.totalSaves(context)}',
                   icon: Iconz.SaveOn,
                 ),
 
                 /// VIEWS
                 StatsLine(
-                  verse: '${bzModel.bzTotalViews} ${Wordz.totalViews(context)}',
+                  verse: '${bzModel.totalViews} ${Wordz.totalViews(context)}',
                   icon: Iconz.Views,
                 ),
 
                 /// SHARES
                 StatsLine(
-                  verse: '${bzModel.bzTotalShares} ${Wordz.totalShares(context)}',
+                  verse: '${bzModel.totalShares} ${Wordz.totalShares(context)}',
                   icon: Iconz.Share,
                 ),
 

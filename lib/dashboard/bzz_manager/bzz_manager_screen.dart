@@ -124,7 +124,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
         final bool _matchFound = TextChecker.stringContainsSubString(
           caseSensitive: false,
-          string: TextMod.lowerCase(tinyBz.bzName),
+          string: TextMod.lowerCase(tinyBz.name),
           subString: TextMod.lowerCase(val),
           multiLine: false,
         );
@@ -217,7 +217,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
               itemBuilder: (ctx, index){
 
                 final BzModel _bz = _bzz[index];
-                final String _bzName = _bz.bzName == null || _bz.bzName == '' ? '.....' : _bz.bzName;
+                final String _bzName = _bz.name == null || _bz.name == '' ? '.....' : _bz.name;
 
                 return
 
@@ -226,7 +226,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                     width: _screenWidth - Ratioz.appBarMargin * 2,
                     color: Colorz.White20,
                     verse: _bzName,
-                    icon: _bz.bzLogo,
+                    icon: _bz.logo,
                     margins: EdgeInsets.only(top: _bzButtonMargin),
                     verseScaleFactor: 0.7,
                     verseCentered: false,
@@ -271,32 +271,30 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
 
 
-                                DataStrip(dataKey: 'bzName', dataValue: _bz.bzName, ),
-                                DataStrip(dataKey: 'bzLogo', dataValue: _bz.bzLogo, ),
+                                DataStrip(dataKey: 'bzName', dataValue: _bz.name, ),
+                                DataStrip(dataKey: 'bzLogo', dataValue: _bz.logo, ),
                                 DataStrip(dataKey: 'bzID', dataValue: _bz.bzID, ),
                                 DataStrip(dataKey: 'bzType', dataValue: _bz.bzType, ),
                                 DataStrip(dataKey: 'bzForm', dataValue: _bz.bzForm, ),
                                 DataStrip(dataKey: 'createdAt', dataValue: _bz.createdAt, ),
                                 DataStrip(dataKey: 'accountType', dataValue: _bz.accountType, ),
-                                DataStrip(dataKey: 'bzScope', dataValue: _bz.bzScope, ),
-                                DataStrip(dataKey: 'bzZone', dataValue: _bz.bzZone, ),
-                                DataStrip(dataKey: 'bzAbout', dataValue: _bz.bzAbout, ),
-                                DataStrip(dataKey: 'bzPosition', dataValue: _bz.bzPosition, ),
-                                DataStrip(dataKey: 'bzContacts', dataValue: _bz.bzContacts, ),
-                                DataStrip(dataKey: 'bzAuthors', dataValue: _bz.bzAuthors, ),
-                                DataStrip(dataKey: 'bzShowsTeam', dataValue: _bz.bzShowsTeam, ),
-                                DataStrip(dataKey: 'bzIsVerified', dataValue: _bz.bzIsVerified, ),
-                                DataStrip(dataKey: 'bzAccountIsDeactivated', dataValue: _bz.bzAccountIsDeactivated, ),
-                                DataStrip(dataKey: 'bzAccountIsBanned', dataValue: _bz.bzAccountIsBanned, ),
-                                DataStrip(dataKey: 'bzTotalFollowers', dataValue: _bz.bzTotalFollowers, ),
-                                DataStrip(dataKey: 'bzTotalSaves', dataValue: _bz.bzTotalSaves, ),
-                                DataStrip(dataKey: 'bzTotalShares', dataValue: _bz.bzTotalShares, ),
-                                DataStrip(dataKey: 'bzTotalSlides', dataValue: _bz.bzTotalSlides, ),
-                                DataStrip(dataKey: 'bzTotalViews', dataValue: _bz.bzTotalViews, ),
-                                DataStrip(dataKey: 'bzTotalCalls', dataValue: _bz.bzTotalCalls, ),
+                                DataStrip(dataKey: 'bzScope', dataValue: _bz.scope, ),
+                                DataStrip(dataKey: 'bzZone', dataValue: _bz.zone, ),
+                                DataStrip(dataKey: 'bzAbout', dataValue: _bz.about, ),
+                                DataStrip(dataKey: 'bzPosition', dataValue: _bz.position, ),
+                                DataStrip(dataKey: 'bzContacts', dataValue: _bz.contacts, ),
+                                DataStrip(dataKey: 'bzAuthors', dataValue: _bz.authors, ),
+                                DataStrip(dataKey: 'bzShowsTeam', dataValue: _bz.showsTeam, ),
+                                DataStrip(dataKey: 'bzIsVerified', dataValue: _bz.isVerified, ),
+                                DataStrip(dataKey: 'bzState', dataValue: _bz.bzState, ),
+                                DataStrip(dataKey: 'bzTotalFollowers', dataValue: _bz.totalFollowers, ),
+                                DataStrip(dataKey: 'bzTotalSaves', dataValue: _bz.totalSaves, ),
+                                DataStrip(dataKey: 'bzTotalShares', dataValue: _bz.totalShares, ),
+                                DataStrip(dataKey: 'bzTotalSlides', dataValue: _bz.totalSlides, ),
+                                DataStrip(dataKey: 'bzTotalViews', dataValue: _bz.totalViews, ),
+                                DataStrip(dataKey: 'bzTotalCalls', dataValue: _bz.totalCalls, ),
                                 DataStrip(dataKey: 'flyersIDs,', dataValue: _bz.flyersIDs, ),
-                                DataStrip(dataKey: 'bzTotalFlyers', dataValue: _bz.bzTotalFlyers, ),
-                                DataStrip(dataKey: 'authorsIDs', dataValue: _bz.authorsIDs, ),
+                                DataStrip(dataKey: 'bzTotalFlyers', dataValue: _bz.totalFlyers, ),
 
 
                                 // Container(

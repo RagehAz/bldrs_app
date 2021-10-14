@@ -1,10 +1,11 @@
-
-// -----------------------------------------------------------------------------
+import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/localization/lingo.dart';
+import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
+import 'package:flutter/foundation.dart';
 
-class Country{
-  final String iso3;
-  final String name;
+class CountryModel{
+  final String countryID;
   final String region;
   final String continent;
   final String flag;
@@ -13,67 +14,120 @@ class Country{
   /// automatic switch when country reaches 'Global target' ~ 10'000 flyers
   /// then country flyers will be visible to other countries users 'bzz & users'
   final bool isGlobal;
-  final List<City> cities;
-  /// lang codes tiers
-  /// A:-
-  /// AR:Arabic, ES:Spanish, FR:French, ZH:Chinese, DE:German, IT:Italian,
-  /// B:-
-  /// HI:Hindi, RU:Russian, TR:Turkish, PT:Portuguese
-  /// C:-
-  /// ID:Indonesian, BN:Bengali, SW:Swahili, FA: Farsi, JA:Japanese
-  /// D:-
-  /// UK:Ukrainian, PL:Polish, NL:Dutch, MS:Malay, PA:Punjabi,
-  /// E:-
-  /// TL:Tagalog, TE:Telugu, MR:Marathi, KO:Korean,
+  final List<CityModel> cities;
   final String language;
+  final List<Name> names;
 
-  const Country({
-    this.iso3,
-    this.name,
-    this.region,
-    this.continent,
-    this.flag,
-    this.isActivated,
-    this.isGlobal,
-    this.cities,
-    this.language,
+  const CountryModel({
+    @required this.countryID,
+    @required this.region,
+    @required this.continent,
+    @required this.flag,
+    @required this.isActivated,
+    @required this.isGlobal,
+    @required this.cities,
+    @required this.language,
+    @required this.names,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
+
     return {
-      'iso3' : iso3,
-      'name' : name,
+      'countryID' : countryID,
       'region' : region,
       'continent' : continent,
       'flag' : flag,
       'isActivated' : isActivated,
       'isGlobal' : isGlobal,
-      'provinces' : City.cipherCities(cities),
+      'cities' : CityModel.cipherCities(cities),
       'language' : language,
+      'names': Name.cipherNames(names),
     };
   }
 // -----------------------------------------------------------------------------
-  static Country decipherCountryMap(dynamic map){
-    return Country(
-      iso3 : map['iso3'],
-      name : map['name'],
+  static String createCountryKey({@required String countryID, @required List<Name> names}){
+    final String _countryNameEN = Name.getNameByLingoFromNames(names: names, lingoCode: Lingo.englishCode);
+
+    final String _fixedName = fixCountryName(_countryNameEN);
+
+    print('createCountryKey : _countryNameTrimmed : $_fixedName');
+
+    final String _countryID_name = '${countryID}_${_fixedName}';
+    return _countryID_name;
+  }
+// -----------------------------------------------------------------------------
+  static CountryModel decipherCountryMap(dynamic map){
+
+    final List<Name> _names = Name.decipherNames(map['names']);
+
+    return CountryModel(
+      countryID : map['countryID'],
+      names : _names,
       region : map['region'],
       continent : map['continent'],
       flag : map['flag'],
       isActivated : map['isActivated'],
       isGlobal : map['isGlobal'],
-      cities : City.decipherCitiesMaps(map['provinces']),
+      cities : CityModel.decipherCitiesMap(map['cities']),
       language : map['language'],
     );
   }
 // -----------------------------------------------------------------------------
-  static List<Country> decipherCountriesMaps(List<dynamic> maps){
-    final List<Country> _countries = <Country>[];
+  static List<CountryModel> decipherCountriesMaps(List<dynamic> maps){
+    final List<CountryModel> _countries = <CountryModel>[];
     maps?.forEach((map) {
       _countries.add(decipherCountryMap(map));
     });
     return _countries;
   }
+// -----------------------------------------------------------------------------
+static String fixCountryName(String input){
+
+  final String _countryNameTrimmed = TextMod.replaceAllCharactersWith(
+    input: input.toLowerCase().trim(),
+    CharacterToReplace: ' ',
+    replacement: '_',
+  );
+
+  final String _countryNameTrimmed2 = TextMod.replaceAllCharactersWith(
+    input: _countryNameTrimmed,
+    CharacterToReplace: '-',
+    replacement: '_',
+  );
+
+  final String _countryNameTrimmed3 = TextMod.replaceAllCharactersWith(
+    input: _countryNameTrimmed2,
+    CharacterToReplace: ',',
+    replacement: '',
+  );
+
+  final String _countryNameTrimmed4 = TextMod.replaceAllCharactersWith(
+    input: _countryNameTrimmed3,
+    CharacterToReplace: '(',
+    replacement: '',
+  );
+
+  final String _countryNameTrimmed5 = TextMod.replaceAllCharactersWith(
+    input: _countryNameTrimmed4,
+    CharacterToReplace: ')',
+    replacement: '',
+  );
+
+  final String _countryNameTrimmed6 = TextMod.replaceAllCharactersWith(
+    input: _countryNameTrimmed5,
+    CharacterToReplace: '’',
+    replacement: '',
+  );
+
+  final String _countryNameTrimmed7 = TextMod.replaceAllCharactersWith(
+    input: _countryNameTrimmed6,
+    CharacterToReplace: 'ô',
+    replacement: 'o',
+  );
+
+  return _countryNameTrimmed7;
+
+}
 // -----------------------------------------------------------------------------
 
 }
