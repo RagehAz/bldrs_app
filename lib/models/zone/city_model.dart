@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
@@ -5,18 +6,20 @@ import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/district_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-// -----------------------------------------------------------------------------
+
 class CityModel{
   final String countryID;
-  final String cityID;
+  String cityID;
   final List<DistrictModel> districts;
   final int population;
   final bool isActivated;
   final bool isPublic;
   final List<Name> names;
+  final GeoPoint position;
 
-  const CityModel({
+  CityModel({
     this.countryID,
     this.cityID,
     this.districts,
@@ -24,9 +27,10 @@ class CityModel{
     this.isActivated,
     this.isPublic,
     this.names,
+    this.position,
   });
 // -----------------------------------------------------------------------------
-  Map<String, Object> toMap(){
+  Map<String, Object> toMap({@required bool toJSON}){
     return {
       'countryID' : countryID,
       'cityID' : CountryModel.fixCountryName(cityID),
@@ -35,10 +39,11 @@ class CityModel{
       'isActivated' : isActivated,
       'isPublic' : isPublic,
       'names' : Name.cipherNames(names),
+      'position' : Atlas.cipherGeoPoint(point: position, toJSON: toJSON)
     };
   }
 // -----------------------------------------------------------------------------
-  static Map<String, dynamic> cipherCities(List<CityModel> cities){
+  static Map<String, dynamic> cipherCities({@required List<CityModel> cities, @required bool toJSON}){
     Map<String, dynamic> _citiesMap = {};
 
     if (Mapper.canLoopList(cities)){
@@ -48,7 +53,7 @@ class CityModel{
         _citiesMap = Mapper.insertPairInMap(
           map: _citiesMap,
           key: CountryModel.fixCountryName(city.cityID),
-          value: city.toMap(),
+          value: city.toMap(toJSON: toJSON),
         );
 
       }
@@ -58,16 +63,7 @@ class CityModel{
     return _citiesMap;
   }
 // -----------------------------------------------------------------------------
-  static String createCityKey({@required String countryID, @required String cityID}){
-
-    final String _fixedCityName = CountryModel.fixCountryName(cityID);
-
-    final String _cityKey = '${countryID}#${_fixedCityName}';
-
-    return _cityKey;
-  }
-// -----------------------------------------------------------------------------
-  static CityModel decipherCityMap(Map<String, dynamic> map){
+  static CityModel decipherCityMap({@required Map<String, dynamic> map, @required bool fromJSON}){
     return CityModel(
       countryID : map['countryID'],
       cityID : map['cityID'],
@@ -76,10 +72,11 @@ class CityModel{
       isActivated : map['isActivated'],
       isPublic : map['isPublic'],
       names : Name.decipherNames(map['names']),
+      position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
     );
   }
 // -----------------------------------------------------------------------------
-  static List<CityModel> decipherCitiesMap(Map<String, dynamic> map){
+  static List<CityModel> decipherCitiesMap({@required Map<String, dynamic> map, @required bool fromJSON}){
     final List<CityModel> _cities = <CityModel>[];
 
     final List<String> _keys = map.keys.toList();
@@ -89,7 +86,10 @@ class CityModel{
 
       for (int i = 0; i<_keys.length; i++){
 
-        final CityModel _city = decipherCityMap(_values[i]);
+        final CityModel _city = decipherCityMap(
+          map: _values[i],
+          fromJSON: fromJSON,
+        );
 
         _cities.add(_city);
 
@@ -149,25 +149,20 @@ class CityModel{
     return _keywords;
   }
 // -----------------------------------------------------------------------------
-}
+  void printCity(){
 
-class City{
-  final String countryID;
-  final String cityID;
-  final List<District> districts;
-  final int population;
-  final bool isActivated;
-  final bool isPublic;
-  final List<Name> names; // English
+    print('CITY - PRINT --------------------------------------- START');
 
-  const City({
-    this.countryID,
-    this.cityID,
-    this.districts,
-    this.population,
-    this.isActivated,
-    this.isPublic,
-    this.names,
-  });
+    print('countryID : $countryID');
+    print('cityID : $cityID');
+    print('districts : $districts');
+    print('population : $population');
+    print('isActivated : $isActivated');
+    print('isPublic : $isPublic');
+    print('names : $names');
+    print('position : $position');
 
+    print('CITY - PRINT --------------------------------------- END');
+
+  }
 }
