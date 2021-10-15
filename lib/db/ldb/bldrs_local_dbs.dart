@@ -20,6 +20,7 @@ class LDBDoc {
   static const String sessionBzz = 'sessionBzz';
   static const String sessionUsers = 'sessionUsers';
   static const String keywords = 'keywords';
+  static const String sessionCountries = 'sessionCountries';
 
   static const List<String> bzModelsDocs = const <String>[
     myFollowedBzz,
@@ -61,6 +62,7 @@ abstract class LDBOps{
       case LDBDoc.sessionBzz : return 'bzID';
       case LDBDoc.sessionUsers : return 'sessionUsers';
       case LDBDoc.keywords : return 'keywordID';
+      case LDBDoc.sessionCountries : return 'countryID';
       default : return null;
     }
 
@@ -94,7 +96,7 @@ abstract class LDBOps{
       searchValue: searchValue,
     );
 
-    print('LDBOps.searchMap : _result : $_result');
+    print('LDBOps.searchMap in ${docName} : ${searchField} : ${searchValue} : _result has value ? : ${_result != null}');
 
     final Map<String, Object> _fixedMap = _result; //_decipherSembastMapToFirebaseMap(_result);
 

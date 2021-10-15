@@ -86,7 +86,7 @@ class _GalleryState extends State<Gallery> {
         /// ---------------------------------------------------------0
 
         final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-        await _flyersProvider.fetchActiveBzFlyers(context: context, bzID: _bzModel.bzID);
+        await _flyersProvider.getsetActiveBzFlyers(context: context, bzID: _bzModel.bzID);
 
         List<FlyerModel> _flyersFromProvider = _flyersProvider.activeBzFlyer;
 
