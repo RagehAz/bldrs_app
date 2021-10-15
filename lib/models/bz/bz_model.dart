@@ -169,7 +169,7 @@ class BzModel with ChangeNotifier{
         name : map['name'],
         logo : map['logo'],
         scope : map['scope'],
-        zone : Zone.decipherZoneMap(map['zone :']),
+        zone : Zone.decipherZoneMap(map['zone']),
         about : map['about'],
         position : Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
         contacts : ContactModel.decipherContactsMaps(map['contacts']),

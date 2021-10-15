@@ -392,4 +392,21 @@ class Mapper{
 
     return _maps;
   }
+
+    // static bool modelsContainThisValue({@required List<dynamic> models, @required dynamic value, @required dynamic parameter}){
+    //
+    //   bool _regionsAlreadyHaveThisOne = false;
+    //
+    //   for (dynamic model in models){
+    //
+    //     if (model.parameter == value){
+    //       _regionsAlreadyHaveThisOne = true;
+    //       break;
+    //     }
+    //
+    //   }
+    //
+    //   return _regionsAlreadyHaveThisOne;
+    // }
+
 }
