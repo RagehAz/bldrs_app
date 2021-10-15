@@ -311,7 +311,7 @@ class SuperFlyer{
             onCallTap: onCallTap,
             onCountersTap: onCountersTap,
             /// user based bool triggers
-            ankhIsOn: _flyersProvider.checkAnkh(flyerModel.flyerID),
+            ankhIsOn: _flyersProvider.getAnkh(flyerModel.flyerID),
             followIsOn: _bzzProvider.checkFollow(context: context, bzID: flyerModel.bzID),
             onEditReview: onEditReview,
             onSubmitReview: onSubmitReview,

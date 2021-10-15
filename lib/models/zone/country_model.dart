@@ -149,7 +149,22 @@ static String fixCountryName(String input){
   return _countryNameTrimmed11;
 }
 // -----------------------------------------------------------------------------
+  static bool countriesIDsIncludeCountryID({@required List<String> countriesIDs, @required String countryID}){
+    bool _includes = false;
 
+    for (String id in countriesIDs){
+
+      if (id == countryID){
+        _includes = true;
+        break;
+      }
+
+    }
+
+    return _includes;
+
+  }
+// -----------------------------------------------------------------------------
 }
 
 class AmericanState extends CountryModel {

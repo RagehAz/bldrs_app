@@ -93,7 +93,7 @@ class Name {
       Name _foundName = names.singleWhere((name) => name.code == lingoCode, orElse: () => null);
 
       if (_foundName == null){
-        _nameValue = names.singleWhere((name) => name.code == Lingo.englishCode).value;
+        _nameValue = names.singleWhere((name) => name.code == Lingo.englishCode)?.value;
       }
 
       else {
@@ -113,6 +113,30 @@ class Name {
     print('value : $value');
 
     print('NAME ------------------------------------- END');
+  }
+// -----------------------------------------------------------------------------
+  static bool namesIncludesValueForThisLanguage({@required List<Name> names, @required String lingoCode}){
+    bool _namesInclude = false;
+
+    if (Mapper.canLoopList(names)){
+
+      for (Name name in names){
+
+        if (name.code == lingoCode){
+          if (name.value != null){
+
+            _namesInclude = true;
+            break;
+
+          }
+        }
+
+      }
+
+    }
+
+
+    return _namesInclude;
   }
 // -----------------------------------------------------------------------------
 }

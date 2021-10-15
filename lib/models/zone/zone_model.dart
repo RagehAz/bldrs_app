@@ -97,8 +97,8 @@ class Zone {
   static Zone dummyZone(){
     return Zone(
       countryID: 'egy',
-      cityID: 'Cairo',
-      districtID: '1',
+      cityID: 'cairo',
+      districtID: 'el_rehab',
     );
   }
 // -----------------------------------------------------------------------------

@@ -4,11 +4,14 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/secondary_models/feedback_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/continent_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:flutter/material.dart';
 
 abstract class ExoticMethods{
 // -----------------------------------------------------------------------------
-  static Future<List<UserModel>> readAllUserModels({int limit}) async {
+  static Future<List<UserModel>> readAllUserModels({@required int limit}) async {
+    // List<UserModel> _allUsers = await ExoticMethods.readAllUserModels(limit: limit);
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
@@ -25,7 +28,8 @@ abstract class ExoticMethods{
     return _allModels;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<NotiModel>> readAllNotiModels({BuildContext context, String userID,}) async {
+  static Future<List<NotiModel>> readAllNotiModels({@required BuildContext context, @required String userID,}) async {
+    // List<NotiModel> _allNotiModels = await ExoticMethods.readAllNotiModels(context: context, userID: userID);
 
     final List<dynamic> _maps = await Fire.readSubCollectionDocs(
       context: context,
@@ -43,7 +47,8 @@ abstract class ExoticMethods{
     return _allModels;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<BzModel>> readAllBzzModels({BuildContext context, int limit,}) async {
+  static Future<List<BzModel>> readAllBzzModels({@required BuildContext context, @required int limit,}) async {
+    // List<BzModel> _allBzz = await ExoticMethods.readAllBzzModels(context: context, limit: limit);
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
@@ -60,7 +65,9 @@ abstract class ExoticMethods{
     return _allModels;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<FeedbackModel>> readAllFeedbacks({BuildContext context, int limit,}) async {
+  static Future<List<FeedbackModel>> readAllFeedbacks({@required BuildContext context, @required int limit,}) async {
+    // List<FeedbackModel> _allFeedbacks = await ExoticMethods.readAllFeedbacks(context: context, limit: limit);
+
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
@@ -75,7 +82,8 @@ abstract class ExoticMethods{
     return _allModels;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<FlyerModel>> readAllFlyers({BuildContext context, int limit,}) async {
+  static Future<List<FlyerModel>> readAllFlyers({@required BuildContext context, @required int limit,}) async {
+    // List<FlyerModel> _allFlyers = await ExoticMethods.readAllFlyers(context: context, limit: limit);
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
@@ -88,6 +96,84 @@ abstract class ExoticMethods{
     final List<FlyerModel> _allModels = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
 
     return _allModels;
+  }
+// -----------------------------------------------------------------------------
+  static Future<List<CountryModel>> readAllCountryModels({@required BuildContext context, }) async {
+    // List<CountryModel> _allCountries = await ExoticMethods.readAllCountryModels(context: context);
+
+    final List<dynamic> _maps = await Fire.readCollectionDocs(
+      collectionName: FireCollection.zones,
+      orderBy: 'countryID',
+      limit: 400,
+      addDocSnapshotToEachMap: false,
+      addDocID: false,
+    );
+
+    final List<CountryModel> _countriesModels = CountryModel.decipherCountriesMaps(maps: _maps, fromJSON: false);
+
+    return _countriesModels;
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context) async {
+    /// in case any (continent name) or (region name) or (countryID) has changed
+
+    final List<CountryModel> _allCountries = await ExoticMethods.readAllCountryModels(context: context);
+
+    final List<Continent> _continents = <Continent>[];
+
+    for (CountryModel country in _allCountries){
+
+      /// add continent
+      final bool _continentIsAddedAlready = Continent.continentsIncludeContinent(
+        name: country.continent,
+        continents: _continents,
+      );
+      if (_continentIsAddedAlready == false){
+        _continents.add(Continent(
+          name: country.continent,
+          regions: [],
+        ));
+      }
+
+
+      /// add region to continent
+      final int _continentIndex = _continents.indexWhere((continent) => continent.name == country.continent);
+      final bool _regionIsAddedAlready = Region.regionsIncludeRegion(
+        name: country.region,
+        regions: _continents[_continentIndex].regions,
+      );
+      if (_regionIsAddedAlready == false){
+        _continents[_continentIndex].regions.add(Region(
+          continent: _continents[_continentIndex].name,
+          name: country.region,
+          countriesIDs: [],
+        ));
+      }
+
+
+      /// add country to region
+      final int _regionIndex = _continents[_continentIndex].regions.indexWhere((region) => region.name == country.region);
+      final bool _countryIsAddedAlready = CountryModel.countriesIDsIncludeCountryID(
+        countryID: country.countryID,
+        countriesIDs:  _continents[_continentIndex].regions[_regionIndex].countriesIDs,
+      );
+      if (_countryIsAddedAlready == false){
+        _continents[_continentIndex].regions[_regionIndex].countriesIDs.add(country.countryID);
+      }
+
+      print('XXXXXXXXXXXXXXXXXXXXXXX ---> done with ${country.names[0].value}');
+
+    }
+
+    Map<String, dynamic> _contMaps = Continent.cipherContinents(_continents);
+
+    await Fire.createNamedDoc(
+      context: context,
+      collName: FireCollection.admin,
+      docName: 'continents',
+      input: _contMaps,
+    );
+
   }
 // -----------------------------------------------------------------------------
 }

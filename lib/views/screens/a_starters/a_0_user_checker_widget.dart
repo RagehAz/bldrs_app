@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/user_provider.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/screens/a_starters/a_2_starting_screen.dart';
 import 'package:bldrs/views/screens/a_starters/a_4_loading_screen.dart';
 import 'package:bldrs/views/screens/g_user/g_x_user_editor_screen.dart';
@@ -75,6 +76,10 @@ class _UserCheckerState extends State<UserChecker> {
 
             /// B -  if user has a userModel
             if (_userModel != null) {
+
+              /// fetch and set country and zone
+              final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+              await zoneProvider.getsetZoneAndCountry(context: context, zone: _userModel.zone);
 
               /// check if user model is properly completed
               final List<String> _missingFields = UserModel.missingFields(_userModel);

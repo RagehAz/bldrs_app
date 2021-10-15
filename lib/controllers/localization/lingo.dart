@@ -57,7 +57,7 @@ class Lingo{
       arabicLingo,
       spanishLingo,
       frenchLingo,
-      russianLingo,
+      // russianLingo,
       chineseLingo,
       germanLingo,
     ];
@@ -68,14 +68,14 @@ class Lingo{
   static const String arabicCode = 'ar';
   static const Lingo arabicLingo = const Lingo(code: arabicCode, name: 'عربي');
 
-  static const String spanishCode = 'ar';
+  static const String spanishCode = 'es';
   static const Lingo spanishLingo = const Lingo(code: spanishCode, name: 'Español');
 
   static const String frenchCode = 'fr';
   static const Lingo frenchLingo = const Lingo(code: frenchCode, name: 'Française');
 
-  static const String russianCode = 'ru';
-  static const Lingo russianLingo = const Lingo(code: russianCode, name: 'русский');
+  // static const String russianCode = 'ru';
+  // static const Lingo russianLingo = const Lingo(code: russianCode, name: 'русский');
 
   static const String chineseCode = 'zh';
   static const Lingo chineseLingo = const Lingo(code: chineseCode, name: '中文');
@@ -86,6 +86,17 @@ class Lingo{
   static const String italianCode = 'it';
   static const Lingo italianLingo = const Lingo(code: italianCode, name: 'Italiano');
 // -----------------------------------------------------------------------------
+  static List<String> getAllCodes(){
+    final List<String> _codes = <String>[];
+
+    for (Lingo lingo in allLanguages){
+      _codes.add(lingo.code);
+    }
+
+    return _codes;
+  }
+// -----------------------------------------------------------------------------
+
 /// lang codes tiers
 /// A:-
 /// AR:Arabic, ES:Spanish, FR:French, ZH:Chinese, DE:German, IT:Italian,

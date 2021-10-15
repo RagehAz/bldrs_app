@@ -1,8 +1,9 @@
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:flutter/material.dart';
-
 
 class RandomTestSpace extends StatefulWidget {
 final double flyerBoxWidth;
@@ -111,26 +112,20 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
               const Stratosphere(),
 
-              // WideButton(
-              //   color: Colorz.BloodTest,
-              //   verse: 'add cities',
-              //   icon: Iconz.Share,
-              //   onTap: () async {
-              //
-              //     List<dynamic> _maps = await Fire.readCollectionDocs(
-              //       limit: 300,
-              //       addDocID: true,
-              //       orderBy: 'countryID',
-              //       collectionName: 'zones',
-              //       addDocSnapshotToEachMap: false,
-              //     );
-              //
-              //     for (var map in _maps){
-              //
-              //     }
-              //
-              //   },
-              // ),
+              WideButton(
+                color: Colorz.BloodTest,
+                verse: 'do the thing',
+                icon: Iconz.Share,
+                onTap: () async {
+
+                  _triggerLoading();
+
+
+
+                  _triggerLoading();
+
+                }
+              ),
 
 
             ],
