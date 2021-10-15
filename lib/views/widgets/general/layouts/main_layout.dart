@@ -101,7 +101,7 @@ class MainLayout extends StatelessWidget {
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
     final Section _currentSection = _generalProvider.currentSection;
-    await _flyersProvider.fetchFlyersBySection(
+    await _flyersProvider.getsetWallFlyersBySection(
         context: context,
         section: _currentSection
     );

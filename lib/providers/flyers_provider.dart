@@ -15,6 +15,10 @@ import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// fetch : a method that returns searched value in LDB, then in firebase, and stores in LDB if found
+/// get : a method that returns processed inputs with provider global variables
+/// getset : a method that fetches a value then sets it in a provider global variable
+
 // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 class FlyersProvider extends ChangeNotifier {
   /// FETCHING FLYERS
@@ -99,7 +103,7 @@ class FlyersProvider extends ChangeNotifier {
     return <FlyerModel>[..._savedFlyers];
   }
 // -------------------------------------
-  Future<void> fetchSavedFlyers(BuildContext context) async {
+  Future<void> getsetSavedFlyers(BuildContext context) async {
 
     /// 1 - get user saved flyers IDs
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
@@ -120,7 +124,7 @@ class FlyersProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  bool checkAnkh(String flyerID){
+  bool getAnkh(String flyerID){
     bool _ankhIsOn = false;
 
     final FlyerModel _flyer = _savedFlyers?.firstWhere((flyer) => flyer.flyerID == flyerID, orElse: () => null);
@@ -168,7 +172,7 @@ class FlyersProvider extends ChangeNotifier {
     return <FlyerModel>[..._wallFlyers];
   }
 // -------------------------------------
-  Future<void> fetchFlyersBySection({BuildContext context, Section section}) async {
+  Future<void> getsetWallFlyersBySection({BuildContext context, Section section}) async {
     final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
     final Zone _currentZone = _countryPro.currentZone;
     //
@@ -217,7 +221,7 @@ class FlyersProvider extends ChangeNotifier {
     return _activeBzFlyers;
   }
 // -------------------------------------
-  Future<void> fetchActiveBzFlyers({BuildContext context, String bzID}) async {
+  Future<void> getsetActiveBzFlyers({BuildContext context, String bzID}) async {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     final BzModel _activeBz = _bzzProvider.activeBz;

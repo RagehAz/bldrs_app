@@ -102,7 +102,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           _increaseProgressTo(80);
 
           // TASK : should get only first 10 saved tiny flyers,, and continue paginating when entering the savedFlyers screen
-          await _flyersProvider.fetchSavedFlyers(context);
+          await _flyersProvider.getsetSavedFlyers(context);
           _increaseProgressTo(85);
 
           /// TASK : should get only first 10 followed tiny bzz, then paginate in all when entering followed bzz screen
@@ -111,7 +111,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           /// TASK : wallahi mana 3aref hane3mel eh hena
           final Section _currentSection = _generalProvider.currentSection;
-          await _flyersProvider.fetchFlyersBySection(
+          await _flyersProvider.getsetWallFlyersBySection(
               context: context,
               section: _currentSection,
           );

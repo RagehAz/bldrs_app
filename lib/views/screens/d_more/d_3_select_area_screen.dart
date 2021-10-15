@@ -45,7 +45,7 @@ class SelectAreaScreen extends StatelessWidget {
         print('selected city id is : $cityID');
         print('selected district id is : $districtID');
 
-        await _flyersProvider.fetchFlyersBySection(
+        await _flyersProvider.getsetWallFlyersBySection(
             context: context,
             section: _generalProvider.currentSection
         );

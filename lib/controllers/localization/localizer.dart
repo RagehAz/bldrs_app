@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/main.dart';
+import 'package:bldrs/models/helpers/error_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -84,7 +85,6 @@ class Localizer{
     await changeAppLanguage(context, Lingo.englishLingo.code);
   }
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
   static Future<Locale> setLocale(String languageCode) async{
     final SharedPreferences _prefs = await SharedPreferences.getInstance();
     await _prefs.setString('languageCode', languageCode);
@@ -147,6 +147,34 @@ class Localizer{
     return _localizationDelegates;
   }
 // -----------------------------------------------------------------------------
+  static Future<String> getCountryNameByLingo({@required BuildContext context, @required String countryID, @required String lingoCode}) async {
+
+    String _jsonStringValues;
+    String _output;
+
+    bool _result = await tryCatchAndReturn(
+      context: context,
+      methodName: 'getCountryNameByLingo',
+      functions: () async {
+
+        _jsonStringValues = await rootBundle.loadString('assets/languages/${lingoCode}.json');
+
+        },
+      onError: (error){},
+    );
+
+    if (_result == true){
+
+      final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
+
+      final Map<String, dynamic> _map = _mappedJson.map((key, value) => MapEntry(key, value.toString()));
+
+      _output = _map[countryID];
+
+    }
+
+    return _output;
+  }
 
 }
 // -----------------------------------------------------------------------------
