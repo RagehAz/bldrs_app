@@ -120,9 +120,13 @@ class District{
 // -----------------------------------------------------------------------------
   static String getTranslatedDistrictNameFromCountry({@required BuildContext context, @required Country country, @required String cityID, @required String districtID}){
 
-    final City _city = City.getCityFromCities(cities: country.cities, cityID: cityID);
-    final District _district = District.getDistrictFromDistricts(districts: _city.districts, districtID: districtID);
-    final String _districtName = Name.getNameByCurrentLingoFromNames(context, _district.names);
+    String _districtName = '...';
+
+    if (country != null && cityID != null && districtID != null){
+      final City _city = City.getCityFromCities(cities: country.cities, cityID: cityID);
+      final District _district = District.getDistrictFromDistricts(districts: _city.districts, districtID: districtID);
+      _districtName = Name.getNameByCurrentLingoFromNames(context, _district.names);
+    }
 
     return _districtName;
   }

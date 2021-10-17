@@ -35,20 +35,20 @@ class ZoneButton extends StatelessWidget {
     final Zone _currentZone = _zoneProvider.currentZone;
     final Country _currentCountry = _zoneProvider.currentCountry;
 
-    final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: _currentCountry.countryID);
-    final String _lastCountryFlag = Flag.getFlagIconByCountryID(_currentCountry.countryID);
+    final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: _currentCountry?.countryID);
+    final String _lastCountryFlag = Flag.getFlagIconByCountryID(_currentCountry?.countryID);
 
     final String _cityName = City.getTranslatedCityNameFromCountry(
         context: context,
         country: _currentCountry,
-        cityID: _currentZone.cityID,
+        cityID: _currentZone?.cityID,
     );
 
     final String _districtName = District.getTranslatedDistrictNameFromCountry(
         context: context,
         country: _currentCountry,
-        cityID: _currentZone.cityID,
-        districtID: _currentZone.districtID,
+        cityID: _currentZone?.cityID,
+        districtID: _currentZone?.districtID,
     );
 
     // print('country ID : $_lastCountryID, provinceID : $_cityID, '
