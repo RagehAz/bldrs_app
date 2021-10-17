@@ -31,8 +31,8 @@ class ZonesPage extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 // -----------------------------------------------------------------------------
-    final double _continentIconHeight = 50;
-    final double _verseHeight = 25;//superVerseRealHeight(context, 2, 1, Colorz.White10);
+    const double _continentIconHeight = 50;
+    const double _verseHeight = 25;//superVerseRealHeight(context, 2, 1, Colorz.White10);
 
     final double _pageHeight = pageHeight; //_screenHeight - Ratioz.stratosphere;
     final double _bubbleZoneHeight = _pageHeight - _continentIconHeight - _verseHeight;
