@@ -1,11 +1,13 @@
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/helpers/namez_model.dart';
+import 'package:bldrs/models/keywords/section_class.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/district_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class TextGenerator{
 // -----------------------------------------------------------------------------
@@ -135,36 +137,37 @@ class TextGenerator{
     return _bzFormStrings;
   }
 // -----------------------------------------------------------------------------
-  static String zoneStringer ({BuildContext context, Zone zone,}){
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
+  static String countryStringer ({BuildContext context, Country country, Zone zone}){
 
-    final String _countryID = zone.countryID;
-    final String _provinceID = zone.cityID;
-    final String _districtID = zone.districtID;
+    final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: country.countryID);
 
-    final String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, _countryID);
-    final String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _provinceID);
-    final String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _districtID);
+    final String _cityName = City.getTranslatedCityNameFromCountry(context: context, country: country, cityID: zone.cityID);
+
+    final String _districtName = District.getTranslatedDistrictNameFromCountry(
+    context: context,
+    country: country,
+    cityID: zone.cityID,
+    districtID: zone.districtID,
+    );
 
     final String _verse =
-    _countryID == null || _provinceID == null ? '...' :
-    '${Wordz.inn(context)} $_districtName , $_provinceName , $_countryName . ';
+    zone.countryID == null || zone.cityID == null ? '...' :
+    '${Wordz.inn(context)} $_districtName , $_cityName , $_countryName . ';
 
     return _verse;
   }
 // -----------------------------------------------------------------------------
-  static String cityCountryStringer ({BuildContext context, Zone zone,}){
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
+  static String cityCountryStringer ({BuildContext context, Country country, Zone zone}){
 
-    final String _countryID = zone.countryID;
-    final String _cityID = zone.cityID;
+    final String _countryName = Name.getNameByCurrentLingoFromNames(context, country.names);
 
-    final String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, _countryID);
-    final String _cityName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _cityID);
+    final City _city = City.getCityFromCities(cities: country.cities, cityID: zone.cityID);
+    final String _cityName = Name.getNameByCurrentLingoFromNames(context, _city.names);
 
     final String _verse =
-    _countryID == null || _cityID == null ? '...' :
+    zone.countryID == null || zone.cityID == null ? '...' :
     '${Wordz.inn(context)}, $_cityName , $_countryName . ';
+
     return _verse;
   }
 // -----------------------------------------------------------------------------
@@ -201,4 +204,5 @@ class TextGenerator{
       Wordz.bldrsShortName(context);
   }
 // -----------------------------------------------------------------------------
+
 }

@@ -358,7 +358,7 @@ class FlyerModel with ChangeNotifier{
         flyerState: superFlyer.flyerState,
         keywordsIDs: Keyword.getKeywordsIDsFromKeywords(superFlyer.keywords),
         showsAuthor: superFlyer.flyerShowsAuthor,
-        zone: superFlyer.flyerZone,
+        zone: superFlyer.zone,
         authorID: superFlyer.authorID,
         bzID: superFlyer.bz.bzID,
         position: superFlyer.position,

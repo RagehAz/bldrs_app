@@ -79,7 +79,9 @@ class _UserCheckerState extends State<UserChecker> {
 
               /// fetch and set country and zone
               final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-              await zoneProvider.getsetZoneAndCountry(context: context, zone: _userModel.zone);
+              await zoneProvider.getsetCurrentZoneAndCountry(context: context, zone: _userModel.zone);
+              await zoneProvider.getsetUserCountry(context: context, zone: _userModel.zone);
+              await zoneProvider.getsetContinentByCountryID(context: context, countryID: _userModel.zone.countryID);
 
               /// check if user model is properly completed
               final List<String> _missingFields = UserModel.missingFields(_userModel);

@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/flagz.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/controllers/theme/pricing.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -40,7 +40,7 @@ class PricingScreen extends StatelessWidget {
                 final double _toDollarRate = Numeric.roundFractions(_mac.toDollarRate, 2);
                 final double _localPrice = Numeric.roundFractions(_mac.localPrice, 2);
 
-                final String _flag = Flagz.getFlagByCountryID(_iso3);
+                final String _flag = Flag.getFlagIconByCountryID(_iso3);
                 final String _countryName = '${index + 1} - ${Localizer.translate(context, _iso3)}';
                 final String _countryCurrency = '1 \$ = $_toDollarRate $_currency';
                 final String _localBigMacPrice = 'BigMac = $_localPrice $_currency';

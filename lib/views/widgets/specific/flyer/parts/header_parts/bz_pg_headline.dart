@@ -38,7 +38,7 @@ class BzPageHeadline extends StatelessWidget {
             ),
             /// BUSINESS LOCALE
             SuperVerse(
-              verse: TextGenerator.zoneStringer(
+              verse: TextGenerator.countryStringer(
                 context: context,
                 zone: bzModel.zone,
               ),

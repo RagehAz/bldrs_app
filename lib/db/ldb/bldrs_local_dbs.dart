@@ -21,6 +21,7 @@ class LDBDoc {
   static const String sessionUsers = 'sessionUsers';
   static const String keywords = 'keywords';
   static const String sessionCountries = 'sessionCountries';
+  static const String continents = 'continents';
 
   static const List<String> bzModelsDocs = const <String>[
     myFollowedBzz,
@@ -63,6 +64,7 @@ abstract class LDBOps{
       case LDBDoc.sessionUsers : return 'sessionUsers';
       case LDBDoc.keywords : return 'keywordID';
       case LDBDoc.sessionCountries : return 'countryID';
+      case LDBDoc.continents : return '';
       default : return null;
     }
 

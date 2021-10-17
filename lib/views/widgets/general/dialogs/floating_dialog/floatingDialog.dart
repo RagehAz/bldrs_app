@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
@@ -36,7 +35,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
   Widget build(BuildContext context) {
 
     const int titleVerseSize = 2;
-    final double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
+    final double actionBtSize = SuperVerse.superVerseRealHeight(context, titleVerseSize, 1, null);
     final double actionBtCorner = actionBtSize * 0.4;
 
     return Bubble(

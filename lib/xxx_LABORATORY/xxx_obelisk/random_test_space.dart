@@ -1,6 +1,10 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/dashboard/exotic_methods.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
+import 'package:bldrs/db/firestore/auth_ops.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:flutter/material.dart';
@@ -114,12 +118,23 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
               WideButton(
                 color: Colorz.BloodTest,
-                verse: 'do the thing',
+                verse: 'add bz ids',
                 icon: Iconz.Share,
                 onTap: () async {
 
                   _triggerLoading();
 
+                  List<String> _allBzzIDs = <String>[];
+
+                  List<BzModel> _allbzz = await ExoticMethods.readAllBzzModels(context: context, limit: 500);
+
+                  for (var bz in _allbzz){
+
+                    _allBzzIDs.add(bz.bzID);
+
+                  }
+
+                  await Fire.updateDocField(context: context, collName: 'users', docName: superUserID(), field: 'myBzzIDs', input: _allBzzIDs);
 
 
                   _triggerLoading();

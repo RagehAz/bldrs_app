@@ -1,9 +1,9 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/helpers/map_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 class ListLayout extends StatelessWidget {
   final String pageTitle;
   final String pyramids;
-  final List<Map<String, dynamic>> idValueMaps;
+  final List<MapModel> mapModels;
   final List<String> icons;
   final Function onItemTap;
   final String pageIcon;
@@ -24,7 +24,7 @@ class ListLayout extends StatelessWidget {
   const ListLayout({
     this.pageTitle,
     this.pyramids,
-    this.idValueMaps,
+    this.mapModels,
     this.icons,
     this.onItemTap,
     this.pageIcon,
@@ -38,7 +38,7 @@ class ListLayout extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    final double _verseHeight = superVerseRealHeight(context, 2, 1, Colorz.White10);
+    final double _verseHeight = SuperVerse.superVerseRealHeight(context, 2, 1, Colorz.White10);
     final double _bubbleHeight = _screenHeight - Ratioz.stratosphere - Ratioz.appBarSmallHeight - _verseHeight  - (Ratioz.appBarMargin * 4);
 // -----------------------------------------------------------------------------
     return MainLayout(
@@ -88,7 +88,7 @@ class ListLayout extends StatelessWidget {
                       physics: const BouncingScrollPhysics(),
 
                       shrinkWrap: false,
-                      itemCount: idValueMaps.length,
+                      itemCount: mapModels.length,
                       itemBuilder: (context, index){
 
                         return
@@ -99,13 +99,13 @@ class ListLayout extends StatelessWidget {
                               width: Bubble.clearWidth(context) - 10,
                               icon: icons == null || icons.length == 0 ? null : icons[index],
                               iconSizeFactor: 0.8,
-                              verse: idValueMaps[index]['value'],
+                              verse: mapModels[index].value,
                               bubble: false,
                               margins: const EdgeInsets.all(5),
                               verseScaleFactor: 0.8,
                               color: Colorz.White10,
                               // textDirection: superTextDirection(context),
-                              onTap: () => onItemTap(idValueMaps[index]['id']),
+                              onTap: () => onItemTap(mapModels[index].key),
                               verseCentered: true,
                             ),
                           );
