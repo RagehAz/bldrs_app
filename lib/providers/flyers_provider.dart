@@ -225,7 +225,7 @@ class FlyersProvider extends ChangeNotifier {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     final BzModel _activeBz = _bzzProvider.activeBz;
-    final List<String> _bzFlyersIDs = _activeBz.flyersIDs;
+    final List<String> _bzFlyersIDs = _activeBz?.flyersIDs;
 
     if (Mapper.canLoopList(_bzFlyersIDs)){
 
