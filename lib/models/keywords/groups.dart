@@ -1,9 +1,10 @@
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/keywordz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/district_model.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -77,9 +78,10 @@ class Group{
 // -----------------------------------------------------------------------------
   static Group getGroupFromCurrentDistricts(BuildContext context){
 
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
-    final String _provinceID = _countryPro.currentCityID;
-    final List<District> _districts = _countryPro.getDistrictsByCityID(context, _provinceID);
+    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
+    final Country _currentCountry = _zoneProvider.currentCountry;
+    final String _cityID = _zoneProvider.currentZone.cityID;
+    final List<District> _districts = District.getDistrictsFromCountryModel(country: _currentCountry, cityID: _cityID);
 
     final List<Keyword> _districtsAsKeywords = Keyword.getKeywordsModelsFromDistricts(_districts);
 

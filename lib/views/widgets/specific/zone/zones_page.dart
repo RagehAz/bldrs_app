@@ -2,8 +2,8 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
@@ -91,7 +91,7 @@ class ZonesPage extends StatelessWidget {
                                 width: Bubble.clearWidth(context) - 10,
                                 icon: Flag.getFlagIconByCountryID(_id),
                                 iconSizeFactor: 0.8,
-                                verse: OldCountryProvider().getCountryNameInCurrentLanguageByIso3(context, _id),
+                                verse: Country.getTranslatedCountryNameByID(context: context, countryID: _id),
                                 bubble: false,
                                 margins: const EdgeInsets.all(5),
                                 verseScaleFactor: 0.8,
