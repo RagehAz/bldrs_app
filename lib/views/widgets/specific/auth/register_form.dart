@@ -5,14 +5,14 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/screens/g_user/g_x_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
-import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -166,8 +166,8 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
 
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
-    final Zone _currentZone = _countryPro.currentZone;
+    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
+    final Zone _currentZone = _zoneProvider.currentZone;
 
     return Form(
       key: _formKey,
@@ -258,7 +258,7 @@ class _RegisterFormState extends State<RegisterForm> {
               ),
 
               ChangeNotifierProvider.value(
-                value: _countryPro,
+                value: _zoneProvider,
                 child: DreamBox(
                   height: 50,
                   color: Colorz.Yellow255,

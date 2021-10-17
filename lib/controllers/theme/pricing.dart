@@ -144,6 +144,9 @@ class BigMac{
   }
 // -----------------------------------------------------------------------------
   static String getCurrencyByIso3(String iso3){
+
+    /// TASK : euro and missing countries currencies
+
     final BigMac _bigMacOfThisCountry = bigMacs().singleWhere((bigMac) => bigMac.iso3 == iso3, orElse: ()=> null);
     final String _currency = _bigMacOfThisCountry?.currency;
     return _currency;

@@ -4,26 +4,25 @@ import 'package:bldrs/controllers/notifications/noti_ops.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/router/router.dart';
 import 'package:bldrs/db/firestore/user_ops.dart';
+import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
+import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/ui_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/screens/b_landing/b_0_home_screen.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
-import 'package:bldrs/views/widgets/specific/ask/question/questions_provider.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
+import 'package:bldrs/views/widgets/specific/ask/question/questions_provider.dart';
 import 'package:bldrs/xxx_LABORATORY/camera_and_location/test_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/rendering.dart';
-import 'package:bldrs/models/notification/noti_model.dart';
+import 'package:provider/provider.dart';
 
 
 void main() async {
@@ -207,9 +206,6 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
           ),
 
 
-          ChangeNotifierProvider(
-            create: (ctx) => OldCountryProvider(),
-          ),
           ChangeNotifierProvider(
             create: (ctx) => OldFlyersProvider(),
           ),

@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -14,7 +15,7 @@ import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -422,7 +423,7 @@ class SuperFlyer{
 
     print('CREATING draft super flyer from nothing for bz  : ${bzModel.name} : id : ${bzModel.bzID}');
 
-    final OldCountryProvider _countryPro = Provider.of<OldCountryProvider>(context, listen: false);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
     final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);
@@ -525,7 +526,7 @@ class SuperFlyer{
         keywords: <Keyword>[],
 
         /// flyer location
-        zone: _countryPro.currentZone,
+        zone: _zoneProvider.currentZone,
         position: null,
 
         /// publishing times
