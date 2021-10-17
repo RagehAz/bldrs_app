@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -31,7 +32,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
   @override
   void initState() {
     super.initState();
-    _title = widget.swiperPages[0]['title'];
+    _title = Mapper.canLoopList(widget.swiperPages) ? widget.swiperPages[0]['title'] : '...';
 
     _swiperController = new SwiperController();
   }
