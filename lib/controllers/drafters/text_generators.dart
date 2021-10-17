@@ -138,35 +138,48 @@ class TextGenerator{
   }
 // -----------------------------------------------------------------------------
   static String countryStringer ({BuildContext context, Country country, Zone zone}){
+    String _verse = '...';
 
-    final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: country.countryID);
+    if (country != null && Zone.zoneHasAllIDs(zone)){
 
-    final String _cityName = City.getTranslatedCityNameFromCountry(context: context, country: country, cityID: zone.cityID);
+      final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: country.countryID);
 
-    final String _districtName = District.getTranslatedDistrictNameFromCountry(
-    context: context,
-    country: country,
-    cityID: zone.cityID,
-    districtID: zone.districtID,
-    );
+      final String _cityName = City.getTranslatedCityNameFromCountry(context: context, country: country, cityID: zone.cityID);
 
-    final String _verse =
-    zone.countryID == null || zone.cityID == null ? '...' :
-    '${Wordz.inn(context)} $_districtName , $_cityName , $_countryName . ';
+      final String _districtName = District.getTranslatedDistrictNameFromCountry(
+        context: context,
+        country: country,
+        cityID: zone.cityID,
+        districtID: zone.districtID,
+      );
+
+      _verse =
+      zone.countryID == null || zone.cityID == null ? '...' :
+      '${Wordz.inn(context)} $_districtName , $_cityName , $_countryName . ';
+
+    }
+
 
     return _verse;
   }
 // -----------------------------------------------------------------------------
   static String cityCountryStringer ({BuildContext context, Country country, Zone zone}){
 
-    final String _countryName = Name.getNameByCurrentLingoFromNames(context, country.names);
+    String _verse = '...';
 
-    final City _city = City.getCityFromCities(cities: country.cities, cityID: zone.cityID);
-    final String _cityName = Name.getNameByCurrentLingoFromNames(context, _city.names);
+    if (country != null && Zone.zoneHasAllIDs(zone)){
 
-    final String _verse =
-    zone.countryID == null || zone.cityID == null ? '...' :
-    '${Wordz.inn(context)}, $_cityName , $_countryName . ';
+      final String _countryName = Name.getNameByCurrentLingoFromNames(context, country.names);
+
+      final City _city = City.getCityFromCities(cities: country.cities, cityID: zone.cityID);
+      final String _cityName = Name.getNameByCurrentLingoFromNames(context, _city.names);
+
+      _verse =
+      zone.countryID == null || zone.cityID == null ? '...' :
+      '${Wordz.inn(context)}, $_cityName , $_countryName . ';
+
+
+    }
 
     return _verse;
   }

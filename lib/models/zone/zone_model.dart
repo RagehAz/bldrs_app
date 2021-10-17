@@ -112,4 +112,9 @@ class Zone{
     print('$methodName ------------------------------- END');
   }
 // -----------------------------------------------------------------------------
+  static bool zoneHasAllIDs(Zone zone){
+    final bool _hasAllIDs = zone != null && zone.countryID != null && zone.cityID != null && zone.districtID != null;
+    return _hasAllIDs;
+  }
+// -----------------------------------------------------------------------------
 }

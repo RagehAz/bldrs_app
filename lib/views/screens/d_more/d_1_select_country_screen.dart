@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -72,7 +73,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  List<Continent> _allContinents;
+  List<Continent> _allContinents = [];
   List<Map<String, dynamic>> _generatePages(){
     final List<Map<String, dynamic>> _pages = <Map<String, dynamic>>[];
 
@@ -123,7 +124,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 
     return SwiperLayoutScreen(
       sky: Sky.Black,
-      swiperPages: _generatePages(),
+      swiperPages: Mapper.canLoopList(_allContinents) ? _generatePages() : <Map<String, dynamic>>[{'title' : '...', 'widget' : Container()}],
     );
 
   }
