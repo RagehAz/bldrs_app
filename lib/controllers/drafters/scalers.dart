@@ -1,9 +1,9 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class Scale{
@@ -107,7 +107,7 @@ class Scale{
   static double navBarTextBoxHeight({BuildContext context, BarType barType, }){
     final double _textBoxHeight =
     barType == BarType.maxWithText || barType == BarType.minWithText ?
-    superVerseRealHeight(context, _textSize, _textScaleFactor, null) : 0;
+    SuperVerse.superVerseRealHeight(context, _textSize, _textScaleFactor, null) : 0;
 
     return _textBoxHeight;
 }

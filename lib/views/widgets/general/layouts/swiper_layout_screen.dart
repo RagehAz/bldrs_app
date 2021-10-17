@@ -48,11 +48,9 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 // -----------------------------------------------------------------------------
-    final double _itemWidth = _screenWidth;
-    final double _itemHeight = _screenHeight;
-// -----------------------------------------------------------------------------
+    final double _pageHeight = _screenHeight - Ratioz.stratosphere;
 
     return MainLayout(
       sky: widget.sky,
@@ -61,6 +59,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
       pyramids: Iconz.DvBlankSVG,
       // appBarBackButton: true,
       layoutWidget: Swiper(
+        physics: const BouncingScrollPhysics(),
         autoplay: false,
         pagination: new SwiperPagination(
           builder: const DotSwiperPaginationBuilder(
@@ -74,8 +73,12 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
           margin: const EdgeInsets.only(top: 54, right: Ratioz.appBarMargin * 2, left: Ratioz.appBarMargin * 2),
         ),
         layout: SwiperLayout.DEFAULT,
-        itemWidth: _itemWidth,
-        itemHeight: _itemHeight,
+        itemWidth: _screenWidth, // in-effective
+        itemHeight: _pageHeight, // in-effective
+        containerWidth: _screenWidth, // in-effective
+        containerHeight: _pageHeight, // in-effective
+        loop: true,
+        outer: false,
         // control: new SwiperControl(),
         // transformer: ,
         onIndexChanged: (index){
@@ -94,18 +97,23 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
 
           return
 
-            Column(
-              children: <Widget>[
+            Container(
+              width: _screenWidth,
+              height: _pageHeight,
+              alignment: Alignment.topCenter,
+              child: Column(
+                children: <Widget>[
 
-                const Stratosphere(),
+                  const Stratosphere(),
 
-                Container(
-                  width: _screenWidth,
-                  height: _screenHeight - Ratioz.stratosphere - 24,
-                  child: widget.swiperPages[index]['widget'],
-                ),
+                  Container(
+                    width: _screenWidth,
+                    height: _pageHeight,
+                    child: widget.swiperPages[index]['widget'],
+                  ),
 
-              ],
+                ],
+              ),
             );
 
         },

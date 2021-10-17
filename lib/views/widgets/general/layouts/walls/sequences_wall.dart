@@ -7,7 +7,11 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/groups.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/district_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/screens/b_landing/b_3_sequence_flyers_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
@@ -27,6 +31,10 @@ class SequencesWall extends StatelessWidget {
   String _stackTitle({BuildContext context, Sequence sequence, int index}){
     String _stackTitle;
 
+    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
+    final Country _currentCountry = _zoneProvider.currentCountry;
+    final Zone _currentZone = _zoneProvider.currentZone;
+
     /// in crafts groups, second keywords are zone areas
     // List<GroupModel> _craftsGroups = GroupModel.craftsGroups(context);
     // bool _firstKeyIDisFromCraftsGroup = GroupModel.groupsContainThisFirstKeyID(
@@ -35,22 +43,27 @@ class SequencesWall extends StatelessWidget {
     //     firstKeyID: groupModel.firstKeyID
     // );
 
-    final bool _groupSecondKeysAreZoneAreas = Sequence.sequenceSecondKeysAreZoneDistricts(sequence);
+    final bool _groupSecondKeysAreZoneDistricts = Sequence.sequenceSecondKeysAreZoneDistricts(sequence);
 
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
-    final String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _countryPro.currentCityID);
+    final String _cityName = City.getTranslatedCityNameFromCountry(context: context, country: _currentCountry, cityID: _currentZone.cityID);
 
-    if(_groupSecondKeysAreZoneAreas == true){
-      final String _areaName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, sequence.secondKeywords.keywords[index].keywordID);
+    if(_groupSecondKeysAreZoneDistricts == true){
+      final String _districtName = District.getTranslatedDistrictNameFromCountry(
+          context: context,
+          country: _currentCountry,
+          cityID: _currentZone.cityID,
+          districtID: _currentZone.districtID,
+      );
+
       final String _keywordName = Keyword.getKeywordNameByKeywordID(context, sequence.titleID);
 
-      _stackTitle = '$_keywordName - ${Wordz.inn(context)} $_areaName , $_provinceName';
+      _stackTitle = '$_keywordName - ${Wordz.inn(context)} $_districtName , $_cityName';
     }
 
     else if (sequence?.secondKeywords?.keywords == null){
       final List<Keyword> _keywordsByGroupID = Keyword.getKeywordsByGroupID(sequence.titleID);
       final String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordsByGroupID[index].keywordID);
-      _stackTitle = '$_keywordName - ${Wordz.inn(context)} $_provinceName';
+      _stackTitle = '$_keywordName - ${Wordz.inn(context)} $_cityName';
     }
 
     else {
@@ -58,7 +71,7 @@ class SequencesWall extends StatelessWidget {
       // Keyword _keyword = Keyword.getKeywordByKeywordID(_keywordID);
       final String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
       final String _sequenceName = Keyword.getKeywordNameByKeywordID(context, sequence.titleID);
-      _stackTitle = '$_sequenceName - ${_keywordName} - ${Wordz.inn(context)} $_provinceName';
+      _stackTitle = '$_sequenceName - ${_keywordName} - ${Wordz.inn(context)} $_cityName';
     }
 
     return _stackTitle;
@@ -66,8 +79,11 @@ class SequencesWall extends StatelessWidget {
 
   void _onScrollEnd({BuildContext context, int index,Sequence sequence}){
 
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
-    final String _currentProvinceID = _countryPro.currentCityID;
+    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
+    final Country _currentCountry = _zoneProvider.currentCountry;
+    final Zone _currentZone = _zoneProvider.currentZone;
+
+    final String _currentCityID = _currentZone.cityID;
 
     final bool _sequenceIsNewFlyers = index == null ? true : false;
 
@@ -92,13 +108,13 @@ class SequencesWall extends StatelessWidget {
       _secondKeyword = _secondKeywords == null ? null : _secondKeywords?.keywords[index];
 
       final bool _sequenceHasSecondKeywords = _secondKeyword != null ? true : false;
-      final bool _secondKeyIsDistrict = _secondKeyword?.subGroupID == _currentProvinceID;
+      final bool _secondKeyIsDistrict = _secondKeyword?.subGroupID == _currentCityID;
 
       if(_sequenceHasSecondKeywords == true){
         print('2 - sequence has second keywords : ${_secondKeyword.keywordID}');
 
         if (_secondKeyIsDistrict == true){
-          print ('3 - secondKey is District : ${_countryPro.getCityNameWithCurrentLanguageIfPossible(context, _currentProvinceID)}');
+          print ('3 - secondKey is District : ${City.getTranslatedCityNameFromCountry(context: context, country: _currentCountry, cityID: _currentCityID)}');
         }
 
         else {

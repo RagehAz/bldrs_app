@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
@@ -8,8 +7,8 @@ import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
-import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
+import 'package:flutter/material.dart';
 
 class ContactFieldBubble extends StatefulWidget {
   final String title;
@@ -77,7 +76,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   Widget build(BuildContext context) {
 
     const int titleVerseSize = 2;
-    final double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
+    final double actionBtSize = SuperVerse.superVerseRealHeight(context, titleVerseSize, 1, null);
     final double actionBtCorner = actionBtSize * 0.4;
     const double leadingIconSize = 35;
     const double leadingAndFieldSpacing = 5;

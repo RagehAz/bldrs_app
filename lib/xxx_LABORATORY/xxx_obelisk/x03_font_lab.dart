@@ -1,9 +1,8 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
-import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/localization/lingo.dart';
+import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -11,11 +10,11 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/main.dart';
 import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/views/widgets/general/buttons/rageh_button.dart';
-import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/general/textings/the_golden_scroll.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +36,7 @@ class _FontLabState extends State<FontLab> {
 
   Widget _superVerse(int size){
 
-    String _pixelsAsString = '${superVerseSizeValue(context, size, 1)}';
+    String _pixelsAsString = '${SuperVerse.superVerseSizeValue(context, size, 1)}';
     String _pixels = TextMod.trimTextAfterFirstSpecialCharacter(_pixelsAsString, '.');
 
     return

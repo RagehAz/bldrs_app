@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
@@ -159,7 +158,7 @@ class TextFieldBubble extends StatelessWidget {
                         bubble: false,
                         onTap: horusOnTap,
                         // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
-                        corners: superVerseLabelCornerValue(context, 3),
+                        corners: SuperVerse.superVerseLabelCornerValue(context, 3),
                       ),
 
 

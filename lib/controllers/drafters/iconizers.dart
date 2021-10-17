@@ -7,6 +7,7 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/continent_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/path_building_user.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/path_constructing_user.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/path_normal_user.dart';
@@ -192,6 +193,22 @@ class Iconizer{
             true : false;
 
     return _iconIsContinent;
+  }
+// -----------------------------------------------------------------------------
+  static String getContinentIcon(Continent continent){
+
+    final String _name = continent.name;
+
+    switch (_name){
+      case 'Africa' : return Iconz.ContAfrica; break;
+      case 'Asia' : return Iconz.ContAsia; break;
+      case 'Oceania' : return Iconz.ContAustralia; break;
+      case 'Europe' : return Iconz.ContEurope; break;
+      case 'North America' : return Iconz.ContNorthAmerica; break;
+      case 'South America' : return Iconz.ContSouthAmerica; break;
+      default: return null;
+    }
+
   }
 // -----------------------------------------------------------------------------
   static const List<Map<String, dynamic>> continentsMaps = const <Map<String, dynamic>>[

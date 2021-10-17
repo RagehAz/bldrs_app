@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -105,7 +104,7 @@ class Bubble extends StatelessWidget {
     ///////////////////////////////////////////////////////////////////////////
 
     const int _titleVerseSize = 2;
-    final double _actionBtSize = superVerseRealHeight(context, _titleVerseSize, 1, null);
+    final double _actionBtSize = SuperVerse.superVerseRealHeight(context, _titleVerseSize, 1, null);
     final double _actionBtCorner = _actionBtSize * 0.4;
 
     final double _bubbleWidth = width != null ? width :

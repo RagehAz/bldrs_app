@@ -1,28 +1,32 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/localization/localizer.dart';
+import 'package:bldrs/models/helpers/map_model.dart';
 import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/continent_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
+import 'package:bldrs/models/zone/region_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
-class CountryModel{
+class Country{
   final String countryID;
   final String region;
   final String continent;
-  final String flag;
   /// manual dashboard switch to deactivate an entire country
   final bool isActivated;
   /// automatic switch when country reaches 'Global target' ~ 10'000 flyers
   /// then country flyers will be visible to other countries users 'bzz & users'
   final bool isGlobal;
-  final List<CityModel> cities;
+  final List<City> cities;
   final String language;
   final List<Name> names;
 
-  const CountryModel({
+  const Country({
     @required this.countryID,
     @required this.region,
     @required this.continent,
-    @required this.flag,
     @required this.isActivated,
     @required this.isGlobal,
     @required this.cities,
@@ -36,34 +40,32 @@ class CountryModel{
       'countryID' : countryID,
       'region' : region,
       'continent' : continent,
-      'flag' : flag,
       'isActivated' : isActivated,
       'isGlobal' : isGlobal,
-      'cities' : CityModel.cipherCities(cities: cities, toJSON: toJSON),
+      'cities' : City.cipherCities(cities: cities, toJSON: toJSON),
       'language' : language,
       'names': Name.cipherNames(names),
     };
   }
 // -----------------------------------------------------------------------------
-  static CountryModel decipherCountryMap({@required Map<String, dynamic> map, @required bool fromJSON}){
+  static Country decipherCountryMap({@required Map<String, dynamic> map, @required bool fromJSON}){
 
     final List<Name> _names = Name.decipherNames(map['names']);
 
-    return CountryModel(
+    return Country(
       countryID : map['countryID'],
       names : _names,
       region : map['region'],
       continent : map['continent'],
-      flag : map['flag'],
       isActivated : map['isActivated'],
       isGlobal : map['isGlobal'],
-      cities : CityModel.decipherCitiesMap(map: map['cities'], fromJSON: fromJSON),
+      cities : City.decipherCitiesMap(map: map['cities'], fromJSON: fromJSON),
       language : map['language'],
     );
   }
 // -----------------------------------------------------------------------------
-  static List<CountryModel> decipherCountriesMaps({@required List<dynamic> maps, @required bool fromJSON}){
-    final List<CountryModel> _countries = <CountryModel>[];
+  static List<Country> decipherCountriesMaps({@required List<dynamic> maps, @required bool fromJSON}){
+    final List<Country> _countries = <Country>[];
 
     if (Mapper.canLoopList(maps)){
       maps?.forEach((map) {
@@ -77,7 +79,7 @@ class CountryModel{
     return _countries;
   }
 // -----------------------------------------------------------------------------
-static String fixCountryName(String input){
+  static String fixCountryName(String input){
 
   final String _countryNameTrimmed = TextMod.replaceAllCharactersWith(
     input: input.toLowerCase().trim(),
@@ -165,18 +167,70 @@ static String fixCountryName(String input){
 
   }
 // -----------------------------------------------------------------------------
-}
+  static String getTranslatedCountryNameByID({@required BuildContext context, @required String countryID}){
+    String _countryName = '...';
 
-class AmericanState extends CountryModel {
+    if (countryID != null){
+      _countryName = Localizer.translate(context, countryID);
+    }
+
+    return _countryName;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> getCountriesIDsOfContinent(Continent continent){
+
+    final List<String> _countriesIDs = <String>[];
+
+    for (Region region in continent.regions){
+      _countriesIDs.addAll(region.countriesIDs);
+    }
+
+    return _countriesIDs;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> getAllCountriesIDs(){
+    final List<String> _ids = <String>[];
+
+    Flag.allFlags.forEach((flag) {
+
+      _ids.add(flag.countryID);
+
+    });
+
+    return _ids;
+  }
+// -----------------------------------------------------------------------------
+  static List<MapModel> getAllCountriesNamesMapModels(BuildContext context){
+
+    final List<MapModel> _mapModels = <MapModel>[];
+
+    final List<String> _allCountriesIDs = getAllCountriesIDs();
+
+    for (String id in _allCountriesIDs){
+
+      final String _countryName = getTranslatedCountryNameByID(context: context, countryID: id);
+
+      _mapModels.add(
+          MapModel(
+        key: id,
+        value: _countryName,
+      )
+      );
+
+    }
+
+    return _mapModels;
+  }
+// -----------------------------------------------------------------------------
+}
+// -----------------------------------------------------------------------------
+class AmericanState extends Country {
   final String state;
-  final List<CityModel> cities;
+  final List<City> cities;
 
   AmericanState({
     @required this.state,
     @required this.cities,
 });
-
-
-
 
 }

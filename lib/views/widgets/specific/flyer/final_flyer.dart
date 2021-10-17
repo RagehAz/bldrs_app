@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/animators.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
@@ -25,11 +26,16 @@ import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
+import 'package:bldrs/models/helpers/map_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/district_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/screens/f_bz/f_1_flyer_editor_screen.dart';
 import 'package:bldrs/views/screens/x_select_keywords_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -121,12 +127,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------------------------------
   FlyersProvider _flyersProvider;
+  ZoneProvider _zoneProvider;
   @override
   void initState() {
     super.initState();
     _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     /// get current bzModel when this flyer goes to editor
-    // _prof = Provider.of<OldFlyersProvider>(context, listen: false);
+
     _bzModel = widget.bzModel;
     // print('FINAL FINAL initialized _bzModel as : ${_bzModel.bzID} as bzName : ${_bzModel.bzName}');
 
@@ -1745,11 +1753,16 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onChangeZone() async {
 
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
+    final Zone _zone = _superFlyer.zone;
 
-    final List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
-    List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _superFlyer.flyerZone.countryID);
-    List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _superFlyer.flyerZone.cityID);
+    final List<MapModel> _countriesMapModels = Country.getAllCountriesNamesMapModels(context);
+    Country _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _zone.countryID);
+
+    List<City> _cities = _country.cities;
+    List<MapModel> _citiesMaps = City.getCitiesNamesMapModels(context: context, cities: _cities);
+
+    List<District> _districts = District.getDistrictsFromCountryModel(country: _country, cityID: _zone.cityID);
+    List<MapModel> _districtsMaps = District.getDistrictsNamesMapModels(context: context, districts: _districts);
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
@@ -1762,26 +1775,36 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       height: null,
       title: 'Publish this flyer targeting a specific city',
       child: BottomDialogButtons(
-        listOfMaps: _flags,
-        mapValueIs: MapValueIs.flag,
+        mapsModels: _countriesMapModels,
         alignment: Alignment.center,
-        provider: _countryPro,
-        sheetType: BottomSheetType.BottomSheet,
+        bottomDialogType: BottomDialogType.countries,
         buttonTap: (countryID) async {
 
-          final String _lastCountryID = _superFlyer.flyerZone.countryID;
+          final String _lastCountryID = _superFlyer.zone.countryID;
+
+          final Country _selectedCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: countryID);
 
           setState(() {
-            _superFlyer.flyerZone.countryID = countryID;
-            _cities = _countryPro.getCitiesNamesMapsByIso3(context, _superFlyer.flyerZone.countryID);
+            _superFlyer.zone.countryID = countryID;
+            _superFlyer.zone.cityID = null;
+            _superFlyer.zone.districtID = null;
+
+            _country = _selectedCountry;
+
+            _cities = _country.cities;
+            _citiesMaps = City.getCitiesNamesMapModels(context: context, cities: _country.cities);
+
+            _districts = [];
+            _districtsMaps = [];
+
             _openNextDialog = true;
           });
 
           /// if changed country, reset city & district
           if (_lastCountryID != countryID){
             setState(() {
-              _superFlyer.flyerZone.cityID = null;
-              _superFlyer.flyerZone.districtID = null;
+              _superFlyer.zone.cityID = null;
+              _superFlyer.zone.districtID = null;
             });
           }
 
@@ -1798,27 +1821,28 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         context: context,
         draggable: true,
         height: null,
-        title: '${_countryPro.getCountryNameInCurrentLanguageByIso3(context, _superFlyer.flyerZone.countryID)} Cities',
+        title: '${Country.getTranslatedCountryNameByID(context: context, countryID: _superFlyer.zone.countryID)} Cities',
         child: BottomDialogButtons(
-          listOfMaps: _cities,
-          mapValueIs: MapValueIs.String,
+          mapsModels: _citiesMaps,
           alignment: Alignment.center,
-          provider: _countryPro,
-          sheetType: BottomSheetType.Province,
+          bottomDialogType: BottomDialogType.cities,
           buttonTap: (cityID) async {
 
-            final String _lastCity = _superFlyer.flyerZone.cityID;
+            final String _lastCity = _superFlyer.zone.cityID;
 
             setState(() {
-              _superFlyer.flyerZone.cityID = cityID;
-              _districts = _countryPro.getDistrictsNameMapsByCityID(context, cityID);
+              _superFlyer.zone.cityID = cityID;
+
+              _districts = District.getDistrictsFromCountryModel(country: _country, cityID: cityID);
+              _districtsMaps = District.getDistrictsNamesMapModels(context: context, districts: _districts);
+
               _openNextDialog = true;
             });
 
             /// if city changed, reset district
             if (_lastCity != cityID){
               setState(() {
-                _superFlyer.flyerZone.districtID = null;
+                _superFlyer.zone.districtID = null;
               });
             }
 
@@ -1834,16 +1858,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         context: context,
         draggable: true,
         height: null,
-        title: '${_countryPro.getCityNameWithCurrentLanguageIfPossible(context, _superFlyer.flyerZone.cityID)} Districts',
+        title: '${City.getTranslatedCityNameFromCountry(context: context, country: _country, cityID: _superFlyer.zone.cityID)} Districts',
         child: BottomDialogButtons(
-          listOfMaps: _districts,
-          mapValueIs: MapValueIs.String,
+          mapsModels: _districtsMaps,
           alignment: Alignment.center,
-          provider: _countryPro,
-          sheetType: BottomSheetType.District,
+          bottomDialogType: BottomDialogType.districts,
           buttonTap: (districtID) async {
             setState(() {
-              _superFlyer.flyerZone.districtID = districtID;
+              _superFlyer.zone.districtID = districtID;
             });
 
             await Nav.goBack(context);
@@ -2348,7 +2370,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         flyerState: _superFlyer.flyerState,
         keywordsIDs: Keyword.getKeywordsIDsFromKeywords(_superFlyer.keywords),
         showsAuthor: _superFlyer.flyerShowsAuthor,
-        zone: _superFlyer.flyerZone,
+        zone: _superFlyer.zone,
         // -------------------------
         authorID: _superFlyer.authorID,
         bzID: _superFlyer.bz.bzID,
@@ -2404,7 +2426,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         flyerState: _superFlyer.flyerState,
         keywordsIDs: Keyword.getKeywordsIDsFromKeywords(_superFlyer.keywords),
         showsAuthor: _superFlyer.flyerShowsAuthor,
-        zone: _superFlyer.flyerZone,
+        zone: _superFlyer.zone,
         // -------------------------
         authorID: _superFlyer.authorID,
         bzID: _superFlyer.bz.bzID,

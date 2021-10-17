@@ -1,45 +1,53 @@
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/providers/zone_provider.dart';
+import 'package:bldrs/models/helpers/map_model.dart';
+import 'package:bldrs/models/helpers/namez_model.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/views/screens/d_more/d_3_select_area_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/listLayout.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart' show Sky;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SelectCityScreen extends StatelessWidget {
-  final String countryID;
+  final Country country;
 
   SelectCityScreen({
-    this.countryID = 'egy',
+    this.country,
   });
 
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
-    final String _countryName = _zoneProvider.getCurrentCountryNameByCurrentLingo(context);
-    final List<Map<String, dynamic>> _citiesMaps = _zoneProvider.getCurrentCountryCitiesNamesIDValuesMapsByCurrentLingo(context);
-    final String _countryFlag = Flagz.getFlagByCountryID(countryID);
+    final String _countryName = Name.getNameByCurrentLingoFromNames(context, country.names);
+    final List<MapModel> _citiesMapModels = City.getCitiesNamesMapModels(context: context, cities: country.cities);
+    final String _countryFlag = Flag.getFlagIconByCountryID(country.countryID);
 // -----------------------------------------------------------------------------
 
     return  ListLayout(
       pyramids: Iconz.PyramidzYellow,
       pageTitle: _countryName,
       icons: null,
-      idValueMaps: _citiesMaps,
+      mapModels: _citiesMapModels,
       pageIcon: _countryFlag,
       pageIconVerse: _countryName,
       sky: Sky.Black,
       onItemTap: (value){
-        print('value is $value');
+
+        final String _cityID = value;
+
+         final City _city = City.getCityFromCities(
+           cities: country.cities,
+           cityID: _cityID,
+         );
+
         Nav.goToNewScreen(context,
             SelectAreaScreen(
-              cityID : value,
-              countryID: countryID,
+              city : _city,
             )
         );
+
       },
     );
 

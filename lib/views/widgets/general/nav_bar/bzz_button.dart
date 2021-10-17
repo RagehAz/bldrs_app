@@ -1,12 +1,11 @@
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -57,7 +56,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
 
     final double _textBoxHeight =
     barType == BarType.maxWithText || barType == BarType.minWithText ?
-    superVerseRealHeight(context, _textSize, _textScaleFactor, null)
+    SuperVerse.superVerseRealHeight(context, _textSize, _textScaleFactor, null)
         :
     0
     ;
