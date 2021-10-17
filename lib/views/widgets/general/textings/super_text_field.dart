@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -121,21 +120,21 @@ class _SuperTextFieldState extends State<SuperTextField> {
     /// --- AVAILABLE FONT SIZES -----------------------------------------------
     final int _size = widget.inputSize;
     /// takes values from 0 to 8 in the entire app
-    final double _verseSize = superVerseSizeValue(context, _size, _scalingFactor);
+    final double _verseSize = SuperVerse.superVerseSizeValue(context, _size, _scalingFactor);
     /// --- AVAILABLE FONT WEIGHTS -----------------------------------------------
     final VerseWeight _weight = widget.inputWeight;
-    final FontWeight _verseWeight = superVerseWeight(_weight);
+    final FontWeight _verseWeight = SuperVerse.superVerseWeight(_weight);
     /// --- AVAILABLE FONTS -----------------------------------------------
-    final String _verseFont = superVerseFont(context, _weight);
+    final String _verseFont = SuperVerse.superVerseFont(context, _weight);
     /// --- LETTER SPACING -----------------------------------------------
-    final double _verseLetterSpacing = superVerseLetterSpacing(_weight, _verseSize);
+    final double _verseLetterSpacing = SuperVerse.superVerseLetterSpacing(_weight, _verseSize);
     /// --- WORD SPACING -----------------------------------------------
-    final double _verseWordSpacing = superVerseWordSpacing(_verseSize);
+    final double _verseWordSpacing = SuperVerse.superVerseWordSpacing(_verseSize);
     /// --- SHADOWS -----------------------------------------------
     final bool _shadow = widget.inputShadow;
     final double _shadowBlur = 0;
     final double _shadowYOffset = 0;
-    final double _shadowXOffset = superVerseXOffset(_weight, _verseSize);
+    final double _shadowXOffset = SuperVerse.superVerseXOffset(_weight, _verseSize);
     final double _secondShadowXOffset = -0.35 * _shadowXOffset;
     final Color _leftShadow = widget.inputColor == Colorz.Black230 ? Colorz.White125
         : Colorz.Black230;
@@ -150,12 +149,12 @@ class _SuperTextFieldState extends State<SuperTextField> {
     // double _margin = margin == null ? 0 : margin;
 
     /// --- LABEL CORNERS -----------------------------------------------
-    final double _labelCornerValues = superVerseLabelCornerValue(context, _size);
+    final double _labelCornerValues = SuperVerse.superVerseLabelCornerValue(context, _size);
     final double _labelCorner = widget.labelColor == Colorz.Nothing ? 0 :
     widget.corners == null ? _labelCornerValues :
     widget.corners;
     /// --- LABEL PADDINGS -----------------------------------------------
-    final double _sidePaddingValues = superVerseSidePaddingValues(context, _size);
+    final double _sidePaddingValues = SuperVerse.superVerseSidePaddingValues(context, _size);
 // -----------------------------------------------------------------------------
     final double _sidePaddings =
     widget.labelColor == Colorz.Nothing ? 0 : _sidePaddingValues;
@@ -199,7 +198,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
         letterSpacing: _verseLetterSpacing,
         wordSpacing: _verseWordSpacing,
         fontSize: _verseSize * _sizeFactor,
-        fontWeight: superVerseWeight(VerseWeight.thin),
+        fontWeight: SuperVerse.superVerseWeight(VerseWeight.thin),
         shadows: [],
       );
     }

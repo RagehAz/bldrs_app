@@ -1,29 +1,38 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/models/zone/region_model.dart';
 import 'package:flutter/material.dart';
 
 class Continent{
   final String name;
   final List<Region> regions;
+  final List<String> activatedCountriesIDs;
+  final List<String> globalCountriesIDs;
 
   const Continent({
     @required this.name,
     @required this.regions,
+    @required this.activatedCountriesIDs,
+    @required this.globalCountriesIDs,
 });
 
   Map<String, dynamic> toMap(){
     return {
       'name' : name,
       'regions' : Region.cipherRegions(regions),
+      'activatedCountriesIDs' : activatedCountriesIDs,
+      'globalCountriesIDs' : globalCountriesIDs,
     };
   }
 // -----------------------------------------------------------------------------
   static Continent decipherContinent(Map<String, dynamic> map){
 
     return
-        Continent(
-          name: map['name'],
-          regions: Region.decipherRegions(map['regions']),
-        );
+      Continent(
+        name: map['name'],
+        regions: Region.decipherRegions(map['regions']),
+        activatedCountriesIDs: Mapper.getStringsFromDynamics(dynamics : map['activatedCountriesIDs']),
+        globalCountriesIDs: Mapper.getStringsFromDynamics(dynamics : map['globalCountriesIDs']),
+      );
 
   }
 // -----------------------------------------------------------------------------
@@ -93,92 +102,31 @@ class Continent{
     return cont;
   }
 // -----------------------------------------------------------------------------
-}
+  static Continent getContinentFromContinentsByCountryID({@required List<Continent> continents, @required String countryID}) {
 
-class Region{
-  final String continent;
-  final String name;
-  final List<String> countriesIDs;
+    Continent _cont;
 
-  const Region({
-    @required this.continent,
-    @required this.name,
-    @required this.countriesIDs,
-});
-// -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap(){
+    for (Continent continent in continents){
 
-    return {
-      'continent' : continent,
-      'name' : name,
-      'countriesIDs' : countriesIDs,
-    };
+      for (Region region in continent.regions){
 
-  }
-// -----------------------------------------------------------------------------
-  static Region decipherRegion(Map<String, dynamic> map){
-    return
-      Region(
-        name: map['name'],
-        continent: map['continent'],
-        countriesIDs: Mapper.getStringsFromDynamics(dynamics: map['countriesIDs']),
-      );
-  }
-// -----------------------------------------------------------------------------
-  static Map<String, dynamic> cipherRegions(List<Region> regions){
+        for (String id in region.countriesIDs){
 
-    Map<String, dynamic> _map = {};
+          if (id == countryID){
 
-    if (Mapper.canLoopList(regions)){
+            _cont = continent;
+            break;
 
-      for (Region region in regions){
+          }
 
-        _map = Mapper.insertPairInMap(
-          map: _map,
-          value: region.toMap(),
-          key: region.name,
-        );
-
+          if(_cont != null){break;}
+        }
+        if(_cont != null){break;}
       }
-
+      if(_cont != null){break;}
     }
 
-    return _map;
+    return _cont;
   }
 // -----------------------------------------------------------------------------
-  static List<Region> decipherRegions(Map<String, dynamic> map){
-
-    final List<Region> _regions = <Region>[];
-
-    final List<String> _keys = map.keys.toList();
-
-    if (Mapper.canLoopList(_keys)){
-
-      for (String key in _keys){
-
-        _regions.add(decipherRegion(map[key]));
-
-      }
-
-    }
-
-    return _regions;
-  }
-// -----------------------------------------------------------------------------
-  static bool regionsIncludeRegion({@required List<Region> regions, @required String name}){
-
-    bool _includes = false;
-
-    for (Region region in regions){
-
-      if (region.name == name){
-        _includes = true;
-        break;
-      }
-
-    }
-
-    return _includes;
-  }
-
 }

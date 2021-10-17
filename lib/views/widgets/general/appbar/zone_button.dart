@@ -1,10 +1,13 @@
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
-import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/district_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/screens/d_more/d_2_select_city_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -27,22 +30,34 @@ class ZoneButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
-    final String _lastCountryID = _countryPro.currentCountryID;
-    final String _lastProvinceID = _countryPro.currentCityID;
-    final String _lastDistrictID = _countryPro.currentDistrictsID;
-    final String _lastCountryName = Localizer.translate(context, _lastCountryID);
-    final String _lastCountryFlag = Flagz.getFlagByCountryID(_lastCountryID);
-    final String _lastProvinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _lastProvinceID);
-    final String _lastDistrictName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _lastDistrictID);
+    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
 
-    // print('country ID : $_lastCountryID, provinceID : $_lastProvinceID, '
-    //     'districtID : $_lastDistrictID, CountryName : $_lastCountryName,'
-    //     ' ProvinceName : $_lastProvinceName, DistrictName : $_lastDistrictName');
+    final Zone _currentZone = _zoneProvider.currentZone;
+    final Country _currentCountry = _zoneProvider.currentCountry;
+
+    final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: _currentCountry.countryID);
+    final String _lastCountryFlag = Flag.getFlagIconByCountryID(_currentCountry.countryID);
+
+    final String _cityName = City.getTranslatedCityNameFromCountry(
+        context: context,
+        country: _currentCountry,
+        cityID: _currentZone.cityID,
+    );
+
+    final String _districtName = District.getTranslatedDistrictNameFromCountry(
+        context: context,
+        country: _currentCountry,
+        cityID: _currentZone.cityID,
+        districtID: _currentZone.districtID,
+    );
+
+    // print('country ID : $_lastCountryID, provinceID : $_cityID, '
+    //     'districtID : $_lastDistrictID, CountryName : $_countryName,'
+    //     ' ProvinceName : $_cityName, DistrictName : $_districtName');
 
     final String _countryAndProvinceNames =
-        appIsLeftToRight(context) ? '$_lastProvinceName - $_lastCountryName'
-    : '$_lastCountryName - $_lastProvinceName';
+        appIsLeftToRight(context) ? '$_cityName - $_countryName'
+    : '$_countryName - $_cityName';
 
     const double _flagHorizontalMargins = 2;
 
@@ -60,7 +75,7 @@ class ZoneButton extends StatelessWidget {
             color: isOn ? Colorz.Yellow255 : Colorz.White10
         ),
         child: ChangeNotifierProvider.value(
-          value: _countryPro,
+          value: _zoneProvider,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,7 +96,7 @@ class ZoneButton extends StatelessWidget {
                         color: isOn? Colorz.Black230 : Colorz.White255,
                       ),
                       SuperVerse(
-                        verse: _lastDistrictName,
+                        verse: _districtName,
                         size: 1,
                         scaleFactor: 0.8,
                         color: isOn? Colorz.Black230 : Colorz.White255,

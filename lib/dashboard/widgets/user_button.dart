@@ -1,9 +1,12 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/district_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_wrapper.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -42,10 +45,18 @@ class dashboardUserButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
-    final String _countryName = _countryPro .getCountryNameInCurrentLanguageByIso3(context, userModel.zone.countryID);
-    final String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, userModel.zone.cityID);
-    final String _districtName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, userModel.zone.districtID);
+
+    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
+    final Country _country = _zoneProvider.userCountryModel;
+
+    final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: _country.countryID);
+    final String _cityName = City.getTranslatedCityNameFromCountry(context: context, country: _country, cityID: userModel.zone.cityID);
+    final String _districtName = District.getTranslatedDistrictNameFromCountry(
+        context: context,
+        country: _country,
+        cityID: userModel.zone.cityID,
+        districtID: userModel.zone.districtID,
+    );
 
     final List<ContactModel> _stringyContacts = ContactModel.getContactsWithStringsFromContacts(userModel.contacts);
     final List<String> _stringyContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
@@ -87,7 +98,7 @@ class dashboardUserButton extends StatelessWidget {
                   DreamBox(
                     height: 25,
                     width: 25,
-                    icon: Flagz.getFlagByCountryID(userModel.zone.countryID),
+                    icon: Flag.getFlagIconByCountryID(userModel.zone.countryID),
                     corners: 5,
                   ),
 
@@ -104,7 +115,7 @@ class dashboardUserButton extends StatelessWidget {
                   DataStrip(dataKey: 'company', dataValue: userModel.company),
                   DataStrip(dataKey: 'gender', dataValue: userModel.gender),
                   DataStrip(dataKey: 'zone', dataValue: userModel.zone),
-                  DataStrip(dataKey: 'zone String', dataValue: 'in [ $_districtName ] - [ $_provinceName ] - [ $_countryName ]'),
+                  DataStrip(dataKey: 'zone String', dataValue: 'in [ $_districtName ] - [ $_cityName ] - [ $_countryName ]'),
                   DataStrip(dataKey: 'language', dataValue: userModel.language),
                   DataStrip(dataKey: 'position', dataValue: userModel.position),
                   DataStrip(dataKey: 'contacts', dataValue: userModel.contacts),

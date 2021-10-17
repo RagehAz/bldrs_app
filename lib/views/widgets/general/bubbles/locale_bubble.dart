@@ -1,11 +1,14 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
-import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/helpers/map_model.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/district_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -34,125 +37,162 @@ class LocaleBubble extends StatefulWidget {
 }
 
 class _LocaleBubbleState extends State<LocaleBubble> {
-  String _chosenCountryID;
-  String _chosenCityID;
-  String _chosenDistrictID;
+  Country _selectedCountry;
+  String _selectedCityID;
+  String _selectedDistrictID;
   Zone _userZone;
-
+  ZoneProvider _zoneProvider;
 
   @override
   void initState() {
     super.initState();
     _userZone = widget.currentZone;
-    // CountryProvider _countryPro = Provider.of<CountryProvider>(context, listen: false);
-    _chosenCountryID = _userZone.countryID ;// == null ? _countryPro.currentCountryID : _userZone.countryID;
-    _chosenCityID = _userZone.cityID ;// == null ? _countryPro.currentProvinceID : _userZone.provinceID;
-    _chosenDistrictID = _userZone.districtID ;// == null ? _countryPro.currentDistrictID : _userZone.districtID;
+    _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
+
+    _selectedCountry = _zoneProvider.userCountryModel;
+    _selectedCityID = _userZone.cityID;
+    _selectedDistrictID = _userZone.districtID;
   }
 
 // -----------------------------------------------------------------------------
-  void _closeBottomSheet(){
-    Navigator.of(context).pop();
+  Future<void> _closeBottomSheet() async {
+    await Navigator.of(context).pop();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _tapCountryButton({BuildContext context, OldCountryProvider countryPro, List<Map<String, String>> flags}) async {
+  Future<void> _tapCountryButton({@required BuildContext context}) async {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
+
+    List<MapModel> _countriesMapModels = Country.getAllCountriesNamesMapModels(context);
 
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: null,
       child: BottomDialogButtons(
-        listOfMaps: flags,
-        mapValueIs: MapValueIs.flag,
+        mapsModels: _countriesMapModels,
         alignment: Alignment.center,
-        provider: countryPro,
-        sheetType: BottomSheetType.BottomSheet,
+        bottomDialogType: BottomDialogType.countries,
         buttonTap: (countryID){
+
           setState(() {
-            _chosenCountryID = countryID;
-            _chosenCityID = null;
-            _chosenDistrictID = null;
+            _selectedCountry = countryID;
+            _selectedCityID = null;
+            _selectedDistrictID = null;
           });
+
           widget.changeCountry(countryID);
-          print('_currentCountryID : $_chosenCountryID');
+          print('_currentCountryID : $_selectedCountry');
+
           _closeBottomSheet();
         },
       ),
     );
   }
 // -----------------------------------------------------------------------------
-  Future<void> _tapCityButton({BuildContext context, OldCountryProvider countryPro, List<Map<String, String>> cities}) async {
+  Future<void> _tapCityButton({@required BuildContext context}) async {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
+
+    final List<MapModel> _citiesMapModels = City.getCitiesNamesMapModels(
+        context : context,
+        cities: _selectedCountry.cities
+    );
 
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: null,
       child: BottomDialogButtons(
-        listOfMaps: cities,
-        mapValueIs: MapValueIs.String,
+        mapsModels: _citiesMapModels,
         alignment: Alignment.center,
-        provider: countryPro,
-        sheetType: BottomSheetType.Province,
+        bottomDialogType: BottomDialogType.cities,
         buttonTap: (provinceID){
           setState(() {
-            _chosenCityID = provinceID;
-            _chosenDistrictID = null;
+            _selectedCityID = provinceID;
+            _selectedDistrictID = null;
           });
           widget.changeCity(provinceID);
-          print('_currentProvince : $_chosenCityID');
+          print('_currentProvince : $_selectedCityID');
           _closeBottomSheet();
         },
       ),
     );
   }
 // -----------------------------------------------------------------------------
-  Future<void> _tapDistrictButton({BuildContext context, OldCountryProvider countryPro, List<Map<String, String>> districts}) async {
+  Future<void> _tapDistrictButton({@required BuildContext context}) async {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
+
+    List<District> _selectedCityDistricts = District.getDistrictsFromCountryModel(
+      country: _selectedCountry,
+      cityID: _selectedCityID,
+    );
+
+    List<MapModel> _districtsMapModels = District.getDistrictsNamesMapModels(
+      context: context,
+      districts: _selectedCityDistricts,
+    );
 
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: null,
       child: BottomDialogButtons(
-        listOfMaps: districts,
-        mapValueIs: MapValueIs.String,
+        mapsModels: _districtsMapModels,
         alignment: Alignment.center,
-        provider: countryPro,
-        sheetType: BottomSheetType.District,
+        bottomDialogType: BottomDialogType.districts,
         buttonTap: (districtID){
+
           setState(() {
-            _chosenDistrictID = districtID;
+            _selectedDistrictID = districtID;
           });
+
           widget.changeDistrict(districtID);
           print('_current districtID : $districtID');
+
           _closeBottomSheet();
         },
       ),
     );
+  }
+// -----------------------------------------------------------------------------
+  String _getSelectedCityName(){
+    final String _selectedCityName = _selectedCityID == null ?
+    '...'
+        :
+    City.getTranslatedCityNameFromCountry(
+        context: context,
+        country: _selectedCountry,
+        cityID: _selectedCityID
+    );
+
+    return _selectedCityName;
+  }
+// -----------------------------------------------------------------------------
+  String _getSelectedDistrictName(){
+    final String _selectedDistrictName = _selectedDistrictID == null ?
+    '...'
+        :
+    District.getTranslatedDistrictNameFromCountry(
+      context: context,
+      country: _selectedCountry,
+      cityID: _selectedCityID,
+      districtID: _selectedDistrictID,
+    );
+
+    return _selectedDistrictName;
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
 
-    final List<Map<String,String>> _flags = _countryPro.getAvailableCountries(context);
-    final List<Map<String,String>> _cities = _countryPro.getCitiesNamesMapsByIso3(context, _chosenCountryID);//_chosenCountry);
-    final List<Map<String,String>> _districts = _countryPro.getDistrictsNameMapsByCityID(context, _chosenCityID);//_chosenProvince);
+    final String _selectedCountryName = Country.getTranslatedCountryNameByID(context: context, countryID: _selectedCountry.countryID);
+    final String _selectedCountryFlag = _selectedCountry == null ? '' : Flag.getFlagIconByCountryID(_selectedCountry.countryID);
 
-    final String _chosenCountryName = _chosenCountryID == null ? '...' : Localizer.translate(context, _chosenCountryID);
-    final String _chosenCountryFlag = _chosenCountryID == null ? '' : Flagz.getFlagByCountryID(_chosenCountryID);
-    final String _chosenCityName = _chosenCityID == null ? '...' : _countryPro.getCityNameWithCurrentLanguageIfPossible(context, _chosenCityID);
-    final String _chosenDistrictName = _chosenDistrictID == null ? '...' : _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, _chosenDistrictID);
+    final String _selectedCityName = _getSelectedCityName();
+    final String _selectedDistrictName = _getSelectedDistrictName();
 
-
-    // double _bubbleClearWidth = Scale.superBubbleClearWidth(context);
-    // double _buttonsSpacing = Ratioz.ddAppBarMargin;
-    // double _buttonWidth = (_bubbleClearWidth / 3)-((2*_buttonsSpacing)/3);
 
     return Bubble(
       title: widget.title,
@@ -167,23 +207,23 @@ class _LocaleBubbleState extends State<LocaleBubble> {
               /// COUNTRY BUTTON
               LocaleButton(
                   title: Wordz.country(context),
-                  icon: _chosenCountryFlag, //geebCountryFlagByCountryName(context),
-                  verse: _chosenCountryName,
-                  onTap: () => _tapCountryButton(context: context, flags: _flags, countryPro: _countryPro ),
+                  icon: _selectedCountryFlag, //geebCountryFlagByCountryName(context),
+                  verse: _selectedCountryName,
+                  onTap: () => _tapCountryButton(context: context),
               ),
 
               /// PROVINCE BUTTON
               LocaleButton(
                 title: 'City', //Wordz.province(context),
-                verse: _chosenCityName,
-                onTap: () => _tapCityButton(context: context, cities: _cities, countryPro: _countryPro ),
+                verse: _selectedCityName,
+                onTap: () => _tapCityButton(context: context),
               ),
 
               /// AREA BUTTON
               LocaleButton(
                 title: 'Area', //Wordz.area(context),
-                verse: _chosenDistrictName,
-                onTap: ()=>_tapDistrictButton(context: context, districts: _districts, countryPro: _countryPro),
+                verse: _selectedDistrictName,
+                onTap: () => _tapDistrictButton(context: context),
               ),
 
             ],

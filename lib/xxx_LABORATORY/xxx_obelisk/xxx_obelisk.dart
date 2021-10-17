@@ -154,6 +154,10 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           LogoSlogan(sizeFactor: 0.8,),
 
+          oButton('TEST LAB', Iconz.Flyer, RandomTestSpace(
+            flyerBoxWidth: FlyerBox.width(context, 0.5),
+          )),
+
           oButton('TimersTest', Iconz.Clock, TimerTest()),
 
           oButton('Trigram Test', Iconz.More, TrigramTest()),
@@ -175,10 +179,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           // oButton('HERO TEST', Iconz.DvDonaldDuck, HeroMinScreen()),
 
           oButton('go to user checker', Iconz.Flyer, UserChecker()),
-
-          oButton('Random Test Space', Iconz.Flyer, RandomTestSpace(
-            flyerBoxWidth: FlyerBox.width(context, 0.5),
-          )),
 
           oButton('Slider Test Screen', Iconz.Flyer, SliderTestScreen()),
 

@@ -370,7 +370,7 @@ class Keyword {
     return _nameWithCurrentLanguage;
   }
 // -----------------------------------------------------------------------------
-  static Keyword getKeywordModelFromDistrict(DistrictModel district){
+  static Keyword getKeywordModelFromDistrict(District district){
 
     final Keyword _keywordModel = Keyword(
       keywordID: district.districtID,
@@ -384,10 +384,10 @@ class Keyword {
     return _keywordModel;
   }
 // -----------------------------------------------------------------------------
-  static List<Keyword> getKeywordsModelsFromDistricts(List<DistrictModel> districts){
+  static List<Keyword> getKeywordsModelsFromDistricts(List<District> districts){
     final List<Keyword> _keywords = <Keyword>[];
 
-    for (DistrictModel district in districts){
+    for (District district in districts){
       _keywords.add(getKeywordModelFromDistrict(district));
     }
 

@@ -5,6 +5,7 @@ import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/tile_bubble.dart';
@@ -15,7 +16,7 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class CountryEditorScreen extends StatefulWidget {
-  final CountryModel country;
+  final Country country;
 
   CountryEditorScreen({@required this.country});
 
@@ -33,7 +34,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
   String _flag;
   bool _isActivated;
   bool _isGlobal;
-  List<CityModel> _cities;
+  List<City> _cities;
   String _language;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -64,7 +65,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     _name = Name.getNameByCurrentLingoFromNames(context, widget.country.names);
     _region = widget.country.region;
     _continent = widget.country.continent;
-    _flag = widget.country.flag;
+    _flag = Flag.getFlagIconByCountryID(widget.country.countryID);
     _isActivated = widget.country.isActivated;
     _isGlobal = widget.country.isGlobal;
     _cities = widget.country.cities;
@@ -89,7 +90,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final List<String> _citiesNames = CityModel.getCitiesNamesFromCountryModelByCurrentLingo(
+    final List<String> _citiesNames = City.getCitiesNamesFromCountryModelByCurrentLingo(
       context: context,
       country: widget.country,
     );
@@ -239,7 +240,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           KeywordsBubble(
             title: '${_citiesNames.length} Provinces',
-            keywords: CityModel.getKeywordsFromCities(context, _cities),
+            keywords: City.getKeywordsFromCities(context: context, cities: _cities),
             onTap: (val) {print(val);},
             selectedWords: <dynamic>[],
             addButtonIsOn: false,

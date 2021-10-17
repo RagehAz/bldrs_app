@@ -64,7 +64,7 @@ class SuperFlyer{
   List<Keyword> keywords; // MutableFlyer -- ?
 
   /// flyer location
-  Zone flyerZone; // MutableFlyer -- ?
+  Zone zone; // MutableFlyer -- ?
   GeoPoint position; // MutableFlyer -- ?
 
   /// publishing times
@@ -120,7 +120,7 @@ class SuperFlyer{
     @required this.keywords,
 
     /// flyer location
-    @required this.flyerZone,
+    @required this.zone,
     @required this.position,
 
     /// publishing times
@@ -231,7 +231,7 @@ class SuperFlyer{
           keywords: null,
 
           /// flyer location
-          flyerZone: null,
+          zone: null,
           position: null,
 
           /// publishing times
@@ -374,7 +374,7 @@ class SuperFlyer{
         keywords: Keyword.getKeywordsByKeywordsIDs(flyerModel.keywordsIDs),
 
         /// flyer location
-        flyerZone: flyerModel.zone,
+        zone: flyerModel.zone,
         position: flyerModel.position,
 
         /// publishing times
@@ -525,7 +525,7 @@ class SuperFlyer{
         keywords: <Keyword>[],
 
         /// flyer location
-        flyerZone: _countryPro.currentZone,
+        zone: _countryPro.currentZone,
         position: null,
 
         /// publishing times
@@ -675,7 +675,7 @@ class SuperFlyer{
         keywords: Keyword.getKeywordsByKeywordsIDs(flyerModel.keywordsIDs),
 
         /// flyer location
-        flyerZone: flyerModel.zone,
+        zone: flyerModel.zone,
         position: flyerModel.position,
 
         /// publishing times
@@ -786,7 +786,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         keywords: null,
 
         /// flyer location
-        flyerZone: null,
+        zone: null,
         position: null,
 
         /// publishing times

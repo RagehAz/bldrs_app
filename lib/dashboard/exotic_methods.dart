@@ -6,6 +6,7 @@ import 'package:bldrs/models/secondary_models/feedback_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/continent_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/region_model.dart';
 import 'package:flutter/material.dart';
 
 abstract class ExoticMethods{
@@ -98,7 +99,7 @@ abstract class ExoticMethods{
     return _allModels;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<CountryModel>> readAllCountryModels({@required BuildContext context, }) async {
+  static Future<List<Country>> readAllCountryModels({@required BuildContext context, }) async {
     // List<CountryModel> _allCountries = await ExoticMethods.readAllCountryModels(context: context);
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
@@ -109,7 +110,7 @@ abstract class ExoticMethods{
       addDocID: false,
     );
 
-    final List<CountryModel> _countriesModels = CountryModel.decipherCountriesMaps(maps: _maps, fromJSON: false);
+    final List<Country> _countriesModels = Country.decipherCountriesMaps(maps: _maps, fromJSON: false);
 
     return _countriesModels;
   }
@@ -117,11 +118,11 @@ abstract class ExoticMethods{
   static Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context) async {
     /// in case any (continent name) or (region name) or (countryID) has changed
 
-    final List<CountryModel> _allCountries = await ExoticMethods.readAllCountryModels(context: context);
+    final List<Country> _allCountries = await ExoticMethods.readAllCountryModels(context: context);
 
     final List<Continent> _continents = <Continent>[];
 
-    for (CountryModel country in _allCountries){
+    for (Country country in _allCountries){
 
       /// add continent
       final bool _continentIsAddedAlready = Continent.continentsIncludeContinent(
@@ -132,6 +133,8 @@ abstract class ExoticMethods{
         _continents.add(Continent(
           name: country.continent,
           regions: [],
+          globalCountriesIDs: [],
+          activatedCountriesIDs: [],
         ));
       }
 
@@ -153,7 +156,7 @@ abstract class ExoticMethods{
 
       /// add country to region
       final int _regionIndex = _continents[_continentIndex].regions.indexWhere((region) => region.name == country.region);
-      final bool _countryIsAddedAlready = CountryModel.countriesIDsIncludeCountryID(
+      final bool _countryIsAddedAlready = Country.countriesIDsIncludeCountryID(
         countryID: country.countryID,
         countriesIDs:  _continents[_continentIndex].regions[_regionIndex].countriesIDs,
       );

@@ -1,6 +1,10 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/zone/continent_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/screens/d_more/d_2_select_city_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/swiper_layout_screen.dart';
@@ -17,43 +21,93 @@ class SelectCountryScreen extends StatefulWidget {
 }
 
 class _SelectCountryScreenState extends State<SelectCountryScreen> {
-    OldCountryProvider _countryPro;
+    ZoneProvider _zoneProvider;
+// -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
+  bool _loading = false;
+  Future <void> _triggerLoading({Function function}) async {
+
+    if (function == null){
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+
+    else {
+      setState(() {
+        _loading = !_loading;
+        function();
+      });
+    }
+
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
+    _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
   }
 // -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      _triggerLoading().then((_) async{
+
+        final List<Continent> _continents = await _zoneProvider.fetchContinents(context: context);
+
+        _triggerLoading(
+            function: (){
+              _allContinents = _continents;
+            }
+        );
+
+      });
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  List<Continent> _allContinents;
   List<Map<String, dynamic>> _generatePages(){
     final List<Map<String, dynamic>> _pages = <Map<String, dynamic>>[];
 
-    Iconizer.continentsMaps.forEach((cont) {
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _pageHeight = _screenHeight - Ratioz.stratosphere;
 
-      final List<String> _countriesIDs = _countryPro.getCountriesIDsByContinent(
-        context: context,
-        continent: cont['name'],
-      );
+
+    _allContinents.forEach((continent) {
+
+      final List<String> _countriesIDs = Country.getCountriesIDsOfContinent(continent);
+      final String _continentIcon = Iconizer.getContinentIcon(continent);
 
       _pages.add(
 
         {
 
-          'title' : cont['name'],
+          'title' : continent.name,
 
-          'widget' :
-          ZonesPage(
-            title: cont['name'],
-            continentIcon: cont['icon'],
-            countriesIDs: _countriesIDs,
-            buttonTap: (countryID) async {
+          'widget' : SafeArea(
+            top: true,
+            child: ZonesPage(
+              title: continent.name,
+              continentIcon: _continentIcon,
+              countriesIDs: _countriesIDs,
+              pageHeight: _pageHeight,
+              buttonTap: (countryID) async {
 
-              print('countryID is : $countryID');
+                print('countryID is : $countryID');
 
-              Nav.goToNewScreen(context, SelectCityScreen(countryID: countryID,));
+                final Country _country = await _zoneProvider.fetchCountryByID(context: context, countryID: countryID);
 
-            },
+                Nav.goToNewScreen(context, SelectCityScreen(country: _country));
+
+              },
+            ),
           ),
 
         },
