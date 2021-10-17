@@ -14,12 +14,12 @@ import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
-enum BottomSheetType {
-  Country,
-  Province,
-  District,
-  Language,
-  BottomSheet,
+enum BottomDialogType {
+  countries,
+  cities,
+  districts,
+  languages,
+  bottomSheet,
 }
 // -----------------------------------------------------------------------------
 /// TASK: should check draggable scrollable sheet

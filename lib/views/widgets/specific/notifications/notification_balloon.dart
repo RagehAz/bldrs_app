@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/theme/flagz.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/user_balloon.dart';
@@ -58,7 +58,7 @@ class NotificationSenderBalloon extends StatelessWidget {
       DreamBox(
         width: balloonWidth,
         height: balloonWidth,
-        icon: Flagz.getFlagByCountryID(pic),
+        icon: Flag.getFlagIconByCountryID(pic),
       )
           :
       DreamBox(

@@ -3,12 +3,14 @@ import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/flagz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/views/screens/d_more/d_2_select_city_screen.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
+import 'package:bldrs/providers/zone_provider.dart';
+import 'package:bldrs/views/screens/d_more/d_1_select_country_screen.dart';
 import 'package:bldrs/views/screens/d_more/d_4_change_language_screen.dart';
 import 'package:bldrs/views/screens/d_more/d_5_about_bldrs_screen.dart';
 import 'package:bldrs/views/screens/d_more/d_6_feedback_screen.dart';
@@ -20,6 +22,7 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MoreScreen extends StatelessWidget {
   // final AuthOps _authOps = AuthOps();
@@ -32,7 +35,9 @@ class MoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final Widget _separator = BubblesSeparator();
+    final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
+    final Country _currentCountry = zoneProvider.currentCountry;
+    final String _currentFlag = Flag.getFlagIconByCountryID(_currentCountry.countryID);
 
     return MainLayout(
       appBarType: AppBarType.Basic,
@@ -55,7 +60,7 @@ class MoreScreen extends StatelessWidget {
                 btOnTap: () => Nav.goToNewScreen(context, BzEditorScreen(firstTimer: true, userModel: userModel)),
               ),
 
-              _separator,
+              const BubblesSeparator(),
 
               TileBubble(
                 verse: Wordz.inviteFriends(context),
@@ -74,19 +79,19 @@ class MoreScreen extends StatelessWidget {
                 verseColor: Colorz.White255,
               ),
 
-              _separator,
+              const BubblesSeparator(),
 
               TileBubble(
                 verse: Wordz.changeCountry(context),
-                icon: FlagBox(flag: Flagz.egy),
+                icon: FlagBox(flag: _currentFlag),
                 iconSizeFactor: 0.9,
                 btOnTap: () => Nav.goToNewScreen(context,
 
                     /// PLAN : when we include more countries, we just go to SelectCountryScreen();
-                    // SelectCountryScreen()
+                    SelectCountryScreen()
 
-                    /// but now we go to Egypt cities directly
-                  SelectCityScreen(countryID: 'egy',)
+                  //   /// but now we go to Egypt cities directly
+                  // SelectCityScreen(countryID: 'egy',)
 
                 ),
               ),
@@ -97,7 +102,7 @@ class MoreScreen extends StatelessWidget {
                 btOnTap: () => Nav.goToNewScreen(context, SelectLanguageScreen()),
               ),
 
-              _separator,
+              const BubblesSeparator(),
 
               TileBubble(
                 verse: '${Wordz.about(context)} ${Wordz.bldrsShortName(context)}',
@@ -118,7 +123,7 @@ class MoreScreen extends StatelessWidget {
                 iconSizeFactor: 0.6,
               ),
 
-              _separator,
+              const BubblesSeparator(),
 
               TileBubble(
                 verse: Wordz.advertiseOnBldrs(context),
@@ -131,7 +136,7 @@ class MoreScreen extends StatelessWidget {
               //   iconSizeFactor: 0.7,
               // ),
 
-              _separator,
+              const BubblesSeparator(),
 
               TileBubble(
                 verse: 'Open App Tutorial',
@@ -154,7 +159,7 @@ class MoreScreen extends StatelessWidget {
                 iconSizeFactor: 0.6,
               ),
 
-              _separator,
+              const BubblesSeparator(),
 
               TileBubble(
                 verse: Wordz.signOut(context),
@@ -163,7 +168,7 @@ class MoreScreen extends StatelessWidget {
                 btOnTap: () => AuthOps().signOut(context: context, routeToUserChecker: true),
               ),
 
-              _separator,
+              const BubblesSeparator(),
 
               TileBubble(
                 verse: 'To the Beyond and Further',

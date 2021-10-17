@@ -1,3 +1,5 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/models/helpers/map_model.dart';
 import 'package:flutter/material.dart';
 
 /// --- BEHOLD ---
@@ -14,6 +16,18 @@ import 'package:flutter/material.dart';
 
 // ‎ ‎ ‎ ‎
 class Lingo{
+  /// lang codes tiers
+  /// A:-
+  /// AR:Arabic, ES:Spanish, FR:French, ZH:Chinese, DE:German, IT:Italian,
+  /// B:-
+  /// HI:Hindi, RU:Russian, TR:Turkish, PT:Portuguese
+  /// C:-
+  /// ID:Indonesian, BN:Bengali, SW:Swahili, FA: Farsi, JA:Japanese
+  /// D:-
+  /// UK:Ukrainian, PL:Polish, NL:Dutch, MS:Malay, PA:Punjabi,
+  /// E:-
+  /// TL:Tagalog, TE:Telugu, MR:Marathi, KO:Korean,
+
   final String code;
   final String name;
 
@@ -22,34 +36,25 @@ class Lingo{
     @required this.name,
   });
 // -----------------------------------------------------------------------------
-  static Map<String, String> cipherLingoToMap(Lingo language){
-    return
-        {
-          'id' : language.code,
-          'value' : language.name,
-        };
-  }
-// -----------------------------------------------------------------------------
-  static List<Map<String, String>> cipherLingosToMaps(List<Lingo> lingos){
-    List<Map<String, String>> _maps = <Map<String, String>>[];
+  static List<MapModel> getLingoNamesMapModels(List<Lingo> lingos){
+    final List<MapModel> _lingosMapModels = <MapModel>[];
 
-    for (Lingo lingo in lingos){
-      _maps.add(cipherLingoToMap(lingo));
+    if (Mapper.canLoopList(lingos)){
+
+      lingos.forEach((lingo) {
+
+        _lingosMapModels.add(
+            MapModel(
+                key: lingo.code,
+                value: lingo.name,
+            )
+        );
+
+      });
+
     }
 
-    return _maps;
-  }
-// -----------------------------------------------------------------------------
-  static Lingo decipherFromMap(Map<String, String> map){
-    Lingo _lingo;
-    if (map != null){
-      _lingo = Lingo(
-        code: map['code'],
-        name: map['name'],
-      );
-    }
-
-    return _lingo;
+    return _lingosMapModels;
   }
 // -----------------------------------------------------------------------------
   static const List<Lingo> allLanguages = <Lingo>[
@@ -86,7 +91,7 @@ class Lingo{
   static const String italianCode = 'it';
   static const Lingo italianLingo = const Lingo(code: italianCode, name: 'Italiano');
 // -----------------------------------------------------------------------------
-  static List<String> getAllCodes(){
+  static List<String> getAllLingoCodes(){
     final List<String> _codes = <String>[];
 
     for (Lingo lingo in allLanguages){
@@ -96,17 +101,4 @@ class Lingo{
     return _codes;
   }
 // -----------------------------------------------------------------------------
-
-/// lang codes tiers
-/// A:-
-/// AR:Arabic, ES:Spanish, FR:French, ZH:Chinese, DE:German, IT:Italian,
-/// B:-
-/// HI:Hindi, RU:Russian, TR:Turkish, PT:Portuguese
-/// C:-
-/// ID:Indonesian, BN:Bengali, SW:Swahili, FA: Farsi, JA:Japanese
-/// D:-
-/// UK:Ukrainian, PL:Polish, NL:Dutch, MS:Malay, PA:Punjabi,
-/// E:-
-/// TL:Tagalog, TE:Telugu, MR:Marathi, KO:Korean,
-
 }

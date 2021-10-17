@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 
-// -----------------------------------------------------------------------------
-class Zone {
+class Zone{
   String countryID;
   String cityID;
   String districtID;
@@ -100,6 +99,17 @@ class Zone {
       cityID: 'cairo',
       districtID: 'el_rehab',
     );
+  }
+// -----------------------------------------------------------------------------
+  void printZone({String methodName = 'ZONE - PRINT'}){
+
+    print('$methodName ------------------------------- START');
+
+    print('countryID : ${countryID}');
+    print('cityID : ${cityID}');
+    print('districtID : ${districtID}');
+
+    print('$methodName ------------------------------- END');
   }
 // -----------------------------------------------------------------------------
 }

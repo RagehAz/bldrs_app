@@ -1,26 +1,29 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
+import 'package:bldrs/providers/zone_provider.dart';
+import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
+import 'package:bldrs/views/widgets/general/bubbles/paragraph_bubble.dart';
+import 'package:bldrs/views/widgets/general/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/info_page_parts/review_bubble.dart';
 import 'package:bldrs/views/widgets/specific/keywords/keywords_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/controllers/drafters/iconizers.dart';
-import 'package:bldrs/controllers/drafters/text_generators.dart';
-import 'package:bldrs/controllers/theme/flagz.dart';
-import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/views/widgets/general/bubbles/paragraph_bubble.dart';
-import 'package:bldrs/views/widgets/general/bubbles/stats_line.dart';
 
 final PageStorageBucket appBucket = PageStorageBucket();
 
@@ -56,10 +59,12 @@ class InfoPage extends StatelessWidget {
 
     final FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType) : superFlyer.flyerType;
 
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
-    final String _countryName = _countryPro.getCountryNameInCurrentLanguageByIso3(context, superFlyer.flyerZone.countryID);
-    final String _cityNameRetrieved = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, superFlyer.flyerZone.cityID);
-    final String _cityName = _cityNameRetrieved == null ? '.....' : _cityNameRetrieved;
+    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
+    final Country _currentCountry = _zoneProvider.currentCountry;
+    final Zone _currentZone = _zoneProvider.currentZone;
+
+    final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: _currentCountry.countryID);
+    final String _cityName = City.getTranslatedCityNameFromCountry(context: context, country: _currentCountry, cityID: _currentZone.cityID);
 
     // List<TinyUser> _users = TinyUser.dummyTinyUsers();
 
@@ -116,7 +121,7 @@ class InfoPage extends StatelessWidget {
               /// ZONE
               StatsLine(
                 verse: 'Targeting : ${_cityName} , ${_countryName}',
-                icon: Flagz.getFlagByCountryID(superFlyer.flyerZone.countryID),
+                icon: Flag.getFlagIconByCountryID(superFlyer.zone.countryID),
                 bubbleWidth: _bubbleWidth,
               ),
 
@@ -156,7 +161,7 @@ class InfoPage extends StatelessWidget {
 
               StatsLine(
                 verse: 'Targeting : ${_cityName} , ${_countryName}',
-                icon: Flagz.getFlagByCountryID(superFlyer.flyerZone.countryID),
+                icon: Flag.getFlagIconByCountryID(superFlyer.zone.countryID),
                 bubbleWidth: _bubbleWidth,
               ),
             ],

@@ -2,7 +2,6 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
-import 'package:bldrs/controllers/drafters/text_shapers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -492,7 +491,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     final double _buttonPadding = _browserIsOn == true ? Ratioz.appBarPadding * 1.5 : Ratioz.appBarPadding * 1.5;
 
-    final double _browserMinZoneHeight = 40 + _buttonPadding * 2 + superVerseRealHeight(context, 0, 0.95, null);
+    final double _browserMinZoneHeight = 40 + _buttonPadding * 2 + SuperVerse.superVerseRealHeight(context, 0, 0.95, null);
     final double _browserMaxZoneHeight = Scale.superScreenHeightWithoutSafeArea(context) - Ratioz.appBarBigHeight - Ratioz.keywordsBarHeight - Ratioz.appBarMargin * 4;
 
     final double _browserMinZoneWidth = 40 + _buttonPadding * 2;

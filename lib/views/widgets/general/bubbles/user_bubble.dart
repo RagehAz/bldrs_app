@@ -1,20 +1,25 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
-import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/district_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/buttons/flagbox_button.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class UserBubble extends StatelessWidget {
+class UserBubble extends StatefulWidget {
   final UserModel user;
   final Function switchUserType;
   final Function editProfileBtOnTap;
@@ -28,13 +33,88 @@ class UserBubble extends StatelessWidget {
   });
 
   @override
+  State<UserBubble> createState() => _UserBubbleState();
+}
+
+class _UserBubbleState extends State<UserBubble> {
+  Country _userCountry;
+  // -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
+  bool _loading = false;
+  Future <void> _triggerLoading({Function function}) async {
+
+    if(mounted){
+
+      if (function == null){
+        setState(() {
+          _loading = !_loading;
+        });
+      }
+
+      else {
+        setState(() {
+          _loading = !_loading;
+          function();
+        });
+      }
+
+    }
+
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void initState() {
+
+    super.initState();
+  }
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      _triggerLoading().then((_) async{
+
+        final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
+
+        final Zone _userZone = widget.user.zone;
+        final Country _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _userZone.countryID);
+
+
+        _triggerLoading(
+            function: (){
+              _userCountry = _country;
+            }
+        );
+      });
+
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+
+
+  @override
   Widget build(BuildContext context) {
 
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
-    final String _countryName = Localizer.translate(context, user?.zone?.countryID);
-    // String _countryFlag = Flagz.getFlagByIso3(user?.zone?.countryID);
-    final String _provinceName = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, user?.zone?.cityID);
-    final String _areaName = _countryPro.getDistrictNameWithCurrentLanguageIfPossible(context, user?.zone?.districtID);
+    final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: _userCountry?.countryID);
+    final String _countryFlag = Flag.getFlagIconByCountryID(_userCountry?.countryID);
+
+    final String _cityName = City.getTranslatedCityNameFromCountry(
+        context: context,
+        country: _userCountry,
+        cityID: widget.user?.zone?.cityID
+    );
+
+    final String _districtName = District.getTranslatedDistrictNameFromCountry(
+      context: context,
+      country: _userCountry,
+      cityID: widget.user?.zone?.cityID,
+      districtID: widget.user?.zone?.districtID,
+    );
 
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
@@ -56,21 +136,21 @@ class UserBubble extends StatelessWidget {
             icon: Iconz.Gears,
             iconSizeFactor: 0.6,
             bubble: true,
-            onTap: editProfileBtOnTap,
+            onTap: widget.editProfileBtOnTap,
           ),
         ),
 
         UserBalloon(
           balloonWidth: 80,
-          balloonType: user?.userStatus,
+          balloonType: widget.user?.userStatus,
           // userPic: user?.pic,
-          onTap: (){print(user.userID);},
-          loading: loading,
+          onTap: (){print(widget.user.userID);},
+          loading: widget.loading,
         ),
 
         /// USER NAME
         SuperVerse(
-          verse: user?.name,
+          verse: widget.user?.name,
           shadow: true,
           size: 4,
           margin: 5,
@@ -80,25 +160,38 @@ class UserBubble extends StatelessWidget {
 
         /// USER JOB TITLE
         SuperVerse(
-          verse: '${user?.title} @ ${user?.company}',
+          verse: '${widget.user?.title} @ ${widget.user?.company}',
           size: 2,
           italic: true,
           weight: VerseWeight.thin,
         ),
 
         /// USER LOCALE
-        SuperVerse(
-          verse: '${Wordz.inn(context)} $_areaName, $_provinceName, $_countryName',
-          weight: VerseWeight.thin,
-          italic: true,
-          color: Colorz.Grey225,
-          size: 2,
-          margin: 5,
+        Container(
+          height: SuperVerse.superVerseRealHeight(context, 2, 1, null),
+          child: Row(
+            children: <Widget>[
+
+              FlagBox(
+                flag: _countryFlag,
+              ),
+
+              SuperVerse(
+                verse: '${Wordz.inn(context)} $_districtName, $_cityName, $_countryName',
+                weight: VerseWeight.thin,
+                italic: true,
+                color: Colorz.Grey225,
+                size: 2,
+                margin: 5,
+              ),
+
+            ],
+          ),
         ),
 
         /// Joined at
         SuperVerse(
-          verse: Timers.monthYearStringer(context,user?.createdAt),
+          verse: Timers.monthYearStringer(context,widget.user?.createdAt),
           weight: VerseWeight.thin,
           italic: true,
           color: Colorz.Grey225,
