@@ -11,7 +11,7 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -173,8 +173,8 @@ class FlyersProvider extends ChangeNotifier {
   }
 // -------------------------------------
   Future<void> getsetWallFlyersBySection({BuildContext context, Section section}) async {
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
-    final Zone _currentZone = _countryPro.currentZone;
+    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
+    final Zone _currentZone = _zoneProvider.currentZone;
     //
     // // final String _zoneString = TextGenerator.zoneStringer(
     // //   context: context,

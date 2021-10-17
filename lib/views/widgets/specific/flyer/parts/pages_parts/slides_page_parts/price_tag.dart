@@ -5,10 +5,10 @@ import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/pricing.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/providers/zone_provider.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/footer.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,11 +26,11 @@ class PriceTag extends StatelessWidget {
 
     final double _footerHeight = FlyerFooter.boxHeight(context: context, flyerBoxWidth: flyerBoxWidth);
 
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: true);
-    final String _iso3 = _countryPro.currentCountryID;
+    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
+    final String _countryID = _zoneProvider.currentZone.countryID;
 
     final double _currentPrice = 14999.99;
-    final String _currency = BigMac.getCurrencyByIso3(_iso3);
+    final String _currency = BigMac.getCurrencyByIso3(_countryID);
     final double _oldPrice = 17800;
     final int _discountPercentage = Numeric.discountPercentage(
       oldPrice: _oldPrice,

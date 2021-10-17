@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/general_provider.dart';
-import 'package:bldrs/providers/zones/old_zone_provider.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/dialog_button.dart';
@@ -39,17 +39,17 @@ class SectionDialogButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   Future<void> _onSectionTap({BuildContext context, Section section, bool inActiveMode}) async {
 
-    final OldCountryProvider _countryPro =  Provider.of<OldCountryProvider>(context, listen: false);
+    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-    final String _currentProvince = _countryPro.currentZone.cityID;
+    final String _currentCityID = _zoneProvider.currentZone.cityID;
 
     /// A - if section is not active * if user is author or not
     if(inActiveMode == true){
 
       await CenterDialog.showCenterDialog(
         context: context,
-        title: 'Section "${TextGenerator.sectionStringer(context, section)}" is\nTemporarily closed in $_currentProvince',
-        body: 'The Bldrs in $_currentProvince are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
+        title: 'Section "${TextGenerator.sectionStringer(context, section)}" is\nTemporarily closed in $_currentCityID',
+        body: 'The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
         child: Container(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
