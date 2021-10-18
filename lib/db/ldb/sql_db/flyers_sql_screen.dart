@@ -199,7 +199,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
 // -----------------------------------------------------------------------------
   }
 // -----------------------------------------------------------------------------
-  Widget valueBox({String key, String value, Color color = Colorz.BloodTest}){
+  Widget valueBox({String key, String value, Color color = Colorz.bloodTest}){
     return
       Container(
         height: 40,
@@ -483,14 +483,14 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
         SQLViewer(
           table: _bzDB?.bzzTable,
           onRowTap: (String bzID) => _onBzRowTap(bzID),
-          color: Colorz.Yellow80,
+          color: Colorz.yellow80,
         ),
 
         /// BZZ LDB
         SQLViewer(
           table: _bzDB?.authorsTable,
           onRowTap: null,
-          color: Colorz.Black125,
+          color: Colorz.black125,
         ),
 
         /// FLYERS SHELF
@@ -558,7 +558,7 @@ class _FlyersSQLScreenState extends State<FlyersSQLScreen> {
         /// SLIDES LDB
         SQLViewer(
           table:_flyersLDB?.slidesTable,
-          color: Colorz.Green125,
+          color: Colorz.green125,
           // onRowTap: (String flyerID) => _onLDBFlyerTap(flyerID),
         ),
 
@@ -586,7 +586,7 @@ class SmallFuckingButton extends StatelessWidget {
     return DreamBox(
       height: 30,
       width: _buttonWidth,
-      color: Colorz.Blue80,
+      color: Colorz.blue80,
       margins: const EdgeInsets.symmetric(horizontal: 1),
       verse: verse,
       verseScaleFactor: 0.4,

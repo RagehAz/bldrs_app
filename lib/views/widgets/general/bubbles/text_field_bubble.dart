@@ -60,7 +60,7 @@ class TextFieldBubble extends StatelessWidget {
     this.leadingIcon,
     this.pasteFunction,
     this.textDirection,
-    this.bubbleColor = Colorz.White20,
+    this.bubbleColor = Colorz.white20,
     this.key,
     this.fieldOnTap,
   });
@@ -151,9 +151,9 @@ class TextFieldBubble extends StatelessWidget {
                       DreamBox(
                         height: 35,
                         width: 35,
-                        color: obscured? Colorz.Nothing : Colorz.Yellow200,
+                        color: obscured? Colorz.nothing : Colorz.yellow200,
                         icon: Iconz.Views,
-                        iconColor: obscured? Colorz.White20 : Colorz.Black230,
+                        iconColor: obscured? Colorz.white20 : Colorz.black230,
                         iconSizeFactor: 0.7,
                         bubble: false,
                         onTap: horusOnTap,
@@ -177,7 +177,7 @@ class TextFieldBubble extends StatelessWidget {
                       verseScaleFactor: 0.5,
                       verseWeight: VerseWeight.thin,
                       verseItalic: true,
-                      color: Colorz.White10,
+                      color: Colorz.white10,
                       onTap: pasteFunction,
                     ),
 
@@ -190,7 +190,7 @@ class TextFieldBubble extends StatelessWidget {
               SuperVerse(
                 verse: comments,
                 italic: true,
-                color: Colorz.White80,
+                color: Colorz.white80,
                 size: 2,
                 weight: VerseWeight.thin,
                 leadingDot: true,

@@ -225,8 +225,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
               width: 250,
               verse: 'Send Notification Bitch !',
               verseScaleFactor: 0.7,
-              color: Colorz.Yellow255,
-              verseColor: Colorz.Black255,
+              color: Colorz.yellow255,
+              verseColor: Colorz.black255,
               verseShadow: false,
               onTap: _onSendNotification,
             ),
@@ -237,8 +237,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             width: 250,
             verse: 'multi Flicker Pyramids',
             verseScaleFactor: 0.7,
-            color: Colorz.Yellow255,
-            verseColor: Colorz.Black255,
+            color: Colorz.yellow255,
+            verseColor: Colorz.black255,
             verseShadow: false,
             onTap: () async {
 
@@ -253,8 +253,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             width: 250,
             verse: 'send scheduled',
             verseScaleFactor: 0.7,
-            color: Colorz.Yellow255,
-            verseColor: Colorz.Black255,
+            color: Colorz.yellow255,
+            verseColor: Colorz.black255,
             verseShadow: false,
             onTap: _onSendScheduledNotification,
           ),
@@ -264,8 +264,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             width: 250,
             verse: 'cancel schedules',
             verseScaleFactor: 0.7,
-            color: Colorz.Yellow255,
-            verseColor: Colorz.Black255,
+            color: Colorz.yellow255,
+            verseColor: Colorz.black255,
             verseShadow: false,
             onTap: () async {
               await NotiOps.cancelScheduledNotification();

@@ -194,7 +194,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                             borderRadius: iconCorners,
                             boxShadow: <CustomBoxShadow>[
                               CustomBoxShadow(
-                                  color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
+                                  color: bubble == true ? Colorz.black200 : Colorz.nothing,
                                   offset: new Offset(0, _jpgGraphicWidth * -0.019 ),
                                   blurRadius: _jpgGraphicWidth * 0.2,
                                   blurStyle: BlurStyle.outer),
@@ -237,7 +237,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                             borderRadius: iconCorners,
                             boxShadow: <BoxShadow>[
                               CustomBoxShadow(
-                                  color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
+                                  color: bubble == true ? Colorz.black200 : Colorz.nothing,
                                   offset: new Offset(0,
                                       _jpgGraphicWidth * -0.019 ),
                                   blurRadius:
@@ -274,7 +274,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                             borderRadius: iconCorners,
                             boxShadow: <BoxShadow>[
                               CustomBoxShadow(
-                                  color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
+                                  color: bubble == true ? Colorz.black200 : Colorz.nothing,
                                   offset: new Offset(0,
                                       _jpgGraphicWidth * -0.019 ),
                                   blurRadius:
@@ -316,7 +316,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                           gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              colors: <Color>[Colorz.Black80, Colorz.Black125],
+                              colors: <Color>[Colorz.black80, Colorz.black125],
                               stops: <double>[0.5, 1]),
                         ),
                       ) : Container(),
@@ -359,7 +359,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                   verse: verse,
                   size: verseSize,
                   weight: verseWeight,
-                  color: blackAndWhite == true || inActiveMode == true ? Colorz.White30 : verseColor,
+                  color: blackAndWhite == true || inActiveMode == true ? Colorz.white30 : verseColor,
                   shadow: verseShadow != null ? verseShadow : blackAndWhite == true || inActiveMode == true ? false : true,
                   maxLines: verseMaxLines,
                   centered: icon == null ? true : false,
@@ -373,7 +373,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                     verse: secondLine,
                     weight: VerseWeight.thin,
                     size: 1,
-                    color: blackAndWhite == true || inActiveMode == true ? Colorz.White30 : secondLineColor,
+                    color: blackAndWhite == true || inActiveMode == true ? Colorz.white30 : secondLineColor,
                     maxLines: 10,
                     italic: true,
                     shadow: blackAndWhite == true || inActiveMode == true ? false : true,

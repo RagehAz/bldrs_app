@@ -24,7 +24,7 @@ class KeywordsBubble extends StatelessWidget {
     @required this.keywords,
     this.verseSize = 2,
     this.onTap,
-    this.bubbleColor = Colorz.White20,
+    this.bubbleColor = Colorz.white20,
     @required this.selectedWords,
     this.bubbleWidth,
     this.margins,

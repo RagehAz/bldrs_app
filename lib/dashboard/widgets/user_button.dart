@@ -39,7 +39,7 @@ class dashboardUserButton extends StatelessWidget {
     return SuperVerse(
       verse: title,
       size: 0,
-      color: Colorz.Grey80,
+      color: Colorz.grey80,
     );
   }
 // -----------------------------------------------------------------------------
@@ -71,7 +71,7 @@ class dashboardUserButton extends StatelessWidget {
       height: height(),
       width: width,
       icon: userModel.pic,
-      color: Colorz.White20,
+      color: Colorz.white20,
       verse: userModel.name,
       secondLine: '$index : ${userModel.userID}',
       verseScaleFactor: 0.6,
@@ -89,7 +89,7 @@ class dashboardUserButton extends StatelessWidget {
           child: Container(
             width: _clearDialogWidth,
             height: BottomDialog.dialogClearHeight(draggable: true, titleIsOn: true, context: context,),
-            color: Colorz.BloodTest,
+            color: Colorz.bloodTest,
             child: MaxBounceNavigator(
               child: ListView(
                 physics: const BouncingScrollPhysics(),

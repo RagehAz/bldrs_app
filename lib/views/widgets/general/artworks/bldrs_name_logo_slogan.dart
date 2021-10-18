@@ -30,7 +30,7 @@ class LogoSlogan extends StatelessWidget {
       size: 4,
       shadow: true,
       weight: VerseWeight.bold,
-      color: Colorz.White255,
+      color: Colorz.white255,
       centered: true,
       italic: true,
       scaleFactor: sizeFactor,
@@ -77,7 +77,7 @@ class LogoSlogan extends StatelessWidget {
               shadow: true,
               centered: true,
               italic: true,
-              color: Colorz.White255,
+              color: Colorz.white255,
               maxLines: 5,
               scaleFactor: sizeFactor,
 

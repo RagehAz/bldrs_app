@@ -22,7 +22,7 @@ class QuesScreen extends StatelessWidget {
         appBarRowWidgets: <Widget>[
           SuperVerse(
             verse: 'Questions list',
-            labelColor: Colorz.White10,
+            labelColor: Colorz.white10,
             margin: 5,
             size: 4,
           ),

@@ -18,10 +18,10 @@ class SQLViewer extends StatelessWidget {
   const SQLViewer({
     @required this.table,
     this.onRowTap,
-    this.color = Colorz.BloodTest,
+    this.color = Colorz.bloodTest,
 });
 // -----------------------------------------------------------------------------
-  static List<Widget> rows({BuildContext context, List<Map<String, Object>>maps, String primaryKey, Function onRowTap, Color color = Colorz.BloodTest}){
+  static List<Widget> rows({BuildContext context, List<Map<String, Object>>maps, String primaryKey, Function onRowTap, Color color = Colorz.bloodTest}){
 
     final String _primaryKey = primaryKey;
     final double _screenWidth = Scale.superScreenWidth(context);
@@ -73,7 +73,7 @@ class SQLViewer extends StatelessWidget {
                       verseScaleFactor: 0.6,
                       margins: EdgeInsets.all(5),
                       bubble: false,
-                      color: Colorz.White10,
+                      color: Colorz.white10,
                     ),
 
                     ...List.generate(
@@ -108,7 +108,7 @@ class SQLViewer extends StatelessWidget {
 
     return Container(
       width: _screenWidth,
-      color: Colorz.White10,
+      color: Colorz.white10,
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         controller: ScrollController(),
@@ -139,7 +139,7 @@ class ValueBox extends StatelessWidget {
   const ValueBox({
     @required this.dataKey,
     @required this.value,
-    this.color = Colorz.BloodTest,
+    this.color = Colorz.bloodTest,
   });
 
   @override

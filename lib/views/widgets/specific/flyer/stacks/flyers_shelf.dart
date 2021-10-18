@@ -62,7 +62,7 @@ class FlyersShelf extends StatelessWidget {
       Container(
         width: _screenWidth,
         // height: _collectionHeight + 2*_titleSpacing + (_screenHeight * Ratioz.fontSize3) + 12,
-        color: Colorz.White10,
+        color: Colorz.white10,
         // decoration: BoxDecoration(
         //   // color: Colorz.BlackLingerie,
         //   //   border: Border.symmetric(

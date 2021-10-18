@@ -22,7 +22,7 @@ class MultipleChoiceBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Bubble(
-        bubbleColor: Colorz.White10,
+        bubbleColor: Colorz.white10,
         columnChildren: <Widget>[
 
           SuperVerse(
@@ -49,8 +49,8 @@ class MultipleChoiceBubble extends StatelessWidget {
                         inActiveMode: buttonsInActivityList == null ? false : buttonsInActivityList[index],
                         verse: buttonsList[index],
                         verseItalic: false,
-                        color: chosenButton == buttonsList[index] ? Colorz.Yellow255 : Colorz.White10,
-                        verseColor: chosenButton == buttonsList[index] ? Colorz.Black230 : Colorz.White255,
+                        color: chosenButton == buttonsList[index] ? Colorz.yellow255 : Colorz.white10,
+                        verseColor: chosenButton == buttonsList[index] ? Colorz.black230 : Colorz.white255,
                         verseWeight: chosenButton == buttonsList[index] ? VerseWeight.black :  VerseWeight.bold,
                         verseScaleFactor: 0.6,
                         margins: const EdgeInsets.all(5),

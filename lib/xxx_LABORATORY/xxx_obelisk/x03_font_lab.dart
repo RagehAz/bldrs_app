@@ -43,7 +43,7 @@ class _FontLabState extends State<FontLab> {
       SuperVerse(
         verse: 'size $size : $_pixels pixels',
         size: size,
-        labelColor: Colorz.BloodTest,
+        labelColor: Colorz.bloodTest,
       );
   }
 
@@ -66,7 +66,7 @@ class _FontLabState extends State<FontLab> {
     final VerseWeight weightTest = VerseWeight.thin;
 
     // --- SHADOW TEST PARAMETERS
-    const dynamic shadowTestColor = Colorz.White255;
+    const dynamic shadowTestColor = Colorz.white255;
     const String shadowTestVerse = 'AaBb أبجدية';
     const bool italiany = false;
     const bool centeredOn = true;
@@ -126,7 +126,7 @@ class _FontLabState extends State<FontLab> {
                         'ّ أَ أً أُ أٌ أ ثَثاً ثُثٌثِثْثثّثٍ خّ خٌ خْخٍ غٍ غَ غٌ غَّ غٌّ يٍ يٍّ شٌ ش \n'
                         '~{}’,.؟":/،ـ><؛×÷‘][!@#\$|%^&*)(\n'
                         'A|أ',
-                    color: Colorz.Yellow255,
+                    color: Colorz.yellow255,
                     size: 4,
                     weight: weightTest,
                     italic: false,
@@ -139,7 +139,7 @@ class _FontLabState extends State<FontLab> {
                   Container(
                     width: _screenWidth,
                     height: _screenHeight * 0.02,
-                    color: Colorz.Black230,
+                    color: Colorz.black230,
                   ),
 
                   // --- VERSE HEIGHT REVERSE ENGINEERING
@@ -149,14 +149,14 @@ class _FontLabState extends State<FontLab> {
                       Container(
                         width: _screenWidth,
                         height: _screenHeight * 0.034 * 1.42, // 0.034 is ratio of fontSize 4
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                       ),
 
                       Center(
                         child: SuperVerse(
                           verse: '| أختبر أنا العبد لله هذا الفونط و إنه لشيء عظيمٌ جدا Ohh baby',
                           size: 4,
-                          color: Colorz.Green255,
+                          color: Colorz.green255,
                           shadow: true,
                           italic: false,
                           weight: VerseWeight.bold,
@@ -171,7 +171,7 @@ class _FontLabState extends State<FontLab> {
                   Container(
                     height: 10,
                     width: _screenWidth,
-                    color: Colorz.Black230,
+                    color: Colorz.black230,
                   ),
 
                   // --- FONT SIZE TEST
@@ -181,7 +181,7 @@ class _FontLabState extends State<FontLab> {
                         verse: '$fontSize1 Nano Text test\n$testVerse',
                         size: fontSize1,
                         centered: true,
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                         weight: VerseWeight.regular,
                         italic: false,
                         shadow: false,
@@ -191,7 +191,7 @@ class _FontLabState extends State<FontLab> {
                         verse: '$fontSize2 Micro Text test\n$testVerse',
                         size: fontSize2,
                         centered: true,
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                         weight: VerseWeight.regular,
                         italic: false,
                         shadow: false,
@@ -201,7 +201,7 @@ class _FontLabState extends State<FontLab> {
                         verse: '$fontSize3 Mini Text test\n$testVerse',
                         size: fontSize3,
                         centered: true,
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                         weight: weightTest,
                         italic: false,
                         shadow: false,
@@ -211,7 +211,7 @@ class _FontLabState extends State<FontLab> {
                         verse: '$fontSize4 Medium Text test\n$testVerse',
                         size: fontSize4,
                         centered: true,
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                         weight: weightTest,
                         italic: false,
                         shadow: false,
@@ -221,7 +221,7 @@ class _FontLabState extends State<FontLab> {
                         verse: '$fontSize5 Macro Text test\n$testVerse',
                         size: fontSize5,
                         centered: true,
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                         weight: weightTest,
                         italic: false,
                         shadow: false,
@@ -231,7 +231,7 @@ class _FontLabState extends State<FontLab> {
                         verse: '$fontSize6 Big Text test\n$testVerse',
                         size: fontSize6,
                         centered: true,
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                         weight: weightTest,
                         italic: false,
                         shadow: false,
@@ -241,7 +241,7 @@ class _FontLabState extends State<FontLab> {
                         verse: '$fontSize7 Massive Text test\n$testVerse',
                         size: fontSize7,
                         centered: true,
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                         weight: weightTest,
                         italic: false,
                         shadow: false,
@@ -251,7 +251,7 @@ class _FontLabState extends State<FontLab> {
                         verse: '$fontSize8 Gigantic Text test\n$testVerse',
                         size: fontSize8,
                         centered: true,
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                         weight: weightTest,
                         italic: false,
                         shadow: false,
@@ -263,7 +263,7 @@ class _FontLabState extends State<FontLab> {
                   Container(
                     height: 10,
                     width: _screenWidth,
-                    color: Colorz.Black230,
+                    color: Colorz.black230,
                   ),
 
                   // --- PARAGRAPH TEST
@@ -276,7 +276,7 @@ class _FontLabState extends State<FontLab> {
                         shadow: false,
                         centered: true,
                         italic: false,
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                       ),
 
                       SuperVerse(
@@ -286,7 +286,7 @@ class _FontLabState extends State<FontLab> {
                             'Најправилно е играње и забава\n'
                             'Το πιο σωστό είναι το παιχνίδι και η διασκέδαση\n'
                             'الراجح يلعب و يلهو',
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                         italic: false,
                         centered: true,
                         shadow: false,
@@ -300,7 +300,7 @@ class _FontLabState extends State<FontLab> {
                   Container(
                     height: 10,
                     width: _screenWidth,
-                    color: Colorz.Black230,
+                    color: Colorz.black230,
                   ),
 
                   // --- FONT WEIGHT TEST
@@ -313,7 +313,7 @@ class _FontLabState extends State<FontLab> {
                         shadow: false,
                         centered: true,
                         italic: false,
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                       ),
 
                       SuperVerse(
@@ -323,7 +323,7 @@ class _FontLabState extends State<FontLab> {
                         shadow: false,
                         centered: true,
                         italic: false,
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                       ),
 
                       SuperVerse(
@@ -333,7 +333,7 @@ class _FontLabState extends State<FontLab> {
                         shadow: false,
                         centered: true,
                         italic: false,
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                       ),
 
                       SuperVerse(
@@ -343,7 +343,7 @@ class _FontLabState extends State<FontLab> {
                         shadow: false,
                         centered: true,
                         italic: false,
-                        color: Colorz.White255,
+                        color: Colorz.white255,
                       ),
                     ],
                   ),
@@ -352,7 +352,7 @@ class _FontLabState extends State<FontLab> {
                   Container(
                     height: 10,
                     width: _screenWidth,
-                    color: Colorz.Black230,
+                    color: Colorz.black230,
                   ),
 
                   // --- SHADOW TEST
@@ -526,7 +526,7 @@ class _FontLabState extends State<FontLab> {
                   Container(
                     height: 10,
                     width: _screenWidth,
-                    color: Colorz.Black230,
+                    color: Colorz.black230,
                   ),
 
 
@@ -534,7 +534,7 @@ class _FontLabState extends State<FontLab> {
                   Container(
                     height: 10,
                     width: _screenWidth,
-                    color: Colorz.Black230,
+                    color: Colorz.black230,
                   ),
 
 
@@ -545,8 +545,8 @@ class _FontLabState extends State<FontLab> {
 
                   SuperVerse(
                     verse: 'SuperVerse Label',
-                    labelColor: Colorz.Yellow255,
-                    color: Colorz.Black80,
+                    labelColor: Colorz.yellow255,
+                    color: Colorz.black80,
                     size: 6,
                   ),
 
@@ -559,8 +559,8 @@ class _FontLabState extends State<FontLab> {
                     size: 3,
                     maxLines: 3,
                     centered: true,
-                    color: Colorz.White255,
-                    labelColor: Colorz.White20,
+                    color: Colorz.white255,
+                    labelColor: Colorz.white20,
                     shadow: true,
                     italic: true,
                     weight:  VerseWeight.black,
@@ -576,7 +576,7 @@ class _FontLabState extends State<FontLab> {
                   Container(
                     height: 10,
                     width: _screenWidth,
-                    color: Colorz.Black230,
+                    color: Colorz.black230,
                   ),
 
                   // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- CHIPS LIST
@@ -606,7 +606,7 @@ class _FontLabState extends State<FontLab> {
                   Container(
                     height: 10,
                     width: _screenWidth,
-                    color: Colorz.Black230,
+                    color: Colorz.black230,
                   ),
 
                   // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- GENERATED LIST
@@ -623,8 +623,8 @@ class _FontLabState extends State<FontLab> {
                                   maxLines: 1,
                                   weight:  VerseWeight.bold,
                                   shadow: true,
-                                  labelColor: Colorz.Yellow255,
-                                  color: Colorz.Black230,
+                                  labelColor: Colorz.yellow255,
+                                  color: Colorz.black230,
                                   centered: true,
                                   margin: 0,
                                   italic: false,
@@ -644,7 +644,7 @@ class _FontLabState extends State<FontLab> {
                   Container(
                     width: _screenWidth,
                     height: _screenHeight,
-                    color: Colorz.BloodTest,
+                    color: Colorz.bloodTest,
                     child: SuperTextField(
                       width: _screenWidth * 0.8,
                       inputSize: 2,

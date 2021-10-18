@@ -59,7 +59,7 @@ class _TrigramTestState extends State<TrigramTest> {
               height: 70,
               inputSize: 2,
               textController: _controller,
-              inputColor: Colorz.White255,
+              inputColor: Colorz.white255,
               hintText: 'user name ...',
               keyboardTextInputType: TextInputType.multiline,
               maxLength: 20,
@@ -86,7 +86,7 @@ class _TrigramTestState extends State<TrigramTest> {
           Container(
             width: _screenWidth,
             height: 220,
-            color: Colorz.BloodTest,
+            color: Colorz.bloodTest,
             child: Center(
 
               child: ListView.builder(
@@ -99,7 +99,7 @@ class _TrigramTestState extends State<TrigramTest> {
                       SuperVerse(
                         verse: '$index : $_tri',
                         size: 2,
-                        color: Colorz.Black255,
+                        color: Colorz.black255,
                         centered: false,
                       );
 
@@ -111,7 +111,7 @@ class _TrigramTestState extends State<TrigramTest> {
           /// NUMBER OF TRIGRAMS
           SuperVerse(
             verse: 'tirgram has : ${_result.length} entries',
-            labelColor: Colorz.Blue125,
+            labelColor: Colorz.blue125,
             margin: 10,
           ),
 

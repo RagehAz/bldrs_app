@@ -121,7 +121,7 @@ class _SearchScreenState extends State<SearchScreen> {
             width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2 - Ratioz.appBarPadding * 2,
             height: 40,
             decoration: BoxDecoration(
-              color: Colorz.White10,
+              color: Colorz.white10,
               // borderRadius: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
             ),
             alignment: Alignment.center,
@@ -160,7 +160,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   Container(
                     // width: 10,
                     height: 10,
-                    color: Colorz.Yellow20,
+                    color: Colorz.yellow20,
                     child: SuperVerse(
                       verse : 'keyword is null',
                     ),
@@ -169,7 +169,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     keyword: _keyword,
                     xIsOn: true,
                     onTap: () => _removeKeyword(index, filtersModels),
-                    color: _isHighlighted == true ? Colorz.Red255 : Colorz.Blue80,
+                    color: _isHighlighted == true ? Colorz.red255 : Colorz.blue80,
                   );
 
               },
@@ -534,13 +534,13 @@ class _SearchScreenState extends State<SearchScreen> {
                   Container(
                     width: _screenWidth,
                     height: 100,
-                    color: Colorz.BloodTest,
+                    color: Colorz.bloodTest,
                   ),
 
                   Container(
                     width: _screenWidth,
                     height: 700,
-                    color: Colorz.Yellow50,
+                    color: Colorz.yellow50,
                   ),
 
                 ],
@@ -565,7 +565,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colorz.BloodTest,
+                    color: Colorz.bloodTest,
                     borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
                     boxShadow: Shadowz.appBarShadow,
                   ),
@@ -595,7 +595,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 curve: Curves.easeInOut,
                 decoration: BoxDecoration(
                   borderRadius: _browserZoneCorners,
-                  color: Colorz.Black200,
+                  color: Colorz.black200,
                 ),
                 margin: EdgeInsets.all(_browserZoneMargins),
                 alignment: Aligners.superTopAlignment(context),

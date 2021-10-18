@@ -64,7 +64,7 @@ class _HomeWallState extends State<HomeWall> {
                 size: 1,
                 centered: false,
                 italic: true,
-                color: Colorz.White125,
+                color: Colorz.white125,
               ),
             ),
 

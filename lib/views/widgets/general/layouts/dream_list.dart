@@ -45,7 +45,7 @@ Widget dreamListBuilder  (BuildContext c, int x, String info,String icon ,String
             SuperVerse(
               verse: '${x+1} : $info}',
               size: 1,
-              color: Colorz.Grey225,
+              color: Colorz.grey225,
               weight: VerseWeight.thin,
               centered: false,
               margin: 5,
@@ -97,7 +97,7 @@ class DreamTile extends StatelessWidget {
           SuperVerse(
             verse: '${index+1} : $info',
             size: 1,
-            color: Colorz.Grey225,
+            color: Colorz.grey225,
             weight: VerseWeight.thin,
             centered: false,
             margin: 5,

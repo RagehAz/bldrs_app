@@ -42,7 +42,7 @@ class DreamWrapper extends StatelessWidget {
       width: boxWidth,
       // height: boxHeight,
       decoration: BoxDecoration(
-        color: Colorz.BloodTest,
+        color: Colorz.bloodTest,
         borderRadius: Borderers.superBorderAll(context, 10),
       ),
       child: Wrap(
@@ -61,7 +61,7 @@ class DreamWrapper extends StatelessWidget {
                       icon: icons[index],
                       margins: margins,
                       verse: _verse,
-                      verseColor: Colorz.White255,
+                      verseColor: Colorz.white255,
                       verseWeight: VerseWeight.thin,
                       verseItalic: false,
                       iconSizeFactor: 0.6,

@@ -109,7 +109,7 @@ class BzPowersTab extends StatelessWidget {
               height: 100,
               margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
               decoration: BoxDecoration(
-                color: Colorz.BloodTest,
+                color: Colorz.bloodTest,
                 borderRadius: Bubble.clearBorders(context),
               ),
             ),
@@ -127,7 +127,7 @@ class BzPowersTab extends StatelessWidget {
                 width: Bubble.clearWidth(context) - 150,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: Colorz.BloodTest,
+                  color: Colorz.bloodTest,
                   // borderRadius: Bubble.clearBorders(context),
                 ),
               ),
@@ -142,7 +142,7 @@ class BzPowersTab extends StatelessWidget {
               height: 100,
               margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
               decoration: BoxDecoration(
-                color: Colorz.BloodTest,
+                color: Colorz.bloodTest,
                 borderRadius: Bubble.clearBorders(context),
               ),
             ),

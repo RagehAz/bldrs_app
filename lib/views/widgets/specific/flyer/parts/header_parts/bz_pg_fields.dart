@@ -19,7 +19,7 @@ class BzPgFields extends StatelessWidget {
   Widget build(BuildContext context) {
 
 // -----------------------------------------------------------------------------
-    const Color bzPageBGColor = Colorz.Black80;
+    const Color bzPageBGColor = Colorz.black80;
     final double bzPageDividers = flyerBoxWidth * 0.005;
 // -----------------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ class BzPgFields extends StatelessWidget {
                 weight: VerseWeight.thin,
                 italic: false,
                 margin: 10,
-                color: Colorz.Grey225,
+                color: Colorz.grey225,
                 maxLines: 2,
               ),
 
@@ -63,8 +63,8 @@ class BzPgFields extends StatelessWidget {
                     verse: bzScope,
                     italic: false,
                     shadow: false,
-                    labelColor: Colorz.White50,
-                    color: Colorz.White255,
+                    labelColor: Colorz.white50,
+                    color: Colorz.white255,
                     weight: VerseWeight.bold,
                     size: 2,
                     margin: flyerBoxWidth * 0.02 * 0,

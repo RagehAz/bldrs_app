@@ -74,7 +74,7 @@ class BarButton extends StatelessWidget {
                 icon: icon,
                 iconSizeFactor: iconSizeFactor,
                 bubble: true,
-                color: Colorz.Nothing,
+                color: Colorz.nothing,
                 corners: _buttonCircleCorner,
                 onTap: onTap,
               )

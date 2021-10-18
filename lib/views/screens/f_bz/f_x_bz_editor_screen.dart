@@ -695,12 +695,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 /// --- SHOW BZCARD
                 DreamBox(
                   height: 50,
-                  color: Colorz.Blue225,
+                  color: Colorz.blue225,
                   icon: Iconz.Flyer,
                   iconSizeFactor: 0.7,
                   verse: 'Show\nFlyer',
                   verseScaleFactor: 0.8,
-                  verseColor: Colorz.Black230,
+                  verseColor: Colorz.black230,
                   verseMaxLines: 2,
                   margins: const EdgeInsets.all(5),
                   onTap: _showBzCard,
@@ -709,8 +709,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 /// --- CONFIRM BUTTON
                 DreamBox(
                   height: 50,
-                  color: Colorz.Yellow255,
-                  verseColor: Colorz.Black230,
+                  color: Colorz.yellow255,
+                  verseColor: Colorz.black230,
                   verseWeight: VerseWeight.black,
                   verse: 'Confirm',
                   secondLine: widget.firstTimer ? 'Create new business profile' : 'Update business profile',

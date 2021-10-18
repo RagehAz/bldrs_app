@@ -151,9 +151,9 @@ class TimerTest extends StatelessWidget {
           );
 
           Color _color =
-          _isDateFormat ? Colorz.Black255 :
-          _isTimersMethod ? Colorz.Green125 :
-          Colorz.BloodTest;
+          _isDateFormat ? Colorz.black255 :
+          _isTimersMethod ? Colorz.green125 :
+          Colorz.bloodTest;
 
           return
 
@@ -161,7 +161,7 @@ class TimerTest extends StatelessWidget {
               Container(
                 width: Scale.superScreenWidth(context),
                 height: 0.5,
-                color: Colorz.Yellow255,
+                color: Colorz.yellow255,
                 margin: const EdgeInsets.symmetric(vertical: 20),
               )
 

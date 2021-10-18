@@ -80,7 +80,7 @@ class FooterButton extends StatelessWidget {
               weight: VerseWeight.bold,
               italic: false,
               scaleFactor: FlyerBox.sizeFactorByWidth(context, flyerBoxWidth),
-              color: DreamBox.getIconColor(inActiveMode: inActiveMode, colorOverride: Colorz.White125),
+              color: DreamBox.getIconColor(inActiveMode: inActiveMode, colorOverride: Colorz.white125),
             ),
           ),
 

@@ -19,7 +19,7 @@ class SlidesCounter extends StatelessWidget {
       secondLineScaleFactor: 0.9,
       verseCentered: false,
       bubble: false,
-      color: Colorz.White20,
+      color: Colorz.white20,
       onTap: () async {
 
         final dynamic _result = await CenterDialog.showCenterDialog(

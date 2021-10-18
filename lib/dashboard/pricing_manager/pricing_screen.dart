@@ -90,13 +90,13 @@ class PricingScreen extends StatelessWidget {
                         DreamBox(
                           height: 40,
                           width: 100,
-                          color: Colorz.Black255,
+                          color: Colorz.black255,
                           margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
                           verse: _proPrice,
                           verseScaleFactor: 0.6,
                           secondLine: _proPrice$,
                           secondLineScaleFactor: 0.9,
-                          secondLineColor: Colorz.Yellow255,
+                          secondLineColor: Colorz.yellow255,
                         ),
 
                       ],

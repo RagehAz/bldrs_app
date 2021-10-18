@@ -19,26 +19,26 @@ class CheckBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const double checkBoxRadius = 12.5;
-    final Color checkBoxColor = checkBoxIsOn == true ? Colorz.Yellow255 : Colorz.White20;
+    final Color checkBoxColor = checkBoxIsOn == true ? Colorz.yellow255 : Colorz.white20;
     const double btOvalSizeFactor = 0.8; // as a ratio of button sizes
 
-    const Color iconColor = Colorz.Black230;
+    const Color iconColor = Colorz.black230;
 
 
     return Container(
       alignment: Alignment.center,
       margin: const EdgeInsets.all(checkBoxRadius * 0.75),
       decoration: BoxDecoration(
-        color: Colorz.White20,
+        color: Colorz.white20,
         shape: BoxShape.circle,
           boxShadow: <BoxShadow>[
             const CustomBoxShadow(
-                color: Colorz.Black230,
+                color: Colorz.black230,
                 blurRadius: 10,
                 blurStyle: BlurStyle.outer
             ),
             const CustomBoxShadow(
-                color: Colorz.White20,
+                color: Colorz.white20,
                 blurRadius: 10,
                 blurStyle: BlurStyle.outer
             ),
@@ -65,9 +65,9 @@ class CheckBox extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
                           Radius.elliptical(checkBoxRadius * btOvalSizeFactor, checkBoxRadius * 0.7 * btOvalSizeFactor)),
-                      color: Colorz.Nothing,
+                      color: Colorz.nothing,
                       boxShadow: <BoxShadow>[CustomBoxShadow(
-                        color: Colorz.White80,
+                        color: Colorz.white80,
                         offset: Offset(0, checkBoxRadius * -0.5),
                         blurRadius: checkBoxRadius * 0.3 ,
                         blurStyle: BlurStyle.normal
@@ -84,7 +84,7 @@ class CheckBox extends StatelessWidget {
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colorz.Nothing, Colorz.Black50],
+                          colors: [Colorz.nothing, Colorz.black50],
                           stops: [0.3,1]
                       ),
 

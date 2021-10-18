@@ -83,7 +83,7 @@ class DialogTestScreen extends StatelessWidget {
         child: Container(
           width: Scale.superScreenWidth(context),
           height: Scale.superScreenHeight(context),
-          color: Colorz.BloodTest,
+          color: Colorz.bloodTest,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

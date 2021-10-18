@@ -33,7 +33,7 @@ class PersonButton extends StatelessWidget {
       height: _imageHeight,
       margin: EdgeInsets.symmetric(horizontal: _imageWidth * 0.005),
       decoration: BoxDecoration(
-        color: Colorz.Black20,
+        color: Colorz.black20,
         borderRadius: Borderers.superBorderAll(context, _imageWidth * 0.25),
       ),
       child: Column(

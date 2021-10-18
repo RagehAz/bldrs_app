@@ -53,19 +53,19 @@ class SlideCounters extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 padding: EdgeInsets.all(footerBTMargins * 0.15),
                 decoration: BoxDecoration(
-                    color: Colorz.White20,
+                    color: Colorz.white20,
                     borderRadius: BorderRadius.all(
                       Radius.circular(flyerStateBoxCorner),
                     ),
                     boxShadow: <BoxShadow>[
                       CustomBoxShadow(
-                          color: Colorz.Black50,
+                          color: Colorz.black50,
                           offset: new Offset(0, 0),
                           blurRadius: footerBTMargins * 0.7,
                           blurStyle: BlurStyle.outer
                       ),
                       CustomBoxShadow(
-                          color: Colorz.White20,
+                          color: Colorz.white20,
                           offset: new Offset(0, 0),
                           blurRadius: footerBTMargins * 0.7,
                           blurStyle: BlurStyle.outer
@@ -83,7 +83,7 @@ class SlideCounters extends StatelessWidget {
                     gradient: const LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: <Color>[Colorz.Nothing, Colorz.Black50],
+                        colors: <Color>[Colorz.nothing, Colorz.black50],
                         stops: <double>[0.3,1]
                     ),
                   ),
@@ -102,7 +102,7 @@ class SlideCounters extends StatelessWidget {
                             child: Row(
                               children: <Widget>[
                                 Container(
-                                  color: Colorz.Nothing,
+                                  color: Colorz.nothing,
                                   margin: EdgeInsets.only(
                                     left: footerBTMargins * 0.25,
                                     right: footerBTMargins * 0.25,
@@ -111,7 +111,7 @@ class SlideCounters extends StatelessWidget {
                                 ),
                                 SuperVerse(
                                   verse: Numeric.counterCaliber(context, shares),
-                                  color: Colorz.White255,
+                                  color: Colorz.white255,
                                   size: 1,
                                   weight: VerseWeight.regular,
                                   centered: true,
@@ -132,7 +132,7 @@ class SlideCounters extends StatelessWidget {
                             child: Row(
                               children: <Widget>[
                                 Container(
-                                    color: Colorz.Nothing,
+                                    color: Colorz.nothing,
                                     margin: EdgeInsets.only(
                                       left: footerBTMargins * 0.5,
                                       right: footerBTMargins * 0.5,
@@ -140,7 +140,7 @@ class SlideCounters extends StatelessWidget {
                                     child: WebsafeSvg.asset(Iconz.Views)),
                                 SuperVerse(
                                   verse: Numeric.counterCaliber(context, views),
-                                  color: Colorz.White255,
+                                  color: Colorz.white255,
                                   size: 1,
                                   weight: VerseWeight.regular,
                                   centered: true,
@@ -161,7 +161,7 @@ class SlideCounters extends StatelessWidget {
                             child: Row(
                               children: <Widget>[
                                 Container(
-                                  color: Colorz.Nothing,
+                                  color: Colorz.nothing,
                                   // margin: EdgeInsets.only(
                                   //   left: footerBTMargins * 0,
                                   //   right: footerBTMargins * 0,
@@ -172,7 +172,7 @@ class SlideCounters extends StatelessWidget {
                                 ),
                                 SuperVerse(
                                   verse: Numeric.counterCaliber(context, saves),
-                                  color: Colorz.White255,
+                                  color: Colorz.white255,
                                   size: 1,
                                   weight: VerseWeight.regular,
                                   centered: true,

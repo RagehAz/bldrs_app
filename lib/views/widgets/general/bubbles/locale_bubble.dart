@@ -269,7 +269,7 @@ class LocaleButton extends StatelessWidget {
               italic: true,
               weight: VerseWeight.thin,
               size: 2,
-              color: Colorz.White80,
+              color: Colorz.white80,
             ),
           ),
 
@@ -283,7 +283,7 @@ class LocaleButton extends StatelessWidget {
             bubble: false,
             verse: verse == null ? '' : '$verse    ',
             verseMaxLines: 2,
-            color: Colorz.White10,
+            color: Colorz.white10,
             onTap: onTap,
           ),
 

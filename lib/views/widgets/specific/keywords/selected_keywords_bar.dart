@@ -47,7 +47,7 @@ class SelectedKeywordsBar extends StatelessWidget {
     return Container(
       width: _screenWidth,
       height: _selectedKeywordsZoneHeight,
-      color: Colorz.White10,
+      color: Colorz.white10,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +108,7 @@ class SelectedKeywordsBar extends StatelessWidget {
                   Container(
                     // width: 10,
                     height: 10,
-                    color: Colorz.Yellow20,
+                    color: Colorz.yellow20,
                     child: SuperVerse(
                       verse : '.....',
                     ),
@@ -118,7 +118,7 @@ class SelectedKeywordsBar extends StatelessWidget {
                     keyword: _keyword,
                     xIsOn: true,
                     onTap: () => removeKeyword(index),
-                    color: _isHighlighted == true ? Colorz.Red255 : Colorz.Blue80,
+                    color: _isHighlighted == true ? Colorz.red255 : Colorz.blue80,
                   );
 
               },
@@ -130,7 +130,7 @@ class SelectedKeywordsBar extends StatelessWidget {
           Container(
             width: _screenWidth,
             height: _yellowLineHeight,
-            color: Colorz.Yellow50,
+            color: Colorz.yellow50,
           ),
 
         ],

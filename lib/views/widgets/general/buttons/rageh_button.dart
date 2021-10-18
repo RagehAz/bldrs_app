@@ -25,7 +25,7 @@ class Rageh extends StatelessWidget {
         //   tappingOnMyFace();
         // },
         onDoubleTap: doubleTappingRageh,
-        splashColor: Colorz.Black80, // don't work yet,, will come back later
+        splashColor: Colorz.black80, // don't work yet,, will come back later
         splashFactory: InkSplash.splashFactory, // to you too bitch
         child:
           Padding(
@@ -33,7 +33,7 @@ class Rageh extends StatelessWidget {
             child: Transform.scale(
               scale: 1.5,
               child: DreamBox(
-                color: Colorz.Nothing,
+                color: Colorz.nothing,
                 width: 30,
                 height: 30,
                 iconSizeFactor: 1,

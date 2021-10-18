@@ -36,7 +36,7 @@ class BottomDialogButtons extends StatelessWidget {
       width: _dialogClearWidth,
       margin: const EdgeInsets.only(top: Ratioz.appBarPadding),
       decoration: BoxDecoration(
-        color: Colorz.White10,
+        color: Colorz.white10,
         borderRadius: _dialogClearCorners,
       ),
       child: ListView.builder(
@@ -59,7 +59,7 @@ class BottomDialogButtons extends StatelessWidget {
                   bubble: false,
                   margins: const EdgeInsets.all(Ratioz.appBarPadding),
                   verseScaleFactor: 0.8,
-                  color: Colorz.White10,
+                  color: Colorz.white10,
                   textDirection: bottomDialogType == BottomDialogType.bottomSheet? superTextDirection(context) : superInverseTextDirection(context),
                   onTap: () => buttonTap(id),
               ),

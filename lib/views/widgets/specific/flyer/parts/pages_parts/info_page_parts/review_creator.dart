@@ -38,9 +38,9 @@ class ReviewCreator extends StatelessWidget {
         width: width,
         margin: EdgeInsets.only(bottom: Ratioz.appBarMargin),
         decoration: BoxDecoration(
-          color: Colorz.White10,
+          color: Colorz.white10,
           borderRadius: Borderers.superBorderAll(context, corners),
-          border: Border.all(width: 0.5, color: Colorz.White80),
+          border: Border.all(width: 0.5, color: Colorz.white80),
         ),
         child: Column(
 
@@ -69,9 +69,9 @@ class ReviewCreator extends StatelessWidget {
                     size: 1,
                     centered: false,
                     maxLines: 3,
-                    color: Colorz.White200,
+                    color: Colorz.white200,
                     italic: true,
-                    labelColor: Colorz.White10,
+                    labelColor: Colorz.white10,
                     weight: VerseWeight.regular,
                   ),
 
@@ -80,7 +80,7 @@ class ReviewCreator extends StatelessWidget {
                   SuperVerse(
                     verse: Timers.stringOnDateMonthYear(context: context, time: DateTime.now()),
                     size: 1,
-                    color: Colorz.White125,
+                    color: Colorz.white125,
                     centered: false,
                     weight: VerseWeight.thin,
                     italic: true,
@@ -93,7 +93,7 @@ class ReviewCreator extends StatelessWidget {
                     size: 2,
                     centered: false,
                     maxLines: 2,
-                    color: Colorz.Yellow255,
+                    color: Colorz.yellow255,
                     italic: true,
                   ),
 
@@ -108,8 +108,8 @@ class ReviewCreator extends StatelessWidget {
                       height: 40,
                       verse: 'Add Review',
                       verseScaleFactor: 0.6,
-                      color: Colorz.Yellow255,
-                      verseColor: Colorz.Black255,
+                      color: Colorz.yellow255,
+                      verseColor: Colorz.black255,
                       verseShadow: false,
                       verseWeight: VerseWeight.bold,
                       onTap: (){

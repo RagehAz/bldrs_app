@@ -83,8 +83,8 @@ class FlyerFooter extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static Color buttonColor({bool buttonIsOn}){
-    const Color _onColor = Colorz.Yellow80;
-    const Color _offColor = Colorz.Nothing;
+    const Color _onColor = Colorz.yellow80;
+    const Color _offColor = Colorz.nothing;
 
     final Color _color = buttonIsOn ? _onColor : _offColor;
 
@@ -112,9 +112,9 @@ class FlyerFooter extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: <Color>[
-                  Colorz.Black0,
-                  Colorz.Black125,
-                  Colorz.Black230
+                  Colorz.black0,
+                  Colorz.black125,
+                  Colorz.black230
                 ],
                 stops: <double>[0.35, 0.85, 1]
             ),

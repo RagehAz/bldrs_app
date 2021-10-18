@@ -57,14 +57,14 @@ class BldrsIconsViewer extends StatelessWidget {
                       icon: _icons[index],
                       iconSizeFactor: 1,
                       corners: 0,
-                      color: Colorz.BloodTest,
+                      color: Colorz.bloodTest,
                       bubble: false,
                     ),
 
                     Container(
                       width: _iconBoxSize,
                       height: _iconBoxSize * 0.25,
-                      color: Colorz.Black255,
+                      color: Colorz.black255,
                       child: SuperVerse(
                         verse: TextMod.trimTextBeforeLastSpecialCharacter(_icons[index], '/'),
                         size: 1,

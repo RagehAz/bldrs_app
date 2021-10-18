@@ -193,8 +193,8 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
             height: 40,
             width: 200,
             verse: _notiIsOn == true ? 'Notification on' : 'Notification is off',
-            color: _notiIsOn == true ? Colorz.Red255 : Colorz.Grey50,
-            verseColor: _notiIsOn == true ? Colorz. White255 : Colorz.Black255,
+            color: _notiIsOn == true ? Colorz.red255 : Colorz.grey50,
+            verseColor: _notiIsOn == true ? Colorz. white255 : Colorz.black255,
             verseShadow: false,
             onTap: () async {
               setState(() {
@@ -231,8 +231,8 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
                 '$_received',
             verseScaleFactor: 0.7,
             verseMaxLines: 2,
-            color: Colorz.Blue80,
-            verseColor: Colorz.Black255,
+            color: Colorz.blue80,
+            verseColor: Colorz.black255,
             verseShadow: false,
             onTap: () async {
 
@@ -266,7 +266,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
                 Container(
                   width: _screenWidth * 0.5,
                   height: 300,
-                  color: Colorz.BloodTest,
+                  color: Colorz.bloodTest,
                   child: Column(
                     children: <Widget>[
 
@@ -298,8 +298,8 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
                             width: 100,
                             verse: 'Start',
                             verseScaleFactor: 0.7,
-                            color: Colorz.Blue80,
-                            verseColor: Colorz.Black255,
+                            color: Colorz.blue80,
+                            verseColor: Colorz.black255,
                             verseShadow: false,
                             onTap: _startCounter,
                           ),
@@ -310,8 +310,8 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
                             width: 100,
                             verse: 'Stop',
                             verseScaleFactor: 0.7,
-                            color: Colorz.Blue80,
-                            verseColor: Colorz.Black255,
+                            color: Colorz.blue80,
+                            verseColor: Colorz.black255,
                             verseShadow: false,
                             onTap: _stopCounter,
                           ),
@@ -330,8 +330,8 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
                             width: 100,
                             verse: 'Lap',
                             verseScaleFactor: 0.7,
-                            color: Colorz.Blue80,
-                            verseColor: Colorz.Black255,
+                            color: Colorz.blue80,
+                            verseColor: Colorz.black255,
                             verseShadow: false,
                             onTap: _lapCounter,
                           ),
@@ -342,8 +342,8 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
                             width: 100,
                             verse: 'Reset',
                             verseScaleFactor: 0.7,
-                            color: Colorz.Blue80,
-                            verseColor: Colorz.Black255,
+                            color: Colorz.blue80,
+                            verseColor: Colorz.black255,
                             verseShadow: false,
                             onTap: _resetCounter,
                           ),
@@ -358,7 +358,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
                 Container(
                   width: _screenWidth * 0.5,
                   height: 300,
-                  color: Colorz.Blue80,
+                  color: Colorz.blue80,
                   child: StreamBuilder<List<StopWatchRecord>>(
                     stream: _stopWatchTimer.records,
                     initialData: _stopWatchTimer.records.value,
