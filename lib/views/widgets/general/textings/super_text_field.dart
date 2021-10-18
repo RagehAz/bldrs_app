@@ -42,14 +42,14 @@ class SuperTextField extends StatefulWidget {
 
   const SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
-    this.inputColor = Colorz.White255,
+    this.inputColor = Colorz.white255,
     this.maxLines = 7,
     this.minLines = 1,
     this.inputSize = 2,
     this.inputWeight = VerseWeight.regular,
     this.margin,
     this.italic = false,
-    this.labelColor = Colorz.White10,
+    this.labelColor = Colorz.white10,
     this.inputShadow = false,
     this.centered = false,
     this.hintText = '...',
@@ -61,7 +61,7 @@ class SuperTextField extends StatefulWidget {
     this.onChanged,
     @required this.textController,
     this.fieldColor,
-    this.hintColor = Colorz.White80,
+    this.hintColor = Colorz.white80,
     this.keyboardTextInputAction,
     this.onSaved,
     this.fieldIsFormField = false,
@@ -112,7 +112,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
   @override
   Widget build(BuildContext context) {
 
-    const Color _boxColor = Colorz.Nothing;
+    const Color _boxColor = Colorz.nothing;
     final double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
     final double _scalingFactor = 1; //scaleFactor == null ? 1: scaleFactor;
     /// --- AVAILABLE FONT SIZES -----------------------------------------------
@@ -134,11 +134,11 @@ class _SuperTextFieldState extends State<SuperTextField> {
     final double _shadowYOffset = 0;
     final double _shadowXOffset = SuperVerse.superVerseXOffset(_weight, _verseSize);
     final double _secondShadowXOffset = -0.35 * _shadowXOffset;
-    final Color _leftShadow = widget.inputColor == Colorz.Black230 ? Colorz.White125
-        : Colorz.Black230;
+    final Color _leftShadow = widget.inputColor == Colorz.black230 ? Colorz.white125
+        : Colorz.black230;
 
-    final Color _rightShadow = widget.inputColor == Colorz.Black230 ? Colorz.White80
-        : Colorz.White20;
+    final Color _rightShadow = widget.inputColor == Colorz.black230 ? Colorz.white80
+        : Colorz.white20;
     /// --- ITALIC -----------------------------------------------
     final FontStyle _verseStyle =
     widget.italic == true ? FontStyle.italic : FontStyle.normal;
@@ -148,14 +148,14 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     /// --- LABEL CORNERS -----------------------------------------------
     final double _labelCornerValues = SuperVerse.superVerseLabelCornerValue(context, _size);
-    final double _labelCorner = widget.labelColor == Colorz.Nothing ? 0 :
+    final double _labelCorner = widget.labelColor == Colorz.nothing ? 0 :
     widget.corners == null ? _labelCornerValues :
     widget.corners;
     /// --- LABEL PADDINGS -----------------------------------------------
     final double _sidePaddingValues = SuperVerse.superVerseSidePaddingValues(context, _size);
 // -----------------------------------------------------------------------------
     final double _sidePaddings =
-    widget.labelColor == Colorz.Nothing ? 0 : _sidePaddingValues;
+    widget.labelColor == Colorz.nothing ? 0 : _sidePaddingValues;
 // -----------------------------------------------------------------------------
     TextStyle superTextStyle(Color textColor, double sizeFactor) {
       return TextStyle(
@@ -218,31 +218,31 @@ class _SuperTextFieldState extends State<SuperTextField> {
     InputDecoration(
       hintText: widget.hintText,
       hintMaxLines: 1,
-      hintStyle: superHintStyle(Colorz.White80, 0.8),
+      hintStyle: superHintStyle(Colorz.white80, 0.8),
       alignLabelWithHint: true,
       contentPadding: EdgeInsets.all(_sidePaddings),
 
-      focusedBorder: Borderers.superOutlineInputBorder(Colorz.Yellow80, _labelCorner),
-      enabledBorder: Borderers.superOutlineInputBorder(Colorz.Nothing, _labelCorner),
+      focusedBorder: Borderers.superOutlineInputBorder(Colorz.yellow80, _labelCorner),
+      enabledBorder: Borderers.superOutlineInputBorder(Colorz.nothing, _labelCorner),
 
-      errorStyle: superTextStyle(Colorz.Red255, 0.7),
-      focusedErrorBorder: Borderers.superOutlineInputBorder(Colorz.Yellow80, _labelCorner),
+      errorStyle: superTextStyle(Colorz.red255, 0.7),
+      focusedErrorBorder: Borderers.superOutlineInputBorder(Colorz.yellow80, _labelCorner),
 
-      errorBorder: Borderers.superOutlineInputBorder(Colorz.Red125, _labelCorner),
-      border: Borderers.superOutlineInputBorder(Colorz.LinkedIn, _labelCorner),
-      disabledBorder: Borderers.superOutlineInputBorder(Colorz.Grey225, _labelCorner),
+      errorBorder: Borderers.superOutlineInputBorder(Colorz.red125, _labelCorner),
+      border: Borderers.superOutlineInputBorder(Colorz.linkedIn, _labelCorner),
+      disabledBorder: Borderers.superOutlineInputBorder(Colorz.grey225, _labelCorner),
       counterText: '${widget.textController?.text?.length} / ${widget.maxLength}',
       counter: widget.counterIsOn ? null : Offstage(),
-      counterStyle: superTextStyle(Colorz.White200, 0.7),
+      counterStyle: superTextStyle(Colorz.white200, 0.7),
 
       // SOME BULLSHIT
       isDense: true,
       isCollapsed: true,
       // semanticCounterText: 'semantic',
-      focusColor: Colorz.Green255,
+      focusColor: Colorz.green255,
       enabled: true,
       filled: true,
-      fillColor: Colorz.White10,
+      fillColor: Colorz.white10,
 
       // helperText: 'helper',
       // errorText: 'there is some error here',
@@ -325,7 +325,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           maxLengthEnforcement: _maxLengthEnforced,
           enableInteractiveSelection: true, // makes test selectable
           decoration: _inputDecoration,
-          cursorColor: Colorz.Yellow255,
+          cursorColor: Colorz.yellow255,
           cursorRadius: Radius.circular(3),
           cursorWidth: 2,
           cursorHeight: null,
@@ -360,7 +360,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           maxLengthEnforcement: _maxLengthEnforced,
           enableInteractiveSelection: true, // makes test selectable
           decoration: _inputDecoration,
-          cursorColor: Colorz.Yellow255,
+          cursorColor: Colorz.yellow255,
           cursorRadius: Radius.circular(3),
           cursorWidth: 2,
           cursorHeight: null,

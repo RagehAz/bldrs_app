@@ -28,7 +28,7 @@ class EarthScreenState extends State<EarthScreen> {
       layoutWidget: Container(
         width: _screenWidth * _countrySizeFactor,
         height: _screenHeight * _countrySizeFactor,
-        color: Colorz.BloodTest,
+        color: Colorz.bloodTest,
         alignment: Alignment.center,
         child: Stack(
             alignment: Alignment.center,

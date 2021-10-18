@@ -187,7 +187,7 @@ class MainLayout extends StatelessWidget {
               left: 0,
               child: BackAndSearchButton(
                 backAndSearchAction: BackAndSearchAction.GoBack,
-                color: sky == Sky.Black ? Colorz.Yellow50 : Colorz.White20,
+                color: sky == Sky.Black ? Colorz.yellow50 : Colorz.white20,
               ),
             ),
 
@@ -196,7 +196,7 @@ class MainLayout extends StatelessWidget {
     // ------------------------------------------------------------------
     // print('superScreenHeightWithoutSafeArea(context) = ${superScreenHeightWithoutSafeArea(context)},, superScreenHeight(context) = ${superScreenHeight(context)}');
 
-    final Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.Black230 : Colorz.SkyDarkBlue;
+    final Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.black230 : Colorz.skyDarkBlue;
 
     return StreamProvider<UserModel>.value(
       value: UsersProvider().myUserModelStream,
@@ -225,8 +225,8 @@ class MainLayout extends StatelessWidget {
                 canRefreshFlyers ?
                 RefreshIndicator(
                   onRefresh: ()=> _refresh(context),
-                  color: Colorz.Black230,
-                  backgroundColor: Colorz.Yellow255,
+                  color: Colorz.black230,
+                  backgroundColor: Colorz.yellow255,
                   displacement: Ratioz.appBarMargin,
                   strokeWidth: 4,
                   child: Stack(

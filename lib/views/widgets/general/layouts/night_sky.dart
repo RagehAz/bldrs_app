@@ -111,9 +111,9 @@ class _NightSkyState extends State<NightSky> with TickerProviderStateMixin {
     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
     final List<Color> _skyColors =
-    widget.sky == Sky.Night ? <Color>[Colorz.SkyLightBlue, Colorz.SkyDarkBlue] :
-        widget.sky == Sky.Black ? <Color>[Colorz.BlackSemi230, Colorz.BlackSemi230] :
-        <Color>[Colorz.SkyDarkBlue, Colorz.SkyDarkBlue];
+    widget.sky == Sky.Night ? <Color>[Colorz.skyLightBlue, Colorz.skyDarkBlue] :
+        widget.sky == Sky.Black ? <Color>[Colorz.blackSemi230, Colorz.blackSemi230] :
+        <Color>[Colorz.skyDarkBlue, Colorz.skyDarkBlue];
 // -----------------------------------------------------------------------------
     final Gradient _skyGradient =
     widget.sky == Sky.Night || widget.sky == Sky.Black ? RadialGradient(
@@ -123,7 +123,7 @@ class _NightSkyState extends State<NightSky> with TickerProviderStateMixin {
         stops: <double>[0.0, 0.65]
     ) : null;
 // -----------------------------------------------------------------------------
-    final Color _plainColor = widget.sky == Sky.Night || widget.sky == Sky.Black ? null : Colorz.SkyDarkBlue;
+    final Color _plainColor = widget.sky == Sky.Night || widget.sky == Sky.Black ? null : Colorz.skyDarkBlue;
 // -----------------------------------------------------------------------------
     return Center(
         child: Container(

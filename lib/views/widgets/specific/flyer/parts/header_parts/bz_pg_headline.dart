@@ -22,7 +22,7 @@ class BzPageHeadline extends StatelessWidget {
       Container(
         height: (flyerBoxWidth * 0.3),
         width: flyerBoxWidth,
-        color: Colorz.Nothing,
+        color: Colorz.nothing,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,7 +49,7 @@ class BzPageHeadline extends StatelessWidget {
               // softWrap: true,
               shadow: false,
               weight: VerseWeight.regular,
-              color: Colorz.White200,
+              color: Colorz.white200,
             ),
           ],
         ),

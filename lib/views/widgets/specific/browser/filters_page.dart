@@ -28,7 +28,7 @@ class FiltersPage extends StatelessWidget {
           itemBuilder: (context, keyIndex){
 
             final Group _group = groups[keyIndex];
-            final Color _color = selectedGroup?.groupID == _group.groupID ? Colorz.Yellow255 : Colorz.Nothing;
+            final Color _color = selectedGroup?.groupID == _group.groupID ? Colorz.yellow255 : Colorz.nothing;
 
             return
               DreamBox(

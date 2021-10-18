@@ -53,11 +53,11 @@ class ContactsBubble extends StatelessWidget {
                         icon: Iconizer.superContactIcon(_contactsWithStrings[index].contactType),
                         margins: const EdgeInsets.all(_abPadding),
                         verse: _value,
-                        verseColor: Colorz.White255,
+                        verseColor: Colorz.white255,
                         verseWeight: VerseWeight.thin,
                         verseItalic: true,
                         iconSizeFactor: 0.6,
-                        color: Colorz.BloodTest,
+                        color: Colorz.bloodTest,
                         onTap:
                         onTap == null ?
                             () async { await Launch.launchURL('https://${_contactsWithStrings[index].contact}');}

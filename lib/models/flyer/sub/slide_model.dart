@@ -545,7 +545,7 @@ class SlideModel {
             savesCount: 5402540,
             picFit: BoxFit.cover,
             imageSize: ImageSize(height: 900, width: 600),
-            midColor: Colorz.Black255,
+            midColor: Colorz.black255,
         );
   }
 }

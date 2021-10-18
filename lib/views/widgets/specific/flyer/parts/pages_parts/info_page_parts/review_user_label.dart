@@ -47,7 +47,7 @@ class ReviewUserLabel extends StatelessWidget {
           icon: Iconz.More,
           iconSizeFactor: 0.6,
           margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-          color: Colorz.White10,
+          color: Colorz.white10,
           onTap: () => onReviewOptions(),
         ),
 

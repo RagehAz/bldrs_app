@@ -185,7 +185,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                         verseScaleFactor: 0.5,
                         verseWeight: VerseWeight.thin,
                         verseItalic: true,
-                        color: Colorz.White10,
+                        color: Colorz.white10,
                         onTap: _pasteFunction,
                       ),
 
@@ -201,7 +201,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
             SuperVerse(
               verse: widget.comments,
               italic: true,
-              color: Colorz.White80,
+              color: Colorz.white80,
               size: 2,
               weight: VerseWeight.thin,
               leadingDot: true,

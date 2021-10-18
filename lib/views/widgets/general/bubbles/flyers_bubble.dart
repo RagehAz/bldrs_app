@@ -29,9 +29,9 @@ class FlyersBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Bubble(
-      bubbleColor: Colorz.White10,
+      bubbleColor: Colorz.white10,
       title: title,
-      titleColor: Colorz.White255,
+      titleColor: Colorz.white255,
       width: bubbleWidth,
       columnChildren: <Widget>[
 

@@ -118,7 +118,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   Container(
                     width: _screenWidth,
                     height: _screenHeight - _convBoxHeight,
-                    color: Colorz.Blue80,
+                    color: Colorz.blue80,
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount: chatModel.messages.length,
@@ -145,7 +145,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   Container(
                     width: _screenWidth,
                     height: _textFieldBoxHeight,
-                    color: Colorz.BloodTest,
+                    color: Colorz.bloodTest,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -156,7 +156,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           height: 40,
                           width: Scale.superScreenWidth(context) - 80,
                           hintText: '...',
-                          labelColor: Colorz.White20,
+                          labelColor: Colorz.white20,
                           counterIsOn: false,
                           keyboardTextInputType: TextInputType.text,
                           keyboardTextInputAction: TextInputAction.send,

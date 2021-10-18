@@ -87,7 +87,7 @@ class SavedFlyersGrid extends StatelessWidget {
                       DreamBox(
                         width: _flyerBoxWidth,
                         height: FlyerBox.height(context, _flyerBoxWidth),
-                        color: Colorz.Black50,
+                        color: Colorz.black50,
                         corners: Borderers.superFlyerCorners(context, _flyerBoxWidth),
                         bubble: true,
                       ),
@@ -101,7 +101,7 @@ class SavedFlyersGrid extends StatelessWidget {
                           verse: 'SELECTED',
                           weight: VerseWeight.black,
                           italic: true,
-                          color: Colorz.White255,
+                          color: Colorz.white255,
                           size: 2,
                           scaleFactor: _flyerBoxWidth/100,
                           shadow: true,
@@ -114,17 +114,17 @@ class SavedFlyersGrid extends StatelessWidget {
                         height: FlyerBox.height(context, _flyerBoxWidth),
                         alignment: Aligners.superInverseBottomAlignment(context),
                         decoration: BoxDecoration(
-                          border: Border.all(width: 1, color: Colorz.White20,),
+                          border: Border.all(width: 1, color: Colorz.white20,),
                           borderRadius: Borderers.superFlyerCorners(context, _flyerBoxWidth),
                         ),
                         child: DreamBox(
                           height: FlyerBox.bottomCornerValue(_flyerBoxWidth) * 2,
                           width: FlyerBox.bottomCornerValue(_flyerBoxWidth) * 2,
                           corners: FlyerBox.bottomCornerValue(_flyerBoxWidth),
-                          color: Colorz.Green255,
+                          color: Colorz.green255,
                           icon: Iconz.Check,
                           iconSizeFactor: 0.4,
-                          iconColor: Colorz.White255,
+                          iconColor: Colorz.white255,
                         ),
                       ),
 

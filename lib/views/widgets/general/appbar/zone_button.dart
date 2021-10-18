@@ -79,7 +79,7 @@ class ZoneButton extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(
                 Radius.circular(Ratioz.appBarButtonCorner)),
-            color: isOn ? Colorz.Yellow255 : Colorz.White10
+            color: isOn ? Colorz.yellow255 : Colorz.white10
         ),
         child: ChangeNotifierProvider.value(
           value: _zoneProvider,
@@ -100,13 +100,13 @@ class ZoneButton extends StatelessWidget {
                       SuperVerse(
                         verse: _countryAndProvinceNames,
                         size: 1,
-                        color: isOn? Colorz.Black230 : Colorz.White255,
+                        color: isOn? Colorz.black230 : Colorz.white255,
                       ),
                       SuperVerse(
                         verse: _districtName,
                         size: 1,
                         scaleFactor: 0.8,
-                        color: isOn? Colorz.Black230 : Colorz.White255,
+                        color: isOn? Colorz.black230 : Colorz.white255,
                       ),
                     ],
                   ),

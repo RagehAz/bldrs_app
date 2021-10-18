@@ -187,8 +187,8 @@ class NotiOps{
         body: 'Browse Thousands of flyers and pick your choices',
         bigPicture: _redBldrsBanner,
         notificationLayout: NotificationLayout.BigPicture,
-        color: Colorz.Yellow255,
-        backgroundColor: Colorz.BloodTest,
+        color: Colorz.yellow255,
+        backgroundColor: Colorz.bloodTest,
       ),
     );
   }
@@ -204,8 +204,8 @@ class NotiOps{
         body: 'You need to open the app now, not tomorrow, not after tomorrow, NOW !, Do I make my self clear ? or you want me to repeat What I have just wrote,, read again !',
         bigPicture: _redBldrsBanner,
         notificationLayout: NotificationLayout.BigPicture,
-        color: Colorz.Yellow255,
-        backgroundColor: Colorz.SkyDarkBlue,
+        color: Colorz.yellow255,
+        backgroundColor: Colorz.skyDarkBlue,
       ),
 
       actionButtons: <NotificationActionButton>[
@@ -259,10 +259,10 @@ class NotiOps{
         channelKey: getNotiChannelName(NotiChannel.basic),
         channelName: getNotiChannelName(NotiChannel.basic),
         channelDescription: 'this is for testing', // this will be visible to user in android notification settings
-        defaultColor: Colorz.Yellow255,
+        defaultColor: Colorz.yellow255,
         channelShowBadge: true,
         icon: _flatBldrsNotiIcon,
-        ledColor: Colorz.Yellow255,
+        ledColor: Colorz.yellow255,
         importance: NotificationImportance.High,
         locked: true,
         playSound: true,
@@ -279,11 +279,11 @@ class NotiOps{
         channelKey: getNotiChannelName(NotiChannel.scheduled),
         channelName: getNotiChannelName(NotiChannel.scheduled),
         channelDescription: 'This is the first scheduled notification', // this will be visible to user in android notification settings
-        defaultColor: Colorz.Yellow255,
+        defaultColor: Colorz.yellow255,
         channelShowBadge: true,
         enableLights: true,
         icon: _flatBldrsNotiIcon,
-        ledColor: Colorz.Yellow255,
+        ledColor: Colorz.yellow255,
         importance: NotificationImportance.High,
         enableVibration: true,
         playSound: true,

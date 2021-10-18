@@ -16,7 +16,7 @@ class KeywordBarButton extends StatelessWidget {
     @required this.keyword,
     @required this.xIsOn,
     @required this.onTap,
-    this.color = Colorz.Blue80
+    this.color = Colorz.blue80
 });
 
   @override
@@ -59,9 +59,9 @@ class KeywordBarButton extends StatelessWidget {
                       icon: Iconz.XLarge,
                       iconSizeFactor: 09,
                       bubble: false,
-                      iconColor: Colorz.White200,
+                      iconColor: Colorz.white200,
                       onTap: onTap,
-                      splashColor: Colorz.Nothing,
+                      splashColor: Colorz.nothing,
                     ),
 
                   Padding(
@@ -79,7 +79,7 @@ class KeywordBarButton extends StatelessWidget {
                             verse: Keyword.translateKeyword(context, keyword.groupID),
                             size: 1,
                             italic: true,
-                            color: Colorz.White255,
+                            color: Colorz.white255,
                             weight: VerseWeight.thin,
                             centered: false,
                           ),
@@ -94,7 +94,7 @@ class KeywordBarButton extends StatelessWidget {
                               verse: Keyword.translateKeyword(context, keyword.keywordID),
                               size: 1,
                               italic: false,
-                              color: Colorz.White255,
+                              color: Colorz.white255,
                               weight: VerseWeight.bold,
                               scaleFactor: 1,
                               centered: false,
@@ -146,7 +146,7 @@ class AddKeywordsButton extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 2.5),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colorz.Blue20,
+                color: Colorz.blue20,
                 borderRadius: BorderRadius.circular(_corners),
               ),
               child: Row(
@@ -168,7 +168,7 @@ class AddKeywordsButton extends StatelessWidget {
                           verse: 'Add ...',
                           size: 1,
                           italic: true,
-                          color: Colorz.White125,
+                          color: Colorz.white125,
                           weight: VerseWeight.thin,
                           centered: false,
                         ),
@@ -183,7 +183,7 @@ class AddKeywordsButton extends StatelessWidget {
                               verse: 'Keywords',
                               size: 1,
                               italic: false,
-                              color: Colorz.White125,
+                              color: Colorz.white125,
                               weight: VerseWeight.bold,
                               scaleFactor: 1,
                               centered: false,

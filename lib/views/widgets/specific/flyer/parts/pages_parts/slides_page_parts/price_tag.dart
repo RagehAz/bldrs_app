@@ -55,7 +55,7 @@ class PriceTag extends StatelessWidget {
         padding: const EdgeInsets.all(5),
         margin: EdgeInsets.only(bottom: _footerHeight),
         decoration: BoxDecoration(
-          color: Colorz.White125,
+          color: Colorz.white125,
           borderRadius: Borderers.superPriceTagCorners(context, flyerBoxWidth),
           boxShadow: Shadowz.appBarShadow,
         ),
@@ -81,7 +81,7 @@ class PriceTag extends StatelessWidget {
                       price: _currentPrice,
                       currency: _currency,
                       scaleFactor: _flyerSizeFactor * _tinyModePriceSizeMultiplier,
-                      color: Colorz.Black255
+                      color: Colorz.black255
                     ),
 
                     /// OLD PRICING
@@ -98,7 +98,7 @@ class PriceTag extends StatelessWidget {
                           currency: _currency,
                           scaleFactor: _flyerSizeFactor * 0.4,
                           strikethrough: true,
-                          color: Colorz.Black125,
+                          color: Colorz.black125,
                         ),
 
                         SizedBox(
@@ -108,7 +108,7 @@ class PriceTag extends StatelessWidget {
 
                         SuperVerse(
                           verse: '$_discountPercentage% OFF',
-                          color: Colorz.Green255,
+                          color: Colorz.green255,
                           weight: VerseWeight.black,
                           italic: true,
                           size: 2,

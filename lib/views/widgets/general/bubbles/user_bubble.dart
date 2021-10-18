@@ -155,7 +155,7 @@ class _UserBubbleState extends State<UserBubble> {
           size: 4,
           margin: 5,
           maxLines: 2,
-          labelColor: Colorz.White10,
+          labelColor: Colorz.white10,
         ),
 
         /// USER JOB TITLE
@@ -188,7 +188,7 @@ class _UserBubbleState extends State<UserBubble> {
                 verse: '${Wordz.inn(context)} $_districtName, $_cityName, $_countryName',
                 weight: VerseWeight.thin,
                 italic: true,
-                color: Colorz.Grey225,
+                color: Colorz.grey225,
                 size: 2,
                 margin: 5,
               ),
@@ -202,7 +202,7 @@ class _UserBubbleState extends State<UserBubble> {
           verse: Timers.monthYearStringer(context,widget.user?.createdAt),
           weight: VerseWeight.thin,
           italic: true,
-          color: Colorz.Grey225,
+          color: Colorz.grey225,
           size: 1,
         ),
 

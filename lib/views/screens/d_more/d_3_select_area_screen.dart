@@ -8,7 +8,7 @@ import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
-import 'package:bldrs/views/widgets/general/layouts/listLayout.dart';
+import 'package:bldrs/views/widgets/general/layouts/list_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart' show Sky;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

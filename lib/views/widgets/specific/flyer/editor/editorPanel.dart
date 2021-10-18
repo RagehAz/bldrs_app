@@ -68,12 +68,12 @@ class EditorPanel extends StatelessWidget {
             height: _authorButtonHeight,
             // margins: EdgeInsets.symmetric(vertical: (Ratioz.xxflyerHeaderMiniHeight - Ratioz.xxflyerLogoWidth) * _flyerBoxWidth / 2),
             width: _buttonSize,
-            color: superFlyer.flyerShowsAuthor == true ? Colorz.White80 : Colorz.White80,
+            color: superFlyer.flyerShowsAuthor == true ? Colorz.white80 : Colorz.white80,
             icon: _author?.pic,
             iconSizeFactor: 0.5,
             underLine: superFlyer.flyerShowsAuthor == true ? 'Author Shown' : 'Author Hidden',
             underLineShadowIsOn: false,
-            underLineColor: superFlyer.flyerShowsAuthor == true ? Colorz.White255 : Colorz.White80,
+            underLineColor: superFlyer.flyerShowsAuthor == true ? Colorz.white255 : Colorz.white80,
             corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerBoxWidth),
             blackAndWhite: superFlyer.flyerShowsAuthor == true ? false : true,
             bubble: superFlyer.flyerShowsAuthor == true ? true : false,
@@ -92,10 +92,10 @@ class EditorPanel extends StatelessWidget {
               icon:  Iconz.XSmall,
               iconSizeFactor: 0.5,
               verse: 'Delete',
-              verseColor: Colorz.White255,
+              verseColor: Colorz.white255,
 
               /// TASK : if all fields are valid should be green otherWise should be inActive
-              color: Colorz.Red230,
+              color: Colorz.red230,
               onTap: superFlyer.edit.onDeleteFlyer,
             ),
 
@@ -106,10 +106,10 @@ class EditorPanel extends StatelessWidget {
             icon:  Iconz.ArrowUp,
             iconSizeFactor: 0.5,
             verse: superFlyer.edit.firstTimer ? 'Publish' : 'Update',
-            verseColor: superFlyer.edit.editMode ? Colorz.Black255 : Colorz.White255,
+            verseColor: superFlyer.edit.editMode ? Colorz.black255 : Colorz.white255,
 
             /// TASK : if all fields are valid should be green otherWise should be inActive
-            color: Colorz.Green255,
+            color: Colorz.green255,
             onTap: superFlyer.edit.onPublishFlyer,
           ),
 
@@ -119,8 +119,8 @@ class EditorPanel extends StatelessWidget {
             icon: superFlyer.edit.editMode == true ? Iconz.Gears : Iconz.Views,
             iconSizeFactor: 0.5,
             verse: superFlyer.edit.editMode == true ? 'Editing' : 'Viewing',
-            verseColor: superFlyer.edit.editMode == true ? Colorz.Black255 : Colorz.White255,
-            color: superFlyer.edit.editMode == true ? Colorz.Yellow255 : Colorz.White80,
+            verseColor: superFlyer.edit.editMode == true ? Colorz.black255 : Colorz.white255,
+            color: superFlyer.edit.editMode == true ? Colorz.yellow255 : Colorz.white80,
             onTap: superFlyer.edit.onTriggerEditMode,
           ),
 

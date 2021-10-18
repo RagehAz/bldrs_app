@@ -105,10 +105,10 @@ class Strips extends StatelessWidget {
     return _oneStripLength;
   }
 // -----------------------------------------------------------------------------
-  static const Color stripOffColor = Colorz.White10;
-  static const Color stripFadedColor = Colorz.White80;
-  static const Color stripOnColor = Colorz.White200;
-  static const Color stripLoadingColor = Colorz.Yellow200;
+  static const Color stripOffColor = Colorz.white10;
+  static const Color stripFadedColor = Colorz.white80;
+  static const Color stripOnColor = Colorz.white200;
+  static const Color stripLoadingColor = Colorz.yellow200;
 
   static Color stripColor({bool isWhite, int numberOfSlides,}){
     final int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;

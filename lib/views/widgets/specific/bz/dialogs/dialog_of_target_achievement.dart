@@ -24,8 +24,8 @@ class DialogOfTargetAchievement extends StatelessWidget {
             weight: VerseWeight.thin,
             italic: true,
             size: 1,
-            color: Colorz.Blue225,
-            labelColor: Colorz.White10,
+            color: Colorz.blue225,
+            labelColor: Colorz.white10,
             onTap: () async {
 
               await DialogOfSlidesAndAnkhs.show(
@@ -52,8 +52,8 @@ class DialogOfTargetAchievement extends StatelessWidget {
           weight: VerseWeight.thin,
           italic: true,
           size: 1,
-          color: Colorz.Blue225,
-          labelColor: Colorz.White10,
+          color: Colorz.blue225,
+          labelColor: Colorz.white10,
           onTap: () async {
 
             await DialogOfSlidesAndAnkhs.show(

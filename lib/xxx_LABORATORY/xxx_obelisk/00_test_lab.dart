@@ -113,7 +113,7 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
               const Stratosphere(),
 
               WideButton(
-                  color: Colorz.BloodTest,
+                  color: Colorz.bloodTest,
                   verse: 'Do something',
                   icon: Iconz.Share,
                   onTap: () async {

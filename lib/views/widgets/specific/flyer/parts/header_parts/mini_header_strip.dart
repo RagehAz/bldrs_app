@@ -33,7 +33,7 @@ class MiniHeaderStrip extends StatelessWidget {
           padding: EdgeInsets.all(flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding),
           decoration: BoxDecoration(
             borderRadius: _stripBorders,
-            gradient: Colorizer.superHeaderStripGradient(Colorz.White50),
+            gradient: Colorizer.superHeaderStripGradient(Colorz.white50),
           ),
 
           child: Row(

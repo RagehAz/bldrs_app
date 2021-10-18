@@ -79,11 +79,11 @@ class PropertySearchCriteria extends StatelessWidget {
     return Container(
       width: _boxWidth,
       decoration: BoxDecoration(
-          color: Colorz.White10,
+          color: Colorz.white10,
           borderRadius: BorderRadius.circular(corners),
           boxShadow: <BoxShadow>[
             CustomBoxShadow(
-                color: _bubble == true ? Colorz.Black200 : Colorz.Nothing,
+                color: _bubble == true ? Colorz.black200 : Colorz.nothing,
                 offset: new Offset(0, 0),
                 blurRadius: _boxHeight * 0.15,
                 blurStyle: BlurStyle.outer),
@@ -107,7 +107,7 @@ class PropertySearchCriteria extends StatelessWidget {
                             corners - (_boxHeight * 0.8) ),
                         boxShadow: <BoxShadow>[
                           CustomBoxShadow(
-                              color: Colorz.White50,
+                              color: Colorz.white50,
                               offset: new Offset(0, _boxWidth * -0.01),
                               blurRadius: _boxHeight * 0.2,
                               blurStyle: BlurStyle.normal),
@@ -127,7 +127,7 @@ class PropertySearchCriteria extends StatelessWidget {
                       gradient: const LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: <Color>[Colorz.Black0, Colorz.Black80],
+                          colors: <Color>[Colorz.black0, Colorz.black80],
                           stops: <double>[0.9, 1]),
                     ),
                   ),
@@ -149,7 +149,7 @@ class PropertySearchCriteria extends StatelessWidget {
                           verse: 'Select your default property search criteria !',
                           centered: false,
                           italic: true,
-                          color: Colorz.Yellow200,
+                          color: Colorz.yellow200,
                           shadow: true,
                         ),
                       ),
@@ -187,12 +187,12 @@ class PropertySearchCriteria extends StatelessWidget {
                     DreamBox(
                       height: 35,
                       margins: const EdgeInsets.symmetric(horizontal: _pageMargin, vertical: _pageMargin * 2),
-                      color: Colorz.White10,
+                      color: Colorz.white10,
                       icon: Iconz.Plus,
-                      iconColor: Colorz.Blue225,
+                      iconColor: Colorz.blue225,
                       iconSizeFactor: 0.5,
                       verse: 'Add more details',
-                      verseColor: Colorz.Blue225,
+                      verseColor: Colorz.blue225,
                       onTap: (){print('3afreet enta');},
                       blackAndWhite: false,
 

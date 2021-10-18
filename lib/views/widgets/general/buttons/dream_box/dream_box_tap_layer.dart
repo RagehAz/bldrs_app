@@ -28,7 +28,7 @@ class DreamBoxTapLayer extends StatelessWidget {
       width: width,
       height: height,
       child: Material(
-        color: Colorz.Nothing,
+        color: Colorz.nothing,
         child: GestureDetector(
           onTapDown: inActiveMode == true || onTapDown == null ? (TapDownDetails details){} : (TapDownDetails details) => onTapDown(),
           onTapUp: inActiveMode == true || onTapUp == null ? (TapUpDetails details){} : (TapUpDetails details) => onTapUp(),

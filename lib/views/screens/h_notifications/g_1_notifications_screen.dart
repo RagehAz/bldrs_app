@@ -115,7 +115,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           height: 40,
           iconSizeFactor: 0.5,
           icon: Iconz.Clock,
-          color: Colorz.Blue20,
+          color: Colorz.blue20,
           corners: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
           margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           onTap: (){

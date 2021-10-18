@@ -186,12 +186,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
             child: Container(
               width: Scale.superScreenWidth(context),
               height: 3,
-              color: Colorz.White80,
+              color: Colorz.white80,
               alignment: Aligners.superCenterAlignment(context),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 4000),
                 width: Scale.superScreenWidth(context) * _progress / 100,
-                color: Colorz.Yellow255,
+                color: Colorz.yellow255,
               ),
             ),
           ),

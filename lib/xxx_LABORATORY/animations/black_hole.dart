@@ -68,7 +68,7 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
             iconSizeFactor: 0.95,
             margins: const EdgeInsets.symmetric(vertical: 25),
             corners: 150,
-            color: Colorz.White10,
+            color: Colorz.white10,
             verseScaleFactor: 0.8,
             onTap: _enterTheBlackHole,
           ),

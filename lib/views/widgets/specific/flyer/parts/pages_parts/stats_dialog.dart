@@ -65,8 +65,8 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
 // -----------------------------------------------------------------------------
   Widget button({BuildContext context, String icon, String verse, Function onTap, bool isSelected}){
 
-    final Color _buttonColor = isSelected == true ? Colorz.Yellow255 : Colorz.White10;
-    final Color _verseColor = isSelected == true ? Colorz.Black255 : Colorz.White255;
+    final Color _buttonColor = isSelected == true ? Colorz.yellow255 : Colorz.white10;
+    final Color _verseColor = isSelected == true ? Colorz.black255 : Colorz.white255;
 
     return
       GestureDetector(
@@ -205,7 +205,7 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
                           verseCentered: false,
                           margins: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
                           bubble: false,
-                          color: Colorz.White10,
+                          color: Colorz.white10,
                         );
 
                   }

@@ -22,12 +22,12 @@ class Loading extends StatelessWidget {
       child: Container(
         width: size,
         height: size,
-        color: Colorz.Nothing,
+        color: Colorz.nothing,
         child: Center(
           child:
           loading == true ?
           SpinKitPulse(
-            color: Colorz.Yellow255,
+            color: Colorz.yellow255,
             size: size,
 
           ) : Container()

@@ -35,7 +35,7 @@ class SuperVerse extends StatelessWidget {
   const SuperVerse({
     this.verse = 'Bldrs.net will shock planet Earth isa',
     this.size = 2,
-    this.color = Colorz.White255,
+    this.color = Colorz.white255,
     this.weight = VerseWeight.bold,
     this.italic = false,
     this.shadow = false,
@@ -125,7 +125,7 @@ class SuperVerse extends StatelessWidget {
     }){
 
       const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
-      const Color _boxColor = Colorz.Nothing;
+      const Color _boxColor = Colorz.nothing;
       final String _verseFont = superVerseFont(context, weight);
       final FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
       final double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
@@ -138,8 +138,8 @@ class SuperVerse extends StatelessWidget {
       const double _shadowYOffset = 0;
       final double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
       final double _secondShadowXOffset = -0.35 * _shadowXOffset;
-      final Color _leftShadow = Colorizer.isBlack(color) == true ? Colorz.White200 : Colorz.Black230;
-      final Color _rightShadow = Colorizer.isBlack(color) == true ? Colorz.White80 : Colorz.White20;
+      final Color _leftShadow = Colorizer.isBlack(color) == true ? Colorz.white200 : Colorz.black230;
+      final Color _rightShadow = Colorizer.isBlack(color) == true ? Colorz.white80 : Colorz.white20;
 
       return
         TextStyle(
@@ -391,7 +391,7 @@ class SuperVerse extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static TextStyle superVerseDefaultStyle(BuildContext context){
     return
-      SuperVerse.createStyle(context: context, color: Colorz.White255, weight: VerseWeight.thin, italic: true, size: 2, shadow: true);
+      SuperVerse.createStyle(context: context, color: Colorz.white255, weight: VerseWeight.thin, italic: true, size: 2, shadow: true);
   }
 // -----------------------------------------------------------------------------
   @override
@@ -513,7 +513,7 @@ class SuperVerse extends StatelessWidget {
                   labelColor == null ?
                   EdgeInsets.only(top: _labelHeight * 0.2) :
                   EdgeInsets.only(top: _labelHeight * 0.05) ,
-                  child: _dot(_dotSize, Colorz.Red255),
+                  child: _dot(_dotSize, Colorz.red255),
                 ),
             ),
 

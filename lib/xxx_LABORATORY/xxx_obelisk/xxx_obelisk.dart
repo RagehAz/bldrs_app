@@ -27,6 +27,7 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/forms_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/providers_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/00_test_lab.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/snackbar_layout.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/timer_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/trigram_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_lab.dart';
@@ -64,7 +65,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 // ---------------------------------------------------------------------------
   Widget oButton (String title, String icon, Widget screen, {Color color}){
 
-    Color _color = color == null ? Colorz.Black125 : color;
+    Color _color = color == null ? Colorz.black125 : color;
 
     return
       MainButton(
@@ -72,7 +73,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
         buttonColor: _color,
         buttonIcon: icon,
         buttonVerseShadow: true,
-        splashColor: Colorz.Yellow255,
+        splashColor: Colorz.yellow255,
         function: () => Nav.goToNewScreen(context, screen),
         stretched: false,
       );
@@ -110,9 +111,9 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
         DreamBox(
           height: Ratioz.appBarButtonSize,
           verse: _isSignedIn ? ' Signed in ' : ' Signed out ',
-          color: _isSignedIn ? Colorz.Green255 : Colorz.Grey80,
+          color: _isSignedIn ? Colorz.green255 : Colorz.grey80,
           verseScaleFactor: 0.6,
-          verseColor: _isSignedIn ? Colorz.White255 : Colorz.DarkGrey225,
+          verseColor: _isSignedIn ? Colorz.white255 : Colorz.darkGrey225,
           onTap: () => AuthOps().signOut(context: context, routeToUserChecker: true),
         ),
 
@@ -123,9 +124,9 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
         DreamBox(
           height: Ratioz.appBarButtonSize,
           width: Ratioz.appBarButtonSize,
-          color: Colorz.Yellow255,
+          color: Colorz.yellow255,
           icon: Iconz.DashBoard,
-          iconColor: Colorz.Black255,
+          iconColor: Colorz.black255,
           iconSizeFactor: 0.75,
           margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           bubble: true,
@@ -145,11 +146,14 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
             size: 0,
             italic: true,
             weight: VerseWeight.thin,
-            color: Colorz.White80,
+            color: Colorz.white80,
             maxLines: 4,
           ),
 
           LogoSlogan(sizeFactor: 0.8,),
+
+
+          oButton('SNACK ZEFT', Iconz.BigMac, SnackBarLayout()),
 
           oButton('TEST LAB', Iconz.Flyer, RandomTestSpace(
             flyerBoxWidth: FlyerBox.width(context, 0.5),
@@ -181,7 +185,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           oButton('Fire search test', Iconz.Search, FireSearchTest()),
 
-          oButton('Dialog Test', Iconz.More, DialogTestScreen(), color: Colorz.BloodTest),
+          oButton('Dialog Test', Iconz.More, DialogTestScreen(), color: Colorz.bloodTest),
 
           oButton('10 - Font lab', Iconz.Language, FontLab()),
 
