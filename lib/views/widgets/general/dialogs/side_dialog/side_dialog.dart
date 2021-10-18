@@ -39,6 +39,31 @@ class DrawerDialog extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
+              Container(
+                width: _bubbleWidth,
+                alignment: Alignment.center,
+                // child: ExpandingTile(
+                //   group: GroupModel.getGroupBySection(section: Section.NewProperties)[0],
+                //   selectedKeywords: [],
+                //   onKeywordTap: (Keyword keyword){
+                //     keyword.printKeyword();
+                //     },
+                //   onGroupTap: (){
+                //     print('on gorup tap is tapped man');
+                //     },
+                //
+                //   height: 150,
+                //   // key: PageStorageKey<String>('fuck_you_bitch_mother_fucker'),
+                //   icon: Iconz.DvDonaldDuck,
+                //   iconSizeFactor: 0.7,
+                //   initiallyExpanded: false,
+                //   onExpansionChanged: (bool isExpanded){
+                //     print('expansion just changed : isExpanded : ${isExpanded}');
+                //   },
+                //   tileWidth: _bubbleWidth,
+                // ),
+              ),
+
               /// REAL ESTATE
               SectionBubble(
                   title: 'RealEstate',

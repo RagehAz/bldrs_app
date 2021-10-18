@@ -1,5 +1,8 @@
 import 'package:bldrs/models/bz/bz_model.dart';
 
+/// TAXONOMIC HIERARCHY
+/// Section / group / keyword
+
 enum Section{
   All,
   NewProperties,

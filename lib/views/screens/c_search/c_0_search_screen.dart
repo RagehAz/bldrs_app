@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/groups.dart';
+import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/views/screens/c_search/c_2_search_filters_screen.dart';
@@ -109,7 +109,7 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 // -----------------------------------------------------------------------------
-  List<Widget> _selectedKeywordsWidgets(List<Group> filtersModels){
+  List<Widget> _selectedKeywordsWidgets(List<GroupModel> filtersModels){
 
     return
 
@@ -260,7 +260,7 @@ class _SearchScreenState extends State<SearchScreen> {
 //
 //   }
 // -----------------------------------------------------------------------------
-  Future<void> _removeKeyword(int index, List<Group> filtersModels) async {
+  Future<void> _removeKeyword(int index, List<GroupModel> filtersModels) async {
 
     final String _groupID = _selectedKeywords[index].groupID;
     // String _keywordID = _selectedKeywords[index].keywordID;
@@ -316,7 +316,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     // bool _canPickMany = filtersModels.singleWhere((filterModel) => filterModel.filterID == _currentFilterID).canPickMany;
 
-    final bool _canPickMany = Group.getCanGroupPickManyByKeyword(keyword);
+    final bool _canPickMany = GroupModel.getCanGroupPickManyByKeyword(keyword);
 
     final bool _isSelected = _selectedKeywords.contains(keyword);
 
@@ -484,7 +484,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
 
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
-    final List<Group> _groupsBySection = _generalProvider.sectionGroups;
+    final List<GroupModel> _groupsBySection = _generalProvider.sectionGroups;
 
 
     print('rebuilding search screen with section : ${_groupsBySection.length} filters');

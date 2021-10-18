@@ -10,7 +10,7 @@ import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/specific/keywords/sub_group_expansion_tile.dart';
 
-class GroupTile extends StatefulWidget {
+class ExpandingTile extends StatefulWidget {
   final double tileWidth;
   final double tileMaxHeight;
 
@@ -24,7 +24,7 @@ class GroupTile extends StatefulWidget {
   final bool initiallyExpanded;
   final List<Keyword> selectedKeywords;
 
-  const GroupTile({
+  const ExpandingTile({
     this.tileWidth,
     this.tileMaxHeight,
 
@@ -43,10 +43,10 @@ class GroupTile extends StatefulWidget {
   static const double arrowBoxSize = SubGroupTile.arrowBoxSize;
 
   @override
-  GroupTileState createState() => new GroupTileState();
+  ExpandingTileState createState() => new ExpandingTileState();
 }
 
-class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixin {
+class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderStateMixin {
   AnimationController _controller;
   // CurvedAnimation _easeOutAnimation;
   CurvedAnimation _easeInAnimation;
@@ -163,7 +163,7 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
 
           CollapsedTile(
             tileWidth: widget.tileWidth,
-            collapsedHeight: GroupTile.collapsedGroupHeight,
+            collapsedHeight: ExpandingTile.collapsedGroupHeight,
             tileColor: _tileColor,
             corners: Ratioz.appBarCorner + Ratioz.appBarMargin,
             firstHeadline: _groupFirstName,
@@ -205,15 +205,15 @@ class GroupTileState extends State<GroupTile> with SingleTickerProviderStateMixi
               final List<Keyword> _subGroupKeywords = Keyword.getKeywordsBySubGroupIDFromKeywords(keywords: widget.group.keywords, subGroupID: _subGroupID);
 
               return
-              _subGroupID == '' ?
+                _subGroupID == '' ?
 
-                  KeywordsButtonsList(
-                      buttonWidth: widget.tileWidth - (Ratioz.appBarMargin * 2),
-                      keywords: _subGroupKeywords,
-                      onKeywordTap: widget.onKeywordTap,
-                  )
+                KeywordsButtonsList(
+                  buttonWidth: widget.tileWidth - (Ratioz.appBarMargin * 2),
+                  keywords: _subGroupKeywords,
+                  onKeywordTap: widget.onKeywordTap,
+                )
 
-                  :
+                    :
 
                 SubGroupTile(
                   tileWidth: widget.tileWidth - (Ratioz.appBarMargin * 2),

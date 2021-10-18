@@ -10,20 +10,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 /// Keywords are grouped into Group class
-class Group{
+class GroupModel{
   final String groupID;
   final bool canPickMany;
   final List<Keyword> keywords;
 
-  Group({
+  GroupModel({
     @required this.groupID,
     @required this.canPickMany,
     @required this.keywords,
   });
 // -----------------------------------------------------------------------------
-  static List<Group> getGroupBySection({Section section}){
+  static List<GroupModel> getGroupBySection({Section section}){
 
-    final List<Group> _group =
+    final List<GroupModel> _group =
         section == Section.NewProperties ? getPropertiesGroups() :
         section == Section.ResaleProperties ? getPropertiesGroups() :
         section == Section.RentalProperties ? getPropertiesGroups() :
@@ -39,7 +39,7 @@ class Group{
         return _group;
   }
 // -----------------------------------------------------------------------------
-  static List<Group> getGroupsByFlyerType({FlyerType flyerType}){
+  static List<GroupModel> getGroupsByFlyerType({FlyerType flyerType}){
 
     print('getGroupsByFlyerType : flyerType : $flyerType');
 
@@ -58,25 +58,25 @@ class Group{
     }
   }
 // -----------------------------------------------------------------------------
-  static final Group propertyFormsGroups = Group(groupID: 'group_ppt_form', canPickMany: false, keywords: FilterKeywords.propertyForms());
-  static final Group propertyTypesGroup = Group(groupID: 'group_ppt_type', canPickMany: false, keywords: FilterKeywords.propertyTypes());
-  static final Group propertyAreaGroup = Group(groupID: 'group_ppt_area', canPickMany: false, keywords: FilterKeywords.propertyArea());
-  static final Group propertySpacesGroup = Group(groupID: 'group_ppt_spaces', canPickMany: true, keywords: FilterKeywords.spaceTypes());
-  static final Group propertyFeaturesGroup = Group(groupID: 'group_ppt_features', canPickMany: true, keywords: FilterKeywords.propertyFeatures());
-  static final Group propertyPricesGroup = Group(groupID: 'group_ppt_price', canPickMany: true, keywords: FilterKeywords.propertyPrices());
-  static final Group propertyLicenseGroup = Group(groupID: 'group_ppt_license', canPickMany: false, keywords: FilterKeywords.propertyLicenses());
+  static final GroupModel propertyFormsGroups = GroupModel(groupID: 'group_ppt_form', canPickMany: false, keywords: FilterKeywords.propertyForms());
+  static final GroupModel propertyTypesGroup = GroupModel(groupID: 'group_ppt_type', canPickMany: false, keywords: FilterKeywords.propertyTypes());
+  static final GroupModel propertyAreaGroup = GroupModel(groupID: 'group_ppt_area', canPickMany: false, keywords: FilterKeywords.propertyArea());
+  static final GroupModel propertySpacesGroup = GroupModel(groupID: 'group_ppt_spaces', canPickMany: true, keywords: FilterKeywords.spaceTypes());
+  static final GroupModel propertyFeaturesGroup = GroupModel(groupID: 'group_ppt_features', canPickMany: true, keywords: FilterKeywords.propertyFeatures());
+  static final GroupModel propertyPricesGroup = GroupModel(groupID: 'group_ppt_price', canPickMany: true, keywords: FilterKeywords.propertyPrices());
+  static final GroupModel propertyLicenseGroup = GroupModel(groupID: 'group_ppt_license', canPickMany: false, keywords: FilterKeywords.propertyLicenses());
 // -----------------------------------------------------------------------------
-  static final Group designTypesGroup = Group(groupID: 'group_dz_type', canPickMany: false, keywords: FilterKeywords.designTypes());
-  static final Group architecturalStylesGroup = Group(groupID: 'group_dz_style', canPickMany: false, keywords: FilterKeywords.architecturalStyles());
-  static final Group spaceTypeGroup = Group(groupID: 'group_space_type', canPickMany: true, keywords: FilterKeywords.spaceTypes());
-  static final Group kioskTypeGroup = Group(groupID: 'group_dz_kioskType', canPickMany: false, keywords: FilterKeywords.kioskTypes());
+  static final GroupModel designTypesGroup = GroupModel(groupID: 'group_dz_type', canPickMany: false, keywords: FilterKeywords.designTypes());
+  static final GroupModel architecturalStylesGroup = GroupModel(groupID: 'group_dz_style', canPickMany: false, keywords: FilterKeywords.architecturalStyles());
+  static final GroupModel spaceTypeGroup = GroupModel(groupID: 'group_space_type', canPickMany: true, keywords: FilterKeywords.spaceTypes());
+  static final GroupModel kioskTypeGroup = GroupModel(groupID: 'group_dz_kioskType', canPickMany: false, keywords: FilterKeywords.kioskTypes());
 // -----------------------------------------------------------------------------
-  static final Group constructionTradesGroup = Group(groupID: 'group_craft_trade', canPickMany: true, keywords: FilterKeywords.constructionTrades());
+  static final GroupModel constructionTradesGroup = GroupModel(groupID: 'group_craft_trade', canPickMany: true, keywords: FilterKeywords.constructionTrades());
 // -----------------------------------------------------------------------------
-  static final Group productsGroup = Group(groupID: 'product', canPickMany: true, keywords: FilterKeywords.products());
-  static final Group productPricesGroup = Group(groupID: 'productPrices', canPickMany: true, keywords: FilterKeywords.productPrices());
+  static final GroupModel productsGroup = GroupModel(groupID: 'product', canPickMany: true, keywords: FilterKeywords.products());
+  static final GroupModel productPricesGroup = GroupModel(groupID: 'productPrices', canPickMany: true, keywords: FilterKeywords.productPrices());
 // -----------------------------------------------------------------------------
-  static Group getGroupFromCurrentDistricts(BuildContext context){
+  static GroupModel getGroupFromCurrentDistricts(BuildContext context){
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
     final CountryModel _currentCountry = _zoneProvider.currentCountry;
@@ -85,7 +85,7 @@ class Group{
 
     final List<Keyword> _districtsAsKeywords = Keyword.getKeywordsModelsFromDistricts(_districts);
 
-    final Group _group = Group(
+    final GroupModel _group = GroupModel(
         groupID: _districtsAsKeywords[0].groupID,
         canPickMany: false,
         keywords: _districtsAsKeywords
@@ -94,13 +94,13 @@ class Group{
     return _group;
   }
 // -----------------------------------------------------------------------------
-  static Group zoneDistrictsAsGroup (BuildContext context){
-    final Group _zoneDistrictsGroup = getGroupFromCurrentDistricts(context);
+  static GroupModel zoneDistrictsAsGroup (BuildContext context){
+    final GroupModel _zoneDistrictsGroup = getGroupFromCurrentDistricts(context);
     return _zoneDistrictsGroup;
   }
 // -----------------------------------------------------------------------------
-  static List<Group> getAllGroups(){
-    final List<Group> _allGroups = <Group>[
+  static List<GroupModel> getAllGroups(){
+    final List<GroupModel> _allGroups = <GroupModel>[
       ...getPropertiesGroups(),
       ...getDesignsGroups(),
       ...getProjectsGroups(),
@@ -111,8 +111,8 @@ class Group{
     return _allGroups;
   }
 // -----------------------------------------------------------------------------
-  static List<Group> getPropertiesGroups(){
-    return <Group>[
+  static List<GroupModel> getPropertiesGroups(){
+    return <GroupModel>[
       propertyFormsGroups,
       propertyTypesGroup,
       propertyAreaGroup,
@@ -123,9 +123,9 @@ class Group{
     ];
   }
 // -----------------------------------------------------------------------------
-  static List<Group> getDesignsGroups(){
+  static List<GroupModel> getDesignsGroups(){
     return
-     <Group>[
+     <GroupModel>[
         designTypesGroup,
         architecturalStylesGroup,
         spaceTypeGroup,
@@ -134,9 +134,9 @@ class Group{
       ];
   }
 // -----------------------------------------------------------------------------
-  static List<Group> getProjectsGroups(){
+  static List<GroupModel> getProjectsGroups(){
     return
-      <Group>[
+      <GroupModel>[
         constructionTradesGroup,
         designTypesGroup,
         spaceTypeGroup,
@@ -145,23 +145,23 @@ class Group{
       ];
   }
 // -----------------------------------------------------------------------------
-  static List<Group> getCraftsGroups(){
-    return <Group>[
+  static List<GroupModel> getCraftsGroups(){
+    return <GroupModel>[
       constructionTradesGroup,
       spaceTypeGroup,
       productsGroup,
     ];
   }
 // -----------------------------------------------------------------------------
-  static List<Group> getProductsGroups(){
-    return <Group>[
+  static List<GroupModel> getProductsGroups(){
+    return <GroupModel>[
       productsGroup,
       productPricesGroup,
     ];
   }
 // -----------------------------------------------------------------------------
-  static List<Group> getEquipmentGroups(){
-    return <Group>[
+  static List<GroupModel> getEquipmentGroups(){
+    return <GroupModel>[
       productsGroup,
       productPricesGroup,
     ];
@@ -170,7 +170,7 @@ class Group{
   static bool getCanGroupPickManyByKeyword(Keyword keyword){
 
     bool _canPickMany;
-    final Group _group = getGroupByKeyword(keyword);
+    final GroupModel _group = getGroupByKeyword(keyword);
 
     if (_group == null){
       // keep can pick many null
@@ -182,8 +182,8 @@ class Group{
     return _canPickMany;
   }
 // -----------------------------------------------------------------------------
-  static Group getGroupByKeyword(Keyword keyword){
-    final Group _group = getAllGroups().firstWhere((filter) => filter.groupID == keyword.groupID, orElse: () => null);
+  static GroupModel getGroupByKeyword(Keyword keyword){
+    final GroupModel _group = getAllGroups().firstWhere((filter) => filter.groupID == keyword.groupID, orElse: () => null);
     return _group;
   }
 // -----------------------------------------------------------------------------
