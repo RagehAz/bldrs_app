@@ -830,7 +830,10 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
     /// add or remove tiny flyer in local saved flyersList
-    _flyersProvider.addOrDeleteFlyerInSavedFlyers(_flyerModel);
+    await _flyersProvider.saveOrUnSaveFlyer(
+      context: context,
+      inputFlyer: _flyerModel,
+    );
 
     print('ankh is ${_superFlyer.rec.ankhIsOn}');
 
@@ -1029,7 +1032,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                           maxLines: 10,
                           minLines: 3,
                           maxLength: 500,
-                          designMode: false,
                           counterIsOn: true,
                           inputSize: 2,
                           centered: false,
@@ -1207,9 +1209,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       await Fire.updateSubDoc(
         context: context,
-        collName: FireCollection.flyers,
+        collName: FireColl.flyers,
         docName: _superFlyer.flyerID,
-        subCollName: FireCollection.flyers_flyer_reviews,
+        subCollName: FireColl.flyers_flyer_reviews,
         subDocName: review.reviewID,
         input: _review.toMap(),
       );
@@ -1234,9 +1236,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     await Fire.deleteSubDoc(
       context: context,
-      collName: FireCollection.flyers,
+      collName: FireColl.flyers,
       docName: _superFlyer.flyerID,
-      subCollName: FireCollection.flyers_flyer_reviews,
+      subCollName: FireColl.flyers_flyer_reviews,
       subDocName: reviewID,
     );
 
@@ -1755,14 +1757,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     final Zone _zone = _superFlyer.zone;
 
-    final List<MapModel> _countriesMapModels = Country.getAllCountriesNamesMapModels(context);
-    Country _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _zone.countryID);
+    final List<MapModel> _countriesMapModels = CountryModel.getAllCountriesNamesMapModels(context);
+    CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _zone.countryID);
 
-    List<City> _cities = _country.cities;
-    List<MapModel> _citiesMaps = City.getCitiesNamesMapModels(context: context, cities: _cities);
+    List<CityModel> _cities = _country.cities;
+    List<MapModel> _citiesMaps = CityModel.getCitiesNamesMapModels(context: context, cities: _cities);
 
-    List<District> _districts = District.getDistrictsFromCountryModel(country: _country, cityID: _zone.cityID);
-    List<MapModel> _districtsMaps = District.getDistrictsNamesMapModels(context: context, districts: _districts);
+    List<DistrictModel> _districts = DistrictModel.getDistrictsFromCountryModel(country: _country, cityID: _zone.cityID);
+    List<MapModel> _districtsMaps = DistrictModel.getDistrictsNamesMapModels(context: context, districts: _districts);
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
@@ -1782,7 +1784,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
           final String _lastCountryID = _superFlyer.zone.countryID;
 
-          final Country _selectedCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: countryID);
+          final CountryModel _selectedCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: countryID);
 
           setState(() {
             _superFlyer.zone.countryID = countryID;
@@ -1792,7 +1794,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             _country = _selectedCountry;
 
             _cities = _country.cities;
-            _citiesMaps = City.getCitiesNamesMapModels(context: context, cities: _country.cities);
+            _citiesMaps = CityModel.getCitiesNamesMapModels(context: context, cities: _country.cities);
 
             _districts = [];
             _districtsMaps = [];
@@ -1821,7 +1823,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         context: context,
         draggable: true,
         height: null,
-        title: '${Country.getTranslatedCountryNameByID(context: context, countryID: _superFlyer.zone.countryID)} Cities',
+        title: '${CountryModel.getTranslatedCountryNameByID(context: context, countryID: _superFlyer.zone.countryID)} Cities',
         child: BottomDialogButtons(
           mapsModels: _citiesMaps,
           alignment: Alignment.center,
@@ -1833,8 +1835,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             setState(() {
               _superFlyer.zone.cityID = cityID;
 
-              _districts = District.getDistrictsFromCountryModel(country: _country, cityID: cityID);
-              _districtsMaps = District.getDistrictsNamesMapModels(context: context, districts: _districts);
+              _districts = DistrictModel.getDistrictsFromCountryModel(country: _country, cityID: cityID);
+              _districtsMaps = DistrictModel.getDistrictsNamesMapModels(context: context, districts: _districts);
 
               _openNextDialog = true;
             });
@@ -1858,7 +1860,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         context: context,
         draggable: true,
         height: null,
-        title: '${City.getTranslatedCityNameFromCountry(context: context, country: _country, cityID: _superFlyer.zone.cityID)} Districts',
+        title: '${CityModel.getTranslatedCityNameFromCountry(context: context, country: _country, cityID: _superFlyer.zone.cityID)} Districts',
         child: BottomDialogButtons(
           mapsModels: _districtsMaps,
           alignment: Alignment.center,
@@ -1904,7 +1906,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               maxLines: 10,
               minLines: 5,
               maxLength: 500,
-              designMode: false,
               counterIsOn: true,
               inputSize: 2,
               centered: false,

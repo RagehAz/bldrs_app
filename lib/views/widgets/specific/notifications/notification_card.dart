@@ -44,7 +44,6 @@ class NotificationCard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _bodyWidth = bodyWidth(context);
-    final bool _designMode = false;
     final bool _notiHasButtons = notiModel?.attachmentType == NotiAttachmentType.buttons;
 
     return Bubble(
@@ -82,7 +81,6 @@ class NotificationCard extends StatelessWidget {
                       SuperVerse(
                         verse: notiModel?.title,
                         size: 2,
-                        designMode: _designMode,
                         maxLines: 3,
                         centered: false,
                       ),
@@ -94,7 +92,6 @@ class NotificationCard extends StatelessWidget {
                         italic: true,
                         weight: VerseWeight.thin,
                         size: 1,
-                        designMode: _designMode,
                         maxLines: 2,
                         centered: false,
                       ),
@@ -105,7 +102,6 @@ class NotificationCard extends StatelessWidget {
                         weight: VerseWeight.thin,
                         size: 2,
                         maxLines: 10,
-                        designMode: _designMode,
                         centered: false,
                       ),
 

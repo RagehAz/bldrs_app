@@ -53,7 +53,7 @@ Widget userModelBuilder({
   return FutureBuilder(
       future: Fire.readDoc(
         context: context,
-        collName: FireCollection.users,
+        collName: FireColl.users,
         docName: userID,
       ),
       builder: (ctx, snapshot){

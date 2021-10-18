@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 class BzOps{
 // -----------------------------------------------------------------------------
   /// bz firestore collection reference
-  final CollectionReference _bzCollectionRef = Fire.getCollectionRef(FireCollection.bzz);
+  final CollectionReference _bzCollectionRef = Fire.getCollectionRef(FireColl.bzz);
 // -----------------------------------------------------------------------------
   /// bzz firestore collection reference getter
   CollectionReference bzCollectionRef(){
@@ -28,7 +28,7 @@ class BzOps{
   DocumentReference bzDocRef(String bzID){
     return
       Fire.getDocRef(
-          collName: FireCollection.bzz,
+          collName: FireColl.bzz,
           docName: bzID
       );
   }
@@ -45,7 +45,7 @@ class BzOps{
     /// create empty firestore bz doc to get back _bzID
     final DocumentReference _docRef = await Fire.createDoc(
       context: context,
-      collName: FireCollection.bzz,
+      collName: FireColl.bzz,
       input: {},
     );
     final String _bzID = _docRef.id;
@@ -121,7 +121,7 @@ class BzOps{
     /// replace empty bz document with the new refactored one _bz
     await Fire.updateDoc(
       context: context,
-      collName: FireCollection.bzz,
+      collName: FireColl.bzz,
       docName: _bzID,
       input: _outputBz.toMap(toJSON: false),
     );
@@ -131,7 +131,7 @@ class BzOps{
     _userBzzIDs.insert(0, _bzID);
     await Fire.updateDocField(
       context: context,
-      collName: FireCollection.users,
+      collName: FireColl.users,
       docName: userModel.userID,
       field: 'myBzzIDs',
       input: _userBzzIDs,
@@ -144,7 +144,7 @@ class BzOps{
 
     final dynamic _bzMap = await Fire.readDoc(
         context: context,
-        collName: FireCollection.bzz,
+        collName: FireColl.bzz,
         docName: bzID
     );
     final BzModel _bz = BzModel.decipherBzMap(
@@ -248,7 +248,7 @@ class BzOps{
     /// update firestore bz document
     await Fire.updateDoc(
       context: context,
-      collName: FireCollection.bzz,
+      collName: FireColl.bzz,
       docName: modifiedBz.bzID,
       input: _finalBz.toMap(toJSON: false),
     );
@@ -291,7 +291,7 @@ class BzOps{
 
       await Fire.updateDocField(
         context: context,
-        collName: FireCollection.users,
+        collName: FireColl.users,
         docName: id,
         field: 'myBzzIDs',
         input: _myBzzIDs,
@@ -302,7 +302,7 @@ class BzOps{
     /// 4 - trigger bz deactivation
     await Fire.updateDocField(
       context: context,
-      collName: FireCollection.bzz,
+      collName: FireColl.bzz,
       docName: bzModel.bzID,
       field: 'bzAccountIsDeactivated',
       input: true,
@@ -358,7 +358,7 @@ class BzOps{
       print('c - update myBzzIDs field in user doc');
       await Fire.updateDocField(
         context: context,
-        collName: FireCollection.users,
+        collName: FireColl.users,
         docName: authorID,
         field: 'myBzzIDs',
         input: _modifiedMyBzzIDs,
@@ -368,9 +368,9 @@ class BzOps{
     print('4 - delete all calls sub docs');
     await Fire.deleteAllSubDocs(
       context: context,
-      collName: FireCollection.bzz,
+      collName: FireColl.bzz,
       docName: bzModel.bzID,
-      subCollName: FireCollection.bzz_bz_calls
+      subCollName: FireColl.bzz_bz_calls
     );
 
     print('5 - wont delete calls sub collection');
@@ -379,9 +379,9 @@ class BzOps{
     print('6 - delete follows sub docs');
     await Fire.deleteAllSubDocs(
         context: context,
-        collName: FireCollection.bzz,
+        collName: FireColl.bzz,
         docName: bzModel.bzID,
-        subCollName: FireCollection.bzz_bz_follows
+        subCollName: FireColl.bzz_bz_follows
 
     );
 
@@ -391,10 +391,10 @@ class BzOps{
     print('8 - delete counters sub doc');
     await Fire.deleteSubDoc(
       context: context,
-      collName: FireCollection.bzz,
+      collName: FireColl.bzz,
       docName: bzModel.bzID,
-      subCollName: FireCollection.bzz_bz_counters,
-      subDocName: FireCollection.bzz_bz_counters,
+      subCollName: FireColl.bzz_bz_counters,
+      subDocName: FireColl.bzz_bz_counters,
     );
 
     print('9 - wont delete counters sub collection');
@@ -419,7 +419,7 @@ class BzOps{
     print('12 - delete bz doc');
     await Fire.deleteDoc(
       context: context,
-      collName: FireCollection.bzz,
+      collName: FireColl.bzz,
       docName: bzModel.bzID,
     );
 

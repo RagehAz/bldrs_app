@@ -77,7 +77,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   Future<dynamic> _readMoreBzz() async {
 
     final List<dynamic> _bzzMaps = await Fire.readCollectionDocs(
-      collectionName: FireCollection.bzz,
+      collectionName: FireColl.bzz,
       orderBy: 'bzID',
       limit: 100,
       startAfter: _lastSnapshot,

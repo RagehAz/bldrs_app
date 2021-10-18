@@ -40,7 +40,6 @@ class SlideHeadline extends StatelessWidget {
             weight: VerseWeight.bold,
             size: verseSize,
             centered: true,
-            designMode: false,
             maxLines: 3,
           ),
         ),

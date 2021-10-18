@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SelectAreaScreen extends StatelessWidget {
-  final City city;
+  final CityModel city;
 
   SelectAreaScreen({
     @required this.city,
@@ -27,7 +27,7 @@ class SelectAreaScreen extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
     final String _cityName = Name.getNameByCurrentLingoFromNames(context, city.names);
-    final List<MapModel> _districtsMapModel = District.getDistrictsNamesMapModels(
+    final List<MapModel> _districtsMapModel = DistrictModel.getDistrictsNamesMapModels(
       context: context,
       districts: city.districts,
     );
@@ -49,10 +49,9 @@ class SelectAreaScreen extends StatelessWidget {
           districtID: districtID,
         );
 
-        print('zone selected');
         _zone.printZone(methodName: 'SELECTED ZONE');
 
-        _zoneProvider.getsetUserCountry(context: context, zone: _zone);
+        await _zoneProvider.getsetCurrentZoneAndCountry(context: context, zone: _zone);
 
         await _flyersProvider.getsetWallFlyersBySection(
             context: context,

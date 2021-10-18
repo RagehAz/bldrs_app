@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
@@ -23,7 +24,7 @@ abstract class UserOps{
 // -----------------------------------------------------------------------------
   /// users firestore collection reference getter
   static CollectionReference userCollectionRef(){
-    final CollectionReference _usersCollectionRef = Fire.getCollectionRef(FireCollection.users);
+    final CollectionReference _usersCollectionRef = Fire.getCollectionRef(FireColl.users);
     return
       _usersCollectionRef;
   }
@@ -32,17 +33,17 @@ abstract class UserOps{
   DocumentReference userDocRef(String userID){
     return
       Fire.getDocRef(
-          collName: FireCollection.users,
+          collName: FireColl.users,
           docName: userID,
       );
   }
 // -----------------------------------------------------------------------------
   /// create or update user document
-  static Future<void> _createOrUpdateUserDoc({BuildContext context, UserModel userModel}) async {
+  static Future<void> _createOrUpdateUserDoc({@required BuildContext context, @required UserModel userModel}) async {
 
     await Fire.updateDoc(
       context: context,
-      collName: FireCollection.users,
+      collName: FireColl.users,
       docName: userModel.userID,
       input: userModel.toMap(toJSON: false),
     );
@@ -52,7 +53,7 @@ abstract class UserOps{
   /// this creates :-
   /// 1 - JPG in : storage/userPics/userID.jpg if userModel.pic is File no URL
   /// 2 - userModel in : firestore/users/userID
-  static Future<UserModel> createUserOps({BuildContext context, UserModel userModel}) async {
+  static Future<UserModel> createUserOps({@required BuildContext context, @required UserModel userModel}) async {
 
     /// check if user pic is file to upload or URL from facebook to keep
     String _userPicURL;
@@ -99,13 +100,13 @@ abstract class UserOps{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<UserModel> readUserOps({BuildContext context, String userID}) async {
+  static Future<UserModel> readUserOps({@required BuildContext context, @required String userID}) async {
 
     print('readUserOps : Start reading user $userID while lang is : ${Wordz.languageCode(context)},');
 
     final Map<String, dynamic> _userMap = await Fire.readDoc(
       context: context,
-      collName: FireCollection.users,
+      collName: FireColl.users,
       docName: userID,
     );
 
@@ -139,7 +140,7 @@ abstract class UserOps{
   ///   A1 - save pic to fireStorage/usersPics/userID and get URL
   /// B - create final UserModel
   /// C - update firestore/users/userID
-  static Future<void> updateUserOps({BuildContext context, UserModel oldUserModel, UserModel updatedUserModel}) async {
+  static Future<void> updateUserOps({@required BuildContext context, @required UserModel oldUserModel, @required UserModel updatedUserModel}) async {
 
     /// A - if user pic changed
     String _userPicURL;
@@ -200,7 +201,7 @@ abstract class UserOps{
   /// B - if user is not author :-
   ///   H - change user status in user doc to deactivated
   ///   J - SIGN OUT
-  static Future<dynamic> deactivateUserOps({BuildContext context, UserModel userModel}) async {
+  static Future<dynamic> deactivateUserOps({@required BuildContext context, @required UserModel userModel}) async {
 
     /// A - initial bool dialog alert
     final bool _result = await CenterDialog.showCenterDialog(
@@ -310,7 +311,7 @@ abstract class UserOps{
             /// H - change user status in user doc to deactivated
             await Fire.updateDocField(
               context: context,
-              collName: FireCollection.users,
+              collName: FireColl.users,
               docName: userModel.userID,
               field: 'userStatus',
               input: UserModel.cipherUserStatus(UserStatus.Deactivated),
@@ -340,7 +341,7 @@ abstract class UserOps{
         /// H - change user status in user doc to deactivated
         await Fire.updateDocField(
           context: context,
-          collName: FireCollection.users,
+          collName: FireColl.users,
           docName: userModel.userID,
           field: 'userStatus',
           input: UserModel.cipherUserStatus(UserStatus.Deactivated),
@@ -387,7 +388,7 @@ abstract class UserOps{
   ///   L - DELETE firebase user : auth/userID
   ///   K - SIGN OUT
   ///   M - return 'deleted'
-  static Future<dynamic> superDeleteUserOps({BuildContext context, UserModel userModel}) async {
+  static Future<dynamic> superDeleteUserOps({@required BuildContext context, @required UserModel userModel}) async {
 
     /// A - initial bool dialog alert
     final bool _result = await CenterDialog.showCenterDialog(
@@ -506,7 +507,7 @@ abstract class UserOps{
             print('J - deleting user doc');
             await Fire.deleteDoc(
               context: context,
-              collName: FireCollection.users,
+              collName: FireColl.users,
               docName: userModel.userID,
             );
 
@@ -558,7 +559,7 @@ abstract class UserOps{
         print('J - deleting user doc');
         await Fire.deleteDoc(
           context: context,
-          collName: FireCollection.users,
+          collName: FireColl.users,
           docName: userModel.userID,
         );
 
@@ -591,7 +592,7 @@ abstract class UserOps{
   ///       E3 - return new userModel inside userModel-firstTimer map
   ///    Ex - if user has existing user model
   ///       E3 - return existing userMode inside userModel-firstTimer map
-  static Future<Map<String, dynamic>> getOrCreateUserModelFromUser({BuildContext context, User user,Zone zone}) async {
+  static Future<Map<String, dynamic>> getOrCreateUserModelFromUser({@required BuildContext context, @required User user, @required Zone zone}) async {
 
     /// E - read user ops if existed
     final UserModel _existingUserModel = await UserOps.readUserOps(
@@ -640,6 +641,46 @@ abstract class UserOps{
           'userModel' : _existingUserModel,
           'firstTimer' : false,
         };
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> addFlyerIDToSavedFlyersIDs({@required BuildContext context, @required String flyerID, @required List<String> savedFlyersIDs, @required String userID}) async {
+
+    final List<String> _savedFlyersIDs = [];
+
+    if (Mapper.canLoopList(savedFlyersIDs)){
+      _savedFlyersIDs.addAll(savedFlyersIDs);
+    }
+
+    _savedFlyersIDs.add(flyerID);
+
+    await Fire.updateDocField(
+        context: context,
+        collName: FireColl.users,
+        docName: userID,
+        field: 'savedFlyersIDs',
+        input: _savedFlyersIDs,
+    );
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> removeFlyerIDFromSavedFlyersIDs({@required BuildContext context, @required String flyerID, @required String userID, @required List<String> savedFlyersIDs}) async {
+
+
+    final int _index = savedFlyersIDs.indexWhere((id) => id == flyerID);
+
+    if (_index >= 0){
+
+      savedFlyersIDs.remove(flyerID);
+
+      await Fire.updateDocField(
+        context: context,
+        collName: FireColl.users,
+        docName: userID,
+        field: 'savedFlyersIDs',
+        input: savedFlyersIDs,
+      );
+
     }
 
   }

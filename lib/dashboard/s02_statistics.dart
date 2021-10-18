@@ -54,7 +54,7 @@ class GeneralStatistics extends StatelessWidget {
 
         await Fire.createNamedDoc(
           context: context,
-          collName: FireCollection.flyers,
+          collName: FireColl.flyers,
           docName: '000000000000xxxxxx1saaa',
           input: _testFlyer.toMap(toJSON: false),
         );
@@ -78,7 +78,7 @@ class GeneralStatistics extends StatelessWidget {
 
       /// STREAM : DB / admin / statistics
       StreamBuilder(
-        stream: Fire.streamDoc(FireCollection.admin, 'statistics'),
+        stream: Fire.streamDoc(FireColl.admin, 'statistics'),
         initialData: null,
         builder: (context, snapshot){
 

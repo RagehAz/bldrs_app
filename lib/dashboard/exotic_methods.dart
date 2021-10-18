@@ -16,7 +16,7 @@ abstract class ExoticMethods{
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
-      collectionName: FireCollection.users,
+      collectionName: FireColl.users,
       addDocSnapshotToEachMap: false,
       orderBy: 'userID',
     );
@@ -34,9 +34,9 @@ abstract class ExoticMethods{
 
     final List<dynamic> _maps = await Fire.readSubCollectionDocs(
       context: context,
-      collName: FireCollection.users,
+      collName: FireColl.users,
       docName: userID,
-      subCollName: FireCollection.users_user_notifications,
+      subCollName: FireColl.users_user_notifications,
       addDocsIDs: true,
     );
 
@@ -53,7 +53,7 @@ abstract class ExoticMethods{
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
-      collectionName: FireCollection.bzz,
+      collectionName: FireColl.bzz,
       addDocSnapshotToEachMap: false,
       orderBy: 'bzID',
     );
@@ -72,7 +72,7 @@ abstract class ExoticMethods{
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
-      collectionName: FireCollection.feedbacks,
+      collectionName: FireColl.feedbacks,
       addDocSnapshotToEachMap: false,
       addDocID: true,
       orderBy: 'timeStamp',
@@ -88,7 +88,7 @@ abstract class ExoticMethods{
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
-      collectionName: FireCollection.flyers,
+      collectionName: FireColl.flyers,
       addDocSnapshotToEachMap: false,
       addDocID: false,
       orderBy: 'flyerID',
@@ -99,18 +99,18 @@ abstract class ExoticMethods{
     return _allModels;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<Country>> readAllCountryModels({@required BuildContext context, }) async {
+  static Future<List<CountryModel>> readAllCountryModels({@required BuildContext context, }) async {
     // List<CountryModel> _allCountries = await ExoticMethods.readAllCountryModels(context: context);
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
-      collectionName: FireCollection.zones,
+      collectionName: FireColl.zones,
       orderBy: 'countryID',
       limit: 400,
       addDocSnapshotToEachMap: false,
       addDocID: false,
     );
 
-    final List<Country> _countriesModels = Country.decipherCountriesMaps(maps: _maps, fromJSON: false);
+    final List<CountryModel> _countriesModels = CountryModel.decipherCountriesMaps(maps: _maps, fromJSON: false);
 
     return _countriesModels;
   }
@@ -118,11 +118,11 @@ abstract class ExoticMethods{
   static Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context) async {
     /// in case any (continent name) or (region name) or (countryID) has changed
 
-    final List<Country> _allCountries = await ExoticMethods.readAllCountryModels(context: context);
+    final List<CountryModel> _allCountries = await ExoticMethods.readAllCountryModels(context: context);
 
     final List<Continent> _continents = <Continent>[];
 
-    for (Country country in _allCountries){
+    for (CountryModel country in _allCountries){
 
       /// add continent
       final bool _continentIsAddedAlready = Continent.continentsIncludeContinent(
@@ -156,7 +156,7 @@ abstract class ExoticMethods{
 
       /// add country to region
       final int _regionIndex = _continents[_continentIndex].regions.indexWhere((region) => region.name == country.region);
-      final bool _countryIsAddedAlready = Country.countriesIDsIncludeCountryID(
+      final bool _countryIsAddedAlready = CountryModel.countriesIDsIncludeCountryID(
         countryID: country.countryID,
         countriesIDs:  _continents[_continentIndex].regions[_regionIndex].countriesIDs,
       );
@@ -172,7 +172,7 @@ abstract class ExoticMethods{
 
     await Fire.createNamedDoc(
       context: context,
-      collName: FireCollection.admin,
+      collName: FireColl.admin,
       docName: 'continents',
       input: _contMaps,
     );

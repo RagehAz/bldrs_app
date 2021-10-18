@@ -145,7 +145,7 @@ class BzzProvider extends ChangeNotifier {
 
     if (Mapper.canLoopList(_myBzz)){
 
-      await LDBOps.delete(
+      await LDBOps.deleteMap(
         objectID: bzID,
         docName: LDBDoc.myBzz,
       );

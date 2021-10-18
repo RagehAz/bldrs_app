@@ -22,7 +22,6 @@ class BzLabel extends StatelessWidget {
 
 // -----------------------------------------------------------------------------
     final double screenWidth = Scale.superScreenWidth(context);
-    const bool versesDesignMode = false;
     const bool versesShadow = false;
 // -----------------------------------------------------------------------------
     final double headerMainHeight = FlyerBox.headerStripHeight(superFlyer.nav.bzPageIsOn, flyerBoxWidth);
@@ -57,7 +56,6 @@ class BzLabel extends StatelessWidget {
                 italic: false,
                 centered: false,
                 shadow: versesShadow,
-                designMode: versesDesignMode,
                 weight: VerseWeight.bold ,
                 size: bzNameSize,
                 scaleFactor: (flyerBoxWidth / screenWidth) * 0.9,
@@ -75,7 +73,6 @@ class BzLabel extends StatelessWidget {
                 verse: businessLocale,
                 size: bLocaleSize,
                 weight: VerseWeight.regular ,
-                designMode: versesDesignMode,
                 shadow: versesShadow,
                 centered: false,
                 italic: true,

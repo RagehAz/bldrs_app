@@ -151,7 +151,7 @@ abstract class LDBOps{
 
 }
 // -----------------------------------------------------------------------------
-  static Future<void> delete({
+  static Future<void> deleteMap({
     @required String objectID,
     @required String docName,
   }) async {

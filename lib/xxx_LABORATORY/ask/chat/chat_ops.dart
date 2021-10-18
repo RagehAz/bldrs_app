@@ -26,7 +26,7 @@ class ChatOps{
 
     await Fire.createSubDoc(
       context: context,
-      collName: FireCollection.questions,
+      collName: FireColl.questions,
       docName: questionID,
       subCollName: chatModel.bzID,
       input: chatModel.toMap(toJSON: false),
@@ -39,9 +39,9 @@ class ChatOps{
 
     final dynamic _chatMap = await Fire.readSubDoc(
       context: context,
-      collName: FireCollection.questions,
+      collName: FireColl.questions,
       docName: questionID,
-      subCollName: FireCollection.questions_question_chats,
+      subCollName: FireColl.questions_question_chats,
       subDocName: bzID,
     );
 
@@ -55,9 +55,9 @@ class ChatOps{
 
     await Fire.updateSubDoc(
       context: context,
-      collName: FireCollection.questions,
+      collName: FireColl.questions,
       docName: questionID,
-      subCollName: FireCollection.questions_question_chats,
+      subCollName: FireColl.questions_question_chats,
       subDocName: updatedChat.bzID,
       input: updatedChat.toMap(toJSON: false),
     );
@@ -69,9 +69,9 @@ class ChatOps{
 
     await Fire.deleteSubDoc(
       context: context,
-      collName: FireCollection.questions,
+      collName: FireColl.questions,
       docName: questionID,
-      subCollName: FireCollection.questions_question_chats,
+      subCollName: FireColl.questions_question_chats,
       subDocName: bzID,
     );
 

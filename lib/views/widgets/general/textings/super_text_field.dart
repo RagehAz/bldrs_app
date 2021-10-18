@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 class SuperTextField extends StatefulWidget {
   final TextInputType keyboardTextInputType;
   final Color inputColor;
-  final bool designMode;
   final int maxLines;
   final int minLines;
   final int inputSize;
@@ -44,7 +43,6 @@ class SuperTextField extends StatefulWidget {
   const SuperTextField({
     this.keyboardTextInputType = TextInputType.text,
     this.inputColor = Colorz.White255,
-    this.designMode = false,
     this.maxLines = 7,
     this.minLines = 1,
     this.inputSize = 2,
@@ -114,7 +112,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
   @override
   Widget build(BuildContext context) {
 
-    final Color _boxColor = widget.designMode ? Colorz.BloodTest : Colorz.Nothing;
+    const Color _boxColor = Colorz.Nothing;
     final double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
     final double _scalingFactor = 1; //scaleFactor == null ? 1: scaleFactor;
     /// --- AVAILABLE FONT SIZES -----------------------------------------------
