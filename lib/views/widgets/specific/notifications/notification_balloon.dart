@@ -1,11 +1,10 @@
-import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
-import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
+import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
-import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:flutter/material.dart';
 
 class NotificationSenderBalloon extends StatelessWidget {
@@ -39,15 +38,22 @@ class NotificationSenderBalloon extends StatelessWidget {
       )
           :
       sender == NotiPicType.user ?
-      UserBalloon(
-        pic: pic,
-        balloonWidth: balloonWidth,
-        balloonType: UserStatus.PlanningTalking,
-        onTap: null,
-        blackAndWhite: false,
-        loading: false,
-        shadowIsOn: false,
+      Balloona(
+          balloonWidth: balloonWidth,
+          onTap: null,
+          shadowIsOn: false,
+          pic: pic,
+          loading: false,
       )
+      //   (
+      //   pic: pic,
+      //   balloonWidth: balloonWidth,
+      //   balloonType: UserStatus.PlanningTalking,
+      //   onTap: null,
+      //   blackAndWhite: false,
+      //   loading: false,
+      //   shadowIsOn: false,
+      // )
           :
       sender == NotiPicType.bldrs ?
       const BldrsName(

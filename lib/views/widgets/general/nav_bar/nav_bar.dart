@@ -309,6 +309,7 @@ class NavBar extends StatelessWidget {
                                      clipperWidget : UserBalloon(
                                        balloonWidth: _circleWidth,
                                        loading: false,
+                                       userModel: userModel,
                                      )
                                  ),
 

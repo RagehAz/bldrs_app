@@ -2,11 +2,8 @@ import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/clip_shadow_path.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
@@ -14,24 +11,24 @@ import 'package:flutter/rendering.dart';
 
 class UserBalloon extends StatelessWidget {
   final UserStatus balloonType;
+  final UserModel userModel;
   final double balloonWidth;
   final bool blackAndWhite;
   final Function onTap;
   final bool loading;
   final Color balloonColor;
   final Widget child;
-  final dynamic pic;
   final bool shadowIsOn;
 
   const UserBalloon({
     this.balloonType,
+    @required this.userModel,
     @required this.balloonWidth,
     this.blackAndWhite = false,
     this.onTap,
     @required this.loading,
     this.balloonColor,
     this.child,
-    this.pic,
     this.shadowIsOn = true,
   });
 
@@ -44,52 +41,63 @@ class UserBalloon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // final String _userID = superUserID();
+    // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: true);
 
     return
-    balloonColor == null ?
 
-      StreamBuilder<UserModel>(
-        stream: UsersProvider().userStream,
-        builder: (context, snapshot){
-          if(snapshot.hasData == false){
-            return Loading(
-              size: balloonWidth,
-              loading: true,
-              onTap: () => Nav.goToRoute(context, Routez.Starting),
-            );
-          } else {
-            final UserModel userModel = snapshot.data;
-            return
-              Balloona(
-                  balloonWidth: balloonWidth,
-                  onTap: onTap,
-                  userModel: userModel,
-                  balloonType: balloonType,
-                  shadowIsOn: shadowIsOn,
-                  pic: pic,
-                  child: child,
-                  loading: loading,
-                  balloonColor: balloonColor,
-                  blackAndWhite: blackAndWhite
-              );
-          }
-        },
-      )
+      Balloona(
+          balloonWidth: balloonWidth,
+          onTap: onTap,
+          userStatus: balloonType,
+          pic: userModel?.pic,
+          shadowIsOn: shadowIsOn,
+          child: child,
+          loading: loading,
+          balloonColor: balloonColor,
+          blackAndWhite: blackAndWhite
+      );
 
-        :
-
-    Balloona(
-        balloonWidth: balloonWidth,
-        onTap: onTap,
-        userModel: null,
-        balloonType: balloonType,
-        shadowIsOn: shadowIsOn,
-        pic: pic,
-        child: child,
-        loading: loading,
-        balloonColor: balloonColor,
-        blackAndWhite: blackAndWhite);
+    // balloonColor == null ?
+    //
+    //   StreamBuilder<UserModel>(
+    //     stream: _usersProvider.myUserModelStream,
+    //     builder: (context, snapshot){
+    //       if(snapshot.hasData == false){
+    //         return Loading(
+    //           size: balloonWidth,
+    //           loading: true,
+    //           onTap: (){},// => Nav.goToRoute(context, Routez.Starting),
+    //         );
+    //       } else {
+    //         final UserModel userModel = snapshot.data;
+    //         return
+    //           Balloona(
+    //               balloonWidth: balloonWidth,
+    //               onTap: onTap,
+    //               userStatus: balloonType,
+    //               pic: userModel.pic,
+    //               shadowIsOn: shadowIsOn,
+    //               child: child,
+    //               loading: loading,
+    //               balloonColor: balloonColor,
+    //               blackAndWhite: blackAndWhite
+    //           );
+    //       }
+    //     },
+    //   )
+    //
+    //     :
+    //
+    // Balloona(
+    //     balloonWidth: balloonWidth,
+    //     onTap: onTap,
+    //     userStatus: balloonType,
+    //     shadowIsOn: shadowIsOn,
+    //     pic: pic,
+    //     child: child,
+    //     loading: loading,
+    //     balloonColor: balloonColor,
+    //     blackAndWhite: blackAndWhite);
 
   }
 }
@@ -97,10 +105,9 @@ class UserBalloon extends StatelessWidget {
 class Balloona extends StatelessWidget {
   final double balloonWidth;
   final Function onTap;
-  final UserModel userModel;
-  final UserStatus balloonType;
-  final bool shadowIsOn;
   final dynamic pic;
+  final UserStatus userStatus;
+  final bool shadowIsOn;
   final Widget child;
   final bool loading;
   final Color balloonColor;
@@ -108,21 +115,20 @@ class Balloona extends StatelessWidget {
 
   const Balloona({
     @required this.balloonWidth,
-    @required this.onTap,
-    @required this.userModel,
-    @required this.balloonType,
-    @required this.shadowIsOn,
+    this.onTap,
     @required this.pic,
-    @required this.child,
+    this.shadowIsOn = false,
+    this.child,
     @required this.loading,
-    @required this.balloonColor,
-    @required this.blackAndWhite,
+    this.balloonColor = Colorz.White10,
+    this.blackAndWhite = false,
+    this.userStatus = UserStatus.Normal,
   });
 
   @override
   Widget build(BuildContext context) {
 
-    final CustomClipper _clipper = balloonType == null ? Iconizer.userBalloon(userModel?.userStatus) : Iconizer.userBalloon(balloonType);
+    final CustomClipper _clipper = Iconizer.userBalloon(userStatus);
 
     return Container(
       width: balloonWidth,
@@ -137,7 +143,6 @@ class Balloona extends StatelessWidget {
             clipper: _clipper,
             shadow: Shadowz.basicOuterShadow,
             child: BalloonComponents(
-              userModel: userModel,
               pic: pic,
               child: child,
               loading: loading,
@@ -152,7 +157,6 @@ class Balloona extends StatelessWidget {
           ClipPath(
             clipper: _clipper,
             child: BalloonComponents(
-              userModel: userModel,
               pic: pic,
               loading: loading,
               balloonColor: balloonColor,
@@ -173,7 +177,6 @@ class BalloonComponents extends StatelessWidget {
   final bool blackAndWhite;
   final bool loading;
   final dynamic pic;
-  final UserModel userModel;
   final Widget child;
 
   const BalloonComponents({
@@ -182,7 +185,6 @@ class BalloonComponents extends StatelessWidget {
     @required this.blackAndWhite,
     @required this.loading,
     @required this.pic,
-    @required this.userModel,
     @required this.child,
 });
 
@@ -205,7 +207,7 @@ class BalloonComponents extends StatelessWidget {
                 Loading(loading: loading,)
                     :
                 balloonColor == null?
-                Imagers.superImageWidget(pic == null ? userModel?.pic : pic)
+                Imagers.superImageWidget(pic)
                     :
                 Container()
             )

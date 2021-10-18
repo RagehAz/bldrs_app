@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
@@ -78,7 +79,7 @@ class _UserBubbleState extends State<UserBubble> {
 
         final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
 
-        final Zone _userZone = widget.user.zone;
+        final Zone _userZone = widget.user?.zone;
         final Country _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _userZone.countryID);
 
 
@@ -143,7 +144,7 @@ class _UserBubbleState extends State<UserBubble> {
         UserBalloon(
           balloonWidth: 80,
           balloonType: widget.user?.userStatus,
-          // userPic: user?.pic,
+          userModel: widget.user,
           onTap: (){print(widget.user.userID);},
           loading: widget.loading,
         ),
@@ -168,12 +169,20 @@ class _UserBubbleState extends State<UserBubble> {
 
         /// USER LOCALE
         Container(
-          height: SuperVerse.superVerseRealHeight(context, 2, 1, null),
+          height: 35,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               FlagBox(
+                size: 20,
                 flag: _countryFlag,
+              ),
+
+              const SizedBox(
+                width: 5,
+                height: 5,
               ),
 
               SuperVerse(

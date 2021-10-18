@@ -77,7 +77,7 @@ abstract class LDBOps{
       docName: docName,
     );
 
-    print('LDBOps inserted int ${docName} : this input : ${input}');
+    print('LDBOps inserted in ${docName}');
   }
 // -----------------------------------------------------------------------------
   static Future<void> insertMaps({List<Map<String, Object>> inputs,String docName}) async {

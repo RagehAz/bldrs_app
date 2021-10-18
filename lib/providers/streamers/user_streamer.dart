@@ -4,6 +4,7 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 /// IMPLEMENTATION
 /// userStreamBuilder(
 ///         context: context,
@@ -24,10 +25,12 @@ Widget userStreamBuilder({
   bool listen,
 }){
 
+  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
+
   return
 
     StreamBuilder<UserModel>(
-      stream: UsersProvider().userStream,
+      stream: _usersProvider.myUserModelStream,
       builder: (context, snapshot){
         if(StreamChecker.connectionIsLoading(snapshot) == true){
           return Loading(loading: true,);

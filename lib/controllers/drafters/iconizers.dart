@@ -238,5 +238,9 @@ class Iconizer{
     },
   ];
 // -----------------------------------------------------------------------------
-
+  static String valueIsNotNull(dynamic value){
+    final String _icon = value == null ? Iconz.XSmall : Iconz.Check;
+    return _icon;
+  }
+// -----------------------------------------------------------------------------
 }
