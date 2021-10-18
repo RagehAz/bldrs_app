@@ -71,7 +71,7 @@ class _UserCheckerState extends State<UserChecker> {
           if (AuthOps.userIsSignedIn() == true) {
 
             final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
-            await _userProvider.fetchMyUserModel(context: context);
+            await _userProvider.getsetMyUserModel(context: context);
             final UserModel _userModel = _userProvider.myUserModel;
 
             /// B -  if user has a userModel

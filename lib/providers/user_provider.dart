@@ -5,55 +5,55 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-// final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+  // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 class UsersProvider extends ChangeNotifier {
-//   /// FETCHING USER
-//   Future<UserModel> _fetchUserByID({BuildContext context, String userID}) async {
-//     UserModel _userModel;
-//
-//     /// 1 - search in entire LDBs for this userModel
-//     for (String doc in LDBDoc.userModelsDocs){
-//
-//       final Map<String, Object> _map = await LDBOps.searchMap(
-//         docName: doc,
-//         fieldToSortBy: 'userID',
-//         searchField: 'userID',
-//         searchValue: userID,
-//       );
-//
-//       if (_map != null && _map != {}){
-//         print('fetchUserModelByID : UserModel found in local db : ${doc}');
-//         _userModel = UserModel.decipherUserMap(_map);
-//         break;
-//       }
-//
-//     }
-//
-//     /// 2 - if not found, search firebase
-//     if (_userModel == null){
-//       print('fetchUserModelByID : UserModel NOT found in local db');
-//
-//       /// 2.1 read firebase UserOps
-//       _userModel = await UserOps().readUserOps(
-//         context: context,
-//         userID: userID,
-//       );
-//
-//       /// 2.2 if found on firebase, store in ldb sessionUsers
-//       if (_userModel != null){
-//         print('fetchUserModelByID : UserModel found in firestore db');
-//
-//         await LDBOps.insertMap(
-//           input: _userModel.toMap(),
-//           docName: LDBDoc.sessionUsers,
-//         );
-//
-//       }
-//
-//     }
-//
-//     return _userModel;
-//   }
+  /// FETCHING USER
+  Future<UserModel> _fetchUserByID({BuildContext context, String userID}) async {
+    UserModel _userModel;
+
+    /// 1 - search in entire LDBs for this userModel
+    for (String doc in LDBDoc.userModelsDocs){
+
+      final Map<String, Object> _map = await LDBOps.searchMap(
+        docName: doc,
+        fieldToSortBy: 'userID',
+        searchField: 'userID',
+        searchValue: userID,
+      );
+
+      if (_map != null && _map != {}){
+        print('fetchUserModelByID : UserModel found in local db : ${doc}');
+        _userModel = UserModel.decipherUserMap(map: _map, fromJSON: true);
+        break;
+      }
+
+    }
+
+    /// 2 - if not found, search firebase
+    if (_userModel == null){
+      print('fetchUserModelByID : UserModel NOT found in local db');
+
+      /// 2.1 read firebase UserOps
+      _userModel = await UserOps.readUserOps(
+        context: context,
+        userID: userID,
+      );
+
+      /// 2.2 if found on firebase, store in ldb sessionUsers
+      if (_userModel != null){
+        print('fetchUserModelByID : UserModel found in firestore db');
+
+        await LDBOps.insertMap(
+          input: _userModel.toMap(toJSON: true),
+          docName: LDBDoc.sessionUsers,
+        );
+
+      }
+
+    }
+
+    return _userModel;
+  }
 // // -------------------------------------
 //   /// fetch Users By IDs
 //   Future<List<UserModel>> _fetchUsersByIDs({BuildContext context, List<String> usersIDs}) async {
@@ -80,69 +80,32 @@ class UsersProvider extends ChangeNotifier {
 
 // -----------------------------------------------------------------------------
   /// MY USER MODEL
-  UserModel _myModel; //UserModel.initializeUserModelStreamFromUser(superFirebaseUser()); needs to be null if didn't find the userModel
+  UserModel _myUserModel; //UserModel.initializeUserModelStreamFromUser(superFirebaseUser()); needs to be null if didn't find the userModel
 // -------------------------------------
   UserModel get myUserModel {
-    return _myModel;
+    return _myUserModel;
   }
 // -------------------------------------
-  Future<void> fetchMyUserModel({BuildContext context}) async {
+  Future<void> getsetMyUserModel({BuildContext context}) async {
 
     UserModel _userModel;
 
-    final String _userID = superUserID();
+    final String _myUserID = superUserID();
 
-    if (_userID != null){
+    if (_myUserID != null){
 
-      /// search myUserModel LDB
-      final Map<String, Object> _map = await LDBOps.searchMap(
-        docName: LDBDoc.myUserModel,
-        fieldToSortBy: 'userID',
-        searchField: 'userID',
-        searchValue: _userID,
-      );
-
-      /// if not found in LDB
-      if (_map == null){
-
-        /// search firebase
-        final UserModel _firebaseUserModel =  await UserOps.readUserOps(
-          context: context,
-          userID: _userID,
-        );
-
-        /// if found in firebase
-        if (_firebaseUserModel != null){
-          /// insert in LDB
-          await LDBOps.insertMap(
-            docName: LDBDoc.myUserModel,
-            input: _firebaseUserModel.toMap(toJSON: true),
-          );
-
-          _userModel = _firebaseUserModel;
-        }
-
-      }
-
-      /// if found in LDB
-      else {
-        _userModel = UserModel.decipherUserMap(
-          map: _map,
-          fromJSON: true,
-        );
-      }
-
+      _userModel = await _fetchUserByID(context: context, userID: _myUserID);
 
     }
 
-    _myModel = _userModel;
+    _myUserModel = _userModel;
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
   /// USER STREAM
-  Stream<UserModel> get userStream {
+  Stream<UserModel> get myUserModelStream {
     final CollectionReference _userCollection = UserOps.userCollectionRef();
-    final Stream<UserModel> _stream = _userCollection.doc(_myModel.userID).snapshots().map(_userModelFromSnapshot);
+    final Stream<UserModel> _stream = _userCollection.doc(_myUserModel?.userID).snapshots().map(_userModelFromSnapshot);
     return _stream;
   }
 // -------------------------------------

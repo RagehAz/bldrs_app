@@ -24,6 +24,7 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/forms_test.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/providers_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/random_test_space.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/timer_test.dart';
@@ -32,9 +33,7 @@ import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_lab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-// === === === === === === === === === === === === === === === === === === ===
 // ---------------------------------------------------------------------------
-// x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
 class ObeliskScreen extends StatefulWidget {
   final PageController controller;
 
@@ -155,6 +154,8 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           oButton('TEST LAB', Iconz.Flyer, RandomTestSpace(
             flyerBoxWidth: FlyerBox.width(context, 0.5),
           )),
+
+          oButton('Providers Test', Iconz.Terms, ProvidersTestScreen()),
 
           oButton('TimersTest', Iconz.Clock, TimerTest()),
 

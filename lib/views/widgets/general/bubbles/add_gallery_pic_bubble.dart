@@ -125,11 +125,12 @@ class AddGalleryPicBubble extends StatelessWidget {
                 )
                 :
                 bubbleType == BubbleType.userPic ?
-                UserBalloon(
+                Balloona(
                   balloonWidth: picWidth,
                   loading: false,
                   pic: pic,
-                  balloonType: UserStatus.SearchingThinking,
+                  userStatus : UserStatus.SearchingThinking,
+
                 )
                     :
                 DreamBox(

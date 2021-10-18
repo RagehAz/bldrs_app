@@ -199,7 +199,7 @@ class MainLayout extends StatelessWidget {
     final Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.Black230 : Colorz.SkyDarkBlue;
 
     return StreamProvider<UserModel>.value(
-      value: UsersProvider().userStream,
+      value: UsersProvider().myUserModelStream,
       initialData: UserModel.initializeUserModelStreamFromUser(),
       child: GestureDetector(
         onTap: (){Keyboarders.minimizeKeyboardOnTapOutSide(context);},
