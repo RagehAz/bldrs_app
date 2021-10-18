@@ -1,14 +1,19 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/views/widgets/general/artworks/blur_layer.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/buttons/flagbox_button.dart';
+import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
@@ -142,7 +147,7 @@ class BottomDialog extends StatelessWidget {
     return _corners;
   }
 // -----------------------------------------------------------------------------
-  static Future<void> showBottomDialog({BuildContext context, double height, bool draggable, Widget child, String title}) async {
+  static Future<void> showBottomDialog({@required BuildContext context, double height, @required bool draggable, @required Widget child, String title}) async {
 
     final double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
 
@@ -180,10 +185,10 @@ class BottomDialog extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static void showButtonsBottomDialog({
-    BuildContext context,
-    bool draggable,
-    List<Widget> buttons,
-    double buttonHeight,
+    @required BuildContext context,
+    @required bool draggable,
+    @required List<Widget> buttons,
+    @required double buttonHeight,
   }){
 
     final double _spacing = buttonHeight * 0.1;
@@ -213,7 +218,7 @@ class BottomDialog extends StatelessWidget {
     );
   }
 // -----------------------------------------------------------------------------
-  static Future<void> showStatefulBottomDialog({BuildContext context, double height, bool draggable, Widget Function(BuildContext, String) builder, String title}) async {
+  static Future<void> showStatefulBottomDialog({@required BuildContext context, @required double height, @required bool draggable, @required Widget Function(BuildContext, String) builder, @required String title}) async {
 
     final double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
 
@@ -243,7 +248,7 @@ class BottomDialog extends StatelessWidget {
     );
   }
 // -----------------------------------------------------------------------------
-  static Future<void> slideBzBottomDialog({BuildContext context, BzModel bz, AuthorModel author}) async {
+  static Future<void> slideBzBottomDialog({@required BuildContext context, @required BzModel bz, @required AuthorModel author}) async {
 
     final double _flyerBoxWidth = FlyerBox.width(context, 0.71);
 
@@ -263,12 +268,14 @@ class BottomDialog extends StatelessWidget {
               info: '',
               priceTagIsOn: false,
             ),
-
+            onSwipeFlyer: (SwipeDirection direction){
+              // print('Direction is ${direction}');
+            },
           ),
         ));
   }
 // -----------------------------------------------------------------------------
-  static Widget wideButton({BuildContext context, String verse, Function onTap, String icon}){
+  static Widget wideButton({@required BuildContext context, @required String verse, Function onTap, String icon}){
 
     return
       DreamBox(
@@ -282,6 +289,53 @@ class BottomDialog extends StatelessWidget {
       );
   }
 // -----------------------------------------------------------------------------
+  static Future<String> keyboardDialog({@required BuildContext context, String hintText, @required String flag}) async { /// TASK flag is temp
+
+    final TextEditingController _textController = TextEditingController();
+
+    final double _ratioOfScreenHeight = 0.65;
+    final double _overridingDialogHeight = dialogHeight(context, ratioOfScreenHeight: _ratioOfScreenHeight);
+    final double _clearWidth = dialogClearWidth(context);
+    final double _clearHeight = dialogClearHeight(context: context, overridingDialogHeight: _overridingDialogHeight, draggable: true, titleIsOn: false);
+    final double _corners = dialogClearCornerValue();
+
+    await BottomDialog.showBottomDialog(
+        context: context,
+        draggable: true,
+        height: _overridingDialogHeight,
+        child: Container(
+          width: _clearWidth,
+          height: _clearHeight,
+          // color: Colorz.BloodTest,
+          child: Column(
+            children: <Widget>[
+
+              SuperTextField(
+                textController: _textController,
+                width: _clearWidth,
+                height: 200,
+                maxLines: 2,
+                keyboardTextInputAction: TextInputAction.done,
+                onSubmitted: (String val) async {
+
+                  await Nav.goBack(context);
+                },
+                counterIsOn: true,
+                hintText: hintText ?? 'text here ...',
+                corners: _corners,
+              ),
+
+              if (flag != null)
+              FlagBox(flag: Flag.getFlagIconByCountryID(flag))
+
+            ],
+          ),
+        ),
+    );
+
+    return _textController.text;
+  }
+
   @override
   Widget build(BuildContext context) {
 

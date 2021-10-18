@@ -12,6 +12,8 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/providers/bzz_provider.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/streamers/user_streamer.dart';
 import 'package:bldrs/views/screens/d_more/d_0_more_screen.dart';
 import 'package:bldrs/views/screens/f_bz/f_0_my_bz_screen.dart';
@@ -26,6 +28,7 @@ import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/bar_button.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/bzz_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum BarType{
   min,
@@ -126,7 +129,13 @@ class NavBar extends StatelessWidget {
                       verseCentered: false,
                       onTap: () async {
                         print('${_bzModel.bzID}');
-                        Nav.goToNewScreen(context,
+
+                        final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+                        final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+                        await _bzzProvider.setActiveBz(_bzModel);
+                        await _flyersProvider.getsetActiveBzFlyers(context: context, bzID: _bzModel.bzID);
+
+                        await Nav.goToNewScreen(context,
                             MyBzScreen(
                               userModel: userModel,
                               bzModel: _bzModel,

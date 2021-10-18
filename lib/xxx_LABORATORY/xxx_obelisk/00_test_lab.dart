@@ -1,12 +1,9 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/models/zone/country_model.dart';
-import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class RandomTestSpace extends StatefulWidget {
 final double flyerBoxWidth;
@@ -116,22 +113,16 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
               const Stratosphere(),
 
               WideButton(
-                color: Colorz.BloodTest,
-                verse: 'get ata',
-                icon: Iconz.Share,
-                onTap: () async {
+                  color: Colorz.BloodTest,
+                  verse: 'Do something',
+                  icon: Iconz.Share,
+                  onTap: () async {
 
-                  _triggerLoading();
+                    _triggerLoading();
 
-                  final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+                    _triggerLoading();
 
-                  final CountryModel _ata = await zoneProvider.fetchCountryByID(context: context, countryID: 'ata');
-
-                  _ata.printCountry();
-
-                  _triggerLoading();
-
-                }
+                  }
               ),
 
 

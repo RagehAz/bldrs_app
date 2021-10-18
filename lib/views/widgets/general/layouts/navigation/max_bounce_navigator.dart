@@ -75,6 +75,8 @@ class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
 
           if(_canSlide == true && _canNavigate == true){
 
+            // ScrollDirection _direction = details.metrics.;
+
             navigate();
 
 

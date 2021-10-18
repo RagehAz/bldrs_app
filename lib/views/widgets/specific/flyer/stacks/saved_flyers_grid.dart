@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -76,6 +77,9 @@ class SavedFlyersGrid extends StatelessWidget {
                         inEditor: false,
                         goesToEditor: false,
                         initialSlideIndex: 0,
+                        onSwipeFlyer: (SwipeDirection direction){
+                          // print('Direction is ${direction}');
+                        },
                       ),
                     ),
 
@@ -137,6 +141,9 @@ class SavedFlyersGrid extends StatelessWidget {
                 inEditor: false,
                 goesToEditor: false,
                 initialSlideIndex: 0,
+                onSwipeFlyer: (SwipeDirection direction){
+                  // print('Direction is ${direction}');
+                },
               );
 
           },

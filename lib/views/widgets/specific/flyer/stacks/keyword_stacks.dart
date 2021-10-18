@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -55,6 +56,9 @@ class FlyerCoversStack extends StatelessWidget {
                 flyerBoxWidth: coverFlyerWidth,
                 flyerModel: flyersDataList[0],
                 goesToEditor: false,
+                onSwipeFlyer: (SwipeDirection direction){
+                  // print('Direction is ${direction}');
+                },
               ),
             ),
 
@@ -86,7 +90,9 @@ class FlyerCoversStack extends StatelessWidget {
                                 initialSlideIndex: 0,
                                 flyerModel: flyersDataList[index],
                                 goesToEditor: false,
-                                onSwipeFlyer: (i) => print('swiping to $i'),
+                                onSwipeFlyer: (SwipeDirection direction){
+                                  // print('Direction is ${direction}');
+                                },
                               )
                           )
                     ],
@@ -160,6 +166,9 @@ class TopFlyersStack extends StatelessWidget {
                           flyerBoxWidth: flyerWidth,
                           goesToEditor: false,
                           flyerModel: flyersDataList[index],
+                          onSwipeFlyer: (SwipeDirection direction){
+                            // print('Direction is ${direction}');
+                          },
                         ),
                       ),
                     )

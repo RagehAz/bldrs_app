@@ -7,7 +7,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 class LocalNotificationService{
   static final FlutterLocalNotificationsPlugin _notiPlugin = FlutterLocalNotificationsPlugin();
 
-  static const String _flatBldrsNotiIcon = 'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
+  static const String _flatBldrsNotiIcon = 'res_flat_logo';//'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
 
   static Future<void> initialize(BuildContext context) async {
 
