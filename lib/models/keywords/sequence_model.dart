@@ -1,7 +1,7 @@
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
-import 'package:bldrs/models/keywords/groups.dart';
+import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:flutter/cupertino.dart';
 
 enum SequenceType{
@@ -13,7 +13,7 @@ class Sequence {
   final String titleID;
   final SequenceType idType;
   final bool isActive;
-  final Group secondKeywords;
+  final GroupModel secondKeywords;
 
   const Sequence({
     @required this.titleID,
@@ -136,55 +136,55 @@ class Sequence {
   static List<Sequence> propertiesSequences(BuildContext context){
     return
       <Sequence>[
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_apartment', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_furnishedApartment', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_loft', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_penthouse', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_chalet', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_twinhouse', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_bungalow', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_villa', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_condo', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_farm', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_townHome', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_sharedRoom', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_duplix', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_hotelApartment', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_studio', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_store', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_supermarket', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_warehouse', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_hall', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_bank', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_restaurant', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_pharmacy', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_studio', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_factory', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_office', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_school', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_hotel', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_football', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_tennis', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_basketball', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_gym', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_gallery', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_theatre', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'space_spa', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_clinic', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pf_building', secondKeywords: Group.propertyLicenseGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_apartment', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_furnishedApartment', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_loft', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_penthouse', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_chalet', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_twinhouse', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_bungalow', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_villa', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_condo', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_farm', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_townHome', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_sharedRoom', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_duplix', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_hotelApartment', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_studio', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_store', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_supermarket', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_warehouse', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_hall', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_bank', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_restaurant', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_pharmacy', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_studio', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_factory', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_office', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_school', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_hotel', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_football', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_tennis', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_basketball', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_gym', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_gallery', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_theatre', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'space_spa', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pt_clinic', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'pf_building', secondKeywords: GroupModel.propertyLicenseGroup),
       ];
   }
 // -----------------------------------------------------------------------------
   static List<Sequence> designsSequences(){
     return
       <Sequence>[
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_architecture', secondKeywords: Group.propertyLicenseGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_interior', secondKeywords: Group.spaceTypeGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_facade', secondKeywords: Group.propertyLicenseGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_urban', secondKeywords: Group.propertyLicenseGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_landscape', secondKeywords: Group.propertyAreaGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_structural', secondKeywords: Group.propertyLicenseGroup),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_kiosk', secondKeywords: Group.kioskTypeGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_architecture', secondKeywords: GroupModel.propertyLicenseGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_interior', secondKeywords: GroupModel.spaceTypeGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_facade', secondKeywords: GroupModel.propertyLicenseGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_urban', secondKeywords: GroupModel.propertyLicenseGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_landscape', secondKeywords: GroupModel.propertyAreaGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_structural', secondKeywords: GroupModel.propertyLicenseGroup),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'designType_kiosk', secondKeywords: GroupModel.kioskTypeGroup),
       ];
   }
 // -----------------------------------------------------------------------------
@@ -196,23 +196,23 @@ class Sequence {
   static List<Sequence> craftsSequences(BuildContext context){
     return
       <Sequence>[
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_carpentry', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_electricity', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_insulation', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_masonry', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_plumbing', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_blacksmithing', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_labor', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_painting', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_plaster', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_landscape', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_hardscape', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_hvac', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_firefighting', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: false, titleID: 'con_trade_elevators', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_tiling', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_transportation', secondKeywords: Group.zoneDistrictsAsGroup(context)),
-        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_concrete', secondKeywords: Group.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_carpentry', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_electricity', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_insulation', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_masonry', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_plumbing', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_blacksmithing', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_labor', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_painting', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_plaster', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_landscape', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_hardscape', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_hvac', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_firefighting', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: false, titleID: 'con_trade_elevators', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_tiling', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_transportation', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
+        Sequence(idType: SequenceType.byKeyID, isActive: true, titleID: 'con_trade_concrete', secondKeywords: GroupModel.zoneDistrictsAsGroup(context)),
       ];
   }
 // -----------------------------------------------------------------------------

@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:flutter/material.dart';

@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/groups.dart';
+import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -20,7 +20,7 @@ class BrowserPages extends StatefulWidget {
   final double browserZoneHeight;
   final bool browserIsOn;
   final Function closeBrowser;
-  final List<Group> filtersModels;
+  final List<GroupModel> filtersModels;
   final Function onKeywordTap;
   final List<Keyword> selectedKeywords;
 
@@ -43,7 +43,7 @@ class _BrowserPagesState extends State<BrowserPages> {
   int _currentPage = 0;
 
   // List<Group> _groups;
-  Group _currentGroup;
+  GroupModel _currentGroup;
   List<String> _groups = <String>[];
   String _currentGroupID;
   List<Keyword> _keywords = <Keyword>[];
@@ -77,7 +77,7 @@ class _BrowserPagesState extends State<BrowserPages> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  List<Widget> generatePages(List<Group> filters){
+  List<Widget> generatePages(List<GroupModel> filters){
 
     return
         <Widget>[
@@ -106,7 +106,7 @@ class _BrowserPagesState extends State<BrowserPages> {
 
   }
 // -----------------------------------------------------------------------------
-  void _onGroupTappp(Group group){
+  void _onGroupTappp(GroupModel group){
     print('tapping filter : ${group.groupID}');
 
     setState(() {
@@ -170,7 +170,7 @@ class _BrowserPagesState extends State<BrowserPages> {
   Widget build(BuildContext context) {
 
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
-    final List<Group> _groupsBySection = _generalProvider.sectionGroups;
+    final List<GroupModel> _groupsBySection = _generalProvider.sectionGroups;
 
     final List<Widget> _pages = generatePages(_groupsBySection);
     final int _numberOfPages = _pages.length;

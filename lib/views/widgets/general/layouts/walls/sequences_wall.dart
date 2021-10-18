@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/groups.dart';
+import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
@@ -103,7 +103,7 @@ class SequencesWall extends StatelessWidget {
     else {
       print ('1 - flyer is from sequence keywords');
 
-      final Group _secondKeywords = sequence?.secondKeywords;
+      final GroupModel _secondKeywords = sequence?.secondKeywords;
 
       _secondKeyword = _secondKeywords == null ? null : _secondKeywords?.keywords[index];
 
