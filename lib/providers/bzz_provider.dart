@@ -92,7 +92,7 @@ class BzzProvider extends ChangeNotifier {
     return <BzModel> [..._sponsors];
   }
 // -------------------------------------
-  /// TASK : sponsors tiny bzz should depend on which city
+  /// TASK : sponsors bzz should depend on which city
   /// FETCH SPONSORS
   /// 1 - get sponsors from app state
   /// 2 - fetch each bzID if found

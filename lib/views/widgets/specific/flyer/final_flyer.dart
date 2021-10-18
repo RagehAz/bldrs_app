@@ -74,7 +74,7 @@ class FinalFlyer extends StatefulWidget {
     @required this.flyerBoxWidth,
     this.flyerModel,
     this.initialSlideIndex = 0,
-    this.onSwipeFlyer,
+    @required this.onSwipeFlyer,
     this.goesToEditor = false,
     this.inEditor = false,
     this.bzModel,

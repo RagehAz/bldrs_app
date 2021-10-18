@@ -1,13 +1,16 @@
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/helpers/big_mac.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/secondary_models/feedback_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/continent_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/region_model.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 abstract class ExoticMethods{
 // -----------------------------------------------------------------------------
@@ -99,26 +102,31 @@ abstract class ExoticMethods{
     return _allModels;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<CountryModel>> readAllCountryModels({@required BuildContext context, }) async {
-    // List<CountryModel> _allCountries = await ExoticMethods.readAllCountryModels(context: context);
+  static Future<List<CountryModel>> fetchAllCountryModels({@required BuildContext context, }) async {
 
-    final List<dynamic> _maps = await Fire.readCollectionDocs(
-      collectionName: FireColl.zones,
-      orderBy: 'countryID',
-      limit: 400,
-      addDocSnapshotToEachMap: false,
-      addDocID: false,
-    );
+    final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-    final List<CountryModel> _countriesModels = CountryModel.decipherCountriesMaps(maps: _maps, fromJSON: false);
+    List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
 
-    return _countriesModels;
+    List<CountryModel> _countries = <CountryModel>[];
+
+    for (var id in _allCountriesIDs){
+
+      CountryModel _country = await zoneProvider.fetchCountryByID(context: context, countryID: id);
+
+      if (_country != null){
+        _countries.add(_country);
+      }
+
+    }
+
+    return _countries;
   }
 // -----------------------------------------------------------------------------
   static Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context) async {
     /// in case any (continent name) or (region name) or (countryID) has changed
 
-    final List<CountryModel> _allCountries = await ExoticMethods.readAllCountryModels(context: context);
+    final List<CountryModel> _allCountries = await ExoticMethods.fetchAllCountryModels(context: context);
 
     final List<Continent> _continents = <Continent>[];
 
@@ -177,6 +185,21 @@ abstract class ExoticMethods{
       input: _contMaps,
     );
 
+  }
+// -----------------------------------------------------------------------------
+  static Future<List<BigMac>> readAllBigMacs(BuildContext context) async {
+
+    final List<dynamic> _allMaps = await Fire.readSubCollectionDocs(
+      context: context,
+      addDocsIDs: false,
+      collName: 'admin',
+      docName: 'bigMac',
+      subCollName: 'bigMacs',
+    );
+
+    final List<BigMac> _allBigMacs = BigMac.decipherBigMacs(_allMaps);
+
+    return _allBigMacs;
   }
 // -----------------------------------------------------------------------------
 }
