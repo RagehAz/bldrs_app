@@ -3,8 +3,8 @@ import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/pricing.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
@@ -27,10 +27,10 @@ class PriceTag extends StatelessWidget {
     final double _footerHeight = FlyerFooter.boxHeight(context: context, flyerBoxWidth: flyerBoxWidth);
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
-    final String _countryID = _zoneProvider.currentZone.countryID;
+    final CountryModel _currentCountry = _zoneProvider.currentCountry;
 
     final double _currentPrice = 14999.99;
-    final String _currency = BigMac.getCurrencyByIso3(_countryID);
+    final String _currency = _currentCountry.currency;
     final double _oldPrice = 17800;
     final int _discountPercentage = Numeric.discountPercentage(
       oldPrice: _oldPrice,

@@ -22,6 +22,7 @@ class CountryModel{
   final List<CityModel> cities;
   final String language;
   final List<Name> names;
+  final String currency;
 
   const CountryModel({
     @required this.countryID,
@@ -32,6 +33,7 @@ class CountryModel{
     @required this.cities,
     @required this.language,
     @required this.names,
+    @required this.currency,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
@@ -45,23 +47,32 @@ class CountryModel{
       'cities' : CityModel.cipherCities(cities: cities, toJSON: toJSON),
       'language' : language,
       'names': Name.cipherNames(names),
+      'currency': currency,
     };
   }
 // -----------------------------------------------------------------------------
   static CountryModel decipherCountryMap({@required Map<String, dynamic> map, @required bool fromJSON}){
 
-    final List<Name> _names = Name.decipherNames(map['names']);
+    CountryModel _countryModel;
 
-    return CountryModel(
-      countryID : map['countryID'],
-      names : _names,
-      region : map['region'],
-      continent : map['continent'],
-      isActivated : map['isActivated'],
-      isGlobal : map['isGlobal'],
-      cities : CityModel.decipherCitiesMap(map: map['cities'], fromJSON: fromJSON),
-      language : map['language'],
-    );
+    if (map != null){
+      final List<Name> _names = Name.decipherNames(map['names']);
+
+      _countryModel = CountryModel(
+        countryID : map['countryID'],
+        names : _names,
+        region : map['region'],
+        continent : map['continent'],
+        isActivated : map['isActivated'],
+        isGlobal : map['isGlobal'],
+        cities : CityModel.decipherCitiesMap(map: map['cities'], fromJSON: fromJSON),
+        language : map['language'],
+        currency: map['currency'],
+      );
+
+    }
+
+    return _countryModel;
   }
 // -----------------------------------------------------------------------------
   static List<CountryModel> decipherCountriesMaps({@required List<dynamic> maps, @required bool fromJSON}){

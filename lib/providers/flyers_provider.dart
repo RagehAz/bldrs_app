@@ -209,13 +209,13 @@ class FlyersProvider extends ChangeNotifier {
     notifyListeners();
   }
 // -------------------------------------
-  FlyerModel getSavedFlyerByFlyerID(String flyerID){
-    final FlyerModel  _flyer = FlyerModel.getFlyerFromFlyersByID(
-      flyers: _savedFlyers,
-      flyerID: flyerID,
-    );
-    return  _flyer;
-  }
+//   FlyerModel getSavedFlyerByFlyerID(String flyerID){
+//     final FlyerModel  _flyer = FlyerModel.getFlyerFromFlyersByID(
+//       flyers: _savedFlyers,
+//       flyerID: flyerID,
+//     );
+//     return  _flyer;
+//   }
 // -----------------------------------------------------------------------------
   /// WALL FLYERS
   List<FlyerModel> _wallFlyers;

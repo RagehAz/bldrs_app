@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/spacers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -149,7 +150,9 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
                 flyerBoxWidth: _flyerBoxWidth,
                 flyerModel: _flyers[_x],
                 goesToEditor: false,
-
+                onSwipeFlyer: (SwipeDirection direction){
+                  // print('Direction is ${direction}');
+                },
               ),
             ),
           );
