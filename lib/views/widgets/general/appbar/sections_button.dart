@@ -1,11 +1,9 @@
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/general_provider.dart';
-import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_dialog.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,12 +19,13 @@ class SectionsButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   void _changeSection(BuildContext context) async {
 
-  final double _dialogHeight = Scale.superScreenHeight(context) * 0.95;
+  // final double _dialogHeight = Scale.superScreenHeight(context) * 0.95;
 
-  await SectionDialog.slideDialog(
-    context: context,
-    dialogHeight: _dialogHeight,
-  );
+  Scaffold.of(context).openDrawer();
+  // await SectionDialog.slideDialog(
+  //   context: context,
+  //   dialogHeight: _dialogHeight,
+  // );
 
 }
 // -----------------------------------------------------------------------------
@@ -47,73 +46,75 @@ Widget build(BuildContext context) {
 
   final String _sectionName = TextGenerator.sectionStringer(context, _currentSection);
 
-  return GestureDetector(
-    onTap: onTap == null ? () => _changeSection(context) : onTap,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
+  return Builder(
+    builder: (context) => GestureDetector(
+      onTap: onTap == null ? () => _changeSection(context) : onTap,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
 
-        IntrinsicWidth(
+          IntrinsicWidth(
 
-          child: Container(
-            height: 40,
-            // width: buttonWidth,
-            // margin: const EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin*0.5),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(_corners),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+            child: Container(
+              height: 40,
+              // width: buttonWidth,
+              // margin: const EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin*0.5),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(_corners),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
 
-                /// 'Section' TITLE
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: SuperVerse(
-                    verse: _buttonTitle,
-                    size: 0,
-                    italic: true,
-                    color: Colorz.grey225,
-                    weight: VerseWeight.thin,
-                    centered: false,
+                  /// 'Section' TITLE
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: SuperVerse(
+                      verse: _buttonTitle,
+                      size: 0,
+                      italic: true,
+                      color: Colorz.grey225,
+                      weight: VerseWeight.thin,
+                      centered: false,
+                    ),
                   ),
-                ),
 
-                /// CURRENT SECTION NAME
-                // MAYBE WE WILL NEED CHANGE NOTIFIER PROVIDER . VALUE HERE TO LISTEN TO CHANGES
-                //         ChangeNotifierProvider.value(
-                //           value: _countryPro,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
+                  /// CURRENT SECTION NAME
+                  // MAYBE WE WILL NEED CHANGE NOTIFIER PROVIDER . VALUE HERE TO LISTEN TO CHANGES
+                  //         ChangeNotifierProvider.value(
+                  //           value: _countryPro,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
 
-                      SuperVerse(
-                        verse: _sectionName,
-                        size: 1,
-                        italic: false,
-                        color: Colorz.white255,
-                        weight: VerseWeight.bold,
-                        scaleFactor: 1,
-                        centered: false,
-                      ),
+                        SuperVerse(
+                          verse: _sectionName,
+                          size: 1,
+                          italic: false,
+                          color: Colorz.white255,
+                          weight: VerseWeight.bold,
+                          scaleFactor: 1,
+                          centered: false,
+                        ),
 
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
 
-      ],
+        ],
+      ),
     ),
   );
 }

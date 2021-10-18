@@ -207,7 +207,7 @@ class CityModel{
 
     if (country != null && cityID != null){
       final CityModel _city = CityModel.getCityFromCities(cities: country.cities, cityID: cityID);
-      _cityName = Name.getNameByCurrentLingoFromNames(context, _city.names);
+      _cityName = Name.getNameByCurrentLingoFromNames(context, _city?.names);
     }
 
     return _cityName;

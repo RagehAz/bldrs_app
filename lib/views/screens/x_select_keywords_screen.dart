@@ -8,9 +8,8 @@ import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/specific/keywords/group_expansion_tile.dart';
 import 'package:bldrs/views/widgets/specific/keywords/selected_keywords_bar.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
-import 'package:bldrs/xxx_LABORATORY/flyer_browser/bldrs_expansion_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/models/keywords/groups.dart';
+import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class SelectKeywordsScreen extends StatefulWidget {
@@ -30,14 +29,14 @@ class SelectKeywordsScreen extends StatefulWidget {
 
 class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
   List<Keyword> _selectedKeywords = <Keyword>[];
-  List<Group> _groups;
+  List<GroupModel> _groups;
   // CountryProvider _countryPro;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     // _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-    _groups = Group.getGroupsByFlyerType(flyerType: widget.flyerType);
+    _groups = GroupModel.getGroupsByFlyerType(flyerType: widget.flyerType);
 
     print('_groups.length = ${_groups?.length} ,, and _groups[0].groupID is : ${_groups[0].groupID}');
 
@@ -48,7 +47,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     generateExpansionKeys();
   }
 // -----------------------------------------------------------------------------
-  List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = <GlobalKey<BldrsExpansionTileState>>[];
+  List<GlobalKey<GroupTileState>> _expansionKeys = <GlobalKey<GroupTileState>>[];
   void generateExpansionKeys(){
     _groups.forEach((x) {
       _expansionKeys.add(new GlobalKey());
@@ -56,7 +55,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
   }
 // -----------------------------------------------------------------------------
   String _currentGroupID;
-  void _selectGroup({bool isExpanded, Group group}){
+  void _selectGroup({bool isExpanded, GroupModel group}){
 
     print('selecting group : ${group.groupID} : isExpanded : $isExpanded');
 
@@ -80,7 +79,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 
     // bool _canPickMany = filtersModels.singleWhere((filterModel) => filterModel.filterID == _currentFilterID).canPickMany;
 
-    final bool _canPickMany = Group.getCanGroupPickManyByKeyword(keyword);
+    final bool _canPickMany = GroupModel.getCanGroupPickManyByKeyword(keyword);
 
     final bool _isSelected = _selectedKeywords.contains(keyword);
 
@@ -312,7 +311,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 
     else {
 
-      final Group _group = Group.getGroupByKeyword(_keyword);
+      final GroupModel _group = GroupModel.getGroupByKeyword(_keyword);
 
       await _highlightKeyword(_keyword, _group.canPickMany);
 

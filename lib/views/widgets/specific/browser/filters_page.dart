@@ -1,13 +1,13 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/groups.dart';
+import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:flutter/material.dart';
 
 class FiltersPage extends StatelessWidget {
-  final List<Group> groups;
+  final List<GroupModel> groups;
   final Function onTap;
-  final Group selectedGroup;
+  final GroupModel selectedGroup;
 
   const FiltersPage({
     Key key,
@@ -27,7 +27,7 @@ class FiltersPage extends StatelessWidget {
           padding: const EdgeInsets.all(Ratioz.appBarMargin),
           itemBuilder: (context, keyIndex){
 
-            final Group _group = groups[keyIndex];
+            final GroupModel _group = groups[keyIndex];
             final Color _color = selectedGroup?.groupID == _group.groupID ? Colorz.yellow255 : Colorz.nothing;
 
             return
