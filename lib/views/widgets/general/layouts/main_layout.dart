@@ -19,8 +19,10 @@ import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/views/widgets/general/buttons/back_anb_search_button.dart';
 import 'package:bldrs/views/widgets/general/buttons/rageh_button.dart';
+import 'package:bldrs/views/widgets/general/dialogs/side_dialog/side_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -221,6 +223,19 @@ class MainLayout extends StatelessWidget {
                 resizeToAvoidBottomInset: false, // this false prevents keyboard from pushing pyramids up
                 // resizeToAvoidBottomPadding: false,
                 backgroundColor: _backgroundColor,
+
+                drawer: DrawerDialog(),
+                drawerDragStartBehavior: DragStartBehavior.start,
+                drawerEdgeDragWidth: 15,
+                drawerEnableOpenDragGesture: true,
+                drawerScrimColor: Colorz.black125,
+                onDrawerChanged: (bool thing){
+
+                  print('drawer changed and thing is :${thing}');
+
+                },
+
+
                 body:
                 canRefreshFlyers ?
                 RefreshIndicator(
