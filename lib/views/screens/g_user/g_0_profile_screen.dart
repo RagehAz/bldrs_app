@@ -354,7 +354,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
 
               ContactsBubble(
-                contacts: widget.userModel.contacts,
+                contacts: widget.userModel?.contacts,
               ),
 
               const PyramidsHorizon(),

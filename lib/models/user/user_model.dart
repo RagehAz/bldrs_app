@@ -321,9 +321,9 @@ class UserModel {
     return _missingFields;
   }
 // -----------------------------------------------------------------------------
-  void printUserModel({@required String methodName}){
+  void printUserModel({String methodName = 'PRINTING USER MODEL'}){
 
-    print('$methodName : PRINTING USER MODEL ---------------- START -- ');
+    print('$methodName : ---------------- START -- ');
 
     print('userID : $userID');
     print('authBy : $authBy');
@@ -342,7 +342,7 @@ class UserModel {
     print('emailIsVerified : $emailIsVerified');
     print('fcmToken : ${fcmToken?.createdAt}');
 
-    print('$methodName : PRINTING USER MODEL ---------------- END -- ');
+    print('$methodName : ---------------- END -- ');
 
   }
 // -----------------------------------------------------------------------------

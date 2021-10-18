@@ -233,7 +233,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
               /// USER PICTURE
               UserBalloon(
-                // userPic: Iconz.DumAuthorPic,
+                userModel: UserModel.dummyUsers(numberOfUsers: 1)[0],
                 balloonType: _userStatus,
                 balloonWidth: _abButtonsHeight,
                 blackAndWhite: false,

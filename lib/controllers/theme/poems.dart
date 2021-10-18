@@ -26,6 +26,7 @@ double tap double tap slide tap tap tap
 Psychology creativity test
 
 needs to assert your
+- elite manners
 - high iq level
 - willingness to excel
 - ability to resolve conflicts
