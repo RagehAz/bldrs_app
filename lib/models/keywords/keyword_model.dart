@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/groups.dart';
+import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/models/zone/district_model.dart';
 import 'package:bldrs/models/helpers/namez_model.dart';
@@ -24,6 +24,20 @@ class Keyword {
     @required this.uses,
     this.names,
 });
+
+  void printKeyword({String methodName = 'PRINTING KEYWORD'}){
+
+    print('$methodName ------------------------------- START');
+
+    print('keywordID : ${keywordID}');
+    print('flyerType : ${flyerType}');
+    print('groupID : ${groupID}');
+    print('subGroupID : ${subGroupID}');
+    print('uses : ${uses}');
+    print('names : ${names}');
+
+    print('${methodName} ------------------------------- END');
+  }
 
 // -----------------------------------------------------------------------------
   static String getKeywordArabicName(Keyword keyword){
@@ -282,7 +296,7 @@ class Keyword {
 
 // ------------------o
   /// this is weird, I don't know why I wrote it
-  static List<Keyword> getKeywordsByGroupIDFomGroup({Group group, String groupID}){
+  static List<Keyword> getKeywordsByGroupIDFomGroup({GroupModel group, String groupID}){
     final List<Keyword> _keywords = <Keyword>[];
 
     group.keywords.forEach((keyword) {
@@ -305,7 +319,6 @@ class Keyword {
 
     return _keywords;
   }
-
 // -----------------------------------------------------------------------------
   static List<Keyword> getKeywordsBySection(Section section){
     final List<Keyword> _keywords = <Keyword>[];
@@ -427,7 +440,7 @@ class Keyword {
   /// GET GROUPS
 
 // ------------------o
-  static List<String> getGroupsIDsFromGroup(Group group){
+  static List<String> getGroupsIDsFromGroup(GroupModel group){
     final List<String> _groupsIDs = <String>[];
 
     final List<Keyword> _keywords = group.keywords;

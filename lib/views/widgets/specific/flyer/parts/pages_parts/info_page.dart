@@ -213,7 +213,7 @@ class InfoPage extends StatelessWidget {
         //   ),
 
         /// KEYWORDS
-        if (superFlyer.keywords != null && superFlyer.keywords.length != 0)
+        if ((superFlyer.keywords != null && superFlyer.keywords.length != 0) || _editMode == true)
           KeywordsBubble(
             key: ValueKey<String>('info_page_keywords_bubble'),
             bubbleWidth: _bubbleWidth,
