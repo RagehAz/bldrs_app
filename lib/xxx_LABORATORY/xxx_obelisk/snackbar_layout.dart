@@ -11,28 +11,27 @@ class SnackBarLayout extends StatelessWidget {
     return DashBoardLayout(
       onBldrsTap: (){
         print('kos omak ya allam');
+
+
         },
       pageTitle: 'Snack bar',
       listWidgets: <Widget>[
 
-        WideButton(
-          verse: 'Fuck you',
-          onTap: () async {
+        Builder(
+            builder:
+                (context) => WideButton(
+              verse: 'Fuck you',
+              onTap: () async {
 
-            print(' yel3an mayteeen ommak');
+                print(' yel3an mayteeen ommak');
 
+                Scaffold.of(context).openDrawer();
 
-
-            },
+              },
+            )
         ),
 
-        Drawer(
-          child: Container(
-            width: 200,
-            height: 200,
-            color: Colorz.bloodTest,
-          ),
-        ),
+
 
       ],
     );
