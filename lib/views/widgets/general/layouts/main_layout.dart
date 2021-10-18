@@ -14,7 +14,7 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/general_provider.dart';
-import 'package:bldrs/providers/users/old_user_provider.dart';
+import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/views/widgets/general/buttons/back_anb_search_button.dart';
@@ -113,7 +113,7 @@ class MainLayout extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
-    final List<BzModel> _userBzz = appBarType == AppBarType.Main ? _bzzProvider.userBzz : <BzModel>[];
+    final List<BzModel> _userBzz = appBarType == AppBarType.Main ? _bzzProvider.myBzz : <BzModel>[];
 
     final bool _ragehIsOn = tappingRageh == null ? false : true;
 
@@ -198,9 +198,9 @@ class MainLayout extends StatelessWidget {
 
     final Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.Black230 : Colorz.SkyDarkBlue;
 
-    return StreamProvider<List<UserModel>>.value(
-      value: OldUserProvider().allUsersStream,
-      initialData: [],
+    return StreamProvider<UserModel>.value(
+      value: UsersProvider().userStream,
+      initialData: UserModel.initializeUserModelStreamFromUser(),
       child: GestureDetector(
         onTap: (){Keyboarders.minimizeKeyboardOnTapOutSide(context);},
         child: SafeArea(

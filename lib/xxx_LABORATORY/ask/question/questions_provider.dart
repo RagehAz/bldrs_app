@@ -1,4 +1,4 @@
-import 'package:bldrs/views/widgets/specific/ask/quest/quest_model.dart';
+import 'package:bldrs/xxx_LABORATORY/ask/quest/quest_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

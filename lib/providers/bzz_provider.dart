@@ -116,13 +116,13 @@ class BzzProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   /// USER BZZ
-  List<BzModel> _userBzz = <BzModel>[];
+  List<BzModel> _myBzz = <BzModel>[];
 // -------------------------------------
-  List<BzModel> get userBzz {
-    return <BzModel>[..._userBzz];
+  List<BzModel> get myBzz {
+    return <BzModel>[..._myBzz];
   }
 // -------------------------------------
-  Future<void> fetchUserBzz(BuildContext context) async {
+  Future<void> fetchMyBzz(BuildContext context) async {
 
     /// 1 - get userBzzIDs from userModel
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
@@ -134,32 +134,55 @@ class BzzProvider extends ChangeNotifier {
       List<BzModel> _bzz = await fetchBzzModels(context: context, bzzIDs: _userBzzIDs);
 
 
-      _userBzz = _bzz;
+      _myBzz = _bzz;
       notifyListeners();
 
 
     }
   }
 // -------------------------------------
-  void removeBzFromUserBzz({String bzID}){
+  Future<void> removeBzFromMyBzz({String bzID}) async {
 
-    if (Mapper.canLoopList(_userBzz)){
-      final int _index = _userBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
-      _userBzz.removeAt(_index);
+    if (Mapper.canLoopList(_myBzz)){
+
+      await LDBOps.delete(
+        objectID: bzID,
+        docName: LDBDoc.myBzz,
+      );
+
+
+      final int _index = _myBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
+      _myBzz.removeAt(_index);
+
       notifyListeners();
     }
+
   }
 // -------------------------------------
   void addBzToUserBzz(BzModel bzModel){
-    _userBzz.add(bzModel);
+    _myBzz.add(bzModel);
     notifyListeners();
   }
 // -------------------------------------
-  void updateBzInUserBzz(BzModel modifiedBz){
-    final int _indexOfOldTinyBz = _userBzz.indexWhere((bz) => modifiedBz.bzID == bz.bzID);
-    _userBzz.removeAt(_indexOfOldTinyBz);
-    _userBzz.insert(_indexOfOldTinyBz, modifiedBz);
-    notifyListeners();
+  Future<void> updateBzInUserBzz(BzModel modifiedBz) async {
+
+    if (Mapper.canLoopList(_myBzz)){
+
+      await LDBOps.updateMap(
+        input: modifiedBz.toMap(toJSON: true),
+        objectID: modifiedBz.bzID,
+        docName: LDBDoc.myBzz,
+      );
+
+      final int _indexOfOldTinyBz = _myBzz.indexWhere((bz) => modifiedBz.bzID == bz.bzID);
+      _myBzz.removeAt(_indexOfOldTinyBz);
+      _myBzz.insert(_indexOfOldTinyBz, modifiedBz);
+
+
+      notifyListeners();
+
+    }
+
   }
 // -----------------------------------------------------------------------------
   /// FOLLOWED BZZ
@@ -210,15 +233,15 @@ class BzzProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   /// ACTIVE BZ
-  BzModel _activeBz;
+  BzModel _myActiveBz;
 // -----------------------------------------------------------------------------
-  BzModel get activeBz{
-    return _activeBz;
+  BzModel get myActiveBz{
+    return _myActiveBz;
   }
 // -----------------------------------------------------------------------------
   Future<void> setActiveBz(BzModel bzModel) async {
     print('setting active bz to ${bzModel.bzID}');
-    _activeBz = bzModel;
+    _myActiveBz = bzModel;
     notifyListeners();
   }
 // -----------------------------------------------------------------------------

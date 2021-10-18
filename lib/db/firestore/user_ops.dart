@@ -128,7 +128,7 @@ abstract class UserOps{
     final FirebaseAuth _auth = FirebaseAuth?.instance;
 
     return _auth.authStateChanges()
-        .map((User user) => UserModel.initializeUserModelStreamFromUser(user,));
+        .map((User user) => UserModel.initializeUserModelStreamFromUser());
 
     //     .map(
     //     UserModel.initializeUserModelStreamFromUser); // different syntax than previous snippet

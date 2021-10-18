@@ -98,7 +98,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           });
 
           print('x - fetching UserBzz');
-          await _bzzProvider.fetchUserBzz(context);
+          await _bzzProvider.fetchMyBzz(context);
           _increaseProgressTo(80);
 
           // TASK : should get only first 10 saved tiny flyers,, and continue paginating when entering the savedFlyers screen

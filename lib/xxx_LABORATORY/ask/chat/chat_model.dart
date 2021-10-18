@@ -1,4 +1,4 @@
-import 'package:bldrs/views/widgets/specific/ask/chat/message_model.dart';
+import 'package:bldrs/xxx_LABORATORY/ask/chat/message_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
