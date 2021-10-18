@@ -79,9 +79,9 @@ class Group{
   static Group getGroupFromCurrentDistricts(BuildContext context){
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
-    final Country _currentCountry = _zoneProvider.currentCountry;
+    final CountryModel _currentCountry = _zoneProvider.currentCountry;
     final String _cityID = _zoneProvider.currentZone.cityID;
-    final List<District> _districts = District.getDistrictsFromCountryModel(country: _currentCountry, cityID: _cityID);
+    final List<DistrictModel> _districts = DistrictModel.getDistrictsFromCountryModel(country: _currentCountry, cityID: _cityID);
 
     final List<Keyword> _districtsAsKeywords = Keyword.getKeywordsModelsFromDistricts(_districts);
 

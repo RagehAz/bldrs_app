@@ -310,7 +310,6 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                     color: widget.blackAndWhite == true || widget.inActiveMode == true ? Colorz.White80 : widget.verseColor,
                                     shadow: widget.blackAndWhite == true ? false : true,
                                     maxLines: widget.verseMaxLines,
-                                    designMode: false,
                                     centered: widget.icon == null ? true : false,
                                     scaleFactor: widget.iconSizeFactor * widget.verseScaleFactor,
                                     italic: widget.verseItalic,

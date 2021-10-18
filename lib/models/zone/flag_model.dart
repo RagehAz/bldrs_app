@@ -31,7 +31,6 @@ class Flag {
     const Flag(countryID: 'and', icon: _and,),
     const Flag(countryID: 'ago', icon: _ago,),
     const Flag(countryID: 'aia', icon: _aia,),
-    const Flag(countryID: 'ata', icon: _ata,),
     const Flag(countryID: 'atg', icon: _atg,),
     const Flag(countryID: 'arg', icon: _arg,),
     const Flag(countryID: 'arm', icon: _arm,),
@@ -287,7 +286,6 @@ class Flag {
   static const String _and = _flagsPath + "flag_eu_s_andorra.svg" ;
   static const String _ago = _flagsPath + "flag_af_m_angola.svg" ;
   static const String _aia = _flagsPath + "flag_na_cr_anguilla.svg" ;
-  static const String _ata = _flagsPath + "dv_blank.svg" ;
   static const String _atg = _flagsPath + "flag_na_cr_antigua_and_barbuda.svg" ;
   static const String _arg = _flagsPath + "flag_sa_argentina.svg" ;
   static const String _arm = _flagsPath + "flag_as_w_armenia.svg" ;

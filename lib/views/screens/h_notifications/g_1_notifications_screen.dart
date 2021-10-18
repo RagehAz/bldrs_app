@@ -82,9 +82,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
     await Fire.updateSubDocField(
       context: context,
-      collName: FireCollection.users,
+      collName: FireColl.users,
       docName: superUserID(),
-      subCollName: FireCollection.users_user_notifications,
+      subCollName: FireColl.users_user_notifications,
       subDocName: id,
       field: 'dismissed',
       input: true,
@@ -141,7 +141,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
         await Fire.updateDocField(
           context: context,
-          collName: FireCollection.users,
+          collName: FireColl.users,
           docName: _rageh.userID,
           field: 'nameTrigram',
           input: _tri,

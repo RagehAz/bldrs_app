@@ -22,7 +22,6 @@ class SuperVerse extends StatelessWidget {
   final bool italic;
   final bool shadow;
   final bool centered;
-  final bool designMode;
   final double scaleFactor;
   final int maxLines;
   final double margin;
@@ -41,7 +40,6 @@ class SuperVerse extends StatelessWidget {
     this.italic = false,
     this.shadow = false,
     this.centered = true,
-    this.designMode = false,
     this.scaleFactor = 1,
     this.maxLines = 1,
     this.margin,
@@ -123,12 +121,11 @@ class SuperVerse extends StatelessWidget {
       @required int size,
       @required bool shadow,
       double scaleFactor = 1,
-      bool designMode = false,
        bool strikeThrough = false,
     }){
 
       const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
-      final Color _boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
+      const Color _boxColor = Colorz.Nothing;
       final String _verseFont = superVerseFont(context, weight);
       final FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
       final double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
@@ -400,7 +397,7 @@ class SuperVerse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // Color _boxColor = designMode ? Colorz.BloodTest : Colorz.Nothing;
+    // const Color _boxColor = Colorz.Nothing;
     // const double verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
     final double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
     /// takes values from 0 to 8 in the entire app
@@ -480,7 +477,6 @@ class SuperVerse extends StatelessWidget {
                       size: size,
                       shadow: shadow,
                       scaleFactor: scaleFactor,
-                      designMode: designMode,
                       strikeThrough: strikethrough,
                     ),
 

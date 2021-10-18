@@ -111,8 +111,8 @@ class UserModel {
         emailIsVerified : map['emailIsVerified'],
         isAdmin: map['isAdmin'],
         fcmToken: FCMToken.decipherFCMToken(map: map['fcmToken'], fromJSON: fromJSON),
-        savedFlyersIDs: map['savedFlyersIDs'],
-        followedBzzIDs: map['followedBzzIDs'],
+        savedFlyersIDs: Mapper.getStringsFromDynamics(dynamics: map['savedFlyersIDs']),
+        followedBzzIDs: Mapper.getStringsFromDynamics(dynamics: map['followedBzzIDs']),
       );
 
   }

@@ -105,7 +105,6 @@ class _SearchBarState extends State<SearchBar> {
               italic: true,
               keyboardTextInputType: TextInputType.text,
               keyboardTextInputAction: TextInputAction.search,
-              designMode: false,
               counterIsOn: false,
               fieldColor: null,
               corners: Ratioz.appBarButtonCorner,

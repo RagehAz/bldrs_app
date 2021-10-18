@@ -20,7 +20,6 @@ class LogoSlogan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _designMode = false;
     final double _screenHeight = Scale.superScreenHeight(context);
 
     final  double _logoWidth = _screenHeight * 22 * 0.016 * sizeFactor;
@@ -29,7 +28,6 @@ class LogoSlogan extends StatelessWidget {
     final SuperVerse _slogan = SuperVerse(
       verse: Wordz.bldrsTagLine(context),
       size: 4,
-      designMode: _designMode,
       shadow: true,
       weight: VerseWeight.bold,
       color: Colorz.White255,
@@ -55,7 +53,6 @@ class LogoSlogan extends StatelessWidget {
           alignment: Alignment.center,
           width: _logoWidth,
           height: _logoHeight,
-          color: _designMode ? Colorz.BloodTest : null,
           child: Container(
             width: double.infinity,
             height: double.infinity,
@@ -72,13 +69,11 @@ class LogoSlogan extends StatelessWidget {
           Container(
             width: _logoWidth,
             height: _logoHeight * 0.7,
-            color: _designMode ? Colorz.BloodTest : null,
             child:
             SuperVerse(
               verse: Wordz.bldrsDescription(context),
               size: 3,
               weight: VerseWeight.thin,
-              designMode: _designMode,
               shadow: true,
               centered: true,
               italic: true,

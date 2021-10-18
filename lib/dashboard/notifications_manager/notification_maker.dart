@@ -439,9 +439,9 @@ class _NotificationMakerState extends State<NotificationMaker> {
         functions: () async {
           await Fire.createNamedSubDoc(
             context: context,
-            collName: FireCollection.users,
+            collName: FireColl.users,
             docName: sendToMyself == true ? superUserID() : _selectedUser.userID,
-            subCollName: FireCollection.users_user_notifications,
+            subCollName: FireColl.users_user_notifications,
             input: _newNoti.toMap(toJSON: false),
             subDocName: _id,
           );

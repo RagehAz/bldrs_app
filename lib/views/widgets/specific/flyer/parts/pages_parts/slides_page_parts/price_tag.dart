@@ -37,8 +37,6 @@ class PriceTag extends StatelessWidget {
       currentPrice: _currentPrice,
     );
 
-    final bool _designMode = false;
-
     final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 
@@ -115,7 +113,6 @@ class PriceTag extends StatelessWidget {
                           italic: true,
                           size: 2,
                           scaleFactor: _flyerSizeFactor,
-                          designMode: _designMode,
                         ),
 
 

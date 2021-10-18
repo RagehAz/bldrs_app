@@ -221,7 +221,7 @@ class FireSearch {
           methodName: 'mapsByTwoValuesEqualTo',
           functions: () async {
 
-            final CollectionReference _flyersCollection = Fire.getCollectionRef(FireCollection.flyers);
+            final CollectionReference _flyersCollection = Fire.getCollectionRef(FireColl.flyers);
 
             QuerySnapshot _collectionSnapshot;
 
@@ -275,7 +275,7 @@ class FireSearch {
 
     final dynamic _result = await mapsByFieldValue(
       context: context,
-      collName: FireCollection.users,
+      collName: FireColl.users,
       field: 'nameTrigram',
       compareValue: compareValue,
       addDocsIDs: false,

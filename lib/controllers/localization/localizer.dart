@@ -67,7 +67,7 @@ class Localizer{
     if (superUserID() != null){
       await Fire.updateDocField(
         context: context,
-        collName: FireCollection.users,
+        collName: FireColl.users,
         docName: superUserID(),
         field: 'language',
         input: code,

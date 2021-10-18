@@ -6,7 +6,7 @@ import 'package:bldrs/models/zone/country_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
-class District{
+class DistrictModel{
   final String countryID;
   final String cityID;
   final String districtID;
@@ -18,7 +18,7 @@ class District{
   final bool isPublic;
 
 
-  const District({
+  const DistrictModel({
     this.countryID,
     this.cityID,
     this.districtID,
@@ -31,21 +31,21 @@ class District{
     return {
       'countryID' : countryID,
       'cityID' : cityID,
-      'districtID' : Country.fixCountryName(districtID),
+      'districtID' : CountryModel.fixCountryName(districtID),
       'names' : Name.cipherNames(names),
       'isActivated' : isActivated,
       'isPublic' : isPublic,
     };
   }
 // -----------------------------------------------------------------------------
-  static Map<String,dynamic> cipherDistricts(List<District> districts){
+  static Map<String,dynamic> cipherDistricts(List<DistrictModel> districts){
     Map<String, dynamic> _districtsMap = {};
 
-    for (District district in districts){
+    for (DistrictModel district in districts){
 
       _districtsMap = Mapper.insertPairInMap(
         map: _districtsMap,
-        key: Country.fixCountryName(district.districtID),
+        key: CountryModel.fixCountryName(district.districtID),
         value: district.toMap(),
       );
 
@@ -54,8 +54,8 @@ class District{
     return _districtsMap;
   }
 // -----------------------------------------------------------------------------
-  static District decipherDistrictMap(Map<String, dynamic> map){
-    return District(
+  static DistrictModel decipherDistrictMap(Map<String, dynamic> map){
+    return DistrictModel(
       countryID : map['countryID'],
       cityID : map['cityID'],
       districtID : map['districtID'],
@@ -65,8 +65,8 @@ class District{
     );
   }
 // -----------------------------------------------------------------------------
-  static List<District> decipherDistrictsMap(Map<String, dynamic> map){
-    final List<District> _districts = <District>[];
+  static List<DistrictModel> decipherDistrictsMap(Map<String, dynamic> map){
+    final List<DistrictModel> _districts = <DistrictModel>[];
 
     final List<String> _keys = map.keys.toList();
     final List<dynamic> _values = map.values.toList();
@@ -75,7 +75,7 @@ class District{
 
       for (int i = 0; i<_keys.length; i++){
 
-        final District _district = decipherDistrictMap(_values[i]);
+        final DistrictModel _district = decipherDistrictMap(_values[i]);
 
         _districts.add(_district);
 
@@ -86,7 +86,7 @@ class District{
     return _districts;
   }
 // -----------------------------------------------------------------------------
-  static List<MapModel> getDistrictsNamesMapModels({@required BuildContext context, @required List<District> districts}){
+  static List<MapModel> getDistrictsNamesMapModels({@required BuildContext context, @required List<DistrictModel> districts}){
     final List<MapModel> _districtsMapModels = <MapModel>[];
 
     if (Mapper.canLoopList(districts)){
@@ -108,8 +108,8 @@ class District{
 
   }
 // -----------------------------------------------------------------------------
-  static District getDistrictFromDistricts({@required List<District> districts, @required String districtID}){
-    District _district;
+  static DistrictModel getDistrictFromDistricts({@required List<DistrictModel> districts, @required String districtID}){
+    DistrictModel _district;
     if (Mapper.canLoopList(districts)){
 
       _district = districts.firstWhere((district) => district.districtID == districtID, orElse: () => null);
@@ -118,21 +118,21 @@ class District{
     return _district;
   }
 // -----------------------------------------------------------------------------
-  static String getTranslatedDistrictNameFromCountry({@required BuildContext context, @required Country country, @required String cityID, @required String districtID}){
+  static String getTranslatedDistrictNameFromCountry({@required BuildContext context, @required CountryModel country, @required String cityID, @required String districtID}){
 
     String _districtName = '...';
 
     if (country != null && cityID != null && districtID != null){
-      final City _city = City.getCityFromCities(cities: country.cities, cityID: cityID);
-      final District _district = District.getDistrictFromDistricts(districts: _city.districts, districtID: districtID);
+      final CityModel _city = CityModel.getCityFromCities(cities: country.cities, cityID: cityID);
+      final DistrictModel _district = DistrictModel.getDistrictFromDistricts(districts: _city.districts, districtID: districtID);
       _districtName = Name.getNameByCurrentLingoFromNames(context, _district.names);
     }
 
     return _districtName;
   }
 // -----------------------------------------------------------------------------
-static List<District> getDistrictsFromCountryModel({@required Country country, @required String cityID}){
-  final City _city = City.getCityFromCities(cities: country.cities, cityID: cityID);
+static List<DistrictModel> getDistrictsFromCountryModel({@required CountryModel country, @required String cityID}){
+  final CityModel _city = CityModel.getCityFromCities(cities: country.cities, cityID: cityID);
   return _city.districts;
 }
 // -----------------------------------------------------------------------------

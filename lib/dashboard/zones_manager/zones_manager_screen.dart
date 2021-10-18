@@ -115,7 +115,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
                         stream: _countriesList,
                         builder: (ctx, streamSnapshots){
                           final List<dynamic> _countriesMaps = streamSnapshots?.data?.docs;
-                          final List<Country> _countries = Country.decipherCountriesMaps(
+                          final List<CountryModel> _countries = CountryModel.decipherCountriesMaps(
                             maps: _countriesMaps,
                             fromJSON: false,
                           );
@@ -129,7 +129,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
                             itemCount: _countries.length,
                             itemBuilder: (context, index){
 
-                              final Country _countryModel = _countries[index];
+                              final CountryModel _countryModel = _countries[index];
                               final String _countryName = Name.getNameByCurrentLingoFromNames(context, _countryModel.names);
 
                               return

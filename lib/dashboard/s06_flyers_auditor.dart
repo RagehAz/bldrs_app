@@ -93,7 +93,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     }
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
-      collectionName:  FireCollection.flyers,
+      collectionName:  FireColl.flyers,
       orderBy: 'flyerID',
       limit: 5,
       startAfter: _lastSnapshot,
@@ -145,7 +145,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
       await Fire.updateDocField(
         context: context,
-        collName: FireCollection.flyers,
+        collName: FireColl.flyers,
         docName: _currentFlyer.flyerID,
         field: 'flyerState',
         input: FlyerModel.cipherFlyerState(FlyerState.verified),

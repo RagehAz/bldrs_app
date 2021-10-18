@@ -35,14 +35,14 @@ class QuestionOps {
 // -----------------------------------------------------------------------------
   /// Question collection ref
   CollectionReference questionCollectionRef(){
-    return Fire.getCollectionRef(FireCollection.questions);
+    return Fire.getCollectionRef(FireColl.questions);
   }
 // -----------------------------------------------------------------------------
   /// chat doc ref
   DocumentReference questionDocRef(String questionID, String chatID){
     return
       Fire.getDocRef(
-          collName: FireCollection.questions,
+          collName: FireColl.questions,
           docName: questionID,
       );
   }
@@ -81,7 +81,7 @@ class QuestionOps {
     /// C - create question doc with _question on firebase
     final DocumentReference _questionDocRef = await Fire.createDoc(
       context: context,
-      collName: FireCollection.questions,
+      collName: FireColl.questions,
       input: _question.toMap(),
     );
 
@@ -93,7 +93,7 @@ class QuestionOps {
     // String _questionID = _questionDocRef.id;
     await Fire.updateDocField(
       context: context,
-      collName: FireCollection.users,
+      collName: FireColl.users,
       docName: _question.ownerID,
       field: 'questions',
       input: _updatedQuestionsIDs,
@@ -105,7 +105,7 @@ class QuestionOps {
   static Future<QuestionModel> readQuestionOps({BuildContext context, String questionID}) async {
     final dynamic _questionMap = await Fire.readDoc(
       context: context,
-      collName: FireCollection.questions,
+      collName: FireColl.questions,
       docName: questionID,
     );
 
@@ -126,7 +126,7 @@ class QuestionOps {
     if (_questionIsUpdated == true){
       await Fire.updateDoc(
         context: context,
-        collName: FireCollection.questions,
+        collName: FireColl.questions,
         docName: updatedQuestion.questionID,
         input: updatedQuestion.toMap(),
       );
@@ -142,7 +142,7 @@ class QuestionOps {
 
     await Fire.deleteDoc(
       context: context,
-      collName: FireCollection.questions,
+      collName: FireColl.questions,
       docName: question.questionID,
     );
 

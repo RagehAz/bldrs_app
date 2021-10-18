@@ -60,7 +60,7 @@ class _FeedBackState extends State<FeedBack> {
     /// upload text to firebase
     await Fire.createDoc(
       context: context,
-      collName: FireCollection.feedbacks,
+      collName: FireColl.feedbacks,
       addDocID: true,
       input: FeedbackModel(
         userID: superUserID(),

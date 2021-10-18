@@ -60,11 +60,11 @@ class InfoPage extends StatelessWidget {
     final FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType) : superFlyer.flyerType;
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
-    final Country _currentCountry = _zoneProvider.currentCountry;
+    final CountryModel _currentCountry = _zoneProvider.currentCountry;
     final Zone _currentZone = _zoneProvider.currentZone;
 
-    final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: _currentCountry.countryID);
-    final String _cityName = City.getTranslatedCityNameFromCountry(context: context, country: _currentCountry, cityID: _currentZone.cityID);
+    final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _currentCountry.countryID);
+    final String _cityName = CityModel.getTranslatedCityNameFromCountry(context: context, country: _currentCountry, cityID: _currentZone.cityID);
 
     // List<TinyUser> _users = TinyUser.dummyTinyUsers();
 
