@@ -2,6 +2,7 @@ import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/firestore/user_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
@@ -136,6 +137,32 @@ class UsersProvider extends ChangeNotifier {
 
     _myModel = _userModel;
     notifyListeners();
+  }
+// -----------------------------------------------------------------------------
+  /// USER STREAM
+  Stream<UserModel> get userStream {
+    final CollectionReference _userCollection = UserOps.userCollectionRef();
+    final Stream<UserModel> _stream = _userCollection.doc(_myModel.userID).snapshots().map(_userModelFromSnapshot);
+    return _stream;
+  }
+// -------------------------------------
+  static UserModel _userModelFromSnapshot(DocumentSnapshot doc) {
+    UserModel _userModel;
+
+    if (doc != null) {
+      try {
+        Map<String, dynamic> _map = doc.data() as Map;
+
+        _userModel = UserModel.decipherUserMap(map: _map, fromJSON: false);
+
+      } catch (error) {
+        print(
+            '_userModelFromSnapshot error is : $error');
+        throw (error);
+      }
+    }
+
+    return _userModel;
   }
 // -----------------------------------------------------------------------------
 

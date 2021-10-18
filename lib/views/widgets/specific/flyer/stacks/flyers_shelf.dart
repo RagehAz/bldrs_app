@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
@@ -43,9 +43,8 @@ class FlyersShelf extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final OldFlyersProvider _pro = Provider.of<OldFlyersProvider>(context, listen: true);
-    final List<FlyerModel> _tinyFlyers = flyers == null ? _pro.getFlyersByFlyerType(flyersType) : flyers;
-    // final List<TinyBz> _tinyBzz = _pro.getTinyBzzOfTinyFlyersList(_tinyFlyers);
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final List<FlyerModel> _flyers = flyers == null ? _flyersProvider.filterWallFlyersByFlyerType(flyersType) : flyers;
 
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
@@ -59,7 +58,7 @@ class FlyersShelf extends StatelessWidget {
 // -----------------------------------------------------------------------------
     return
 
-      _tinyFlyers.length == 0 ? Container() :
+      _flyers.length == 0 ? Container() :
       Container(
         width: _screenWidth,
         // height: _collectionHeight + 2*_titleSpacing + (_screenHeight * Ratioz.fontSize3) + 12,
@@ -136,7 +135,7 @@ class FlyersShelf extends StatelessWidget {
               height: _flyerZoneHeight,
               // color: Colorz.WhiteAir,
               child: FlyersShelfListBuilder(
-                flyers: _tinyFlyers,
+                flyers: _flyers,
                 flyerSizeFactor: flyerSizeFactor,
                 flyerOnTap: flyerOnTap,
                 onScrollEnd: onScrollEnd,

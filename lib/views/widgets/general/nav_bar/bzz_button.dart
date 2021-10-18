@@ -43,7 +43,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
   Widget build(BuildContext context) {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
-    List<BzModel> _userBzz = _bzzProvider.userBzz;
+    List<BzModel> _userBzz = _bzzProvider.myBzz;
 
     print('the dude is : _userBzz : ${_userBzz.length} bzz');
 

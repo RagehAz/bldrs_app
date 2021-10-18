@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
+
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -7,12 +9,11 @@ import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
-import 'package:bldrs/xxx_LABORATORY/camera_and_location/test_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:ui' as ui;
 import 'package:location/location.dart';
 // -----------------------------------------------------------------------------
 // Google Cloud Platform
@@ -22,12 +23,12 @@ import 'package:location/location.dart';
 // AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI
 // -----------------------------------------------------------------------------
 class GoogleMapScreen extends StatefulWidget {
-  final PlaceLocation initialLocation;
+  final GeoPoint geoPoint;
   final bool isSelecting;
   final double flyerBoxWidth;
 
   const GoogleMapScreen({
-    this.initialLocation, // = const PlaceLocation(latitude: 37.43296265331129, longitude: -122.08832357078792),
+    this.geoPoint, // = const PlaceLocation(latitude: 37.43296265331129, longitude: -122.08832357078792),
     this.isSelecting = false,
     @required this.flyerBoxWidth,
   });

@@ -7,30 +7,28 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/ldb/sembast/sembast_test_screen.dart';
+import 'package:bldrs/db/ldb/sql_db/flyers_sql_screen.dart';
 import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/general/dialogs/web_view/web_view_test_screen.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/general/textings/the_golden_scroll.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/black_hole.dart';
-import 'package:bldrs/db/ldb/sql_db/flyers_sql_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/forms_test.dart';
+import 'package:bldrs/xxx_LABORATORY/google_maps/x08_earth_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/dio/dio_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/forms_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/random_test_space.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/timer_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/trigram_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_lab.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x06_swiper_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x08_earth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -166,8 +164,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           oButton('Web view test', Iconz.Terms, WebViewTestScreen()),
 
-          oButton('DIO Test Screen', Iconz.Terms, DioTestScreen()),
-
           oButton('Sembast Screen', Iconz.DvGouran, SembastTestScreen()),
           oButton('FlyersSQL Screen', Iconz.FlyerScale, FlyersSQLScreen()),
 
@@ -188,7 +184,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           oButton('10 - Font lab', Iconz.Language, FontLab()),
 
-          oButton('12 - Swiper Layout', Iconz.Gallery, SwiperScreen()),
+          // oButton('12 - Swiper Layout', Iconz.Gallery, SwiperScreen()),
 
           // oButton('21 - Soundz', Iconz.News, SoundzScreen()),
 
