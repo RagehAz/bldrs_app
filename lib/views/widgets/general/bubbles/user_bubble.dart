@@ -3,7 +3,6 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
@@ -38,7 +37,7 @@ class UserBubble extends StatefulWidget {
 }
 
 class _UserBubbleState extends State<UserBubble> {
-  Country _userCountry;
+  CountryModel _userCountry;
   // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -80,7 +79,7 @@ class _UserBubbleState extends State<UserBubble> {
         final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
 
         final Zone _userZone = widget.user?.zone;
-        final Country _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _userZone.countryID);
+        final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _userZone.countryID);
 
 
         _triggerLoading(
@@ -101,16 +100,16 @@ class _UserBubbleState extends State<UserBubble> {
   @override
   Widget build(BuildContext context) {
 
-    final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: _userCountry?.countryID);
+    final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _userCountry?.countryID);
     final String _countryFlag = Flag.getFlagIconByCountryID(_userCountry?.countryID);
 
-    final String _cityName = City.getTranslatedCityNameFromCountry(
+    final String _cityName = CityModel.getTranslatedCityNameFromCountry(
         context: context,
         country: _userCountry,
         cityID: widget.user?.zone?.cityID
     );
 
-    final String _districtName = District.getTranslatedDistrictNameFromCountry(
+    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCountry(
       context: context,
       country: _userCountry,
       cityID: widget.user?.zone?.cityID,

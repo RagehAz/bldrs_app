@@ -91,7 +91,7 @@ class ZonesPage extends StatelessWidget {
                                 width: Bubble.clearWidth(context) - 10,
                                 icon: Flag.getFlagIconByCountryID(_id),
                                 iconSizeFactor: 0.8,
-                                verse: Country.getTranslatedCountryNameByID(context: context, countryID: _id),
+                                verse: CountryModel.getTranslatedCountryNameByID(context: context, countryID: _id),
                                 bubble: false,
                                 margins: const EdgeInsets.all(5),
                                 verseScaleFactor: 0.8,

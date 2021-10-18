@@ -45,9 +45,9 @@ Widget chatStreamBuilder({
   Stream<ChatModel> getChatStream(String questionID, String bzID) {
 
     final Stream<DocumentSnapshot> _bzSnapshot = Fire.streamSubDoc(
-    collName: FireCollection.questions,
+    collName: FireColl.questions,
     docName: questionID,
-    subCollName: FireCollection.questions_question_chats,
+    subCollName: FireColl.questions_question_chats,
     subDocName: bzID,
   );
 

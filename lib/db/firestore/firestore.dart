@@ -9,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
-class FireCollection{
+class FireColl{
   static const String users = 'users';
   static const String users_user_asks = 'asks' ;
   static const String users_user_records = 'records';

@@ -47,8 +47,6 @@ class PropertySearchCriteria extends StatelessWidget {
 
     const double corners = Ratioz.boxCorner12;
 
-    const bool designMode = false;
-
     // - ROW OF BUTTONS
     // double buttonSpacing = _abPadding;
     // double buttonsZoneWidth = (_screenWidth-(_pageMargin*4));
@@ -150,7 +148,6 @@ class PropertySearchCriteria extends StatelessWidget {
                         child: const SuperVerse(
                           verse: 'Select your default property search criteria !',
                           centered: false,
-                          designMode: designMode,
                           italic: true,
                           color: Colorz.Yellow200,
                           shadow: true,

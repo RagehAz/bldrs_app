@@ -24,8 +24,6 @@ class KeywordBarButton extends StatelessWidget {
 
     final double _corners = Ratioz.boxCorner12;
 
-    final bool _designMode = false;
-
     return GestureDetector(
       onTap: onTap,
       child: Row(
@@ -83,7 +81,6 @@ class KeywordBarButton extends StatelessWidget {
                             italic: true,
                             color: Colorz.White255,
                             weight: VerseWeight.thin,
-                            designMode: _designMode,
                             centered: false,
                           ),
 
@@ -100,7 +97,6 @@ class KeywordBarButton extends StatelessWidget {
                               color: Colorz.White255,
                               weight: VerseWeight.bold,
                               scaleFactor: 1,
-                              designMode: _designMode,
                               centered: false,
                             ),
 
@@ -132,9 +128,7 @@ class AddKeywordsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double _corners = Ratioz.boxCorner12;
-
-    bool _designMode = false;
+    const double _corners = Ratioz.boxCorner12;
 
     return GestureDetector(
       onTap: onTap,
@@ -176,7 +170,6 @@ class AddKeywordsButton extends StatelessWidget {
                           italic: true,
                           color: Colorz.White125,
                           weight: VerseWeight.thin,
-                          designMode: _designMode,
                           centered: false,
                         ),
 
@@ -193,7 +186,6 @@ class AddKeywordsButton extends StatelessWidget {
                               color: Colorz.White125,
                               weight: VerseWeight.bold,
                               scaleFactor: 1,
-                              designMode: _designMode,
                               centered: false,
                             ),
 

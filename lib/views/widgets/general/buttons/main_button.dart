@@ -154,7 +154,6 @@ class MainButton extends StatelessWidget {
                             weight: verseWeight,
                             centered: true,
                             shadow: buttonVerseShadow,
-                            designMode: false,
                             size: 2,
                           ),
                         ),
@@ -206,7 +205,6 @@ class MainButton extends StatelessWidget {
                                 weight: verseWeight,
                                 centered: false,
                                 shadow: buttonVerseShadow,
-                                designMode: false,
                                 size: 2,
                                 maxLines: 2,
 

@@ -16,7 +16,7 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class CountryEditorScreen extends StatefulWidget {
-  final Country country;
+  final CountryModel country;
 
   CountryEditorScreen({@required this.country});
 
@@ -34,7 +34,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
   String _flag;
   bool _isActivated;
   bool _isGlobal;
-  List<City> _cities;
+  List<CityModel> _cities;
   String _language;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -90,7 +90,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final List<String> _citiesNames = City.getCitiesNamesFromCountryModelByCurrentLingo(
+    final List<String> _citiesNames = CityModel.getCitiesNamesFromCountryModelByCurrentLingo(
       context: context,
       country: widget.country,
     );
@@ -240,7 +240,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           KeywordsBubble(
             title: '${_citiesNames.length} Provinces',
-            keywords: City.getKeywordsFromCities(context: context, cities: _cities),
+            keywords: CityModel.getKeywordsFromCities(context: context, cities: _cities),
             onTap: (val) {print(val);},
             selectedWords: <dynamic>[],
             addButtonIsOn: false,

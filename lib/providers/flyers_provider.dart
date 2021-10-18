@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/db/firestore/search_ops.dart';
+import 'package:bldrs/db/firestore/user_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -154,20 +155,55 @@ class FlyersProvider extends ChangeNotifier {
     return _ankhIsOn;
   }
 // -------------------------------------
-  void addOrDeleteFlyerInSavedFlyers(FlyerModel _inputFlyer){
+  Future<void> saveOrUnSaveFlyer({@required BuildContext context, @required FlyerModel inputFlyer,}) async {
 
     final FlyerModel _savedFlyer =
-    _savedFlyers.singleWhere((tf) => tf.flyerID == _inputFlyer.flyerID, orElse: ()=> null);
+    _savedFlyers.singleWhere((tf) => tf.flyerID == inputFlyer.flyerID, orElse: ()=> null);
+
+    final List<String> _savedFlyersIDs = FlyerModel.getFlyersIDsFromFlyers(_savedFlyers);
+
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+
 
     if (_savedFlyer == null){
       /// so flyer is not already saved, so we save it
-      _savedFlyers.add(_inputFlyer);
+      _savedFlyers.add(inputFlyer);
+
+      /// insert flyer in ldb
+      await LDBOps.insertMap(
+        docName: LDBDoc.mySavedFlyers,
+        input: inputFlyer.toMap(toJSON: true),
+      );
+
+      /// updated saved flyers ids in firebase
+      await UserOps.addFlyerIDToSavedFlyersIDs(
+        context: context,
+        userID: _usersProvider.myUserModel.userID,
+        flyerID: inputFlyer.flyerID,
+        savedFlyersIDs: _savedFlyersIDs,
+
+      );
+
     } else {
       /// so flyer is already saved, so we remove it
       final int _savedFlyerIndex =
-      _savedFlyers.indexWhere((tf) => tf.flyerID == _inputFlyer.flyerID, );
-
+      _savedFlyers.indexWhere((tf) => tf.flyerID == inputFlyer.flyerID, );
       _savedFlyers.removeAt(_savedFlyerIndex);
+
+      /// remove from ldb
+      await LDBOps.deleteMap(
+          docName: LDBDoc.mySavedFlyers,
+          objectID: inputFlyer.flyerID,
+      );
+
+      /// remove from saved flyersIDs in firebase
+      await UserOps.removeFlyerIDFromSavedFlyersIDs(
+        context: context,
+        userID: _usersProvider.myUserModel.userID,
+        flyerID: inputFlyer.flyerID,
+        savedFlyersIDs: _savedFlyersIDs,
+      );
+
     }
 
     notifyListeners();

@@ -11,9 +11,7 @@ class PropertyUse extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
 
 
-    const bool designMode = true;
-
-    // - ROW OF BUTTONS
+    ///  ROW OF BUTTONS
     const double buttonSpacing = Ratioz.appBarMargin*2;
     final double buttonsZoneWidth = (screenWidth - (Ratioz.appBarMargin * 12));
 
@@ -34,7 +32,6 @@ class PropertyUse extends StatelessWidget {
           weight: VerseWeight.thin,
           color: Colorz.White255,
           shadow: false,
-          designMode: designMode,
         ),
 
         Row(

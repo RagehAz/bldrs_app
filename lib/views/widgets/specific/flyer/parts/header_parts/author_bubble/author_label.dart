@@ -44,7 +44,6 @@ class AuthorLabel extends StatelessWidget {
 
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-    const bool _versesDesignMode = false;
     const bool _versesShadow = false;
 // -----------------------------------------------------------------------------
     final double _headerTextSidePadding = flyerBoxWidth * Ratioz.xxflyersGridSpacing;
@@ -122,7 +121,6 @@ class AuthorLabel extends StatelessWidget {
                         italic: false,
                         centered: false,
                         shadow: _versesShadow,
-                        designMode: _versesDesignMode,
                         size: 2,
                         scaleFactor: flyerBoxWidth / _screenWidth,
                         maxLines: 1,
@@ -131,7 +129,6 @@ class AuthorLabel extends StatelessWidget {
                           /// AUTHOR TITLE
                       SuperVerse(
                         verse: _author?.title,
-                        designMode: _versesDesignMode,
                         size: 1,
                         weight: VerseWeight.regular,
                         shadow: _versesShadow,
@@ -149,7 +146,6 @@ class AuthorLabel extends StatelessWidget {
                         shadow: _versesShadow,
                         weight: VerseWeight.regular,
                         size: 0,
-                        designMode: _versesDesignMode,
                         scaleFactor: flyerBoxWidth / _screenWidth,
                         maxLines: 1,
                       ),

@@ -106,7 +106,6 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
       size: 2,
       italic: false,
       shadow: false,
-      designMode: false,
       scaleFactor: 1,
     );
 

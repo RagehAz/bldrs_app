@@ -47,11 +47,11 @@ class dashboardUserButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
-    final Country _country = _zoneProvider.userCountryModel;
+    final CountryModel _country = _zoneProvider.userCountryModel;
 
-    final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: _country.countryID);
-    final String _cityName = City.getTranslatedCityNameFromCountry(context: context, country: _country, cityID: userModel.zone.cityID);
-    final String _districtName = District.getTranslatedDistrictNameFromCountry(
+    final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _country.countryID);
+    final String _cityName = CityModel.getTranslatedCityNameFromCountry(context: context, country: _country, cityID: userModel.zone.cityID);
+    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCountry(
         context: context,
         country: _country,
         cityID: userModel.zone.cityID,

@@ -18,14 +18,14 @@ class FlyerOps{
   /// flyers collection reference
   CollectionReference flyersCollectionRef(){
     return
-      Fire.getCollectionRef(FireCollection.flyers);
+      Fire.getCollectionRef(FireColl.flyers);
   }
 // -----------------------------------------------------------------------------
   /// flyer document reference
   DocumentReference flyerDocRef(String flyerID){
     return
       Fire.getDocRef(
-          collName: FireCollection.flyers,
+          collName: FireColl.flyers,
           docName: flyerID
       );
   }
@@ -38,7 +38,7 @@ class FlyerOps{
     /// create empty firestore flyer document to get back _flyerID
     final DocumentReference _docRef = await Fire.createDoc(
       context: context,
-      collName: FireCollection.flyers,
+      collName: FireColl.flyers,
       input: inputFlyerModel.toMap(toJSON: false),
     );
 
@@ -93,7 +93,7 @@ class FlyerOps{
     /// replace empty flyer document with the new refactored one _finalFlyerModel
     await Fire.updateDoc(
       context: context,
-      collName: FireCollection.flyers,
+      collName: FireColl.flyers,
       docName: _flyerID,
       input: _finalFlyerModel.toMap(toJSON: false),
     );
@@ -105,10 +105,10 @@ class FlyerOps{
     /// add flyer counters sub collection and document in flyer store
   await Fire.createNamedSubDoc(
     context: context,
-    collName: FireCollection.flyers,
+    collName: FireColl.flyers,
     docName: _flyerID,
-    subCollName: FireCollection.flyers_flyer_counters,
-    subDocName: FireCollection.flyers_flyer_counters,
+    subCollName: FireColl.flyers_flyer_counters,
+    subDocName: FireColl.flyers_flyer_counters,
     input: await SlideModel.cipherSlidesCounters(_updatedSlides),
   );
 
@@ -119,7 +119,7 @@ class FlyerOps{
     _bzFlyersIDs.add(_flyerID);
     await Fire.updateDocField(
       context: context,
-      collName: FireCollection.bzz,
+      collName: FireColl.bzz,
       docName: _finalFlyerModel.bzID,
       field: 'flyersIDs',
       input: _bzFlyersIDs,
@@ -134,7 +134,7 @@ class FlyerOps{
 
     final dynamic _flyerMap = await Fire.readDoc(
         context: context,
-        collName: FireCollection.flyers,
+        collName: FireColl.flyers,
         docName: flyerID
     );
 
@@ -262,7 +262,7 @@ class FlyerOps{
     /// C - update flyer doc in fireStore/flyers/flyerID
     await Fire.updateDoc(
       context: context,
-      collName: FireCollection.flyers,
+      collName: FireColl.flyers,
       docName: _finalFlyer.flyerID,
       input: _finalFlyer.toMap(toJSON: false),
     );
@@ -320,7 +320,7 @@ class FlyerOps{
     final DateTime _deletionTime = DateTime.now();
     await Fire.updateDocField(
       context: context,
-      collName: FireCollection.flyers,
+      collName: FireColl.flyers,
       docName: flyerID,
       field: 'deletionTime',
       input: Timers.cipherTime(
@@ -332,7 +332,7 @@ class FlyerOps{
     /// D - Update fireStore/flyers/flyerID['flyerState'] to Deactivated
     await Fire.updateDocField(
       context: context,
-      collName: FireCollection.flyers,
+      collName: FireColl.flyers,
       docName: flyerID,
       field: 'flyerState',
       input: FlyerModel.cipherFlyerState(FlyerState.unpublished),
@@ -361,7 +361,7 @@ class FlyerOps{
 
       await Fire.updateDocField(
         context: context,
-        collName: FireCollection.bzz,
+        collName: FireColl.bzz,
         docName: bzModel.bzID,
         field: 'flyersIDs',
         input: _bzFlyersIDs,
@@ -373,37 +373,37 @@ class FlyerOps{
     print('D - delete flyer views sub docs');
     await Fire.deleteAllSubDocs(
       context: context,
-      collName: FireCollection.flyers,
+      collName: FireColl.flyers,
       docName: flyerModel.flyerID,
-      subCollName: FireCollection.flyers_flyer_views,
+      subCollName: FireColl.flyers_flyer_views,
     );
 
     /// E - delete fireStore/flyers/flyerID/shares/(all sub docs)
     print('E - delete shares sub docs');
     await Fire.deleteAllSubDocs(
       context: context,
-      collName: FireCollection.flyers,
+      collName: FireColl.flyers,
       docName: flyerModel.flyerID,
-      subCollName: FireCollection.flyers_flyer_shares,
+      subCollName: FireColl.flyers_flyer_shares,
     );
 
     /// F - delete fireStore/flyers/flyerID/saves/(all sub docs)
     print('F - delete saves sub docs');
     await Fire.deleteAllSubDocs(
       context: context,
-      collName: FireCollection.flyers,
+      collName: FireColl.flyers,
       docName: flyerModel.flyerID,
-      subCollName: FireCollection.flyers_flyer_saves,
+      subCollName: FireColl.flyers_flyer_saves,
     );
 
     /// G - delete fireStore/flyers/flyerID/counters/counters
     print('G - delete counters sub doc');
     await Fire.deleteSubDoc(
         context: context,
-        collName: FireCollection.flyers,
+        collName: FireColl.flyers,
         docName: flyerModel.flyerID,
-        subCollName: FireCollection.flyers_flyer_counters,
-        subDocName: FireCollection.flyers_flyer_counters
+        subCollName: FireColl.flyers_flyer_counters,
+        subDocName: FireColl.flyers_flyer_counters
     );
 
     /// H - delete fireStorage/slidesPics/slideID for all flyer slides
@@ -427,7 +427,7 @@ class FlyerOps{
     print('I - delete flyer doc');
     await Fire.deleteDoc(
       context: context,
-      collName: FireCollection.flyers,
+      collName: FireColl.flyers,
       docName: flyerModel.flyerID,
     );
 
@@ -438,7 +438,7 @@ class FlyerOps{
   Future<void> switchFlyerShowsAuthor({BuildContext context, String flyerID, bool val}) async {
     await Fire.updateDocField(
       context: context,
-      collName: FireCollection.flyers,
+      collName: FireColl.flyers,
       docName: flyerID,
       field: 'flyerShowsAuthor',
       input: val,
@@ -448,9 +448,9 @@ class FlyerOps{
   static Future<List<ReviewModel>> readAllReviews({BuildContext context, String flyerID,}) async {
     final List<dynamic> _maps = await Fire.readSubCollectionDocs(
       context: context,
-      collName: FireCollection.flyers,
+      collName: FireColl.flyers,
       docName: flyerID,
-      subCollName: FireCollection.flyers_flyer_reviews,
+      subCollName: FireColl.flyers_flyer_reviews,
       addDocsIDs: true,
     );
 

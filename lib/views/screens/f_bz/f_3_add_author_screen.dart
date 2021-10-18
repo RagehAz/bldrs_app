@@ -121,7 +121,7 @@ class AddAuthorScreen extends StatelessWidget {
 
               await Fire.updateDocField(
                 context: context,
-                collName: FireCollection.bzz,
+                collName: FireColl.bzz,
                 docName: _bzModel.bzID,
                 field: 'bzAuthors',
                 input: AuthorModel.cipherAuthorsModels(_newAuthorsList),
@@ -132,7 +132,7 @@ class AddAuthorScreen extends StatelessWidget {
               _userBzzIDs.insert(0, _bzModel.bzID);
               await Fire.updateDocField(
                 context: context,
-                collName: FireCollection.users,
+                collName: FireColl.users,
                 docName: _ragehUserID,
                 field: 'myBzzIDs',
                 input: _userBzzIDs,

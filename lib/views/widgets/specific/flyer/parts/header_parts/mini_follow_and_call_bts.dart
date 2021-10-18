@@ -99,7 +99,6 @@ class FollowBT extends StatelessWidget {
     // === === === === === === === === === === === === === === === === === ===
     final double screenWidth = Scale.superScreenWidth(context);
     final bool _isTinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth) ;
-    const bool versesDesignMode = false;
     const bool versesShadow = false;
     /// --- FOLLOW BUTTON
     final Color followBTColor = followOn == true ? Colorz.Yellow255 : Colorz.White20;
@@ -166,7 +165,6 @@ class FollowBT extends StatelessWidget {
                     verse: followText,
                     centered: true,
                     color: followTextColor,
-                    designMode: versesDesignMode,
                     size: 0,
                     weight: VerseWeight.bold,
                     shadow: versesShadow,
@@ -195,30 +193,29 @@ class CallBT extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    const bool versesDesignMode = false;
-    const bool versesShadow = false;
-    final bool isTinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    const bool _versesShadow = false;
+    final bool _isTinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
     /// call BUTTON
-    const Color callBTColor = Colorz.White10;
-    final double callBTHeight = flyerBoxWidth * Ratioz.xxCallBTHeight;
-    final double callBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
+    const Color _callBTColor = Colorz.White10;
+    final double _callBTHeight = flyerBoxWidth * Ratioz.xxCallBTHeight;
+    final double _callBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
     /// call ICON
-    const String callIcon = Iconz.ComPhone;
+    const String _callIcon = Iconz.ComPhone;
     final double _callIconWidth = flyerBoxWidth * 0.05;
 // -----------------------------------------------------------------------------
-    final BorderRadius roundCorners = Borderers.superFollowOrCallCorners(context, flyerBoxWidth, false);
+    final BorderRadius _corners = Borderers.superFollowOrCallCorners(context, flyerBoxWidth, false);
 // -----------------------------------------------------------------------------
     return
-      isTinyMode == true ? Container() :
+      _isTinyMode == true ? Container() :
       GestureDetector(
         onTap: onCallTap,
         child: Container(
-          height: callBTHeight,
-          width: callBTWidth,
+          height: _callBTHeight,
+          width: _callBTWidth,
           decoration: BoxDecoration(
-              color: callBTColor,
-              boxShadow: superFollowBtShadow(callBTHeight),
-              borderRadius: roundCorners
+              color: _callBTColor,
+              boxShadow: superFollowBtShadow(_callBTHeight),
+              borderRadius: _corners
           ),
           child: Stack(
             alignment: Alignment.center,
@@ -226,10 +223,10 @@ class CallBT extends StatelessWidget {
 
               /// BUTTON GRADIENT
               Container(
-                height: callBTHeight,
-                width: callBTWidth,
+                height: _callBTHeight,
+                width: _callBTWidth,
                 decoration: BoxDecoration(
-                  borderRadius: roundCorners,
+                  borderRadius: _corners,
                   gradient: Colorizer.superFollowBTGradient(),
                 ),
               ),
@@ -245,7 +242,7 @@ class CallBT extends StatelessWidget {
                     height: _callIconWidth,
                     width: _callIconWidth,
                     margin: EdgeInsets.all(flyerBoxWidth*0.01),
-                    child: WebsafeSvg.asset(callIcon),
+                    child: WebsafeSvg.asset(_callIcon),
                   ),
 
 
@@ -262,8 +259,7 @@ class CallBT extends StatelessWidget {
                     size: 1,
                     centered: true,
                     weight: VerseWeight.bold,
-                    shadow: versesShadow,
-                    designMode: versesDesignMode,
+                    shadow: _versesShadow,
                     scaleFactor: flyerBoxWidth/Scale.superScreenWidth(context),
                   )
 

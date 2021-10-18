@@ -70,7 +70,6 @@ class _FontLabState extends State<FontLab> {
     const String shadowTestVerse = 'AaBb أبجدية';
     const bool italiany = false;
     const bool centeredOn = true;
-    const bool designModeOn = false;
 
     final List<String> fields = <String>['Architecture', 'abcd', 'Interior', 'Landscape', '1', 'test', '3abbas ebn fernas', 'thing', 'wtf'];
 
@@ -133,7 +132,6 @@ class _FontLabState extends State<FontLab> {
                     italic: false,
                     shadow: false,
                     centered: false,
-                    designMode: true,
                     maxLines: 100,
                 ),
 
@@ -163,7 +161,6 @@ class _FontLabState extends State<FontLab> {
                           italic: false,
                           weight: VerseWeight.bold,
                           centered: true,
-                          designMode: true,
                           maxLines: 3,
                         ),
                       ),
@@ -188,7 +185,6 @@ class _FontLabState extends State<FontLab> {
                         weight: VerseWeight.regular,
                         italic: false,
                         shadow: false,
-                        designMode: true,
                       ),
 
                       SuperVerse(
@@ -199,7 +195,6 @@ class _FontLabState extends State<FontLab> {
                         weight: VerseWeight.regular,
                         italic: false,
                         shadow: false,
-                        designMode: true,
                       ),
 
                       SuperVerse(
@@ -210,7 +205,6 @@ class _FontLabState extends State<FontLab> {
                         weight: weightTest,
                         italic: false,
                         shadow: false,
-                        designMode: true,
                       ),
 
                       SuperVerse(
@@ -221,7 +215,6 @@ class _FontLabState extends State<FontLab> {
                         weight: weightTest,
                         italic: false,
                         shadow: false,
-                        designMode: true,
                       ),
 
                       SuperVerse(
@@ -232,7 +225,6 @@ class _FontLabState extends State<FontLab> {
                         weight: weightTest,
                         italic: false,
                         shadow: false,
-                        designMode: true,
                       ),
 
                       SuperVerse(
@@ -243,7 +235,6 @@ class _FontLabState extends State<FontLab> {
                         weight: weightTest,
                         italic: false,
                         shadow: false,
-                        designMode: true,
                       ),
 
                       SuperVerse(
@@ -254,7 +245,6 @@ class _FontLabState extends State<FontLab> {
                         weight: weightTest,
                         italic: false,
                         shadow: false,
-                        designMode: true,
                       ),
 
                       SuperVerse(
@@ -265,7 +255,6 @@ class _FontLabState extends State<FontLab> {
                         weight: weightTest,
                         italic: false,
                         shadow: false,
-                        designMode: true,
                       ),
                     ],
                   ),
@@ -284,7 +273,6 @@ class _FontLabState extends State<FontLab> {
                         verse: 'عنوان المقال',
                         size: 5,
                         weight: VerseWeight.bold,
-                        designMode: false,
                         shadow: false,
                         centered: true,
                         italic: false,
@@ -302,7 +290,6 @@ class _FontLabState extends State<FontLab> {
                         italic: false,
                         centered: true,
                         shadow: false,
-                        designMode: false,
                         size: 3,
                         weight: weightTest,
                       ),
@@ -323,7 +310,6 @@ class _FontLabState extends State<FontLab> {
                         verse: 'black : ABC | أبح | лгзб |πωσαχδ | ',
                         weight: VerseWeight.black,
                         size: 4,
-                        designMode: true,
                         shadow: false,
                         centered: true,
                         italic: false,
@@ -334,7 +320,6 @@ class _FontLabState extends State<FontLab> {
                         verse: 'bold : ABC | أبح | лгзб |πωσαχδ | ',
                         weight: VerseWeight.bold,
                         size: 4,
-                        designMode: true,
                         shadow: false,
                         centered: true,
                         italic: false,
@@ -345,7 +330,6 @@ class _FontLabState extends State<FontLab> {
                         verse: 'regular : ABC | أبح | лгзб |πωσαχδ | ',
                         weight: VerseWeight.regular,
                         size: 4,
-                        designMode: true,
                         shadow: false,
                         centered: true,
                         italic: false,
@@ -356,7 +340,6 @@ class _FontLabState extends State<FontLab> {
                         verse: 'thin : ABC | أبح | лгзб |πωσαχδ | ',
                         weight: VerseWeight.thin,
                         size: 4,
-                        designMode: true,
                         shadow: false,
                         centered: true,
                         italic: false,
@@ -377,162 +360,162 @@ class _FontLabState extends State<FontLab> {
                     children: [
 
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.thin, size: 1,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.thin, size: 2,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.thin, size: 3,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.thin, size: 4,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.thin, size: 5,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.thin, size: 6,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.thin, size: 7,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.thin, size: 8,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.regular, size: 1,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.regular, size: 2,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.regular, size: 3,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.regular, size: 4,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.regular, size: 5,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.regular, size: 6,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.regular, size: 7,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.regular, size: 8,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.bold, size: 1,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.bold, size: 2,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.bold, size: 3,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.bold, size: 4,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.bold, size: 5,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.bold, size: 6,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.bold, size: 7,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.bold, size: 8,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.black, size: 1,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.black, size: 2,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.black, size: 3,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.black, size: 4,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.black, size: 5,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.black, size: 6,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.black, size: 7,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true, designMode: designModeOn,
+                        verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
                         weight: VerseWeight.black, size: 8,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -578,7 +561,6 @@ class _FontLabState extends State<FontLab> {
                     centered: true,
                     color: Colorz.White255,
                     labelColor: Colorz.White20,
-                    designMode: true,
                     shadow: true,
                     italic: true,
                     weight:  VerseWeight.black,
@@ -641,7 +623,6 @@ class _FontLabState extends State<FontLab> {
                                   maxLines: 1,
                                   weight:  VerseWeight.bold,
                                   shadow: true,
-                                  designMode: true,
                                   labelColor: Colorz.Yellow255,
                                   color: Colorz.Black230,
                                   centered: true,
