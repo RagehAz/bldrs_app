@@ -31,9 +31,9 @@ class ReviewCard extends StatelessWidget {
       width: width,
       // height: 50,
       decoration: BoxDecoration(
-        color: Colorz.White10,
+        color: Colorz.white10,
         borderRadius: Borderers.superBorderAll(context, corners),
-        border: Border.all(width: 0.5, color: Colorz.Yellow80),
+        border: Border.all(width: 0.5, color: Colorz.yellow80),
       ),
       child: Column(
 
@@ -59,7 +59,7 @@ class ReviewCard extends StatelessWidget {
                 SuperVerse(
                   verse: Timers.stringOnDateMonthYear(context: context, time: review.time),
                   size: 1,
-                  color: Colorz.White125,
+                  color: Colorz.white125,
                   centered: false,
                   weight: VerseWeight.thin,
                   italic: true,
@@ -71,7 +71,7 @@ class ReviewCard extends StatelessWidget {
                   size: 2,
                   centered: false,
                   maxLines: 3,
-                  color: Colorz.White255,
+                  color: Colorz.white255,
                   italic: true,
                 ),
 

@@ -199,7 +199,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
     // int _gridColumnsCount = numberOfColumns;
     final double gridZoneWidth = Bubble.clearWidth(context);
-    const List<Color> _boxesColors = <Color>[Colorz.White30, Colorz.White20, Colorz.White10];
+    const List<Color> _boxesColors = <Color>[Colorz.white30, Colorz.white20, Colorz.white10];
     const double _spacingRatioToGridWidth = 0.1;
     final double _gridBzWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
     // double _gridBzHeight = _gridBzWidth;
@@ -220,7 +220,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
     return Bubble(
       centered: true,
-      bubbleColor: Colorz.White10,
+      bubbleColor: Colorz.white10,
       columnChildren: <Widget>[
 
         /// USER LABEL
@@ -299,9 +299,9 @@ class _QuestionBubbleState extends State<QuestionBubble> {
           padding: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
           child: SuperTextField(
             maxLines: 2,
-            labelColor: Colorz.White10,
+            labelColor: Colorz.white10,
             textController: _titleController,
-            inputColor: Colorz.White255,
+            inputColor: Colorz.white255,
             hintText: 'Question title',
             centered: true,
             height: 60,
@@ -320,7 +320,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
           padding: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
           child: SuperTextField(
             textController: _bodyController,
-            inputColor: Colorz.White255,
+            inputColor: Colorz.white255,
             hintText: askHint,
             keyboardTextInputType: TextInputType.multiline,
             maxLength: 1000,
@@ -341,7 +341,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
               const SuperVerse(
                 verse: 'Attach images to your Question',
-                color: Colorz.White10,
+                color: Colorz.white10,
                 weight: VerseWeight.thin,
                 italic: true,
                 margin: Ratioz.appBarPadding,
@@ -439,9 +439,9 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                 height: 40,
                 margins: EdgeInsets.only(top: 10),
                 verse: Wordz.ask(context),
-                verseColor: Colorz.Black255,
+                verseColor: Colorz.black255,
                 verseScaleFactor: 0.7,
-                color: Colorz.Yellow255,
+                color: Colorz.yellow255,
                 verseWeight: VerseWeight.bold,
                 onTap: _onAsk,
               ),

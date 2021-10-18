@@ -31,7 +31,7 @@ class TopDialog extends StatelessWidget {
     Function onTap,
   }){
 
-    final Color _dialogColor = color ?? Colorz.Yellow255;
+    final Color _dialogColor = color ?? Colorz.yellow255;
 
     final double _screenWidth = Scale.superScreenWidth(context);
 
@@ -89,7 +89,7 @@ class TopDialog extends StatelessWidget {
             SuperVerse(
               verse: verse,
               size: 2,
-              color: Colorz.Black255,
+              color: Colorz.black255,
               shadow: false,
               weight: VerseWeight.bold,
               centered: true,
@@ -99,7 +99,7 @@ class TopDialog extends StatelessWidget {
             SuperVerse(
               verse: secondLine,
               size: 1,
-              color: Colorz.Black255,
+              color: Colorz.black255,
               shadow: false,
               weight: VerseWeight.thin,
               italic: true,
@@ -128,7 +128,7 @@ class TopDialog extends StatelessWidget {
 
       /// PROGRESS INDICATOR ----------------------------------------------
       showProgressIndicator: false,
-      progressIndicatorBackgroundColor: Colorz.Yellow255,
+      progressIndicatorBackgroundColor: Colorz.yellow255,
       // progressIndicatorController: AnimationController(),
       // progressIndicatorValueColor: ,
 
@@ -166,7 +166,7 @@ class TopDialog extends StatelessWidget {
       margin: EdgeInsets.zero,
       borderRadius: Borderers.superBorderAll(context, 0),
       animationDuration: Duration(milliseconds: 5000),
-      backgroundColor: Colorz.Black10,
+      backgroundColor: Colorz.black10,
       barBlur: 5,
       backgroundGradient: null,
       blockBackgroundInteraction: true,
@@ -179,7 +179,7 @@ class TopDialog extends StatelessWidget {
       flushbarStyle: FlushbarStyle.FLOATING,
       forwardAnimationCurve: Curves.easeInOut,
       isDismissible: true,
-      leftBarIndicatorColor: Colorz.Blue125,
+      leftBarIndicatorColor: Colorz.blue125,
       mainButton: DreamBox(
         height: 40,
         width: 100,
@@ -187,7 +187,7 @@ class TopDialog extends StatelessWidget {
         verseScaleFactor: 0.5,
       ),
       maxWidth: _screenWidth,
-      messageColor: Colorz.White255,
+      messageColor: Colorz.white255,
       messageSize: 20,
       messageText: SuperVerse(
         verse: 'Message text',
@@ -197,15 +197,15 @@ class TopDialog extends StatelessWidget {
         print('status is : $status');
       },
       positionOffset: 0,
-      progressIndicatorBackgroundColor: Colorz.Cyan50,
+      progressIndicatorBackgroundColor: Colorz.cyan50,
       // progressIndicatorController: AnimationController(),
       // progressIndicatorValueColor: ,
       reverseAnimationCurve: Curves.easeInOut,
       routeBlur: 0,
-      routeColor: Colorz.Black255,
+      routeColor: Colorz.black255,
       shouldIconPulse: true,
       showProgressIndicator: true,
-      titleColor: Colorz.BloodTest,
+      titleColor: Colorz.bloodTest,
       titleSize: 15,
       titleText: SuperVerse(
         verse: 'title text',
@@ -216,7 +216,7 @@ class TopDialog extends StatelessWidget {
         width: 40,
         height: 40,
         icon: Iconz.DvGouran,
-        color: Colorz.DarkRed255,
+        color: Colorz.darkRed255,
         margins: EdgeInsets.zero,
 
       ),

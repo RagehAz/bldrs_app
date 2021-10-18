@@ -57,20 +57,20 @@ class StatusButtons extends StatelessWidget {
                       ( currentUserStatus == UserStatus.Finishing ||
                           currentUserStatus == UserStatus.PlanningTalking ||
                           currentUserStatus == UserStatus.Building) ?
-                  Colorz.Yellow255 :
+                  Colorz.yellow255 :
                   currentUserStatus == x['userStatus'] ?
-                  Colorz.Yellow255 :
-                  Colorz.Nothing;
+                  Colorz.yellow255 :
+                  Colorz.nothing;
 
                   final _verseColor =
                   x['userStatus'] == UserStatus.Finishing &&
                       ( currentUserStatus == UserStatus.Finishing ||
                           currentUserStatus == UserStatus.PlanningTalking ||
                           currentUserStatus == UserStatus.Building) ?
-                  Colorz.Black230 :
+                  Colorz.black230 :
                   currentUserStatus == x['userStatus'] ?
-                  Colorz.Black230 :
-                  Colorz.White255;
+                  Colorz.black230 :
+                  Colorz.white255;
 
                   final _verseWeight = x['userStatus'] == UserStatus.Finishing &&
                       ( currentUserStatus == UserStatus.Finishing ||

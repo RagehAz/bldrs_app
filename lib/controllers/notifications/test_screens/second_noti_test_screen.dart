@@ -22,7 +22,7 @@ class SecondNotiTestScreen extends StatelessWidget {
           Container(
             width: 300,
             height: 400,
-            color: Colorz.BloodTest,
+            color: Colorz.bloodTest,
             child: Container(),
           ),
 

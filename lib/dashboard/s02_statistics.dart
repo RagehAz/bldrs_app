@@ -157,7 +157,7 @@ class GeneralStatistics extends StatelessWidget {
                 Container(
                   width: _screenWidth,
                   height: _screenWidth * 0.002,
-                  color: Colorz.Yellow255,
+                  color: Colorz.yellow255,
                   // margin: EdgeInsets.only(top: screenWidth * 0.05),
                 ),
 
@@ -193,7 +193,7 @@ class GeneralStatistics extends StatelessWidget {
                   child: Container(
                     width: _screenWidth * 0.9,
                     height: _screenWidth * 0.001,
-                    color: Colorz.Yellow80,
+                    color: Colorz.yellow80,
                   ),
                 ),
 
@@ -219,7 +219,7 @@ class GeneralStatistics extends StatelessWidget {
                   child: Container(
                     width: _screenWidth * 0.9,
                     height: _screenWidth * 0.001,
-                    color: Colorz.Yellow80,
+                    color: Colorz.yellow80,
                   ),
                 ),
 
@@ -253,7 +253,7 @@ class GeneralStatistics extends StatelessWidget {
                   child: Container(
                     width: _screenWidth * 0.9,
                     height: _screenWidth * 0.001,
-                    color: Colorz.Yellow80,
+                    color: Colorz.yellow80,
                   ),
                 ),
 
@@ -279,7 +279,7 @@ class GeneralStatistics extends StatelessWidget {
                   child: Container(
                     width: _screenWidth * 0.9,
                     height: _screenWidth * 0.001,
-                    color: Colorz.Yellow80,
+                    color: Colorz.yellow80,
                   ),
                 ),
 
@@ -304,7 +304,7 @@ class GeneralStatistics extends StatelessWidget {
                 Container(
                   width: _screenWidth,
                   height: _screenWidth * 0.002,
-                  color: Colorz.Yellow255,
+                  color: Colorz.yellow255,
                   margin: EdgeInsets.only(top: _screenWidth * 0.05),
                 ),
 

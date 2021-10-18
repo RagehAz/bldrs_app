@@ -46,7 +46,7 @@ class NotiBannerEditor extends StatelessWidget {
                 width: Ratioz.appBarButtonSize,
                 icon: Iconz.XLarge,
                 iconSizeFactor: 0.5,
-                color: Colorz.Black255,
+                color: Colorz.black255,
                 margins: const EdgeInsets.all(Ratioz.appBarPadding),
                 onTap: onDelete,
               ),

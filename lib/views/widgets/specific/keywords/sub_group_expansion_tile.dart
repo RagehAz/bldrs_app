@@ -162,16 +162,16 @@ class SubGroupTileState extends State<SubGroupTile> with SingleTickerProviderSta
   @override
   Widget build(BuildContext context) {
     //--------------------------------o
-    _borderColor.end = Colorz.Green255;
+    _borderColor.end = Colorz.green255;
     _titleColorTween
-      ..begin = Colorz.White255
-      ..end = Colorz.White255;
+      ..begin = Colorz.white255
+      ..end = Colorz.white255;
     _tileColorTween
-      ..begin = Colorz.White10
-      ..end = Colorz.Blue80;
+      ..begin = Colorz.white10
+      ..end = Colorz.blue80;
     _subtitleLabelColorTween
-      ..begin = Colorz.White10
-      ..end = Colorz.White10;
+      ..begin = Colorz.white10
+      ..end = Colorz.white10;
     _borderRadius
       ..begin = BorderRadius.circular(Ratioz.appBarCorner - 5)
       ..end = BorderRadius.circular(Ratioz.appBarCorner - 5);

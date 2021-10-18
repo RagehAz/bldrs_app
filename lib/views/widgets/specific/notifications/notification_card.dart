@@ -88,7 +88,7 @@ class NotificationCard extends StatelessWidget {
                       /// TIME STAMP
                       SuperVerse(
                         verse: '${Timers.getSuperTimeDifferenceString(from: notiModel.timeStamp, to: DateTime.now())}',
-                        color: Colorz.Grey225,
+                        color: Colorz.grey225,
                         italic: true,
                         weight: VerseWeight.thin,
                         size: 1,
@@ -151,8 +151,8 @@ class NotificationCard extends StatelessWidget {
                                     height: 60,
                                     verse: notiModel.attachment[index],
                                     verseScaleFactor: 0.7,
-                                    color: Colorz.Blue80,
-                                    splashColor: Colorz.Yellow255,
+                                    color: Colorz.blue80,
+                                    splashColor: Colorz.yellow255,
                                     onTap: () => _onButtonTap(notiModel.attachment[index]),
                                   );
 

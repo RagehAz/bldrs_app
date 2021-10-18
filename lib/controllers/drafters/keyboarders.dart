@@ -86,7 +86,7 @@ class Keyboarders {
       isBig: true,
       firstLine: 'Copied to clipboard',
       secondLine: copy,
-      color: Colorz.Black255,
+      color: Colorz.black255,
     );
 
     print('copied to clipboard : $copy');

@@ -116,7 +116,7 @@ class BldrsAppBar extends StatelessWidget {
           alignment: Alignment.center,
           margin: const EdgeInsets.all(Ratioz.appBarMargin),
           decoration: BoxDecoration(
-            color: Colorz.Black230,
+            color: Colorz.black230,
             borderRadius: const BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
             boxShadow: Shadowz.appBarShadow,
           ),
@@ -194,11 +194,13 @@ class BldrsAppBar extends StatelessWidget {
                               child: SuperVerse(
                                 verse: pageTitle.toUpperCase(),
                                 weight: VerseWeight.black,
-                                color: Colorz.White200,
-                                size: 3,
+                                color: Colorz.white200,
+                                size: 2,
                                 margin: 0,
                                 shadow: true,
                                 italic: true,
+                                maxLines: 2,
+                                centered: false,
                               ),
                             ),),
 

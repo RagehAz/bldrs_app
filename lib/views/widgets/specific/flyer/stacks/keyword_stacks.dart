@@ -40,7 +40,7 @@ class FlyerCoversStack extends StatelessWidget {
 
     return Bubble(
       centered: true,
-      bubbleColor: Colorz.White10,
+      bubbleColor: Colorz.white10,
       title: collectionTitle,
       columnChildren: <Widget>[
 
@@ -140,7 +140,7 @@ class TopFlyersStack extends StatelessWidget {
 
     return Bubble(
       centered: false,
-      bubbleColor: Colorz.White10,
+      bubbleColor: Colorz.white10,
       title: collectionTitle,
       columnChildren: <Widget>[
 

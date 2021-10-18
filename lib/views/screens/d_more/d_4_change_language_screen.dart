@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
-import 'package:bldrs/views/widgets/general/layouts/listLayout.dart';
+import 'package:bldrs/views/widgets/general/layouts/list_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 

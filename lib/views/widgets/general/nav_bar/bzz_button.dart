@@ -72,7 +72,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
         child: Container(
           height: _buttonHeight,
           width: _buttonWidth,
-          color: Colorz.Nothing,
+          color: Colorz.nothing,
           // padding: EdgeInsets.symmetric(horizontal: _paddings * 0.25),
           // alignment: Alignment.topCenter,
           child: Column(
@@ -100,7 +100,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
                   icon: _userBzz[0].logo,
                   iconSizeFactor: 1,
                   bubble: true,
-                  color: Colorz.Nothing,
+                  color: Colorz.nothing,
                   corners: _buttonCircleCorner,
                   onTap: onTap,
                 )
@@ -170,7 +170,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
                           Container(
                             width: _circleWidth * 0.47,
                             height: _circleWidth * 0.47,
-                            color: Colorz.Nothing,
+                            color: Colorz.nothing,
                           ),
 
                         ],

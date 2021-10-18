@@ -18,12 +18,12 @@ class QuestList extends StatelessWidget {
             title: SuperVerse(
               verse: '($index) :\n${questions[index].body}',
               maxLines: 100,
-              labelColor: Colorz.White10,
+              labelColor: Colorz.white10,
               weight: VerseWeight.thin,
               size: 1,
               margin: 5,
               centered: false,
-              color: Colorz.Yellow255,
+              color: Colorz.yellow255,
 
             ),
           );

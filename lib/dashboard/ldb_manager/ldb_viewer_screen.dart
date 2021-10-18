@@ -94,7 +94,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
   @override
   Widget build(BuildContext context) {
     return DashBoardLayout(
-      pageTitle: 'Local db : ${_bldbName}',
+      pageTitle: 'Local db :\n${_bldbName}',
       loading: false,
       onBldrsTap: () async {
 

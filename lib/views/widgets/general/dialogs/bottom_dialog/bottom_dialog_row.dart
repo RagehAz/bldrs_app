@@ -21,7 +21,7 @@ class DataStrip extends StatelessWidget {
     @required this.dataKey,
     @required this.dataValue,
     this.width,
-    this.valueBoxColor = Colorz.White10,
+    this.valueBoxColor = Colorz.white10,
     this.isPercent = false,
   });
 
@@ -57,11 +57,11 @@ class DataStrip extends StatelessWidget {
               width: _rowWidth,
               alignment: Aligners.superCenterAlignment(context),
               child: SuperVerse(
-                labelColor: Colorz.Nothing,
+                labelColor: Colorz.nothing,
                 verse: dataKey.toString(),
                 size: 2,
                 weight: VerseWeight.thin,
-                color: Colorz.White255,
+                color: Colorz.white255,
                 shadow: false,
                 italic: true,
                 onTap: () async {
@@ -146,7 +146,7 @@ class DataStrip extends StatelessWidget {
                       width: (dataValue / 100 ) * _rowWidth,
                       height: _valueRowHeight,
                       // decoration: BoxDecoration(
-                        color: Colorz.Yellow80,
+                        color: Colorz.yellow80,
                         corners: Borderers.superBorderAll(context, Ratioz.boxCorner8),
                       // ),
                     ),

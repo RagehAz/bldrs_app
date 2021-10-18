@@ -20,12 +20,12 @@ class NavDialog extends StatelessWidget {
     @required this.firstLine,
     @required this.secondLine,
     this.isBig = false,
-    this.color = Colorz.DarkRed255,
+    this.color = Colorz.darkRed255,
 });
 // -----------------------------------------------------------------------------
   static Future<void> showNavDialog({BuildContext context, String firstLine, String secondLine, bool isBig, Color color}) async {
 
-    final Color _color = color == null ? Colorz.DarkRed255 : color;
+    final Color _color = color == null ? Colorz.darkRed255 : color;
 
     final bool _isBig = isBig == null ? false : isBig;
     // double _screenWidth = Scale.superScreenWidth(context);
@@ -34,7 +34,7 @@ class NavDialog extends StatelessWidget {
     await ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: Duration(seconds: 5),
-        backgroundColor: Colorz.Nothing,
+        backgroundColor: Colorz.nothing,
 
         behavior: _isBig == true ? SnackBarBehavior.fixed :  SnackBarBehavior.fixed,
         // width: _isBig == true ? _screenWidth : null,
@@ -86,9 +86,9 @@ class NavDialog extends StatelessWidget {
             verseScaleFactor: secondLine == null ? 0.8 : 0.65,
             secondLine: secondLine,
             secondLineScaleFactor: 1.1,
-            secondLineColor: Colorz.White200,
+            secondLineColor: Colorz.white200,
             verseWeight: VerseWeight.bold,
-            verseColor: Colorz.White255,
+            verseColor: Colorz.white255,
             verseShadow: true,
             verseItalic: true,
             bubble: false,
@@ -105,20 +105,20 @@ class NavDialog extends StatelessWidget {
                 Container(
                   width: Scale.superScreenWidth(context),
                   height: Scale.navBarHeight(context: context, barType: _barType),
-                  color: Colorz.Nothing,
+                  color: Colorz.nothing,
                   alignment: Alignment.center,
                   child: DreamBox(
                     height: Scale.navBarHeight(context: context, barType: _barType),
                     width: Scale.navBarWidth(context: context,userModel: userModel, barType: _barType),
-                    color: Colorz.DarkRed255,
+                    color: Colorz.darkRed255,
                     corners: Scale.navBarCorners(context: context, barType: _barType),
                     verse: firstLine,
                     verseScaleFactor: secondLine == null ? 0.8 : 0.65,
                     secondLine: secondLine,
                     secondLineScaleFactor: 1.1,
-                    secondLineColor: Colorz.White200,
+                    secondLineColor: Colorz.white200,
                     verseWeight: VerseWeight.bold,
-                    verseColor: Colorz.White255,
+                    verseColor: Colorz.white255,
                     verseShadow: true,
                     verseItalic: true,
                     bubble: false,

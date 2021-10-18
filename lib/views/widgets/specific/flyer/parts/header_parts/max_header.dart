@@ -175,7 +175,7 @@ class MaxHeader extends StatelessWidget {
                 height: flyerBoxWidth * Ratioz.xxflyerBottomCorners + Ratioz.appBarMargin,
                 margin: EdgeInsets.only(top: flyerBoxWidth * Ratioz.xxbzPageSpacing),
                 decoration: BoxDecoration(
-                  color: Colorz.Black80,
+                  color: Colorz.black80,
                   borderRadius: Borderers.superBorderOnly(
                     context: context,
                     enTopLeft: 0,

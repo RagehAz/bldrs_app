@@ -174,7 +174,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
         if (Mapper.canLoopList(_tinyFlyersMaps))
         ...SQLViewer.rows(
           context: context,
-          color: Colorz.Green125,
+          color: Colorz.green125,
           primaryKey: 'flyerID',
           maps: _tinyFlyersMaps,
           onRowTap: (String id) => _onTinyFlyerRowTap(id),

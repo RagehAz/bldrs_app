@@ -487,24 +487,24 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
         initAspectRatio: CropAspectRatioPreset.square,
         lockAspectRatio: false,
 
-        statusBarColor: Colorz.Black255,
-        backgroundColor: Colorz.Black230,
-        dimmedLayerColor: Colorz.Black200,
+        statusBarColor: Colorz.black255,
+        backgroundColor: Colorz.black230,
+        dimmedLayerColor: Colorz.black200,
 
         toolbarTitle: 'Crop Image',//'Crop flyer Aspect Ratio 1:${Ratioz.xxflyerZoneHeight}',
-        toolbarColor: Colorz.Black255,
-        toolbarWidgetColor: Colorz.White255, // color of : cancel, title, confirm widgets
+        toolbarColor: Colorz.black255,
+        toolbarWidgetColor: Colorz.white255, // color of : cancel, title, confirm widgets
 
-        activeControlsWidgetColor: Colorz.Yellow255,
+        activeControlsWidgetColor: Colorz.yellow255,
         hideBottomControls: false,
 
-        cropFrameColor: Colorz.Grey80,
+        cropFrameColor: Colorz.grey80,
         cropFrameStrokeWidth: 5,
 
         showCropGrid: true,
         cropGridColumnCount: 3,
         cropGridRowCount: 6,
-        cropGridColor: Colorz.Grey80,
+        cropGridColor: Colorz.grey80,
         cropGridStrokeWidth: 2,
 
       ),

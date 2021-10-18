@@ -127,7 +127,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                   (index) {
 
                 String _attachmentTypeString = TextMod.trimTextBeforeLastSpecialCharacter(_attachmentTypesList[index].toString(), '.');
-                Color _color = _attachmentType == _attachmentTypesList[index]? Colorz.Yellow255 : Colorz.Blue20;
+                Color _color = _attachmentType == _attachmentTypesList[index]? Colorz.yellow255 : Colorz.blue20;
 
 
                 return
@@ -264,7 +264,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                       height: _textFieldHeight,
                       inputSize: 2,
                       textController: _userNameController,
-                      inputColor: Colorz.White255,
+                      inputColor: Colorz.white255,
                       hintText: 'user name ...',
                       keyboardTextInputType: TextInputType.multiline,
                       maxLength: 30,
@@ -322,7 +322,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                                   size: 1,
                                   weight: VerseWeight.thin,
                                   italic: true,
-                                  color: Colorz.White30,
+                                  color: Colorz.white30,
                                 ),
                               )
 
@@ -347,7 +347,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                                       width: 50,
                                       icon: Iconz.Check,
                                       iconSizeFactor: 0.5,
-                                      iconColor: _userSelected == true ? Colorz.Green255 : Colorz.White50,
+                                      iconColor: _userSelected == true ? Colorz.green255 : Colorz.white50,
                                       color: null,
                                       onTap: () async {
 
@@ -539,7 +539,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
             padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
             child: SuperVerse(
               verse: '${Timers.stringOnDateMonthYear(context: context, time: DateTime.now())}', /// task : fix timestamp parsing
-              color: Colorz.Grey225,
+              color: Colorz.grey225,
               italic: true,
               weight: VerseWeight.thin,
               size: 1,
@@ -588,7 +588,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                           height: 80,
                           inputSize: 2,
                           textController: _titleController,
-                          inputColor: Colorz.White255,
+                          inputColor: Colorz.white255,
                           hintText: 'Title',
                           keyboardTextInputType: TextInputType.text,
                           keyboardTextInputAction: TextInputAction.next,
@@ -609,7 +609,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                         /// BODY
                         SuperTextField(
                           textController: _bodyController,
-                          inputColor: Colorz.White255,
+                          inputColor: Colorz.white255,
                           hintText: 'body',
                           keyboardTextInputType: TextInputType.multiline,
                           maxLength: 80,
@@ -678,8 +678,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
                                           height: 60,
                                           verse: _attachment[index],
                                           verseScaleFactor: 0.7,
-                                          color: Colorz.Blue80,
-                                          splashColor: Colorz.Yellow255,
+                                          color: Colorz.blue80,
+                                          splashColor: Colorz.yellow255,
                                           // onTap: () => _onButtonTap(notiModel.attachment[index]),
                                         );
 
@@ -706,8 +706,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
             secondLine: 'This sends firebase cloud message to the receiver or to a group of receivers through a channel',
             icon: Iconz.News,
             iconSizeFactor: 0.5,
-            verseColor: Colorz.White255,
-            iconBoxColor: Colorz.Grey50,
+            verseColor: Colorz.white255,
+            iconBoxColor: Colorz.grey50,
             switchIsOn: _sendFCMIsOn,
             switching: (bool val) => _onSwitchSendFCM(val),
           ),
@@ -718,8 +718,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
             secondLine: 'Choose who to send this notification to',
             icon: Iconz.NormalUser,
             iconSizeFactor: 0.5,
-            verseColor: Colorz.White255,
-            iconBoxColor: Colorz.Grey50,
+            verseColor: Colorz.white255,
+            iconBoxColor: Colorz.grey50,
             btOnTap: _onTapReciever,
             child: Container(
               width: Bubble.clearWidth(context),
@@ -770,7 +770,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                 verse: 'Send Notification',
                 icon: Iconz.Share,
                 onTap: _onSendNotification,
-                color: Colorz.Yellow255,
+                color: Colorz.yellow255,
                 isActive: _canSendNotification(sendToMySelf: false),
               ),
             ),
@@ -783,10 +783,10 @@ class _NotificationMakerState extends State<NotificationMaker> {
             child: Center(
               child: WideButton(
                 verse: 'Send To Myself',
-                verseColor: Colorz.Black255,
+                verseColor: Colorz.black255,
                 icon: Iconz.Share,
                 onTap: () => _onSendNotification(sendToMyself: true),
-                color: Colorz.Yellow255,
+                color: Colorz.yellow255,
                 isActive: _canSendNotification(sendToMySelf: true),
               ),
             ),

@@ -203,7 +203,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
         layoutWidget: Container(
           width: _screenWidth,
           height: _screenHeight,
-          color: Colorz.Blue80,
+          color: Colorz.blue80,
           alignment: Alignment.topCenter,
           child: MaxBounceNavigator(
             child: ListView.builder(
@@ -224,7 +224,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                   DreamBox(
                     height: _bzButtonHeight,
                     width: _screenWidth - Ratioz.appBarMargin * 2,
-                    color: Colorz.White20,
+                    color: Colorz.white20,
                     verse: _bzName,
                     icon: _bz.logo,
                     margins: EdgeInsets.only(top: _bzButtonMargin),

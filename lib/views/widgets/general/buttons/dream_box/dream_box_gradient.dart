@@ -23,7 +23,7 @@ class DreamBoxGradient extends StatelessWidget {
         gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: <Color>[Colorz.Black0, Colorz.Black125],
+            colors: <Color>[Colorz.black0, Colorz.black125],
             stops: <double>[0.5, 0.95]),
       ),
     );

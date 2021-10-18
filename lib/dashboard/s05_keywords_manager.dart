@@ -73,7 +73,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
                     margin: const EdgeInsets.only(bottom: _spacing),
                     decoration: BoxDecoration(
                       borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
-                      color: Colorz.BloodTest,
+                      color: Colorz.bloodTest,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,

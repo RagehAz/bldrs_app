@@ -160,8 +160,8 @@ class BottomDialog extends StatelessWidget {
           enBottomRight:0,
           enTopRight:Ratioz.bottomSheetCorner,
         )),
-        backgroundColor: Colorz.BlackSemi255,
-        barrierColor: Colorz.Black150,
+        backgroundColor: Colorz.blackSemi255,
+        barrierColor: Colorz.black150,
         enableDrag: draggable,
         elevation: 20,
         isScrollControlled: true,
@@ -171,7 +171,7 @@ class BottomDialog extends StatelessWidget {
             height: _height,
             width: Scale.superScreenWidth(context),
             child: Scaffold(
-              backgroundColor: Colorz.Nothing,
+              backgroundColor: Colorz.nothing,
               resizeToAvoidBottomInset: false,
               body: BottomDialog(
                 height: _height,
@@ -224,8 +224,8 @@ class BottomDialog extends StatelessWidget {
 
     await showModalBottomSheet(
       shape: RoundedRectangleBorder(borderRadius: BottomDialog.dialogCorners(context)),
-      backgroundColor: Colorz.BlackSemi255,
-      barrierColor: Colorz.Black150,
+      backgroundColor: Colorz.blackSemi255,
+      barrierColor: Colorz.black150,
       enableDrag: draggable,
       elevation: 20,
       isScrollControlled: true,
@@ -234,7 +234,7 @@ class BottomDialog extends StatelessWidget {
         height: _height,
         width: Scale.superScreenWidth(context),
         child: Scaffold(
-          backgroundColor: Colorz.Nothing,
+          backgroundColor: Colorz.nothing,
           resizeToAvoidBottomInset: false,
           body: BottomDialog(
             height: _height,
@@ -362,7 +362,7 @@ class BottomDialog extends StatelessWidget {
       width: _dialogWidth,
       height: _dialogHeight,
       decoration: BoxDecoration(
-        color: Colorz.White10,
+        color: Colorz.white10,
         borderRadius: _dialogCorners,
       ),
       child: Stack(
@@ -405,7 +405,7 @@ class BottomDialog extends StatelessWidget {
                     height: _draggerHeight,
                     margin: _draggerMargins,
                     decoration: BoxDecoration(
-                      color: Colorz.White200,
+                      color: Colorz.white200,
                       borderRadius: Borderers.superBorderAll(context, _draggerCorner),
                     ),
                   ),
@@ -421,7 +421,7 @@ class BottomDialog extends StatelessWidget {
                   child: SuperVerse(
                     verse: title,
                     size: 2,
-                    color: Colorz.White255,
+                    color: Colorz.white255,
                     centered: true,
                   ),
                 ),
@@ -431,7 +431,7 @@ class BottomDialog extends StatelessWidget {
                   width: _dialogClearWidth,
                   height: _dialogClearHeight,
                   decoration: BoxDecoration(
-                    color: Colorz.White10,
+                    color: Colorz.white10,
                     borderRadius: _dialogClearCorners,
                     // gradient: Colorizer.superHeaderStripGradient(Colorz.White20)
                   ),

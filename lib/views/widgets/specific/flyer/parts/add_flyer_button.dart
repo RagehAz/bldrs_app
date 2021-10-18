@@ -82,7 +82,7 @@ class AddFlyerButton extends StatelessWidget {
                 height: flyerBoxWidth * 0.4,
                 width: flyerBoxWidth * 0.4,
                 icon: Iconz.Plus,
-                iconColor: Colorz.White200,
+                iconColor: Colorz.white200,
                 iconSizeFactor: 0.6,
                 bubble: false,
                 onTap: () async {await _goToFlyerEditor(context);},
@@ -93,7 +93,7 @@ class AddFlyerButton extends StatelessWidget {
                 maxLines: 5,
                 size: 2,
                 scaleFactor: _flyerSizeFactor * 5,
-                color: Colorz.White200,
+                color: Colorz.white200,
               ),
 
             ],

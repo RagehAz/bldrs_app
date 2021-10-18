@@ -36,7 +36,7 @@ class DashBoardLayout extends StatelessWidget {
       // appBarBackButton: true,
       sky: Sky.Night,
       loading: loading,
-      appBarRowWidgets: [
+      appBarRowWidgets: <Widget>[
 
         const Expander(),
 

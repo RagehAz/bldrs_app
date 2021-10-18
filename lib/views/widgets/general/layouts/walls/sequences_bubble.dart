@@ -38,7 +38,7 @@ class SequencesBubble extends StatelessWidget {
 
     final List<Sequence> _sequences = Sequence.getActiveSequencesBySection(context: context,section: _currentSection);
 
-    const List<Color> _boxesColors = <Color>[Colorz.White30, Colorz.White20, Colorz.White10];
+    const List<Color> _boxesColors = <Color>[Colorz.white30, Colorz.white20, Colorz.white10];
 
     const double _spacingRatioToGridWidth = 0.1;
     final double _buttonWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
@@ -61,7 +61,7 @@ class SequencesBubble extends StatelessWidget {
     final double _zoneCorners = (_buttonWidth * Ratioz.bzLogoCorner) + _gridSpacing;
 
     return Bubble(
-      bubbleColor: Colorz.White10,
+      bubbleColor: Colorz.white10,
       columnChildren: <Widget>[
 
         /// --- Title
@@ -79,7 +79,7 @@ class SequencesBubble extends StatelessWidget {
           child: Container(
             width: gridZoneWidth,
             height: _gridHeight,
-            color: Colorz.White10,
+            color: Colorz.white10,
             child: Stack(
               children: <Widget>[
 
@@ -113,7 +113,7 @@ class SequencesBubble extends StatelessWidget {
                                     DreamBox(
                                       width: _buttonWidth,
                                       height: _buttonWidth,
-                                      color: Colorz.Black125,
+                                      color: Colorz.black125,
                                       icon: Sequence.getSequenceImage(sequence.titleID),
                                       onTap: (){
 

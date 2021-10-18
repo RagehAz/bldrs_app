@@ -19,13 +19,13 @@ class PanelButton extends StatelessWidget {
     // this.size,
     this.icon,
     this.verse,
-    this.verseColor = Colorz.White255,
+    this.verseColor = Colorz.white255,
     @required this.onTap,
     this.iconSizeFactor = 0.6,
     this.blackAndWhite,
     this.isAuthorButton = false,
     @required this.flyerBoxWidth,
-    this.color = Colorz.White80,
+    this.color = Colorz.white80,
   });
 
   static Widget panelDot({double panelButtonWidth}){
@@ -36,7 +36,7 @@ class PanelButton extends StatelessWidget {
         DreamBox(
           height: _dotSize,
           width: _dotSize,
-          color: Colorz.White50,
+          color: Colorz.white50,
           corners: _dotSize * 0.5,
           margins: _dotSize * 0.5,
         );

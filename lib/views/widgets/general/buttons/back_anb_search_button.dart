@@ -22,7 +22,7 @@ class BackAndSearchButton extends StatelessWidget {
 
   const BackAndSearchButton({
     this.onTap,
-    this.color = Colorz.White10,
+    this.color = Colorz.white10,
     @required this.backAndSearchAction,
     this.passSearchHistory,
 });

@@ -72,7 +72,7 @@ class CollapsedTile extends StatelessWidget {
                   Container(
                     width: SubGroupTile.calculateTitleBoxWidth(buttonHeight: collapsedHeight, tileWidth: tileWidth, icon: icon),
                     height: GroupTile.collapsedGroupHeight,
-                    color: Colorz.Nothing,
+                    color: Colorz.nothing,
                     padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +93,7 @@ class CollapsedTile extends StatelessWidget {
                           weight: VerseWeight.thin,
                           italic: true,
                           size: 1,
-                          color: Colorz.White125,
+                          color: Colorz.white125,
                         ),
 
                       ],

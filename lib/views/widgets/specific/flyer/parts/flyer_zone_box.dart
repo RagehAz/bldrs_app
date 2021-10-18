@@ -178,7 +178,7 @@ class FlyerBox extends StatelessWidget {
               height: _flyerZoneHeight,
               alignment: Alignment.topCenter,
               decoration: BoxDecoration(
-                color: Colorz.White20,
+                color: Colorz.white20,
                 borderRadius: _flyerBorders,
                 // boxShadow: Shadowz.flyerZoneShadow(_flyerBoxWidth),
               ),

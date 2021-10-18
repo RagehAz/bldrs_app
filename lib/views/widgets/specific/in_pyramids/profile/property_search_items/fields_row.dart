@@ -46,7 +46,7 @@ class FieldsRow extends StatelessWidget {
             centered: false,
             italic: true,
             weight: VerseWeight.thin,
-            color: Colorz.Blue225,
+            color: Colorz.blue225,
             shadow: true,
           ),
         ),
@@ -58,11 +58,11 @@ class FieldsRow extends StatelessWidget {
             child: Container(
               width: _buttonsZoneWidth,
                 decoration: BoxDecoration(
-                    color: Colorz.White10,
+                    color: Colorz.white10,
                     borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
                     boxShadow: <BoxShadow>[
                       CustomBoxShadow(
-                          color: Colorz.Black200,
+                          color: Colorz.black200,
                           offset: new Offset(0,0 ),
                           blurRadius: _boxHeight * 0.15,
                           blurStyle: BlurStyle.outer),
@@ -85,8 +85,8 @@ class FieldsRow extends StatelessWidget {
                               verse: fields[index],
                               italic: false,
                               shadow: false,
-                              labelColor: Colorz.White50,
-                              color: Colorz.White255,
+                              labelColor: Colorz.white50,
+                              color: Colorz.white255,
                               weight: VerseWeight.bold,
                               size: 2,
                               margin: _boxHeight * 0 ,

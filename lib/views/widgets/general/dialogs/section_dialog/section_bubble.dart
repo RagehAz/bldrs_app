@@ -25,13 +25,13 @@ class SectionBubble extends StatelessWidget {
       // actionBtIcon: Iconz.BxPropertiesOn,
       LeadingAndActionButtonsSizeFactor: 1,
       actionBtFunction: (){},
-      bubbleColor: Colorz.White20,
+      bubbleColor: Colorz.white20,
       bubbleOnTap: null,
       width: bubbleWidth,
       // leadingIcon: icon,
-      leadingIconColor: Colorz.White50,
+      leadingIconColor: Colorz.white50,
       margins: const EdgeInsets.only(bottom: 0, left: Ratioz.appBarMargin, right: Ratioz.appBarMargin, top: Ratioz.appBarMargin),
-      titleColor: Colorz.White50,
+      titleColor: Colorz.white50,
       corners: BottomDialog.dialogClearCornerValue() - Ratioz.appBarMargin,
       columnChildren: <Widget>[
 

@@ -247,7 +247,7 @@ class _BrowserPagesState extends State<BrowserPages> {
                               verse: _generatePathString(),
                               size: 2,
                               italic: true,
-                              color: Colorz.Yellow255,
+                              color: Colorz.yellow255,
                               centered: false,
                             ),
 

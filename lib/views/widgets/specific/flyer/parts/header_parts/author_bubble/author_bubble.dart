@@ -67,7 +67,7 @@ class AuthorBubble extends StatelessWidget {
       width: _bubbleWidth,
       height: bubbleHeight(flyerBoxWidth),
       decoration: BoxDecoration(
-          color: addAuthorButtonIsOn == true ? Colorz.White10 : Colorz.White10,
+          color: addAuthorButtonIsOn == true ? Colorz.white10 : Colorz.white10,
           borderRadius: Borderers.superLogoShape(
             context: context,
             corner: AuthorPic.getCornerValue(flyerBoxWidth) + Ratioz.appBarMargin,

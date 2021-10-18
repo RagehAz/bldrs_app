@@ -58,7 +58,7 @@ class ZonesPage extends StatelessWidget {
               child: SuperVerse(
                 verse: title,
                 size: 2,
-                labelColor: Colorz.White10,
+                labelColor: Colorz.white10,
               ),
             ),
 
@@ -95,7 +95,7 @@ class ZonesPage extends StatelessWidget {
                                 bubble: false,
                                 margins: const EdgeInsets.all(5),
                                 verseScaleFactor: 0.8,
-                                color: Colorz.White10,
+                                color: Colorz.white10,
                                 // textDirection: superTextDirection(context),
                                 onTap: () => buttonTap(_id),
                               ),

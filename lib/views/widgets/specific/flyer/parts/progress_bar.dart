@@ -56,7 +56,7 @@ class ProgressBar extends StatelessWidget {
                     borderRadius: Strips.stripBorders(context: context, flyerBoxWidth: flyerBoxWidth),
                   ),
                   child: LinearProgressIndicator(
-                    backgroundColor: Colorz.Nothing,
+                    backgroundColor: Colorz.nothing,
                     minHeight: Strips.stripThickness(flyerBoxWidth),
                     valueColor: AlwaysStoppedAnimation(Strips.stripFadedColor),
 

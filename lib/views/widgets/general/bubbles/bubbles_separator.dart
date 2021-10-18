@@ -21,7 +21,7 @@ class BubblesSeparator extends StatelessWidget {
         height: 5,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colorz.Grey80,
+          color: Colorz.grey80,
         ),
       ),
     );

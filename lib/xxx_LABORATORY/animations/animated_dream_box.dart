@@ -44,11 +44,11 @@ class AnimatedDreamBox extends StatefulWidget {
     this.icon,
     this.iconFile,
     this.iconSizeFactor = 1,
-    this.color = Colorz.Nothing,
+    this.color = Colorz.nothing,
     this.corners = Ratioz.boxCorner12,
     this.iconColor,
     this.verse,
-    this.verseColor = Colorz.White255,
+    this.verseColor = Colorz.white255,
     this.verseWeight = VerseWeight.bold,
     this.verseScaleFactor = 1,
     this.verseItalic = false,
@@ -63,9 +63,9 @@ class AnimatedDreamBox extends StatefulWidget {
     this.opacity = 1,
     this.inActiveMode = false,
     this.underLine,
-    this.splashColor = Colorz.White80,
-    this.underLineColor = Colorz.White255,
-    this.underLineLabelColor = Colorz.White10,
+    this.splashColor = Colorz.white80,
+    this.underLineColor = Colorz.white255,
+    this.underLineLabelColor = Colorz.white10,
     this.duration = Ratioz.duration150ms,
   });
 
@@ -92,7 +92,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
     double sizeFactor = widget.iconSizeFactor;
 
     Color imageSaturationColor =
-    widget.blackAndWhite == true ? Colorz.Grey225 : Colorz.Nothing;
+    widget.blackAndWhite == true ? Colorz.grey225 : Colorz.nothing;
 
     double verseIconSpacing = widget.verse != null ? boxHeight * 0.3 * widget.iconSizeFactor * widget.verseScaleFactor : 0;
 
@@ -113,13 +113,13 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
     double iconCorners = widget.iconRounded == true ? (widget.corners-iconMargin) : 0;
 
     Color boxColor =
-    (widget.blackAndWhite == true && widget.color != Colorz.Nothing) ?
-    Colorz.Grey80 :
-    (widget.color == Colorz.Nothing && widget.blackAndWhite == true) ?
-    Colorz.Nothing :
+    (widget.blackAndWhite == true && widget.color != Colorz.nothing) ?
+    Colorz.grey80 :
+    (widget.color == Colorz.nothing && widget.blackAndWhite == true) ?
+    Colorz.nothing :
     widget.color;
 
-    Color _iconColor = widget.blackAndWhite == true ? Colorz.White80 : widget.iconColor;
+    Color _iconColor = widget.blackAndWhite == true ? Colorz.white80 : widget.iconColor;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -144,11 +144,11 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                   height: boxHeight,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      color: widget.inActiveMode == true ? Colorz.White10 : boxColor,
+                      color: widget.inActiveMode == true ? Colorz.white10 : boxColor,
                       borderRadius: BorderRadius.circular(widget.corners),
                       boxShadow: <BoxShadow>[
                         CustomBoxShadow(
-                            color: widget.bubble == true ? Colorz.Black200 : Colorz.Nothing,
+                            color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
                             offset: new Offset(0, boxHeight * -0.019 * 0 ),
                             blurRadius: boxHeight * 0.15,
                             blurStyle: BlurStyle.outer
@@ -194,7 +194,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                       borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
                                       boxShadow: [
                                         CustomBoxShadow(
-                                            color: widget.bubble == true ? Colorz.Black200 : Colorz.Nothing,
+                                            color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
                                             offset: new Offset(0, jpgGraphicWidth * -0.019 ),
                                             blurRadius: jpgGraphicWidth * 0.2,
                                             blurStyle: BlurStyle.outer),
@@ -239,7 +239,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                       borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
                                       boxShadow: [
                                         CustomBoxShadow(
-                                            color: widget.bubble == true ? Colorz.Black200 : Colorz.Nothing,
+                                            color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
                                             offset: new Offset(0, jpgGraphicWidth * -0.019 ),
                                             blurRadius: jpgGraphicWidth * 0.2,
                                             blurStyle: BlurStyle.outer),
@@ -277,7 +277,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                     gradient: LinearGradient(
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter,
-                                        colors: [Colorz.Black80, Colorz.Black125],
+                                        colors: [Colorz.black80, Colorz.black125],
                                         stops: [0.5, 1]),
                                   ),
                                 ) : Container(),
@@ -307,7 +307,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                     verse: widget.verse,
                                     size: verseSize,
                                     weight: widget.verseWeight,
-                                    color: widget.blackAndWhite == true || widget.inActiveMode == true ? Colorz.White80 : widget.verseColor,
+                                    color: widget.blackAndWhite == true || widget.inActiveMode == true ? Colorz.white80 : widget.verseColor,
                                     shadow: widget.blackAndWhite == true ? false : true,
                                     maxLines: widget.verseMaxLines,
                                     centered: widget.icon == null ? true : false,
@@ -320,7 +320,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                     verse: widget.secondLine,
                                     weight: VerseWeight.regular,
                                     size: 1,
-                                    color: Colorz.White255,
+                                    color: Colorz.white255,
                                     maxLines: 1,
                                     italic: true,
                                     shadow: true,
@@ -351,7 +351,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                   widget.corners - (boxHeight * 0.8) ),
                               boxShadow: [
                                 CustomBoxShadow(
-                                    color: Colorz.White50,
+                                    color: Colorz.white50,
                                     offset: new Offset(0, boxHeight * -0.33),
                                     blurRadius: boxHeight * 0.2,
                                     blurStyle: BlurStyle.normal),
@@ -371,7 +371,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                             gradient: LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
-                                colors: [Colorz.Black0, Colorz.Black125],
+                                colors: [Colorz.black0, Colorz.black125],
                                 stops: [0.5, 0.95]),
                           ),
                         ),
@@ -383,7 +383,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                           width: boxWidth,
                           height: boxHeight,
                           child: Material(
-                            color: Colorz.Nothing,
+                            color: Colorz.nothing,
                             child: InkWell(
                               splashColor: widget.splashColor,
                               onTap: widget.inActiveMode == true ? (){} :

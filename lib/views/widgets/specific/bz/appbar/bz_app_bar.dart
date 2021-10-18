@@ -50,9 +50,9 @@ class BzAppBar extends StatelessWidget {
           verseCentered: false,
           bubble: false,
           verseScaleFactor: 0.7,
-          color: Colorz.White20,
+          color: Colorz.white20,
           secondLine: '${TextGenerator.bzTypeSingleStringer(context, bzModel.bzType)} $_zoneString',
-          secondLineColor: Colorz.White200,
+          secondLineColor: Colorz.white200,
           secondLineScaleFactor: 0.8,
         ),
 

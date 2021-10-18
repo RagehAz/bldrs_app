@@ -23,14 +23,14 @@ class MainButton extends StatelessWidget {
   const MainButton({
     @required this.buttonVerse,
     @required this.buttonIcon,
-    this.buttonColor = Colorz.White50,
-    this.splashColor = Colorz.Yellow255,
+    this.buttonColor = Colorz.white50,
+    this.splashColor = Colorz.yellow255,
     this.buttonVerseShadow = true,
     @required this.function,
     this.stretched = false,
 
     this.iconSizeFactor = 0.75,
-    this.verseColor = Colorz.White255,
+    this.verseColor = Colorz.white255,
     this.verseWeight = VerseWeight.bold,
     this.iconColor,
   });
@@ -68,7 +68,7 @@ class MainButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(_buttonCorner),
             boxShadow: <BoxShadow>[
               CustomBoxShadow(
-                  color: Colorz.Black230,
+                  color: Colorz.black230,
                   offset: new Offset(0, 0),
                   blurRadius: _buttonZoneHeight * 0.09,
                   blurStyle: BlurStyle.outer),
@@ -90,7 +90,7 @@ class MainButton extends StatelessWidget {
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(_buttonCorner),
             )),
-            foregroundColor: MaterialStateProperty.all(Colorz.Grey80),
+            foregroundColor: MaterialStateProperty.all(Colorz.grey80),
             padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
             animationDuration: Ratioz.durationFading200,
             // splashFactory: ElevatedButton.styleFrom(
@@ -112,7 +112,7 @@ class MainButton extends StatelessWidget {
                   // color: Colorz.White,
                   borderRadius: BorderRadius.circular(_buttonCorner-(_buttonHeight-(_buttonHeight * 0.22))),
                   boxShadow: <BoxShadow>[CustomBoxShadow(
-                    color: Colorz.White50,
+                    color: Colorz.white50,
                     offset: new Offset(0, _buttonHeight * -0.23),
                     blurRadius: _buttonHeight * 0.18 ,
                     blurStyle: BlurStyle.normal
@@ -130,7 +130,7 @@ class MainButton extends StatelessWidget {
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: <Color>[Colorz.Black10, Colorz.Black125],
+                        colors: <Color>[Colorz.black10, Colorz.black125],
                         stops: <double>[0.1,1]
                     ),
                 ),
