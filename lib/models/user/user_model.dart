@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/dumz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/firestore/user_ops.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
@@ -232,18 +233,20 @@ class UserModel {
   }
 // -----------------------------------------------------------------------------
   /// create user object based on firebase user
-  static UserModel initializeUserModelStreamFromUser(User user) {
+  static UserModel initializeUserModelStreamFromUser() {
+
+    final User _user = superFirebaseUser();
 
     return
-      user == null ? null :
+      _user == null ? null :
       UserModel(
-        userID: user.uid,
+        userID: _user.uid,
         authBy: null,
         createdAt: DateTime.now(),
         userStatus: UserStatus.Normal,
         // -------------------------
-        name: user.displayName,
-        pic: user.photoURL,
+        name: _user.displayName,
+        pic: _user.photoURL,
         title: '',
         gender: Gender.any,
         zone: null,
@@ -252,7 +255,7 @@ class UserModel {
         contacts: <ContactModel>[],
         // -------------------------
         myBzzIDs: <String>[],
-        emailIsVerified: user.emailVerified,
+        emailIsVerified: _user.emailVerified,
         isAdmin: false,
         fcmToken: null,
         company: null,

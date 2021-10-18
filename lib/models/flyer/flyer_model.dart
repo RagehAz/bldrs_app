@@ -346,7 +346,6 @@ class FlyerModel with ChangeNotifier{
     );
     return _flyerModel;
   }
-
 // -----------------------------------------------------------------------------
   static FlyerModel getFlyerModelFromSuperFlyer(SuperFlyer superFlyer){
     FlyerModel _flyer;
@@ -447,7 +446,7 @@ class FlyerModel with ChangeNotifier{
     return _flyerIDs;
   }
 // -----------------------------------------------------------------------------
-    static List<FlyerModel> filterFlyersBySection({List<FlyerModel> flyers, Section section}){
+  static List<FlyerModel> filterFlyersBySection({List<FlyerModel> flyers, Section section}){
     List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
     if (section == Section.All){
@@ -458,8 +457,22 @@ class FlyerModel with ChangeNotifier{
 
       final FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
 
+      _filteredFlyers = filterFlyersByFlyerType(
+        flyers: flyers,
+        flyerType: _flyerType,
+      );
+    }
+
+    return _filteredFlyers;
+  }
+// -----------------------------------------------------------------------------
+  static List<FlyerModel> filterFlyersByFlyerType({List<FlyerModel> flyers, FlyerType flyerType}){
+    final List<FlyerModel> _filteredFlyers = <FlyerModel>[];
+
+    if(Mapper.canLoopList(flyers)){
+
       for (FlyerModel flyer in flyers){
-        if (flyer.flyerType == _flyerType){
+        if (flyer.flyerType == flyerType){
           _filteredFlyers.add(flyer);
         }
       }

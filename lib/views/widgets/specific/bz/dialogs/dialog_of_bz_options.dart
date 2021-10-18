@@ -5,7 +5,6 @@ import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
 import 'package:bldrs/views/screens/f_bz/f_x_bz_editor_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -107,7 +106,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       // _prof.removeTinyBzFromLocalList(bzModel.bzID);
 
       /// remove tinyBz from local userTinyBzz
-      _bzzProvider.removeBzFromUserBzz(bzID: bzModel.bzID);
+      _bzzProvider.removeBzFromMyBzz(bzID: bzModel.bzID);
 
       _triggerLoading();
 
@@ -147,19 +146,15 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
         bzModel: bzModel,
       );
 
-      /// remove tinyBz from Local list
-      final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
+      /// remove Bz from Local list
       final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
-      _prof.removeBzFromLocalList(bzModel.bzID);
-
-      /// remove tinyBz from local userTinyBzz
-      _bzzProvider.removeBzFromUserBzz(bzID: bzModel.bzID);
+      await _bzzProvider.removeBzFromMyBzz(bzID: bzModel.bzID);
 
       _triggerLoading();
 
       /// re-route back
-      Nav.goBack(context, argument: true);
+      await Nav.goBack(context, argument: true);
 
     }
 

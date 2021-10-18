@@ -25,6 +25,11 @@ double tap double tap slide tap tap tap
 
 Psychology creativity test
 
+needs to assert your
+- high iq level
+- willingness to excel
+- ability to resolve conflicts
+
 Are your creative ? yes - no
 
 are smart ? yes - no

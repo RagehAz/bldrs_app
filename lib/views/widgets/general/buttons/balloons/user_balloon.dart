@@ -5,9 +5,8 @@ import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/users/old_user_provider.dart';
+import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/clip_shadow_path.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
@@ -45,13 +44,13 @@ class UserBalloon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _userID = superUserID();
+    // final String _userID = superUserID();
 
     return
     balloonColor == null ?
 
       StreamBuilder<UserModel>(
-        stream: OldUserProvider(userID: _userID)?.userData,
+        stream: UsersProvider().userStream,
         builder: (context, snapshot){
           if(snapshot.hasData == false){
             return Loading(
