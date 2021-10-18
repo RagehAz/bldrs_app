@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
@@ -49,6 +50,9 @@ class NotificationFlyers extends StatelessWidget {
                       flyerBoxWidth: FlyerBox.width(context, FlyerBox.sizeFactorByHeight(context, 200)),
                       flyerModel: _flyer,
                       flyerID: _flyerID,
+                      onSwipeFlyer: (SwipeDirection direction){
+                        // print('Direction is ${direction}');
+                      },
                     ),
                   ),
                 ),

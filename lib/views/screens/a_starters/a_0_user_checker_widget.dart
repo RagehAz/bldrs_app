@@ -57,7 +57,7 @@ class _UserCheckerState extends State<UserChecker> {
 // -----------------------------------------------------------------------------
   @override
   void didChangeDependencies() {
-    if (_isInit) {
+    if (_isInit && mounted) {
 
       print('userChecker 1 : trigger loading');
       _triggerLoading();

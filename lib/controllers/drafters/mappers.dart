@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sembast/utils/value_utils.dart';
 
 class Mapper{
@@ -47,8 +48,8 @@ class Mapper{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String, dynamic>> getMapsFromQuerySnapshot({
-    QuerySnapshot querySnapshot,
-    bool addDocsIDs,
+    @required QuerySnapshot querySnapshot,
+    @required bool addDocsIDs,
   }){
 
     final List<QueryDocumentSnapshot> _docsSnapshots = querySnapshot.docs;
@@ -62,8 +63,8 @@ class Mapper{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
-    List<QueryDocumentSnapshot> queryDocumentSnapshots,
-    bool addDocsIDs,
+    @required List<QueryDocumentSnapshot> queryDocumentSnapshots,
+    @required bool addDocsIDs,
   }){
 
     List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -88,7 +89,7 @@ class Mapper{
 
   }
 // -----------------------------------------------------------------------------
-  static bool listOfMapsContainValue({List<dynamic> listOfMaps, String field, String value}){
+  static bool listOfMapsContainValue({@required List<dynamic> listOfMaps, @required String field, @required String value}){
 
     bool _listOfMapContainsTheValue;
 
@@ -113,7 +114,7 @@ class Mapper{
   /// ];
   ///
   /// map = {'key1' : 'value', 'key2' : 'value2'};
-  static bool listOfMapsContainMap({List<Map<String, dynamic>> listOfMaps, Map<String, dynamic> map}){
+  static bool listOfMapsContainMap({@required List<Map<String, dynamic>> listOfMaps, @required Map<String, dynamic> map}){
 
     bool _listOfMapContainsTheMap;
 
@@ -141,7 +142,7 @@ class Mapper{
     return _listOfMapContainsTheMap;
   }
 // -----------------------------------------------------------------------------
-  static bool listsAreTheSame({List<dynamic> list1, List<dynamic> list2}){
+  static bool listsAreTheSame({@required List<dynamic> list1, @required List<dynamic> list2}){
     bool listsAreTheSame;
 
     if (list1.length != list2.length){
@@ -215,12 +216,12 @@ class Mapper{
     return _indexOfTheMap;
   }
 // -----------------------------------------------------------------------------
-  static int indexOfMapByValueInListOfMaps({List<Map<String, dynamic>> listOfMaps, String key, dynamic value}){
+  static int indexOfMapByValueInListOfMaps({@required List<Map<String, dynamic>> listOfMaps, @required String key, @required dynamic value}){
     final int _indexOfTheMap = listOfMaps.indexWhere((map) => map[key] == value);
     return _indexOfTheMap;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, dynamic> insertPairInMap({Map<String,dynamic> map, String key, dynamic value}){
+  static Map<String, dynamic> insertPairInMap({@required Map<String,dynamic> map, @required String key, @required dynamic value}){
     map.putIfAbsent(key, () => value);
 
     Map<String, dynamic> _result = {};
@@ -230,7 +231,7 @@ class Mapper{
   }
 // -----------------------------------------------------------------------------
   /// url query looks like "key1=value1&key1=value2&key3=value3"
-  static Map<String, dynamic> getMapFromURLQuery({String urlQuery}){
+  static Map<String, dynamic> getMapFromURLQuery({@required String urlQuery}){
     /// url query should look like this
     /// 'country=eg&category=business&apiKey=65f7556ec76449fa7dc7c0069f040ca';
 
@@ -289,7 +290,7 @@ class Mapper{
     return _output;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getStringsFromDynamics({List<dynamic> dynamics}){
+  static List<String> getStringsFromDynamics({@required List<dynamic> dynamics}){
     final List<String> _strings = <String>[];
 
     if (Mapper.canLoopList(dynamics)){
@@ -310,7 +311,7 @@ class Mapper{
     return _strings;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, Object> replacePair({Map<String, Object> map, String fieldKey, dynamic inputValue}){
+  static Map<String, Object> replacePair({@required Map<String, Object> map,@required  String fieldKey,@required  dynamic inputValue}){
 
     final Map<String, Object> _aMap = cloneMap(map);
 
@@ -330,7 +331,7 @@ class Mapper{
     return _aMap;
 }
 // -----------------------------------------------------------------------------
-  static Map<String, Object> removePair({Map<String, Object> map, String fieldKey}){
+  static Map<String, Object> removePair({@required Map<String, Object> map,@required  String fieldKey}){
 
     final Map<String, Object> _map = cloneMap(map);
 
@@ -392,21 +393,18 @@ class Mapper{
 
     return _maps;
   }
+// -----------------------------------------------------------------------------
+  static bool stringsContainString({@required List<String> strings,@required  String string}){
 
-    // static bool modelsContainThisValue({@required List<dynamic> models, @required dynamic value, @required dynamic parameter}){
-    //
-    //   bool _regionsAlreadyHaveThisOne = false;
-    //
-    //   for (dynamic model in models){
-    //
-    //     if (model.parameter == value){
-    //       _regionsAlreadyHaveThisOne = true;
-    //       break;
-    //     }
-    //
-    //   }
-    //
-    //   return _regionsAlreadyHaveThisOne;
-    // }
+    bool _containsIt = false;
 
+    if (canLoopList(strings) && string != null){
+
+      _containsIt = strings.contains(string);
+
+    }
+
+    return _containsIt;
+  }
+// -----------------------------------------------------------------------------
 }

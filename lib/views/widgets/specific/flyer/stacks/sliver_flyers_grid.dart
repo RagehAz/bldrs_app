@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
@@ -52,7 +53,10 @@ class SliverFlyersGrid extends StatelessWidget {
                     goesToEditor: false,
                     flyerModel: flyers[flyerIndex],
                     flyerKey: Key(flyers[flyerIndex].flyerID),
-                  );
+                    onSwipeFlyer: (SwipeDirection direction){
+                      // print('Direction is ${direction}');
+                    },
+                );
                 },
           childCount: flyers.length,
           addAutomaticKeepAlives: true,

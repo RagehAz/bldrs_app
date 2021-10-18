@@ -175,6 +175,12 @@ class LDBViewersScreen extends StatelessWidget {
             icon: Iconz.Keyword,
           ),
 
+          WideButton(
+            verse: 'Countries',
+            onTap: () => goToLDBViewer(context, LDBDoc.sessionCountries,),
+            icon: Iconz.Earth,
+          ),
+
           const PyramidsHorizon(),
 
         ],
