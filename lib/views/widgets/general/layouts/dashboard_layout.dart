@@ -30,6 +30,7 @@ class DashBoardLayout extends StatelessWidget {
     final ScrollController _controller = ScrollController();
 
     return MainLayout(
+      // scaffoldKey: _globalKey,
       pyramids: Iconz.DvBlankSVG,
       appBarType: AppBarType.Basic,
       pageTitle: pageTitle,
