@@ -1,5 +1,5 @@
 import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/views/widgets/specific/ask/chat/chat_model.dart';
+import 'package:bldrs/xxx_LABORATORY/ask/chat/chat_model.dart';
 import 'package:flutter/material.dart';
 
 /// db/questions/questionID/chats/chatID/messages/messageID

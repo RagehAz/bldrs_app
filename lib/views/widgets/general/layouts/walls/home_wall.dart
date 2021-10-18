@@ -32,7 +32,7 @@ class _HomeWallState extends State<HomeWall> {
   Widget build(BuildContext context) {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
-    final List<BzModel> _userBzz = _bzzProvider.userBzz;
+    final List<BzModel> _userBzz = _bzzProvider.myBzz;
     final double _sponsoredFlyerWidth = FlyerBox.width(context, 0.45);
 
     final List<Widget> _homeWallWidgets = <Widget>[

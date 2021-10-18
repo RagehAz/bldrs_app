@@ -1,10 +1,9 @@
 import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/users/old_user_provider.dart';
+import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 /// IMPLEMENTATION
 /// userStreamBuilder(
 ///         context: context,
@@ -25,12 +24,10 @@ Widget userStreamBuilder({
   bool listen,
 }){
 
-  final _user = Provider.of<UserModel>(context, listen: listen);
-
   return
 
     StreamBuilder<UserModel>(
-      stream: OldUserProvider(userID: _user?.userID)?.userData,
+      stream: UsersProvider().userStream,
       builder: (context, snapshot){
         if(StreamChecker.connectionIsLoading(snapshot) == true){
           return Loading(loading: true,);

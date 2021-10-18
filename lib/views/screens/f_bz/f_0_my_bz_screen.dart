@@ -1,10 +1,8 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/firestore/bz_ops.dart';
-import 'package:bldrs/db/firestore/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
-import 'package:bldrs/providers/flyers_and_bzz/old_flyers_provider.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';
 import 'package:bldrs/views/widgets/specific/bz/appbar/bz_app_bar.dart';
 import 'package:bldrs/views/widgets/specific/bz/tabs/bz_about_tab.dart';
@@ -91,28 +89,12 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
     if (_isInit) {
       _triggerLoading().then((_) async {
 
-        print('2 - retrieving bzModel from firebase');
-        final BzModel _bzFromDB = await BzOps.readBzOps(context: context, bzID: widget.bzModel.bzID);
-        print('3 - got the bzModel');
-        // setState(() {
-        // _bzModel = _bzFromDB;
-        // _bubblesOpacity = 1;
-        // });
-        print('4 - rebuilt tree with the retrieved bzModel');
+        final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
-        final List<FlyerModel> _bzFlyers = await  FlyerOps.readBzFlyers(
-          context: context,
-          bzModel: _bzFromDB,
-        );
+        final List<FlyerModel> _bzFlyers = await  _flyersProvider.fetchAllBzFlyersByBzID(context: context, bzID: widget.bzModel.bzID);
 
-
-        final OldFlyersProvider _prof = Provider.of<OldFlyersProvider>(context, listen: false);
-        _prof.setCurrentBzModel(_bzFromDB);
-
-        /// X - REBUILD : TASK : check previous set states malhomsh lazma keda ba2a
         _triggerLoading(
             function: (){
-              _bzModel = _bzFromDB;
               _flyers = _bzFlyers;
               // _bubblesOpacity = 1;
               _tabModels = createBzTabModels();

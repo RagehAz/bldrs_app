@@ -26,7 +26,7 @@ class FlyersProvider extends ChangeNotifier {
   /// 2 - if not found, search firebase
   ///   2.1 read firebase flyer ops
   ///   2.2 if found on firebase, store in ldb sessionFlyers
-  Future<FlyerModel> fetchFlyerByID({BuildContext context, String flyerID}) async {
+  Future<FlyerModel> fetchFlyerByID({@required BuildContext context, @required  String flyerID}) async {
 
     FlyerModel _flyer;
 
@@ -74,7 +74,7 @@ class FlyersProvider extends ChangeNotifier {
     return _flyer;
   }
 // -------------------------------------
-  Future<List<FlyerModel>> fetchFlyersByIDs({BuildContext context, List<String> flyersIDs}) async {
+  Future<List<FlyerModel>> fetchFlyersByIDs({@required BuildContext context, @required List<String> flyersIDs}) async {
     List<FlyerModel> _flyers = <FlyerModel>[];
 
     if (Mapper.canLoopList(flyersIDs)){
@@ -91,6 +91,22 @@ class FlyersProvider extends ChangeNotifier {
 
       }
 
+    }
+
+    return _flyers;
+  }
+// -------------------------------------
+  Future<List<FlyerModel>> fetchAllBzFlyersByBzID({@required BuildContext context, @required String bzID}) async {
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(
+        context, listen: false);
+    final BzModel _activeBz = _bzzProvider.myActiveBz;
+    final List<String> _bzFlyersIDs = _activeBz?.flyersIDs;
+
+    List<FlyerModel> _flyers;
+
+    if (Mapper.canLoopList(_bzFlyersIDs)) {
+      _flyers =
+      await fetchFlyersByIDs(context: context, flyersIDs: _bzFlyersIDs);
     }
 
     return _flyers;
@@ -172,7 +188,7 @@ class FlyersProvider extends ChangeNotifier {
     return <FlyerModel>[..._wallFlyers];
   }
 // -------------------------------------
-  Future<void> getsetWallFlyersBySection({BuildContext context, Section section}) async {
+  Future<void> getsetWallFlyersBySection({@required BuildContext context, @required Section section}) async {
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
     final Zone _currentZone = _zoneProvider.currentZone;
     //
@@ -213,29 +229,46 @@ class FlyersProvider extends ChangeNotifier {
 
 
   }
+// -------------------------------------
+  Future<void> getsetWallFlyersByFlyerType({@required BuildContext context, @required FlyerType flyerType}) async {
+
+    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
+    final Zone _currentZone = _zoneProvider.currentZone;
+
+    final List<FlyerModel> _flyers = await FireSearch.flyersByZoneAndFlyerType(
+      context: context,
+      zone: _currentZone,
+      flyerType: flyerType,
+    );
+
+    _wallFlyers = _flyers;
+    notifyListeners();
+  }
+// -------------------------------------
+  List<FlyerModel> filterWallFlyersByFlyerType(FlyerType flyerType){
+
+    final List<FlyerModel> _flyers = FlyerModel.filterFlyersByFlyerType(
+      flyers: _wallFlyers,
+      flyerType: flyerType,
+    );
+
+    return _flyers;
+  }
 // -----------------------------------------------------------------------------
   /// ACTIVE BZ FLYERS
-  List<FlyerModel> _activeBzFlyers = <FlyerModel>[];
+  List<FlyerModel> _myActiveBzFlyers = <FlyerModel>[];
 // -------------------------------------
-  List<FlyerModel> get activeBzFlyer{
-    return _activeBzFlyers;
+  List<FlyerModel> get myActiveBzFlyer{
+    return _myActiveBzFlyers;
   }
 // -------------------------------------
-  Future<void> getsetActiveBzFlyers({BuildContext context, String bzID}) async {
+  Future<void> getsetActiveBzFlyers({@required BuildContext context, @required String bzID}) async {
 
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    final BzModel _activeBz = _bzzProvider.activeBz;
-    final List<String> _bzFlyersIDs = _activeBz?.flyersIDs;
+    final List<FlyerModel> _flyers = await fetchAllBzFlyersByBzID(context: context, bzID: bzID);
 
-    if (Mapper.canLoopList(_bzFlyersIDs)){
-
-      final List<FlyerModel> _flyers = await fetchFlyersByIDs(context: context, flyersIDs: _bzFlyersIDs);
-
-      _activeBzFlyers = _flyers;
+      _myActiveBzFlyers = _flyers;
       notifyListeners();
 
-    }
-
   }
-// -------------------------------------
+// -----------------------------------------------------------------------------
 }
