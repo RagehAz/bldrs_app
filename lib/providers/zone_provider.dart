@@ -8,7 +8,7 @@ import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:flutter/material.dart';
 
-// final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  // final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 class ZoneProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   /// FETCHING ZONES

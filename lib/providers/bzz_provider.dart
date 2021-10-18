@@ -8,7 +8,7 @@ import 'package:bldrs/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+  // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 class BzzProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   /// FETCHING BZZ

@@ -8,13 +8,14 @@ class FlagBox extends StatelessWidget {
 
   final String flag;
   final Function onTap;
+  final double size;
 
   const FlagBox({
     @required this.flag,
     this.onTap,
+    this.size = 35,
   });
 
-  static const double flagWidth = 35;
   static const double corner = Ratioz.boxCorner12;
 
   @override
@@ -23,8 +24,8 @@ class FlagBox extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: flagWidth,
-        height: flagWidth,
+        width: size,
+        height: size,
         decoration: BoxDecoration(
             // color: boxColor,
               borderRadius: BorderRadius.circular(corner),
@@ -32,7 +33,7 @@ class FlagBox extends StatelessWidget {
                 CustomBoxShadow(
                     color: Colorz.Black230,
                     offset: new Offset(0, 0),
-                    blurRadius: flagWidth * 0.12,
+                    blurRadius: size * 0.12,
                     blurStyle: BlurStyle.outer
                 ),
               ]),
@@ -46,11 +47,11 @@ class FlagBox extends StatelessWidget {
               /// FLAG
               flag == '' || flag == 'Black'?
                   Container() :
-              WebsafeSvg.asset(flag, width: flagWidth),
+              WebsafeSvg.asset(flag, width: size),
 
               ///  BUTTON GRADIENT
                 Container(
-                  height: flagWidth,
+                  height: size,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       // color: Colorz.Grey,
@@ -66,7 +67,7 @@ class FlagBox extends StatelessWidget {
 
               ///  BUTTON HIGHLIGHT
                 Container(
-                  height: flagWidth,
+                  height: size,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       // color: Colorz.Grey,

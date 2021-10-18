@@ -19,7 +19,7 @@ import 'package:provider/provider.dart';
 /// get : a method that returns processed inputs with provider global variables
 /// getset : a method that fetches a value then sets it in a provider global variable
 
-// final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+  // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 class FlyersProvider extends ChangeNotifier {
   /// FETCHING FLYERS
   /// 1 - search in entire LDBs for this flyerModel
