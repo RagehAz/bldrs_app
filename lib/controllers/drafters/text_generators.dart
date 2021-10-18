@@ -137,16 +137,16 @@ class TextGenerator{
     return _bzFormStrings;
   }
 // -----------------------------------------------------------------------------
-  static String countryStringer ({BuildContext context, Country country, Zone zone}){
+  static String countryStringer ({BuildContext context, CountryModel country, Zone zone}){
     String _verse = '...';
 
     if (country != null && Zone.zoneHasAllIDs(zone)){
 
-      final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: country.countryID);
+      final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: country.countryID);
 
-      final String _cityName = City.getTranslatedCityNameFromCountry(context: context, country: country, cityID: zone.cityID);
+      final String _cityName = CityModel.getTranslatedCityNameFromCountry(context: context, country: country, cityID: zone.cityID);
 
-      final String _districtName = District.getTranslatedDistrictNameFromCountry(
+      final String _districtName = DistrictModel.getTranslatedDistrictNameFromCountry(
         context: context,
         country: country,
         cityID: zone.cityID,
@@ -163,7 +163,7 @@ class TextGenerator{
     return _verse;
   }
 // -----------------------------------------------------------------------------
-  static String cityCountryStringer ({BuildContext context, Country country, Zone zone}){
+  static String cityCountryStringer ({BuildContext context, CountryModel country, Zone zone}){
 
     String _verse = '...';
 
@@ -171,7 +171,7 @@ class TextGenerator{
 
       final String _countryName = Name.getNameByCurrentLingoFromNames(context, country.names);
 
-      final City _city = City.getCityFromCities(cities: country.cities, cityID: zone.cityID);
+      final CityModel _city = CityModel.getCityFromCities(cities: country.cities, cityID: zone.cityID);
       final String _cityName = Name.getNameByCurrentLingoFromNames(context, _city.names);
 
       _verse =

@@ -36,7 +36,7 @@ class MoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
-    final Country _currentCountry = zoneProvider.currentCountry;
+    final CountryModel _currentCountry = zoneProvider.currentCountry;
     final String _currentFlag = Flag.getFlagIconByCountryID(_currentCountry.countryID);
 
     return MainLayout(
@@ -87,7 +87,7 @@ class MoreScreen extends StatelessWidget {
                 iconSizeFactor: 0.9,
                 btOnTap: () => Nav.goToNewScreen(context,
 
-                    /// PLAN : when we include more countries, we just go to SelectCountryScreen();
+
                     SelectCountryScreen()
 
                   //   /// but now we go to Egypt cities directly
@@ -125,18 +125,17 @@ class MoreScreen extends StatelessWidget {
 
               const BubblesSeparator(),
 
-              TileBubble(
-                verse: Wordz.advertiseOnBldrs(context),
-                icon: Iconz.Advertise,
-                iconSizeFactor: 0.6,
-              ),
+              // TileBubble(
+              //   verse: Wordz.advertiseOnBldrs(context),
+              //   icon: Iconz.Advertise,
+              //   iconSizeFactor: 0.6,
+              // ),
               // TileBubble(
               //   verse: 'Get Blrs.net Marketing materials',
               //   icon: Iconz.Marketing,
               //   iconSizeFactor: 0.7,
               // ),
-
-              const BubblesSeparator(),
+              // const BubblesSeparator(),
 
               TileBubble(
                 verse: 'Open App Tutorial',

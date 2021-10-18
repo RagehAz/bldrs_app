@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:flutter/material.dart';
 
@@ -30,39 +29,7 @@ class Strip extends StatelessWidget {
     final Color _stripColor = Strips.stripColor(isWhite: isWhite, numberOfSlides: numberOfSlides);
 // -----------------------------------------------------------------------------
 
-    /// DESIGN MODE
-    const bool _designMode = false;
-
     return
-      _designMode == true ?
-      Stack(
-        children: <Widget>[
-
-          if(isWhite == true)
-            Container(
-              width: _aStripLength,
-              height: _aStripThickness,
-              color: Colorz.Red255,
-            ),
-
-          Container(
-            width: stripWidth,
-            height: _aStripThickness,
-            padding: EdgeInsets.symmetric(horizontal: _aStripOnePadding),
-            child: Container(
-              width: _aStripLength - (2 * _aStripOnePadding),
-              height: _aStripThickness,
-              decoration: BoxDecoration(
-                  color: _stripColor,
-                  borderRadius: Borderers.superBorderAll(context, _stripCorner)
-              ),
-            ),
-          ),
-
-        ],
-      )
-
-          :
 
       Container(
         width: stripWidth,

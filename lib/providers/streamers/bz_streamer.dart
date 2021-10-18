@@ -48,7 +48,7 @@ Widget bzModelBuilder({
   return FutureBuilder(
       future: Fire.readDoc(
         context: context,
-        collName: FireCollection.bzz,
+        collName: FireColl.bzz,
         docName: bzID,
       ),
       builder: (ctx, snapshot){
@@ -76,7 +76,7 @@ Widget bzModelBuilder({
 // -----------------------------------------------------------------------------
 /// get bz doc stream
 Stream<BzModel> getBzStream(String bzID) {
-  final Stream<DocumentSnapshot> _bzSnapshot = Fire.streamDoc(FireCollection.bzz, bzID);
+  final Stream<DocumentSnapshot> _bzSnapshot = Fire.streamDoc(FireColl.bzz, bzID);
   final Stream<BzModel> _bzStream = _bzSnapshot.map(BzModel.getBzModelFromSnapshot);
 
   return _bzStream;

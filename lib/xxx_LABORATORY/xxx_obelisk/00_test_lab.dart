@@ -1,13 +1,12 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/dashboard/exotic_methods.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/db/firestore/auth_ops.dart';
-import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RandomTestSpace extends StatefulWidget {
 final double flyerBoxWidth;
@@ -118,24 +117,17 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
               WideButton(
                 color: Colorz.BloodTest,
-                verse: 'add bz ids',
+                verse: 'get ata',
                 icon: Iconz.Share,
                 onTap: () async {
 
                   _triggerLoading();
 
-                  List<String> _allBzzIDs = <String>[];
+                  final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-                  List<BzModel> _allbzz = await ExoticMethods.readAllBzzModels(context: context, limit: 500);
+                  final CountryModel _ata = await zoneProvider.fetchCountryByID(context: context, countryID: 'ata');
 
-                  for (var bz in _allbzz){
-
-                    _allBzzIDs.add(bz.bzID);
-
-                  }
-
-                  await Fire.updateDocField(context: context, collName: 'users', docName: superUserID(), field: 'myBzzIDs', input: _allBzzIDs);
-
+                  _ata.printCountry();
 
                   _triggerLoading();
 

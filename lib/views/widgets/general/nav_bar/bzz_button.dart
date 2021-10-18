@@ -64,9 +64,6 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
     final double _buttonHeight = _circleWidth + ( 2 * _paddings ) + _textBoxHeight;
     final double _buttonWidth = width;
 
-    // Color _designModeColor = Colorz.BloodTest;
-    const bool _designMode = false;
-
     const bool _shadowIsOn = true;
 
     return
@@ -105,7 +102,6 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
                   bubble: true,
                   color: Colorz.Nothing,
                   corners: _buttonCircleCorner,
-                  designMode: _designMode,
                   onTap: onTap,
                 )
 
@@ -273,7 +269,6 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
                     weight: VerseWeight.thin,
                     shadow: true,
                     scaleFactor: _textScaleFactor,
-                    designMode: _designMode,
                   ),
                 ),
 

@@ -40,7 +40,6 @@ class BzPgVerse extends StatelessWidget {
                 color: Colorz.White200,
                 margin: _margins,
                 maxLines: maxLines,
-                // designMode: true,
               ),
             ),
           );
@@ -111,7 +110,6 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
                       color: Colorz.White200,
                       margin: 0,
                       maxLines: aboutMaxLines,
-                      // designMode: true,
                     ),
                   ],
                 ),

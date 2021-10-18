@@ -10,10 +10,10 @@ import 'package:bldrs/models/zone/district_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class City{
+class CityModel{
   final String countryID;
   String cityID;
-  final List<District> districts;
+  final List<DistrictModel> districts;
   final int population;
   final bool isActivated;
   final bool isPublic;
@@ -21,7 +21,7 @@ class City{
   final GeoPoint position;
   final String state; // only for USA
 
-  City({
+  CityModel({
     this.countryID,
     this.cityID,
     this.districts,
@@ -36,8 +36,8 @@ class City{
   Map<String, Object> toMap({@required bool toJSON}){
     return {
       'countryID' : countryID,
-      'cityID' : Country.fixCountryName(cityID),
-      'districts' : District.cipherDistricts(districts),
+      'cityID' : CountryModel.fixCountryName(cityID),
+      'districts' : DistrictModel.cipherDistricts(districts),
       'population' : population,
       'isActivated' : isActivated,
       'isPublic' : isPublic,
@@ -47,16 +47,16 @@ class City{
     };
   }
 // -----------------------------------------------------------------------------
-  static Map<String, dynamic> cipherCities({@required List<City> cities, @required bool toJSON}){
+  static Map<String, dynamic> cipherCities({@required List<CityModel> cities, @required bool toJSON}){
     Map<String, dynamic> _citiesMap = {};
 
     if (Mapper.canLoopList(cities)){
 
-      for (City city in cities){
+      for (CityModel city in cities){
 
         _citiesMap = Mapper.insertPairInMap(
           map: _citiesMap,
-          key: Country.fixCountryName(city.cityID),
+          key: CountryModel.fixCountryName(city.cityID),
           value: city.toMap(toJSON: toJSON),
         );
 
@@ -67,11 +67,11 @@ class City{
     return _citiesMap;
   }
 // -----------------------------------------------------------------------------
-  static City decipherCityMap({@required Map<String, dynamic> map, @required bool fromJSON}){
-    return City(
+  static CityModel decipherCityMap({@required Map<String, dynamic> map, @required bool fromJSON}){
+    return CityModel(
       countryID : map['countryID'],
       cityID : map['cityID'],
-      districts : District.decipherDistrictsMap(map['districts']),
+      districts : DistrictModel.decipherDistrictsMap(map['districts']),
       population : map['population'],
       isActivated : map['isActivated'],
       isPublic : map['isPublic'],
@@ -80,8 +80,8 @@ class City{
     );
   }
 // -----------------------------------------------------------------------------
-  static List<City> decipherCitiesMap({@required Map<String, dynamic> map, @required bool fromJSON}){
-    final List<City> _cities = <City>[];
+  static List<CityModel> decipherCitiesMap({@required Map<String, dynamic> map, @required bool fromJSON}){
+    final List<CityModel> _cities = <CityModel>[];
 
     final List<String> _keys = map.keys.toList();
     final List<dynamic> _values = map.values.toList();
@@ -90,7 +90,7 @@ class City{
 
       for (int i = 0; i<_keys.length; i++){
 
-        final City _city = decipherCityMap(
+        final CityModel _city = decipherCityMap(
           map: _values[i],
           fromJSON: fromJSON,
         );
@@ -104,10 +104,10 @@ class City{
     return _cities;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getCitiesNamesFromCountryModelByCurrentLingo({@required BuildContext context, @required Country country}){
+  static List<String> getCitiesNamesFromCountryModelByCurrentLingo({@required BuildContext context, @required CountryModel country}){
     List<String> _citiesNames = <String>[];
 
-    final List<City> _cities = country.cities;
+    final List<CityModel> _cities = country.cities;
 
     _cities.forEach((city) {
 
@@ -121,7 +121,7 @@ class City{
     return _citiesNames;
   }
 // -----------------------------------------------------------------------------
-  static Keyword getKeywordFromCity({@required BuildContext context,@required  City city}){
+  static Keyword getKeywordFromCity({@required BuildContext context,@required  CityModel city}){
 
     // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
@@ -139,7 +139,7 @@ class City{
     return _keyword;
   }
 // -----------------------------------------------------------------------------
-  static List<Keyword> getKeywordsFromCities({@required BuildContext context, @required List<City> cities}){
+  static List<Keyword> getKeywordsFromCities({@required BuildContext context, @required List<CityModel> cities}){
     final List<Keyword> _keywords = <Keyword>[];
 
     cities.forEach((city) {
@@ -170,7 +170,7 @@ class City{
 
   }
 // -----------------------------------------------------------------------------
-  static List<MapModel> getCitiesNamesMapModels({@required BuildContext context, @required List<City> cities}){
+  static List<MapModel> getCitiesNamesMapModels({@required BuildContext context, @required List<CityModel> cities}){
 
     final List<MapModel> _citiesMapModels = <MapModel>[];
 
@@ -192,8 +192,8 @@ class City{
     return _citiesMapModels;
   }
 // -----------------------------------------------------------------------------
-  static City getCityFromCities({@required List<City> cities, @required String cityID}){
-    City _city;
+  static CityModel getCityFromCities({@required List<CityModel> cities, @required String cityID}){
+    CityModel _city;
     if (Mapper.canLoopList(cities)){
 
       _city = cities.firstWhere((city) => city.cityID == cityID, orElse: () => null);
@@ -202,11 +202,11 @@ class City{
     return _city;
   }
 // -----------------------------------------------------------------------------
-  static String getTranslatedCityNameFromCountry({@required BuildContext context, @required Country country, @required String cityID}){
+  static String getTranslatedCityNameFromCountry({@required BuildContext context, @required CountryModel country, @required String cityID}){
     String _cityName = '...';
 
     if (country != null && cityID != null){
-      final City _city = City.getCityFromCities(cities: country.cities, cityID: cityID);
+      final CityModel _city = CityModel.getCityFromCities(cities: country.cities, cityID: cityID);
       _cityName = Name.getNameByCurrentLingoFromNames(context, _city.names);
     }
 

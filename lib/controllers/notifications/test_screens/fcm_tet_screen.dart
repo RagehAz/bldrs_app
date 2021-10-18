@@ -80,7 +80,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
       await Fire.updateDocField(
         context: context,
-        collName: FireCollection.users,
+        collName: FireColl.users,
         docName: _userID,
         field: 'fcmToken',
         input: _token.toMap(toJSON: false),

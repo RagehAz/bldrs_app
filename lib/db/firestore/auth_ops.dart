@@ -237,7 +237,10 @@ class AuthOps {
       );
 
       /// create a new firestore document for the user with the userID
-      final UserModel _finalUserModel = await UserOps.createUserOps(userModel: _initialUserModel);
+      final UserModel _finalUserModel = await UserOps.createUserOps(
+          context: context,
+          userModel: _initialUserModel
+      );
 
       return _finalUserModel;
 

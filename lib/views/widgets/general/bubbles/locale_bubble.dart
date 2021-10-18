@@ -37,7 +37,7 @@ class LocaleBubble extends StatefulWidget {
 }
 
 class _LocaleBubbleState extends State<LocaleBubble> {
-  Country _selectedCountry;
+  CountryModel _selectedCountry;
   String _selectedCityID;
   String _selectedDistrictID;
   Zone _userZone;
@@ -63,7 +63,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    List<MapModel> _countriesMapModels = Country.getAllCountriesNamesMapModels(context);
+    List<MapModel> _countriesMapModels = CountryModel.getAllCountriesNamesMapModels(context);
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -94,7 +94,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    final List<MapModel> _citiesMapModels = City.getCitiesNamesMapModels(
+    final List<MapModel> _citiesMapModels = CityModel.getCitiesNamesMapModels(
         context : context,
         cities: _selectedCountry.cities
     );
@@ -124,12 +124,12 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    List<District> _selectedCityDistricts = District.getDistrictsFromCountryModel(
+    List<DistrictModel> _selectedCityDistricts = DistrictModel.getDistrictsFromCountryModel(
       country: _selectedCountry,
       cityID: _selectedCityID,
     );
 
-    List<MapModel> _districtsMapModels = District.getDistrictsNamesMapModels(
+    List<MapModel> _districtsMapModels = DistrictModel.getDistrictsNamesMapModels(
       context: context,
       districts: _selectedCityDistricts,
     );
@@ -161,7 +161,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     final String _selectedCityName = _selectedCityID == null ?
     '...'
         :
-    City.getTranslatedCityNameFromCountry(
+    CityModel.getTranslatedCityNameFromCountry(
         context: context,
         country: _selectedCountry,
         cityID: _selectedCityID
@@ -174,7 +174,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     final String _selectedDistrictName = _selectedDistrictID == null ?
     '...'
         :
-    District.getTranslatedDistrictNameFromCountry(
+    DistrictModel.getTranslatedDistrictNameFromCountry(
       context: context,
       country: _selectedCountry,
       cityID: _selectedCityID,
@@ -187,7 +187,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
   @override
   Widget build(BuildContext context) {
 
-    final String _selectedCountryName = Country.getTranslatedCountryNameByID(context: context, countryID: _selectedCountry.countryID);
+    final String _selectedCountryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _selectedCountry.countryID);
     final String _selectedCountryFlag = _selectedCountry == null ? '' : Flag.getFlagIconByCountryID(_selectedCountry.countryID);
 
     final String _selectedCityName = _getSelectedCityName();

@@ -32,7 +32,7 @@ class SequencesWall extends StatelessWidget {
     String _stackTitle;
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
-    final Country _currentCountry = _zoneProvider.currentCountry;
+    final CountryModel _currentCountry = _zoneProvider.currentCountry;
     final Zone _currentZone = _zoneProvider.currentZone;
 
     /// in crafts groups, second keywords are zone areas
@@ -45,10 +45,10 @@ class SequencesWall extends StatelessWidget {
 
     final bool _groupSecondKeysAreZoneDistricts = Sequence.sequenceSecondKeysAreZoneDistricts(sequence);
 
-    final String _cityName = City.getTranslatedCityNameFromCountry(context: context, country: _currentCountry, cityID: _currentZone.cityID);
+    final String _cityName = CityModel.getTranslatedCityNameFromCountry(context: context, country: _currentCountry, cityID: _currentZone.cityID);
 
     if(_groupSecondKeysAreZoneDistricts == true){
-      final String _districtName = District.getTranslatedDistrictNameFromCountry(
+      final String _districtName = DistrictModel.getTranslatedDistrictNameFromCountry(
           context: context,
           country: _currentCountry,
           cityID: _currentZone.cityID,
@@ -80,7 +80,7 @@ class SequencesWall extends StatelessWidget {
   void _onScrollEnd({BuildContext context, int index,Sequence sequence}){
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
-    final Country _currentCountry = _zoneProvider.currentCountry;
+    final CountryModel _currentCountry = _zoneProvider.currentCountry;
     final Zone _currentZone = _zoneProvider.currentZone;
 
     final String _currentCityID = _currentZone.cityID;
@@ -114,7 +114,7 @@ class SequencesWall extends StatelessWidget {
         print('2 - sequence has second keywords : ${_secondKeyword.keywordID}');
 
         if (_secondKeyIsDistrict == true){
-          print ('3 - secondKey is District : ${City.getTranslatedCityNameFromCountry(context: context, country: _currentCountry, cityID: _currentCityID)}');
+          print ('3 - secondKey is District : ${CityModel.getTranslatedCityNameFromCountry(context: context, country: _currentCountry, cityID: _currentCityID)}');
         }
 
         else {

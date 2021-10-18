@@ -12,13 +12,13 @@ import 'package:flutter/material.dart';
 class ZoneProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   /// FETCHING ZONES
-  Future<Country> fetchCountryByID({@required BuildContext context, @required String countryID}) async {
+  Future<CountryModel> fetchCountryByID({@required BuildContext context, @required String countryID}) async {
     /// 1 - search in entire LDBs for this CountryModel
     /// 2 - if not found, search firebase
     ///   2.1 read firebase country ops
     ///   2.2 if found on firebase, store in ldb sessionCountries
 
-    Country _countryModel;
+    CountryModel _countryModel;
 
     /// 1 - search in sessionCountries in LDB for this CountryModel
     final Map<String, Object> _map = await LDBOps.searchMap(
@@ -29,7 +29,7 @@ class ZoneProvider extends ChangeNotifier {
     );
     if (_map != null && _map != {}){
       print('fetchCountryByID : country found in local db : ${LDBDoc.sessionCountries}');
-      _countryModel = Country.decipherCountryMap(map: _map, fromJSON: true);
+      _countryModel = CountryModel.decipherCountryMap(map: _map, fromJSON: true);
     }
 
     /// 2 - if not found, search firebase
@@ -58,15 +58,15 @@ class ZoneProvider extends ChangeNotifier {
     return _countryModel;
   }
 // -----------------------------------------------------------------------------
-  Future<List<Country>> fetchCountriesByIDs({@required BuildContext context, @required List<String> countriesIDs}) async {
+  Future<List<CountryModel>> fetchCountriesByIDs({@required BuildContext context, @required List<String> countriesIDs}) async {
 
-    final List<Country> _countries = <Country>[];
+    final List<CountryModel> _countries = <CountryModel>[];
 
     if (Mapper.canLoopList(countriesIDs)){
 
       for (String id in countriesIDs){
 
-        final Country _country = await fetchCountryByID(context: context, countryID: id);
+        final CountryModel _country = await fetchCountryByID(context: context, countryID: id);
 
         _countries.add(_country);
 
@@ -132,25 +132,25 @@ class ZoneProvider extends ChangeNotifier {
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
-  Future<List<Country>> getContinentActivatedCountries(BuildContext context) async {
+  Future<List<CountryModel>> getContinentActivatedCountries(BuildContext context) async {
 
     List<String> _countriesIDs = _currentContinent.activatedCountriesIDs;
 
-    List<Country> _countries = await fetchCountriesByIDs(context: context, countriesIDs: _countriesIDs);
+    List<CountryModel> _countries = await fetchCountriesByIDs(context: context, countriesIDs: _countriesIDs);
 
     return _countries;
   }
 // -----------------------------------------------------------------------------
   /// USER COUNTRY MODEL
-  Country _userCountyModel;
+  CountryModel _userCountyModel;
 // -------------------------------------
-  Country get userCountryModel{
+  CountryModel get userCountryModel{
     return _userCountyModel;
   }
 // -------------------------------------
   Future<void> getsetUserCountry({@required BuildContext context, @required Zone zone}) async {
 
-    final Country _country = await fetchCountryByID(context: context, countryID: zone.countryID);
+    final CountryModel _country = await fetchCountryByID(context: context, countryID: zone.countryID);
 
     _userCountyModel = _country;
     notifyListeners();
@@ -158,14 +158,14 @@ class ZoneProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   /// CURRENT ZONE & COUNTRY MODEL
   Zone _currentZone;
-  Country _currentCountryModel;
+  CountryModel _currentCountryModel;
 // -------------------------------------
   Zone get currentZone{return _currentZone;}
-  Country get currentCountry{return _currentCountryModel;}
+  CountryModel get currentCountry{return _currentCountryModel;}
 // -------------------------------------
   Future<void> getsetCurrentZoneAndCountry({@required BuildContext context, @required Zone zone}) async {
 
-    final Country _country = await fetchCountryByID(context: context, countryID: zone.countryID);
+    final CountryModel _country = await fetchCountryByID(context: context, countryID: zone.countryID);
 
     _currentZone = zone;
     _currentCountryModel = _country;
@@ -179,7 +179,7 @@ class ZoneProvider extends ChangeNotifier {
   }
 // -------------------------------------
   String getCityNameWithCurrentLingoIfPossible(BuildContext context, String cityID){
-    final City _city = currentCountry.cities.firstWhere((city) => city.cityID == cityID, orElse: ()=> null);
+    final CityModel _city = currentCountry.cities.firstWhere((city) => city.cityID == cityID, orElse: ()=> null);
 
     final String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(context, _city?.names);
 

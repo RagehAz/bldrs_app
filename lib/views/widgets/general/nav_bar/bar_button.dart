@@ -48,9 +48,6 @@ class BarButton extends StatelessWidget {
     final double _buttonHeight = _circleWidth + ( 2 * _paddings ) + _textBoxHeight;
     final double _buttonWidth = width;
 
-    // Color _designModeColor = Colorz.BloodTest;
-    const bool _designMode = false;
-
     return
       GestureDetector(
         onTap: (){
@@ -60,7 +57,6 @@ class BarButton extends StatelessWidget {
         child: Container(
           height: _buttonHeight,
           width: _buttonWidth,
-          // color: _designModeColor,
           padding: const EdgeInsets.symmetric(horizontal: _paddings * 0.25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -80,7 +76,6 @@ class BarButton extends StatelessWidget {
                 bubble: true,
                 color: Colorz.Nothing,
                 corners: _buttonCircleCorner,
-                designMode: _designMode,
                 onTap: onTap,
               )
                   :
@@ -103,7 +98,6 @@ class BarButton extends StatelessWidget {
                   weight: VerseWeight.thin,
                   shadow: true,
                   scaleFactor: _textScaleFactor,
-                  designMode: _designMode,
                 ),
               ),
 

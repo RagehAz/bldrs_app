@@ -8,7 +8,7 @@ import 'package:bldrs/models/zone/district_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
-import 'package:bldrs/views/screens/d_more/d_2_select_city_screen.dart';
+import 'package:bldrs/views/screens/d_more/d_1_select_country_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +23,16 @@ class ZoneButton extends StatelessWidget {
     this.isOn = false,
   });
 // -----------------------------------------------------------------------------
-  void _zoneButtonOnTap(BuildContext context){
-    // print('zone tapped');
-    Nav.goToNewScreen(context, SelectCityScreen());
+  Future<void> _zoneButtonOnTap(BuildContext context) async {
+
+    await Nav.goToNewScreen(context,
+        SelectCountryScreen()
+
+      //   /// but now we go to Egypt cities directly
+      // SelectCityScreen(countryID: 'egy',)
+
+    );
+
   }
 // -----------------------------------------------------------------------------
   @override
@@ -33,18 +40,18 @@ class ZoneButton extends StatelessWidget {
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
 
     final Zone _currentZone = _zoneProvider.currentZone;
-    final Country _currentCountry = _zoneProvider.currentCountry;
+    final CountryModel _currentCountry = _zoneProvider.currentCountry;
 
-    final String _countryName = Country.getTranslatedCountryNameByID(context: context, countryID: _currentCountry?.countryID);
+    final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _currentCountry?.countryID);
     final String _lastCountryFlag = Flag.getFlagIconByCountryID(_currentCountry?.countryID);
 
-    final String _cityName = City.getTranslatedCityNameFromCountry(
+    final String _cityName = CityModel.getTranslatedCityNameFromCountry(
         context: context,
         country: _currentCountry,
         cityID: _currentZone?.cityID,
     );
 
-    final String _districtName = District.getTranslatedDistrictNameFromCountry(
+    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCountry(
         context: context,
         country: _currentCountry,
         cityID: _currentZone?.cityID,

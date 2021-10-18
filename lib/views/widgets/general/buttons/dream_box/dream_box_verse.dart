@@ -362,7 +362,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                   color: blackAndWhite == true || inActiveMode == true ? Colorz.White30 : verseColor,
                   shadow: verseShadow != null ? verseShadow : blackAndWhite == true || inActiveMode == true ? false : true,
                   maxLines: verseMaxLines,
-                  designMode: false,
                   centered: icon == null ? true : false,
                   scaleFactor: iconSizeFactor * verseScaleFactor,
                   italic: verseItalic,

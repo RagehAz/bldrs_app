@@ -39,8 +39,6 @@ Widget build(BuildContext context) {
 
   final double _corners = Ratioz.boxCorner12;
 
-  final bool _designMode = false;
-
   final String _buttonTitle = Wordz.section(context) ;
 
   // double _btThirdsOfScreenWidth = (_screenWidth - (6*_abPadding))/3;
@@ -82,7 +80,6 @@ Widget build(BuildContext context) {
                     italic: true,
                     color: Colorz.Grey225,
                     weight: VerseWeight.thin,
-                    designMode: _designMode,
                     centered: false,
                   ),
                 ),
@@ -105,7 +102,6 @@ Widget build(BuildContext context) {
                         color: Colorz.White255,
                         weight: VerseWeight.bold,
                         scaleFactor: 1,
-                        designMode: _designMode,
                         centered: false,
                       ),
 

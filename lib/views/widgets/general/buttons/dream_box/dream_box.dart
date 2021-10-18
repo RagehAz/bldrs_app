@@ -50,7 +50,6 @@ class DreamBox extends StatelessWidget {
   final Function onTapUp;
   final Function onTapCancel;
   final TextDirection textDirection;
-  final bool designMode;
   final double blur;
   final Color secondLineColor;
   final bool redDot;
@@ -92,7 +91,6 @@ class DreamBox extends StatelessWidget {
     this.onTapUp,
     this.onTapCancel,
     this.textDirection,
-    this.designMode = false,
     this.blur,
     this.secondLineColor = Colorz.White255,
     this.redDot = false,

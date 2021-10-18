@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 class CountryOps{
 
 // -----------------------------------------------------------------------------
-  static Future<Country> readCountryOps({@required BuildContext context, @required String countryID}) async {
+  static Future<CountryModel> readCountryOps({@required BuildContext context, @required String countryID}) async {
 
     final Map<String, dynamic> _map = await Fire.readDoc(
       context: context,
-      collName: FireCollection.zones,
+      collName: FireColl.zones,
       docName: countryID,
     );
 
-    final Country _countryModel = Country.decipherCountryMap(map: _map, fromJSON: false);
+    final CountryModel _countryModel = CountryModel.decipherCountryMap(map: _map, fromJSON: false);
 
     return _countryModel;
   }
@@ -24,7 +24,7 @@ class CountryOps{
 
     final Map<String, dynamic> _map = await Fire.readDoc(
       context: context,
-      collName: FireCollection.admin,
+      collName: FireColl.admin,
       docName: 'continents',
     );
 

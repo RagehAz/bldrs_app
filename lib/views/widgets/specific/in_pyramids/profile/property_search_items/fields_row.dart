@@ -24,8 +24,6 @@ class FieldsRow extends StatelessWidget {
 
     const double _boxHeight = 35;
 
-    const bool _designMode = false;
-
     /// - ROW OF BUTTONS
     const double _buttonSpacing = Ratioz.appBarMargin * 2;
     final double _buttonsZoneWidth = (_screenWidth - (Ratioz.appBarMargin * 12));
@@ -50,7 +48,6 @@ class FieldsRow extends StatelessWidget {
             weight: VerseWeight.thin,
             color: Colorz.Blue225,
             shadow: true,
-            designMode: _designMode,
           ),
         ),
 

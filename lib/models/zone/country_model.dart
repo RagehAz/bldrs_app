@@ -10,7 +10,7 @@ import 'package:bldrs/models/zone/region_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class Country{
+class CountryModel{
   final String countryID;
   final String region;
   final String continent;
@@ -19,11 +19,11 @@ class Country{
   /// automatic switch when country reaches 'Global target' ~ 10'000 flyers
   /// then country flyers will be visible to other countries users 'bzz & users'
   final bool isGlobal;
-  final List<City> cities;
+  final List<CityModel> cities;
   final String language;
   final List<Name> names;
 
-  const Country({
+  const CountryModel({
     @required this.countryID,
     @required this.region,
     @required this.continent,
@@ -42,30 +42,30 @@ class Country{
       'continent' : continent,
       'isActivated' : isActivated,
       'isGlobal' : isGlobal,
-      'cities' : City.cipherCities(cities: cities, toJSON: toJSON),
+      'cities' : CityModel.cipherCities(cities: cities, toJSON: toJSON),
       'language' : language,
       'names': Name.cipherNames(names),
     };
   }
 // -----------------------------------------------------------------------------
-  static Country decipherCountryMap({@required Map<String, dynamic> map, @required bool fromJSON}){
+  static CountryModel decipherCountryMap({@required Map<String, dynamic> map, @required bool fromJSON}){
 
     final List<Name> _names = Name.decipherNames(map['names']);
 
-    return Country(
+    return CountryModel(
       countryID : map['countryID'],
       names : _names,
       region : map['region'],
       continent : map['continent'],
       isActivated : map['isActivated'],
       isGlobal : map['isGlobal'],
-      cities : City.decipherCitiesMap(map: map['cities'], fromJSON: fromJSON),
+      cities : CityModel.decipherCitiesMap(map: map['cities'], fromJSON: fromJSON),
       language : map['language'],
     );
   }
 // -----------------------------------------------------------------------------
-  static List<Country> decipherCountriesMaps({@required List<dynamic> maps, @required bool fromJSON}){
-    final List<Country> _countries = <Country>[];
+  static List<CountryModel> decipherCountriesMaps({@required List<dynamic> maps, @required bool fromJSON}){
+    final List<CountryModel> _countries = <CountryModel>[];
 
     if (Mapper.canLoopList(maps)){
       maps?.forEach((map) {
@@ -222,11 +222,29 @@ class Country{
     return _mapModels;
   }
 // -----------------------------------------------------------------------------
+  void printCountry({String methodName = 'PRINTING COUNTRY'}){
+
+    print('${methodName} ------------------------------------------- START');
+
+    print('countryID : ${countryID}');
+    print('region : ${region}');
+    print('continent : ${continent}');
+    print('isActivated : ${isActivated}');
+    print('isGlobal : ${isGlobal}');
+    print('cities : ${cities}');
+    print('language : ${language}');
+    print('names : ${names}');
+
+
+    print('${methodName} ------------------------------------------- END');
+
+  }
+
 }
 // -----------------------------------------------------------------------------
-class AmericanState extends Country {
+class AmericanState extends CountryModel {
   final String state;
-  final List<City> cities;
+  final List<CityModel> cities;
 
   AmericanState({
     @required this.state,
