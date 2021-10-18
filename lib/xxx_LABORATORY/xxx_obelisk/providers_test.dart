@@ -114,7 +114,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
               const Stratosphere(),
 
               WideButton(
-                  color: Colorz.Black255,
+                  color: Colorz.black255,
                   verse: 'print _usersProvider.myUserModel',
                   icon: Iconizer.valueIsNotNull(_myUserModel),
                   onTap: () async {
@@ -129,7 +129,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
               ),
 
               WideButton(
-                  color: Colorz.Black255,
+                  color: Colorz.black255,
                   verse: 'print _myUserModelStream',
                   icon: Iconizer.valueIsNotNull(_myUserModelStream),
                   onTap: () async {
@@ -146,7 +146,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
               ),
 
               WideButton(
-                  color: Colorz.Black255,
+                  color: Colorz.black255,
                   verse: 'print _currentZone',
                   icon: Iconizer.valueIsNotNull(_currentZone),
                   onTap: () async {

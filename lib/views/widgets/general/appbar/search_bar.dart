@@ -73,7 +73,7 @@ class _SearchBarState extends State<SearchBar> {
           Container(
             width: _historyButtonWidth,
             height: _historyButtonHeight,
-            color: Colorz.LinkedIn,
+            color: Colorz.linkedIn,
             alignment: Alignment.topLeft,
             child: BackAndSearchButton(
               backAndSearchAction: BackAndSearchAction.ShowHistory,
@@ -100,7 +100,7 @@ class _SearchBarState extends State<SearchBar> {
               width: _textFieldWidth,
               height: Ratioz.appBarButtonSize * 0.5,
               textController: _searchTextController,
-              labelColor: Colorz.Yellow255,
+              labelColor: Colorz.yellow255,
               centered: false,
               italic: true,
               keyboardTextInputType: TextInputType.text,
@@ -113,7 +113,7 @@ class _SearchBarState extends State<SearchBar> {
                 widget.onSearchChanged(val);
               },
               hintText: ' Search ... ',
-              inputColor: Colorz.Yellow255,
+              inputColor: Colorz.yellow255,
               inputSize: 2,
               inputShadow: false,
               inputWeight: VerseWeight.thin,

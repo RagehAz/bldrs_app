@@ -89,7 +89,7 @@ class TabLayout extends StatelessWidget {
                   length: tabModels.length,
                   child: SliverAppBar(
                     collapsedHeight: Ratioz.stratosphere,
-                    backgroundColor: Colorz.BlackSemi230,
+                    backgroundColor: Colorz.blackSemi230,
                     leadingWidth: 0,
                     leading: Container(),
                     floating: true,
@@ -104,7 +104,7 @@ class TabLayout extends StatelessWidget {
                       indicatorPadding: const EdgeInsets.symmetric(vertical: 0),
                       indicatorWeight: 0,
                       indicator: BoxDecoration(
-                        color: Colorz.Yellow255,
+                        color: Colorz.yellow255,
                         borderRadius: Borderers.superBorderAll(context, Ratioz.boxCorner12 + 2.5),
 
                       ),

@@ -24,7 +24,7 @@ class DreamBoxHighlight extends StatelessWidget {
           borderRadius: BorderRadius.circular(Borderers.getCornersAsDouble(corners) - (height * 0.8) ),
           boxShadow: <BoxShadow>[
             CustomBoxShadow(
-                color: Colorz.White50,
+                color: Colorz.white50,
                 offset: new Offset(0, height * -0.33),
                 blurRadius: height * 0.2,
                 blurStyle: BlurStyle.normal

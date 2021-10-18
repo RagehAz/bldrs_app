@@ -62,11 +62,11 @@ class DreamBox extends StatelessWidget {
     this.icon,
     this.iconFile,
     this.iconSizeFactor = 1,
-    this.color = Colorz.Nothing,
+    this.color = Colorz.nothing,
     this.corners = Ratioz.boxCorner12,
     this.iconColor,
     this.verse,
-    this.verseColor = Colorz.White255,
+    this.verseColor = Colorz.white255,
     this.verseWeight = VerseWeight.bold,
     this.verseScaleFactor = 1,
     this.verseShadow,
@@ -84,15 +84,15 @@ class DreamBox extends StatelessWidget {
     this.opacity = 1,
     this.inActiveMode = false,
     this.underLine,
-    this.splashColor = Colorz.White80,
-    this.underLineColor = Colorz.White255,
+    this.splashColor = Colorz.white80,
+    this.underLineColor = Colorz.white255,
     this.underLineShadowIsOn = true,
     this.onTapDown,
     this.onTapUp,
     this.onTapCancel,
     this.textDirection,
     this.blur,
-    this.secondLineColor = Colorz.White255,
+    this.secondLineColor = Colorz.white255,
     this.redDot = false,
     this.secondLineScaleFactor = 1,
     this.loading = false,
@@ -105,7 +105,7 @@ class DreamBox extends StatelessWidget {
     final Color _colorOverride = colorOverride == null ? null : colorOverride;
 
     final Color _iconColor =
-    _blackAndWhite == true || _inActiveMode == true ? Colorz.White30 :
+    _blackAndWhite == true || _inActiveMode == true ? Colorz.white30 :
     _colorOverride;
 
     return _iconColor;
@@ -132,10 +132,10 @@ class DreamBox extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static Color boxColor({bool blackAndWhite, Color color}){
     return
-      (blackAndWhite == true && color != Colorz.Nothing) ?
-      Colorz.Grey80 :
-      (color == Colorz.Nothing && blackAndWhite == true) ?
-      Colorz.Nothing :
+      (blackAndWhite == true && color != Colorz.nothing) ?
+      Colorz.grey80 :
+      (color == Colorz.nothing && blackAndWhite == true) ?
+      Colorz.nothing :
       color;
   }
 // -----------------------------------------------------------------------------
@@ -143,7 +143,7 @@ class DreamBox extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     final Color _imageSaturationColor =
-        blackAndWhite == true ? Colorz.Grey225 : Colorz.Nothing;
+        blackAndWhite == true ? Colorz.grey225 : Colorz.nothing;
 // -----------------------------------------------------------------------------
 //     double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
 // -----------------------------------------------------------------------------
@@ -249,7 +249,7 @@ class DreamBox extends StatelessWidget {
                 height: height,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: inActiveMode == true ? Colorz.White10 : _boxColor,
+                    color: inActiveMode == true ? Colorz.white10 : _boxColor,
                     borderRadius: _cornersAsBorderRadius,
                     boxShadow: <CustomBoxShadow>[
                       // CustomBoxShadow(

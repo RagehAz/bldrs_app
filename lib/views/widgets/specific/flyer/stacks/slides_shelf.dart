@@ -40,7 +40,7 @@ class SlidesShelf extends StatelessWidget {
     final BorderRadius _flyerBorderRadius = Borderers.superFlyerCorners(context, _flyerZoneWidth);
     final BoxDecoration _flyerDecoration = BoxDecoration(
       borderRadius: _flyerBorderRadius,
-      color: Colorz.White10,
+      color: Colorz.white10,
     );
 
     final double _titleZoneHeight = _flyerZoneWidth * 0.5;
@@ -108,8 +108,8 @@ class SlidesShelf extends StatelessWidget {
                             SuperVerse(
                               verse: '${index + 1}',
                               size: 1,
-                              color: Colorz.White200,
-                              labelColor: Colorz.White10,
+                              color: Colorz.white200,
+                              labelColor: Colorz.white10,
                             ) : Container(),
                           ),
 
@@ -160,7 +160,7 @@ class SlidesShelf extends StatelessWidget {
                                         width: _flyerZoneWidth * 0.5,
                                         icon: Iconz.Plus,
 
-                                        iconColor: Colorz.White20,
+                                        iconColor: Colorz.white20,
                                         bubble: false,
                                         onTap: null,//() => _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth),
                                       ),
@@ -174,7 +174,7 @@ class SlidesShelf extends StatelessWidget {
                                         child: SuperVerse(
                                           verse: 'Add Photos',
                                           size: 2,
-                                          color: Colorz.White20,
+                                          color: Colorz.white20,
                                           maxLines: 2,
                                         ),
                                       ),

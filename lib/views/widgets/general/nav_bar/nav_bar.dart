@@ -125,7 +125,7 @@ class NavBar extends StatelessWidget {
                       iconSizeFactor: 1,
                       verseScaleFactor: 0.7,
                       bubble: true,
-                      color: Colorz.Nothing,
+                      color: Colorz.nothing,
                       verseCentered: false,
                       onTap: () async {
                         print('${_bzModel.bzID}');
@@ -202,7 +202,7 @@ class NavBar extends StatelessWidget {
                          DreamBox(
                            height: _circleWidth,
                            width: _circleWidth,
-                           color: sky == Sky.Black ? Colorz.Yellow50 : Colorz.White20,
+                           color: sky == Sky.Black ? Colorz.yellow50 : Colorz.white20,
                            corners: _buttonCircleCorner,
                            margins: const EdgeInsets.all(Ratioz.appBarPadding),
                            icon: Iconizer.superBackIcon(context),
@@ -217,7 +217,7 @@ class NavBar extends StatelessWidget {
                          width: _boxWidth,
                          height: _boxHeight,
                          decoration: BoxDecoration(
-                           color: Colorz.Black230,
+                           color: Colorz.black230,
                            borderRadius: _boxCorners,
                            boxShadow: Shadowz.appBarShadow,
                          ),

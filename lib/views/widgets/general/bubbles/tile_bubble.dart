@@ -26,9 +26,9 @@ class TileBubble extends StatelessWidget {
   const TileBubble({
     @required this.verse,
     @required this.icon,
-    this.iconBoxColor = Colorz.Nothing,
+    this.iconBoxColor = Colorz.nothing,
     this.iconSizeFactor = 0.6,
-    this.verseColor = Colorz.White255,
+    this.verseColor = Colorz.white255,
     this.btOnTap,
     this.secondLine,
     this.switchIsOn,
@@ -61,7 +61,7 @@ class TileBubble extends StatelessWidget {
 
     return Bubble(
       bubbleOnTap: btOnTap,
-      bubbleColor: Colorz.White20,
+      bubbleColor: Colorz.white20,
       columnChildren: <Widget>[
 
         Row(
@@ -114,7 +114,7 @@ class TileBubble extends StatelessWidget {
                   if (secondLine != null)
                   SuperVerse(
                     verse: secondLine,
-                    color: Colorz.White200,
+                    color: Colorz.white200,
                     size: 2,
                     scaleFactor: 0.75,
                     italic: true,
@@ -136,11 +136,11 @@ class TileBubble extends StatelessWidget {
               width: _switchButtonWidth,
               height: 35,
               child: Switch(
-                activeColor: Colorz.Yellow255,
-                activeTrackColor: Colorz.Yellow80,
-                focusColor: Colorz.DarkBlue,
-                inactiveThumbColor: Colorz.Grey225,
-                inactiveTrackColor: Colorz.Grey80,
+                activeColor: Colorz.yellow255,
+                activeTrackColor: Colorz.yellow80,
+                focusColor: Colorz.darkBlue,
+                inactiveThumbColor: Colorz.grey225,
+                inactiveTrackColor: Colorz.grey80,
                 value: switchIsOn,
                 onChanged: (val) => switching(val),
               ),
@@ -179,7 +179,7 @@ class TileBubble extends StatelessWidget {
                 width: childWidth(context),
                 // height: 200,
                 decoration: BoxDecoration(
-                  color: Colorz.White10,
+                  color: Colorz.white10,
                   borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue)
                 ),
                 alignment: Alignment.center,

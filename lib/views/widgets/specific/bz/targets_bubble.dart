@@ -59,7 +59,7 @@ class TargetsBubble extends StatelessWidget {
           maxLines: 10,
           centered: false,
           margin: 5,
-          color: Colorz.Yellow255,
+          color: Colorz.yellow255,
           weight: VerseWeight.thin,
         ),
 
@@ -77,7 +77,7 @@ class TargetsBubble extends StatelessWidget {
             Container(
               width: _bubbleClearWidth,
               decoration: BoxDecoration(
-                color: Colorz.White10,
+                color: Colorz.white10,
                 borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue),
               ),
               margin: EdgeInsets.only(bottom: 5),
@@ -105,7 +105,7 @@ class TargetsBubble extends StatelessWidget {
                           weight: VerseWeight.bold,
                           italic: false,
                           margin: 5,
-                          color: Colorz.Yellow255,
+                          color: Colorz.yellow255,
                         ),
                       ),
 
@@ -131,7 +131,7 @@ class TargetsBubble extends StatelessWidget {
                                     height: _barHeight,
                                     margin: _barMargin,
                                     decoration: BoxDecoration(
-                                      color: Colorz.White20,
+                                      color: Colorz.white20,
                                       borderRadius: Borderers.superBorderAll(context, 3),
                                     ),
 
@@ -145,7 +145,7 @@ class TargetsBubble extends StatelessWidget {
                                       height: _barHeight,
                                       margin: _barMargin,
                                       decoration: BoxDecoration(
-                                        color: Colorz.Yellow255,
+                                        color: Colorz.yellow255,
                                         borderRadius: Borderers.superBorderAll(context, 3),
                                       ),
 
@@ -162,7 +162,7 @@ class TargetsBubble extends StatelessWidget {
                                       size: 1,
                                       weight: VerseWeight.bold,
                                       scaleFactor: 0.8,
-                                      color: Colorz.Black255,
+                                      color: Colorz.black255,
                                       centered: false,
                                     ),
                                   ),
@@ -242,7 +242,7 @@ class TargetsBubble extends StatelessWidget {
                           margin: 2,
                           weight: VerseWeight.thin,
                           italic: true,
-                          color: Colorz.Blue225,
+                          color: Colorz.blue225,
                         );
 
                   }),
@@ -255,8 +255,8 @@ class TargetsBubble extends StatelessWidget {
                       verse: 'CLAIM',
                       verseWeight: VerseWeight.black,
                       verseItalic: true,
-                      color: Colorz.Yellow255,
-                      verseColor: Colorz.Black255,
+                      color: Colorz.yellow255,
+                      verseColor: Colorz.black255,
                       onTap: () async {
 
                         _onClaimTap(

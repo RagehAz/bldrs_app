@@ -55,7 +55,7 @@ class DreamBoxUnderLine extends StatelessWidget {
             Container(
               width: width,
               height: _underlineHeightXXX,
-              color: Colorz.Black10,
+              color: Colorz.black10,
               child: SuperVerse(
                 verse: underLine,
                 color: underLineColor,

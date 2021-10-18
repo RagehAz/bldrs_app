@@ -18,7 +18,7 @@ class WideButton extends StatelessWidget {
     this.icon,
     this.isActive = true,
     this.color,
-    this.verseColor = Colorz.White255,
+    this.verseColor = Colorz.white255,
   });
 
   @override

@@ -809,7 +809,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       context: context,
       verse: _superFlyer.rec.ankhIsOn == true ? 'Flyer is unsaved' : 'Flyer saved',
       // secondLine: 'Allows users to follow your account',
-      color: _superFlyer.rec.ankhIsOn == true ? Colorz.Grey225 : Colorz.Yellow255,
+      color: _superFlyer.rec.ankhIsOn == true ? Colorz.grey225 : Colorz.yellow255,
     );
 
     setState(() {
@@ -1026,7 +1026,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                           // onChanged: textFieldOnChanged,
                           width: _dialogClearWidth,
                           hintText: '...',
-                          fieldColor: Colorz.White20,
+                          fieldColor: Colorz.white20,
                           corners: _dialogInnerCorners,
                           // margin: EdgeInsets.only(top: (_dialogClearWidth * 0.3), left: 5, right: 5),
                           maxLines: 10,
@@ -1082,8 +1082,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                           height: 40,
                           verse: _existingReview == null ? 'Add Review' : 'Edit Review',
                           verseScaleFactor: 0.6,
-                          color: Colorz.Yellow255,
-                          verseColor: Colorz.Black255,
+                          color: Colorz.yellow255,
+                          verseColor: Colorz.black255,
                           verseShadow: false,
                           verseWeight: VerseWeight.bold,
                           inActiveMode: !_canUploadReview,
@@ -1137,8 +1137,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     const double _spacing = Ratioz.appBarMargin;
     final double _buttonWidth = (_dialogClearWidth - ((_numberOfButtons + 1) * _spacing) ) / _numberOfButtons;
 
-    const Color _buttonColor = Colorz.White20;
-    const Color _verseColor = Colorz.White255;
+    const Color _buttonColor = Colorz.white20;
+    const Color _verseColor = Colorz.white255;
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -1900,7 +1900,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               // onChanged: textFieldOnChanged,
               width: _dialogClearWidth,
               hintText: '...',
-              fieldColor: Colorz.White20,
+              fieldColor: Colorz.white20,
               corners: _dialogInnerCorners,
               // margin: EdgeInsets.only(top: (_dialogClearWidth * 0.3), left: 5, right: 5),
               maxLines: 10,

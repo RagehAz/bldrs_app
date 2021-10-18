@@ -178,9 +178,9 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
 
     //--------------------------------o
     _backgroundColorTween
-      ..begin = _tinyMode == true ? Colorz.Nothing :  Colorz.BlackSemi230
+      ..begin = _tinyMode == true ? Colorz.nothing :  Colorz.blackSemi230
       ..end = widget.superFlyer.mSlides == null || widget.superFlyer.mSlides.length == 0 ?
-      Colorz.BlackSemi230 : widget.superFlyer.mSlides[widget.superFlyer.currentSlideIndex].midColor;
+      Colorz.blackSemi230 : widget.superFlyer.mSlides[widget.superFlyer.currentSlideIndex].midColor;
 
     _headerCornerTween
       ..begin = Borderers.superHeaderCorners(context, false, widget.flyerBoxWidth)
@@ -270,7 +270,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                           alignment: Alignment.center,
                           padding: EdgeInsets.only(top: _headerLeftSpacerTween.value),
                           decoration: BoxDecoration(
-                            color: _tinyMode == true ? Colorz.White50 :  Colorz.Black80,
+                            color: _tinyMode == true ? Colorz.white50 :  Colorz.black80,
                             borderRadius: Borderers.superBorderOnly(
                               context: context,
                               enTopRight: _headerBorders.topRight.x,
@@ -371,7 +371,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
 
                         /// Bz name below logo
                         Container(
-                          color: Colorz.Black80,
+                          color: Colorz.black80,
                           child: BzPageHeadline(
                             flyerBoxWidth: widget.flyerBoxWidth,
                             bzPageIsOn: true,
@@ -447,7 +447,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
         width: widget.flyerBoxWidth,
         height: _slideHeightWithoutHeader,
         decoration: BoxDecoration(
-          color: Colorz.BloodTest,
+          color: Colorz.bloodTest,
           borderRadius: Borderers.superBorderOnly(
             context: context,
             enTopLeft: 0,

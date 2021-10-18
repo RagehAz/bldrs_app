@@ -13,7 +13,7 @@ class DialogButton extends StatelessWidget {
 
   const DialogButton({
     @required this.verse,
-    this.verseColor = Colorz.White255,
+    this.verseColor = Colorz.white255,
     this.width = 100,
     this.color,
     this.onTap,

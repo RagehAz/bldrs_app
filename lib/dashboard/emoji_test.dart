@@ -20,7 +20,7 @@ class EmojiTest extends StatelessWidget {
       child: Container(
         width: BottomDialog.dialogClearWidth(context),
         height: BottomDialog.dialogClearHeight(draggable: true, context: context, titleIsOn: true, overridingDialogHeight: 400),
-        color: Colorz.BloodTest,
+        color: Colorz.bloodTest,
         child: SuperVerse(
           verse: '$index : ${emo.code}',
 

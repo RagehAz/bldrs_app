@@ -78,14 +78,14 @@ class _FloatingDialogState extends State<FloatingDialog> {
           width: Bubble.clearWidth(context),
           height: 35,
           decoration: BoxDecoration(
-            color: Colorz.BloodTest,
+            color: Colorz.bloodTest,
             borderRadius: Borderers.superBorderOnly(context: context, enTopLeft: 10, enBottomLeft: 10, enBottomRight: 10, enTopRight: 10),
           ),
           child: DropdownButtonFormField(
             value: widget.list[0] ?? widget.list[0],
-            dropdownColor: Colorz.Blue225,
+            dropdownColor: Colorz.blue225,
             elevation: 0,
-            style: TextStyle(color: Colorz.Red255, ),
+            style: TextStyle(color: Colorz.red255, ),
             iconSize: 20,
             isExpanded: true,
             isDense: true,
@@ -95,15 +95,15 @@ class _FloatingDialogState extends State<FloatingDialog> {
             icon: DreamBox(height: 20, icon: Iconz.ArrowDown, bubble: false,),
             decoration: InputDecoration(
 
-              border: Borderers.superOutlineInputBorder(Colorz.Red255, 10),
+              border: Borderers.superOutlineInputBorder(Colorz.red255, 10),
               isDense: true,
               contentPadding: EdgeInsets.all(0),
               // labelText: 'label text',
               icon: DreamBox(height: 35, icon: Iconz.DvGouran,),
-              fillColor: Colorz.Blue225,
+              fillColor: Colorz.blue225,
               filled: true,
               enabled: true,
-              focusColor: Colorz.BloodTest,
+              focusColor: Colorz.bloodTest,
 
             ),
             items: widget.list.map((item){
@@ -111,7 +111,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
                 value: item,
                 onTap: (){print(item);},
                 child: SuperVerse(
-                  color: Colorz.Black230,
+                  color: Colorz.black230,
                   verse: item,
                 ),
               );

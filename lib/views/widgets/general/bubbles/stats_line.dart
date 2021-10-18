@@ -41,7 +41,7 @@ class StatsLine extends StatelessWidget {
         verseScaleFactor: verseScaleFactor,
         corners: _height * 0.15,
         bubble: false,
-        color: onTap == null ? null : Colorz.White20,
+        color: onTap == null ? null : Colorz.white20,
         onTap: onTap,
       ),
     );

@@ -120,7 +120,7 @@ class Balloona extends StatelessWidget {
     this.shadowIsOn = false,
     this.child,
     @required this.loading,
-    this.balloonColor = Colorz.White10,
+    this.balloonColor = Colorz.white10,
     this.blackAndWhite = false,
     this.userStatus = UserStatus.Normal,
   });
@@ -220,10 +220,10 @@ class BalloonComponents extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.elliptical(
                   balloonWidth * 0.8 * 0.5, balloonWidth * 0.7 * 0.8 * 0.5)),
-              color: Colorz.Nothing,
+              color: Colorz.nothing,
               boxShadow: <CustomBoxShadow>[
                 CustomBoxShadow(
-                    color: Colorz.White80,
+                    color: Colorz.white80,
                     offset: new Offset(0, balloonWidth * 0.5 * -0.5),
                     blurRadius: balloonWidth * 0.2,
                     blurStyle: BlurStyle.normal),

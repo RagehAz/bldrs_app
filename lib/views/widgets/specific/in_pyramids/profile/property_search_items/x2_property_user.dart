@@ -30,7 +30,7 @@ class PropertyUse extends StatelessWidget {
           centered: false,
           italic: true,
           weight: VerseWeight.thin,
-          color: Colorz.White255,
+          color: Colorz.white255,
           shadow: false,
         ),
 
@@ -45,7 +45,7 @@ class PropertyUse extends StatelessWidget {
               verse: 'For Sale',
               verseWeight: VerseWeight.regular,
               verseScaleFactor: 0.8,
-              color: Colorz.Blue80,
+              color: Colorz.blue80,
             ),
 
 

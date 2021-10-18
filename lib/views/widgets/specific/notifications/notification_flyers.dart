@@ -24,7 +24,7 @@ class NotificationFlyers extends StatelessWidget {
       width: bodyWidth,
       height: 20 + 200.0,
       decoration: BoxDecoration(
-        color: Colorz.White10,
+        color: Colorz.white10,
         borderRadius: Borderers.superFlyerCorners(context, FlyerBox.width(context, FlyerBox.sizeFactorByHeight(context, 220)),
         ),
       ),

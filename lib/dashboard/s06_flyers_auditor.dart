@@ -157,7 +157,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
           context: context,
           verse: 'Done',
           secondLine: 'flyer ${_currentFlyer.flyerID} got verified',
-          color: Colorz.Green255,
+          color: Colorz.green255,
           onTap: (){
             print('a77aaa ');
           }
@@ -620,7 +620,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
               Container(
                 width: _screenWidth,
                 height: _footerZoneHeight,
-                color: Colorz.White10,
+                color: Colorz.white10,
                 alignment: Alignment.center,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -630,7 +630,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                     /// AUDIT
                     AuditorButton(
                         verse: 'Audit',
-                        color: Colorz.Red255,
+                        color: Colorz.red255,
                         icon: Iconz.XSmall,
                         onTap: _onAudit,
                     ),
@@ -638,7 +638,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                     /// VERIFY
                     AuditorButton(
                       verse: 'Verify',
-                      color: Colorz.Green255,
+                      color: Colorz.green255,
                       icon: Iconz.Check,
                       onTap: _onVerify,
                     ),
@@ -682,7 +682,7 @@ class AuditorButton extends StatelessWidget {
       verse: verse,
       verseScaleFactor: 1.3,
       icon: icon,
-      iconColor: Colorz.White230,
+      iconColor: Colorz.white230,
       iconSizeFactor: 0.5,
       onTap: onTap,
       color: color,

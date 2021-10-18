@@ -13,7 +13,7 @@ class Colorizer{
     final Gradient slideGradient = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[Colorz.Black200, Colorz.Black0],
+        colors: <Color>[Colorz.black200, Colorz.black0],
         stops: <double>[0,0.90]
     );
     return slideGradient;
@@ -23,7 +23,7 @@ class Colorizer{
     final Gradient headerStripGradient = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[Colorz.Nothing, color],
+        colors: <Color>[Colorz.nothing, color],
         stops: <double>[0.3, 1]);
     return headerStripGradient;
   }
@@ -32,7 +32,7 @@ class Colorizer{
     final Gradient followBTGradient = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[Colorz.White50, Colorz.Nothing],
+        colors: <Color>[Colorz.white50, Colorz.nothing],
         stops: <double>[0, 0.5]
     );
     return followBTGradient;
@@ -49,7 +49,7 @@ class Colorizer{
   ///     colorFilter: superDesaturation(blackAndWhite),
   ///     child: ,
   static ColorFilter superDesaturation(bool isItBlackAndWhite){
-    final Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.Grey225 : Colorz.Nothing;
+    final Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.grey225 : Colorz.nothing;
     return ColorFilter.mode(
         imageSaturationColor,
         BlendMode.saturation
@@ -120,7 +120,7 @@ class Colorizer{
 // -----------------------------------------------------------------------------
   static String cipherColor(Color color){
 
-    final Color _color = color == null ? Colorz.Nothing : color;
+    final Color _color = color == null ? Colorz.nothing : color;
 
       final int _alpha = _color.alpha;
       final int _r = _color.red;
@@ -158,7 +158,7 @@ class Colorizer{
   static bool isBlack(Color color){
     bool _isBlack = false;
 
-    const Color _black = Colorz.Black255;
+    const Color _black = Colorz.black255;
 
     if (color !=null && color.red == _black.red && color.green == _black.green && color.blue == _black.blue){
       _isBlack = true;

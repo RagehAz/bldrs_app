@@ -30,10 +30,10 @@ class Bubble extends StatelessWidget {
   const Bubble({
     @required this.columnChildren,
     this.centered = false,
-    this.bubbleColor = Colorz.White20,
+    this.bubbleColor = Colorz.white20,
     this.stretchy = false,
     this.title,
-    this.titleColor = Colorz.White255,
+    this.titleColor = Colorz.white255,
     this.redDot = false,
     this.actionBtIcon,
     this.actionBtFunction,
@@ -133,10 +133,10 @@ class Bubble extends StatelessWidget {
       ),
       alignment: centered == true ? Alignment.center : Aligners.superCenterAlignment(context),
       child: Material(
-        color: Colorz.Nothing,
+        color: Colorz.nothing,
         child: InkWell(
           onTap: bubbleOnTap,
-          splashColor: Colorz.Yellow255,
+          splashColor: Colorz.yellow255,
           borderRadius: _corners,
           child: Padding(
             padding: const EdgeInsets.all(_pageMargin),

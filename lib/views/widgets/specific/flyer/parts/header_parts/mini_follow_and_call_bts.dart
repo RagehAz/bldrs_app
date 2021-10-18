@@ -101,7 +101,7 @@ class FollowBT extends StatelessWidget {
     final bool _isTinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth) ;
     const bool versesShadow = false;
     /// --- FOLLOW BUTTON
-    final Color followBTColor = followOn == true ? Colorz.Yellow255 : Colorz.White20;
+    final Color followBTColor = followOn == true ? Colorz.yellow255 : Colorz.white20;
     final double followBTHeight = flyerBoxWidth * Ratioz.xxfollowBTHeight;
     final double followBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
     // === === === === === === === === === === === === === === === === === ===
@@ -110,7 +110,7 @@ class FollowBT extends StatelessWidget {
     final double followIconHeight = followBTHeight * 0.5;
     final double followIconWidth = followIconHeight;
     final String followText = Wordz.follow(context);
-    final Color followTextColor = followOn == true ? Colorz.Black230 : Colorz.White255;
+    final Color followTextColor = followOn == true ? Colorz.black230 : Colorz.white255;
     // === === === === === === === === === === === === === === === === === ===
     // void followTap() {
     //   onFollowTap();
@@ -156,7 +156,7 @@ class FollowBT extends StatelessWidget {
                   Container(
                     height: followIconHeight,
                     width: followIconWidth,
-                    child: WebsafeSvg.asset(followIcon, color: followOn == true ? Colorz.Black230 : Colorz.White255),
+                    child: WebsafeSvg.asset(followIcon, color: followOn == true ? Colorz.black230 : Colorz.white255),
                   ),
 
                   /// FOLLOW TEXT
@@ -196,7 +196,7 @@ class CallBT extends StatelessWidget {
     const bool _versesShadow = false;
     final bool _isTinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
     /// call BUTTON
-    const Color _callBTColor = Colorz.White10;
+    const Color _callBTColor = Colorz.white10;
     final double _callBTHeight = flyerBoxWidth * Ratioz.xxCallBTHeight;
     final double _callBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
     /// call ICON
@@ -254,7 +254,7 @@ class CallBT extends StatelessWidget {
                   /// FLYERS TEXT
                   SuperVerse(
                     verse: Wordz.call(context),//'$callText',
-                    color: Colorz.White255,
+                    color: Colorz.white255,
                     italic: false,
                     size: 1,
                     centered: true,

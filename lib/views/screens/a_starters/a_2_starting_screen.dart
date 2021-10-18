@@ -148,8 +148,8 @@ class _StartingScreenState extends State<StartingScreen> {
               MainButton(
                 buttonVerse: Wordz.continueApple(context),
                 buttonIcon: Iconz.ComApple,
-                buttonColor: Colorz.Black230,
-                splashColor: Colorz.Yellow255,
+                buttonColor: Colorz.black230,
+                splashColor: Colorz.yellow255,
                 buttonVerseShadow: false,
                 function: Routez.Home,
                 stretched: false,
@@ -161,8 +161,8 @@ class _StartingScreenState extends State<StartingScreen> {
               MainButton(
                 buttonVerse: "Continue with Google",
                 buttonIcon: Iconz.ComGooglePlus,
-                buttonColor: Colorz.GoogleRed,
-                splashColor: Colorz.Yellow255,
+                buttonColor: Colorz.googleRed,
+                splashColor: Colorz.yellow255,
                 buttonVerseShadow: false,
                 function: () => _tapContinueWith(context, AuthBy.google),
                 stretched: false,
@@ -175,8 +175,8 @@ class _StartingScreenState extends State<StartingScreen> {
               MainButton(
                 buttonVerse: Wordz.continueFacebook(context),
                 buttonIcon: Iconz.ComFacebookWhite,
-                buttonColor: Colorz.Facebook,
-                splashColor: Colorz.Yellow255,
+                buttonColor: Colorz.facebook,
+                splashColor: Colorz.yellow255,
                 buttonVerseShadow: false,
                 function: () => _tapContinueWith(context, AuthBy.facebook),
                 stretched: false,
@@ -186,8 +186,8 @@ class _StartingScreenState extends State<StartingScreen> {
               MainButton(
                 buttonVerse: Wordz.continueEmail(context),
                 buttonIcon: Iconz.ComEmail,
-                buttonColor: Colorz.White10,
-                splashColor: Colorz.Yellow255,
+                buttonColor: Colorz.white10,
+                splashColor: Colorz.yellow255,
                 buttonVerseShadow: false,
                 function: () => Nav.goToNewScreen(context, AuthScreen()),
                 stretched: false,

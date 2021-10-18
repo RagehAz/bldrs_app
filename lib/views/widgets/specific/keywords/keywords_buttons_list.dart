@@ -46,7 +46,7 @@ class KeywordsButtonsList extends StatelessWidget {
               verseScaleFactor: 0.7,
               verseCentered: false,
               bubble: false,
-              color: Colorz.White20,
+              color: Colorz.white20,
               margins: const EdgeInsets.only(bottom: SubGroupTile.buttonVerticalPadding),
               onTap: () async {await onKeywordTap(_keyword);},
             );

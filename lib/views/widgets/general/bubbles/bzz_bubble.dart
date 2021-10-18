@@ -30,7 +30,7 @@ class BzzBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Bubble(
-      bubbleColor: Colorz.White10,
+      bubbleColor: Colorz.white10,
       corners: corners,
       columnChildren: <Widget>[
 

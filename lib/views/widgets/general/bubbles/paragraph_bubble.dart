@@ -101,7 +101,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
 
     final TextStyle _paragraphTextStyle = SuperVerse.createStyle(
       context: context,
-      color: Colorz.White255,
+      color: Colorz.white255,
       weight: VerseWeight.thin,
       size: 2,
       italic: false,

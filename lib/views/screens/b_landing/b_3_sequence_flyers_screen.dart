@@ -33,7 +33,7 @@ class SequenceFlyersScreen extends StatelessWidget {
       appBarRowWidgets: <Widget>[
 
         SectionsButton(
-          color: Colorz.Blue80,
+          color: Colorz.blue80,
           onTap: (){},
         ),
 

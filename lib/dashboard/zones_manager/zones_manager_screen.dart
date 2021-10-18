@@ -89,7 +89,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
 
           Bubble(
             centered: true,
-            bubbleColor: Colorz.White20,
+            bubbleColor: Colorz.white20,
             columnChildren: <Widget>[
 
               Container(

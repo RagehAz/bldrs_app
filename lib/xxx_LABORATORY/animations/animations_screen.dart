@@ -128,8 +128,8 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           
           InkWell(
             onTap: resizeBox,
-            highlightColor: Colorz.Yellow255,
-            splashColor: Colorz.Blue225,
+            highlightColor: Colorz.yellow255,
+            splashColor: Colorz.blue225,
 
             child: Center(
               child: RotationTransition(
@@ -144,7 +144,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                     width: width,
                     height: height,
                     margin: EdgeInsets.only(top: condition() == true ? 0 : Ratioz.stratosphere),
-                    color: condition() == true ? Colorz.Red255 : Colorz.Yellow255,
+                    color: condition() == true ? Colorz.red255 : Colorz.yellow255,
                     child: Stack(
                       alignment: Alignment.center,
                       children: <Widget>[
@@ -173,16 +173,16 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           Container(
             width: screenWidth,
             height: screenWidth,
-            color: Colorz.Black230,
+            color: Colorz.black230,
             alignment: Alignment.center,
             child: DreamBox(
               width: 200,
               height: 200,
               icon: Iconz.Clock,
-              color: Colorz.Yellow255,
-              splashColor: Colorz.DarkRed125,
+              color: Colorz.yellow255,
+              splashColor: Colorz.darkRed125,
               underLine: 'Ripple Effect\n Works Now',
-              underLineColor: Colorz.Black230,
+              underLineColor: Colorz.black230,
               onTap: (){
                 print('ripple effect works now');
                 Navigator.push(context,
@@ -216,7 +216,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           Container(
             width: screenWidth,
             height: screenWidth,
-            color: Colorz.Blue80,
+            color: Colorz.blue80,
             alignment: Alignment.center,
             child: GestureDetector(
               onTap: (){
@@ -318,7 +318,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                   width: btWidth,
                   height: btWidth,
                   decoration: BoxDecoration(
-                    color: Colorz.Yellow80,
+                    color: Colorz.yellow80,
                     image: DecorationImage(image: AssetImage(Iconz.DumAuthorPic), fit: BoxFit.fitHeight),
                     borderRadius: Borderers.superBorderOnly(context: context, enTopLeft: btCorner, enBottomLeft: btCorner, enBottomRight: btCorner, enTopRight: btCorner),
                   ),
@@ -356,7 +356,7 @@ class TweenTest extends StatelessWidget {
     return Container(
       width: screenWidth,
       height: screenWidth * 0.5,
-      color: Colorz.BloodTest,
+      color: Colorz.bloodTest,
       alignment: Alignment.topCenter,
       child: TweenAnimationBuilder(
         child: SuperVerse(

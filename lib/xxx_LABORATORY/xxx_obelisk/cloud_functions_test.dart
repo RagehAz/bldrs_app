@@ -100,7 +100,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
         DreamBox(
             height: 40,
             width: 150,
-            color: Colorz.Yellow255,
+            color: Colorz.yellow255,
             verse: 'call a cloud function callable_sayHello',
             verseMaxLines: 2,
             verseScaleFactor: 0.6,

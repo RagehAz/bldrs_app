@@ -111,7 +111,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
           height: 40,
           iconSizeFactor: 0.5,
           icon: Iconz.Clock,
-          color: Colorz.Blue20,
+          color: Colorz.blue20,
           corners: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
           margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           onTap: (){
@@ -132,7 +132,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
           verse: 'No new Notifications',
           weight: VerseWeight.thin,
           italic: true,
-          color: Colorz.White20,
+          color: Colorz.white20,
         ),
       )
 
