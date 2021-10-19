@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 class ExpandingTile extends StatefulWidget {
   final double width;
+  final double collapsedHeight;
   final double maxHeight;
 
   final bool scrollable;
@@ -23,9 +24,12 @@ class ExpandingTile extends StatefulWidget {
   final Color expansionColor;
   final double corners;
   final Widget child;
+  final bool inActiveMode;
+  final Key key;
 
   const ExpandingTile({
     this.width,
+    this.collapsedHeight,
     this.maxHeight,
 
     this.scrollable = true,
@@ -42,6 +46,8 @@ class ExpandingTile extends StatefulWidget {
     this.expansionColor,
     this.corners,
     @required this.child,
+    this.inActiveMode = false,
+    this.key,
   });
 
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
@@ -102,7 +108,17 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
   }
 // -----------------------------------------------------------------------------
   void toggle() {
-    _setExpanded(!_isExpanded);
+
+    if (widget.inActiveMode == false){
+      _setExpanded(!_isExpanded);
+    }
+
+    else {
+      if (widget.onTap != null) {
+        widget.onTap(_isExpanded);
+      }
+    }
+
   }
 // -----------------------------------------------------------------------------
   void _setExpanded(bool isExpanded) {
@@ -148,6 +164,8 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
     // final double _iconSize = SubGroupTile.calculateTitleIconSize(icon: widget.icon);
     //------------------------------------------------------------o
     return Container(
+      // height: widget.height,
+      key: widget.key,
       width: widget.width,
       alignment: Alignment.topCenter,
       child: new AnimatedBuilder(
@@ -164,12 +182,13 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
             CollapsedTile(
               tileWidth: widget.width,
               marginIsOn: false,
-              collapsedHeight: ExpandingTile.collapsedGroupHeight,
+              collapsedHeight: widget.collapsedHeight ?? ExpandingTile.collapsedGroupHeight,
               tileColor: _tileColor,
               corners: widget.corners ?? ExpandingTile.cornersValue,
               firstHeadline: widget.firstHeadline,
               secondHeadline: widget.secondHeadline,
               icon: widget.icon,
+              iconSizeFactor: widget.iconSizeFactor,
               arrowColor: _headlineColor,
               arrowTurns: _arrowTurns,
               toggleExpansion: toggle,

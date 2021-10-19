@@ -5,7 +5,6 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_bubble.dart';
-import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_button.dart';
 import 'package:bldrs/views/widgets/general/expansion_tiles/section_tile.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -31,7 +30,6 @@ class DrawerDialog extends StatelessWidget {
     final double _drawerHeight = Scale.superScreenHeight(context);
 
     final double _bubbleWidth = _drawerWidth - (Ratioz.appBarMargin * 2);
-    final double dialogHeight = _drawerHeight;
 
     return Container(
       width: _drawerWidth,

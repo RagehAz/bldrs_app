@@ -52,15 +52,15 @@ class SubGroupTile extends StatefulWidget {
     return collapsedTileHeight + buttonVerticalPadding;
   }
 // -----------------------------------------------------------------------------
-  static double calculateTitleIconSize({String icon}){
-     final double _iconSize = icon == null ? 0 : GroupTile.collapsedGroupHeight;
+  static double calculateTitleIconSize({@required String icon, @required collapsedHeight}){
+     final double _iconSize = icon == null ? 0 : collapsedHeight ?? GroupTile.collapsedGroupHeight;
      return _iconSize;
   }
 // -----------------------------------------------------------------------------
-  static double calculateTitleBoxWidth({double tileWidth, String icon, double buttonHeight}){
-    final double _iconSize = calculateTitleIconSize(icon: icon);
+  static double calculateTitleBoxWidth({@required double tileWidth, @required String icon, @required double collapsedHeight}){
+    final double _iconSize = calculateTitleIconSize(icon: icon, collapsedHeight: collapsedHeight);
         /// arrow size is button height but differs between groupTile and subGroupTile
-    final double _titleZoneWidth = tileWidth - _iconSize - buttonHeight;
+    final double _titleZoneWidth = tileWidth - _iconSize - collapsedHeight;
     return _titleZoneWidth;
   }
 // -----------------------------------------------------------------------------

@@ -24,6 +24,7 @@ class CollapsedTile extends StatelessWidget {
   final double corners;
   final double iconCorners;
   final bool marginIsOn;
+  final double iconSizeFactor;
 
   const CollapsedTile({
     @required this.toggleExpansion,
@@ -40,11 +41,13 @@ class CollapsedTile extends StatelessWidget {
     @required this.corners,
     this.iconCorners,
     this.marginIsOn = true,
+    this.iconSizeFactor = 1,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      // height: collapsedHeight, // this block expansion
       width: tileWidth,
       margin: marginIsOn == true ? const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin) : null,
       decoration: BoxDecoration(
@@ -60,7 +63,7 @@ class CollapsedTile extends StatelessWidget {
             onTap: toggleExpansion,
             child: Container(
               width: tileWidth,
-              color: Colorz.nothing, // do no delete this,, it makes GestureDetector tappable
+              color: Colorz.nothing, /// do no delete this,, it adjusts GestureDetector tapping area
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,17 +72,18 @@ class CollapsedTile extends StatelessWidget {
                   /// Icon
                   if (icon != null)
                     DreamBox(
-                      height: GroupTile.collapsedGroupHeight,
-                      width: SubGroupTile.calculateTitleIconSize(icon: icon),
+                      height: SubGroupTile.calculateTitleIconSize(icon: icon, collapsedHeight: collapsedHeight),
+                      width: SubGroupTile.calculateTitleIconSize(icon: icon, collapsedHeight: collapsedHeight),
                       icon: icon,
+                      iconSizeFactor: iconSizeFactor,
                       corners: iconCorners ?? ExpandingTile.cornersValue,
                     ),
 
                   /// Tile title
                   Container(
-                    width: SubGroupTile.calculateTitleBoxWidth(buttonHeight: collapsedHeight, tileWidth: tileWidth, icon: icon),
-                    height: GroupTile.collapsedGroupHeight,
-                    padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                    width: SubGroupTile.calculateTitleBoxWidth(collapsedHeight: collapsedHeight ??  GroupTile.collapsedGroupHeight, tileWidth: tileWidth, icon: icon),
+                    height: collapsedHeight ?? GroupTile.collapsedGroupHeight,
+                    padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,6 +96,7 @@ class CollapsedTile extends StatelessWidget {
                           italic: false,
                           size: 2,
                           centered: false,
+                          maxLines: 2,
                         ),
 
                         /// SECOND HEADLINE
@@ -113,8 +118,8 @@ class CollapsedTile extends StatelessWidget {
                   new RotationTransition(
                     turns: arrowTurns,
                     child: DreamBox(
-                      height: collapsedHeight,
-                      width: collapsedHeight,
+                      height: SubGroupTile.calculateTitleIconSize(icon: icon, collapsedHeight: collapsedHeight),
+                      width: SubGroupTile.calculateTitleIconSize(icon: icon, collapsedHeight: collapsedHeight),
                       bubble: false,
                       icon: Iconz.ArrowDown,
                       iconSizeFactor: 0.2,
