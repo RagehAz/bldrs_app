@@ -46,6 +46,10 @@ class CollapsedTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final double _arrowBoxSize = collapsedHeight ?? GroupTile.collapsedGroupHeight;
+    final double _titlePadding = icon == null ? Ratioz.appBarMargin * 2 : Ratioz.appBarMargin ;
+
     return Container(
       // height: collapsedHeight, // this block expansion
       width: tileWidth,
@@ -83,7 +87,8 @@ class CollapsedTile extends StatelessWidget {
                   Container(
                     width: SubGroupTile.calculateTitleBoxWidth(collapsedHeight: collapsedHeight ??  GroupTile.collapsedGroupHeight, tileWidth: tileWidth, icon: icon),
                     height: collapsedHeight ?? GroupTile.collapsedGroupHeight,
-                    padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                    padding: EdgeInsets.symmetric(horizontal: _titlePadding),
+                    // color: Colorz.bloodTest,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,8 +123,8 @@ class CollapsedTile extends StatelessWidget {
                   new RotationTransition(
                     turns: arrowTurns,
                     child: DreamBox(
-                      height: SubGroupTile.calculateTitleIconSize(icon: icon, collapsedHeight: collapsedHeight),
-                      width: SubGroupTile.calculateTitleIconSize(icon: icon, collapsedHeight: collapsedHeight),
+                      height: _arrowBoxSize,
+                      width: _arrowBoxSize,
                       bubble: false,
                       icon: Iconz.ArrowDown,
                       iconSizeFactor: 0.2,
