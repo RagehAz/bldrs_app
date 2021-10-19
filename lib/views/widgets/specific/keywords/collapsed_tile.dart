@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart';
 import 'package:bldrs/views/widgets/specific/keywords/group_expansion_tile.dart';
 import 'package:bldrs/views/widgets/specific/keywords/sub_group_expansion_tile.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -21,6 +22,7 @@ class CollapsedTile extends StatelessWidget {
   final double expandableHeightFactorAnimationValue;
   final Color tileColor;
   final double corners;
+  final double iconCorners;
 
   const CollapsedTile({
     @required this.toggleExpansion,
@@ -35,6 +37,7 @@ class CollapsedTile extends StatelessWidget {
     @required this.expandableHeightFactorAnimationValue,
     @required this.tileColor,
     @required this.corners,
+    this.iconCorners,
   });
 
   @override
@@ -66,6 +69,7 @@ class CollapsedTile extends StatelessWidget {
                       height: GroupTile.collapsedGroupHeight,
                       width: SubGroupTile.calculateTitleIconSize(icon: icon),
                       icon: icon,
+                      corners: iconCorners ?? ExpandingTile.cornersValue,
                     ),
 
                   /// Tile title

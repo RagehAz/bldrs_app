@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/specific/keywords/collapsed_tile.dart';
+import 'package:bldrs/views/widgets/specific/keywords/group_expansion_tile.dart';
 import 'package:bldrs/views/widgets/specific/keywords/keywords_buttons_list.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class SubGroupTile extends StatefulWidget {
   }
 // -----------------------------------------------------------------------------
   static double calculateTitleIconSize({String icon}){
-     final double _iconSize = icon == null ? 0 : 40;
+     final double _iconSize = icon == null ? 0 : GroupTile.collapsedGroupHeight;
      return _iconSize;
   }
 // -----------------------------------------------------------------------------

@@ -224,4 +224,46 @@ class Borderers {
     return _cornerBorders;
   }
 // -----------------------------------------------------------------------------
+  static BorderRadius superOneSideBorders({@required BuildContext context, @required AxisDirection side, @required double corner}){
+
+    switch (side){
+
+      case AxisDirection.up : return superBorderOnly(
+        context: context,
+        enTopLeft: corner,
+        enTopRight: corner,
+        enBottomLeft: 0,
+        enBottomRight: 0,
+      ); break;
+
+      case AxisDirection.down : return superBorderOnly(
+        context: context,
+        enTopLeft: 0,
+        enTopRight: 0,
+        enBottomLeft: corner,
+        enBottomRight: corner,
+      ); break;
+
+      case AxisDirection.right : return superBorderOnly(
+        context: context,
+        enTopLeft: 0,
+        enTopRight: corner,
+        enBottomLeft: 0,
+        enBottomRight: corner,
+      ); break;
+
+      case AxisDirection.left : return superBorderOnly(
+        context: context,
+        enTopLeft: corner,
+        enTopRight: 0,
+        enBottomLeft: corner,
+        enBottomRight: 0,
+      ); break;
+
+      default : return null;
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
 }

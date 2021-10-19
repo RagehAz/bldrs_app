@@ -1,46 +1,58 @@
-import 'package:bldrs/controllers/localization/localizer.dart';
-import 'package:bldrs/controllers/localization/lingo.dart';
+import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/group_model.dart';
-import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:bldrs/views/widgets/specific/keywords/collapsed_tile.dart';
-import 'package:bldrs/views/widgets/specific/keywords/keywords_buttons_list.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/views/widgets/specific/keywords/sub_group_expansion_tile.dart';
+import 'package:flutter/material.dart';
 
 class ExpandingTile extends StatefulWidget {
-  final double tileWidth;
-  final double tileMaxHeight;
+  final double width;
+  final double maxHeight;
 
   final bool scrollable;
 
   final String icon;
   final double iconSizeFactor;
-  final GroupModel group;
-  final Function onKeywordTap;
-  final ValueChanged<bool> onGroupTap;
+  final ValueChanged<bool> onTap;
   final bool initiallyExpanded;
-  final List<Keyword> selectedKeywords;
+
+  final String firstHeadline;
+  final String secondHeadline;
+
+  final Color initialColor;
+  final Color expansionColor;
+  final double corners;
+  final Widget child;
 
   const ExpandingTile({
-    this.tileWidth,
-    this.tileMaxHeight,
+    this.width,
+    this.maxHeight,
 
     this.scrollable = true,
 
     this.icon,
     this.iconSizeFactor = 1,
-    @required this.group,
-    @required this.selectedKeywords,
-    @required this.onKeywordTap,
-    this.onGroupTap,
+    this.onTap,
     this.initiallyExpanded: false,
+
+    @required this.firstHeadline,
+    @required this.secondHeadline,
+
+    this.initialColor = Colorz.white10,
+    this.expansionColor,
+    this.corners,
+    @required this.child,
   });
 
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
   static const double arrowBoxSize = SubGroupTile.arrowBoxSize;
+  static const double cornersValue = Ratioz.appBarCorner + Ratioz.appBarPadding;
+  static const Color collapsedColor = Colorz.white10;
+  static const Color expandedColor = Colorz.blue80;
+
+  static BorderRadius borders(BuildContext context){
+    return Borderers.superBorderAll(context, cornersValue);
+  }
 
   @override
   ExpandingTileState createState() => new ExpandingTileState();
@@ -107,8 +119,8 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
           });
         PageStorage.of(context)?.writeState(context, _isExpanded);
       });
-      if (widget.onGroupTap != null) {
-        widget.onGroupTap(_isExpanded);
+      if (widget.onTap != null) {
+        widget.onTap(_isExpanded);
       }
     }
   }
@@ -122,8 +134,8 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
       ..begin = Colorz.white255
       ..end = Colorz.white255;
     _tileColorTween
-      ..begin = Colorz.white10
-      ..end = Colorz.blue80;
+      ..begin = widget.initialColor ?? ExpandingTile.collapsedColor
+      ..end = widget.expansionColor ?? ExpandingTile.expandedColor;
     _subtitleLabelColorTween
       ..begin = Colorz.white10
       ..end = Colorz.white10;
@@ -135,100 +147,47 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
     //------------------------------------------------------------o
     // final double _iconSize = SubGroupTile.calculateTitleIconSize(icon: widget.icon);
     //------------------------------------------------------------o
-    final String _groupID = widget.group.groupID;
-    final List<String> _subGroupsIDs = Keyword.getSubGroupsIDsFromKeywords(keywords: widget.group.keywords);
-    final Namez _groupNamez = Keyword.getGroupNamezByGroupID(_groupID);
-    final String _groupEnglishName = Name.getNameByLingoFromNames(
-      names: _groupNamez?.names,
-      lingoCode: Lingo.englishLingo.code,
-    );
-    final String _groupArabicName = Name.getNameByLingoFromNames(
-      names: _groupNamez?.names,
-      lingoCode: Lingo.arabicLingo.code,
-    );//Lingo.getSecondL
-    final bool _appIsArabic = Localizer.appIsArabic(context);
-    final String _groupFirstName = _appIsArabic == true ? _groupArabicName : _groupEnglishName;
-    final String _groupSecondName = _appIsArabic == true ? _groupEnglishName : _groupArabicName;
-    //------------------------------------------------------------o
-    return new AnimatedBuilder(
-      animation: _controller.view,
-      builder: (context, child){
+    return Container(
+      width: widget.width,
+      alignment: Alignment.topCenter,
+      child: new AnimatedBuilder(
+        animation: _controller.view,
+        builder: (context, child){
 
-        /// final Color borderSideColor = _borderColor.evaluate(_easeOutAnimation) ?? Colors.transparent;
-        /// final Color _subTitleLabelColor = _subtitleLabelColorTween.evaluate(_easeInAnimation);
-        final Color _headlineColor = _headlineColorTween.evaluate(_easeInAnimation);
-        final Color _tileColor = _tileColorTween.evaluate(_easeInAnimation);
+          /// final Color borderSideColor = _borderColor.evaluate(_easeOutAnimation) ?? Colors.transparent;
+          /// final Color _subTitleLabelColor = _subtitleLabelColorTween.evaluate(_easeInAnimation);
+          final Color _headlineColor = _headlineColorTween.evaluate(_easeInAnimation);
+          final Color _tileColor = _tileColorTween.evaluate(_easeInAnimation);
 
-        return
+          return
 
-          CollapsedTile(
-            tileWidth: widget.tileWidth,
-            collapsedHeight: ExpandingTile.collapsedGroupHeight,
-            tileColor: _tileColor,
-            corners: Ratioz.appBarCorner + Ratioz.appBarMargin,
-            firstHeadline: _groupFirstName,
-            secondHeadline: _groupSecondName,
-            icon: widget.icon,
-            arrowColor: _headlineColor,
-            arrowTurns: _arrowTurns,
-            toggleExpansion: toggle,
-            expandableHeightFactorAnimationValue: _easeInAnimation.value,
-            child: child,
-          );
+            CollapsedTile(
+              tileWidth: widget.width,
+              collapsedHeight: ExpandingTile.collapsedGroupHeight,
+              tileColor: _tileColor,
+              corners: widget.corners ?? ExpandingTile.cornersValue,
+              firstHeadline: widget.firstHeadline,
+              secondHeadline: widget.secondHeadline,
+              icon: widget.icon,
+              arrowColor: _headlineColor,
+              arrowTurns: _arrowTurns,
+              toggleExpansion: toggle,
+              expandableHeightFactorAnimationValue: _easeInAnimation.value,
+              child: child,
+              iconCorners: ExpandingTile.cornersValue,
+            );
 
-      },
+        },
 
-      /// SUB - GROUPS & KEYWORDS : Expanded tile children
-      child: _closed == true ? null
-          :
-      Container(
-        width: widget.tileWidth,
-        child: ListView.builder(
-            padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: _subGroupsIDs.length,
-            shrinkWrap: true,
-            itemBuilder: (xxx, _subIndex){
-
-              final String _subGroupID = _subGroupsIDs[_subIndex];
-              final String _subGroupNameEN = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
-                context: context,
-                subGroupID: _subGroupID,
-                lingoCode: Lingo.englishLingo.code,
-              );
-              final String _subGroupNameAR = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(
-                context: context,
-                subGroupID: _subGroupID,
-                lingoCode: Lingo.arabicLingo.code,
-              );
-
-              final List<Keyword> _subGroupKeywords = Keyword.getKeywordsBySubGroupIDFromKeywords(keywords: widget.group.keywords, subGroupID: _subGroupID);
-
-              return
-                _subGroupID == '' ?
-
-                KeywordsButtonsList(
-                  buttonWidth: widget.tileWidth - (Ratioz.appBarMargin * 2),
-                  keywords: _subGroupKeywords,
-                  onKeywordTap: widget.onKeywordTap,
-                )
-
-                    :
-
-                SubGroupTile(
-                  tileWidth: widget.tileWidth - (Ratioz.appBarMargin * 2),
-                  keywords: _subGroupKeywords,
-                  onKeywordTap: widget.onKeywordTap,
-                  subGroupName: _subGroupNameEN,
-                  subGroupSecondName: _subGroupNameAR,
-                  scrollable: false,
-                  onExpansionChanged: null,
-                );
-
-            }
+        /// SUB - GROUPS & KEYWORDS : Expanded tile children
+        child: _closed == true ? null
+            :
+        Container(
+          width: widget.width,
+          child: widget.child,
         ),
-      ),
 
+      ),
     );
 
   }
