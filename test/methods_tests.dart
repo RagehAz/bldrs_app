@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/json_work_around.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
@@ -435,6 +436,37 @@ void main(){
 
   });
 // -----------------------------------------------------------------------------
+  test("This is #VAR01 app text #VAR02.", () async {
+
+    String _string = "This is #VAR01 app text #VAR02.";
+
+    Iterable<String> _allStringMatches(String text, RegExp regExp) =>
+        regExp.allMatches(text).map((m) => m.group(0));
+
+    dynamic _things = _allStringMatches(_string, RegExp(r'#VAR..'));
+
+    List<String> _expectation = ['#VAR01', '#VAR02'];
+
+    print('things are ${_things.toString()}');
+
+    // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
+
+    expect(_things, _expectation);
+
+  });
+// -----------------------------------------------------------------------------
+  /// and lets make a method test to check if life might give us lemons
+  test("Testing JSON Variables work around idea", () async {
+
+    String _rawString = "This is #VAR01 app text #VAR02.";
+
+    String _processedString = JSONWorkAround.processJSONStringThatContainsThoseSpecialVariables(_rawString);
+
+    String _expectation = "This is Baby app text Cool.";
+
+    expect(_processedString, _expectation);
+
+  });
 
   // testWidgets('object is time stamp', (WidgetTester tester) async {
   //
