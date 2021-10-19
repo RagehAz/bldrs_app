@@ -7,10 +7,8 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
-import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/general/layouts/walls/sequences_bubble.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
@@ -117,15 +115,6 @@ class _HomeWallState extends State<HomeWall> {
         flyers: FlyerModel.dummyFlyers(),
       ),
 
-      HomeWall.spacer,
-      HomeWall.spacer,
-
-      /// SEQUENCES
-      SequencesBubble(
-        gridZoneWidth: Bubble.clearWidth(context),
-        onTap: (){},
-        numberOfColumns: 3,
-      ),
 
       HomeWall.spacer,
       HomeWall.spacer,

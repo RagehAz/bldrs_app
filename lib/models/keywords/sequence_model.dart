@@ -9,6 +9,7 @@ enum SequenceType{
   byGroupID, // for straight data structure : sequenceID / groupID / subGroupID / keyword
 }
 
+/// is a subgroup of a section "flyer type",
 class Sequence {
   final String titleID;
   final SequenceType idType;
