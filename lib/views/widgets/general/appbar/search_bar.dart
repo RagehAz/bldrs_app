@@ -73,7 +73,7 @@ class _SearchBarState extends State<SearchBar> {
           Container(
             width: _historyButtonWidth,
             height: _historyButtonHeight,
-            color: Colorz.linkedIn,
+            // color: Colorz.linkedIn,
             alignment: Alignment.topLeft,
             child: BackAndSearchButton(
               backAndSearchAction: BackAndSearchAction.ShowHistory,
