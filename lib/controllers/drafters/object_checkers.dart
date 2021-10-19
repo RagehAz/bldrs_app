@@ -146,7 +146,7 @@ class ObjectChecker {
 
   }
 // -----------------------------------------------------------------------------
-  static Future<bool> objectIsDoubleInString(BuildContext context, dynamic string) async {
+  static bool objectIsDoubleInString(dynamic string) {
 
     bool _objectIsDoubleInString;
     double _double;

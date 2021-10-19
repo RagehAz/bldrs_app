@@ -6,11 +6,12 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
-import 'package:bldrs/views/screens/c_search/c_2_search_filters_screen.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/screens/c_search/search_result_wall.dart';
+import 'package:bldrs/views/screens/x_select_keywords_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/bar_button.dart';
@@ -102,11 +103,27 @@ class _SearchScreenState extends State<SearchScreen> {
     // );
   }
 // -----------------------------------------------------------------------------
-  void _triggerBrowser(){
+  Future<void> _triggerBrowser() async {
     print('triggering browser');
-    setState(() {
-      _browserIsOn = !_browserIsOn;
-    });
+
+    // setState(() {
+    //   _browserIsOn = !_browserIsOn;
+    // });
+
+
+    final List<Keyword> _result = await Nav.goToNewScreen(context, SelectKeywordsScreen(selectedKeywords: _selectedKeywords, flyerType: FlyerType.design));
+
+    print('_result is : ${_result}');
+
+    // if (Keyword.KeywordsListsAreTheSame(_result, _selectedKeywords) == false){
+
+      setState(() {
+        _selectedKeywords = _result;
+      });
+
+
+    // }
+
   }
 // -----------------------------------------------------------------------------
   List<Widget> _selectedKeywordsWidgets(List<GroupModel> filtersModels){
@@ -527,20 +544,22 @@ class _SearchScreenState extends State<SearchScreen> {
               height: _screenHeight,
               // color: Colorz.BlackPlastic,
               child: ListView(
-                physics: const BouncingScrollPhysics(),                children: <Widget>[
+                physics: const BouncingScrollPhysics(),
+                children: <Widget>[
 
                   Stratosphere(heightFactor: 1.65,),
 
                   Container(
                     width: _screenWidth,
-                    height: 100,
-                    color: Colorz.bloodTest,
+                    height: _selectedKeywords.isEmpty ? 0 : Ratioz.appBarSmallHeight,
+                    // color: Colorz.bloodTest,
                   ),
 
                   Container(
                     width: _screenWidth,
                     height: 700,
-                    color: Colorz.yellow50,
+                    // color: Colorz.yellow50,
+                    child: SearchResultWall(),
                   ),
 
                 ],
@@ -565,7 +584,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colorz.bloodTest,
+                    // color: Colorz.bloodTest,
                     borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
                     boxShadow: Shadowz.appBarShadow,
                   ),
@@ -781,21 +800,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
 
               ),
-            ),
-          ),
-
-          if (!_browserIsOn)
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: DreamBox(
-              height: _browserZoneHeight,
-              width: _browserZoneWidth,
-              margins: EdgeInsets.all(_browserZoneMargins),
-              icon: Iconz.More,
-              iconSizeFactor: 0.6,
-              onTap: () => Nav.goToNewScreen(context, SearchFiltersScreen()),
-
             ),
           ),
 

@@ -130,7 +130,7 @@ class SectionTile extends StatelessWidget {
         expansionColor: Colorz.white20,
         child: Container(
           width: _tileWidth,
-          height: 350,
+          // height: 350,
           decoration: BoxDecoration(
             // color: Colorz.white10, // do no do this
             borderRadius: Borderers.superOneSideBorders(
@@ -143,7 +143,7 @@ class SectionTile extends StatelessWidget {
           child: ListView.builder(
             key: ValueKey('${key}_list_builder'),
               itemCount: _sequences.length,
-              physics: const BouncingScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               addAutomaticKeepAlives: true,
               shrinkWrap: true,
               padding: const EdgeInsets.all(Ratioz.appBarMargin),
@@ -215,7 +215,7 @@ class SectionTile extends StatelessWidget {
                         expansionColor: Colorz.white20,
                         child: Container(
                             width: _subItemWidth,
-                            height: 220,
+                            // height: 220,
                             decoration: BoxDecoration(
                               // color: Colorz.white10, // do no do this
                               borderRadius: Borderers.superOneSideBorders(
@@ -228,7 +228,7 @@ class SectionTile extends StatelessWidget {
                             child: ListView.builder(
                                 key: ValueKey('${_sequence.titleID}_sub_list_builder'),
                                 itemCount: _keywordsByGroupID.length,
-                                physics: const BouncingScrollPhysics(),
+                                physics: const NeverScrollableScrollPhysics(),
                                 addAutomaticKeepAlives: true,
                                 shrinkWrap: true,
                                 padding: const EdgeInsets.all(Ratioz.appBarMargin),
@@ -261,6 +261,7 @@ class SectionTile extends StatelessWidget {
                                     },
                                   );
                                 })),
+
                       ),
                     );
 
