@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// Keywords are grouped into Group class
+/// Keywords are grouped into Group class, and used as secondary keywords in sequences
 class GroupModel{
   final String groupID;
   final bool canPickMany;
@@ -58,23 +58,23 @@ class GroupModel{
     }
   }
 // -----------------------------------------------------------------------------
-  static final GroupModel propertyFormsGroups = GroupModel(groupID: 'group_ppt_form', canPickMany: false, keywords: FilterKeywords.propertyForms());
-  static final GroupModel propertyTypesGroup = GroupModel(groupID: 'group_ppt_type', canPickMany: false, keywords: FilterKeywords.propertyTypes());
-  static final GroupModel propertyAreaGroup = GroupModel(groupID: 'group_ppt_area', canPickMany: false, keywords: FilterKeywords.propertyArea());
-  static final GroupModel propertySpacesGroup = GroupModel(groupID: 'group_ppt_spaces', canPickMany: true, keywords: FilterKeywords.spaceTypes());
-  static final GroupModel propertyFeaturesGroup = GroupModel(groupID: 'group_ppt_features', canPickMany: true, keywords: FilterKeywords.propertyFeatures());
-  static final GroupModel propertyPricesGroup = GroupModel(groupID: 'group_ppt_price', canPickMany: true, keywords: FilterKeywords.propertyPrices());
-  static final GroupModel propertyLicenseGroup = GroupModel(groupID: 'group_ppt_license', canPickMany: false, keywords: FilterKeywords.propertyLicenses());
+  static final GroupModel propertyFormsGroups = GroupModel(groupID: 'group_ppt_form', canPickMany: false, keywords: Keywordz.propertyForms());
+  static final GroupModel propertyTypesGroup = GroupModel(groupID: 'group_ppt_type', canPickMany: false, keywords: Keywordz.propertyTypes());
+  static final GroupModel propertyAreaGroup = GroupModel(groupID: 'group_ppt_area', canPickMany: false, keywords: Keywordz.propertyArea());
+  static final GroupModel propertySpacesGroup = GroupModel(groupID: 'group_ppt_spaces', canPickMany: true, keywords: Keywordz.spaceTypes());
+  static final GroupModel propertyFeaturesGroup = GroupModel(groupID: 'group_ppt_features', canPickMany: true, keywords: Keywordz.propertyFeatures());
+  static final GroupModel propertyPricesGroup = GroupModel(groupID: 'group_ppt_price', canPickMany: true, keywords: Keywordz.propertyPrices());
+  static final GroupModel propertyLicenseGroup = GroupModel(groupID: 'group_ppt_license', canPickMany: false, keywords: Keywordz.propertyLicenses());
 // -----------------------------------------------------------------------------
-  static final GroupModel designTypesGroup = GroupModel(groupID: 'group_dz_type', canPickMany: false, keywords: FilterKeywords.designTypes());
-  static final GroupModel architecturalStylesGroup = GroupModel(groupID: 'group_dz_style', canPickMany: false, keywords: FilterKeywords.architecturalStyles());
-  static final GroupModel spaceTypeGroup = GroupModel(groupID: 'group_space_type', canPickMany: true, keywords: FilterKeywords.spaceTypes());
-  static final GroupModel kioskTypeGroup = GroupModel(groupID: 'group_dz_kioskType', canPickMany: false, keywords: FilterKeywords.kioskTypes());
+  static final GroupModel designTypesGroup = GroupModel(groupID: 'group_dz_type', canPickMany: false, keywords: Keywordz.designTypes());
+  static final GroupModel architecturalStylesGroup = GroupModel(groupID: 'group_dz_style', canPickMany: false, keywords: Keywordz.architecturalStyles());
+  static final GroupModel spaceTypeGroup = GroupModel(groupID: 'group_space_type', canPickMany: true, keywords: Keywordz.spaceTypes());
+  static final GroupModel kioskTypeGroup = GroupModel(groupID: 'group_dz_kioskType', canPickMany: false, keywords: Keywordz.kioskTypes());
 // -----------------------------------------------------------------------------
-  static final GroupModel constructionTradesGroup = GroupModel(groupID: 'group_craft_trade', canPickMany: true, keywords: FilterKeywords.constructionTrades());
+  static final GroupModel constructionTradesGroup = GroupModel(groupID: 'group_craft_trade', canPickMany: true, keywords: Keywordz.constructionTrades());
 // -----------------------------------------------------------------------------
-  static final GroupModel productsGroup = GroupModel(groupID: 'product', canPickMany: true, keywords: FilterKeywords.products());
-  static final GroupModel productPricesGroup = GroupModel(groupID: 'productPrices', canPickMany: true, keywords: FilterKeywords.productPrices());
+  static final GroupModel productsGroup = GroupModel(groupID: 'product', canPickMany: true, keywords: Keywordz.products());
+  static final GroupModel productPricesGroup = GroupModel(groupID: 'productPrices', canPickMany: true, keywords: Keywordz.productPrices());
 // -----------------------------------------------------------------------------
   static GroupModel getGroupFromCurrentDistricts(BuildContext context){
 

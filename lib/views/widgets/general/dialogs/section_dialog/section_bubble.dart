@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart';
 import 'package:flutter/material.dart';
 

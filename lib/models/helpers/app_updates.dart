@@ -6,7 +6,7 @@ class AppState {
   final bool wordzUpdateRequired;
   final bool zonesUpdateRequired;
   final bool languageUpdateRequired;
-  final bool sectionsUpdateRequired;
+  final bool sectionsUpdateRequired; // sequences and groups
   final bool termsUpdateRequired;
   final bool aboutBldrsUpdateRequired;
   final bool notificationsUpdateRequired;
