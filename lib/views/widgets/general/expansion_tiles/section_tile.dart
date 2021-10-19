@@ -6,7 +6,6 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
@@ -107,8 +106,8 @@ class SectionTile extends StatelessWidget {
     final double _tileWidth = bubbleWidth - (Ratioz.appBarMargin * 2);
     final double _itemWidth = _tileWidth - (Ratioz.appBarMargin * 2);
 
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
-    final Section _currentSection = _generalProvider.currentSection;
+    // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
+    // final Section _currentSection = _generalProvider.currentSection;
 
     final List<Sequence> _sequences = Sequence.getActiveSequencesBySection(context: context,section: section);
 
