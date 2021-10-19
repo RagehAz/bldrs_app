@@ -19,7 +19,7 @@ import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/views/widgets/general/buttons/back_anb_search_button.dart';
 import 'package:bldrs/views/widgets/general/buttons/rageh_button.dart';
-import 'package:bldrs/views/widgets/general/dialogs/side_dialog/side_dialog.dart';
+import 'package:bldrs/views/widgets/general/dialogs/side_dialog/drawer_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:flutter/gestures.dart';
@@ -96,6 +96,9 @@ class MainLayout extends StatelessWidget {
     this.historyButtonIsOn = true,
     this.onSearchChanged,
 });
+
+  static const Widget spacer5 = const SizedBox(width: 5, height: 5,);
+  static const Widget spacer10 = const SizedBox(width: 10, height: 10,);
 
 // -----------------------------------------------------------------------------
   Future<void> _refresh(BuildContext context) async {
@@ -226,9 +229,9 @@ class MainLayout extends StatelessWidget {
 
                 drawer: DrawerDialog(),
                 drawerDragStartBehavior: DragStartBehavior.start,
-                drawerEdgeDragWidth: 15,
-                drawerEnableOpenDragGesture: true,
-                drawerScrimColor: Colorz.black125,
+                drawerEdgeDragWidth: DrawerDialog.drawerEdgeDragWidth,
+                drawerEnableOpenDragGesture: DrawerDialog.drawerEnableOpenDragGesture,
+                drawerScrimColor: DrawerDialog.drawerScrimColor,
                 onDrawerChanged: (bool thing){
 
                   print('drawer changed and thing is :${thing}');

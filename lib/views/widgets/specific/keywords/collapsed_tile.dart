@@ -23,6 +23,7 @@ class CollapsedTile extends StatelessWidget {
   final Color tileColor;
   final double corners;
   final double iconCorners;
+  final bool marginIsOn;
 
   const CollapsedTile({
     @required this.toggleExpansion,
@@ -38,13 +39,14 @@ class CollapsedTile extends StatelessWidget {
     @required this.tileColor,
     @required this.corners,
     this.iconCorners,
+    this.marginIsOn = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: tileWidth,
-      margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin),
+      margin: marginIsOn == true ? const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: Ratioz.appBarMargin) : null,
       decoration: BoxDecoration(
         color: tileColor,
         borderRadius: Borderers.superBorderAll(context, corners),
@@ -58,6 +60,7 @@ class CollapsedTile extends StatelessWidget {
             onTap: toggleExpansion,
             child: Container(
               width: tileWidth,
+              color: Colorz.nothing, // do no delete this,, it makes GestureDetector tappable
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,8 +79,7 @@ class CollapsedTile extends StatelessWidget {
                   Container(
                     width: SubGroupTile.calculateTitleBoxWidth(buttonHeight: collapsedHeight, tileWidth: tileWidth, icon: icon),
                     height: GroupTile.collapsedGroupHeight,
-                    color: Colorz.nothing,
-                    padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
+                    padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,6 +91,7 @@ class CollapsedTile extends StatelessWidget {
                           weight: VerseWeight.bold,
                           italic: false,
                           size: 2,
+                          centered: false,
                         ),
 
                         /// SECOND HEADLINE
@@ -98,6 +101,8 @@ class CollapsedTile extends StatelessWidget {
                           italic: true,
                           size: 1,
                           color: Colorz.white125,
+                          maxLines: 2,
+                          centered: false,
                         ),
 
                       ],
@@ -108,8 +113,8 @@ class CollapsedTile extends StatelessWidget {
                   new RotationTransition(
                     turns: arrowTurns,
                     child: DreamBox(
-                      height: GroupTile.arrowBoxSize,
-                      width: GroupTile.arrowBoxSize,
+                      height: collapsedHeight,
+                      width: collapsedHeight,
                       bubble: false,
                       icon: Iconz.ArrowDown,
                       iconSizeFactor: 0.2,

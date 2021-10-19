@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
-import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -7,21 +6,28 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_bubble.dart';
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_button.dart';
-import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart';
+import 'package:bldrs/views/widgets/general/expansion_tiles/section_tile.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class DrawerDialog extends StatelessWidget {
   final double width;
 
   DrawerDialog({
-    this.width = 200,
+    this.width = 350,
   });
+
+  static const double drawerEdgeDragWidth = 15;
+  static const bool drawerEnableOpenDragGesture = true;
+  static const Color drawerScrimColor = Colorz.black125;
+
+
 
   @override
   Widget build(BuildContext context) {
 
-    final double _drawerWidth = 300;//Scale.superScreenWidth(context);
+    final double _drawerWidth = width;
     final double _drawerHeight = Scale.superScreenHeight(context);
 
     final double _bubbleWidth = _drawerWidth - (Ratioz.appBarMargin * 2);
@@ -41,34 +47,13 @@ class DrawerDialog extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
-              ExpandingTile(
-                // key: PageStorageKey<String>('fuck_you_bitch_mother_fucker'),
-                width: _bubbleWidth,
-                onTap: (bool isExpanded){
-                  print('on tap is tapped man : $isExpanded');
-                  },
-
-                maxHeight: 150,
-                icon: Iconz.DvDonaldDuck,
-                iconSizeFactor: 0.4,
-                initiallyExpanded: false,
-                firstHeadline: 'fuck',
-                secondHeadline: 'you',
-                scrollable: true,
-                initialColor: Colorz.white20,
-                // expansionColor: ExpandingTile.expandedColor,
-                child: Container(
-                  width: _bubbleWidth,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colorz.white10,
-                    borderRadius: Borderers.superOneSideBorders(
-                      context: context,
-                      corner: ExpandingTile.cornersValue,
-                      side: AxisDirection.down,
-                    ),
-                  ),
-                ),
+              SuperVerse(
+                verse: 'SELECT A SECTION',
+                weight: VerseWeight.black,
+                italic: true,
+                centered: false,
+                size: 3,
+                margin: Ratioz.appBarMargin,
               ),
 
               /// REAL ESTATE
@@ -78,24 +63,27 @@ class DrawerDialog extends StatelessWidget {
                   bubbleWidth: _bubbleWidth,
                   buttons: <Widget>[
 
-                    SectionDialogButton(
+                    SectionTile(
+                      bubbleWidth: _bubbleWidth,
+                      inActiveMode: false,
                       section: Section.NewProperties,
-                      inActiveMode: false,
-                      dialogHeight: dialogHeight,
                     ),
 
-                    SectionDialogButton(
+                    MainLayout.spacer10,
+
+                    SectionTile(
+                      bubbleWidth: _bubbleWidth,
+                      inActiveMode: false,
                       section: Section.ResaleProperties,
+                    ),
+
+                    MainLayout.spacer10,
+
+                    SectionTile(
+                      bubbleWidth: _bubbleWidth,
                       inActiveMode: false,
-                      dialogHeight: dialogHeight,
-                    ),
-
-                    SectionDialogButton(
                       section: Section.RentalProperties,
-                      inActiveMode: true,
-                      dialogHeight: dialogHeight,
                     ),
-
 
                   ]
               ),
@@ -107,22 +95,26 @@ class DrawerDialog extends StatelessWidget {
                   bubbleWidth: _bubbleWidth,
                   buttons: <Widget>[
 
-                    SectionDialogButton(
+                    SectionTile(
+                      bubbleWidth: _bubbleWidth,
+                      inActiveMode: false,
                       section: Section.Designs,
-                      inActiveMode: false,
-                      dialogHeight: dialogHeight,
                     ),
 
-                    SectionDialogButton(
+                    MainLayout.spacer10,
+
+                    SectionTile(
+                      bubbleWidth: _bubbleWidth,
+                      inActiveMode: false,
                       section: Section.Projects,
-                      inActiveMode: false,
-                      dialogHeight: dialogHeight,
                     ),
 
-                    SectionDialogButton(
-                      section: Section.Crafts,
+                    MainLayout.spacer10,
+
+                    SectionTile(
+                      bubbleWidth: _bubbleWidth,
                       inActiveMode: false,
-                      dialogHeight: dialogHeight,
+                      section: Section.Crafts,
                     ),
 
                   ]
@@ -135,16 +127,18 @@ class DrawerDialog extends StatelessWidget {
                 bubbleWidth: _bubbleWidth,
                 buttons: <Widget>[
 
-                  SectionDialogButton(
-                    section: Section.Products,
+                  SectionTile(
+                    bubbleWidth: _bubbleWidth,
                     inActiveMode: false,
-                    dialogHeight: dialogHeight,
+                    section: Section.Products,
                   ),
 
-                  SectionDialogButton(
-                    section: Section.Equipment,
+                  MainLayout.spacer10,
+
+                  SectionTile(
+                    bubbleWidth: _bubbleWidth,
                     inActiveMode: false,
-                    dialogHeight: dialogHeight,
+                    section: Section.Equipment,
                   ),
 
                 ],
