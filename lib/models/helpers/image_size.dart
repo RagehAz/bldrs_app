@@ -95,7 +95,7 @@ class ImageSize{
       // -----------------------------------------------------------o
       if (_decodedImage != null){
         _imageSize = ImageSize(
-          width: _decodedImage.width.toDouble(), // was _decodedImage.size.toDouble() I don't know why,, needs a test
+          width: _decodedImage.bubbleWidth.toDouble(), // was _decodedImage.size.toDouble() I don't know why,, needs a test
           height: _decodedImage.height.toDouble(),
         );
       }

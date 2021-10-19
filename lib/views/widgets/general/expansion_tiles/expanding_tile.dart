@@ -46,7 +46,7 @@ class ExpandingTile extends StatefulWidget {
 
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
   static const double arrowBoxSize = SubGroupTile.arrowBoxSize;
-  static const double cornersValue = Ratioz.appBarCorner + Ratioz.appBarPadding;
+  static const double cornersValue = Ratioz.appBarCorner;
   static const Color collapsedColor = Colorz.white10;
   static const Color expandedColor = Colorz.blue80;
 
@@ -163,6 +163,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
 
             CollapsedTile(
               tileWidth: widget.width,
+              marginIsOn: false,
               collapsedHeight: ExpandingTile.collapsedGroupHeight,
               tileColor: _tileColor,
               corners: widget.corners ?? ExpandingTile.cornersValue,
