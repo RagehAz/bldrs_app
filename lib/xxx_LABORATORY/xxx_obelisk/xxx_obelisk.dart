@@ -20,14 +20,13 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/black_hole.dart';
 import 'package:bldrs/xxx_LABORATORY/google_maps/x08_earth_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/00_test_lab.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/forms_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/providers_test.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/00_test_lab.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/snackbar_layout.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/timer_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/trigram_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/x03_font_lab.dart';
@@ -152,8 +151,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           LogoSlogan(sizeFactor: 0.8,),
 
-
-          oButton('SNACK ZEFT', Iconz.BigMac, SnackBarLayout()),
 
           oButton('TEST LAB', Iconz.Flyer, RandomTestSpace(
             flyerBoxWidth: FlyerBox.width(context, 0.5),

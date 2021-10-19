@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
+import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -6,6 +7,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_bubble.dart';
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_button.dart';
+import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -39,29 +41,34 @@ class DrawerDialog extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
-              Container(
+              ExpandingTile(
+                // key: PageStorageKey<String>('fuck_you_bitch_mother_fucker'),
                 width: _bubbleWidth,
-                alignment: Alignment.center,
-                // child: ExpandingTile(
-                //   group: GroupModel.getGroupBySection(section: Section.NewProperties)[0],
-                //   selectedKeywords: [],
-                //   onKeywordTap: (Keyword keyword){
-                //     keyword.printKeyword();
-                //     },
-                //   onGroupTap: (){
-                //     print('on gorup tap is tapped man');
-                //     },
-                //
-                //   height: 150,
-                //   // key: PageStorageKey<String>('fuck_you_bitch_mother_fucker'),
-                //   icon: Iconz.DvDonaldDuck,
-                //   iconSizeFactor: 0.7,
-                //   initiallyExpanded: false,
-                //   onExpansionChanged: (bool isExpanded){
-                //     print('expansion just changed : isExpanded : ${isExpanded}');
-                //   },
-                //   tileWidth: _bubbleWidth,
-                // ),
+                onTap: (bool isExpanded){
+                  print('on tap is tapped man : $isExpanded');
+                  },
+
+                maxHeight: 150,
+                icon: Iconz.DvDonaldDuck,
+                iconSizeFactor: 0.4,
+                initiallyExpanded: false,
+                firstHeadline: 'fuck',
+                secondHeadline: 'you',
+                scrollable: true,
+                initialColor: Colorz.white20,
+                // expansionColor: ExpandingTile.expandedColor,
+                child: Container(
+                  width: _bubbleWidth,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colorz.white10,
+                    borderRadius: Borderers.superOneSideBorders(
+                      context: context,
+                      corner: ExpandingTile.cornersValue,
+                      side: AxisDirection.down,
+                    ),
+                  ),
+                ),
               ),
 
               /// REAL ESTATE

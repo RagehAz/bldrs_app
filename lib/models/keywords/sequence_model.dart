@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 enum SequenceType{
   byKeyID, // for intersecting data structure : keyword 1 + keyword 2
-  byGroupID, // for straight data structure : filterID / groupID / subGroupID / keyword
+  byGroupID, // for straight data structure : sequenceID / groupID / subGroupID / keyword
 }
 
 class Sequence {
