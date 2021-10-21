@@ -8,9 +8,9 @@ import 'package:bldrs/dashboard/dashboard.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/ldb/sembast/sembast_test_screen.dart';
 import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
-import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
+import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
+import 'package:bldrs/views/widgets/general/buttons/obelisk_button.dart';
 import 'package:bldrs/views/widgets/general/dialogs/web_view/web_view_test_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -22,7 +22,6 @@ import 'package:bldrs/xxx_LABORATORY/google_maps/x08_earth_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/00_test_lab.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/fire_search_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/forms_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/providers_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
@@ -61,38 +60,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
     super.dispose();
   }
 // ---------------------------------------------------------------------------
-  Widget oButton (String title, String icon, Widget screen, {Color color}){
-
-    Color _color = color == null ? Colorz.black125 : color;
-
-    return
-      MainButton(
-        buttonVerse: title,
-        buttonColor: _color,
-        buttonIcon: icon,
-        buttonVerseShadow: true,
-        splashColor: Colorz.yellow255,
-        function: () => Nav.goToNewScreen(context, screen),
-        stretched: false,
-      );
-  }
-// ---------------------------------------------------------------------------
-//   Future<void> _tapGoogleSignOut() async {
-//
-//     _triggerLoading();
-//
-//     bool _isInAfterSignOut = await AuthOps.googleSignOutOps(context);
-//
-//       setState(() {
-//         _isSignedIn = _isInAfterSignOut;
-//       });
-//
-//     _triggerLoading();
-//
-//     print('_tapGoogleSignOut _isSignedIn : ${_isSignedIn}');
-//
-//   }
-// ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -118,17 +85,8 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
         /// SPACER
         const Expander(),
 
-        /// DASHBOARD
-        DreamBox(
-          height: Ratioz.appBarButtonSize,
-          width: Ratioz.appBarButtonSize,
-          color: Colorz.yellow255,
-          icon: Iconz.DashBoard,
-          iconColor: Colorz.black255,
-          iconSizeFactor: 0.75,
-          margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-          bubble: true,
-          onTap: () => Nav.goToNewScreen(context, DashBoard()),
+        BldrsButton(
+          onTap: () => Nav.goToNewScreen(context, DashBoard())
         ),
 
       ],
@@ -140,69 +98,65 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           const Stratosphere(),
 
           SuperVerse(
-            verse: 'Dear Lord\nPlease give me the power to finish this project and succeed',
-            size: 0,
+            verse: 'Dear Lord\nPlease Bless this project to be in good use for humanity',
+            size: 1,
             italic: true,
             weight: VerseWeight.thin,
             color: Colorz.white80,
-            maxLines: 4,
+            maxLines: 5,
+            margin: 10,
           ),
 
-          LogoSlogan(sizeFactor: 0.8,),
-
-
-          oButton('TEST LAB', Iconz.Flyer, RandomTestSpace(
+          ObeliskButton('TEST LAB', Iconz.Flyer, RandomTestSpace(
             flyerBoxWidth: FlyerBox.width(context, 0.5),
           )),
 
-          oButton('Providers Test', Iconz.Terms, ProvidersTestScreen()),
+          ObeliskButton('Providers Test', Iconz.Terms, ProvidersTestScreen()),
 
-          oButton('TimersTest', Iconz.Clock, TimerTest()),
+          ObeliskButton('TimersTest', Iconz.Clock, TimerTest()),
 
-          oButton('Trigram Test', Iconz.More, TrigramTest()),
+          ObeliskButton('Trigram Test', Iconz.More, TrigramTest()),
 
-          oButton('Cloud Functions', Iconz.Gears, CloudFunctionsTest()),
+          ObeliskButton('Cloud Functions', Iconz.Gears, CloudFunctionsTest()),
 
-          oButton('Web view test', Iconz.Terms, WebViewTestScreen()),
+          ObeliskButton('Web view test', Iconz.Terms, WebViewTestScreen()),
 
-          oButton('Sembast Screen', Iconz.DvGouran, SembastTestScreen()),
+          ObeliskButton('Sembast Screen', Iconz.DvGouran, SembastTestScreen()),
 
-          oButton('Notification test', Iconz.News, FCMTestScreen()),
+          ObeliskButton('Notification test', Iconz.News, FCMTestScreen()),
 
-          oButton('Awesome Notification test', Iconz.News, AwesomeNotiTestScreen()),
+          ObeliskButton('Awesome Notification test', Iconz.News, AwesomeNotiTestScreen()),
 
 
-          // oButton('HERO TEST', Iconz.DvDonaldDuck, HeroMinScreen()),
+          // ObeliskButton('HERO TEST', Iconz.DvDonaldDuck, HeroMinScreen()),
 
-          oButton('go to user checker', Iconz.Flyer, UserChecker()),
+          ObeliskButton('go to user checker', Iconz.Flyer, UserChecker()),
 
-          oButton('Slider Test Screen', Iconz.Flyer, SliderTestScreen()),
+          ObeliskButton('Slider Test Screen', Iconz.Flyer, SliderTestScreen()),
 
-          oButton('Fire search test', Iconz.Search, FireSearchTest()),
+          ObeliskButton('Dialog Test', Iconz.More, DialogTestScreen(), color: Colorz.bloodTest),
 
-          oButton('Dialog Test', Iconz.More, DialogTestScreen(), color: Colorz.bloodTest),
+          ObeliskButton('10 - Font lab', Iconz.Language, FontLab()),
 
-          oButton('10 - Font lab', Iconz.Language, FontLab()),
+          // ObeliskButton('12 - Swiper Layout', Iconz.Gallery, SwiperScreen()),
 
-          // oButton('12 - Swiper Layout', Iconz.Gallery, SwiperScreen()),
+          // ObeliskButton('21 - Soundz', Iconz.News, SoundzScreen()),
 
-          // oButton('21 - Soundz', Iconz.News, SoundzScreen()),
+          ObeliskButton('23 - Form', Iconz.Terms, TestFormScreen()),
 
-          oButton('23 - Form', Iconz.Terms, TestFormScreen()),
+          ObeliskButton('26 - City Dots', Iconz.Earth, EarthScreen()),
 
-          oButton('26 - City Dots', Iconz.Earth, EarthScreen()),
+          // ObeliskButton('28 - Google Maps - Defined size Pin', Iconz.ComMap, GoogleMapScreen2()),
 
-          // oButton('28 - Google Maps - Defined size Pin', Iconz.ComMap, GoogleMapScreen2()),
+          // ObeliskButton('29 - Google Maps - Image Pin', Iconz.ComMap, GoogleMapScreen3()),
 
-          // oButton('29 - Google Maps - Image Pin', Iconz.ComMap, GoogleMapScreen3()),
+          // ObeliskButton('30 - Google Maps - text box canvas', Iconz.ComMap, GoogleMapScreen4()),
 
-          // oButton('30 - Google Maps - text box canvas', Iconz.ComMap, GoogleMapScreen4()),
+          ObeliskButton('36 - Animations Screen', Iconz.DvDonaldDuck, AnimationsScreen()),
 
-          oButton('36 - Animations Screen', Iconz.DvDonaldDuck, AnimationsScreen()),
+          ObeliskButton('BLACK HOLE', Iconz.DvBlackHole, BlackHoleScreen()),
 
-          oButton('BLACK HOLE', Iconz.DvBlackHole, BlackHoleScreen()),
-
-          // --- BLDRS DEVELOPMENT SCROLLS --------------------------------
+          /// --- BLDRS DEVELOPMENT SCROLLS --------------------------------
           Column(
             children: <Widget>[
               const GoldenScroll(
