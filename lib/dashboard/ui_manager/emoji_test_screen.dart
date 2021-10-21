@@ -8,7 +8,7 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class EmojiTest extends StatelessWidget {
+class EmojiTestScreen extends StatelessWidget {
 
   Future<void> onEmojiTap({BuildContext context, EmojiModel emo, int index}) async {
 
