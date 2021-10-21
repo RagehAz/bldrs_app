@@ -108,7 +108,7 @@ class dashboardUserButton extends StatelessWidget {
                   DataStrip(dataKey: 'authBy', dataValue: userModel.authBy),
                   DataStrip(dataKey: 'createdAt', dataValue: userModel.createdAt),
                   DataStrip(dataKey: 'timeString', dataValue: Timers.dayMonthYearStringer(context, userModel.createdAt)),
-                  DataStrip(dataKey: 'userStatus', dataValue: userModel.userStatus),
+                  DataStrip(dataKey: 'userStatus', dataValue: userModel.status),
                   DataStrip(dataKey: 'name', dataValue: userModel.name),
                   DataStrip(dataKey: 'pic', dataValue: userModel.pic),
                   DataStrip(dataKey: 'title', dataValue: userModel.title),

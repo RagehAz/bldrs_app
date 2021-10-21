@@ -61,7 +61,7 @@ abstract class LDBOps{
       case LDBDoc.myBzzFlyers : return 'flyerID';
       case LDBDoc.sessionFlyers : return 'flyerID';
       case LDBDoc.sessionBzz : return 'bzID';
-      case LDBDoc.sessionUsers : return 'sessionUsers';
+      case LDBDoc.sessionUsers : return 'userID';
       case LDBDoc.keywords : return 'keywordID';
       case LDBDoc.sessionCountries : return 'countryID';
       case LDBDoc.continents : return '';
@@ -162,6 +162,15 @@ abstract class LDBOps{
       docName: docName,
       searchPrimaryKey: _primaryKey,
       searchPrimaryValue: objectID,
+    );
+
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> deleteAllMaps({@required String docName}) async {
+
+    await Sembast.deleteAll(
+      docName: docName,
+      primaryKey: getPrimaryKey(docName),
     );
 
   }

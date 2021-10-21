@@ -19,6 +19,7 @@ class Standards{
   static const int maxUserSavedFlyers = 1000;
   static const int maxUserBzz = 10;
 
+  static const int maxTrigramLength = 7;
 // -----------------------------------------------------------------------------
   static int getMaxSlidesCount(BzAccountType accountType){
 

@@ -122,7 +122,7 @@ class Balloona extends StatelessWidget {
     @required this.loading,
     this.balloonColor = Colorz.white10,
     this.blackAndWhite = false,
-    this.userStatus = UserStatus.Normal,
+    this.userStatus = UserStatus.normal,
   });
 
   @override

@@ -53,6 +53,8 @@ class SuperFlyer{
   final ValueKey key; // MutableFlyer -- ?
   final String flyerID; // MutableFlyer -- ?
   String authorID; // tinyAuthor
+  String title;
+  TextEditingController titleController;
 
   /// flyer data
   FlyerType flyerType; // MutableFlyer -- ?
@@ -109,6 +111,8 @@ class SuperFlyer{
     @required this.key,
     @required this.flyerID,
     @required this.authorID,
+    @required this.title,
+    @required this.titleController,
 
     /// flyer data
     @required this.flyerType,
@@ -220,6 +224,8 @@ class SuperFlyer{
           key: null,
           flyerID: null,
           authorID: null,
+          title: null,
+          titleController: null,
 
           /// flyer data
           flyerType: null,
@@ -363,6 +369,8 @@ class SuperFlyer{
         key: ValueKey(flyerModel.flyerID),
         flyerID: flyerModel.flyerID,
         authorID: flyerModel.authorID,
+        title: flyerModel.title,
+        titleController: null,
 
         /// flyer data
         flyerType: flyerModel.flyerType,
@@ -514,6 +522,8 @@ class SuperFlyer{
         key: ValueKey('${bzModel.bzID} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
         flyerID: SuperFlyer.draftID,
         authorID: superUserID(),
+        title: null,
+        titleController: new TextEditingController(),
 
         /// flyer data
         flyerType: FlyerTypeClass.concludeFlyerType(bzModel.bzType),
@@ -664,6 +674,8 @@ class SuperFlyer{
         key: ValueKey('${SuperFlyer.draftID} : ${bzModel.bzID} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
         flyerID: flyerModel.flyerID,
         authorID: superUserID(),
+        title: flyerModel.title,
+        titleController: new TextEditingController(text: flyerModel.title),
 
         /// flyer data
         flyerType: flyerModel.flyerType,
@@ -775,6 +787,8 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         key: null,
         flyerID: SuperFlyer.emptyFlyerBzOnlyFlyerID,
         authorID: superUserID(),
+        title: null,
+        titleController: null,
 
         /// flyer data
         flyerType: null,

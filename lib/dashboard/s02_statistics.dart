@@ -4,14 +4,11 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/db/firestore/flyer_ops.dart';
-import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/sub/slide_model.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_counter.dart';
+import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
-import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_counter.dart';
 import 'package:flutter/material.dart';
 
 class GeneralStatistics extends StatelessWidget {
@@ -25,43 +22,6 @@ class GeneralStatistics extends StatelessWidget {
       appBarType: AppBarType.Basic,
       sky: Sky.Black,
       pageTitle: Wordz.allahoAkbar(context),
-      tappingRageh: () async {
-
-        final FlyerModel _flyer = await FlyerOps.readFlyerOps(
-          context: context,
-          flyerID: 'dlfd1m7S28ND2GIuEA1r',
-        );
-
-        final FlyerModel _testFlyer = FlyerModel(
-          flyerID: '000000000000xxxxxx1saaa',
-          flyerType: _flyer.flyerType,
-          flyerState: _flyer.flyerState,
-          keywordsIDs: _flyer.keywordsIDs,
-          showsAuthor: _flyer.showsAuthor,
-          zone: _flyer.zone,
-          authorID: _flyer.authorID,
-          bzID: _flyer.bzID,
-          position: _flyer.position,
-          slides: <SlideModel>[..._flyer.slides,..._flyer.slides,..._flyer.slides],
-          isBanned: _flyer.isBanned,
-          specs: _flyer.specs,
-          info: _flyer.info,
-          times: _flyer.times,
-          priceTagIsOn: _flyer.priceTagIsOn,
-        );
-
-        print('the slides length is : ${_testFlyer.slides.length}');
-
-        await Fire.createNamedDoc(
-          context: context,
-          collName: FireColl.flyers,
-          docName: '000000000000xxxxxx1saaa',
-          input: _testFlyer.toMap(toJSON: false),
-        );
-
-        print('done this is done');
-
-      },
       appBarRowWidgets: <Widget>[
 
         const Expander(),

@@ -262,11 +262,22 @@ class BottomDialog extends StatelessWidget {
             goesToEditor: false,
             flyerModel: FlyerModel(
               flyerID: null,
+              title: '',
               bzID: bz.bzID,
               authorID: author.userID,
               zone: bz.zone,
               info: '',
               priceTagIsOn: false,
+              position: null,
+              flyerType: null,
+              times: [],
+              slides: [],
+              isBanned: null,
+              keywordsIDs: [],
+              specs: [],
+              trigram: [],
+              flyerState: FlyerState.draft,
+              showsAuthor: false,
             ),
             onSwipeFlyer: (SwipeDirection direction){
               // print('Direction is ${direction}');

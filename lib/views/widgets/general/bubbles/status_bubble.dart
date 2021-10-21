@@ -80,7 +80,7 @@ class StatusBubble extends StatelessWidget {
         ),
 
         /// IF USER IS SEARCHING FOR PROPERTIES
-        currentUserStatus == UserStatus.SearchingThinking ?
+        currentUserStatus == UserStatus.searching ?
         PropertySearchCriteria(
           openEnumLister: openEnumLister,
         )
@@ -88,7 +88,7 @@ class StatusBubble extends StatelessWidget {
             :
 
         /// IF USER WANT TO SELL OR RENT HIS PROPERTY
-        currentUserStatus == UserStatus.Selling ?
+        currentUserStatus == UserStatus.selling ?
         Container(
           width: screenWidth - (abPadding * 4),
           height: 100,
@@ -102,9 +102,9 @@ class StatusBubble extends StatelessWidget {
             :
 
         /// IF USER IS IN CONSTRUCTION
-        currentUserStatus == UserStatus.Finishing ||
-        currentUserStatus == UserStatus.PlanningTalking||
-        currentUserStatus == UserStatus.Building ?
+        currentUserStatus == UserStatus.finishing ||
+        currentUserStatus == UserStatus.planning||
+        currentUserStatus == UserStatus.building ?
         StatusButtons(
           status: status,
           stateIndex: 1,

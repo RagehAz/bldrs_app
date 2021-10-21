@@ -230,16 +230,16 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     Keyboarders.closeKeyboard(context);
 
-    double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.85);
+    final double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.85);
 
-    double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
-    double _dialogClearHeight = BottomDialog.dialogClearHeight(
+    final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+    final double _dialogClearHeight = BottomDialog.dialogClearHeight(
       context: context,
       draggable: true,
       titleIsOn: true,
       overridingDialogHeight: _dialogHeight,
     );
-    double _textFieldHeight = 70;
+    final double _textFieldHeight = 70;
 
     List<UserModel> _usersModels = [];
 

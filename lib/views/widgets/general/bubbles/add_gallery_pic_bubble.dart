@@ -129,7 +129,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                   balloonWidth: picWidth,
                   loading: false,
                   pic: pic,
-                  userStatus : UserStatus.SearchingThinking,
+                  userStatus : UserStatus.searching,
 
                 )
                     :
