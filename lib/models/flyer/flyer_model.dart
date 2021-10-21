@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -15,6 +16,8 @@ import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class FlyerModel with ChangeNotifier{
   final String flyerID;
+  final String title;
+  final List<String> trigram;
   // -------------------------
   final FlyerType flyerType;
   final FlyerState flyerState;
@@ -36,31 +39,35 @@ class FlyerModel with ChangeNotifier{
   final bool priceTagIsOn;
 
   FlyerModel({
-    this.flyerID,
+    @required this.flyerID,
+    @required this.title,
+    @required this.trigram,
     // -------------------------
-    this.flyerType,
+    @required this.flyerType,
     this.flyerState = FlyerState.draft,
-    this.keywordsIDs,
+    @required this.keywordsIDs,
     this.showsAuthor = false,
-    this.zone,
+    @required this.zone,
     // -------------------------
-    this.authorID,
-    this.bzID,
+    @required this.authorID,
+    @required this.bzID,
     // -------------------------
-    this.position,
+    @required this.position,
     // -------------------------
-    this.slides,
+    @required this.slides,
     // -------------------------
-    this.isBanned,
-    this.specs,
+    @required this.isBanned,
+    @required this.specs,
     @required this.info,
-    this.times,
+    @required this.times,
     @required this.priceTagIsOn,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
     return {
       'flyerID' : flyerID,
+      'title' : title,
+      'trigram' : trigram,
       // -------------------------
       'flyerType' : FlyerTypeClass.cipherFlyerType(flyerType),
       'flyerState' : cipherFlyerState(flyerState),
@@ -88,6 +95,8 @@ class FlyerModel with ChangeNotifier{
     if (map != null){
       _flyerModel = FlyerModel(
         flyerID: map['flyerID'],
+        title: map['title'],
+        trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
         // -------------------------
         flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
         flyerState: FlyerModel.decipherFlyerState(map['flyerState']),
@@ -152,6 +161,8 @@ class FlyerModel with ChangeNotifier{
   FlyerModel clone(){
     return new FlyerModel(
       flyerID: flyerID,
+      title: title,
+      trigram: Mapper.cloneListOfStrings(trigram),
       flyerType: flyerType,
       flyerState: flyerState,
       keywordsIDs: Mapper.cloneListOfStrings(keywordsIDs),
@@ -173,6 +184,8 @@ class FlyerModel with ChangeNotifier{
     return
         FlyerModel(
           flyerID: flyer.flyerID,
+          title: flyer.title,
+          trigram: flyer.trigram,
           flyerType: flyer.flyerType,
           flyerState: flyer.flyerState,
           keywordsIDs: flyer.keywordsIDs,
@@ -226,23 +239,25 @@ class FlyerModel with ChangeNotifier{
     return _flyerIDs;
   }
 // -----------------------------------------------------------------------------
-  static FlyerModel replaceFlyerSlidesWithNewSlides(FlyerModel inputFlyerModel, List<SlideModel> updatedSlides){
+  static FlyerModel replaceFlyerSlidesWithNewSlides(FlyerModel inputFlyer, List<SlideModel> updatedSlides){
     return FlyerModel(
-      flyerID: inputFlyerModel.flyerID,
-      flyerType: inputFlyerModel.flyerType,
-      zone: inputFlyerModel.zone,
-      authorID: inputFlyerModel.authorID,
-      bzID: inputFlyerModel.bzID,
+      flyerID: inputFlyer.flyerID,
+      title: inputFlyer.title,
+      trigram: inputFlyer.trigram,
+      flyerType: inputFlyer.flyerType,
+      zone: inputFlyer.zone,
+      authorID: inputFlyer.authorID,
+      bzID: inputFlyer.bzID,
       slides: updatedSlides,
-      showsAuthor: inputFlyerModel.showsAuthor,
-      flyerState: inputFlyerModel.flyerState,
-      keywordsIDs: inputFlyerModel.keywordsIDs,
-      position: inputFlyerModel.position,
-      isBanned: inputFlyerModel.isBanned,
-      specs: inputFlyerModel.specs,
-      info: inputFlyerModel.info,
-      priceTagIsOn: inputFlyerModel.priceTagIsOn,
-      times: inputFlyerModel.times,
+      showsAuthor: inputFlyer.showsAuthor,
+      flyerState: inputFlyer.flyerState,
+      keywordsIDs: inputFlyer.keywordsIDs,
+      position: inputFlyer.position,
+      isBanned: inputFlyer.isBanned,
+      specs: inputFlyer.specs,
+      info: inputFlyer.info,
+      priceTagIsOn: inputFlyer.priceTagIsOn,
+      times: inputFlyer.times,
     );
   }
 // -----------------------------------------------------------------------------
@@ -353,6 +368,8 @@ class FlyerModel with ChangeNotifier{
     if (superFlyer != null){
       _flyer = FlyerModel(
         flyerID: superFlyer.flyerID,
+        title: superFlyer.titleController.text,
+        trigram: TextMod.createTrigram(input: superFlyer.titleController.text),
         flyerType: superFlyer.flyerType,
         flyerState: superFlyer.flyerState,
         keywordsIDs: Keyword.getKeywordsIDsFromKeywords(superFlyer.keywords),
@@ -377,6 +394,8 @@ class FlyerModel with ChangeNotifier{
     print('FLYER-PRINT --------------------------------------------------START');
 
     print('flyerID : ${flyerID}');
+    print('title : ${title}');
+    print('trigram : ${trigram}');
     print('flyerType : ${flyerType}');
     print('flyerState : ${flyerState}');
     print('keywordsIDs : ${keywordsIDs}');
@@ -485,6 +504,8 @@ class FlyerModel with ChangeNotifier{
   static FlyerModel dummyFlyer(){
     return FlyerModel(
       flyerID : '2fDlDyF01sw8GEYPJ9GN',
+      title: 'Dummy Flyer',
+      trigram: TextMod.createTrigram(input: 'Dummy Flyer'),
       authorID: 'r1dqipDtBmRzK6HzL8Ug2vmcYVl1',
       flyerType : FlyerType.rentalProperty,
       flyerState : FlyerState.published,

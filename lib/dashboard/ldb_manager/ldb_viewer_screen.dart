@@ -1,11 +1,12 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/dashboard/widgets/sql_viewer.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
-import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/views/widgets/general/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LDBViewerScreen extends StatefulWidget {
   final String ldbDocName;
@@ -20,7 +21,6 @@ class LDBViewerScreen extends StatefulWidget {
 }
 
 class _LDBViewerScreenState extends State<LDBViewerScreen> {
-  String _bldbName;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -49,7 +49,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _bldbName = widget.ldbDocName;
+
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -87,35 +87,57 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
   Future<void> _onRowTap(String id) async {
 
 
-    print('Bldrs local data base : _bldbName : $_bldbName : row id : $id');
+    print('Bldrs local data base : _bldbName : ${widget.ldbDocName} : row id : $id');
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onClearLDB() async {
+
+    final bool _result = await CenterDialog.showCenterDialog(
+      title: 'Confirm ?',
+      boolDialog: true,
+      body: 'you will never see this data here again,, you can search for it elsewhere,, but never here, do you Understand ?',
+      context: context,
+    );
+
+    if (_result == true){
+      await LDBOps.deleteAllMaps(docName: widget.ldbDocName);
+      _readSembast();
+    }
+
+    else {
+      await TopDialog.showTopDialog(context: context, verse: 'Ana 2olt keda bardo');
+    }
+
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onBldrsTap() async {
+
+    await BottomDialog.showButtonsBottomDialog(
+        context: context,
+        draggable: true,
+        buttonHeight: 40,
+        buttons: <Widget>[
+
+          DreamBox(
+            width: BottomDialog.dialogClearWidth(context),
+            height: 40,
+            verse: 'Clear ${widget.ldbDocName} data',
+            onTap: _onClearLDB,
+          ),
+
+        ],
+    );
 
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return DashBoardLayout(
-      pageTitle: 'Local db :\n${_bldbName}',
+      pageTitle: 'Local db :\n${widget.ldbDocName}',
       loading: false,
-      onBldrsTap: () async {
-
-        // print(widget.ldbDocName);
-
-        // dynamic _result = await LDBOps.searchMap(
-        //   docName: widget.ldbDocName,
-        //   searchValue: 'f002',
-        //   searchField: 'flyerID',
-        //   fieldToSortBy: 'flyerID',
-        // );
-        final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-        FlyerModel _result = await _flyersProvider.fetchFlyerByID(context: context, flyerID: 'f003');
-
-        // var store = StoreRef.main();
-        // var _result = await store.record(widget.ldbDocName).get(await Sembast.instance.database) as String;
-        //
-        print('_result is : $_result');
-
-        },
-
+      onBldrsTap: _onBldrsTap,
       listWidgets: <Widget>[
 
         if (Mapper.canLoopList(_maps))

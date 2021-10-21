@@ -142,7 +142,7 @@ class _UserBubbleState extends State<UserBubble> {
 
         UserBalloon(
           balloonWidth: 80,
-          balloonType: widget.user?.userStatus,
+          balloonType: widget.user?.status,
           userModel: widget.user,
           onTap: (){print(widget.user.userID);},
           loading: widget.loading,

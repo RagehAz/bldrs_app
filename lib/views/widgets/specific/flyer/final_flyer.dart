@@ -8,6 +8,7 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -2365,7 +2366,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       ///create FlyerModel
       final FlyerModel _newFlyerModel = FlyerModel(
-        flyerID: _superFlyer.flyerID, // will be created in createFlyerOps
+        flyerID: _superFlyer.flyerID, /// TASK : redundancy : will be created in createFlyerOps
+        title: _superFlyer.title,
+        trigram: TextMod.createTrigram(input: _superFlyer.title), /// TASK : redundancy : will be created in createFlyerOps
         // -------------------------
         flyerType: _superFlyer.flyerType,
         flyerState: _superFlyer.flyerState,
@@ -2388,8 +2391,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       );
 
       /// start create flyer ops
-      _uploadedFlyerModel = await FlyerOps()
-          .createFlyerOps(context, _newFlyerModel, _bz);
+      _uploadedFlyerModel = await FlyerOps().createFlyerOps(context, _newFlyerModel, _bz);
     }
 
     return _uploadedFlyerModel;
@@ -2422,6 +2424,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       ///create updated FlyerModel
       final FlyerModel _tempUpdatedFlyerModel = FlyerModel(
         flyerID: _superFlyer.flyerID,
+        title: _superFlyer.title,
+        trigram: TextMod.createTrigram(input: _superFlyer.title), /// IS NOT RECREATED IN UPDATE FLYER OPS
         // -------------------------
         flyerType: _superFlyer.flyerType,
         flyerState: _superFlyer.flyerState,

@@ -1,4 +1,5 @@
 import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/helpers/big_mac.dart';
@@ -17,19 +18,43 @@ abstract class ExoticMethods{
   static Future<List<UserModel>> readAllUserModels({@required int limit}) async {
     // List<UserModel> _allUsers = await ExoticMethods.readAllUserModels(limit: limit);
 
-    final List<dynamic> _maps = await Fire.readCollectionDocs(
-      limit: limit ?? 100,
-      collectionName: FireColl.users,
-      addDocSnapshotToEachMap: false,
-      orderBy: 'userID',
+    List<UserModel> _allUserModels = <UserModel>[];
+
+    List<dynamic> _ldbUsers = await LDBOps.readAllMaps(
+      docName: LDBDoc.sessionUsers,
     );
 
-    final List<UserModel> _allModels = UserModel.decipherUsersMaps(
-      maps: _maps,
-      fromJSON: false,
-    );
+    if (_ldbUsers.length < 4){
 
-    return _allModels;
+      final List<dynamic> _maps = await Fire.readCollectionDocs(
+        limit: limit ?? 100,
+        collectionName: FireColl.users,
+        addDocSnapshotToEachMap: false,
+        orderBy: 'userID',
+      );
+
+      _allUserModels = UserModel.decipherUsersMaps(
+        maps: _maps,
+        fromJSON: false,
+      );
+
+      for (var user in _allUserModels){
+
+        await LDBOps.insertMap(
+          docName: LDBDoc.sessionUsers,
+          input: user.toMap(toJSON: true),
+        );
+
+      }
+
+    }
+
+    else {
+      _allUserModels = UserModel.decipherUsersMaps(maps: _ldbUsers, fromJSON: true);
+    }
+
+
+    return _allUserModels;
   }
 // -----------------------------------------------------------------------------
   static Future<List<NotiModel>> readAllNotiModels({@required BuildContext context, @required String userID,}) async {

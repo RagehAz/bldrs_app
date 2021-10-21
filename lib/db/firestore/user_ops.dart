@@ -56,6 +56,7 @@ abstract class UserOps{
   static Future<UserModel> createUserOps({@required BuildContext context, @required UserModel userModel}) async {
 
     /// check if user pic is file to upload or URL from facebook to keep
+    /// TASK : TRANSFORM FACEBOOK PICS TO LOCAL PICS U KNO
     String _userPicURL;
     if (ObjectChecker.objectIsFile(userModel.pic) == true){
       _userPicURL = await Fire.createStoragePicAndGetURL(
@@ -71,9 +72,10 @@ abstract class UserOps{
       userID : userModel.userID,
       authBy: userModel.authBy,
       createdAt : DateTime.now(),
-      userStatus : userModel.userStatus,
+      status : userModel.status,
       // -------------------------
       name : userModel.name,
+      trigram: userModel.trigram,
       pic : _userPicURL ?? userModel.pic,
       title : userModel.title,
       company : userModel.company,
@@ -87,6 +89,8 @@ abstract class UserOps{
       isAdmin: userModel.isAdmin,
       emailIsVerified: userModel.emailIsVerified,
       fcmToken: userModel.fcmToken,
+      followedBzzIDs: [],
+      savedFlyersIDs: [],
     );
 
     /// create user doc in fireStore
@@ -160,9 +164,10 @@ abstract class UserOps{
       userID : updatedUserModel.userID,
       authBy: oldUserModel.authBy,
       createdAt : oldUserModel.createdAt,
-      userStatus : updatedUserModel.userStatus,
+      status : updatedUserModel.status,
       // -------------------------
       name : updatedUserModel.name,
+      trigram: updatedUserModel.trigram,
       pic : _userPicURL ?? oldUserModel.pic,
       title : updatedUserModel.title,
       company : updatedUserModel.company,
@@ -176,6 +181,8 @@ abstract class UserOps{
       isAdmin: updatedUserModel.isAdmin,
       emailIsVerified: updatedUserModel.emailIsVerified,
       fcmToken: updatedUserModel.fcmToken,
+      savedFlyersIDs: updatedUserModel.savedFlyersIDs,
+      followedBzzIDs: updatedUserModel.followedBzzIDs,
     );
 
     /// C - update firestore/users/userID
@@ -314,7 +321,7 @@ abstract class UserOps{
               collName: FireColl.users,
               docName: userModel.userID,
               field: 'userStatus',
-              input: UserModel.cipherUserStatus(UserStatus.Deactivated),
+              input: UserModel.cipherUserStatus(UserStatus.deactivated),
             );
 
 
@@ -344,7 +351,7 @@ abstract class UserOps{
           collName: FireColl.users,
           docName: userModel.userID,
           field: 'userStatus',
-          input: UserModel.cipherUserStatus(UserStatus.Deactivated),
+          input: UserModel.cipherUserStatus(UserStatus.deactivated),
         );
 
 

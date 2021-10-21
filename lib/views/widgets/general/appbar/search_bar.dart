@@ -110,7 +110,11 @@ class _SearchBarState extends State<SearchBar> {
               corners: Ratioz.appBarButtonCorner,
               onTap: (){},
               onChanged: (val){
+
+                if (val != null){
                 widget.onSearchChanged(val);
+                }
+
               },
               hintText: ' Search ... ',
               inputColor: Colorz.yellow255,

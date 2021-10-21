@@ -7,7 +7,6 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/s01_dashboard.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/ldb/sembast/sembast_test_screen.dart';
-import 'package:bldrs/db/ldb/sql_db/flyers_sql_screen.dart';
 import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -167,7 +166,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           oButton('Web view test', Iconz.Terms, WebViewTestScreen()),
 
           oButton('Sembast Screen', Iconz.DvGouran, SembastTestScreen()),
-          oButton('FlyersSQL Screen', Iconz.FlyerScale, FlyersSQLScreen()),
 
           oButton('Notification test', Iconz.News, FCMTestScreen()),
 

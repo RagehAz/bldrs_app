@@ -176,7 +176,7 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
         providers: [
           StreamProvider<UserModel>.value(
             value: UserOps.streamInitialUser(),
-            initialData: UserModel(),
+            initialData: UserModel.initializeUserModelStreamFromUser(),
           ),
 
           ChangeNotifierProvider(

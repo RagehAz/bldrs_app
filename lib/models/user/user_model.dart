@@ -1,14 +1,13 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
-import 'package:bldrs/controllers/theme/dumz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/firestore/user_ops.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/fcm_token.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +16,10 @@ class UserModel {
   final String userID;
   final AuthBy authBy;
   final DateTime createdAt;
-  final UserStatus userStatus;
+  final UserStatus status;
   // -------------------------
   final String name;
+  final List<String> trigram;
   final dynamic pic;
   final String title;
   final String company;
@@ -37,27 +37,28 @@ class UserModel {
   final List<String> followedBzzIDs;
 // ###############################
   const UserModel({
-    this.userID,
-    this.authBy,
-    this.createdAt,
-    this.userStatus,
+    @required this.userID,
+    @required this.authBy,
+    @required this.createdAt,
+    @required this.status,
     // -------------------------
-    this.name,
-    this.pic,
-    this.title,
-    this.company,
-    this.gender,
-    this.zone,
-    this.language,
-    this.position,
-    this.contacts,
+    @required this.name,
+    @required this.trigram,
+    @required this.pic,
+    @required this.title,
+    @required this.company,
+    @required this.gender,
+    @required this.zone,
+    @required this.language,
+    @required this.position,
+    @required this.contacts,
     // -------------------------
-    this.myBzzIDs,
-    this.emailIsVerified,
-    this.isAdmin,
-    this.fcmToken,
-    this.savedFlyersIDs,
-    this.followedBzzIDs,
+    @required this.myBzzIDs,
+    @required this.emailIsVerified,
+    @required this.isAdmin,
+    @required this.fcmToken,
+    @required this.savedFlyersIDs,
+    @required this.followedBzzIDs,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
@@ -66,7 +67,7 @@ class UserModel {
       'userID' : userID,
       'authBy' : cipherAuthBy(authBy),
       'createdAt' : Timers.cipherTime(time: createdAt, toJSON: toJSON),
-      'userStatus' : cipherUserStatus(userStatus),
+      'status' : cipherUserStatus(status),
 // -------------------------
       'name' : name,
       'pic' : pic,
@@ -78,12 +79,12 @@ class UserModel {
       'position' : Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
       'contacts' : ContactModel.cipherContactsModels(contacts),
 // -------------------------
-      'myBzzIDs' : myBzzIDs,
+      'myBzzIDs' : myBzzIDs ?? [],
       'emailIsVerified' : emailIsVerified,
       'isAdmin': isAdmin,
-      'fcmToken' : fcmToken.toMap(toJSON: toJSON),
-      'savedFlyersIDs' : savedFlyersIDs,
-      'followedBzzIDs' : followedBzzIDs,
+      'fcmToken' : fcmToken?.toMap(toJSON: toJSON),
+      'savedFlyersIDs' : savedFlyersIDs ?? [],
+      'followedBzzIDs' : followedBzzIDs ?? [],
     };
   }
 // -----------------------------------------------------------------------------
@@ -92,17 +93,18 @@ class UserModel {
     return
       map == null ? null :
       UserModel(
-        userID : map['userID'] ?? '',
-        authBy: decipherAuthBy(map['authBy'] ?? 0),
+        userID : map['userID'],
+        authBy: decipherAuthBy(map['authBy']),
         createdAt : Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
-        userStatus : decipherUserStatus(map['userStatus'] ?? 1),
+        status : decipherUserStatus(map['status']),
         // -------------------------
-        name : map['name'] ?? '',
-        pic : map['pic'] ?? '',
-        title : map['title'] ?? '',
-        company : map['company'] ?? '',
-        gender : decipherGender(map['gender'] ?? 2),
-        zone : Zone.decipherZoneMap(map['zone']) ?? '',
+        name : map['name'],
+        trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
+        pic : map['pic'],
+        title : map['title'],
+        company : map['company'],
+        gender : decipherGender(map['gender']),
+        zone : Zone.decipherZoneMap(map['zone']),
         language : map['language'] ?? 'en',
         position : Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
         contacts : ContactModel.decipherContactsMaps(map['contacts'] ?? []),
@@ -132,68 +134,68 @@ class UserModel {
     return _users;
   }
 // -----------------------------------------------------------------------------
-  static UserStatus decipherUserStatus (int userStatus){
-    switch (userStatus){
-      case 1:   return   UserStatus.Normal;                 break;
-      case 2:   return   UserStatus.SearchingThinking;      break;
-      case 3:   return   UserStatus.Finishing;              break;
-      case 4:   return   UserStatus.PlanningTalking;        break;
-      case 5:   return   UserStatus.Building;               break;
-      case 6:   return   UserStatus.Selling;                break;
-      case 7:   return   UserStatus.BzAuthor;               break;
-      case 8:   return   UserStatus.Deactivated;            break;
+  static UserStatus decipherUserStatus (String status){
+    switch (status){
+      case 'normal'     :   return   UserStatus.normal      ;   break;
+      case 'searching'  :   return   UserStatus.searching   ;   break;
+      case 'finishing'  :   return   UserStatus.finishing   ;   break;
+      case 'planning'   :   return   UserStatus.planning    ;   break;
+      case 'building'   :   return   UserStatus.building    ;   break;
+      case 'selling'    :   return   UserStatus.selling     ;   break;
+      case 'bzAuthor'   :   return   UserStatus.bzAuthor    ;   break;
+      case 'deactivated':   return   UserStatus.deactivated ;   break;
       default : return   null;
     }
   }
 // -----------------------------------------------------------------------------
-  static int cipherUserStatus (UserStatus userStatus){
-    switch (userStatus){
-      case UserStatus.Normal              :  return 1; break ;
-      case UserStatus.SearchingThinking   :  return 2; break ;
-      case UserStatus.Finishing           :  return 3; break ;
-      case UserStatus.PlanningTalking     :  return 4; break ;
-      case UserStatus.Building            :  return 5; break ;
-      case UserStatus.Selling             :  return 6; break ;
-      case UserStatus.BzAuthor            :  return 7; break ;
-      case UserStatus.Deactivated         :  return 8; break ;
+  static String cipherUserStatus (UserStatus status){
+    switch (status){
+      case UserStatus.normal              :  return 'normal'     ; break ;
+      case UserStatus.searching           :  return 'searching'  ; break ;
+      case UserStatus.finishing           :  return 'finishing'  ; break ;
+      case UserStatus.planning            :  return 'planning'   ; break ;
+      case UserStatus.building            :  return 'building'   ; break ;
+      case UserStatus.selling             :  return 'selling'    ; break ;
+      case UserStatus.bzAuthor            :  return 'bzAuthor'   ; break ;
+      case UserStatus.deactivated         :  return 'deactivated'; break ;
       default : return null;
     }
   }
 // -----------------------------------------------------------------------------
-  static Gender decipherGender (int gender){
+  static Gender decipherGender (String gender){
     switch (gender){
-      case 0:   return   Gender.female; break;
-      case 1:   return   Gender.male; break;
-      case 2:   return   Gender.any; break;
+      case 'female':   return   Gender.female; break;
+      case 'male':   return   Gender.male; break;
+      case 'Gender.any':   return   Gender.any; break;
       default : return   null;
     }
   }
 // -----------------------------------------------------------------------------
-  static int cipherGender(Gender gender){
+  static String cipherGender(Gender gender){
     switch (gender){
-      case Gender.female : return 0; break ;
-      case Gender.male : return 1; break ;
-      case Gender.any : return 2; break ;
+      case Gender.female  : return 'female' ; break ;
+      case Gender.male    : return 'male'   ; break ;
+      case Gender.any     : return 'any'    ; break ;
       default : return null;
     }
   }
 // -----------------------------------------------------------------------------
-  static AuthBy decipherAuthBy (int authBy){
+  static AuthBy decipherAuthBy (String authBy){
     switch (authBy){
-      case 0:   return   AuthBy.email; break;
-      case 1:   return   AuthBy.facebook; break;
-      case 2:   return   AuthBy.apple; break;
-      case 3:   return   AuthBy.google; break;
+      case 'email'   :   return   AuthBy.email; break;
+      case 'facebook':   return   AuthBy.facebook; break;
+      case 'apple'   :   return   AuthBy.apple; break;
+      case 'google'  :   return   AuthBy.google; break;
       default : return   AuthBy.Unknown;
     }
   }
 // -----------------------------------------------------------------------------
-  static int cipherAuthBy(AuthBy authBy){
+  static String cipherAuthBy(AuthBy authBy){
     switch (authBy){
-      case AuthBy.email       : return 0; break ;
-      case AuthBy.facebook    : return 1; break ;
-      case AuthBy.apple       : return 2; break ;
-      case AuthBy.google      : return 3; break ;
+      case AuthBy.email       : return 'email'    ;     break ;
+      case AuthBy.facebook    : return 'facebook' ;     break ;
+      case AuthBy.apple       : return 'apple'    ;     break ;
+      case AuthBy.google      : return 'google'   ;     break ;
       default : return null;
     }
   }
@@ -210,14 +212,14 @@ class UserModel {
   }
 // -----------------------------------------------------------------------------
   static const List<UserStatus> userTypesList = const <UserStatus>[
-    UserStatus.Normal,
-    UserStatus.SearchingThinking,
-    UserStatus.Finishing,
-    UserStatus.PlanningTalking,
-    UserStatus.Building,
-    UserStatus.Selling,
-    UserStatus.BzAuthor,
-    UserStatus.Deactivated,
+    UserStatus.normal,
+    UserStatus.searching,
+    UserStatus.finishing,
+    UserStatus.planning,
+    UserStatus.building,
+    UserStatus.selling,
+    UserStatus.bzAuthor,
+    UserStatus.deactivated,
   ];
 // -----------------------------------------------------------------------------
   static List<String> removeIDFromIDs(List<String> ids, String id){
@@ -243,9 +245,10 @@ class UserModel {
         userID: _user.uid,
         authBy: null,
         createdAt: DateTime.now(),
-        userStatus: UserStatus.Normal,
+        status: UserStatus.normal,
         // -------------------------
         name: _user.displayName,
+        trigram: TextMod.createTrigram(input: _user.displayName),
         pic: _user.photoURL,
         title: '',
         gender: Gender.any,
@@ -283,9 +286,10 @@ class UserModel {
       userID: user.uid,
       authBy: authBy,
       createdAt: DateTime.now(),
-      userStatus: UserStatus.Normal,
+      status: UserStatus.normal,
       // -------------------------
       name: user.displayName,
+      trigram: TextMod.createTrigram(input: user.displayName),
       pic: user.photoURL,
       title: '',
       gender: Gender.any,
@@ -301,6 +305,7 @@ class UserModel {
       fcmToken: null,
       savedFlyersIDs: <String>[],
       followedBzzIDs: <String>[],
+
     );
 
     _userModel.printUserModel(methodName: 'createInitialUserModelFromUser');
@@ -328,7 +333,7 @@ class UserModel {
     print('userID : $userID');
     print('authBy : $authBy');
     print('createdAt : $createdAt');
-    print('userStatus : $userStatus');
+    print('userStatus : $status');
     print('name : $name');
     print('pic : $pic');
     print('title : $title');
@@ -358,37 +363,40 @@ class UserModel {
 // -----------------------------------------------------------------------------
   static List<UserModel> dummyUsers({int numberOfUsers}){
 
-    List<UserModel> _users = const <UserModel>[
-      const UserModel(
-        name: 'Ahmad Ali',
-        pic: Iconz.DumAuthorPic,
-        userID: '1',
-        title: 'CEO and Founder',
-      ),
-      const UserModel(
-        name: 'Morgan Darwish',
-        pic: Dumz.XXabohassan_author,
-        userID: '2',
-        title: 'Chairman',
-      ),
-      const UserModel(
-        name: 'Zahi Fayez',
-        pic: Dumz.XXzah_author,
-        userID: '3',
-        title: ' Marketing Director',
-      ),
-      const UserModel(
-        name: 'Hani Wani',
-        pic: Dumz.XXhs_author,
-        userID: '4',
-        title: 'Operations Manager',
-      ),
-      const UserModel(
-        name: 'Nada Mohsen',
-        pic: Dumz.XXmhdh_author,
-        userID: '5',
-        title: 'Planning and cost control engineer',
-      ),
+    List<UserModel> _users = <UserModel>[
+      // UserModel(
+      //   authBy: AuthBy.email,
+      //   trigram: TextMod.createTrigram(input: 'Ahmad Ali'),
+      //
+      //   name: 'Ahmad Ali',
+      //   pic: Iconz.DumAuthorPic,
+      //   userID: '1',
+      //   title: 'CEO and Founder',
+      // ),
+      // const UserModel(
+      //   name: 'Morgan Darwish',
+      //   pic: Dumz.XXabohassan_author,
+      //   userID: '2',
+      //   title: 'Chairman',
+      // ),
+      // const UserModel(
+      //   name: 'Zahi Fayez',
+      //   pic: Dumz.XXzah_author,
+      //   userID: '3',
+      //   title: ' Marketing Director',
+      // ),
+      // const UserModel(
+      //   name: 'Hani Wani',
+      //   pic: Dumz.XXhs_author,
+      //   userID: '4',
+      //   title: 'Operations Manager',
+      // ),
+      // const UserModel(
+      //   name: 'Nada Mohsen',
+      //   pic: Dumz.XXmhdh_author,
+      //   userID: '5',
+      //   title: 'Planning and cost control engineer',
+      // ),
     ];
 
     if (numberOfUsers != null){
@@ -408,14 +416,14 @@ class UserModel {
 }
 // -----------------------------------------------------------------------------
 enum UserStatus {
-  Normal,
-  SearchingThinking,
-  Finishing,
-  PlanningTalking,
-  Building,
-  Selling,
-  BzAuthor,
-  Deactivated,
+  normal,
+  searching,
+  finishing,
+  planning,
+  building,
+  selling,
+  bzAuthor,
+  deactivated,
 }
 // -----------------------------------------------------------------------------
 enum Gender {

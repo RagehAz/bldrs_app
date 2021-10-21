@@ -137,7 +137,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           userID: superUserID(),
         );
 
-        final List<String> _tri = TextMod.createTrigram(input: _rageh.name, maxTrigramLength: 15);
+        final List<String> _tri = TextMod.createTrigram(input: _rageh.name);
 
         await Fire.updateDocField(
           context: context,

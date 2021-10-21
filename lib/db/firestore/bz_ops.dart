@@ -95,6 +95,7 @@ class BzOps{
       accountType : inputBz.accountType,
       // -------------------------
       name : inputBz.name,
+      trigram: inputBz.trigram,
       logo : _bzLogoURL,
       scope : inputBz.scope,
       zone : inputBz.zone,
@@ -222,6 +223,7 @@ class BzOps{
       accountType: modifiedBz.accountType,
       // -------------------------
       name: modifiedBz.name,
+      trigram: modifiedBz.trigram,
       logo: _bzLogoURL ?? modifiedBz.logo,
       scope: modifiedBz.scope,
       zone  : modifiedBz.zone,

@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -63,6 +64,8 @@ class FlyerOps{
     /// update FlyerModel with newSlides & flyerURL
     final FlyerModel _finalFlyerModel = FlyerModel(
       flyerID: _flyerID,
+      title: inputFlyerModel.title,
+      trigram: TextMod.createTrigram(input: inputFlyerModel.title),
       // -------------------------
       flyerType: inputFlyerModel.flyerType,
       flyerState: inputFlyerModel.flyerState,

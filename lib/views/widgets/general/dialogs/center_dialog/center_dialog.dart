@@ -21,15 +21,15 @@ class CenterDialog extends StatelessWidget {
     @required this.title,
     @required this.boolDialog,
     @required this.height,
-    @required this.child,
+    this.child,
     @required this.confirmButtonText,
 });
 // -----------------------------------------------------------------------------
   static Future<bool> showCenterDialog({
-    BuildContext context,
+    @required BuildContext context,
     dynamic body,
     String title,
-    bool boolDialog,
+    bool boolDialog = false,
     double height,
     Widget child,
     String confirmButtonText = 'Ok',

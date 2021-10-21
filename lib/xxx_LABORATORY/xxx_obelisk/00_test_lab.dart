@@ -114,11 +114,13 @@ class _RandomTestSpaceState extends State<RandomTestSpace> {
 
               WideButton(
                   color: Colorz.bloodTest,
-                  verse: 'Do something',
+                  verse: 'add flyer titles xx',
                   icon: Iconz.Share,
                   onTap: () async {
 
                     _triggerLoading();
+
+                    /// do things here
 
                     _triggerLoading();
 

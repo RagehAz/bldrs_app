@@ -148,6 +148,7 @@ class AuthorModel{
       createdAt : bzModel.createdAt,
       accountType : bzModel.accountType,
       name : bzModel.name,
+      trigram: bzModel.trigram,
       logo : bzModel.logo,
       scope : bzModel.scope,
       zone : bzModel.zone,
