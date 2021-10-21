@@ -41,15 +41,7 @@ class DashBoardLayout extends StatelessWidget {
 
         const Expander(),
 
-          GestureDetector(
-            onTap: onBldrsTap,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-              child: const BldrsName(
-                size: 40,
-              ),
-            ),
-          ),
+        BldrsButton(onTap: onBldrsTap,),
 
       ],
       layoutWidget: MaxBounceNavigator(

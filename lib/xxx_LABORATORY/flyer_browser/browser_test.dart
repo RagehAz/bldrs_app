@@ -27,13 +27,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class SearchScreen extends StatefulWidget {
+class BrowserTest extends StatefulWidget {
 
   @override
-  _SearchScreenState createState() => _SearchScreenState();
+  _BrowserTestState createState() => _BrowserTestState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _BrowserTestState extends State<BrowserTest> {
   List<Keyword> _selectedKeywords = <Keyword>[];
   Keyword _highlightedKeyword;
   bool _browserIsOn = false;
@@ -161,9 +161,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
     // if (Keyword.KeywordsListsAreTheSame(_result, _selectedKeywords) == false){
 
-      setState(() {
-        _selectedKeywords = _result;
-      });
+    setState(() {
+      _selectedKeywords = _result;
+    });
 
 
     // }
@@ -660,22 +660,22 @@ class _SearchScreenState extends State<SearchScreen> {
 
                 /// KEYWORDS BAR
                 if (_selectedKeywords.isNotEmpty)
-                Container(
-                  width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    // color: Colorz.bloodTest,
-                    borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
-                    boxShadow: Shadowz.appBarShadow,
+                  Container(
+                    width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      // color: Colorz.bloodTest,
+                      borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
+                      boxShadow: Shadowz.appBarShadow,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        ... _selectedKeywordsWidgets(_groupsBySection)
+                      ],
+                    ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      ... _selectedKeywordsWidgets(_groupsBySection)
-                    ],
-                  ),
-                ),
 
               ],
             ),

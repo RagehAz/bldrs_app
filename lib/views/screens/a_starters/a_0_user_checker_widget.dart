@@ -32,17 +32,21 @@ class _UserCheckerState extends State<UserChecker> {
   bool _loading = false;
   Future <void> _triggerLoading({Function function}) async {
 
-    if (function == null){
-      setState(() {
-        _loading = !_loading;
-      });
-    }
+    if (mounted){
 
-    else {
-      setState(() {
-        _loading = !_loading;
-        function();
-      });
+      if (function == null){
+        setState(() {
+          _loading = !_loading;
+        });
+      }
+
+      else {
+        setState(() {
+          _loading = !_loading;
+          function();
+        });
+      }
+
     }
 
     _loading == true?
@@ -75,7 +79,7 @@ class _UserCheckerState extends State<UserChecker> {
             final UserModel _userModel = _userProvider.myUserModel;
 
             /// B -  if user has a userModel
-            if (_userModel != null) {
+            if (_userModel != null && mounted == true) {
 
               /// fetch and set country and zone
               final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
