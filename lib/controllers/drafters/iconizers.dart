@@ -120,12 +120,12 @@ class Iconizer{
 // -----------------------------------------------------------------------------
   static CustomClipper<Path> userBalloon(UserStatus userType) {
     final CustomClipper<Path> userBalloon =
-    userType == UserStatus.Normal ? NormalCircle() :
-    userType == UserStatus.SearchingThinking ? SearchingThinking() :
-    userType == UserStatus.Finishing ? FinishingBalloon() :
-    userType == UserStatus.PlanningTalking ? PlanningTalkingBalloon() :
-    userType == UserStatus.Building ? BuildingBalloon() :
-    userType == UserStatus.Selling ? SellingBalloon() :
+    userType == UserStatus.normal ? NormalCircle() :
+    userType == UserStatus.searching ? SearchingThinking() :
+    userType == UserStatus.finishing ? FinishingBalloon() :
+    userType == UserStatus.planning ? PlanningTalkingBalloon() :
+    userType == UserStatus.building ? BuildingBalloon() :
+    userType == UserStatus.selling ? SellingBalloon() :
     userType == null ? NormalCircle() :
     NormalCircle();
     return userBalloon;

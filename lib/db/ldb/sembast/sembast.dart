@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
@@ -60,11 +61,11 @@ class Sembast {
     return await Sembast.instance.database;
   }
 // -----------------------------------------------------------------------------
-  static StoreRef<int, Map<String, Object>> _getStore({String docName}) {
+  static StoreRef<int, Map<String, Object>> _getStore({@required String docName}) {
     return intMapStoreFactory.store(docName);
   }
 // -----------------------------------------------------------------------------
-  static Future<void> insert({String primaryKey, Map<String, Object> map, String docName}) async {
+  static Future<void> insert({@required String primaryKey, @required Map<String, Object> map, @required String docName}) async {
 
 
   final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
@@ -74,7 +75,7 @@ class Sembast {
 
   }
 
-  static Future<void> insertAll({List<Map<String, Object>> inputs, String docName}) async {
+  static Future<void> insertAll({@required List<Map<String, Object>> inputs, @required String docName}) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
@@ -83,7 +84,7 @@ class Sembast {
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> update({Map<String, Object> map, String searchPrimaryValue, String searchPrimaryKey, String docName}) async {
+  static Future<void> update({@required Map<String, Object> map, @required String searchPrimaryValue, @required String searchPrimaryKey, @required String docName}) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
@@ -98,7 +99,7 @@ class Sembast {
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> delete({String searchPrimaryKey,String searchPrimaryValue, String docName}) async {
+  static Future<void> delete({@required String searchPrimaryKey, @required String searchPrimaryValue, @required String docName}) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
@@ -114,7 +115,7 @@ class Sembast {
 
   }
 // -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> search({String fieldToSortBy, String searchField, dynamic searchValue, String docName}) async {
+  static Future<List<Map<String, Object>>> search({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
@@ -138,7 +139,7 @@ class Sembast {
     return _maps;
   }
 // -----------------------------------------------------------------------------
-  static Future<Map<String, Object>> findFirst({String fieldToSortBy, String searchField, dynamic searchValue, String docName}) async {
+  static Future<Map<String, Object>> findFirst({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
@@ -165,7 +166,7 @@ class Sembast {
     return _map;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> readAll({String docName,}) async {
+  static Future<List<Map<String, Object>>> readAll({@required String docName,}) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
@@ -182,6 +183,21 @@ class Sembast {
     return _maps;
   }
 // -----------------------------------------------------------------------------
+  static Future<void> deleteAll({@required String docName, @required String primaryKey}) async {
+
+    List<Map<String, Object>> _allMaps = await readAll(docName: docName);
+
+    for (var map in _allMaps){
+
+      final String _id = map[primaryKey];
+
+      await delete(searchPrimaryKey: primaryKey, searchPrimaryValue: _id, docName: docName);
+
+      print('Sembast : deleteAll : $docName : _id : ${_id}');
+
+    }
+// -----------------------------------------------------------------------------
+  }
 
 
 }

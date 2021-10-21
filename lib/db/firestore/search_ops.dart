@@ -1,7 +1,10 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/tracers.dart';
+import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
@@ -255,7 +258,7 @@ class FireSearch {
 
 /// SEARCHING USERS
 // -----------------------------------------------------------------------------
-  static Future<List<UserModel>> usersByUserName({BuildContext context, String compareValue}) async {
+  static Future<List<UserModel>> usersByUserName({@required BuildContext context, @required String compareValue}) async {
 
     // /// WORK GOOD WITH 1 SINGLE WORD FIELDS,, AND SEARCHES BY MATCHES THE INITIAL CHARACTERS :
     // /// 'Rag' --->    gets [Rageh Mohamed]
@@ -273,18 +276,18 @@ class FireSearch {
     //   addDocsIDs: false,
     // );
 
-    final dynamic _result = await mapsByFieldValue(
+    final List<Map<String, dynamic>> _result = await mapsByFieldValue(
       context: context,
       collName: FireColl.users,
-      field: 'nameTrigram',
-      compareValue: compareValue,
+      field: 'trigram',
+      compareValue: compareValue.trim(),
       addDocsIDs: false,
       valueIs: ValueIs.ArrayContains,
     );
 
       List<UserModel> _usersModels = <UserModel>[];
 
-      if (_result != <UserModel>[] || _result != null){
+      if (Mapper.canLoopList(_result)){
         _usersModels = UserModel.decipherUsersMaps(
           maps: _result,
           fromJSON: false,
@@ -293,6 +296,34 @@ class FireSearch {
 
       return _usersModels;
     }
+// -----------------------------------------------------------------------------
+  static Future<List<BzModel>> bzzByBzName({@required BuildContext context, @required String compareValue}) async {
+
+    final List<Map<String, dynamic>> _result = await mapsByFieldValue(
+      context: context,
+      collName: FireColl.bzz,
+      field: 'trigram',
+      compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
+        input: compareValue.trim(),
+        numberOfCharacters: Standards.maxTrigramLength,
+      ),
+      addDocsIDs: false,
+      valueIs: ValueIs.ArrayContains,
+    );
+
+    List<BzModel> _bzz = <BzModel>[];
+
+    if (Mapper.canLoopList(_result)){
+      _bzz = BzModel.decipherBzzMaps(
+        maps: _result,
+        fromJSON: false,
+      );
+    }
+
+    return _bzz;
+
+
+  }
 // -----------------------------------------------------------------------------
 }
 

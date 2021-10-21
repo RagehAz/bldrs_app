@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -163,6 +164,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         createdAt: DateTime.now(),
         accountType: _currentAccountType,
         name: _bzNameTextController.text,
+        trigram: TextMod.createTrigram(input: _bzNameTextController.text),
         logo: _currentBzLogoFile ?? _currentBzLogoURL,
         scope: _bzScopeTextController.text,
         zone: Zone(
@@ -357,6 +359,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         accountType: BzAccountType.normal, // changing this is not in bzEditor
         // -------------------------
         name: _bzNameTextController.text,
+        trigram: TextMod.createTrigram(input: _bzNameTextController.text),
         logo: _currentBzLogoFile,
         scope: _bzScopeTextController.text,
         zone: Zone(
@@ -454,6 +457,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         accountType: _currentAccountType,
         // -------------------------
         name: _bzNameTextController.text,
+        trigram: TextMod.createTrigram(input: _bzNameTextController.text),
         logo: _currentBzLogoFile ?? _currentBzLogoURL,
         scope: _bzScopeTextController.text,
         zone: Zone(

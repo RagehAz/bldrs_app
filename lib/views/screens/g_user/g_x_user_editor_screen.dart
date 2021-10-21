@@ -224,9 +224,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       final UserModel _newUserModel = UserModel(
           userID : widget.user.userID,
         createdAt : DateTime.now(), // will be overridden in createUserOps
-          userStatus : UserStatus.Normal,
+          status : UserStatus.normal,
           // -------------------------
           name : _nameController.text,
+          trigram: TextMod.createTrigram(input: _nameController.text),
           pic : _currentPicFile ?? _currentPicURL,
           title :  _titleController.text,
           company: _companyController.text,
@@ -246,6 +247,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         authBy: widget.user.authBy,
         emailIsVerified: widget.user.emailIsVerified,
         fcmToken: widget.user.fcmToken,
+        savedFlyersIDs: widget.user.savedFlyersIDs,
+        followedBzzIDs: widget.user.followedBzzIDs,
       );
 
       /// start create user ops
@@ -292,9 +295,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         // -------------------------
         userID : widget.user.userID,
         createdAt : widget.user.createdAt,
-        userStatus : widget.user.userStatus,
+        status : widget.user.status,
         // -------------------------
         name : _nameController.text,
+        trigram: TextMod.createTrigram(input: _nameController.text),
         pic :  _currentPicFile ?? _currentPicURL,
         title :  _titleController.text,
         company: _companyController.text,
@@ -314,6 +318,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         emailIsVerified: widget.user.emailIsVerified,
         authBy: widget.user.authBy,
         fcmToken: widget.user.fcmToken,
+        followedBzzIDs: widget.user.followedBzzIDs,
+        savedFlyersIDs: widget.user.savedFlyersIDs,
       );
 
       /// start create user ops

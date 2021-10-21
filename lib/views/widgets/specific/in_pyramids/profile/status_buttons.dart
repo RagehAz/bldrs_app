@@ -53,29 +53,29 @@ class StatusButtons extends StatelessWidget {
                 .map(
                 (x){
 
-                  final Color _color = x['userStatus'] == UserStatus.Finishing &&
-                      ( currentUserStatus == UserStatus.Finishing ||
-                          currentUserStatus == UserStatus.PlanningTalking ||
-                          currentUserStatus == UserStatus.Building) ?
+                  final Color _color = x['userStatus'] == UserStatus.finishing &&
+                      ( currentUserStatus == UserStatus.finishing ||
+                          currentUserStatus == UserStatus.planning ||
+                          currentUserStatus == UserStatus.building) ?
                   Colorz.yellow255 :
                   currentUserStatus == x['userStatus'] ?
                   Colorz.yellow255 :
                   Colorz.nothing;
 
                   final _verseColor =
-                  x['userStatus'] == UserStatus.Finishing &&
-                      ( currentUserStatus == UserStatus.Finishing ||
-                          currentUserStatus == UserStatus.PlanningTalking ||
-                          currentUserStatus == UserStatus.Building) ?
+                  x['userStatus'] == UserStatus.finishing &&
+                      ( currentUserStatus == UserStatus.finishing ||
+                          currentUserStatus == UserStatus.planning ||
+                          currentUserStatus == UserStatus.building) ?
                   Colorz.black230 :
                   currentUserStatus == x['userStatus'] ?
                   Colorz.black230 :
                   Colorz.white255;
 
-                  final _verseWeight = x['userStatus'] == UserStatus.Finishing &&
-                      ( currentUserStatus == UserStatus.Finishing ||
-                          currentUserStatus == UserStatus.PlanningTalking ||
-                          currentUserStatus == UserStatus.Building) ?
+                  final _verseWeight = x['userStatus'] == UserStatus.finishing &&
+                      ( currentUserStatus == UserStatus.finishing ||
+                          currentUserStatus == UserStatus.planning ||
+                          currentUserStatus == UserStatus.building) ?
                   VerseWeight.black :
                   currentUserStatus == x['userStatus'] ?
                   VerseWeight.black :
