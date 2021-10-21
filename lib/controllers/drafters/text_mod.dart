@@ -1,5 +1,6 @@
 
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:flutter/foundation.dart';
 
 class TextMod {
@@ -239,8 +240,10 @@ class TextMod {
     return val.toLowerCase();
   }
 // -----------------------------------------------------------------------------
-  static List<String> createTrigram({@required String input, int maxTrigramLength}){
+  static List<String> createTrigram({@required String input}){
     List<String> _trigram = <String>[];
+
+    const int maxTrigramLength = Standards.maxTrigramLength;
 
     /// 0 - to lower cases
     final String _lowerCased = input.toLowerCase();
@@ -365,6 +368,20 @@ class TextMod {
     return _output;
   }
 // -----------------------------------------------------------------------------
+  static String removeAllCharactersAfterNumberOfCharacters({@required String input, @required int numberOfCharacters}){
+
+    String _output = input;
+
+    if (input != null && numberOfCharacters !=null && input.length > 0 && numberOfCharacters > 0 && input.length > numberOfCharacters){
+
+      _output = input.substring(0, numberOfCharacters);
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+
 /*
 
 ENCODE AND DECODE STRINGS for encryption

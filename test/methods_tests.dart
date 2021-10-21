@@ -6,7 +6,6 @@ import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
-import 'package:bldrs/db/ldb/sql_db/sql_methods.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
@@ -334,12 +333,6 @@ void main(){
     final PublishTime timeB = PublishTime(state: FlyerState.banned, time: Timers.createDate(year: 2011, month: 02, day: 26));
     final List<PublishTime> _times = [timeA, timeB];
 
-    String sql = SQLMethods.sqlCipherPublishTimes(_times);
-
-    final List<PublishTime> _back = SQLMethods.sqlDecipherPublishTimes(sql);
-
-
-    print('1 : sql : $sql');
 
     print('2 : _times[0].timeStamp : ${_times[0].time}');
     print('3 : _times[0].state : ${_times[0].state}');
@@ -347,10 +340,6 @@ void main(){
     print('5 : _times[1].state : ${_times[1].state}');
 
 
-    print('2 : _times[0].timeStamp : ${_back[0].time}');
-    print('3 : _times[0].state : ${_back[0].state}');
-    print('4 : _times[1].timeStamp : ${_back[1].time}');
-    print('5 : _times[1].state : ${_back[1].state}');
 
     // dynamic _expected =  false;
     expect(1, 1);
@@ -489,22 +478,17 @@ void main(){
     expect(_outputD, 178712364871624.83762874623);
 
   });
+// -----------------------------------------------------------------------------
+  test("remove All Characters After Number Of Characters", () async {
 
-  // testWidgets('object is time stamp', (WidgetTester tester) async {
-  //
-  //   await tester.pumpWidget(MaterialApp(home: Material(child: Container())));
-  //   final BuildContext context = tester.element(find.byType(Container));
-  //
-  //   final String flyerID = '1eFVUCIodzzX6dTL49FS';
-  //
-  //   dynamic map = await Fire.readDoc(context: context, collName: FireCollection.flyers , docName: flyerID);
-  //
-  //   dynamic _createdAt = map['createdAt'];
-  //
-  //   bool isTimestamp = ObjectChecker.objectIsTimeStamp(_createdAt);
-  //
-  //   expect(isTimestamp, true);
-  //
-  // });
+    final String _input = '123456789abcdefg';
+    final int _number = 7;
+    final String _output = TextMod.removeAllCharactersAfterNumberOfCharacters(
+        input: _input,
+        numberOfCharacters: _number
+    );
+    expect(_output, '1234567');
 
+  });
+// -----------------------------------------------------------------------------
 }

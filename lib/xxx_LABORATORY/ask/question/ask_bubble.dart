@@ -184,7 +184,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   @override
   Widget build(BuildContext context) {
     // final _questionsProvider = Provider.of<QuestionsProvider>(context);
-    const UserStatus _userStatus = UserStatus.PlanningTalking;
+    const UserStatus _userStatus = UserStatus.planning;
     const double _abPadding = Ratioz.appBarPadding;
     const double _abHeight = Ratioz.appBarSmallHeight;
     const double _abButtonsHeight = _abHeight - (_abPadding);

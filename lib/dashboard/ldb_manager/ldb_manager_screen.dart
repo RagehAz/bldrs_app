@@ -167,6 +167,18 @@ class LDBViewersScreen extends StatelessWidget {
             icon: Iconz.Bz,
           ),
 
+          WideButton(
+            verse: 'Session users',
+            onTap: () => goToLDBViewer(context, LDBDoc.sessionUsers,),
+            icon: Iconz.Users,
+          ),
+
+          WideButton(
+            verse: 'Session Countries',
+            onTap: () => goToLDBViewer(context, LDBDoc.sessionCountries,),
+            icon: Iconz.Earth,
+          ),
+
           const BubblesSeparator(),
 
           WideButton(
@@ -175,11 +187,6 @@ class LDBViewersScreen extends StatelessWidget {
             icon: Iconz.Keyword,
           ),
 
-          WideButton(
-            verse: 'Countries',
-            onTap: () => goToLDBViewer(context, LDBDoc.sessionCountries,),
-            icon: Iconz.Earth,
-          ),
 
           const PyramidsHorizon(),
 

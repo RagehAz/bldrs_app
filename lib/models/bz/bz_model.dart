@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
@@ -60,6 +61,7 @@ class BzModel with ChangeNotifier{
   final BzAccountType accountType;
   // -------------------------
   final String name;
+  final List<String> trigram;
   final dynamic logo;
   final String scope;
 
@@ -86,34 +88,35 @@ class BzModel with ChangeNotifier{
 
 // ###############################
   BzModel({
-    this.bzID,
+    @required this.bzID,
     // -------------------------
-    this.bzType,
-    this.bzForm,
-    this.createdAt,
-    this.accountType,
+    @required this.bzType,
+    @required this.bzForm,
+    @required this.createdAt,
+    @required this.accountType,
     // -------------------------
-    this.name,
-    this.logo,
-    this.scope,
-    this.zone,
-    this.about,
-    this.position,
-    this.contacts,
-    this.authors,
-    this.showsTeam,
+    @required this.name,
+    @required this.trigram,
+    @required this.logo,
+    @required this.scope,
+    @required this.zone,
+    @required this.about,
+    @required this.position,
+    @required this.contacts,
+    @required this.authors,
+    @required this.showsTeam,
     // -------------------------
-    this.isVerified,
+    @required this.isVerified,
     @required this.bzState,
     // -------------------------
-    this.totalFollowers,
-    this.totalSaves,
-    this.totalShares,
-    this.totalSlides,
-    this.totalViews,
-    this.totalCalls,
+    @required this.totalFollowers,
+    @required this.totalSaves,
+    @required this.totalShares,
+    @required this.totalSlides,
+    @required this.totalViews,
+    @required this.totalCalls,
     // -------------------------
-    this.flyersIDs,
+    @required this.flyersIDs,
     @required this.totalFlyers,
   });
 // -----------------------------------------------------------------------------
@@ -128,6 +131,7 @@ class BzModel with ChangeNotifier{
       'accountType' : cipherBzAccountType(accountType),
       // -------------------------
       'name' : name,
+      'trigram' : trigram,
       'logo' : logo,
       'scope' : scope,
       'zone' : zone.toMap(),
@@ -167,6 +171,7 @@ class BzModel with ChangeNotifier{
         accountType : decipherBzAccountType(map['accountType']),
         // -------------------------
         name : map['name'],
+        trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
         logo : map['logo'],
         scope : map['scope'],
         zone : Zone.decipherZoneMap(map['zone']),
@@ -229,6 +234,7 @@ class BzModel with ChangeNotifier{
     return BzModel(
       bzID: null,
       name: userModel.company,
+      trigram: TextMod.createTrigram(input: userModel.company),
       zone: userModel.zone,
       contacts: <ContactModel>[
         ContactModel(
@@ -477,11 +483,28 @@ class BzModel with ChangeNotifier{
         bzID: _bzID,
         logo: Iconz.DumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
         name: 'Business Name',
+        trigram: TextMod.createTrigram(input: 'Business Name'),
         bzType: BzType.designer,
         zone: Zone(countryID: 'egy', cityID: 'cairo', districtID: 'heliopolis'),
         totalFollowers: 1000,
         totalFlyers: 10,
         bzState: BzState.online,
+        position: Atlas.dummyPosition(),
+        flyersIDs: [],
+        authors: [],
+        contacts: [],
+        bzForm: BzForm.company,
+        accountType: BzAccountType.normal,
+        createdAt: Timers.createDate(year: 1987, month: 10, day: 06),
+        about: 'About biz',
+        isVerified: true,
+        scope: 'Scope of Bz',
+        showsTeam: true,
+        totalCalls: 1,
+        totalSaves: 2,
+        totalShares: 3,
+        totalSlides: 4,
+        totalViews: 5,
       );
 
   }

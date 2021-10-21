@@ -1,12 +1,14 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/views/widgets/general/bubbles/bzz_bubble.dart';
 import 'package:flutter/material.dart';
 
 class SearchResultWall extends StatelessWidget {
-  final String thing;
+  final List<BzModel> bzzModels;
 
   const SearchResultWall({
-    this.thing,
+    @required this.bzzModels,
     });
 
   @override
@@ -18,7 +20,26 @@ class SearchResultWall extends StatelessWidget {
     return Container(
       width: _screenWidth,
       height: _screenHeight,
-      color: Colorz.yellow10,
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        shrinkWrap: true,
+        children: <Widget>[
+
+          if (Mapper.canLoopList(bzzModels))
+            ...List.generate(bzzModels.length, (index) =>
+
+                BzzBubble(
+                  title: 'title',
+                  bzzModels: bzzModels,
+                  onTap: (){print('on tapppppp');},
+                  numberOfColumns: 3,
+                  numberOfRows: 3,
+                )
+
+            ),
+
+        ],
+      ),
     );
   }
 }

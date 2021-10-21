@@ -1,17 +1,21 @@
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/db/firestore/search_ops.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/views/screens/c_search/search_result_wall.dart';
 import 'package:bldrs/views/screens/x_select_keywords_screen.dart';
+import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/bar_button.dart';
@@ -30,18 +34,42 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  // List<FilterModel> _filters = [];
-  // List<KeywordModel> _keywords = [];
   List<Keyword> _selectedKeywords = <Keyword>[];
   Keyword _highlightedKeyword;
   bool _browserIsOn = false;
   String _currentGroupID;
   ItemScrollController _scrollController;
   ItemPositionsListener _itemPositionListener;
-  // CountryProvider _countryPro;
   // FlyersProvider _flyersProvider;
   // FlyerType _currentFlyerType;
   // List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = [];
+
+  TextEditingController _searchController = TextEditingController();
+// -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
+  bool _loading = false;
+  Future <void> _triggerLoading({Function function}) async {
+
+    if(mounted){
+
+      if (function == null){
+        setState(() {
+          _loading = !_loading;
+        });
+      }
+
+      else {
+        setState(() {
+          _loading = !_loading;
+          function();
+        });
+      }
+
+    }
+
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -67,9 +95,25 @@ class _SearchScreenState extends State<SearchScreen> {
 
   }
 // -----------------------------------------------------------------------------
+
+  bool _isInit = true;
   @override
   void didChangeDependencies() {
-    _addZoneFilters();
+    if (_isInit) {
+      _triggerLoading().then((_) async{
+
+        _addZoneFilters();
+
+        _triggerLoading(
+            function: (){
+              /// set new values here
+            }
+        );
+      });
+
+
+    }
+    _isInit = false;
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
@@ -497,6 +541,43 @@ class _SearchScreenState extends State<SearchScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  List<BzModel> _foundBzz = <BzModel>[];
+  Future<void> _onSearchBzz(String value) async {
+
+    print('_onSearchBzz : _searchController.text : ${_searchController.text}');
+    print('_onSearchBzz : value : ${value}');
+
+    List<BzModel> _result = await FireSearch.bzzByBzName(
+      context: context,
+      compareValue: _searchController.text,
+    );
+
+    if (Mapper.canLoopList(_result)){
+
+      setState(() {
+        _foundBzz = _result;
+      });
+
+    }
+
+    else {
+
+      setState(() {
+        _foundBzz = [];
+      });
+
+      await NavDialog.showNavDialog(
+        context: context,
+        color: Colorz.black255,
+        firstLine: 'No result found',
+        secondLine: 'Try again with different words',
+        isBig: true,
+      );
+
+    }
+  }
+// -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
@@ -533,6 +614,9 @@ class _SearchScreenState extends State<SearchScreen> {
       appBarType: AppBarType.Search,
       // appBarBackButton: true,
       pyramids: Iconz.DvBlankSVG,
+      searchController: _searchController,
+      onSearchSubmit: (String value) => _onSearchBzz(value),
+      onSearchChanged: (String val) => print('search value changed to ${val}'),
       layoutWidget: Stack(
         children: <Widget>[
 
@@ -559,7 +643,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     width: _screenWidth,
                     height: 700,
                     // color: Colorz.yellow50,
-                    child: SearchResultWall(),
+                    child: SearchResultWall(
+                      bzzModels: _foundBzz,
+                    ),
                   ),
 
                 ],

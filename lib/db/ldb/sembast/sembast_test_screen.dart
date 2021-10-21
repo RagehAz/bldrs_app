@@ -1,10 +1,12 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/dashboard/widgets/sql_viewer.dart';
 import 'package:bldrs/db/ldb/sembast/sembast.dart';
-import 'package:bldrs/db/ldb/sql_db/flyers_sql_screen.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class SembastTestScreen extends StatefulWidget {
@@ -182,5 +184,35 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 
       ],
     );
+  }
+}
+
+class SmallFuckingButton extends StatelessWidget {
+  final String verse;
+  final Function onTap;
+
+  const SmallFuckingButton({
+    @required this.verse,
+    @required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _buttonWidth = _screenWidth / 8;
+
+    return DreamBox(
+      height: 30,
+      width: _buttonWidth,
+      color: Colorz.blue80,
+      margins: const EdgeInsets.symmetric(horizontal: 1),
+      verse: verse,
+      verseScaleFactor: 0.4,
+      verseWeight: VerseWeight.thin,
+      verseMaxLines: 2,
+      onTap: onTap,
+    );
+
   }
 }

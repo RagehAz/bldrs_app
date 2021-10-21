@@ -111,15 +111,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       'buttons': [
         {
           'state': 'Looking for a\nnew property',
-          'userStatus': UserStatus.SearchingThinking
+          'userStatus': UserStatus.searching
         },
         {
           'state': 'Constructing\nan existing\nproperty',
-          'userStatus': UserStatus.Finishing
+          'userStatus': UserStatus.finishing
         },
         {
           'state': 'Want to\nSell / Rent\nmy property',
-          'userStatus': UserStatus.Selling
+          'userStatus': UserStatus.selling
         }
       ],
     },
@@ -128,9 +128,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       'buttons': [
         {
           'state': 'Planning Construction',
-          'userStatus': UserStatus.PlanningTalking
+          'userStatus': UserStatus.planning
         },
-        {'state': 'Under Construction', 'userStatus': UserStatus.Building}
+        {'state': 'Under Construction', 'userStatus': UserStatus.building}
       ],
     },
   ];
@@ -348,7 +348,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 status: _status,
                 switchUserStatus: (type) => _switchUserStatus(type),
                 userStatus: _currentUserStatus == null ? widget.userModel
-                    ?.userStatus : _currentUserStatus,
+                    ?.status : _currentUserStatus,
                 currentUserStatus: _currentUserStatus,
                 // openEnumLister: widget.openEnumLister,
               ),
