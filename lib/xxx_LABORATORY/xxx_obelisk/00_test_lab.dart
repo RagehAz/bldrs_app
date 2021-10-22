@@ -9,18 +9,13 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:flutter/material.dart';
 
-class RandomTestSpace extends StatefulWidget {
-final double flyerBoxWidth;
-
-RandomTestSpace({
-  @required this.flyerBoxWidth,
-});
+class TestLab extends StatefulWidget {
 
   @override
-  _RandomTestSpaceState createState() => _RandomTestSpaceState();
+  _TestLabState createState() => _TestLabState();
 }
 
-class _RandomTestSpaceState extends State<RandomTestSpace> {
+class _TestLabState extends State<TestLab> {
   // List<int> _list = <int>[1,2,3,4,5,6,7,8];
   // int _loops = 0;
   // Color _color = Colorz.BloodTest;

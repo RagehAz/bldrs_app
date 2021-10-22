@@ -15,13 +15,13 @@ import 'package:bldrs/views/widgets/general/dialogs/web_view/web_view_test_scree
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/general/textings/the_golden_scroll.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/black_hole.dart';
 import 'package:bldrs/xxx_LABORATORY/google_maps/x08_earth_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/00_test_lab.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/expansion_tiles_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/forms_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/providers_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
@@ -107,9 +107,9 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
             margin: 10,
           ),
 
-          ObeliskButton('TEST LAB', Iconz.Flyer, RandomTestSpace(
-            flyerBoxWidth: FlyerBox.width(context, 0.5),
-          )),
+          ObeliskButton('TEST LAB', Iconz.Flyer, TestLab()),
+
+          ObeliskButton('Expantion Tiles Test', Iconz.Flyer, ExpansionTilesTest()),
 
           ObeliskButton('Providers Test', Iconz.Terms, ProvidersTestScreen()),
 
