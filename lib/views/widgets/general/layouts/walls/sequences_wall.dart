@@ -88,9 +88,9 @@ class SequencesWall extends StatelessWidget {
     final bool _sequenceIsNewFlyers = index == null ? true : false;
 
     final Keyword _firstKeyword =
-    sequence.idType == SequenceType.byKeyID ? Keyword.getKeywordByKeywordID(sequence.titleID) :
-    sequence.idType == SequenceType.byGroupID && _sequenceIsNewFlyers == false ? Keyword.getKeywordsByGroupID(sequence.titleID)[index] :
-    sequence.idType == SequenceType.byGroupID && _sequenceIsNewFlyers == true ? null :
+    sequence.sequenceType == SequenceType.byKeyID ? Keyword.getKeywordByKeywordID(sequence.titleID) :
+    sequence.sequenceType == SequenceType.byGroupID && _sequenceIsNewFlyers == false ? Keyword.getKeywordsByGroupID(sequence.titleID)[index] :
+    sequence.sequenceType == SequenceType.byGroupID && _sequenceIsNewFlyers == true ? null :
     null;
 
     Keyword _secondKeyword;
@@ -123,7 +123,7 @@ class SequencesWall extends StatelessWidget {
       }
 
       else {
-        print('2 - sequence has NO second keywords, idType is ${sequence.idType}, sequenceID is groupID :${sequence.titleID}');
+        print('2 - sequence has NO second keywords, idType is ${sequence.sequenceType}, sequenceID is groupID :${sequence.titleID}');
         // List<KeywordModel> _keywords = KeywordModel.getKeywordsByGroupID(sequence.id);
 
       }
