@@ -1,4 +1,5 @@
 import 'package:bldrs/models/helpers/namez_model.dart';
+import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
 
 abstract class ChainCrafts {
