@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/json_work_around.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
@@ -488,6 +489,20 @@ void main(){
         numberOfCharacters: _number
     );
     expect(_output, '1234567');
+
+  });
+// -----------------------------------------------------------------------------
+  test("power", () async {
+
+    final int _output = Numeric.power(num: 5, power: 3);
+    expect(_output, 125);
+
+  });
+// -----------------------------------------------------------------------------
+  test("get Number Within Digits", () async {
+
+    final String _output = Numeric.getNumberWithinDigits(num: 957, digits: 4);
+    expect(_output, '0957');
 
   });
 // -----------------------------------------------------------------------------
