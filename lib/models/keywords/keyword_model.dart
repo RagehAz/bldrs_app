@@ -119,11 +119,24 @@ class Keyword {
     return _keywords;
   }
 // -----------------------------------------------------------------------------
-  static String getImagePath(Keyword keyword){
-    final String _keywordID = keyword.keywordID;
+  static String getImagePath(dynamic keywordOrKeywordID){
+    String _keywordID;
+
+    if (keywordOrKeywordID.runtimeType == String){
+      _keywordID = keywordOrKeywordID;
+    }
+    else if (keywordOrKeywordID.runtimeType == Keyword){
+      _keywordID = keywordOrKeywordID.keywordID;
+    }
+    else {
+      _keywordID = '';
+    }
+
     String _path;
 
-    if(isIconless(keyword) == true){
+    final Keyword _keyword = Keyword.getKeywordByKeywordID(_keywordID);
+
+    if(isIconless(_keyword) == true){
       // path will be null
     }
 
@@ -172,20 +185,20 @@ class Keyword {
 // -----------------------------------------------------------------------------
   static bool isIconless(Keyword keywordModel){
     final bool _isIconless =
-    keywordModel.groupID == 'numberOfRooms' ? true :
-    keywordModel.groupID == 'numberOfBathrooms' ? true :
-    keywordModel.groupID == 'parkingLots' ? true :
-    keywordModel.groupID == 'group_ppt_area' ? true :
-    keywordModel.groupID == 'group_ppt_features' ? true :
-    keywordModel.groupID == 'group_ppt_license' ? true :
-    keywordModel.groupID == 'group_ppt_price' ? true :
-    keywordModel.groupID == 'group_ppt_spaces' ? true :
-    keywordModel.groupID == 'group_prd_price' ? true :
-    keywordModel.groupID == 'lotArea' ? true :
-    keywordModel.groupID == 'inCompound' ? true :
-    keywordModel.groupID == 'numberOfFloor' ? true :
-    keywordModel.groupID == 'buildingAge' ? true :
-    keywordModel.groupID == 'group_dz_kioskType' ? true : /// TASK : this is temp until i add kiosk types images
+    keywordModel?.groupID == 'numberOfRooms' ? true :
+    keywordModel?.groupID == 'numberOfBathrooms' ? true :
+    keywordModel?.groupID == 'parkingLots' ? true :
+    keywordModel?.groupID == 'group_ppt_area' ? true :
+    keywordModel?.groupID == 'group_ppt_features' ? true :
+    keywordModel?.groupID == 'group_ppt_license' ? true :
+    keywordModel?.groupID == 'group_ppt_price' ? true :
+    keywordModel?.groupID == 'group_ppt_spaces' ? true :
+    keywordModel?.groupID == 'group_prd_price' ? true :
+    keywordModel?.groupID == 'lotArea' ? true :
+    keywordModel?.groupID == 'inCompound' ? true :
+    keywordModel?.groupID == 'numberOfFloor' ? true :
+    keywordModel?.groupID == 'buildingAge' ? true :
+    keywordModel?.groupID == 'group_dz_kioskType' ? true : /// TASK : this is temp until i add kiosk types images
     false;
 
     return _isIconless;
