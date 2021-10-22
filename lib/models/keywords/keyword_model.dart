@@ -262,7 +262,7 @@ class Keyword {
 
     String _title;
 
-    if(sequence.idType == SequenceType.byGroupID){
+    if(sequence.sequenceType == SequenceType.byGroupID){
       final String _groupID = sequence.titleID;
       final FlyerType _flyerType = Keyword.bldrsKeywords().firstWhere(
               (keyword) => keyword.groupID == _groupID, orElse: () => null).flyerType;

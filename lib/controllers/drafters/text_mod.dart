@@ -381,7 +381,15 @@ class TextMod {
     return _output;
   }
 // -----------------------------------------------------------------------------
+  static String fixArabicText(String input){
 
+    /// TASK : alef hamza issue
+    /// TASK : ya2 w alef maksoura issue
+    /// TASK : ha2 w ta2 marbouta issue
+
+    return 'Bokra isa';
+  }
+// -----------------------------------------------------------------------------
 /*
 
 ENCODE AND DECODE STRINGS for encryption
