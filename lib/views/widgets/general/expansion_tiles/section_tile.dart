@@ -156,7 +156,7 @@ class SectionTile extends StatelessWidget {
                   sequence: _sequence,
                 );
 
-                if (_sequence.idType == SequenceType.byKeyID){
+                if (_sequence.sequenceType == SequenceType.byKeyID){
                   return
 
                     /// GROUP ICON

@@ -14,7 +14,6 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/providers/streamers/user_streamer.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/screens/d_more/d_0_more_screen.dart';
 import 'package:bldrs/views/screens/f_bz/f_0_my_bz_screen.dart';

@@ -15,20 +15,31 @@ enum SpecType {
   currentPrice,
   inStock,
 }
+
+enum MeasureUnit {
+  meter_linear,
+  meter_square,
+  meter_cubic,
+
+
+}
 /// ----------------------------------------------------------------------------
 class Spec {
   final SpecType specType;
   final dynamic value; // string, int, double
+  // final MeasureUnit unit;
 
   const Spec({
     @required this.specType,
     @required this.value,
+    // @required this.unit,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
     return {
       'specType': cipherSpecType(specType),
       'value': value,
+      // 'unit' : cipherMeasureUnit(unit),
     };
   }
 // -----------------------------------------------------------------------------
@@ -36,7 +47,8 @@ class Spec {
     return
       Spec(
           specType: specType,
-          value: value
+          value: value,
+        // unit: unit,
       );
   }
 // -----------------------------------------------------------------------------
@@ -57,6 +69,7 @@ class Spec {
       Spec(
         specType: decipherSpecType(map['specType']),
         value: map['value'],
+        // unit: map['unit'],
       );
   }
 // -----------------------------------------------------------------------------
@@ -111,7 +124,7 @@ class Spec {
     }
   }
 // -----------------------------------------------------------------------------
-  static dynamic assignValueDataTypeAccordingToSpecType({SpecType specType, String specValueString}){
+  static dynamic assignValueDataTypeAccordingToSpecType({@required SpecType specType, @required String specValueString}){
     final String _dataType = getDataTypeOfSpecType(specType: specType);
     dynamic _output;
 
@@ -132,7 +145,7 @@ class Spec {
 
     else if (_dataType == 'bool'){
       final int _boolAsInt = Numeric.stringToInt(specValueString);
-      final bool _value = Numeric.sqlDecipherBool(_boolAsInt);
+      final bool _value = Numeric.decipherBool(_boolAsInt);
       _output = _value;
     }
 
@@ -181,7 +194,7 @@ class Spec {
     }
 
     else if (_dataType == 'bool'){
-      final int _valueAsInt = Numeric.sqlCipherBool(spec.value);
+      final int _valueAsInt = Numeric.cipherBool(spec.value);
       _output = '$_valueAsInt';
     }
 
@@ -312,3 +325,5 @@ class Spec {
   }
 }
 /// ============================================================================
+
+

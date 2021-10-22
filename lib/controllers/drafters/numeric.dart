@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class Numeric {
   /// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
-  static String separateKilos({dynamic number, int fractions = 2}) {
+  static String separateKilos({@required dynamic number, int fractions = 2}) {
 
     String _result = '0';
 
@@ -193,7 +193,7 @@ class Numeric {
   }
 // -----------------------------------------------------------------------------
   /// for 1.123 => returns 0.123
-  static double getFractions({double number, int fractionDigits}){
+  static double getFractions({@required double number, int fractionDigits}){
 
     final String _numberAsString = fractionDigits == null ? number.toString() : getFractionStringWithoutZero(fraction: number, fractionDigits: fractionDigits);
     final String _fractionsString = TextMod.trimTextBeforeLastSpecialCharacter(_numberAsString, '.');
@@ -201,7 +201,7 @@ class Numeric {
     return _fraction;
   }
 // -----------------------------------------------------------------------------
-  static removeFractions({double number}){
+  static removeFractions({@required double number}){
     final double _fractions = getFractions(number: number);
     return number - _fractions;
   }
@@ -212,7 +212,7 @@ class Numeric {
     return _rounded;
   }
 // -----------------------------------------------------------------------------
-  static String getFractionStringWithoutZero({double fraction, int fractionDigits}){
+  static String getFractionStringWithoutZero({@required double fraction, int fractionDigits}){
     final String _fractionAsString = fraction.toString();
     String _fractionAsStringWithoutZero = TextMod.trimTextBeforeLastSpecialCharacter(_fractionAsString, '.');
 
@@ -227,12 +227,12 @@ class Numeric {
     return _fractionAsStringWithoutZero;
   }
 // -----------------------------------------------------------------------------
-  static int discountPercentage({double oldPrice, double currentPrice}){
+  static int discountPercentage({@required double oldPrice, @required double currentPrice}){
     final double _percent = ((oldPrice - currentPrice) / oldPrice ) * 100;
     return _percent.round();
   }
 // -----------------------------------------------------------------------------
-  static List<int> getRandomIndexes({int numberOfIndexes, @required int maxIndex}){
+  static List<int> getRandomIndexes({@required int numberOfIndexes, @required int maxIndex}){
     List<int> _indexes = <int>[];
     for (int i = 0; i < numberOfIndexes; i++) {
       int _newIndex = createUniqueIndex(existingIndexes: _indexes, maxIndex: maxIndex);
@@ -241,7 +241,8 @@ class Numeric {
     return _indexes;
   }
 // -----------------------------------------------------------------------------
-  static int sqlCipherBool(bool bool){
+  /// true => 1; false => 0 else => null
+  static int cipherBool(bool bool){
     switch (bool){
       case true: return 1; break;
       case false: return 0; break;
@@ -249,12 +250,60 @@ class Numeric {
     }
   }
 // -----------------------------------------------------------------------------
-  static bool sqlDecipherBool(int int){
+  /// 1 => true; 0 => false else => null
+  static bool decipherBool(int int){
     switch (int){
       case 1: return true; break;
       case 0: return false; break;
       default: return null;
     }
+  }
+// -----------------------------------------------------------------------------
+  /// this should put the number within number of digits
+  /// for digits = 4,, any number should be written like this 0000
+  /// 0001 -> 0010 -> 0100 -> 1000 -> 9999
+  /// when num = 10000 => should return 'increase digits to view number'
+  static String getNumberWithinDigits({@required int num, @required int digits}){
+
+    final int _maxPlusOne = power(num: 10, power: digits);
+    final int _maxPossibleNum = _maxPlusOne - 1;
+
+    String _output;
+
+    if (num >= _maxPossibleNum){
+      _output = 'XXXX';
+    }
+
+    else {
+
+      String _numAsText = num.toString();
+
+      for (int i = 1; i <= digits; i++){
+
+        if (_numAsText.length < digits){
+          _numAsText = '0${_numAsText}';
+        }
+        else {
+          break;
+        }
+
+      }
+
+      _output = _numAsText;
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+  /// num = 10; power = 2; => 10^2 = 100,, cheers
+  static int power({@required int num, @required int power}) {
+    int _output = 1;
+
+    for (int i = 0; i < power; i++) {
+      _output *= num;
+    }
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
 }
