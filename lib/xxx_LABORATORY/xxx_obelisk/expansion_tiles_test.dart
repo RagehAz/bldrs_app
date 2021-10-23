@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/helpers/namez_model.dart';
@@ -123,7 +124,10 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
 
                 dynamic son = _chain.sons[index];
 
-                return Inception(son: son);
+                return Inception(
+                  son: son,
+                  level: 0,
+                );
 
               }
               )
@@ -141,15 +145,21 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
 
 class Inception extends StatelessWidget {
   final dynamic son;
+  final int level;
 
-  const Inception({@required this.son});
+  const Inception({
+    @required this.son,
+    @required this.level,
+  });
 
   @override
   Widget build(BuildContext context) {
 
+    final _offset = (2 * Ratioz.appBarMargin) * level;
+
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _buttonHeight = 40;
-    final double _buttonWidth = _screenWidth - (2 * Ratioz.appBarMargin);
+    final double _buttonHeight = 60;
+    final double _buttonWidth = _screenWidth - (2 * Ratioz.appBarMargin) - _offset;
 
     if(son.runtimeType == KW){
 
@@ -159,6 +169,10 @@ class Inception extends StatelessWidget {
           height: _buttonHeight,
           icon: Keyword.getImagePath(son.id),
           verse: Name.getNameByCurrentLingoFromNames(context, son.names),
+          verseScaleFactor: 0.7,
+          verseCentered: false,
+          color: Colorz.white20,
+          margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
         );
 
     }
@@ -176,6 +190,7 @@ class Inception extends StatelessWidget {
             collapsedHeight: _buttonHeight,
             firstHeadline: Name.getNameByCurrentLingoFromNames(context, son.names),
             secondHeadline: null,
+            margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
             child: Column(
               children: <Widget>[
 
@@ -183,7 +198,10 @@ class Inception extends StatelessWidget {
                         (index) {
                       dynamic son = _sons[index];
 
-                      return Inception(son: son);
+                      return Inception(
+                        son: son,
+                        level: level + 1,
+                      );
                     }
                 ),
               ],
