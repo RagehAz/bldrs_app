@@ -25,9 +25,6 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
   // Color _color = Colorz.BloodTest;
   // SuperFlyer _flyer;
   // bool _thing;
-
-  ScrollController _ScrollController;
-  Chain _chain;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -56,9 +53,7 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _ScrollController = new ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
 
-    _chain = Chain.bldrsChain();
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -110,30 +105,24 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
 
       ],
 
-      layoutWidget: Center(
+      layoutWidget: Container(
+        width: 300,
+        height: Scale.superScreenHeight(context),
+        padding: EdgeInsets.only(top: Ratioz.stratosphere),
         child: MaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
-            controller: _ScrollController,
-            children: <Widget>[
+            children: [
 
-              const Stratosphere(),
-
-              ...List.generate(_chain.sons.length,
-                      (index){
-
-                dynamic son = _chain.sons[index];
-
-                return Inception(
-                  son: son,
-                  level: 0,
-                );
-
-              }
-              )
-
+              Container(
+                width: 300,
+                height: Scale.superScreenHeight(context),
+                color: Colorz.bloodTest,
+                child: BldrsChains(boxWidth: 300,),
+              ),
 
             ],
+
           ),
         ),
       ),
@@ -146,10 +135,12 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
 class Inception extends StatelessWidget {
   final dynamic son;
   final int level;
+  final double boxWidth;
 
   const Inception({
     @required this.son,
-    @required this.level,
+    this.level = 0,
+    this.boxWidth,
   });
 
   @override
@@ -159,7 +150,8 @@ class Inception extends StatelessWidget {
 
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _buttonHeight = 60;
-    final double _buttonWidth = _screenWidth - (2 * Ratioz.appBarMargin) - _offset;
+    final double _boxWidth = boxWidth ?? _screenWidth - (2 * Ratioz.appBarMargin);
+    final double _buttonWidth = _boxWidth - _offset;
 
     if(son.runtimeType == KW){
 
@@ -201,6 +193,7 @@ class Inception extends StatelessWidget {
                       return Inception(
                         son: son,
                         level: level + 1,
+                        boxWidth: _boxWidth,
                       );
                     }
                 ),
@@ -222,3 +215,33 @@ class Inception extends StatelessWidget {
   }
 }
 
+class BldrsChains extends StatelessWidget {
+  final double boxWidth;
+
+  const BldrsChains({
+  this.boxWidth,
+});
+
+  @override
+  Widget build(BuildContext context) {
+
+    final Chain _allChains = Chain.bldrsChain;
+
+    return ListView.builder(
+      physics: const BouncingScrollPhysics(),
+      itemCount: _allChains.sons.length,
+      shrinkWrap: false,
+      itemBuilder: (ctx, index){
+
+        dynamic son = _allChains.sons[index];
+
+        return Inception(
+          son: son,
+          level: 0,
+          boxWidth: boxWidth,
+        );
+
+      },
+    );
+  }
+}

@@ -62,7 +62,7 @@ class CollapsedTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _arrowBoxSize = collapsedHeight ?? GroupTile.collapsedGroupHeight;
+    // final double _arrowBoxSize = collapsedHeight ?? GroupTile.collapsedGroupHeight;
     final double _titlePadding = icon == null ? Ratioz.appBarMargin * 2 : Ratioz.appBarMargin ;
 
     return Container(
