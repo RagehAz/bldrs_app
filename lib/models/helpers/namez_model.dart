@@ -22,15 +22,19 @@ class Name {
   /// name in this language
   final String value;
 
+  final List<String> trigram;
+
   const Name({
     @required this.code,
     @required this.value,
+    this.trigram,
   });
 // -----------------------------------------------------------------------------
-  Map<String, String> toMap() {
+  Map<String, dynamic> toMap() {
     return {
       'code': code,
       'value': value,
+      'trigram' : trigram,
     };
   }
 // -----------------------------------------------------------------------------
@@ -55,6 +59,7 @@ class Name {
     return Name(
       code: map['code'],
       value: map['value'],
+      trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
     );
   }
 // -----------------------------------------------------------------------------

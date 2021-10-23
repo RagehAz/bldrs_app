@@ -19,31 +19,29 @@ class Chain {
     @required this.sons,
   });
 
-  static Chain bldrsChain() {
-    return const Chain(
-      id: 'bldrs',
-      names: <Name>[
-        Name(code: 'en', value: 'Bldrs.net'),
-        Name(code: 'ar', value: 'بلدرز.نت')
-      ],
-      sons: <Chain>[
+  static const Chain bldrsChain = const Chain(
+    id: 'bldrs',
+    names: <Name>[
+      Name(code: 'en', value: 'Bldrs.net'),
+      Name(code: 'ar', value: 'بلدرز.نت')
+    ],
+    sons: <Chain>[
 
-        /// PROPERTIES
-        ChainProperties.chain,
+      /// PROPERTIES
+      ChainProperties.chain,
 
-        /// DESIGN
-        ChainDesigns.chain,
+      /// DESIGN
+      ChainDesigns.chain,
 
-        /// CRAFTS
-        ChainCrafts.chain,
+      /// CRAFTS
+      ChainCrafts.chain,
 
-        /// PRODUCTS
-        ChainProducts.chain,
+      /// PRODUCTS
+      ChainProducts.chain,
 
-        /// EQUIPMENT
-        ChainEquipment.chain,
+      /// EQUIPMENT
+      ChainEquipment.chain,
 
-      ],
-    );
-  }
+    ],
+  );
 }
