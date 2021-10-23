@@ -43,7 +43,22 @@ class CollapsedTile extends StatelessWidget {
     this.marginIsOn = true,
     this.iconSizeFactor = 1,
   });
+// -----------------------------------------------------------------------------
+  static Widget arrow({double collapsedHeight, Color arrowColor, bool arrowDown = true}){
 
+    final double _arrowBoxSize = collapsedHeight ?? GroupTile.collapsedGroupHeight;
+
+    return
+      DreamBox(
+        height: _arrowBoxSize,
+        width: _arrowBoxSize,
+        bubble: false,
+        icon: arrowDown ? Iconz.ArrowDown : Iconz.ArrowUp,
+        iconSizeFactor: 0.2,
+        iconColor: arrowColor ?? Colorz.white255,
+      );
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -122,14 +137,7 @@ class CollapsedTile extends StatelessWidget {
                   /// Arrow
                   new RotationTransition(
                     turns: arrowTurns,
-                    child: DreamBox(
-                      height: _arrowBoxSize,
-                      width: _arrowBoxSize,
-                      bubble: false,
-                      icon: Iconz.ArrowDown,
-                      iconSizeFactor: 0.2,
-                      iconColor: arrowColor,
-                    ),
+                    child: arrow(collapsedHeight: collapsedHeight, arrowColor: arrowColor, arrowDown: true),
                   ),
 
                 ],

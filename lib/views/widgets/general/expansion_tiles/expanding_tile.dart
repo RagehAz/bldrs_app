@@ -1,6 +1,8 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/specific/keywords/collapsed_tile.dart';
 import 'package:bldrs/views/widgets/specific/keywords/sub_group_expansion_tile.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,7 @@ class ExpandingTile extends StatefulWidget {
   final Widget child;
   final bool inActiveMode;
   final Key key;
+  final EdgeInsets margin;
 
   const ExpandingTile({
     this.width,
@@ -48,6 +51,7 @@ class ExpandingTile extends StatefulWidget {
     @required this.child,
     this.inActiveMode = false,
     this.key,
+    this.margin,
   });
 
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
@@ -162,12 +166,14 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
     final bool _closed = _isExpanded == false && _controller.isDismissed == true;
     //------------------------------------------------------------o
     // final double _iconSize = SubGroupTile.calculateTitleIconSize(icon: widget.icon);
+    final double _bottomStripHeight = widget.collapsedHeight == null ? ExpandingTile.collapsedGroupHeight * 0.75 : widget.collapsedHeight * 0.75;
     //------------------------------------------------------------o
     return Container(
       // height: widget.height,
       key: widget.key,
       width: widget.width,
       alignment: Alignment.topCenter,
+      margin: widget.margin,
       child: new AnimatedBuilder(
         animation: _controller.view,
         builder: (context, child){
@@ -202,9 +208,31 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
         /// SUB - GROUPS & KEYWORDS : Expanded tile children
         child: _closed == true ? null
             :
-        Container(
-          width: widget.width,
-          child: widget.child,
+        Column(
+          children: <Widget>[
+
+            Container(
+              width: widget.width,
+              child: widget.child,
+            ),
+
+            GestureDetector(
+              onTap: toggle,
+              child: Container(
+                width: widget.width,
+                height: _bottomStripHeight,
+                alignment: Alignment.center,
+                child: DreamBox(
+                  width: _bottomStripHeight,
+                  height: _bottomStripHeight,
+                  icon: Iconz.ArrowUp,
+                  iconSizeFactor: _bottomStripHeight * 0.5 / 100,
+                  bubble: false,
+                ),
+              ),
+            ),
+
+          ],
         ),
 
       ),
