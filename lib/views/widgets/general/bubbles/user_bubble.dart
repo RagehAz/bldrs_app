@@ -38,6 +38,7 @@ class UserBubble extends StatefulWidget {
 
 class _UserBubbleState extends State<UserBubble> {
   CountryModel _userCountry;
+  CityModel _userCity;
   // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -80,11 +81,12 @@ class _UserBubbleState extends State<UserBubble> {
 
         final Zone _userZone = widget.user?.zone;
         final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _userZone.countryID);
-
+        final CityModel _city = await _zoneProvider.fetchCityByID(context: context, cityID: _userZone.cityID);
 
         _triggerLoading(
             function: (){
               _userCountry = _country;
+              _userCity = _city;
             }
         );
       });
@@ -103,16 +105,14 @@ class _UserBubbleState extends State<UserBubble> {
     final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _userCountry?.countryID);
     final String _countryFlag = Flag.getFlagIconByCountryID(_userCountry?.countryID);
 
-    final String _cityName = CityModel.getTranslatedCityNameFromCountry(
+    final String _cityName = CityModel.getTranslatedCityNameFromCity(
         context: context,
-        country: _userCountry,
-        cityID: widget.user?.zone?.cityID
+        city: _userCity,
     );
 
-    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCountry(
+    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
       context: context,
-      country: _userCountry,
-      cityID: widget.user?.zone?.cityID,
+      city: _userCity,
       districtID: widget.user?.zone?.districtID,
     );
 

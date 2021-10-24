@@ -5,6 +5,8 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/views/screens/f_bz/f_1_flyer_editor_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -15,11 +17,15 @@ import 'package:flutter/material.dart';
 class AddFlyerButton extends StatelessWidget {
   final double flyerBoxWidth;
   final BzModel bzModel;
+  final CountryModel bzCountry;
+  final CityModel bzCity;
   final Function addPublishedFlyerToGallery;
 
   const AddFlyerButton({
     @required this.flyerBoxWidth,
     @required this.bzModel,
+    @required this.bzCountry,
+    @required this.bzCity,
     @required this.addPublishedFlyerToGallery,
   });
 
@@ -57,6 +63,8 @@ class AddFlyerButton extends StatelessWidget {
     final SuperFlyer _bzHeaderSuperFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
       onHeaderTap: () async { await _goToFlyerEditor(context); },
       bzModel: bzModel,
+      bzCountry: bzCountry,
+      bzCity: bzCity,
     );
 
     return FlyerBox(

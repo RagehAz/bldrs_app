@@ -104,12 +104,10 @@ class CityModel{
     return _cities;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getCitiesNamesFromCountryModelByCurrentLingo({@required BuildContext context, @required CountryModel country}){
+  static List<String> getTranslatedCitiesNamesFromCities({@required BuildContext context, @required List<CityModel> cities}){
     List<String> _citiesNames = <String>[];
 
-    final List<CityModel> _cities = country.cities;
-
-    _cities.forEach((city) {
+    cities.forEach((city) {
 
       String _cityName = Name.getNameByCurrentLingoFromNames(context, city.names);
 
@@ -202,15 +200,38 @@ class CityModel{
     return _city;
   }
 // -----------------------------------------------------------------------------
-  static String getTranslatedCityNameFromCountry({@required BuildContext context, @required CountryModel country, @required String cityID}){
+  static String getTranslatedCityNameFromCity({@required BuildContext context, @required CityModel city}){
     String _cityName = '...';
 
-    if (country != null && cityID != null){
-      final CityModel _city = CityModel.getCityFromCities(cities: country.cities, cityID: cityID);
-      _cityName = Name.getNameByCurrentLingoFromNames(context, _city?.names);
+    if (city != null){
+      _cityName = Name.getNameByCurrentLingoFromNames(context, city.names);
     }
 
     return _cityName;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> getCitiesIDsFromCities({@required List<CityModel> cities}){
+
+    final List<String> _citiesIDs = <String>[];
+
+    if (Mapper.canLoopList(cities)){
+
+      for (CityModel city in cities){
+
+        _citiesIDs.add(city.cityID);
+
+      }
+
+    }
+      return _citiesIDs;
+  }
+// -----------------------------------------------------------------------------
+  static String createCityID({@required String countryID, @required String cityEnName}){
+
+    final String _fixedCityEnName = CountryModel.fixCountryName(cityEnName);
+    final String _cityID = '${countryID}_${_fixedCityEnName}';
+
+    return _cityID;
   }
 // -----------------------------------------------------------------------------
 }

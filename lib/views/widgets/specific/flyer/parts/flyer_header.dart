@@ -60,6 +60,8 @@ class FlyerHeader extends StatelessWidget {
                     flyerBoxWidth: flyerBoxWidth,
                     bzPageIsOn: superFlyer.nav.bzPageIsOn,
                     bzModel: superFlyer.bz,
+                    country: superFlyer.bzCountry,
+                    city: superFlyer.bzCity,
                   ),
 
                 ],
