@@ -28,7 +28,7 @@ abstract class ExoticMethods{
 
       final List<dynamic> _maps = await Fire.readCollectionDocs(
         limit: limit ?? 100,
-        collectionName: FireColl.users,
+        collName: FireColl.users,
         addDocSnapshotToEachMap: false,
         orderBy: 'userID',
       );
@@ -66,6 +66,10 @@ abstract class ExoticMethods{
       docName: userID,
       subCollName: FireColl.users_user_notifications,
       addDocsIDs: true,
+      limit: 50, /// TASK : CHECK NOTI LIMIT WHILE READING THEM
+      orderBy: 'id',
+      addDocSnapshotToEachMap: false,
+
     );
 
     final List<NotiModel> _allModels = NotiModel.decipherNotiModels(
@@ -81,7 +85,7 @@ abstract class ExoticMethods{
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
-      collectionName: FireColl.bzz,
+      collName: FireColl.bzz,
       addDocSnapshotToEachMap: false,
       orderBy: 'bzID',
     );
@@ -100,9 +104,9 @@ abstract class ExoticMethods{
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
-      collectionName: FireColl.feedbacks,
+      collName: FireColl.feedbacks,
       addDocSnapshotToEachMap: false,
-      addDocID: true,
+      addDocsIDs: true,
       orderBy: 'timeStamp',
     );
 
@@ -116,9 +120,9 @@ abstract class ExoticMethods{
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
-      collectionName: FireColl.flyers,
+      collName: FireColl.flyers,
       addDocSnapshotToEachMap: false,
-      addDocID: false,
+      addDocsIDs: false,
       orderBy: 'flyerID',
     );
 
@@ -220,6 +224,9 @@ abstract class ExoticMethods{
       collName: 'admin',
       docName: 'bigMac',
       subCollName: 'bigMacs',
+      limit: 250,
+      orderBy: 'countryID',
+      addDocSnapshotToEachMap: false,
     );
 
     final List<BigMac> _allBigMacs = BigMac.decipherBigMacs(_allMaps);

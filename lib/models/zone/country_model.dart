@@ -19,7 +19,7 @@ class CountryModel{
   /// automatic switch when country reaches 'Global target' ~ 10'000 flyers
   /// then country flyers will be visible to other countries users 'bzz & users'
   final bool isGlobal;
-  final List<CityModel> cities;
+  final List<String> citiesIDs;
   final String language;
   final List<Name> names;
   final String currency;
@@ -30,7 +30,7 @@ class CountryModel{
     @required this.continent,
     @required this.isActivated,
     @required this.isGlobal,
-    @required this.cities,
+    @required this.citiesIDs,
     @required this.language,
     @required this.names,
     @required this.currency,
@@ -44,7 +44,7 @@ class CountryModel{
       'continent' : continent,
       'isActivated' : isActivated,
       'isGlobal' : isGlobal,
-      'cities' : CityModel.cipherCities(cities: cities, toJSON: toJSON),
+      'citiesIDs' : citiesIDs,
       'language' : language,
       'names': Name.cipherNames(names),
       'currency': currency,
@@ -56,7 +56,7 @@ class CountryModel{
     CountryModel _countryModel;
 
     if (map != null){
-      final List<Name> _names = Name.decipherNames(map['names']);
+      final List<Name> _names = Name.newDecipherNames(map['names']);
 
       _countryModel = CountryModel(
         countryID : map['countryID'],
@@ -65,7 +65,7 @@ class CountryModel{
         continent : map['continent'],
         isActivated : map['isActivated'],
         isGlobal : map['isGlobal'],
-        cities : CityModel.decipherCitiesMap(map: map['cities'], fromJSON: fromJSON),
+        citiesIDs : Mapper.getStringsFromDynamics(dynamics: map['citiesIDs']),
         language : map['language'],
         currency: map['currency'],
       );
@@ -242,7 +242,7 @@ class CountryModel{
     print('continent : ${continent}');
     print('isActivated : ${isActivated}');
     print('isGlobal : ${isGlobal}');
-    print('cities : ${cities}');
+    print('citiesIDs : ${citiesIDs}');
     print('language : ${language}');
     print('names : ${names}');
 

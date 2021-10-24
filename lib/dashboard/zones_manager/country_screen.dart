@@ -68,7 +68,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     _flag = Flag.getFlagIconByCountryID(widget.country.countryID);
     _isActivated = widget.country.isActivated;
     _isGlobal = widget.country.isGlobal;
-    _cities = widget.country.cities;
+    // _cities = widget.country.cities;
     _language = widget.country.language;
   }
 // ---------------------------------------------------------------------------
@@ -90,10 +90,11 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final List<String> _citiesNames = CityModel.getCitiesNamesFromCountryModelByCurrentLingo(
-      context: context,
-      country: widget.country,
-    );
+    final List<String> _citiesNames = [];
+    // CityModel.getCitiesNamesFromCountryModelByCurrentLingo(
+    //   context: context,
+    //   country: widget.country,
+    // );
 
     final String _countryName = Name.getNameByCurrentLingoFromNames(context, widget.country.names);
 

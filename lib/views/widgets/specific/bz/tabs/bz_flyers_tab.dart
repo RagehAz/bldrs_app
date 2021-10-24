@@ -3,6 +3,8 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/views/screens/f_bz/f_2_deactivated_flyers_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/tab_button.dart';
@@ -15,10 +17,14 @@ import 'package:flutter/material.dart';
 class BzFlyersTab extends StatelessWidget {
   final BzModel bzModel;
   final List<FlyerModel> flyers;
+  final CountryModel bzCountry;
+  final CityModel bzCity;
 
   const BzFlyersTab({
     @required this.bzModel,
     @required this.flyers,
+    @required this.bzCountry,
+    @required this.bzCity,
   });
 // -----------------------------------------------------------------------------
   static TabModel flyersTabModel({
@@ -27,6 +33,8 @@ class BzFlyersTab extends StatelessWidget {
     @required List<FlyerModel> tinyFlyers,
     @required bool isSelected,
     @required int tabIndex,
+    @required CountryModel bzCountry,
+    @required CityModel bzCity,
   }) {
     return
       TabModel(
@@ -41,6 +49,8 @@ class BzFlyersTab extends StatelessWidget {
         page: BzFlyersTab(
           bzModel: bzModel,
           flyers: tinyFlyers,
+          bzCountry: bzCountry,
+          bzCity: bzCity,
         ),
 
       );
@@ -71,6 +81,8 @@ class BzFlyersTab extends StatelessWidget {
                 superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
                   bzModel: bzModel,
                   onHeaderTap: () => print('on header tap in f 0 my bz Screen'),
+                  bzCity: bzCity,
+                  bzCountry: bzCountry,
                 ),
                 showFlyers: true,
                 // tinyFlyers: tinyFlyers,

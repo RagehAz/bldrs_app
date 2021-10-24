@@ -30,12 +30,13 @@ enum ValueIs{
 class FireSearch {
 // -----------------------------------------------------------------------------
     static Future<dynamic> mapsByFieldValue({
-      BuildContext context,
-      String collName,
-      String field,
-      dynamic compareValue,
-      ValueIs valueIs,
-      bool addDocsIDs,
+      @required BuildContext context,
+      @required String collName,
+      @required String field,
+      @required dynamic compareValue,
+      @required ValueIs valueIs,
+      bool addDocsIDs = false,
+      bool addDocSnapshotToEachMap = false,
   }) async {
 
       Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
@@ -123,6 +124,7 @@ class FireSearch {
       _maps = Mapper.getMapsFromQuerySnapshot(
         querySnapshot: _collectionSnapshot,
         addDocsIDs: true,
+        addDocSnapshotToEachMap: addDocSnapshotToEachMap,
       );
 
       Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: '_maps', varNewValue: _maps, tracerIsOn: true);
@@ -134,11 +136,12 @@ class FireSearch {
   }
 // -----------------------------------------------------------------------------
   static Future<dynamic> mapsByValueInArray({
-    BuildContext context,
-    CollectionReference collRef,
-    String field,
-    dynamic value,
-    bool addDocsIDs,
+    @required BuildContext context,
+    @required CollectionReference collRef,
+    @required String field,
+    @required dynamic value,
+    bool addDocsIDs = false,
+    bool addDocSnapshotToEachMap = false,
 }) async {
 
     List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -165,7 +168,8 @@ class FireSearch {
 
           _maps = Mapper.getMapsFromQuerySnapshot(
             querySnapshot: _collectionSnapshot,
-            addDocsIDs: true,
+            addDocsIDs: addDocsIDs,
+            addDocSnapshotToEachMap: addDocSnapshotToEachMap,
           );
     });
 
@@ -173,13 +177,14 @@ class FireSearch {
     }
 // -----------------------------------------------------------------------------
   static Future<dynamic> mapsByTwoValuesEqualTo({
-    BuildContext context,
-    CollectionReference collRef,
-    String fieldA,
-    dynamic valueA,
-    String fieldB,
-    dynamic valueB,
-    bool addDocsIDs,
+    @required BuildContext context,
+    @required CollectionReference collRef,
+    @required String fieldA,
+    @required dynamic valueA,
+    @required String fieldB,
+    @required dynamic valueB,
+    bool addDocsIDs = false,
+    bool addDocSnapshotToEachMap = false,
 }) async {
 
     List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -200,7 +205,8 @@ class FireSearch {
 
           _maps = Mapper.getMapsFromQuerySnapshot(
             querySnapshot: _collectionSnapshot,
-            addDocsIDs: true,
+            addDocsIDs: addDocsIDs,
+            addDocSnapshotToEachMap: addDocSnapshotToEachMap,
           );
         });
 
@@ -212,9 +218,11 @@ class FireSearch {
 // --------------------------------------
 /// SEARCH FLYERS BY AREA AND FLYER TYPE
   static Future<List<FlyerModel>> flyersByZoneAndFlyerType({
-    BuildContext context,
-    Zone zone,
-    FlyerType flyerType,
+    @required BuildContext context,
+    @required Zone zone,
+    @required FlyerType flyerType,
+    bool addDocsIDs = false,
+    bool addDocSnapshotToEachMap = false,
   }) async {
 
       List<FlyerModel> _flyers = <FlyerModel>[];
@@ -241,7 +249,8 @@ class FireSearch {
 
             List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
               querySnapshot: _collectionSnapshot,
-              addDocsIDs: false,
+              addDocsIDs: addDocsIDs,
+              addDocSnapshotToEachMap: addDocSnapshotToEachMap,
             );
 
              _flyers = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);

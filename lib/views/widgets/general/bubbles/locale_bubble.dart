@@ -38,7 +38,9 @@ class LocaleBubble extends StatefulWidget {
 
 class _LocaleBubbleState extends State<LocaleBubble> {
   CountryModel _selectedCountry;
+  List<CityModel> _selectedCountryCities;
   String _selectedCityID;
+  CityModel _selectedCity;
   String _selectedDistrictID;
   Zone _userZone;
   ZoneProvider _zoneProvider;
@@ -73,10 +75,14 @@ class _LocaleBubbleState extends State<LocaleBubble> {
         mapsModels: _countriesMapModels,
         alignment: Alignment.center,
         bottomDialogType: BottomDialogType.countries,
-        buttonTap: (countryID){
+        buttonTap: (String countryID) async {
+
+          final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: countryID);
+          final List<CityModel> _cities = await _zoneProvider.fetchCitiesByIDs(context: context, citiesIDs: _country.citiesIDs);
 
           setState(() {
-            _selectedCountry = countryID;
+            _selectedCountry = _country;
+            _selectedCountryCities = _cities;
             _selectedCityID = null;
             _selectedDistrictID = null;
           });
@@ -96,7 +102,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
     final List<MapModel> _citiesMapModels = CityModel.getCitiesNamesMapModels(
         context : context,
-        cities: _selectedCountry.cities
+        cities: _selectedCountryCities,
     );
 
     await BottomDialog.showBottomDialog(
@@ -107,12 +113,17 @@ class _LocaleBubbleState extends State<LocaleBubble> {
         mapsModels: _citiesMapModels,
         alignment: Alignment.center,
         bottomDialogType: BottomDialogType.cities,
-        buttonTap: (provinceID){
+        buttonTap: (String cityID) async {
+
+          final CityModel _city = await _zoneProvider.fetchCityByID(context: context, cityID: cityID);
+
           setState(() {
-            _selectedCityID = provinceID;
+            _selectedCityID = cityID;
+            _selectedCity = _city;
             _selectedDistrictID = null;
           });
-          widget.changeCity(provinceID);
+
+          widget.changeCity(cityID);
           print('_currentProvince : $_selectedCityID');
           _closeBottomSheet();
         },
@@ -124,10 +135,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    List<DistrictModel> _selectedCityDistricts = DistrictModel.getDistrictsFromCountryModel(
-      country: _selectedCountry,
-      cityID: _selectedCityID,
-    );
+    List<DistrictModel> _selectedCityDistricts = _selectedCity.districts;
 
     List<MapModel> _districtsMapModels = DistrictModel.getDistrictsNamesMapModels(
       context: context,
@@ -142,7 +150,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
         mapsModels: _districtsMapModels,
         alignment: Alignment.center,
         bottomDialogType: BottomDialogType.districts,
-        buttonTap: (districtID){
+        buttonTap: (String districtID){
 
           setState(() {
             _selectedDistrictID = districtID;
@@ -161,10 +169,9 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     final String _selectedCityName = _selectedCityID == null ?
     '...'
         :
-    CityModel.getTranslatedCityNameFromCountry(
+    CityModel.getTranslatedCityNameFromCity(
         context: context,
-        country: _selectedCountry,
-        cityID: _selectedCityID
+        city: _selectedCity,
     );
 
     return _selectedCityName;
@@ -174,10 +181,9 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     final String _selectedDistrictName = _selectedDistrictID == null ?
     '...'
         :
-    DistrictModel.getTranslatedDistrictNameFromCountry(
+    DistrictModel.getTranslatedDistrictNameFromCity(
       context: context,
-      country: _selectedCountry,
-      cityID: _selectedCityID,
+      city: _selectedCity,
       districtID: _selectedDistrictID,
     );
 

@@ -51,7 +51,7 @@ class SelectAreaScreen extends StatelessWidget {
 
         _zone.printZone(methodName: 'SELECTED ZONE');
 
-        await _zoneProvider.getsetCurrentZoneAndCountry(context: context, zone: _zone);
+        await _zoneProvider.getsetCurrentZoneAndCountryAndCity(context: context, zone: _zone);
 
         await _flyersProvider.getsetWallFlyersBySection(
             context: context,

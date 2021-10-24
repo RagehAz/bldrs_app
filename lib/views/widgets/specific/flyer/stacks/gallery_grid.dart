@@ -4,6 +4,8 @@ import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/add_flyer_button.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,8 @@ class GalleryGrid extends StatelessWidget {
   final String bzID;
   final List<AuthorModel> bzAuthors;
   final BzModel bz;
+  final CountryModel bzCountry;
+  final CityModel bzCity;
   final bool addButtonIsOn;
   // final Function flyerOnTap;
   final Function addPublishedFlyerToGallery;
@@ -27,6 +31,8 @@ class GalleryGrid extends StatelessWidget {
     @required this.bzID,
     @required this.bzAuthors,
     @required this.bz,
+    @required this.bzCountry,
+    @required this.bzCity,
     this.addButtonIsOn = false,
     // @required this.flyerOnTap,
     @required this.addPublishedFlyerToGallery,
@@ -124,6 +130,8 @@ class GalleryGrid extends StatelessWidget {
                 bzModel: bz,
                 flyerBoxWidth: _gridFlyerWidth,
                 addPublishedFlyerToGallery: addPublishedFlyerToGallery,
+                bzCountry: bzCountry,
+                bzCity: bzCity,
               ),
 
               /// GALLERY FLYERS

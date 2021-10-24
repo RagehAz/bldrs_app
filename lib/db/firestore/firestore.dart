@@ -296,12 +296,12 @@ class Fire{
   }
 // =============================================================================
   static Future<List<dynamic>> readCollectionDocs({
-    @required String collectionName,
+    @required String collName,
     @required String orderBy,
     @required int limit,
     QueryDocumentSnapshot startAfter,
     bool addDocSnapshotToEachMap = false,
-    bool addDocID = false,
+    bool addDocsIDs = false,
   }) async {
 
     final QueryDocumentSnapshot _startAfter = startAfter ?? null;
@@ -310,11 +310,11 @@ class Fire{
 
 
     if(_startAfter == null){
-      _collectionSnapshot = await FirebaseFirestore.instance.collection(collectionName).orderBy(orderBy).limit(limit).get();
+      _collectionSnapshot = await FirebaseFirestore.instance.collection(collName).orderBy(orderBy).limit(limit).get();
     }
 
     else {
-      _collectionSnapshot = await FirebaseFirestore.instance.collection(collectionName).orderBy(orderBy).limit(limit).startAfterDocument(startAfter).get();
+      _collectionSnapshot = await FirebaseFirestore.instance.collection(collName).orderBy(orderBy).limit(limit).startAfterDocument(startAfter).get();
     }
 
 
@@ -328,7 +328,7 @@ class Fire{
 
       Map<String, dynamic> _map = docSnapshot.data();
 
-      if (addDocID == true){
+      if (addDocsIDs == true){
         _map = Mapper.insertPairInMap(
           map: _map,
           key: 'id',
@@ -422,7 +422,65 @@ class Fire{
     @required String collName,
     @required String docName,
     @required String subCollName,
+    QueryDocumentSnapshot startAfter,
+    @required int limit,
+    @required String orderBy,
+    @required bool addDocSnapshotToEachMap,
   }) async {
+
+    /*
+
+        final QueryDocumentSnapshot _startAfter = startAfter ?? null;
+
+    QuerySnapshot _collectionSnapshot;
+
+
+    if(_startAfter == null){
+      _collectionSnapshot = await FirebaseFirestore.instance.collection(collName).orderBy(orderBy).limit(limit).get();
+    }
+
+    else {
+      _collectionSnapshot = await FirebaseFirestore.instance.collection(collName).orderBy(orderBy).limit(limit).startAfterDocument(startAfter).get();
+    }
+
+
+
+    final List<QueryDocumentSnapshot> _docsSnapshots = _collectionSnapshot.docs;
+
+    /// to return maps
+    final List<dynamic> _maps = <dynamic>[];
+
+    for (QueryDocumentSnapshot docSnapshot in _docsSnapshots){
+
+      Map<String, dynamic> _map = docSnapshot.data();
+
+      if (addDocID == true){
+        _map = Mapper.insertPairInMap(
+          map: _map,
+          key: 'id',
+          value: docSnapshot.id,
+        );
+      }
+
+      if (addDocSnapshotToEachMap == true){
+        _map = Mapper.insertPairInMap(
+          map: _map,
+          key: 'docSnapshot',
+          value: docSnapshot,
+        );
+      }
+
+      _maps.add(_map);
+
+    }
+    // return <List<QueryDocumentSnapshot>>
+
+    return _maps;
+
+
+
+     */
+
 
     List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
@@ -437,11 +495,24 @@ class Fire{
             subCollName: subCollName,
           );
 
-          final QuerySnapshot _collectionSnapshot = await _subCollection.get();
+          QuerySnapshot _collectionSnapshot;
+
+          final QueryDocumentSnapshot _startAfter = startAfter ?? null;
+
+          if(_startAfter == null){
+            _collectionSnapshot = await _subCollection.orderBy(orderBy).limit(limit).get();
+          }
+
+          else {
+            _collectionSnapshot = await _subCollection.orderBy(orderBy).limit(limit).startAfterDocument(startAfter).get();
+          }
+
+
 
           _maps = Mapper.getMapsFromQuerySnapshot(
             querySnapshot: _collectionSnapshot,
             addDocsIDs: addDocsIDs,
+            addDocSnapshotToEachMap: addDocSnapshotToEachMap,
           );
 
         }
@@ -759,6 +830,7 @@ class Fire{
 
     /// TASK : deleting collection and all its docs, sub collections & sub docs require a cloud function
 
+
   }
 // -----------------------------------------------------------------------------
   static Future<void> deleteSubCollection({
@@ -780,28 +852,30 @@ class Fire{
     @required String subCollName,
   }) async {
 
-    /// a - read all sub docs
-    final List<dynamic> _subDocs = await Fire.readSubCollectionDocs(
-      context: context,
-      addDocsIDs: true,
-      collName: collName,
-      docName: docName,
-      subCollName: subCollName,
-    );
-
-    for(var map in _subDocs){
-
-      final String _docID = map['id'];
-
-      await Fire.deleteSubDoc(
-        context: context,
-        collName: collName,
-        docName: docName,
-        subCollName: subCollName,
-        subDocName: _docID,
-      );
-
-    }
+    // /// a - read all sub docs
+    // final List<dynamic> _subDocs = await Fire.readSubCollectionDocs(
+    //   context: context,
+    //   addDocsIDs: true,
+    //   collName: collName,
+    //   docName: docName,
+    //   subCollName: subCollName,
+    //   addDocSnapshotToEachMap: false,
+    //   orderBy: '',
+    // );
+    //
+    // for(var map in _subDocs){
+    //
+    //   final String _docID = map['id'];
+    //
+    //   await Fire.deleteSubDoc(
+    //     context: context,
+    //     collName: collName,
+    //     docName: docName,
+    //     subCollName: subCollName,
+    //     subDocName: _docID,
+    //   );
+    //
+    // }
 
   }
 // -----------------------------------------------------------------------------

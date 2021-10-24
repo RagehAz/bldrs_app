@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/foundation.dart';
@@ -34,17 +35,23 @@ class Name {
     return {
       'code': code,
       'value': value,
-      'trigram' : trigram,
+      'trigram' : TextMod.createTrigram(input: value),
     };
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, dynamic>> cipherNames(List<Name> names) {
-    final List<Map<String, dynamic>> _namezMaps = <Map<String, dynamic>>[];
+  static Map<String, dynamic> cipherNames(List<Name> names) {
+    Map<String, dynamic> _namezMaps = {};
 
     if (Mapper.canLoopList(names)){
 
       names.forEach((name) {
-        _namezMaps.add(name.toMap());
+
+        _namezMaps = Mapper.insertPairInMap(
+            map: _namezMaps,
+            key: name.code,
+            value: name.toMap(),
+        );
+
       });
 
     }
@@ -61,6 +68,26 @@ class Name {
       value: map['value'],
       trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
     );
+  }
+// -----------------------------------------------------------------------------
+  static List<Name> newDecipherNames(Map<String, dynamic> map){
+    final List<Name> _names = <Name>[];
+
+    final List<String> _keys = map.keys.toList();
+
+    if (Mapper.canLoopList(_keys)){
+
+      for (int i = 0; i<_keys.length; i++){
+
+        final String _key = _keys[i];
+        final Name _name = decipherName(map[_key]);
+        _names.add(_name);
+
+      }
+
+    }
+
+    return _names;
   }
 // -----------------------------------------------------------------------------
   static List<Name> decipherNames(List<dynamic> maps) {

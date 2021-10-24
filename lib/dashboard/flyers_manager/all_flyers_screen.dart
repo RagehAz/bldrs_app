@@ -45,7 +45,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
         print('starting things');
 
         final List<dynamic> _maps = await Fire.readCollectionDocs(
-          collectionName: FireColl.flyers,
+          collName: FireColl.flyers,
           orderBy: 'flyerID',
           limit: 5,
         );
