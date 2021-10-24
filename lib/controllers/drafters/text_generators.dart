@@ -137,19 +137,18 @@ class TextGenerator{
     return _bzFormStrings;
   }
 // -----------------------------------------------------------------------------
-  static String countryStringer ({BuildContext context, CountryModel country, Zone zone}){
+  static String countryStringer ({@required BuildContext context, @required CountryModel country, @required CityModel city, @required Zone zone}){
     String _verse = '...';
 
     if (country != null && Zone.zoneHasAllIDs(zone)){
 
       final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: country.countryID);
 
-      final String _cityName = CityModel.getTranslatedCityNameFromCountry(context: context, country: country, cityID: zone.cityID);
+      final String _cityName = CityModel.getTranslatedCityNameFromCity(context: context, city: city,);
 
-      final String _districtName = DistrictModel.getTranslatedDistrictNameFromCountry(
+      final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
         context: context,
-        country: country,
-        cityID: zone.cityID,
+        city: city,
         districtID: zone.districtID,
       );
 
@@ -163,7 +162,7 @@ class TextGenerator{
     return _verse;
   }
 // -----------------------------------------------------------------------------
-  static String cityCountryStringer ({BuildContext context, CountryModel country, Zone zone}){
+  static String cityCountryStringer ({@required BuildContext context, @required CountryModel country, @required CityModel city, @required Zone zone}){
 
     String _verse = '...';
 
@@ -171,8 +170,7 @@ class TextGenerator{
 
       final String _countryName = Name.getNameByCurrentLingoFromNames(context, country.names);
 
-      final CityModel _city = CityModel.getCityFromCities(cities: country.cities, cityID: zone.cityID);
-      final String _cityName = Name.getNameByCurrentLingoFromNames(context, _city.names);
+      final String _cityName = Name.getNameByCurrentLingoFromNames(context, city.names);
 
       _verse =
       zone.countryID == null || zone.cityID == null ? '...' :

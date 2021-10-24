@@ -12,6 +12,8 @@ import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -73,6 +75,10 @@ class SuperFlyer{
   /// publishing times
   List<PublishTime> times; // MutableFlyer -- ?
   bool priceTagIsOn;
+  CountryModel bzCountry;
+  CityModel bzCity;
+  CountryModel flyerCountry;
+  CityModel flyerCity;
 
 
   /// --------------------------------------------------------------------------
@@ -132,6 +138,11 @@ class SuperFlyer{
     @required this.times,
 
     @required this.priceTagIsOn,
+
+    @required this.bzCountry,
+    @required this.bzCity,
+    @required this.flyerCountry,
+    @required this.flyerCity,
   });
 // -----------------------------------------------------------------------------
   static const String draftID = 'draft';
@@ -246,6 +257,10 @@ class SuperFlyer{
 
           priceTagIsOn: null,
 
+          bzCountry: null,
+          bzCity: null,
+          flyerCity: null,
+          flyerCountry: null,
         );
   }
 // -----------------------------------------------------------------------------
@@ -274,6 +289,12 @@ class SuperFlyer{
     @required Function onSaveInfoScrollOffset,
     @required Function getInfoScrollOffset,
     @required double initialInfoScrollOffset,
+
+    @required CountryModel bzCountry,
+    @required CityModel bzCity,
+
+    @required CountryModel flyerCountry,
+    @required CityModel flyerCity,
   }){
 
     final int _initialPage = initialPage == null ? 0 : initialPage;
@@ -389,6 +410,12 @@ class SuperFlyer{
         /// publishing times
         times: flyerModel.times,
         priceTagIsOn: flyerModel.priceTagIsOn,
+
+        bzCountry: bzCountry,
+        bzCity: bzCity,
+
+        flyerCountry: flyerCountry,
+        flyerCity: flyerCity,
       );
   }
 // -----------------------------------------------------------------------------
@@ -427,6 +454,13 @@ class SuperFlyer{
     @required double initialInfoScrollOffset,
     @required Function onSaveInfoScrollOffset,
     @required Function getInfoScrollOffset,
+
+    @required CountryModel bzCountry,
+    @required CityModel bzCity,
+
+    @required CountryModel flyerCountry,
+    @required CityModel flyerCity,
+
   }){
 
     print('CREATING draft super flyer from nothing for bz  : ${bzModel.name} : id : ${bzModel.bzID}');
@@ -544,6 +578,12 @@ class SuperFlyer{
           PublishTime(state: FlyerState.draft, time: DateTime.now()),
         ],
         priceTagIsOn: false,
+
+        bzCountry: bzCountry,
+        bzCity: bzCity,
+
+        flyerCountry: flyerCountry,
+        flyerCity: flyerCity,
       );
 
   }
@@ -584,6 +624,13 @@ class SuperFlyer{
     @required double initialInfoScrollOffset,
     @required Function onSaveInfoScrollOffset,
     @required Function getInfoScrollOffset,
+
+    @required CountryModel bzCountry,
+    @required CityModel bzCity,
+
+    @required CountryModel flyerCountry,
+    @required CityModel flyerCity,
+
   }) async {
 
     print('CREATING draft super flyer from FLYER : ${flyerModel.flyerID} for bz  : ${bzModel.name} : id : ${bzModel.bzID}');
@@ -694,6 +741,13 @@ class SuperFlyer{
         /// publishing times
         times: flyerModel.times,
         priceTagIsOn: flyerModel.priceTagIsOn,
+
+        bzCountry: bzCountry,
+        bzCity: bzCity,
+
+        flyerCountry: flyerCountry,
+        flyerCity: flyerCity,
+
       );
 
   }
@@ -701,6 +755,8 @@ class SuperFlyer{
 static SuperFlyer getSuperFlyerFromBzModelOnly({
   BzModel bzModel,
   @required onHeaderTap,
+  @required CountryModel bzCountry,
+  @required CityModel bzCity,
 }){
     return
       SuperFlyer(
@@ -808,6 +864,13 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         times: null,
 
         priceTagIsOn: null,
+
+        bzCountry: bzCountry,
+        bzCity: bzCity,
+
+        flyerCountry: null,
+        flyerCity: null,
+
       );
 }
 

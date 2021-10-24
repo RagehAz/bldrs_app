@@ -1,10 +1,8 @@
-import 'package:bldrs/controllers/drafters/numeric.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/helpers/namez_model.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:flutter/material.dart';
@@ -113,400 +111,186 @@ class _TestLabState extends State<TestLab> {
 
               WideButton(
                   color: Colorz.bloodTest,
-                  verse: 'Properties keys',
+                  verse: 'super bomb',
                   icon: Iconz.Share,
                   onTap: () async {
 
-                    _triggerLoading();
-
-                    /// do things here
-
-                    List<Keyword> _keywords = Keyword.getKeywordsByGroupID('group_ppt_type');
-
-                    List<String> _subGroupIDs = Keyword.getSubGroupsIDsFromKeywords(keywords: _keywords);
-
-                    for (int i = 0; i< _subGroupIDs.length; i++){
-                      final String _num = Numeric.getNumberWithinDigits(num: i + 1, digits : 4);
-
-                      final String _subGroupID = _subGroupIDs[i];
-                      final String _enName = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(context: context, lingoCode: 'en', subGroupID: _subGroupID);
-                      final String _arName = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(context: context, lingoCode: 'ar', subGroupID: _subGroupID);
-
-                      final List<Keyword> _keywords = Keyword.getKeywordsBySubGroupID(_subGroupID);
-
-                      print('$_num :             // -----------------------------------------------');
-                      print('$_num : /// $_enName');
-
-                      print('$_num : const Chain(');
-                      print('$_num : id: \'${_subGroupID}\',');
-                      print('$_num : names: <Name>[Name(code: \'en\', value: \'${_enName}\'), Name(code: \'ar\', value: \'${_arName}\')],');
-                      print('$_num : sons: const <KW>[');
-
-
-                      _keywords.forEach((kw) {
-
-                        final String _kwID = kw.keywordID;
-                        final String _kwEnName = Keyword.getKeywordNameByKeywordID(context, _kwID);
-                        final String _kwArName = Keyword.getKeywordArabicName(kw);
-
-                        String _names = '<Name>[Name(code: \'en\', value: \'${_kwEnName}\'), Name(code: \'ar\', value: \'${_kwArName}\')],';
-                        print('$_num : KW(id: \'${_kwID}\', names: ${_names}),');
-
-                      });
-
-                      print('$_num : ],');
-                      print('$_num : ),');
-
-                    };
-
-
-                    _triggerLoading();
+                    // _triggerLoading();
+                    //
+                    // /// do things here
+                    //
+                    // final List<dynamic> _maps = await Fire.readCollectionDocs(
+                    //   limit: 400,
+                    //   collName: 'old_zones',
+                    //   addDocSnapshotToEachMap: false,
+                    //   addDocsIDs: false,
+                    //   orderBy: 'countryID',
+                    // );
+                    //
+                    // print('LET THE GAMES BEGIN');
+                    //
+                    // List<CountryModel> _countries = CountryModel.decipherCountriesMaps(maps: _maps, fromJSON: false);
+                    //
+                    // /// countries stats
+                    // final List<String> _allCountriesIDs = <String>[];
+                    // int _numberOfCountries = 0;
+                    // int _numberOfCities = 0;
+                    //
+                    // for (var country in _countries){
+                    //
+                    //   _allCountriesIDs.add(country.countryID);
+                    //   _numberOfCountries++;
+                    //
+                    //   final List<String> _citiesIDs = <String>[];
+                    //
+                    //   for (CityModel city in country.cities){
+                    //     _numberOfCities++;
+                    //
+                    //     final String _cityEnName = Name.getNameByLingoFromNames(names: city.names, lingoCode: 'en');
+                    //     final String _cityID = CityModel.createCityID(countryID: city.countryID, cityEnName: _cityEnName);
+                    //
+                    //     _citiesIDs.add(_cityID);
+                    //
+                    //     final Map<String, dynamic> _cityMap = {
+                    //       'countryID' : country.countryID,
+                    //       'cityID' : _cityID,
+                    //       'districts' : DistrictModel.cipherDistricts(city.districts),
+                    //       'population' : city.population,
+                    //       'isActivated' : false,
+                    //       'isPublic' : false,
+                    //       'names' : Name.cipherNames(city.names),
+                    //       'position' : Atlas.cipherGeoPoint(point: city.position, toJSON: false),
+                    //     };
+                    //
+                    //     // Mapper.printMap(_cityMap);
+                    //
+                    //     await Fire.createNamedSubDoc(
+                    //       context: context,
+                    //       collName: 'zones',
+                    //       docName: 'cities',
+                    //       subCollName: 'cities',
+                    //       subDocName: _cityID,
+                    //       input: _cityMap,
+                    //     );
+                    //
+                    //   }
+                    //
+                    //   final Map<String, dynamic> _newMap = {
+                    //     'countryID' : country.countryID,
+                    //     'region' : country.region,
+                    //     'continent' : country.continent,
+                    //     'isActivated' : country.isActivated,
+                    //     'isGlobal' : country.isGlobal,
+                    //     'citiesIDs' : _citiesIDs,
+                    //     'language' : country.language,
+                    //     'names': Name.cipherNames(country.names),
+                    //     'currency': country.currency,
+                    //   };
+                    //
+                    //   // Mapper.printMap(_newMap);
+                    //
+                    //   await Fire.createNamedSubDoc(
+                    //     context: context,
+                    //     collName: 'zones',
+                    //     docName: 'countries',
+                    //     subCollName: 'countries',
+                    //     subDocName: country.countryID,
+                    //     input: _newMap,
+                    //   );
+                    //
+                    //   await Fire.deleteDoc(context: context, collName: 'zones', docName: country.countryID);
+                    //
+                    //
+                    //
+                    //   print('done with ${Name.getNameByCurrentLingoFromNames(context, country.names)}');
+                    //
+                    // }
+                    //
+                    // await Fire.updateDocField(
+                    //     context: context,
+                    //     collName: 'zones',
+                    //     docName: 'countries',
+                    //     field: 'numberOfCountries',
+                    //     input: _numberOfCountries,
+                    // );
+                    //
+                    // await Fire.updateDocField(
+                    //   context: context,
+                    //   collName: 'zones',
+                    //   docName: 'countries',
+                    //   field: 'allCountriesIDs',
+                    //   input: _allCountriesIDs,
+                    // );
+                    //
+                    // // _numberOfCities
+                    // await Fire.updateDocField(
+                    //   context: context,
+                    //   collName: 'zones',
+                    //   docName: 'cities',
+                    //   field: 'numberOfCities',
+                    //   input: _numberOfCities,
+                    // );
+                    //
+                    // /*
+                    //
+                    // [
+                    // {code: en, value: Egypt, trigram: []},
+                    //  {code: ar, value: مصر, trigram: []},
+                    //  {code: es, value: Egipto, trigram: []},
+                    //  {code: fr, value: Égypte, trigram: []},
+                    //   {code: zh, value: 埃及, trigram: []},
+                    //   {code: de, value: Ägypten, trigram: []}
+                    //   ]
+                    //
+                    //  */
+                    //
+                    // _triggerLoading();
 
                   }
               ),
 
               WideButton(
-                  color: Colorz.bloodTest,
-                  verse: 'Designs keys',
-                  icon: Iconz.Share,
-                  onTap: () async {
+                verse: 'Do Thing',
+                icon: Iconz.Share,
+                onTap: () async {
 
-                    _triggerLoading();
+                  List<Map> _countries = await Fire.readSubCollectionDocs(
+                      context: context,
+                      addDocsIDs: false,
+                      collName: 'zones',
+                      docName: 'countries',
+                      subCollName: 'countries',
+                    addDocSnapshotToEachMap: false,
+                    limit: 250,
+                    orderBy: 'countryID',
+                  );
 
-                    /// do things here
+                  int _numberOfCities = 0;
 
-                    List<Keyword> _keywords = Keyword.getKeywordsByGroupID('group_dz_type');
+                  for (var map in _countries){
 
+                    List<String> _citiesIDs = Mapper.getStringsFromDynamics(dynamics: map['citiesIDs']);
 
-                    for (int i = 0; i< _keywords.length; i++){
-                      final String _num = Numeric.getNumberWithinDigits(num: i + 1, digits : 4);
+                    print('country : ${map['countryID']} : _citiesIDs : ${_citiesIDs.length} cities');
 
-                      final Keyword _keyword = _keywords[i];
-
-
-                        final String _kwID = _keyword.keywordID;
-                        final String _kwEnName = Keyword.getKeywordNameByKeywordID(context, _kwID);
-                        final String _kwArName = Keyword.getKeywordArabicName(_keyword);
-
-                        // print('$_num :             // -----------------------------------------------');
-                        // print('$_num : /// $_kwEnName');
-
-                        final String _names = '<Name>[Name(code: \'en\', value: \'${_kwEnName}\'), Name(code: \'ar\', value: \'${_kwArName}\')],';
-                        print('$_num : KW(id: \'${_kwID}\', names: ${_names}),');
-
-
-                    };
-
-
-                    _triggerLoading();
+                    _numberOfCities = _numberOfCities + _citiesIDs.length;
 
                   }
+
+                  await Fire.updateDocField(
+                    context: context,
+                    collName: 'zones',
+                    docName: 'cities',
+                    field: 'numberOfCities',
+                    input: _numberOfCities,
+                  );
+
+
+                  print('LET THE GAMES BEGIN');
+
+
+                },
               ),
-
-              WideButton(
-                  color: Colorz.bloodTest,
-                  verse: 'crafts keys',
-                  icon: Iconz.Share,
-                  onTap: () async {
-
-                    _triggerLoading();
-
-                    /// do things here
-
-                    List<Keyword> _keywords = Keyword.getKeywordsByGroupID('group_craft_trade');
-
-
-                    for (int i = 0; i< _keywords.length; i++){
-                      final String _num = Numeric.getNumberWithinDigits(num: i + 1, digits : 4);
-
-                      final Keyword _keyword = _keywords[i];
-
-
-                      final String _kwID = _keyword.keywordID;
-                      final String _kwEnName = Keyword.getKeywordNameByKeywordID(context, _kwID);
-                      final String _kwArName = Keyword.getKeywordArabicName(_keyword);
-
-                      // print('$_num :             // -----------------------------------------------');
-                      // print('$_num : /// $_kwEnName');
-
-                      final String _names = '<Name>[Name(code: \'en\', value: \'${_kwEnName}\'), Name(code: \'ar\', value: \'${_kwArName}\')],';
-                      print('$_num : KW(id: \'${_kwID}\', names: ${_names}),');
-
-
-                    };
-
-
-                    _triggerLoading();
-
-                  }
-              ),
-
-              WideButton(
-                  color: Colorz.bloodTest,
-                  verse: 'Products keys',
-                  icon: Iconz.Share,
-                  onTap: () async {
-
-                    _triggerLoading();
-
-                    /// do things here
-
-                    List<String> _groupsIDs = Keyword.getGroupsIDsByFlyerType(FlyerType.product);
-
-
-                    for (int i = 0; i< _groupsIDs.length; i++){
-
-                      final String _groupID = _groupsIDs[i];
-                      final Namez _groupNames = Keyword.getGroupNamezByGroupID(_groupID);
-                      final List<Name> _names = _groupNames.names;
-                      final String _groupNameEn = Name.getNameByLingoFromNames(names: _names, lingoCode: 'en');
-                      final String _groupNameAr = Name.getNameByLingoFromNames(names: _names, lingoCode: 'ar');
-
-
-                      print('            // -----------------------------------------------');
-                      print('/// $_groupNameEn');
-
-                      print('const Chain(');
-                      print('id: \'${_groupID}\',');
-                      print('names: <Name>[Name(code: \'en\', value: \'${_groupNameEn}\'), Name(code: \'ar\', value: \'${_groupNameAr}\')],');
-                      print('sons: const <Chain>[');
-
-                      final List<Keyword> _groupKeywords = Keyword.getKeywordsByGroupID(_groupID);
-                      final List<String> _subGroupsIDs = Keyword.getSubGroupsIDsFromKeywords(keywords: _groupKeywords);
-
-                      _subGroupsIDs.forEach((subGroupID) {
-
-                        final String _subGroupNameEn = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(subGroupID: subGroupID, lingoCode: 'en', context: context);
-                        final String _subGroupNameAr = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(subGroupID: subGroupID, lingoCode: 'ar', context: context);
-                        print('            // ----------------------------------');
-                        print('/// $_subGroupNameEn');
-
-                        print('const Chain(');
-                        print('id: \'${subGroupID}\',');
-                        print('names: <Name>[Name(code: \'en\', value: \'${_subGroupNameEn}\'), Name(code: \'ar\', value: \'${_subGroupNameAr}\')],');
-                        print('sons: const <KW>[');
-
-                        List<Keyword> _keywords = Keyword.getKeywordsBySubGroupID(subGroupID);
-
-                        _keywords.forEach((kw) {
-
-                          final String _kwID = kw.keywordID;
-                          final String _kwEnName = Keyword.getKeywordNameByKeywordID(context, _kwID);
-                          final String _kwArName = Keyword.getKeywordArabicName(kw);
-
-                          final String _names = '<Name>[Name(code: \'en\', value: \'${_kwEnName}\'), Name(code: \'ar\', value: \'${_kwArName}\')],';
-                          print('KW(id: \'${_kwID}\', names: ${_names}),');
-
-                        });
-
-                        print('],');
-                        print('),');
-
-                      });
-
-                      print('],');
-                      print('),');
-
-                    };
-
-
-                    _triggerLoading();
-
-                  }
-              ),
-
-              WideButton(
-                  color: Colorz.bloodTest,
-                  verse: 'Equipment keys',
-                  icon: Iconz.Share,
-                  onTap: () async {
-
-                    _triggerLoading();
-
-                    /// do things here
-
-                    List<String> _groupsIDs = Keyword.getGroupsIDsByFlyerType(FlyerType.equipment);
-
-
-                    for (int i = 0; i< _groupsIDs.length; i++){
-
-                      final String _groupID = _groupsIDs[i];
-                      final Namez _groupNames = Keyword.getGroupNamezByGroupID(_groupID);
-                      final List<Name> _names = _groupNames.names;
-                      final String _groupNameEn = Name.getNameByLingoFromNames(names: _names, lingoCode: 'en');
-                      final String _groupNameAr = Name.getNameByLingoFromNames(names: _names, lingoCode: 'ar');
-
-
-                      print('            // -----------------------------------------------');
-                      print('/// $_groupNameEn');
-
-                      print('const Chain(');
-                      print('id: \'${_groupID}\',');
-                      print('names: <Name>[Name(code: \'en\', value: \'${_groupNameEn}\'), Name(code: \'ar\', value: \'${_groupNameAr}\')],');
-                      print('sons: const <Chain>[');
-
-                      final List<Keyword> _groupKeywords = Keyword.getKeywordsByGroupID(_groupID);
-                      final List<String> _subGroupsIDs = Keyword.getSubGroupsIDsFromKeywords(keywords: _groupKeywords);
-
-                      _subGroupsIDs.forEach((subGroupID) {
-
-                        final String _subGroupNameEn = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(subGroupID: subGroupID, lingoCode: 'en', context: context);
-                        final String _subGroupNameAr = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(subGroupID: subGroupID, lingoCode: 'ar', context: context);
-                        print('            // ----------------------------------');
-                        print('/// $_subGroupNameEn');
-
-                        print('const Chain(');
-                        print('id: \'${subGroupID}\',');
-                        print('names: <Name>[Name(code: \'en\', value: \'${_subGroupNameEn}\'), Name(code: \'ar\', value: \'${_subGroupNameAr}\')],');
-                        print('sons: const <KW>[');
-
-                        List<Keyword> _keywords = Keyword.getKeywordsBySubGroupID(subGroupID);
-
-                        _keywords.forEach((kw) {
-
-                          final String _kwID = kw.keywordID;
-                          final String _kwEnName = Keyword.getKeywordNameByKeywordID(context, _kwID);
-                          final String _kwArName = Keyword.getKeywordArabicName(kw);
-
-                          final String _names = '<Name>[Name(code: \'en\', value: \'${_kwEnName}\'), Name(code: \'ar\', value: \'${_kwArName}\')],';
-                          print('KW(id: \'${_kwID}\', names: ${_names}),');
-
-                        });
-
-                        print('],');
-                        print('),');
-
-                      });
-
-                      print('],');
-                      print('),');
-
-                    };
-
-
-                    _triggerLoading();
-
-                  }
-              ),
-
-              WideButton(
-                  color: Colorz.bloodTest,
-                  verse: 'groups keywords with no sub groups',
-                  icon: Iconz.Share,
-                  onTap: () async {
-
-                    _triggerLoading();
-
-                    /// do things here
-
-                    String _groupID = 'group_ppt_license';
-
-                    List<Keyword> _keywords = Keyword.getKeywordsByGroupID(_groupID);
-                    final Namez _groupNames = Keyword.getGroupNamezByGroupID(_groupID);
-                    final List<Name> _names = _groupNames.names;
-                    final String _groupNameEn = Name.getNameByLingoFromNames(names: _names, lingoCode: 'en');
-                    final String _groupNameAr = Name.getNameByLingoFromNames(names: _names, lingoCode: 'ar');
-
-
-                    print('            // -----------------------------------------------');
-                    print('/// $_groupNameEn');
-                    print('const Chain(');
-                    print('id: \'${_groupID}\',');
-                    print('names: <Name>[Name(code: \'en\', value: \'${_groupNameEn}\'), Name(code: \'ar\', value: \'${_groupNameAr}\')],');
-                    print('sons: const <KW>[');
-
-
-
-                    for (int i = 0; i< _keywords.length; i++){
-
-                      final Keyword _keyword = _keywords[i];
-
-
-                      final String _kwID = _keyword.keywordID;
-                      final String _kwEnName = Keyword.getKeywordNameByKeywordID(context, _kwID);
-                      final String _kwArName = Keyword.getKeywordArabicName(_keyword);
-
-                      // print('$_num :             // -----------------------------------------------');
-                      // print('$_num : /// $_kwEnName');
-
-                      final String _names = '<Name>[Name(code: \'en\', value: \'${_kwEnName}\'), Name(code: \'ar\', value: \'${_kwArName}\')],';
-                      print('KW(id: \'${_kwID}\', names: ${_names}),');
-
-                    };
-
-                    print('],');
-                    print('),');
-
-                    _triggerLoading();
-
-                  }
-              ),
-
-              WideButton(
-                  color: Colorz.bloodTest,
-                  verse: 'groups keywords with sub groups',
-                  icon: Iconz.Share,
-                  onTap: () async {
-
-                    _triggerLoading();
-
-                    final String _groupID = 'group_space_type';
-                    final Namez _groupNames = Keyword.getGroupNamezByGroupID(_groupID);
-                    final List<Name> _names = _groupNames.names;
-                    final String _groupNameEn = Name.getNameByLingoFromNames(names: _names, lingoCode: 'en');
-                    final String _groupNameAr = Name.getNameByLingoFromNames(names: _names, lingoCode: 'ar');
-
-
-                    print('            // -----------------------------------------------');
-                    print('/// $_groupNameEn');
-
-                    print('const Chain(');
-                    print('id: \'${_groupID}\',');
-                    print('names: <Name>[Name(code: \'en\', value: \'${_groupNameEn}\'), Name(code: \'ar\', value: \'${_groupNameAr}\')],');
-                    print('sons: const <Chain>[');
-
-                    final List<Keyword> _groupKeywords = Keyword.getKeywordsByGroupID(_groupID);
-                    final List<String> _subGroupsIDs = Keyword.getSubGroupsIDsFromKeywords(keywords: _groupKeywords);
-
-                    _subGroupsIDs.forEach((subGroupID) {
-
-                      final String _subGroupNameEn = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(subGroupID: subGroupID, lingoCode: 'en', context: context);
-                      final String _subGroupNameAr = Keyword.getSubGroupNameBySubGroupIDAndLingoCode(subGroupID: subGroupID, lingoCode: 'ar', context: context);
-                      print('            // ----------------------------------');
-                      print('/// $_subGroupNameEn');
-
-                      print('const Chain(');
-                      print('id: \'${subGroupID}\',');
-                      print('names: <Name>[Name(code: \'en\', value: \'${_subGroupNameEn}\'), Name(code: \'ar\', value: \'${_subGroupNameAr}\')],');
-                      print('sons: const <KW>[');
-
-                      List<Keyword> _keywords = Keyword.getKeywordsBySubGroupID(subGroupID);
-
-                      _keywords.forEach((kw) {
-
-                        final String _kwID = kw.keywordID;
-                        final String _kwEnName = Keyword.getKeywordNameByKeywordID(context, _kwID);
-                        final String _kwArName = Keyword.getKeywordArabicName(kw);
-
-                        final String _names = '<Name>[Name(code: \'en\', value: \'${_kwEnName}\'), Name(code: \'ar\', value: \'${_kwArName}\')],';
-                        print('KW(id: \'${_kwID}\', names: ${_names}),');
-
-                      });
-
-                      print('],');
-                      print('),');
-
-                    });
-
-                    print('],');
-                    print('),');
-
-
-                    _triggerLoading();
-
-                  }
-              ),
-
 
             ],
           ),

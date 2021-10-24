@@ -6,6 +6,8 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/specific/bz/appbar/bz_credits_counter.dart';
 import 'package:bldrs/views/widgets/specific/bz/dialogs/dialog_of_bz_options.dart';
@@ -14,10 +16,14 @@ import 'package:flutter/material.dart';
 class BzAppBar extends StatelessWidget {
   final BzModel bzModel;
   final UserModel userModel;
+  final CountryModel countryModel;
+  final CityModel cityModel;
 
   const BzAppBar({
     @required this.bzModel,
     @required this.userModel,
+    @required this.countryModel,
+    @required this.cityModel,
   });
 // -----------------------------------------------------------------------------
   Future<void> _slideBzOptions(BuildContext context, BzModel bzModel) async {
@@ -36,7 +42,12 @@ class BzAppBar extends StatelessWidget {
     final double _appBarBzButtonWidth = Scale.superScreenWidth(context) - (Ratioz.appBarMargin * 2) -
         (Ratioz.appBarButtonSize * 2) - (Ratioz.appBarPadding * 4) - (Ratioz.appBarButtonSize * 1.4) - Ratioz.appBarPadding;
 
-    final String _zoneString = TextGenerator.cityCountryStringer(context: context, zone: bzModel.zone);
+    final String _zoneString = TextGenerator.cityCountryStringer(
+        context: context,
+        zone: bzModel.zone,
+      country: countryModel,
+      city: cityModel,
+    );
 
     return Row(
       children: <Widget>[

@@ -448,13 +448,17 @@ class FlyerOps{
     );
   }
 // -----------------------------------------------------------------------------
-  static Future<List<ReviewModel>> readAllReviews({BuildContext context, String flyerID,}) async {
+  static Future<List<ReviewModel>> readAllReviews({@required BuildContext context, @required String flyerID,}) async {
+
     final List<dynamic> _maps = await Fire.readSubCollectionDocs(
       context: context,
       collName: FireColl.flyers,
       docName: flyerID,
       subCollName: FireColl.flyers_flyer_reviews,
       addDocsIDs: true,
+      orderBy: 'reviewID',
+      addDocSnapshotToEachMap: false,
+      limit: 10, /// task : paginate in flyer reviews
     );
 
     final List<ReviewModel> _reviews = ReviewModel.decipherReviews(maps: _maps, fromJSON: false);

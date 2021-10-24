@@ -7,6 +7,9 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog_row.dart';
@@ -17,6 +20,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/mini_header_strip.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BzzManagerScreen extends StatefulWidget {
 
@@ -26,6 +30,9 @@ class BzzManagerScreen extends StatefulWidget {
 
 class _BzzManagerScreenState extends State<BzzManagerScreen> {
   TextEditingController _searchController = TextEditingController();
+  ZoneProvider _zoneProvider;
+  // CountryModel _bzCountry;
+  // CityModel _bzCity;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -50,6 +57,9 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+
+    _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
     super.initState();
 
   }
@@ -77,7 +87,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   Future<dynamic> _readMoreBzz() async {
 
     final List<dynamic> _bzzMaps = await Fire.readCollectionDocs(
-      collectionName: FireColl.bzz,
+      collName: FireColl.bzz,
       orderBy: 'bzID',
       limit: 100,
       startAfter: _lastSnapshot,
@@ -235,6 +245,9 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
                       final double _dialogHeight = _screenHeight * 0.8;
 
+                      final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bz.zone.countryID);
+                      final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: _bz.zone.cityID);
+
                       await BottomDialog.showBottomDialog(
                         context: context,
                         title: _bzName,
@@ -258,8 +271,10 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
                                       MiniHeaderStrip(
                                         superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
-                                            onHeaderTap: (){},
-                                            bzModel: _bz,
+                                          onHeaderTap: (){},
+                                          bzModel: _bz,
+                                          bzCountry: _bzCountry,
+                                          bzCity: _bzCity,
                                         ),
                                         flyerBoxWidth: _clearDialogWidth,
                                       ),

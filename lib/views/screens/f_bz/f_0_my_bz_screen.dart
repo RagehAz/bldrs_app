@@ -2,7 +2,10 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';
 import 'package:bldrs/views/widgets/specific/bz/appbar/bz_app_bar.dart';
 import 'package:bldrs/views/widgets/specific/bz/tabs/bz_about_tab.dart';
@@ -30,6 +33,8 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
   // bool _showOldFlyers;
   BzModel _bzModel;
   List<FlyerModel> _flyers;
+  CountryModel _bzCountry;
+  CityModel _bzCity;
   // double _bubblesOpacity = 0;
   TabController _tabController;
   int _currentTabIndex = 0;
@@ -90,11 +95,18 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
       _triggerLoading().then((_) async {
 
         final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+        final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
         final List<FlyerModel> _bzFlyers = await  _flyersProvider.fetchAllBzFlyersByBzID(context: context, bzID: widget.bzModel.bzID);
 
+        final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: widget.bzModel.zone.countryID);
+        final CityModel _city = await _zoneProvider.fetchCityByID(context: context, cityID: widget.bzModel.zone.cityID);
+
+
         _triggerLoading(
             function: (){
+              _bzCountry = _country;
+              _bzCity = _city;
               _flyers = _bzFlyers;
               // _bubblesOpacity = 1;
               _tabModels = createBzTabModels();
@@ -125,6 +137,8 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
         onChangeTab: (int index) => _onChangeTab(index),
         tabIndex: 0,
         tinyFlyers: _flyers,
+        bzCountry: _bzCountry,
+        bzCity: _bzCity,
       ),
 
       /// 1 : ABOUT
@@ -179,6 +193,8 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
         BzAppBar(
           bzModel: _bzModel,
           userModel: widget.userModel,
+          cityModel: _bzCity,
+          countryModel: _bzCountry,
         ),
       ], //bzPageAppBarWidgets(),
     );

@@ -1,9 +1,13 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/providers/streamers/bz_streamer.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_header.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/providers/bzz_provider.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_header.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 
 class BzCardScreen extends StatefulWidget {
@@ -20,17 +24,79 @@ class BzCardScreen extends StatefulWidget {
 }
 
 class _BzCardScreenState extends State<BzCardScreen> {
-  // bool _bzPageIsOn = false;
 
-  // void _triggerMaxHeader(){
-  //   setState(() {
-  //     _bzPageIsOn = !_bzPageIsOn;
-  //   });
-  // }
+  ZoneProvider _zoneProvider;
+  BzzProvider _bzzProvider;
 
-  // void _tappingFollow(){
-  //   print('follow is tapped');
-  // }
+  BzModel _bzModel;
+  CountryModel _bzCountry;
+  CityModel _bzCity;
+  // -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
+  bool _loading = false;
+  Future <void> _triggerLoading({Function function}) async {
+
+    if(mounted){
+
+      if (function == null){
+        setState(() {
+          _loading = !_loading;
+        });
+      }
+
+      else {
+        setState(() {
+          _loading = !_loading;
+          function();
+        });
+      }
+
+    }
+
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void initState() {
+
+    super.initState();
+  }
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      _triggerLoading().then((_) async{
+
+        final BzModel _bz = await _bzzProvider.fetchBzModel(context: context, bzID: widget.bzID);
+        CountryModel _country;
+        CityModel _city;
+
+        if (_bz != null){
+
+          _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _bz.zone.countryID);
+          _city = await _zoneProvider.fetchCityByID(context: context, cityID: _bz.zone.cityID);
+
+        }
+
+        _triggerLoading(
+            function: (){
+
+              _bzModel = _bz;
+              _bzCountry = _country;
+              _bzCity = _city;
+
+            }
+        );
+      });
+
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +106,17 @@ class _BzCardScreenState extends State<BzCardScreen> {
     // final bz = pro.getBzByBzID(widget.bzID);
 
 
-    double flyerSizeFactor = 0.8;
+    final double flyerSizeFactor = 0.8;
+
+    final double _flyerBoxWidth = FlyerBox.width(context, flyerSizeFactor);
+
+    final SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
+      bzModel: _bzModel,
+      onHeaderTap: (){print('onHeader tap in h 1 bz card screen');},
+      bzCountry: _bzCountry,
+      bzCity: _bzCity,
+    );
+
 
     return MainLayout(
       pyramids: Iconz.PyramidsYellow,
@@ -73,33 +149,18 @@ class _BzCardScreenState extends State<BzCardScreen> {
       //   ),
       // ),
 
-      layoutWidget: bzModelBuilder(
-        context: context,
-        bzID: widget.bzID,
-        builder: (ctx, bz){
+      layoutWidget: FlyerBox(
+        flyerBoxWidth: _flyerBoxWidth,
+        superFlyer: _superFlyer,
+        onFlyerZoneTap: (){print('tapping flyer zone in h 1 bz card screen ');},
+        stackWidgets: <Widget>[
 
-          double _flyerBoxWidth = FlyerBox.width(context, flyerSizeFactor);
+          FlyerHeader(
+            superFlyer: _superFlyer,
+            flyerBoxWidth: widget.flyerBoxWidth,
+          ),
 
-          SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
-              bzModel: bz,
-              onHeaderTap: (){print('onHeader tap in h 1 bz card screen');},
-          );
-
-          return
-            FlyerBox(
-              flyerBoxWidth: _flyerBoxWidth,
-              superFlyer: _superFlyer,
-              onFlyerZoneTap: (){print('tapping flyer zone in h 1 bz card screen ');},
-              stackWidgets: <Widget>[
-
-                FlyerHeader(
-                  superFlyer: _superFlyer,
-                  flyerBoxWidth: widget.flyerBoxWidth,
-                ),
-
-                  ],
-                );
-        }
+        ],
       ),
 
     );
