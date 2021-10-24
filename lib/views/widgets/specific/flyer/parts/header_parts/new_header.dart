@@ -376,6 +376,8 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                             flyerBoxWidth: widget.flyerBoxWidth,
                             bzPageIsOn: true,
                             bzModel: widget.superFlyer.bz,
+                            country: widget.superFlyer.bzCountry,
+                            city: widget.superFlyer.bzCity,
                           ),
                         ),
 

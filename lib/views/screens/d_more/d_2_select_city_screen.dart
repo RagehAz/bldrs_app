@@ -16,7 +16,7 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout.dart' show Sky;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SelectCityScreen extends StatelessWidget {
+class SelectCityScreen extends StatefulWidget {
   final CountryModel country;
 
   SelectCityScreen({
@@ -24,11 +24,78 @@ class SelectCityScreen extends StatelessWidget {
   });
 
   @override
+  State<SelectCityScreen> createState() => _SelectCityScreenState();
+}
+
+class _SelectCityScreenState extends State<SelectCityScreen> {
+
+  List<CityModel> _cities = [];
+
+// -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
+  bool _loading = false;
+  Future <void> _triggerLoading({Function function}) async {
+
+    if(mounted){
+
+      if (function == null){
+        setState(() {
+          _loading = !_loading;
+        });
+      }
+
+      else {
+        setState(() {
+          _loading = !_loading;
+          function();
+        });
+      }
+
+    }
+
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    super.initState();
+  }
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      _triggerLoading().then((_) async{
+
+        /// do Futures here
+        final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+        List<CityModel> _fetchedCities = await _zoneProvider.fetchCitiesByIDs(
+          context: context,
+          citiesIDs: widget.country.citiesIDs,
+        );
+
+        _triggerLoading(
+            function: (){
+              _cities = _fetchedCities;
+            }
+        );
+      });
+
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+
+
+  @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    final String _countryName = Name.getNameByCurrentLingoFromNames(context, country?.names);
-    final List<MapModel> _citiesMapModels = CityModel.getCitiesNamesMapModels(context: context, cities: country?.cities);
-    final String _countryFlag = Flag.getFlagIconByCountryID(country?.countryID);
+    final String _countryName = Name.getNameByCurrentLingoFromNames(context, widget.country?.names);
+    final List<MapModel> _citiesMapModels = CityModel.getCitiesNamesMapModels(context: context, cities: _cities);
+    final String _countryFlag = Flag.getFlagIconByCountryID(widget.country?.countryID);
 // -----------------------------------------------------------------------------
 
     return  ListLayout(
@@ -44,7 +111,7 @@ class SelectCityScreen extends StatelessWidget {
         final String _cityID = value;
 
          final CityModel _city = CityModel.getCityFromCities(
-           cities: country.cities,
+           cities: _cities,
            cityID: _cityID,
          );
 
@@ -69,7 +136,7 @@ class SelectCityScreen extends StatelessWidget {
            _zone.printZone(methodName: 'SELECTED ZONE');
 
            final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
-           await _zoneProvider.getsetCurrentZoneAndCountry(context: context, zone: _zone);
+           await _zoneProvider.getsetCurrentZoneAndCountryAndCity(context: context, zone: _zone);
 
            final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
            final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);

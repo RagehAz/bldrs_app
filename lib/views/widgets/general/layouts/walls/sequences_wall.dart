@@ -8,7 +8,6 @@ import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
-import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/district_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
@@ -32,7 +31,8 @@ class SequencesWall extends StatelessWidget {
     String _stackTitle;
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
-    final CountryModel _currentCountry = _zoneProvider.currentCountry;
+    // final CountryModel _currentCountry = _zoneProvider.currentCountry;
+    final CityModel _currentCity = _zoneProvider.currentCity;
     final Zone _currentZone = _zoneProvider.currentZone;
 
     /// in crafts groups, second keywords are zone areas
@@ -45,13 +45,15 @@ class SequencesWall extends StatelessWidget {
 
     final bool _groupSecondKeysAreZoneDistricts = Sequence.sequenceSecondKeysAreZoneDistricts(sequence);
 
-    final String _cityName = CityModel.getTranslatedCityNameFromCountry(context: context, country: _currentCountry, cityID: _currentZone.cityID);
+    final String _cityName = CityModel.getTranslatedCityNameFromCity(
+        context: context,
+        city: _currentCity,
+    );
 
     if(_groupSecondKeysAreZoneDistricts == true){
-      final String _districtName = DistrictModel.getTranslatedDistrictNameFromCountry(
+      final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
           context: context,
-          country: _currentCountry,
-          cityID: _currentZone.cityID,
+          city: _currentCity,
           districtID: _currentZone.districtID,
       );
 
@@ -80,7 +82,9 @@ class SequencesWall extends StatelessWidget {
   void _onScrollEnd({BuildContext context, int index,Sequence sequence}){
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
-    final CountryModel _currentCountry = _zoneProvider.currentCountry;
+    // final CountryModel _currentCountry = _zoneProvider.currentCountry;
+    final CityModel _currentCity = _zoneProvider.currentCity;
+
     final Zone _currentZone = _zoneProvider.currentZone;
 
     final String _currentCityID = _currentZone.cityID;
@@ -114,7 +118,7 @@ class SequencesWall extends StatelessWidget {
         print('2 - sequence has second keywords : ${_secondKeyword.keywordID}');
 
         if (_secondKeyIsDistrict == true){
-          print ('3 - secondKey is District : ${CityModel.getTranslatedCityNameFromCountry(context: context, country: _currentCountry, cityID: _currentCityID)}');
+          print ('3 - secondKey is District : ${CityModel.getTranslatedCityNameFromCity(context: context, city: _currentCity)}');
         }
 
         else {

@@ -118,22 +118,16 @@ class DistrictModel{
     return _district;
   }
 // -----------------------------------------------------------------------------
-  static String getTranslatedDistrictNameFromCountry({@required BuildContext context, @required CountryModel country, @required String cityID, @required String districtID}){
+  static String getTranslatedDistrictNameFromCity({@required BuildContext context, @required CityModel city, @required String districtID}){
 
     String _districtName = '...';
 
-    if (country != null && cityID != null && districtID != null){
-      final CityModel _city = CityModel.getCityFromCities(cities: country.cities, cityID: cityID);
-      final DistrictModel _district = DistrictModel.getDistrictFromDistricts(districts: _city.districts, districtID: districtID);
+    if (city != null && districtID != null){
+      final DistrictModel _district = DistrictModel.getDistrictFromDistricts(districts: city.districts, districtID: districtID);
       _districtName = Name.getNameByCurrentLingoFromNames(context, _district.names);
     }
 
     return _districtName;
   }
-// -----------------------------------------------------------------------------
-static List<DistrictModel> getDistrictsFromCountryModel({@required CountryModel country, @required String cityID}){
-  final CityModel _city = CityModel.getCityFromCities(cities: country.cities, cityID: cityID);
-  return _city.districts;
-}
 // -----------------------------------------------------------------------------
 }

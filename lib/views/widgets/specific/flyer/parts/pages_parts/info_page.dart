@@ -14,7 +14,6 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/paragraph_bubble.dart';
@@ -61,10 +60,11 @@ class InfoPage extends StatelessWidget {
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
     final CountryModel _currentCountry = _zoneProvider.currentCountry;
-    final Zone _currentZone = _zoneProvider.currentZone;
+    final CityModel _currentCity = _zoneProvider.currentCity;
+    // final Zone _currentZone = _zoneProvider.currentZone;
 
     final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _currentCountry.countryID);
-    final String _cityName = CityModel.getTranslatedCityNameFromCountry(context: context, country: _currentCountry, cityID: _currentZone.cityID);
+    final String _cityName = CityModel.getTranslatedCityNameFromCity(context: context, city: _currentCity);
 
     // List<TinyUser> _users = TinyUser.dummyTinyUsers();
 

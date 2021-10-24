@@ -5,7 +5,10 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/author_bubble/author_bubble.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/gallery_grid.dart';
@@ -37,6 +40,8 @@ class _GalleryState extends State<Gallery> {
   String _selectedAuthorID;
   List<String> _bzTeamIDs;
   BzModel _bzModel;
+  CountryModel _bzCountry;
+  CityModel _bzCity;
   List<FlyerModel> _flyers = <FlyerModel>[];
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -86,14 +91,20 @@ class _GalleryState extends State<Gallery> {
         /// ---------------------------------------------------------0
 
         final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+        final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
         await _flyersProvider.getsetActiveBzFlyers(context: context, bzID: _bzModel.bzID);
 
-        List<FlyerModel> _flyersFromProvider = _flyersProvider.myActiveBzFlyer;
+        final List<FlyerModel> _flyersFromProvider = _flyersProvider.myActiveBzFlyer;
+        final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _bzModel.zone.countryID);
+        final CityModel _city = await _zoneProvider.fetchCityByID(context: context, cityID: _bzModel.zone.cityID);
 
         print('active bz flyers are : $_flyersFromProvider');
 
         setState(() {
           _flyers = _flyersFromProvider;
+          _bzCountry = _country;
+          _bzCity = _city;
           _loading = false;
         });
 
@@ -237,6 +248,8 @@ class _GalleryState extends State<Gallery> {
                 // flyerOnTap: widget.flyerOnTap,
                 addPublishedFlyerToGallery: (flyerModel) => _addPublishedFlyerToGallery(flyerModel),
                 addButtonIsOn: widget.addAuthorButtonIsOn,
+                bzCountry: _bzCountry,
+                bzCity: _bzCity,
               ),
 
           ]

@@ -71,7 +71,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
   Future<void> _readMoreUsers() async {
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
-      collectionName:  FireColl.users,
+      collName:  FireColl.users,
       orderBy: 'userID',
       limit: 5,
       startAfter: _lastSnapshot,

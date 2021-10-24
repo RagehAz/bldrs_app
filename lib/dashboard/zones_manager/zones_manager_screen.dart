@@ -1,17 +1,16 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/stream_checkers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/zones_manager/country_screen.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/helpers/namez_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
-import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/general/loading/loading.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -22,47 +21,100 @@ class ZonesManagerScreen extends StatefulWidget {
 }
 
 class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
-  // final List<Country> _countries = dbCountries;
-  // final List<Province> _provinces = dbProvinces;
-  // final List<Area> _areas = dbAreas;
-  final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
-  CollectionReference _countriesCollection;
+  List<CountryModel> _countries;
+  ScrollController _ScrollController;
+  QueryDocumentSnapshot _lastSnap;
+// -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
+  bool _loading = false;
+  Future <void> _triggerLoading({Function function}) async {
+
+    if(mounted){
+
+      if (function == null){
+        setState(() {
+          _loading = !_loading;
+        });
+      }
+
+      else {
+        setState(() {
+          _loading = !_loading;
+          function();
+        });
+      }
+
+    }
+
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    _ScrollController = new ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
     super.initState();
-    _countriesCollection = _fireInstance.collection('countries');
   }
-// ---------------------------------------------------------------------------
-//   Future<void> _uploadCountriesToFirebase() async {
-//     print('starting countries uploading');
-//     _triggerLoading();
-//     try {
-//       Map<String, dynamic> _postData = DbCountries.getCountryByIso3('egy').toMap();
-//
-//       /// this specifies country name as Firestore document's id
-//       await _countriesCollection.doc(_postData['iso3']).set(_postData);
-//
-//     } catch(error) {
-//
-//           await superDialog(
-//             context: context,
-//             title: 'Uploading error',
-//             body: error,
-//             boolDialog: false,
-//           );
-//
-//     }
-//     _triggerLoading();
-//   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      _triggerLoading().then((_) async{
+
+
+        _readMoreCountries();
+
+        _triggerLoading(
+            function: (){
+              /// set new values here
+            }
+        );
+      });
+
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _readMoreCountries() async {
+
+    if (_loading == false){
+      setState(() {
+        _loading = true;
+      });
+    }
+
+    List<Map<String, dynamic>> _maps = await Fire.readSubCollectionDocs(
+      context: context,
+      addDocsIDs: false,
+      collName: FireColl.zones,
+      docName: 'countries',
+      subCollName: 'countries',
+      limit: 5,
+      orderBy: 'countryID',
+      startAfter: _lastSnap,
+      addDocSnapshotToEachMap: true,
+    );
+
+
+    List<CountryModel> _countriesModels = CountryModel.decipherCountriesMaps(maps: _maps, fromJSON: false);
+
+    QueryDocumentSnapshot _snap = _maps[_maps.length - 1]['docSnapshot'];
+
+    setState(() {
+      _countries = _countriesModels;
+      _lastSnap = _snap;
+      _loading = false;
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    final Stream<QuerySnapshot> _countriesList = _countriesCollection.snapshots();
-    // List<Country> _countriesList = dbCountries;
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _countryButtonWidth = _screenWidth - SuperVerse.superVerseRealHeight(context, 2, 1, null);
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
@@ -70,95 +122,42 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
       pageTitle: 'Zones Manager',
       // appBarBackButton: true,
       sky: Sky.Black,
-      layoutWidget: ListView(
-        children: <Widget>[
+      layoutWidget:
 
-          const Stratosphere(),
+        Mapper.canLoopList(_countries) == false ?
 
-          // DreamBox(
-          //   width: _screenWidth * 0.9,
-          //   height: _screenWidth * 0.3,
-          //   color: Colorz.Yellow255,
-          //   verse: 'Upload Countries to Firebase',
-          //   verseMaxLines: 3,
-          //   verseColor: Colorz.Black230,
-          //   verseWeight: VerseWeight.black,
-          //   onTap: _uploadCountriesToFirebase,
-          //   margins: const EdgeInsets.all(10),
-          // ),
+        Container()
 
-          Bubble(
-            centered: true,
-            bubbleColor: Colorz.white20,
-            columnChildren: <Widget>[
+            :
 
-              Container(
-                width: _screenWidth,
-                height: _screenWidth,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
+        ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          controller: _ScrollController,
+          shrinkWrap: false,
+          padding: const EdgeInsets.only(top: Ratioz.stratosphere),
+          itemCount: _countries?.length,
+          itemBuilder: (context, index){
 
-                    SuperVerse(
-                      verse: 'Countries in FireStore',
-                      size: 2,
-                      weight: VerseWeight.bold,
-                      italic: true,
-                      centered: true,
-                    ),
+            final CountryModel _countryModel = _countries[index];
+            final String _countryName = Name.getNameByCurrentLingoFromNames(context, _countryModel.names);
 
-                    Container(
-                      width: _screenWidth,
-                      height: _countryButtonWidth,
-                      child: StreamBuilder(
-                        stream: _countriesList,
-                        builder: (ctx, streamSnapshots){
-                          final List<dynamic> _countriesMaps = streamSnapshots?.data?.docs;
-                          final List<CountryModel> _countries = CountryModel.decipherCountriesMaps(
-                            maps: _countriesMaps,
-                            fromJSON: false,
-                          );
+            return
+              DreamBox(
+                height: 100,
+                width: _screenWidth - (Ratioz.appBarMargin * 2),
+                icon: Flag.getFlagIconByCountryID(_countries[index].countryID),
+                verse: _countryName,
+                bubble: false,
+                color: Colorz.white20,
+                verseMaxLines: 2,
+                verseScaleFactor: 0.6,
+                margins: const EdgeInsets.all(7.5),
+                onTap: () => Nav.goToNewScreen(context, CountryEditorScreen(country: _countries[index])),
+              );
 
+          },
+        )
 
-
-                          if (StreamChecker.connectionIsLoading(streamSnapshots)){
-                            return Loading(loading: true,);
-                          }
-                          return ListView.builder(
-                            itemCount: _countries.length,
-                            itemBuilder: (context, index){
-
-                              final CountryModel _countryModel = _countries[index];
-                              final String _countryName = Name.getNameByCurrentLingoFromNames(context, _countryModel.names);
-
-                              return
-                                DreamBox(
-                                  height: _countryButtonWidth * 0.12,
-                                  width: _countryButtonWidth - _screenWidth * 0.2,
-                                  icon: Flag.getFlagIconByCountryID(_countries[index].countryID),
-                                  verse: _countryName,
-                                  verseMaxLines: 2,
-                                  verseScaleFactor: 0.6,
-                                  margins: const EdgeInsets.all(7.5),
-                                  onTap: () => Nav.goToNewScreen(context, CountryEditorScreen(country: _countries[index])),
-                                );
-
-                            },
-                          );
-                        },
-                      ),
-                    ),
-
-                  ],
-                ),
-              ),
-
-            ],
-          ),
-
-        ],
-      ),
     );
   }
 }
