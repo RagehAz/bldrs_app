@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
-import 'package:bldrs/models/helpers/namez_model.dart';
+import 'package:bldrs/models/helpers/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/district_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';

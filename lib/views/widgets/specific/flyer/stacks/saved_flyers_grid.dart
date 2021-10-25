@@ -56,7 +56,7 @@ class SavedFlyersGrid extends StatelessWidget {
 
             final bool _isSelected = FlyerModel.flyersContainThisID(
               flyers: selectedFlyers,
-              flyerID: flyers[index].flyerID,
+              flyerID: flyers[index].id,
             );
 
 

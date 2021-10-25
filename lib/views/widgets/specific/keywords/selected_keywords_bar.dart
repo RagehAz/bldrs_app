@@ -2,17 +2,17 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/keywords/keyword_button.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class SelectedKeywordsBar extends StatelessWidget {
-  final List<Keyword> selectedKeywords;
+  final List<KW> selectedKeywords;
   final ItemScrollController scrollController;
   final ItemPositionsListener itemPositionListener;
-  final Keyword highlightedKeyword;
+  final KW highlightedKeyword;
   final Function removeKeyword;
 
   const SelectedKeywordsBar({
@@ -82,22 +82,22 @@ class SelectedKeywordsBar extends StatelessWidget {
               padding: _barPadding,
               itemBuilder: (ctx, index){
 
-                final Keyword _keyword = index >= 0 ? selectedKeywords[index] : null;
+                final KW _keyword = index >= 0 ? selectedKeywords[index] : null;
 
-                final bool _highlightedMapIsCity =
-                highlightedKeyword == null ? false
-                    :
-                highlightedKeyword.flyerType == 'cities' ? true
-                    : false;
+                // final bool _highlightedMapIsCity =
+                // highlightedKeyword == null ? false
+                //     :
+                // highlightedKeyword.flyerType == 'cities' ? true
+                //     : false;
 
-                final bool _isHighlighted =
-                _highlightedMapIsCity == true && _keyword.flyerType == 'cities'? true
-                    :
-                _highlightedMapIsCity == true && _keyword.flyerType == 'area'? true
-                    :
-                Keyword.KeywordsAreTheSame(highlightedKeyword, _keyword) == true ? true
-                    :
-                false;
+                final bool _isHighlighted = false;
+                // _highlightedMapIsCity == true && _keyword.flyerType == 'cities'? true
+                //     :
+                // _highlightedMapIsCity == true && _keyword.flyerType == 'area'? true
+                //     :
+                // Keyword.KeywordsAreTheSame(highlightedKeyword, _keyword) == true ? true
+                //     :
+                // false;
 
                 print('_keywords.length : ${selectedKeywords.length}');
                 print('index : $index');

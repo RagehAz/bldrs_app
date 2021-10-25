@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class QuestionModel {
@@ -10,7 +10,7 @@ class QuestionModel {
   final String ownerID;
   final FlyerType questionType;
   final DateTime time;
-  final List<Keyword> keywords;
+  final List<KW> keywords;
   final List<dynamic> pics;
   final String body;
   final String title;
@@ -119,7 +119,7 @@ class QuestionModel {
         originalQuestion.body == updateQuestion.body &&
         originalQuestion.title == updateQuestion.title &&
         originalQuestion.ownerID == updateQuestion.ownerID &&
-        Keyword.KeywordsListsAreTheSame(originalQuestion.keywords, updateQuestion.keywords,) == true &&
+        KW.KeywordsListsAreTheSame(originalQuestion.keywords, updateQuestion.keywords,) == true &&
         originalQuestion.questionIsOpen == updateQuestion.questionIsOpen &&
         originalQuestion.questionType == updateQuestion.questionType &&
         originalQuestion.userDeletedQuestion == updateQuestion.userDeletedQuestion &&

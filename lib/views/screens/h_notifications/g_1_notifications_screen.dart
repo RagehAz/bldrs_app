@@ -142,7 +142,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         await Fire.updateDocField(
           context: context,
           collName: FireColl.users,
-          docName: _rageh.userID,
+          docName: _rageh.id,
           field: 'nameTrigram',
           input: _tri,
         );

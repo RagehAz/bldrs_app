@@ -1,8 +1,9 @@
-import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
+import 'package:bldrs/dashboard/exotic_methods.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:flutter/material.dart';
@@ -250,47 +251,29 @@ class _TestLabState extends State<TestLab> {
               ),
 
               WideButton(
-                verse: 'Do Thing',
+                verse: 'LET THE GAMES BEGIN x b ',
                 icon: Iconz.Share,
                 onTap: () async {
 
-                  List<Map> _countries = await Fire.readSubCollectionDocs(
-                      context: context,
-                      addDocsIDs: false,
-                      collName: 'zones',
-                      docName: 'countries',
-                      subCollName: 'countries',
-                    addDocSnapshotToEachMap: false,
-                    limit: 250,
-                    orderBy: 'countryID',
-                  );
-
-                  int _numberOfCities = 0;
-
-                  for (var map in _countries){
-
-                    List<String> _citiesIDs = Mapper.getStringsFromDynamics(dynamics: map['citiesIDs']);
-
-                    print('country : ${map['countryID']} : _citiesIDs : ${_citiesIDs.length} cities');
-
-                    _numberOfCities = _numberOfCities + _citiesIDs.length;
-
-                  }
-
-                  await Fire.updateDocField(
-                    context: context,
-                    collName: 'zones',
-                    docName: 'cities',
-                    field: 'numberOfCities',
-                    input: _numberOfCities,
-                  );
-
-
                   print('LET THE GAMES BEGIN');
 
+                  // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+                  //
+                  // final CountryModel _egy = await _zoneProvider.fetchCountryByID(context: context, countryID: 'egy');
+                  //
+                  // _egy.printCountry();
+
+                  await ExoticMethods.updateAFieldInAllCollDocs(
+                      context: context,
+                      collName: FireColl.bzz,
+                      field: 'zone',
+                      input: Zone.dummyZone().toMap(),
+                  );
 
                 },
               ),
+
+
 
             ],
           ),

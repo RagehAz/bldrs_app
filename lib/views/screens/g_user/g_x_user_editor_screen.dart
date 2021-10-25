@@ -222,7 +222,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       /// create new UserModel
       final UserModel _newUserModel = UserModel(
-          userID : widget.user.userID,
+          id : widget.user.id,
         createdAt : DateTime.now(), // will be overridden in createUserOps
           status : UserStatus.normal,
           // -------------------------
@@ -293,7 +293,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       /// create new updated user model
       final UserModel _updatedModel = UserModel(
         // -------------------------
-        userID : widget.user.userID,
+        id : widget.user.id,
         createdAt : widget.user.createdAt,
         status : widget.user.status,
         // -------------------------

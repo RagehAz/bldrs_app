@@ -240,7 +240,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                     margins: EdgeInsets.only(top: _bzButtonMargin),
                     verseScaleFactor: 0.7,
                     verseCentered: false,
-                    secondLine: _bz.bzID,
+                    secondLine: _bz.id,
                     onTap: () async {
 
                       final double _dialogHeight = _screenHeight * 0.8;
@@ -288,7 +288,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
                                 DataStrip(dataKey: 'bzName', dataValue: _bz.name, ),
                                 DataStrip(dataKey: 'bzLogo', dataValue: _bz.logo, ),
-                                DataStrip(dataKey: 'bzID', dataValue: _bz.bzID, ),
+                                DataStrip(dataKey: 'bzID', dataValue: _bz.id, ),
                                 DataStrip(dataKey: 'bzType', dataValue: _bz.bzType, ),
                                 DataStrip(dataKey: 'bzForm', dataValue: _bz.bzForm, ),
                                 DataStrip(dataKey: 'createdAt', dataValue: _bz.createdAt, ),
