@@ -4,18 +4,7 @@ import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// -----------------------------------------------------------------------------
-class Namez{
-  final String id;
-  final List<Name> names;
 
-  const Namez({
-    @required this.id,
-    @required this.names,
-});
-
-}
-// -----------------------------------------------------------------------------
 class Name {
   /// language code
   final String code;
@@ -70,7 +59,7 @@ class Name {
     );
   }
 // -----------------------------------------------------------------------------
-  static List<Name> newDecipherNames(Map<String, dynamic> map){
+  static List<Name> decipherNames(Map<String, dynamic> map){
     final List<Name> _names = <Name>[];
 
     final List<String> _keys = map.keys.toList();
@@ -88,20 +77,6 @@ class Name {
     }
 
     return _names;
-  }
-// -----------------------------------------------------------------------------
-  static List<Name> decipherNames(List<dynamic> maps) {
-    final List<Name> _namez = <Name>[];
-
-    if (Mapper.canLoopList(maps)){
-
-      maps?.forEach((map) {
-        _namez.add(decipherName(map));
-      });
-
-    }
-
-    return _namez;
   }
 // -----------------------------------------------------------------------------
   static String getNameByCurrentLingoFromNames(BuildContext context, List<Name> names,) {
@@ -169,6 +144,89 @@ class Name {
 
 
     return _namesInclude;
+  }
+// -----------------------------------------------------------------------------
+  /// TASK : TEST THIS
+  static bool namesAreTheSame({@required Name firstName, @required Name secondName}){
+
+    bool _namesAreTheSame = false;
+
+    if (firstName != null && secondName != null){
+
+      if (firstName.code == secondName.code){
+
+        if (firstName.value == secondName.value){
+
+          if (Mapper.listsAreTheSame(list1: firstName.trigram, list2: secondName.trigram)){
+
+            _namesAreTheSame = true;
+
+          }
+
+        }
+
+      }
+
+    }
+
+    return _namesAreTheSame;
+  }
+// -----------------------------------------------------------------------------
+  /// TASK : TEST THIS
+  static bool namesListsAreTheSame({@required List<Name> firstNames, @required List<Name> secondNames}){
+
+    bool _listsAreTheSame = false;
+
+    if (Mapper.canLoopList(firstNames) && Mapper.canLoopList(secondNames)){
+
+      if (firstNames.length == secondNames.length){
+
+        final List<String> codes = _getLingoCodesFromNames(firstNames);
+
+        bool _allCodeValuesAreTheSame = true;
+
+        for (String code in codes){
+
+          final firstName = getNameByLingoFromNames(names: firstNames, lingoCode: code);
+          final secondName = getNameByLingoFromNames(names: secondNames, lingoCode: code);
+
+          if (firstName == secondName){
+
+            _allCodeValuesAreTheSame = true;
+
+          }
+
+          else {
+            _allCodeValuesAreTheSame = false;
+            break;
+          }
+
+        }
+
+        if (_allCodeValuesAreTheSame == true){
+          _listsAreTheSame = true;
+        }
+
+      }
+
+    }
+
+    return _listsAreTheSame;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> _getLingoCodesFromNames(List<Name> names){
+
+    List<String> _codes = <String>[];
+
+    if (Mapper.canLoopList(names)){
+
+      names.forEach((name) {
+        _codes.add(name.code);
+      });
+
+    }
+
+    return _codes;
   }
 // -----------------------------------------------------------------------------
 }

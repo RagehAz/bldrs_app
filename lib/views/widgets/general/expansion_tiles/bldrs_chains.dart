@@ -1,14 +1,15 @@
-import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/kw/chain.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/models/helpers/namez_model.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/helpers/name_model.dart';
+import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
+import 'package:bldrs/providers/streamers/keywords_provider.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BldrsChains extends StatelessWidget {
   final double boxWidth;
@@ -62,13 +63,16 @@ class Inception extends StatelessWidget {
     final double _boxWidth = boxWidth ?? _screenWidth - (2 * Ratioz.appBarMargin);
     final double _buttonWidth = _boxWidth - _offset;
 
+    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+
+
     if(son.runtimeType == KW){
 
       return
         DreamBox(
           width: _buttonWidth,
           height: _buttonHeight,
-          icon: Keyword.getImagePath(son.id),
+          icon: _keywordsProvider.getImagePath(son.id),
           verse: Name.getNameByCurrentLingoFromNames(context, son.names),
           verseScaleFactor: 0.7,
           verseCentered: false,
@@ -86,7 +90,7 @@ class Inception extends StatelessWidget {
       return
 
         ExpandingTile(
-          icon: Keyword.getImagePath(son.id),
+          icon: _keywordsProvider.getImagePath(son.id),
           width: _buttonWidth,
           collapsedHeight: _buttonHeight,
           firstHeadline: Name.getNameByCurrentLingoFromNames(context, son.names),

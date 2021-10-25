@@ -93,7 +93,7 @@ class _GalleryState extends State<Gallery> {
         final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
         final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-        await _flyersProvider.getsetActiveBzFlyers(context: context, bzID: _bzModel.bzID);
+        await _flyersProvider.getsetActiveBzFlyers(context: context, bzID: _bzModel.id);
 
         final List<FlyerModel> _flyersFromProvider = _flyersProvider.myActiveBzFlyer;
         final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _bzModel.zone.countryID);
@@ -160,7 +160,7 @@ class _GalleryState extends State<Gallery> {
 
     print('starting _addPublishedFlyerToGallery white tiny flyers were ${_flyers.length} flyers WHILE flyer visibilities were ${_flyersVisibilities.length} visibilities');
 
-    print('tiny flyer is ${flyerModel.flyerID}');
+    print('tiny flyer is ${flyerModel.id}');
 
       _flyers.add(flyerModel);
     print('_tinyFlyers are now  ${_flyers.length} flyers');
@@ -240,7 +240,7 @@ class _GalleryState extends State<Gallery> {
             // if (widget.galleryBoxWidth != null)
               GalleryGrid(
                 gridZoneWidth: widget.galleryBoxWidth,
-                bzID: widget.superFlyer.bz.authors == null || widget.superFlyer.bz.authors == [] || widget.superFlyer.bz.authors.isEmpty ?  '': widget.superFlyer.bz.bzID,
+                bzID: widget.superFlyer.bz.authors == null || widget.superFlyer.bz.authors == [] || widget.superFlyer.bz.authors.isEmpty ?  '': widget.superFlyer.bz.id,
                 flyersVisibilities: _flyersVisibilities,
                 galleryFlyers: _flyers,
                 bzAuthors: widget.superFlyer.bz.authors,

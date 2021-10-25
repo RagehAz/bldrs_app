@@ -63,7 +63,7 @@ class FlyerOps{
 
     /// update FlyerModel with newSlides & flyerURL
     final FlyerModel _finalFlyerModel = FlyerModel(
-      flyerID: _flyerID,
+      id: _flyerID,
       title: inputFlyerModel.title,
       trigram: TextMod.createTrigram(input: inputFlyerModel.title),
       // -------------------------
@@ -189,7 +189,7 @@ class FlyerOps{
           final String _newPicURL = await Fire.createStoragePicAndGetURL(
             context: context,
             picType: PicType.slideHighRes,
-            fileName: SlideModel.generateSlideID(updatedFlyer.flyerID, slide.slideIndex),
+            fileName: SlideModel.generateSlideID(updatedFlyer.id, slide.slideIndex),
             inputFile: slide.pic,
           );
 
@@ -246,7 +246,7 @@ class FlyerOps{
 
       /// B1 - get slides IDs which should be deleted starting first index after updatedFlyer.slides.length
       for (int i = _finalFlyer.slides.length; i < originalFlyer.slides.length; i++){
-        _slidesIDsToBeDeleted.add(SlideModel.generateSlideID(_finalFlyer.flyerID, i));
+        _slidesIDsToBeDeleted.add(SlideModel.generateSlideID(_finalFlyer.id, i));
       }
 
       /// B2 - delete pictures from fireStorage/slidesPics/slideID : slide ID is "flyerID_index"
@@ -266,11 +266,11 @@ class FlyerOps{
     await Fire.updateDoc(
       context: context,
       collName: FireColl.flyers,
-      docName: _finalFlyer.flyerID,
+      docName: _finalFlyer.id,
       input: _finalFlyer.toMap(toJSON: false),
     );
 
-    print('C - flyer updated on fireStore in fireStore/flyers/${_finalFlyer.flyerID}');
+    print('C - flyer updated on fireStore in fireStore/flyers/${_finalFlyer.id}');
 
     /// D - if keywords changed, update flyerKeys doc in : fireStore/flyersKeys/flyerID
     // if (Mapper.listsAreTheSame(list1: _finalFlyer.keywordsIDs, list2: originalFlyer.keywordsIDs) == false){
@@ -360,12 +360,12 @@ class FlyerOps{
     /// A2 - update fireStore/bzz/bzID['nanoFlyers']
     if (Mapper.canLoopList(_bzFlyersIDs)){
 
-      _bzFlyersIDs.remove(flyerModel.flyerID);
+      _bzFlyersIDs.remove(flyerModel.id);
 
       await Fire.updateDocField(
         context: context,
         collName: FireColl.bzz,
-        docName: bzModel.bzID,
+        docName: bzModel.id,
         field: 'flyersIDs',
         input: _bzFlyersIDs,
       );
@@ -377,7 +377,7 @@ class FlyerOps{
     await Fire.deleteAllSubDocs(
       context: context,
       collName: FireColl.flyers,
-      docName: flyerModel.flyerID,
+      docName: flyerModel.id,
       subCollName: FireColl.flyers_flyer_views,
     );
 
@@ -386,7 +386,7 @@ class FlyerOps{
     await Fire.deleteAllSubDocs(
       context: context,
       collName: FireColl.flyers,
-      docName: flyerModel.flyerID,
+      docName: flyerModel.id,
       subCollName: FireColl.flyers_flyer_shares,
     );
 
@@ -395,7 +395,7 @@ class FlyerOps{
     await Fire.deleteAllSubDocs(
       context: context,
       collName: FireColl.flyers,
-      docName: flyerModel.flyerID,
+      docName: flyerModel.id,
       subCollName: FireColl.flyers_flyer_saves,
     );
 
@@ -404,7 +404,7 @@ class FlyerOps{
     await Fire.deleteSubDoc(
         context: context,
         collName: FireColl.flyers,
-        docName: flyerModel.flyerID,
+        docName: flyerModel.id,
         subCollName: FireColl.flyers_flyer_counters,
         subDocName: FireColl.flyers_flyer_counters
     );
@@ -412,7 +412,7 @@ class FlyerOps{
     /// H - delete fireStorage/slidesPics/slideID for all flyer slides
     print('H - delete flyer slide pics');
     final List<String> _slidesIDs = SlideModel.generateSlidesIDs(
-      flyerID: flyerModel.flyerID,
+      flyerID: flyerModel.id,
       numberOfSlides: flyerModel.slides.length,
     );
     for (var id in _slidesIDs){
@@ -431,7 +431,7 @@ class FlyerOps{
     await Fire.deleteDoc(
       context: context,
       collName: FireColl.flyers,
-      docName: flyerModel.flyerID,
+      docName: flyerModel.id,
     );
 
     print('DELETE FLYER OPS ENDED ---------------------------');

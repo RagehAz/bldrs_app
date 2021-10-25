@@ -9,6 +9,7 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/general_provider.dart';
+import 'package:bldrs/providers/streamers/keywords_provider.dart';
 import 'package:bldrs/providers/ui_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
@@ -201,6 +202,10 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
 
           ChangeNotifierProvider(
             create: (ctx) => FlyersProvider(),
+          ),
+
+          ChangeNotifierProvider(
+            create: (ctx) => KeywordsProvider(),
           ),
 
 

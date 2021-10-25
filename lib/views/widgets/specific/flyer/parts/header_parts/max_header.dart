@@ -44,7 +44,7 @@ class MaxHeader extends StatelessWidget {
 
     return bzModelBuilder(
       context: context,
-      bzID: bzModel.bzID,
+      bzID: bzModel.id,
       builder: (ctx, bz){
 // -----------------------------------------------------------------------------
         final String _bzScope = bz != null ? bz.scope : '';

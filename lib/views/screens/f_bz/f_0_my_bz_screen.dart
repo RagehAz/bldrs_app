@@ -97,7 +97,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
         final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
         final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-        final List<FlyerModel> _bzFlyers = await  _flyersProvider.fetchAllBzFlyersByBzID(context: context, bzID: widget.bzModel.bzID);
+        final List<FlyerModel> _bzFlyers = await  _flyersProvider.fetchAllBzFlyersByBzID(context: context, bzID: widget.bzModel.id);
 
         final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: widget.bzModel.zone.countryID);
         final CityModel _city = await _zoneProvider.fetchCityByID(context: context, cityID: widget.bzModel.zone.cityID);

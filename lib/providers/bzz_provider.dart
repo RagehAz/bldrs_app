@@ -151,7 +151,7 @@ class BzzProvider extends ChangeNotifier {
       );
 
 
-      final int _index = _myBzz.indexWhere((tinyBz) => tinyBz.bzID == bzID);
+      final int _index = _myBzz.indexWhere((tinyBz) => tinyBz.id == bzID);
       _myBzz.removeAt(_index);
 
       notifyListeners();
@@ -170,11 +170,11 @@ class BzzProvider extends ChangeNotifier {
 
       await LDBOps.updateMap(
         input: modifiedBz.toMap(toJSON: true),
-        objectID: modifiedBz.bzID,
+        objectID: modifiedBz.id,
         docName: LDBDoc.myBzz,
       );
 
-      final int _indexOfOldTinyBz = _myBzz.indexWhere((bz) => modifiedBz.bzID == bz.bzID);
+      final int _indexOfOldTinyBz = _myBzz.indexWhere((bz) => modifiedBz.id == bz.id);
       _myBzz.removeAt(_indexOfOldTinyBz);
       _myBzz.insert(_indexOfOldTinyBz, modifiedBz);
 
@@ -240,7 +240,7 @@ class BzzProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   Future<void> setActiveBz(BzModel bzModel) async {
-    print('setting active bz to ${bzModel.bzID}');
+    print('setting active bz to ${bzModel.id}');
     _myActiveBz = bzModel;
     notifyListeners();
   }

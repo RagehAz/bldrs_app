@@ -159,7 +159,7 @@ class TopFlyersStack extends StatelessWidget {
                 for (int index = 0; index < gridLoopLength; index++)
 
                     Hero(
-                      tag: flyersDataList[index].flyerID,
+                      tag: flyersDataList[index].id,
                       child: Material(
                         type: MaterialType.transparency,
                         child: FinalFlyer(

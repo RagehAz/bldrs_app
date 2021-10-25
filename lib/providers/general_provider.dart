@@ -1,6 +1,5 @@
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/helpers/app_updates.dart';
-import 'package:bldrs/models/keywords/group_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:flutter/material.dart';
@@ -44,24 +43,24 @@ class GeneralProvider extends ChangeNotifier {
     await _flyersProvider.getsetWallFlyersBySection(context: context, section: section);
 
     _currentSection = section;
-    setSectionGroups();
+    // setSectionGroups();
 
     notifyListeners();
   }
 // -------------------------------------
-  List<GroupModel> _sectionGroups;
-// -------------------------------------
-  List<GroupModel> get sectionGroups {
-    return <GroupModel>[..._sectionGroups];
-  }
-// -------------------------------------
-  void setSectionGroups(){
-
-    final List<GroupModel> _groupsBySection = GroupModel.getGroupBySection(
-      section: _currentSection,
-    );
-
-    _sectionGroups = _groupsBySection;
-  }
+//   List<GroupModel> _sectionGroups;
+// // -------------------------------------
+//   List<GroupModel> get sectionGroups {
+//     return <GroupModel>[..._sectionGroups];
+//   }
+// // -------------------------------------
+//   void setSectionGroups(){
+//
+//     final List<GroupModel> _groupsBySection = GroupModel.getGroupBySection(
+//       section: _currentSection,
+//     );
+//
+//     _sectionGroups = _groupsBySection;
+//   }
 // -----------------------------------------------------------------------------
 }

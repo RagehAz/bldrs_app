@@ -53,7 +53,7 @@ enum BzState {
 }
 // -----------------------------------------------------------------------------
 class BzModel with ChangeNotifier{
-  final String bzID;
+  final String id;
   // -------------------------
   final BzType bzType;
   final BzForm bzForm;
@@ -88,7 +88,7 @@ class BzModel with ChangeNotifier{
 
 // ###############################
   BzModel({
-    @required this.bzID,
+    @required this.id,
     // -------------------------
     @required this.bzType,
     @required this.bzForm,
@@ -123,7 +123,7 @@ class BzModel with ChangeNotifier{
   Map<String, dynamic> toMap({@required bool toJSON}){
 
     return {
-      'bzID' : bzID,
+      'id' : id,
       // -------------------------
       'bzType' : cipherBzType(bzType),
       'bzForm' : cipherBzForm(bzForm),
@@ -163,7 +163,7 @@ class BzModel with ChangeNotifier{
     if (map != null){
 
       _bzModel = BzModel(
-        bzID : map['bzID'],
+        id : map['id'],
         // -------------------------
         bzType : decipherBzType(map['bzType']),
         bzForm : decipherBzForm(map['bzForm']),
@@ -232,7 +232,7 @@ class BzModel with ChangeNotifier{
 // -----------------------------------------------------------------------------
   static BzModel createInitialBzModelFromUserData(UserModel userModel){
     return BzModel(
-      bzID: null,
+      id: null,
       name: userModel.company,
       trigram: TextMod.createTrigram(input: userModel.company),
       zone: userModel.zone,
@@ -384,7 +384,7 @@ class BzModel with ChangeNotifier{
 }
 // -----------------------------------------------------------------------------
   static BzModel getBzFromBzzByBzID(List<BzModel> bzz, String bzID){
-    final BzModel _bz = bzz.singleWhere((_b) => _b.bzID == bzID, orElse: ()=> null);
+    final BzModel _bz = bzz.singleWhere((_b) => _b.id == bzID, orElse: ()=> null);
     return _bz;
   }
 // -----------------------------------------------------------------------------
@@ -406,7 +406,7 @@ class BzModel with ChangeNotifier{
 
     print('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
 
-    print('bzID : $bzID');
+    print('id : $id');
     print('bzType : $bzType');
     print('bzForm : $bzForm');
     print('createdAt : $createdAt');
@@ -445,7 +445,7 @@ class BzModel with ChangeNotifier{
 
       for (BzModel bz in bzz){
 
-        if (bz.bzID == bzModel.bzID){
+        if (bz.id == bzModel.id){
           _contains = true;
           break;
         }
@@ -464,7 +464,7 @@ class BzModel with ChangeNotifier{
 
       if (bzzModels != null){
         bzzModels.forEach((bz) {
-          _ids.add(bz.bzID);
+          _ids.add(bz.id);
         });
       }
 
@@ -480,7 +480,7 @@ class BzModel with ChangeNotifier{
 
     return
       BzModel(
-        bzID: _bzID,
+        id: _bzID,
         logo: Iconz.DumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
         name: 'Business Name',
         trigram: TextMod.createTrigram(input: 'Business Name'),

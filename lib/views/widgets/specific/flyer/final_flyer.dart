@@ -28,7 +28,7 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
@@ -130,12 +130,16 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   FlyersProvider _flyersProvider;
   BzzProvider _bzzProvider;
   ZoneProvider _zoneProvider;
+  // KeywordsProvider _keywordsProvider;
+
   @override
   void initState() {
     super.initState();
     _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    // _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+
     /// get current bzModel when this flyer goes to editor
 
     _bzModel = widget.bzModel;
@@ -650,7 +654,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future <void> _openTinyFlyer() async {
 
     final FlyerModel _flyer = FlyerModel.getFlyerModelFromSuperFlyer(_superFlyer);
-    print('opening tiny flyer : ${_flyer.flyerID} while THE FUCKING widget.goesToEditor IS : ${widget.goesToEditor}');
+    print('opening tiny flyer : ${_flyer.id} while THE FUCKING widget.goesToEditor IS : ${widget.goesToEditor}');
 
     await _bzzProvider.setActiveBz(_superFlyer.bz);
 
@@ -2518,18 +2522,18 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       ///create FlyerModel
       final FlyerModel _newFlyerModel = FlyerModel(
-        flyerID: _superFlyer.flyerID, /// TASK : redundancy : will be created in createFlyerOps
+        id: _superFlyer.flyerID, /// TASK : redundancy : will be created in createFlyerOps
         title: _superFlyer.title,
         trigram: TextMod.createTrigram(input: _superFlyer.title), /// TASK : redundancy : will be created in createFlyerOps
         // -------------------------
         flyerType: _superFlyer.flyerType,
         flyerState: _superFlyer.flyerState,
-        keywordsIDs: Keyword.getKeywordsIDsFromKeywords(_superFlyer.keywords),
+        keywordsIDs: KW.getKeywordsIDsFromKeywords(_superFlyer.keywords),
         showsAuthor: _superFlyer.flyerShowsAuthor,
         zone: _superFlyer.zone,
         // -------------------------
         authorID: _superFlyer.authorID,
-        bzID: _superFlyer.bz.bzID,
+        bzID: _superFlyer.bz.id,
         // -------------------------
         position: _superFlyer.position,
         // -------------------------
@@ -2575,18 +2579,18 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       ///create updated FlyerModel
       final FlyerModel _tempUpdatedFlyerModel = FlyerModel(
-        flyerID: _superFlyer.flyerID,
+        id: _superFlyer.flyerID,
         title: _superFlyer.title,
         trigram: TextMod.createTrigram(input: _superFlyer.title), /// IS NOT RECREATED IN UPDATE FLYER OPS
         // -------------------------
         flyerType: _superFlyer.flyerType,
         flyerState: _superFlyer.flyerState,
-        keywordsIDs: Keyword.getKeywordsIDsFromKeywords(_superFlyer.keywords),
+        keywordsIDs: KW.getKeywordsIDsFromKeywords(_superFlyer.keywords),
         showsAuthor: _superFlyer.flyerShowsAuthor,
         zone: _superFlyer.zone,
         // -------------------------
         authorID: _superFlyer.authorID,
-        bzID: _superFlyer.bz.bzID,
+        bzID: _superFlyer.bz.id,
         // -------------------------
         position: _superFlyer.position,
         // -------------------------

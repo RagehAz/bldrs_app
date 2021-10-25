@@ -141,7 +141,7 @@ class BzGrid extends StatelessWidget {
                                   bzPageIsOn: false,
                                   tinyMode: true,
                                   zeroCornerIsOn: false,
-                                  onTap: () => itemOnTap(bz.bzID),
+                                  onTap: () => itemOnTap(bz.id),
                               ),
 
                               /// BZ NAME

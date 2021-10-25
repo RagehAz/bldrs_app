@@ -105,7 +105,7 @@ class AddAuthorScreen extends StatelessWidget {
 
               final BzModel _bzModel = await BzOps.readBzOps(
                 context: context,
-                bzID: tinyBz.bzID,
+                bzID: tinyBz.id,
               );
 
               final UserModel _ragehUserModel = await UserOps.readUserOps(
@@ -122,14 +122,14 @@ class AddAuthorScreen extends StatelessWidget {
               await Fire.updateDocField(
                 context: context,
                 collName: FireColl.bzz,
-                docName: _bzModel.bzID,
+                docName: _bzModel.id,
                 field: 'bzAuthors',
                 input: AuthorModel.cipherAuthorsModels(_newAuthorsList),
               );
 
               /// add bzID in user's myBzIDs
               final List<dynamic> _userBzzIDs = _ragehUserModel.myBzzIDs;
-              _userBzzIDs.insert(0, _bzModel.bzID);
+              _userBzzIDs.insert(0, _bzModel.id);
               await Fire.updateDocField(
                 context: context,
                 collName: FireColl.users,

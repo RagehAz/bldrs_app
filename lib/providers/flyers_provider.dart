@@ -144,7 +144,7 @@ class FlyersProvider extends ChangeNotifier {
   bool getAnkh(String flyerID){
     bool _ankhIsOn = false;
 
-    final FlyerModel _flyer = _savedFlyers?.firstWhere((flyer) => flyer.flyerID == flyerID, orElse: () => null);
+    final FlyerModel _flyer = _savedFlyers?.firstWhere((flyer) => flyer.id == flyerID, orElse: () => null);
 
     if(_flyer == null){
       _ankhIsOn = false;
@@ -158,7 +158,7 @@ class FlyersProvider extends ChangeNotifier {
   Future<void> saveOrUnSaveFlyer({@required BuildContext context, @required FlyerModel inputFlyer,}) async {
 
     final FlyerModel _savedFlyer =
-    _savedFlyers.singleWhere((tf) => tf.flyerID == inputFlyer.flyerID, orElse: ()=> null);
+    _savedFlyers.singleWhere((tf) => tf.id == inputFlyer.id, orElse: ()=> null);
 
     final List<String> _savedFlyersIDs = FlyerModel.getFlyersIDsFromFlyers(_savedFlyers);
 
@@ -178,8 +178,8 @@ class FlyersProvider extends ChangeNotifier {
       /// updated saved flyers ids in firebase
       await UserOps.addFlyerIDToSavedFlyersIDs(
         context: context,
-        userID: _usersProvider.myUserModel.userID,
-        flyerID: inputFlyer.flyerID,
+        userID: _usersProvider.myUserModel.id,
+        flyerID: inputFlyer.id,
         savedFlyersIDs: _savedFlyersIDs,
 
       );
@@ -187,20 +187,20 @@ class FlyersProvider extends ChangeNotifier {
     } else {
       /// so flyer is already saved, so we remove it
       final int _savedFlyerIndex =
-      _savedFlyers.indexWhere((tf) => tf.flyerID == inputFlyer.flyerID, );
+      _savedFlyers.indexWhere((tf) => tf.id == inputFlyer.id, );
       _savedFlyers.removeAt(_savedFlyerIndex);
 
       /// remove from ldb
       await LDBOps.deleteMap(
           docName: LDBDoc.mySavedFlyers,
-          objectID: inputFlyer.flyerID,
+          objectID: inputFlyer.id,
       );
 
       /// remove from saved flyersIDs in firebase
       await UserOps.removeFlyerIDFromSavedFlyersIDs(
         context: context,
-        userID: _usersProvider.myUserModel.userID,
-        flyerID: inputFlyer.flyerID,
+        userID: _usersProvider.myUserModel.id,
+        flyerID: inputFlyer.id,
         savedFlyersIDs: _savedFlyersIDs,
       );
 

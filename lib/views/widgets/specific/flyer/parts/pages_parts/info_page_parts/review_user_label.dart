@@ -40,7 +40,7 @@ class ReviewUserLabel extends StatelessWidget {
 
         const Expander(),
 
-        if(tinyUser?.userID == superUserID() && hasEditButton == true)
+        if(tinyUser?.id == superUserID() && hasEditButton == true)
         DreamBox(
           height: 30,
           width: 30,

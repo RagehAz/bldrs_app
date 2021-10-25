@@ -131,7 +131,7 @@ class _FlyersGridState extends State<FlyersGrid> {
               itemCount: flyers.length,
               itemBuilder: (ctx, index){
 
-              print('FlyersGrid : flyerID : ${flyers[index].flyerID} : midColor : ${flyers[index].slides[0].midColor}');
+              print('FlyersGrid : flyerID : ${flyers[index].id} : midColor : ${flyers[index].slides[0].midColor}');
 
               return
 

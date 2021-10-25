@@ -11,12 +11,13 @@ import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/spec_model.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/streamers/keywords_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,7 @@ class SuperFlyer{
   /// flyer tags
   String flyerInfo; // MutableFlyer -- ?
   List<Spec> specs; // MutableFlyer -- ?
-  List<Keyword> keywords; // MutableFlyer -- ?
+  List<KW> keywords; // MutableFlyer -- ?
 
   /// flyer location
   Zone zone; // MutableFlyer -- ?
@@ -301,6 +302,7 @@ class SuperFlyer{
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 
     final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);
@@ -339,7 +341,7 @@ class SuperFlyer{
             onCallTap: onCallTap,
             onCountersTap: onCountersTap,
             /// user based bool triggers
-            ankhIsOn: _flyersProvider.getAnkh(flyerModel.flyerID),
+            ankhIsOn: _flyersProvider.getAnkh(flyerModel.id),
             followIsOn: _bzzProvider.checkFollow(context: context, bzID: flyerModel.bzID),
             onEditReview: onEditReview,
             onSubmitReview: onSubmitReview,
@@ -387,8 +389,8 @@ class SuperFlyer{
         verticalIndex: 0,
 
         /// flyer identifiers
-        key: ValueKey(flyerModel.flyerID),
-        flyerID: flyerModel.flyerID,
+        key: ValueKey(flyerModel.id),
+        flyerID: flyerModel.id,
         authorID: flyerModel.authorID,
         title: flyerModel.title,
         titleController: null,
@@ -401,7 +403,7 @@ class SuperFlyer{
         /// flyer tags
         flyerInfo: flyerModel.info,
         specs: flyerModel.specs,
-        keywords: Keyword.getKeywordsByKeywordsIDs(flyerModel.keywordsIDs),
+        keywords: _keywordsProvider.getKeywordsByKeywordsIDs(flyerModel.keywordsIDs),
 
         /// flyer location
         zone: flyerModel.zone,
@@ -463,7 +465,7 @@ class SuperFlyer{
 
   }){
 
-    print('CREATING draft super flyer from nothing for bz  : ${bzModel.name} : id : ${bzModel.bzID}');
+    print('CREATING draft super flyer from nothing for bz  : ${bzModel.name} : id : ${bzModel.id}');
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
@@ -553,7 +555,7 @@ class SuperFlyer{
         verticalIndex: 0,
 
         /// flyer identifiers
-        key: ValueKey('${bzModel.bzID} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
+        key: ValueKey('${bzModel.id} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
         flyerID: SuperFlyer.draftID,
         authorID: superUserID(),
         title: null,
@@ -567,7 +569,7 @@ class SuperFlyer{
         /// flyer tags
         flyerInfo: null,
         specs: <Spec>[],
-        keywords: <Keyword>[],
+        keywords: <KW>[],
 
         /// flyer location
         zone: _zoneProvider.currentZone,
@@ -633,7 +635,9 @@ class SuperFlyer{
 
   }) async {
 
-    print('CREATING draft super flyer from FLYER : ${flyerModel.flyerID} for bz  : ${bzModel.name} : id : ${bzModel.bzID}');
+    print('CREATING draft super flyer from FLYER : ${flyerModel.id} for bz  : ${bzModel.name} : id : ${bzModel.id}');
+
+    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 
     final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);
@@ -718,8 +722,8 @@ class SuperFlyer{
         verticalIndex: 0,
 
         /// flyer identifiers
-        key: ValueKey('${SuperFlyer.draftID} : ${bzModel.bzID} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
-        flyerID: flyerModel.flyerID,
+        key: ValueKey('${SuperFlyer.draftID} : ${bzModel.id} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
+        flyerID: flyerModel.id,
         authorID: superUserID(),
         title: flyerModel.title,
         titleController: new TextEditingController(text: flyerModel.title),
@@ -732,7 +736,7 @@ class SuperFlyer{
         /// flyer tags
         flyerInfo: flyerModel.info,
         specs: flyerModel.specs,
-        keywords: Keyword.getKeywordsByKeywordsIDs(flyerModel.keywordsIDs),
+        keywords: _keywordsProvider.getKeywordsByKeywordsIDs(flyerModel.keywordsIDs),
 
         /// flyer location
         zone: flyerModel.zone,

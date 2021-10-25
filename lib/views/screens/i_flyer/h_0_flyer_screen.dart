@@ -37,7 +37,7 @@ class FlyerScreen extends StatelessWidget {
     String _flyerID = ModalRoute.of(context).settings.arguments as String;
 
     if (_flyerID == null){
-      _flyerID = flyerID ?? flyerModel?.flyerID;
+      _flyerID = flyerID ?? flyerModel?.id;
     }
 
     print('_flyerID is $_flyerID');

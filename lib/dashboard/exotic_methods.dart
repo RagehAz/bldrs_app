@@ -1,8 +1,10 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/helpers/big_mac.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/secondary_models/feedback_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -232,6 +234,99 @@ abstract class ExoticMethods{
     final List<BigMac> _allBigMacs = BigMac.decipherBigMacs(_allMaps);
 
     return _allBigMacs;
+  }
+// -----------------------------------------------------------------------------
+  /// super dangerous method,, take care !!
+  static Future<void> updateAFieldInAllCollDocs({@required BuildContext context, @required String collName, @required String field, @required dynamic input}) async {
+
+    final List<dynamic> _maps = await Fire.readCollectionDocs(
+      limit: 1000,
+      collName: collName,
+      addDocSnapshotToEachMap: false,
+      addDocsIDs: true,
+      orderBy: 'id',
+    );
+
+    for (var map in _maps){
+
+      await Fire.updateDocField(
+          context: context,
+          collName: collName,
+          docName: map['id'],
+          field: field,
+          input: input
+      );
+
+    }
+
+    print('Tamam with : ${_maps.length} flyers updated their [${field}] field');
+
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> changeFieldName({@required BuildContext context,}) async {
+
+      print('LET THE GAMES BEGIN');
+
+    //   final List<CountryModel> _allModels = await ExoticMethods.fetchAllCountryModels(context: context);
+    //   final String collName = FireColl.zones;
+    //   final String newField = 'id';
+    //   final String oldField = 'countryID';
+    //
+    //   for (var model in _allModels){
+    //
+    //     String oldID = model.countryID;
+    //     dynamic input = oldID;
+    //
+    //     /// update
+    //     await Fire.updateSubDocField(
+    //       context: context,
+    //       collName: collName,
+    //       docName: 'countries',
+    //       subCollName: 'countries',
+    //       subDocName: oldID,
+    //       field: newField,
+    //       input: input,
+    //     );
+    //
+    //
+    //     /// delete
+    //     await Fire.deleteSubDocField(
+    //       context: context,
+    //       collName: collName,
+    //       docName: 'countries',
+    //       subCollName: 'countries',
+    //       subDocName: oldID,
+    //       field: oldField,
+    //     );
+    //
+    //
+    // }
+
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> uploadAllKeywords({@required BuildContext context}) async {
+
+    Map<String, dynamic> _keywordsMap = {};
+
+    List<KW> _allKeywords = KW.getAllKeywordsFromBldrsChain();
+
+    for (KW keyword in _allKeywords){
+
+      _keywordsMap = Mapper.insertPairInMap(
+          map: _keywordsMap,
+          key: keyword.id,
+          value: keyword.toMap(),
+      );
+
+    }
+
+    await Fire.createNamedDoc(
+        context: context,
+        collName: FireColl.keys,
+        docName: FireColl.keys_keywords,
+        input: _keywordsMap,
+    );
+
   }
 // -----------------------------------------------------------------------------
 }
