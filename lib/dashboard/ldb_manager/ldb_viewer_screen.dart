@@ -6,6 +6,7 @@ import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class LDBViewerScreen extends StatefulWidget {
@@ -148,6 +149,8 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
             maps: _maps,
             onRowTap: (String id) => _onRowTap(id),
           ),
+
+        const PyramidsHorizon(),
 
       ],
     );

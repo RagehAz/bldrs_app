@@ -40,6 +40,29 @@ class LDBDoc {
     myUserModel,
     sessionUsers,
   ];
+
+  static const List<String> allDocs = <String>[
+  myUserModel,
+  mySavedFlyers,
+  myFollowedBzz,
+  myFollows,
+  myCalls,
+  myShares,
+  myViews,
+  mySaves,
+  myReviews,
+  myQuestions,
+  myAnswers,
+  myBzz,
+  myBzzFlyers,
+  sessionFlyers,
+  sessionBzz,
+  sessionUsers,
+  keywords,
+  sessionCountries,
+  sessionCities,
+  continents,
+  ];
 }
 
 abstract class LDBOps{
@@ -66,32 +89,34 @@ abstract class LDBOps{
       case LDBDoc.keywords : return 'id';
       case LDBDoc.sessionCountries : return 'id';
       case LDBDoc.sessionCities : return 'cityID';
-      case LDBDoc.continents : return '';
+      case LDBDoc.continents : return 'name';
       default : return null;
     }
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> insertMap({Map<String, Object> input, String docName}) async {
+  static Future<void> insertMap({@required String primaryKey, @required Map<String, Object> input, @required String docName}) async {
 
     await Sembast.insertAll(
       inputs: <Map<String, Object>>[input],//_cipherFirebaseMapsToSembastMaps(<Map<String, Object>>[input]),
       docName: docName,
+      primaryKey: primaryKey,
     );
 
     print('LDBOps inserted in ${docName}');
   }
 // -----------------------------------------------------------------------------
-  static Future<void> insertMaps({List<Map<String, Object>> inputs,String docName}) async {
+  static Future<void> insertMaps({@required String primaryKey, @required List<Map<String, Object>> inputs, @required String docName}) async {
 
     await Sembast.insertAll(
       inputs: inputs,//_cipherFirebaseMapsToSembastMaps(inputs),
       docName: docName,
+      primaryKey: primaryKey,
     );
 
   }
 // -----------------------------------------------------------------------------
-  static Future<Map<String, Object>> searchMap({String fieldToSortBy, String searchField, dynamic searchValue, String docName}) async {
+  static Future<Map<String, Object>> searchMap({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
 
     final Map<String, Object> _result = await Sembast.findFirst(
       docName: docName,
@@ -108,7 +133,7 @@ abstract class LDBOps{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> searchMaps({String fieldToSortBy, String searchField, dynamic searchValue, String docName}) async {
+  static Future<List<Map<String, Object>>> searchMaps({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
 
     final List<Map<String, Object>> _result = await Sembast.search(
       docName: docName,
@@ -125,7 +150,7 @@ abstract class LDBOps{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> readAllMaps({String docName}) async {
+  static Future<List<Map<String, Object>>> readAllMaps({@required String docName}) async {
 
     final List<Map<String, Object>> _result = await Sembast.readAll(
       docName: docName,

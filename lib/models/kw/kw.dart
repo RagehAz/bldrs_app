@@ -17,7 +17,7 @@ class KW {
 
     return {
       'id': id,
-      'names' : Name.cipherNames(names),
+      'names' : Name.cipherNames(names: names, addTrigrams: false),
     };
 
   }

@@ -66,6 +66,7 @@ class FlyersProvider extends ChangeNotifier {
         await LDBOps.insertMap(
           input: _flyer.toMap(toJSON: true),
           docName: LDBDoc.sessionFlyers,
+          primaryKey: 'id',
         );
 
       }
@@ -173,6 +174,7 @@ class FlyersProvider extends ChangeNotifier {
       await LDBOps.insertMap(
         docName: LDBDoc.mySavedFlyers,
         input: inputFlyer.toMap(toJSON: true),
+        primaryKey: 'id',
       );
 
       /// updated saved flyers ids in firebase

@@ -49,6 +49,7 @@ class ZoneProvider extends ChangeNotifier {
         await LDBOps.insertMap(
           input: _countryModel.toMap(toJSON: true),
           docName: LDBDoc.sessionCountries,
+          primaryKey: 'id',
         );
 
       }
@@ -114,6 +115,7 @@ class ZoneProvider extends ChangeNotifier {
         await LDBOps.insertMap(
           input: _cityModel.toMap(toJSON: true),
           docName: LDBDoc.sessionCities,
+          primaryKey: 'cityID',
         );
 
       }
@@ -176,6 +178,7 @@ class ZoneProvider extends ChangeNotifier {
         await LDBOps.insertMap(
           input: Continent.cipherContinents(_continents),
           docName: LDBDoc.continents,
+          primaryKey: 'name',
         );
 
       }

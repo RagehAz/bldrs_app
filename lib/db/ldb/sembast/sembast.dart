@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -71,11 +72,37 @@ class Sembast {
   final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
   final Database _db = await _getDB();
 
-  await _doc.add(_db, map);
+
+    final int result = await update(
+      docName: docName,
+      map: map,
+      searchPrimaryKey: primaryKey,
+      searchPrimaryValue: map[primaryKey],
+    );
+
+    if (result == 0){
+      /// map not found in ldb so we add it
+      await _doc.add(_db, map);
+    }
 
   }
+// -----------------------------------------------------------------------------
+  static Future insertAll({@required String primaryKey, @required List<Map<String, Object>> inputs, @required String docName}) async {
 
-  static Future<void> insertAll({@required List<Map<String, Object>> inputs, @required String docName}) async {
+    if (Mapper.canLoopList(inputs)){
+
+      for (var map in inputs){
+
+        await insert(primaryKey: primaryKey, map: map, docName: docName);
+
+      }
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  /// this should only be used when the ldb is empty,, if
+  static Future<void> deleteDocThenInsertAll({@required List<Map<String, Object>> inputs, @required String docName}) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
@@ -84,19 +111,20 @@ class Sembast {
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> update({@required Map<String, Object> map, @required String searchPrimaryValue, @required String searchPrimaryKey, @required String docName}) async {
+  static Future<int> update({@required Map<String, Object> map, @required String searchPrimaryValue, @required String searchPrimaryKey, @required String docName}) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
 
     final Finder _finder = Finder(filter: Filter.equals(searchPrimaryKey, searchPrimaryValue));
 
-    await _doc.update(
+    final int result = await _doc.update(
       _db,
       map,
       finder: _finder,
     );
 
+    return result;
   }
 // -----------------------------------------------------------------------------
   static Future<void> delete({@required String searchPrimaryKey, @required String searchPrimaryValue, @required String docName}) async {

@@ -49,6 +49,7 @@ class FireColl{
   static const String keys = 'keys';
   static const String keys_keywords = 'keywords';
   static const String keys_specs = 'specs';
+  static const String keys_stats = 'stats';
 }
 
 class StorageDoc{

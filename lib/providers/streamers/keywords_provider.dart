@@ -35,6 +35,7 @@ class KeywordsProvider extends ChangeNotifier{
         await LDBOps.insertMaps(
           inputs: KW.cipherKeywordsToMaps(_allKeywords),
           docName: LDBDoc.keywords,
+          primaryKey: 'id',
         );
       }
 
