@@ -146,7 +146,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       await Fire.updateDocField(
         context: context,
         collName: FireColl.flyers,
-        docName: _currentFlyer.flyerID,
+        docName: _currentFlyer.id,
         field: 'flyerState',
         input: FlyerModel.cipherFlyerState(FlyerState.verified),
       );
@@ -156,7 +156,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       TopDialog.showTopDialog(
           context: context,
           verse: 'Done',
-          secondLine: 'flyer ${_currentFlyer.flyerID} got verified',
+          secondLine: 'flyer ${_currentFlyer.id} got verified',
           color: Colorz.green255,
           onTap: (){
             print('a77aaa ');

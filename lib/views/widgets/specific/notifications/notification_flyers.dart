@@ -41,7 +41,7 @@ class NotificationFlyers extends StatelessWidget {
 
             return
               GestureDetector(
-                onTap: onFlyerTap == null ? null : () => onFlyerTap(_flyerID ?? _flyer.flyerID),
+                onTap: onFlyerTap == null ? null : () => onFlyerTap(_flyerID ?? _flyer.id),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: AbsorbPointer(

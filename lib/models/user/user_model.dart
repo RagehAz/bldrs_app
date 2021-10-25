@@ -13,7 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class UserModel {
-  final String userID;
+  final String id;
   final AuthBy authBy;
   final DateTime createdAt;
   final UserStatus status;
@@ -37,7 +37,7 @@ class UserModel {
   final List<String> followedBzzIDs;
 // ###############################
   const UserModel({
-    @required this.userID,
+    @required this.id,
     @required this.authBy,
     @required this.createdAt,
     @required this.status,
@@ -64,7 +64,7 @@ class UserModel {
   Map<String, dynamic> toMap({@required bool toJSON}){
 
     return {
-      'userID' : userID,
+      'id' : id,
       'authBy' : cipherAuthBy(authBy),
       'createdAt' : Timers.cipherTime(time: createdAt, toJSON: toJSON),
       'status' : cipherUserStatus(status),
@@ -93,7 +93,7 @@ class UserModel {
     return
       map == null ? null :
       UserModel(
-        userID : map['userID'],
+        id : map['id'],
         authBy: decipherAuthBy(map['authBy']),
         createdAt : Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
         status : decipherUserStatus(map['status']),
@@ -242,7 +242,7 @@ class UserModel {
     return
       _user == null ? null :
       UserModel(
-        userID: _user.uid,
+        id: _user.uid,
         authBy: null,
         createdAt: DateTime.now(),
         status: UserStatus.normal,
@@ -283,7 +283,7 @@ class UserModel {
 
 
     final UserModel _userModel = UserModel(
-      userID: user.uid,
+      id: user.uid,
       authBy: authBy,
       createdAt: DateTime.now(),
       status: UserStatus.normal,
@@ -330,7 +330,7 @@ class UserModel {
 
     print('$methodName : ---------------- START -- ');
 
-    print('userID : $userID');
+    print('id : $id');
     print('authBy : $authBy');
     print('createdAt : $createdAt');
     print('userStatus : $status');

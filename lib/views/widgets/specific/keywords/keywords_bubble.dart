@@ -1,13 +1,13 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/specific/keywords/keyword_button.dart';
 import 'package:flutter/material.dart';
 
 class KeywordsBubble extends StatelessWidget {
   final String title;
-  final List<Keyword> keywords;
+  final List<KW> keywords;
   final int verseSize;
   final Function onTap;
   final Color bubbleColor;
@@ -60,7 +60,7 @@ class KeywordsBubble extends StatelessWidget {
                 keywords?.length,
                     (index){
 
-                  Keyword _keyword = keywords[index];
+                  KW _keyword = keywords[index];
 
                   return
 

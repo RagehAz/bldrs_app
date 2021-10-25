@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
-import 'package:bldrs/models/helpers/namez_model.dart';
+import 'package:bldrs/models/helpers/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:flutter/foundation.dart';

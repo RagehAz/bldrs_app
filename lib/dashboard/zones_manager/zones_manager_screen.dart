@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/zones_manager/country_screen.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/models/helpers/namez_model.dart';
+import 'package:bldrs/models/helpers/name_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';

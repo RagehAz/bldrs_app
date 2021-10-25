@@ -106,7 +106,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       // _prof.removeTinyBzFromLocalList(bzModel.bzID);
 
       /// remove tinyBz from local userTinyBzz
-      _bzzProvider.removeBzFromMyBzz(bzID: bzModel.bzID);
+      _bzzProvider.removeBzFromMyBzz(bzID: bzModel.id);
 
       _triggerLoading();
 
@@ -149,7 +149,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       /// remove Bz from Local list
       final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
-      await _bzzProvider.removeBzFromMyBzz(bzID: bzModel.bzID);
+      await _bzzProvider.removeBzFromMyBzz(bzID: bzModel.id);
 
       _triggerLoading();
 

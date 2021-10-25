@@ -47,9 +47,9 @@ abstract class LDBOps{
   static String getPrimaryKey(String docName){
 
     switch (docName){
-      case LDBDoc.myUserModel : return 'userID';
-      case LDBDoc.mySavedFlyers : return 'flyerID';
-      case LDBDoc.myFollowedBzz : return 'bzID';
+      case LDBDoc.myUserModel : return 'id';
+      case LDBDoc.mySavedFlyers : return 'id';
+      case LDBDoc.myFollowedBzz : return 'id';
       case LDBDoc.myFollows : return 'followID';
       case LDBDoc.myCalls : return 'callID';
       case LDBDoc.myShares : return 'shareID';
@@ -58,13 +58,13 @@ abstract class LDBOps{
       case LDBDoc.myReviews : return 'reviewID';
       case LDBDoc.myQuestions : return 'questionID';
       case LDBDoc.myAnswers : return 'answerID';
-      case LDBDoc.myBzz : return 'bzID';
-      case LDBDoc.myBzzFlyers : return 'flyerID';
-      case LDBDoc.sessionFlyers : return 'flyerID';
-      case LDBDoc.sessionBzz : return 'bzID';
-      case LDBDoc.sessionUsers : return 'userID';
-      case LDBDoc.keywords : return 'keywordID';
-      case LDBDoc.sessionCountries : return 'countryID';
+      case LDBDoc.myBzz : return 'id';
+      case LDBDoc.myBzzFlyers : return 'id';
+      case LDBDoc.sessionFlyers : return 'id';
+      case LDBDoc.sessionBzz : return 'id';
+      case LDBDoc.sessionUsers : return 'id';
+      case LDBDoc.keywords : return 'id';
+      case LDBDoc.sessionCountries : return 'id';
       case LDBDoc.sessionCities : return 'cityID';
       case LDBDoc.continents : return '';
       default : return null;

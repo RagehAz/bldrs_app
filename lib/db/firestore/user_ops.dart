@@ -44,7 +44,7 @@ abstract class UserOps{
     await Fire.updateDoc(
       context: context,
       collName: FireColl.users,
-      docName: userModel.userID,
+      docName: userModel.id,
       input: userModel.toMap(toJSON: false),
     );
 
@@ -62,14 +62,14 @@ abstract class UserOps{
       _userPicURL = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: userModel.pic,
-          fileName: userModel.userID,
+          fileName: userModel.id,
           picType: PicType.userPic
       );
     }
 
     /// create final UserModel
     final UserModel _finalUserModel = UserModel(
-      userID : userModel.userID,
+      id : userModel.id,
       authBy: userModel.authBy,
       createdAt : DateTime.now(),
       status : userModel.status,
@@ -154,14 +154,14 @@ abstract class UserOps{
       _userPicURL = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: updatedUserModel.pic,
-          fileName: updatedUserModel.userID,
+          fileName: updatedUserModel.id,
           picType: PicType.userPic
       );
     }
 
     /// B - create final UserModel
     final UserModel _finalUserModel = UserModel(
-      userID : updatedUserModel.userID,
+      id : updatedUserModel.id,
       authBy: oldUserModel.authBy,
       createdAt : oldUserModel.createdAt,
       status : updatedUserModel.status,
@@ -319,7 +319,7 @@ abstract class UserOps{
             await Fire.updateDocField(
               context: context,
               collName: FireColl.users,
-              docName: userModel.userID,
+              docName: userModel.id,
               field: 'userStatus',
               input: UserModel.cipherUserStatus(UserStatus.deactivated),
             );
@@ -349,7 +349,7 @@ abstract class UserOps{
         await Fire.updateDocField(
           context: context,
           collName: FireColl.users,
-          docName: userModel.userID,
+          docName: userModel.id,
           field: 'userStatus',
           input: UserModel.cipherUserStatus(UserStatus.deactivated),
         );
@@ -499,7 +499,7 @@ abstract class UserOps{
                 bzModel: bz,
               );
 
-              print('G - DELETED : from ${userModel.userID} : bz :  ${bz.bzID} successfully');
+              print('G - DELETED : from ${userModel.id} : bz :  ${bz.id} successfully');
             }
 
             /// I - DELETE user image : storage/usersPics/userID
@@ -507,7 +507,7 @@ abstract class UserOps{
             await Fire.deleteStoragePic(
               context: context,
               picType: PicType.userPic,
-              fileName: userModel.userID,
+              fileName: userModel.id,
             );
 
             /// J - DELETE user doc : firestore/users/userID
@@ -515,13 +515,13 @@ abstract class UserOps{
             await Fire.deleteDoc(
               context: context,
               collName: FireColl.users,
-              docName: userModel.userID,
+              docName: userModel.id,
             );
 
             /// L - DELETE firebase user : auth/userID
             print('L - deleting firebase user');
             /// TASK : NEED TO MANAGE IF THIS FAILS
-            await AuthOps().deleteFirebaseUser(context, userModel.userID);
+            await AuthOps().deleteFirebaseUser(context, userModel.id);
 
             /// K - SIGN OUT
             print('K - user is signing out');
@@ -559,7 +559,7 @@ abstract class UserOps{
         await Fire.deleteStoragePic(
           context: context,
           picType: PicType.userPic,
-          fileName: userModel.userID,
+          fileName: userModel.id,
         );
 
         /// J - DELETE user doc : firestore/users/userID
@@ -567,13 +567,13 @@ abstract class UserOps{
         await Fire.deleteDoc(
           context: context,
           collName: FireColl.users,
-          docName: userModel.userID,
+          docName: userModel.id,
         );
 
         /// L - DELETE firebase user : auth/userID
         print('L - deleting firebase user');
         /// TASK : NEED TO MANAGE IF THIS FAILS
-        await AuthOps().deleteFirebaseUser(context, userModel.userID);
+        await AuthOps().deleteFirebaseUser(context, userModel.id);
 
         /// K - SIGN OUT
         print('K - user is signing out');

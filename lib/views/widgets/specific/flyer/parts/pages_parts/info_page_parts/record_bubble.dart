@@ -55,7 +55,7 @@ class RecordBubble extends StatelessWidget {
                     PersonButton(
                       totalHeight: _peopleBubbleBoxHeight,
                       image: users[index].pic,
-                      id: users[index].userID,
+                      id: users[index].id,
                       name: users[index].name,
                       onTap: (userID){
                         print('id is : $userID');

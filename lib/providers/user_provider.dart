@@ -105,7 +105,7 @@ class UsersProvider extends ChangeNotifier {
   /// USER STREAM
   Stream<UserModel> get myUserModelStream {
     final CollectionReference _userCollection = UserOps.userCollectionRef();
-    final Stream<UserModel> _stream = _userCollection.doc(_myUserModel?.userID).snapshots().map(_userModelFromSnapshot);
+    final Stream<UserModel> _stream = _userCollection.doc(_myUserModel?.id).snapshots().map(_userModelFromSnapshot);
     return _stream;
   }
 // -------------------------------------

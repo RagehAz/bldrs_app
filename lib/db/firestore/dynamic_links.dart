@@ -27,7 +27,7 @@ class DynamicLinksApi {
 
     final DynamicLinkParameters _parameters = DynamicLinkParameters(
       uriPrefix: 'https://bldrs.page.link',
-      link: Uri.parse('https://bldrs.page.link/flyer/${flyerModel.flyerID}/$slideIndex'),
+      link: Uri.parse('https://bldrs.page.link/flyer/${flyerModel.id}/$slideIndex'),
       androidParameters: AndroidParameters(
         packageName: 'com.bldrs.net',
         minimumVersion: 0,

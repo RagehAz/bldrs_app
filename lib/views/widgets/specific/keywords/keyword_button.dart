@@ -1,13 +1,13 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class KeywordBarButton extends StatelessWidget {
-  final Keyword keyword;
+  final KW keyword;
   final bool xIsOn;
   final Function onTap;
   final Color color;
@@ -76,7 +76,7 @@ class KeywordBarButton extends StatelessWidget {
                           SuperVerse(
                             // '${Keyword.getSubGroupNameByKeywordID(context, secondKeyword?.keywordID)}'
                             // '${Keyword.getTranslatedKeywordTitleBySequence(context, sequence)}',
-                            verse: Keyword.translateKeyword(context, keyword.groupID),
+                            verse: KW.translateKeyword(context, keyword),
                             size: 1,
                             italic: true,
                             color: Colorz.white255,
@@ -91,7 +91,7 @@ class KeywordBarButton extends StatelessWidget {
                           children: <Widget>[
 
                             SuperVerse(
-                              verse: Keyword.translateKeyword(context, keyword.keywordID),
+                              verse: KW.translateKeyword(context, keyword),
                               size: 1,
                               italic: false,
                               color: Colorz.white255,

@@ -1,13 +1,16 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/helpers/name_model.dart';
+import 'package:bldrs/models/kw/kw.dart';
+import 'package:bldrs/providers/streamers/keywords_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/specific/keywords/sub_group_expansion_tile.dart';
+import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class KeywordsButtonsList extends StatelessWidget {
   final double buttonWidth;
-  final List<Keyword> keywords;
+  final List<KW> keywords;
   final Function onKeywordTap;
 
   const KeywordsButtonsList({
@@ -18,27 +21,29 @@ class KeywordsButtonsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+
     return Container(
       width: buttonWidth,
-      height: SubGroupTile.calculateButtonsTotalHeight(keywords: keywords),
+      height: ExpandingTile.calculateButtonsTotalHeight(keywords: keywords),
       margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
       child: ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         itemCount: keywords.length,
-        itemExtent: SubGroupTile.collapsedTileHeight + Ratioz.appBarPadding,
+        itemExtent: ExpandingTile.collapsedTileHeight + Ratioz.appBarPadding,
         shrinkWrap: true,
         itemBuilder: (ctx, keyIndex){
 
-          final Keyword _keyword = keywords[keyIndex];
-          final String _keywordID = _keyword.keywordID;
-          final String _icon = Keyword.getImagePath(_keyword);
-          final String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
-          final String _keywordNameArabic = Keyword.getKeywordArabicName(_keyword);
+          final KW _keyword = keywords[keyIndex];
+          final String _icon = _keywordsProvider.getImagePath(_keyword);
+          final String _keywordName = KW.translateKeyword(context, _keyword);
+          final String _keywordNameArabic = Name.getNameByLingoFromNames(names: _keyword.names, lingoCode: 'ar');
 
           return
 
             DreamBox(
-              height: SubGroupTile.collapsedTileHeight,
+              height: ExpandingTile.collapsedTileHeight,
               width: buttonWidth - (Ratioz.appBarMargin * 2),
               icon: _icon,
               verse: _keywordName,
@@ -47,7 +52,7 @@ class KeywordsButtonsList extends StatelessWidget {
               verseCentered: false,
               bubble: false,
               color: Colorz.white20,
-              margins: const EdgeInsets.only(bottom: SubGroupTile.buttonVerticalPadding),
+              margins: const EdgeInsets.only(bottom: ExpandingTile.buttonVerticalPadding),
               onTap: () async {await onKeywordTap(_keyword);},
             );
 

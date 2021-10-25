@@ -521,7 +521,7 @@ class SlideModel {
 
         final List<Map<String, Object>> _slidesMaps = await sqlCipherSlides(
           slides: flyer.slides,
-          flyerID: flyer.flyerID
+          flyerID: flyer.id
         );
 
         _allSlidesSQLMaps.addAll(_slidesMaps);
