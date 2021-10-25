@@ -74,12 +74,33 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _insert() async {
 
-    BzModel _bzModel = BzModel.dummyBz('bolbol');
-    Map<String, Object> _map = _bzModel.toMap(toJSON: true);
+    // BzModel _bzModel = BzModel.dummyBz('bolbol');
+    // Map<String, Object> _map = _bzModel.toMap(toJSON: true);
+    //
+    // await Sembast.insertAll(
+    //   docName: 'blah',
+    //   inputs: [_map],
+    // );
+
+    print('wtf');
+
 
     await Sembast.insertAll(
-      docName: 'blah',
-      inputs: [_map],
+        docName: 'blah',
+        primaryKey: 'id',
+        inputs: [
+
+          {
+            'id' : 'bitch',
+            'name' : 'whore',
+          },
+
+          {
+            'id' : 'fuck',
+            'name' : 'you',
+          }
+
+        ],
     );
 
     await _readSembast();
@@ -106,10 +127,11 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _delete() async {
 
-    await Sembast.delete(
+    await Sembast.deleteAll(
       docName: 'blah',
-      searchPrimaryValue: 'bolbol',
-      searchPrimaryKey: 'bzID',
+      primaryKey: 'id',
+      // searchPrimaryValue: 'bolbol',
+      // searchPrimaryKey: 'bzID',
     );
 
     await _readSembast();
