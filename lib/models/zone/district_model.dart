@@ -32,7 +32,7 @@ class DistrictModel{
       'countryID' : countryID,
       'cityID' : cityID,
       'districtID' : CountryModel.fixCountryName(districtID),
-      'names' : Name.cipherNames(names),
+      'names' : Name.cipherNames(names: names, addTrigrams: true),
       'isActivated' : isActivated,
       'isPublic' : isPublic,
     };

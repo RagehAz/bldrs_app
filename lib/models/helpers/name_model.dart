@@ -20,15 +20,25 @@ class Name {
     this.trigram,
   });
 // -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap() {
-    return {
+  Map<String, dynamic> toMap({bool addTrigram = true}) {
+
+    Map<String, dynamic> _map = {
       'code': code,
       'value': value,
-      'trigram' : TextMod.createTrigram(input: value),
     };
+
+    if (addTrigram == true){
+      _map = Mapper.insertPairInMap(
+          map: _map,
+          key: 'trigram',
+          value: TextMod.createTrigram(input: value),
+      );
+    }
+
+    return _map;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, dynamic> cipherNames(List<Name> names) {
+  static Map<String, dynamic> cipherNames({@required List<Name> names, bool addTrigrams = true}) {
     Map<String, dynamic> _namezMaps = {};
 
     if (Mapper.canLoopList(names)){
@@ -38,7 +48,7 @@ class Name {
         _namezMaps = Mapper.insertPairInMap(
             map: _namezMaps,
             key: name.code,
-            value: name.toMap(),
+            value: name.toMap(addTrigram: addTrigrams),
         );
 
       });

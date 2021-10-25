@@ -1,9 +1,7 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/dashboard/exotic_methods.dart';
-import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
+import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:flutter/material.dart';
@@ -112,163 +110,25 @@ class _TestLabState extends State<TestLab> {
 
               WideButton(
                   color: Colorz.bloodTest,
-                  verse: 'super bomb',
+                  verse: 'Upload keywords',
                   icon: Iconz.Share,
                   onTap: () async {
 
-                    // _triggerLoading();
-                    //
-                    // /// do things here
-                    //
-                    // final List<dynamic> _maps = await Fire.readCollectionDocs(
-                    //   limit: 400,
-                    //   collName: 'old_zones',
-                    //   addDocSnapshotToEachMap: false,
-                    //   addDocsIDs: false,
-                    //   orderBy: 'countryID',
-                    // );
-                    //
-                    // print('LET THE GAMES BEGIN');
-                    //
-                    // List<CountryModel> _countries = CountryModel.decipherCountriesMaps(maps: _maps, fromJSON: false);
-                    //
-                    // /// countries stats
-                    // final List<String> _allCountriesIDs = <String>[];
-                    // int _numberOfCountries = 0;
-                    // int _numberOfCities = 0;
-                    //
-                    // for (var country in _countries){
-                    //
-                    //   _allCountriesIDs.add(country.countryID);
-                    //   _numberOfCountries++;
-                    //
-                    //   final List<String> _citiesIDs = <String>[];
-                    //
-                    //   for (CityModel city in country.cities){
-                    //     _numberOfCities++;
-                    //
-                    //     final String _cityEnName = Name.getNameByLingoFromNames(names: city.names, lingoCode: 'en');
-                    //     final String _cityID = CityModel.createCityID(countryID: city.countryID, cityEnName: _cityEnName);
-                    //
-                    //     _citiesIDs.add(_cityID);
-                    //
-                    //     final Map<String, dynamic> _cityMap = {
-                    //       'countryID' : country.countryID,
-                    //       'cityID' : _cityID,
-                    //       'districts' : DistrictModel.cipherDistricts(city.districts),
-                    //       'population' : city.population,
-                    //       'isActivated' : false,
-                    //       'isPublic' : false,
-                    //       'names' : Name.cipherNames(city.names),
-                    //       'position' : Atlas.cipherGeoPoint(point: city.position, toJSON: false),
-                    //     };
-                    //
-                    //     // Mapper.printMap(_cityMap);
-                    //
-                    //     await Fire.createNamedSubDoc(
-                    //       context: context,
-                    //       collName: 'zones',
-                    //       docName: 'cities',
-                    //       subCollName: 'cities',
-                    //       subDocName: _cityID,
-                    //       input: _cityMap,
-                    //     );
-                    //
-                    //   }
-                    //
-                    //   final Map<String, dynamic> _newMap = {
-                    //     'countryID' : country.countryID,
-                    //     'region' : country.region,
-                    //     'continent' : country.continent,
-                    //     'isActivated' : country.isActivated,
-                    //     'isGlobal' : country.isGlobal,
-                    //     'citiesIDs' : _citiesIDs,
-                    //     'language' : country.language,
-                    //     'names': Name.cipherNames(country.names),
-                    //     'currency': country.currency,
-                    //   };
-                    //
-                    //   // Mapper.printMap(_newMap);
-                    //
-                    //   await Fire.createNamedSubDoc(
-                    //     context: context,
-                    //     collName: 'zones',
-                    //     docName: 'countries',
-                    //     subCollName: 'countries',
-                    //     subDocName: country.countryID,
-                    //     input: _newMap,
-                    //   );
-                    //
-                    //   await Fire.deleteDoc(context: context, collName: 'zones', docName: country.countryID);
-                    //
-                    //
-                    //
-                    //   print('done with ${Name.getNameByCurrentLingoFromNames(context, country.names)}');
-                    //
-                    // }
-                    //
-                    // await Fire.updateDocField(
-                    //     context: context,
-                    //     collName: 'zones',
-                    //     docName: 'countries',
-                    //     field: 'numberOfCountries',
-                    //     input: _numberOfCountries,
-                    // );
-                    //
-                    // await Fire.updateDocField(
-                    //   context: context,
-                    //   collName: 'zones',
-                    //   docName: 'countries',
-                    //   field: 'allCountriesIDs',
-                    //   input: _allCountriesIDs,
-                    // );
-                    //
-                    // // _numberOfCities
-                    // await Fire.updateDocField(
-                    //   context: context,
-                    //   collName: 'zones',
-                    //   docName: 'cities',
-                    //   field: 'numberOfCities',
-                    //   input: _numberOfCities,
-                    // );
-                    //
-                    // /*
-                    //
-                    // [
-                    // {code: en, value: Egypt, trigram: []},
-                    //  {code: ar, value: مصر, trigram: []},
-                    //  {code: es, value: Egipto, trigram: []},
-                    //  {code: fr, value: Égypte, trigram: []},
-                    //   {code: zh, value: 埃及, trigram: []},
-                    //   {code: de, value: Ägypten, trigram: []}
-                    //   ]
-                    //
-                    //  */
-                    //
-                    // _triggerLoading();
+                    _triggerLoading();
+
+                    await ExoticMethods.uploadAllKeywords(context: context);
+
+                    _triggerLoading();
 
                   }
               ),
 
               WideButton(
-                verse: 'LET THE GAMES BEGIN x b ',
+                verse: 'LET THE GAMES BEGIN',
                 icon: Iconz.Share,
                 onTap: () async {
 
                   print('LET THE GAMES BEGIN');
-
-                  // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-                  //
-                  // final CountryModel _egy = await _zoneProvider.fetchCountryByID(context: context, countryID: 'egy');
-                  //
-                  // _egy.printCountry();
-
-                  await ExoticMethods.updateAFieldInAllCollDocs(
-                      context: context,
-                      collName: FireColl.bzz,
-                      field: 'zone',
-                      input: Zone.dummyZone().toMap(),
-                  );
 
                 },
               ),
