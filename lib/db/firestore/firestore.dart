@@ -45,6 +45,10 @@ class FireColl{
   static const String admin_appState = 'appState';
 
   static const String zones = 'zones';
+
+  static const String keys = 'keys';
+  static const String keys_keywords = 'keywords';
+  static const String keys_specs = 'specs';
 }
 
 class StorageDoc{

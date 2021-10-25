@@ -99,7 +99,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onDeleteUser(UserModel userModel) async {
 
-    final String _result = await CloudFunctionz.deleteFirebaseUser(userID: userModel.userID);
+    final String _result = await CloudFunctionz.deleteFirebaseUser(userID: userModel.id);
 
     if (_result == 'stop'){
       print('operation stopped');
@@ -107,7 +107,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
     else if (_result == 'deleted'){
 
-      final int _userIndex = _usersModels.indexWhere((user) => user.userID == userModel.userID);
+      final int _userIndex = _usersModels.indexWhere((user) => user.id == userModel.id);
       setState(() {
       _usersModels.removeAt(_userIndex);
       });

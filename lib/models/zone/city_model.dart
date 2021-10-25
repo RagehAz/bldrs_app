@@ -1,10 +1,9 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/helpers/map_model.dart';
-import 'package:bldrs/models/helpers/namez_model.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/helpers/name_model.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/district_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -68,16 +67,25 @@ class CityModel{
   }
 // -----------------------------------------------------------------------------
   static CityModel decipherCityMap({@required Map<String, dynamic> map, @required bool fromJSON}){
-    return CityModel(
-      countryID : map['countryID'],
-      cityID : map['cityID'],
-      districts : DistrictModel.decipherDistrictsMap(map['districts']),
-      population : map['population'],
-      isActivated : map['isActivated'],
-      isPublic : map['isPublic'],
-      names : Name.decipherNames(map['names']),
-      position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
-    );
+
+    CityModel _city;
+
+    if (map != null){
+
+      _city = CityModel(
+        countryID : map['countryID'],
+        cityID : map['cityID'],
+        districts : DistrictModel.decipherDistrictsMap(map['districts']),
+        population : map['population'],
+        isActivated : map['isActivated'],
+        isPublic : map['isPublic'],
+        names : Name.decipherNames(map['names']),
+        position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
+      );
+
+    }
+
+    return _city;
   }
 // -----------------------------------------------------------------------------
   static List<CityModel> decipherCitiesMap({@required Map<String, dynamic> map, @required bool fromJSON}){
@@ -119,30 +127,26 @@ class CityModel{
     return _citiesNames;
   }
 // -----------------------------------------------------------------------------
-  static Keyword getKeywordFromCity({@required BuildContext context,@required  CityModel city}){
+  static KW getKeywordFromCity({@required BuildContext context,@required  CityModel city}){
 
     // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
     // String _name = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, city.name);
 
-    final Keyword _keyword = Keyword(
-        keywordID: city.cityID,
-        flyerType: FlyerType.non,
-        groupID: city.countryID,
-        subGroupID: null,
-        // name: _name,
-        uses: 0
+    final KW _keyword = KW(
+        id: city.cityID,
+        names: city.names,
     );
 
     return _keyword;
   }
 // -----------------------------------------------------------------------------
-  static List<Keyword> getKeywordsFromCities({@required BuildContext context, @required List<CityModel> cities}){
-    final List<Keyword> _keywords = <Keyword>[];
+  static List<KW> getKeywordsFromCities({@required BuildContext context, @required List<CityModel> cities}){
+    final List<KW> _keywords = <KW>[];
 
     cities.forEach((city) {
 
-      final Keyword _cityKeyword = getKeywordFromCity(context: context, city: city);
+      final KW _cityKeyword = getKeywordFromCity(context: context, city: city);
 
       _keywords.add(_cityKeyword);
 

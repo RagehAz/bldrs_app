@@ -4,8 +4,6 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart';
-import 'package:bldrs/views/widgets/specific/keywords/group_expansion_tile.dart';
-import 'package:bldrs/views/widgets/specific/keywords/sub_group_expansion_tile.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -43,10 +41,18 @@ class CollapsedTile extends StatelessWidget {
     this.marginIsOn = true,
     this.iconSizeFactor = 1,
   });
+
+  static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
+  static const double arrowBoxSize = ExpandingTile.arrowBoxSize;
+  static const double cornersValue = Ratioz.appBarCorner;
+  static const Color collapsedColor = Colorz.white10;
+  static const Color expandedColor = Colorz.blue80;
+
+
 // -----------------------------------------------------------------------------
   static Widget arrow({double collapsedHeight, Color arrowColor, bool arrowDown = true}){
 
-    final double _arrowBoxSize = collapsedHeight ?? GroupTile.collapsedGroupHeight;
+    final double _arrowBoxSize = collapsedHeight ?? collapsedGroupHeight;
 
     return
       DreamBox(
@@ -91,8 +97,8 @@ class CollapsedTile extends StatelessWidget {
                   /// Icon
                   if (icon != null)
                     DreamBox(
-                      height: SubGroupTile.calculateTitleIconSize(icon: icon, collapsedHeight: collapsedHeight),
-                      width: SubGroupTile.calculateTitleIconSize(icon: icon, collapsedHeight: collapsedHeight),
+                      height: ExpandingTile.calculateTitleIconSize(icon: icon, collapsedHeight: collapsedHeight),
+                      width: ExpandingTile.calculateTitleIconSize(icon: icon, collapsedHeight: collapsedHeight),
                       icon: icon,
                       iconSizeFactor: iconSizeFactor,
                       corners: iconCorners ?? ExpandingTile.cornersValue,
@@ -100,8 +106,8 @@ class CollapsedTile extends StatelessWidget {
 
                   /// Tile title
                   Container(
-                    width: SubGroupTile.calculateTitleBoxWidth(collapsedHeight: collapsedHeight ??  GroupTile.collapsedGroupHeight, tileWidth: tileWidth, icon: icon),
-                    height: collapsedHeight ?? GroupTile.collapsedGroupHeight,
+                    width: ExpandingTile.calculateTitleBoxWidth(collapsedHeight: collapsedHeight ??  CollapsedTile.collapsedGroupHeight, tileWidth: tileWidth, icon: icon),
+                    height: collapsedHeight ?? CollapsedTile.collapsedGroupHeight,
                     padding: EdgeInsets.symmetric(horizontal: _titlePadding),
                     // color: Colorz.bloodTest,
                     child: Column(

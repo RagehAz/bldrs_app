@@ -39,7 +39,7 @@ class AuthorModel{
 
     for (var flyerModel in bzFlyers){
       if(flyerModel.authorID == _authorID){
-        _authorFlyersIDs.add(flyerModel.flyerID);
+        _authorFlyersIDs.add(flyerModel.id);
       }
     }
 
@@ -94,10 +94,10 @@ class AuthorModel{
 // -----------------------------------------------------------------------------
   /// temp
   static AuthorModel createAuthorModelFromUserModelAndBzModel(UserModel user, BzModel bz){
-    final String authorID = user?.userID;
+    final String authorID = user?.id;
     final AuthorModel authorFromBz = getAuthorFromBzByAuthorID(bz, authorID);
     final AuthorModel author = AuthorModel(
-      userID: user?.userID,
+      userID: user?.id,
       // bzID: bz?.bzID,
       name: user?.name,
       pic: user?.pic,
@@ -111,7 +111,7 @@ class AuthorModel{
   static AuthorModel createMasterAuthorModelFromUserModel(UserModel userModel){
     return
       AuthorModel(
-        userID: userModel.userID,
+        userID: userModel.id,
         name: userModel.name,
         pic: userModel.pic,
         title: userModel.title,
@@ -142,7 +142,7 @@ class AuthorModel{
     // );
 
     return BzModel(
-      bzID : bzModel.bzID,
+      id : bzModel.id,
       bzType : bzModel.bzType,
       bzForm : bzModel.bzForm,
       createdAt : bzModel.createdAt,
@@ -220,7 +220,7 @@ class AuthorModel{
 // -----------------------------------------------------------------------------
   static AuthorModel getAuthorModelFromUserModel({UserModel userModel}){
     final AuthorModel _author = AuthorModel(
-      userID : userModel.userID,
+      userID : userModel.id,
       name : userModel.name,
       pic : userModel.pic,
       title : userModel.title,

@@ -128,12 +128,12 @@ class NavBar extends StatelessWidget {
                       color: Colorz.nothing,
                       verseCentered: false,
                       onTap: () async {
-                        print('${_bzModel.bzID}');
+                        print('${_bzModel.id}');
 
                         final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
                         final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
                         await _bzzProvider.setActiveBz(_bzModel);
-                        await _flyersProvider.getsetActiveBzFlyers(context: context, bzID: _bzModel.bzID);
+                        await _flyersProvider.getsetActiveBzFlyers(context: context, bzID: _bzModel.id);
 
                         await Nav.goToNewScreen(context,
                             MyBzScreen(

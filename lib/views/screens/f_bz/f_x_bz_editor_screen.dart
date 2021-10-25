@@ -134,7 +134,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _currentBzAuthors = _bz.authors;
     _currentBzShowsTeam = _currentBzShowsTeam;
     // -------------------------
-    _currentAuthor = AuthorModel.getAuthorFromBzByAuthorID(_bz, widget.userModel.userID);
+    _currentAuthor = AuthorModel.getAuthorFromBzByAuthorID(_bz, widget.userModel.id);
     _authorNameTextController.text = _currentAuthor.name;
     _currentAuthorPicURL = _currentAuthor.pic;
     _authorTitleTextController.text = _currentAuthor.title;
@@ -158,7 +158,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     await BottomDialog.slideBzBottomDialog(
       context: context,
       bz: BzModel(
-        bzID: '',
+        id: '',
         bzType: _currentBzType,
         bzForm: _currentBzForm,
         createdAt: DateTime.now(),
@@ -340,7 +340,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       /// create new master AuthorModel
       final AuthorModel _firstMasterAuthor = AuthorModel(
-        userID: widget.userModel.userID,
+        userID: widget.userModel.id,
         name: _authorNameTextController.text,
         pic: _currentAuthorPicFile, // if null createBzOps uses user.pic URL instead
         title: _authorTitleTextController.text,
@@ -351,7 +351,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       /// create new first time bzModel
       final BzModel _newBzModel = BzModel(
-        bzID: null, // will be generated in createBzOps
+        id: null, // will be generated in createBzOps
         // -------------------------
         bzType: _currentBzType,
         bzForm: _currentBzForm,
@@ -431,7 +431,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       /// create modified authorModel
       final AuthorModel _newAuthor = AuthorModel(
-        userID: widget.userModel.userID,
+        userID: widget.userModel.id,
         name: _authorNameTextController.text,
         pic: _currentAuthorPicFile ?? _currentAuthorPicURL,
         title: _authorTitleTextController.text,
@@ -439,7 +439,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         contacts: _currentAuthorContacts,
       );
 
-      final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(widget.bzModel, widget.userModel.userID);
+      final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(widget.bzModel, widget.userModel.id);
 
       final List<AuthorModel> _modifiedAuthorsList = AuthorModel.replaceAuthorModelInAuthorsList(
         originalAuthors: _currentBzAuthors,
@@ -449,7 +449,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       /// create modified bzModel
       final BzModel _modifiedBzModel = BzModel(
-        bzID: widget.bzModel.bzID,
+        id: widget.bzModel.id,
         // -------------------------
         bzType: _currentBzType,
         bzForm: _currentBzForm,

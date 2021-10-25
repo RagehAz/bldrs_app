@@ -81,7 +81,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 // -----------------------------------------------------------------------------
   FlyerModel _getFlyerFromDeactivatedFlyersByFlyerID({String flyerID}){
 
-    final int _index = _deactivatedFlyers.indexWhere((flyer) => flyer.flyerID == flyerID, );
+    final int _index = _deactivatedFlyers.indexWhere((flyer) => flyer.id == flyerID, );
 
     final FlyerModel _flyer = _deactivatedFlyers[_index];
     return _flyer;
@@ -146,7 +146,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _deleteFlyerOnTap(FlyerModel flyerModel) async {
-    print ('deleting flyer : ${flyerModel.flyerID}');
+    print ('deleting flyer : ${flyerModel.id}');
 
     /// close bottom sheet
     Nav.goBack(context);
@@ -154,11 +154,11 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     /// delete flyer ops
     await FlyerOps().deleteFlyerOps(
       context: context,
-      flyerModel: _getFlyerFromDeactivatedFlyersByFlyerID(flyerID: flyerModel.flyerID),
+      flyerModel: _getFlyerFromDeactivatedFlyersByFlyerID(flyerID: flyerModel.id),
       bzModel: widget.bz,
     );
 
-    final int _flyerIndex = _allFlyers.indexWhere((tFlyer) => tFlyer.flyerID == flyerModel.flyerID);
+    final int _flyerIndex = _allFlyers.indexWhere((tFlyer) => tFlyer.id == flyerModel.id);
 
     setState(() {
       _allFlyers.removeAt(_flyerIndex);
@@ -175,11 +175,11 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
   }
 // -----------------------------------------------------------------------------
   void _republishFlyerOnTap(FlyerModel flyerModel){
-    print('re-publishing flyer : ${flyerModel.flyerID}');
+    print('re-publishing flyer : ${flyerModel.id}');
   }
 // -----------------------------------------------------------------------------
   void _editFlyerOnTap(FlyerModel flyerModel){
-    print('Editing flyer : ${flyerModel.flyerID}');
+    print('Editing flyer : ${flyerModel.id}');
   }
 // -----------------------------------------------------------------------------
 
@@ -210,7 +210,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
         scrollable: true,
         stratosphere: true,
         tinyFlyerOnTap: (tinyFlyer){
-          print('tiny flyer is : ${tinyFlyer.flyerID}');
+          print('tiny flyer is : ${tinyFlyer.id}');
 
           _slideFlyerOptions(context, tinyFlyer);
 

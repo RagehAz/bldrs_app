@@ -261,9 +261,9 @@ class BottomDialog extends StatelessWidget {
             flyerBoxWidth: _flyerBoxWidth,
             goesToEditor: false,
             flyerModel: FlyerModel(
-              flyerID: null,
+              id: null,
               title: '',
-              bzID: bz.bzID,
+              bzID: bz.id,
               authorID: author.userID,
               zone: bz.zone,
               info: '',

@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
@@ -11,17 +12,17 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/streamers/user_streamer.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/question/question_model.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/question/question_ops.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   TextEditingController _titleController;
   bool _askButtonInactive = true;
   List<File> _questionPics;
-  List<Keyword> _keywords;
+  List<KW> _keywords;
   FlyerType _questionType;
 // -----------------------------------------------------------------------------
 //   /// --- FUTURE LOADING BLOCK

@@ -110,7 +110,7 @@ class AuthorBubble extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-                key: PageStorageKey<String>('authorsRow_${bzModel.bzID}'),
+                key: PageStorageKey<String>('authorsRow_${bzModel.id}'),
                 children: <Widget>[
 
                   /// AUTHORS LABELS

@@ -69,7 +69,7 @@ class BzOps{
       _authorPicURL = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: inputBz.authors[0].pic,
-          fileName: AuthorModel.generateAuthorPicID(userModel.userID, _bzID),
+          fileName: AuthorModel.generateAuthorPicID(userModel.id, _bzID),
           picType: PicType.authorPic
       );
 
@@ -77,7 +77,7 @@ class BzOps{
 
     /// update authorModel with _authorPicURL
     final AuthorModel _masterAuthor = AuthorModel(
-      userID: userModel.userID,
+      userID: userModel.id,
       name: inputBz.authors[0].name,
       title: inputBz.authors[0].title,
       pic: _authorPicURL,
@@ -87,7 +87,7 @@ class BzOps{
 
     /// refactor the bzModel with new pics URLs generated above
     final BzModel _outputBz = BzModel(
-      bzID : _bzID,
+      id : _bzID,
       // -------------------------
       bzType : inputBz.bzType,
       bzForm : inputBz.bzForm,
@@ -133,7 +133,7 @@ class BzOps{
     await Fire.updateDocField(
       context: context,
       collName: FireColl.users,
-      docName: userModel.userID,
+      docName: userModel.id,
       field: 'myBzzIDs',
       input: _userBzzIDs,
     );
@@ -174,7 +174,7 @@ class BzOps{
       _bzLogoURL = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: bzLogoFile,
-          fileName: originalBz.bzID,
+          fileName: originalBz.id,
           picType: PicType.bzLogo
       );
 
@@ -192,7 +192,7 @@ class BzOps{
       _authorPicURL = await Fire.createStoragePicAndGetURL(
           context: context,
           inputFile: authorPicFile,
-          fileName: AuthorModel.generateAuthorPicID(_authorID, originalBz.bzID),
+          fileName: AuthorModel.generateAuthorPicID(_authorID, originalBz.id),
           picType: PicType.authorPic,
       );
     }
@@ -215,7 +215,7 @@ class BzOps{
 
     /// update bzModel if images changed
     final BzModel _finalBz = BzModel(
-      bzID: modifiedBz.bzID,
+      id: modifiedBz.id,
       // -------------------------
       bzType: modifiedBz.bzType,
       bzForm: modifiedBz.bzForm,
@@ -251,7 +251,7 @@ class BzOps{
     await Fire.updateDoc(
       context: context,
       collName: FireColl.bzz,
-      docName: modifiedBz.bzID,
+      docName: modifiedBz.id,
       input: _finalBz.toMap(toJSON: false),
     );
 
@@ -288,7 +288,7 @@ class BzOps{
       final UserModel _user = await UserOps.readUserOps(context: context, userID: id);
 
       final List<dynamic> _myBzzIDs = _user.myBzzIDs;
-      final int _bzIndex = _myBzzIDs.indexWhere((id) => id == bzModel.bzID);
+      final int _bzIndex = _myBzzIDs.indexWhere((id) => id == bzModel.id);
       _myBzzIDs.removeAt(_bzIndex);
 
       await Fire.updateDocField(
@@ -305,7 +305,7 @@ class BzOps{
     await Fire.updateDocField(
       context: context,
       collName: FireColl.bzz,
-      docName: bzModel.bzID,
+      docName: bzModel.id,
       field: 'bzAccountIsDeactivated',
       input: true,
     );
@@ -344,7 +344,7 @@ class BzOps{
       }
     }
 
-    print('3 - delete bzID : ${bzModel.bzID} in all author\'s myBzIDs lists');
+    print('3 - delete bzID : ${bzModel.id} in all author\'s myBzIDs lists');
     final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(bzModel.authors);
     for (var authorID in _authorsIDs){
 
@@ -355,7 +355,7 @@ class BzOps{
       );
 
       print('b - update user\'s myBzzIDs');
-      final List<dynamic> _modifiedMyBzzIDs = UserModel.removeIDFromIDs(_user.myBzzIDs, bzModel.bzID);
+      final List<dynamic> _modifiedMyBzzIDs = UserModel.removeIDFromIDs(_user.myBzzIDs, bzModel.id);
 
       print('c - update myBzzIDs field in user doc');
       await Fire.updateDocField(
@@ -371,7 +371,7 @@ class BzOps{
     await Fire.deleteAllSubDocs(
       context: context,
       collName: FireColl.bzz,
-      docName: bzModel.bzID,
+      docName: bzModel.id,
       subCollName: FireColl.bzz_bz_calls
     );
 
@@ -382,7 +382,7 @@ class BzOps{
     await Fire.deleteAllSubDocs(
         context: context,
         collName: FireColl.bzz,
-        docName: bzModel.bzID,
+        docName: bzModel.id,
         subCollName: FireColl.bzz_bz_follows
 
     );
@@ -394,7 +394,7 @@ class BzOps{
     await Fire.deleteSubDoc(
       context: context,
       collName: FireColl.bzz,
-      docName: bzModel.bzID,
+      docName: bzModel.id,
       subCollName: FireColl.bzz_bz_counters,
       subDocName: FireColl.bzz_bz_counters,
     );
@@ -405,7 +405,7 @@ class BzOps{
     print('10 - delete bz logo');
     await Fire.deleteStoragePic(
       context: context,
-      fileName: bzModel.bzID,
+      fileName: bzModel.id,
       picType: PicType.bzLogo,
     );
 
@@ -422,7 +422,7 @@ class BzOps{
     await Fire.deleteDoc(
       context: context,
       collName: FireColl.bzz,
-      docName: bzModel.bzID,
+      docName: bzModel.id,
     );
 
     print('DELETE BZ OPS ENDED ---------------------------');

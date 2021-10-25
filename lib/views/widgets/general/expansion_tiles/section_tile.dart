@@ -5,18 +5,12 @@ import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/keywords/keyword_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
-import 'package:bldrs/models/keywords/sequence_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
-import 'package:bldrs/views/screens/b_landing/b_2_sequence_screen.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -104,12 +98,12 @@ class SectionTile extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _tileWidth = bubbleWidth - (Ratioz.appBarMargin * 2);
-    final double _itemWidth = _tileWidth - (Ratioz.appBarMargin * 2);
+    // final double _itemWidth = _tileWidth - (Ratioz.appBarMargin * 2);
 
     // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
     // final Section _currentSection = _generalProvider.currentSection;
 
-    final List<Sequence> _sequences = Sequence.getActiveSequencesBySection(context: context,section: section);
+    // final List<Sequence> _sequences = Sequence.getActiveSequencesBySection(context: context,section: section);
 
 
     return Opacity(
@@ -140,138 +134,138 @@ class SectionTile extends StatelessWidget {
             ),
           ),
           padding: const EdgeInsets.only(top: Ratioz.appBarMargin, bottom: Ratioz.appBarMargin),
-          child: ListView.builder(
-            key: ValueKey('${key}_list_builder'),
-              itemCount: _sequences.length,
-              physics: const NeverScrollableScrollPhysics(),
-              addAutomaticKeepAlives: true,
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(Ratioz.appBarMargin),
-              itemBuilder: (ctx, index){
-
-                final Sequence _sequence = _sequences[index];
-                final String _groupName = Sequence.getSequenceNameBySequenceAndSection(
-                  context: context,
-                  section: section,
-                  sequence: _sequence,
-                );
-
-                if (_sequence.sequenceType == SequenceType.byKeyID){
-                  return
-
-                    /// GROUP ICON
-                    DreamBox(
-                      width: _itemWidth,
-                      height: 50,
-                      verse: _groupName,
-                      verseWeight: VerseWeight.regular,
-                      verseScaleFactor: 0.6,
-                      verseItalic: false,
-                      verseCentered: false,
-                      // color: Colorz.black125,
-                      icon: Sequence.getSequenceImage(_sequence.titleID),
-                      margins: EdgeInsets.only(bottom: Ratioz.appBarPadding),
-                      onTap: (){
-
-                        Nav.goToNewScreen(context,
-                          SequenceScreen(
-                            sequence: _sequence,
-                            flyersType: FlyerType.non, // TASK : fix this shit
-                            section: section,
-                          ),
-                        );
-
-                      },
-                    );
-
-
-                }
-
-                else {
-
-                  final double _subItemWidth = _itemWidth - (Ratioz.appBarMargin * 2);
-
-                  final List<Keyword> _keywordsByGroupID = Keyword.getKeywordsByGroupID(_sequence.titleID);
-                  // final GroupModel _group = GroupModel.
-
-
-                  return
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
-                      child: ExpandingTile(
-                        collapsedHeight: 50,
-                        key: PageStorageKey<String>('${_sequence.titleID}'),
-                        width: _itemWidth,
-                        onTap: (bool isExpanded){print('on tap is expanded aho ya prince ${isExpanded}');},
-                        inActiveMode: false, /// TASK : check this
-                        maxHeight: 250,
-                        icon: Sequence.getSequenceImage(_sequence.titleID),
-                        iconSizeFactor: 1,
-                        initiallyExpanded: false,
-                        firstHeadline: _groupName,
-                        secondHeadline: null,
-                        scrollable: true,
-                        initialColor: Colorz.black50,
-                        expansionColor: Colorz.white20,
-                        child: Container(
-                            width: _subItemWidth,
-                            // height: 220,
-                            decoration: BoxDecoration(
-                              // color: Colorz.white10, // do no do this
-                              borderRadius: Borderers.superOneSideBorders(
-                                context: context,
-                                corner: ExpandingTile.cornersValue,
-                                side: AxisDirection.down,
-                              ),
-                            ),
-                            padding: const EdgeInsets.only(top: Ratioz.appBarMargin, bottom: Ratioz.appBarMargin),
-                            child: ListView.builder(
-                                key: ValueKey('${_sequence.titleID}_sub_list_builder'),
-                                itemCount: _keywordsByGroupID.length,
-                                physics: const NeverScrollableScrollPhysics(),
-                                addAutomaticKeepAlives: true,
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.all(Ratioz.appBarMargin),
-                                itemBuilder: (ctx, i){
-
-                                  final Keyword _keyword = _keywordsByGroupID[i];
-                                  final String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keyword.keywordID);
-
-                                  return DreamBox(
-                                    width: _subItemWidth,
-                                    height: 40,
-                                    verse: _keywordName,
-                                    verseWeight: VerseWeight.regular,
-                                    verseScaleFactor: 0.6,
-                                    verseItalic: false,
-                                    verseCentered: false,
-                                    // color: Colorz.black125,
-                                    icon:  Keyword.getImagePath(_keyword),
-                                    margins: EdgeInsets.only(bottom: Ratioz.appBarPadding),
-                                    onTap: (){
-
-                                      // Nav.goToNewScreen(context,
-                                      //   SequenceScreen(
-                                      //     sequence: _sequence,
-                                      //     flyersType: FlyerType.non, // TASK : fix this shit
-                                      //     section: section,
-                                      //   ),
-                                      // );
-
-                                    },
-                                  );
-                                })),
-
-                      ),
-                    );
-
-
-                }
-
-
-
-              }
-          ),
+          // child: ListView.builder(
+          //   key: ValueKey('${key}_list_builder'),
+          //     itemCount: _sequences.length,
+          //     physics: const NeverScrollableScrollPhysics(),
+          //     addAutomaticKeepAlives: true,
+          //     shrinkWrap: true,
+          //     padding: const EdgeInsets.all(Ratioz.appBarMargin),
+          //     itemBuilder: (ctx, index){
+          //
+          //       final Sequence _sequence = _sequences[index];
+          //       final String _groupName = Sequence.getSequenceNameBySequenceAndSection(
+          //         context: context,
+          //         section: section,
+          //         sequence: _sequence,
+          //       );
+          //
+          //       if (_sequence.sequenceType == SequenceType.byKeyID){
+          //         return
+          //
+          //           /// GROUP ICON
+          //           DreamBox(
+          //             width: _itemWidth,
+          //             height: 50,
+          //             verse: _groupName,
+          //             verseWeight: VerseWeight.regular,
+          //             verseScaleFactor: 0.6,
+          //             verseItalic: false,
+          //             verseCentered: false,
+          //             // color: Colorz.black125,
+          //             icon: Sequence.getSequenceImage(_sequence.titleID),
+          //             margins: EdgeInsets.only(bottom: Ratioz.appBarPadding),
+          //             onTap: (){
+          //
+          //               Nav.goToNewScreen(context,
+          //                 SequenceScreen(
+          //                   sequence: _sequence,
+          //                   flyersType: FlyerType.non, // TASK : fix this shit
+          //                   section: section,
+          //                 ),
+          //               );
+          //
+          //             },
+          //           );
+          //
+          //
+          //       }
+          //
+          //       else {
+          //
+          //         final double _subItemWidth = _itemWidth - (Ratioz.appBarMargin * 2);
+          //
+          //         final List<Keyword> _keywordsByGroupID = Keyword.getKeywordsByGroupID(_sequence.titleID);
+          //         // final GroupModel _group = GroupModel.
+          //
+          //
+          //         return
+          //           Padding(
+          //             padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
+          //             child: ExpandingTile(
+          //               collapsedHeight: 50,
+          //               key: PageStorageKey<String>('${_sequence.titleID}'),
+          //               width: _itemWidth,
+          //               onTap: (bool isExpanded){print('on tap is expanded aho ya prince ${isExpanded}');},
+          //               inActiveMode: false, /// TASK : check this
+          //               maxHeight: 250,
+          //               icon: Sequence.getSequenceImage(_sequence.titleID),
+          //               iconSizeFactor: 1,
+          //               initiallyExpanded: false,
+          //               firstHeadline: _groupName,
+          //               secondHeadline: null,
+          //               scrollable: true,
+          //               initialColor: Colorz.black50,
+          //               expansionColor: Colorz.white20,
+          //               child: Container(
+          //                   width: _subItemWidth,
+          //                   // height: 220,
+          //                   decoration: BoxDecoration(
+          //                     // color: Colorz.white10, // do no do this
+          //                     borderRadius: Borderers.superOneSideBorders(
+          //                       context: context,
+          //                       corner: ExpandingTile.cornersValue,
+          //                       side: AxisDirection.down,
+          //                     ),
+          //                   ),
+          //                   padding: const EdgeInsets.only(top: Ratioz.appBarMargin, bottom: Ratioz.appBarMargin),
+          //                   child: ListView.builder(
+          //                       key: ValueKey('${_sequence.titleID}_sub_list_builder'),
+          //                       itemCount: _keywordsByGroupID.length,
+          //                       physics: const NeverScrollableScrollPhysics(),
+          //                       addAutomaticKeepAlives: true,
+          //                       shrinkWrap: true,
+          //                       padding: const EdgeInsets.all(Ratioz.appBarMargin),
+          //                       itemBuilder: (ctx, i){
+          //
+          //                         final Keyword _keyword = _keywordsByGroupID[i];
+          //                         final String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keyword.keywordID);
+          //
+          //                         return DreamBox(
+          //                           width: _subItemWidth,
+          //                           height: 40,
+          //                           verse: _keywordName,
+          //                           verseWeight: VerseWeight.regular,
+          //                           verseScaleFactor: 0.6,
+          //                           verseItalic: false,
+          //                           verseCentered: false,
+          //                           // color: Colorz.black125,
+          //                           icon:  Keyword.getImagePath(_keyword),
+          //                           margins: EdgeInsets.only(bottom: Ratioz.appBarPadding),
+          //                           onTap: (){
+          //
+          //                             // Nav.goToNewScreen(context,
+          //                             //   SequenceScreen(
+          //                             //     sequence: _sequence,
+          //                             //     flyersType: FlyerType.non, // TASK : fix this shit
+          //                             //     section: section,
+          //                             //   ),
+          //                             // );
+          //
+          //                           },
+          //                         );
+          //                       })),
+          //
+          //             ),
+          //           );
+          //
+          //
+          //       }
+          //
+          //
+          //
+          //     }
+          // ),
         ),
       ),
     );

@@ -52,7 +52,7 @@ class SliverFlyersGrid extends StatelessWidget {
                     flyerBoxWidth: _flyerBoxWidth,
                     goesToEditor: false,
                     flyerModel: flyers[flyerIndex],
-                    flyerKey: Key(flyers[flyerIndex].flyerID),
+                    flyerKey: Key(flyers[flyerIndex].id),
                     onSwipeFlyer: (SwipeDirection direction){
                       // print('Direction is ${direction}');
                     },

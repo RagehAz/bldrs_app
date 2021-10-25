@@ -73,7 +73,7 @@ class dashboardUserButton extends StatelessWidget {
       icon: userModel.pic,
       color: Colorz.white20,
       verse: userModel.name,
-      secondLine: '$index : ${userModel.userID}',
+      secondLine: '$index : ${userModel.id}',
       verseScaleFactor: 0.6,
       verseCentered: false,
       secondLineScaleFactor: 0.9,
@@ -104,7 +104,7 @@ class dashboardUserButton extends StatelessWidget {
 
                   SuperVerse(verse: 'is admin or not ? ,, work this out please',),
 
-                  DataStrip(dataKey: 'userID', dataValue: userModel.userID),
+                  DataStrip(dataKey: 'userID', dataValue: userModel.id),
                   DataStrip(dataKey: 'authBy', dataValue: userModel.authBy),
                   DataStrip(dataKey: 'createdAt', dataValue: userModel.createdAt),
                   DataStrip(dataKey: 'timeString', dataValue: Timers.dayMonthYearStringer(context, userModel.createdAt)),

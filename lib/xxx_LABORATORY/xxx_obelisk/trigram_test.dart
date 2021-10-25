@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/db/exotic_methods.dart';
+import 'package:bldrs/dashboard/exotic_methods.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -137,7 +137,7 @@ class _TrigramTestState extends State<TrigramTest> {
                 await Fire.updateDocField(
                     context: context,
                     collName: FireColl.bzz,
-                    docName: bz.bzID,
+                    docName: bz.id,
                     field: 'trigram',
                     input: _newTrigram,
                 );

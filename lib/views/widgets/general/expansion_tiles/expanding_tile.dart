@@ -2,9 +2,9 @@ import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/specific/keywords/collapsed_tile.dart';
-import 'package:bldrs/views/widgets/specific/keywords/sub_group_expansion_tile.dart';
 import 'package:flutter/material.dart';
 
 class ExpandingTile extends StatefulWidget {
@@ -54,8 +54,12 @@ class ExpandingTile extends StatefulWidget {
     this.margin,
   });
 
+  static const double collapsedTileHeight = 50;
+  static const double buttonVerticalPadding = Ratioz.appBarPadding;
+  static const double titleBoxHeight = 25;
+  static const double arrowBoxSize = collapsedTileHeight;
+
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
-  static const double arrowBoxSize = SubGroupTile.arrowBoxSize;
   static const double cornersValue = Ratioz.appBarCorner;
   static const Color collapsedColor = Colorz.white10;
   static const Color expandedColor = Colorz.blue80;
@@ -63,7 +67,48 @@ class ExpandingTile extends StatefulWidget {
   static BorderRadius borders(BuildContext context){
     return Borderers.superBorderAll(context, cornersValue);
   }
+// -----------------------------------------------------------------------------
+  static double calculateButtonExtent(){
+    return collapsedTileHeight + buttonVerticalPadding;
+  }
+// -----------------------------------------------------------------------------
+  static double calculateTitleIconSize({@required String icon, @required collapsedHeight}){
+     final double _iconSize = icon == null ? 0 : collapsedHeight ?? collapsedGroupHeight;
+     return _iconSize;
+  }
+// -----------------------------------------------------------------------------
+  static double calculateTitleBoxWidth({@required double tileWidth, @required String icon, @required double collapsedHeight}){
+    final double _iconSize = calculateTitleIconSize(icon: icon, collapsedHeight: collapsedHeight);
+        /// arrow size is button height but differs between groupTile and subGroupTile
+    final double _titleZoneWidth = tileWidth - _iconSize - collapsedHeight;
+    return _titleZoneWidth;
+  }
+// -----------------------------------------------------------------------------
+  static int numberOfButtons({List<KW> keywords}){
+    return keywords.length;
+  }
+// -----------------------------------------------------------------------------
+  static double calculateMaxHeight({List<KW> keywords}){
+    final int _totalNumberOfButtons = numberOfButtons(keywords: keywords);
 
+    final double _maxHeight =
+    /// keywords heights
+    ( ( collapsedTileHeight + buttonVerticalPadding ) * _totalNumberOfButtons)
+        +
+        /// subGroups titles boxes heights
+        (titleBoxHeight)
+        +
+        /// bottom padding
+        0;
+
+    return _maxHeight;
+  }
+// -----------------------------------------------------------------------------
+  static double calculateButtonsTotalHeight({List<KW> keywords}){
+    final double _totalButtonsHeight = (collapsedTileHeight + buttonVerticalPadding) * numberOfButtons(keywords: keywords);
+    return _totalButtonsHeight;
+  }
+// -----------------------------------------------------------------------------
   @override
   ExpandingTileState createState() => new ExpandingTileState();
 }

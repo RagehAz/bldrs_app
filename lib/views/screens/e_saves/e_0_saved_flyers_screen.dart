@@ -122,11 +122,11 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
 // -----------------------------------------------------------------------------
   void _onSelectFlyer(FlyerModel flyer){
 
-    print('selecting flyer : ${flyer.flyerID}');
+    print('selecting flyer : ${flyer.id}');
 
     final bool _alreadySelected = FlyerModel.flyersContainThisID(
       flyers: _selectedFlyers,
-      flyerID: flyer.flyerID,
+      flyerID: flyer.id,
     );
 
     if (_alreadySelected == true){
