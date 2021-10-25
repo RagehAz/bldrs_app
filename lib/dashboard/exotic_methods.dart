@@ -45,6 +45,7 @@ abstract class ExoticMethods{
         await LDBOps.insertMap(
           docName: LDBDoc.sessionUsers,
           input: user.toMap(toJSON: true),
+          primaryKey: 'id',
         );
 
       }
@@ -310,13 +311,19 @@ abstract class ExoticMethods{
 
     List<KW> _allKeywords = KW.getAllKeywordsFromBldrsChain();
 
+    int numberOfKeyword = 0;
+
     for (KW keyword in _allKeywords){
+
+      numberOfKeyword++;
 
       _keywordsMap = Mapper.insertPairInMap(
           map: _keywordsMap,
           key: keyword.id,
           value: keyword.toMap(),
       );
+
+      print('added keywordID : ${keyword.id}');
 
     }
 
@@ -325,6 +332,17 @@ abstract class ExoticMethods{
         collName: FireColl.keys,
         docName: FireColl.keys_keywords,
         input: _keywordsMap,
+    );
+
+    await Fire.createNamedDoc(
+        context: context,
+        collName: FireColl.keys,
+        docName: FireColl.keys_stats,
+        input:
+        {
+          'numberOfKeywords' : numberOfKeyword,
+        }
+
     );
 
   }
