@@ -5,7 +5,7 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/views/screens/i_flyer/h_1_bz_card_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
-import 'package:bldrs/views/widgets/specific/in_pyramids/profile/bz_grid.dart';
+import 'package:bldrs/views/widgets/specific/bz/bz_grid.dart';
 import 'package:flutter/material.dart';
 
 class BzzBubble extends StatelessWidget {

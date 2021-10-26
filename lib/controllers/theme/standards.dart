@@ -20,6 +20,8 @@ class Standards{
   static const int maxUserBzz = 10;
 
   static const int maxTrigramLength = 7;
+
+  static const int maxLocationFetchSeconds = 10;
 // -----------------------------------------------------------------------------
   static int getMaxSlidesCount(BzAccountType accountType){
 

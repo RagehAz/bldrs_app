@@ -145,7 +145,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
               DreamBox(
                 height: 100,
                 width: _screenWidth - (Ratioz.appBarMargin * 2),
-                icon: Flag.getFlagIconByCountryID(_countries[index].countryID),
+                icon: Flag.getFlagIconByCountryID(_countries[index].id),
                 verse: _countryName,
                 bubble: false,
                 color: Colorz.white20,

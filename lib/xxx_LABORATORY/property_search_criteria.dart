@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
-import 'package:bldrs/views/widgets/specific/in_pyramids/profile/property_search_items/fields_row.dart';
+import 'package:bldrs/xxx_LABORATORY/property_search_items/fields_row.dart';
 import 'package:flutter/material.dart';
 
 class PropertySearchCriteria extends StatelessWidget {
