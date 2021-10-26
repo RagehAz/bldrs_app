@@ -25,8 +25,8 @@ class BzzProvider extends ChangeNotifier {
 
       final Map<String, Object> _map = await LDBOps.searchMap(
         docName: doc,
-        fieldToSortBy: 'bzID',
-        searchField: 'bzID',
+        fieldToSortBy: 'id',
+        searchField: 'id',
         searchValue: bzID,
       );
 

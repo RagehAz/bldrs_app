@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
@@ -11,22 +14,23 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/models/helpers/error_helpers.dart';
+import 'package:bldrs/models/helpers/image_size.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
-import 'package:websafe_svg/websafe_svg.dart';
-import 'object_checkers.dart';
-import 'dart:io';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart' as http;
-import 'dart:math';
+import 'package:websafe_svg/websafe_svg.dart';
+
+import 'object_checkers.dart';
 // -----------------------------------------------------------------------------
 enum PicType{
   userPic,
@@ -178,7 +182,7 @@ class Imagers{
   return _result;
 }
 // -----------------------------------------------------------------------------
-  static Future<List<Asset>> takeGalleryMultiPictures({BuildContext context, List<Asset> images, bool mounted, @required BzAccountType accountType}) async {
+  static Future<List<Asset>> takeGalleryMultiPictures({@required BuildContext context, @required List<Asset> images, @required bool mounted, @required BzAccountType accountType}) async {
     List<Asset> _resultList = <Asset>[];
     String _error = 'No Error Detected';
 
@@ -628,7 +632,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     return _blurIsOn;
 }
 // -----------------------------------------------------------------------------
-  static BoxFit concludeBoxFit({double picWidth, double picHeight,double viewWidth, double viewHeight}){
+  static BoxFit concludeBoxFit({@required double picWidth, @required double picHeight, @required double viewWidth, @required double viewHeight}){
     BoxFit _boxFit;
 
     /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
@@ -654,7 +658,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     return _boxFit;
   }
 // -----------------------------------------------------------------------------
-  static BoxFit concludeBoxFitForAsset({Asset asset, double flyerBoxWidth}){
+  static BoxFit concludeBoxFitForAsset({@required Asset asset, @required double flyerBoxWidth}){
   BoxFit _boxFit;
 
   /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
@@ -675,7 +679,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
   return _boxFit;
   }
 // -----------------------------------------------------------------------------
-  static List<BoxFit> concludeBoxesFitsForAssets({List<Asset> assets, double flyerBoxWidth}){
+  static List<BoxFit> concludeBoxesFitsForAssets({@required List<Asset> assets, @required double flyerBoxWidth}){
   List<BoxFit> _fits = [];
 
   for (Asset asset in assets){
@@ -761,7 +765,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     return _assets;
   }
 // -----------------------------------------------------------------------------
-  static bool picturesURLsAreTheSame({List<String> urlsA, List<String> urlsB}){
+  static bool picturesURLsAreTheSame({@required List<String> urlsA, @required List<String> urlsB}){
     bool _areTheSame = true;
 
     if (urlsA == null && urlsB != null){
@@ -788,7 +792,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     return _areTheSame;
   }
 // -----------------------------------------------------------------------------
-  static double concludeHeightByGraphicSizes({double width, double graphicWidth, double graphicHeight}){
+  static double concludeHeightByGraphicSizes({@required double width, @required double graphicWidth, @required double graphicHeight}){
     /// height / width = graphicHeight / graphicWidth
     return (graphicHeight * width) / graphicWidth;
   }
@@ -838,4 +842,32 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     return _fileAgain;
   }
 // -----------------------------------------------------------------------------
+  static Future<BitmapDescriptor> getCustomMapMarkerFromSVG({@required BuildContext context, @required String assetName}) async {
+    // Read SVG file as String
+    String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
+    // Create DrawableRoot from SVG String
+    DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, null);
+
+    // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
+    MediaQueryData queryData = MediaQuery.of(context);
+    double devicePixelRatio = queryData.devicePixelRatio;
+    double width = 32 * devicePixelRatio; // where 32 is your SVG's original width
+    double height = 32 * devicePixelRatio; // same thing
+
+    // Convert to ui.Picture
+    ui.Picture picture = svgDrawableRoot.toPicture(size: Size(width, height));
+
+    // Convert to ui.Image. toImage() takes width and height as parameters
+    // you need to find the best size to suit your needs and take into account the
+    // screen DPI
+    ui.Image image = await picture.toImage(width.toInt(), height.toInt());
+    ByteData bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    return BitmapDescriptor.fromBytes(bytes.buffer.asUint8List());
+  }
+// -----------------------------------------------------------------------------
+  static Future<BitmapDescriptor> getCustomMapMarkerFromPNG() async {
+    final BitmapDescriptor _marker = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty, Iconz.FlyerPinPNG);
+    return _marker;
+  }
+
 }
