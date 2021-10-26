@@ -36,8 +36,8 @@ class FlyersProvider extends ChangeNotifier {
 
       final Map<String, Object> _map = await LDBOps.searchMap(
         docName: doc,
-        fieldToSortBy: 'flyerID',
-        searchField: 'flyerID',
+        fieldToSortBy: 'id',
+        searchField: 'id',
         searchValue: flyerID,
       );
 

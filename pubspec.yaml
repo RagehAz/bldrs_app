@@ -36,6 +36,7 @@ dependencies:
   firebase_dynamic_links: ^2.0.9
   firebase_messaging: ^10.0.7
   firebase_storage: ^10.0.3
+  flutter_svg: ^0.22.0
   flutter_facebook_auth: ^3.5.1
   flutter_local_notifications: ^8.2.0
 #  flutter_launcher_icons: ^0.8.1

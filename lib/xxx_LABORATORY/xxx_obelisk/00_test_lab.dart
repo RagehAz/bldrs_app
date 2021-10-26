@@ -169,7 +169,7 @@ class _TestLabState extends State<TestLab> {
           final String _countryFlag = Flag.getFlagIconByCountryID(_id);
 
           final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-          final CountryModel _model = await _zoneProvider.fetchCountryByID(context: context, countryID: _countryID);
+          final CountryModel _model = await _zoneProvider.fetchCountryByID(context: context, countryID: _id);
 
           setState(() {
             _flag = _countryFlag;
