@@ -65,7 +65,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     _name = Name.getNameByCurrentLingoFromNames(context, widget.country.names);
     _region = widget.country.region;
     _continent = widget.country.continent;
-    _flag = Flag.getFlagIconByCountryID(widget.country.countryID);
+    _flag = Flag.getFlagIconByCountryID(widget.country.id);
     _isActivated = widget.country.isActivated;
     _isGlobal = widget.country.isGlobal;
     // _cities = widget.country.cities;
@@ -80,7 +80,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     await Fire.updateDocField(
       context: context,
       collName: _countriesCollectionName,
-      docName: widget.country.countryID,
+      docName: widget.country.id,
       field: _field,
       input: _input,
     );
@@ -117,7 +117,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
               await CenterDialog.showCenterDialog(
                 context: context,
                 title: 'Country ISO3',
-                body: widget.country.countryID,
+                body: widget.country.id,
                 boolDialog: false,
               );},
         ),
@@ -132,7 +132,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           /// --- ISO3
           TileBubble(
-             verse: '${_countryName}\'s ISO3 is : ( ${widget.country.countryID} )',
+             verse: '${_countryName}\'s ISO3 is : ( ${widget.country.id} )',
              icon: Iconz.Info,
            verseColor: Colorz.yellow255,
            iconBoxColor: Colorz.grey50,

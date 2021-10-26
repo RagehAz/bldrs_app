@@ -43,8 +43,8 @@ class ZoneButton extends StatelessWidget {
     final CountryModel _currentCountry = _zoneProvider.currentCountry;
     final CityModel _currentCity = _zoneProvider.currentCity;
 
-    final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _currentCountry?.countryID);
-    final String _lastCountryFlag = Flag.getFlagIconByCountryID(_currentCountry?.countryID);
+    final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _currentCountry?.id);
+    final String _lastCountryFlag = Flag.getFlagIconByCountryID(_currentCountry?.id);
 
     final String _cityName = CityModel.getTranslatedCityNameFromCity(
         context: context,

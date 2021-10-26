@@ -523,11 +523,7 @@ class FlyerModel with ChangeNotifier{
         PublishTime(state: FlyerState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
       ],
       priceTagIsOn : true,
-      zone: Zone(
-        cityID: 'Cairo',
-        countryID: 'egy',
-        districtID: '13',
-      ),
+      zone: Zone.dummyZone(),
     );
   }
 // -----------------------------------------------------------------------------

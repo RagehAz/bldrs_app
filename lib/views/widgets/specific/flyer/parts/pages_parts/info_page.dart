@@ -63,7 +63,7 @@ class InfoPage extends StatelessWidget {
     final CityModel _currentCity = _zoneProvider.currentCity;
     // final Zone _currentZone = _zoneProvider.currentZone;
 
-    final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _currentCountry.countryID);
+    final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _currentCountry.id);
     final String _cityName = CityModel.getTranslatedCityNameFromCity(context: context, city: _currentCity);
 
     // List<TinyUser> _users = TinyUser.dummyTinyUsers();

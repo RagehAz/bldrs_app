@@ -17,13 +17,12 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/general/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/black_hole.dart';
-import 'package:bldrs/xxx_LABORATORY/google_maps/x08_earth_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/00_test_lab.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/expansion_tiles_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/forms_test.dart';
-import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/providers_test.dart';
+import 'package:bldrs/dashboard/ldb_manager/providers_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/slider_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/timer_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/trigram_test.dart';
@@ -143,8 +142,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           // ObeliskButton('21 - Soundz', Iconz.News, SoundzScreen()),
 
           ObeliskButton('23 - Form', Iconz.Terms, TestFormScreen()),
-
-          ObeliskButton('26 - City Dots', Iconz.Earth, EarthScreen()),
 
           // ObeliskButton('28 - Google Maps - Defined size Pin', Iconz.ComMap, GoogleMapScreen2()),
 

@@ -3,6 +3,9 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/continent_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
@@ -91,6 +94,9 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
     final UserModel _myUserModel = _usersProvider?.myUserModel;
     final Stream<UserModel> _myUserModelStream = _usersProvider?.myUserModelStream;
     final Zone _currentZone = _zoneProvider?.currentZone;
+    final Continent _currentContinent = _zoneProvider?.currentContinent;
+    final CountryModel _currentCountry = _zoneProvider?.currentCountry;
+    final CityModel _currentCity = _zoneProvider?.currentCity;
 
     return MainLayout(
       appBarType: AppBarType.Basic,
@@ -122,7 +128,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
                     _triggerLoading();
 
                     _myUserModel.printUserModel();
-                    
+
                     _triggerLoading();
 
                   }
@@ -154,6 +160,51 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
                     _triggerLoading();
 
                     _currentZone.printZone();
+
+                    _triggerLoading();
+
+                  }
+              ),
+
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print _currentContinent',
+                  icon: Iconizer.valueIsNotNull(_currentContinent),
+                  onTap: () async {
+
+                    _triggerLoading();
+
+                    _currentContinent.printContinent();
+
+                    _triggerLoading();
+
+                  }
+              ),
+
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print _currentCountry',
+                  icon: Iconizer.valueIsNotNull(_currentCountry),
+                  onTap: () async {
+
+                    _triggerLoading();
+
+                    _currentCountry.printCountry();
+
+                    _triggerLoading();
+
+                  }
+              ),
+
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print _currentCity',
+                  icon: Iconizer.valueIsNotNull(_currentCity),
+                  onTap: () async {
+
+                    _triggerLoading();
+
+                    _currentCity.printCity();
 
                     _triggerLoading();
 
