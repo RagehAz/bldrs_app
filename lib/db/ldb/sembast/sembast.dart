@@ -102,7 +102,9 @@ class Sembast {
   }
 // -----------------------------------------------------------------------------
   /// this should only be used when the ldb is empty,, if
-  static Future<void> deleteDocThenInsertAll({@required List<Map<String, Object>> inputs, @required String docName}) async {
+  static Future<void> deleteAllThenInsertAll({@required String primaryKey, @required List<Map<String, Object>> inputs, @required String docName}) async {
+
+    await deleteAll(docName: docName, primaryKey: primaryKey);
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();

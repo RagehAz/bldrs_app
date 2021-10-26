@@ -10,7 +10,7 @@ import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_wrapper.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog_row.dart';
+import 'package:bldrs/views/widgets/general/textings/data_strip.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -50,7 +50,7 @@ class dashboardUserButton extends StatelessWidget {
     final CountryModel _country = _zoneProvider.userCountryModel;
     final CityModel _city = _zoneProvider.userCityModel;
 
-    final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _country.countryID);
+    final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _country.id);
     final String _cityName = CityModel.getTranslatedCityNameFromCity(context: context, city: _city);
     final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
         context: context,

@@ -142,7 +142,7 @@ class TextGenerator{
 
     if (country != null && Zone.zoneHasAllIDs(zone)){
 
-      final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: country.countryID);
+      final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: country.id);
 
       final String _cityName = CityModel.getTranslatedCityNameFromCity(context: context, city: city,);
 

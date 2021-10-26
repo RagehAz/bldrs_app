@@ -193,8 +193,8 @@ class _LocaleBubbleState extends State<LocaleBubble> {
   @override
   Widget build(BuildContext context) {
 
-    final String _selectedCountryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _selectedCountry.countryID);
-    final String _selectedCountryFlag = _selectedCountry == null ? '' : Flag.getFlagIconByCountryID(_selectedCountry.countryID);
+    final String _selectedCountryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _selectedCountry.id);
+    final String _selectedCountryFlag = _selectedCountry == null ? '' : Flag.getFlagIconByCountryID(_selectedCountry.id);
 
     final String _selectedCityName = _getSelectedCityName();
     final String _selectedDistrictName = _getSelectedDistrictName();

@@ -11,7 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CountryModel{
-  final String countryID;
+  final String id;
   final String region;
   final String continent;
   /// manual dashboard switch to deactivate an entire country
@@ -25,7 +25,7 @@ class CountryModel{
   final String currency;
 
   const CountryModel({
-    @required this.countryID,
+    @required this.id,
     @required this.region,
     @required this.continent,
     @required this.isActivated,
@@ -39,7 +39,7 @@ class CountryModel{
   Map<String, dynamic> toMap({@required bool toJSON}){
 
     return {
-      'countryID' : countryID,
+      'id' : id,
       'region' : region,
       'continent' : continent,
       'isActivated' : isActivated,
@@ -59,7 +59,7 @@ class CountryModel{
       final List<Name> _names = Name.decipherNames(map['names']);
 
       _countryModel = CountryModel(
-        countryID : map['countryID'],
+        id : map['id'],
         names : _names,
         region : map['region'],
         continent : map['continent'],
@@ -237,7 +237,7 @@ class CountryModel{
 
     print('${methodName} ------------------------------------------- START');
 
-    print('countryID : ${countryID}');
+    print('id : ${id}');
     print('region : ${region}');
     print('continent : ${continent}');
     print('isActivated : ${isActivated}');

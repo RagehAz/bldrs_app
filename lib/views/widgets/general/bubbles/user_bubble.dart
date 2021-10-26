@@ -102,8 +102,8 @@ class _UserBubbleState extends State<UserBubble> {
   @override
   Widget build(BuildContext context) {
 
-    final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _userCountry?.countryID);
-    final String _countryFlag = Flag.getFlagIconByCountryID(_userCountry?.countryID);
+    final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _userCountry?.id);
+    final String _countryFlag = Flag.getFlagIconByCountryID(_userCountry?.id);
 
     final String _cityName = CityModel.getTranslatedCityNameFromCity(
         context: context,
