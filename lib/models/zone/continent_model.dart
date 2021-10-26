@@ -129,4 +129,17 @@ class Continent{
     return _cont;
   }
 // -----------------------------------------------------------------------------
+  void printContinent({String methodName = 'CONTINENT - PRINT'}){
+
+    print('$methodName ------------------------------- START');
+
+    print('name : ${name}');
+    print('regions : ${regions}');
+    print('activatedCountriesIDs : ${activatedCountriesIDs}');
+    print('globalCountriesIDs : ${globalCountriesIDs}');
+
+    print('$methodName ------------------------------- END');
+
+  }
+// -----------------------------------------------------------------------------
 }

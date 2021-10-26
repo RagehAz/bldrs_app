@@ -95,7 +95,7 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
 // -----------------------------------------------------------------------------
     final String _countryName = Name.getNameByCurrentLingoFromNames(context, widget.country?.names);
     final List<MapModel> _citiesMapModels = CityModel.getCitiesNamesMapModels(context: context, cities: _cities);
-    final String _countryFlag = Flag.getFlagIconByCountryID(widget.country?.countryID);
+    final String _countryFlag = Flag.getFlagIconByCountryID(widget.country?.id);
 // -----------------------------------------------------------------------------
 
     return  ListLayout(

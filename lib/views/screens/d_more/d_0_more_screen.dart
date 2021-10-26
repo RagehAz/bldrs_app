@@ -37,7 +37,7 @@ class MoreScreen extends StatelessWidget {
 
     final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final CountryModel _currentCountry = zoneProvider.currentCountry;
-    final String _currentFlag = Flag.getFlagIconByCountryID(_currentCountry.countryID);
+    final String _currentFlag = Flag.getFlagIconByCountryID(_currentCountry.id);
 
     return MainLayout(
       appBarType: AppBarType.Basic,

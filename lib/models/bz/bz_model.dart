@@ -485,7 +485,7 @@ class BzModel with ChangeNotifier{
         name: 'Business Name',
         trigram: TextMod.createTrigram(input: 'Business Name'),
         bzType: BzType.designer,
-        zone: Zone(countryID: 'egy', cityID: 'cairo', districtID: 'heliopolis'),
+        zone: Zone.dummyZone(),
         totalFollowers: 1000,
         totalFlyers: 10,
         bzState: BzState.online,

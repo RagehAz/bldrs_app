@@ -5,7 +5,7 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/screens/i_flyer/h_1_bz_card_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/views/widgets/specific/in_pyramids/profile/bz_grid.dart';
+import 'package:bldrs/views/widgets/specific/bz/bz_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
