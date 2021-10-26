@@ -1,17 +1,14 @@
 import 'dart:async';
-import 'dart:collection';
 import 'dart:convert';
 
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
 abstract class Atlas{
@@ -127,58 +124,10 @@ abstract class Atlas{
     return _placemarks;
   }
 // -----------------------------------------------------------------------------
-  static Future<BitmapDescriptor> getCustomMapMarker() async {
-    final BitmapDescriptor _marker = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty, Iconz.DumPinPNG);
-    return _marker;
-  }
-// -----------------------------------------------------------------------------
 
 }
 
 
-// -----------------------------------------------------------------------------
-// HashSet<Marker> countryCitiesMarkers (String countryFlag, BitmapDescriptor customMarker){
-//   final List<City> foundCities = countryCities(countryFlag);
-//   var citiesMarkers = HashSet<Marker>();
-//
-//   foundCities.forEach((city) {
-//     citiesMarkers.add(
-//       Marker(
-//         markerId: MarkerId('${city.id}'),
-//         position: LatLng(city.latitude, city.longitude),
-//         icon: customMarker,
-//         infoWindow: InfoWindow(
-//           title: '${city.name}',
-//           snippet: 'City ID : ${city.id}',
-//           onTap: (){print('${city.name} : ${city.iso3}');},
-//           // anchor: const Offset(0,0),
-//         ),
-//       ),
-//     );
-//   });
-//
-//   return citiesMarkers;
-// }
-// -----------------------------------------------------------------------------
-HashSet<Marker> someMarker (BitmapDescriptor customMarker, double latitude, double longitude){
-  final HashSet<Marker> someMarker = HashSet<Marker>();
-
-   someMarker.add(
-      Marker(
-        markerId: MarkerId('${latitude}_$longitude'),
-        position: LatLng(latitude, longitude),
-        icon: customMarker,
-        infoWindow: InfoWindow(
-          title: 'Latitude ($latitude) ,Longitude ($longitude})',
-          // snippet: 'Latitude ($latitude) ,Longitude ($longitude}',
-          onTap: (){print('MARKER LOCATION IS : Latitude ($latitude) ,Longitude ($longitude}');},
-          // anchor: const Offset(0,0),
-        ),
-      ),
-   );
-
-   return someMarker;
-   }
 // ----------------------------------------------------------------------
 const GOOGLE_API_KEY = 'AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI';
 // ----------------------------------------------------------------------

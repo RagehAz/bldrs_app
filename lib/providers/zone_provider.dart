@@ -23,8 +23,8 @@ class ZoneProvider extends ChangeNotifier {
     /// 1 - search in sessionCountries in LDB for this CountryModel
     final Map<String, Object> _map = await LDBOps.searchMap(
       docName: LDBDoc.sessionCountries,
-      fieldToSortBy: 'countryID',
-      searchField: 'countryID',
+      fieldToSortBy: 'id',
+      searchField: 'id',
       searchValue: countryID,
     );
     if (_map != null && _map != {}){
