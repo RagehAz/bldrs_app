@@ -44,26 +44,31 @@ class ZoneButton extends StatelessWidget {
     final CityModel _currentCity = _zoneProvider.currentCity;
 
     final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _currentCountry?.id);
-    final String _lastCountryFlag = Flag.getFlagIconByCountryID(_currentCountry?.id);
+    final String _countryFlag = Flag.getFlagIconByCountryID(_currentCountry?.id);
 
     final String _cityName = CityModel.getTranslatedCityNameFromCity(
         context: context,
         city: _currentCity,
     );
 
-    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
-        context: context,
-        city: _currentCity,
-        districtID: _currentZone?.districtID,
-    );
+    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(context: context, city: _currentCity, districtID: _currentZone?.districtID);
 
-    // print('country ID : $_lastCountryID, provinceID : $_cityID, '
-    //     'districtID : $_lastDistrictID, CountryName : $_countryName,'
-    //     ' ProvinceName : $_cityName, DistrictName : $_districtName');
+    final String _countryAndCityNames =
+    appIsLeftToRight(context) ? '$_cityName - $_countryName'
+        : '$_countryName - $_cityName';
 
-    final String _countryAndProvinceNames =
-        appIsLeftToRight(context) ? '$_cityName - $_countryName'
-    : '$_countryName - $_cityName';
+
+    final String _firstRow = _currentZone?.districtID == null ?
+    '${_countryName}'
+        :
+    '${_countryAndCityNames}'
+    ;
+
+    final String _secondRow = _currentZone?.districtID == null ?
+    '${_cityName}'
+        :
+    '${_districtName}'
+    ;
 
     const double _flagHorizontalMargins = 2;
 
@@ -96,17 +101,20 @@ class ZoneButton extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
+
                       SuperVerse(
-                        verse: _countryAndProvinceNames,
+                        verse: _firstRow,
                         size: 1,
                         color: isOn? Colorz.black230 : Colorz.white255,
                       ),
+
                       SuperVerse(
-                        verse: _districtName,
+                        verse: _secondRow,
                         size: 1,
                         scaleFactor: 0.8,
                         color: isOn? Colorz.black230 : Colorz.white255,
                       ),
+
                     ],
                   ),
                 ),
@@ -128,7 +136,7 @@ class ZoneButton extends StatelessWidget {
                     child: DreamBox(
                       width: 30,
                       height: 30,
-                      icon: _lastCountryFlag,
+                      icon: _countryFlag,
                       corners: Ratioz.boxCorner8,
                       margins: const EdgeInsets.symmetric(horizontal: _flagHorizontalMargins),
                       onTap: onTap,

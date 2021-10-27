@@ -1,15 +1,23 @@
+import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
+import 'package:bldrs/providers/zone_provider.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 
 // Google Cloud Platform
@@ -36,6 +44,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   GeoPoint _geoPoint;
   String _previewImage;
   BitmapDescriptor _mapMarker;
+  CountryModel _countryModel;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -74,7 +83,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     if (_isInit) {
       _triggerLoading().then((_) async{
 
-        final BitmapDescriptor _marker = await Imagers.getCustomMapMarkerFromSVG(context: context, assetName: Iconz.Dollar);
+        final BitmapDescriptor _marker = await Imagers.getCustomMapMarkerFromSVG(context: context, assetName: Iconz.FlyerPin);
 
         _triggerLoading(
             function: (){
@@ -100,6 +109,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
     final GeoPoint _point = GeoPoint(latLng.latitude, latLng.longitude);
 
+    print('LatLng : lat : ${latLng.latitude} : lng : ${latLng.longitude}');
+    print('GeoPoint : lat : ${_point.latitude} : lng : ${_point.longitude}');
+
     setState(() {
       _geoPoint = _point;
     });
@@ -119,6 +131,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           icon: _mapMarker ?? null,
           anchor: Offset(0.5,1),
           draggable: false,
+          visible: true,
+          zIndex: 0.0,
+          flat: true,
         ),
       };
     }
@@ -126,6 +141,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     return _markers;
   }
 // -----------------------------------------------------------------------------
+  GoogleMapController _googleMapController;
   @override
   Widget build(BuildContext context) {
 
@@ -136,6 +152,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     // double mapBoxWidth = screenWidth * 0.8;
     // double mapBoxHeight = mapBoxWidth;
     final double _boxCorners = Ratioz.rrFlyerBottomCorners *  _screenWidth;
+
+    final double _pinWidth = 30;
 
     return MainLayout(
       pageTitle: 'Select on Map',
@@ -153,6 +171,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       layoutWidget: Stack(
         children: <Widget>[
 
+          /// MAP
           GoogleMap(
             key: const PageStorageKey<String>('google_map'),
 
@@ -188,7 +207,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             initialCameraPosition:
             CameraPosition(
               target: _geoPoint == null ? null : LatLng(_geoPoint?.latitude, _geoPoint?.longitude),
-              zoom: 4,
+              zoom: 5,
               // bearing: ,
               // tilt: ,
             ),
@@ -197,8 +216,23 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             onCameraIdle: (){
               print('Camera is idle');
             },
-            onCameraMove: (CameraPosition cameraPosition){
+            onCameraMove: (CameraPosition cameraPosition) async {
               print('cameraPosition : ${cameraPosition}');
+              final double _lat = cameraPosition.target.latitude;
+              final double _lng = cameraPosition.target.longitude;
+
+              setState(() {
+              _geoPoint = GeoPoint(_lat, _lng);
+              });
+
+              final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+              final CountryModel _country = await _zoneProvider.getCountryModelByGeoPoint(context: context, geoPoint: _geoPoint);
+
+              if (_country != null && CountryModel.countriesAreTheSame(_country, _countryModel) == false){
+                setState(() {
+                  _geoPoint = GeoPoint(_lat, _lng);
+                });
+              }
             },
             onCameraMoveStarted: (){
               print('Camera move started');
@@ -207,9 +241,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               print('long tap is tapped on : LAT : ${latLng.latitude} : LNG : ${latLng.longitude}');
             },
             onMapCreated: (GoogleMapController googleMapController){
-              setState(() {
-                print('map has been created');
-              });
+              googleMapController = _googleMapController;
               },
             onTap: (LatLng latLng){
               if (widget.isSelecting == true){
@@ -221,30 +253,67 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             },
 
             /// SHAPES
-            markers: theMarkers,
+            // markers: theMarkers,
             polygons: <Polygon>{},
             polylines: <Polyline>{},
             circles: <Circle>{},
             tileOverlays: <TileOverlay>{},
           ),
 
+          /// LOCATION PIN
+          Container(
+            width: _screenWidth,
+            height: _screenHeight,
+            alignment: Alignment.center,
+            child: Container(
+              width: _pinWidth,
+              height: _pinWidth * 2,
+              child: Column(
+                children: <Widget>[
 
-          // _previewImage == null ? Container() :
-          // Positioned(
-          //   bottom: 0,
-          //   left: 0,
-          //   child: Container(
-          //     width: _screenWidth,
-          //     height: 300,
-          //     child: Image.network(_previewImage,
-          //       // width: 40,
-          //       // height: 40,
-          //       fit: BoxFit.cover,
-          //     ),
-          //   ),
-          // )
+                  /// pin square on top
+                  DreamBox(
+                    width: _pinWidth,
+                    height: _pinWidth,
+                    icon: Iconz.LocationPin,
+                    iconColor: Colorz.red230,
+                    bubble: false,
+                  ),
 
+                  /// fake balancing bottom square
+                  Container(
+                    width: _pinWidth,
+                    height: _pinWidth,
+                  ),
 
+                ],
+              ),
+            ),
+          ),
+
+          /// CONFIRM BUTTON
+          Container(
+            width: _screenWidth,
+            height: _screenHeight,
+            alignment: Alignment.bottomLeft,
+            child: DreamBox(
+              width: _screenWidth * 0.6,
+              height: 50,
+              margins: Ratioz.appBarMargin,
+              icon: _countryModel == null ? Iconz.LocationPin : Flag.getFlagIconByCountryID(_countryModel.id),
+              // iconColor: Colorz.red230,
+              iconSizeFactor: 0.7,
+              verse: 'Confirm Location',
+              verseCentered: false,
+              secondLine: 'lat ${Numeric.roundFractions(_geoPoint.latitude, 2)}, Lng ${Numeric.roundFractions(_geoPoint.longitude, 2)}',
+              color: Colorz.black230,
+              onTap: () async {
+
+                await Nav.goBack(context, argument: _geoPoint);
+
+              },
+            ),
+          ),
         ],
       ),
     );

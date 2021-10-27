@@ -250,7 +250,19 @@ class CountryModel{
     print('${methodName} ------------------------------------------- END');
 
   }
+// -----------------------------------------------------------------------------
+  static bool countriesAreTheSame(CountryModel countryA, CountryModel countryB){
+    bool _areTheSame = false;
 
+    if (countryA != null && countryB != null){
+      if (countryA.id == countryB.id){
+        _areTheSame = true;
+      }
+    }
+
+    return _areTheSame;
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 class AmericanState extends CountryModel {
