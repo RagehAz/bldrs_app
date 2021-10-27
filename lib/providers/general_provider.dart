@@ -20,7 +20,7 @@ class GeneralProvider extends ChangeNotifier {
     final Map<String, dynamic> _map = await Fire.readDoc(
       context: context,
       collName: FireColl.admin,
-      docName: FireColl.admin_appState,
+      docName: FireDoc.admin_appState,
     );
 
     final AppState _updates = AppState.fromMap(_map);

@@ -44,12 +44,12 @@ service cloud.firestore {
 
       // RAGEH  -------------------------------------------
     function isRageh(){
-      return getUserID() == "r1dqipDtBmRzK6HzL8Ug2vmcYVl1";
+      return getUserID() == "60a1SPzftGdH6rt15NF96m0j9Et2";
     }
 
     function isAdmin(){
-    
-    	let userModel = getUserModel();  
+
+    	let userModel = getUserModel();
     	let isAdmin = userModel.isAdmin;
 
       return isNormalUser() && isAdmin;
@@ -67,12 +67,12 @@ service cloud.firestore {
 
     function isOwnerOfThisFlyer(flyerID){
       let flyerModel = getFlyerModel(flyerID); //xx
-      let tinyAuthor = flyerModel.tinyAuthor;
-      let authorID = tinyAuthor.userID;
+
+      let authorID = flyerModel.authorID;
 
       return getUserID() == authorID;
     }
-    
+
 
     // VALUE CHECKERS  -------------------------------------------
     // function valueIsString(value){
@@ -88,7 +88,7 @@ service cloud.firestore {
     // }
 
     // PERMISSIONS  -------------------------------------------
-    
+
     // x -> db / collName / docName -> to specify specifc doc
     // x -> db / collName / {docName} -> to get doc name and handle
 
@@ -98,9 +98,15 @@ service cloud.firestore {
       allow write: if isRageh();
     }
 
+    // DONE : db / admin / appState
+    match /admin/appState {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // DONE : db / admin / statistics
      match /admin/statistics {
-      allow read: if isAdmin();
+      allow read: if true;
       allow write: if isAdmin();
     }
 
@@ -112,13 +118,6 @@ service cloud.firestore {
       allow delete: if isAuthorOfThisBz(bzID);
     }
 
-    // DONE : db / tinyBzz
-    match /tinyBzz/{bzID} {
-      allow read: if true;
-      allow create: if isNormalUser();
-      allow update: if isAuthorOfThisBz(bzID);
-      allow delete: if isAuthorOfThisBz(bzID);
-    }
 
     // DONE : db / bzz / bzID / calls
     match /bzz/{bzID}/calls/{callID} {
@@ -142,10 +141,10 @@ service cloud.firestore {
       allow write: if isAuthorOfThisBz(bzID);
     }
 
-    // DONE : db / countries
-    match /countries/{countryID} {
+    // DONE : db / zones
+    match /zones/{docName} {
     allow read: if isNormalUser();
-    allow write: if isAdmin(); 
+    allow write: if isAdmin();
     }
 
     // DONE : db / feedbacks
@@ -162,11 +161,6 @@ service cloud.firestore {
       allow delete: if isOwnerOfThisFlyer(flyerID);
     }
 
-    // DONE : db / tinyFlyers
-    match /tinyFlyers/{tinyFlyerID} {
-      allow read: if true;
-      allow write: if isAuthor();
-    }
 
     // DONE : db / flyers / flyerID / counters
     match /flyers/{flyerID}/counters/{docID} {
@@ -215,14 +209,6 @@ service cloud.firestore {
     }
 
 
-    // DONE : db / tinyUsers
-    match /tinyUsers/{userID} {
-      allow read: if true;
-      allow create: if true;
-      allow update: if getUserID() == userID;
-      allow delete: if getUserID() == userID;
-    }
-      
     // ESHTA : db / questions
     match /questions/{questionID=**} {
       allow read, write: if isNormalUser();

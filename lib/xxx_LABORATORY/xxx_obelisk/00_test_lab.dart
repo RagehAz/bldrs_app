@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
+import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:flutter/material.dart';
@@ -104,13 +105,15 @@ class _TestLabState extends State<TestLab> {
 
               WideButton(
                   color: Colorz.bloodTest,
-                  verse: 'Do Things',
+                  verse: 'move continents',
                   icon: Iconz.Share,
                   onTap: () async {
 
                     _triggerLoading();
 
-                    /// do things
+                    final Map<String, dynamic> _map = await Fire.readDoc(context: context, collName: 'admin', docName: 'continents');
+
+                    await Fire.createNamedDoc(context: context, collName: FireColl.zones, docName: FireDoc.zones_continents, input: _map);
 
                     _triggerLoading();
 

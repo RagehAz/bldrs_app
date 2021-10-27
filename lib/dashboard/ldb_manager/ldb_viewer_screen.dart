@@ -1,5 +1,7 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/dashboard/widgets/sql_viewer.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -7,6 +9,7 @@ import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.
 import 'package:bldrs/views/widgets/general/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/textings/value_box.dart';
 import 'package:flutter/material.dart';
 
 class LDBViewerScreen extends StatefulWidget {
@@ -16,7 +19,92 @@ class LDBViewerScreen extends StatefulWidget {
   const LDBViewerScreen({
     @required this.ldbDocName,
 });
+// -----------------------------------------------------------------------------
+  static List<Widget> rows({
+    @required BuildContext context,
+    @required List<Map<String, Object>>maps,
+    @required String primaryKey,
+    @required Function onRowTap,
+    Color color = Colorz.bloodTest,
+  }){
 
+    final String _primaryKey = primaryKey;
+    final double _screenWidth = Scale.superScreenWidth(context);
+
+    return
+      List.generate(
+          maps?.length ?? 0,
+              (index){
+
+            final Map<String, Object> _map = maps[index];
+
+            final List<Object> _keys = _map.keys.toList();
+            final List<Object> _values = _map.values.toList();
+
+
+            final String _primaryValue = _map['$_primaryKey'];
+            // int _idInt = Numberers.stringToInt(_id);
+
+            return
+              Container(
+                width: _screenWidth,
+                height: 42,
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: false,
+                  scrollDirection: Axis.horizontal,
+                  children: <Widget>[
+
+                    DreamBox(
+                      height: 37,
+                      width: 37,
+                      icon: Iconz.Flyer,
+                      iconSizeFactor: 0.7,
+                      bubble: onRowTap ==  null ? false : true,
+                      onTap: (){
+
+                        if (onRowTap !=  null){
+                          onRowTap(_primaryValue);
+                        }
+
+                      },
+                      // margins: EdgeInsets.all(5),
+                    ),
+
+                    DreamBox(
+                      height: 40,
+                      width: 40,
+                      verse: '${index + 1}',
+                      verseScaleFactor: 0.6,
+                      margins: EdgeInsets.all(5),
+                      bubble: false,
+                      color: Colorz.white10,
+                    ),
+
+                    ...List.generate(
+                        _values.length,
+                            (i){
+
+                          String _key = _keys[i];
+                          String _value = _values[i].toString();
+
+                          return
+                            ValueBox(
+                              dataKey: _key,
+                              value: _value,
+                              color: color,
+                            );
+
+                        }
+                    ),
+
+                  ],
+                ),
+              );
+
+          });
+  }
+// -----------------------------------------------------------------------------
   @override
   State<LDBViewerScreen> createState() => _LDBViewerScreenState();
 }
@@ -142,7 +230,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
       listWidgets: <Widget>[
 
         if (Mapper.canLoopList(_maps))
-          ...SQLViewer.rows(
+          ...LDBViewerScreen.rows(
             context: context,
             // color: Colorz.Green125,
             primaryKey: LDBOps.getPrimaryKey(widget.ldbDocName),

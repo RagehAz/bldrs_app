@@ -1,9 +1,12 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/helpers/app_updates.dart';
 import 'package:bldrs/models/helpers/big_mac.dart';
+import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/secondary_models/feedback_model.dart';
@@ -11,6 +14,7 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/continent_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/region_model.dart';
+import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -67,7 +71,7 @@ abstract class ExoticMethods{
       context: context,
       collName: FireColl.users,
       docName: userID,
-      subCollName: FireColl.users_user_notifications,
+      subCollName: FireSubColl.users_user_notifications,
       addDocsIDs: true,
       limit: 50, /// TASK : CHECK NOTI LIMIT WHILE READING THEM
       orderBy: 'id',
@@ -305,17 +309,17 @@ abstract class ExoticMethods{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> uploadAllKeywords({@required BuildContext context}) async {
+  static Future<void> uploadChainKeywords({@required BuildContext context, @required Chain chain, @required String docName,}) async {
 
     Map<String, dynamic> _keywordsMap = {};
 
-    List<KW> _allKeywords = KW.getAllKeywordsFromBldrsChain();
+    List<KW> _allKeywords = KW.getKeywordsFromChain(chain);
 
-    int numberOfKeyword = 0;
+    // int numberOfKeyword = 0;
 
     for (KW keyword in _allKeywords){
 
-      numberOfKeyword++;
+      // numberOfKeyword++;
 
       _keywordsMap = Mapper.insertPairInMap(
           map: _keywordsMap,
@@ -330,20 +334,41 @@ abstract class ExoticMethods{
     await Fire.createNamedDoc(
         context: context,
         collName: FireColl.keys,
-        docName: FireColl.keys_keywords,
+        docName: docName,
         input: _keywordsMap,
     );
 
-    await Fire.createNamedDoc(
-        context: context,
-        collName: FireColl.keys,
-        docName: FireColl.keys_stats,
-        input:
-        {
-          'numberOfKeywords' : numberOfKeyword,
+    // await Fire.createNamedDoc(
+    //     context: context,
+    //     collName: FireColl.keys,
+    //     docName: FireColl.keys_stats,
+    //     input:
+    //     {
+    //       'numberOfKeywords' : numberOfKeyword,
+    //     }
+    //
+    // );
+
+  }
+// -----------------------------------------------------------------------------
+}
+
+abstract class RagehMethods{
+// -----------------------------------------------------------------------------
+  static Future<void> updateNumberOfKeywords(BuildContext context, List<KW> allKeywords) async {
+    if (superUserID() == '60a1SPzftGdH6rt15NF96m0j9Et2'){
+
+      if (Mapper.canLoopList(allKeywords)){
+
+        final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+        final AppState _appState = _generalProvider.appState;
+        if(_appState.numberOfKeywords != allKeywords.length){
+          await Fire.updateDocField(context: context, collName: FireColl.admin, docName: FireDoc.admin_appState, field: 'numberOfKeywords', input: allKeywords.length);
         }
 
-    );
+      }
+
+    }
 
   }
 // -----------------------------------------------------------------------------

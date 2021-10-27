@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/helpers/name_model.dart';
 import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
-import 'package:bldrs/providers/streamers/keywords_provider.dart';
+import 'package:bldrs/providers/keywords_provider.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart';

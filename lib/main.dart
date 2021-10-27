@@ -9,7 +9,7 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/general_provider.dart';
-import 'package:bldrs/providers/streamers/keywords_provider.dart';
+import 'package:bldrs/providers/keywords_provider.dart';
 import 'package:bldrs/providers/ui_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
