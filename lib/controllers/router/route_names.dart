@@ -1,4 +1,4 @@
-class Routez {
+abstract class Routez {
 
   /// xxx
   static const String DynamicLinkTest = 'DynamicLinkTest';

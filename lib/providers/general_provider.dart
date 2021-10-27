@@ -1,5 +1,5 @@
 import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/models/helpers/app_updates.dart';
+import 'package:bldrs/models/secondary_models/app_updates.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class GeneralProvider extends ChangeNotifier {
     return _appState;
   }
 // -------------------------------------
-  Future<void> fetchAppState(BuildContext context) async {
+  Future<void> getsetAppState(BuildContext context) async {
 
     final Map<String, dynamic> _map = await Fire.readDoc(
       context: context,

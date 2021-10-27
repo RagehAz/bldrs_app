@@ -6,7 +6,7 @@ import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class Scale{
+abstract class Scale{
 // -----------------------------------------------------------------------------
   static double superScreenWidth (BuildContext context){
     final double _screenWidth = MediaQuery.of(context).size.width;

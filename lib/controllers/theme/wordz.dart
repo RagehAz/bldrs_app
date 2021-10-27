@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:flutter/cupertino.dart';
 
-class Wordz{
+abstract class Wordz{
   static String xxx0 (BuildContext context) => Localizer.translate(context, 'xxx0');
   static String allahoAkbar (BuildContext context) => Localizer.translate(context, 'allahoAkbar');
   static String activeLanguage (BuildContext context) => Localizer.translate(context, 'activeLanguage');

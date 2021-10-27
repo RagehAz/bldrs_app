@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:flutter/material.dart';
 
-class Aligners{
+abstract class Aligners{
 // -----------------------------------------------------------------------------
   static Alignment superTopAlignment(BuildContext context){
     return

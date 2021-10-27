@@ -16,7 +16,7 @@ import 'package:bldrs/views/widgets/general/buttons/balloons/path_searching_user
 import 'package:bldrs/views/widgets/general/buttons/balloons/path_selling_user.dart';
 import 'package:flutter/material.dart';
 
-class Iconizer{
+abstract class Iconizer{
 // -----------------------------------------------------------------------------
   static String sectionIconOn (Section section){
     return

@@ -112,7 +112,7 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
                 width: 300,
                 height: Scale.superScreenHeight(context),
                 color: Colorz.bloodTest,
-                child: BldrsChains(boxWidth: 300,),
+                child: BldrsChain(boxWidth: 300,),
               ),
 
             ],

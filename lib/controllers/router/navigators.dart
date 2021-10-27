@@ -5,7 +5,7 @@ import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-class Nav{
+abstract class Nav{
 // -----------------------------------------------------------------------------
   static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settings){
     return

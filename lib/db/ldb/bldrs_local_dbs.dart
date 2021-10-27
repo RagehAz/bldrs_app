@@ -2,7 +2,7 @@ import 'package:bldrs/db/ldb/sembast/sembast.dart';
 import 'package:flutter/foundation.dart';
 
 
-class LDBDoc {
+abstract class LDBDoc {
   static const String myUserModel = 'myUserModel';
   static const String mySavedFlyers = 'mySavedFlyers';
   static const String myFollowedBzz = 'myFollowedBzz';

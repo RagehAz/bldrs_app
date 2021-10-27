@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
-class Numeric {
+abstract class Numeric {
   /// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
   static String separateKilos({@required dynamic number, int fractions = 2}) {
 
