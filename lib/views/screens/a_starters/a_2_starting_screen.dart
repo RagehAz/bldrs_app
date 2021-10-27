@@ -119,7 +119,7 @@ class _StartingScreenState extends State<StartingScreen> {
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
       sky: Sky.Night,
-      appBarType: AppBarType.Intro,
+      appBarType: AppBarType.Non,
       loading: _loading,
       // tappingRageh: (){
       //   print('current zone : ${_currentZone.cityID}');
@@ -133,12 +133,12 @@ class _StartingScreenState extends State<StartingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
-              const Stratosphere(),
+              // const Stratosphere(),
 
               LogoSlogan(
                 showTagLine: true,
                 showSlogan: true,
-                sizeFactor: 0.7,
+                sizeFactor: 0.8,
               ),
 
               const SizedBox(height: Ratioz.appBarMargin,),
