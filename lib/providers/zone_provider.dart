@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/db/firestore/country_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
@@ -5,8 +6,11 @@ import 'package:bldrs/models/helpers/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/continent_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 
   // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 class ZoneProvider extends ChangeNotifier {
@@ -266,6 +270,32 @@ class ZoneProvider extends ChangeNotifier {
 
     return _nameInCurrentLanguage == null ? cityID : _nameInCurrentLanguage;
   }
+// -----------------------------------------------------------------------------
+  Future<CountryModel> getCountryModelByGeoPoint({@required BuildContext context, @required GeoPoint geoPoint}) async {
 
+    CountryModel _countryModel;
+
+    if (geoPoint != null){
+
+      final List<Placemark> _marks = await Atlas.getAddressFromPosition(geopoint: geoPoint);
+
+      print('_getCountryData : got place marks : ${_marks.length}');
+
+      if (Mapper.canLoopList(_marks)){
+
+        final Placemark _mark = _marks[0];
+        final String _countryIso = _mark.isoCountryCode;
+        final String _id = CountryIso.getCountryIDByIso(_countryIso);
+
+        _countryModel = await fetchCountryByID(context: context, countryID: _id);
+
+      }
+
+
+    }
+
+    return _countryModel;
+  }
+// -----------------------------------------------------------------------------
   /// TASK : ACTIVATED & GLOBAL COUNTRIES
 }
