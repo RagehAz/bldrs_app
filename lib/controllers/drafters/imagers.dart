@@ -14,8 +14,8 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/helpers/error_helpers.dart';
-import 'package:bldrs/models/helpers/image_size.dart';
+import 'package:bldrs/models/secondary_models/error_helpers.dart';
+import 'package:bldrs/models/secondary_models/image_size.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ enum PicType{
   notiBanner,
 }
 // -----------------------------------------------------------------------------
-class Imagers{
+abstract class Imagers{
 // -----------------------------------------------------------------------------
   static DecorationImage superImage(String picture, BoxFit boxFit){
   final DecorationImage _image = DecorationImage(

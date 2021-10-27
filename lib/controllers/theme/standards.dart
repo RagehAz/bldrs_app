@@ -1,7 +1,7 @@
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 
-class Standards{
+abstract class Standards{
 // -----------------------------------------------------------------------------
   static const int maxFlyerSlidesFreeAccount = 50; /// TASK : should be save on firestore
   static const int maxFlyerSlidesPremiumAccount = 7;

@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
-import 'package:bldrs/models/helpers/error_helpers.dart';
-import 'package:bldrs/models/helpers/image_size.dart';
+import 'package:bldrs/models/secondary_models/error_helpers.dart';
+import 'package:bldrs/models/secondary_models/image_size.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -80,7 +80,7 @@ abstract class FireSubDoc{
 
 }
 
-class StorageDoc{
+abstract class StorageDoc{
   static const String usersPics     = 'usersPics';   // uses userID as file name
   static const String authorsPics   = 'authorsPics'; // uses userID as file name
   static const String bzLogos       = 'bzLogos';     // uses bzID as file name
@@ -106,7 +106,7 @@ class StorageDoc{
 // -----------------------------------------------------------------------------
 }
 
-class Fire{
+abstract class Fire{
 
 
 // -----------------------------------------------------------------------------

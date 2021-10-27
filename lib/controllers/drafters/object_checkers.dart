@@ -14,7 +14,7 @@ extension FileExtention on FileSystemEntity {
   }
 }
 // -----------------------------------------------------------------------------
-class ObjectChecker {
+abstract class ObjectChecker {
 // -----------------------------------------------------------------------------
   static bool listCanBeUsed(List<dynamic> list){
 

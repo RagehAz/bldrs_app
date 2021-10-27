@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as international;
 
-class TextChecker{
+abstract class TextChecker{
 // -----------------------------------------------------------------------------
   static bool textIsEnglish (String val){
     final RegExp exp = RegExp("[a-zA-Z]", multiLine: true, unicode: true);

@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:flutter/material.dart';
 
-class Spacers {
+abstract class Spacers {
 // -----------------------------------------------------------------------------
   static EdgeInsets superPadding({BuildContext context, double enLeft, double enRight, double top, double bottom}){
     return

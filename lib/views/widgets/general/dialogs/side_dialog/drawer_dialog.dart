@@ -4,10 +4,16 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
+import 'package:bldrs/models/kw/chain.dart';
+import 'package:bldrs/models/kw/chain_crafts.dart';
+import 'package:bldrs/models/kw/chain_designs.dart';
+import 'package:bldrs/models/kw/chain_equipment.dart';
+import 'package:bldrs/models/kw/chain_products.dart';
+import 'package:bldrs/models/kw/chain_properties.dart';
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_bubble.dart';
-import 'package:bldrs/views/widgets/general/expansion_tiles/section_tile.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/xxx_LABORATORY/zebala/section_tile.dart';
 import 'package:flutter/material.dart';
 
 class DrawerDialog extends StatelessWidget {
@@ -30,6 +36,13 @@ class DrawerDialog extends StatelessWidget {
     final double _drawerHeight = Scale.superScreenHeight(context);
 
     final double _bubbleWidth = _drawerWidth - (Ratioz.appBarMargin * 2);
+    // final double _tileWidth = _bubbleWidth - (Ratioz.appBarMargin * 2);
+
+    final Chain _propertiesChain = ChainProperties.chain;
+    final Chain _designsChain = ChainDesigns.chain;
+    final Chain _craftsChain = ChainCrafts.chain;
+    final Chain _productsChain = ChainProducts.chain;
+    final Chain _equipmentChain = ChainEquipment.chain;
 
     return Container(
       width: _drawerWidth,
@@ -65,22 +78,7 @@ class DrawerDialog extends StatelessWidget {
                       bubbleWidth: _bubbleWidth,
                       inActiveMode: false,
                       section: Section.NewProperties,
-                    ),
-
-                    MainLayout.spacer10,
-
-                    SectionTile(
-                      bubbleWidth: _bubbleWidth,
-                      inActiveMode: false,
-                      section: Section.ResaleProperties,
-                    ),
-
-                    MainLayout.spacer10,
-
-                    SectionTile(
-                      bubbleWidth: _bubbleWidth,
-                      inActiveMode: false,
-                      section: Section.RentalProperties,
+                      chain: _propertiesChain,
                     ),
 
                   ]
@@ -97,14 +95,7 @@ class DrawerDialog extends StatelessWidget {
                       bubbleWidth: _bubbleWidth,
                       inActiveMode: false,
                       section: Section.Designs,
-                    ),
-
-                    MainLayout.spacer10,
-
-                    SectionTile(
-                      bubbleWidth: _bubbleWidth,
-                      inActiveMode: false,
-                      section: Section.Projects,
+                      chain: _designsChain,
                     ),
 
                     MainLayout.spacer10,
@@ -113,6 +104,7 @@ class DrawerDialog extends StatelessWidget {
                       bubbleWidth: _bubbleWidth,
                       inActiveMode: false,
                       section: Section.Crafts,
+                      chain: _craftsChain,
                     ),
 
                   ]
@@ -129,6 +121,7 @@ class DrawerDialog extends StatelessWidget {
                     bubbleWidth: _bubbleWidth,
                     inActiveMode: false,
                     section: Section.Products,
+                    chain: _productsChain,
                   ),
 
                   MainLayout.spacer10,
@@ -136,7 +129,8 @@ class DrawerDialog extends StatelessWidget {
                   SectionTile(
                     bubbleWidth: _bubbleWidth,
                     inActiveMode: false,
-                    section: Section.Equipment,
+                    section: Section.Products,
+                    chain: _equipmentChain,
                   ),
 
                 ],

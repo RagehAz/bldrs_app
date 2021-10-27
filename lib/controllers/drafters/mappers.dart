@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sembast/utils/value_utils.dart';
 
-class Mapper{
+abstract class Mapper{
 // -----------------------------------------------------------------------------
   /// TODO : check getFirstValuesFromMaps if not used in production
   /// [
