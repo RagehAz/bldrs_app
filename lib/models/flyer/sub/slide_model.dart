@@ -7,7 +7,6 @@ import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/db/ldb/sql_db/sql_column.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/helpers/image_size.dart';
@@ -384,114 +383,6 @@ class SlideModel {
     return _slides;
   }
 // -----------------------------------------------------------------------------
-  static List<SQLColumn> createSlidesLDBColumns(){
-    const List<SQLColumn> _columns = const <SQLColumn>[
-      // -------------------------
-      SQLColumn(key: 'slideID', type: 'TEXT', isPrimary: true),
-      SQLColumn(key: 'pic', type: 'TEXT'), // or BLOB if we use Uint8List
-      SQLColumn(key: 'headline', type: 'TEXT'),
-      SQLColumn(key: 'description', type: 'TEXT'),
-      SQLColumn(key: 'sharesCount', type: 'INTEGER'),
-      SQLColumn(key: 'viewsCount', type: 'INTEGER'),
-      SQLColumn(key: 'savesCount', type: 'INTEGER'),
-      SQLColumn(key: 'picFit', type: 'INTEGER'),
-      SQLColumn(key: 'imageSize', type: 'TEXT'),
-      SQLColumn(key: 'midColor', type: 'TEXT'),
-
-    ];
-
-    return _columns;
-  }
-// -----------------------------------------------------------------------------
-  static Future<Map<String, Object>> sqlCipherSlide({SlideModel slide, String flyerID}) async {
-    Map<String, Object> _map;
-
-    if (slide != null) {
-      _map = {
-        'slideID': SlideModel.generateSlideID(flyerID, slide.slideIndex),
-        'pic': await Imagers.urlOrImageFileToBase64(slide.pic),
-        'headline': slide.headline,
-        'description': slide.description,
-        'sharesCount': slide.sharesCount,
-        'viewsCount': slide.viewsCount,
-        'savesCount': slide.savesCount,
-        'picFit': ImageSize.cipherBoxFit(slide.picFit),
-        'imageSize': ImageSize.sqlCipherImageSize(slide.imageSize),
-        'midColor': Colorizer.cipherColor(slide.midColor),
-      };
-
-      return _map;
-    }
-
-    return _map;
-  }
-// -----------------------------------------------------------------------------
-  static Future<SlideModel> sqlDecipherSlide({Map<String, Object> map}) async {
-    SlideModel _slide;
-
-    if (map != null){
-
-      final String _flyerID = getFlyerIDFromSlideID(map['slideID']);
-      final int _slideIndex = getSlideIndexFromSlideID(map['slideID']);
-
-      _slide = SlideModel(
-        flyerID: _flyerID,
-        slideIndex: _slideIndex,
-        pic: await Imagers.base64ToFile(map['pic']),
-        headline: map['headline'],
-        description: map['description'],
-        sharesCount: map['sharesCount'],
-        viewsCount: map['viewsCount'],
-        savesCount: map['savesCount'],
-        picFit: ImageSize.decipherBoxFit(map['picFit']),
-        imageSize: ImageSize.sqlDecipherImageSize(map['imageSize']),
-        midColor: Colorizer.decipherColor(map['midColor']),
-      );
-
-    }
-
-    return _slide;
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> sqlCipherSlides({List<SlideModel> slides, String flyerID}) async {
-    final List<Map<String, Object>> _maps = <Map<String, Object>>[];
-
-    if (slides != null && slides.length != 0){
-
-      for (SlideModel slide in slides){
-
-        final Map<String, Object> _map = await sqlCipherSlide(
-          flyerID: flyerID,
-          slide: slide,
-        );
-
-        _maps.add(_map);
-
-      }
-
-    }
-
-    return _maps;
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<SlideModel>> sqlDecipherSlides({List<Map<String, Object>> maps}) async {
-    final List<SlideModel> _slides = <SlideModel>[];
-
-    if (maps != null && maps.length != 0){
-
-      for (var map in maps){
-
-        final SlideModel _slide = await sqlDecipherSlide(map: map);
-
-        _slides.add(_slide);
-
-      }
-
-    }
-
-    return _slides;
-  }
-// -----------------------------------------------------------------------------
   static List<SlideModel> getSlidesFromSlidesByFlyerID(List<SlideModel> allSlides, String flyerID){
     final List<SlideModel> _foundSlides = <SlideModel>[];
 
@@ -510,27 +401,6 @@ class SlideModel {
     _foundSlides.sort((a,b) => a.slideIndex.compareTo(b.slideIndex));
 
     return _foundSlides;
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> sqlCipherFlyersSlides(List<FlyerModel> flyers) async {
-    final List<Map<String, Object>> _allSlidesSQLMaps = <Map<String, Object>>[];
-
-    if (flyers != null && flyers.length != 0){
-
-      for (FlyerModel flyer in flyers){
-
-        final List<Map<String, Object>> _slidesMaps = await sqlCipherSlides(
-          slides: flyer.slides,
-          flyerID: flyer.id
-        );
-
-        _allSlidesSQLMaps.addAll(_slidesMaps);
-
-      }
-
-    }
-
-    return _allSlidesSQLMaps;
   }
 // -----------------------------------------------------------------------------
   static SlideModel dummySlide(){

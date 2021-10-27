@@ -72,8 +72,8 @@ class CountryOps{
 
     final Map<String, dynamic> _map = await Fire.readDoc(
       context: context,
-      collName: FireColl.admin,
-      docName: 'continents',
+      collName: FireColl.zones,
+      docName: FireDoc.zones_continents,
     );
 
     final List<Continent> _allContinents = Continent.decipherContinents(_map);

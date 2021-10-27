@@ -11,7 +11,6 @@ import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/buttons/obelisk_button.dart';
-import 'package:bldrs/views/widgets/general/dialogs/web_view/web_view_test_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/general/textings/the_golden_scroll.dart';
@@ -120,8 +119,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           ObeliskButton('Trigram Test', Iconz.More, TrigramTest()),
 
           ObeliskButton('Cloud Functions', Iconz.Gears, CloudFunctionsTest()),
-
-          ObeliskButton('Web view test', Iconz.Terms, WebViewTestScreen()),
 
           ObeliskButton('Sembast Screen', Iconz.DvGouran, SembastTestScreen()),
 

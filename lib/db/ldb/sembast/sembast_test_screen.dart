@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/dashboard/widgets/sql_viewer.dart';
+import 'package:bldrs/dashboard/ldb_manager/ldb_viewer_screen.dart';
 import 'package:bldrs/db/ldb/sembast/sembast.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -196,7 +196,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 
 
         if (Mapper.canLoopList(_tinyFlyersMaps))
-        ...SQLViewer.rows(
+        ...LDBViewerScreen.rows(
           context: context,
           color: Colorz.green125,
           primaryKey: 'flyerID',

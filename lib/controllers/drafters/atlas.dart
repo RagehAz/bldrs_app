@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';

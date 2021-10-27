@@ -110,8 +110,8 @@ class FlyerOps{
     context: context,
     collName: FireColl.flyers,
     docName: _flyerID,
-    subCollName: FireColl.flyers_flyer_counters,
-    subDocName: FireColl.flyers_flyer_counters,
+    subCollName: FireSubColl.flyers_flyer_counters,
+    subDocName: FireSubDoc.flyers_flyer_counters_counters,
     input: await SlideModel.cipherSlidesCounters(_updatedSlides),
   );
 
@@ -378,7 +378,7 @@ class FlyerOps{
       context: context,
       collName: FireColl.flyers,
       docName: flyerModel.id,
-      subCollName: FireColl.flyers_flyer_views,
+      subCollName: FireSubColl.flyers_flyer_views,
     );
 
     /// E - delete fireStore/flyers/flyerID/shares/(all sub docs)
@@ -387,7 +387,7 @@ class FlyerOps{
       context: context,
       collName: FireColl.flyers,
       docName: flyerModel.id,
-      subCollName: FireColl.flyers_flyer_shares,
+      subCollName: FireSubColl.flyers_flyer_shares,
     );
 
     /// F - delete fireStore/flyers/flyerID/saves/(all sub docs)
@@ -396,7 +396,7 @@ class FlyerOps{
       context: context,
       collName: FireColl.flyers,
       docName: flyerModel.id,
-      subCollName: FireColl.flyers_flyer_saves,
+      subCollName: FireSubColl.flyers_flyer_saves,
     );
 
     /// G - delete fireStore/flyers/flyerID/counters/counters
@@ -405,8 +405,8 @@ class FlyerOps{
         context: context,
         collName: FireColl.flyers,
         docName: flyerModel.id,
-        subCollName: FireColl.flyers_flyer_counters,
-        subDocName: FireColl.flyers_flyer_counters
+        subCollName: FireSubColl.flyers_flyer_counters,
+        subDocName: FireSubDoc.flyers_flyer_counters_counters,
     );
 
     /// H - delete fireStorage/slidesPics/slideID for all flyer slides
@@ -454,7 +454,7 @@ class FlyerOps{
       context: context,
       collName: FireColl.flyers,
       docName: flyerID,
-      subCollName: FireColl.flyers_flyer_reviews,
+      subCollName: FireSubColl.flyers_flyer_reviews,
       addDocsIDs: true,
       orderBy: 'reviewID',
       addDocSnapshotToEachMap: false,
