@@ -58,13 +58,21 @@ class ZoneButton extends StatelessWidget {
         : '$_countryName - $_cityName';
 
 
-    final String _firstRow = _currentZone?.districtID == null ?
+    final String _firstRow =
+    _currentZone == null ?
+        ' '
+        :
+    _currentZone?.districtID == null ?
     '${_countryName}'
         :
     '${_countryAndCityNames}'
     ;
 
-    final String _secondRow = _currentZone?.districtID == null ?
+    final String _secondRow =
+    _currentZone == null ?
+    ' '
+        :
+    _currentZone?.districtID == null ?
     '${_cityName}'
         :
     '${_districtName}'
