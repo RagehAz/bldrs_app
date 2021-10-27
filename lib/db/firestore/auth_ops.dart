@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/firestore/user_ops.dart';
-import 'package:bldrs/models/helpers/error_helpers.dart';
+import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
@@ -77,23 +77,22 @@ class AuthOps {
   }
 // -----------------------------------------------------------------------------
   /// firebase user provider data
-  dynamic getFirebaseUserProviderData ()  {
-    // dynamic _thing = _auth.currentUser.
-
-    final User user = _auth.currentUser;
-
-    print(user.providerData);
-
-    return user.providerData;
-
-    // if (user.providerData.length < 2) {
-    //   // do something
-    // }
-    // else {
-    //   print(user.providerData);
-    // }
-
-  }
+  // List<UserInfo> _getFirebaseUserProviderData ()  {
+  //
+  //   final User user = _auth.currentUser;
+  //
+  //   // print(user.providerData);
+  //
+  //   return user.providerData;
+  //
+  //   // if (user.providerData.length < 2) {
+  //   //   // do something
+  //   // }
+  //   // else {
+  //   //   print(user.providerData);
+  //   // }
+  //
+  // }
 // -----------------------------------------------------------------------------
   /// create firebase user
   Future<User> _createFirebaseUser({String email, String password}) async {

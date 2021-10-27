@@ -4,7 +4,7 @@ import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
-import 'package:bldrs/models/helpers/error_helpers.dart';
+import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/notifications/audioz.dart';

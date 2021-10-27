@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class Tracer{
+abstract class Tracer{
 
   static const bool _traceScreenBuild = true;
   static const bool _traceWidgetBuild = true;

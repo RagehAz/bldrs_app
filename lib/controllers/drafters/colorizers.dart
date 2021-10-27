@@ -8,7 +8,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/rendering.dart';
 import 'package:image/image.dart' as img;
 
-class Colorizer{
+abstract class Colorizer{
   static Gradient superSlideGradient(){
     final Gradient slideGradient = LinearGradient(
         begin: Alignment.topCenter,

@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/db/firestore/country_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
-import 'package:bldrs/models/helpers/name_model.dart';
+import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/continent_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';

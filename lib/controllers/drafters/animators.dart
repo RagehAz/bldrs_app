@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
 
-class Animators{
+abstract class Animators{
 // -----------------------------------------------------------------------------
   static PageTransitionType superHorizontalTransition(BuildContext context){
     return

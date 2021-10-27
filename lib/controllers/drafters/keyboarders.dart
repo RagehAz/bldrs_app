@@ -3,7 +3,7 @@ import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class Keyboarders {
+abstract class Keyboarders {
 // -----------------------------------------------------------------------------
   /// TO MINIMIZE KEYBOARD WHEN TAPPING OUTSIDE
   static void minimizeKeyboardOnTapOutSide (BuildContext context){

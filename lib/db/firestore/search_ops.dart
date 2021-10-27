@@ -7,7 +7,7 @@ import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/helpers/error_helpers.dart';
+import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,7 +27,7 @@ enum ValueIs{
   ArrayContainsAny,
 }
 
-class FireSearch {
+abstract class FireSearch {
 // -----------------------------------------------------------------------------
     static Future<dynamic> mapsByFieldValue({
       @required BuildContext context,

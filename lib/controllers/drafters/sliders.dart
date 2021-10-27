@@ -8,7 +8,7 @@ enum SwipeDirection{
   freeze,
 }
 // -----------------------------------------------------------------------------
-class Sliders{
+abstract class Sliders{
 // -----------------------------------------------------------------------------
   static Future<int> slideToNextAndGetNewIndex(PageController slidingController, int numberOfSlides, int currentSlide) async {
 

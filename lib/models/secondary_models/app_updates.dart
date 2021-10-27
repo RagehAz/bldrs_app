@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
 class AppState {
@@ -76,7 +77,7 @@ class AppState {
 
         notificationsUpdateRequired : map['notificationsUpdateRequired'],
 
-        sponsors : map['sponsors'],
+        sponsors : Mapper.getStringsFromDynamics(dynamics: map['sponsors']),
 
         sectionsUpdateRequired : map['sectionsUpdateRequired'],
         keywordsUpdateRequired : map['keywordsUpdateRequired'],
