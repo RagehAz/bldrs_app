@@ -1,22 +1,9 @@
-import 'package:bldrs/controllers/drafters/atlas.dart';
-import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/models/helpers/error_helpers.dart';
-import 'package:bldrs/models/helpers/name_model.dart';
-import 'package:bldrs/models/zone/country_model.dart';
-import 'package:bldrs/models/zone/flag_model.dart';
-import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/views/widgets/general/textings/data_strip.dart';
-import 'package:bldrs/xxx_LABORATORY/google_maps/googl_map_screen_need_check.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:provider/provider.dart';
 
 class TestLab extends StatefulWidget {
 
@@ -25,11 +12,6 @@ class TestLab extends StatefulWidget {
 }
 
 class _TestLabState extends State<TestLab> {
-  // List<int> _list = <int>[1,2,3,4,5,6,7,8];
-  // int _loops = 0;
-  // Color _color = Colorz.BloodTest;
-  // SuperFlyer _flyer;
-  // bool _thing;
 
   ScrollController _ScrollController;
 
@@ -72,11 +54,11 @@ class _TestLabState extends State<TestLab> {
       _triggerLoading().then((_) async{
 
         /// do Futures here
-
+        ///
         _triggerLoading(
-          function: (){
-            /// set new values here
-          }
+            function: (){
+              /// set new values here
+            }
         );
       });
 
@@ -86,111 +68,18 @@ class _TestLabState extends State<TestLab> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  GeoPoint _point;
-  Future<void> _getCurrentUserLocation() async {
 
-    _triggerLoading();
-
-    await tryAndCatch(
-        context: context,
-        methodName: 'get location thing',
-        functions: () async {
-
-          print('getting location aho');
-
-          final Position _position = await Atlas.getCurrentPosition();
-
-          print('got position = ${_position}');
-
-          final GeoPoint _geoPoint = GeoPoint(_position?.latitude, _position?.longitude);
-
-          print('made geo point aho $_geoPoint');
-
-          setState(() {
-            _point = _geoPoint;
-          });
-
-          print('getting place marks');
-
-          await _getCountryData(geoPoint: _geoPoint);
-
-        },
-
-        onError: (e){
-          print('ERROR IS : ${e.toString()}');
-      }
-      );
-
-    _triggerLoading();
-
-  }
-// -------------------------------------------------
-  Future<void> _getPositionFromMap() async {
-
-    _triggerLoading();
-
-    final GeoPoint _pickedPoint = await Nav.goToNewScreen(
-        context,
-        GoogleMapScreen(
-          isSelecting: true,
-        )
-    );
-
-    if (_pickedPoint != null){
-
-      setState(() {
-        _point = _pickedPoint;
-      });
-
-      await _getCountryData(geoPoint: _point);
-    }
-
-    _triggerLoading();
-
-  }
-// -----------------------------------------------------------------------------
-  String _flag;
-  String _countryISO;
-  String _countryID;
-  CountryModel _countryModel;
-  Future<void> _getCountryData({@required GeoPoint geoPoint}) async {
-
-      if (geoPoint != null){
-
-        final List<Placemark> _marks = await Atlas.getAddressFromPosition(geopoint: geoPoint);
-
-        print('_getCountryData : got place marks : ${_marks.length}');
-
-        if (Mapper.canLoopList(_marks)){
-
-          final Placemark _mark = _marks[0];
-          final String _countryIso = _mark.isoCountryCode;
-          final String _id = CountryIso.getCountryIDByIso(_countryIso);
-          final String _countryFlag = Flag.getFlagIconByCountryID(_id);
-
-          final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-          final CountryModel _model = await _zoneProvider.fetchCountryByID(context: context, countryID: _id);
-
-          setState(() {
-            _flag = _countryFlag;
-            _countryISO = _countryIso;
-            _countryID = _id;
-            _countryModel = _model;
-          });
-
-        }
-
-      }
-
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
 // -----------------------------------------------------------------------------
-    // final double _screenWidth = Scale.superScreenWidth(context);
-    // final double _screenHeight = Scale.superScreenHeight(context);
+//     double _screenWidth = Scale.superScreenWidth(context);
+    // double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
+
+    // double _gWidth = _screenWidth * 0.4;
+    // double _gHeight = _screenWidth * 0.6;
+
 
     return MainLayout(
       appBarType: AppBarType.Basic,
@@ -214,34 +103,20 @@ class _TestLabState extends State<TestLab> {
               const Stratosphere(),
 
               WideButton(
-                verse: 'Get Current Location',
-                icon: _flag ?? Iconz.Share,
-                onTap: () async {
+                  color: Colorz.bloodTest,
+                  verse: 'Do Things',
+                  icon: Iconz.Share,
+                  onTap: () async {
 
-                  print('LET THE GAMES BEGIN');
+                    _triggerLoading();
 
-                  await _getCurrentUserLocation();
+                    /// do things
 
-                },
-              ),
-              WideButton(
-                verse: 'Get Position from Map',
-                icon: _flag ?? Iconz.Share,
-                onTap: () async {
+                    _triggerLoading();
 
-                  print('LET THE GAMES BEGIN');
-
-                  await _getPositionFromMap();
-
-                },
+                  }
               ),
 
-
-              DataStrip(dataKey: 'geo point',dataValue: 'LAT : ${_point?.latitude} : LNG : ${_point?.longitude}',),
-              DataStrip(dataKey: 'ISO',dataValue: _countryISO,),
-              DataStrip(dataKey: 'ID',dataValue: _countryID,),
-              DataStrip(dataKey: 'Country Name (EN)',dataValue: Name.getNameByLingoFromNames(names: _countryModel?.names, lingoCode: 'en'),),
-              DataStrip(dataKey: 'Country Name (AR)',dataValue: Name.getNameByLingoFromNames(names: _countryModel?.names, lingoCode: 'ar'),),
 
 
             ],
