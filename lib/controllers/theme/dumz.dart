@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
 
-class Dumz {
+abstract class Dumz {
   static const String _dumzPath = 'assets/dum/xx/';
 
 

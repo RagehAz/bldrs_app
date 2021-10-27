@@ -1,8 +1,8 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/localization/localizer.dart';
-import 'package:bldrs/models/helpers/map_model.dart';
-import 'package:bldrs/models/helpers/name_model.dart';
+import 'package:bldrs/models/secondary_models/map_model.dart';
+import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/continent_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';

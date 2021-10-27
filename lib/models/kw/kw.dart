@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/localization/lingo.dart';
-import 'package:bldrs/models/helpers/name_model.dart';
+import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/kw/chain.dart';
 import 'package:flutter/cupertino.dart';
 

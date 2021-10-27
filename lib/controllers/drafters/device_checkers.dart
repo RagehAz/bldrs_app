@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 
-class DeviceChecker{
+abstract class DeviceChecker{
 // -----------------------------------------------------------------------------
   static bool deviceIsIOS(){
     return

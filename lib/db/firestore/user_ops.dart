@@ -2,7 +2,6 @@ import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/firestore/bz_ops.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
@@ -106,7 +105,7 @@ abstract class UserOps{
 // -----------------------------------------------------------------------------
   static Future<UserModel> readUserOps({@required BuildContext context, @required String userID}) async {
 
-    print('readUserOps : Start reading user $userID while lang is : ${Wordz.languageCode(context)},');
+    print('readUserOps : Start reading user $userID,');
 
     final Map<String, dynamic> _userMap = await Fire.readDoc(
       context: context,

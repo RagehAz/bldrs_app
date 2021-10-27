@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/helpers/name_model.dart';
+import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/providers/keywords_provider.dart';
@@ -11,33 +11,40 @@ import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart'
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class BldrsChains extends StatelessWidget {
+class BldrsChain extends StatelessWidget {
   final double boxWidth;
+  final Chain chain;
 
-  const BldrsChains({
+  const BldrsChain({
     this.boxWidth,
+    this.chain,
   });
 
   @override
   Widget build(BuildContext context) {
 
-    final Chain _allChains = Chain.bldrsChain;
+    final double _boxWidth = boxWidth ?? Scale.superScreenWidth(context);
+    final Chain _allChains = chain ?? Chain.bldrsChain;
 
-    return ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      itemCount: _allChains.sons.length,
-      shrinkWrap: false,
-      itemBuilder: (ctx, index){
+    return Container(
+      width: _boxWidth,
+      height: _allChains.sons.length * Inception.buttonHeight,
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: _allChains.sons.length,
+        shrinkWrap: false,
+        itemBuilder: (ctx, index){
 
-        dynamic son = _allChains.sons[index];
+          dynamic son = _allChains.sons[index];
 
-        return Inception(
-          son: son,
-          level: 0,
-          boxWidth: boxWidth,
-        );
+          return Inception(
+            son: son,
+            level: 0,
+            boxWidth: _boxWidth,
+          );
 
-      },
+        },
+      ),
     );
   }
 }
@@ -53,13 +60,15 @@ class Inception extends StatelessWidget {
     this.boxWidth,
   });
 
+  static const double buttonHeight = 60;
+
   @override
   Widget build(BuildContext context) {
 
     final _offset = (2 * Ratioz.appBarMargin) * level;
 
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _buttonHeight = 60;
+    final double _buttonHeight = buttonHeight;
     final double _boxWidth = boxWidth ?? _screenWidth - (2 * Ratioz.appBarMargin);
     final double _buttonWidth = _boxWidth - _offset;
 

@@ -8,7 +8,7 @@ enum SlidingDirection{
   freeze,
 }
 // -----------------------------------------------------------------------------
-class Scrollers{
+abstract class Scrollers{
 // -----------------------------------------------------------------------------
   static ScrollPhysics superScroller(bool trigger){
     ScrollPhysics scroller = trigger == true ?

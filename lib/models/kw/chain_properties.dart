@@ -1,4 +1,4 @@
-import 'package:bldrs/models/helpers/name_model.dart';
+import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
 

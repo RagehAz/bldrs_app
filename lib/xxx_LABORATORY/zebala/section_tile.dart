@@ -6,10 +6,13 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
+import 'package:bldrs/models/kw/chain.dart';
+import 'package:bldrs/models/secondary_models/link_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/dialog_button.dart';
+import 'package:bldrs/views/widgets/general/expansion_tiles/bldrs_chains.dart';
 import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,11 +21,13 @@ class SectionTile extends StatelessWidget {
   final double bubbleWidth;
   final Section section;
   final bool inActiveMode;
+  final Chain chain;
 
   const SectionTile({
     @required this.bubbleWidth,
     @required this.section,
     @required this.inActiveMode,
+    @required this.chain,
   });
 // -----------------------------------------------------------------------------
   String _sectionIcon({@required Section section, @required bool inActiveMode}){
@@ -113,7 +118,7 @@ class SectionTile extends StatelessWidget {
         width: _tileWidth,
         onTap: (bool isExpanded) => _onSectionTap(context, isExpanded),
         inActiveMode: inActiveMode,
-        maxHeight: 150,
+        // maxHeight: 150,
         icon: _sectionIcon(section: section, inActiveMode: inActiveMode),
         iconSizeFactor: 1,
         initiallyExpanded: false,
@@ -134,6 +139,11 @@ class SectionTile extends StatelessWidget {
             ),
           ),
           padding: const EdgeInsets.only(top: Ratioz.appBarMargin, bottom: Ratioz.appBarMargin),
+          child: BldrsChain(
+            chain: chain,
+            boxWidth: _tileWidth,
+          ),
+
           // child: ListView.builder(
           //   key: ValueKey('${key}_list_builder'),
           //     itemCount: _sequences.length,

@@ -94,6 +94,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
         print('x - fetching sponsors');
         _bzzProvider.fetchSponsors(context).then((_) async {
 
+          await _generalProvider.getsetAppState(context);
+
           await _keywordsProvider.getsetAllKeywords(context);
 
           setState(() {
@@ -162,7 +164,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
         children: <Widget>[
 
-          Stratosphere(heightFactor: 1),
+          const Expander(),
 
           LogoSlogan(
             showSlogan: true,
@@ -170,7 +172,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             sizeFactor: 0.7,
           ),
 
-          Stratosphere(heightFactor: 0.5),
+          // Stratosphere(heightFactor: 0.5),
 
           BzzBubble(
             bzzModels: _sponsors,

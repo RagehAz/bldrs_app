@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/firestore/auth_ops.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/main.dart';
-import 'package:bldrs/models/helpers/error_helpers.dart';
+import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 /// this page has all functions that are related to streams checking
 
-class StreamChecker{
+abstract class StreamChecker{
 // -----------------------------------------------------------------------------
   static bool _connectionIsWaiting(AsyncSnapshot<dynamic> snapshot){
     return

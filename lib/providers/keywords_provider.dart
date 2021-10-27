@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/dashboard/exotic_methods.dart';
 import 'package:bldrs/db/firestore/keyword_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
-import 'package:bldrs/models/helpers/app_updates.dart';
+import 'package:bldrs/models/secondary_models/app_updates.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:flutter/cupertino.dart';

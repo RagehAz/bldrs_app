@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/models/helpers/map_model.dart';
+import 'package:bldrs/models/secondary_models/map_model.dart';
 import 'package:flutter/material.dart';
 
 /// --- BEHOLD ---

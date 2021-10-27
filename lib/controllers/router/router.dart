@@ -9,7 +9,7 @@ import 'package:bldrs/views/screens/c_search/c_0_search_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/xxx_obelisk.dart';
 import 'package:flutter/material.dart';
 
-class Routerer {
+abstract class Routerer {
   static Route<dynamic> allRoutes(RouteSettings settings) {
 
     /// TASK : check passing arguments inside Routerer

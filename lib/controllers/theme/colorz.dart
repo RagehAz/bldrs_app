@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Colorz {
+abstract class Colorz {
 // -----------------------------------------------------------------------------
   static const int _0 = 0;
   static const int _10 = 10;
