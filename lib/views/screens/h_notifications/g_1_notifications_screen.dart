@@ -84,7 +84,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       context: context,
       collName: FireColl.users,
       docName: superUserID(),
-      subCollName: FireColl.users_user_notifications,
+      subCollName: FireSubColl.users_user_notifications,
       subDocName: id,
       field: 'dismissed',
       input: true,

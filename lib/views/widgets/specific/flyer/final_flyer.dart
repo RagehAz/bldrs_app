@@ -1365,7 +1365,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         context: context,
         collName: FireColl.flyers,
         docName: _superFlyer.flyerID,
-        subCollName: FireColl.flyers_flyer_reviews,
+        subCollName: FireSubColl.flyers_flyer_reviews,
         subDocName: review.reviewID,
         input: _review.toMap(),
       );
@@ -1392,7 +1392,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       context: context,
       collName: FireColl.flyers,
       docName: _superFlyer.flyerID,
-      subCollName: FireColl.flyers_flyer_reviews,
+      subCollName: FireSubColl.flyers_flyer_reviews,
       subDocName: reviewID,
     );
 

@@ -41,7 +41,7 @@ class ChatOps{
       context: context,
       collName: FireColl.questions,
       docName: questionID,
-      subCollName: FireColl.questions_question_chats,
+      subCollName: FireSubColl.questions_question_chats,
       subDocName: bzID,
     );
 
@@ -57,7 +57,7 @@ class ChatOps{
       context: context,
       collName: FireColl.questions,
       docName: questionID,
-      subCollName: FireColl.questions_question_chats,
+      subCollName: FireSubColl.questions_question_chats,
       subDocName: updatedChat.bzID,
       input: updatedChat.toMap(toJSON: false),
     );
@@ -71,7 +71,7 @@ class ChatOps{
       context: context,
       collName: FireColl.questions,
       docName: questionID,
-      subCollName: FireColl.questions_question_chats,
+      subCollName: FireSubColl.questions_question_chats,
       subDocName: bzID,
     );
 

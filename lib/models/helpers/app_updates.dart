@@ -1,43 +1,65 @@
 import 'package:flutter/material.dart';
 
 class AppState {
+  /// app update
   final bool appUpdateRequired;
-  final bool keywordsUpdateRequired;
+
+  /// translations
   final bool wordzUpdateRequired;
-  final bool zonesUpdateRequired;
   final bool languageUpdateRequired;
-  final bool sectionsUpdateRequired; // sequences and groups
+
+  /// literature
   final bool termsUpdateRequired;
   final bool aboutBldrsUpdateRequired;
+
+  /// notifications
   final bool notificationsUpdateRequired;
-  List<String> sponsors;
+
+  /// sponsors
+  final List<String> sponsors;
+
+  /// keywords
+  final bool sectionsUpdateRequired; // sequences and groups
+  final bool keywordsUpdateRequired;
+  final int numberOfKeywords;
+
+  /// zones
+  final bool zonesUpdateRequired;
 
   AppState({
     @required this.appUpdateRequired,
-    @required this.keywordsUpdateRequired,
     @required this.wordzUpdateRequired,
-    @required this.zonesUpdateRequired,
     @required this.languageUpdateRequired,
-    @required this.sectionsUpdateRequired,
     @required this.termsUpdateRequired,
     @required this.aboutBldrsUpdateRequired,
     @required this.notificationsUpdateRequired,
     @required this.sponsors,
+    @required this.sectionsUpdateRequired,
+    @required this.keywordsUpdateRequired,
+    @required this.numberOfKeywords,
+    @required this.zonesUpdateRequired,
 });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return
       {
         'appUpdateRequired' : appUpdateRequired,
-        'keywordsUpdateRequired' : keywordsUpdateRequired,
+
         'wordzUpdateRequired' : wordzUpdateRequired,
-        'zonesUpdateRequired' : zonesUpdateRequired,
         'languageUpdateRequired' : languageUpdateRequired,
-        'sectionsUpdateRequired' : sectionsUpdateRequired,
+
         'termsUpdateRequired' : termsUpdateRequired,
         'aboutBldrsUpdateRequired' : aboutBldrsUpdateRequired,
+
         'notificationsUpdateRequired' : notificationsUpdateRequired,
+
         'sponsors' : sponsors,
+
+        'sectionsUpdateRequired' : sectionsUpdateRequired,
+        'keywordsUpdateRequired' : keywordsUpdateRequired,
+        'numberOfKeywords' : numberOfKeywords,
+
+        'zonesUpdateRequired' : zonesUpdateRequired,
       };
   }
 // -----------------------------------------------------------------------------
@@ -45,15 +67,22 @@ class AppState {
     return
       AppState(
         appUpdateRequired : map['appUpdateRequired'],
-        keywordsUpdateRequired : map['keywordsUpdateRequired'],
+
         wordzUpdateRequired : map['wordzUpdateRequired'],
-        zonesUpdateRequired : map['zonesUpdateRequired'],
         languageUpdateRequired : map['languageUpdateRequired'],
-        sectionsUpdateRequired : map['sectionsUpdateRequired'],
+
         termsUpdateRequired : map['termsUpdateRequired'],
         aboutBldrsUpdateRequired : map['aboutBldrsUpdateRequired'],
+
         notificationsUpdateRequired : map['notificationsUpdateRequired'],
+
         sponsors : map['sponsors'],
+
+        sectionsUpdateRequired : map['sectionsUpdateRequired'],
+        keywordsUpdateRequired : map['keywordsUpdateRequired'],
+        numberOfKeywords: map['numberOfKeywords'],
+
+        zonesUpdateRequired : map['zonesUpdateRequired'],
       );
   }
 // -----------------------------------------------------------------------------
@@ -61,16 +90,22 @@ class AppState {
   static AppState initialState(){
     return
       AppState(
-          appUpdateRequired : false,
-          keywordsUpdateRequired : false,
-          wordzUpdateRequired : false,
-          zonesUpdateRequired : false,
-          languageUpdateRequired : false,
-          sectionsUpdateRequired : false,
-          termsUpdateRequired : false,
-          aboutBldrsUpdateRequired : false,
-          notificationsUpdateRequired : false,
-          sponsors : <String>[],
+        appUpdateRequired : false,
+
+        wordzUpdateRequired : false,
+        languageUpdateRequired : false,
+
+        termsUpdateRequired : false,
+        aboutBldrsUpdateRequired : false,
+
+        notificationsUpdateRequired : false,
+        sponsors : <String>[],
+
+        sectionsUpdateRequired : false,
+        keywordsUpdateRequired : false,
+        numberOfKeywords: 0,
+
+        zonesUpdateRequired : false,
       );
   }
 // -----------------------------------------------------------------------------

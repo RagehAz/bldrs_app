@@ -1,14 +1,49 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/dashboard/exotic_methods.dart';
 import 'package:bldrs/db/firestore/keyword_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
+import 'package:bldrs/models/helpers/app_updates.dart';
 import 'package:bldrs/models/kw/kw.dart';
+import 'package:bldrs/providers/general_provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 class KeywordsProvider extends ChangeNotifier{
 // -----------------------------------------------------------------------------
+  Future<List<KW>> _readAllKeywordsThenWipeLDBThenInsertAll(BuildContext context) async {
+
+    /// 1 - read firebase KeywordOps
+    final List<KW> _allKeywords = await KeywordOps.readKeywordsOps(
+      context: context,
+    );
+
+    /// 2 - if found on firebase, store in ldb keywords
+    if (Mapper.canLoopList(_allKeywords) == true){
+
+      /// TASK : temp until release
+      await RagehMethods.updateNumberOfKeywords(context, _allKeywords);
+
+      /// 2.1 - assure that LDB is clean first
+      await LDBOps.deleteAllMaps(docName: LDBDoc.keywords);
+
+      /// 2.2 insert all kerwords to LDB
+      await LDBOps.insertMaps(
+        inputs: KW.cipherKeywordsToMaps(_allKeywords),
+        docName: LDBDoc.keywords,
+        primaryKey: 'id',
+      );
+    }
+
+    return _allKeywords;
+  }
+// -----------------------------------------------------------------------------
   /// FETCHING KEYWORDS
   Future<List<KW>> fetchAllKeywords({@required BuildContext context}) async {
+
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+    final AppState _appState = _generalProvider.appState;
+
 
     List<KW> _allKeywords;
 
@@ -22,22 +57,24 @@ class KeywordsProvider extends ChangeNotifier{
         _allKeywords = KW.decipherKeywordsMaps(maps: _maps);
       }
 
-    /// 2 - if not found, search firebase
-    if (_allKeywords == null){
+    /// 2 - all keywords found in LDB
+    if (Mapper.canLoopList(_allKeywords)){
 
-      /// 2.1 read firebase KeywordOps
-      _allKeywords = await KeywordOps.readKeywordsOps(
-        context: context,
-      );
+      /// 2.A app state required readOps
+      if (_appState.keywordsUpdateRequired == true || _appState.numberOfKeywords != _allKeywords.length){
 
-      /// 2.2 if found on firebase, store in ldb keywords
-      if (Mapper.canLoopList(_allKeywords) == true){
-        await LDBOps.insertMaps(
-          inputs: KW.cipherKeywordsToMaps(_allKeywords),
-          docName: LDBDoc.keywords,
-          primaryKey: 'id',
-        );
+        /// 2.A.1 read firebase KeywordOps
+        _allKeywords = await _readAllKeywordsThenWipeLDBThenInsertAll(context);
+
       }
+
+    }
+
+    /// 3 - all keywords are not found in LDB
+    else {
+
+      /// 3.1 read firebase KeywordOps
+      _allKeywords = await _readAllKeywordsThenWipeLDBThenInsertAll(context);
 
     }
 
@@ -49,6 +86,11 @@ class KeywordsProvider extends ChangeNotifier{
 // -------------------------------------
   List<KW> get allKeywords {
     return <KW>[..._allKeywords];
+  }
+// -------------------------------------
+  void emptyAllKeywords(){
+    _allKeywords = [];
+    notifyListeners();
   }
 // -------------------------------------
   Future<void> getsetAllKeywords(BuildContext context) async {
@@ -107,5 +149,4 @@ class KeywordsProvider extends ChangeNotifier{
     return _path;
   }
 // -----------------------------------------------------------------------------
-
 }
