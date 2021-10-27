@@ -18,6 +18,7 @@ import 'package:bldrs/views/widgets/general/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/animations_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/animations/black_hole.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/00_test_lab.dart';
+import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/google_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/expansion_tiles_test.dart';
@@ -107,6 +108,8 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           ),
 
           ObeliskButton('TEST LAB', Iconz.Flyer, TestLab()),
+
+          ObeliskButton('Google map Test screen', Iconz.Flyer, LocationsTestScreen()),
 
           ObeliskButton('Expantion Tiles Test', Iconz.Flyer, ExpansionTilesTest()),
 
