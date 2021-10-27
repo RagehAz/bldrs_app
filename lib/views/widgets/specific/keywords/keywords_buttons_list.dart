@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/helpers/name_model.dart';
 import 'package:bldrs/models/kw/kw.dart';
-import 'package:bldrs/providers/streamers/keywords_provider.dart';
+import 'package:bldrs/providers/keywords_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart';
 import 'package:flutter/material.dart';

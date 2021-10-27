@@ -12,7 +12,7 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/general_provider.dart';
-import 'package:bldrs/providers/streamers/keywords_provider.dart';
+import 'package:bldrs/providers/keywords_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bzz_bubble.dart';

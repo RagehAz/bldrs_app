@@ -17,7 +17,7 @@ import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
-import 'package:bldrs/providers/streamers/keywords_provider.dart';
+import 'package:bldrs/providers/keywords_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,4 @@
-import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/atlas.dart';
-import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -42,8 +40,6 @@ class GoogleMapScreen extends StatefulWidget {
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
   GeoPoint _geoPoint;
-  String _previewImage;
-  BitmapDescriptor _mapMarker;
   CountryModel _countryModel;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -83,11 +79,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     if (_isInit) {
       _triggerLoading().then((_) async{
 
-        final BitmapDescriptor _marker = await Imagers.getCustomMapMarkerFromSVG(context: context, assetName: Iconz.FlyerPin);
+        // final BitmapDescriptor _marker = await Imagers.getCustomMapMarkerFromSVG(context: context, assetName: Iconz.FlyerPin);
 
         _triggerLoading(
             function: (){
-              _mapMarker = _marker;
+              // _mapMarker = _marker;
             }
         );
       });
@@ -97,13 +93,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  void _showPreview(double lat, double lng){
-    print('show Preview, Lat: $lat, lng: $lng');
-    final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(lat, lng);
-    setState(() {
-      _previewImage = staticMapImageUrl;
-    });
-  }
+//   String _previewImage;
+//   void _showPreview(double lat, double lng){
+//     print('show Preview, Lat: $lat, lng: $lng');
+//     final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(lat, lng);
+//     setState(() {
+//       _previewImage = staticMapImageUrl;
+//     });
+//   }
 // -----------------------------------------------------------------------------
   void _selectLocation({@required LatLng latLng}){
 
@@ -119,39 +116,40 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     print('_selectLocation :  $latLng');
   }
 // -----------------------------------------------------------------------------
-  Set<Marker> _getMarkers(){
-
-    Set<Marker> _markers = {};
-
-    if (_mapMarker != null && _geoPoint != null){
-      _markers = {
-        Marker(
-          markerId: MarkerId('m1'),
-          position: LatLng(_geoPoint?.longitude, _geoPoint?.longitude),
-          icon: _mapMarker ?? null,
-          anchor: Offset(0.5,1),
-          draggable: false,
-          visible: true,
-          zIndex: 0.0,
-          flat: true,
-        ),
-      };
-    }
-
-    return _markers;
-  }
+//   BitmapDescriptor _mapMarker;
+//   Set<Marker> _getMarkers(){
+//
+//     Set<Marker> _markers = {};
+//
+//     if (_mapMarker != null && _geoPoint != null){
+//       _markers = {
+//         Marker(
+//           markerId: MarkerId('m1'),
+//           position: LatLng(_geoPoint?.longitude, _geoPoint?.longitude),
+//           icon: _mapMarker ?? null,
+//           anchor: Offset(0.5,1),
+//           draggable: false,
+//           visible: true,
+//           zIndex: 0.0,
+//           flat: true,
+//         ),
+//       };
+//     }
+//
+//     return _markers;
+//   }
 // -----------------------------------------------------------------------------
   GoogleMapController _googleMapController;
   @override
   Widget build(BuildContext context) {
 
-    Set<Marker> theMarkers = _getMarkers();
+    // Set<Marker> theMarkers = _getMarkers();
 
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
     // double mapBoxWidth = screenWidth * 0.8;
     // double mapBoxHeight = mapBoxWidth;
-    final double _boxCorners = Ratioz.rrFlyerBottomCorners *  _screenWidth;
+    // final double _boxCorners = Ratioz.rrFlyerBottomCorners *  _screenWidth;
 
     final double _pinWidth = 30;
 

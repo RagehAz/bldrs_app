@@ -104,7 +104,7 @@ Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
   final Stream<QuerySnapshot> _reviewsStream = Fire.streamSubCollection(
     collName: FireColl.flyers,
     docName: flyerID,
-    subCollName: FireColl.flyers_flyer_reviews,
+    subCollName: FireSubColl.flyers_flyer_reviews,
     descending: true,
     orderBy: 'time',
   );

@@ -6,15 +6,30 @@ abstract class KeywordOps {
 // -----------------------------------------------------------------------------
   static Future<List<KW>> readKeywordsOps({@required BuildContext context}) async {
 
-    final Map<String,  dynamic> _keywordsMap = await Fire. readDoc(
+    const List<String> _keywordsDocs = const <String>[
+      FireDoc.keys_propertiesKeywords,
+      FireDoc.keys_designsKeywords,
+      FireDoc.keys_craftsKeywords,
+      FireDoc.keys_productsKeywords,
+      FireDoc.keys_equipmentKeywords,
+    ];
+
+    final List<KW> _allKeywords = <KW>[];
+
+    for (String doc in _keywordsDocs){
+
+      final Map<String,  dynamic> _keywordsMap = await Fire. readDoc(
         context: context,
         collName: FireColl.keys,
-        docName: FireColl.keys_keywords,
-    );
+        docName: doc,
+      );
 
-    final List<KW> _keywords = KW.decipherKeywordsMap(map: _keywordsMap);
+      final List<KW> _keywords = KW.decipherKeywordsMap(map: _keywordsMap);
 
-    return _keywords;
+      _allKeywords.addAll(_keywords);
+    }
+
+    return _allKeywords;
   }
 // -----------------------------------------------------------------------------
 
