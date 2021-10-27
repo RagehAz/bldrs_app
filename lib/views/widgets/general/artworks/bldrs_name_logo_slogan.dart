@@ -21,38 +21,22 @@ class LogoSlogan extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _screenHeight = Scale.superScreenHeight(context);
-
-    final  double _logoWidth = _screenHeight * 22 * 0.016 * sizeFactor;
-    final  double _logoHeight = _screenHeight * 18 * 0.016 * sizeFactor;
-
-    final SuperVerse _slogan = SuperVerse(
-      verse: Wordz.bldrsTagLine(context),
-      size: 4,
-      shadow: true,
-      weight: VerseWeight.bold,
-      color: Colorz.white255,
-      centered: true,
-      italic: true,
-      scaleFactor: sizeFactor,
-    );
-
-    final SizedBox _spacer = SizedBox(height: _screenHeight * 0.005);
+    final double _logoWidth = _screenHeight * 22 * 0.016 * sizeFactor;
+    final double _logoHeight = _screenHeight * 18 * 0.016 * sizeFactor;
+    final String _slogan = 'Real Estate\nConstruction\nSupplies';
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
 
-        _spacer,
-
-        /// SLOGAN
-        if (showTagLine == true && showSlogan == true)
-          _slogan,
+        SizedBox(height: _screenHeight * 0.005),
 
         /// NAME & LOGO
         Container(
           alignment: Alignment.center,
           width: _logoWidth,
           height: _logoHeight,
+          margin: EdgeInsets.all(_logoWidth * 0.025),
           child: Container(
             width: double.infinity,
             height: double.infinity,
@@ -61,26 +45,40 @@ class LogoSlogan extends StatelessWidget {
           ),
         ),
 
-        if (showTagLine == false && showSlogan == true)
-          _slogan,
+        if (showSlogan == true)
+          Container(
+            width: _logoWidth,
+            child: SuperVerse(
+              verse: _slogan.toUpperCase(),
+              size: 3,
+              shadow: true,
+              weight: VerseWeight.black,
+              color: Colorz.white255,
+              centered: false,
+              italic: true,
+              scaleFactor: sizeFactor,
+              maxLines: 3,
+              margin: _logoWidth * 0.025,
+            ),
+          ),
 
         /// TAG LINE
         if (showTagLine == true)
           Container(
             width: _logoWidth,
-            height: _logoHeight * 0.7,
+            // height: _logoHeight * 0.7,
             child:
             SuperVerse(
               verse: Wordz.bldrsDescription(context),
               size: 3,
               weight: VerseWeight.thin,
               shadow: true,
-              centered: true,
+              centered: false,
               italic: true,
               color: Colorz.white255,
               maxLines: 5,
               scaleFactor: sizeFactor,
-
+              margin: _logoWidth * 0.025,
             ),
 
 
