@@ -57,7 +57,7 @@ class _HomeWallState extends State<HomeWall> {
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-              child: const SuperVerse(
+              child: SuperVerse(
                 verse: 'Promoted',
                 size: 1,
                 centered: false,

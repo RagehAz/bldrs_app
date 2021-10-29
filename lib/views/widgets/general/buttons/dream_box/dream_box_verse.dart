@@ -313,7 +313,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                         decoration: BoxDecoration(
                           // color: Colorz.Yellow,
                           borderRadius: iconCorners,
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: <Color>[Colorz.black80, Colorz.black125],

@@ -44,8 +44,8 @@ class EmojiTestScreen extends StatelessWidget {
         appBarType: AppBarType.Basic,
         layoutWidget: GridView.builder(
           itemCount: _emojis.length,
-            padding: EdgeInsets.only(top: Ratioz.stratosphere, bottom: 100),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: 100),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 7,
               mainAxisSpacing: 2.5,
               crossAxisSpacing: 2.5,

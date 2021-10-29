@@ -102,7 +102,7 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
       layoutWidget: Container(
         width: 300,
         height: Scale.superScreenHeight(context),
-        padding: EdgeInsets.only(top: Ratioz.stratosphere),
+        padding: const EdgeInsets.only(top: Ratioz.stratosphere),
         child: MaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
@@ -112,7 +112,7 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
                 width: 300,
                 height: Scale.superScreenHeight(context),
                 color: Colorz.bloodTest,
-                child: BldrsChain(boxWidth: 300,),
+                child: const BldrsChain(boxWidth: 300,),
               ),
 
             ],

@@ -24,7 +24,7 @@ class PropertyUse extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
 
-        const SuperVerse(
+        SuperVerse(
           verse: 'Property Use',
           margin: Ratioz.appBarMargin * 2,
           centered: false,

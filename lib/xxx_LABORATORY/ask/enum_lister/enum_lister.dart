@@ -49,9 +49,9 @@ class EnumLister extends StatelessWidget {
             height: listHeight,
             width: listWidth,
             margin: const EdgeInsets.only(left: Ratioz.appBarMargin * 2),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 // color: Colorz.BlackSmoke,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(Ratioz.appBarButtonCorner),
                   topRight: Radius.circular(Ratioz.appBarButtonCorner),
                 ),
@@ -74,9 +74,9 @@ class EnumLister extends StatelessWidget {
                 BlurLayer(
                   width: listWidth,
                   height: listHeight,
-                  borders: BorderRadius.only(
-                    topLeft: Radius.circular(Ratioz.appBarButtonCorner),
-                    topRight: Radius.circular(Ratioz.appBarButtonCorner),
+                  borders: const BorderRadius.only(
+                    topLeft: const Radius.circular(Ratioz.appBarButtonCorner),
+                    topRight: const Radius.circular(Ratioz.appBarButtonCorner),
                   ),
                   blur: 10,
                 ),
@@ -133,8 +133,8 @@ class EnumLister extends StatelessWidget {
                       Expanded(
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
+                          decoration: const BoxDecoration(
+                            gradient: const LinearGradient(
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
                               colors: <Color>[Colorz.black200, Colorz.black0],
@@ -142,7 +142,7 @@ class EnumLister extends StatelessWidget {
                             )
                           ),
                           child: ListView.builder(
-                            physics: AlwaysScrollableScrollPhysics(),
+                            physics: const AlwaysScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: stringsList.length,
                             padding: const EdgeInsets.only(bottom: Ratioz.pyramidsHeight, top: Ratioz.appBarMargin ),

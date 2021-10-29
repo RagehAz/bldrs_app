@@ -92,7 +92,7 @@ class AuthorBubble extends StatelessWidget {
             height: flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 0.4,
             // color: Colorz.BloodTest,
             alignment: Aligners.superCenterAlignment(context),
-            padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
+            padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
             child: SuperVerse(
               verse: 'The Team',
               size: 2,

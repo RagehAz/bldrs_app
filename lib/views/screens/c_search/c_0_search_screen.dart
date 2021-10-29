@@ -610,7 +610,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 physics: const BouncingScrollPhysics(),
                 children: <Widget>[
 
-                  Stratosphere(heightFactor: 1.65,),
+                  const Stratosphere(heightFactor: 1.65,),
 
                   Container(
                     width: _screenWidth,

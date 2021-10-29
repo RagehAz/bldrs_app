@@ -26,8 +26,8 @@ class GeneralStatistics extends StatelessWidget {
 
         const Expander(),
 
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+        const Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
           child: const BldrsName(
               size: 40,
           ),
@@ -43,7 +43,7 @@ class GeneralStatistics extends StatelessWidget {
         builder: (context, snapshot){
 
           if(StreamChecker.connectionIsLoading(snapshot) == true){
-            return Loading(loading: true,);
+            return const Loading(loading: true,);
 
           } else {
 

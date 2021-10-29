@@ -70,7 +70,7 @@ class AddAuthorScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
 
-                    DreamBox(
+                    const DreamBox(
                       height: 50,
                       color: Colorz.yellow255,
                       icon: Iconz.Share,

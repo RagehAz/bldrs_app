@@ -104,7 +104,7 @@ class Inception extends StatelessWidget {
           collapsedHeight: _buttonHeight,
           firstHeadline: Name.getNameByCurrentLingoFromNames(context, son.names),
           secondHeadline: null,
-          margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+          margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
           child: Column(
             children: <Widget>[
 

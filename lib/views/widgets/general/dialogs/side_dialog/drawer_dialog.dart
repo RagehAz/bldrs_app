@@ -47,7 +47,7 @@ class DrawerDialog extends StatelessWidget {
     return Container(
       width: _drawerWidth,
       child: Drawer(
-        key: ValueKey<String>('drawer'),
+        key: const ValueKey<String>('drawer'),
         elevation: 10,
         child: Container(
           width: _drawerWidth,

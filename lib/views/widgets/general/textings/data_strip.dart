@@ -154,7 +154,7 @@ class DataStrip extends StatelessWidget {
                     SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
-                      padding: EdgeInsets.symmetric(horizontal: _keyButtonMargin),
+                      padding: const EdgeInsets.symmetric(horizontal: _keyButtonMargin),
                       child: SuperVerse(
                         verse: _valueString,
                         size: 1,

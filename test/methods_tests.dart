@@ -282,20 +282,20 @@ void main(){
 // -----------------------------------------------------------------------------
   test('sqlCipherGeoPoint and sqlDecipherGeoPoint', (){
 
-    GeoPoint _point = new GeoPoint(12.3, 45.6);
+    GeoPoint _point = const GeoPoint(12.3, 45.6);
 
     String _string = Atlas.cipherGeoPoint(point: _point, toJSON: true);
 
     GeoPoint _pointAgain = Atlas.decipherGeoPoint(point: _string, fromJSON: true);
 
-    dynamic _expected = GeoPoint(12.3, 45.6);
+    dynamic _expected = const GeoPoint(12.3, 45.6);
     expect(_pointAgain, _expected);
 
   });
 // -----------------------------------------------------------------------------
   test('sqlCipherSpec and sqlDecipherSpec', (){
 
-    Spec _spec = Spec(specType: SpecType.inStock, value: false);
+    Spec _spec = const Spec(specType: SpecType.inStock, value: false);
     String _specString = Spec.sqlCipherSpec(_spec);
 
     Spec _specAgain = Spec.sqlDecipherSpec(_specString);

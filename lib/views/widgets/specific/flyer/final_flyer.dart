@@ -1231,7 +1231,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                       Container(
                         width: _dialogClearWidth,
                         height: 40,
-                        margin: EdgeInsets.only(top: Ratioz.appBarPadding),
+                        margin: const EdgeInsets.only(top: Ratioz.appBarPadding),
                         alignment: Aligners.superInverseCenterAlignment(context),
                         child: DreamBox(
                           height: 40,

@@ -597,7 +597,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               /// --- type BzName
               TextFieldBubble(
                 textController: _bzNameTextController,
-                key: Key('bzName'),
+                key: const Key('bzName'),
                 title: _currentBzForm == BzForm.individual ? 'Business Entity name' : Wordz.companyName(context),
                 hintText: '...',
                 counterIsOn: true,
@@ -611,7 +611,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               /// --- type BzScope
               TextFieldBubble(
                 textController: _bzScopeTextController,
-                key: Key('bzScope'),
+                key: const Key('bzScope'),
                 title: '${Wordz.scopeOfServices(context)} :',
                 hintText: '...',
                 counterIsOn: true,
@@ -625,7 +625,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               /// --- type BzAbout
               TextFieldBubble(
                 textController: _bzAboutTextController,
-                key: Key('bzAbout'),
+                key: const Key('bzAbout'),
                 title: _bzAboutBubbleTitle,
                 hintText: '...',
                 counterIsOn: true,
@@ -650,7 +650,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               /// --- type AuthorName
               TextFieldBubble(
                 textController: _authorNameTextController,
-                key: Key('authorName'),
+                key: const Key('authorName'),
                 title: Wordz.authorName(context),
                 hintText: '...',
                 counterIsOn: true,
@@ -664,7 +664,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               /// --- type AuthorTitle
               TextFieldBubble(
                 textController: _authorTitleTextController,
-                key: Key('authorTitle'),
+                key: const Key('authorTitle'),
                 title: Wordz.jobTitle(context),
                 hintText: '...',
                 counterIsOn: true,

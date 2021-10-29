@@ -29,7 +29,7 @@ static const int _fadeCycleDuration = 750;
 
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: _fadeCycleDuration),
+      duration: const Duration(milliseconds: _fadeCycleDuration),
     );
 
   }

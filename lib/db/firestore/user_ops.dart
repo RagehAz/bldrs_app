@@ -241,7 +241,7 @@ abstract class UserOps{
           boolDialog: null,
           height: null,
           body: 'Waiting',
-          child: Loading(loading: true,),
+          child: const Loading(loading: true,),
         );
 
         /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
@@ -303,7 +303,7 @@ abstract class UserOps{
               boolDialog: null,
               height: null,
               body: 'Waiting',
-              child: Loading(loading: true,),
+              child: const Loading(loading: true,),
             );
 
             /// G - DEACTIVATE all deactivable bzz
@@ -427,7 +427,7 @@ abstract class UserOps{
           boolDialog: null,
           height: null,
           body: 'Waiting',
-          child: Loading(loading: true,),
+          child: const Loading(loading: true,),
         );
 
         /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
@@ -488,7 +488,7 @@ abstract class UserOps{
               boolDialog: null,
               height: null,
               body: 'Waiting',
-              child: Loading(loading: true,),
+              child: const Loading(loading: true,),
             );
 
             /// G - DELETE all deactivable bzz : firestore/bzz/bzID
@@ -549,7 +549,7 @@ abstract class UserOps{
           boolDialog: null,
           height: null,
           body: 'Waiting',
-          child: Loading(loading: true,),
+          child: const Loading(loading: true,),
         );
 
 

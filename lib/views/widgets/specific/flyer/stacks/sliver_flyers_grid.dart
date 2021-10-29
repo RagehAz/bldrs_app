@@ -34,7 +34,7 @@ class SliverFlyersGrid extends StatelessWidget {
     final int _numberOfColumns = GalleryGrid.gridColumnCount(flyers.length);
 
     return SliverPadding(
-      padding: EdgeInsets.all(spacing),
+      padding: const EdgeInsets.all(spacing),
       sliver: SliverGrid(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: _numberOfColumns,

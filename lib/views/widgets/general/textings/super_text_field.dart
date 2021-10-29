@@ -232,7 +232,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
       border: Borderers.superOutlineInputBorder(Colorz.linkedIn, _labelCorner),
       disabledBorder: Borderers.superOutlineInputBorder(Colorz.grey225, _labelCorner),
       counterText: '${widget.textController?.text?.length} / ${widget.maxLength}',
-      counter: widget.counterIsOn ? null : Offstage(),
+      counter: widget.counterIsOn ? null : const Offstage(),
       counterStyle: superTextStyle(Colorz.white200, 0.7),
 
       // SOME BULLSHIT
@@ -326,7 +326,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           enableInteractiveSelection: true, // makes test selectable
           decoration: _inputDecoration,
           cursorColor: Colorz.yellow255,
-          cursorRadius: Radius.circular(3),
+          cursorRadius: const Radius.circular(3),
           cursorWidth: 2,
           cursorHeight: null,
           textAlign: _textAlign,
@@ -361,7 +361,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           enableInteractiveSelection: true, // makes test selectable
           decoration: _inputDecoration,
           cursorColor: Colorz.yellow255,
-          cursorRadius: Radius.circular(3),
+          cursorRadius: const Radius.circular(3),
           cursorWidth: 2,
           cursorHeight: null,
           textAlign: _textAlign,

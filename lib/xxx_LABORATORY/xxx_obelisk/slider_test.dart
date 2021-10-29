@@ -170,18 +170,18 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
                 thumbColor: Colorz.black230,
                 showValueIndicator: ShowValueIndicator.always,
                 valueIndicatorColor: Colorz.green125,
-                valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-                tickMarkShape: RoundSliderTickMarkShape(),
-                overlayShape: RoundSliderOverlayShape(overlayRadius: 30),
-                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15),
-                trackShape: RoundedRectSliderTrackShape(),
+                valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+                tickMarkShape: const RoundSliderTickMarkShape(),
+                overlayShape: const RoundSliderOverlayShape(overlayRadius: 30),
+                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 15),
+                trackShape: const RoundedRectSliderTrackShape(),
                 // valueIndicatorTextStyle: TextStyle(
                 //   height: 10,
                 //   color: Colorz.BabyBlue,
                 //
                 // ),
 
-                rangeThumbShape: RoundRangeSliderThumbShape(
+                rangeThumbShape: const RoundRangeSliderThumbShape(
                   enabledThumbRadius: 10,
                   disabledThumbRadius: 30,
                   elevation: 10,

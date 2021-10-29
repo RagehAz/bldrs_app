@@ -47,7 +47,7 @@ class GoldenScroll extends StatelessWidget {
 
             SelectableText(
               scrollScript,
-              toolbarOptions: ToolbarOptions(
+              toolbarOptions: const ToolbarOptions(
                 selectAll: true,
                 copy: true,
               ),

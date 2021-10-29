@@ -284,7 +284,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             physics: const NeverScrollableScrollPhysics(),
-                            key: PageStorageKey<String>('miniHeaderStrip'),
+                            key: const PageStorageKey<String>('miniHeaderStrip'),
                             // mainAxisAlignment: MainAxisAlignment.center,
                             // crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[

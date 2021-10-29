@@ -49,7 +49,7 @@ class InfoPage extends StatelessWidget {
 
     final double _headerHeight = FlyerBox.headerBoxHeight(false, flyerBoxWidth);
 
-    final EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
+    final EdgeInsets _bubbleMargins = const EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
     // double _cornerSmall = flyerBoxWidth * Ratioz.xxflyerTopCorners;
     // double _cornerBig = (flyerBoxWidth - (Ratioz.appBarPadding * 2)) * Ratioz.xxflyerBottomCorners;
     final BorderRadius _bubbleCorners = Borderers.superBorderAll(context, flyerBoxWidth * Ratioz.xxflyerTopCorners);
@@ -87,7 +87,7 @@ class InfoPage extends StatelessWidget {
         /// HEADER FOOTPRINT ZONE
         // if (_editMode == false)
           Container(
-            key: ValueKey<String>('info_page_top_space'),
+            key: const ValueKey<String>('info_page_top_space'),
             width: flyerBoxWidth,
             height: _headerHeight,
           ),
@@ -95,7 +95,7 @@ class InfoPage extends StatelessWidget {
         /// ALL STATS
         if (_editMode == false)
           Bubble(
-            key: ValueKey<String>('info_page_stats_bubble'),
+            key: const ValueKey<String>('info_page_stats_bubble'),
             width: _bubbleWidth,
             margins: _bubbleMargins,
             corners: _bubbleCorners,
@@ -131,7 +131,7 @@ class InfoPage extends StatelessWidget {
         /// Flyer Type
         if (_editMode == true)
           Bubble(
-            key: ValueKey<String>('info_page_flyer_type_bubble'),
+            key: const ValueKey<String>('info_page_flyer_type_bubble'),
             width: _bubbleWidth,
             margins: _bubbleMargins,
             corners: _bubbleCorners,
@@ -152,7 +152,7 @@ class InfoPage extends StatelessWidget {
         /// ZONE
         if (_editMode == true)
           Bubble(
-            key: ValueKey<String>('info_page_cone_bubble'),
+            key: const ValueKey<String>('info_page_cone_bubble'),
             width: _bubbleWidth,
             margins: _bubbleMargins,
             corners: _bubbleCorners,
@@ -170,7 +170,7 @@ class InfoPage extends StatelessWidget {
         /// FLYER INFO
         if (_flyerInfoExists)
           ParagraphBubble(
-            key: ValueKey<String>('info_page_flyer_info_bubble'),
+            key: const ValueKey<String>('info_page_flyer_info_bubble'),
             bubbleWidth: _bubbleWidth,
             margins: _bubbleMargins,
             corners: _bubbleCorners,
@@ -215,7 +215,7 @@ class InfoPage extends StatelessWidget {
         /// KEYWORDS
         if ((superFlyer.keywords != null && superFlyer.keywords.length != 0) || _editMode == true)
           KeywordsBubble(
-            key: ValueKey<String>('info_page_keywords_bubble'),
+            key: const ValueKey<String>('info_page_keywords_bubble'),
             bubbleWidth: _bubbleWidth,
             margins: _bubbleMargins,
             corners: _keywordsBubbleCorners,
@@ -227,7 +227,7 @@ class InfoPage extends StatelessWidget {
           ),
 
         ReviewBubble(
-          key: ValueKey<String>('info_page_review_bubble'),
+          key: const ValueKey<String>('info_page_review_bubble'),
           flyerBoxWidth: flyerBoxWidth,
           superFlyer: superFlyer,
         ),

@@ -79,8 +79,8 @@ class SlidesShelf extends StatelessWidget {
                 itemCount: pics.length,
                 scrollDirection: Axis.horizontal,
                 itemExtent: _flyerZoneWidth + Ratioz.appBarPadding* 1.5,
-                physics: BouncingScrollPhysics(),
-                padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
                 addAutomaticKeepAlives: true,
                 itemBuilder: (ctx, index){
 
@@ -88,7 +88,7 @@ class SlidesShelf extends StatelessWidget {
 
                   return
                     Container(
-                      margin: EdgeInsets.only(left: Ratioz.appBarPadding, right: Ratioz.appBarPadding, bottom: Ratioz.appBarPadding),
+                      margin: const EdgeInsets.only(left: Ratioz.appBarPadding, right: Ratioz.appBarPadding, bottom: Ratioz.appBarPadding),
                       alignment: Alignment.center,
                       child: Column(
                         children: <Widget>[
@@ -114,7 +114,7 @@ class SlidesShelf extends StatelessWidget {
                           ),
 
                           /// SPACER
-                          SizedBox(
+                          const SizedBox(
                             height: Ratioz.appBarPadding,
                           ),
 

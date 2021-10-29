@@ -33,7 +33,7 @@ Widget userStreamBuilder({
       stream: _usersProvider.myUserModelStream,
       builder: (context, snapshot){
         if(StreamChecker.connectionIsLoading(snapshot) == true){
-          return Loading(loading: true,);
+          return const Loading(loading: true,);
         } else {
           final UserModel userModel = snapshot.data;
           return
@@ -59,7 +59,7 @@ Widget userModelBuilder({
       builder: (ctx, snapshot){
 
         if (snapshot.connectionState == ConnectionState.waiting){
-          return Loading(loading: true,);
+          return const Loading(loading: true,);
         } else if (snapshot.error != null){
           return Container(); // superDialog(context, snapshot.error, 'error');
         } else {

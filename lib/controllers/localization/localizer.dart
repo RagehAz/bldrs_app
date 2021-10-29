@@ -123,13 +123,13 @@ class Localizer{
   static List<Locale> getSupportedLocales(){
 
     List<Locale> _supportedLocales = <Locale>[
-      Locale('en', 'US'),
-      Locale('ar', 'EG'),
-      Locale('es', 'ES'),
-      Locale('fr', 'FR'),
-      Locale('zh', 'CN'),
-      Locale('de', 'DE'),
-      Locale('it', 'IT'),
+      const Locale('en', 'US'),
+      const Locale('ar', 'EG'),
+      const Locale('es', 'ES'),
+      const Locale('fr', 'FR'),
+      const Locale('zh', 'CN'),
+      const Locale('de', 'DE'),
+      const Locale('it', 'IT'),
     ];
 
 

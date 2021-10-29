@@ -63,8 +63,8 @@ class TopDialog extends StatelessWidget {
 
       /// ANIMATION ----------------------------------------------
       forwardAnimationCurve: Curves.easeInOut,
-      duration: Duration(seconds: 6),
-      animationDuration: Duration(milliseconds: 400),
+      duration: const Duration(seconds: 6),
+      animationDuration: const Duration(milliseconds: 400),
       reverseAnimationCurve: Curves.easeInOut,
 
       ///   LEFT BAR INDICATOR ----------------------------------------------
@@ -160,12 +160,12 @@ class TopDialog extends StatelessWidget {
     return Flushbar(
       message: verse,
       onTap: onTap,
-      duration: Duration(milliseconds: 5000),
+      duration: const Duration(milliseconds: 5000),
       title: 'wtf',
       padding: EdgeInsets.zero,
       margin: EdgeInsets.zero,
       borderRadius: Borderers.superBorderAll(context, 0),
-      animationDuration: Duration(milliseconds: 5000),
+      animationDuration: const Duration(milliseconds: 5000),
       backgroundColor: Colorz.black10,
       barBlur: 5,
       backgroundGradient: null,
@@ -180,7 +180,7 @@ class TopDialog extends StatelessWidget {
       forwardAnimationCurve: Curves.easeInOut,
       isDismissible: true,
       leftBarIndicatorColor: Colorz.blue125,
-      mainButton: DreamBox(
+      mainButton: const DreamBox(
         height: 40,
         width: 100,
         verse: 'main button',
@@ -212,7 +212,7 @@ class TopDialog extends StatelessWidget {
         size: 1,
       ),
       // userInputForm: ,
-      icon: DreamBox(
+      icon: const DreamBox(
         width: 40,
         height: 40,
         icon: Iconz.DvGouran,

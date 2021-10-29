@@ -1,6 +1,7 @@
 linter:
   rules:
     parameter_assignments: false
+    prefer_const_constructors: true
 
 analyzer:
   errors:

@@ -52,7 +52,7 @@ class SearchResultWall extends StatelessWidget {
               verse: _bz.name,
               secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
               icon: _bz.logo,
-              margins: EdgeInsets.only(top: _bzButtonMargin),
+              margins: const EdgeInsets.only(top: _bzButtonMargin),
               verseScaleFactor: 0.7,
               verseCentered: false,
               onTap: () async {
