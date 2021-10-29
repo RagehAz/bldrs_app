@@ -38,7 +38,7 @@ class BzTargetsTab extends StatelessWidget {
     
     return ListView(
       physics: const BouncingScrollPhysics(),
-      children: <Widget>[
+      children: const <Widget>[
 
         const TargetsBubble(),
 

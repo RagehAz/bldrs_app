@@ -81,7 +81,7 @@ class PropertySearchCriteria extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colorz.white10,
           borderRadius: BorderRadius.circular(corners),
-          boxShadow: <BoxShadow>[
+          boxShadow: const <BoxShadow>[
             const CustomBoxShadow(
                 color: _bubble == true ? Colorz.black200 : Colorz.nothing,
                 offset: const Offset(0, 0),
@@ -180,7 +180,7 @@ class PropertySearchCriteria extends StatelessWidget {
                     FieldsRow(
                       openList: (){print('Locale bitch');},
                       title: 'Location of property',
-                      fields: <String>['Heliopolis', 'Cairo', 'Egypt'],
+                      fields: const <String>['Heliopolis', 'Cairo', 'Egypt'],
                     ),
 
                     /// --- ADD MORE DETAILS

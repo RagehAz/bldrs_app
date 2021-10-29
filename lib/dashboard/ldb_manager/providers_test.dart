@@ -106,9 +106,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
         print('wtf');
       },
 
-      appBarRowWidgets: <Widget>[
-
-      ],
+      appBarRowWidgets: const <Widget>[],
 
       layoutWidget: Center(
         child: MaxBounceNavigator(

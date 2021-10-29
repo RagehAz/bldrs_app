@@ -113,8 +113,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
   Widget build(BuildContext context) {
 
     const Color _boxColor = Colorz.nothing;
-    final double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
-    final double _scalingFactor = 1; //scaleFactor == null ? 1: scaleFactor;
+    const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
+    const double _scalingFactor = 1; //scaleFactor == null ? 1: scaleFactor;
     /// --- AVAILABLE FONT SIZES -----------------------------------------------
     final int _size = widget.inputSize;
     /// takes values from 0 to 8 in the entire app
@@ -130,8 +130,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
     final double _verseWordSpacing = SuperVerse.superVerseWordSpacing(_verseSize);
     /// --- SHADOWS -----------------------------------------------
     final bool _shadow = widget.inputShadow;
-    final double _shadowBlur = 0;
-    final double _shadowYOffset = 0;
+    const double _shadowBlur = 0;
+    const double _shadowYOffset = 0;
     final double _shadowXOffset = SuperVerse.superVerseXOffset(_weight, _verseSize);
     final double _secondShadowXOffset = -0.35 * _shadowXOffset;
     final Color _leftShadow = widget.inputColor == Colorz.black230 ? Colorz.white125
@@ -197,7 +197,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
         wordSpacing: _verseWordSpacing,
         fontSize: _verseSize * _sizeFactor,
         fontWeight: SuperVerse.superVerseWeight(VerseWeight.thin),
-        shadows: [],
+        shadows: const [],
       );
     }
 // -----------------------------------------------------------------------------

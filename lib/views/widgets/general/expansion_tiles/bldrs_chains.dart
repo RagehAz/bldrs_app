@@ -68,7 +68,7 @@ class Inception extends StatelessWidget {
     final _offset = (2 * Ratioz.appBarMargin) * level;
 
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _buttonHeight = buttonHeight;
+    const double _buttonHeight = buttonHeight;
     final double _boxWidth = boxWidth ?? _screenWidth - (2 * Ratioz.appBarMargin);
     final double _buttonWidth = _boxWidth - _offset;
 

@@ -263,7 +263,7 @@ abstract class Imagers{
   final ui.PictureRecorder _pictureRecorder = ui.PictureRecorder();
   final Canvas _canvas = Canvas(_pictureRecorder);
   final Paint _paint = Paint()..color = Colors.transparent;
-  final Radius _radius = const Radius.circular(20.0);
+  const Radius _radius = const Radius.circular(20.0);
 
   _canvas.drawRRect(
       RRect.fromRectAndCorners(
@@ -585,7 +585,7 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
       ;
       /// slide aspect ratio : 1 / 1.74 ~= 0.575
       final double _flyerZoneHeight = flyerBoxWidth * Ratioz.xxflyerZoneHeight;
-      final double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
+      const double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
 
       double _fittedImageWidth;
       double _fittedImageHeight;

@@ -186,9 +186,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
         print('wtf');
       },
 
-      appBarRowWidgets: <Widget>[
-
-      ],
+      appBarRowWidgets: const <Widget>[],
 
       layoutWidget: Center(
         child: MaxBounceNavigator(

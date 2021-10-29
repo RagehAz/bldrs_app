@@ -19,7 +19,7 @@ class ChatBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // double _bubbleWidth = Scale.superScreenWidth(context);
-    final double _corner = Ratioz.appBarCorner;
+    const double _corner = Ratioz.appBarCorner;
     // BorderRadius _bubbleBorderss = Borderers.superBorderAll(context, _corner);
 
     final BorderRadius _bubbleBorders = isMyVerse ?

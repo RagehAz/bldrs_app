@@ -22,7 +22,7 @@ class GeneralStatistics extends StatelessWidget {
       appBarType: AppBarType.Basic,
       sky: Sky.Black,
       pageTitle: Wordz.allahoAkbar(context),
-      appBarRowWidgets: <Widget>[
+      appBarRowWidgets: const <Widget>[
 
         const Expander(),
 

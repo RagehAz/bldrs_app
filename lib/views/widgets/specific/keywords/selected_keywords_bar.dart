@@ -90,7 +90,7 @@ class SelectedKeywordsBar extends StatelessWidget {
                 // highlightedKeyword.flyerType == 'cities' ? true
                 //     : false;
 
-                final bool _isHighlighted = false;
+                const bool _isHighlighted = false;
                 // _highlightedMapIsCity == true && _keyword.flyerType == 'cities'? true
                 //     :
                 // _highlightedMapIsCity == true && _keyword.flyerType == 'area'? true

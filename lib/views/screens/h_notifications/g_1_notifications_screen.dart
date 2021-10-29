@@ -222,7 +222,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       // print('confirmDismiss : direction is : $direction');
 
                       /// if needed to make the bubble un-dismissible set to false
-                      final bool _dismissible = true;
+                      const bool _dismissible = true;
 
                       return _dismissible;
                       },

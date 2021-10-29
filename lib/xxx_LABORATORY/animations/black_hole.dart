@@ -55,7 +55,7 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
       pageTitle: 'Enter The Black-Hole',
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
-      appBarRowWidgets: <Widget>[],
+      appBarRowWidgets: const <Widget>[],
       sky: Sky.Night,
       tappingRageh: (){},
       layoutWidget: Center(
