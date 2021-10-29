@@ -8,6 +8,7 @@
             "name": "bldrs.net",
             "request": "launch",
             "type": "dart"
+//            "flutterMode" :  "profile"
         }
     ]
 }
