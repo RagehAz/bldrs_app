@@ -33,14 +33,14 @@ class NavDialog extends StatelessWidget {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     await ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
         backgroundColor: Colorz.nothing,
 
         behavior: _isBig == true ? SnackBarBehavior.fixed :  SnackBarBehavior.fixed,
         // width: _isBig == true ? _screenWidth : null,
 
         // margin: _isBig == true ? EdgeInsets.all(0) : null,
-        padding: EdgeInsets.only(top: 0),
+        padding: const EdgeInsets.only(top: 0),
         // onVisible: () {
         //   print('is visible now');
         // },

@@ -49,7 +49,7 @@ class ReviewCard extends StatelessWidget {
           /// REVIEW BODY
           Container(
             width: width,
-            padding: EdgeInsets.all(Ratioz.appBarMargin),
+            padding: const EdgeInsets.all(Ratioz.appBarMargin),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

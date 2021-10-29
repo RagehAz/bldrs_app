@@ -87,7 +87,7 @@ class _FontLabState extends State<FontLab> {
         body: Stack(
           children: <Widget>[
 
-            NightSky(),
+            const NightSky(),
 
             Scroller(
               child: ListView(
@@ -567,7 +567,7 @@ class _FontLabState extends State<FontLab> {
 
                   ),
 
-                  GoldenScroll(
+                  const GoldenScroll(
                     scrollScript: 'the_golden_scroll.dart',
                     scrollTitle: 'Scroll title',
                   ),
@@ -667,7 +667,7 @@ class _FontLabState extends State<FontLab> {
               ),
             ),
 
-            Pyramids(
+            const Pyramids(
               pyramidsIcon: Iconz.PyramidsYellow,
               loading: true,
             ),

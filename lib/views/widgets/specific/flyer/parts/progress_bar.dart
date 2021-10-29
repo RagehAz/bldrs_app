@@ -58,7 +58,7 @@ class ProgressBar extends StatelessWidget {
                   child: LinearProgressIndicator(
                     backgroundColor: Colorz.nothing,
                     minHeight: Strips.stripThickness(flyerBoxWidth),
-                    valueColor: AlwaysStoppedAnimation(Strips.stripFadedColor),
+                    valueColor: const AlwaysStoppedAnimation(Strips.stripFadedColor),
 
                   ),
                 ),

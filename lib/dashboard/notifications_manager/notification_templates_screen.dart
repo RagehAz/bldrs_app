@@ -113,7 +113,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
           icon: Iconz.Clock,
           color: Colorz.blue20,
           corners: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
-          margins: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           onTap: (){
             print('to dismissed notifications');
           },
@@ -177,8 +177,8 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
             key: ValueKey<String>(_notiModel.id),
             crossAxisEndOffset: 0,
             direction: DismissDirection.horizontal,
-            movementDuration: Duration(milliseconds: 250),
-            resizeDuration: Duration(milliseconds: 250),
+            movementDuration: const Duration(milliseconds: 250),
+            resizeDuration: const Duration(milliseconds: 250),
             confirmDismiss: (DismissDirection direction) async {
               // print('confirmDismiss : direction is : $direction');
 

@@ -107,7 +107,7 @@ class BzPowersTab extends StatelessWidget {
             Container(
               width: Bubble.clearWidth(context),
               height: 100,
-              margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+              margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
               decoration: BoxDecoration(
                 color: Colorz.bloodTest,
                 borderRadius: Bubble.clearBorders(context),
@@ -121,12 +121,12 @@ class BzPowersTab extends StatelessWidget {
             Container(
               width: Bubble.clearWidth(context),
               height: 100,
-              margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+              margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
               alignment: Alignment.center,
               child: Container(
                 width: Bubble.clearWidth(context) - 150,
                 height: 100,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colorz.bloodTest,
                   // borderRadius: Bubble.clearBorders(context),
                 ),
@@ -140,7 +140,7 @@ class BzPowersTab extends StatelessWidget {
             Container(
               width: Bubble.clearWidth(context),
               height: 100,
-              margin: EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+              margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
               decoration: BoxDecoration(
                 color: Colorz.bloodTest,
                 borderRadius: Bubble.clearBorders(context),

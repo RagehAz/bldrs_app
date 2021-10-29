@@ -376,7 +376,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             /// --- EDIT NAME
             TextFieldBubble(
               textController: _nameController,
-              key: Key('name'),
+              key: const Key('name'),
               fieldIsFormField: true,
               title: Wordz.name(context),
               keyboardTextInputType: TextInputType.name,
@@ -388,7 +388,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             /// --- EDIT JOB TITLE
             TextFieldBubble(
               textController: _titleController,
-              key: Key('title'),
+              key: const Key('title'),
               fieldIsFormField: true,
               title: Wordz.jobTitle(context),
               keyboardTextInputType: TextInputType.name,
@@ -400,7 +400,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             /// --- EDIT COMPANY NAME
             TextFieldBubble(
               textController: _companyController,
-              key: Key('company'),
+              key: const Key('company'),
               fieldIsFormField: true,
               title: Wordz.companyName(context),
               keyboardTextInputType: TextInputType.name,

@@ -135,7 +135,7 @@ class _StartingScreenState extends State<StartingScreen> {
 
               // const Stratosphere(),
 
-              LogoSlogan(
+              const LogoSlogan(
                 showTagLine: true,
                 showSlogan: true,
                 sizeFactor: 0.8,

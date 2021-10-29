@@ -97,7 +97,7 @@ class FlyersShelf extends StatelessWidget {
                         DreamBox(
                           height: titleIconWidth,
                           icon: titleIcon,
-                          margins: EdgeInsets.symmetric(horizontal: _titleIconMargin),
+                          margins: const EdgeInsets.symmetric(horizontal: _titleIconMargin),
                           corners: titleIconCorner,
                         ),
 

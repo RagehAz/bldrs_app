@@ -254,7 +254,7 @@ class UserModel {
         gender: Gender.any,
         zone: null,
         language: 'en',
-        position: GeoPoint(0, 0),
+        position: const GeoPoint(0, 0),
         contacts: <ContactModel>[],
         // -------------------------
         myBzzIDs: <String>[],

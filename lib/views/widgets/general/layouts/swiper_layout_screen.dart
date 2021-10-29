@@ -62,7 +62,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
       layoutWidget: Swiper(
         physics: const BouncingScrollPhysics(),
         autoplay: false,
-        pagination: new SwiperPagination(
+        pagination: const SwiperPagination(
           builder: const DotSwiperPaginationBuilder(
             color: Colorz.white255,
             activeColor: Colorz.yellow255,

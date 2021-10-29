@@ -36,7 +36,7 @@ class ReviewCreator extends StatelessWidget {
       onTap: superFlyer.rec.onEditReview,
       child: Container(
         width: width,
-        margin: EdgeInsets.only(bottom: Ratioz.appBarMargin),
+        margin: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
         decoration: BoxDecoration(
           color: Colorz.white10,
           borderRadius: Borderers.superBorderAll(context, corners),
@@ -56,7 +56,7 @@ class ReviewCreator extends StatelessWidget {
             /// REVIEW BODY
             Container(
               width: width,
-              padding: EdgeInsets.all(Ratioz.appBarMargin),
+              padding: const EdgeInsets.all(Ratioz.appBarMargin),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +102,7 @@ class ReviewCreator extends StatelessWidget {
                   Container(
                     width: width,
                     height: 40,
-                    margin: EdgeInsets.only(top: Ratioz.appBarPadding),
+                    margin: const EdgeInsets.only(top: Ratioz.appBarPadding),
                     alignment: Aligners.superInverseCenterAlignment(context),
                     child: DreamBox(
                       height: 40,

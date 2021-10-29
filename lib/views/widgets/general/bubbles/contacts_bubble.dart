@@ -96,7 +96,7 @@ class ContactsBubble extends StatelessWidget {
                 ),
 
             /// USER LOCATION
-            DreamBox(
+            const DreamBox(
                 height: _contactBoxHeight,
                 icon: Iconz.ComMap,
                 margins: const EdgeInsets.all(_abPadding),

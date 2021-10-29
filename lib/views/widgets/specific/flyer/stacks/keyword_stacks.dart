@@ -69,11 +69,11 @@ class FlyerCoversStack extends StatelessWidget {
                 child: Center(
                   child: GridView(
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     addAutomaticKeepAlives: true,
                     padding: const EdgeInsets.all(gridSpacing),
 
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                       crossAxisSpacing: gridSpacing,
                       mainAxisSpacing: gridSpacing,
                       childAspectRatio: otherFlyersWidth / otherFlyersHeight,

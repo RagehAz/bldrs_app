@@ -33,7 +33,7 @@ class BldrsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
         child: const BldrsName(size: 40,),
       ),

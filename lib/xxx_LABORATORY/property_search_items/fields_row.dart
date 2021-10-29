@@ -61,11 +61,12 @@ class FieldsRow extends StatelessWidget {
                     color: Colorz.white10,
                     borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
                     boxShadow: <BoxShadow>[
-                      CustomBoxShadow(
+                      const CustomBoxShadow(
                           color: Colorz.black200,
-                          offset: new Offset(0,0 ),
+                          offset: const Offset(0,0 ),
                           blurRadius: _boxHeight * 0.15,
-                          blurStyle: BlurStyle.outer),
+                          blurStyle: BlurStyle.outer
+                      ),
                     ]),
               child: Padding(
                 padding: const EdgeInsets.all(_buttonSpacing),

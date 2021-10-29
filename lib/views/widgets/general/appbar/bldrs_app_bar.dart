@@ -115,7 +115,7 @@ class BldrsAppBar extends StatelessWidget {
           height: _abHeight,
           alignment: Alignment.center,
           margin: const EdgeInsets.all(Ratioz.appBarMargin),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colorz.black230,
             borderRadius: const BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
             boxShadow: Shadowz.appBarShadow,
@@ -162,7 +162,7 @@ class BldrsAppBar extends StatelessWidget {
 
                         /// Go to Search Button
                         if (_searchButtonIsOn == true)
-                          BackAndSearchButton(
+                          const BackAndSearchButton(
                             backAndSearchAction: BackAndSearchAction.GoToSearchScreen,
                           ),
 

@@ -130,7 +130,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
         Opacity(
           opacity: widget.inActiveMode == true ? 0.5 : widget.opacity,
           child: Padding(
-            padding: widget.boxMargins == null ? EdgeInsets.all(0) : widget.boxMargins,
+            padding: widget.boxMargins == null ? const EdgeInsets.all(0) : widget.boxMargins,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -274,11 +274,11 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                   decoration: BoxDecoration(
                                     // color: Colorz.Yellow,
                                     borderRadius: BorderRadius.circular(iconCorners),
-                                    gradient: LinearGradient(
+                                    gradient: const LinearGradient(
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter,
-                                        colors: [Colorz.black80, Colorz.black125],
-                                        stops: [0.5, 1]),
+                                        colors: <Color>[Colorz.black80, Colorz.black125],
+                                        stops: <double>[0.5, 1]),
                                   ),
                                 ) : Container(),
 
@@ -368,11 +368,11 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                           decoration: BoxDecoration(
                             // color: Colorz.Grey,
                             borderRadius: BorderRadius.circular(widget.corners),
-                            gradient: LinearGradient(
+                            gradient: const LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
-                                colors: [Colorz.black0, Colorz.black125],
-                                stops: [0.5, 0.95]),
+                                colors: <Color>[Colorz.black0, Colorz.black125],
+                                stops: <double>[0.5, 0.95]),
                           ),
                         ),
 

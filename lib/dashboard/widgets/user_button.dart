@@ -77,7 +77,7 @@ class dashboardUserButton extends StatelessWidget {
       verseScaleFactor: 0.6,
       verseCentered: false,
       secondLineScaleFactor: 0.9,
-      margins: EdgeInsets.symmetric(vertical: 5),
+      margins: const EdgeInsets.symmetric(vertical: 5),
       onTap: () async {
 
         final double _clearDialogWidth = BottomDialog.dialogClearWidth(context);

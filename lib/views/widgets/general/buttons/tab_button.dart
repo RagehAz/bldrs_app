@@ -40,7 +40,7 @@ class TabButton extends StatelessWidget {
       verseCentered: false,
       bubble: true,
       verseScaleFactor: 0.7,
-      margins: EdgeInsets.symmetric(vertical: 5),
+      margins: const EdgeInsets.symmetric(vertical: 5),
       onTap: onTap,//() => _onSetSection(index),
     );
   }

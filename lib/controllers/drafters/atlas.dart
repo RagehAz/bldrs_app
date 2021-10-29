@@ -62,7 +62,7 @@ abstract class Atlas{
 // -----------------------------------------------------------------------------
   static GeoPoint dummyPosition(){
     return
-        GeoPoint(29.979174, 31.134264);
+        const GeoPoint(29.979174, 31.134264);
   }
 // -----------------------------------------------------------------------------
   static Future<Position> getCurrentPosition() async {

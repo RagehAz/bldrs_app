@@ -69,7 +69,7 @@ class MainButton extends StatelessWidget {
             boxShadow: <BoxShadow>[
               CustomBoxShadow(
                   color: Colorz.black230,
-                  offset: new Offset(0, 0),
+                  offset: const Offset(0, 0),
                   blurRadius: _buttonZoneHeight * 0.09,
                   blurStyle: BlurStyle.outer),
             ]
@@ -127,7 +127,7 @@ class MainButton extends StatelessWidget {
                 decoration: BoxDecoration(
                     // color: Colorz.Grey,
                     borderRadius: BorderRadius.circular(_buttonCorner),
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: <Color>[Colorz.black10, Colorz.black125],

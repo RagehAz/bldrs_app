@@ -32,14 +32,14 @@ class FlagBox extends StatelessWidget {
               boxShadow: <BoxShadow>[
                 CustomBoxShadow(
                     color: Colorz.black230,
-                    offset: new Offset(0, 0),
+                    offset: const Offset(0, 0),
                     blurRadius: size * 0.12,
                     blurStyle: BlurStyle.outer
                 ),
               ]),
         child: ClipRRect(
           borderRadius:
-          BorderRadius.all(Radius.circular(corner)),
+          const BorderRadius.all(const Radius.circular(corner)),
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
@@ -56,7 +56,7 @@ class FlagBox extends StatelessWidget {
                   decoration: BoxDecoration(
                       // color: Colorz.Grey,
                       borderRadius: BorderRadius.circular(corner),
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: <Color>[Colorz.black0, Colorz.black200],
@@ -72,7 +72,7 @@ class FlagBox extends StatelessWidget {
                   decoration: BoxDecoration(
                       // color: Colorz.Grey,
                       borderRadius: BorderRadius.circular(corner),
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
                           colors: <Color>[Colorz.nothing, Colorz.white80],

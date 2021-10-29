@@ -200,7 +200,7 @@ class Dialogz{
             ),
           ),
 
-          const SuperVerse(
+          SuperVerse(
             verse: 'Would you like to continue ?',
             margin: 10,
           ),
