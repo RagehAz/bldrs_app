@@ -92,9 +92,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
         final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 
         print('x - fetching sponsors');
-        _bzzProvider.fetchSponsors(context).then((_) async {
+        _triggerLoading().then((_) async {
 
           await _generalProvider.getsetAppState(context);
+
+          await _bzzProvider.fetchSponsors(context);
 
           await _keywordsProvider.getsetAllKeywords(context);
 

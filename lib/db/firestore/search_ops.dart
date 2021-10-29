@@ -234,14 +234,13 @@ abstract class FireSearch {
 
             final CollectionReference _flyersCollection = Fire.getCollectionRef(FireColl.flyers);
 
-            QuerySnapshot _collectionSnapshot;
 
             final String _flyerType = FlyerTypeClass.cipherFlyerType(flyerType);
             final Zone _zone = zone;
 
-            print('searching tiny flyers of type : $_flyerType : in $_zone');
+            print('searching flyers of type : $_flyerType : in $_zone');
 
-            _collectionSnapshot = await _flyersCollection
+            final QuerySnapshot _collectionSnapshot = await _flyersCollection
                 .where('flyerType', isEqualTo: _flyerType)
                 .where('flyerZone.cityID', isEqualTo: _zone.cityID)
                 .get();
