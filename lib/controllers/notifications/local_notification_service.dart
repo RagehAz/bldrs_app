@@ -43,7 +43,7 @@ class LocalNotificationService{
         android: AndroidNotificationDetails(
           'bldrs',
           'bldrs channel',
-          'bldrs network',
+          // 'bldrs network',
           importance: Importance.max,
           priority: Priority.high,
 

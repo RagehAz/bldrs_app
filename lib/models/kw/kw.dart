@@ -75,15 +75,19 @@ class KW {
 // -----------------------------------------------------------------------------
   static List<KW> decipherKeywordsMap({@required Map<String, dynamic> map}){
     final List<KW> _keywords = <KW>[];
-    final List<String> _keys = map.keys.toList();
 
-    if (Mapper.canLoopList(_keys)){
+    if (map != null){
+      final List<String> _keys = map.keys.toList();
 
-      for (String key in _keys){
+      if (Mapper.canLoopList(_keys)){
 
-        final KW _kw = decipherKeyword(map[key]);
+        for (String key in _keys){
 
-        _keywords.add(_kw);
+          final KW _kw = decipherKeyword(map[key]);
+
+          _keywords.add(_kw);
+
+        }
 
       }
 
