@@ -78,7 +78,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidzYellow,
       pageTitle: 'All Flyers',
-      appBarRowWidgets: <Widget>[],
+      appBarRowWidgets: const <Widget>[],
       loading: _loading,
       layoutWidget:
 

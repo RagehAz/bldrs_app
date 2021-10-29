@@ -374,7 +374,7 @@ Widget notiStreamBuilder({
     StreamBuilder<List<NotiModel>>(
       key: const ValueKey<String>('notifications_stream_builder'),
       stream: getNotiModelsStream(context, userID),
-      initialData: [],
+      initialData: const <NotiModel>[],
       builder: (ctx, snapshot){
         if(StreamChecker.connectionIsLoading(snapshot) == true){
 

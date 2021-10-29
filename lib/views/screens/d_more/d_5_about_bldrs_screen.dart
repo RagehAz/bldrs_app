@@ -21,7 +21,7 @@ class AboutBldrsScreen extends StatelessWidget {
       layoutWidget: Scroller(
         child: ListView(
           physics: const BouncingScrollPhysics(),
-          children: <Widget>[
+          children: const <Widget>[
 
             const Stratosphere(),
 

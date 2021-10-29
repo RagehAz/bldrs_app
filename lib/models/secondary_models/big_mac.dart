@@ -112,7 +112,7 @@ class BigMac{
 // -----------------------------------------------------------------------------
   /// how many big macs can 5000 EGP buy
   static double bigMacsCountToBuyProAccount(){
-    final double _proAccountPriceEGY = proAccountPriceEGY;
+    const double _proAccountPriceEGY = proAccountPriceEGY;
     final double _bigMacPriceEGY = getBigMacByISO3('egy').localPrice;
 
     final double _count = _proAccountPriceEGY / _bigMacPriceEGY;

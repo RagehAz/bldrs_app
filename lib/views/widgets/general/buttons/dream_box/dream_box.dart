@@ -251,7 +251,7 @@ class DreamBox extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: inActiveMode == true ? Colorz.white10 : _boxColor,
                     borderRadius: _cornersAsBorderRadius,
-                    boxShadow: <CustomBoxShadow>[
+                    boxShadow: const <CustomBoxShadow>[
                       // CustomBoxShadow(
                       //     color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
                       //     offset: new Offset(0, 0),

@@ -11,7 +11,7 @@ class LocalNotificationService{
 
   static Future<void> initialize(BuildContext context) async {
 
-    final InitializationSettings initializationSettings = const InitializationSettings(
+    const InitializationSettings initializationSettings = const InitializationSettings(
       android: AndroidInitializationSettings(_flatBldrsNotiIcon),
     );
 
@@ -39,7 +39,7 @@ class LocalNotificationService{
       final int _id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       final String _title = remoteMessage.notification.title;
       final String _body = remoteMessage.notification.body;
-      final NotificationDetails _notificationDetails = const NotificationDetails(
+      const NotificationDetails _notificationDetails = const NotificationDetails(
         android: AndroidNotificationDetails(
           'bldrs',
           'bldrs channel',

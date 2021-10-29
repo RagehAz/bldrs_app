@@ -371,8 +371,8 @@ void main(){
 // -----------------------------------------------------------------------------
   test('stringContainsSubString', () async {
 
-    final String _string =  '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.';
-    final String _substring = '[firebase_auth/user-not-found]';
+    const String _string =  '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.';
+    const String _substring = '[firebase_auth/user-not-found]';
 
     bool _mapContainsTheError = TextChecker.stringContainsSubString(
       string: _string,
@@ -480,8 +480,8 @@ void main(){
 // -----------------------------------------------------------------------------
   test("remove All Characters After Number Of Characters", () async {
 
-    final String _input = '123456789abcdefg';
-    final int _number = 7;
+    const String _input = '123456789abcdefg';
+    const int _number = 7;
     final String _output = TextMod.removeAllCharactersAfterNumberOfCharacters(
         input: _input,
         numberOfCharacters: _number

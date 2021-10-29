@@ -239,9 +239,9 @@ class _NotificationMakerState extends State<NotificationMaker> {
       titleIsOn: true,
       overridingDialogHeight: _dialogHeight,
     );
-    final double _textFieldHeight = 70;
+    const double _textFieldHeight = 70;
 
-    List<UserModel> _usersModels = [];
+    List<UserModel> _usersModels = <UserModel>[];
 
     await BottomDialog.showStatefulBottomDialog(
       context: context,

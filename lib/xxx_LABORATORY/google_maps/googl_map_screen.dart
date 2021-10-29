@@ -151,14 +151,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     // double mapBoxHeight = mapBoxWidth;
     // final double _boxCorners = Ratioz.rrFlyerBottomCorners *  _screenWidth;
 
-    final double _pinWidth = 30;
+    const double _pinWidth = 30;
 
     return MainLayout(
       pageTitle: 'Select on Map',
       appBarType: AppBarType.Basic,
       loading: _loading,
       pyramids: Iconz.DvBlankSVG,
-      appBarRowWidgets: [],
+      appBarRowWidgets: const [],
       onBack: () async {
 
         await Nav.goBack(context, argument: _geoPoint);
@@ -187,7 +187,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             rotateGesturesEnabled: true,
             scrollGesturesEnabled: true,
             tiltGesturesEnabled: true,
-            gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{},
+            gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{},
 
             /// FEATURES
             liteModeEnabled: false, // freezes map, add google map button in the corner to use google map app instead
@@ -252,10 +252,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
             /// SHAPES
             // markers: theMarkers,
-            polygons: <Polygon>{},
-            polylines: <Polyline>{},
-            circles: <Circle>{},
-            tileOverlays: <TileOverlay>{},
+            polygons: const <Polygon>{},
+            polylines: const <Polyline>{},
+            circles: const <Circle>{},
+            tileOverlays: const <TileOverlay>{},
           ),
 
           /// LOCATION PIN
@@ -270,7 +270,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 children: <Widget>[
 
                   /// pin square on top
-                  DreamBox(
+                  const DreamBox(
                     width: _pinWidth,
                     height: _pinWidth,
                     icon: Iconz.LocationPin,

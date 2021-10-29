@@ -68,7 +68,7 @@ class AddAuthorScreen extends StatelessWidget {
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
+                  children: const <Widget>[
 
                     const DreamBox(
                       height: 50,
@@ -101,7 +101,7 @@ class AddAuthorScreen extends StatelessWidget {
                 title: 'Khally balak ba2a',
               );
 
-              final String _ragehUserID = 'xxx';
+              const String _ragehUserID = 'xxx';
 
               final BzModel _bzModel = await BzOps.readBzOps(
                 context: context,

@@ -60,7 +60,7 @@ class FieldsRow extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Colorz.white10,
                     borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
-                    boxShadow: <BoxShadow>[
+                    boxShadow: const <BoxShadow>[
                       const CustomBoxShadow(
                           color: Colorz.black200,
                           offset: const Offset(0,0 ),
