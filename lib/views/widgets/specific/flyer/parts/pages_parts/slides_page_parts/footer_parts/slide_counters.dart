@@ -35,7 +35,7 @@ class SlideCounters extends StatelessWidget {
 
     /// --- FLYER STATES
     final double flyerStateBoxCorner = flyerBoxWidth * 0.021;
-    final double singleCounterPaddingRatio = 0.5;
+    const double singleCounterPaddingRatio = 0.5;
 
     return Positioned(
       bottom: 0,

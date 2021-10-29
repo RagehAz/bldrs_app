@@ -32,7 +32,7 @@ class DialogOfBzOptions extends StatefulWidget {
   static Future<void> show({BuildContext context, BzModel bzModel, UserModel userModel}) async {
 
     const double _spacing = DialogOfBzOptions.buttonHeight * 0.1;
-    final double _height = (buttonHeight * numberOfButtons) + (_spacing * numberOfButtons) + 30 ;
+    const double _height = (buttonHeight * numberOfButtons) + (_spacing * numberOfButtons) + 30 ;
 
     await BottomDialog.showBottomDialog(
       context: context,

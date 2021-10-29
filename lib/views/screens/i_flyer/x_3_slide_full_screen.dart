@@ -28,9 +28,7 @@ class SlideFullScreen extends StatelessWidget {
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Non,
       sky: Sky.Black,
-      appBarRowWidgets: <Widget>[
-
-      ],
+      appBarRowWidgets: const <Widget>[],
       layoutWidget:
 
         Container(

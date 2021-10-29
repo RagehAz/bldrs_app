@@ -165,7 +165,7 @@ class NavBar extends StatelessWidget {
     final double _bottomOffset = Scale.navBarBottomOffset(barType: _barType);
 // -----------------------------------------------------------------------------
     /// TASK : IOS back button needs revision
-    final bool _deviceIsIOS = false;//DeviceChecker.deviceIsIOS();
+    const bool _deviceIsIOS = false;//DeviceChecker.deviceIsIOS();
 // -----------------------------------------------------------------------------
     final Widget _expander = _deviceIsIOS ? Expanded(child: Container(),) : Container();
 // -----------------------------------------------------------------------------

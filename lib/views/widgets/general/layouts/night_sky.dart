@@ -120,7 +120,7 @@ class _NightSkyState extends State<NightSky> with TickerProviderStateMixin {
         center: const Alignment(0.75, 1.25),
         radius: 1,
         colors: _skyColors,
-        stops: <double>[0.0, 0.65]
+        stops: const <double>[0.0, 0.65]
     ) : null;
 // -----------------------------------------------------------------------------
     final Color _plainColor = widget.sky == Sky.Night || widget.sky == Sky.Black ? null : Colorz.skyDarkBlue;

@@ -95,9 +95,7 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
         print('wtf');
       },
 
-      appBarRowWidgets: <Widget>[
-
-      ],
+      appBarRowWidgets: const <Widget>[],
 
       layoutWidget: Container(
         width: 300,

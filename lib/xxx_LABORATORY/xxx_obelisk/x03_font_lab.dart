@@ -63,7 +63,7 @@ class _FontLabState extends State<FontLab> {
     const int fontSize8 = 8;
     final String testVerse = '${Wordz.bldrsFullName(context)}';
 
-    final VerseWeight weightTest = VerseWeight.thin;
+    const VerseWeight weightTest = VerseWeight.thin;
 
     // --- SHADOW TEST PARAMETERS
     const dynamic shadowTestColor = Colorz.white255;

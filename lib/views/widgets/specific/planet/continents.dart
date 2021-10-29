@@ -30,9 +30,7 @@ class Continents extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-
-                ],
+                children: const <Widget>[],
               ),
             ),
 

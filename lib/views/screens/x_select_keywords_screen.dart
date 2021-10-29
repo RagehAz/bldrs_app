@@ -323,7 +323,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
         await Nav.goBack(context, argument: _selectedKeywords);
       },
       layoutWidget: Column(
-        children: <Widget>[
+        children: const <Widget>[
 
           const Stratosphere(),
 
