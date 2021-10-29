@@ -27,7 +27,7 @@ class Bubble extends StatelessWidget {
   final dynamic corners;
   final Key key;
 
-  const Bubble({
+  Bubble({
     @required this.columnChildren,
     this.centered = false,
     this.bubbleColor = Colorz.white20,

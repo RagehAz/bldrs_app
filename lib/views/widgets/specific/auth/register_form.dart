@@ -182,7 +182,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
           /// ENTER E-MAIL
           TextFieldBubble(
-            key: ValueKey('email'),
+            key: const ValueKey('email'),
             textController: _emailController,
             loading: _loading,
             bubbleColor: Colorz.white20,
@@ -199,7 +199,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
           /// ENTER PASSWORD
           TextFieldBubble(
-            key: ValueKey('password'),
+            key: const ValueKey('password'),
             textController: _passwordController,
             loading: _loading,
             bubbleColor: Colorz.white20,
@@ -220,7 +220,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
           /// ENTER CONFIRM PASSWORD
           TextFieldBubble(
-            key: ValueKey('confirm'),
+            key: const ValueKey('confirm'),
             textController: _confirmPasswordController,
             loading: _loading,
             bubbleColor: Colorz.white20,

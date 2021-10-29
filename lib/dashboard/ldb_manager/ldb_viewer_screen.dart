@@ -76,7 +76,7 @@ class LDBViewerScreen extends StatefulWidget {
                       width: 40,
                       verse: '${index + 1}',
                       verseScaleFactor: 0.6,
-                      margins: EdgeInsets.all(5),
+                      margins: const EdgeInsets.all(5),
                       bubble: false,
                       color: Colorz.white10,
                     ),

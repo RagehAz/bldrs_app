@@ -340,7 +340,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
-              const SuperVerse(
+              SuperVerse(
                 verse: 'Attach images to your Question',
                 color: Colorz.white10,
                 weight: VerseWeight.thin,
@@ -354,7 +354,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                   /// GRID FOOTPRINTS
                   if (_questionPics.length == 0)
                     GridView(
-                      physics: NeverScrollableScrollPhysics() ,
+                      physics: const NeverScrollableScrollPhysics() ,
                       scrollDirection: Axis.vertical,
                       addAutomaticKeepAlives: true,
                       shrinkWrap: true,
@@ -379,7 +379,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                   /// ASK PICS GRID
                   if (_questionPics.length != 0)
                     GridView(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       addAutomaticKeepAlives: true,
                       shrinkWrap: true,
@@ -421,7 +421,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
             DreamBox(
               height: 40,
               // width: 40,
-              margins: EdgeInsets.only(top: 10),
+              margins: const EdgeInsets.only(top: 10),
               icon: Iconz.PhoneGallery,
               verse: 'Add Image',
               iconSizeFactor: 0.6,
@@ -438,7 +438,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                 inActiveMode: _askButtonInactive,
                 width: 150,
                 height: 40,
-                margins: EdgeInsets.only(top: 10),
+                margins: const EdgeInsets.only(top: 10),
                 verse: Wordz.ask(context),
                 verseColor: Colorz.black255,
                 verseScaleFactor: 0.7,

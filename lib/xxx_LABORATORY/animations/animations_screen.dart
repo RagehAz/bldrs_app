@@ -29,7 +29,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
     height = 100;
     btWidth = 100;
     _controller = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       vsync: this
     );
     _btController = AnimationController(
@@ -84,14 +84,14 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
         DreamBox(
           height: 40,
           icon: Iconz.Play,
-          margins: EdgeInsets.all(5),
+          margins: const EdgeInsets.all(5),
           onTap: resizeBox,
         ),
 
         DreamBox(
           height: 40,
           icon: Iconz.Pause,
-          margins: EdgeInsets.all(5),
+          margins: const EdgeInsets.all(5),
           onTap: (){
             _controller.stop(canceled: false);
           },
@@ -100,7 +100,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
         DreamBox(
           height: 40,
           icon: Iconz.Stop,
-          margins: EdgeInsets.all(5),
+          margins: const EdgeInsets.all(5),
           onTap: (){
             _controller.reset();
           },
@@ -109,7 +109,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
         DreamBox(
           height: 40,
           icon: Iconz.Clock,
-          margins: EdgeInsets.all(5),
+          margins: const EdgeInsets.all(5),
           onTap: (){
             _controller.forward();
           },
@@ -137,9 +137,9 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
 
                 child: AnimatedOpacity(
                   opacity: condition() == true ? 1 : 0.2,
-                  duration: Duration(seconds: 1),
+                  duration: const Duration(seconds: 1),
                   child: AnimatedContainer(
-                    duration: Duration(seconds: 1),
+                    duration: const Duration(seconds: 1),
                     curve: Curves.easeInOutCirc,
                     width: width,
                     height: height,
@@ -151,7 +151,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
 
                         AnimatedPositioned(
                           left: condition() == true ? (Scale.superScreenWidth(context) * 0.5) : 0,
-                          duration: Duration(seconds: 1),
+                          duration: const Duration(seconds: 1),
                           child: DreamBox(
                             height: 50,
                             icon: Iconz.ComYoutube,
@@ -319,7 +319,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                   height: btWidth,
                   decoration: BoxDecoration(
                     color: Colorz.yellow80,
-                    image: DecorationImage(image: AssetImage(Iconz.DumAuthorPic), fit: BoxFit.fitHeight),
+                    image: const DecorationImage(image: const AssetImage(Iconz.DumAuthorPic), fit: BoxFit.fitHeight),
                     borderRadius: Borderers.superBorderOnly(context: context, enTopLeft: btCorner, enBottomLeft: btCorner, enBottomRight: btCorner, enTopRight: btCorner),
                   ),
                 ),
@@ -333,7 +333,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
             icon: Iconz.DvGouran,
             iconSizeFactor: 0.5,
             corners: 35,
-            boxMargins: EdgeInsets.all(20),
+            boxMargins: const EdgeInsets.all(20),
             boxFunction: (){},
             ),
 
@@ -364,7 +364,7 @@ class TweenTest extends StatelessWidget {
           size: 4,
         ),
         tween: Tween<double>(begin: 0, end: 1),
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
         builder: (BuildContext context, double _val, Widget child){
           return Opacity(
             opacity: _val,

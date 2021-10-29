@@ -110,7 +110,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n01',
         name: 'buildSomething',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.reminder,
             eventTrigger    :   'when user did not sign in for 4 weeks',
             scheduledTiming :   'asPerDays : 9 pm',
@@ -139,7 +139,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n02',
         name: 'createSomethingNew',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject           :   NotiSubject.reminder,
             eventTrigger      :   'when user did not sign in for a 5 weeks',
             scheduledTiming   :   'asPerDays : 10 am',
@@ -168,7 +168,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n03',
         name: 'planYourFuture',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         : NotiSubject.reminder,
             eventTrigger    : 'when user did not sign in for  6 weeks',
             scheduledTiming : 'asPerDays : 10 am',
@@ -197,7 +197,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n04',
         name: 'youDidNotSee',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.reminder,
             eventTrigger    :   'when user downloaded app but did not sign up aslan for 7 days',
             scheduledTiming :   'asPerDays : 10 am',
@@ -226,7 +226,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n05',
         name: 'rememberYourOptions',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.reminder,
             eventTrigger    :   'when user downloaded app but did not sign up aslan for 14 days',
             scheduledTiming :   'asPerDays : 10 am',
@@ -256,7 +256,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n06',
         name: 'cityWentPublic',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when city goes public',
             scheduledTiming :   'asPerDay : 7:00 pm',
@@ -285,7 +285,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n07',
         name: 'feedbackAutoReply',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'after user posts opinion feedback with 24 hours',
             scheduledTiming :   'asPerDay : 10:00 am',
@@ -315,7 +315,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n08',
         name: 'bldrsFeedbackReply',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when bldrs.net replies over customer feedback',
             scheduledTiming :   'on time',
@@ -344,7 +344,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n09',
         name: 'chooseYourCustomerStatus',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.reminder,
             eventTrigger    :   'when user did not assign userStatus for 2 days',
             scheduledTiming :   'asPerDay : 2:00 pm',
@@ -373,7 +373,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n10',
         name: 'monthlyStatistics',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.ad,
             eventTrigger    :   'every month',
             scheduledTiming :   'first day in the month : 10:00 am',
@@ -405,7 +405,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n11',
         name: 'newFlyerByFollowedPremiumBz',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when followed premium bz adds new flyers',
             scheduledTiming :   'asPerDay : asPerHour',
@@ -434,7 +434,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n12',
         name: 'flyerReviewReply',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when author replies on user review',
             scheduledTiming :   'asPerDay : asPerTime',
@@ -463,7 +463,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n13',
         name: 'flyerReviewed',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when user posts flyer review',
             scheduledTiming :   'asPerDay : asPerTime',
@@ -492,7 +492,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n14',
         name: 'flyerSaved',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when a user saves a flyer',
             scheduledTiming :   'asPerDay : asPerTime',
@@ -521,7 +521,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n15',
         name: 'flyerShared',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when a user shares a flyer',
             scheduledTiming :   'asPerDay : asPerTime',
@@ -551,7 +551,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n16',
         name: 'userFollowed',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when a user follows bz',
             scheduledTiming :   'asPerDay : asPerTime',
@@ -580,7 +580,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n17',
         name: 'weeklyBzStatistics',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.ad,
             eventTrigger    :   'every week',
             scheduledTiming :   'Monday : 10:00 am',
@@ -614,7 +614,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n18',
         name: 'authorInvitation',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when author sends author invitation to a user',
             scheduledTiming :   'asPerDate : asPerTime',
@@ -646,7 +646,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n19',
         name: 'authorInvitationReply',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when user replies on author invitation',
             scheduledTiming :   'asPerDate : asPerTime',
@@ -675,7 +675,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n20',
         name: 'authorInvitationCC',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when author sends author invitation to a user',
             scheduledTiming :   'asPerDate : asPerTime',
@@ -705,7 +705,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n21',
         name: 'countryWentGlobal',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when a county goes global',
             scheduledTiming :   'Saturday : 9:00 pm',
@@ -734,7 +734,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n22',
         name: 'sectionWentLive',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when a section goes live',
             scheduledTiming :   'Monday : 8 pm',
@@ -763,7 +763,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n23',
         name: 'monthlyBzStatistics',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.ad,
             eventTrigger    :   'every week',
             scheduledTiming :   'Monday : 10:00 am',
@@ -792,7 +792,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n24',
         name: 'potentialCustomerQuestion',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when user ask a question related to a specific keyword topic',
             scheduledTiming :   'asPerDay : asPerHour',
@@ -821,7 +821,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n25',
         name: 'questionReply',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.event,
             eventTrigger    :   'when an author answers a question by user',
             scheduledTiming :   'asPerDay : asPerHour',
@@ -850,7 +850,7 @@ class BldrsNotiModelz {
       NotiModel(
         id: 'n01',
         name: 'welcomeToBldrs',
-        sudo: NotiSudo(
+        sudo: const NotiSudo(
             subject         :   NotiSubject.welcome,
             eventTrigger    :   'when new user joins bldrs.net',
             scheduledTiming :   'asPerDay : asPerHour',

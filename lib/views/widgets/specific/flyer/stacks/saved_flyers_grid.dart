@@ -45,7 +45,7 @@ class SavedFlyersGrid extends StatelessWidget {
           itemCount: flyers.length,
           physics: const BouncingScrollPhysics(),
           shrinkWrap: false,
-          padding: EdgeInsets.all(_spacing),
+          padding: const EdgeInsets.all(_spacing),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: _numberOfColumns,
             mainAxisSpacing: _spacing,

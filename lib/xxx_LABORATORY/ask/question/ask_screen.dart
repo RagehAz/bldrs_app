@@ -98,7 +98,7 @@ class _OldAskScreenState extends State<OldAskScreen> {
                     height: 80,
                     width: Scale.superScreenWidth(context),
                     verse: 'Go to Questions Screen',
-                    onTap: () => Nav.goToNewScreen(context, QuesScreen()),
+                    onTap: () => Nav.goToNewScreen(context, const QuesScreen()),
                   ),
 
                   const PyramidsHorizon(),

@@ -192,7 +192,7 @@ class _UserCheckerState extends State<UserChecker> {
         // tappingRageh: (){
         //   Nav.goBack(context);
         // },
-        layoutWidget: _logoIsShown ? Center(child: LogoSlogan(sizeFactor: 0.7)) : null,
+        layoutWidget: _logoIsShown ? const Center(child: LogoSlogan(sizeFactor: 0.7)) : null,
 
       );
 

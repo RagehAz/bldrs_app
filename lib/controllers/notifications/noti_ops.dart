@@ -372,7 +372,7 @@ Widget notiStreamBuilder({
   return
 
     StreamBuilder<List<NotiModel>>(
-      key: ValueKey<String>('notifications_stream_builder'),
+      key: const ValueKey<String>('notifications_stream_builder'),
       stream: getNotiModelsStream(context, userID),
       initialData: [],
       builder: (ctx, snapshot){

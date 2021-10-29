@@ -138,7 +138,7 @@ class MoreScreen extends StatelessWidget {
               // ),
               // const BubblesSeparator(),
 
-              TileBubble(
+              const TileBubble(
                 verse: 'Open App Tutorial',
                 icon: Iconz.Scholar,
                 iconSizeFactor: 0.6,

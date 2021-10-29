@@ -28,7 +28,7 @@ class CheckBox extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       margin: const EdgeInsets.all(checkBoxRadius * 0.75),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colorz.white20,
         shape: BoxShape.circle,
           boxShadow: <BoxShadow>[
@@ -48,7 +48,7 @@ class CheckBox extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(checkBoxRadius)),
+          borderRadius: const BorderRadius.all(const Radius.circular(checkBoxRadius)),
           child: Padding(
             padding: const EdgeInsets.all(2),
             child: CircleAvatar(
@@ -62,8 +62,8 @@ class CheckBox extends StatelessWidget {
                   Container(
                     width: 2 * checkBoxRadius * btOvalSizeFactor,
                     height: 1.4 * checkBoxRadius* btOvalSizeFactor,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
+                    decoration: const BoxDecoration(
+                      borderRadius: const BorderRadius.all(
                           Radius.elliptical(checkBoxRadius * btOvalSizeFactor, checkBoxRadius * 0.7 * btOvalSizeFactor)),
                       color: Colorz.nothing,
                       boxShadow: <BoxShadow>[CustomBoxShadow(
@@ -79,13 +79,13 @@ class CheckBox extends StatelessWidget {
                   Container(
                     width: checkBoxRadius * 2,
                     height: checkBoxRadius * 2,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colorz.nothing, Colorz.black50],
-                          stops: [0.3,1]
+                          colors: <Color>[Colorz.nothing, Colorz.black50],
+                          stops: <double>[0.3,1]
                       ),
 
                     ),

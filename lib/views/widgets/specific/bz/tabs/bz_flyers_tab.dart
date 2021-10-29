@@ -92,7 +92,7 @@ class BzFlyersTab extends StatelessWidget {
                 Container(
                   width: Bubble.clearWidth(context),
                   alignment: Alignment.center,
-                  child: Loading(loading: true,)),
+                  child: const Loading(loading: true,)),
 
             ],
           ),

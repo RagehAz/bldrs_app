@@ -80,8 +80,8 @@ class TargetsBubble extends StatelessWidget {
                 color: Colorz.white10,
                 borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue),
               ),
-              margin: EdgeInsets.only(bottom: 5),
-              padding: EdgeInsets.all(5),
+              margin: const EdgeInsets.only(bottom: 5),
+              padding: const EdgeInsets.all(5),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

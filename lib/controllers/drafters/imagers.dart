@@ -98,7 +98,7 @@ abstract class Imagers{
           asset: pic,
           width: (pic.originalWidth).toInt(),
           height: (pic.originalHeight).toInt(),
-          spinner: Loading(loading: true,),
+          spinner: const Loading(loading: true,),
         )
             :
         Container(),
@@ -191,7 +191,7 @@ abstract class Imagers{
         maxImages: Standards.getMaxSlidesCount(accountType),
         enableCamera: true,
         selectedAssets: images,
-        cupertinoOptions: CupertinoOptions(
+        cupertinoOptions: const CupertinoOptions(
           takePhotoIcon: "Take photo",
           doneButtonTitle: "Done",
         ),
@@ -263,7 +263,7 @@ abstract class Imagers{
   final ui.PictureRecorder _pictureRecorder = ui.PictureRecorder();
   final Canvas _canvas = Canvas(_pictureRecorder);
   final Paint _paint = Paint()..color = Colors.transparent;
-  final Radius _radius = Radius.circular(20.0);
+  final Radius _radius = const Radius.circular(20.0);
 
   _canvas.drawRRect(
       RRect.fromRectAndCorners(
@@ -279,7 +279,7 @@ abstract class Imagers{
   final ByteData _detail = await rootBundle.load(urlAsset);
   final ui.Image _imaged = await loadImage(new Uint8List.view(_detail.buffer));
 
-  _canvas.drawImage(_imaged, new Offset(0, 0), new Paint());
+  _canvas.drawImage(_imaged, const Offset(0, 0), Paint());
 
   final _img = await _pictureRecorder.endRecording().toImage(width, height);
   final _data = await _img.toByteData(format: ui.ImageByteFormat.png);
@@ -480,14 +480,14 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
 
     final File _croppedFile = await ImageCropper.cropImage(
       sourcePath: file.path,
-      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: Ratioz.xxflyerZoneHeight),
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: Ratioz.xxflyerZoneHeight),
       aspectRatioPresets: Platform.isAndroid ? getAndroidCropAspectRatioPresets() : getIOSCropAspectRatioPresets(),
       maxWidth: _maxWidth.toInt(),
       compressFormat: ImageCompressFormat.jpg, /// TASK : need to test png vs jpg storage sizes on firebase
       compressQuality: 100, // max
       cropStyle: CropStyle.rectangle,
       maxHeight: (_maxWidth * _flyerHeightRatio).toInt(),
-      androidUiSettings: AndroidUiSettings(
+      androidUiSettings: const AndroidUiSettings(
         initAspectRatio: CropAspectRatioPreset.square,
         lockAspectRatio: false,
 

@@ -60,13 +60,13 @@ class SlideCounters extends StatelessWidget {
                     boxShadow: <BoxShadow>[
                       CustomBoxShadow(
                           color: Colorz.black50,
-                          offset: new Offset(0, 0),
+                          offset: const Offset(0, 0),
                           blurRadius: footerBTMargins * 0.7,
                           blurStyle: BlurStyle.outer
                       ),
                       CustomBoxShadow(
                           color: Colorz.white20,
-                          offset: new Offset(0, 0),
+                          offset: const Offset(0, 0),
                           blurRadius: footerBTMargins * 0.7,
                           blurStyle: BlurStyle.outer
                       ),

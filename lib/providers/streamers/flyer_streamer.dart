@@ -140,14 +140,14 @@ Widget reviewsStreamBuilder({
   return
 
     StreamBuilder<List<ReviewModel>>(
-      key: ValueKey<String>('reviews_stream_builder'),
+      key: const ValueKey<String>('reviews_stream_builder'),
       stream: getFlyerReviewsStream(flyerID),
       builder: (context, snapshot){
 
         print('reviewsStreamBuilder : snapshot is : $snapshot');
 
         if(StreamChecker.connectionIsLoading(snapshot) == true){
-          return Loading(loading: true,);
+          return const Loading(loading: true,);
         } else {
 
           final List<ReviewModel> reviews = snapshot?.data;

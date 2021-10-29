@@ -165,7 +165,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           //     _enteredMessage = value;
                           //   });
                           // },
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           maxLines: 10,
                           textController: _msgController,
                           onSaved: () => _sendMessage(body: _msgController.text.trim(), existingMsgs: chatModel.messages),

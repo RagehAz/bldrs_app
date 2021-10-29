@@ -116,7 +116,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
                     else
                       return null;
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Entry a',
                   ),
                   textInputAction: TextInputAction.next,
@@ -124,7 +124,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
                   onSaved: (value){_editedProduct = TempClass(a: value, b: _editedProduct.b, c: _editedProduct.c, d: _editedProduct.d);},
                 ),
 
-                Divider(
+                const Divider(
                   height: 10,
                 ),
 
@@ -142,12 +142,12 @@ class _TestFormScreenState extends State<TestFormScreen> {
                   counterIsOn: true,
                 ),
 
-                Divider(
+                const Divider(
                   height: 10,
                 ),
 
                 TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Entry b',
                   ),
                   textInputAction: TextInputAction.next,
@@ -167,7 +167,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
                 ),
 
                 TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Entry c',
                   ),
                   textInputAction: TextInputAction.next,
@@ -201,7 +201,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
                 ),
 
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'image url'),
+                  decoration: const InputDecoration(labelText: 'image url'),
                   keyboardType: TextInputType.url,
                   textInputAction: TextInputAction.done,
                   controller: _imageUrlController,
