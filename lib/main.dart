@@ -212,11 +212,12 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
           ChangeNotifierProvider(
             create: (ctx) => QuestionsProvider(),
           ),
+
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           debugShowMaterialGrid: false,
-          showPerformanceOverlay: false,
+          showPerformanceOverlay: true,
           checkerboardRasterCacheImages: false,
 
           title: 'Bldrs.net',

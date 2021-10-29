@@ -214,7 +214,7 @@ class NotiOps{
           label: 'Mark Done',
           icon: _flatBldrsNotiIcon,
           buttonType: ActionButtonType.KeepOnTop,
-          autoCancel: false,
+          // autoCancel: false,
           enabled: true,
         ),
       ],
