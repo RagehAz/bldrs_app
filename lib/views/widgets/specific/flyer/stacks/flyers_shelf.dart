@@ -54,7 +54,7 @@ class FlyersShelf extends StatelessWidget {
 // -----------------------------------------------------------------------------
 //     bool _slidingIsOn = false;
     const double _titleIconMargin = 0;
-    final double _titleIconWidthWithMargin = titleIconWidth + _titleIconMargin;
+    const double _titleIconWidthWithMargin = titleIconWidth + _titleIconMargin;
 // -----------------------------------------------------------------------------
     return
 

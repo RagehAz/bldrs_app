@@ -36,7 +36,7 @@ Widget build(BuildContext context) {
   final Section _currentSection = _generalProvider.currentSection;
 
 
-  final double _corners = Ratioz.boxCorner12;
+  const double _corners = Ratioz.boxCorner12;
 
   final String _buttonTitle = Wordz.section(context) ;
 

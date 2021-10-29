@@ -304,7 +304,7 @@ class BottomDialog extends StatelessWidget {
 
     final TextEditingController _textController = TextEditingController();
 
-    final double _ratioOfScreenHeight = 0.65;
+    const double _ratioOfScreenHeight = 0.65;
     final double _overridingDialogHeight = dialogHeight(context, ratioOfScreenHeight: _ratioOfScreenHeight);
     final double _clearWidth = dialogClearWidth(context);
     final double _clearHeight = dialogClearHeight(context: context, overridingDialogHeight: _overridingDialogHeight, draggable: true, titleIsOn: false);

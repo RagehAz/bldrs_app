@@ -106,7 +106,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
     // final bz = pro.getBzByBzID(widget.bzID);
 
 
-    final double flyerSizeFactor = 0.8;
+    const double flyerSizeFactor = 0.8;
 
     final double _flyerBoxWidth = FlyerBox.width(context, flyerSizeFactor);
 

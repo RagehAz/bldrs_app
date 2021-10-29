@@ -243,7 +243,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             title: '${_citiesNames.length} Provinces',
             keywords: CityModel.getKeywordsFromCities(context: context, cities: _cities),
             onTap: (val) {print(val);},
-            selectedWords: <dynamic>[],
+            selectedWords: const <dynamic>[],
             addButtonIsOn: false,
           ),
 

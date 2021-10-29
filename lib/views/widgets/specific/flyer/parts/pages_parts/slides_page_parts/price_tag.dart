@@ -29,9 +29,9 @@ class PriceTag extends StatelessWidget {
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
     final CountryModel _currentCountry = _zoneProvider.currentCountry;
 
-    final double _currentPrice = 14999.99;
+    const double _currentPrice = 14999.99;
     final String _currency = _currentCountry.currency;
-    final double _oldPrice = 17800;
+    const double _oldPrice = 17800;
     final int _discountPercentage = Numeric.discountPercentage(
       oldPrice: _oldPrice,
       currentPrice: _currentPrice,

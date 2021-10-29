@@ -116,9 +116,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
         print('wtf');
       },
 
-      appBarRowWidgets: <Widget>[
-
-      ],
+      appBarRowWidgets: const<Widget>[],
 
       layoutWidget: Center(
         child: MaxBounceNavigator(

@@ -48,12 +48,12 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   Widget build(BuildContext context) {
     return MainLayout(
       pyramids: Iconz.DvBlankSVG,
-      appBarRowWidgets: <Widget>[],
+      appBarRowWidgets: const <Widget>[],
       loading: _loading,
       pageTitle: 'Questions',
       appBarType: AppBarType.Basic,
       layoutWidget: Column(
-        children: <Widget>[
+        children: const <Widget>[
 
           const Stratosphere(),
 

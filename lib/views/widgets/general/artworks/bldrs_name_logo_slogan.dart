@@ -23,7 +23,7 @@ class LogoSlogan extends StatelessWidget {
     final double _screenHeight = Scale.superScreenHeight(context);
     final double _logoWidth = _screenHeight * 22 * 0.016 * sizeFactor;
     final double _logoHeight = _screenHeight * 18 * 0.016 * sizeFactor;
-    final String _slogan = 'Real Estate\nConstruction\nSupplies';
+    const String _slogan = 'Real Estate\nConstruction\nSupplies';
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
