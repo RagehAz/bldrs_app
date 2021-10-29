@@ -20,7 +20,7 @@ class DreamBoxGradient extends StatelessWidget {
       decoration: BoxDecoration(
         // color: Colorz.Grey,
         borderRadius: corners,
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: <Color>[Colorz.black0, Colorz.black125],

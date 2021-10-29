@@ -237,7 +237,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                     color: Colorz.white20,
                     verse: _bzName,
                     icon: _bz.logo,
-                    margins: EdgeInsets.only(top: _bzButtonMargin),
+                    margins: const EdgeInsets.only(top: _bzButtonMargin),
                     verseScaleFactor: 0.7,
                     verseCentered: false,
                     secondLine: _bz.id,

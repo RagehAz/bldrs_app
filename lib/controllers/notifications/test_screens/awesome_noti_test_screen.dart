@@ -146,7 +146,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
         
         await Nav.pushAndRemoveUntil(
             context: context,
-            screen: SecondNotiTestScreen(thing: 'thing'),
+            screen: const SecondNotiTestScreen(thing: 'thing'),
         );
       });
 
@@ -174,19 +174,19 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
           _pyramids = Iconz.PyramidsWhite;
       });
 
-      await Future.delayed(Duration(milliseconds: 50), (){
+      await Future.delayed(const Duration(milliseconds: 50), (){
         setState(() {
         _pyramids = Iconz.PyramidsYellow;
         });
       });
 
-    await Future.delayed(Duration(milliseconds: 100), (){
+    await Future.delayed(const Duration(milliseconds: 100), (){
       setState(() {
         _pyramids = Iconz.PyramidsWhite;
       });
     });
 
-    await Future.delayed(Duration(milliseconds: 150), (){
+    await Future.delayed(const Duration(milliseconds: 150), (){
       setState(() {
         _pyramids = Iconz.PyramidsYellow;
       });

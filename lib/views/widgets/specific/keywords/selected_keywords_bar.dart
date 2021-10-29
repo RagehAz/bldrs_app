@@ -37,9 +37,9 @@ class SelectedKeywordsBar extends StatelessWidget {
     '${selectedKeywords.length} Selected keywords';
 
     final EdgeInsets _barPadding = appIsLeftToRight(context) == true ?
-    EdgeInsets.only(left: Ratioz.appBarPadding, right: _selectedKeywordsZoneHeight)
+    const EdgeInsets.only(left: Ratioz.appBarPadding, right: _selectedKeywordsZoneHeight)
         :
-    EdgeInsets.only(left: _selectedKeywordsZoneHeight, right: Ratioz.appBarPadding)
+    const EdgeInsets.only(left: _selectedKeywordsZoneHeight, right: Ratioz.appBarPadding)
     ;
 
     const double _yellowLineHeight = 1;
@@ -57,7 +57,7 @@ class SelectedKeywordsBar extends StatelessWidget {
           Container(
             width: _screenHeight,
             height: (_selectedKeywordsZoneHeight * 0.3) - _yellowLineHeight,
-            padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+            padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
             child: SuperVerse(
               verse: _screenTitle,
               size: 1,

@@ -72,7 +72,7 @@ abstract class Shadowz {
     final List<BoxShadow> _shadows = <BoxShadow>[
       CustomBoxShadow(
         color: Colorz.black200,
-        offset: Offset(0, 0),
+        offset: const Offset(0, 0),
         blurRadius: flyerBoxWidth * 0.1,
         blurStyle: BlurStyle.outer
       ),

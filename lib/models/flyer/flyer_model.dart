@@ -512,7 +512,7 @@ class FlyerModel with ChangeNotifier{
       keywordsIDs : [],
       showsAuthor : true,
       bzID: 'br1',
-      position : GeoPoint(0,0),
+      position : const GeoPoint(0,0),
       slides : <SlideModel>[
         SlideModel.dummySlide(),
       ],

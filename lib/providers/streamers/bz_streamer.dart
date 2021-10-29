@@ -22,7 +22,7 @@ Widget bzModelStreamBuilder({
       stream: getBzStream(bzID),
       builder: (context, snapshot){
         if(StreamChecker.connectionIsLoading(snapshot) == true){
-          return Loading(loading: true,);
+          return const Loading(loading: true,);
         } else {
           final BzModel bzModel = snapshot.data;
 

@@ -137,7 +137,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     var theMarkers = _pickedLocation == null ? null :
     {
       Marker(
-        markerId: MarkerId('m1'),
+        markerId: const MarkerId('m1'),
         position: _pickedLocation,
         icon: customMarker,
         // infoWindow: InfoWindow(
@@ -226,7 +226,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           // ),
 
           if (widget.isSelecting)
-            Positioned(
+            const Positioned(
               top: 10,
               left: 10,
               child: DreamBox(

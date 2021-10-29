@@ -19,7 +19,7 @@ class BubblesSeparator extends StatelessWidget {
       child: Container(
         width: 5,
         height: 5,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
           color: Colorz.grey80,
         ),

@@ -168,7 +168,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           const Expander(),
 
-          LogoSlogan(
+          const LogoSlogan(
             showSlogan: true,
             showTagLine: false,
             sizeFactor: 0.7,

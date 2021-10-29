@@ -10,7 +10,7 @@ import 'package:image/image.dart' as img;
 
 abstract class Colorizer{
   static Gradient superSlideGradient(){
-    final Gradient slideGradient = LinearGradient(
+    final Gradient slideGradient = const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: <Color>[Colorz.black200, Colorz.black0],
@@ -29,7 +29,7 @@ abstract class Colorizer{
   }
 // -----------------------------------------------------------------------------
   static Gradient superFollowBTGradient(){
-    final Gradient followBTGradient = LinearGradient(
+    final Gradient followBTGradient = const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: <Color>[Colorz.white50, Colorz.nothing],

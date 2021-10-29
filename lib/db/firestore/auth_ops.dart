@@ -301,7 +301,7 @@ class AuthOps {
         methodName: 'facebookSignInOps',
         functions: () async {
 
-          print('1 language: ${Wordz.languageCode(context)},');
+          // print('1 language: ${Wordz.languageCode(context)},');
 
 
           /// B - get [accessToken]
@@ -354,7 +354,7 @@ class AuthOps {
 
     /// xx - return firebase user : if auth succeeds
     else {
-      print('2 language: ${Wordz.languageCode(context)},');
+      // print('2 language: ${Wordz.languageCode(context)},');
 
       /// E - get Or Create UserModel From User
       final Map<String, dynamic> _userModelMap = await UserOps.getOrCreateUserModelFromUser(

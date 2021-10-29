@@ -262,7 +262,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
                   height: _textBoxHeight,
                   // color: Colorz.YellowLingerie,
                   alignment: Alignment.center,
-                  child: const SuperVerse(
+                  child: SuperVerse(
                     verse: 'Accounts',
                     maxLines: 2,
                     size: _textSize,

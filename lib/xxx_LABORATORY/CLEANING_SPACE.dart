@@ -24,3 +24,11 @@ sub_prd_app_bathroom
 
  */
 
+final Map<String, dynamic> map = {
+  'something' : 'blah blah',
+  'key' : 'value',
+};
+
+final dynamic thing = map['something'];
+
+

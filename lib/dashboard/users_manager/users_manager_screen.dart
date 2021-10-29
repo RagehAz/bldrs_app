@@ -89,7 +89,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     });
 
 
-    await Future.delayed(Duration(milliseconds: 400), () async {
+    await Future.delayed(const Duration(milliseconds: 400), () async {
 
       await Scrollers.scrollToBottom(controller: _scrollController);
 
@@ -136,7 +136,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
           secondLine: 'showing ${_usersModels.length} users',
           verseScaleFactor: 0.7,
           secondLineScaleFactor: 0.9,
-          margins: EdgeInsets.symmetric(horizontal: 5),
+          margins: const EdgeInsets.symmetric(horizontal: 5),
           onTap: () async {
 
             await _readMoreUsers();
