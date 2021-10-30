@@ -123,7 +123,7 @@ class _RegisterFormState extends State<RegisterForm> {
     return _areValid;
   }
 // -----------------------------------------------------------------------------
-  Future<void> _registerOnTap({Zone currentZone}) async {
+  Future<void> _registerOnTap({ZoneModel currentZone}) async {
 
     setState(() {
       _passwordObscured = true;
@@ -172,7 +172,7 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
-    final Zone _currentZone = _zoneProvider.currentZone;
+    final ZoneModel _currentZone = _zoneProvider.currentZone;
 
     return Form(
       key: _formKey,

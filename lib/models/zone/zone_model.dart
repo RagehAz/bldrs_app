@@ -1,18 +1,18 @@
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 
-class Zone{
+class ZoneModel{
   String countryID;
   String cityID;
   String districtID;
 
-  Zone({
+  ZoneModel({
     this.countryID,
     this.cityID,
     this.districtID,
   });
 
-  Zone clone(){
-    return Zone(
+  ZoneModel clone(){
+    return ZoneModel(
       countryID: countryID,
       cityID: cityID,
       districtID: districtID,
@@ -31,10 +31,10 @@ class Zone{
     return '$countryID/$cityID/$districtID';
   }
 // -----------------------------------------------------------------------------
-  static Zone decipherZoneMap(Map<String, dynamic> map){
+  static ZoneModel decipherZoneMap(Map<String, dynamic> map){
 
-    final Zone _zone = map == null ? null :
-    Zone(
+    final ZoneModel _zone = map == null ? null :
+    ZoneModel(
       countryID: map['countryID'],
       cityID: map['cityID'],
       districtID: map['districtID'],
@@ -43,7 +43,7 @@ class Zone{
     return _zone;
   }
 // -----------------------------------------------------------------------------
-  static bool zonesAreTheSame(Zone finalZone, Zone originalZone){
+  static bool zonesAreTheSame(ZoneModel finalZone, ZoneModel originalZone){
     bool _zonesAreTheSame = true;
 
     if (finalZone.countryID != originalZone.countryID){_zonesAreTheSame = false;}
@@ -54,12 +54,12 @@ class Zone{
     return _zonesAreTheSame;
   }
 // -----------------------------------------------------------------------------
-  static Zone decipherZoneString(String zoneString){
+  static ZoneModel decipherZoneString(String zoneString){
     final String _countryID = decipherZoneStringToCountryID(zoneString);
     final String _cityID = decipherZoneStringToCityID(zoneString);
     final String _districtID = decipherZoneStringToDistrictID(zoneString);
 
-    return Zone(
+    return ZoneModel(
       countryID: _countryID,
       cityID: _cityID,
       districtID: _districtID,
@@ -82,8 +82,8 @@ class Zone{
     return _districtID;
   }
 // -----------------------------------------------------------------------------
-  static Zone getZoneFromIDs({String countryID, String cityID, String districtID}){
-    return Zone(
+  static ZoneModel getZoneFromIDs({String countryID, String cityID, String districtID}){
+    return ZoneModel(
       countryID: countryID,
       cityID: cityID,
       districtID: districtID,
@@ -93,8 +93,8 @@ class Zone{
 //       return bzModel.bzZone;
 //   }
 // -----------------------------------------------------------------------------
-  static Zone dummyZone(){
-    return Zone(
+  static ZoneModel dummyZone(){
+    return ZoneModel(
       countryID: 'egy',
       cityID: 'egy_cairo',
       districtID: 'el_rehab',
@@ -112,7 +112,7 @@ class Zone{
     print('$methodName ------------------------------- END');
   }
 // -----------------------------------------------------------------------------
-  static bool zoneHasAllIDs(Zone zone){
+  static bool zoneHasAllIDs(ZoneModel zone){
     final bool _hasAllIDs = zone != null && zone.countryID != null && zone.cityID != null && zone.districtID != null;
     return _hasAllIDs;
   }

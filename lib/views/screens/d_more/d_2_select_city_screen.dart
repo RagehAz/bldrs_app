@@ -127,7 +127,7 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
 
          else {
 
-           final Zone _zone = Zone(
+           final ZoneModel _zone = ZoneModel(
              countryID: _city.countryID,
              cityID: _city.cityID,
              districtID: null,

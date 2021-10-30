@@ -7,6 +7,7 @@ import 'package:bldrs/db/firestore/firestore.dart';
 import 'package:bldrs/db/firestore/search_ops.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/ui_provider.dart';
 import 'package:bldrs/views/widgets/general/appbar/search_bar.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -138,52 +139,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 
               const Stratosphere(),
 
-              Container(
-                color: Colorz.white10,
-                child: SearchBar(
-                    searchController: null, //_searchController,
-                    onSearchChanged:
-                        (String val) async {print(val);},
-                    onSearchSubmit: (String val) async {
-
-                      final List<CityModel> _foundCities = await FireSearch.citiesByCityENName(context: context, cityName: val);
-
-                      if (Mapper.canLoopList(_foundCities)){
-
-                        for (var city in _foundCities){
-
-                          city.printCity();
-
-                          setState(() {
-                            _countryID = city.countryID;
-                          });
-
-                        }
-
-
-                        CityModel _selectedCity = await Dialogz.confirmCityDialog(
-                          context: context,
-                          cities: _foundCities,
-                        );
-
-
-                      }
-
-                      else {
-
-                        await TopDialog.showTopDialog(context: context, verse: 'No city found');
-
-                      }
-
-                    },
-                    historyButtonIsOn: false
-                ),
-              ),
-
-              FlagBox(
-                  size: 50,
-                  flag: Flag.getFlagIconByCountryID(_countryID)
-              ),
 
 
               /// AVOID SET STATE : WAY # 1
@@ -268,15 +223,15 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 
               WideButton(
                   color: Colorz.yellow20,
-                  verse: 'get country',
+                  verse: 'get zone by IP b',
                   icon: Iconz.Earth,
                   onTap: () async {
 
                     _triggerLoading();
 
-                    final String _thing = await Atlas.getIPCountryA(context: context);
+                    final ZoneModel _zone = await Atlas.getZoneByIP_ipRegistry(context: context);
 
-                    print('The thing received aho : ${_thing}');
+                    _zone.printZone();
 
                     _triggerLoading();
 

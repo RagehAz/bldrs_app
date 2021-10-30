@@ -23,7 +23,7 @@ class FlyerModel with ChangeNotifier{
   final FlyerState flyerState;
   final List<String> keywordsIDs;
   final bool showsAuthor;
-  final Zone zone;
+  final ZoneModel zone;
   // -------------------------
   final String authorID;
   final String bzID;
@@ -102,7 +102,7 @@ class FlyerModel with ChangeNotifier{
         flyerState: FlyerModel.decipherFlyerState(map['flyerState']),
         keywordsIDs: Mapper.getStringsFromDynamics(dynamics: map['keywordsIDs']),
         showsAuthor: map['showsAuthor'],
-        zone: Zone.decipherZoneMap(map['zone']),
+        zone: ZoneModel.decipherZoneMap(map['zone']),
         // -------------------------
         authorID: map['authorID'],
         bzID: map['bzID'],
@@ -523,7 +523,7 @@ class FlyerModel with ChangeNotifier{
         PublishTime(state: FlyerState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
       ],
       priceTagIsOn : true,
-      zone: Zone.dummyZone(),
+      zone: ZoneModel.dummyZone(),
     );
   }
 // -----------------------------------------------------------------------------

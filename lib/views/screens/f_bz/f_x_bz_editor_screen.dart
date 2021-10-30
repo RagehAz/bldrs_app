@@ -167,7 +167,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         trigram: TextMod.createTrigram(input: _bzNameTextController.text),
         logo: _currentBzLogoFile ?? _currentBzLogoURL,
         scope: _bzScopeTextController.text,
-        zone: Zone(
+        zone: ZoneModel(
           countryID: _currentBzCountry,
           cityID: _currentBzCity,
           districtID: _currentBzDistrict,
@@ -362,7 +362,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         trigram: TextMod.createTrigram(input: _bzNameTextController.text),
         logo: _currentBzLogoFile,
         scope: _bzScopeTextController.text,
-        zone: Zone(
+        zone: ZoneModel(
           countryID: _currentBzCountry,
           cityID: _currentBzCity,
           districtID: _currentBzDistrict,
@@ -460,7 +460,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         trigram: TextMod.createTrigram(input: _bzNameTextController.text),
         logo: _currentBzLogoFile ?? _currentBzLogoURL,
         scope: _bzScopeTextController.text,
-        zone: Zone(
+        zone: ZoneModel(
           countryID: _currentBzCountry,
           cityID: _currentBzCity,
           districtID: _currentBzDistrict,
@@ -641,7 +641,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 changeCountry : (countryID) => setState(() {_currentBzCountry = countryID;}),
                 changeCity : (cityID) => setState(() {_currentBzCity = cityID;}),
                 changeDistrict : (districtID) => setState(() {_currentBzDistrict = districtID;}),
-                currentZone: Zone(countryID: _currentBzCountry, cityID: _currentBzCity, districtID: _currentBzDistrict),
+                currentZone: ZoneModel(countryID: _currentBzCountry, cityID: _currentBzCity, districtID: _currentBzDistrict),
                 title: 'Headquarters District',//Wordz.hqCity(context),
               ),
 

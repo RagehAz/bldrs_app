@@ -542,7 +542,7 @@ class CountryIso{
 });
 // -----------------------------------------------------------------------------
   static String getCountryIDByIso(String iso){
-    final CountryIso _countryIso = _allCountriesIsoCodes.firstWhere((countryIso) => countryIso.iso == iso.toLowerCase());
+    final CountryIso _countryIso = _allCountriesIsoCodes.firstWhere((countryIso) => countryIso.iso == iso?.toLowerCase());
 
     if (_countryIso == null){
       return null;

@@ -184,17 +184,17 @@ class BottomDialog extends StatelessWidget {
     );
   }
 // -----------------------------------------------------------------------------
-  static void showButtonsBottomDialog({
+  static Future<void> showButtonsBottomDialog({
     @required BuildContext context,
     @required bool draggable,
     @required List<Widget> buttons,
     @required double buttonHeight,
-  }){
+  }) async {
 
     final double _spacing = buttonHeight * 0.1;
     final double _height = (buttonHeight * buttons.length) + (_spacing * buttons.length) + 30 ;
 
-    showBottomDialog(
+    await showBottomDialog(
       context: context,
       draggable: draggable,
       height: _height,
