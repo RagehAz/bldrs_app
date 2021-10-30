@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
@@ -6,6 +7,7 @@ abstract class ChainProperties {
 
   static const Chain chain = const Chain(
     id: 'properties',
+    icon: Iconz.BxPropertiesOff,
     names: <Name>[
       Name(code: 'en', value: 'Properties'),
       Name(code: 'ar', value: '')
@@ -15,6 +17,7 @@ abstract class ChainProperties {
       /// Industrial
       const Chain(
         id: 'ppt_lic_industrial',
+        icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Industrial'),
           Name(code: 'ar', value: 'صناعي')
@@ -33,6 +36,7 @@ abstract class ChainProperties {
       /// Educational
       const Chain(
         id: 'ppt_lic_educational',
+        icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Educational'),
           Name(code: 'ar', value: 'تعليمي')
@@ -51,6 +55,7 @@ abstract class ChainProperties {
       /// Hotel
       const Chain(
         id: 'ppt_lic_hotel',
+        icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Hotel'),
           Name(code: 'ar', value: 'فندقي')
@@ -69,6 +74,7 @@ abstract class ChainProperties {
       /// Entertainment
       const Chain(
         id: 'ppt_lic_entertainment',
+        icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Entertainment'),
           Name(code: 'ar', value: 'ترفيهي')
@@ -94,6 +100,7 @@ abstract class ChainProperties {
       /// Medical
       const Chain(
         id: 'ppt_lic_medical',
+        icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Medical'),
           Name(code: 'ar', value: 'طبي')
@@ -119,6 +126,7 @@ abstract class ChainProperties {
       /// Sports
       const Chain(
         id: 'ppt_lic_sports',
+        icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Sports'),
           Name(code: 'ar', value: 'رياضي')
@@ -158,6 +166,7 @@ abstract class ChainProperties {
       /// Residential
       const Chain(
         id: 'ppt_lic_residential',
+        icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Residential'),
           Name(code: 'ar', value: 'سكني')
@@ -274,6 +283,7 @@ abstract class ChainProperties {
       /// Retail
       const Chain(
         id: 'ppt_lic_retail',
+        icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Retail'),
           Name(code: 'ar', value: 'تجاري')
@@ -341,6 +351,7 @@ abstract class ChainProperties {
       /// Administration
       const Chain(
         id: 'ppt_lic_administration',
+        icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Administration'),
           Name(code: 'ar', value: 'إداري')

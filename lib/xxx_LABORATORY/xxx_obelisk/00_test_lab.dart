@@ -1,9 +1,18 @@
+import 'package:bldrs/controllers/drafters/atlas.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/firestore/search_ops.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/providers/ui_provider.dart';
+import 'package:bldrs/views/widgets/general/appbar/search_bar.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/views/widgets/general/buttons/flagbox_button.dart';
+import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
+import 'package:bldrs/views/widgets/general/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -19,7 +28,7 @@ class TestLab extends StatefulWidget {
 class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 
   ScrollController _ScrollController;
-
+  TextEditingController _searchController = TextEditingController();
   AnimationController _animationController;
 
 // -----------------------------------------------------------------------------
@@ -94,6 +103,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
     _counter.value += 3;
   }
 // -----------------------------------------------------------------------------
+  String _countryID;
 
   @override
   Widget build(BuildContext context) {
@@ -123,26 +133,58 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
           child: ListView(
             physics: const BouncingScrollPhysics(),
             controller: _ScrollController,
+
             children: <Widget>[
 
               const Stratosphere(),
 
-              WideButton(
-                  color: Colorz.bloodTest,
-                  verse: 'move continents',
-                  icon: Iconz.Share,
-                  onTap: () async {
+              Container(
+                color: Colorz.white10,
+                child: SearchBar(
+                    searchController: null, //_searchController,
+                    onSearchChanged:
+                        (String val) async {print(val);},
+                    onSearchSubmit: (String val) async {
 
-                    _triggerLoading();
+                      final List<CityModel> _foundCities = await FireSearch.citiesByCityENName(context: context, cityName: val);
 
-                    final Map<String, dynamic> _map = await Fire.readDoc(context: context, collName: 'admin', docName: 'continents');
+                      if (Mapper.canLoopList(_foundCities)){
 
-                    await Fire.createNamedDoc(context: context, collName: FireColl.zones, docName: FireDoc.zones_continents, input: _map);
+                        for (var city in _foundCities){
 
-                    _triggerLoading();
+                          city.printCity();
 
-                  }
+                          setState(() {
+                            _countryID = city.countryID;
+                          });
+
+                        }
+
+
+                        CityModel _selectedCity = await Dialogz.confirmCityDialog(
+                          context: context,
+                          cities: _foundCities,
+                        );
+
+
+                      }
+
+                      else {
+
+                        await TopDialog.showTopDialog(context: context, verse: 'No city found');
+
+                      }
+
+                    },
+                    historyButtonIsOn: false
+                ),
               ),
+
+              FlagBox(
+                  size: 50,
+                  flag: Flag.getFlagIconByCountryID(_countryID)
+              ),
+
 
               /// AVOID SET STATE : WAY # 1
               ValueListenableBuilder<int>(
@@ -222,8 +264,38 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
                       );
 
                   }
-                  )
+                  ),
 
+              WideButton(
+                  color: Colorz.yellow20,
+                  verse: 'get country',
+                  icon: Iconz.Earth,
+                  onTap: () async {
+
+                    _triggerLoading();
+
+                    final String _thing = await Atlas.getIPCountryA(context: context);
+
+                    print('The thing received aho : ${_thing}');
+
+                    _triggerLoading();
+
+                  }
+              ),
+
+              // WideButton(
+              //     color: Colorz.bloodTest,
+              //     verse: 'Do Something',
+              //     icon: Iconz.Share,
+              //     onTap: () async {
+              //
+              //       _triggerLoading();
+              //
+              //
+              //       _triggerLoading();
+              //
+              //     }
+              // ),
 
             ],
           ),

@@ -96,7 +96,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
           print('getting location aho');
 
-          final Position _position = await Atlas.getCurrentPosition();
+          final Position _position = await Atlas.getGeoLocatorCurrentPosition();
 
           print('got position = ${_position}');
 

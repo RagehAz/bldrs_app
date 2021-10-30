@@ -534,7 +534,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     List<BzModel> _result = await FireSearch.bzzByBzName(
       context: context,
-      compareValue: _searchController.text,
+      bzName: _searchController.text,
     );
 
     if (Mapper.canLoopList(_result)){

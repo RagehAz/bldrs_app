@@ -1,6 +1,8 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/db/firestore/country_ops.dart';
+import 'package:bldrs/db/firestore/search_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
@@ -8,6 +10,9 @@ import 'package:bldrs/models/zone/continent_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
+import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -127,6 +132,45 @@ class ZoneProvider extends ChangeNotifier {
     }
 
     return _cityModel;
+  }
+// -----------------------------------------------------------------------------
+  Future<CityModel> fetchCityByName({@required BuildContext context, @required String countryID, @required String cityName}) async {
+    /// TASK : fetch city by name
+    CityModel _city;
+
+    /// trial 1
+    String _cityIDA = CityModel.createCityID(countryID: countryID, cityEnName: cityName);
+    _city = await fetchCityByID(context: context, cityID: _cityIDA);
+
+    if (_city == null){
+
+      /// trial 2
+      List<CityModel> _foundCities = await FireSearch.citiesByCityENName(context: context, cityName: cityName);
+
+      if (Mapper.canLoopList(_foundCities)){
+
+        if (_foundCities.length == 1){
+          _city = _foundCities[0];
+        }
+
+        else {
+
+          CityModel _selectedCity = await Dialogz.confirmCityDialog(
+            context: context,
+            cities: _foundCities,
+          );
+
+          if (_selectedCity != null){
+            _city = _selectedCity;
+          }
+
+        }
+
+      }
+
+    }
+
+    return _city;
   }
 // -----------------------------------------------------------------------------
   Future<List<CityModel>> fetchCitiesByIDs({@required BuildContext context, @required List<String> citiesIDs}) async {
@@ -277,7 +321,7 @@ class ZoneProvider extends ChangeNotifier {
 
     if (geoPoint != null){
 
-      final List<Placemark> _marks = await Atlas.getAddressFromPosition(geopoint: geoPoint);
+      final List<Placemark> _marks = await Atlas.getAddressFromPosition(geoPoint: geoPoint);
 
       print('_getCountryData : got place marks : ${_marks.length}');
 

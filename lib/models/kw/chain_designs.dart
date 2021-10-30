@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
@@ -6,6 +7,7 @@ abstract class ChainDesigns {
 
   static const chain = const Chain(
     id: 'designs',
+    icon: Iconz.BxDesignsOff,
     names: <Name>[Name(code: 'en', value: 'Designs'), Name(code: 'ar', value: '')],
     sons: <KW>[
       KW(
