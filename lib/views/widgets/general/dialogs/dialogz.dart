@@ -1,11 +1,16 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
+import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/secondary_models/name_model.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/flyers_bubble.dart';
+import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -211,6 +216,54 @@ class Dialogz{
 
 
     return _flyersReviewResult;
-  }// -----------------------------------------------------------------------------
+  }
+// -----------------------------------------------------------------------------
+  static Future<CityModel> confirmCityDialog({
+    @required BuildContext context,
+    @required List<CityModel> cities,
+}) async {
 
+    CityModel _city;
+
+    await BottomDialog.showButtonsBottomDialog(
+      context: context,
+      draggable: true,
+      buttonHeight: 50,
+      buttons: <Widget>[
+
+        SuperVerse(
+          verse: 'Please confirm your city',
+        ),
+
+        ...List.generate(cities.length,
+                (index){
+
+              final CityModel _foundCity = cities[index];
+              final String _foundCityName = Name.getNameByCurrentLingoFromNames(context, _foundCity.names);
+
+              return
+                BottomDialog.wideButton(
+                    context: context,
+                    verse: _foundCityName,
+                    icon: Flag.getFlagIconByCountryID(_foundCity.countryID),
+                    onTap: () async {
+
+                      print('city selected aho ${_foundCityName}');
+
+                      _city = _foundCity;
+                      await Nav.goBack(context);
+
+                    }
+                );
+
+            }
+
+        ),
+
+      ],
+    );
+
+    return _city;
+}
+// -----------------------------------------------------------------------------
 }

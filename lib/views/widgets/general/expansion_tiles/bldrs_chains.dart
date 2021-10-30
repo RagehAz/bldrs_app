@@ -81,7 +81,7 @@ class Inception extends StatelessWidget {
         DreamBox(
           width: _buttonWidth,
           height: _buttonHeight,
-          icon: _keywordsProvider.getImagePath(son.id),
+          icon: _keywordsProvider.getIcon(son),
           verse: Name.getNameByCurrentLingoFromNames(context, son.names),
           verseScaleFactor: 0.7,
           verseCentered: false,
@@ -99,7 +99,7 @@ class Inception extends StatelessWidget {
       return
 
         ExpandingTile(
-          icon: _keywordsProvider.getImagePath(son.id),
+          icon: _keywordsProvider.getIcon(son),
           width: _buttonWidth,
           collapsedHeight: _buttonHeight,
           firstHeadline: Name.getNameByCurrentLingoFromNames(context, son.names),

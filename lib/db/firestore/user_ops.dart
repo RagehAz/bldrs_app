@@ -105,6 +105,8 @@ abstract class UserOps{
 // -----------------------------------------------------------------------------
   static Future<UserModel> readUserOps({@required BuildContext context, @required String userID}) async {
 
+    UserModel _user;
+
     print('readUserOps : Start reading user $userID,');
 
     final Map<String, dynamic> _userMap = await Fire.readDoc(
@@ -113,13 +115,17 @@ abstract class UserOps{
       docName: userID,
     );
 
-    print('readUserOps : _userMap _userMap[\'userID\'] is : ${_userMap['userID']}');
-    // print('lng : ${Wordz.languageCode(context)}');
+    if (_userMap != null){
 
-    final UserModel _user = _userMap == null ? null : UserModel.decipherUserMap(
-      map: _userMap,
-      fromJSON: false,
-    );
+      print('readUserOps : _userMap _userMap[\'userID\'] is : ${_userMap['id']}');
+      // print('lng : ${Wordz.languageCode(context)}');
+
+      _user = _userMap == null ? null : UserModel.decipherUserMap(
+        map: _userMap,
+        fromJSON: false,
+      );
+
+    }
 
     // print('_userModel is : $_user');
     // print('lng : ${Wordz.languageCode(context)}');

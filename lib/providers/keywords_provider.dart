@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/dashboard/exotic_methods.dart';
 import 'package:bldrs/db/firestore/keyword_ops.dart';
 import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
+import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/secondary_models/app_updates.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/providers/general_provider.dart';
@@ -127,26 +128,41 @@ class KeywordsProvider extends ChangeNotifier{
 
   }
 // -----------------------------------------------------------------------------
-  String getImagePath(dynamic keywordOrKeywordID){
-    String _keywordID;
+  String getIcon(dynamic son){
+    String _icon;
 
-    if (keywordOrKeywordID.runtimeType == String){
-      _keywordID = keywordOrKeywordID;
+    /// WHEN SON IS KEYWORD ID "never happens"
+    if (son.runtimeType == String){
+      _icon = 'assets/keywords/$son.jpg';
+      print('HEY : Im  a son, and im a keyword ID ${son}');
     }
-    else if (keywordOrKeywordID.runtimeType == KW){
-      _keywordID = keywordOrKeywordID.keywordID;
+    /// WHEN SON IS A KEYWORD
+    else if (son.runtimeType == KW){
+      final KW _keyword = son;
+      _icon = 'assets/keywords/${_keyword.id}.jpg';
     }
+    /// WHEN SON IS A CHAIN
+    else if (son.runtimeType == Chain){
+      final Chain _chain = son;
+
+      if (_chain.icon == null){
+        // _icon = null;
+      }
+      else if (_chain.icon == 'id'){
+        _icon = 'assets/keywords/${_chain.id}.jpg';
+      }
+      else {
+        _icon = _chain.icon;
+      }
+
+    }
+    /// HOWEVER
     else {
-      _keywordID = '';
+      // _keywordID = null;
     }
 
-    String _path;
 
-    // final KW _keyword = getKeywordByID(_keywordID);
-
-      _path = 'assets/keywords/$_keywordID.jpg';
-
-    return _path;
+    return _icon;
   }
 // -----------------------------------------------------------------------------
 }

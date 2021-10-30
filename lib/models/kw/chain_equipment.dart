@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
@@ -6,6 +7,7 @@ abstract class ChainEquipment{
 
   static const Chain chain = const Chain(
     id: 'equipment',
+    icon: Iconz.BxEquipmentOff,
     names: <Name>[
       Name(code: 'en', value: 'Equipment'),
       Name(code: 'ar', value: '')
@@ -16,13 +18,21 @@ abstract class ChainEquipment{
       /// Handheld equipment & tools
       const Chain(
         id: 'group_equip_handheld',
-        names: <Name>[Name(code: 'en', value: 'Handheld equipment & tools'), Name(code: 'ar', value: 'معدات و أدوات خفيفة')],
+        icon: null,
+        names: <Name>[
+          Name(code: 'en', value: 'Handheld equipment & tools'),
+          Name(code: 'ar', value: 'معدات و أدوات خفيفة')
+        ],
         sons: const <Chain>[
           // ----------------------------------
           /// Power tools
           const Chain(
             id: 'sub_handheld_power',
-            names: <Name>[Name(code: 'en', value: 'Power tools'), Name(code: 'ar', value: 'أدوات كهربية')],
+            icon: null,
+            names: <Name>[
+              Name(code: 'en', value: 'Power tools'),
+              Name(code: 'ar', value: 'أدوات كهربية')
+            ],
             sons: const <KW>[
               KW(id: 'equip_tool_power_drill', names: <Name>[Name(code: 'en', value: 'Drills'), Name(code: 'ar', value: 'ثاقب كهربائي')],),
               KW(id: 'equip_tool_power_saw', names: <Name>[Name(code: 'en', value: 'Electric saw'), Name(code: 'ar', value: 'منشار كهربائي')],),
@@ -37,7 +47,11 @@ abstract class ChainEquipment{
           /// Measurement tools
           const Chain(
             id: 'sub_handheld_measure',
-            names: <Name>[Name(code: 'en', value: 'Measurement tools'), Name(code: 'ar', value: 'أدوات قياسس')],
+            icon: null,
+            names: <Name>[
+              Name(code: 'en', value: 'Measurement tools'),
+              Name(code: 'ar', value: 'أدوات قياسس')
+            ],
             sons: const <KW>[
               KW(id: 'equip_tool_measure_lasermeter', names: <Name>[Name(code: 'en', value: 'Laser meters'), Name(code: 'ar', value: 'متر قياس ليزر')],),
               KW(id: 'equip_tool_measure_tapMeasure', names: <Name>[Name(code: 'en', value: 'Tape measure'), Name(code: 'ar', value: 'متر شريط قياس')],),
@@ -48,7 +62,11 @@ abstract class ChainEquipment{
           /// Handheld machinery
           const Chain(
             id: 'sub_handheld_machinery',
-            names: <Name>[Name(code: 'en', value: 'Handheld machinery'), Name(code: 'ar', value: 'ماكينات يدوية')],
+            icon: null,
+            names: <Name>[
+              Name(code: 'en', value: 'Handheld machinery'),
+              Name(code: 'ar', value: 'ماكينات يدوية')
+            ],
             sons: const <KW>[
               KW(id: 'equip_handheld_paver', names: <Name>[Name(code: 'en', value: 'Roller Pavers'), Name(code: 'ar', value: 'آلة رصف')],),
               KW(id: 'equip_handheld_rammer', names: <Name>[Name(code: 'en', value: 'Tamper rammers'), Name(code: 'ar', value: 'ماكينات دك هزاز')],),
@@ -61,7 +79,11 @@ abstract class ChainEquipment{
           /// Hand tools
           const Chain(
             id: 'sub_handheld_handTools',
-            names: <Name>[Name(code: 'en', value: 'Hand tools'), Name(code: 'ar', value: 'أدوات يدوية')],
+            icon: null,
+            names: <Name>[
+              Name(code: 'en', value: 'Hand tools'),
+              Name(code: 'ar', value: 'أدوات يدوية')
+            ],
             sons: const <KW>[
               KW(id: 'equip_tool_hand_workbench', names: <Name>[Name(code: 'en', value: 'Tool storage & work benches'), Name(code: 'ar', value: 'مخازن عدد و أسطح عمل')],),
               KW(id: 'equip_tool_hand_bits', names: <Name>[Name(code: 'en', value: 'Wood drill bits'), Name(code: 'ar', value: 'بنط')],),
@@ -76,7 +98,11 @@ abstract class ChainEquipment{
           /// Garden Tools
           const Chain(
             id: 'sub_handheld_gardenTools',
-            names: <Name>[Name(code: 'en', value: 'Garden Tools'), Name(code: 'ar', value: 'أدوات زراعة')],
+            icon: null,
+            names: <Name>[
+              Name(code: 'en', value: 'Garden Tools'),
+              Name(code: 'ar', value: 'أدوات زراعة')
+            ],
             sons: const <KW>[
               KW(id: 'prd_tool_garden_fork', names: <Name>[Name(code: 'en', value: 'Forks, Rakes, Hoes, Shovels & Spades'), Name(code: 'ar', value: 'شوك و مجارف و معاول')],),
               KW(id: 'prd_tool_garden_pruning', names: <Name>[Name(code: 'en', value: 'Pruning tools'), Name(code: 'ar', value: 'أدوات تقليم')],),
@@ -93,7 +119,11 @@ abstract class ChainEquipment{
           /// Cleaning Tools
           const Chain(
             id: 'sub_handheld_cleaning',
-            names: <Name>[Name(code: 'en', value: 'Cleaning Tools'), Name(code: 'ar', value: 'أدوات نظافة')],
+            icon: null,
+            names: <Name>[
+              Name(code: 'en', value: 'Cleaning Tools'),
+              Name(code: 'ar', value: 'أدوات نظافة')
+            ],
             sons: const <KW>[
               KW(id: 'prd_tool_hk_floorcare', names: <Name>[Name(code: 'en', value: 'Floor care Accessories'), Name(code: 'ar', value: 'أدوات عناية بالأرضيات')],),
               KW(id: 'prd_tool_hk_mop', names: <Name>[Name(code: 'en', value: 'Mops, Brooms & dustpans'), Name(code: 'ar', value: 'مماسح و مكانس و مجارف')],),
@@ -106,7 +136,11 @@ abstract class ChainEquipment{
       /// Material handling equipment
       const Chain(
         id: 'group_equip_handling',
-        names: <Name>[Name(code: 'en', value: 'Material handling equipment'), Name(code: 'ar', value: 'معدات نقل و تحميل')],
+        icon: null,
+        names: <Name>[
+          Name(code: 'en', value: 'Material handling equipment'),
+          Name(code: 'ar', value: 'معدات نقل و تحميل')
+        ],
         sons: const <KW>[
 
           KW(id: 'equip_mat_crane', names: <Name>[Name(code: 'en', value: 'Cranes'), Name(code: 'ar', value: 'رافعات')],),
@@ -119,7 +153,11 @@ abstract class ChainEquipment{
       /// Heavy machinery
       const Chain(
         id: 'group_equip_heavy',
-        names: <Name>[Name(code: 'en', value: 'Heavy machinery'), Name(code: 'ar', value: 'معدات ثقيلة')],
+        icon: null,
+        names: <Name>[
+          Name(code: 'en', value: 'Heavy machinery'),
+          Name(code: 'ar', value: 'معدات ثقيلة')
+        ],
         sons: const <KW>[
           KW(id: 'equip_machinery_stoneCrusher', names: <Name>[Name(code: 'en', value: 'Stone crushers'), Name(code: 'ar', value: 'كسارة حجر')],),
           KW(id: 'equip_machinery_tunneling', names: <Name>[Name(code: 'en', value: 'Tunneling boring machine'), Name(code: 'ar', value: 'ألة حفر أنفاق')],),
@@ -131,7 +169,11 @@ abstract class ChainEquipment{
       /// Construction preparations
       const Chain(
         id: 'group_equip_prep',
-        names: <Name>[Name(code: 'en', value: 'Construction preparations'), Name(code: 'ar', value: 'تجهيزات الموقع')],
+        icon: null,
+        names: <Name>[
+          Name(code: 'en', value: 'Construction preparations'),
+          Name(code: 'ar', value: 'تجهيزات الموقع')
+        ],
         sons: const <KW>[
           KW(id: 'equip_prep_scaffold', names: <Name>[Name(code: 'en', value: 'Scaffold'), Name(code: 'ar', value: 'سقالات')],),
           KW(id: 'equip_prep_cone', names: <Name>[Name(code: 'en', value: 'Cones & Barriers'), Name(code: 'ar', value: 'أقماع و حواجز')],),
@@ -142,13 +184,21 @@ abstract class ChainEquipment{
       /// Vehicles
       const Chain(
         id: 'group_equip_vehicle',
-        names: <Name>[Name(code: 'en', value: 'Vehicles'), Name(code: 'ar', value: 'عربات')],
+        icon: null,
+        names: <Name>[
+          Name(code: 'en', value: 'Vehicles'),
+          Name(code: 'ar', value: 'عربات')
+        ],
         sons: const <Chain>[
           // ----------------------------------
           /// Earth moving vehicles
           const Chain(
             id: 'sub_vehicle_earthmoving',
-            names: <Name>[Name(code: 'en', value: 'Earth moving vehicles'), Name(code: 'ar', value: 'عربات تحريك الأرض')],
+            icon: null,
+            names: <Name>[
+              Name(code: 'en', value: 'Earth moving vehicles'),
+              Name(code: 'ar', value: 'عربات تحريك الأرض')
+            ],
             sons: const <KW>[
               KW(id: 'equip_earth_excavator', names: <Name>[Name(code: 'en', value: 'Excavators'), Name(code: 'ar', value: 'حفارات')],),
               KW(id: 'equip_earth_backhoe', names: <Name>[Name(code: 'en', value: 'Backhoe'), Name(code: 'ar', value: 'جراف حفار')],),
@@ -166,7 +216,11 @@ abstract class ChainEquipment{
           /// Transporting vehicles
           const Chain(
             id: 'sub_vehicle_transport',
-            names: <Name>[Name(code: 'en', value: 'Transporting vehicles'), Name(code: 'ar', value: 'عربات ناقلة')],
+            icon: null,
+            names: <Name>[
+              Name(code: 'en', value: 'Transporting vehicles'),
+              Name(code: 'ar', value: 'عربات ناقلة')
+            ],
             sons: const <KW>[
               KW(id: 'equip_vehicle_dumper', names: <Name>[Name(code: 'en', value: 'Dumpers & Tippers'), Name(code: 'ar', value: 'شاحنات قلابة')],),
               KW(id: 'equip_vehicle_tanker', names: <Name>[Name(code: 'en', value: 'Tankers'), Name(code: 'ar', value: 'شاحنات سوائل')],),
@@ -177,7 +231,11 @@ abstract class ChainEquipment{
           /// Paving vehicles
           const Chain(
             id: 'sub_vehicle_paving',
-            names: <Name>[Name(code: 'en', value: 'Paving vehicles'), Name(code: 'ar', value: 'عربات تمهيد طرق')],
+            icon: null,
+            names: <Name>[
+              Name(code: 'en', value: 'Paving vehicles'),
+              Name(code: 'ar', value: 'عربات تمهيد طرق')
+            ],
             sons: const <KW>[
               KW(id: 'equip_paving_roller', names: <Name>[Name(code: 'en', value: 'Road Rollers'), Name(code: 'ar', value: 'مدحلة أسفلت')],),
               KW(id: 'equip_paving_asphalt', names: <Name>[Name(code: 'en', value: 'Road making machine'), Name(code: 'ar', value: 'ماكينات صناعة الطرق')],),

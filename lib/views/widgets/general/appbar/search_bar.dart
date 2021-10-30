@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
   final TextEditingController searchController;
-  final Function onSearchSubmit;
-  final Function onSearchChanged;
+  final ValueChanged<String> onSearchSubmit;
+  final ValueChanged<String> onSearchChanged;
   final bool historyButtonIsOn;
 
   const SearchBar({
@@ -27,6 +27,7 @@ class SearchBar extends StatefulWidget {
 
 class _SearchBarState extends State<SearchBar> {
   TextEditingController _searchTextController;
+  GlobalKey _key = GlobalKey(debugLabel: 'search_bar');
 
   @override
   void initState() {

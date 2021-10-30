@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
@@ -12,6 +10,7 @@ abstract class Specs{
     /// Kiosk Type
     const Chain(
       id: 'group_dz_kioskType',
+      icon: null,
       names: <Name>[Name(code: 'en', value: 'Kiosk Type'), Name(code: 'ar', value: 'نوع الكشك')],
       sons: const <KW>[
         const KW(id: 'kiosk_food', names: <Name>[Name(code: 'en', value: 'Food & Beverages'), Name(code: 'ar', value: 'أكل و شراب')],),
@@ -24,6 +23,7 @@ abstract class Specs{
     /// Architectural Style
     const Chain(
       id: 'group_dz_style',
+      icon: null,
       names: <Name>[Name(code: 'en', value: 'Architectural Style'), Name(code: 'ar', value: 'الطراز المعماري')],
       sons: const <KW>[
         KW(id: 'arch_style_arabian', names: <Name>[Name(code: 'en', value: 'Arabian'), Name(code: 'ar', value: 'عربي')],),
@@ -64,12 +64,14 @@ abstract class Specs{
     /// Area
     const Chain(
       id: 'group_ppt_area',
+      icon: null,
       names: <Name>[Name(code: 'en', value: 'Area'), Name(code: 'ar', value: 'المساحة')],
       sons: const <Chain>[
         // ----------------------------------
         /// Property Area
         const Chain(
           id: 'sub_ppt_area_pptArea',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Property Area'), Name(code: 'ar', value: 'مساحة العقارر')],
           sons: const <KW>[
             KW(id: 'pArea_less', names: <Name>[Name(code: 'en', value: 'Less than 50 m²'), Name(code: 'ar', value: 'أقل من 50 م²')],),
@@ -92,6 +94,7 @@ abstract class Specs{
         /// Lot Area
         const Chain(
           id: 'sub_ppt_area_lotArea',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Lot Area'), Name(code: 'ar', value: 'مساحة الأرض')],
           sons: const <KW>[
             KW(id: 'lArea_200_500', names: <Name>[Name(code: 'en', value: '200 - 500 m²'), Name(code: 'ar', value: 'بين 200 - 500 م²')],),
@@ -111,12 +114,14 @@ abstract class Specs{
     /// Property Features
     const Chain(
       id: 'group_ppt_features',
+      icon: null,
       names: <Name>[Name(code: 'en', value: 'Property Features'), Name(code: 'ar', value: 'خواص العقار')],
       sons: const <Chain>[
         // ----------------------------------
         /// Property View
         const Chain(
           id: 'sub_ppt_feat_view',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Property View'), Name(code: 'ar', value: 'المنظر المطل عليه  العقار')],
           sons: const <KW>[
             KW(id: 'view_golf', names: <Name>[Name(code: 'en', value: 'Golf course view'), Name(code: 'ar', value: 'مضمار جولف')],),
@@ -138,6 +143,7 @@ abstract class Specs{
         /// Number of Floor
         const Chain(
           id: 'sub_ppt_feat_floors',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Number of Floor'), Name(code: 'ar', value: 'الدور')],
           sons: const <KW>[
             KW(id: 'floor_lower', names: <Name>[Name(code: 'en', value: 'Under B-1'), Name(code: 'ar', value: 'أسفل البدروم الأول')],),
@@ -159,6 +165,7 @@ abstract class Specs{
         /// Indoor Features
         const Chain(
           id: 'sub_ppt_feat_indoor',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Indoor Features'), Name(code: 'ar', value: 'خواص داخلية')],
           sons: const <KW>[
             KW(id: 'pFeature_disabilityFeatures', names: <Name>[Name(code: 'en', value: 'Disability features'), Name(code: 'ar', value: 'خواص معتبرة للإعاقة و المقعدين')],),
@@ -180,6 +187,7 @@ abstract class Specs{
         /// In a Compound
         const Chain(
           id: 'sub_ppt_feat_compound',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'In a Compound'), Name(code: 'ar', value: 'في مجمع سكني')],
           sons: const <KW>[
             KW(id: 'compound_notInCompound', names: <Name>[Name(code: 'en', value: 'Not in a compound'), Name(code: 'ar', value: 'ليس في مجمع سكني')],),
@@ -190,6 +198,7 @@ abstract class Specs{
         /// Finishing level
         const Chain(
           id: 'sub_ppt_feat_finishing',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Finishing level'), Name(code: 'ar', value: 'مستوى التشطيب')],
           sons: const <KW>[
             KW(id: 'finish_coreAndShell', names: <Name>[Name(code: 'en', value: 'Core and shell'), Name(code: 'ar', value: 'خرسانات و حوائط خارجية')],),
@@ -204,6 +213,7 @@ abstract class Specs{
         /// Building Age
         const Chain(
           id: 'sub_ppt_feat_age',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Building Age'), Name(code: 'ar', value: 'عمر المنشأ')],
           sons: const <KW>[
             KW(id: 'age_1_2', names: <Name>[Name(code: 'en', value: '1 - 2 years'), Name(code: 'ar', value: 'بين 1 - 2 عام')],),
@@ -219,6 +229,7 @@ abstract class Specs{
         /// Amenities
         const Chain(
           id: 'sub_ppt_feat_amenities',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Amenities'), Name(code: 'ar', value: 'منشآت خدمية')],
           sons: const <KW>[
             KW(id: 'am_laundry', names: <Name>[Name(code: 'en', value: 'Laundry'), Name(code: 'ar', value: 'مغسلة')],),
@@ -242,6 +253,7 @@ abstract class Specs{
         /// Additional Services
         const Chain(
           id: 'sub_ppt_feat_services',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Additional Services'), Name(code: 'ar', value: 'خدمات إضافية')],
           sons: const <KW>[
             KW(id: 'pService_houseKeeping', names: <Name>[Name(code: 'en', value: 'Housekeeping'), Name(code: 'ar', value: 'خدمة تنظيف منزلي')],),
@@ -263,6 +275,7 @@ abstract class Specs{
     /// Property Form
     const Chain(
       id: 'group_ppt_form',
+      icon: null,
       names: <Name>[Name(code: 'en', value: 'Property Form'), Name(code: 'ar', value: 'هيئة العقار')],
       sons: const <KW>[
         KW(id: 'pf_fullFloor', names: <Name>[Name(code: 'en', value: 'Full floor'), Name(code: 'ar', value: 'دور كامل')],),
@@ -277,6 +290,7 @@ abstract class Specs{
     /// Property License
     const Chain(
       id: 'group_ppt_license',
+      icon: null,
       names: <Name>[Name(code: 'en', value: 'Property License'), Name(code: 'ar', value: 'رخصة العقار')],
       sons: const <KW>[
         KW(id: 'ppt_lic_residential', names: <Name>[Name(code: 'en', value: 'Residential'), Name(code: 'ar', value: 'سكني')],),
@@ -295,12 +309,14 @@ abstract class Specs{
     /// Property Price
     const Chain(
       id: 'group_ppt_price',
+      icon: null,
       names: <Name>[Name(code: 'en', value: 'Property Price'), Name(code: 'ar', value: 'سعر العقار')],
       sons: const <Chain>[
         // ----------------------------------
         /// Rental Type
         const Chain(
           id: 'sub_ppt_price_rentalType',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Rental Type'), Name(code: 'ar', value: 'نوع الإيجار')],
           sons: const <KW>[
             KW(id: 'rent_perDay', names: <Name>[Name(code: 'en', value: 'Per day'), Name(code: 'ar', value: 'باليوم')],),
@@ -311,6 +327,7 @@ abstract class Specs{
         /// Rental Price
         const Chain(
           id: 'sub_ppt_price_rentValue',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Rental Price'), Name(code: 'ar', value: 'سعر إيجار العقار')],
           sons: const <KW>[
             KW(id: 'rent_val_less', names: <Name>[Name(code: 'en', value: 'Less than 1 K EGP'), Name(code: 'ar', value: 'أقل من 1 ألف جم')],),
@@ -326,6 +343,7 @@ abstract class Specs{
         /// Property selling price (EGP)
         const Chain(
           id: 'sub_ppt_price_sellEGY',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Property selling price (EGP)'), Name(code: 'ar', value: 'سعر بيع العقار (جم)')],
           sons: const <KW>[
             KW(id: 'pPriceEGY_100_200_k', names: <Name>[Name(code: 'en', value: '100K - 200K EGP'), Name(code: 'ar', value: 'بين  100 ألف - 200 ألف جم')],),
@@ -345,6 +363,7 @@ abstract class Specs{
         /// Payment Method
         const Chain(
           id: 'sub_ppt_price_payments',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Payment Method'), Name(code: 'ar', value: 'طريقة السداد')],
           sons: const <KW>[
             KW(id: 'payment_cash', names: <Name>[Name(code: 'en', value: 'Cash Only'), Name(code: 'ar', value: 'كل المبلغ دفعة واحدة')],),
@@ -355,6 +374,7 @@ abstract class Specs{
         /// Installments Duration
         const Chain(
           id: 'sub_ppt_price_duration',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Installments Duration'), Name(code: 'ar', value: 'فترة الأقساط')],
           sons: const <KW>[
             KW(id: 'inst_dur_less', names: <Name>[Name(code: 'en', value: 'Less than 1 year'), Name(code: 'ar', value: 'أقل من 1 عام')],),
@@ -371,12 +391,14 @@ abstract class Specs{
     /// Spaces
     const Chain(
       id: 'group_ppt_spaces',
+      icon: null,
       names: <Name>[Name(code: 'en', value: 'Spaces'), Name(code: 'ar', value: 'مساحات العقار')],
       sons: const <Chain>[
         // ----------------------------------
         /// Property Rooms
         const Chain(
           id: 'sub_ppt_spaces_rooms',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Property Rooms'), Name(code: 'ar', value: 'غرف العقار')],
           sons: const <KW>[
             KW(id: 'space_dining', names: <Name>[Name(code: 'en', value: 'Dining room'), Name(code: 'ar', value: 'غرفة طعام')],),
@@ -394,6 +416,7 @@ abstract class Specs{
         /// Number of private Parking Lots
         const Chain(
           id: 'sub_ppt_spaces_parkings',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Number of private Parking Lots'), Name(code: 'ar', value: 'عدد مواقف السيارات الخاصة')],
           sons: const <KW>[
             KW(id: 'parking_1', names: <Name>[Name(code: 'en', value: '1'), Name(code: 'ar', value: '1')],),
@@ -406,6 +429,7 @@ abstract class Specs{
         /// Number of Bedrooms
         const Chain(
           id: 'sub_ppt_spaces_bedrooms',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Number of Bedrooms'), Name(code: 'ar', value: 'عدد غرف النوم')],
           sons: const <KW>[
             KW(id: 'rooms_1', names: <Name>[Name(code: 'en', value: '1'), Name(code: 'ar', value: '1')],),
@@ -422,6 +446,7 @@ abstract class Specs{
         /// Number of Bathrooms
         const Chain(
           id: 'sub_ppt_spaces_bathrooms',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Number of Bathrooms'), Name(code: 'ar', value: 'عدد الحمامات')],
           sons: const <KW>[
             KW(id: 'bath_1', names: <Name>[Name(code: 'en', value: '1'), Name(code: 'ar', value: '1')],),
@@ -440,12 +465,14 @@ abstract class Specs{
     /// Product Price
     const Chain(
       id: 'group_prd_price',
+      icon: null,
       names: <Name>[Name(code: 'en', value: 'Product Price'), Name(code: 'ar', value: 'سعر المنتج')],
       sons: const <Chain>[
         // ----------------------------------
         /// Product price
         const Chain(
           id: 'sub_prd_price',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Product price'), Name(code: 'ar', value: 'سعر المنتج')],
           sons: const <KW>[
             KW(id: 'prd_price_sell_egp_100_500', names: <Name>[Name(code: 'en', value: '10 - 500 EGP'), Name(code: 'ar', value: 'بين  10 - 500 جم')],),
@@ -466,6 +493,7 @@ abstract class Specs{
         /// Price type
         const Chain(
           id: 'sub_prd_priceType',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Price type'), Name(code: 'ar', value: 'نوع السعر')],
           sons: const <KW>[
             KW(id: 'prd_price_type_sale', names: <Name>[Name(code: 'en', value: 'Selling price'), Name(code: 'ar', value: 'سعر البيع')],),
@@ -476,6 +504,7 @@ abstract class Specs{
         /// Rent type
         const Chain(
           id: 'sub_prd_rentType',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Rent type'), Name(code: 'ar', value: 'نوع الإيجار')],
           sons: const <KW>[
             KW(id: 'prd_price_rent_hour', names: <Name>[Name(code: 'en', value: 'Per Hour'), Name(code: 'ar', value: 'في الساعة')],),
@@ -488,6 +517,7 @@ abstract class Specs{
         /// Measurement unit
         const Chain(
           id: 'sub_prd_price_unit',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Measurement unit'), Name(code: 'ar', value: 'وحدة القياس')],
           sons: const <KW>[
             KW(id: 'pd_price_unit_m', names: <Name>[Name(code: 'en', value: 'Meter'), Name(code: 'ar', value: 'متر طولي')],),
@@ -503,12 +533,14 @@ abstract class Specs{
     /// Space Type
     const Chain(
       id: 'group_space_type',
+      icon: null,
       names: <Name>[Name(code: 'en', value: 'Space Type'), Name(code: 'ar', value: 'نوع الفراغ')],
       sons: const <Chain>[
         // ----------------------------------
         /// Administration
         const Chain(
           id: 'ppt_lic_administration',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Administration'), Name(code: 'ar', value: 'إداري')],
           sons: const <KW>[
             KW(id: 'pt_office', names: <Name>[Name(code: 'en', value: 'Office'), Name(code: 'ar', value: 'مكتب إداري')],),
@@ -523,6 +555,7 @@ abstract class Specs{
         /// Educational
         const Chain(
           id: 'ppt_lic_educational',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Educational'), Name(code: 'ar', value: 'تعليمي')],
           sons: const <KW>[
             KW(id: 'space_lectureRoom', names: <Name>[Name(code: 'en', value: 'Lecture room'), Name(code: 'ar', value: 'غرفة محاضرات')],),
@@ -533,6 +566,7 @@ abstract class Specs{
         /// Entertainment
         const Chain(
           id: 'ppt_lic_entertainment',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Entertainment'), Name(code: 'ar', value: 'ترفيهي')],
           sons: const <KW>[
             KW(id: 'space_theatre', names: <Name>[Name(code: 'en', value: 'Theatre'), Name(code: 'ar', value: 'مسرح')],),
@@ -544,6 +578,7 @@ abstract class Specs{
         /// Medical
         const Chain(
           id: 'ppt_lic_medical',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Medical'), Name(code: 'ar', value: 'طبي')],
           sons: const <KW>[
             KW(id: 'space_spa', names: <Name>[Name(code: 'en', value: 'Spa'), Name(code: 'ar', value: 'منتجع صحي')],),
@@ -553,6 +588,7 @@ abstract class Specs{
         /// Residential
         const Chain(
           id: 'ppt_lic_residential',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Residential'), Name(code: 'ar', value: 'سكني')],
           sons: const <KW>[
             KW(id: 'space_lobby', names: <Name>[Name(code: 'en', value: 'Lobby'), Name(code: 'ar', value: 'ردهة')],),
@@ -577,6 +613,7 @@ abstract class Specs{
         /// Retail
         const Chain(
           id: 'ppt_lic_retail',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Retail'), Name(code: 'ar', value: 'تجاري')],
           sons: const <KW>[
             KW(id: 'space_store', names: <Name>[Name(code: 'en', value: 'Store / Shop'), Name(code: 'ar', value: 'محل / متجر')],),
@@ -586,6 +623,7 @@ abstract class Specs{
         /// Sports
         const Chain(
           id: 'ppt_lic_sports',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Sports'), Name(code: 'ar', value: 'رياضي')],
           sons: const <KW>[
             KW(id: 'space_gymnasium', names: <Name>[Name(code: 'en', value: 'Gymnasium'), Name(code: 'ar', value: 'جيمنازيوم')],),
@@ -597,6 +635,7 @@ abstract class Specs{
         /// Utilities
         const Chain(
           id: 'ppt_lic_utilities',
+          icon: null,
           names: <Name>[Name(code: 'en', value: 'Utilities'), Name(code: 'ar', value: 'خدمات')],
           sons: const <KW>[
             KW(id: 'pFeature_elevator', names: <Name>[Name(code: 'en', value: 'Elevator'), Name(code: 'ar', value: 'مصعد')],),

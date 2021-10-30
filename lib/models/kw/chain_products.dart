@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
@@ -6,6 +7,7 @@ abstract class ChainProducts {
 
   static const Chain chain = const Chain(
     id: 'products',
+    icon: Iconz.BxProductsOff,
     names: <Name>[
       Name(code: 'en', value: 'Products'),
       Name(code: 'ar', value: '')
@@ -15,6 +17,7 @@ abstract class ChainProducts {
       /// Appliances
       const Chain(
         id: 'group_prd_appliances',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Appliances'),
           Name(code: 'ar', value: 'أجهزة كهربائية')
@@ -24,6 +27,7 @@ abstract class ChainProducts {
           /// Waste Disposal Appliances
           const Chain(
             id: 'sub_prd_app_wasteDisposal',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Waste Disposal Appliances'),
               Name(code: 'ar', value: 'أجهزة تخلص من النفايات')
@@ -49,6 +53,7 @@ abstract class ChainProducts {
           /// Snacks Appliances
           const Chain(
             id: 'sub_prd_app_snacks',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Snacks Appliances'),
               Name(code: 'ar', value: 'أجهزة تحضير وجبات خفيفة')
@@ -102,6 +107,7 @@ abstract class ChainProducts {
           /// Refrigeration
           const Chain(
             id: 'sub_prd_app_refrigeration',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Refrigeration'),
               Name(code: 'ar', value: 'مبردات و ثلاجات')
@@ -141,6 +147,7 @@ abstract class ChainProducts {
           /// Outdoor Cooking
           const Chain(
             id: 'sub_prd_app_outdoorCooking',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Outdoor Cooking'),
               Name(code: 'ar', value: 'أجهزة طبخ خارجي')
@@ -180,6 +187,7 @@ abstract class ChainProducts {
           /// Media Appliances
           const Chain(
             id: 'sub_prd_app_media',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Media Appliances'),
               Name(code: 'ar', value: 'أجهزة ميديا')
@@ -205,6 +213,7 @@ abstract class ChainProducts {
           /// Indoor Cooking
           const Chain(
             id: 'sub_prd_app_indoorCooking',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Indoor Cooking'),
               Name(code: 'ar', value: 'أجهزة طبخ داخلي')
@@ -286,6 +295,7 @@ abstract class ChainProducts {
           /// HouseKeeping Appliances
           const Chain(
             id: 'sub_prd_app_housekeeping',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'HouseKeeping Appliances'),
               Name(code: 'ar', value: 'أجهزة غسيل و نظافة')
@@ -353,6 +363,7 @@ abstract class ChainProducts {
           /// Food Processors
           const Chain(
             id: 'sub_prd_app_foodProcessors',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Food Processors'),
               Name(code: 'ar', value: 'محضرات طعام')
@@ -406,6 +417,7 @@ abstract class ChainProducts {
           /// Drinks Appliances
           const Chain(
             id: 'sub_prd_app_drinks',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Drinks Appliances'),
               Name(code: 'ar', value: 'أجهزة تحضير مشروبات')
@@ -459,6 +471,7 @@ abstract class ChainProducts {
           /// Bathroom Appliances
           const Chain(
             id: 'sub_prd_app_bathroom',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Bathroom Appliances'),
               Name(code: 'ar', value: 'أجهزة حمام كهربائية')
@@ -486,6 +499,7 @@ abstract class ChainProducts {
       /// Doors & Windows
       const Chain(
         id: 'group_prd_doors',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Doors & Windows'),
           Name(code: 'ar', value: 'أبواب و شبابيك')
@@ -495,6 +509,7 @@ abstract class ChainProducts {
           /// Windows
           const Chain(
             id: 'sub_prd_door_windows',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Windows'),
               Name(code: 'ar', value: 'شبابيك')
@@ -520,6 +535,7 @@ abstract class ChainProducts {
           /// Shutters
           const Chain(
             id: 'sub_prd_doors_shutters',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Shutters'),
               Name(code: 'ar', value: 'شيش حصيرة')
@@ -545,6 +561,7 @@ abstract class ChainProducts {
           /// Hardware
           const Chain(
             id: 'sub_prd_door_hardware',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Hardware'),
               Name(code: 'ar', value: 'اكسسوارات')
@@ -661,6 +678,7 @@ abstract class ChainProducts {
           /// Doors
           const Chain(
             id: 'sub_prd_door_doors',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Doors'),
               Name(code: 'ar', value: 'أبواب')
@@ -744,6 +762,7 @@ abstract class ChainProducts {
       /// Electricity
       const Chain(
         id: 'group_prd_electricity',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Electricity'),
           Name(code: 'ar', value: 'كهرباء')
@@ -753,6 +772,7 @@ abstract class ChainProducts {
           /// Power Storage
           const Chain(
             id: 'sub_prd_elec_powerStorage',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Power Storage'),
               Name(code: 'ar', value: 'تخزين كهرباء')
@@ -792,6 +812,7 @@ abstract class ChainProducts {
           /// Electricity Organizers
           const Chain(
             id: 'sub_prd_elec_organization',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Electricity Organizers'),
               Name(code: 'ar', value: 'منسقات كهربائية')
@@ -831,6 +852,7 @@ abstract class ChainProducts {
           /// Electricity Instruments
           const Chain(
             id: 'sub_prd_elec_instruments',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Electricity Instruments'),
               Name(code: 'ar', value: 'أجهزة كهربائية')
@@ -920,6 +942,7 @@ abstract class ChainProducts {
           /// Electricity Generators
           const Chain(
             id: 'sub_prd_elec_generators',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Electricity Generators'),
               Name(code: 'ar', value: 'مولدات كهرباء')
@@ -987,6 +1010,7 @@ abstract class ChainProducts {
           /// Electrical Switches
           const Chain(
             id: 'sub_prd_elec_switches',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Electrical Switches'),
               Name(code: 'ar', value: 'مفاتيح كهربائية')
@@ -1041,6 +1065,7 @@ abstract class ChainProducts {
           /// Electrical Motors
           const Chain(
             id: 'sub_prd_elec_motors',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Electrical Motors'),
               Name(code: 'ar', value: 'مواتير كهربائية')
@@ -1087,6 +1112,7 @@ abstract class ChainProducts {
           /// Electrical Connectors
           const Chain(
             id: 'sub_prd_elec_connectors',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Electrical Connectors'),
               Name(code: 'ar', value: 'وصلات كهربائية')
@@ -1140,6 +1166,7 @@ abstract class ChainProducts {
           /// Cables & Wires
           const Chain(
             id: 'sub_prd_elec_cables',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Cables & Wires'),
               Name(code: 'ar', value: 'كابلات أسلاك')
@@ -1167,6 +1194,7 @@ abstract class ChainProducts {
       /// Fire Fighting
       const Chain(
         id: 'group_prd_fireFighting',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Fire Fighting'),
           Name(code: 'ar', value: 'مقاومة حريق')
@@ -1176,6 +1204,7 @@ abstract class ChainProducts {
           /// Pumps & Controllers
           const Chain(
             id: 'sub_prd_fire_pumpsCont',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Pumps & Controllers'),
               Name(code: 'ar', value: 'مضخات و متحكمات')
@@ -1222,6 +1251,7 @@ abstract class ChainProducts {
           /// Fire Fighting Equipment
           const Chain(
             id: 'sub_prd_fire_equip',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fire Fighting Equipment'),
               Name(code: 'ar', value: 'معدات مكافحة حريق')
@@ -1275,6 +1305,7 @@ abstract class ChainProducts {
           /// Fire Fighting Cloth
           const Chain(
             id: 'sub_prd_fire_clothes',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fire Fighting Cloth'),
               Name(code: 'ar', value: 'ملابس مكافحة حريق')
@@ -1328,6 +1359,7 @@ abstract class ChainProducts {
           /// Fire Detectors
           const Chain(
             id: 'sub_prd_fire_detectors',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fire Detectors'),
               Name(code: 'ar', value: 'كاشفات حريق')
@@ -1358,6 +1390,7 @@ abstract class ChainProducts {
       /// Floors & ٍSkirting
       const Chain(
         id: 'group_prd_floors',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Floors & ٍSkirting'),
           Name(code: 'ar', value: 'أرضيات و وزر')
@@ -1367,6 +1400,7 @@ abstract class ChainProducts {
           /// Skirting
           const Chain(
             id: 'sub_prd_floors_skirting',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Skirting'),
               Name(code: 'ar', value: 'وزر')
@@ -1385,6 +1419,7 @@ abstract class ChainProducts {
           /// Floor Tiles
           const Chain(
             id: 'sub_prd_floors_tiles',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Floor Tiles'),
               Name(code: 'ar', value: 'بلاط أرضيات')
@@ -1494,6 +1529,7 @@ abstract class ChainProducts {
           /// Floor Planks
           const Chain(
             id: 'sub_prd_floors_planks',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Floor Planks'),
               Name(code: 'ar', value: 'ألواح أرضيات')
@@ -1540,6 +1576,7 @@ abstract class ChainProducts {
           /// Floor Paving
           const Chain(
             id: 'sub_prd_floors_paving',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Floor Paving'),
               Name(code: 'ar', value: 'تمهيد أرضيات')
@@ -1572,6 +1609,7 @@ abstract class ChainProducts {
           /// Floor Covering
           const Chain(
             id: 'sub_prd_floors_covering',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Floor Covering'),
               Name(code: 'ar', value: 'تغطيات أرضيات')
@@ -1613,6 +1651,7 @@ abstract class ChainProducts {
       /// Furniture
       const Chain(
         id: 'group_prd_furniture',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Furniture'),
           Name(code: 'ar', value: 'أثاث و مفروشات')
@@ -1622,6 +1661,7 @@ abstract class ChainProducts {
           /// Waste Disposal
           const Chain(
             id: 'sub_prd_furn_wasteDisposal',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Waste Disposal'),
               Name(code: 'ar', value: 'تخلص من النفايات')
@@ -1654,6 +1694,7 @@ abstract class ChainProducts {
           /// Vanity Tops
           const Chain(
             id: 'sub_prd_furn_tops',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Vanity Tops'),
               Name(code: 'ar', value: 'أسطح وحدات حمام و مطبخ')
@@ -1679,6 +1720,7 @@ abstract class ChainProducts {
           /// Tables
           const Chain(
             id: 'sub_prd_furn_tables',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Tables'),
               Name(code: 'ar', value: 'طاولات')
@@ -1739,6 +1781,7 @@ abstract class ChainProducts {
           /// Seating Benches
           const Chain(
             id: 'sub_prd_furn_seatingBench',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Seating Benches'),
               Name(code: 'ar', value: 'مجالس')
@@ -1778,6 +1821,7 @@ abstract class ChainProducts {
           /// Planting
           const Chain(
             id: 'sub_prd_furn_planting',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Planting'),
               Name(code: 'ar', value: 'زراعة منزلية')
@@ -1817,6 +1861,7 @@ abstract class ChainProducts {
           /// Outdoor Tables
           const Chain(
             id: 'sub_prd_furn_outTables',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Outdoor Tables'),
               Name(code: 'ar', value: 'طاولات خارجية')
@@ -1856,6 +1901,7 @@ abstract class ChainProducts {
           /// Outdoor Seating
           const Chain(
             id: 'sub_prd_furn_outSeating',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Outdoor Seating'),
               Name(code: 'ar', value: 'مقاعد خارجية')
@@ -1951,6 +1997,7 @@ abstract class ChainProducts {
           /// Organizers
           const Chain(
             id: 'sub_prd_furn_organizers',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Organizers'),
               Name(code: 'ar', value: 'منظمات')
@@ -1983,6 +2030,7 @@ abstract class ChainProducts {
           /// Office Furniture
           const Chain(
             id: 'sub_prd_furn_office',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Office Furniture'),
               Name(code: 'ar', value: 'أثاث مكاتب')
@@ -2029,6 +2077,7 @@ abstract class ChainProducts {
           /// Living Storage
           const Chain(
             id: 'sub_prd_furn_livingStorage',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Living Storage'),
               Name(code: 'ar', value: 'خزائن غرفة معيشة')
@@ -2096,6 +2145,7 @@ abstract class ChainProducts {
           /// Laundry
           const Chain(
             id: 'sub_prd_furn_laundry',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Laundry'),
               Name(code: 'ar', value: 'تجهيزات مغسلة ملابس')
@@ -2128,6 +2178,7 @@ abstract class ChainProducts {
           /// Kitchen Storage
           const Chain(
             id: 'sub_prd_furn_kitchenStorage',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Kitchen Storage'),
               Name(code: 'ar', value: 'خزائن مطبخ')
@@ -2188,6 +2239,7 @@ abstract class ChainProducts {
           /// Kitchen Accessories
           const Chain(
             id: 'sub_prd_furn_Kitchen Accessories',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Kitchen Accessories'),
               Name(code: 'ar', value: 'اكسسوارات مطبخ')
@@ -2234,6 +2286,7 @@ abstract class ChainProducts {
           /// Kids Furniture
           const Chain(
             id: 'sub_prd_furn_kids',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Kids Furniture'),
               Name(code: 'ar', value: 'أثاث أطفال')
@@ -2329,6 +2382,7 @@ abstract class ChainProducts {
           /// Furniture Parts
           const Chain(
             id: 'sub_prd_furn_parts',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Furniture Parts'),
               Name(code: 'ar', value: 'أجزاء أثاث')
@@ -2354,6 +2408,7 @@ abstract class ChainProducts {
           /// Furniture Accessories
           const Chain(
             id: 'sub_prd_furn_accessories',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Furniture Accessories'),
               Name(code: 'ar', value: 'اكسسوارات أثاث')
@@ -2414,6 +2469,7 @@ abstract class ChainProducts {
           /// Dressing Storage
           const Chain(
             id: 'sub_prd_furn_dressingStorage',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Dressing Storage'),
               Name(code: 'ar', value: 'خزائن ملابس')
@@ -2467,6 +2523,7 @@ abstract class ChainProducts {
           /// Dining Storage
           const Chain(
             id: 'sub_prd_furn_diningStorage',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Dining Storage'),
               Name(code: 'ar', value: 'خزائن غرفة طعام')
@@ -2492,6 +2549,7 @@ abstract class ChainProducts {
           /// Cushions & Pillows
           const Chain(
             id: 'sub_prd_furn_cushions',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Cushions & Pillows'),
               Name(code: 'ar', value: 'وسائد و مساند')
@@ -2573,6 +2631,7 @@ abstract class ChainProducts {
           /// Couches
           const Chain(
             id: 'sub_prd_furn_couch',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Couches'),
               Name(code: 'ar', value: 'أرائك و كنب')
@@ -2633,6 +2692,7 @@ abstract class ChainProducts {
           /// Complete Sets
           const Chain(
             id: 'sub_prd_furn_sets',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Complete Sets'),
               Name(code: 'ar', value: 'أطقم متكااملة')
@@ -2714,6 +2774,7 @@ abstract class ChainProducts {
           /// Chairs
           const Chain(
             id: 'sub_prd_furn_chairs',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Chairs'),
               Name(code: 'ar', value: 'كراسي')
@@ -2830,6 +2891,7 @@ abstract class ChainProducts {
           /// Carpets & Rugs
           const Chain(
             id: 'sub_prd_furn_carpetsRugs',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Carpets & Rugs'),
               Name(code: 'ar', value: 'سجاد')
@@ -2897,6 +2959,7 @@ abstract class ChainProducts {
           /// Cabinet Hardware
           const Chain(
             id: 'sub_prd_furn_cabinetHardware',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Cabinet Hardware'),
               Name(code: 'ar', value: 'اكسسوارات كابينات')
@@ -2936,6 +2999,7 @@ abstract class ChainProducts {
           /// Boxes
           const Chain(
             id: 'sub_prd_furn_boxes',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Boxes'),
               Name(code: 'ar', value: 'صناديق ')
@@ -2975,6 +3039,7 @@ abstract class ChainProducts {
           /// Blinds & Curtains
           const Chain(
             id: 'sub_prd_furn_blindsCurtains',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Blinds & Curtains'),
               Name(code: 'ar', value: 'ستائر')
@@ -3049,6 +3114,7 @@ abstract class ChainProducts {
           /// Beds & Headboards
           const Chain(
             id: 'sub_prd_furn_beds',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Beds & Headboards'),
               Name(code: 'ar', value: 'سرائر و ظهور سرائر')
@@ -3158,6 +3224,7 @@ abstract class ChainProducts {
           /// Bathroom Storage
           const Chain(
             id: 'sub_prd_furn_bathStorage',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Bathroom Storage'),
               Name(code: 'ar', value: 'خزائن حمام')
@@ -3204,6 +3271,7 @@ abstract class ChainProducts {
           /// Bathroom Hardware
           const Chain(
             id: 'sub_prd_furn_bathHardware',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Bathroom Hardware'),
               Name(code: 'ar', value: 'اكسسوارات حمامات')
@@ -3278,6 +3346,7 @@ abstract class ChainProducts {
           /// Artworks
           const Chain(
             id: 'sub_prd_furn_artworks',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Artworks'),
               Name(code: 'ar', value: 'أعمال فنية')
@@ -3361,6 +3430,7 @@ abstract class ChainProducts {
       /// Heating Ventilation Air Conditioning
       const Chain(
         id: 'group_prd_hvac',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Heating Ventilation Air Conditioning'),
           Name(code: 'ar', value: 'تدفئة تهوية تكييف')
@@ -3370,6 +3440,7 @@ abstract class ChainProducts {
           /// Ventilation
           const Chain(
             id: 'sub_prd_hvac_ventilation',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Ventilation'),
               Name(code: 'ar', value: 'تهوية')
@@ -3409,6 +3480,7 @@ abstract class ChainProducts {
           /// Heating
           const Chain(
             id: 'sub_prd_hvac_heating',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Heating'),
               Name(code: 'ar', value: 'تدفئة')
@@ -3441,6 +3513,7 @@ abstract class ChainProducts {
           /// Fireplaces
           const Chain(
             id: 'sub_prd_hvac_fireplaces',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fireplaces'),
               Name(code: 'ar', value: 'مواقد نار')
@@ -3494,6 +3567,7 @@ abstract class ChainProducts {
           /// Fireplace Equipment
           const Chain(
             id: 'sub_prd_hvac_fireplaceEquip',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fireplace Equipment'),
               Name(code: 'ar', value: 'أدوات مواقد نار')
@@ -3533,6 +3607,7 @@ abstract class ChainProducts {
           /// Air Conditioning
           const Chain(
             id: 'sub_prd_hvac_ac',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Air Conditioning'),
               Name(code: 'ar', value: 'تكييف هواء')
@@ -3588,6 +3663,7 @@ abstract class ChainProducts {
       /// Planting & Landscape
       const Chain(
         id: 'group_prd_landscape',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Planting & Landscape'),
           Name(code: 'ar', value: 'زراعات و لاندسكيب')
@@ -3597,6 +3673,7 @@ abstract class ChainProducts {
           /// Pots & Vases
           const Chain(
             id: 'sub_prd_scape_potsVases',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Pots & Vases'),
               Name(code: 'ar', value: 'أواني و مزهريات')
@@ -3636,6 +3713,7 @@ abstract class ChainProducts {
           /// Live Plants
           const Chain(
             id: 'sub_prd_scape_livePlants',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Live Plants'),
               Name(code: 'ar', value: 'نباتات حية')
@@ -3668,6 +3746,7 @@ abstract class ChainProducts {
           /// Hardscape
           const Chain(
             id: 'sub_prd_scape_hardscape',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Hardscape'),
               Name(code: 'ar', value: 'هاردسكيب')
@@ -3693,6 +3772,7 @@ abstract class ChainProducts {
           /// Fountains & Ponds
           const Chain(
             id: 'sub_prd_scape_fountainsPonds',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fountains & Ponds'),
               Name(code: 'ar', value: 'نوافير و برك')
@@ -3718,6 +3798,7 @@ abstract class ChainProducts {
           /// Birds fixtures
           const Chain(
             id: 'sub_prd_scape_birds',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Birds fixtures'),
               Name(code: 'ar', value: 'تجهيزات عصافير')
@@ -3750,6 +3831,7 @@ abstract class ChainProducts {
           /// Artificial plants
           const Chain(
             id: 'sub_prd_scape_artificial',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Artificial plants'),
               Name(code: 'ar', value: 'نباتات صناعية')
@@ -3784,6 +3866,7 @@ abstract class ChainProducts {
       /// Lighting
       const Chain(
         id: 'group_prd_lighting',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Lighting'),
           Name(code: 'ar', value: 'إضاءة')
@@ -3793,6 +3876,7 @@ abstract class ChainProducts {
           /// Wall Lighting
           const Chain(
             id: 'sub_prd_light_wall',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Wall Lighting'),
               Name(code: 'ar', value: 'إضاءة حائطية')
@@ -3832,6 +3916,7 @@ abstract class ChainProducts {
           /// Outdoor Lighting
           const Chain(
             id: 'sub_prd_light_outdoor',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Outdoor Lighting'),
               Name(code: 'ar', value: 'إضاءة خارجية')
@@ -3941,6 +4026,7 @@ abstract class ChainProducts {
           /// Lighting Accessories
           const Chain(
             id: 'sub_prd_light_access',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Lighting Accessories'),
               Name(code: 'ar', value: 'اكسسوارات إضاءة')
@@ -3989,6 +4075,7 @@ abstract class ChainProducts {
           /// Light bulbs
           const Chain(
             id: 'sub_prd_light_bulbs',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Light bulbs'),
               Name(code: 'ar', value: 'لمبات إضاءة')
@@ -4042,6 +4129,7 @@ abstract class ChainProducts {
           /// Lamps
           const Chain(
             id: 'sub_prd_light_lamps',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Lamps'),
               Name(code: 'ar', value: 'مصابيح')
@@ -4102,6 +4190,7 @@ abstract class ChainProducts {
           /// Ceiling Lighting
           const Chain(
             id: 'sub_prd_light_ceiling',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Ceiling Lighting'),
               Name(code: 'ar', value: 'إضاءة أسقف')
@@ -4185,6 +4274,7 @@ abstract class ChainProducts {
       /// Construction Materials
       const Chain(
         id: 'group_prd_materials',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Construction Materials'),
           Name(code: 'ar', value: 'مواد بناء')
@@ -4194,6 +4284,7 @@ abstract class ChainProducts {
           /// Wood Coats
           const Chain(
             id: 'sub_prd_mat_woodCoats',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Wood Coats'),
               Name(code: 'ar', value: 'دهانات خشب')
@@ -4240,6 +4331,7 @@ abstract class ChainProducts {
           /// Water Proofing
           const Chain(
             id: 'sub_prd_mat_waterProofing',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Water Proofing'),
               Name(code: 'ar', value: 'عوازل رطوبة و مياه')
@@ -4302,6 +4394,7 @@ abstract class ChainProducts {
           /// Synthetic Heat Insulation
           const Chain(
             id: 'sub_prd_mat_heatSynth',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Synthetic Heat Insulation'),
               Name(code: 'ar', value: 'عوازل حرارية مصنوعة')
@@ -4369,6 +4462,7 @@ abstract class ChainProducts {
           /// Stones
           const Chain(
             id: 'sub_prd_mat_stones',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Stones'),
               Name(code: 'ar', value: 'حجر')
@@ -4422,6 +4516,7 @@ abstract class ChainProducts {
           /// Steel
           const Chain(
             id: 'sub_prd_mat_steel',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Steel'),
               Name(code: 'ar', value: 'حديد مسلح')
@@ -4447,6 +4542,7 @@ abstract class ChainProducts {
           /// Solid Wood
           const Chain(
             id: 'sub_prd_mat_solidWood',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Solid Wood'),
               Name(code: 'ar', value: 'أخشاب طبيعية')
@@ -4556,6 +4652,7 @@ abstract class ChainProducts {
           /// Sand & Rubble
           const Chain(
             id: 'sub_prd_mat_sandRubble',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Sand & Rubble'),
               Name(code: 'ar', value: 'رمل و زلط')
@@ -4574,6 +4671,7 @@ abstract class ChainProducts {
           /// Paints
           const Chain(
             id: 'sub_prd_mat_paints',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Paints'),
               Name(code: 'ar', value: 'دهانات')
@@ -4634,6 +4732,7 @@ abstract class ChainProducts {
           /// Mineral Heat Insulation
           const Chain(
             id: 'sub_prd_mat_heatIMin',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Mineral Heat Insulation'),
               Name(code: 'ar', value: 'عوازل حرارية من ألياف معدنية')
@@ -4696,6 +4795,7 @@ abstract class ChainProducts {
           /// Metals
           const Chain(
             id: 'sub_prd_mat_metals',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Metals'),
               Name(code: 'ar', value: 'معادن')
@@ -4770,6 +4870,7 @@ abstract class ChainProducts {
           /// Manufactured Wood
           const Chain(
             id: 'sub_prd_mat_manuWood',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Manufactured Wood'),
               Name(code: 'ar', value: 'أخشاب مصنعة')
@@ -4832,6 +4933,7 @@ abstract class ChainProducts {
           /// Gypsum
           const Chain(
             id: 'sub_prd_mat_gypsum',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Gypsum'),
               Name(code: 'ar', value: 'جبس')
@@ -4857,6 +4959,7 @@ abstract class ChainProducts {
           /// Glass
           const Chain(
             id: 'sub_prd_mat_glass',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Glass'),
               Name(code: 'ar', value: 'زجاج')
@@ -4924,6 +5027,7 @@ abstract class ChainProducts {
           /// Fabrics
           const Chain(
             id: 'sub_prd_mat_fabrics',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fabrics'),
               Name(code: 'ar', value: 'أنسجة')
@@ -5019,6 +5123,7 @@ abstract class ChainProducts {
           /// Cement
           const Chain(
             id: 'sub_prd_mat_cement',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Cement'),
               Name(code: 'ar', value: 'أسمنت')
@@ -5051,6 +5156,7 @@ abstract class ChainProducts {
           /// Bricks
           const Chain(
             id: 'sub_prd_mat_bricks',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Bricks'),
               Name(code: 'ar', value: 'طوب')
@@ -5083,6 +5189,7 @@ abstract class ChainProducts {
           /// Acrylic
           const Chain(
             id: 'sub_prd_mat_acrylic',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Acrylic'),
               Name(code: 'ar', value: 'أكريليك')
@@ -5117,6 +5224,7 @@ abstract class ChainProducts {
       /// Plumbing & Sanitary ware
       const Chain(
         id: 'group_prd_plumbing',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Plumbing & Sanitary ware'),
           Name(code: 'ar', value: 'سباكة و أدوات صحية')
@@ -5126,6 +5234,7 @@ abstract class ChainProducts {
           /// Water Treatment
           const Chain(
             id: 'sub_prd_plumb_treatment',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Water Treatment'),
               Name(code: 'ar', value: 'معالجة مياه')
@@ -5165,6 +5274,7 @@ abstract class ChainProducts {
           /// Tub Sanitary ware
           const Chain(
             id: 'sub_prd_plumb_tub',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Tub Sanitary ware'),
               Name(code: 'ar', value: 'أدوات بانيو صحية')
@@ -5190,6 +5300,7 @@ abstract class ChainProducts {
           /// Toilet Sanitary ware
           const Chain(
             id: 'sub_prd_plumb_toilet',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Toilet Sanitary ware'),
               Name(code: 'ar', value: 'أدوات مراحيض صحية')
@@ -5243,6 +5354,7 @@ abstract class ChainProducts {
           /// Shower Sanitary ware
           const Chain(
             id: 'sub_prd_plumb_shower',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Shower Sanitary ware'),
               Name(code: 'ar', value: 'أدوات استحمام صحية')
@@ -5296,6 +5408,7 @@ abstract class ChainProducts {
           /// Sanitary ware
           const Chain(
             id: 'sub_prd_plumb_sanitary',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Sanitary ware'),
               Name(code: 'ar', value: 'أدوات صحية')
@@ -5321,6 +5434,7 @@ abstract class ChainProducts {
           /// Kitchen Sanitary ware
           const Chain(
             id: 'sub_prd_plumb_kitchen',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Kitchen Sanitary ware'),
               Name(code: 'ar', value: 'أدوات مطبخ صحية')
@@ -5381,6 +5495,7 @@ abstract class ChainProducts {
           /// Handwash Sanitary ware
           const Chain(
             id: 'sub_prd_plumb_handwash',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Handwash Sanitary ware'),
               Name(code: 'ar', value: 'أدوات غسيل أيدي صحية')
@@ -5420,6 +5535,7 @@ abstract class ChainProducts {
           /// Connections
           const Chain(
             id: 'sub_prd_plumb_connections',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Connections'),
               Name(code: 'ar', value: 'وصلات')
@@ -5454,6 +5570,7 @@ abstract class ChainProducts {
       /// Pools & Spa
       const Chain(
         id: 'group_prd_poolSpa',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Pools & Spa'),
           Name(code: 'ar', value: 'حمامات سباحة و حمامات صحية')
@@ -5463,6 +5580,7 @@ abstract class ChainProducts {
           /// Swimming Pools
           const Chain(
             id: 'sub_prd_pool_pools',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Swimming Pools'),
               Name(code: 'ar', value: 'حمامات سباحة')
@@ -5495,6 +5613,7 @@ abstract class ChainProducts {
           /// Spa
           const Chain(
             id: 'sub_prd_pool_spa',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Spa'),
               Name(code: 'ar', value: 'حمامات صحية')
@@ -5534,6 +5653,7 @@ abstract class ChainProducts {
           /// Pools Equipment
           const Chain(
             id: 'sub_prd_pool_equipment',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Pools Equipment'),
               Name(code: 'ar', value: 'عدات حمامات سباحة')
@@ -5566,6 +5686,7 @@ abstract class ChainProducts {
           /// Pool Accessories
           const Chain(
             id: 'sub_prd_pool_accessories',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Pool Accessories'),
               Name(code: 'ar', value: 'اكسسوارات حمامات سباحة')
@@ -5607,6 +5728,7 @@ abstract class ChainProducts {
       /// Roofing
       const Chain(
         id: 'group_prd_roofing',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Roofing'),
           Name(code: 'ar', value: 'أسطح')
@@ -5616,6 +5738,7 @@ abstract class ChainProducts {
           /// Roof Drainage
           const Chain(
             id: 'sub_prd_roof_drainage',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Roof Drainage'),
               Name(code: 'ar', value: 'صرف أسطح')
@@ -5634,6 +5757,7 @@ abstract class ChainProducts {
           /// Roof Cladding
           const Chain(
             id: 'sub_prd_roof_cladding',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Roof Cladding'),
               Name(code: 'ar', value: 'تجاليد أسطح')
@@ -5668,6 +5792,7 @@ abstract class ChainProducts {
       /// Safety
       const Chain(
         id: 'group_prd_safety',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Safety'),
           Name(code: 'ar', value: 'أمن و سلامة')
@@ -5677,6 +5802,7 @@ abstract class ChainProducts {
           /// Safety Equipment
           const Chain(
             id: 'sub_prd_safety_equip',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Safety Equipment'),
               Name(code: 'ar', value: 'معدات سلامة')
@@ -5709,6 +5835,7 @@ abstract class ChainProducts {
           /// Safety Clothes
           const Chain(
             id: 'sub_prd_safety_clothes',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Safety Clothes'),
               Name(code: 'ar', value: 'ملابس أمن و سلامة')
@@ -5776,6 +5903,7 @@ abstract class ChainProducts {
           /// Floor Protection
           const Chain(
             id: 'sub_prd_safety_floorProtection',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Floor Protection'),
               Name(code: 'ar', value: 'حماية أرضيات')
@@ -5803,6 +5931,7 @@ abstract class ChainProducts {
       /// Security
       const Chain(
         id: 'group_prd_security',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Security'),
           Name(code: 'ar', value: 'الحماية و الأمان')
@@ -5812,6 +5941,7 @@ abstract class ChainProducts {
           /// Surveillance Systems
           const Chain(
             id: 'sub_prd_security_surveillance',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Surveillance Systems'),
               Name(code: 'ar', value: 'أنظمة مراقبة')
@@ -5844,6 +5974,7 @@ abstract class ChainProducts {
           /// Security Safes
           const Chain(
             id: 'sub_prd_security_safes',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Security Safes'),
               Name(code: 'ar', value: 'خزائن أمان')
@@ -5890,6 +6021,7 @@ abstract class ChainProducts {
           /// Road Control
           const Chain(
             id: 'sub_prd_security_roadControl',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Road Control'),
               Name(code: 'ar', value: 'تحكم في الطرق')
@@ -5922,6 +6054,7 @@ abstract class ChainProducts {
           /// Accessibility Systems
           const Chain(
             id: 'sub_prd_security_accessibility',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Accessibility Systems'),
               Name(code: 'ar', value: 'أنظمة دخول')
@@ -5963,6 +6096,7 @@ abstract class ChainProducts {
       /// Smart home
       const Chain(
         id: 'group_prd_smartHome',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Smart home'),
           Name(code: 'ar', value: 'تجهيزات المنازل الذكية')
@@ -5972,6 +6106,7 @@ abstract class ChainProducts {
           /// Automation Systems
           const Chain(
             id: 'sub_prd_smart_automation',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Automation Systems'),
               Name(code: 'ar', value: 'أنظمة أوتوماتية')
@@ -5997,6 +6132,7 @@ abstract class ChainProducts {
           /// Audio Systems
           const Chain(
             id: 'sub_prd_smart_audio',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Audio Systems'),
               Name(code: 'ar', value: 'أنظمة صوت')
@@ -6045,6 +6181,7 @@ abstract class ChainProducts {
       /// Stairs
       const Chain(
         id: 'group_prd_stairs',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Stairs'),
           Name(code: 'ar', value: 'سلالم')
@@ -6054,6 +6191,7 @@ abstract class ChainProducts {
           /// Handrails
           const Chain(
             id: 'sub_prd_stairs_handrails',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Handrails'),
               Name(code: 'ar', value: 'درابزين سلالم')
@@ -6088,6 +6226,7 @@ abstract class ChainProducts {
       /// Light Structures
       const Chain(
         id: 'group_prd_structure',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Light Structures'),
           Name(code: 'ar', value: 'هياكل و منشآت خفيفة')
@@ -6097,6 +6236,7 @@ abstract class ChainProducts {
           /// Shades
           const Chain(
             id: 'sub_prd_struc_shades',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Shades'),
               Name(code: 'ar', value: 'مظلات')
@@ -6157,6 +6297,7 @@ abstract class ChainProducts {
           /// Light Structures
           const Chain(
             id: 'sub_prd_struc_light',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Light Structures'),
               Name(code: 'ar', value: 'منشآت خفيفة')
@@ -6221,6 +6362,7 @@ abstract class ChainProducts {
       /// Walls & Room Partitions
       const Chain(
         id: 'group_prd_walls',
+        icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Walls & Room Partitions'),
           Name(code: 'ar', value: 'حوائط و فواصل غرف')
@@ -6230,6 +6372,7 @@ abstract class ChainProducts {
           /// Wall Cladding
           const Chain(
             id: 'sub_prd_walls_cladding',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Wall Cladding'),
               Name(code: 'ar', value: 'تبليط و تجلاليد حوائط')
@@ -6304,6 +6447,7 @@ abstract class ChainProducts {
           /// Room Partitions
           const Chain(
             id: 'sub_prd_walls_partitions',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Room Partitions'),
               Name(code: 'ar', value: 'فواصل غرف')
@@ -6336,6 +6480,7 @@ abstract class ChainProducts {
           /// Moldings & Millwork
           const Chain(
             id: 'sub_prd_walls_moldings',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Moldings & Millwork'),
               Name(code: 'ar', value: 'قوالب و عواميد')
@@ -6382,6 +6527,7 @@ abstract class ChainProducts {
           /// Ceiling Cladding
           const Chain(
             id: 'sub_prd_walls_ceiling',
+            icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Ceiling Cladding'),
               Name(code: 'ar', value: 'تجاليد أسقف')

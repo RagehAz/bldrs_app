@@ -4,11 +4,18 @@ import 'dart:convert';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/models/secondary_models/error_helpers.dart';
+import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/flag_model.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 
 abstract class Atlas{
 // -----------------------------------------------------------------------------
@@ -65,7 +72,7 @@ abstract class Atlas{
         const GeoPoint(29.979174, 31.134264);
   }
 // -----------------------------------------------------------------------------
-  static Future<Position> getCurrentPosition() async {
+  static Future<Position> getGeoLocatorCurrentPosition() async {
     bool _serviceEnabled;
     LocationPermission permission;
 
@@ -104,15 +111,15 @@ abstract class Atlas{
     );
   }
 // -----------------------------------------------------------------------------
-  static Future<List<Placemark>> getAddressFromPosition({@required GeoPoint geopoint}) async {
+  static Future<List<Placemark>> getAddressFromPosition({@required GeoPoint geoPoint}) async {
 
-    List<Placemark> _placemarks = [];
+    List<Placemark> _placeMarks = <Placemark>[];
 
     print('getAddressFromPosition :starting getAddressFromPosition');
 
-    if (geopoint != null){
-      _placemarks = await placemarkFromCoordinates(geopoint.latitude, geopoint.longitude);
-     print('getAddressFromPosition :found placemarks aho $_placemarks');
+    if (geoPoint != null){
+      _placeMarks = await placemarkFromCoordinates(geoPoint.latitude, geoPoint.longitude);
+     print('getAddressFromPosition :found placemarks aho $_placeMarks');
     }
 
     else {
@@ -120,7 +127,88 @@ abstract class Atlas{
     }
 
 
-    return _placemarks;
+    return _placeMarks;
+  }
+// -----------------------------------------------------------------------------
+  /// not tested
+  static Future<String> getIPCountryA({@required BuildContext context, }) async {
+
+    const String _url = 'http://ip-api.com/json';
+    final Uri _uri = Uri.parse(_url);
+
+    await tryAndCatch(
+      context: context,
+      methodName: 'get Country by IP',
+      functions: () async {
+
+        Response _response = await http.get(_uri);
+
+          if (_response.statusCode == 200){
+
+            final Map<String, dynamic> _countryData = json.decode(_response.body);
+
+            if (_countryData != null){
+
+              final String _countryISO = _countryData['countryCode'];
+              final String _cityName = _countryData['city'];
+              String _countryID;
+
+              if (_countryISO != null && _countryISO != ''){
+
+                final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+                _countryID = CountryIso.getCountryIDByIso(_countryISO);
+
+                if (_countryID != null){
+                  CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _countryID);
+                  CityModel _city = await _zoneProvider.fetchCityByName(context: context, countryID: _countryID, cityName: _cityName);
+
+                }
+
+              }
+
+            }
+
+            print('response body is : ${_response.body}');
+          }
+
+          else {
+            print('response is : ${_response.body}');
+          }
+
+      }
+    );
+
+    return '';
+  }
+// -----------------------------------------------------------------------------
+  /// not tested
+  static Future<String> getIPCountryB({@required BuildContext context, }) async {
+
+    /// Note that on Android it requires the android.permission.INTERNET permission.
+
+    const String _url = 'https://api.ipregistry.co?key=tryout';
+    final Uri _uri = Uri.parse(_url);
+
+    await tryAndCatch(
+        context: context,
+        methodName: 'get Country by IP',
+        functions: () async {
+
+          Response _response = await http.get(_uri);
+
+          if (_response.statusCode == 200){
+            String _country = json.decode(_response.body)['location']['country']['name'];
+            print('response body is : ${_response.body}');
+          }
+
+          else {
+            print('response is : ${_response.body}');
+          }
+
+        }
+    );
+    return '';
   }
 // -----------------------------------------------------------------------------
 
