@@ -92,74 +92,79 @@ class CountryModel{
 // -----------------------------------------------------------------------------
   static String fixCountryName(String input){
 
-  final String _countryNameTrimmed = TextMod.replaceAllCharactersWith(
-    input: input.toLowerCase().trim(),
-    CharacterToReplace: ' ',
-    replacement: '_',
-  );
+    String _output;
 
-  final String _countryNameTrimmed2 = TextMod.replaceAllCharactersWith(
-    input: _countryNameTrimmed,
-    CharacterToReplace: '-',
-    replacement: '_',
-  );
+    if (input != null){
+      final String _countryNameTrimmed = TextMod.replaceAllCharactersWith(
+        input: input.toLowerCase().trim(),
+        CharacterToReplace: ' ',
+        replacement: '_',
+      );
 
-  final String _countryNameTrimmed3 = TextMod.replaceAllCharactersWith(
-    input: _countryNameTrimmed2,
-    CharacterToReplace: ',',
-    replacement: '',
-  );
+      final String _countryNameTrimmed2 = TextMod.replaceAllCharactersWith(
+        input: _countryNameTrimmed,
+        CharacterToReplace: '-',
+        replacement: '_',
+      );
 
-  final String _countryNameTrimmed4 = TextMod.replaceAllCharactersWith(
-    input: _countryNameTrimmed3,
-    CharacterToReplace: '(',
-    replacement: '',
-  );
+      final String _countryNameTrimmed3 = TextMod.replaceAllCharactersWith(
+        input: _countryNameTrimmed2,
+        CharacterToReplace: ',',
+        replacement: '',
+      );
 
-  final String _countryNameTrimmed5 = TextMod.replaceAllCharactersWith(
-    input: _countryNameTrimmed4,
-    CharacterToReplace: ')',
-    replacement: '',
-  );
+      final String _countryNameTrimmed4 = TextMod.replaceAllCharactersWith(
+        input: _countryNameTrimmed3,
+        CharacterToReplace: '(',
+        replacement: '',
+      );
 
-  final String _countryNameTrimmed6 = TextMod.replaceAllCharactersWith(
-    input: _countryNameTrimmed5,
-    CharacterToReplace: '’',
-    replacement: '',
-  );
+      final String _countryNameTrimmed5 = TextMod.replaceAllCharactersWith(
+        input: _countryNameTrimmed4,
+        CharacterToReplace: ')',
+        replacement: '',
+      );
 
-  final String _countryNameTrimmed7 = TextMod.replaceAllCharactersWith(
-    input: _countryNameTrimmed6,
-    CharacterToReplace: 'ô',
-    replacement: 'o',
-  );
+      final String _countryNameTrimmed6 = TextMod.replaceAllCharactersWith(
+        input: _countryNameTrimmed5,
+        CharacterToReplace: '’',
+        replacement: '',
+      );
 
-  final String _countryNameTrimmed8 = TextMod.replaceAllCharactersWith(
-    input: _countryNameTrimmed7,
-    CharacterToReplace: '`',
-    replacement: '',
-  );
+      final String _countryNameTrimmed7 = TextMod.replaceAllCharactersWith(
+        input: _countryNameTrimmed6,
+        CharacterToReplace: 'ô',
+        replacement: 'o',
+      );
 
-  final String _countryNameTrimmed9 = TextMod.replaceAllCharactersWith(
-    input: _countryNameTrimmed8,
-    CharacterToReplace: '\'',
-    replacement: '',
-  );
+      final String _countryNameTrimmed8 = TextMod.replaceAllCharactersWith(
+        input: _countryNameTrimmed7,
+        CharacterToReplace: '`',
+        replacement: '',
+      );
 
-  final String _countryNameTrimmed10 = TextMod.replaceAllCharactersWith(
-    input: _countryNameTrimmed9,
-    CharacterToReplace: '.',
-    replacement: '',
-  );
+      final String _countryNameTrimmed9 = TextMod.replaceAllCharactersWith(
+        input: _countryNameTrimmed8,
+        CharacterToReplace: '\'',
+        replacement: '',
+      );
 
-  final String _countryNameTrimmed11 = TextMod.replaceAllCharactersWith(
-    input: _countryNameTrimmed10,
-    CharacterToReplace: '/',
-    replacement: '',
-  );
+      final String _countryNameTrimmed10 = TextMod.replaceAllCharactersWith(
+        input: _countryNameTrimmed9,
+        CharacterToReplace: '.',
+        replacement: '',
+      );
 
+      final String _countryNameTrimmed11 = TextMod.replaceAllCharactersWith(
+        input: _countryNameTrimmed10,
+        CharacterToReplace: '/',
+        replacement: '',
+      );
 
-  return _countryNameTrimmed11;
+      _output = _countryNameTrimmed11;
+    }
+
+  return _output;
 }
 // -----------------------------------------------------------------------------
   static bool countriesIDsIncludeCountryID({@required List<String> countriesIDs, @required String countryID}){

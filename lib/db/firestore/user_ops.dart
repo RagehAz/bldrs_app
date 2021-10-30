@@ -604,7 +604,7 @@ abstract class UserOps{
   ///       E3 - return new userModel inside userModel-firstTimer map
   ///    Ex - if user has existing user model
   ///       E3 - return existing userMode inside userModel-firstTimer map
-  static Future<Map<String, dynamic>> getOrCreateUserModelFromUser({@required BuildContext context, @required User user, @required Zone zone}) async {
+  static Future<Map<String, dynamic>> getOrCreateUserModelFromUser({@required BuildContext context, @required User user, @required ZoneModel zone}) async {
 
     /// E - read user ops if existed
     final UserModel _existingUserModel = await UserOps.readUserOps(

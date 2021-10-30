@@ -137,10 +137,10 @@ abstract class TextGenerator{
     return _bzFormStrings;
   }
 // -----------------------------------------------------------------------------
-  static String countryStringer ({@required BuildContext context, @required CountryModel country, @required CityModel city, @required Zone zone}){
+  static String countryStringer ({@required BuildContext context, @required CountryModel country, @required CityModel city, @required ZoneModel zone}){
     String _verse = '...';
 
-    if (country != null && Zone.zoneHasAllIDs(zone)){
+    if (country != null && ZoneModel.zoneHasAllIDs(zone)){
 
       final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: country.id);
 
@@ -162,11 +162,11 @@ abstract class TextGenerator{
     return _verse;
   }
 // -----------------------------------------------------------------------------
-  static String cityCountryStringer ({@required BuildContext context, @required CountryModel country, @required CityModel city, @required Zone zone}){
+  static String cityCountryStringer ({@required BuildContext context, @required CountryModel country, @required CityModel city, @required ZoneModel zone}){
 
     String _verse = '...';
 
-    if (country != null && Zone.zoneHasAllIDs(zone)){
+    if (country != null && ZoneModel.zoneHasAllIDs(zone)){
 
       final String _countryName = Name.getNameByCurrentLingoFromNames(context, country.names);
 
