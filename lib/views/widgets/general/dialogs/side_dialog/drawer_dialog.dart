@@ -38,11 +38,11 @@ class DrawerDialog extends StatelessWidget {
     final double _bubbleWidth = _drawerWidth - (Ratioz.appBarMargin * 2);
     // final double _tileWidth = _bubbleWidth - (Ratioz.appBarMargin * 2);
 
-    final Chain _propertiesChain = ChainProperties.chain;
-    final Chain _designsChain = ChainDesigns.chain;
-    final Chain _craftsChain = ChainCrafts.chain;
-    final Chain _productsChain = ChainProducts.chain;
-    final Chain _equipmentChain = ChainEquipment.chain;
+    const Chain _propertiesChain = ChainProperties.chain;
+    const Chain _designsChain = ChainDesigns.chain;
+    const Chain _craftsChain = ChainCrafts.chain;
+    const Chain _productsChain = ChainProducts.chain;
+    const Chain _equipmentChain = ChainEquipment.chain;
 
     return Container(
       width: _drawerWidth,

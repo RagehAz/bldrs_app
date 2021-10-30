@@ -9,6 +9,7 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,6 +30,95 @@ enum ValueIs{
 
 abstract class FireSearch {
 // -----------------------------------------------------------------------------
+  static Future<QuerySnapshot> _searchAndGetCollectionSnapshots({
+    @required BuildContext context,
+    @required CollectionReference collRef,
+    @required ValueIs valueIs,
+    @required String field,
+    @required dynamic compareValue,
+  }) async {
+
+    QuerySnapshot _collectionSnapshot;
+
+    await tryAndCatch(
+        context: context,
+        methodName: '_getCollectionSnapshots',
+        functions: () async {
+
+          /// IF EQUAL TO
+          if (valueIs == ValueIs.EqualTo){
+            _collectionSnapshot = await collRef
+                .where(field, isEqualTo: compareValue)
+                .get();
+          }
+          /// IF GREATER THAN
+          else if (valueIs == ValueIs.GreaterThan){
+            _collectionSnapshot = await collRef
+                .where(field, isGreaterThan: compareValue)
+                .get();
+          }
+          /// IF GREATER THAN OR EQUAL
+          else if (valueIs == ValueIs.GreaterOrEqualThan){
+            _collectionSnapshot = await collRef
+                .where(field, isGreaterThanOrEqualTo: compareValue)
+                .get();
+          }
+          /// IF LESS THAN
+          else if (valueIs == ValueIs.LessThan){
+            _collectionSnapshot = await collRef
+                .where(field, isLessThan: compareValue)
+                .get();
+          }
+          /// IF LESS THAN OR EQUAL
+          else if (valueIs == ValueIs.LessOrEqualThan){
+            _collectionSnapshot = await collRef
+                .where(field, isLessThanOrEqualTo: compareValue)
+                .get();
+          }
+          /// IF IS NOT EQUAL TO
+          else if (valueIs == ValueIs.NotEqualTo){
+            _collectionSnapshot = await collRef
+                .where(field, isNotEqualTo: compareValue)
+                .get();
+          }
+          /// IF IS NULL
+          else if (valueIs == ValueIs.Null){
+            _collectionSnapshot = await collRef
+                .where(field, isNull: compareValue)
+                .get();
+          }
+          /// IF whereIn
+          else if (valueIs == ValueIs.WhereIn){
+            _collectionSnapshot = await collRef
+                .where(field, whereIn: compareValue)
+                .get();
+          }
+          /// IF whereNotIn
+          else if (valueIs == ValueIs.WhereNotIn){
+            _collectionSnapshot = await collRef
+                .where(field, whereNotIn: compareValue)
+                .get();
+          }
+          /// IF array contains
+          else if (valueIs == ValueIs.ArrayContains){
+            _collectionSnapshot = await collRef
+                .where(field, arrayContains: compareValue)
+                .get();
+          }
+          /// IF array contains any
+          else if (valueIs == ValueIs.ArrayContainsAny){
+            _collectionSnapshot = await collRef
+                .where(field, arrayContainsAny: compareValue)
+                .get();
+          }
+
+        }
+    );
+
+
+    return _collectionSnapshot;
+  }
+// -----------------------------------------------------------------------------
     static Future<dynamic> mapsByFieldValue({
       @required BuildContext context,
       @required String collName,
@@ -39,97 +129,69 @@ abstract class FireSearch {
       bool addDocSnapshotToEachMap = false,
   }) async {
 
-      Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
+    // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
 
-    List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+    final CollectionReference _collRef = Fire.getCollectionRef(collName);
 
-    await tryAndCatch(
+    final QuerySnapshot _collectionSnapshot = await _searchAndGetCollectionSnapshots(
         context: context,
-        methodName: 'mapsByFieldValue',
-        functions: () async {
+        collRef: _collRef,
+        valueIs: valueIs,
+        field: field,
+        compareValue: compareValue
+    );
 
-      QuerySnapshot _collectionSnapshot;
+    // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: 'valueIs', varNewValue: valueIs, tracerIsOn: true);
 
-      final CollectionReference _collRef = Fire.getCollectionRef(collName);
+     final List<Map<String, dynamic>> _maps = Mapper.getMapsFromQuerySnapshot(
+      querySnapshot: _collectionSnapshot,
+      addDocsIDs: addDocsIDs,
+      addDocSnapshotToEachMap: addDocSnapshotToEachMap,
+    );
 
-      /// IF EQUAL TO
-      if (valueIs == ValueIs.EqualTo){
-        _collectionSnapshot = await _collRef
-            .where(field, isEqualTo: compareValue)
-            .get();
-      }
-      /// IF GREATER THAN
-      else if (valueIs == ValueIs.GreaterThan){
-        _collectionSnapshot = await _collRef
-            .where(field, isGreaterThan: compareValue)
-            .get();
-      }
-      /// IF GREATER THAN OR EQUAL
-      else if (valueIs == ValueIs.GreaterOrEqualThan){
-        _collectionSnapshot = await _collRef
-            .where(field, isGreaterThanOrEqualTo: compareValue)
-            .get();
-      }
-      /// IF LESS THAN
-      else if (valueIs == ValueIs.LessThan){
-        _collectionSnapshot = await _collRef
-            .where(field, isLessThan: compareValue)
-            .get();
-      }
-      /// IF LESS THAN OR EQUAL
-      else if (valueIs == ValueIs.LessOrEqualThan){
-        _collectionSnapshot = await _collRef
-            .where(field, isLessThanOrEqualTo: compareValue)
-            .get();
-      }
-      /// IF IS NOT EQUAL TO
-      else if (valueIs == ValueIs.NotEqualTo){
-        _collectionSnapshot = await _collRef
-            .where(field, isNotEqualTo: compareValue)
-            .get();
-      }
-      /// IF IS NULL
-      else if (valueIs == ValueIs.Null){
-        _collectionSnapshot = await _collRef
-            .where(field, isNull: compareValue)
-            .get();
-      }
-      /// IF whereIn
-      else if (valueIs == ValueIs.WhereIn){
-        _collectionSnapshot = await _collRef
-            .where(field, whereIn: compareValue)
-            .get();
-      }
-      /// IF whereNotIn
-      else if (valueIs == ValueIs.WhereNotIn){
-        _collectionSnapshot = await _collRef
-            .where(field, whereNotIn: compareValue)
-            .get();
-      }
-      /// IF array contains
-      else if (valueIs == ValueIs.ArrayContains){
-        _collectionSnapshot = await _collRef
-            .where(field, arrayContains: compareValue)
-            .get();
-      }
-      /// IF array contains any
-      else if (valueIs == ValueIs.ArrayContainsAny){
-        _collectionSnapshot = await _collRef
-            .where(field, arrayContainsAny: compareValue)
-            .get();
-      }
+    // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: '_maps', varNewValue: _maps, tracerIsOn: true);
 
-      Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: 'valueIs', varNewValue: valueIs, tracerIsOn: true);
+    return _maps;
 
-      _maps = Mapper.getMapsFromQuerySnapshot(
-        querySnapshot: _collectionSnapshot,
-        addDocsIDs: true,
-        addDocSnapshotToEachMap: addDocSnapshotToEachMap,
-      );
+  }
+// -----------------------------------------------------------------------------
+  static Future<dynamic> subCollectionMapsByFieldValue({
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required String subCollName,
+    @required String field,
+    @required dynamic compareValue,
+    @required ValueIs valueIs,
+    bool addDocsIDs = false,
+    bool addDocSnapshotToEachMap = false,
+  }) async {
 
-      Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: '_maps', varNewValue: _maps, tracerIsOn: true);
+    // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
 
-        });
+    final CollectionReference _collRef = Fire.getSubCollectionRef(
+      collName: collName,
+      docName: docName,
+      subCollName: subCollName,
+    );
+
+    final QuerySnapshot _collectionSnapshot = await _searchAndGetCollectionSnapshots(
+        context: context,
+        collRef: _collRef,
+        valueIs: valueIs,
+        field: field,
+        compareValue: compareValue
+    );
+
+    // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: 'valueIs', varNewValue: valueIs, tracerIsOn: true);
+
+    final List<Map<String, dynamic>> _maps = Mapper.getMapsFromQuerySnapshot(
+      querySnapshot: _collectionSnapshot,
+      addDocsIDs: addDocsIDs,
+      addDocSnapshotToEachMap: addDocSnapshotToEachMap,
+    );
+
+    // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: '_maps', varNewValue: _maps, tracerIsOn: true);
 
     return _maps;
 
@@ -305,14 +367,14 @@ abstract class FireSearch {
       return _usersModels;
     }
 // -----------------------------------------------------------------------------
-  static Future<List<BzModel>> bzzByBzName({@required BuildContext context, @required String compareValue}) async {
+  static Future<List<BzModel>> bzzByBzName({@required BuildContext context, @required String bzName}) async {
 
     final List<Map<String, dynamic>> _result = await mapsByFieldValue(
       context: context,
       collName: FireColl.bzz,
       field: 'trigram',
       compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: compareValue.trim(),
+        input: bzName.trim(),
         numberOfCharacters: Standards.maxTrigramLength,
       ),
       addDocsIDs: false,
@@ -330,6 +392,34 @@ abstract class FireSearch {
 
     return _bzz;
 
+  }
+// -----------------------------------------------------------------------------
+  static Future<List<CityModel>> citiesByCityENName({@required BuildContext context, @required String cityName}) async {
+
+    final List<Map<String, dynamic>> _result = await subCollectionMapsByFieldValue(
+      context: context,
+      collName: FireColl.zones,
+      docName: FireDoc.zones_cities,
+      subCollName: FireSubColl.zones_cities_cities,
+      field: 'names.en.trigram',
+      compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
+        input: cityName.trim(),
+        numberOfCharacters: Standards.maxTrigramLength,
+      ),
+      addDocsIDs: false,
+      valueIs: ValueIs.ArrayContains,
+    );
+
+    List<CityModel> _cities = <CityModel>[];
+
+    if (Mapper.canLoopList(_result)){
+      _cities = CityModel.decipherCitiesMaps(
+        maps: _result,
+        fromJSON: false,
+      );
+    }
+
+    return _cities;
 
   }
 // -----------------------------------------------------------------------------

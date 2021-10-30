@@ -34,6 +34,8 @@ void main() async {
   // debugPaintLayerBordersEnabled = false;
   // debugRepaintRainbowEnabled = false;
 
+  // debugPrintLayouts = true;
+
   /// insures awaiting async methods below to finish then continue
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -217,7 +219,8 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           debugShowMaterialGrid: false,
-          showPerformanceOverlay: true,
+          showPerformanceOverlay: false,
+          checkerboardOffscreenLayers: false,
           checkerboardRasterCacheImages: false,
 
           title: 'Bldrs.net',

@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/kw/chain_crafts.dart';
 import 'package:bldrs/models/kw/chain_designs.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/foundation.dart';
 
 class Chain {
   final String id;
+  final String icon;
   final List<Name> names;
   final List<dynamic> sons;
 
@@ -15,12 +17,14 @@ class Chain {
 
   const Chain({
     @required this.id,
+    @required this.icon,
     @required this.names,
     @required this.sons,
   });
 
   static const Chain bldrsChain = const Chain(
     id: 'bldrs',
+    icon: Iconz.BldrsNameEn,
     names: <Name>[
       Name(code: 'en', value: 'Bldrs.net'),
       Name(code: 'ar', value: 'بلدرز.نت')
