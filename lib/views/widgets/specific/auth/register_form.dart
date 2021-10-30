@@ -139,7 +139,12 @@ class _RegisterFormState extends State<RegisterForm> {
       _triggerLoading();
 
       /// start register ops
-      final dynamic _result = await _auth.emailRegisterOps(context, currentZone, _emailController.text, _passwordController.text);
+      final dynamic _result = await _auth.emailRegisterOps(
+          context: context,
+          currentZone: currentZone,
+          email: _emailController.text,
+          password: _passwordController.text
+      );
 
       /// pop dialog if sign in fails otherwise check user required field then route
       print('_registerOnTap() _result.runtimeType : ${_result.runtimeType} : $_result');

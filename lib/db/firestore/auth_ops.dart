@@ -198,12 +198,12 @@ class AuthOps {
   }
 // -----------------------------------------------------------------------------
   /// register with email & password
-  Future<dynamic> emailRegisterOps(
-      BuildContext context,
-      Zone currentZone,
-      String email,
-      String password
-      ) async {
+  Future<dynamic> emailRegisterOps({
+      @required BuildContext context,
+      @required Zone currentZone,
+      @required String email,
+      @required String password,
+}) async {
 
     User _user;
     String _error;

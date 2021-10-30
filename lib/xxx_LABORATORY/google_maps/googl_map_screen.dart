@@ -70,7 +70,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   @override
   void initState(){
     super.initState();
-    _geoPoint = widget.geoPoint ?? Atlas.dummyPosition();
+    _geoPoint = const GeoPoint(30.0778, 31.2852);//widget.geoPoint ?? Atlas.dummyPosition();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

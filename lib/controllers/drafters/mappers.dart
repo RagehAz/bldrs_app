@@ -53,7 +53,7 @@ abstract class Mapper{
     @required bool addDocSnapshotToEachMap,
   }){
 
-    final List<QueryDocumentSnapshot> _docsSnapshots = querySnapshot.docs;
+    final List<QueryDocumentSnapshot> _docsSnapshots = querySnapshot?.docs;
 
     final List<Map<String, dynamic>> _maps = getMapsFromQueryDocumentSnapshotsList(
       queryDocumentSnapshots: _docsSnapshots,
@@ -72,26 +72,30 @@ abstract class Mapper{
 
     List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    for (var docSnapshot in queryDocumentSnapshots){
+    if (Mapper.canLoopList(queryDocumentSnapshots)){
 
-      final String _docID = docSnapshot.id;
+      for (var docSnapshot in queryDocumentSnapshots){
 
-      Map<String, dynamic> _map = docSnapshot.data();
+        final String _docID = docSnapshot.id;
 
-      if (addDocsIDs == true){
-        _map['id'] = _docID;
+        Map<String, dynamic> _map = docSnapshot.data();
+
+        if (addDocsIDs == true){
+          _map['id'] = _docID;
+        }
+
+        if (addDocSnapshotToEachMap == true){
+          _map = Mapper.insertPairInMap(
+            map: _map,
+            key: 'docSnapshot',
+            value: docSnapshot,
+          );
+        }
+
+
+        _maps.add(_map);
       }
 
-      if (addDocSnapshotToEachMap == true){
-        _map = Mapper.insertPairInMap(
-          map: _map,
-          key: 'docSnapshot',
-          value: docSnapshot,
-        );
-      }
-
-
-      _maps.add(_map);
     }
 
     return _maps;

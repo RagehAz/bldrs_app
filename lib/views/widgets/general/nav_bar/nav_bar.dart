@@ -158,7 +158,7 @@ class NavBar extends StatelessWidget {
     final UserModel _myUserModel = _usersProvider.myUserModel;
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _buttonCircleCorner = Scale.buttonCircleCorner;
+    const double _buttonCircleCorner = Scale.buttonCircleCorner;
     final BarType _barType = barType == null ? BarType.min : barType;
     final BorderRadius _boxCorners = Scale.navBarCorners(context: context, barType: _barType);
     final double _boxHeight = Scale.navBarHeight(context: context, barType: _barType);

@@ -88,29 +88,44 @@ class CityModel{
     return _city;
   }
 // -----------------------------------------------------------------------------
-  static List<CityModel> decipherCitiesMap({@required Map<String, dynamic> map, @required bool fromJSON}){
+  static List<CityModel> decipherCitiesMaps({@required List<Map<String, dynamic>> maps, @required bool fromJSON}) {
     final List<CityModel> _cities = <CityModel>[];
 
-    final List<String> _keys = map.keys.toList();
-    final List<dynamic> _values = map.values.toList();
+    if (Mapper.canLoopList(maps)){
 
-    if (Mapper.canLoopList(_keys)){
+      for (var map in maps){
 
-      for (int i = 0; i<_keys.length; i++){
-
-        final CityModel _city = decipherCityMap(
-          map: _values[i],
-          fromJSON: fromJSON,
-        );
-
-        _cities.add(_city);
+        _cities.add(decipherCityMap(map: map, fromJSON: fromJSON));
 
       }
 
     }
-
     return _cities;
   }
+// -----------------------------------------------------------------------------
+//   static List<CityModel> decipherCitiesMap({@required Map<String, dynamic> map, @required bool fromJSON}){
+//     final List<CityModel> _cities = <CityModel>[];
+//
+//     final List<String> _keys = map.keys.toList();
+//     final List<dynamic> _values = map.values.toList();
+//
+//     if (Mapper.canLoopList(_keys)){
+//
+//       for (int i = 0; i<_keys.length; i++){
+//
+//         final CityModel _city = decipherCityMap(
+//           map: _values[i],
+//           fromJSON: fromJSON,
+//         );
+//
+//         _cities.add(_city);
+//
+//       }
+//
+//     }
+//
+//     return _cities;
+//   }
 // -----------------------------------------------------------------------------
   static List<String> getTranslatedCitiesNamesFromCities({@required BuildContext context, @required List<CityModel> cities}){
     List<String> _citiesNames = <String>[];
