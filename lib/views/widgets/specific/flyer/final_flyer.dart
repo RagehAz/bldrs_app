@@ -1910,7 +1910,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onChangeZone() async {
 
-    final Zone _zone = _superFlyer.zone;
+    final ZoneModel _zone = _superFlyer.zone;
 
     final List<MapModel> _countriesMapModels = CountryModel.getAllCountriesNamesMapModels(context);
     CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _zone.countryID);

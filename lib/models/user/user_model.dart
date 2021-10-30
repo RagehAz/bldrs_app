@@ -24,7 +24,7 @@ class UserModel {
   final String title;
   final String company;
   final Gender gender; // should be both gender and name tittle Mr, Mrs, Ms, Dr, Eng, Arch, ...
-  final Zone zone;
+  final ZoneModel zone;
   final String language;
   final GeoPoint position;
   final List<ContactModel> contacts;
@@ -104,7 +104,7 @@ class UserModel {
         title : map['title'],
         company : map['company'],
         gender : decipherGender(map['gender']),
-        zone : Zone.decipherZoneMap(map['zone']),
+        zone : ZoneModel.decipherZoneMap(map['zone']),
         language : map['language'] ?? 'en',
         position : Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
         contacts : ContactModel.decipherContactsMaps(map['contacts'] ?? []),
@@ -271,7 +271,7 @@ class UserModel {
   static Future<UserModel> createInitialUserModelFromUser({
     BuildContext context,
     User user,
-    Zone zone,
+    ZoneModel zone,
     AuthBy authBy,
   }) async {
 

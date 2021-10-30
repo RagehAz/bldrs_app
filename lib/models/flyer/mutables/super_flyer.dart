@@ -70,7 +70,7 @@ class SuperFlyer{
   List<KW> keywords; // MutableFlyer -- ?
 
   /// flyer location
-  Zone zone; // MutableFlyer -- ?
+  ZoneModel zone; // MutableFlyer -- ?
   GeoPoint position; // MutableFlyer -- ?
 
   /// publishing times

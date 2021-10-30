@@ -39,7 +39,7 @@ class ZoneButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: true);
 
-    final Zone _currentZone = _zoneProvider.currentZone;
+    final ZoneModel _currentZone = _zoneProvider.currentZone;
     final CountryModel _currentCountry = _zoneProvider.currentCountry;
     final CityModel _currentCity = _zoneProvider.currentCity;
 

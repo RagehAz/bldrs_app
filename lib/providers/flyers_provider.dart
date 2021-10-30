@@ -228,7 +228,7 @@ class FlyersProvider extends ChangeNotifier {
 // -------------------------------------
   Future<void> getsetWallFlyersBySection({@required BuildContext context, @required Section section}) async {
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
-    final Zone _currentZone = _zoneProvider.currentZone;
+    final ZoneModel _currentZone = _zoneProvider.currentZone;
     //
     // // final String _zoneString = TextGenerator.zoneStringer(
     // //   context: context,
@@ -271,7 +271,7 @@ class FlyersProvider extends ChangeNotifier {
   Future<void> getsetWallFlyersByFlyerType({@required BuildContext context, @required FlyerType flyerType}) async {
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
-    final Zone _currentZone = _zoneProvider.currentZone;
+    final ZoneModel _currentZone = _zoneProvider.currentZone;
 
     final List<FlyerModel> _flyers = await FireSearch.flyersByZoneAndFlyerType(
       context: context,

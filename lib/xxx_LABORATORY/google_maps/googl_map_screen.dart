@@ -223,14 +223,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               _geoPoint = GeoPoint(_lat, _lng);
               });
 
-              final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-              final CountryModel _country = await _zoneProvider.getCountryModelByGeoPoint(context: context, geoPoint: _geoPoint);
-
-              if (_country != null && CountryModel.countriesAreTheSame(_country, _countryModel) == false){
-                setState(() {
-                  _geoPoint = GeoPoint(_lat, _lng);
-                });
-              }
+              // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+              // final CountryModel _country = await _zoneProvider.getCountryModelByGeoPoint(context: context, geoPoint: _geoPoint);
+              //
+              // if (_country != null && CountryModel.countriesAreTheSame(_country, _countryModel) == false){
+              //   setState(() {
+              //     _geoPoint = GeoPoint(_lat, _lng);
+              //   });
+              // }
             },
             onCameraMoveStarted: (){
               print('Camera move started');
@@ -312,6 +312,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               },
             ),
           ),
+
+
         ],
       ),
     );

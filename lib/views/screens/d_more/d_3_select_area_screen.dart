@@ -43,7 +43,7 @@ class SelectAreaScreen extends StatelessWidget {
       onItemTap: (districtID) async {
         print('districtID is $districtID');
 
-        final Zone _zone = Zone(
+        final ZoneModel _zone = ZoneModel(
           countryID: city.countryID,
           cityID: city.cityID,
           districtID: districtID,
