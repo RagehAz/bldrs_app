@@ -21,7 +21,7 @@ class LocaleBubble extends StatefulWidget {
   final Function changeCountry;
   final Function changeCity;
   final Function changeDistrict;
-  final Zone currentZone;
+  final ZoneModel currentZone;
   final String title;
 
   const LocaleBubble({
@@ -42,7 +42,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
   String _selectedCityID;
   CityModel _selectedCity;
   String _selectedDistrictID;
-  Zone _userZone;
+  ZoneModel _userZone;
   ZoneProvider _zoneProvider;
 
   @override

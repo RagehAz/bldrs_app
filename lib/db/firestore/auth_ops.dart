@@ -200,7 +200,7 @@ class AuthOps {
   /// register with email & password
   Future<dynamic> emailRegisterOps({
       @required BuildContext context,
-      @required Zone currentZone,
+      @required ZoneModel currentZone,
       @required String email,
       @required String password,
 }) async {
@@ -288,7 +288,7 @@ class AuthOps {
   ///   xx - return error : if auth fails
   ///   xx - return firebase user : if auth succeeds
   ///      E - get Or Create UserModel From User
-  Future<dynamic> facebookSignInOps(BuildContext context, Zone currentZone) async {
+  Future<dynamic> facebookSignInOps(BuildContext context, ZoneModel currentZone) async {
     User _user;
     final FirebaseAuth _auth = FirebaseAuth.instance;
     String _error;
@@ -396,7 +396,7 @@ class AuthOps {
   // /            E3 - return new userModel inside userModel-firstTimer map
   // /         Ex - if user has existing user model
   // /            E3 - return existing userMode inside userModel-firstTimer map
-  Future<dynamic> googleSignInOps(BuildContext context, Zone currentZone) async {
+  Future<dynamic> googleSignInOps(BuildContext context, ZoneModel currentZone) async {
     User _user;
     String _error;
 

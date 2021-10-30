@@ -95,37 +95,41 @@ class ZoneProvider extends ChangeNotifier {
 
     CityModel _cityModel;
 
-    /// 1 - search in sessionCountries in LDB for this CountryModel
-    final Map<String, Object> _map = await LDBOps.searchMap(
-      docName: LDBDoc.sessionCities,
-      fieldToSortBy: 'cityID',
-      searchField: 'cityID',
-      searchValue: cityID,
-    );
-    if (_map != null && _map != {}){
-      print('fetchCityByID : City found in local db : ${LDBDoc.sessionCities}');
-      _cityModel = CityModel.decipherCityMap(map: _map, fromJSON: true);
-    }
+    if (cityID != null && cityID != ''){
 
-    /// 2 - if not found, search firebase
-    if (_cityModel == null){
-      print('fetchCityByID : City NOT found in local db');
-
-      /// 2.1 read firebase country ops
-      _cityModel = await CountryOps.readCityOps(
-        context: context,
-        cityID: cityID,
+      /// 1 - search in sessionCountries in LDB for this CountryModel
+      final Map<String, Object> _map = await LDBOps.searchMap(
+        docName: LDBDoc.sessionCities,
+        fieldToSortBy: 'cityID',
+        searchField: 'cityID',
+        searchValue: cityID,
       );
+      if (_map != null && _map != {}){
+        print('fetchCityByID : City found in local db : ${LDBDoc.sessionCities}');
+        _cityModel = CityModel.decipherCityMap(map: _map, fromJSON: true);
+      }
 
-      /// 2.2 if found on firebase, store in ldb sessionCountries
-      if (_cityModel != null){
-        print('fetchCityByID : city found in firestore db');
+      /// 2 - if not found, search firebase
+      if (_cityModel == null){
+        print('fetchCityByID : City NOT found in local db');
 
-        await LDBOps.insertMap(
-          input: _cityModel.toMap(toJSON: true),
-          docName: LDBDoc.sessionCities,
-          primaryKey: 'cityID',
+        /// 2.1 read firebase country ops
+        _cityModel = await CountryOps.readCityOps(
+          context: context,
+          cityID: cityID,
         );
+
+        /// 2.2 if found on firebase, store in ldb sessionCountries
+        if (_cityModel != null){
+          print('fetchCityByID : city found in firestore db');
+
+          await LDBOps.insertMap(
+            input: _cityModel.toMap(toJSON: true),
+            docName: LDBDoc.sessionCities,
+            primaryKey: 'cityID',
+          );
+
+        }
 
       }
 
@@ -134,25 +138,67 @@ class ZoneProvider extends ChangeNotifier {
     return _cityModel;
   }
 // -----------------------------------------------------------------------------
-  Future<CityModel> fetchCityByName({@required BuildContext context, @required String countryID, @required String cityName}) async {
-    /// TASK : fetch city by name
+  Future<CityModel> fetchCityByName({
+    @required BuildContext context,
+    String countryID,
+    @required String cityName,
+  }) async {
+
     CityModel _city;
 
-    /// trial 1
-    String _cityIDA = CityModel.createCityID(countryID: countryID, cityEnName: cityName);
-    _city = await fetchCityByID(context: context, cityID: _cityIDA);
+    if (countryID != null){
+
+      /// trial 1
+      String _cityIDA = CityModel.createCityID(countryID: countryID, cityEnName: cityName);
+      _city = await fetchCityByID(context: context, cityID: _cityIDA);
+
+    }
+
 
     if (_city == null){
 
-      /// trial 2
-      List<CityModel> _foundCities = await FireSearch.citiesByCityENName(context: context, cityName: cityName);
 
+      /// TASK : trial 2 search ldb
+      List<CityModel> _foundCities
+      // = LDBOps.searchMaps(fieldToSortBy: fieldToSortBy, searchField: searchField, searchValue: searchValue, docName: docName)
+      ;
+
+
+      /// trial 3 if countryID is not available
+      if (countryID == null){
+        _foundCities = await FireSearch.citiesByCityENName(
+          context: context,
+          cityName: cityName,
+        );
+      }
+      /// trial 3 if countryID is available
+      else {
+        _foundCities = await FireSearch.citiesByCityENNameAndCountryID(
+          context: context,
+          cityName: cityName,
+          countryID: countryID,
+        );
+      }
+
+      /// if firebase returned results
       if (Mapper.canLoopList(_foundCities)){
 
+        /// insert all cities in ldb
+        for (var city in _foundCities){
+          await LDBOps.insertMap(
+            input: city.toMap(toJSON: true),
+            docName: LDBDoc.sessionCities,
+            primaryKey: 'cityID',
+          );
+        }
+
+
+        /// if only one city found
         if (_foundCities.length == 1){
           _city = _foundCities[0];
         }
 
+        /// if multiple cities found
         else {
 
           CityModel _selectedCity = await Dialogz.confirmCityDialog(
@@ -169,6 +215,7 @@ class ZoneProvider extends ChangeNotifier {
       }
 
     }
+
 
     return _city;
   }
@@ -272,7 +319,7 @@ class ZoneProvider extends ChangeNotifier {
     return _userCityModel;
   }
 // -------------------------------------
-  Future<void> getsetUserCountryAndCity({@required BuildContext context, @required Zone zone}) async {
+  Future<void> getsetUserCountryAndCity({@required BuildContext context, @required ZoneModel zone}) async {
 
     final CountryModel _country = await fetchCountryByID(context: context, countryID: zone.countryID);
     final CityModel _city = await fetchCityByID(context: context, cityID: zone.cityID);
@@ -283,15 +330,15 @@ class ZoneProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   /// CURRENT ZONE & COUNTRY MODEL
-  Zone _currentZone;
+  ZoneModel _currentZone;
   CountryModel _currentCountryModel;
   CityModel _currentCityModel;
 // -------------------------------------
-  Zone get currentZone{return _currentZone;}
+  ZoneModel get currentZone{return _currentZone;}
   CountryModel get currentCountry{return _currentCountryModel;}
   CityModel get currentCity{return _currentCityModel;}
 // -------------------------------------
-  Future<void> getsetCurrentZoneAndCountryAndCity({@required BuildContext context, @required Zone zone}) async {
+  Future<void> getsetCurrentZoneAndCountryAndCity({@required BuildContext context, @required ZoneModel zone}) async {
 
     final CountryModel _country = await fetchCountryByID(context: context, countryID: zone.countryID);
     final CityModel _city = await fetchCityByID(context: context, cityID: zone.cityID);
@@ -315,9 +362,9 @@ class ZoneProvider extends ChangeNotifier {
     return _nameInCurrentLanguage == null ? cityID : _nameInCurrentLanguage;
   }
 // -----------------------------------------------------------------------------
-  Future<CountryModel> getCountryModelByGeoPoint({@required BuildContext context, @required GeoPoint geoPoint}) async {
+  Future<ZoneModel> getZoneModelByGeoPoint({@required BuildContext context, @required GeoPoint geoPoint}) async {
 
-    CountryModel _countryModel;
+    ZoneModel _zoneModel;
 
     if (geoPoint != null){
 
@@ -328,17 +375,39 @@ class ZoneProvider extends ChangeNotifier {
       if (Mapper.canLoopList(_marks)){
 
         final Placemark _mark = _marks[0];
-        final String _countryIso = _mark.isoCountryCode;
-        final String _id = CountryIso.getCountryIDByIso(_countryIso);
 
-        _countryModel = await fetchCountryByID(context: context, countryID: _id);
+        print('mark is : ${_mark}');
+
+        final String _countryIso = _mark.isoCountryCode;
+        final String _countryID = CountryIso.getCountryIDByIso(_countryIso);
+
+        /// try by sub admin area
+        final String _subAdministrativeArea = _mark.subAdministrativeArea;
+        CityModel _foundCity = await fetchCityByName(context: context, countryID: _countryID, cityName: _subAdministrativeArea);
+
+        /// try by admin area
+        if (_foundCity == null){
+          final String _administrativeArea = _mark.administrativeArea;
+          _foundCity = await fetchCityByName(context: context, countryID: _countryID, cityName: _administrativeArea);
+        }
+
+        /// try by locality
+        if (_foundCity == null){
+          final String _locality = _mark.locality;
+          _foundCity = await fetchCityByName(context: context, countryID: _countryID, cityName: _locality);
+        }
+
+        _zoneModel = ZoneModel(
+          countryID: _countryID,
+          cityID: _foundCity?.cityID,
+          districtID: null,
+        );
 
       }
 
-
     }
 
-    return _countryModel;
+    return _zoneModel;
   }
 // -----------------------------------------------------------------------------
   /// TASK : ACTIVATED & GLOBAL COUNTRIES

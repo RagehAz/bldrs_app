@@ -65,7 +65,7 @@ class BzModel with ChangeNotifier{
   final dynamic logo;
   final String scope;
 
-  final Zone zone;
+  final ZoneModel zone;
   final String about;
   final GeoPoint position;
   final List<ContactModel> contacts;
@@ -174,7 +174,7 @@ class BzModel with ChangeNotifier{
         trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
         logo : map['logo'],
         scope : map['scope'],
-        zone : Zone.decipherZoneMap(map['zone']),
+        zone : ZoneModel.decipherZoneMap(map['zone']),
         about : map['about'],
         position : Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
         contacts : ContactModel.decipherContactsMaps(map['contacts']),
@@ -485,7 +485,7 @@ class BzModel with ChangeNotifier{
         name: 'Business Name',
         trigram: TextMod.createTrigram(input: 'Business Name'),
         bzType: BzType.designer,
-        zone: Zone.dummyZone(),
+        zone: ZoneModel.dummyZone(),
         totalFollowers: 1000,
         totalFlyers: 10,
         bzState: BzState.online,

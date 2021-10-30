@@ -15,9 +15,9 @@ class SearchBar extends StatefulWidget {
   final bool historyButtonIsOn;
 
   const SearchBar({
-    @required this.searchController,
+    this.searchController,
     @required this.onSearchSubmit,
-    @required this.onSearchChanged,
+    this.onSearchChanged,
     @required this.historyButtonIsOn,
 });
 
@@ -112,9 +112,12 @@ class _SearchBarState extends State<SearchBar> {
               onTap: (){},
               onChanged: (val){
 
-                if (val != null){
-                widget.onSearchChanged(val);
+                if (widget.onSearchChanged != null){
+                  if (val != null){
+                    widget.onSearchChanged(val);
+                  }
                 }
+
 
               },
               hintText: ' Search ... ',

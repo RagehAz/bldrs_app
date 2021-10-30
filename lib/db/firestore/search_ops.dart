@@ -10,6 +10,7 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -281,7 +282,7 @@ abstract class FireSearch {
 /// SEARCH FLYERS BY AREA AND FLYER TYPE
   static Future<List<FlyerModel>> flyersByZoneAndFlyerType({
     @required BuildContext context,
-    @required Zone zone,
+    @required ZoneModel zone,
     @required FlyerType flyerType,
     bool addDocsIDs = false,
     bool addDocSnapshotToEachMap = false,
@@ -298,7 +299,7 @@ abstract class FireSearch {
 
 
             final String _flyerType = FlyerTypeClass.cipherFlyerType(flyerType);
-            final Zone _zone = zone;
+            final ZoneModel _zone = zone;
 
             print('searching flyers of type : $_flyerType : in $_zone');
 
@@ -396,28 +397,78 @@ abstract class FireSearch {
 // -----------------------------------------------------------------------------
   static Future<List<CityModel>> citiesByCityENName({@required BuildContext context, @required String cityName}) async {
 
-    final List<Map<String, dynamic>> _result = await subCollectionMapsByFieldValue(
-      context: context,
-      collName: FireColl.zones,
-      docName: FireDoc.zones_cities,
-      subCollName: FireSubColl.zones_cities_cities,
-      field: 'names.en.trigram',
-      compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: cityName.trim(),
-        numberOfCharacters: Standards.maxTrigramLength,
-      ),
-      addDocsIDs: false,
-      valueIs: ValueIs.ArrayContains,
-    );
+    List<CityModel> _cities = <CityModel>[];
+
+    if (cityName != null && cityName.length != 0){
+
+      final List<Map<String, dynamic>> _result = await subCollectionMapsByFieldValue(
+        context: context,
+        collName: FireColl.zones,
+        docName: FireDoc.zones_cities,
+        subCollName: FireSubColl.zones_cities_cities,
+        field: 'names.en.trigram',
+        compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
+          input: CountryModel.fixCountryName(cityName),
+          numberOfCharacters: Standards.maxTrigramLength,
+        ),
+        addDocsIDs: false,
+        valueIs: ValueIs.ArrayContains,
+      );
+
+
+      if (Mapper.canLoopList(_result)){
+        _cities = CityModel.decipherCitiesMaps(
+          maps: _result,
+          fromJSON: false,
+        );
+      }
+
+    }
+
+    return _cities;
+
+  }
+// -----------------------------------------------------------------------------
+  /// not tested
+  static Future<List<CityModel>> citiesByCityENNameAndCountryID({
+    @required BuildContext context,
+    @required String cityName,
+    @required String countryID,
+  }) async {
 
     List<CityModel> _cities = <CityModel>[];
 
-    if (Mapper.canLoopList(_result)){
-      _cities = CityModel.decipherCitiesMaps(
-        maps: _result,
-        fromJSON: false,
-      );
-    }
+    await tryAndCatch(
+        context: context,
+        methodName: 'mapsByTwoValuesEqualTo',
+        functions: () async {
+
+          final CollectionReference _collRef = Fire.getSubCollectionRef(
+            collName: FireColl.zones,
+            docName: FireDoc.zones_cities,
+            subCollName: FireSubColl.zones_cities_cities,
+          );
+
+          final String _searchValue = TextMod.removeAllCharactersAfterNumberOfCharacters(
+            input: CountryModel.fixCountryName(cityName),
+            numberOfCharacters: Standards.maxTrigramLength,
+          );
+
+          final QuerySnapshot _collectionSnapshot = await _collRef
+              .where('countryID', isEqualTo: countryID)
+              .where('names.en.trigram', arrayContains: _searchValue)
+              .get();
+
+
+          List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
+            querySnapshot: _collectionSnapshot,
+            addDocsIDs: false,
+            addDocSnapshotToEachMap: false,
+          );
+
+          _cities = CityModel.decipherCitiesMaps(maps: _maps, fromJSON: false);
+
+        });
 
     return _cities;
 

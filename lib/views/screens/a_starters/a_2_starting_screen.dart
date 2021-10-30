@@ -29,7 +29,7 @@ class _StartingScreenState extends State<StartingScreen> {
 /// TASK : should fetch user current location automatically and suggest them here
 //   final Zone currentZone = Zone(countryID: '', cityID: '', districtID: '');
   ZoneProvider _zoneProvider;
-  Zone _currentZone;
+  ZoneModel _currentZone;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;

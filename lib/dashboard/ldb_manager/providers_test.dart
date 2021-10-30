@@ -93,7 +93,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 
     final UserModel _myUserModel = _usersProvider?.myUserModel;
     final Stream<UserModel> _myUserModelStream = _usersProvider?.myUserModelStream;
-    final Zone _currentZone = _zoneProvider?.currentZone;
+    final ZoneModel _currentZone = _zoneProvider?.currentZone;
     final Continent _currentContinent = _zoneProvider?.currentContinent;
     final CountryModel _currentCountry = _zoneProvider?.currentCountry;
     final CityModel _currentCity = _zoneProvider?.currentCity;

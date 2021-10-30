@@ -232,7 +232,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           title :  _titleController.text,
           company: _companyController.text,
           gender : _currentGender,
-          zone : Zone(
+          zone : ZoneModel(
             countryID: _currentCountryID,
             cityID: _currentCityID,
             districtID: _currentDistrictID,
@@ -303,7 +303,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         title :  _titleController.text,
         company: _companyController.text,
         gender : _currentGender,
-        zone : Zone(
+        zone : ZoneModel(
           countryID: _currentCountryID,
           cityID: _currentCityID,
           districtID: _currentDistrictID,
@@ -416,7 +416,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               changeCity : (cityID) => _changeCity(cityID),
               changeDistrict : (districtID) => _changeDistrict(districtID),
               // zone: Zone(countryID: userModel.country, cityID: userModel.city, districtID: userModel.districtID),
-              currentZone: Zone(countryID: _currentCountryID, cityID: _currentCityID, districtID: _currentDistrictID),
+              currentZone: ZoneModel(countryID: _currentCountryID, cityID: _currentCityID, districtID: _currentDistrictID),
             ),
 
             /// --- EDIT EMAIL

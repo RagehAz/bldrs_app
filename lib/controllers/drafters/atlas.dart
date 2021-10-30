@@ -1,20 +1,23 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
+import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 abstract class Atlas{
@@ -130,8 +133,11 @@ abstract class Atlas{
     return _placeMarks;
   }
 // -----------------------------------------------------------------------------
-  /// not tested
-  static Future<String> getIPCountryA({@required BuildContext context, }) async {
+  /// this is limited and needs paid subscription
+  static Future<ZoneModel> getZoneByIP_ipApi({@required BuildContext context, }) async {
+
+    String _countryID;
+    String _cityID;
 
     const String _url = 'http://ip-api.com/json';
     final Uri _uri = Uri.parse(_url);
@@ -141,7 +147,7 @@ abstract class Atlas{
       methodName: 'get Country by IP',
       functions: () async {
 
-        Response _response = await http.get(_uri);
+        http.Response _response = await http.get(_uri);
 
           if (_response.statusCode == 200){
 
@@ -151,7 +157,6 @@ abstract class Atlas{
 
               final String _countryISO = _countryData['countryCode'];
               final String _cityName = _countryData['city'];
-              String _countryID;
 
               if (_countryISO != null && _countryISO != ''){
 
@@ -161,7 +166,12 @@ abstract class Atlas{
 
                 if (_countryID != null){
                   CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _countryID);
-                  CityModel _city = await _zoneProvider.fetchCityByName(context: context, countryID: _countryID, cityName: _cityName);
+                  CityModel _city;
+                  if (_cityName != null){
+                    _city = await _zoneProvider.fetchCityByName(context: context, countryID: _countryID, cityName: _cityName);
+                    _cityID = CityModel.createCityID(countryID: _country.id, cityEnName: Name.getNameByLingoFromNames(names: _city.names, lingoCode: 'en'));
+                  }
+
 
                 }
 
@@ -179,15 +189,17 @@ abstract class Atlas{
       }
     );
 
-    return '';
+    return ZoneModel(countryID: _countryID, cityID: _cityID, districtID: null);
   }
 // -----------------------------------------------------------------------------
-  /// not tested
-  static Future<String> getIPCountryB({@required BuildContext context, }) async {
+  /// this needs subscription after first 100'000 requests
+  static Future<ZoneModel> getZoneByIP_ipRegistry({@required BuildContext context, }) async {
 
     /// Note that on Android it requires the android.permission.INTERNET permission.
+    String _countryID;
+    String _cityID;
 
-    const String _url = 'https://api.ipregistry.co?key=tryout';
+    const String _url = 'https://api.ipregistry.co?key=${Standards.ipRegistryAPIKey}';
     final Uri _uri = Uri.parse(_url);
 
     await tryAndCatch(
@@ -195,23 +207,72 @@ abstract class Atlas{
         methodName: 'get Country by IP',
         functions: () async {
 
-          Response _response = await http.get(_uri);
+          http.Response _response = await http.get(_uri);
 
           if (_response.statusCode == 200){
-            String _country = json.decode(_response.body)['location']['country']['name'];
+
+            final Map<String, dynamic> _countryData = json.decode(_response.body);
+
+            Mapper.printMap(_countryData);
+
+            if (_countryData != null){
+
+              final String _countryISO = _countryData['location']['country']['code'];
+
+              print('country iso is : ${_countryISO}');
+
+              const String _cityName = null;
+
+              if (_countryISO != null && _countryISO != ''){
+
+                final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+                _countryID = CountryIso.getCountryIDByIso(_countryISO);
+
+                if (_countryID != null){
+                  CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _countryID);
+                  CityModel _city = await _zoneProvider.fetchCityByName(context: context, countryID: _countryID, cityName: _cityName);
+
+                  if (_city != null){
+                    _cityID = CityModel.createCityID(countryID: _country.id, cityEnName: Name.getNameByLingoFromNames(names: _city.names, lingoCode: 'en'));
+                  }
+
+                }
+
+              }
+
+            }
+
             print('response body is : ${_response.body}');
           }
 
           else {
-            print('response is : ${_response.body}');
+            print('nothing found : ${_response.body}');
           }
 
         }
     );
-    return '';
+
+    return ZoneModel(countryID: _countryID, cityID: _cityID, districtID: null);
   }
 // -----------------------------------------------------------------------------
+  static Future<ZoneModel> getZoneByGeoLocator({@required BuildContext context}) async {
 
+    ZoneModel _zoneModel;
+
+    final Position _position = await Atlas.getGeoLocatorCurrentPosition();
+
+    if (_position != null){
+
+    final GeoPoint _geoPoint = GeoPoint(_position?.latitude, _position?.longitude);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    _zoneModel = await _zoneProvider.getZoneModelByGeoPoint(context: context, geoPoint: _geoPoint);
+
+    }
+
+    return _zoneModel;
+  }
+// -----------------------------------------------------------------------------
 }
 
 
