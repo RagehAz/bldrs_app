@@ -1,19 +1,7 @@
-import 'package:bldrs/controllers/drafters/atlas.dart';
-import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/db/firestore/search_ops.dart';
-import 'package:bldrs/models/zone/city_model.dart';
-import 'package:bldrs/models/zone/flag_model.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/ui_provider.dart';
-import 'package:bldrs/views/widgets/general/appbar/search_bar.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/buttons/flagbox_button.dart';
-import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
-import 'package:bldrs/views/widgets/general/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -29,7 +17,6 @@ class TestLab extends StatefulWidget {
 class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 
   ScrollController _ScrollController;
-  TextEditingController _searchController = TextEditingController();
   AnimationController _animationController;
 
 // -----------------------------------------------------------------------------
@@ -104,7 +91,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
     _counter.value += 3;
   }
 // -----------------------------------------------------------------------------
-  String _countryID;
 
   @override
   Widget build(BuildContext context) {
@@ -220,23 +206,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 
                   }
                   ),
-
-              WideButton(
-                  color: Colorz.yellow20,
-                  verse: 'get zone by IP b',
-                  icon: Iconz.Earth,
-                  onTap: () async {
-
-                    _triggerLoading();
-
-                    final ZoneModel _zone = await Atlas.getZoneByIP_ipRegistry(context: context);
-
-                    _zone.printZone();
-
-                    _triggerLoading();
-
-                  }
-              ),
 
               // WideButton(
               //     color: Colorz.bloodTest,

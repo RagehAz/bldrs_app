@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/db/firestore/auth_ops.dart';
+import 'package:bldrs/db/fire/auth_ops.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/screens/g_user/g_x_user_editor_screen.dart';

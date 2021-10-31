@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/firestore/auth_ops.dart';
+import 'package:bldrs/db/fire/auth_ops.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';

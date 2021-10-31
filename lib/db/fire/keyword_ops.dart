@@ -1,4 +1,4 @@
-import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/fire/firestore.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:flutter/cupertino.dart';
 

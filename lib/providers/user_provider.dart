@@ -1,6 +1,6 @@
-import 'package:bldrs/db/firestore/auth_ops.dart';
-import 'package:bldrs/db/firestore/user_ops.dart';
-import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
+import 'package:bldrs/db/fire/auth_ops.dart';
+import 'package:bldrs/db/fire/user_ops.dart';
+import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class UsersProvider extends ChangeNotifier {
     /// 1 - search in entire LDBs for this userModel
     for (String doc in LDBDoc.userModelsDocs){
 
-      final Map<String, Object> _map = await LDBOps.searchMap(
+      final Map<String, Object> _map = await LDBOps.searchFirstMap(
         docName: doc,
         fieldToSortBy: 'id',
         searchField: 'id',

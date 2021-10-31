@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/fire/firestore.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/question/question_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

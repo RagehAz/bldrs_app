@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/stream_checkers.dart';
-import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/fire/firestore.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
