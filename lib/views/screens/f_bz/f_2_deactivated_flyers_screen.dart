@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/db/firestore/flyer_ops.dart';
+import 'package:bldrs/db/fire/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';

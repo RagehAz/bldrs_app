@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/notifications/local_notification_service.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/fire/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bldrs/models/notification/noti_model.dart';

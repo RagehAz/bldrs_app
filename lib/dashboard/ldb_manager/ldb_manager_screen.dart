@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/ldb_manager/ldb_viewer_screen.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
+import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';

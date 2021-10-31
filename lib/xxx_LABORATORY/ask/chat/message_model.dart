@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/timerz.dart';
-import 'package:bldrs/db/firestore/auth_ops.dart';
+import 'package:bldrs/db/fire/auth_ops.dart';
 import 'package:flutter/foundation.dart';
 
 class MessageModel{

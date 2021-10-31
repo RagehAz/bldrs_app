@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/db/firestore/auth_ops.dart';
-import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
+import 'package:bldrs/db/fire/auth_ops.dart';
+import 'package:bldrs/db/fire/firestore.dart';
+import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/secondary_models/app_updates.dart';

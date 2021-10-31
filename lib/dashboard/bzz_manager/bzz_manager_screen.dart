@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/fire/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/zone/city_model.dart';

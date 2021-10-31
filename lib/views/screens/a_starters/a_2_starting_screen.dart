@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/db/firestore/auth_ops.dart';
+import 'package:bldrs/db/fire/auth_ops.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
