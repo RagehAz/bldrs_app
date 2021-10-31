@@ -1,9 +1,9 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/firestore/auth_ops.dart';
-import 'package:bldrs/db/firestore/flyer_ops.dart';
-import 'package:bldrs/db/firestore/user_ops.dart';
+import 'package:bldrs/db/fire/auth_ops.dart';
+import 'package:bldrs/db/fire/flyer_ops.dart';
+import 'package:bldrs/db/fire/user_ops.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/user/user_model.dart';

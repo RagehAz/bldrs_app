@@ -1,9 +1,8 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
-import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/fire/firestore.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
@@ -395,7 +394,7 @@ abstract class FireSearch {
 
   }
 // -----------------------------------------------------------------------------
-  static Future<List<CityModel>> citiesByCityENName({@required BuildContext context, @required String cityName}) async {
+  static Future<List<CityModel>> citiesByCityName({@required BuildContext context, @required String cityName, @required String lingoCode}) async {
 
     List<CityModel> _cities = <CityModel>[];
 
@@ -406,7 +405,7 @@ abstract class FireSearch {
         collName: FireColl.zones,
         docName: FireDoc.zones_cities,
         subCollName: FireSubColl.zones_cities_cities,
-        field: 'names.en.trigram',
+        field: 'names.$lingoCode.trigram',
         compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
           input: CountryModel.fixCountryName(cityName),
           numberOfCharacters: Standards.maxTrigramLength,
@@ -430,10 +429,11 @@ abstract class FireSearch {
   }
 // -----------------------------------------------------------------------------
   /// not tested
-  static Future<List<CityModel>> citiesByCityENNameAndCountryID({
+  static Future<List<CityModel>> citiesByCityNameAndCountryID({
     @required BuildContext context,
     @required String cityName,
     @required String countryID,
+    @required String lingoCode,
   }) async {
 
     List<CityModel> _cities = <CityModel>[];
@@ -456,7 +456,7 @@ abstract class FireSearch {
 
           final QuerySnapshot _collectionSnapshot = await _collRef
               .where('countryID', isEqualTo: countryID)
-              .where('names.en.trigram', arrayContains: _searchValue)
+              .where('names.$lingoCode.trigram', arrayContains: _searchValue)
               .get();
 
 

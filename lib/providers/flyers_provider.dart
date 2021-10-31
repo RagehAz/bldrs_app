@@ -1,8 +1,8 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/db/firestore/flyer_ops.dart';
-import 'package:bldrs/db/firestore/search_ops.dart';
-import 'package:bldrs/db/firestore/user_ops.dart';
-import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
+import 'package:bldrs/db/fire/flyer_ops.dart';
+import 'package:bldrs/db/fire/search_ops.dart';
+import 'package:bldrs/db/fire/user_ops.dart';
+import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
@@ -34,7 +34,7 @@ class FlyersProvider extends ChangeNotifier {
     /// 1 - search in entire LDBs for this flyerModel
     for (String doc in LDBDoc.flyerModelsDocs){
 
-      final Map<String, Object> _map = await LDBOps.searchMap(
+      final Map<String, Object> _map = await LDBOps.searchFirstMap(
         docName: doc,
         fieldToSortBy: 'id',
         searchField: 'id',

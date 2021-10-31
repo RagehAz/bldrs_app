@@ -2,8 +2,8 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/dashboard/ldb_manager/ldb_viewer_screen.dart';
+import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/db/ldb/sembast/sembast.dart';
-import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -72,84 +72,25 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _insert() async {
+  Future<void> _search() async {
 
-    // BzModel _bzModel = BzModel.dummyBz('bolbol');
-    // Map<String, Object> _map = _bzModel.toMap(toJSON: true);
-    //
-    // await Sembast.insertAll(
-    //   docName: 'blah',
-    //   inputs: [_map],
-    // );
+    List<Map<String, dynamic>> _result = await LDBOps.searchTrigram(searchValue: 'Cairo', docName: LDBDoc.sessionCities, lingoCode: 'en');
 
-    print('wtf');
+    Mapper.printMaps(_result);
 
-
-    await Sembast.insertAll(
-        docName: 'blah',
-        primaryKey: 'id',
-        inputs: [
-
-          {
-            'id' : 'bitch',
-            'name' : 'whore',
-          },
-
-          {
-            'id' : 'fuck',
-            'name' : 'you',
-          }
-
-        ],
-    );
-
-    await _readSembast();
-
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _onTinyFlyerRowTap(String id) async {
-    print('the id is : $id');
   }
 // -----------------------------------------------------------------------------
   List<Map<String, Object>>_tinyFlyersMaps;
   Future<void> _readSembast() async {
 
     final List<Map<String, Object>> _maps = await Sembast.readAll(
-      docName: 'blah',
+      docName: LDBDoc.sessionCities,
     );
 
     setState(() {
       _tinyFlyersMaps = _maps;
       _loading = false;
     });
-
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _delete() async {
-
-    await Sembast.deleteAll(
-      docName: 'blah',
-      primaryKey: 'id',
-      // searchPrimaryValue: 'bolbol',
-      // searchPrimaryKey: 'bzID',
-    );
-
-    await _readSembast();
-
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _replace() async {
-
-    Map<String, Object> _map = BzModel.dummyBz('gogo').toMap(toJSON: true);
-
-    await Sembast.update(
-      docName: 'blah',
-      searchPrimaryKey: 'bzID',
-      searchPrimaryValue: 'bolbol',
-      map: _map,
-    );
-
-    await _readSembast();
 
   }
 // -----------------------------------------------------------------------------
@@ -166,28 +107,16 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
         Row(
           children: <Widget>[
 
-            /// INSERT TO LDB
-            SmallFuckingButton(
-              verse: 'insert',
-              onTap: _insert,
-            ),
-
             /// READ AL  LDB
             SmallFuckingButton(
               verse: 'read all',
               onTap: _readSembast,
             ),
 
-            /// DELETE FROM LDB
-            SmallFuckingButton(
-              verse: 'Delete',
-              onTap: _delete,
-            ),
-
             /// REPLACE FROM LDB
             SmallFuckingButton(
-              verse: 'Replace',
-              onTap: _replace,
+              verse: 'Search',
+              onTap: _search,
             ),
 
           ],
@@ -201,7 +130,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
           color: Colorz.green125,
           primaryKey: 'flyerID',
           maps: _tinyFlyersMaps,
-          onRowTap: (String id) => _onTinyFlyerRowTap(id),
+          onRowTap: null,
         ),
 
       ],

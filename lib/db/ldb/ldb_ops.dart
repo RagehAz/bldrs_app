@@ -1,4 +1,5 @@
 import 'package:bldrs/db/ldb/sembast/sembast.dart';
+import 'package:bldrs/models/zone/country_model.dart';
 import 'package:flutter/foundation.dart';
 
 
@@ -116,7 +117,7 @@ abstract class LDBOps{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<Map<String, Object>> searchMap({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
+  static Future<Map<String, Object>> searchFirstMap({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
 
     final Map<String, Object> _result = await Sembast.findFirst(
       docName: docName,
@@ -133,7 +134,7 @@ abstract class LDBOps{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> searchMaps({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
+  static Future<List<Map<String, Object>>> searchAllMaps({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
 
     final List<Map<String, Object>> _result = await Sembast.search(
       docName: docName,
@@ -149,6 +150,18 @@ abstract class LDBOps{
     return _fixedMaps;
 
   }
+// -----------------------------------------------------------------------------
+  static Future<List<Map<String, Object>>> searchTrigram({@required dynamic searchValue, @required String docName, @required String lingoCode}) async {
+
+    List<Map<String, dynamic>> _result = await Sembast.search(
+      fieldToSortBy: getPrimaryKey(docName),
+      searchField: 'names.$lingoCode.trigram',
+      searchValue: CountryModel.fixCountryName(searchValue),
+      docName: docName,
+    );
+
+    return _result;
+}
 // -----------------------------------------------------------------------------
   static Future<List<Map<String, Object>>> readAllMaps({@required String docName}) async {
 

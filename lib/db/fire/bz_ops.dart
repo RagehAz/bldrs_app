@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/db/firestore/auth_ops.dart';
-import 'package:bldrs/db/firestore/firestore.dart';
-import 'package:bldrs/db/firestore/flyer_ops.dart';
-import 'package:bldrs/db/firestore/user_ops.dart';
+import 'package:bldrs/db/fire/auth_ops.dart';
+import 'package:bldrs/db/fire/firestore.dart';
+import 'package:bldrs/db/fire/flyer_ops.dart';
+import 'package:bldrs/db/fire/user_ops.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
