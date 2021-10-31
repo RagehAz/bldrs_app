@@ -1,4 +1,4 @@
-import 'package:bldrs/db/firestore/firestore.dart';
+import 'package:bldrs/db/fire/firestore.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/chat/chat_model.dart';
 import 'package:flutter/material.dart';
 

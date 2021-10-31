@@ -27,7 +27,7 @@ class SearchBar extends StatefulWidget {
 
 class _SearchBarState extends State<SearchBar> {
   TextEditingController _searchTextController;
-  GlobalKey _key = GlobalKey(debugLabel: 'search_bar');
+  // GlobalKey _key = GlobalKey(debugLabel: 'search_bar');
 
   @override
   void initState() {

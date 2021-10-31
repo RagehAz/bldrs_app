@@ -1,10 +1,8 @@
-import 'package:bldrs/controllers/drafters/atlas.dart';
-import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/db/firestore/search_ops.dart';
+import 'package:bldrs/db/fire/zone_ops.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
@@ -14,12 +12,11 @@ import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/appbar/search_bar.dart';
 import 'package:bldrs/views/widgets/general/buttons/flagbox_button.dart';
-import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
 import 'package:bldrs/views/widgets/general/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/textings/data_strip.dart';
-import 'package:bldrs/xxx_LABORATORY/google_maps/googl_map_screen.dart';
+import 'package:bldrs/xxx_LABORATORY/google_maps/google_map_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -105,7 +102,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
           print('getting location aho');
 
-          final Position _position = await Atlas.getGeoLocatorCurrentPosition();
+          final Position _position = await ZoneOps.getGeoLocatorCurrentPosition();
 
           print('got position = ${_position}');
 
@@ -156,7 +153,6 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  String _flag;
   String _countryID;
   CountryModel _countryModel;
   CityModel _cityModel;
@@ -168,13 +164,11 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
     if (_zoneModel != null){
 
-      final String _countryFlag = Flag.getFlagIconByCountryID(_zoneModel.countryID);
       final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _zoneModel.countryID);
       final CityModel _city = await _zoneProvider.fetchCityByID(context: context, cityID: _zoneModel.cityID);
 
 
       setState(() {
-        _flag = _countryFlag;
         _countryID = _zoneModel.countryID;
         _countryModel = _country;
         _cityModel = _city;
@@ -217,31 +211,23 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                     // onSearchChanged: (String val) async {print(val);},
                     onSearchSubmit: (String val) async {
 
-                      final List<CityModel> _foundCities = await FireSearch.citiesByCityENNameAndCountryID(
-                        context: context,
-                        cityName: val,
-                        countryID: 'egy',
-                      );
+                      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-                      if (Mapper.canLoopList(_foundCities)){
+                      final CityModel _result = await _zoneProvider.fetchCityByName(context: context, cityName: val, lingoCode: 'en');
 
+                        if (_result != null){
 
-                        final CityModel _selectedCity = await Dialogz.confirmCityDialog(
-                          context: context,
-                          cities: _foundCities,
-                        );
-
-                        if (_selectedCity != null){
+                          final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _result.countryID);
 
                           setState(() {
-                            _countryID = _selectedCity.countryID;
+                            _countryModel = _country;
+                            _countryID = _result.countryID;
+                            _cityModel = _result;
                           });
 
-                          _selectedCity.printCity();
+                          _result.printCity();
 
                         }
-
-                      }
 
                       else {
 
@@ -261,7 +247,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
               WideButton(
                 verse: 'Get Current Location',
-                icon: _flag ?? Iconz.Share,
+                icon: _countryID == null ? Iconz.Share : Flag.getFlagIconByCountryID(_countryID),
                 onTap: () async {
 
                   print('LET THE GAMES BEGIN');
@@ -272,7 +258,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
               ),
               WideButton(
                 verse: 'Get Position from Map',
-                icon: _flag ?? Iconz.Share,
+                icon: _countryID == null ? Iconz.Share : Flag.getFlagIconByCountryID(_countryID),
                 onTap: () async {
 
                   print('LET THE GAMES BEGIN');

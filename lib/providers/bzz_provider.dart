@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/db/firestore/bz_ops.dart';
-import 'package:bldrs/db/ldb/bldrs_local_dbs.dart';
+import 'package:bldrs/db/fire/bz_ops.dart';
+import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
@@ -23,7 +23,7 @@ class BzzProvider extends ChangeNotifier {
     /// 1 - search in entire LDBs for this bzModel
     for (String doc in LDBDoc.bzModelsDocs){
 
-      final Map<String, Object> _map = await LDBOps.searchMap(
+      final Map<String, Object> _map = await LDBOps.searchFirstMap(
         docName: doc,
         fieldToSortBy: 'id',
         searchField: 'id',
