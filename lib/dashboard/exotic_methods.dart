@@ -324,7 +324,7 @@ abstract class ExoticMethods{
       _keywordsMap = Mapper.insertPairInMap(
           map: _keywordsMap,
           key: keyword.id,
-          value: keyword.toMap(),
+          value: keyword.toMap(toJSON: false),
       );
 
       print('added keywordID : ${keyword.id}');

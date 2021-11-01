@@ -83,7 +83,6 @@ abstract class Keyboarders {
 
     await NavDialog.showNavDialog(
       context: context,
-      isBig: true,
       firstLine: 'Copied to clipboard',
       secondLine: copy,
       color: Colorz.black255,

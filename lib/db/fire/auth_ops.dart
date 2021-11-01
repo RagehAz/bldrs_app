@@ -51,7 +51,7 @@ class AuthOps {
   Future<bool> deleteFirebaseUser(BuildContext context, String userID) async {
 
     print('deleting firebase user');
-    String _error;
+    // String _error;
 
     final bool _result = await tryCatchAndReturn(
       context: context,
@@ -64,7 +64,7 @@ class AuthOps {
       },
 
       onError: (error) {
-        String _error = error.toString();
+        // String _error = error.toString();
       }
     );
 
@@ -620,7 +620,6 @@ class AuthOps {
           context: context,
           firstLine: 'Verification E-mail sent',
           secondLine: 'Please Check Your E-mail',
-          isBig: true,
         );
 
       }
