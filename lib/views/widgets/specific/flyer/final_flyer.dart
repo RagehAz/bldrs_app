@@ -1347,7 +1347,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         context: context,
         firstLine: 'Review is Empty',
         secondLine: 'Add Your review before adding it',
-        isBig: true,
       );
     }
 
@@ -1399,7 +1398,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     await NavDialog.showNavDialog(
       context: context,
-      isBig: true,
       firstLine: 'Review Deleted',
     );
 

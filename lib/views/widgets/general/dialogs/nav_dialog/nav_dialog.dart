@@ -1,33 +1,32 @@
+import 'package:bldrs/controllers/drafters/aligners.dart';
+import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/fire/auth_ops.dart';
-import 'package:bldrs/providers/streamers/user_streamer.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-
 class NavDialog extends StatelessWidget {
   final String firstLine;
   final String secondLine;
-  final bool isBig;
   final Color color;
-
 
   const NavDialog({
     @required this.firstLine,
     @required this.secondLine,
-    this.isBig = false,
     this.color = Colorz.darkRed255,
 });
 // -----------------------------------------------------------------------------
-  static Future<void> showNavDialog({BuildContext context, String firstLine, String secondLine, bool isBig, Color color}) async {
+  static Future<void> showNavDialog({
+    @required BuildContext context,
+    @required String firstLine,
+    String secondLine,
+    Color color = Colorz.black255,
+  }) async {
 
     final Color _color = color == null ? Colorz.darkRed255 : color;
 
-    final bool _isBig = isBig == null ? false : isBig;
     // double _screenWidth = Scale.superScreenWidth(context);
 
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -36,7 +35,7 @@ class NavDialog extends StatelessWidget {
         duration: const Duration(seconds: 5),
         backgroundColor: Colorz.nothing,
 
-        behavior: _isBig == true ? SnackBarBehavior.fixed :  SnackBarBehavior.fixed,
+        behavior: SnackBarBehavior.fixed,
         // width: _isBig == true ? _screenWidth : null,
 
         // margin: _isBig == true ? EdgeInsets.all(0) : null,
@@ -48,7 +47,6 @@ class NavDialog extends StatelessWidget {
         content: NavDialog(
           firstLine: firstLine,
           secondLine: secondLine,
-          isBig: _isBig,
           color: _color,
         ),
       ),
@@ -69,64 +67,70 @@ class NavDialog extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     const BarType _barType = BarType.minWithText;
 
-    return
-        isBig == true ?
-        Container(
-          width: _screenWidth,
-          height: Scale.navBarHeight(context: context, barType: _barType),
-          // color: Colorz.BloodTest,
-          alignment: Alignment.center,
-          child: DreamBox(
-            height: Scale.navBarHeight(context: context, barType: _barType),
+    final double _navBarHeight = NavBar.navBarHeight(context: context, barType: _barType);
+    final double _navBarClearWidth = _screenWidth - (4 * Ratioz.appBarMargin);
+    final double _titleHeight = secondLine == null ? _navBarHeight : _navBarHeight * 0.35;
+    final double _bodyHeight = secondLine == null ? 0 : (_navBarHeight - _titleHeight);
 
-            width: _screenWidth - (4 * Ratioz.appBarMargin),
-            color: color,
-            // corners: 0,
-            verse: firstLine,
-            verseScaleFactor: secondLine == null ? 0.8 : 0.65,
-            secondLine: secondLine,
-            secondLineScaleFactor: 1.1,
-            secondLineColor: Colorz.white200,
-            verseWeight: VerseWeight.bold,
-            verseColor: Colorz.white255,
-            verseShadow: true,
-            verseItalic: true,
-            bubble: false,
-            verseCentered: true,
-            onTap: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-          ),
-        )
-            :
-        userModelBuilder(
-            context: context,
-            userID: superUserID(),
-            builder: (ctx, userModel){
-              return
-                Container(
-                  width: Scale.superScreenWidth(context),
-                  height: Scale.navBarHeight(context: context, barType: _barType),
-                  color: Colorz.nothing,
-                  alignment: Alignment.center,
-                  child: DreamBox(
-                    height: Scale.navBarHeight(context: context, barType: _barType),
-                    width: Scale.navBarWidth(context: context,userModel: userModel, barType: _barType),
-                    color: Colorz.darkRed255,
-                    corners: Scale.navBarCorners(context: context, barType: _barType),
-                    verse: firstLine,
-                    verseScaleFactor: secondLine == null ? 0.8 : 0.65,
-                    secondLine: secondLine,
-                    secondLineScaleFactor: 1.1,
-                    secondLineColor: Colorz.white200,
-                    verseWeight: VerseWeight.bold,
-                    verseColor: Colorz.white255,
-                    verseShadow: true,
-                    verseItalic: true,
-                    bubble: false,
-                    verseCentered: true,
-                    onTap: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+    return
+        GestureDetector(
+          onTap: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+          child: Container(
+            width: _screenWidth,
+            height: _navBarHeight,
+            color: Colorz.bloodTest,
+            alignment: Alignment.center,
+            child: Container(
+              height: _navBarHeight,
+              width: _navBarClearWidth,
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
+              ),
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: secondLine == null ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+                children: <Widget>[
+
+                  Container(
+                    height: _titleHeight,
+                    width: _navBarClearWidth,
+                    alignment: secondLine == null ? Alignment.center : Aligners.superCenterAlignment(context),
+                    padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin,),
+                    child: SuperVerse(
+                      verse: firstLine,
+                      size: 2,
+                      scaleFactor: secondLine == null ? 0.8 : 0.9,
+                      color: Colorz.white255,
+                      weight: VerseWeight.bold,
+                      shadow: true,
+                      centered: secondLine == null ? false : true,
+                    ),
                   ),
-                );
-            }
+
+                  if (secondLine != null)
+                  Container(
+                    height: _bodyHeight,
+                    width: _navBarClearWidth,
+                    alignment: Aligners.superCenterAlignment(context),
+                    padding: const EdgeInsets.only(left: Ratioz.appBarMargin, right: Ratioz.appBarMargin, bottom: Ratioz.appBarPadding),
+                    child: SuperVerse(
+                      verse: secondLine,
+                      size: 1,
+                      color: Colorz.white200,
+                      weight: VerseWeight.thin,
+                      shadow: false,
+                      maxLines: 3,
+                      centered: false,
+                    ),
+                  ),
+
+                ],
+              ),
+
+            ),
+          ),
         );
   }
 }

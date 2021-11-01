@@ -13,16 +13,16 @@ class KW {
     @required this.names,
   });
 // -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap({@required bool toJSON}){
 
     return {
       'id': id,
-      'names' : Name.cipherNames(names: names, addTrigrams: false),
+      'names' : Name.cipherNames(names: names, addTrigrams: toJSON),
     };
 
   }
 // -----------------------------------------------------------------------------
-  static KW decipherKeyword(Map<String, dynamic> map){
+  static KW decipherKeyword({@required Map<String, dynamic> map, @required bool fromJSON}){
     KW _keyword;
 
     if (map != null){
@@ -35,7 +35,7 @@ class KW {
     return _keyword;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, dynamic> cipherKeywordsToMap(List<KW> keywords){
+  static Map<String, dynamic> cipherKeywordsToFirebaseMap(List<KW> keywords){
 
     Map<String, dynamic> _map;
 
@@ -46,7 +46,7 @@ class KW {
         _map = Mapper.insertPairInMap(
             map: _map,
             key: kw.id,
-            value: kw.toMap(),
+            value: kw.toMap(toJSON: false),
         );
 
       }
@@ -56,7 +56,7 @@ class KW {
     return _map;
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, dynamic>> cipherKeywordsToMaps(List<KW> keywords){
+  static List<Map<String, dynamic>> cipherKeywordsToLDBMaps(List<KW> keywords){
 
     final List<Map<String, dynamic>> maps = <Map<String, dynamic>>[];
 
@@ -64,7 +64,7 @@ class KW {
 
       for (var kw in keywords){
 
-        final Map<String, dynamic> _map = kw.toMap();
+        final Map<String, dynamic> _map = kw.toMap(toJSON: true);
         maps.add(_map);
       }
 
@@ -73,7 +73,7 @@ class KW {
     return maps;
   }
 // -----------------------------------------------------------------------------
-  static List<KW> decipherKeywordsMap({@required Map<String, dynamic> map}){
+  static List<KW> decipherKeywordsFirebaseMap({@required Map<String, dynamic> map}){
     final List<KW> _keywords = <KW>[];
 
     if (map != null){
@@ -83,7 +83,7 @@ class KW {
 
         for (String key in _keys){
 
-          final KW _kw = decipherKeyword(map[key]);
+          final KW _kw = decipherKeyword(map: map[key], fromJSON: false);
 
           _keywords.add(_kw);
 
@@ -96,7 +96,7 @@ class KW {
     return _keywords;
   }
 // -----------------------------------------------------------------------------
-  static List<KW> decipherKeywordsMaps({@required List<Map<String, dynamic>> maps}){
+  static List<KW> decipherKeywordsLDBMaps({@required List<Map<String, dynamic>> maps}){
 
     final List<KW> _keywords = <KW>[];
 
@@ -104,7 +104,7 @@ class KW {
 
       for (var map in maps){
 
-        final KW _kw = decipherKeyword(map);
+        final KW _kw = decipherKeyword(map: map, fromJSON: true);
         _keywords.add(_kw);
       }
 
