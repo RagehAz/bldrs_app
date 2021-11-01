@@ -7,6 +7,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/fire/user_ops.dart';
+import 'package:bldrs/db/fire/zone_ops.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -44,9 +45,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController _titleController = TextEditingController();
   TextEditingController _companyController = TextEditingController();
   Gender _currentGender;
-  String _currentCountryID;
-  String _currentCityID;
-  String _currentDistrictID;
+  ZoneModel _currentZone;
   // String _currentLanguageCode;
   GeoPoint _currentPosition;
   // --------------------
@@ -90,9 +89,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _companyController.text = widget.user.company;
     _currentGender = widget.user.gender;
     _titleController.text = widget.user.title;
-    _currentCountryID = widget.user.zone.countryID;
-    _currentCityID = widget.user.zone.cityID;
-    _currentDistrictID = widget.user.zone.districtID;
+    _currentZone = widget.firstTimer == true ? null : widget.user.zone;
     _phoneController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.phone);
     _emailController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.email);
     _websiteController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.website);
@@ -103,6 +100,32 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _pinterestController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.pinterest);
     _tiktokController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.tiktok);
     _twitterController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.twitter);
+  }
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+
+      if (widget.firstTimer == true){
+        _triggerLoading().then((_) async{
+
+          final ZoneModel _zone = await ZoneOps.superGetZone(context);
+
+
+          _triggerLoading(
+              function: (){
+                _currentZone = _zone;
+              }
+          );
+
+        });
+
+      }
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
   @override
@@ -123,9 +146,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
+  bool _canPickImage = true;
   Future<void> _takeGalleryPicture() async {
-    final _imageFile = await Imagers.takeGalleryPicture(PicType.userPic);
-    setState(() {_currentPicFile = _imageFile;});
+
+    if (_canPickImage == true){
+      _canPickImage = false;
+
+      final _imageFile = await Imagers.takeGalleryPicture(PicType.userPic);
+
+      setState(() {
+        _currentPicFile = _imageFile;
+        _canPickImage = true;
+      });
+
+    }
   }
 // -----------------------------------------------------------------------------
   void _deleteLogo(){
@@ -138,21 +172,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 // -----------------------------------------------------------------------------
   void _changeCountry(String countryID){
     setState(() {
-      _currentCountryID = countryID;
-      _currentCityID = null;
-      _currentDistrictID = null;
+      _currentZone.countryID = countryID;
+      _currentZone.cityID = null;
+      _currentZone.districtID = null;
     });
   }
 // -----------------------------------------------------------------------------
   void _changeCity(String cityID){
     setState(() {
-      _currentCityID = cityID;
-      _currentDistrictID = null;
+      _currentZone.cityID = cityID;
+      _currentZone.districtID = null;
     });
   }
 // -----------------------------------------------------------------------------
   void _changeDistrict(String districtID){
-    setState(() {_currentDistrictID = districtID;});
+    setState(() {_currentZone.districtID = districtID;});
   }
 // -----------------------------------------------------------------------------
   // void _changePosition(GeoPoint geoPoint){
@@ -232,11 +266,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           title :  _titleController.text,
           company: _companyController.text,
           gender : _currentGender,
-          zone : ZoneModel(
-            countryID: _currentCountryID,
-            cityID: _currentCityID,
-            districtID: _currentDistrictID,
-          ),
+          zone : _currentZone,
           language : Wordz.languageCode(context),
           position : _currentPosition,
           contacts : _createContactList(existingContacts : widget.user.contacts),
@@ -303,11 +333,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         title :  _titleController.text,
         company: _companyController.text,
         gender : _currentGender,
-        zone : ZoneModel(
-          countryID: _currentCountryID,
-          cityID: _currentCityID,
-          districtID: _currentDistrictID,
-        ),
+        zone : _currentZone,
         language : Wordz.languageCode(context),
         position : _currentPosition,
         contacts : _createContactList(existingContacts : widget.user.contacts),
@@ -352,12 +378,58 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       // appBarBackButton: true,
       loading: _loading,
       appBarType: AppBarType.Basic,
-      tappingRageh: (){
-        print(_currentDistrictID,);
-        print(_currentCityID,);
-        print(_currentCountryID,);
-      },
       pageTitle: widget.firstTimer == true ? 'Add your profile data' : Wordz.editProfile(context),
+      tappingRageh: () async {
+        
+        final bool _result = await CenterDialog.showCenterDialog(
+          context: context,
+          title: 'Delete user ?',
+          boolDialog: true,
+        );
+        
+        if (_result == true){
+
+          /// create new updated user model
+          final UserModel _updatedModel = UserModel(
+            // -------------------------
+            id : widget.user.id,
+            createdAt : widget.user.createdAt,
+            status : widget.user.status,
+            // -------------------------
+            name : _nameController.text,
+            trigram: TextMod.createTrigram(input: _nameController.text),
+            pic :  _currentPicFile ?? _currentPicURL,
+            title :  _titleController.text,
+            company: _companyController.text,
+            gender : _currentGender,
+            zone : _currentZone,
+            language : Wordz.languageCode(context),
+            position : _currentPosition,
+            contacts : _createContactList(existingContacts : widget.user.contacts),
+            // -------------------------
+            myBzzIDs: widget.user.myBzzIDs,
+            // -------------------------
+            isAdmin: widget.user.isAdmin,
+            emailIsVerified: widget.user.emailIsVerified,
+            authBy: widget.user.authBy,
+            fcmToken: widget.user.fcmToken,
+            followedBzzIDs: widget.user.followedBzzIDs,
+            savedFlyersIDs: widget.user.savedFlyersIDs,
+          );
+          await UserOps.superDeleteUserOps(context: context, userModel: _updatedModel);
+          await Nav.goBack(context);
+        }
+
+        else {
+          _currentZone.printZone();
+
+          setState(() {
+
+          });
+
+        }
+        
+      },
       layoutWidget: Form(
         key: _formKey,
         child: ListView(
@@ -409,14 +481,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               validator: (val) => val.isEmpty ? Wordz.enterCompanyName(context) : null,
             ),
 
-            /// --- EDIT HQ
+            /// --- EDIT ZONE
+            if (_currentZone?.isNotEmpty() == true)
             LocaleBubble(
               title : 'Preferred Location',
               changeCountry : (countryID) => _changeCountry(countryID),
               changeCity : (cityID) => _changeCity(cityID),
               changeDistrict : (districtID) => _changeDistrict(districtID),
               // zone: Zone(countryID: userModel.country, cityID: userModel.city, districtID: userModel.districtID),
-              currentZone: ZoneModel(countryID: _currentCountryID, cityID: _currentCityID, districtID: _currentDistrictID),
+              currentZone: _currentZone,
             ),
 
             /// --- EDIT EMAIL

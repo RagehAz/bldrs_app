@@ -23,72 +23,67 @@ class FlagBox extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              // color: Colorz.bloodTest,
-                borderRadius: BorderRadius.circular(corner),
-                boxShadow: <BoxShadow>[
-                  CustomBoxShadow(
-                      color: Colorz.black230,
-                      offset: const Offset(0, 0),
-                      blurRadius: size * 0.12,
-                      blurStyle: BlurStyle.outer
-                  ),
-                ]),
-            child: ClipRRect(
-              borderRadius:
-              const BorderRadius.all(const Radius.circular(corner)),
-              child: Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-
-                  /// FLAG
-                  flag == '' || flag == 'Black'?
-                  Container() :
-                  WebsafeSvg.asset(flag, width: size),
-
-                  ///  BUTTON GRADIENT
-                  Container(
-                    height: size,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      // color: Colorz.Grey,
-                      borderRadius: BorderRadius.circular(corner),
-                      gradient: const LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: <Color>[Colorz.black0, Colorz.black200],
-                          stops: <double>[0.65,1]
-                      ),
-                    ),
-                  ),
-
-                  ///  BUTTON HIGHLIGHT
-                  Container(
-                    height: size,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      // color: Colorz.Grey,
-                      borderRadius: BorderRadius.circular(corner),
-                      gradient: const LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: <Color>[Colorz.nothing, Colorz.white80],
-                          stops: <double>[0.75,1]
-                      ),
-                    ),
-                  ),
-
-                ],
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          // color: Colorz.bloodTest,
+            borderRadius: BorderRadius.circular(corner),
+            boxShadow: <BoxShadow>[
+              CustomBoxShadow(
+                  color: Colorz.black230,
+                  offset: const Offset(0, 0),
+                  blurRadius: size * 0.12,
+                  blurStyle: BlurStyle.outer
               ),
-            ),
+            ]),
+        child: ClipRRect(
+          borderRadius:
+          const BorderRadius.all(const Radius.circular(corner)),
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+
+              /// FLAG
+              flag == '' || flag == 'Black'?
+              Container() :
+              WebsafeSvg.asset(flag, width: size),
+
+              ///  BUTTON GRADIENT
+              Container(
+                height: size,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  // color: Colorz.Grey,
+                  borderRadius: BorderRadius.circular(corner),
+                  gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: <Color>[Colorz.black0, Colorz.black200],
+                      stops: <double>[0.65,1]
+                  ),
+                ),
+              ),
+
+              ///  BUTTON HIGHLIGHT
+              Container(
+                height: size,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  // color: Colorz.Grey,
+                  borderRadius: BorderRadius.circular(corner),
+                  gradient: const LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: <Color>[Colorz.nothing, Colorz.white80],
+                      stops: <double>[0.75,1]
+                  ),
+                ),
+              ),
+
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

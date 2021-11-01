@@ -74,7 +74,7 @@ TextDirection superTextDirectionSwitcher(String val){
   // TextDirection _defaultByLang = _appIsLeftToRight == true ? TextDirection.ltr : TextDirection.rtl;
 
 
-  final bool _controllerIsEmpty = TextChecker.stringHasNoValue(val);
+  final bool _controllerIsEmpty = TextChecker.stringIsEmpty(val);
 
   /// when val has a value
   if (!_controllerIsEmpty){

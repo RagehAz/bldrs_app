@@ -86,7 +86,7 @@ abstract class TextChecker{
 //     return _controllers;
 //   }
 // -----------------------------------------------------------------------------
-  static bool stringHasNoValue(String val){
+  static bool stringIsEmpty(String val){
     final bool controllerIsEmpty =
     val == null || val == '' || val.length == 0 ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(val) == '' ||
@@ -94,6 +94,10 @@ abstract class TextChecker{
         ?
     true : false;
     return controllerIsEmpty;
+  }
+// -----------------------------------------------------------------------------
+  static bool stringIsNotEmpty(String val){
+    return !stringIsEmpty(val);
   }
 // -----------------------------------------------------------------------------
   static bool textStartsInArabic (String val){
