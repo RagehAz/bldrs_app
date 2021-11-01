@@ -28,13 +28,13 @@ class ZoneProvider extends ChangeNotifier {
 
     /// 1 - search in sessionCountries in LDB for this CountryModel
     final Map<String, Object> _map = await LDBOps.searchFirstMap(
-      docName: LDBDoc.sessionCountries,
+      docName: LDBDoc.countries,
       fieldToSortBy: 'id',
       searchField: 'id',
       searchValue: countryID,
     );
     if (_map != null && _map != {}){
-      print('fetchCountryByID : country found in local db : ${LDBDoc.sessionCountries}');
+      print('fetchCountryByID : country found in local db : ${LDBDoc.countries}');
       _countryModel = CountryModel.decipherCountryMap(map: _map, fromJSON: true);
     }
 
@@ -54,7 +54,7 @@ class ZoneProvider extends ChangeNotifier {
 
         await LDBOps.insertMap(
           input: _countryModel.toMap(toJSON: true),
-          docName: LDBDoc.sessionCountries,
+          docName: LDBDoc.countries,
           primaryKey: 'id',
         );
 
@@ -96,13 +96,13 @@ class ZoneProvider extends ChangeNotifier {
 
       /// 1 - search in sessionCountries in LDB for this CountryModel
       final Map<String, Object> _map = await LDBOps.searchFirstMap(
-        docName: LDBDoc.sessionCities,
+        docName: LDBDoc.cities,
         fieldToSortBy: 'cityID',
         searchField: 'cityID',
         searchValue: cityID,
       );
       if (_map != null && _map != {}){
-        print('fetchCityByID : City found in local db : ${LDBDoc.sessionCities}');
+        print('fetchCityByID : City found in local db : ${LDBDoc.cities}');
         _cityModel = CityModel.decipherCityMap(map: _map, fromJSON: true);
       }
 
@@ -122,7 +122,7 @@ class ZoneProvider extends ChangeNotifier {
 
           await LDBOps.insertMap(
             input: _cityModel.toMap(toJSON: true),
-            docName: LDBDoc.sessionCities,
+            docName: LDBDoc.cities,
             primaryKey: 'cityID',
           );
 
@@ -160,7 +160,7 @@ class ZoneProvider extends ChangeNotifier {
         /// B-1 - trial 2 search ldb
         List<Map<String, dynamic>> _ldbCitiesMaps = await LDBOps.searchTrigram(
           searchValue: cityName,
-          docName: LDBDoc.sessionCities,
+          docName: LDBDoc.cities,
           lingoCode: lingoCode,
         );
         /// B-2 - if found results in ldb
@@ -197,7 +197,7 @@ class ZoneProvider extends ChangeNotifier {
             for (var city in _foundCities){
               await LDBOps.insertMap(
                 input: city.toMap(toJSON: true),
-                docName: LDBDoc.sessionCities,
+                docName: LDBDoc.cities,
                 primaryKey: 'cityID',
               );
             }

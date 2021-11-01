@@ -53,7 +53,7 @@ class BzzProvider extends ChangeNotifier {
       if (_bz != null){
         await LDBOps.insertMap(
           input: _bz.toMap(toJSON: true),
-          docName: LDBDoc.sessionBzz,
+          docName: LDBDoc.bzz,
           primaryKey: 'id'
         );
       }
@@ -148,7 +148,7 @@ class BzzProvider extends ChangeNotifier {
 
       await LDBOps.deleteMap(
         objectID: bzID,
-        docName: LDBDoc.myBzz,
+        docName: LDBDoc.bzz,
       );
 
 
@@ -172,7 +172,7 @@ class BzzProvider extends ChangeNotifier {
       await LDBOps.updateMap(
         input: modifiedBz.toMap(toJSON: true),
         objectID: modifiedBz.id,
-        docName: LDBDoc.myBzz,
+        docName: LDBDoc.bzz,
       );
 
       final int _indexOfOldTinyBz = _myBzz.indexWhere((bz) => modifiedBz.id == bz.id);
