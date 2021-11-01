@@ -126,7 +126,6 @@ class DataStrip extends StatelessWidget {
                   context: context,
                   firstLine: 'data copied to clipboard',
                   secondLine: '${dataValue.toString()}',
-                  isBig: true,
                 );
 
               },

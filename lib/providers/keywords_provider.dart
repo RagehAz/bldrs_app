@@ -30,7 +30,7 @@ class KeywordsProvider extends ChangeNotifier{
 
       /// 2.2 insert all kerwords to LDB
       await LDBOps.insertMaps(
-        inputs: KW.cipherKeywordsToMaps(_allKeywords),
+        inputs: KW.cipherKeywordsToLDBMaps(_allKeywords),
         docName: LDBDoc.keywords,
         primaryKey: 'id',
       );
@@ -55,7 +55,7 @@ class KeywordsProvider extends ChangeNotifier{
 
 
       if (Mapper.canLoopList(_maps)){
-        _allKeywords = KW.decipherKeywordsMaps(maps: _maps);
+        _allKeywords = KW.decipherKeywordsLDBMaps(maps: _maps);
       }
 
     /// 2 - all keywords found in LDB

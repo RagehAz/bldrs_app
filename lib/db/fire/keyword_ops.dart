@@ -24,7 +24,7 @@ abstract class KeywordOps {
         docName: doc,
       );
 
-      final List<KW> _keywords = KW.decipherKeywordsMap(map: _keywordsMap);
+      final List<KW> _keywords = KW.decipherKeywordsFirebaseMap(map: _keywordsMap);
 
       _allKeywords.addAll(_keywords);
     }
