@@ -297,12 +297,17 @@ abstract class ZoneOps{
     /// trial 1
     ZoneModel _zone = await _getZoneByIP_ipApi(context: context);
 
+    print('superGetZone : trial 1 : _getZoneByIP_ipApi : zone is : countryID : ${_zone.countryID} : cityID : ${_zone.cityID}');
+
     if (_zone == null){
       _zone = await _getZoneByIP_ipRegistry(context: context);
+      print('superGetZone : trial 2 : _getZoneByIP_ipRegistry : zone is : countryID : ${_zone.countryID} : cityID : ${_zone.cityID}');
     }
+
 
     if (_zone == null){
       _zone = await _getZoneByGeoLocator(context: context);
+      print('superGetZone : trial 3 : _getZoneByGeoLocator : zone is : countryID : ${_zone.countryID} : cityID : ${_zone.cityID}');
     }
 
     return _zone;
