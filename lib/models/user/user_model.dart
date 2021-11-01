@@ -74,7 +74,7 @@ class UserModel {
       'title' : title,
       'company' : company,
       'gender' : cipherGender(gender),
-      'zone' : zone.toMap(),
+      'zone' : zone?.toMap(),
       'language' : language,
       'position' : Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
       'contacts' : ContactModel.cipherContactsModels(contacts),

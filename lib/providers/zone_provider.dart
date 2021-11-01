@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/db/fire/search_ops.dart';
 import 'package:bldrs/db/fire/zone_ops.dart';
 import 'package:bldrs/db/ldb/ldb_ops.dart';
@@ -143,86 +144,90 @@ class ZoneProvider extends ChangeNotifier {
 
     CityModel _city;
 
-    /// A - trial 1 : search by generated cityID
-    if (countryID != null){
-      String _cityIDA = CityModel.createCityID(countryID: countryID, cityEnName: cityName);
-      _city = await fetchCityByID(context: context, cityID: _cityIDA);
-    }
+    if (TextChecker.stringIsNotEmpty(cityName) == true){
 
-    /// B - when trial 1 fails
-    if (_city == null){
+      /// A - trial 1 : search by generated cityID
+      if (countryID != null){
+        String _cityIDA = CityModel.createCityID(countryID: countryID, cityEnName: cityName);
+        _city = await fetchCityByID(context: context, cityID: _cityIDA);
+      }
 
-      List<CityModel> _foundCities;
+      /// B - when trial 1 fails
+      if (_city == null){
 
-      /// B-1 - trial 2 search ldb
-      List<Map<String, dynamic>> _ldbCitiesMaps = await LDBOps.searchTrigram(
+        List<CityModel> _foundCities;
+
+        /// B-1 - trial 2 search ldb
+        List<Map<String, dynamic>> _ldbCitiesMaps = await LDBOps.searchTrigram(
           searchValue: cityName,
           docName: LDBDoc.sessionCities,
           lingoCode: lingoCode,
-      );
-      /// B-2 - if found results in ldb
-      if (Mapper.canLoopList(_ldbCitiesMaps)){
-         _foundCities = CityModel.decipherCitiesMaps(maps: _ldbCitiesMaps, fromJSON: true);
-      }
-
-      /// C - trial 3 search firebase if no result found in LDB
-      if (Mapper.canLoopList(_foundCities) == false){
-
-        /// C-1 - trial 3 if countryID is not available
-        if (countryID == null){
-          _foundCities = await FireSearch.citiesByCityName(
-            context: context,
-            cityName: cityName,
-            lingoCode: lingoCode,
-          );
+        );
+        /// B-2 - if found results in ldb
+        if (Mapper.canLoopList(_ldbCitiesMaps)){
+          _foundCities = CityModel.decipherCitiesMaps(maps: _ldbCitiesMaps, fromJSON: true);
         }
 
-        /// C-1 - trial 3 if countryID is available
-        else {
-          _foundCities = await FireSearch.citiesByCityNameAndCountryID(
-            context: context,
-            cityName: cityName,
-            countryID: countryID,
-            lingoCode: lingoCode,
-          );
-        }
+        /// C - trial 3 search firebase if no result found in LDB
+        if (Mapper.canLoopList(_foundCities) == false){
 
-        /// C-2 - if firebase returned results
-        if (Mapper.canLoopList(_foundCities) == true){
-
-          /// insert all cities in ldb
-          for (var city in _foundCities){
-            await LDBOps.insertMap(
-              input: city.toMap(toJSON: true),
-              docName: LDBDoc.sessionCities,
-              primaryKey: 'cityID',
+          /// C-1 - trial 3 if countryID is not available
+          if (countryID == null){
+            _foundCities = await FireSearch.citiesByCityName(
+              context: context,
+              cityName: cityName,
+              lingoCode: lingoCode,
             );
+          }
+
+          /// C-1 - trial 3 if countryID is available
+          else {
+            _foundCities = await FireSearch.citiesByCityNameAndCountryID(
+              context: context,
+              cityName: cityName,
+              countryID: countryID,
+              lingoCode: lingoCode,
+            );
+          }
+
+          /// C-2 - if firebase returned results
+          if (Mapper.canLoopList(_foundCities) == true){
+
+            /// insert all cities in ldb
+            for (var city in _foundCities){
+              await LDBOps.insertMap(
+                input: city.toMap(toJSON: true),
+                docName: LDBDoc.sessionCities,
+                primaryKey: 'cityID',
+              );
+            }
+
           }
 
         }
 
-      }
+        /// D - if firebase or LDB found any cities
+        if (Mapper.canLoopList(_foundCities) == true){
 
-      /// D - if firebase or LDB found any cities
-      if (Mapper.canLoopList(_foundCities) == true){
+          print('aho fetchCityByName : _foundCities.length\ = ${_foundCities.length}');
 
-        print('aho fetchCityByName : _foundCities.length\ = ${_foundCities.length}');
+          /// D-1 if only one city found
+          if (_foundCities.length == 1){
+            _city = _foundCities[0];
+          }
 
-        /// D-1 if only one city found
-        if (_foundCities.length == 1){
-          _city = _foundCities[0];
-        }
+          /// D-2 if multiple cities found
+          else {
 
-        /// D-2 if multiple cities found
-        else {
+            CityModel _selectedCity = await Dialogz.confirmCityDialog(
+              context: context,
+              cities: _foundCities,
+            );
 
-          CityModel _selectedCity = await Dialogz.confirmCityDialog(
-            context: context,
-            cities: _foundCities,
-          );
+            if (_selectedCity != null){
+              _city = _selectedCity;
+            }
 
-          if (_selectedCity != null){
-            _city = _selectedCity;
           }
 
         }
