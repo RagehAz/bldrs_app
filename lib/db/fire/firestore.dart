@@ -1179,15 +1179,15 @@ abstract class Fire{
 
         print('there is no image to delete');
 
-      } else {
+      }
 
+      else {
         await CenterDialog.showCenterDialog(
           context: context,
           title: 'Can not delete image',
           body: '${_result.toString()}',
           boolDialog: false,
         );
-
       }
 
     }
