@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/secondary_models/map_model.dart';
@@ -38,25 +39,88 @@ class LocaleBubble extends StatefulWidget {
 
 class _LocaleBubbleState extends State<LocaleBubble> {
   CountryModel _selectedCountry;
-  List<CityModel> _selectedCountryCities;
-  String _selectedCityID;
+  List<CityModel> _countryCities;
   CityModel _selectedCity;
-  String _selectedDistrictID;
-  ZoneModel _userZone;
+  ZoneModel _selectedZone;
   ZoneProvider _zoneProvider;
+// -----------------------------------------------------------------------------
+  /// --- FUTURE LOADING BLOCK
+  bool _loading = false;
+  Future <void> _triggerLoading({Function function}) async {
 
+    if(mounted){
+
+      if (function == null){
+        setState(() {
+          _loading = !_loading;
+        });
+      }
+
+      else {
+        setState(() {
+          _loading = !_loading;
+          function();
+        });
+      }
+
+    }
+
+    _loading == true?
+    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+  }
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _userZone = widget.currentZone;
+    _selectedZone = widget.currentZone;
     _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
 
     _selectedCountry = _zoneProvider.userCountryModel;
-    _selectedCityID = _userZone.cityID;
-    _selectedDistrictID = _userZone.districtID;
   }
 
 // -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+
+      if (_selectedZone.isNotEmpty()){
+
+        _triggerLoading().then((_) async{
+
+          final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _selectedZone.countryID);
+          final CityModel _city = await _zoneProvider.fetchCityByID(context: context, cityID: _selectedZone.cityID);
+
+          _triggerLoading(
+              function: (){
+                _selectedCountry = _country;
+                _selectedCity = _city;
+              }
+          );
+        });
+
+
+      }
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+//   @override
+//   void didUpdateWidget(covariant LocaleBubble oldBubble) {
+//     if(oldBubble.currentZone != widget.currentZone){
+//       setState(() {
+//
+//       });
+//
+//       // _isInit = true;
+//       // didChangeDependencies();
+//     }
+//     super.didUpdateWidget(oldBubble);
+//   }
+// // -----------------------------------------------------------------------------
+
   Future<void> _closeBottomSheet() async {
     await Navigator.of(context).pop();
   }
@@ -82,9 +146,9 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
           setState(() {
             _selectedCountry = _country;
-            _selectedCountryCities = _cities;
-            _selectedCityID = null;
-            _selectedDistrictID = null;
+            _countryCities = _cities;
+            _selectedZone.cityID = null;
+            _selectedZone.districtID = null;
           });
 
           widget.changeCountry(countryID);
@@ -102,7 +166,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
     final List<MapModel> _citiesMapModels = CityModel.getCitiesNamesMapModels(
         context : context,
-        cities: _selectedCountryCities,
+        cities: _countryCities,
     );
 
     await BottomDialog.showBottomDialog(
@@ -118,13 +182,13 @@ class _LocaleBubbleState extends State<LocaleBubble> {
           final CityModel _city = await _zoneProvider.fetchCityByID(context: context, cityID: cityID);
 
           setState(() {
-            _selectedCityID = cityID;
+            _selectedZone.cityID = cityID;
             _selectedCity = _city;
-            _selectedDistrictID = null;
+            _selectedZone.districtID = null;
           });
 
           widget.changeCity(cityID);
-          print('_currentProvince : $_selectedCityID');
+          print('_currentProvince : ${_selectedZone.cityID }');
           _closeBottomSheet();
         },
       ),
@@ -153,7 +217,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
         buttonTap: (String districtID){
 
           setState(() {
-            _selectedDistrictID = districtID;
+            _selectedZone.districtID = districtID;
           });
 
           widget.changeDistrict(districtID);
@@ -166,7 +230,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
   }
 // -----------------------------------------------------------------------------
   String _getSelectedCityName(){
-    final String _selectedCityName = _selectedCityID == null ?
+    final String _selectedCityName = _selectedZone?.cityID == null ?
     '...'
         :
     CityModel.getTranslatedCityNameFromCity(
@@ -178,13 +242,13 @@ class _LocaleBubbleState extends State<LocaleBubble> {
   }
 // -----------------------------------------------------------------------------
   String _getSelectedDistrictName(){
-    final String _selectedDistrictName = _selectedDistrictID == null ?
+    final String _selectedDistrictName = _selectedZone?.districtID == null ?
     '...'
         :
     DistrictModel.getTranslatedDistrictNameFromCity(
       context: context,
       city: _selectedCity,
-      districtID: _selectedDistrictID,
+      districtID: _selectedZone.districtID,
     );
 
     return _selectedDistrictName;
@@ -193,8 +257,8 @@ class _LocaleBubbleState extends State<LocaleBubble> {
   @override
   Widget build(BuildContext context) {
 
-    final String _selectedCountryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _selectedCountry.id);
-    final String _selectedCountryFlag = _selectedCountry == null ? '' : Flag.getFlagIconByCountryID(_selectedCountry.id);
+    final String _selectedCountryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: _selectedCountry?.id);
+    final String _selectedCountryFlag = _selectedCountry == null ? '' : Flag.getFlagIconByCountryID(_selectedCountry?.id);
 
     final String _selectedCityName = _getSelectedCityName();
     final String _selectedDistrictName = _getSelectedDistrictName();

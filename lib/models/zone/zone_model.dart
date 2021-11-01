@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 
 class ZoneModel{
@@ -110,6 +111,13 @@ class ZoneModel{
     print('districtID : ${districtID}');
 
     print('$methodName ------------------------------- END');
+  }
+// -----------------------------------------------------------------------------
+  bool isNotEmpty(){
+    final bool _isEmpty = TextChecker.stringIsEmpty(countryID) == true;
+    final bool _isNotEmpty = !_isEmpty;
+    return _isNotEmpty;
+
   }
 // -----------------------------------------------------------------------------
   static bool zoneHasAllIDs(ZoneModel zone){
