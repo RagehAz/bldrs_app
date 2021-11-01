@@ -48,7 +48,7 @@ class AuthOps {
 // -----------------------------------------------------------------------------
   /// TASK : fix this error
   /// deleteFirebaseUser : tryAndCatch ERROR : [firebase_auth/requires-recent-login] This operation is sensitive and requires recent authentication. Log in again before retrying this request.
-  Future<dynamic> deleteFirebaseUser(BuildContext context, String userID) async {
+  Future<bool> deleteFirebaseUser(BuildContext context, String userID) async {
 
     print('deleting firebase user');
     String _error;
@@ -64,17 +64,11 @@ class AuthOps {
       },
 
       onError: (error) {
-        _error = error.toString();
+        String _error = error.toString();
       }
     );
 
-    if (_result == true){
-      return _result;
-    }
-
-    else {
-      return _error;
-    }
+    return _result;
 
   }
 // -----------------------------------------------------------------------------

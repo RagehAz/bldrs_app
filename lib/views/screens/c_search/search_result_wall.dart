@@ -2,8 +2,11 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
@@ -16,17 +19,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SearchResultWall extends StatelessWidget {
-  final List<BzModel> bzzModels;
+  final List<KW> keywords;
+  final List<BzModel> bzz;
+  final List<AuthorModel> authors;
+  final List<FlyerModel> flyers;
 
   const SearchResultWall({
-    @required this.bzzModels,
-    });
+    @required this.keywords,
+    @required this.bzz,
+    @required this.authors,
+    @required this.flyers,
+  });
 
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
 
     const double _buttonHeight = 60;
     final double _buttonWidth = _screenWidth - Ratioz.appBarMargin * 2;
@@ -39,10 +48,10 @@ class SearchResultWall extends StatelessWidget {
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
-        itemCount: bzzModels?.length,
+        itemCount: bzz?.length,
         itemBuilder: (ctx, index){
 
-          final BzModel _bz = bzzModels[index];
+          final BzModel _bz = bzz[index];
 
           return
             DreamBox(
