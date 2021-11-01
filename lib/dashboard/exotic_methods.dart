@@ -27,7 +27,7 @@ abstract class ExoticMethods{
     List<UserModel> _allUserModels = <UserModel>[];
 
     List<dynamic> _ldbUsers = await LDBOps.readAllMaps(
-      docName: LDBDoc.sessionUsers,
+      docName: LDBDoc.users,
     );
 
     if (_ldbUsers.length < 4){
@@ -47,7 +47,7 @@ abstract class ExoticMethods{
       for (var user in _allUserModels){
 
         await LDBOps.insertMap(
-          docName: LDBDoc.sessionUsers,
+          docName: LDBDoc.users,
           input: user.toMap(toJSON: true),
           primaryKey: 'id',
         );

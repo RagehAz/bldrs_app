@@ -4,64 +4,49 @@ import 'package:flutter/foundation.dart';
 
 
 abstract class LDBDoc {
-  static const String myUserModel = 'myUserModel';
-  static const String mySavedFlyers = 'mySavedFlyers';
-  static const String myFollowedBzz = 'myFollowedBzz';
-  static const String myFollows = 'myFollows';
-  static const String myCalls = 'myCalls';
-  static const String myShares = 'myShares';
-  static const String myViews = 'myViews';
-  static const String mySaves = 'mySaves';
-  static const String myReviews = 'myReviews';
-  static const String myQuestions = 'myQuestions';
-  static const String myAnswers = 'myAnswers';
-  static const String myBzz = 'myBzz';
-  static const String myBzzFlyers = 'myBzzFlyers';
-  static const String sessionFlyers = 'sessionFlyers';
-  static const String sessionBzz = 'sessionBzz';
-  static const String sessionUsers = 'sessionUsers';
+  static const String follows = 'myFollows';
+  static const String calls = 'myCalls';
+  static const String shares = 'myShares';
+  static const String views = 'myViews';
+  static const String saves = 'mySaves';
+  static const String reviews = 'myReviews';
+  static const String questions = 'myQuestions';
+  static const String answers = 'myAnswers';
+  static const String flyers = 'sessionFlyers';
+  static const String bzz = 'sessionBzz';
+  static const String users = 'sessionUsers';
   static const String keywords = 'keywords';
-  static const String sessionCountries = 'sessionCountries';
-  static const String sessionCities = 'sessionCities';
+  static const String countries = 'sessionCountries';
+  static const String cities = 'sessionCities';
   static const String continents = 'continents';
 
   static const List<String> bzModelsDocs = const <String>[
-    myFollowedBzz,
-    myBzz,
-    sessionBzz,
+    bzz,
   ];
 
   static const List<String> flyerModelsDocs = const <String>[
-    mySavedFlyers,
-    myBzzFlyers,
-    sessionFlyers,
+    flyers,
   ];
 
   static const List<String> userModelsDocs = const <String>[
-    myUserModel,
-    sessionUsers,
+    users,
   ];
 
   static const List<String> allDocs = <String>[
-  myUserModel,
-  mySavedFlyers,
-  myFollowedBzz,
-  myFollows,
-  myCalls,
-  myShares,
-  myViews,
-  mySaves,
-  myReviews,
-  myQuestions,
-  myAnswers,
-  myBzz,
-  myBzzFlyers,
-  sessionFlyers,
-  sessionBzz,
-  sessionUsers,
+  follows,
+  calls,
+  shares,
+  views,
+  saves,
+  reviews,
+  questions,
+  answers,
+  flyers,
+  bzz,
+  users,
   keywords,
-  sessionCountries,
-  sessionCities,
+  countries,
+  cities,
   continents,
   ];
 }
@@ -71,25 +56,20 @@ abstract class LDBOps{
   static String getPrimaryKey(String docName){
 
     switch (docName){
-      case LDBDoc.myUserModel : return 'id';
-      case LDBDoc.mySavedFlyers : return 'id';
-      case LDBDoc.myFollowedBzz : return 'id';
-      case LDBDoc.myFollows : return 'followID';
-      case LDBDoc.myCalls : return 'callID';
-      case LDBDoc.myShares : return 'shareID';
-      case LDBDoc.myViews : return 'viewID';
-      case LDBDoc.mySaves : return 'saveID';
-      case LDBDoc.myReviews : return 'reviewID';
-      case LDBDoc.myQuestions : return 'questionID';
-      case LDBDoc.myAnswers : return 'answerID';
-      case LDBDoc.myBzz : return 'id';
-      case LDBDoc.myBzzFlyers : return 'id';
-      case LDBDoc.sessionFlyers : return 'id';
-      case LDBDoc.sessionBzz : return 'id';
-      case LDBDoc.sessionUsers : return 'id';
+      case LDBDoc.follows : return 'followID';
+      case LDBDoc.calls : return 'callID';
+      case LDBDoc.shares : return 'shareID';
+      case LDBDoc.views : return 'viewID';
+      case LDBDoc.saves : return 'saveID';
+      case LDBDoc.reviews : return 'reviewID';
+      case LDBDoc.questions : return 'questionID';
+      case LDBDoc.answers : return 'answerID';
+      case LDBDoc.flyers : return 'id';
+      case LDBDoc.bzz : return 'id';
+      case LDBDoc.users : return 'id';
       case LDBDoc.keywords : return 'id';
-      case LDBDoc.sessionCountries : return 'id';
-      case LDBDoc.sessionCities : return 'cityID';
+      case LDBDoc.countries : return 'id';
+      case LDBDoc.cities : return 'cityID';
       case LDBDoc.continents : return 'name';
       default : return null;
     }
