@@ -2,16 +2,19 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/fire/search_ops.dart';
+import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/kw/chain_crafts.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/views/screens/c_search/search_result_wall.dart';
 import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -21,7 +24,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List<KW> _selectedKeywords = <KW>[];
+  // List<KW> _selectedKeywords = <KW>[];
   // KW _highlightedKeyword;
   // bool _browserIsOn = false;
   // String _currentGroupID;
@@ -124,6 +127,23 @@ class _SearchScreenState extends State<SearchScreen> {
   List<KW> _foundKeywords = <KW>[];
   Future<void> _searchKeywords() async {
 
+    List<Map<String, dynamic>> _maps = await LDBOps.searchTrigram(
+        searchValue: _searchController.text,
+        docName: LDBDoc.keywords,
+        lingoCode: Wordz.languageCode(context),
+    );
+
+    if (Mapper.canLoopList(_maps)){
+
+      List<KW> _keywords = KW.decipherKeywordsLDBMaps(maps: _maps);
+
+      _keywords.forEach((kw) {
+        _logs.add('KW : ${kw.id}');
+      });
+
+
+    }
+
   }
 // -----------------------------------------------------------------------------
   List<BzModel> _foundBzz = <BzModel>[];
@@ -137,6 +157,10 @@ class _SearchScreenState extends State<SearchScreen> {
     );
 
     if (Mapper.canLoopList(_result)){
+
+      _result.forEach((bz) {
+        _logs.add('BZ : ${bz.name}');
+      });
 
       setState(() {
         _foundBzz = _result;
@@ -155,7 +179,6 @@ class _SearchScreenState extends State<SearchScreen> {
         color: Colorz.black255,
         firstLine: 'No result found',
         secondLine: 'Try again with different words',
-        isBig: true,
       );
 
     }
@@ -169,6 +192,13 @@ class _SearchScreenState extends State<SearchScreen> {
   List<FlyerModel> _foundFlyers = <FlyerModel>[];
   Future<void> _searchFlyers() async {
 
+  }
+// -----------------------------------------------------------------------------
+  List<String> _logs = <String>[];
+  void _addLog(String log){
+    setState(() {
+      _logs.add(log);
+    });
   }
 // -----------------------------------------------------------------------------
   @override
@@ -220,10 +250,24 @@ class _SearchScreenState extends State<SearchScreen> {
 
                   const Stratosphere(heightFactor: 1.65,),
 
-                  Container(
-                    width: _screenWidth,
-                    height: _selectedKeywords.isEmpty ? 0 : Ratioz.appBarSmallHeight,
-                    // color: Colorz.bloodTest,
+                  Column(
+                    children: [
+
+                      ...List.generate(_logs.length,
+                              (index){
+
+                        return
+
+                          SuperVerse(
+                            verse: _logs[index],
+                            size: 1,
+                            weight: VerseWeight.thin,
+                            labelColor: Colorz.bloodTest,
+                          );
+
+                      }),
+
+                    ],
                   ),
 
                   Container(
@@ -231,10 +275,14 @@ class _SearchScreenState extends State<SearchScreen> {
                     height: 700,
                     // color: Colorz.yellow50,
                     child: SearchResultWall(
-                      keywords: _foundKeywords,
-                      bzz: _foundBzz,
-                      authors: _foundAuthors,
-                      flyers: _foundFlyers,
+                      // keywords: _foundKeywords,
+                      // bzz: _foundBzz,
+                      // authors: _foundAuthors,
+                      // flyers: _foundFlyers,
+                      keywords: KW.getKeywordsFromChain(ChainCrafts.chain),
+                      bzz: [BzModel.dummyBz('x'), BzModel.dummyBz('y'), BzModel.dummyBz('z')],
+                      authors: [AuthorModel.dummyAuthor(), AuthorModel.dummyAuthor()],
+                      flyers: FlyerModel.dummyFlyers(),
                     ),
                   ),
 

@@ -127,7 +127,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
         await NavDialog.showNavDialog(
           context: context,
-          isBig: true,
           firstLine: 'Question is empty',
           secondLine: 'Please type your question first'
         );
@@ -138,7 +137,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
         await NavDialog.showNavDialog(
             context: context,
-            isBig: true,
             firstLine: 'Title is empty',
             secondLine: 'Please type question title to proceed'
         );
@@ -170,7 +168,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
         await NavDialog.showNavDialog(
             context: context,
-            isBig: true,
             firstLine: 'Question submitted',
             secondLine: 'Question is submitted, and all bitched will see now'
         );
