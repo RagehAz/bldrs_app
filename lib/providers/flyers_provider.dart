@@ -65,7 +65,7 @@ class FlyersProvider extends ChangeNotifier {
 
         await LDBOps.insertMap(
           input: _flyer.toMap(toJSON: true),
-          docName: LDBDoc.sessionFlyers,
+          docName: LDBDoc.flyers,
           primaryKey: 'id',
         );
 
@@ -172,7 +172,7 @@ class FlyersProvider extends ChangeNotifier {
 
       /// insert flyer in ldb
       await LDBOps.insertMap(
-        docName: LDBDoc.mySavedFlyers,
+        docName: LDBDoc.flyers,
         input: inputFlyer.toMap(toJSON: true),
         primaryKey: 'id',
       );
@@ -192,11 +192,11 @@ class FlyersProvider extends ChangeNotifier {
       _savedFlyers.indexWhere((tf) => tf.id == inputFlyer.id, );
       _savedFlyers.removeAt(_savedFlyerIndex);
 
-      /// remove from ldb
-      await LDBOps.deleteMap(
-          docName: LDBDoc.mySavedFlyers,
-          objectID: inputFlyer.id,
-      );
+      // /// remove from ldb
+      // await LDBOps.deleteMap(
+      //     docName: LDBDoc.mySavedFlyers,
+      //     objectID: inputFlyer.id,
+      // );
 
       /// remove from saved flyersIDs in firebase
       await UserOps.removeFlyerIDFromSavedFlyersIDs(
