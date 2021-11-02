@@ -36,7 +36,6 @@ class FlyersBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         FlyersShelf(
-          flyersType: null,
           flyerSizeFactor: flyerSizeFactor,
           title: null,
           flyers: flyers,

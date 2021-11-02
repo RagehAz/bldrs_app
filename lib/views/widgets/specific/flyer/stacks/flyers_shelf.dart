@@ -2,17 +2,13 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf_list_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class FlyersShelf extends StatelessWidget {
-  final FlyerType flyersType;
   final String title;
   final List<FlyerModel> flyers;
   final String titleIcon;
@@ -21,7 +17,6 @@ class FlyersShelf extends StatelessWidget {
   final double flyerSizeFactor;
 
   const FlyersShelf({
-    this.flyersType,
     this.title,
     this.flyers,
     this.titleIcon,
@@ -43,9 +38,6 @@ class FlyersShelf extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    final List<FlyerModel> _flyers = flyers == null ? _flyersProvider.filterWallFlyersByFlyerType(flyersType) : flyers;
-
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
@@ -58,10 +50,10 @@ class FlyersShelf extends StatelessWidget {
 // -----------------------------------------------------------------------------
     return
 
-      _flyers.length == 0 ? Container() :
       Container(
         width: _screenWidth,
         // height: _collectionHeight + 2*_titleSpacing + (_screenHeight * Ratioz.fontSize3) + 12,
+        margin: const EdgeInsets.only(bottom: 5),
         color: Colorz.white10,
         // decoration: BoxDecoration(
         //   // color: Colorz.BlackLingerie,
@@ -135,7 +127,7 @@ class FlyersShelf extends StatelessWidget {
               height: _flyerZoneHeight,
               // color: Colorz.WhiteAir,
               child: FlyersShelfListBuilder(
-                flyers: _flyers,
+                flyers: flyers,
                 flyerSizeFactor: flyerSizeFactor,
                 flyerOnTap: flyerOnTap,
                 onScrollEnd: onScrollEnd,
