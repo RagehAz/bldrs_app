@@ -78,7 +78,6 @@ class NavDialog extends StatelessWidget {
           child: Container(
             width: _screenWidth,
             height: _navBarHeight,
-            color: Colorz.bloodTest,
             alignment: Alignment.center,
             child: Container(
               height: _navBarHeight,
