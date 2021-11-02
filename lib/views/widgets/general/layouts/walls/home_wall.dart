@@ -5,7 +5,6 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bzz_bubble.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -110,7 +109,7 @@ class _HomeWallState extends State<HomeWall> {
 
       /// NEW FLYERS
       FlyersShelf(
-        flyersType: FlyerType.rentalProperty,
+        // flyersType: FlyerType.rentalProperty,
         title: 'New By section flyers in Heliopolis',
         flyers: FlyerModel.dummyFlyers(),
       ),
@@ -121,7 +120,7 @@ class _HomeWallState extends State<HomeWall> {
 
       /// RECENTLY VIEWED
       FlyersShelf(
-        flyersType: FlyerType.rentalProperty,
+        // flyersType: FlyerType.rentalProperty,
         title: 'Recently viewed flyers',
         flyers: FlyerModel.dummyFlyers(),
       ),

@@ -6,6 +6,7 @@ import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -283,15 +284,15 @@ class FlyersProvider extends ChangeNotifier {
     notifyListeners();
   }
 // -------------------------------------
-  List<FlyerModel> filterWallFlyersByFlyerType(FlyerType flyerType){
-
-    final List<FlyerModel> _flyers = FlyerModel.filterFlyersByFlyerType(
-      flyers: _wallFlyers,
-      flyerType: flyerType,
-    );
-
-    return _flyers;
-  }
+//   List<FlyerModel> filterWallFlyersByFlyerType(FlyerType flyerType){
+//
+//     final List<FlyerModel> _flyers = FlyerModel.filterFlyersByFlyerType(
+//       flyers: _wallFlyers,
+//       flyerType: flyerType,
+//     );
+//
+//     return _flyers;
+//   }
 // -----------------------------------------------------------------------------
   /// ACTIVE BZ FLYERS
   List<FlyerModel> _myActiveBzFlyers = <FlyerModel>[];
@@ -309,4 +310,51 @@ class FlyersProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
+  /// SEARCHERS
+  Future<List<FlyerModel>> fetchThreeFlyersByKeywordAndCurrentZone({
+    @required BuildContext context,
+    @required KW kw,
+    int limit = 3,
+  }) async {
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final ZoneModel _currentZone = _zoneProvider.currentZone;
+
+    /// TASK : think this through.. can it be fetch instead of just search ? I don't think soooooo
+    List<FlyerModel> _flyers = await FireSearch.flyersByZoneAndKeyword(
+      context: context,
+      zone: _currentZone,
+      kw: kw,
+      addDocSnapshotToEachMap: false,
+      addDocsIDs: false,
+      limit: limit,
+    );
+
+    return _flyers;
+  }
+// -------------------------------------
+  Future<List<FlyerModel>> fetchThreeFlyersFromBzModel({
+    @required BuildContext context,
+    @required BzModel bz,
+    int limit = 3,
+  }) async {
+
+    final List<String> _flyersIDs = <String>[];
+
+    int _limit = bz.flyersIDs.length > limit ? limit : bz.flyersIDs.length;
+
+    for (int i = 0; i < _limit; i++){
+      _flyersIDs.add(bz.flyersIDs[i]);
+    }
+
+    final List<FlyerModel> _bzFlyers = <FlyerModel>[];
+
+    for (String flyerID in _flyersIDs){
+
+      final FlyerModel _flyer = await fetchFlyerByID(context: context, flyerID: flyerID);
+      _bzFlyers.add(_flyer);
+    }
+
+    return _bzFlyers;
+  }
+// -------------------------------------
 }
