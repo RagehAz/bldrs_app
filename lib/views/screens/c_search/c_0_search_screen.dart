@@ -2,20 +2,23 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/fire/search_ops.dart';
 import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/kw/chain_crafts.dart';
 import 'package:bldrs/models/kw/kw.dart';
-import 'package:bldrs/views/screens/c_search/search_result_wall.dart';
+import 'package:bldrs/models/secondary_models/name_model.dart';
+import 'package:bldrs/providers/flyers_provider.dart';
+import 'package:bldrs/providers/keywords_provider.dart';
 import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
 
@@ -61,12 +64,14 @@ class _SearchScreenState extends State<SearchScreen> {
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
+  KeywordsProvider _keywordsProvider;
+  FlyersProvider _flyersProvider;
+
   @override
   void initState() {
     super.initState();
-    // _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    // _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-
+    _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+    _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     // BldrsSection _bldrsSection = _flyersProvider.getCurrentSection;
     // _currentFlyerType = FilterModel.getDefaultFlyerTypeBySection(bldrsSection: _bldrsSection);
 
@@ -85,7 +90,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   }
 // -----------------------------------------------------------------------------
-
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -108,7 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    // TODO: implement dispose
+    _searchController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -116,54 +120,17 @@ class _SearchScreenState extends State<SearchScreen> {
 
     _triggerLoading();
 
-    await _searchKeywords();
-    await _searchBzz();
-    await _searchAuthors();
-    await _searchFlyers();
+    final List<SearchResult> _keywordsResults = await _searchKeywords();
+    final List<SearchResult> _bzzResults = await _searchBzz();
+    final List<SearchResult> _authorsResults = await _searchAuthors();
+    final List<SearchResult> _flyersResults = await _searchFlyers();
 
-    _triggerLoading();
-  }
-// -----------------------------------------------------------------------------
-  List<KW> _foundKeywords = <KW>[];
-  Future<void> _searchKeywords() async {
+    final List<SearchResult> _all = <SearchResult>[..._keywordsResults, ..._bzzResults, ..._authorsResults, ..._flyersResults];
 
-    List<Map<String, dynamic>> _maps = await LDBOps.searchTrigram(
-        searchValue: _searchController.text,
-        docName: LDBDoc.keywords,
-        lingoCode: Wordz.languageCode(context),
-    );
-
-    if (Mapper.canLoopList(_maps)){
-
-      List<KW> _keywords = KW.decipherKeywordsLDBMaps(maps: _maps);
-
-      _keywords.forEach((kw) {
-        _logs.add('KW : ${kw.id}');
-      });
-
-
-    }
-
-  }
-// -----------------------------------------------------------------------------
-  List<BzModel> _foundBzz = <BzModel>[];
-  Future<void> _searchBzz() async {
-
-    print('_onSearchBzz : _searchController.text : ${_searchController.text}');
-
-    List<BzModel> _result = await FireSearch.bzzByBzName(
-      context: context,
-      bzName: _searchController.text,
-    );
-
-    if (Mapper.canLoopList(_result)){
-
-      _result.forEach((bz) {
-        _logs.add('BZ : ${bz.name}');
-      });
+    if (_all.length > 0){
 
       setState(() {
-        _foundBzz = _result;
+        _allResults = _all;
       });
 
     }
@@ -171,7 +138,7 @@ class _SearchScreenState extends State<SearchScreen> {
     else {
 
       setState(() {
-        _foundBzz = [];
+        _allResults = [];
       });
 
       await NavDialog.showNavDialog(
@@ -182,22 +149,104 @@ class _SearchScreenState extends State<SearchScreen> {
       );
 
     }
-  }
-// -----------------------------------------------------------------------------
-  List<AuthorModel> _foundAuthors = <AuthorModel>[];
-  Future<void> _searchAuthors() async {
 
-  }
-// -----------------------------------------------------------------------------
-  List<FlyerModel> _foundFlyers = <FlyerModel>[];
-  Future<void> _searchFlyers() async {
 
+    _triggerLoading();
   }
 // -----------------------------------------------------------------------------
-  List<String> _logs = <String>[];
-  void _addLog(String log){
+  /// TAMAM
+  Future<List<SearchResult>> _searchKeywords() async {
+
+    final List<SearchResult> _results = <SearchResult>[];
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.searchTrigram(
+        searchValue: _searchController.text,
+        docName: LDBDoc.keywords,
+        lingoCode: Wordz.languageCode(context),
+    );
+
+    if (Mapper.canLoopList(_maps)){
+
+      final List<KW> _keywords = KW.decipherKeywordsLDBMaps(maps: _maps);
+
+      for (KW kw in _keywords){
+
+        final List<FlyerModel> _flyersByKeyword = await _flyersProvider.fetchThreeFlyersByKeywordAndCurrentZone(
+          context: context,
+          kw: kw,
+        );
+
+        if (_flyersByKeyword.length > 0){
+          _results.add(
+              SearchResult(
+                title: Name.getNameByCurrentLingoFromNames(context, kw.names),
+                icon: _keywordsProvider.getIcon(kw),
+                flyers: _flyersByKeyword,
+              )
+          );
+        }
+
+      }
+
+    }
+
+    return _results;
+  }
+// -----------------------------------------------------------------------------
+  /// TAMAM
+  Future<List<SearchResult>> _searchBzz() async {
+
+    final List<SearchResult> _results = <SearchResult>[];
+
+    print('_onSearchBzz : _searchController.text : ${_searchController.text}');
+
+    final List<BzModel> _bzz = await FireSearch.bzzByBzName(
+      context: context,
+      bzName: _searchController.text,
+    );
+
+    if (Mapper.canLoopList(_bzz)){
+
+      for (BzModel bz in _bzz){
+
+        final List<FlyerModel> _bzFlyers = await _flyersProvider.fetchThreeFlyersFromBzModel(
+          context: context,
+          bz: bz,
+        );
+
+        if (_bzFlyers.length > 0){
+          _results.add(
+              SearchResult(
+                title: 'Flyers by ${bz.name}',
+                icon: bz.logo,
+                flyers: _bzFlyers,
+              )
+          );
+        }
+
+      }
+
+    }
+
+    return _results;
+  }
+// -----------------------------------------------------------------------------
+  Future<List<SearchResult>> _searchAuthors() async {
+    List<SearchResult> _results = <SearchResult>[];
+
+    return _results;
+  }
+// -----------------------------------------------------------------------------
+  Future<List<SearchResult>> _searchFlyers() async {
+    List<SearchResult> _results = <SearchResult>[];
+
+    return _results;
+  }
+// -----------------------------------------------------------------------------
+  List<SearchResult> _allResults = <SearchResult>[];
+  void _addResults(List<SearchResult> results){
     setState(() {
-      _logs.add(log);
+      _allResults.addAll(results);
     });
   }
 // -----------------------------------------------------------------------------
@@ -233,7 +282,17 @@ class _SearchScreenState extends State<SearchScreen> {
       pyramids: Iconz.DvBlankSVG,
       searchController: _searchController,
       onSearchSubmit: (String value) => _onSearchSubmit(),
-      onSearchChanged: (String val) => print('search value changed to ${val}'),
+      onSearchChanged: (String val){
+
+        print('search value changed to ${val}');
+
+        if (val.length == 0){
+          setState(() {
+            _allResults = [];
+          });
+        }
+
+      },
       layoutWidget: Stack(
         children: <Widget>[
 
@@ -244,49 +303,139 @@ class _SearchScreenState extends State<SearchScreen> {
               width: _screenWidth,
               height: _screenHeight,
               // color: Colorz.BlackPlastic,
-              child: ListView(
+              child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                children: <Widget>[
+                shrinkWrap: true,
+                itemCount: _allResults.length,
+                padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2),
 
-                  const Stratosphere(heightFactor: 1.65,),
+                itemBuilder: (ctx, index){
 
-                  Column(
-                    children: [
+                  final SearchResult _result = _allResults[index];
 
-                      ...List.generate(_logs.length,
-                              (index){
+                  return
 
-                        return
+                    FlyersShelf(
+                      title: _result.title,
+                      flyerSizeFactor: 0.3,
+                      titleIcon: _result.icon,
+                      flyerOnTap: (){print('flyer tapped');},
+                      onScrollEnd: (){print('scroll ended');},
+                      flyers: _result.flyers,
+                    );
 
-                          SuperVerse(
-                            verse: _logs[index],
-                            size: 1,
-                            weight: VerseWeight.thin,
-                            labelColor: Colorz.bloodTest,
-                          );
+                  // DreamBox(
+                  //   height: _buttonHeight,
+                  //   width: _buttonWidth,
+                  //   color: Colorz.white20,
+                  //   verse: _bz.name,
+                  //   secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
+                  //   icon: _bz.logo,
+                  //   margins: const EdgeInsets.only(top: _bzButtonMargin),
+                  //   verseScaleFactor: 0.7,
+                  //   verseCentered: false,
+                  //   onTap: () async {
+                  //
+                  //     final double _dialogHeight = _screenHeight * 0.8;
+                  //
+                  //     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+                  //     final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bz.zone.countryID);
+                  //     final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: _bz.zone.cityID);
+                  //
+                  //     await BottomDialog.showBottomDialog(
+                  //       context: context,
+                  //       title: _bz.name,
+                  //       draggable: true,
+                  //       height: _dialogHeight,
+                  //       child: Container(
+                  //         width: _clearDialogWidth,
+                  //         height: BottomDialog.dialogClearHeight(draggable: true, titleIsOn: true, context: context, overridingDialogHeight: _dialogHeight),
+                  //         // color: Colorz.BloodTest,
+                  //         child: MaxBounceNavigator(
+                  //           child: ListView(
+                  //             physics: const BouncingScrollPhysics(),
+                  //             children: <Widget>[
+                  //
+                  //               Container(
+                  //                 width: _clearDialogWidth,
+                  //                 height: FlyerBox.headerStripHeight(false, _clearDialogWidth),
+                  //                 child: Column(
+                  //
+                  //                   children: <Widget>[
+                  //
+                  //                     MiniHeaderStrip(
+                  //                       superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
+                  //                         onHeaderTap: (){},
+                  //                         bzModel: _bz,
+                  //                         bzCountry: _bzCountry,
+                  //                         bzCity: _bzCity,
+                  //                       ),
+                  //                       flyerBoxWidth: _clearDialogWidth,
+                  //                     ),
+                  //
+                  //                   ],
+                  //
+                  //                 ),
+                  //               ),
+                  //
+                  //
+                  //
+                  //               // DataStrip(dataKey: 'bzName', dataValue: _bz.name, ),
+                  //               // DataStrip(dataKey: 'bzLogo', dataValue: _bz.logo, ),
+                  //               // DataStrip(dataKey: 'bzID', dataValue: _bz.bzID, ),
+                  //               // DataStrip(dataKey: 'bzType', dataValue: _bz.bzType, ),
+                  //               // DataStrip(dataKey: 'bzForm', dataValue: _bz.bzForm, ),
+                  //               // DataStrip(dataKey: 'createdAt', dataValue: _bz.createdAt, ),
+                  //               // DataStrip(dataKey: 'accountType', dataValue: _bz.accountType, ),
+                  //               // DataStrip(dataKey: 'bzScope', dataValue: _bz.scope, ),
+                  //               // DataStrip(dataKey: 'bzZone', dataValue: _bz.zone, ),
+                  //               // DataStrip(dataKey: 'bzAbout', dataValue: _bz.about, ),
+                  //               // DataStrip(dataKey: 'bzPosition', dataValue: _bz.position, ),
+                  //               // DataStrip(dataKey: 'bzContacts', dataValue: _bz.contacts, ),
+                  //               // DataStrip(dataKey: 'bzAuthors', dataValue: _bz.authors, ),
+                  //               // DataStrip(dataKey: 'bzShowsTeam', dataValue: _bz.showsTeam, ),
+                  //               // DataStrip(dataKey: 'bzIsVerified', dataValue: _bz.isVerified, ),
+                  //               // DataStrip(dataKey: 'bzState', dataValue: _bz.bzState, ),
+                  //               // DataStrip(dataKey: 'bzTotalFollowers', dataValue: _bz.totalFollowers, ),
+                  //               // DataStrip(dataKey: 'bzTotalSaves', dataValue: _bz.totalSaves, ),
+                  //               // DataStrip(dataKey: 'bzTotalShares', dataValue: _bz.totalShares, ),
+                  //               // DataStrip(dataKey: 'bzTotalSlides', dataValue: _bz.totalSlides, ),
+                  //               // DataStrip(dataKey: 'bzTotalViews', dataValue: _bz.totalViews, ),
+                  //               // DataStrip(dataKey: 'bzTotalCalls', dataValue: _bz.totalCalls, ),
+                  //               // DataStrip(dataKey: 'flyersIDs,', dataValue: _bz.flyersIDs, ),
+                  //               // DataStrip(dataKey: 'bzTotalFlyers', dataValue: _bz.totalFlyers, ),
+                  //
+                  //
+                  //               // Container(
+                  //               //     width: _clearDialogWidth,
+                  //               //     height: 100,
+                  //               //     child: Row(
+                  //               //       mainAxisAlignment: MainAxisAlignment.center,
+                  //               //       crossAxisAlignment: CrossAxisAlignment.center,
+                  //               //       children: <Widget>[
+                  //               //
+                  //               //         DreamBox(
+                  //               //           height: 80,
+                  //               //           width: 80,
+                  //               //           verse: 'Delete User',
+                  //               //           verseMaxLines: 2,
+                  //               //           onTap: () => _deleteUser(_userModel),
+                  //               //         ),
+                  //               //
+                  //               //       ],
+                  //               //     )
+                  //               // )
+                  //
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     );
+                  //
+                  //   },
+                  // );
 
-                      }),
-
-                    ],
-                  ),
-
-                  Container(
-                    width: _screenWidth,
-                    height: 700,
-                    // color: Colorz.yellow50,
-                    child: SearchResultWall(
-                      // keywords: _foundKeywords,
-                      // bzz: _foundBzz,
-                      // authors: _foundAuthors,
-                      // flyers: _foundFlyers,
-                      keywords: KW.getKeywordsFromChain(ChainCrafts.chain),
-                      bzz: [BzModel.dummyBz('x'), BzModel.dummyBz('y'), BzModel.dummyBz('z')],
-                      authors: [AuthorModel.dummyAuthor(), AuthorModel.dummyAuthor()],
-                      flyers: FlyerModel.dummyFlyers(),
-                    ),
-                  ),
-
-                ],
+                },
               ),
             ),
           ),
@@ -295,4 +444,27 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
     );
   }
+}
+
+class SearchResult {
+  final String title;
+  // final SearchSource source;
+  final String icon;
+  final List<FlyerModel> flyers;
+
+  const SearchResult({
+    @required this.title,
+    // @required this.source,
+    @required this.icon,
+    @required this.flyers,
+});
+
+
+}
+
+enum SearchSource{
+  bzz,
+  authors,
+  flyerTitles,
+  keywords,
 }
