@@ -189,9 +189,11 @@ abstract class Imagers{
     return _decodedImage;
   }
 // -----------------------------------------------------------------------------
-  static Future<Uint8List> getBytesFromLocalAsset(String iconPath, int width) async {
-    final ByteData _data = await rootBundle.load(iconPath);
-    final ui.Codec _codec = await ui.instantiateImageCodec(_data.buffer.asUint8List(), targetWidth: width);
+  static Future<Uint8List> getBytesFromLocalRasterAsset({@required String asset, @required int width}) async {
+    final ByteData _byteData = await rootBundle.load(asset);
+
+
+    final ui.Codec _codec = await ui.instantiateImageCodec(_byteData.buffer.asUint8List(), targetWidth: width);
     final ui.FrameInfo _fi = await _codec.getNextFrame();
     final Uint8List _result = (await _fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
     return _result;
