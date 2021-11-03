@@ -239,7 +239,7 @@ class NavBar extends StatelessWidget {
                       margins: const EdgeInsets.all(Ratioz.appBarPadding),
                       icon: _bzModel.logo,
                       verse: _bzModel.name,
-                      secondLine: TextGenerator.bzTypeSingleStringer(context, _bzModel.bzType),
+                      secondLine: TextGen.bzTypeSingleStringer(context, _bzModel.bzType),
                       iconSizeFactor: 1,
                       verseScaleFactor: 0.7,
                       bubble: true,

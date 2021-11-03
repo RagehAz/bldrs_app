@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/db/fire/auth_ops.dart';
 import 'package:bldrs/db/fire/user_ops.dart';
@@ -248,7 +248,7 @@ class UserModel {
         status: UserStatus.normal,
         // -------------------------
         name: _user.displayName,
-        trigram: TextMod.createTrigram(input: _user.displayName),
+        trigram: TextGen.createTrigram(input: _user.displayName),
         pic: _user.photoURL,
         title: '',
         gender: Gender.any,
@@ -289,7 +289,7 @@ class UserModel {
       status: UserStatus.normal,
       // -------------------------
       name: user.displayName,
-      trigram: TextMod.createTrigram(input: user.displayName),
+      trigram: TextGen.createTrigram(input: user.displayName),
       pic: user.photoURL,
       title: '',
       gender: Gender.any,

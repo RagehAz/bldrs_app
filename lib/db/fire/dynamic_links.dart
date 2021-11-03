@@ -38,7 +38,7 @@ class DynamicLinksApi {
         minimumVersion: '0',
       ),
       socialMetaTagParameters: SocialMetaTagParameters(
-        title: TextGenerator.flyerTypeSingleStringer(context, flyerModel.flyerType),
+        title: TextGen.flyerTypeSingleStringer(context, flyerModel.flyerType),
         description: flyerModel.slides[slideIndex].headline,
         imageUrl: Uri.parse(flyerModel.slides[slideIndex].pic),
       ),

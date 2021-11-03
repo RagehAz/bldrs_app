@@ -277,7 +277,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
                         List<UserModel> _resultUsers = await FireSearch.usersByUserName(
                           context: context,
-                          compareValue: val,
+                          name: val,
                         );
 
                         if (_resultUsers == []){
@@ -487,8 +487,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
     bool _canSend = false;
 
     if (
-    TextChecker.textControllerHasNoValue(_titleController) == false &&
-        TextChecker.textControllerHasNoValue(_bodyController) == false &&
+    TextChecker.textControllerIsEmpty(_titleController) == false &&
+        TextChecker.textControllerIsEmpty(_bodyController) == false &&
         _attachment != null &&
         _attachmentType != null &&
         _sendFCMIsOn != null &&

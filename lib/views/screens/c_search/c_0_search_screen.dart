@@ -1,18 +1,21 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/fire/search_ops.dart';
 import 'package:bldrs/db/ldb/ldb_ops.dart';
-import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
+import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/keywords_provider.dart';
+import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
@@ -66,12 +69,17 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   KeywordsProvider _keywordsProvider;
   FlyersProvider _flyersProvider;
+  ZoneProvider _zoneProvider;
+  BzzProvider _bzzProvider;
 
   @override
   void initState() {
     super.initState();
     _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
     _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+
     // BldrsSection _bldrsSection = _flyersProvider.getCurrentSection;
     // _currentFlyerType = FilterModel.getDefaultFlyerTypeBySection(bldrsSection: _bldrsSection);
 
@@ -112,10 +120,12 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    _searchController.dispose();
     super.dispose();
+    TextChecker.disposeControllerIfNotEmpty(_searchController);
   }
 // -----------------------------------------------------------------------------
+  List<SearchResult> _allResults = <SearchResult>[];
+  /// TAMAM
   Future<void> _onSearchSubmit() async {
 
     _triggerLoading();
@@ -123,7 +133,7 @@ class _SearchScreenState extends State<SearchScreen> {
     final List<SearchResult> _keywordsResults = await _searchKeywords();
     final List<SearchResult> _bzzResults = await _searchBzz();
     final List<SearchResult> _authorsResults = await _searchAuthors();
-    final List<SearchResult> _flyersResults = await _searchFlyers();
+    final List<SearchResult> _flyersResults = await _searchFlyersByTitle();
 
     final List<SearchResult> _all = <SearchResult>[..._keywordsResults, ..._bzzResults, ..._authorsResults, ..._flyersResults];
 
@@ -138,7 +148,7 @@ class _SearchScreenState extends State<SearchScreen> {
     else {
 
       setState(() {
-        _allResults = [];
+        _allResults = <SearchResult>[];
       });
 
       await NavDialog.showNavDialog(
@@ -150,10 +160,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
     }
 
-
     _triggerLoading();
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------------------------
   /// TAMAM
   Future<List<SearchResult>> _searchKeywords() async {
 
@@ -171,9 +180,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
       for (KW kw in _keywords){
 
-        final List<FlyerModel> _flyersByKeyword = await _flyersProvider.fetchThreeFlyersByKeywordAndCurrentZone(
+        final List<FlyerModel> _flyersByKeyword = await _flyersProvider.fetchFlyersByCurrentZoneAndKeyword(
           context: context,
           kw: kw,
+          limit: 3,
         );
 
         if (_flyersByKeyword.length > 0){
@@ -192,7 +202,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return _results;
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------------------------
   /// TAMAM
   Future<List<SearchResult>> _searchBzz() async {
 
@@ -209,12 +219,13 @@ class _SearchScreenState extends State<SearchScreen> {
 
       for (BzModel bz in _bzz){
 
-        final List<FlyerModel> _bzFlyers = await _flyersProvider.fetchThreeFlyersFromBzModel(
+        final List<FlyerModel> _bzFlyers = await _flyersProvider.fetchFirstFlyersByBzModel(
           context: context,
           bz: bz,
+          limit: 3
         );
 
-        if (_bzFlyers.length > 0){
+        if (Mapper.canLoopList(_bzFlyers)){
           _results.add(
               SearchResult(
                 title: 'Flyers by ${bz.name}',
@@ -230,34 +241,93 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return _results;
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------------------------
   Future<List<SearchResult>> _searchAuthors() async {
-    List<SearchResult> _results = <SearchResult>[];
+    final List<SearchResult> _results = <SearchResult>[];
+
+    List<UserModel> _users = await FireSearch.usersByNameAndIsAuthor(
+        context: context,
+        name: _searchController.text,
+    );
+
+    if (Mapper.canLoopList(_users)){
+
+      for (UserModel user in _users){
+
+        /// task should get only bzz showing teams
+        final List<BzModel> _bzz = await _bzzProvider.fetchUserBzz(context: context, userModel: user);
+
+        if (Mapper.canLoopList(_bzz)){
+
+          for (BzModel bz in _bzz){
+
+            /// task should get only flyers showing authors
+            final List<FlyerModel> _bzFlyers = await _flyersProvider.fetchFirstFlyersByBzModel(
+                context: context,
+                bz: bz,
+                limit: 3
+            );
+
+            if (Mapper.canLoopList(_bzFlyers)){
+              _results.add(
+                  SearchResult(
+                    title: 'Flyers from ${bz.name} published by ${user.name}',
+                    icon: user.pic,
+                    flyers: _bzFlyers,
+                  )
+              );
+            }
+
+          }
+
+        }
+
+      }
+
+
+      // _results.add(
+      //     SearchResult(
+      //       title: 'Flyers by ${bz.name}',
+      //       icon: bz.logo,
+      //       flyers: _bzFlyers,
+      //     )
+      // );
+    }
+
+    return _results;
+  }
+// -------------------------------------------------------
+  /// TAMAM
+  Future<List<SearchResult>> _searchFlyersByTitle() async {
+    final List<SearchResult> _results = <SearchResult>[];
+
+    List<FlyerModel> _flyers = await FireSearch.flyersByZoneAndTitle(
+      context: context,
+      zone: _zoneProvider.currentZone,
+      title: _searchController.text,
+      limit: 3,
+    );
+
+    if (_flyers.length > 0){
+      _results.add(
+          SearchResult(
+            title: 'Matching titles',
+            icon: null,
+            flyers: _flyers,
+          )
+      );
+    }
+
 
     return _results;
   }
 // -----------------------------------------------------------------------------
-  Future<List<SearchResult>> _searchFlyers() async {
-    List<SearchResult> _results = <SearchResult>[];
 
-    return _results;
-  }
-// -----------------------------------------------------------------------------
-  List<SearchResult> _allResults = <SearchResult>[];
-  void _addResults(List<SearchResult> results){
-    setState(() {
-      _allResults.addAll(results);
-    });
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-//     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
-    // final List<GroupModel> _groupsBySection = _generalProvider.sectionGroups;
-// -----------------------------------------------------------------------------
-    final double _screenHeight = Scale.superScreenHeight(context);
     final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
 //     final double _buttonPadding = _browserIsOn == true ? Ratioz.appBarPadding * 1.5 : Ratioz.appBarPadding * 1.5;
 // -----------------------------------------------------------------------------

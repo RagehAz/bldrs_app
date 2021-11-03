@@ -44,7 +44,7 @@ Widget build(BuildContext context) {
 
   // double _buttonWidth = _sectionsAreExpanded == true ? _btThirdsOfScreenWidth : null;
 
-  final String _sectionName = TextGenerator.sectionStringer(context, _currentSection);
+  final String _sectionName = TextGen.sectionStringer(context, _currentSection);
 
   return Builder(
     builder: (context) => GestureDetector(

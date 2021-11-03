@@ -311,7 +311,7 @@ class FlyersProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   /// SEARCHERS
-  Future<List<FlyerModel>> fetchThreeFlyersByKeywordAndCurrentZone({
+  Future<List<FlyerModel>> fetchFlyersByCurrentZoneAndKeyword({
     @required BuildContext context,
     @required KW kw,
     int limit = 3,
@@ -332,26 +332,30 @@ class FlyersProvider extends ChangeNotifier {
     return _flyers;
   }
 // -------------------------------------
-  Future<List<FlyerModel>> fetchThreeFlyersFromBzModel({
+  Future<List<FlyerModel>> fetchFirstFlyersByBzModel({
     @required BuildContext context,
     @required BzModel bz,
     int limit = 3,
   }) async {
 
     final List<String> _flyersIDs = <String>[];
-
-    int _limit = bz.flyersIDs.length > limit ? limit : bz.flyersIDs.length;
-
-    for (int i = 0; i < _limit; i++){
-      _flyersIDs.add(bz.flyersIDs[i]);
-    }
-
     final List<FlyerModel> _bzFlyers = <FlyerModel>[];
 
-    for (String flyerID in _flyersIDs){
+    if (bz != null && Mapper.canLoopList(bz.flyersIDs) == true){
 
-      final FlyerModel _flyer = await fetchFlyerByID(context: context, flyerID: flyerID);
-      _bzFlyers.add(_flyer);
+      int _limit = bz.flyersIDs.length > limit ? limit : bz.flyersIDs.length;
+
+      for (int i = 0; i < _limit; i++){
+        _flyersIDs.add(bz.flyersIDs[i]);
+      }
+
+
+      for (String flyerID in _flyersIDs){
+
+        final FlyerModel _flyer = await fetchFlyerByID(context: context, flyerID: flyerID);
+        _bzFlyers.add(_flyer);
+      }
+
     }
 
     return _bzFlyers;

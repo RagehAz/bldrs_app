@@ -142,6 +142,29 @@ class BzzProvider extends ChangeNotifier {
     }
   }
 // -------------------------------------
+  Future<List<BzModel>> fetchUserBzz({@required BuildContext context, @required UserModel userModel}) async{
+
+    final List<BzModel> _bzz = <BzModel>[];
+
+    if (userModel != null){
+
+      if (Mapper.canLoopList(userModel.myBzzIDs)){
+
+        for (String id in userModel.myBzzIDs){
+
+          final BzModel _bz = await fetchBzModel(context: context, bzID: id);
+
+          _bzz.add(_bz);
+
+        }
+
+      }
+
+    }
+
+    return _bzz;
+  }
+// -------------------------------------
   Future<void> removeBzFromMyBzz({String bzID}) async {
 
     if (Mapper.canLoopList(_myBzz)){

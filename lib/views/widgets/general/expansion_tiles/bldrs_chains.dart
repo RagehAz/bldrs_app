@@ -28,23 +28,48 @@ class BldrsChain extends StatelessWidget {
 
     return Container(
       width: _boxWidth,
-      height: _allChains.sons.length * Inception.buttonHeight,
-      child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: _allChains.sons.length,
-        shrinkWrap: false,
-        itemBuilder: (ctx, index){
+      // height: _allChains.sons.length * Inception.buttonHeight,
+      child:
 
-          dynamic son = _allChains.sons[index];
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
 
-          return Inception(
-            son: son,
-            level: 0,
-            boxWidth: _boxWidth,
-          );
+            ...List.generate(_allChains.sons.length, (index){
 
-        },
-      ),
+                  dynamic son = _allChains.sons[index];
+
+                  return Inception(
+                    son: son,
+                    level: 0,
+                    boxWidth: _boxWidth,
+                  );
+
+            }),
+
+          ],
+        ),
+
+      // ListView.builder(
+      //   physics: const NeverScrollableScrollPhysics(),
+      //   itemCount: _allChains.sons.length,
+      //   shrinkWrap: false,
+      //   itemExtent: Inception.buttonHeight + Ratioz.appBarMargin,
+      //   itemBuilder: (ctx, index){
+      //
+      //     dynamic son = _allChains.sons[index];
+      //
+      //     return Inception(
+      //       son: son,
+      //       level: 0,
+      //       boxWidth: _boxWidth,
+      //     );
+      //
+      //   },
+      // ),
+
+
     );
   }
 }

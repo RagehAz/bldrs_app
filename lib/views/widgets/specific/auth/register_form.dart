@@ -76,9 +76,9 @@ class _RegisterFormState extends State<RegisterForm> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    if (TextChecker.textControllerHasNoValue(_emailController))_emailController.dispose();
-    if (TextChecker.textControllerHasNoValue(_passwordController))_passwordController.dispose();
-    if (TextChecker.textControllerHasNoValue(_confirmPasswordController))_confirmPasswordController.dispose();
+    if (TextChecker.textControllerIsEmpty(_emailController))_emailController.dispose();
+    if (TextChecker.textControllerIsEmpty(_passwordController))_passwordController.dispose();
+    if (TextChecker.textControllerIsEmpty(_confirmPasswordController))_confirmPasswordController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------

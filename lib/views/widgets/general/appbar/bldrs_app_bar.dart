@@ -39,8 +39,11 @@ class BldrsAppBar extends StatelessWidget {
     this.onSearchChanged,
   });
 // -----------------------------------------------------------------------------
-  static double width(BuildContext context){
-    final double _abWidth = Scale.superScreenWidth(context) - (2 * Ratioz.appBarMargin);
+  static double width(BuildContext context, {double boxWidth}){
+
+    final double _boxWidth = boxWidth ?? Scale.superScreenWidth(context);
+
+    final double _abWidth =  _boxWidth - (2 * Ratioz.appBarMargin);
     return _abWidth;
   }
 // -----------------------------------------------------------------------------

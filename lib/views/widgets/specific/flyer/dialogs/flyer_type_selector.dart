@@ -47,7 +47,7 @@ class _FlyerTypeSelectorState extends State<FlyerTypeSelector> {
                   (index) {
 
                 final FlyerType _flyerType = _possibleFlyerTypes[index];
-                final String _flyerTypeName = TextGenerator.flyerTypeSingleStringer(context, _flyerType);
+                final String _flyerTypeName = TextGen.flyerTypeSingleStringer(context, _flyerType);
                 final Color _buttonColor = widget.superFlyer.flyerType == _flyerType ? Colorz.yellow255 : Colorz.white20;
                 final Color _verseColor = widget.superFlyer.flyerType == _flyerType ? Colorz.black230 : Colorz.white255;
 

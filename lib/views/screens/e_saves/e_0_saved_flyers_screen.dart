@@ -81,7 +81,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
           TabModel(
 
             tabButton: TabButton(
-              verse: TextGenerator.sectionStringer(context, _sectionsList[i]),
+              verse: TextGen.sectionStringer(context, _sectionsList[i]),
               icon: Iconizer.sectionIconOff(_sectionsList[i]),
               isSelected: _sectionsList[_currentTabIndex] == _sectionsList[i],
               onTap: (){
