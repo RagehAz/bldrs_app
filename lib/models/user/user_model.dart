@@ -281,7 +281,6 @@ class UserModel {
     assert(await user.getIdToken() != null);
     print('createInitialUserModelFromUser : _user.getIdToken() != null : ${user.getIdToken() != null}');
 
-
     final UserModel _userModel = UserModel(
       id: user.uid,
       authBy: authBy,

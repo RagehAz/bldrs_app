@@ -28,7 +28,7 @@ class KeywordsProvider extends ChangeNotifier{
       /// 2.1 - assure that LDB is clean first
       await LDBOps.deleteAllMaps(docName: LDBDoc.keywords);
 
-      /// 2.2 insert all kerwords to LDB
+      /// 2.2 insert all keywords to LDB
       await LDBOps.insertMaps(
         inputs: KW.cipherKeywordsToLDBMaps(_allKeywords),
         docName: LDBDoc.keywords,
@@ -44,7 +44,6 @@ class KeywordsProvider extends ChangeNotifier{
 
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     final AppState _appState = _generalProvider.appState;
-
 
     List<KW> _allKeywords;
 

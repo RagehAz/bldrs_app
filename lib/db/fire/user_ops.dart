@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
@@ -52,7 +54,11 @@ abstract class UserOps{
   /// this creates :-
   /// 1 - JPG in : storage/userPics/userID.jpg if userModel.pic is File no URL
   /// 2 - userModel in : firestore/users/userID
-  static Future<UserModel> createUserOps({@required BuildContext context, @required UserModel userModel}) async {
+  static Future<UserModel> createUserOps({
+    @required BuildContext context,
+    @required UserModel userModel,
+    @required AuthBy authBy,
+  }) async {
 
     /// check if user pic is file to upload or URL from facebook to keep
     /// TASK : TRANSFORM FACEBOOK PICS TO LOCAL PICS U KNO
@@ -62,8 +68,23 @@ abstract class UserOps{
           context: context,
           inputFile: userModel.pic,
           fileName: userModel.id,
-          picType: PicType.userPic
+          picType: PicType.userPic,
       );
+    }
+
+    /// if from google or facebook url pics
+    else if (ObjectChecker.objectIsURL(userModel.pic) == true){
+
+      if (authBy == AuthBy.facebook || authBy == AuthBy.google ){
+        File _picFile = await Imagers.urlToFile(userModel.pic);
+        _userPicURL = await Fire.createStoragePicAndGetURL(
+            context: context,
+            inputFile: _picFile,
+            fileName: userModel.id,
+            picType: PicType.userPic,
+        );
+      }
+
     }
 
     /// create final UserModel
@@ -604,7 +625,12 @@ abstract class UserOps{
   ///       E3 - return new userModel inside userModel-firstTimer map
   ///    Ex - if user has existing user model
   ///       E3 - return existing userMode inside userModel-firstTimer map
-  static Future<Map<String, dynamic>> getOrCreateUserModelFromUser({@required BuildContext context, @required User user, @required ZoneModel zone}) async {
+  static Future<Map<String, dynamic>> getOrCreateUserModelFromUser({
+    @required BuildContext context,
+    @required User user,
+    @required ZoneModel zone,
+    @required AuthBy authBy,
+  }) async {
 
     /// E - read user ops if existed
     final UserModel _existingUserModel = await UserOps.readUserOps(
@@ -623,7 +649,7 @@ abstract class UserOps{
         context: context,
         user: user,
         zone: zone,
-        authBy: AuthBy.google,
+        authBy: authBy,
       );
       print('googleSignInOps : _initialUserModel : $_initialUserModel');
 
@@ -631,7 +657,9 @@ abstract class UserOps{
       final UserModel _finalUserModel = await UserOps.createUserOps(
         context: context,
         userModel: _initialUserModel,
+        authBy: authBy,
       );
+
       print('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
 
       /// E3 - return new userModel inside userModel-firstTimer map
