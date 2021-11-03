@@ -41,7 +41,7 @@ class SlideFullScreen extends StatelessWidget {
             isOn: true,
             isFullScreen: true,
             autoShrink: false,
-            child: Imagers.superImageWidget(
+            child: SuperImage(
               image,
               fit: Imagers.concludeBoxFit(
                   viewWidth: _screenWidth,

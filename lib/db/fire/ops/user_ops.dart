@@ -4,10 +4,12 @@ import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/db/fire/auth_ops.dart';
-import 'package:bldrs/db/fire/bz_ops.dart';
-import 'package:bldrs/db/fire/firestore.dart';
-import 'package:bldrs/db/fire/flyer_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/bz_ops.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/ops/flyer_ops.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/db/fire/methods/storage.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -64,7 +66,7 @@ abstract class UserOps{
     /// TASK : TRANSFORM FACEBOOK PICS TO LOCAL PICS U KNO
     String _userPicURL;
     if (ObjectChecker.objectIsFile(userModel.pic) == true){
-      _userPicURL = await Fire.createStoragePicAndGetURL(
+      _userPicURL = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: userModel.pic,
           fileName: userModel.id,
@@ -75,9 +77,10 @@ abstract class UserOps{
     /// if from google or facebook url pics
     else if (ObjectChecker.objectIsURL(userModel.pic) == true){
 
+      /// TASK : this facebook / google image thing is not tested
       if (authBy == AuthBy.facebook || authBy == AuthBy.google ){
         File _picFile = await Imagers.urlToFile(userModel.pic);
-        _userPicURL = await Fire.createStoragePicAndGetURL(
+        _userPicURL = await Storage.createStoragePicAndGetURL(
             context: context,
             inputFile: _picFile,
             fileName: userModel.id,
@@ -177,7 +180,7 @@ abstract class UserOps{
     if (ObjectChecker.objectIsFile(updatedUserModel.pic) == true){
 
       /// A1 - save pic to fireStorage/usersPics/userID and get URL
-      _userPicURL = await Fire.createStoragePicAndGetURL(
+      _userPicURL = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: updatedUserModel.pic,
           fileName: updatedUserModel.id,
@@ -530,7 +533,7 @@ abstract class UserOps{
 
             /// I - DELETE user image : storage/usersPics/userID
             print('I - deleting user pic');
-            await Fire.deleteStoragePic(
+            await Storage.deleteStoragePic(
               context: context,
               picType: PicType.userPic,
               fileName: userModel.id,
@@ -582,7 +585,7 @@ abstract class UserOps{
 
         /// I - DELETE user image : storage/usersPics/userID
         print('I - deleting user pic');
-        await Fire.deleteStoragePic(
+        await Storage.deleteStoragePic(
           context: context,
           picType: PicType.userPic,
           fileName: userModel.id,

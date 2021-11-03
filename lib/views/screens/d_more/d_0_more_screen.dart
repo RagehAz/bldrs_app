@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/db/fire/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/models/secondary_models/link_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';

@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/providers/ui_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -207,19 +208,20 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
                   }
                   ),
 
-              // WideButton(
-              //     color: Colorz.bloodTest,
-              //     verse: 'Do something',
-              //     icon: Iconz.Share,
-              //     onTap: () async {
-              //
-              //       _triggerLoading();
-              //
-              //
-              //       _triggerLoading();
-              //
-              //     }
-              // ),
+              WideButton(
+                  color: Colorz.bloodTest,
+                  verse: 'Do something',
+                  icon: Iconz.Share,
+                  onTap: () async {
+
+                    _triggerLoading();
+
+
+
+                    _triggerLoading();
+
+                  }
+              ),
 
             ],
           ),

@@ -15,9 +15,11 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/dashboard/widgets/user_button.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/db/fire/auth_ops.dart';
-import 'package:bldrs/db/fire/firestore.dart';
-import 'package:bldrs/db/fire/search_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/ops/search_ops.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/db/fire/methods/storage.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:bldrs/models/secondary_models/image_size.dart';
@@ -402,7 +404,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
       dynamic _outputAttachment;
 
       if (_attachment != null && _attachmentType == NotiAttachmentType.banner){
-        _outputAttachment = await Fire.createStoragePicAndGetURL(
+        _outputAttachment = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: _attachment,
           fileName: _id,

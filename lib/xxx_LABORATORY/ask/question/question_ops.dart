@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/db/fire/firestore.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/db/fire/methods/storage.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/question/question_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +69,7 @@ class QuestionOps {
       }
 
       /// A3 - upload pics and get URLs
-      _picsURLs = await Fire.createMultipleStoragePicsAndGetURLs(
+      _picsURLs = await Storage.createMultipleStoragePicsAndGetURLs(
         context: context,
         names: _picsNames,
         pics: question.pics,

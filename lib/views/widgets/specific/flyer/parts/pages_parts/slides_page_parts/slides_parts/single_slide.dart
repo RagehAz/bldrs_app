@@ -127,11 +127,14 @@ class SingleSlide extends StatelessWidget {
     final String _titleVerse = headline != null ? headline :
         titleController != null ? titleController.text : null;
 // -----------------------------------------------------------------------------
-    final dynamic _slidePic =
+    final DecorationImage _slidePic =
     picture == null || ObjectChecker.objectIsURL(picture) == true || ObjectChecker.objectIsFile(picture) == true ?
     null
         :
-    Imagers.superImage(picture, boxFit);
+    SuperImage.decorationImage(
+        picture: picture,
+        boxFit: boxFit,
+    );
 // -----------------------------------------------------------------------------
 
     final double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);

@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/db/fire/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';

@@ -84,7 +84,7 @@ class BzLogo extends StatelessWidget {
           child:
           ClipRRect(
               borderRadius: bzLogoCorners,
-              child: Imagers.superImageWidget(image)
+              child: SuperImage(image)
           ),
 
         ),

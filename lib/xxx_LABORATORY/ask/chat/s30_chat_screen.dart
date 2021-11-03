@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/db/fire/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/providers/streamers/questions_streamer.dart';
 import 'package:bldrs/views/widgets/general/bubbles/chat_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
