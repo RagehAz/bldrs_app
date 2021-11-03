@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/foundation.dart';
@@ -31,7 +31,7 @@ class Name {
       _map = Mapper.insertPairInMap(
           map: _map,
           key: 'trigram',
-          value: TextMod.createTrigram(input: value),
+          value: TextGen.createTrigram(input: value),
       );
     }
 

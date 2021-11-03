@@ -8,7 +8,7 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -26,11 +26,11 @@ import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/records/review_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
+import 'package:bldrs/models/kw/kw.dart';
+import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/secondary_models/image_size.dart';
 import 'package:bldrs/models/secondary_models/link_model.dart';
 import 'package:bldrs/models/secondary_models/map_model.dart';
-import 'package:bldrs/models/kw/kw.dart';
-import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/district_model.dart';
@@ -1196,7 +1196,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                           fieldIsFormField: false,
                           onChanged: (val){
 
-                            final bool _reviewControllerHasValue = TextChecker.textControllerHasNoValue(_superFlyer.rec.reviewController) == false;
+                            final bool _reviewControllerHasValue = TextChecker.textControllerIsEmpty(_superFlyer.rec.reviewController) == false;
 
                             print('_existingReview : $_existingReview');
                             print('_reviewControllerHasValue : $_reviewControllerHasValue');
@@ -1342,7 +1342,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     print('review text is : ${review.body}');
 
-    if (TextChecker.textControllerHasNoValue(_superFlyer.rec.reviewController) == true){
+    if (TextChecker.textControllerIsEmpty(_superFlyer.rec.reviewController) == true){
       await NavDialog.showNavDialog(
         context: context,
         firstLine: 'Review is Empty',
@@ -2523,7 +2523,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       final FlyerModel _newFlyerModel = FlyerModel(
         id: _superFlyer.flyerID, /// TASK : redundancy : will be created in createFlyerOps
         title: _superFlyer.title,
-        trigram: TextMod.createTrigram(input: _superFlyer.title), /// TASK : redundancy : will be created in createFlyerOps
+        trigram: TextGen.createTrigram(input: _superFlyer.title), /// TASK : redundancy : will be created in createFlyerOps
         // -------------------------
         flyerType: _superFlyer.flyerType,
         flyerState: _superFlyer.flyerState,
@@ -2580,7 +2580,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       final FlyerModel _tempUpdatedFlyerModel = FlyerModel(
         id: _superFlyer.flyerID,
         title: _superFlyer.title,
-        trigram: TextMod.createTrigram(input: _superFlyer.title), /// IS NOT RECREATED IN UPDATE FLYER OPS
+        trigram: TextGen.createTrigram(input: _superFlyer.title), /// IS NOT RECREATED IN UPDATE FLYER OPS
         // -------------------------
         flyerType: _superFlyer.flyerType,
         flyerState: _superFlyer.flyerState,

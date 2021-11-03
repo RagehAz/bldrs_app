@@ -6,7 +6,6 @@ import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -144,11 +143,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    if (TextChecker.textControllerHasNoValue(_bzNameTextController))_bzNameTextController.dispose();
-    if (TextChecker.textControllerHasNoValue(_bzScopeTextController))_bzScopeTextController.dispose();
-    if (TextChecker.textControllerHasNoValue(_bzAboutTextController))_bzAboutTextController.dispose();
-    if (TextChecker.textControllerHasNoValue(_authorNameTextController))_authorNameTextController.dispose();
-    if (TextChecker.textControllerHasNoValue(_authorTitleTextController))_authorTitleTextController.dispose();
+    if (TextChecker.textControllerIsEmpty(_bzNameTextController))_bzNameTextController.dispose();
+    if (TextChecker.textControllerIsEmpty(_bzScopeTextController))_bzScopeTextController.dispose();
+    if (TextChecker.textControllerIsEmpty(_bzAboutTextController))_bzAboutTextController.dispose();
+    if (TextChecker.textControllerIsEmpty(_authorNameTextController))_authorNameTextController.dispose();
+    if (TextChecker.textControllerIsEmpty(_authorTitleTextController))_authorTitleTextController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -164,7 +163,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         createdAt: DateTime.now(),
         accountType: _currentAccountType,
         name: _bzNameTextController.text,
-        trigram: TextMod.createTrigram(input: _bzNameTextController.text),
+        trigram: TextGen.createTrigram(input: _bzNameTextController.text),
         logo: _currentBzLogoFile ?? _currentBzLogoURL,
         scope: _bzScopeTextController.text,
         zone: ZoneModel(
@@ -359,7 +358,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         accountType: BzAccountType.normal, // changing this is not in bzEditor
         // -------------------------
         name: _bzNameTextController.text,
-        trigram: TextMod.createTrigram(input: _bzNameTextController.text),
+        trigram: TextGen.createTrigram(input: _bzNameTextController.text),
         logo: _currentBzLogoFile,
         scope: _bzScopeTextController.text,
         zone: ZoneModel(
@@ -457,7 +456,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         accountType: _currentAccountType,
         // -------------------------
         name: _bzNameTextController.text,
-        trigram: TextMod.createTrigram(input: _bzNameTextController.text),
+        trigram: TextGen.createTrigram(input: _bzNameTextController.text),
         logo: _currentBzLogoFile ?? _currentBzLogoURL,
         scope: _bzScopeTextController.text,
         zone: ZoneModel(
@@ -560,26 +559,26 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               /// --- CHOOSE SECTION
               MultipleChoiceBubble(
                 title: Wordz.sections(context),
-                buttonsList: TextGenerator.sectionsListStrings(context),
+                buttonsList: TextGen.sectionsListStrings(context),
                 tappingAButton: _selectASection,
-                chosenButton: TextGenerator.sectionStringer(context, _currentSection),
+                chosenButton: TextGen.sectionStringer(context, _currentSection),
               ),
 
               /// --- CHOOSE BzType
               MultipleChoiceBubble(
                 title: 'Profession',
-                buttonsList: TextGenerator.bzTypesStrings(context),
+                buttonsList: TextGen.bzTypesStrings(context),
                 tappingAButton: _selectBzType,
-                chosenButton: TextGenerator.bzTypeSingleStringer(context, _currentBzType),
+                chosenButton: TextGen.bzTypeSingleStringer(context, _currentBzType),
                 buttonsInActivityList: _bzTypeInActivityList,
               ),
 
               /// --- CHOOSE BzForm
               MultipleChoiceBubble(
                 title: Wordz.businessForm(context),
-                buttonsList: TextGenerator.bzFormStrings(context),
+                buttonsList: TextGen.bzFormStrings(context),
                 tappingAButton: (index) => setState(() {_currentBzForm = BzModel.bzFormsList[index];}),
-                chosenButton: TextGenerator.bzFormStringer(context, _currentBzForm),
+                chosenButton: TextGen.bzFormStringer(context, _currentBzForm),
                 buttonsInActivityList: _bzFormInActivityList,
               ),
 

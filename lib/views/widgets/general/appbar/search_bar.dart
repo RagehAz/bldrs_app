@@ -13,12 +13,16 @@ class SearchBar extends StatefulWidget {
   final ValueChanged<String> onSearchSubmit;
   final ValueChanged<String> onSearchChanged;
   final bool historyButtonIsOn;
+  final double boxWidth;
+  final String hintText;
 
   const SearchBar({
     this.searchController,
     @required this.onSearchSubmit,
     this.onSearchChanged,
     @required this.historyButtonIsOn,
+    this.boxWidth,
+    this.hintText,
 });
 
   @override
@@ -37,14 +41,14 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   void dispose() {
-    if (TextChecker.textControllerHasNoValue(_searchTextController))_searchTextController.dispose();
+    if (TextChecker.textControllerIsEmpty(_searchTextController))_searchTextController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
 
-    final double _appBarClearWidth = BldrsAppBar.width(context);
+    final double _appBarClearWidth = BldrsAppBar.width(context, boxWidth: widget.boxWidth);
 
     const double _padding = Ratioz.appBarPadding;
     final double _historyButtonWidth = widget.historyButtonIsOn == true ? 40 : 0;
@@ -120,7 +124,7 @@ class _SearchBarState extends State<SearchBar> {
 
 
               },
-              hintText: ' Search ... ',
+              hintText: widget.hintText ?? ' Search ... ',
               inputColor: Colorz.yellow255,
               inputSize: 2,
               inputShadow: false,
@@ -132,6 +136,7 @@ class _SearchBarState extends State<SearchBar> {
                 widget.onSearchSubmit(val);
 
               },
+
 
             ),
           ),

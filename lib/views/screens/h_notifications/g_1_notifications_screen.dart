@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/notifications/noti_ops.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -137,7 +137,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           userID: superUserID(),
         );
 
-        final List<String> _tri = TextMod.createTrigram(input: _rageh.name);
+        final List<String> _tri = TextGen.createTrigram(input: _rageh.name);
 
         await Fire.updateDocField(
           context: context,
