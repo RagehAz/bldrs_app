@@ -42,7 +42,7 @@ class BzAppBar extends StatelessWidget {
     final double _appBarBzButtonWidth = Scale.superScreenWidth(context) - (Ratioz.appBarMargin * 2) -
         (Ratioz.appBarButtonSize * 2) - (Ratioz.appBarPadding * 4) - (Ratioz.appBarButtonSize * 1.4) - Ratioz.appBarPadding;
 
-    final String _zoneString = TextGenerator.cityCountryStringer(
+    final String _zoneString = TextGen.cityCountryStringer(
         context: context,
         zone: bzModel.zone,
       country: countryModel,
@@ -62,7 +62,7 @@ class BzAppBar extends StatelessWidget {
           bubble: false,
           verseScaleFactor: 0.7,
           color: Colorz.white20,
-          secondLine: '${TextGenerator.bzTypeSingleStringer(context, bzModel.bzType)} $_zoneString',
+          secondLine: '${TextGen.bzTypeSingleStringer(context, bzModel.bzType)} $_zoneString',
           secondLineColor: Colorz.white200,
           secondLineScaleFactor: 0.8,
         ),

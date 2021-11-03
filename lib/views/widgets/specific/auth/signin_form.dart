@@ -74,8 +74,8 @@ class _SignInFormState extends State<SignInForm> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    if (TextChecker.textControllerHasNoValue(_emailController))_emailController.dispose();
-    if (TextChecker.textControllerHasNoValue(_passwordController))_passwordController.dispose();
+    if (TextChecker.textControllerIsEmpty(_emailController))_emailController.dispose();
+    if (TextChecker.textControllerIsEmpty(_passwordController))_passwordController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------

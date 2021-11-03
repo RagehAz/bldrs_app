@@ -104,7 +104,7 @@ class InfoPage extends StatelessWidget {
 
               /// Flyer Type
               StatsLine(
-                verse: 'Flyer Type : ${TextGenerator.flyerTypeSingleStringer(context, _flyerType)}',
+                verse: 'Flyer Type : ${TextGen.flyerTypeSingleStringer(context, _flyerType)}',
                 icon: Iconizer.flyerTypeIconOff(_flyerType),
                 iconSizeFactor: 1,
                 verseScaleFactor: 0.85 * 0.7,
@@ -139,7 +139,7 @@ class InfoPage extends StatelessWidget {
             columnChildren: <Widget>[
 
               StatsLine(
-                verse: 'Flyer Type : ${TextGenerator.flyerTypeSingleStringer(context, _flyerType)}',
+                verse: 'Flyer Type : ${TextGen.flyerTypeSingleStringer(context, _flyerType)}',
                 icon: Iconizer.flyerTypeIconOff(_flyerType),
                 iconSizeFactor: 1,
                 verseScaleFactor: 0.85 * 0.7,

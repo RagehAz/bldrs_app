@@ -123,7 +123,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 // ---------------------------------------------------------------------------
   Future<void> _onAsk() async {
 
-      if (TextChecker.textControllerHasNoValue(_bodyController) == true){
+      if (TextChecker.textControllerIsEmpty(_bodyController) == true){
 
         await NavDialog.showNavDialog(
           context: context,
@@ -133,7 +133,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
       }
 
-      else if (TextChecker.textControllerHasNoValue(_titleController) == true){
+      else if (TextChecker.textControllerIsEmpty(_titleController) == true){
 
         await NavDialog.showNavDialog(
             context: context,
@@ -187,7 +187,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
     const double _abHeight = Ratioz.appBarSmallHeight;
     const double _abButtonsHeight = _abHeight - (_abPadding);
 
-    final String askHint = TextGenerator.askHinter(context, widget.bzType);
+    final String askHint = TextGen.askHinter(context, widget.bzType);
 
     // bool _askButtonInactive = _askBodyController.text.length == 0 ? true : false;
 // ---------------------------------------------------------------------------
