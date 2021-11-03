@@ -5,7 +5,6 @@ import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/kw/chain.dart';
