@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/db/fire/flyer_ops.dart';
-import 'package:bldrs/db/fire/search_ops.dart';
-import 'package:bldrs/db/fire/user_ops.dart';
+import 'package:bldrs/db/fire/ops/flyer_ops.dart';
+import 'package:bldrs/db/fire/ops/search_ops.dart';
+import 'package:bldrs/db/fire/ops/user_ops.dart';
 import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';

@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/notifications/local_notification_service.dart'
 import 'package:bldrs/controllers/notifications/noti_ops.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/router/router.dart';
-import 'package:bldrs/db/fire/user_ops.dart';
+import 'package:bldrs/db/fire/ops/user_ops.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';

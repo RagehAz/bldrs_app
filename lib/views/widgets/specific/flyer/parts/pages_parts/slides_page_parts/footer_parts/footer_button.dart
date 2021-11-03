@@ -62,7 +62,7 @@ class FooterButton extends StatelessWidget {
               width: _buttonSize * 0.8,
               height: _buttonSize * 0.9,
               // color: Colorz.BloodTest,
-              child: Imagers.superImageWidget(
+              child: SuperImage(
                 icon,
                 iconColor: DreamBox.getIconColor(inActiveMode: inActiveMode),
                 scale: 0.7,

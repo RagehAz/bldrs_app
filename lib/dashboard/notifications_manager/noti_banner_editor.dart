@@ -31,7 +31,7 @@ class NotiBannerEditor extends StatelessWidget {
         child: Stack(
           children: <Widget>[
 
-            Imagers.superImageWidget(
+            SuperImage(
               attachment,
               fit: BoxFit.fitWidth,
               width: width,
