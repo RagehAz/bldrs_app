@@ -1,11 +1,18 @@
+import 'dart:typed_data';
+
+import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/db/fire/methods/storage.dart';
 import 'package:bldrs/providers/ui_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -210,12 +217,81 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 
               WideButton(
                   color: Colorz.bloodTest,
-                  verse: 'Do something',
+                  verse: 'Get',
                   icon: Iconz.Share,
                   onTap: () async {
 
                     _triggerLoading();
 
+                    final Reference _picRef  = Storage.getRef(
+                        context: context,
+                        docName: StorageDoc.dumz,
+                        fileName: 'icon',
+                    );
+
+                    print(_picRef);
+
+                    FullMetadata _meta = await _picRef.getMetadata();
+
+                    print('meta : ${_meta.customMetadata}');
+
+                    Mapper.printMap(_meta.customMetadata);
+
+                    _triggerLoading();
+
+                  }
+              ),
+
+              WideButton(
+                  color: Colorz.bloodTest,
+                  verse: 'update',
+                  icon: Iconz.Share,
+                  onTap: () async {
+
+                    _triggerLoading();
+
+                    final Reference _picRef  = Storage.getRef(
+                      context: context,
+                      docName: StorageDoc.dumz,
+                      fileName: 'icon',
+                    );
+                    //
+                    // print(_picRef);
+                    //
+                    // final SettableMetadata metaData = SettableMetadata(
+                    //     customMetadata:
+                    //     {
+                    //       'thing': 'hahaha',
+                    //       'dog': 'roukie'
+                    //     }
+                    // );
+                    //
+                    // Uint8List _data = await Imagers.getBytesFromLocalRasterAsset(
+                    //   asset: Iconz.DumSlide1,
+                    //   width: 50,
+                    // );
+
+                    // _picRef.bucket.
+
+                    // FullMetadata _meta = await _picRef.getMetadata();
+
+                    // print('meta : ${_meta}');
+
+
+                    FullMetadata metadata = await _picRef.getMetadata();
+
+                    Mapper.printMap(metadata.customMetadata);
+
+                    FullMetadata metadatax = await _picRef.updateMetadata(
+                        SettableMetadata(
+                          contentType: 'sexy/jpg',
+                          customMetadata: {
+                            'a77a' : 'fuck you bitch',
+                          },
+                        )
+                    );
+
+                    Mapper.printMap(metadatax.customMetadata);
 
 
                     _triggerLoading();
