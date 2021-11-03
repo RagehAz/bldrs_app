@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/db/fire/auth_ops.dart';
-import 'package:bldrs/db/fire/firestore.dart';
-import 'package:bldrs/db/fire/flyer_ops.dart';
-import 'package:bldrs/db/fire/user_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/ops/flyer_ops.dart';
+import 'package:bldrs/db/fire/ops/user_ops.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/db/fire/methods/storage.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -53,7 +55,7 @@ class BzOps{
     /// save bzLogo to fire storage and get URL
     String _bzLogoURL;
     if (inputBz.logo != null){
-      _bzLogoURL = await Fire.createStoragePicAndGetURL(
+      _bzLogoURL = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: inputBz.logo,
           fileName: _bzID,
@@ -66,7 +68,7 @@ class BzOps{
     if(inputBz.authors[0].pic == null){
       _authorPicURL = userModel.pic;
     } else {
-      _authorPicURL = await Fire.createStoragePicAndGetURL(
+      _authorPicURL = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: inputBz.authors[0].pic,
           fileName: AuthorModel.generateAuthorPicID(userModel.id, _bzID),
@@ -171,7 +173,7 @@ class BzOps{
     if(bzLogoFile == null) {
       // do Nothing, bzLogo was not changed, will keep as
     } else {
-      _bzLogoURL = await Fire.createStoragePicAndGetURL(
+      _bzLogoURL = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: bzLogoFile,
           fileName: originalBz.id,
@@ -189,7 +191,7 @@ class BzOps{
 
       final String _authorID = superUserID();
 
-      _authorPicURL = await Fire.createStoragePicAndGetURL(
+      _authorPicURL = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: authorPicFile,
           fileName: AuthorModel.generateAuthorPicID(_authorID, originalBz.id),
@@ -403,7 +405,7 @@ class BzOps{
     // dunno if could be done here
 
     print('10 - delete bz logo');
-    await Fire.deleteStoragePic(
+    await Storage.deleteStoragePic(
       context: context,
       fileName: bzModel.id,
       picType: PicType.bzLogo,
@@ -411,7 +413,7 @@ class BzOps{
 
     print('11 - delete all authors pictures');
     for (var id in _authorsIDs){
-      await Fire.deleteStoragePic(
+      await Storage.deleteStoragePic(
         context: context,
         fileName: id,
         picType: PicType.authorPic,

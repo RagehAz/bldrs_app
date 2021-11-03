@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/dashboard.dart';
-import 'package:bldrs/db/fire/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/db/ldb/sembast/sembast_test_screen.dart';
 import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';

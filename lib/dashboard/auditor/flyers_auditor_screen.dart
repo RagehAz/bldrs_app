@@ -5,7 +5,8 @@ import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/fire/firestore.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
@@ -94,7 +95,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       collName:  FireColl.flyers,
-      orderBy: 'flyerID',
+      orderBy: 'id',
       limit: 5,
       startAfter: _lastSnapshot,
       addDocSnapshotToEachMap: true,

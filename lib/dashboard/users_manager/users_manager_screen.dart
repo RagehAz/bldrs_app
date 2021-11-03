@@ -3,8 +3,9 @@ import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/widgets/user_button.dart';
-import 'package:bldrs/db/fire/cloud_functions.dart';
-import 'package:bldrs/db/fire/firestore.dart';
+import 'package:bldrs/db/fire/methods/cloud_functions.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -72,7 +73,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       collName:  FireColl.users,
-      orderBy: 'userID',
+      orderBy: 'id',
       limit: 5,
       startAfter: _lastSnapshot,
       addDocSnapshotToEachMap: true,

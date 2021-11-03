@@ -1,4 +1,5 @@
-import 'package:bldrs/db/fire/firestore.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:flutter/cupertino.dart';
 
