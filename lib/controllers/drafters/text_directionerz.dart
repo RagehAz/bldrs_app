@@ -40,7 +40,7 @@ TextDirection superInverseTextDirection(BuildContext context){
 TextDirection superTextDirectionSwitcherByController(TextEditingController controller){
   TextDirection _textDirection;
 
-  final bool controllerIsEmpty = TextChecker.textControllerHasNoValue(controller);
+  final bool controllerIsEmpty = TextChecker.textControllerIsEmpty(controller);
 
   if (!controllerIsEmpty){
 

@@ -49,7 +49,7 @@ class SectionDialogButton extends StatelessWidget {
 
       await CenterDialog.showCenterDialog(
         context: context,
-        title: 'Section "${TextGenerator.sectionStringer(context, section)}" is\nTemporarily closed in $_currentCityID',
+        title: 'Section "${TextGen.sectionStringer(context, section)}" is\nTemporarily closed in $_currentCityID',
         body: 'The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
         child: Container(
           child: Row(
@@ -97,9 +97,9 @@ class SectionDialogButton extends StatelessWidget {
       height: dialogHeight * 0.06,
       // width: _buttonWidth,
       icon: _sectionIcon(section: section, inActiveMode: inActiveMode),
-      verse: TextGenerator.sectionStringer(context, section),
+      verse: TextGen.sectionStringer(context, section),
       verseScaleFactor: 0.55,
-      secondLine: TextGenerator.sectionDescriptionStringer(context, section),
+      secondLine: TextGen.sectionDescriptionStringer(context, section),
       secondLineColor: Colorz.white200,
       margins: Ratioz.appBarPadding,
       inActiveMode: inActiveMode,

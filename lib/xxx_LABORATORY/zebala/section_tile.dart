@@ -56,7 +56,7 @@ class SectionTile extends StatelessWidget {
 
       await CenterDialog.showCenterDialog(
         context: context,
-        title: 'Section "${TextGenerator.sectionStringer(context, section)}" is\nTemporarily closed in $_currentCityID',
+        title: 'Section "${TextGen.sectionStringer(context, section)}" is\nTemporarily closed in $_currentCityID',
         body: 'The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
         height: 400,
         child: Container(
@@ -122,8 +122,8 @@ class SectionTile extends StatelessWidget {
         icon: _sectionIcon(section: section, inActiveMode: inActiveMode),
         iconSizeFactor: 1,
         initiallyExpanded: false,
-        firstHeadline: TextGenerator.sectionStringer(context, section),
-        secondHeadline: TextGenerator.sectionDescriptionStringer(context, section),
+        firstHeadline: TextGen.sectionStringer(context, section),
+        secondHeadline: TextGen.sectionDescriptionStringer(context, section),
         scrollable: true,
         initialColor: Colorz.black50,
         expansionColor: Colorz.white20,

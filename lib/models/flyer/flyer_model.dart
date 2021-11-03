@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -239,28 +239,6 @@ class FlyerModel with ChangeNotifier{
     return _flyerIDs;
   }
 // -----------------------------------------------------------------------------
-  static FlyerModel replaceFlyerSlidesWithNewSlides(FlyerModel inputFlyer, List<SlideModel> updatedSlides){
-    return FlyerModel(
-      id: inputFlyer.id,
-      title: inputFlyer.title,
-      trigram: inputFlyer.trigram,
-      flyerType: inputFlyer.flyerType,
-      zone: inputFlyer.zone,
-      authorID: inputFlyer.authorID,
-      bzID: inputFlyer.bzID,
-      slides: updatedSlides,
-      showsAuthor: inputFlyer.showsAuthor,
-      flyerState: inputFlyer.flyerState,
-      keywordsIDs: inputFlyer.keywordsIDs,
-      position: inputFlyer.position,
-      isBanned: inputFlyer.isBanned,
-      specs: inputFlyer.specs,
-      info: inputFlyer.info,
-      priceTagIsOn: inputFlyer.priceTagIsOn,
-      times: inputFlyer.times,
-    );
-  }
-// -----------------------------------------------------------------------------
   static const List<FlyerState> flyerStatesList = const <FlyerState>[
     FlyerState.published,
     FlyerState.draft,
@@ -369,7 +347,7 @@ class FlyerModel with ChangeNotifier{
       _flyer = FlyerModel(
         id: superFlyer.flyerID,
         title: superFlyer.titleController?.text,
-        trigram: TextMod.createTrigram(input: superFlyer.titleController?.text),
+        trigram: TextGen.createTrigram(input: superFlyer.titleController?.text),
         flyerType: superFlyer.flyerType,
         flyerState: superFlyer.flyerState,
         keywordsIDs: KW.getKeywordsIDsFromKeywords(superFlyer.keywords),
@@ -505,7 +483,7 @@ class FlyerModel with ChangeNotifier{
     return FlyerModel(
       id : '2fDlDyF01sw8GEYPJ9GN',
       title: 'Dummy Flyer',
-      trigram: TextMod.createTrigram(input: 'Dummy Flyer'),
+      trigram: TextGen.createTrigram(input: 'Dummy Flyer'),
       authorID: 'r1dqipDtBmRzK6HzL8Ug2vmcYVl1',
       flyerType : FlyerType.rentalProperty,
       flyerState : FlyerState.published,

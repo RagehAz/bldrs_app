@@ -30,7 +30,7 @@ class ReviewCreator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _reviewControllerHasValue = TextChecker.textControllerHasNoValue(superFlyer.rec.reviewController) == false;
+    final bool _reviewControllerHasValue = TextChecker.textControllerIsEmpty(superFlyer.rec.reviewController) == false;
 
     return GestureDetector(
       onTap: superFlyer.rec.onEditReview,

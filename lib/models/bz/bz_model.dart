@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/atlas.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
@@ -234,7 +234,7 @@ class BzModel with ChangeNotifier{
     return BzModel(
       id: null,
       name: userModel.company,
-      trigram: TextMod.createTrigram(input: userModel.company),
+      trigram: TextGen.createTrigram(input: userModel.company),
       zone: userModel.zone,
       contacts: <ContactModel>[
         ContactModel(
@@ -483,7 +483,7 @@ class BzModel with ChangeNotifier{
         id: _bzID,
         logo: Iconz.DumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
         name: 'Business Name',
-        trigram: TextMod.createTrigram(input: 'Business Name'),
+        trigram: TextGen.createTrigram(input: 'Business Name'),
         bzType: BzType.designer,
         zone: ZoneModel.dummyZone(),
         totalFollowers: 1000,

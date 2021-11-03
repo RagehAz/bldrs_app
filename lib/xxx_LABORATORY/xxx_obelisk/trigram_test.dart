@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/dashboard/exotic_methods.dart';
 import 'package:bldrs/db/fire/firestore.dart';
@@ -74,7 +74,7 @@ class _TrigramTestState extends State<TrigramTest> {
               keyboardTextInputAction: TextInputAction.search,
               onChanged: (String val){
 
-                List<String> _trigram = TextMod.createTrigram(
+                List<String> _trigram = TextGen.createTrigram(
                   input: val,
                 );
 
@@ -132,7 +132,7 @@ class _TrigramTestState extends State<TrigramTest> {
 
               for (var bz in _allBzz){
 
-                List<String> _newTrigram = TextMod.createTrigram(input: bz.name);
+                List<String> _newTrigram = TextGen.createTrigram(input: bz.name);
 
                 await Fire.updateDocField(
                     context: context,

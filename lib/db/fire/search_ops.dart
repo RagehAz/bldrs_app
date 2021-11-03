@@ -37,6 +37,7 @@ abstract class FireSearch {
     @required ValueIs valueIs,
     @required String field,
     @required dynamic compareValue,
+    @required int limit,
   }) async {
 
     QuerySnapshot _collectionSnapshot;
@@ -50,66 +51,77 @@ abstract class FireSearch {
           if (valueIs == ValueIs.EqualTo){
             _collectionSnapshot = await collRef
                 .where(field, isEqualTo: compareValue)
+                .limit(limit)
                 .get();
           }
           /// IF GREATER THAN
           else if (valueIs == ValueIs.GreaterThan){
             _collectionSnapshot = await collRef
                 .where(field, isGreaterThan: compareValue)
+                .limit(limit)
                 .get();
           }
           /// IF GREATER THAN OR EQUAL
           else if (valueIs == ValueIs.GreaterOrEqualThan){
             _collectionSnapshot = await collRef
                 .where(field, isGreaterThanOrEqualTo: compareValue)
+                .limit(limit)
                 .get();
           }
           /// IF LESS THAN
           else if (valueIs == ValueIs.LessThan){
             _collectionSnapshot = await collRef
                 .where(field, isLessThan: compareValue)
+                .limit(limit)
                 .get();
           }
           /// IF LESS THAN OR EQUAL
           else if (valueIs == ValueIs.LessOrEqualThan){
             _collectionSnapshot = await collRef
                 .where(field, isLessThanOrEqualTo: compareValue)
+                .limit(limit)
                 .get();
           }
           /// IF IS NOT EQUAL TO
           else if (valueIs == ValueIs.NotEqualTo){
             _collectionSnapshot = await collRef
                 .where(field, isNotEqualTo: compareValue)
+                .limit(limit)
                 .get();
           }
           /// IF IS NULL
           else if (valueIs == ValueIs.Null){
             _collectionSnapshot = await collRef
                 .where(field, isNull: compareValue)
+                .limit(limit)
                 .get();
           }
           /// IF whereIn
           else if (valueIs == ValueIs.WhereIn){
             _collectionSnapshot = await collRef
                 .where(field, whereIn: compareValue)
+                .limit(limit)
                 .get();
           }
           /// IF whereNotIn
           else if (valueIs == ValueIs.WhereNotIn){
             _collectionSnapshot = await collRef
                 .where(field, whereNotIn: compareValue)
+                .limit(limit)
                 .get();
           }
           /// IF array contains
           else if (valueIs == ValueIs.ArrayContains){
             _collectionSnapshot = await collRef
                 .where(field, arrayContains: compareValue)
+                .limit(limit)
                 .get();
           }
           /// IF array contains any
           else if (valueIs == ValueIs.ArrayContainsAny){
             _collectionSnapshot = await collRef
                 .where(field, arrayContainsAny: compareValue)
+                .limit(limit)
                 .get();
           }
 
@@ -128,6 +140,7 @@ abstract class FireSearch {
       @required ValueIs valueIs,
       bool addDocsIDs = false,
       bool addDocSnapshotToEachMap = false,
+      int limit = 3,
   }) async {
 
     // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
@@ -135,11 +148,12 @@ abstract class FireSearch {
     final CollectionReference _collRef = Fire.getCollectionRef(collName);
 
     final QuerySnapshot _collectionSnapshot = await _searchAndGetCollectionSnapshots(
-        context: context,
-        collRef: _collRef,
-        valueIs: valueIs,
-        field: field,
-        compareValue: compareValue
+      context: context,
+      collRef: _collRef,
+      valueIs: valueIs,
+      field: field,
+      compareValue: compareValue,
+      limit: limit,
     );
 
     // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: 'valueIs', varNewValue: valueIs, tracerIsOn: true);
@@ -166,6 +180,7 @@ abstract class FireSearch {
     @required ValueIs valueIs,
     bool addDocsIDs = false,
     bool addDocSnapshotToEachMap = false,
+    int limit = 3,
   }) async {
 
     // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
@@ -177,11 +192,12 @@ abstract class FireSearch {
     );
 
     final QuerySnapshot _collectionSnapshot = await _searchAndGetCollectionSnapshots(
-        context: context,
-        collRef: _collRef,
-        valueIs: valueIs,
-        field: field,
-        compareValue: compareValue
+      context: context,
+      collRef: _collRef,
+      valueIs: valueIs,
+      field: field,
+      compareValue: compareValue,
+      limit: limit,
     );
 
     // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: 'valueIs', varNewValue: valueIs, tracerIsOn: true);
@@ -278,7 +294,7 @@ abstract class FireSearch {
   }
 // -----------------------------------------------------------------------------
 /// SEARCHING FLYERS
-// --------------------------------------
+// -----------------------------------------------
 /// SEARCH FLYERS BY AREA AND FLYER TYPE
   static Future<List<FlyerModel>> flyersByZoneAndFlyerType({
     @required BuildContext context,
@@ -309,7 +325,7 @@ abstract class FireSearch {
                 .get();
 
 
-            List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
+            final List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
               querySnapshot: _collectionSnapshot,
               addDocsIDs: addDocsIDs,
               addDocSnapshotToEachMap: addDocSnapshotToEachMap,
@@ -322,7 +338,7 @@ abstract class FireSearch {
       return _flyers;
 
     }
-// --------------------------------------
+// -----------------------------------------------
   static Future<List<FlyerModel>> flyersByZoneAndKeyword({
     @required BuildContext context,
     @required ZoneModel zone,
@@ -366,13 +382,48 @@ abstract class FireSearch {
     return _flyers;
 
 }
+// -----------------------------------------------
+  static Future<List<FlyerModel>> flyersByZoneAndTitle({
+    @required BuildContext context,
+    @required ZoneModel zone,
+    @required String title,
+    bool addDocsIDs = false,
+    bool addDocSnapshotToEachMap = false,
+    int limit = 3,
+}) async {
 
-/// SEARCHING BZZ
-//
 
-/// SEARCHING USERS
+    List<Map<String, dynamic>> _maps = await mapsByFieldValue(
+      context: context,
+      collName: FireColl.flyers,
+      field: 'trigram',
+      compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
+        input: title.trim(),
+        numberOfCharacters: Standards.maxTrigramLength,
+      ),
+      addDocsIDs: addDocsIDs,
+      addDocSnapshotToEachMap: addDocSnapshotToEachMap,
+      valueIs: ValueIs.ArrayContains,
+      limit: limit,
+    );
+
+    List<FlyerModel> _result = <FlyerModel>[];
+
+    if (Mapper.canLoopList(_maps)){
+
+      _result = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
+
+    }
+
+    return _result;
+}
 // -----------------------------------------------------------------------------
-  static Future<List<UserModel>> usersByUserName({@required BuildContext context, @required String compareValue}) async {
+/// SEARCHING USERS
+// -----------------------------------------------
+  static Future<List<UserModel>> usersByUserName({
+    @required BuildContext context,
+    @required String name
+  }) async {
 
     // /// WORK GOOD WITH 1 SINGLE WORD FIELDS,, AND SEARCHES BY MATCHES THE INITIAL CHARACTERS :
     // /// 'Rag' --->    gets [Rageh Mohamed]
@@ -394,7 +445,7 @@ abstract class FireSearch {
       context: context,
       collName: FireColl.users,
       field: 'trigram',
-      compareValue: compareValue.trim(),
+      compareValue: name.trim(),
       addDocsIDs: false,
       valueIs: ValueIs.ArrayContains,
     );
@@ -410,8 +461,52 @@ abstract class FireSearch {
 
       return _usersModels;
     }
+// -----------------------------------------------
+  static Future<List<UserModel>> usersByNameAndIsAuthor({
+    @required BuildContext context,
+    @required String name,
+    int limit = 3,
+    bool addDocsIDs = false,
+    bool addDocSnapshotToEachMap = false,
+  }) async {
+
+    List<UserModel> _usersModels = <UserModel>[];
+
+    await tryAndCatch(
+        context: context,
+        methodName: 'usersByNameAndIsAuthor',
+        functions: () async {
+
+          final CollectionReference _usersCollection = Fire.getCollectionRef(FireColl.users);
+
+          final QuerySnapshot _collectionSnapshot = await _usersCollection
+              .where('myBzzIDs', isNotEqualTo: [])
+              .where('trigram', arrayContains: name.trim().toLowerCase())
+              .limit(limit)
+              .get();
+
+          final List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
+            querySnapshot: _collectionSnapshot,
+            addDocsIDs: addDocsIDs,
+            addDocSnapshotToEachMap: addDocSnapshotToEachMap,
+          );
+
+          if (Mapper.canLoopList(_maps)){
+            _usersModels = UserModel.decipherUsersMaps(maps: _maps, fromJSON: false);
+          }
+
+        });
+
+
+    return _usersModels;
+  }
 // -----------------------------------------------------------------------------
-  static Future<List<BzModel>> bzzByBzName({@required BuildContext context, @required String bzName}) async {
+  /// SEARCHING BZZ
+// -----------------------------------------------
+  static Future<List<BzModel>> bzzByBzName({
+    @required BuildContext context,
+    @required String bzName
+  }) async {
 
     final List<Map<String, dynamic>> _result = await mapsByFieldValue(
       context: context,
@@ -438,7 +533,12 @@ abstract class FireSearch {
 
   }
 // -----------------------------------------------------------------------------
-  static Future<List<CityModel>> citiesByCityName({@required BuildContext context, @required String cityName, @required String lingoCode}) async {
+  /// SEARCHING ZONES
+  static Future<List<CityModel>> citiesByCityName({
+    @required BuildContext context,
+    @required String cityName,
+    @required String lingoCode
+  }) async {
 
     List<CityModel> _cities = <CityModel>[];
 
@@ -471,7 +571,7 @@ abstract class FireSearch {
     return _cities;
 
   }
-// -----------------------------------------------------------------------------
+// -----------------------------------------------
   /// not tested
   static Future<List<CityModel>> citiesByCityNameAndCountryID({
     @required BuildContext context,

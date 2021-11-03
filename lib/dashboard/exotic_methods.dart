@@ -36,7 +36,7 @@ abstract class ExoticMethods{
         limit: limit ?? 100,
         collName: FireColl.users,
         addDocSnapshotToEachMap: false,
-        orderBy: 'userID',
+        orderBy: 'id',
       );
 
       _allUserModels = UserModel.decipherUsersMaps(
@@ -94,7 +94,7 @@ abstract class ExoticMethods{
       limit: limit ?? 100,
       collName: FireColl.bzz,
       addDocSnapshotToEachMap: false,
-      orderBy: 'bzID',
+      orderBy: 'id',
     );
 
     final List<BzModel> _allModels = BzModel.decipherBzzMaps(
@@ -130,7 +130,7 @@ abstract class ExoticMethods{
       collName: FireColl.flyers,
       addDocSnapshotToEachMap: false,
       addDocsIDs: false,
-      orderBy: 'flyerID',
+      orderBy: 'id',
     );
 
     final List<FlyerModel> _allModels = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);

@@ -21,7 +21,7 @@ abstract class TextChecker{
     return textIsEnglish;
   }
 // -----------------------------------------------------------------------------
-  static bool textControllerHasNoValue(TextEditingController controller){
+  static bool textControllerIsEmpty(TextEditingController controller){
     final bool controllerIsEmpty =
     controller == null || controller.text == '' || controller.text.length == 0 ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) == '' ||
@@ -31,9 +31,19 @@ abstract class TextChecker{
     return controllerIsEmpty;
   }
 // -----------------------------------------------------------------------------
+  /// TASK : is this the correct way to dispose a text controller ? are you sure ?
   static void disposeControllerIfPossible(TextEditingController controller){
     if(controller != null){
-      if(TextChecker.textControllerHasNoValue(controller) == true){
+      if(TextChecker.textControllerIsEmpty(controller) == true){
+        controller.dispose();
+      }
+    }
+  }
+// -----------------------------------------------------------------------------
+  /// TASK : this makes more sense, dispose if controller has a value => tested and does not fire an error in search screen controller,,,
+  static void disposeControllerIfNotEmpty(TextEditingController controller){
+    if(controller != null){
+      if(TextChecker.textControllerIsEmpty(controller) == false){
         controller.dispose();
       }
     }
@@ -163,6 +173,18 @@ abstract class TextChecker{
     print('string : $string : $_blah this : $subString');
 
     return _itContainsIt;
+  }
+// -----------------------------------------------------------------------------
+  static String concludeEnglishOrArabicLingo(String text){
+
+    final String _lingoCode =
+        textStartsInArabic(text) == true ? 'ar'
+            :
+            textStartsInEnglish(text) == true ? 'en'
+                :
+                'en';
+
+    return _lingoCode;
   }
 // -----------------------------------------------------------------------------
 }
