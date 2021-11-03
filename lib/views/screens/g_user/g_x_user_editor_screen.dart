@@ -285,7 +285,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       /// start create user ops
       await UserOps.createUserOps(
           context: context,
-          userModel: _newUserModel
+          userModel: _newUserModel,
+          authBy: widget.user.authBy,
       );
 
       _triggerLoading();
