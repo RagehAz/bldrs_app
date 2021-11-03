@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
-import 'package:bldrs/db/fire/auth_ops.dart';
-import 'package:bldrs/db/fire/firestore.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/main.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:flutter/material.dart';

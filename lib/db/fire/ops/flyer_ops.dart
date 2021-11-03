@@ -3,7 +3,9 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
-import 'package:bldrs/db/fire/firestore.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/db/fire/methods/storage.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
@@ -48,7 +50,7 @@ class FlyerOps{
     print('2- flyer doc ID created : $_flyerID');
 
     /// save slide pictures on fireStorage and get back their URLs
-    final List<String> _picturesURLs = await Fire.createStorageSlidePicsAndGetURLs(
+    final List<String> _picturesURLs = await Storage.createStorageSlidePicsAndGetURLs(
       context: context,
       slides: inputFlyerModel.slides,
       flyerID: _flyerID,
@@ -186,7 +188,7 @@ class FlyerOps{
           print('x1 - slide ${slide.slideIndex} is FILE');
 
           /// a - upload File to fireStorage/slidesPics/slideID and get URL
-          final String _newPicURL = await Fire.createStoragePicAndGetURL(
+          final String _newPicURL = await Storage.createStoragePicAndGetURL(
             context: context,
             picType: PicType.slideHighRes,
             fileName: SlideModel.generateSlideID(updatedFlyer.id, slide.slideIndex),
@@ -251,7 +253,7 @@ class FlyerOps{
 
       /// B2 - delete pictures from fireStorage/slidesPics/slideID : slide ID is "flyerID_index"
       for (var slideID in _slidesIDsToBeDeleted){
-        await Fire.deleteStoragePic(
+        await Storage.deleteStoragePic(
           context: context,
           picType: PicType.slideHighRes,
           fileName: slideID,
@@ -418,7 +420,7 @@ class FlyerOps{
     for (var id in _slidesIDs){
 
       print('a - delete slideHighRes : $id from ${_slidesIDs.length} slides');
-      await Fire.deleteStoragePic(
+      await Storage.deleteStoragePic(
         context: context,
         fileName: id,
         picType: PicType.slideHighRes,

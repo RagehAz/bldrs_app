@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/db/fire/bz_ops.dart';
+import 'package:bldrs/db/fire/ops/bz_ops.dart';
 import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/user/user_model.dart';

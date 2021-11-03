@@ -207,7 +207,7 @@ class BalloonComponents extends StatelessWidget {
                 Loading(loading: loading,)
                     :
                 balloonColor == null?
-                Imagers.superImageWidget(pic)
+                SuperImage(pic)
                     :
                 Container()
             )

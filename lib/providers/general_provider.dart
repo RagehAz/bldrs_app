@@ -1,4 +1,5 @@
-import 'package:bldrs/db/fire/firestore.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/secondary_models/app_updates.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/providers/flyers_provider.dart';

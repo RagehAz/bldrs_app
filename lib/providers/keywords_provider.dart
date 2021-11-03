@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/dashboard/exotic_methods.dart';
-import 'package:bldrs/db/fire/keyword_ops.dart';
+import 'package:bldrs/db/fire/ops/keyword_ops.dart';
 import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/secondary_models/app_updates.dart';
@@ -34,6 +34,7 @@ class KeywordsProvider extends ChangeNotifier{
         docName: LDBDoc.keywords,
         primaryKey: 'id',
       );
+
     }
 
     return _allKeywords;
