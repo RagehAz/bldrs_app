@@ -74,12 +74,12 @@ class _ReviewBubbleState extends State<ReviewBubble> {
 
         if(mounted){
 
-          _userModel = await UserOps.readUserOps(
+          _userModel = await UserFireOps.readUser(
             context: context,
             userID: superUserID(),
           );
 
-          _reviews = await FlyerOps.readAllReviews(
+          _reviews = await FireFlyerOps.readAllReviews(
             context: context,
             flyerID: widget.superFlyer.flyerID,
           );
@@ -95,7 +95,7 @@ class _ReviewBubbleState extends State<ReviewBubble> {
 // -----------------------------------------------------------------------------
   Future<void> _reloadReviews() async {
     /// TASK : THIS IS SUPER EXPENSIVE
-    final List<ReviewModel> reviews = await FlyerOps.readAllReviews(
+    final List<ReviewModel> reviews = await FireFlyerOps.readAllReviews(
       context: context,
       flyerID: widget.superFlyer.flyerID,
     );

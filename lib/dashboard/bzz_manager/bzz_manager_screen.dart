@@ -98,7 +98,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
     setState(() {
       _lastSnapshot = _bzzMaps[_bzzMaps.length - 1]['docSnapshot'];
-      _bzzModels.addAll(BzModel.decipherBzzMaps(maps: _bzzMaps, fromJSON: false));
+      _bzzModels.addAll(BzModel.decipherBzz(maps: _bzzMaps, fromJSON: false));
       _loading = false;
     });
 

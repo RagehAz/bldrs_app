@@ -104,12 +104,12 @@ class AddAuthorScreen extends StatelessWidget {
 
               const String _ragehUserID = 'xxx';
 
-              final BzModel _bzModel = await BzOps.readBzOps(
+              final BzModel _bzModel = await FireBzOps.readBz(
                 context: context,
                 bzID: tinyBz.id,
               );
 
-              final UserModel _ragehUserModel = await UserOps.readUserOps(
+              final UserModel _ragehUserModel = await UserFireOps.readUser(
                 context: context,
                 userID: _ragehUserID,
               );
@@ -125,7 +125,7 @@ class AddAuthorScreen extends StatelessWidget {
                 collName: FireColl.bzz,
                 docName: _bzModel.id,
                 field: 'bzAuthors',
-                input: AuthorModel.cipherAuthorsModels(_newAuthorsList),
+                input: AuthorModel.cipherAuthors(_newAuthorsList),
               );
 
               /// add bzID in user's myBzIDs

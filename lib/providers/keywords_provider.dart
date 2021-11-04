@@ -15,7 +15,7 @@ class KeywordsProvider extends ChangeNotifier{
   Future<List<KW>> _readAllKeywordsThenWipeLDBThenInsertAll(BuildContext context) async {
 
     /// 1 - read firebase KeywordOps
-    final List<KW> _allKeywords = await KeywordOps.readKeywordsOps(
+    final List<KW> _allKeywords = await FireKeywordOps.readKeywordsOps(
       context: context,
     );
 

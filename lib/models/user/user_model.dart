@@ -77,7 +77,7 @@ class UserModel {
       'zone' : zone?.toMap(),
       'language' : language,
       'position' : Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
-      'contacts' : ContactModel.cipherContactsModels(contacts),
+      'contacts' : ContactModel.cipherContacts(contacts),
 // -------------------------
       'myBzzIDs' : myBzzIDs ?? [],
       'emailIsVerified' : emailIsVerified,
@@ -107,7 +107,7 @@ class UserModel {
         zone : ZoneModel.decipherZoneMap(map['zone']),
         language : map['language'] ?? 'en',
         position : Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
-        contacts : ContactModel.decipherContactsMaps(map['contacts'] ?? []),
+        contacts : ContactModel.decipherContacts(map['contacts']),
         // -------------------------
         myBzzIDs: Mapper.getStringsFromDynamics(dynamics: map['myBzzIDs']),
         emailIsVerified : map['emailIsVerified'],
@@ -352,7 +352,7 @@ class UserModel {
 // -----------------------------------------------------------------------------
   static Future<UserModel> dummyUserModel(BuildContext context) async {
 
-    final UserModel _user = await UserOps.readUserOps(
+    final UserModel _user = await UserFireOps.readUser(
       context: context,
       userID: '60a1SPzftGdH6rt15NF96m0j9Et2',
     );

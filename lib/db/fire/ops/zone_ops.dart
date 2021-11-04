@@ -21,7 +21,31 @@ import 'package:provider/provider.dart';
 
 abstract class ZoneOps{
 // -----------------------------------------------------------------------------
-  static Future<CountryModel> readCountryOps({@required BuildContext context, @required String countryID}) async {
+
+  /// CONTINENT
+
+// ---------------------------------------------------
+  static Future<List<Continent>> readContinentsOps({@required BuildContext context}) async {
+
+    final Map<String, dynamic> _map = await Fire.readDoc(
+      context: context,
+      collName: FireColl.zones,
+      docName: FireDoc.zones_continents,
+    );
+
+    final List<Continent> _allContinents = Continent.decipherContinents(_map);
+
+    return _allContinents;
+  }
+// -----------------------------------------------------------------------------
+
+  /// COUNTRY
+
+// ---------------------------------------------------
+  static Future<CountryModel> readCountryOps({
+    @required BuildContext context,
+    @required String countryID
+  }) async {
 
     final Map<String, dynamic> _map = await Fire.readSubDoc(
       context: context,
@@ -36,7 +60,14 @@ abstract class ZoneOps{
     return _countryModel;
   }
 // -----------------------------------------------------------------------------
-  static Future<CityModel> readCityOps({@required BuildContext context, @required String cityID}) async {
+
+  /// CITY
+
+// ---------------------------------------------------
+  static Future<CityModel> readCityOps({
+    @required BuildContext context,
+    @required String cityID,
+  }) async {
 
     final Map<String, dynamic> _map = await Fire.readSubDoc(
       context: context,
@@ -51,7 +82,10 @@ abstract class ZoneOps{
     return _cityModel;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<CityModel>> readCountryCitiesOps({@required BuildContext context, @required String countryID}) async {
+  static Future<List<CityModel>> readCountryCitiesOps({
+    @required BuildContext context,
+    @required String countryID,
+  }) async {
 
     final CountryModel _country = await readCountryOps(context: context, countryID: countryID);
 
@@ -80,79 +114,10 @@ abstract class ZoneOps{
     return _cities;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<Continent>> readContinentsOps({@required BuildContext context}) async {
 
-    final Map<String, dynamic> _map = await Fire.readDoc(
-      context: context,
-      collName: FireColl.zones,
-      docName: FireDoc.zones_continents,
-    );
+  /// ZONE
 
-    final List<Continent> _allContinents = Continent.decipherContinents(_map);
-
-    return _allContinents;
-  }
-// -----------------------------------------------------------------------------
-//   Future<void> updateCountryDoc() async {}
-// -----------------------------------------------------------------------------
-  static Future<Position> getGeoLocatorCurrentPosition() async {
-    bool _serviceEnabled;
-    LocationPermission permission;
-
-    /// Test if location services are enabled.
-    _serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!_serviceEnabled) {
-      await Geolocator.openLocationSettings();
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    /// When we reach here, permissions are granted and we can
-    /// continue accessing the position of the device.
-    return await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.medium,
-      // forceAndroidLocationManager: true,
-      // timeLimit: Duration(seconds: Standards.maxLocationFetchSeconds)
-    );
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<Placemark>> getAddressFromPosition({@required GeoPoint geoPoint}) async {
-
-    List<Placemark> _placeMarks = <Placemark>[];
-
-    print('getAddressFromPosition :starting getAddressFromPosition');
-
-    if (geoPoint != null){
-      _placeMarks = await placemarkFromCoordinates(geoPoint.latitude, geoPoint.longitude);
-      print('getAddressFromPosition :found placemarks aho $_placeMarks');
-    }
-
-    else {
-      print('getAddressFromPosition : could not get this position placeMarks');
-    }
-
-
-    return _placeMarks;
-  }
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   /// this is limited and needs paid subscription
   static Future<ZoneModel> _getZoneByIP_ipApi({@required BuildContext context}) async {
 
@@ -211,7 +176,7 @@ abstract class ZoneOps{
 
     return ZoneModel(countryID: _countryID, cityID: _cityID, districtID: null);
   }
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   /// this needs subscription after first 100'000 requests
   static Future<ZoneModel> _getZoneByIP_ipRegistry({@required BuildContext context}) async {
 
@@ -275,7 +240,7 @@ abstract class ZoneOps{
 
     return ZoneModel(countryID: _countryID, cityID: _cityID, districtID: null);
   }
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   static Future<ZoneModel> _getZoneByGeoLocator({@required BuildContext context}) async {
 
     ZoneModel _zoneModel;
@@ -292,7 +257,7 @@ abstract class ZoneOps{
 
     return _zoneModel;
   }
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   static Future<ZoneModel> superGetZone(BuildContext context) async {
 
     /// trial 1
@@ -312,6 +277,68 @@ abstract class ZoneOps{
     }
 
     return _zone;
+  }
+// -----------------------------------------------------------------------------
+
+  /// GEO
+
+// ---------------------------------------------------
+  static Future<Position> getGeoLocatorCurrentPosition() async {
+    bool _serviceEnabled;
+    LocationPermission permission;
+
+    /// Test if location services are enabled.
+    _serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!_serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    /// When we reach here, permissions are granted and we can
+    /// continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.medium,
+      // forceAndroidLocationManager: true,
+      // timeLimit: Duration(seconds: Standards.maxLocationFetchSeconds)
+    );
+  }
+// ---------------------------------------------------
+  static Future<List<Placemark>> getAddressFromPosition({@required GeoPoint geoPoint}) async {
+
+    List<Placemark> _placeMarks = <Placemark>[];
+
+    print('getAddressFromPosition :starting getAddressFromPosition');
+
+    if (geoPoint != null){
+      _placeMarks = await placemarkFromCoordinates(geoPoint.latitude, geoPoint.longitude);
+      print('getAddressFromPosition :found placemarks aho $_placeMarks');
+    }
+
+    else {
+      print('getAddressFromPosition : could not get this position placeMarks');
+    }
+
+
+    return _placeMarks;
   }
 // -----------------------------------------------------------------------------
 }

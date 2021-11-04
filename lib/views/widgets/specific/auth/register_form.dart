@@ -36,7 +36,7 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  final AuthOps _auth = AuthOps();
+  final FireAuthOps _auth = FireAuthOps();
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController = TextEditingController();
@@ -139,7 +139,7 @@ class _RegisterFormState extends State<RegisterForm> {
       _triggerLoading();
 
       /// start register ops
-      final dynamic _result = await _auth.emailRegisterOps(
+      final dynamic _result = await FireAuthOps.emailRegisterOps(
           context: context,
           currentZone: currentZone,
           email: _emailController.text,

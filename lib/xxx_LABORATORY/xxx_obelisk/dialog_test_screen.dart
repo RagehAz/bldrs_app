@@ -100,7 +100,7 @@ class DialogTestScreen extends StatelessWidget {
                           function: () async {
 
                             /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
-                            Map<String, dynamic> _userBzzMap = await BzOps.readAndFilterTeamlessBzzByUserModel(
+                            Map<String, dynamic> _userBzzMap = await FireBzOps.readAndFilterTeamlessBzzByUserModel(
                               context: context,
                               userModel: userModel,
                             );
@@ -131,7 +131,7 @@ class DialogTestScreen extends StatelessWidget {
                           function: () async {
 
                             /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
-                            Map<String, dynamic> _userBzzMap = await BzOps.readAndFilterTeamlessBzzByUserModel(
+                            Map<String, dynamic> _userBzzMap = await FireBzOps.readAndFilterTeamlessBzzByUserModel(
                               context: context,
                               userModel: userModel,
                             );
@@ -139,7 +139,7 @@ class DialogTestScreen extends StatelessWidget {
                             List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
                             // List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
 
-                            List<FlyerModel> _bzzFlyers = await FlyerOps.readBzzFlyers(
+                            List<FlyerModel> _bzzFlyers = await FireFlyerOps.readBzzFlyers(
                               context: context,
                               bzzModels: _bzzToDeactivate,
                             );

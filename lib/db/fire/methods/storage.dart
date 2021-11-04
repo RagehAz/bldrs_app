@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
@@ -14,10 +15,13 @@ import 'package:flutter/material.dart';
 class Storage {
 
 // =============================================================================
+
+  /// REFERENCES
+
   static Reference getRef({
     @required BuildContext context,
     @required String docName,
-    @required String fileName,
+    @required String picName,
     String fileExtension = 'jpg',
   }) {
 
@@ -26,11 +30,11 @@ class Storage {
     final Reference _ref = FirebaseStorage.instance
         .ref()
         .child(docName)
-        .child(fileName + '.${fileExtension}') ?? null;
+        .child(picName + '.${fileExtension}') ?? null;
 
     return _ref;
   }
-// -----------------------------------------------------------------------------
+// ------------------------------------------------
   static Future<Reference> getRefFromURL({
   @required String url,
   @required BuildContext context,
@@ -46,12 +50,27 @@ class Storage {
         final FirebaseStorage  _storage = FirebaseStorage.instance;
         _ref = await _storage.refFromURL(url);
 
-      }
+      },
+      onError: () async {
+
+        /// TASK : this is temp ,, or see how it goes
+        await CenterDialog.showCenterDialog(
+          context: context,
+          boolDialog: false,
+          title: 'Something is wrong',
+          body: 'Could not get this image',
+        );
+
+    }
     );
 
     return _ref;
 }
 // -----------------------------------------------------------------------------
+
+  /// CREATE
+
+// ------------------------------------------------
   static Future<dynamic> uploadFile({
     @required BuildContext context,
     @required File file,
@@ -62,7 +81,7 @@ class Storage {
     final Reference _ref = getRef(
         context: context,
         docName: docName,
-        fileName: fileName
+        picName: fileName
     );
 
     final UploadTask _uploadTask = _ref.putFile(file);
@@ -140,14 +159,15 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
      */
 
 }
-
+// ------------------------------------------------
   /// creates new pic in document name according to pic type,
   /// and overrides existing pic if already exists
   static Future<String> createStoragePicAndGetURL({
     @required BuildContext context,
     @required File inputFile,
-    @required String fileName,
-    @required PicType picType
+    @required String docName,
+    @required String picName,
+    @required String ownerID,
   }) async {
     String _imageURL;
 
@@ -158,8 +178,8 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
           final Reference _ref = getRef(
             context: context,
-            docName: StorageDoc.docName(picType),
-            fileName: fileName,
+            docName: docName,
+            picName: picName,
           );
 
           print('X1 - getting storage ref : $_ref');
@@ -169,7 +189,11 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
           print('X2 - image size is ${imageSize.height} * ${imageSize.width}');
 
           final SettableMetadata metaData = SettableMetadata(
-              customMetadata: {'width': '${imageSize.width}', 'height': '${imageSize.height}'}
+              customMetadata: {
+                'width': '${imageSize.width}',
+                'height': '${imageSize.height}',
+                'owner' : ownerID,
+              }
           );
 
           print('X3 - meta data assigned');
@@ -188,11 +212,12 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     );
     return _imageURL;
   }
-// -----------------------------------------------------------------------------
+// ------------------------------------------------
   static Future<List<String>> createStorageSlidePicsAndGetURLs({
     @required BuildContext context,
     @required List<SlideModel> slides,
-    @required String flyerID
+    @required String flyerID,
+    @required String authorID,
   }) async {
 
     final List<String> _picturesURLs = <String>[];
@@ -202,8 +227,9 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       final String _picURL = await createStoragePicAndGetURL(
         context: context,
         inputFile: slide.pic,
-        picType: PicType.slideHighRes,
-        fileName: SlideModel.generateSlideID(flyerID, slide.slideIndex),
+        picName: SlideModel.generateSlideID(flyerID, slide.slideIndex),
+        docName: StorageDoc.slideHighRes,
+        ownerID: authorID,
       );
 
       _picturesURLs.add(_picURL);
@@ -212,11 +238,12 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     return _picturesURLs;
   }
-// -----------------------------------------------------------------------------
+// ------------------------------------------------
   static Future<List<String>> createMultipleStoragePicsAndGetURLs({
     @required BuildContext context,
     @required List<dynamic> pics,
     @required List<String> names,
+    @required String userID,
   }) async {
 
     final List<String> _picsURLs = <String>[];
@@ -224,12 +251,15 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     if (Mapper.canLoopList(pics) && Mapper.canLoopList(names) && pics.length == names.length){
 
       for (int i =0; i < pics.length; i++) {
+
         final String _picURL = await createStoragePicAndGetURL(
           context: context,
           inputFile: pics[i],
-          picType: PicType.slideHighRes,
-          fileName: names[i],
+          docName: StorageDoc.slideHighRes,
+          picName: names[i],
+          ownerID: userID,
         );
+
         _picsURLs.add(_picURL);
       }
 
@@ -237,25 +267,27 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     return _picsURLs;
   }
-// -----------------------------------------------------------------------------
+// ------------------------------------------------
   /// TASK : createStoragePicFromAssetAndGetURL not tested properly
   static Future<String> createStoragePicFromLocalAssetAndGetURL ({
     @required BuildContext context,
     @required String asset,
     @required String fileName,
-    @required PicType picType
+    @required String docName,
+    @required String ownerID,
   }) async {
     String _url;
 
     final File _result = await Imagers.getImageFileFromLocalAsset(context, asset);
 
-    print('uploading $fileName pic to fireStorage in folder of $picType');
+    print('uploading $fileName pic to fireStorage in folder of $docName');
 
     _url = await createStoragePicAndGetURL(
       context: context,
-      fileName: fileName,
-      picType: picType,
+      picName: fileName,
+      docName: docName,
       inputFile: _result,
+      ownerID: ownerID,
     );
 
     print('uploaded pic : $_url');
@@ -263,27 +295,83 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _url;
   }
 // -----------------------------------------------------------------------------
+
+  /// READ
+
+// ------------------------------------------------
   static Future<String> readStoragePicURL({
     @required BuildContext context,
-    @required PicType picType,
-    @required String fileName
+    @required String docName,
+    @required String picName
   }) async {
 
     final Reference _ref = getRef(
       context: context,
-      docName: StorageDoc.docName(picType),
-      fileName: fileName,
+      docName: docName,
+      picName: picName,
     );
 
     final String _url = await _ref.getDownloadURL();
 
     return _url;
   }
+// ------------------------------------------------
+  static Future<File> getFileFromPicURL({
+    @required BuildContext context,
+    @required String url,
+  }) async {
+
+    File _file;
+
+    if (url != null){
+
+      final Reference _ref = await getRefFromURL(url: url, context: context);
+
+      if (_ref != null){
+        final Uint8List _uInts = await _ref.getData();
+
+        _file = await Imagers.getFileFromUint8List(Uint8List: _uInts, fileName: _ref.name);
+      }
+
+    }
+
+    return _file;
+  }
 // -----------------------------------------------------------------------------
+
+  /// UPDATE
+
+// ------------------------------------------------
+  /// returns updated pic new URL
+  static Future<String> updatePic({
+    @required BuildContext context,
+    @required String oldURL,
+    @required File newPic,
+  }) async {
+
+    final Reference _ref = await getRefFromURL(url: oldURL, context: context);
+    final FullMetadata _fullMeta = await _ref.getMetadata();
+    final Map<String, dynamic> _existingMetaData = _fullMeta.customMetadata;
+
+    final SettableMetadata metaData = SettableMetadata(
+        customMetadata: _existingMetaData
+    );
+
+    await _ref.putFile(newPic, metaData);
+
+    final String _newURL = await _ref.getDownloadURL();
+
+    return _newURL;
+  }
+// -----------------------------------------------------------------------------
+
+  /// DELETE
+
+// ------------------------------------------------
   static Future<void> deleteStoragePic({
     @required BuildContext context,
-    @required String fileName,
-    @required PicType picType
+    @required String docName,
+    @required String picName,
   }) async {
 
     dynamic _result = await tryCatchAndReturn(
@@ -293,8 +381,8 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
           final Reference _picRef  = getRef(
               context: context,
-              docName: StorageDoc.docName(picType),
-              fileName: fileName
+              docName: docName,
+              picName: picName
           );
 
           final FullMetadata _metaData = await _picRef?.getMetadata();
@@ -354,6 +442,5 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
   }
 // -----------------------------------------------------------------------------
-
 
 }

@@ -283,7 +283,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       );
 
       /// start create user ops
-      await UserOps.createUserOps(
+      await UserFireOps.createUser(
           context: context,
           userModel: _newUserModel,
           authBy: widget.user.authBy,
@@ -351,7 +351,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       );
 
       /// start create user ops
-      await UserOps.updateUserOps(
+      await UserFireOps.updateUser(
         context: context,
         oldUserModel: widget.user,
         updatedUserModel: _updatedModel,
@@ -418,7 +418,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             followedBzzIDs: widget.user.followedBzzIDs,
             savedFlyersIDs: widget.user.savedFlyersIDs,
           );
-          await UserOps.superDeleteUserOps(context: context, userModel: _updatedModel);
+          await UserFireOps.deleteUser(context: context, userModel: _updatedModel);
           await Nav.goBack(context);
         }
 

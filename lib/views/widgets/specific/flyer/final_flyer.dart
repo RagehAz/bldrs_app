@@ -2547,7 +2547,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       );
 
       /// start create flyer ops
-      _uploadedFlyerModel = await FlyerOps().createFlyerOps(context, _newFlyerModel, _bz);
+      _uploadedFlyerModel = await FireFlyerOps.createFlyerOps(
+          context: context,
+          inputFlyerModel: _newFlyerModel,
+          bzModel: _bz,
+      );
+
     }
 
     return _uploadedFlyerModel;
@@ -2607,7 +2612,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       print('C- Uploading to cloud');
 
       /// start create flyer ops
-      _uploadedFlyerModel = await FlyerOps().updateFlyerOps(
+      _uploadedFlyerModel = await FireFlyerOps.updateFlyerOps(
         context: context,
         updatedFlyer: _tempUpdatedFlyerModel,
         originalFlyer: originalFlyer,
@@ -2646,7 +2651,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     if (_dialogResult == true){
 
       /// start delete flyer ops
-      await FlyerOps().deleteFlyerOps(
+      await FireFlyerOps.deleteFlyerOps(
         context: context,
         bzModel: _bzModel,
         flyerModel : _originalFlyer,
@@ -2692,7 +2697,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     else {
 
       /// start delete flyer ops
-      await FlyerOps().deactivateFlyerOps(
+      await FireFlyerOps.deactivateFlyerOps(
         context: context,
         bzModel: _bzModel,
         flyerID : _superFlyer.flyerID,

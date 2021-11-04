@@ -164,6 +164,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         await QuestionOps.createQuestionOps(
           context: context,
           question: _question,
+          userID: superUserID(),
         );
 
         await NavDialog.showNavDialog(

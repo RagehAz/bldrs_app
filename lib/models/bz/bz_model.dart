@@ -137,8 +137,8 @@ class BzModel with ChangeNotifier{
       'zone' : zone.toMap(),
       'about' : about,
       'position' : Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
-      'contacts' : ContactModel.cipherContactsModels(contacts),
-      'authors' : AuthorModel.cipherAuthorsModels(authors),
+      'contacts' : ContactModel.cipherContacts(contacts),
+      'authors' : AuthorModel.cipherAuthors(authors),
       'showsTeam' : showsTeam,
       // -------------------------
       'isVerified' : isVerified,
@@ -155,9 +155,8 @@ class BzModel with ChangeNotifier{
       'flyersIDs' : flyersIDs,
     };
   }
-
 // -----------------------------------------------------------------------------
-  static BzModel decipherBzMap({@required dynamic map, @required bool fromJSON}){
+  static BzModel decipherBz({@required dynamic map, @required bool fromJSON}){
     BzModel _bzModel;
 
     if (map != null){
@@ -177,8 +176,8 @@ class BzModel with ChangeNotifier{
         zone : ZoneModel.decipherZoneMap(map['zone']),
         about : map['about'],
         position : Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
-        contacts : ContactModel.decipherContactsMaps(map['contacts']),
-        authors : AuthorModel.decipherBzAuthorsMaps(map['authors']),
+        contacts : ContactModel.decipherContacts(map['contacts']),
+        authors : AuthorModel.decipherAuthors(map['authors']),
         showsTeam : map['showsTeam'],
         // -------------------------
         isVerified : map['isVerified'],
@@ -199,11 +198,11 @@ class BzModel with ChangeNotifier{
     return _bzModel;
   }
 // -----------------------------------------------------------------------------
-  static List<BzModel> decipherBzzMaps({@required List<dynamic> maps,@required bool fromJSON}) {
+  static List<BzModel> decipherBzz({@required List<dynamic> maps,@required bool fromJSON}) {
     final List<BzModel> _bzList = <BzModel>[];
 
     maps?.forEach((map) {
-      _bzList.add(decipherBzMap(
+      _bzList.add(decipherBz(
         map: map,
         fromJSON: fromJSON,
       ));
@@ -390,7 +389,7 @@ class BzModel with ChangeNotifier{
 // -----------------------------------------------------------------------------
   static BzModel getBzModelFromSnapshot(DocumentSnapshot doc){
     final DocumentSnapshot _map = doc.data();
-    final BzModel _bzModel = BzModel.decipherBzMap(
+    final BzModel _bzModel = BzModel.decipherBz(
       map: _map,
       fromJSON: false,
     );

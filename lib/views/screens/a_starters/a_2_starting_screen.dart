@@ -75,11 +75,17 @@ class _StartingScreenState extends State<StartingScreen> {
     dynamic _authResult;
     if(authBy == AuthBy.google) {
     /// start google auth ops,
-      _authResult = await AuthOps().googleSignInOps(context, _currentZone);
+      _authResult = await FireAuthOps.googleSignInOps(
+          context: context,
+          currentZone: _currentZone,
+      );
     }
     else if(authBy == AuthBy.facebook){
       /// start google auth ops
-      _authResult = await AuthOps().facebookSignInOps(context, _currentZone);
+      _authResult = await FireAuthOps.facebookSignInOps(
+          context: context,
+          currentZone: _currentZone,
+      );
     }
     else if(authBy == AuthBy.apple){
       // _authResult = await AuthOps().appleSignInOps(context, _currentZone);

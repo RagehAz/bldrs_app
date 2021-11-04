@@ -30,8 +30,12 @@ enum ValueIs{
   ArrayContainsAny,
 }
 
-abstract class FireSearch {
+abstract class FireSearchOps {
 // -----------------------------------------------------------------------------
+
+  /// GENERAL
+
+// -----------------------------------------------
   static Future<QuerySnapshot> _searchAndGetCollectionSnapshots({
     @required BuildContext context,
     @required CollectionReference collRef,
@@ -132,7 +136,7 @@ abstract class FireSearch {
 
     return _collectionSnapshot;
   }
-// -----------------------------------------------------------------------------
+// -----------------------------------------------
     static Future<dynamic> mapsByFieldValue({
       @required BuildContext context,
       @required String collName,
@@ -170,7 +174,7 @@ abstract class FireSearch {
     return _maps;
 
   }
-// -----------------------------------------------------------------------------
+// -----------------------------------------------
   static Future<dynamic> subCollectionMapsByFieldValue({
     @required BuildContext context,
     @required String collName,
@@ -214,7 +218,7 @@ abstract class FireSearch {
     return _maps;
 
   }
-// -----------------------------------------------------------------------------
+// -----------------------------------------------
   static Future<dynamic> mapsByValueInArray({
     @required BuildContext context,
     @required CollectionReference collRef,
@@ -255,7 +259,7 @@ abstract class FireSearch {
 
     return _maps;
     }
-// -----------------------------------------------------------------------------
+// -----------------------------------------------
   static Future<dynamic> mapsByTwoValuesEqualTo({
     @required BuildContext context,
     @required CollectionReference collRef,
@@ -294,7 +298,9 @@ abstract class FireSearch {
 
   }
 // -----------------------------------------------------------------------------
-/// SEARCHING FLYERS
+
+  /// FLYERS
+
 // -----------------------------------------------
 /// SEARCH FLYERS BY AREA AND FLYER TYPE
   static Future<List<FlyerModel>> flyersByZoneAndFlyerType({
@@ -419,7 +425,9 @@ abstract class FireSearch {
     return _result;
 }
 // -----------------------------------------------------------------------------
-/// SEARCHING USERS
+
+  /// USERS
+
 // -----------------------------------------------
   static Future<List<UserModel>> usersByUserName({
     @required BuildContext context,
@@ -502,7 +510,9 @@ abstract class FireSearch {
     return _usersModels;
   }
 // -----------------------------------------------------------------------------
-  /// SEARCHING BZZ
+
+  /// BZZ
+
 // -----------------------------------------------
   static Future<List<BzModel>> bzzByBzName({
     @required BuildContext context,
@@ -524,7 +534,7 @@ abstract class FireSearch {
     List<BzModel> _bzz = <BzModel>[];
 
     if (Mapper.canLoopList(_result)){
-      _bzz = BzModel.decipherBzzMaps(
+      _bzz = BzModel.decipherBzz(
         maps: _result,
         fromJSON: false,
       );
@@ -534,7 +544,10 @@ abstract class FireSearch {
 
   }
 // -----------------------------------------------------------------------------
-  /// SEARCHING ZONES
+
+  /// ZONES
+
+// -----------------------------------------------
   static Future<List<CityModel>> citiesByCityName({
     @required BuildContext context,
     @required String cityName,
@@ -619,6 +632,7 @@ abstract class FireSearch {
 
   }
 // -----------------------------------------------------------------------------
+
 }
 
 
