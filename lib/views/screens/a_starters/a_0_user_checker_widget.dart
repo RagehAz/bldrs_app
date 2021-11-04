@@ -71,8 +71,8 @@ class _UserCheckerState extends State<UserChecker> {
         _showLogo().
         then((_) async {
 
-          print('User is signed in : ${AuthOps.userIsSignedIn()}');
-          if (AuthOps.userIsSignedIn() == true) {
+          print('User is signed in : ${FireAuthOps.userIsSignedIn()}');
+          if (FireAuthOps.userIsSignedIn() == true) {
 
             final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
             await _userProvider.getsetMyUserModel(context: context);

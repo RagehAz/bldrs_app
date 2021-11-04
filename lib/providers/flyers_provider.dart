@@ -55,7 +55,7 @@ class FlyersProvider extends ChangeNotifier {
       print('fetchFlyerByID : flyer NOT found in local db');
 
       /// 2.1 read firebase flyer ops
-      _flyer = await FlyerOps.readFlyerOps(
+      _flyer = await FireFlyerOps.readFlyerOps(
         context: context,
         flyerID: flyerID,
       );
@@ -179,7 +179,7 @@ class FlyersProvider extends ChangeNotifier {
       );
 
       /// updated saved flyers ids in firebase
-      await UserOps.addFlyerIDToSavedFlyersIDs(
+      await UserFireOps.addFlyerIDToSavedFlyersIDs(
         context: context,
         userID: _usersProvider.myUserModel.id,
         flyerID: inputFlyer.id,
@@ -200,7 +200,7 @@ class FlyersProvider extends ChangeNotifier {
       // );
 
       /// remove from saved flyersIDs in firebase
-      await UserOps.removeFlyerIDFromSavedFlyersIDs(
+      await UserFireOps.removeFlyerIDFromSavedFlyersIDs(
         context: context,
         userID: _usersProvider.myUserModel.id,
         flyerID: inputFlyer.id,
@@ -249,7 +249,7 @@ class FlyersProvider extends ChangeNotifier {
           /// READ data from cloud Firestore flyers collection
 
 
-          final List<FlyerModel> _foundFlyers = await FireSearch.flyersByZoneAndFlyerType(
+          final List<FlyerModel> _foundFlyers = await FireSearchOps.flyersByZoneAndFlyerType(
             context: context,
             zone: _currentZone,
             flyerType: _flyerType,
@@ -274,7 +274,7 @@ class FlyersProvider extends ChangeNotifier {
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
     final ZoneModel _currentZone = _zoneProvider.currentZone;
 
-    final List<FlyerModel> _flyers = await FireSearch.flyersByZoneAndFlyerType(
+    final List<FlyerModel> _flyers = await FireSearchOps.flyersByZoneAndFlyerType(
       context: context,
       zone: _currentZone,
       flyerType: flyerType,
@@ -320,7 +320,7 @@ class FlyersProvider extends ChangeNotifier {
     final ZoneModel _currentZone = _zoneProvider.currentZone;
 
     /// TASK : think this through.. can it be fetch instead of just search ? I don't think soooooo
-    List<FlyerModel> _flyers = await FireSearch.flyersByZoneAndKeyword(
+    List<FlyerModel> _flyers = await FireSearchOps.flyersByZoneAndKeyword(
       context: context,
       zone: _currentZone,
       kw: kw,

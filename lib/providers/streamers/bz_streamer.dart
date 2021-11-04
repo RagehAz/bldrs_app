@@ -65,7 +65,7 @@ Widget bzModelBuilder({
           } else {
 
             final Map<String, dynamic> _map = snapshot.data;
-            final BzModel bzModel = BzModel.decipherBzMap(
+            final BzModel bzModel = BzModel.decipherBz(
               map: _map,
               fromJSON: false,
             );

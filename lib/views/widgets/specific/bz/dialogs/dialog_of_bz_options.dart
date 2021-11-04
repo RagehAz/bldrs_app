@@ -96,7 +96,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       _triggerLoading();
 
       /// start delete bz ops
-      await BzOps().superDeleteBzOps(
+      await FireBzOps.deleteBz(
         context: context,
         bzModel: bzModel,
       );
@@ -141,7 +141,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       _triggerLoading();
 
       /// start deactivate bz ops
-      await BzOps().deactivateBzOps(
+      await FireBzOps.deactivateBz(
         context: context,
         bzModel: bzModel,
       );

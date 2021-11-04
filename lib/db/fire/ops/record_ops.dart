@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 ///   e - notify listeners
 
 
-abstract class RecordOps{
+abstract class FireRecordOps{
 
   static Future<void> createRecord({BuildContext context, Record record}) async {
 

@@ -115,7 +115,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
   Future<void> _onAddAttachment() async {
     print('choosing attachment');
 
-    List<NotiAttachmentType> _attachmentTypesList = NotiModel.notiAttachmentTypesList();
+    final List<NotiAttachmentType> _attachmentTypesList = NotiModel.notiAttachmentTypesList();
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -128,8 +128,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
               _attachmentTypesList.length,
                   (index) {
 
-                String _attachmentTypeString = TextMod.trimTextBeforeLastSpecialCharacter(_attachmentTypesList[index].toString(), '.');
-                Color _color = _attachmentType == _attachmentTypesList[index]? Colorz.yellow255 : Colorz.blue20;
+                final String _attachmentTypeString = TextMod.trimTextBeforeLastSpecialCharacter(_attachmentTypesList[index].toString(), '.');
+                final Color _color = _attachmentType == _attachmentTypesList[index]? Colorz.yellow255 : Colorz.blue20;
 
 
                 return
@@ -171,11 +171,11 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     print('pic is : $_pic');
 
-    ImageSize _picSize = await ImageSize.superImageSize(_pic);
+    final ImageSize _picSize = await ImageSize.superImageSize(_pic);
 
     print('_picSize is : W ${_picSize.width} x H ${_picSize.height}');
 
-    double _picViewHeight = Imagers.concludeHeightByGraphicSizes(
+    final double _picViewHeight = Imagers.concludeHeightByGraphicSizes(
       width: NotificationCard.bodyWidth(context),
       graphicWidth: _picSize.width,
       graphicHeight: _picSize.height,
@@ -197,7 +197,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     Keyboarders.closeKeyboard(context);
 
-    List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
+    final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
         context,
         SavedFlyersScreen(
           selectionMode: true,
@@ -277,7 +277,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                       onSubmitted: (String val) async {
                         print('submitted : val : $val');
 
-                        List<UserModel> _resultUsers = await FireSearch.usersByUserName(
+                        final List<UserModel> _resultUsers = await FireSearchOps.usersByUserName(
                           context: context,
                           name: val,
                         );
@@ -388,9 +388,10 @@ class _NotificationMakerState extends State<NotificationMaker> {
 // -----------------------------------------------------------------------------
   Future<void> _onSendNotification({bool sendToMyself = false}) async {
 
-    String _userName = sendToMyself == true ? 'YOURSELF : ${superUserID()}' : _selectedUser.name;
+    final String _userID = sendToMyself == true ? superUserID() : _selectedUser.id;
+    final String _userName = sendToMyself == true ? 'YOURSELF : ${superUserID()}' : _selectedUser.name;
 
-    bool _confirmSend = await CenterDialog.showCenterDialog(
+    final bool _confirmSend = await CenterDialog.showCenterDialog(
       context: context,
       title: 'Send ?',
       body: 'Do you want to confirm sending this notification to $_userName',
@@ -399,7 +400,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     if (_confirmSend == true){
 
-      String _id = '${Numeric.createUniqueID()}';
+      final String _id = '${Numeric.createUniqueID()}';
 
       dynamic _outputAttachment;
 
@@ -407,8 +408,9 @@ class _NotificationMakerState extends State<NotificationMaker> {
         _outputAttachment = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: _attachment,
-          fileName: _id,
-          picType: PicType.notiBanner,
+          picName: _id,
+          docName: StorageDoc.notiBanners,
+          ownerID: _userID,
         );
       }
 
@@ -416,7 +418,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
         _outputAttachment = FlyerModel.getFlyersIDsFromFlyers(_attachment);
       }
 
-      NotiModel _newNoti = NotiModel(
+      final NotiModel _newNoti = NotiModel(
         id: _id,
         name: 'targeted notification',
         sudo: null,
@@ -435,7 +437,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
       // _newNoti.printNotiModel(methodName: '_onSendNotification');
 
-      bool result = await tryCatchAndReturn(
+      final bool result = await tryCatchAndReturn(
         context: context,
         methodName: '_onSendNotification',
         functions: () async {
@@ -504,13 +506,13 @@ class _NotificationMakerState extends State<NotificationMaker> {
 // -----------------------------------------------------------------------------
   void _onDeleteFlyer(String flyerID){
 
-    List<FlyerModel> flyers = _attachment;
+    final List<FlyerModel> flyers = _attachment;
 
-    FlyerModel _flyer = FlyerModel.getFlyerFromFlyersByID(flyers: flyers, flyerID: flyerID);
+    final FlyerModel _flyer = FlyerModel.getFlyerFromFlyersByID(flyers: flyers, flyerID: flyerID);
 
     flyers.remove(_flyer);
 
-    bool _attachmentIsEmpty = flyers.length == 0 ? true : false;
+    final bool _attachmentIsEmpty = flyers.length == 0 ? true : false;
 
     setState(() {
       _attachment = flyers;

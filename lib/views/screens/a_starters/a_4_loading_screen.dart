@@ -84,7 +84,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: true);
       final UserModel _userModel = _userProvider.myUserModel;
 
-      if (AuthOps.userIsSignedIn() == true && _userModel != null){
+      if (FireAuthOps.userIsSignedIn() == true && _userModel != null){
 
         final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
         final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
