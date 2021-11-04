@@ -88,7 +88,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
         if (Mapper.canLoopList(_followedBzzIDs)){
           for (var id in _followedBzzIDs) {
-            final BzModel _bzModel = await BzOps.readBzOps(
+            final BzModel _bzModel = await FireBzOps.readBz(
               context: context,
               bzID: id,
             );
@@ -166,7 +166,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       _triggerLoading();
 
       /// start delete bz ops
-      final dynamic _result = await UserOps.superDeleteUserOps(
+      final dynamic _result = await UserFireOps.deleteUser(
         context: context,
         userModel: userModel,
       );
@@ -222,7 +222,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       _triggerLoading();
 
       /// start deactivate user ops
-      final dynamic _result = await UserOps.deactivateUserOps(
+      final dynamic _result = await UserFireOps.deactivateUser(
         context: context,
         userModel: userModel,
       );

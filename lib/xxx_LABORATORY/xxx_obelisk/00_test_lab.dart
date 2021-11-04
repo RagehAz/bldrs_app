@@ -1,12 +1,14 @@
-import 'dart:typed_data';
+import 'dart:io';
 
-import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/dashboard/exotic_methods.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/db/fire/methods/storage.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/ui_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -226,7 +228,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
                     final Reference _picRef  = Storage.getRef(
                         context: context,
                         docName: StorageDoc.dumz,
-                        fileName: 'icon',
+                        picName: 'icon',
                     );
 
                     print(_picRef);
@@ -253,7 +255,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
                     final Reference _picRef  = Storage.getRef(
                       context: context,
                       docName: StorageDoc.dumz,
-                      fileName: 'icon',
+                      picName: 'icon',
                     );
                     //
                     // print(_picRef);
@@ -293,6 +295,86 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 
                     Mapper.printMap(metadatax.customMetadata);
 
+
+                    _triggerLoading();
+
+                  }
+              ),
+
+              WideButton(
+                  color: Colorz.bloodTest,
+                  verse: 'fix users pics',
+                  icon: Iconz.Share,
+                  onTap: () async {
+
+                    _triggerLoading();
+
+                    // final List<BzModel> _allModel = await ExoticMethods.readAllBzzModels(context: context, limit: 500);
+                    final List<UserModel> _allModel = await ExoticMethods.readAllUserModels(limit: 400);
+
+                    for (var model in _allModel){
+
+                      String _url = model.pic;
+
+                      final File _file = await Storage.getFileFromPicURL(
+                        context: context,
+                        url: _url,
+                      );
+
+                      final String _newURL = await Storage.createStoragePicAndGetURL(
+                        context: context,
+                        inputFile: _file,
+                        docName: 'users',
+                        picName: model.id,
+                        ownerID: model.id,
+                      );
+
+                      await Fire.updateDocField(
+                          context: context,
+                          collName: FireColl.users,
+                          docName: model.id,
+                          field: 'pic',
+                          input: _newURL,
+                      );
+
+                    }
+
+                    // final Reference _picRef  = Storage.getRef(
+                    //   context: context,
+                    //   docName: StorageDoc.dumz,
+                    //   fileName: 'icon',
+                    // );
+
+                    //
+                    // print(_picRef);
+                    //
+                    // final SettableMetadata metaData = SettableMetadata(
+                    //     customMetadata:
+                    //     {
+                    //       'thing': 'hahaha',
+                    //       'dog': 'roukie'
+                    //     }
+                    // );
+                    //
+                    // Uint8List _data = await Imagers.getBytesFromLocalRasterAsset(
+                    //   asset: Iconz.DumSlide1,
+                    //   width: 50,
+                    // );
+
+                    // _picRef.bucket.
+
+                    // FullMetadata _meta = await _picRef.getMetadata();
+
+                    // print('meta : ${_meta}');
+
+
+                    // FullMetadata metadata = await _picRef.getMetadata();
+                    //
+                    // Mapper.printMap(metadata.customMetadata);
+                    //
+                    //
+                    //
+                    // Mapper.printMap(metadatax.customMetadata);
 
                     _triggerLoading();
 

@@ -152,7 +152,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     Nav.goBack(context);
 
     /// delete flyer ops
-    await FlyerOps().deleteFlyerOps(
+    await FireFlyerOps.deleteFlyerOps(
       context: context,
       flyerModel: _getFlyerFromDeactivatedFlyersByFlyerID(flyerID: flyerModel.id),
       bzModel: widget.bz,

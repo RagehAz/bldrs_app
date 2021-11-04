@@ -11,18 +11,22 @@ import 'package:sembast/sembast_io.dart';
 /// Simple Embedded Application Store database
 class Sembast {
 // -----------------------------------------------------------------------------
+
+  /// REFERENCES
+
+// ---------------------------------------------------
   /// private constructor to create instances of this class only in itself
   Sembast._thing();
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   /// Singleton instance
   static final Sembast _singleton = Sembast._thing();
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   /// Singleton accessor
   static Sembast get instance => _singleton;
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   /// to transform from synchronous into asynchronous
   Completer<Database> _dbOpenCompleter;
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   /// db object accessor
   Future<Database> get database async {
 
@@ -34,7 +38,7 @@ class Sembast {
 
     return _dbOpenCompleter.future;
   }
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   Future<void> _openDatabase() async {
 
     final Directory _appDocDir = await getApplicationDocumentsDirectory();
@@ -48,25 +52,28 @@ class Sembast {
     return _db;
 
   }
-// -----------------------------------------------------------------------------
-
-/// SEMBAST OPS
-
-// -----------------------------------------------------------------------------
-
+// ---------------------------------------------------
   /// static const String _storeName = 'blah';
   /// final StoreRef<int, Map<String, Object>> _doc = intMapStoreFactory.store(_storeName);
   /// Future<Database> get _db async => await AppDatabase.instance.database;
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   static Future<Database> _getDB() async {
     return await Sembast.instance.database;
   }
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   static StoreRef<int, Map<String, Object>> _getStore({@required String docName}) {
     return intMapStoreFactory.store(docName);
   }
 // -----------------------------------------------------------------------------
-  static Future<void> insert({@required String primaryKey, @required Map<String, Object> map, @required String docName}) async {
+
+  /// CREATE
+
+// ---------------------------------------------------
+  static Future<void> insert({
+    @required String primaryKey,
+    @required Map<String, Object> map,
+    @required String docName,
+  }) async {
 
 
   final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
@@ -87,7 +94,11 @@ class Sembast {
 
   }
 // -----------------------------------------------------------------------------
-  static Future insertAll({@required String primaryKey, @required List<Map<String, Object>> inputs, @required String docName}) async {
+  static Future insertAll({
+    @required String primaryKey,
+    @required List<Map<String, Object>> inputs,
+    @required String docName,
+  }) async {
 
     if (Mapper.canLoopList(inputs)){
 
@@ -102,7 +113,11 @@ class Sembast {
   }
 // -----------------------------------------------------------------------------
   /// this should only be used when the ldb is empty,, if
-  static Future<void> deleteAllThenInsertAll({@required String primaryKey, @required List<Map<String, Object>> inputs, @required String docName}) async {
+  static Future<void> deleteAllThenInsertAll({
+    @required String primaryKey,
+    @required List<Map<String, Object>> inputs,
+    @required String docName,
+  }) async {
 
     await deleteAll(docName: docName, primaryKey: primaryKey);
 
@@ -113,53 +128,18 @@ class Sembast {
 
   }
 // -----------------------------------------------------------------------------
-  static Future<int> update({@required Map<String, Object> map, @required String searchPrimaryValue, @required String searchPrimaryKey, @required String docName}) async {
+
+  /// READ
+
+// ---------------------------------------------------
+  static Future<List<Map<String, Object>>> readAll({@required String docName,}) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
-
-    final Finder _finder = Finder(filter: Filter.equals(searchPrimaryKey, searchPrimaryValue));
-
-    final int result = await _doc.update(
-      _db,
-      map,
-      finder: _finder,
-    );
-
-    return result;
-  }
-// -----------------------------------------------------------------------------
-  static Future<void> delete({@required String searchPrimaryKey, @required String searchPrimaryValue, @required String docName}) async {
-
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
-    final Database _db = await _getDB();
-
-    final Finder _finder = Finder(
-      filter: Filter.equals(searchPrimaryKey, searchPrimaryValue),
-    );
-
-    await _doc.delete(
-      await _db,
-      finder: _finder,
-    );
-
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> search({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
-
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
-    final Database _db = await _getDB();
-
-    final _finder = Finder(
-      filter: Filter.equals(searchField, searchValue, anyInList: true),
-      sortOrders: <SortOrder>[
-        SortOrder(fieldToSortBy)
-      ],
-    );
 
     final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots = await _doc.find(
       _db,
-      finder: _finder,
+      // finder: _finder,
     );
 
     final List<Map<String, Object>> _maps = _recordSnapshots.map((snapshot){
@@ -168,8 +148,8 @@ class Sembast {
 
     return _maps;
   }
-// -----------------------------------------------------------------------------
-//   static Future<List<Map<String, Object>>> searchArray({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
+// ---------------------------------------------------
+  //   static Future<List<Map<String, Object>>> searchArray({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
 //
 //     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
 //     final Database _db = await _getDB();
@@ -192,8 +172,42 @@ class Sembast {
 //
 //     return _maps;
 //   }
-// -----------------------------------------------------------------------------
-  static Future<Map<String, Object>> findFirst({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
+// ---------------------------------------------------
+  static Future<List<Map<String, Object>>> search({
+    @required String fieldToSortBy,
+    @required String searchField,
+    @required dynamic searchValue,
+    @required String docName,
+  }) async {
+
+    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+    final Database _db = await _getDB();
+
+    final _finder = Finder(
+      filter: Filter.equals(searchField, searchValue, anyInList: true),
+      sortOrders: <SortOrder>[
+        SortOrder(fieldToSortBy)
+      ],
+    );
+
+    final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots = await _doc.find(
+      _db,
+      finder: _finder,
+    );
+
+    final List<Map<String, Object>> _maps = _recordSnapshots.map((snapshot){
+      return snapshot.value;
+    }).toList();
+
+    return _maps;
+  }
+// ---------------------------------------------------
+  static Future<Map<String, Object>> findFirst({
+    @required String fieldToSortBy,
+    @required String searchField,
+    @required dynamic searchValue,
+    @required String docName,
+  }) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
@@ -220,24 +234,59 @@ class Sembast {
     return _map;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> readAll({@required String docName,}) async {
+
+  /// UPDATE
+
+// ---------------------------------------------------
+  static Future<int> update({
+    @required Map<String, Object> map,
+    @required String searchPrimaryValue,
+    @required String searchPrimaryKey,
+    @required String docName,
+  }) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
 
-    final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots = await _doc.find(
+    final Finder _finder = Finder(filter: Filter.equals(searchPrimaryKey, searchPrimaryValue));
+
+    final int result = await _doc.update(
       _db,
-      // finder: _finder,
+      map,
+      finder: _finder,
     );
 
-    final List<Map<String, Object>> _maps = _recordSnapshots.map((snapshot){
-      return snapshot.value;
-    }).toList();
-
-    return _maps;
+    return result;
   }
 // -----------------------------------------------------------------------------
-  static Future<void> deleteAll({@required String docName, @required String primaryKey}) async {
+
+  /// DELETE
+
+// ---------------------------------------------------
+  static Future<void> delete({
+    @required String searchPrimaryKey,
+    @required String searchPrimaryValue,
+    @required String docName,
+  }) async {
+
+    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+    final Database _db = await _getDB();
+
+    final Finder _finder = Finder(
+      filter: Filter.equals(searchPrimaryKey, searchPrimaryValue),
+    );
+
+    await _doc.delete(
+      await _db,
+      finder: _finder,
+    );
+
+  }
+// ---------------------------------------------------
+  static Future<void> deleteAll({
+    @required String docName,
+    @required String primaryKey,
+  }) async {
 
     List<Map<String, Object>> _allMaps = await readAll(docName: docName);
 
@@ -252,6 +301,6 @@ class Sembast {
     }
 // -----------------------------------------------------------------------------
   }
-
+// -----------------------------------------------------------------------------
 
 }

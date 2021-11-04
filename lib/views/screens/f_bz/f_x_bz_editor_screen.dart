@@ -387,7 +387,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       );
 
       /// start createBzOps
-      final BzModel _bzModel = await BzOps().createBzOps(
+      final BzModel _bzModel = await FireBzOps.createBz(
           context: context,
           inputBz : _newBzModel,
           userModel: widget.userModel
@@ -485,7 +485,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       );
 
       /// start updateBzOps
-      final BzModel _finalBzModel = await BzOps().updateBzOps(
+      final BzModel _finalBzModel = await FireBzOps.updateBz(
         context: context,
         modifiedBz: _modifiedBzModel,
         originalBz: _bz,

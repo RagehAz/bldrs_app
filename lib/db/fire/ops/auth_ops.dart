@@ -15,17 +15,21 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 
-// an alert error should be thrown when firebase replies with the following line
-// Firebase Authentication Error
-// An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.
-// we should consider same scenario with other auth methods that have this conflict with existing signed up e-mail
+/// TASK : check this shit
+/// an alert error should be thrown when firebase replies with the following line
+/// Firebase Authentication Error
+/// An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.
+/// we should consider same scenario with other auth methods that have this conflict with existing signed up e-mail
+/// need to fix if user signed in with facebook previously,, use the existing proile and not overwrite the existing user profile data
 
-// need to fix if user signed in with facebook previously,, use the existing proile and not overwrite the existing user profile data
+class FireAuthOps {
+// -----------------------------------------------------------------------------
 
-class AuthOps {
-// =============================================================================
-  /// firebaseAuth instance
-  final FirebaseAuth _auth = FirebaseAuth?.instance;
+  /// REFERENCES
+
+// ---------------------------------------------------
+//   /// firebaseAuth instance
+//   final FirebaseAuth _auth = FirebaseAuth?.instance;
 // -----------------------------------------------------------------------------
   static bool userIsSignedIn(){
     bool _userIsSignedIn = false;
@@ -33,7 +37,6 @@ class AuthOps {
     if (superFirebaseUser() == null){
 
       _userIsSignedIn = false;
-
 
     } else {
 
@@ -46,9 +49,36 @@ class AuthOps {
     return _userIsSignedIn;
   }
 // -----------------------------------------------------------------------------
+
+  /// CREATE
+
+// ---------------------------------------------------
+  /// create firebase user
+  static Future<User> _createFirebaseUser({
+    @required String email,
+    @required String password,
+  }) async {
+
+    final FirebaseAuth _auth = FirebaseAuth?.instance;
+
+    final UserCredential _result = await _auth.createUserWithEmailAndPassword(
+        email: email.trim(), password: password);
+
+    final User _user = _result.user;
+
+    return _user;
+  }
+// -----------------------------------------------------------------------------
+
+  /// DELETE
+
+// ---------------------------------------------------
   /// TASK : fix this error
   /// deleteFirebaseUser : tryAndCatch ERROR : [firebase_auth/requires-recent-login] This operation is sensitive and requires recent authentication. Log in again before retrying this request.
-  Future<bool> deleteFirebaseUser(BuildContext context, String userID) async {
+  static Future<bool> deleteFirebaseUser({
+    @required BuildContext context,
+    @required String userID,
+  }) async {
 
     print('deleting firebase user');
     // String _error;
@@ -58,8 +88,9 @@ class AuthOps {
       methodName: 'deleteFirebaseUser',
       functions: () async {
 
-        await _auth.currentUser.delete();
+        final FirebaseAuth _auth = FirebaseAuth?.instance;
 
+        await _auth.currentUser.delete();
 
       },
 
@@ -70,38 +101,8 @@ class AuthOps {
 
     return _result;
 
-  }
-// -----------------------------------------------------------------------------
-  /// firebase user provider data
-  // List<UserInfo> _getFirebaseUserProviderData ()  {
-  //
-  //   final User user = _auth.currentUser;
-  //
-  //   // print(user.providerData);
-  //
-  //   return user.providerData;
-  //
-  //   // if (user.providerData.length < 2) {
-  //   //   // do something
-  //   // }
-  //   // else {
-  //   //   print(user.providerData);
-  //   // }
-  //
-  // }
-// -----------------------------------------------------------------------------
-  /// create firebase user
-  Future<User> _createFirebaseUser({String email, String password}) async {
-
-    final UserCredential _result = await _auth.createUserWithEmailAndPassword(
-        email: email.trim(), password: password);
-
-    final User _user = _result.user;
-
-    return _user;
-  }
-// -----------------------------------------------------------------------------
-  /// delete firebase user
+    /*
+      /// delete firebase user
   // Future<void> _deleteFirebaseUser({
   //   BuildContext context,
   //   String email,
@@ -137,8 +138,20 @@ class AuthOps {
   //   }
   // }
 // -----------------------------------------------------------------------------
+     */
+
+  }
+// -----------------------------------------------------------------------------
+
+  /// BY EMAIL
+
+// ---------------------------------------------------
   /// sign in with email & password
-  Future<dynamic> emailSignInOps(BuildContext context, String email, String password) async {
+  static Future<dynamic> emailSignInOps({
+    @required BuildContext context,
+    @required String email,
+    @required String password,
+  }) async {
 
     UserCredential _userCredential;
     String _error;
@@ -148,6 +161,9 @@ class AuthOps {
         context: context,
         methodName: 'signInWithEmailAndPassword in emailSignInOps',
         functions: () async {
+
+          final FirebaseAuth _auth = FirebaseAuth?.instance;
+
           _userCredential = await _auth.signInWithEmailAndPassword(email: email.trim(), password: password);
           print('_userCredential : $_userCredential');
         },
@@ -175,7 +191,7 @@ class AuthOps {
       print('x2 - emailSignInOps userID : $_userID');
 
       /// read user ops
-      final UserModel _userModel = await UserOps.readUserOps(
+      final UserModel _userModel = await UserFireOps.readUser(
           context: context,
           userID: _userID
       );
@@ -194,12 +210,12 @@ class AuthOps {
   }
 // -----------------------------------------------------------------------------
   /// register with email & password
-  Future<dynamic> emailRegisterOps({
-      @required BuildContext context,
-      @required ZoneModel currentZone,
-      @required String email,
-      @required String password,
-}) async {
+  static Future<dynamic> emailRegisterOps({
+    @required BuildContext context,
+    @required ZoneModel currentZone,
+    @required String email,
+    @required String password,
+  }) async {
 
     User _user;
     String _error;
@@ -232,7 +248,7 @@ class AuthOps {
       );
 
       /// create a new firestore document for the user with the userID
-      final UserModel _finalUserModel = await UserOps.createUserOps(
+      final UserModel _finalUserModel = await UserFireOps.createUser(
         context: context,
         userModel: _initialUserModel,
         authBy: AuthBy.email,
@@ -252,9 +268,11 @@ class AuthOps {
   }
 // -----------------------------------------------------------------------------
   /// sign out
-  Future<void> emailSignOutOps(BuildContext context) async {
+  static Future<void> emailSignOutOps(BuildContext context) async {
 
     try {
+
+      final FirebaseAuth _auth = FirebaseAuth?.instance;
 
       return await _auth.signOut();
 
@@ -271,21 +289,28 @@ class AuthOps {
     }
   }
 // -----------------------------------------------------------------------------
-  /// facebook sign in to get firebase user to check if it has a userModel or to
-  /// create a new one
-  ///
-  /// X1 - try get firebase user or return error
-  ///   xx - try catch return google auth on WEB & ANDROID-IOS
-  ///       B - get [accessToken]
-  ///       C - Create [credential] from the [access token]
-  ///       D - get [user credential] by [credential]
-  ///       E - get firebase [user] from [user credential]
-  ///
-  /// X2 - process firebase user to return UserModel or error
-  ///   xx - return error : if auth fails
-  ///   xx - return firebase user : if auth succeeds
-  ///      E - get Or Create UserModel From User
-  Future<dynamic> facebookSignInOps(BuildContext context, ZoneModel currentZone) async {
+  static Future<dynamic> facebookSignInOps({
+    @required BuildContext context,
+    @required ZoneModel currentZone,
+  }) async {
+
+    // steps ----------
+    /// facebook sign in to get firebase user to check if it has a userModel or to
+    /// create a new one
+    ///
+    /// X1 - try get firebase user or return error
+    ///   xx - try catch return google auth on WEB & ANDROID-IOS
+    ///       B - get [accessToken]
+    ///       C - Create [credential] from the [access token]
+    ///       D - get [user credential] by [credential]
+    ///       E - get firebase [user] from [user credential]
+    ///
+    /// X2 - process firebase user to return UserModel or error
+    ///   xx - return error : if auth fails
+    ///   xx - return firebase user : if auth succeeds
+    ///      E - get Or Create UserModel From User
+    // ----------
+
     User _user;
     final FirebaseAuth _auth = FirebaseAuth.instance;
     String _error;
@@ -354,7 +379,7 @@ class AuthOps {
       // print('2 language: ${Wordz.languageCode(context)},');
 
       /// E - get Or Create UserModel From User
-      final Map<String, dynamic> _userModelMap = await UserOps.getOrCreateUserModelFromUser(
+      final Map<String, dynamic> _userModelMap = await UserFireOps.getOrCreateUserModelFromUser(
         context: context,
         zone: currentZone,
         user: _user,
@@ -367,36 +392,42 @@ class AuthOps {
 
   }
 // -----------------------------------------------------------------------------
-  /// google sign in to get firebase user to check if it has a userModel or to
-  /// create a new one
-  ///
-  /// X1 - try get firebase user or return error
-  ///   xx - try catch return google auth on WEB & ANDROID-IOS
-  ///     A - if on web
-  ///       B - get [auth provider]
-  ///       C - get [user credential] from [auth provider]
-  ///       D - get [firebase user] from [user credential]
-  ///     A - if not on web
-  ///       B - get [google sign in account]
-  ///       B - get [google sign in auth] from [google sign in account]
-  ///       B - get [auth credential] from [google sign in auth]
-  ///       C - get [user credential] from [auth credential]
-  ///       D - get firebase user from user credential
-  ///
-  /// X2 - process firebase user to return UserModel or error
-  ///   xx - return error : if auth fails
-  ///   xx - return firebase user : if auth succeeds
-  ///      E - get Or Create UserModel From User
-  // /      E - read user ops if existed
-  // /         Ex - if new user (userModel == null)
-  // /            E1 - create initial user model
-  // /            E2 - create user ops
-  // /            E3 - return new userModel inside userModel-firstTimer map
-  // /         Ex - if user has existing user model
-  // /            E3 - return existing userMode inside userModel-firstTimer map
-  Future<dynamic> googleSignInOps(BuildContext context, ZoneModel currentZone) async {
+  static Future<dynamic> googleSignInOps({
+    @required BuildContext context,
+    @required ZoneModel currentZone,
+  }) async {
     User _user;
     String _error;
+
+    // steps ----------
+    /// google sign in to get firebase user to check if it has a userModel or to
+    /// create a new one
+    ///
+    /// X1 - try get firebase user or return error
+    ///   xx - try catch return google auth on WEB & ANDROID-IOS
+    ///     A - if on web
+    ///       B - get [auth provider]
+    ///       C - get [user credential] from [auth provider]
+    ///       D - get [firebase user] from [user credential]
+    ///     A - if not on web
+    ///       B - get [google sign in account]
+    ///       B - get [google sign in auth] from [google sign in account]
+    ///       B - get [auth credential] from [google sign in auth]
+    ///       C - get [user credential] from [auth credential]
+    ///       D - get firebase user from user credential
+    ///
+    /// X2 - process firebase user to return UserModel or error
+    ///   xx - return error : if auth fails
+    ///   xx - return firebase user : if auth succeeds
+    ///      E - get Or Create UserModel From User
+    /// xxx deleted ?      E - read user ops if existed
+    /// xxx deleted ?         Ex - if new user (userModel == null)
+    /// xxx deleted ?            E1 - create initial user model
+    /// xxx deleted ?            E2 - create user ops
+    /// xxx deleted ?            E3 - return new userModel inside userModel-firstTimer map
+    /// xxx deleted ?         Ex - if user has existing user model
+    /// xxx deleted ?            E3 - return existing userMode inside userModel-firstTimer map
+    // ----------
 
     /// X1 - try get firebase user or return error
     // -------------------------------------------------------
@@ -405,6 +436,8 @@ class AuthOps {
         context: context,
         methodName: 'googleSignInOps',
         functions: () async {
+
+          final FirebaseAuth _auth = FirebaseAuth?.instance;
 
           print('1 language: ${Wordz.languageCode(context)},');
 
@@ -488,7 +521,7 @@ class AuthOps {
       print('2 language: ${Wordz.languageCode(context)},');
 
       /// E - get Or Create UserModel From User
-      final Map<String, dynamic> _userModelMap = await UserOps.getOrCreateUserModelFromUser(
+      final Map<String, dynamic> _userModelMap = await UserFireOps.getOrCreateUserModelFromUser(
         context: context,
         zone: currentZone,
         user: _user,
@@ -580,9 +613,9 @@ class AuthOps {
     return _isSignedIn;
   }
 // -----------------------------------------------------------------------------
-  Future<void> signOut({
-    BuildContext context,
-    bool routeToUserChecker,
+  static Future<void> signOut({
+    @required BuildContext context,
+    @required bool routeToUserChecker,
   }) async {
 
     print('Signing out');
@@ -598,7 +631,7 @@ class AuthOps {
 // -----------------------------------------------------------------------------
 
   /// TASK : send email verification : not tested yet
-  static Future<void> sendVerificationEmail({BuildContext context, }) async {
+  static Future<void> sendVerificationEmail({@required BuildContext context}) async {
 
     await tryAndCatch(
       context: context,
@@ -642,6 +675,33 @@ class AuthOps {
   return _user;
 }
 // =============================================================================
+
+
+/*
+
+old shit
+
+  /// firebase user provider data
+  // List<UserInfo> _getFirebaseUserProviderData ()  {
+  //
+  //   final User user = _auth.currentUser;
+  //
+  //   // print(user.providerData);
+  //
+  //   return user.providerData;
+  //
+  //   // if (user.providerData.length < 2) {
+  //   //   // do something
+  //   // }
+  //   // else {
+  //   //   print(user.providerData);
+  //   // }
+  //
+  // }
+
+
+/// --------------------------------------
+
 // /// facebook register
 // Future<UserCredential> facebookRegisterOps(BuildContext context, Zone zone) async {
 //   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -719,5 +779,6 @@ class AuthOps {
 // }
 
 
+ */
 
 

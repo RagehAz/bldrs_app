@@ -133,7 +133,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
         print('fuck fuck');
 
-        final UserModel _rageh = await UserOps.readUserOps(
+        final UserModel _rageh = await UserFireOps.readUser(
           context: context,
           userID: superUserID(),
         );

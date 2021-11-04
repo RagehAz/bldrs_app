@@ -98,7 +98,7 @@ abstract class ExoticMethods{
       orderBy: 'id',
     );
 
-    final List<BzModel> _allModels = BzModel.decipherBzzMaps(
+    final List<BzModel> _allModels = BzModel.decipherBzz(
       maps: _maps,
       fromJSON: false,
     );

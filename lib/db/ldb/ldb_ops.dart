@@ -53,6 +53,10 @@ abstract class LDBDoc {
 
 abstract class LDBOps{
 // -----------------------------------------------------------------------------
+
+  /// REFERENCES
+
+// ---------------------------------------------------
   static String getPrimaryKey(String docName){
 
     switch (docName){
@@ -76,7 +80,15 @@ abstract class LDBOps{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> insertMap({@required String primaryKey, @required Map<String, Object> input, @required String docName}) async {
+
+  /// CREATE
+
+// ---------------------------------------------------
+  static Future<void> insertMap({
+    @required String primaryKey,
+    @required Map<String, Object> input,
+    @required String docName,
+  }) async {
 
     await Sembast.insertAll(
       inputs: <Map<String, Object>>[input],//_cipherFirebaseMapsToSembastMaps(<Map<String, Object>>[input]),
@@ -86,8 +98,12 @@ abstract class LDBOps{
 
     print('LDBOps inserted in ${docName}');
   }
-// -----------------------------------------------------------------------------
-  static Future<void> insertMaps({@required String primaryKey, @required List<Map<String, Object>> inputs, @required String docName}) async {
+// ---------------------------------------------------
+  static Future<void> insertMaps({
+    @required String primaryKey,
+    @required List<Map<String, Object>> inputs,
+    @required String docName,
+  }) async {
 
     await Sembast.insertAll(
       inputs: inputs,//_cipherFirebaseMapsToSembastMaps(inputs),
@@ -97,7 +113,27 @@ abstract class LDBOps{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<Map<String, Object>> searchFirstMap({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
+
+  /// READ
+
+// ---------------------------------------------------
+  static Future<List<Map<String, Object>>> readAllMaps({@required String docName}) async {
+
+    final List<Map<String, Object>> _result = await Sembast.readAll(
+      docName: docName,
+    );
+
+    final List<Map<String, Object>> _fixedMaps = _result; //_decipherSembastMapsToFirebaseMaps(_result);
+
+    return _fixedMaps;
+  }
+// ---------------------------------------------------
+  static Future<Map<String, Object>> searchFirstMap({
+    @required String fieldToSortBy,
+    @required String searchField,
+    @required dynamic searchValue,
+    @required String docName,
+  }) async {
 
     final Map<String, Object> _result = await Sembast.findFirst(
       docName: docName,
@@ -113,8 +149,13 @@ abstract class LDBOps{
     return _fixedMap;
 
   }
-// -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> searchAllMaps({@required String fieldToSortBy, @required String searchField, @required dynamic searchValue, @required String docName}) async {
+// ---------------------------------------------------
+  static Future<List<Map<String, Object>>> searchAllMaps({
+    @required String fieldToSortBy,
+    @required String searchField,
+    @required dynamic searchValue,
+    @required String docName,
+  }) async {
 
     final List<Map<String, Object>> _result = await Sembast.search(
       docName: docName,
@@ -130,8 +171,12 @@ abstract class LDBOps{
     return _fixedMaps;
 
   }
-// -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> searchTrigram({@required dynamic searchValue, @required String docName, @required String lingoCode}) async {
+// ---------------------------------------------------
+  static Future<List<Map<String, Object>>> searchTrigram({
+    @required dynamic searchValue,
+    @required String docName,
+    @required String lingoCode,
+  }) async {
 
     List<Map<String, dynamic>> _result = await Sembast.search(
       fieldToSortBy: getPrimaryKey(docName),
@@ -143,17 +188,10 @@ abstract class LDBOps{
     return _result;
 }
 // -----------------------------------------------------------------------------
-  static Future<List<Map<String, Object>>> readAllMaps({@required String docName}) async {
 
-    final List<Map<String, Object>> _result = await Sembast.readAll(
-      docName: docName,
-    );
+  /// UPDATE
 
-    final List<Map<String, Object>> _fixedMaps = _result; //_decipherSembastMapsToFirebaseMaps(_result);
-
-    return _fixedMaps;
-  }
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   static Future<void> updateMap({
     @required Map<String, Object> input,
     @required String objectID,
@@ -171,6 +209,10 @@ abstract class LDBOps{
 
 }
 // -----------------------------------------------------------------------------
+
+  /// DELETE
+
+// ---------------------------------------------------
   static Future<void> deleteMap({
     @required String objectID,
     @required String docName,
@@ -185,7 +227,7 @@ abstract class LDBOps{
     );
 
   }
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   static Future<void> deleteAllMaps({@required String docName}) async {
 
     await Sembast.deleteAll(
@@ -194,6 +236,9 @@ abstract class LDBOps{
     );
 
   }
+// -----------------------------------------------------------------------------
+
+/// FIREBASE TO SEMBAST ADAPTERS
 // -----------------------------------------------------------------------------
 //   static Map<String, Object> _cipherFirebaseMapToSembastMap(Map<String, Object> mapOfFirebase){
 //
@@ -342,4 +387,5 @@ abstract class LDBOps{
 //     return _fixedMaps;
 //   }
 // // -----------------------------------------------------------------------------
+
 }

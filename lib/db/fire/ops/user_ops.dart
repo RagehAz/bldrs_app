@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
@@ -21,19 +20,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
-/// Should include all user firestore operations
-/// except reading data for widgets injection
-abstract class UserOps{
+abstract class UserFireOps{
 // -----------------------------------------------------------------------------
+
+  /// REFERENCES
+
+// ---------------------------------------------------
   /// users firestore collection reference getter
-  static CollectionReference userCollectionRef(){
+  static CollectionReference collRef(){
     final CollectionReference _usersCollectionRef = Fire.getCollectionRef(FireColl.users);
-    return
-      _usersCollectionRef;
+    return _usersCollectionRef;
   }
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------
   /// user firestore document reference
-  DocumentReference userDocRef(String userID){
+  static DocumentReference docRef(String userID){
     return
       Fire.getDocRef(
           collName: FireColl.users,
@@ -41,8 +41,15 @@ abstract class UserOps{
       );
   }
 // -----------------------------------------------------------------------------
+
+  /// CREATE
+
+// ---------------------------------------------------
   /// create or update user document
-  static Future<void> _createOrUpdateUserDoc({@required BuildContext context, @required UserModel userModel}) async {
+  static Future<void> _createOrUpdateUserDoc({
+    @required BuildContext context,
+    @required UserModel userModel
+  }) async {
 
     await Fire.updateDoc(
       context: context,
@@ -52,25 +59,28 @@ abstract class UserOps{
     );
 
   }
-// -----------------------------------------------------------------------------
-  /// this creates :-
-  /// 1 - JPG in : storage/userPics/userID.jpg if userModel.pic is File no URL
-  /// 2 - userModel in : firestore/users/userID
-  static Future<UserModel> createUserOps({
+// ---------------------------------------------------
+  static Future<UserModel> createUser({
     @required BuildContext context,
     @required UserModel userModel,
     @required AuthBy authBy,
   }) async {
+    // ----------
+    /// this creates :-
+    /// 1 - JPG in : storage/userPics/userID.jpg if userModel.pic is File no URL
+    /// 2 - userModel in : firestore/users/userID
+    // ----------
 
     /// check if user pic is file to upload or URL from facebook to keep
     /// TASK : TRANSFORM FACEBOOK PICS TO LOCAL PICS U KNO
     String _userPicURL;
     if (ObjectChecker.objectIsFile(userModel.pic) == true){
       _userPicURL = await Storage.createStoragePicAndGetURL(
-          context: context,
-          inputFile: userModel.pic,
-          fileName: userModel.id,
-          picType: PicType.userPic,
+        context: context,
+        inputFile: userModel.pic,
+        picName: userModel.id,
+        docName: StorageDoc.usersPics,
+        ownerID: userModel.id,
       );
     }
 
@@ -81,10 +91,11 @@ abstract class UserOps{
       if (authBy == AuthBy.facebook || authBy == AuthBy.google ){
         File _picFile = await Imagers.urlToFile(userModel.pic);
         _userPicURL = await Storage.createStoragePicAndGetURL(
-            context: context,
-            inputFile: _picFile,
-            fileName: userModel.id,
-            picType: PicType.userPic,
+          context: context,
+          inputFile: _picFile,
+          picName: userModel.id,
+          docName: StorageDoc.usersPics,
+          ownerID: userModel.id,
         );
       }
 
@@ -126,8 +137,84 @@ abstract class UserOps{
     return _finalUserModel;
 
   }
+// ---------------------------------------------------
+  static Future<Map<String, dynamic>> getOrCreateUserModelFromUser({
+    @required BuildContext context,
+    @required User user,
+    @required ZoneModel zone,
+    @required AuthBy authBy,
+  }) async {
+    // ----------
+    /// E - read user ops if existed
+    ///    Ex - if new user (userModel == null)
+    ///       E1 - create initial user model
+    ///       E2 - create user ops
+    ///       E3 - return new userModel inside userModel-firstTimer map
+    ///    Ex - if user has existing user model
+    ///       E3 - return existing userMode inside userModel-firstTimer map
+    // ----------
+
+    /// E - read user ops if existed
+    final UserModel _existingUserModel = await UserFireOps.readUser(
+      context: context,
+      userID: user.uid,
+    );
+    // print('lng : ${Wordz.languageCode(context)}');
+
+    /// Ex - if new user (userModel == null)
+    if (_existingUserModel == null) {
+
+      // print('lng : ${Wordz.languageCode(context)}');
+
+      /// E1 - create initial user model
+      final UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
+        context: context,
+        user: user,
+        zone: zone,
+        authBy: authBy,
+      );
+      print('googleSignInOps : _initialUserModel : $_initialUserModel');
+
+      /// E2 - create user ops
+      final UserModel _finalUserModel = await UserFireOps.createUser(
+        context: context,
+        userModel: _initialUserModel,
+        authBy: authBy,
+      );
+
+      print('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
+
+      /// E3 - return new userModel inside userModel-firstTimer map
+      return
+
+        {
+          'userModel' : _finalUserModel,
+          'firstTimer' : true,
+        };
+
+    }
+
+    /// Ex - if user has existing user model
+    else {
+
+      /// E3 - return existing userMode inside userModel-firstTimer map
+      return
+        {
+          'userModel' : _existingUserModel,
+          'firstTimer' : false,
+        };
+    }
+
+  }
 // -----------------------------------------------------------------------------
-  static Future<UserModel> readUserOps({@required BuildContext context, @required String userID}) async {
+
+  /// READ
+
+// ---------------------------------------------------
+  static Future<UserModel> readUser({
+    @required BuildContext context,
+    @required String userID
+  }) async {
 
     UserModel _user;
 
@@ -168,24 +255,35 @@ abstract class UserOps{
     //     UserModel.initializeUserModelStreamFromUser); // different syntax than previous snippet
   }
 // -----------------------------------------------------------------------------
-  /// UPDATE USER OPS
-  /// A - if user pic changed
-  ///   A1 - save pic to fireStorage/usersPics/userID and get URL
-  /// B - create final UserModel
-  /// C - update firestore/users/userID
-  static Future<void> updateUserOps({@required BuildContext context, @required UserModel oldUserModel, @required UserModel updatedUserModel}) async {
+
+  /// UPDATE
+
+// ---------------------------------------------------
+  static Future<void> updateUser({
+    @required BuildContext context,
+    @required UserModel oldUserModel,
+    @required UserModel updatedUserModel
+  }) async {
+
+    // ----------
+    /// UPDATE USER OPS
+    /// A - if user pic changed
+    ///   A1 - update pic to fireStorage/usersPics/userID and get new URL
+    /// B - create final UserModel
+    /// C - update firestore/users/userID
+    // ----------
 
     /// A - if user pic changed
     String _userPicURL;
     if (ObjectChecker.objectIsFile(updatedUserModel.pic) == true){
 
-      /// A1 - save pic to fireStorage/usersPics/userID and get URL
-      _userPicURL = await Storage.createStoragePicAndGetURL(
+      /// A1 - update pic to fireStorage/usersPics/userID and get new URL
+      _userPicURL = await Storage.updatePic(
           context: context,
-          inputFile: updatedUserModel.pic,
-          fileName: updatedUserModel.id,
-          picType: PicType.userPic
+          oldURL: oldUserModel.pic,
+          newPic: updatedUserModel.pic,
       );
+
     }
 
     /// B - create final UserModel
@@ -214,30 +312,111 @@ abstract class UserOps{
       followedBzzIDs: updatedUserModel.followedBzzIDs,
     );
 
-    /// C - update firestore/users/userID
-    await _createOrUpdateUserDoc(
+    await Fire.updateDoc(
       context: context,
-      userModel: _finalUserModel,
+      collName: FireColl.users,
+      docName: updatedUserModel.id,
+      input: _finalUserModel.toMap(toJSON: false),
     );
-
 
   }
 // -----------------------------------------------------------------------------
-  /// de activate user account
-  /// A - if dialog result is false return 'stop' - is true start ops as follow :-
-  /// B - if user is author :-
-  ///   C - read And Filter Teamless Bzz By then show its dialog
-  ///   D - check if user wants to continue or not
-  ///   E - show flyers deactivation dialog
-  ///   F - check if user wants to continue or not
-  ///   G - deactivate all deactivable bzz
-  ///   H - change user status in user doc to deactivated
-  ///   J - SIGN OUT
-  ///
-  /// B - if user is not author :-
-  ///   H - change user status in user doc to deactivated
-  ///   J - SIGN OUT
-  static Future<dynamic> deactivateUserOps({@required BuildContext context, @required UserModel userModel}) async {
+  /// returns new pic url
+  static Future<String> updateUserPic({
+    @required BuildContext context,
+    @required String oldURL,
+    @required File newPic,
+    @required String userID,
+  }) async {
+
+    final String _newURL = await Storage.updatePic(context: context, oldURL: oldURL, newPic: newPic);
+
+    await Fire.updateDocField(
+        context: context,
+        collName: FireColl.users,
+        docName: userID,
+        field: 'pic',
+        input: _newURL,
+    );
+
+    return _newURL;
+  }
+// ---------------------------------------------------
+  static Future<void> addFlyerIDToSavedFlyersIDs({
+    @required BuildContext context,
+    @required String flyerID,
+    @required List<String> savedFlyersIDs,
+    @required String userID
+  }) async {
+
+    final List<String> _savedFlyersIDs = [];
+
+    if (Mapper.canLoopList(savedFlyersIDs)){
+      _savedFlyersIDs.addAll(savedFlyersIDs);
+    }
+
+    _savedFlyersIDs.add(flyerID);
+
+    await Fire.updateDocField(
+      context: context,
+      collName: FireColl.users,
+      docName: userID,
+      field: 'savedFlyersIDs',
+      input: _savedFlyersIDs,
+    );
+  }
+// ---------------------------------------------------
+  static Future<void> removeFlyerIDFromSavedFlyersIDs({
+    @required BuildContext context,
+    @required String flyerID,
+    @required String userID,
+    @required List<String> savedFlyersIDs
+  }) async {
+
+
+    final int _index = savedFlyersIDs.indexWhere((id) => id == flyerID);
+
+    if (_index >= 0){
+
+      savedFlyersIDs.remove(flyerID);
+
+      await Fire.updateDocField(
+        context: context,
+        collName: FireColl.users,
+        docName: userID,
+        field: 'savedFlyersIDs',
+        input: savedFlyersIDs,
+      );
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+
+  /// DELETE
+
+// ---------------------------------------------------
+  static Future<dynamic> deactivateUser({
+    @required BuildContext context,
+    @required UserModel userModel,
+  }) async {
+
+    // steps ----------
+    /// de activate user account
+    /// A - if dialog result is false return 'stop' - is true start ops as follow :-
+    /// B - if user is author :-
+    ///   C - read And Filter Teamless Bzz By then show its dialog
+    ///   D - check if user wants to continue or not
+    ///   E - show flyers deactivation dialog
+    ///   F - check if user wants to continue or not
+    ///   G - deactivate all deactivable bzz
+    ///   H - change user status in user doc to deactivated
+    ///   J - SIGN OUT
+    ///
+    /// B - if user is not author :-
+    ///   H - change user status in user doc to deactivated
+    ///   J - SIGN OUT
+    // ----------
 
     /// A - initial bool dialog alert
     final bool _result = await CenterDialog.showCenterDialog(
@@ -275,7 +454,7 @@ abstract class UserOps{
         );
 
         /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
-        final Map<String, dynamic> _userBzzMap = await BzOps.readAndFilterTeamlessBzzByUserModel(
+        final Map<String, dynamic> _userBzzMap = await FireBzOps.readAndFilterTeamlessBzzByUserModel(
           context: context,
           userModel: userModel,
         );
@@ -303,7 +482,7 @@ abstract class UserOps{
         /// D - if user wants to continue
         else  {
 
-          List<FlyerModel> _bzFlyers = await FlyerOps.readBzzFlyers(
+          List<FlyerModel> _bzFlyers = await FireFlyerOps.readBzzFlyers(
             context: context,
             bzzModels: _bzzToDeactivate,
           );
@@ -338,10 +517,10 @@ abstract class UserOps{
 
             /// G - DEACTIVATE all deactivable bzz
             for (var bz in _bzzToDeactivate){
-              await BzOps().deactivateBzOps(
-               context: context,
-               bzModel: bz,
-             );
+              await FireBzOps.deactivateBz(
+                context: context,
+                bzModel: bz,
+              );
             }
 
             /// H - change user status in user doc to deactivated
@@ -355,7 +534,7 @@ abstract class UserOps{
 
 
             ///   J - SIGN OUT
-            await AuthOps().signOut(context: context, routeToUserChecker: false);
+            await FireAuthOps.signOut(context: context, routeToUserChecker: false);
 
             /// CLOSE WAITING DIALOG
             Nav.goBack(context);
@@ -387,7 +566,7 @@ abstract class UserOps{
         CenterDialog.showCenterDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
 
         /// J - SIGN OUT
-        await AuthOps().signOut(context: context, routeToUserChecker: false);
+        await FireAuthOps.signOut(context: context, routeToUserChecker: false);
 
         /// CLOSE WAITING DIALOG
         Nav.goBack(context);
@@ -401,30 +580,35 @@ abstract class UserOps{
     }
 
   }
-// -----------------------------------------------------------------------------
-  /// TASK : CLOUD FUNCTION : delete user ops should trigger a cloud function instead of firing these entire functions from client
-  /// for now this :-
-  /// A - if user stops return 'stop
-  /// A - if user continue :-
-  /// B - if user is Author :-
-  ///   C - read And Filter Teamless Bzz By then show its dialog
-  ///   D - return 'stop' or continue ops
-  ///   E - show flyers that will be DELETED
-  ///   F - return 'stop' or continue ops
-  ///   G - DELETE all deactivable bzz : firestore/bzz/bzID
-  ///   I - DELETE user image : storage/usersPics/userID
-  ///   J - DELETE user doc : firestore/users/userID
-  ///   L - DELETE firebase user : auth/userID
-  ///   K - SIGN OUT
-  ///   M - return 'deleted'
-  ///
-  /// B - if user is not Author
-  ///   I - DELETE user image : storage/usersPics/userID
-  ///   J - DELETE user doc : firestore/users/userID
-  ///   L - DELETE firebase user : auth/userID
-  ///   K - SIGN OUT
-  ///   M - return 'deleted'
-  static Future<dynamic> superDeleteUserOps({@required BuildContext context, @required UserModel userModel}) async {
+// ---------------------------------------------------
+  static Future<dynamic> deleteUser({
+    @required BuildContext context,
+    @required UserModel userModel,
+  }) async {
+    // ----------
+    /// TASK : CLOUD FUNCTION : delete user ops should trigger a cloud function instead of firing these entire functions from client
+    /// for now this :-
+    /// A - if user stops return 'stop
+    /// A - if user continue :-
+    /// B - if user is Author :-
+    ///   C - read And Filter Teamless Bzz By then show its dialog
+    ///   D - return 'stop' or continue ops
+    ///   E - show flyers that will be DELETED
+    ///   F - return 'stop' or continue ops
+    ///   G - DELETE all deactivable bzz : firestore/bzz/bzID
+    ///   I - DELETE user image : storage/usersPics/userID
+    ///   J - DELETE user doc : firestore/users/userID
+    ///   L - DELETE firebase user : auth/userID
+    ///   K - SIGN OUT
+    ///   M - return 'deleted'
+    ///
+    /// B - if user is not Author
+    ///   I - DELETE user image : storage/usersPics/userID
+    ///   J - DELETE user doc : firestore/users/userID
+    ///   L - DELETE firebase user : auth/userID
+    ///   K - SIGN OUT
+    ///   M - return 'deleted'
+    // ----------
 
     /// A - initial bool dialog alert
     final bool _result = await CenterDialog.showCenterDialog(
@@ -461,7 +645,7 @@ abstract class UserOps{
         );
 
         /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
-        final Map<String, dynamic> _userBzzMap = await BzOps.readAndFilterTeamlessBzzByUserModel(
+        final Map<String, dynamic> _userBzzMap = await FireBzOps.readAndFilterTeamlessBzzByUserModel(
           context: context,
           userModel: userModel,
         );
@@ -488,7 +672,7 @@ abstract class UserOps{
         /// D - if user wants to continue
         else {
 
-          final List<FlyerModel> _bzzFlyers = await FlyerOps.readBzzFlyers(
+          final List<FlyerModel> _bzzFlyers = await FireFlyerOps.readBzzFlyers(
             context: context,
             bzzModels: _bzzToDeactivate,
           );
@@ -523,7 +707,7 @@ abstract class UserOps{
 
             /// G - DELETE all deactivable bzz : firestore/bzz/bzID
             for (var bz in _bzzToDeactivate){
-              await BzOps().superDeleteBzOps(
+              await FireBzOps.deleteBz(
                 context: context,
                 bzModel: bz,
               );
@@ -535,8 +719,8 @@ abstract class UserOps{
             print('I - deleting user pic');
             await Storage.deleteStoragePic(
               context: context,
-              picType: PicType.userPic,
-              fileName: userModel.id,
+              docName: StorageDoc.usersPics,
+              picName: userModel.id,
             );
 
             /// J - DELETE user doc : firestore/users/userID
@@ -550,11 +734,14 @@ abstract class UserOps{
             /// L - DELETE firebase user : auth/userID
             print('L - deleting firebase user');
             /// TASK : NEED TO MANAGE IF THIS FAILS
-            await AuthOps().deleteFirebaseUser(context, userModel.id);
+            await FireAuthOps.deleteFirebaseUser(
+                context: context,
+                userID: userModel.id
+            );
 
             /// K - SIGN OUT
             print('K - user is signing out');
-            await AuthOps().signOut(context: context, routeToUserChecker: false);
+            await FireAuthOps.signOut(context: context, routeToUserChecker: false);
 
             /// CLOSE WAITING DIALOG
             Nav.goBack(context);
@@ -587,8 +774,8 @@ abstract class UserOps{
         print('I - deleting user pic');
         await Storage.deleteStoragePic(
           context: context,
-          picType: PicType.userPic,
-          fileName: userModel.id,
+          docName: StorageDoc.usersPics,
+          picName: userModel.id,
         );
 
         /// J - DELETE user doc : firestore/users/userID
@@ -602,11 +789,17 @@ abstract class UserOps{
         /// L - DELETE firebase user : auth/userID
         print('L - deleting firebase user');
         /// TASK : NEED TO MANAGE IF THIS FAILS
-        await AuthOps().deleteFirebaseUser(context, userModel.id);
+        await FireAuthOps.deleteFirebaseUser(
+            context : context,
+            userID : userModel.id
+        );
 
         /// K - SIGN OUT
         print('K - user is signing out');
-        await AuthOps().signOut(context: context, routeToUserChecker: false);
+        await FireAuthOps.signOut(
+            context: context,
+            routeToUserChecker: false
+        );
 
 
         /// CLOSE WAITING DIALOG
@@ -621,111 +814,5 @@ abstract class UserOps{
 
   }
 // -----------------------------------------------------------------------------
-  /// E - read user ops if existed
-  ///    Ex - if new user (userModel == null)
-  ///       E1 - create initial user model
-  ///       E2 - create user ops
-  ///       E3 - return new userModel inside userModel-firstTimer map
-  ///    Ex - if user has existing user model
-  ///       E3 - return existing userMode inside userModel-firstTimer map
-  static Future<Map<String, dynamic>> getOrCreateUserModelFromUser({
-    @required BuildContext context,
-    @required User user,
-    @required ZoneModel zone,
-    @required AuthBy authBy,
-  }) async {
 
-    /// E - read user ops if existed
-    final UserModel _existingUserModel = await UserOps.readUserOps(
-      context: context,
-      userID: user.uid,
-    );
-    // print('lng : ${Wordz.languageCode(context)}');
-
-    /// Ex - if new user (userModel == null)
-    if (_existingUserModel == null) {
-
-      // print('lng : ${Wordz.languageCode(context)}');
-
-      /// E1 - create initial user model
-      final UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
-        context: context,
-        user: user,
-        zone: zone,
-        authBy: authBy,
-      );
-      print('googleSignInOps : _initialUserModel : $_initialUserModel');
-
-      /// E2 - create user ops
-      final UserModel _finalUserModel = await UserOps.createUserOps(
-        context: context,
-        userModel: _initialUserModel,
-        authBy: authBy,
-      );
-
-      print('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
-
-      /// E3 - return new userModel inside userModel-firstTimer map
-      return
-
-        {
-          'userModel' : _finalUserModel,
-          'firstTimer' : true,
-        };
-
-    }
-
-    /// Ex - if user has existing user model
-    else {
-
-      /// E3 - return existing userMode inside userModel-firstTimer map
-      return
-        {
-          'userModel' : _existingUserModel,
-          'firstTimer' : false,
-        };
-    }
-
-  }
-// -----------------------------------------------------------------------------
-  static Future<void> addFlyerIDToSavedFlyersIDs({@required BuildContext context, @required String flyerID, @required List<String> savedFlyersIDs, @required String userID}) async {
-
-    final List<String> _savedFlyersIDs = [];
-
-    if (Mapper.canLoopList(savedFlyersIDs)){
-      _savedFlyersIDs.addAll(savedFlyersIDs);
-    }
-
-    _savedFlyersIDs.add(flyerID);
-
-    await Fire.updateDocField(
-        context: context,
-        collName: FireColl.users,
-        docName: userID,
-        field: 'savedFlyersIDs',
-        input: _savedFlyersIDs,
-    );
-  }
-// -----------------------------------------------------------------------------
-  static Future<void> removeFlyerIDFromSavedFlyersIDs({@required BuildContext context, @required String flyerID, @required String userID, @required List<String> savedFlyersIDs}) async {
-
-
-    final int _index = savedFlyersIDs.indexWhere((id) => id == flyerID);
-
-    if (_index >= 0){
-
-      savedFlyersIDs.remove(flyerID);
-
-      await Fire.updateDocField(
-        context: context,
-        collName: FireColl.users,
-        docName: userID,
-        field: 'savedFlyersIDs',
-        input: savedFlyersIDs,
-      );
-
-    }
-
-  }
-// -----------------------------------------------------------------------------
 }

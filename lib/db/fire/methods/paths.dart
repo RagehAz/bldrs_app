@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/imagers.dart';
-
+// -----------------------------------------------------------------------------
 abstract class FireColl{
+
   static const String users = 'users';
 
   static const String questions = 'questions';
@@ -17,8 +17,9 @@ abstract class FireColl{
   static const String keys = 'keys';
 
 }
-
+// -----------------------------------------------------------------------------
 abstract class FireDoc {
+
   static const String admin_sponsors = 'sponsors';
   static const String admin_statistics = 'statistics';
   static const String admin_appState = 'appState';
@@ -35,8 +36,9 @@ abstract class FireDoc {
   static const String keys_craftsKeywords = 'craftsKeywords';
   static const String keys_productsKeywords = 'productsKeywords';
   static const String keys_equipmentKeywords = 'equipmentKeywords';
-}
 
+}
+// -----------------------------------------------------------------------------
 abstract class FireSubColl {
 
   static const String users_user_asks = 'asks' ;
@@ -62,37 +64,28 @@ abstract class FireSubColl {
   static const String flyers_flyer_reviews = 'reviews';
 
   static const String zones_cities_cities = 'cities';
-}
 
+}
+// -----------------------------------------------------------------------------
 abstract class FireSubDoc{
+
   static const String flyers_flyer_counters_counters = 'counters';
   static const String bzz_bz_counters_counters = 'counters';
   static const String bzz_bz_credits_log = 'log';
   static const String bzz_bz_credits_balance = 'balance';
-}
 
+}
+// -----------------------------------------------------------------------------
 abstract class StorageDoc{
+
   static const String usersPics     = 'usersPics';   /// storage/usersPics/{userID}
-  static const String authorsPics   = 'authorsPics'; /// storage/authorsPics/{userID---bzID}
   static const String bzLogos       = 'bzLogos';     /// storage/authorsPics/{bzID}
   static const String slideHighRes  = 'slidesPics';  /// storage/slidesPics/{flyerID__XX} => XX is two digits for slideIndex
   static const String slideLowRes   = 'slidesPicsLow';  /// not used till now
   static const String dumz          = 'dumz'; /// for testing
   static const String askPics       = 'askPics'; /// not used till now
   static const String notiBanners   = 'notiBanners'; /// storage/notiBanners/{notiID}
-// -----------------------------------------------------------------------------
-  static String docName(PicType picType){
-    switch (picType){
-      case PicType.userPic        :   return   usersPics;     break;
-      case PicType.authorPic      :   return   authorsPics;   break;
-      case PicType.bzLogo         :   return   bzLogos;       break;
-      case PicType.slideHighRes   :   return   slideHighRes;  break;
-      case PicType.slideLowRes    :   return   slideLowRes;   break;
-      case PicType.dum            :   return   dumz;          break;
-      case PicType.askPic         :   return   askPics;       break;
-      case PicType.notiBanner     :   return   notiBanners;   break;
-      default : return   null;
-    }
-  }
-// -----------------------------------------------------------------------------
+  static const String authors       = 'authors';
+
 }
+// -----------------------------------------------------------------------------
