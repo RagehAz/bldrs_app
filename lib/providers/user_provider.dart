@@ -34,7 +34,7 @@ class UsersProvider extends ChangeNotifier {
       print('fetchUserModelByID : UserModel NOT found in local db');
 
       /// 2.1 read firebase UserOps
-      _userModel = await UserOps.readUserOps(
+      _userModel = await UserFireOps.readUser(
         context: context,
         userID: userID,
       );
@@ -105,7 +105,7 @@ class UsersProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   /// USER STREAM
   Stream<UserModel> get myUserModelStream {
-    final CollectionReference _userCollection = UserOps.userCollectionRef();
+    final CollectionReference _userCollection = UserFireOps.collRef();
     final Stream<UserModel> _stream = _userCollection.doc(_myUserModel?.id).snapshots().map(_userModelFromSnapshot);
     return _stream;
   }

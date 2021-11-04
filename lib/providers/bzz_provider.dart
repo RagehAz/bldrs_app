@@ -31,7 +31,7 @@ class BzzProvider extends ChangeNotifier {
       );
 
       if (_map != null && _map != {}){
-        _bz = BzModel.decipherBzMap(
+        _bz = BzModel.decipherBz(
           map: _map,
           fromJSON: true,
         );
@@ -44,7 +44,7 @@ class BzzProvider extends ChangeNotifier {
     if (_bz == null){
 
       /// 2.1 read firebase bz ops
-      _bz = await BzOps.readBzOps(
+      _bz = await FireBzOps.readBz(
         context: context,
         bzID: bzID,
       );

@@ -3,7 +3,7 @@ import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:flutter/cupertino.dart';
 
-abstract class KeywordOps {
+abstract class FireKeywordOps {
 // -----------------------------------------------------------------------------
   static Future<List<KW>> readKeywordsOps({@required BuildContext context}) async {
 

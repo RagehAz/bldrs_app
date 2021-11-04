@@ -1,12 +1,12 @@
 import 'dart:io';
-import 'package:bldrs/controllers/drafters/imagers.dart';
+
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart';
-import 'package:bldrs/db/fire/ops/flyer_ops.dart';
-import 'package:bldrs/db/fire/ops/user_ops.dart';
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/db/fire/methods/storage.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/flyer_ops.dart';
+import 'package:bldrs/db/fire/ops/user_ops.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -15,19 +15,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 /// create, read, update, delete bz doc in cloud firestore
-class BzOps{
-// -----------------------------------------------------------------------------
-  /// bz firestore collection reference
-  final CollectionReference _bzCollectionRef = Fire.getCollectionRef(FireColl.bzz);
-// -----------------------------------------------------------------------------
+abstract class FireBzOps{
+
+  /// REFERENCES
+
+// ------------------------------------------------
   /// bzz firestore collection reference getter
-  CollectionReference bzCollectionRef(){
-    return
-      _bzCollectionRef;
+  static CollectionReference collRef(){
+    return Fire.getCollectionRef(FireColl.bzz);
   }
-// -----------------------------------------------------------------------------
+// ------------------------------------------------
   /// bz firestore document reference
-  DocumentReference bzDocRef(String bzID){
+  static DocumentReference docRef(String bzID){
     return
       Fire.getDocRef(
           collName: FireColl.bzz,
@@ -35,11 +34,15 @@ class BzOps{
       );
   }
 // -----------------------------------------------------------------------------
+
+  /// CREATE
+
+// ------------------------------------------------
   /// create bz operations on firestore
-  Future<BzModel> createBzOps({
-    BuildContext context,
-    BzModel inputBz,
-    UserModel userModel
+  static Future<BzModel> createBz({
+    @required BuildContext context,
+    @required BzModel inputBz,
+    @required UserModel userModel
   }) async {
     // Notes :-
     // inputBz has inputBz.bzLogo & inputBz.authors[0].authorPic as Files not URLs
@@ -56,33 +59,21 @@ class BzOps{
     String _bzLogoURL;
     if (inputBz.logo != null){
       _bzLogoURL = await Storage.createStoragePicAndGetURL(
-          context: context,
-          inputFile: inputBz.logo,
-          fileName: _bzID,
-          picType: PicType.bzLogo
+        context: context,
+        inputFile: inputBz.logo,
+        picName: _bzID,
+        docName: StorageDoc.bzLogos,
+        ownerID: userModel.id,
       );
     }
 
-    /// upload authorPic
-    String _authorPicURL;
-    if(inputBz.authors[0].pic == null){
-      _authorPicURL = userModel.pic;
-    } else {
-      _authorPicURL = await Storage.createStoragePicAndGetURL(
-          context: context,
-          inputFile: inputBz.authors[0].pic,
-          fileName: AuthorModel.generateAuthorPicID(userModel.id, _bzID),
-          picType: PicType.authorPic
-      );
-
-    }
-
+    /// TASK : when user updates his picture name , title or contacts,,, should go update all his AuthorModels in all his bzModels,
     /// update authorModel with _authorPicURL
     final AuthorModel _masterAuthor = AuthorModel(
       userID: userModel.id,
       name: inputBz.authors[0].name,
       title: inputBz.authors[0].title,
-      pic: _authorPicURL,
+      pic: userModel.pic,
       isMaster: true,
       contacts: inputBz.authors[0].contacts,
     );
@@ -143,67 +134,127 @@ class BzOps{
     return _outputBz;
   }
 // -----------------------------------------------------------------------------
-  static Future<BzModel> readBzOps({BuildContext context, String bzID}) async {
+
+  /// READ
+
+// ------------------------------------------------
+  static Future<BzModel> readBz({
+    @required BuildContext context,
+    @required String bzID,
+  }) async {
 
     final dynamic _bzMap = await Fire.readDoc(
         context: context,
         collName: FireColl.bzz,
         docName: bzID
     );
-    final BzModel _bz = BzModel.decipherBzMap(
+    final BzModel _bz = BzModel.decipherBz(
       map: _bzMap,
       fromJSON: false,
     );
 
     return _bz;
   }
-// -----------------------------------------------------------------------------
-  /// 1 - update bzLogo if changed
-  /// 2 - update authorPic if changed
-  Future<BzModel> updateBzOps({
-    BuildContext context,
-    BzModel modifiedBz,
-    BzModel originalBz,
-    File bzLogoFile,
-    File authorPicFile,
+// ------------------------------------------------
+  static Future<dynamic> readAndFilterTeamlessBzzByUserModel({
+    @required BuildContext context,
+    @required UserModel userModel,
   }) async {
+
+    // ----------
+    /// This returns Map<String, dynamic> for which user bzz can he delete
+    /// user can delete his bz only if he is the only author
+    /// 1 - read all user['myBzzIDs'] bzz
+    /// 2 - filters which bz can be deleted and which can not be deleted
+    /// 3 - return {'bzzToKeep' : _bzzToKeep, 'bzzToDeactivate' : _bzzToDeactivate, }
+    // ----------
+
+    final List<BzModel> _bzzToDeactivate = <BzModel>[];
+    final List<BzModel> _bzzToKeep = <BzModel>[];
+    for (var id in userModel.myBzzIDs){
+
+      final BzModel _bz = await FireBzOps.readBz(
+        context: context,
+        bzID: id,
+      );
+
+      if (_bz.authors.length == 1){
+        _bzzToDeactivate.add(_bz);
+      } else{
+        _bzzToKeep.add(_bz);
+      }
+
+    }
+
+    final Map<String, dynamic> _bzzMap = {
+      'bzzToKeep' : _bzzToKeep,
+      'bzzToDeactivate' : _bzzToDeactivate,
+    };
+
+    return _bzzMap;
+
+  }
+// -----------------------------------------------------------------------------
+
+  /// UPDATE
+
+// ------------------------------------------------
+  static Future<BzModel> updateBz({
+    @required BuildContext context,
+    @required BzModel modifiedBz,
+    @required BzModel originalBz,
+    @required File bzLogoFile,
+    @required File authorPicFile,
+  }) async {
+
+    // ----------
+    /// 1 - update bzLogo if changed
+    /// 2 - update authorPic if changed
+    // ----------
+
 
     /// 1 - update bzLogo if changed
     String _bzLogoURL;
     if(bzLogoFile == null) {
       // do Nothing, bzLogo was not changed, will keep as
     } else {
-      _bzLogoURL = await Storage.createStoragePicAndGetURL(
+      _bzLogoURL = await Storage.updatePic(
           context: context,
-          inputFile: bzLogoFile,
-          fileName: originalBz.id,
-          picType: PicType.bzLogo
+          newPic: bzLogoFile,
+          oldURL: originalBz.logo,
       );
 
     }
 
     /// 2 - update authorPic if changed
     final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(modifiedBz, superUserID());
+    final String _authorID = _oldAuthor.userID;
+
     String _authorPicURL;
     if(authorPicFile == null) {
       // do Nothing, author pic was not changed, will keep as
     } else {
 
-      final String _authorID = superUserID();
+      final String _picName = AuthorModel.generateAuthorPicID(
+        authorID: _authorID,
+        bzID: originalBz.id,
+      );
 
       _authorPicURL = await Storage.createStoragePicAndGetURL(
-          context: context,
-          inputFile: authorPicFile,
-          fileName: AuthorModel.generateAuthorPicID(_authorID, originalBz.id),
-          picType: PicType.authorPic,
+        context: context,
+        inputFile: authorPicFile,
+        picName: _picName,
+        docName:  StorageDoc.authors,
+        ownerID: _oldAuthor.userID,
       );
+
     }
 
     /// update authorsList if authorPicChanged
     final AuthorModel _newAuthor = AuthorModel(
-      userID : _oldAuthor.userID,
+      userID : _authorID,
       name : _oldAuthor.name,
-      pic : _authorPicURL ?? originalBz.authors[AuthorModel.getAuthorIndexByAuthorID(originalBz.authors, _oldAuthor.userID)].pic,
+      pic : _authorPicURL ?? originalBz.authors[AuthorModel.getAuthorIndexByAuthorID(originalBz.authors, _authorID)].pic,
       title : _oldAuthor.title,
       isMaster : _oldAuthor.isMaster,
       contacts : _oldAuthor.contacts,
@@ -261,19 +312,25 @@ class BzOps{
     return _finalBz;
   }
 // -----------------------------------------------------------------------------
-  /// this
-  /// 1 - starts deactivate flyer ops for all bz flyers
-  /// 2 - deletes : firestore/tinyBzz/bzID
-  /// 3 - deletes bzID from each author's userModel in : firestore/users/userID['myBzzIDs']
-  /// 4 - triggers : firestore/bzz/bzID['bzAccountIsDeactivated'] to true
-  Future<void> deactivateBzOps({BuildContext context, BzModel bzModel}) async {
+  static Future<void> deactivateBz({
+    @required BuildContext context,
+    @required BzModel bzModel
+  }) async {
+
+    // ----------
+    /// this
+    /// 1 - starts deactivate flyer ops for all bz flyers
+    /// 2 - deletes : firestore/tinyBzz/bzID
+    /// 3 - deletes bzID from each author's userModel in : firestore/users/userID['myBzzIDs']
+    /// 4 - triggers : firestore/bzz/bzID['bzAccountIsDeactivated'] to true
+    // ----------
 
     /// 1 - perform deactivate flyer ops for all flyers
     final List<String> _flyersIDs = bzModel.flyersIDs;
 
     if (_flyersIDs.length > 0){
       for (var id in _flyersIDs){
-        await FlyerOps().deactivateFlyerOps(
+        await FireFlyerOps.deactivateFlyerOps(
           context: context,
           bzModel: bzModel,
           flyerID: id,
@@ -287,7 +344,7 @@ class BzOps{
     final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(_authors);
     for (var id in _authorsIDs){
 
-      final UserModel _user = await UserOps.readUserOps(context: context, userID: id);
+      final UserModel _user = await UserFireOps.readUser(context: context, userID: id);
 
       final List<dynamic> _myBzzIDs = _user.myBzzIDs;
       final int _bzIndex = _myBzzIDs.indexWhere((id) => id == bzModel.id);
@@ -314,16 +371,22 @@ class BzOps{
 
   }
 // -----------------------------------------------------------------------------
-  /// 1 - reads then starts delete flyer ops to all bz flyers
-  /// 2 - deletes : firestore/tinyBzz/bzID
-  /// 3 - deletes bzID from each author's userModel in : firestore/users/userID['myBzzIDs']
-  /// 4 - deletes all docs under : firestore/bzz/bzID/calls
-  /// 5 - deletes all docs under : firestore/bzz/bzID/follows
-  /// 6 - deletes : firestore/bzz/bzID/counters/counters
-  /// 7 - deletes JPG : storage/bzLogos/bzID
-  /// 8 - deletes all JPGs of all bz Authors in : storage/authorsPics/authorID
-  /// 9 - deletes : firestore/bzz/bzID
-  Future<void> superDeleteBzOps({BuildContext context, BzModel bzModel}) async {
+  static Future<void> deleteBz({
+    @required BuildContext context,
+    @required BzModel bzModel
+  }) async {
+
+    // ----------
+    /// 1 - reads then starts delete flyer ops to all bz flyers
+    /// 2 - deletes : firestore/tinyBzz/bzID
+    /// 3 - deletes bzID from each author's userModel in : firestore/users/userID['myBzzIDs']
+    /// 4 - deletes all docs under : firestore/bzz/bzID/calls
+    /// 5 - deletes all docs under : firestore/bzz/bzID/follows
+    /// 6 - deletes : firestore/bzz/bzID/counters/counters
+    /// 7 - deletes JPG : storage/bzLogos/bzID
+    /// 8 - deletes all JPGs of all bz Authors in : storage/authorsPics/authorID
+    /// 9 - deletes : firestore/bzz/bzID
+    // ----------
 
     print('1 - start delete flyer ops for all flyers');
     final List<String> _flyersIDs = bzModel.flyersIDs;
@@ -331,13 +394,13 @@ class BzOps{
       for (var id in _flyersIDs){
 
         print('a - getting flyer : $id');
-        final FlyerModel _flyerModel = await FlyerOps.readFlyerOps(
+        final FlyerModel _flyerModel = await FireFlyerOps.readFlyerOps(
           context: context,
           flyerID: id,
         );
 
         print('b - starting delete flyer ops aho rabbena yostor ------------ - - - ');
-        await FlyerOps().deleteFlyerOps(
+        await FireFlyerOps.deleteFlyerOps(
           context: context,
           bzModel: bzModel,
           flyerModel: _flyerModel,
@@ -351,7 +414,7 @@ class BzOps{
     for (var authorID in _authorsIDs){
 
       print('a - get user model');
-      final UserModel _user = await UserOps.readUserOps(
+      final UserModel _user = await UserFireOps.readUser(
         context: context,
         userID: authorID,
       );
@@ -407,17 +470,24 @@ class BzOps{
     print('10 - delete bz logo');
     await Storage.deleteStoragePic(
       context: context,
-      fileName: bzModel.id,
-      picType: PicType.bzLogo,
+      picName: bzModel.id,
+      docName: StorageDoc.bzLogos,
     );
 
     print('11 - delete all authors pictures');
     for (var id in _authorsIDs){
+
+      final String _authorPicName = AuthorModel.generateAuthorPicID(
+          authorID: id,
+          bzID: bzModel.id
+      );
+
       await Storage.deleteStoragePic(
         context: context,
-        fileName: id,
-        picType: PicType.authorPic,
+        picName: _authorPicName,
+        docName: StorageDoc.authors,
       );
+
     }
 
     print('12 - delete bz doc');
@@ -430,37 +500,5 @@ class BzOps{
     print('DELETE BZ OPS ENDED ---------------------------');
 
   }
-// -----------------------------------------------------------------------------
-  /// This returns Map<String, dynamic> for which user bzz can he delete
-  /// user can delete his bz only if he is the only author
-  /// 1 - read all user['myBzzIDs'] bzz
-  /// 2 - filters which bz can be deleted and which can not be deleted
-  /// 3 - return {'bzzToKeep' : _bzzToKeep, 'bzzToDeactivate' : _bzzToDeactivate, }
-  static Future<dynamic> readAndFilterTeamlessBzzByUserModel({BuildContext context, UserModel userModel}) async {
-    final List<BzModel> _bzzToDeactivate = <BzModel>[];
-    final List<BzModel> _bzzToKeep = <BzModel>[];
-    for (var id in userModel.myBzzIDs){
-
-      final BzModel _bz = await BzOps.readBzOps(
-        context: context,
-        bzID: id,
-      );
-
-      if (_bz.authors.length == 1){
-        _bzzToDeactivate.add(_bz);
-      } else{
-        _bzzToKeep.add(_bz);
-      }
-
-    }
-
-    final Map<String, dynamic> _bzzMap = {
-      'bzzToKeep' : _bzzToKeep,
-      'bzzToDeactivate' : _bzzToDeactivate,
-    };
-
-    return _bzzMap;
-
-}
 // -----------------------------------------------------------------------------
 }

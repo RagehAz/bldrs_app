@@ -50,8 +50,9 @@ class QuestionOps {
   }
 // -----------------------------------------------------------------------------
   static Future<void> createQuestionOps({
-    BuildContext context,
-    QuestionModel question
+    @required BuildContext context,
+    @required QuestionModel question,
+    @required String userID,
   }) async {
 
     List<String> _picsURLs;
@@ -73,6 +74,7 @@ class QuestionOps {
         context: context,
         names: _picsNames,
         pics: question.pics,
+        userID: userID,
       );
 
     }

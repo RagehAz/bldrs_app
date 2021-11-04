@@ -173,7 +173,7 @@ class ZoneProvider extends ChangeNotifier {
 
           /// C-1 - trial 3 if countryID is not available
           if (countryID == null){
-            _foundCities = await FireSearch.citiesByCityName(
+            _foundCities = await FireSearchOps.citiesByCityName(
               context: context,
               cityName: cityName,
               lingoCode: lingoCode,
@@ -182,7 +182,7 @@ class ZoneProvider extends ChangeNotifier {
 
           /// C-1 - trial 3 if countryID is available
           else {
-            _foundCities = await FireSearch.citiesByCityNameAndCountryID(
+            _foundCities = await FireSearchOps.citiesByCityNameAndCountryID(
               context: context,
               cityName: cityName,
               countryID: countryID,

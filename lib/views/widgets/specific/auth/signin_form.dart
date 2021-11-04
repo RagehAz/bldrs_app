@@ -33,7 +33,7 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  final AuthOps _authOps = AuthOps();
+  final FireAuthOps _authOps = FireAuthOps();
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -106,7 +106,11 @@ class _SignInFormState extends State<SignInForm> {
       _triggerLoading();
 
       /// start sign in ops
-      final dynamic _result = await _authOps.emailSignInOps(context, _emailController.text, _passwordController.text);
+      final dynamic _result = await FireAuthOps.emailSignInOps(
+          context: context,
+          email: _emailController.text,
+          password: _passwordController.text,
+      );
 
       /// pop dialog if sign in fails otherwise check user required field then route
       print('_signInOnTap() _result.runtimeType : ${_result.runtimeType} : $_result');

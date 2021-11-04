@@ -1,7 +1,5 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/numeric.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
@@ -21,58 +19,81 @@ class ContactModel{
     };
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, Object>> cipherContactsModels(List<ContactModel> contactsList){
-    final List<Map<String, Object>> listOfMaps = <Map<String,Object>>[];
-    contactsList?.forEach((contact) {
-      listOfMaps.add(contact.toMap());
-    });
-    return listOfMaps;
+  static Map<String, Object> cipherContacts(List<ContactModel> contacts){
+    Map<String, Object> _map = {};
+
+    if (Mapper.canLoopList(contacts)){
+
+      for (ContactModel contact in contacts){
+
+        if (contact.contact != null && contact.contact != ''){
+
+          _map = Mapper.insertPairInMap(
+            map: _map,
+            key: cipherContactType(contact.contactType),
+            value: contact.contact,
+          );
+
+        }
+
+      }
+
+    }
+
+    return _map;
   }
 // -----------------------------------------------------------------------------
-  static ContactModel decipherContactMap(Map<String,dynamic> map){
-    return ContactModel(
-      contact: map['contact'],
-      contactType: decipherContactType(map['contactType']),
-    );
-  }
-// -----------------------------------------------------------------
-  static List<ContactModel> decipherContactsMaps(List<dynamic> maps){
-    final List<ContactModel> contacts = <ContactModel>[];
-    maps?.forEach((map) {
-      contacts.add(decipherContactMap(map));
-    });
-    // print('contacts are $contacts');
-    return contacts;
+  static List<ContactModel> decipherContacts(Map<String, dynamic> maps){
+    final List<ContactModel> _contacts = <ContactModel>[];
+
+    if (maps != null){
+
+      final List<String> _keys = maps.keys.toList();
+
+      if (Mapper.canLoopList(_keys)){
+
+        for (String key in _keys){
+
+          final ContactModel _contact = ContactModel(contact: maps[key], contactType: decipherContactType(key));
+          _contacts.add(_contact);
+
+        }
+
+      }
+
+    }
+
+    return _contacts;
   }
 // -----------------------------------------------------------------------------
-  static ContactType decipherContactType (int contactType){
+  static ContactType decipherContactType (String contactType){
     switch (contactType){
-      case 1:   return  ContactType.phone;      break;
-      case 2:   return  ContactType.email;      break;
-      case 3:   return  ContactType.website;    break;
-      case 4:   return  ContactType.facebook;   break;
-      case 5:   return  ContactType.linkedIn;   break;
-      case 6:   return  ContactType.youtube;    break;
-      case 7:   return  ContactType.instagram;  break;
-      case 8:   return  ContactType.pinterest;  break;
-      case 9:   return  ContactType.tiktok;     break;
-      case 10:  return  ContactType.twitter;    break;
+      case 'phone'      :   return  ContactType.phone;      break;
+      case 'email'      :   return  ContactType.email;      break;
+      case 'website'    :   return  ContactType.website;    break;
+      case 'facebook'   :   return  ContactType.facebook;   break;
+      case 'linkedIn'   :   return  ContactType.linkedIn;   break;
+      case 'youtube'    :   return  ContactType.youtube;    break;
+      case 'instagram'  :   return  ContactType.instagram;  break;
+      case 'pinterest'  :   return  ContactType.pinterest;  break;
+      case 'tiktok'     :   return  ContactType.tiktok;     break;
+      case 'twitter'    :   return  ContactType.twitter;    break;
       default : return   null;
     }
   }
 // -----------------------------------------------------------------------------
-  static int cipherContactType (ContactType contactType){
+  static String cipherContactType (ContactType contactType){
     switch (contactType){
-      case ContactType.phone      :    return  1;  break;
-      case ContactType.email      :    return  2;  break;
-      case ContactType.website    :    return  3;  break;
-      case ContactType.facebook   :    return  4;  break;
-      case ContactType.linkedIn   :    return  5;  break;
-      case ContactType.youtube    :    return  6;  break;
-      case ContactType.instagram  :    return  7;  break;
-      case ContactType.pinterest  :    return  8;  break;
-      case ContactType.tiktok     :    return  9;  break;
-      case ContactType.twitter    :    return  10; break;
+      case ContactType.phone      :    return  'phone';       break;
+      case ContactType.email      :    return  'email';       break;
+      case ContactType.website    :    return  'website';     break;
+      case ContactType.facebook   :    return  'facebook';    break;
+      case ContactType.linkedIn   :    return  'linkedIn';    break;
+      case ContactType.youtube    :    return  'youtube';     break;
+      case ContactType.instagram  :    return  'instagram';   break;
+      case ContactType.pinterest  :    return  'pinterest';   break;
+      case ContactType.tiktok     :    return  'tiktok';      break;
+      case ContactType.twitter    :    return  'twitter';     break;
       default : return null;
     }
   }
@@ -244,61 +265,6 @@ class ContactModel{
     return _userContacts;
   }
 // -----------------------------------------------------------------------------
-  static String _sqlCipherContact({ContactModel contact}){
-    final String _string = '${cipherContactType(contact.contactType)}#${contact.contact}';
-    return _string;
-  }
-// -----------------------------------------------------------------------------
-  static String sqlCipherContacts(List<ContactModel> contacts){
-    final List<String> _strings = <String>[];
-
-    for (ContactModel contact in contacts){
-      _strings.add(_sqlCipherContact(contact: contact));
-    }
-
-    final String _sqlString = TextMod.sqlCipherStrings(_strings);
-
-    return _sqlString;
-  }
-// -----------------------------------------------------------------------------
-  static ContactModel _sqlDecipherContact({String sqlString}){
-    final String _contactTypeString = TextMod.trimTextAfterFirstSpecialCharacter(sqlString, '#');
-    final int _contactTypeInt = Numeric.stringToInt(_contactTypeString);
-    final ContactType _contactType = decipherContactType(_contactTypeInt);
-
-    final String _contactString = TextMod.trimTextBeforeFirstSpecialCharacter(sqlString, '#');
-
-    final ContactModel _contact = ContactModel(
-      contact: _contactString,
-      contactType: _contactType,
-    );
-
-    return _contact;
-  }
-// -----------------------------------------------------------------------------
-  static List<ContactModel> sqlDecipherContacts(String sqlContactsStrings){
-    final List<ContactModel> _contacts = <ContactModel>[];
-
-    if (sqlContactsStrings != null){
-
-      List<String> _sqlContactsStrings = TextMod.sqlDecipherStrings(sqlContactsStrings);
-
-      if (Mapper.canLoopList(_sqlContactsStrings)){
-
-        for (String sqlString in _sqlContactsStrings){
-
-          final ContactModel _contact = _sqlDecipherContact(sqlString: sqlString);
-          _contacts.add(_contact);
-
-        }
-
-      }
-
-    }
-
-    return _contacts;
-  }
-// -----------------------------------------------------------------------------
 
 }
 // -----------------------------------------------------------------------------
@@ -314,3 +280,41 @@ enum ContactType {
   tiktok,
   twitter,
 }
+
+/*
+
+OLD SHIT TO DELETE WHEN TAMAM
+
+// -----------------------------------------------------------------------------
+  static ContactModel oldDecipherContactMap(Map<String,dynamic> map){
+    return ContactModel(
+      contact: map['contact'],
+      contactType: oldDecipherContactType(map['contactType']),
+    );
+  }
+// -----------------------------------------------------------------------------
+  static List<ContactModel> oldDecipherContactsMaps(List<dynamic> maps){
+    final List<ContactModel> contacts = <ContactModel>[];
+    maps?.forEach((map) {
+      contacts.add(oldDecipherContactMap(map));
+    });
+    // print('contacts are $contacts');
+    return contacts;
+  }
+// -----------------------------------------------------------------------------
+  static ContactType oldDecipherContactType (int contactType){
+    switch (contactType){
+      case 1:   return  ContactType.phone;      break;
+      case 2:   return  ContactType.email;      break;
+      case 3:   return  ContactType.website;    break;
+      case 4:   return  ContactType.facebook;   break;
+      case 5:   return  ContactType.linkedIn;   break;
+      case 6:   return  ContactType.youtube;    break;
+      case 7:   return  ContactType.instagram;  break;
+      case 8:   return  ContactType.pinterest;  break;
+      case 9:   return  ContactType.tiktok;     break;
+      case 10:  return  ContactType.twitter;    break;
+      default : return   null;
+    }
+  }
+ */

@@ -210,7 +210,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     print('_onSearchBzz : _searchController.text : ${_searchController.text}');
 
-    final List<BzModel> _bzz = await FireSearch.bzzByBzName(
+    final List<BzModel> _bzz = await FireSearchOps.bzzByBzName(
       context: context,
       bzName: _searchController.text,
     );
@@ -245,7 +245,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<List<SearchResult>> _searchAuthors() async {
     final List<SearchResult> _results = <SearchResult>[];
 
-    List<UserModel> _users = await FireSearch.usersByNameAndIsAuthor(
+    List<UserModel> _users = await FireSearchOps.usersByNameAndIsAuthor(
         context: context,
         name: _searchController.text,
     );
@@ -301,7 +301,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<List<SearchResult>> _searchFlyersByTitle() async {
     final List<SearchResult> _results = <SearchResult>[];
 
-    List<FlyerModel> _flyers = await FireSearch.flyersByZoneAndTitle(
+    List<FlyerModel> _flyers = await FireSearchOps.flyersByZoneAndTitle(
       context: context,
       zone: _zoneProvider.currentZone,
       title: _searchController.text,

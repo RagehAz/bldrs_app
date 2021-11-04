@@ -3,6 +3,7 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class AuthorModel{
   final String userID;
@@ -28,11 +29,60 @@ class AuthorModel{
       'pic' : pic,
       'title' : title,
       'isMaster' : isMaster,
-      'contacts' : ContactModel.cipherContactsModels(contacts),
+      'contacts' : ContactModel.cipherContacts(contacts),
     };
   }
 // -----------------------------------------------------------------------------
-  static int getAuthorGalleryCountFromBzModel({BzModel bzModel, AuthorModel author, List<FlyerModel> bzFlyers}){
+  static Map<String,Object> cipherAuthors(List<AuthorModel> authors){
+    Map<String, dynamic> _map = {};
+
+    if (Mapper.canLoopList(authors)){
+
+      for (AuthorModel author in authors){
+
+        _map = Mapper.insertPairInMap(
+          map: _map,
+          key: author.userID,
+          value: author.toMap(),
+        );
+
+      }
+
+    }
+
+    return _map;
+  }
+// -----------------------------------------------------------------------------
+  static AuthorModel decipherAuthor(Map<String, dynamic> map){
+    return AuthorModel(
+      userID : map['userID'],
+      name : map['name'],
+      pic : map['pic'],
+      title : map['title'],
+      isMaster : map['isMaster'],
+      contacts : ContactModel.decipherContacts(map['contacts']),
+    );
+  }
+// -----------------------------------------------------------------------------
+  static List<AuthorModel> decipherAuthors(Map<String, dynamic> maps){
+    final List<AuthorModel> _authors = <AuthorModel>[];
+
+    final List<String> _keys = maps.keys.toList();
+
+    if (Mapper.canLoopList(_keys)){
+
+      for (String key in _keys){
+
+        AuthorModel _author = decipherAuthor(maps[key]);
+        _authors.add(_author);
+      }
+
+    }
+
+    return _authors;
+  }
+// -----------------------------------------------------------------------------
+  static int getAuthorGalleryCountFromBzModel({@required BzModel bzModel, @required  AuthorModel author, @required  List<FlyerModel> bzFlyers}){
     final String _authorID = author.userID;
 
     final List<String> _authorFlyersIDs = <String>[];
@@ -46,45 +96,6 @@ class AuthorModel{
     int _authorGalleryCount = _authorFlyersIDs.length;
 
     return _authorGalleryCount;
-}
-// -----------------------------------------------------------------------------
-  static AuthorModel decipherBzAuthorMap(dynamic map){
-    return AuthorModel(
-      userID : map['userID'],
-      name : map['name'],
-      pic : map['pic'],
-      title : map['title'],
-      isMaster : map['isMaster'],
-      contacts : ContactModel.decipherContactsMaps(map['contacts']),
-    );
-  }
-// -----------------------------------------------------------------------------
-  static List<AuthorModel> decipherBzAuthorsMaps(List<dynamic> maps){
-    final List<AuthorModel> _authorsList = <AuthorModel>[];
-
-    if (Mapper.canLoopList(maps)){
-
-      maps.forEach((map) {
-        _authorsList.add(decipherBzAuthorMap(map));
-      });
-
-    }
-
-    return _authorsList;
-  }
-// -----------------------------------------------------------------------------
-  static List<Map<String,Object>> cipherAuthorsModels(List<AuthorModel> authors){
-    final List<Map<String,Object>> listOfAuthorsMaps = <Map<String,Object>>[];
-
-    if (Mapper.canLoopList(authors)){
-
-      authors?.forEach((author) {
-        listOfAuthorsMaps.add(author.toMap());
-      });
-
-    }
-
-    return listOfAuthorsMaps;
   }
 // -----------------------------------------------------------------------------
   static AuthorModel getAuthorFromBzByAuthorID(BzModel bz, String authorID){
@@ -125,7 +136,7 @@ class AuthorModel{
     return _currentAuthorIndex;
   }
 // -----------------------------------------------------------------------------
-  static BzModel replaceAuthorModelInBzModel({BzModel bzModel, AuthorModel oldAuthor, AuthorModel newAuthor}){
+  static BzModel replaceAuthorModelInBzModel({@required BzModel bzModel, @required AuthorModel oldAuthor, @required AuthorModel newAuthor}){
 
     final List<AuthorModel> _modifiedAuthorsList =
     replaceAuthorModelInAuthorsList(
@@ -170,7 +181,7 @@ class AuthorModel{
     );
   }
 // -----------------------------------------------------------------------------
-  static List<AuthorModel> replaceAuthorModelInAuthorsList({List<AuthorModel> originalAuthors, AuthorModel oldAuthor, AuthorModel newAuthor}){
+  static List<AuthorModel> replaceAuthorModelInAuthorsList({@required List<AuthorModel> originalAuthors, @required AuthorModel oldAuthor, @required AuthorModel newAuthor}){
     List<AuthorModel> _modifiedAuthorsList;
     final List<AuthorModel> _originalAuthors = originalAuthors;
     final int _indexOfOldAuthor = getAuthorIndexByAuthorID(_originalAuthors, oldAuthor.userID);
@@ -186,7 +197,7 @@ class AuthorModel{
     return _modifiedAuthorsList;
   }
 // -----------------------------------------------------------------------------
-  static List<String> replaceAuthorIDInAuthorsIDsList({List<AuthorModel> originalAuthors, AuthorModel oldAuthor, AuthorModel newAuthor}){
+  static List<String> replaceAuthorIDInAuthorsIDsList({@required List<AuthorModel> originalAuthors, @required AuthorModel oldAuthor, @required AuthorModel newAuthor}){
     List<String> _modifiedAuthorsIDsList;
     final List<String> _originalAuthorsIDs = getAuthorsIDsFromAuthors(originalAuthors);
     print('getAuthorsIDsFromAuthors : _originalAuthorsIDs : $_originalAuthorsIDs');
@@ -213,12 +224,12 @@ class AuthorModel{
     return _authorsIDs;
   }
 // -----------------------------------------------------------------------------
-  static String generateAuthorPicID(String authorID, String bzID){
+  static String generateAuthorPicID({@required String authorID, @required String bzID}){
     final String _authorPicID = '$authorID---$bzID';
     return _authorPicID;
   }
 // -----------------------------------------------------------------------------
-  static AuthorModel getAuthorModelFromUserModel({UserModel userModel}){
+  static AuthorModel getAuthorModelFromUserModel({@required UserModel userModel}){
     final AuthorModel _author = AuthorModel(
       userID : userModel.id,
       name : userModel.name,

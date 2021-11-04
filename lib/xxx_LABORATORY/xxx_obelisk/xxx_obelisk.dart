@@ -78,7 +78,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           color: _isSignedIn ? Colorz.green255 : Colorz.grey80,
           verseScaleFactor: 0.6,
           verseColor: _isSignedIn ? Colorz.white255 : Colorz.darkGrey225,
-          onTap: () => AuthOps().signOut(context: context, routeToUserChecker: true),
+          onTap: () => FireAuthOps.signOut(context: context, routeToUserChecker: true),
         ),
 
         /// SPACER
