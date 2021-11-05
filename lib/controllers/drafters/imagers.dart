@@ -48,6 +48,7 @@ abstract class Imagers{
 // ---------------------------------------------------
   static Future<File> takeGalleryPicture({@required PicType picType}) async {
     final _picker = ImagePicker();
+    File _result;
 
     final XFile _imageFile = await _picker.pickImage(
       source: ImageSource.gallery,
@@ -56,7 +57,10 @@ abstract class Imagers{
       // maxHeight: concludeImageMaxHeight(picType)
     );
 
-    final File _result = _imageFile != null ? File(_imageFile.path) : null;
+    if (_imageFile != null){
+      _result = File(_imageFile.path);
+    }
+
 
     return _result;
   }

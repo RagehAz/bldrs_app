@@ -411,20 +411,6 @@ class FlyerModel with ChangeNotifier{
       return _hasTheID;
   }
 // -----------------------------------------------------------------------------
-  /// TASK : temp : delete me after ur done
-  static String fixFlyerStateFromIntToString (int x){
-    switch (x){
-      case 1 :   return  'published'  ;   break;  // 1
-      case 2 :   return  'draft'      ;   break;  // 2
-      case 3 :   return  'deleted'    ;   break;  // 3
-      case 4 :   return  'unpublished';   break;  // 4
-      case 5 :   return  'banned'     ;   break;  // 5
-      case 6 :   return  'verified'   ;   break;  // 6
-      case 7 :   return  'suspended'  ;   break;  // 7
-      default : return   null;
-    }
-  }
-// -----------------------------------------------------------------------------
   static FlyerModel getFlyerFromFlyersByID({List<FlyerModel> flyers, String flyerID}){
     final FlyerModel _flyer = flyers.singleWhere((tinyFlyer) => tinyFlyer.id == flyerID, orElse: () => null);
     return _flyer;
@@ -484,7 +470,7 @@ class FlyerModel with ChangeNotifier{
       id : '2fDlDyF01sw8GEYPJ9GN',
       title: 'Dummy Flyer',
       trigram: TextGen.createTrigram(input: 'Dummy Flyer'),
-      authorID: 'r1dqipDtBmRzK6HzL8Ug2vmcYVl1',
+      authorID: 'Svj0ln7UtoMtHKfZiPhzTSPejr52',
       flyerType : FlyerType.rentalProperty,
       flyerState : FlyerState.published,
       keywordsIDs : [],
