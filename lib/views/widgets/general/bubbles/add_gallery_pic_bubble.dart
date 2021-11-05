@@ -130,7 +130,6 @@ class AddGalleryPicBubble extends StatelessWidget {
                   loading: false,
                   pic: pic,
                   userStatus : UserStatus.searching,
-
                 )
                     :
                 DreamBox(
