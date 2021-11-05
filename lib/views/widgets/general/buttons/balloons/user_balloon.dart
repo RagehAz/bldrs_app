@@ -181,15 +181,18 @@ class BalloonComponents extends StatelessWidget {
 
   const BalloonComponents({
     @required this.balloonWidth,
-    @required this.balloonColor,
+    this.balloonColor,
     @required this.blackAndWhite,
-    @required this.loading,
+    this.loading = false,
     @required this.pic,
     @required this.child,
 });
 
   @override
   Widget build(BuildContext context) {
+
+    final Color _balloonColor = pic == null ? balloonColor : null;
+
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
@@ -199,15 +202,19 @@ class BalloonComponents extends StatelessWidget {
           // color: Colorz.Yellow,
             width: balloonWidth,
             height: balloonWidth,
-            color: balloonColor,
+            color: _balloonColor,
             child: ColorFiltered(
                 colorFilter: Colorizer.superDesaturation(blackAndWhite),
                 child:
-                loading ?
+                loading == true?
                 Loading(loading: loading,)
                     :
-                balloonColor == null?
-                SuperImage(pic)
+                _balloonColor == null ?
+                SuperImage(pic,
+                  width: balloonWidth,
+                  height: balloonWidth,
+                  fit: BoxFit.cover,
+                )
                     :
                 Container()
             )
