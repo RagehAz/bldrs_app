@@ -19,6 +19,7 @@ import 'package:bldrs/views/widgets/general/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/views/widgets/general/images/super_image.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -153,12 +154,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (_canPickImage == true){
       _canPickImage = false;
 
-      final _imageFile = await Imagers.takeGalleryPicture(picType: PicType.userPic);
+      print('getting the pic');
 
-      setState(() {
-        _currentPicFile = _imageFile;
-        _canPickImage = true;
-      });
+      final File _imageFile = await Imagers.takeGalleryPicture(picType: PicType.userPic);
+
+      print('we got the pic in : ${_imageFile.path}');
+
+      if (_imageFile == null){
+
+        setState(() {
+          _currentPicFile = null;
+          _canPickImage = true;
+        });
+
+      }
+
+      else {
+
+        setState(() {
+          _currentPicFile = _imageFile;
+          _canPickImage = true;
+        });
+
+      }
+
 
     }
   }
@@ -441,7 +460,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             const Stratosphere(),
 
             AddGalleryPicBubble(
-              pic: _currentPicFile == null ? _currentPicURL : _currentPicFile,
+              pic: _currentPicFile?? _currentPicURL,
               addBtFunction: _takeGalleryPicture,
               deletePicFunction: _deleteLogo,
               bubbleType: BubbleType.userPic,

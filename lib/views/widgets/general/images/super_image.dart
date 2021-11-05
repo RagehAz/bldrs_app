@@ -22,7 +22,7 @@ class SuperImage extends StatelessWidget {
         this.width,
         this.height,
         this.fit,
-        this.scale,
+        this.scale = 1,
         this.iconColor,
       });
 
@@ -49,13 +49,12 @@ class SuperImage extends StatelessWidget {
     // int _width = fit == BoxFit.fitWidth ? width : null;
     // int _height = fit == BoxFit.fitHeight ? height : null;
     // Asset _asset = ObjectChecker.objectIsAsset(pic) == true ? pic : null;
-    final double _scale = scale == null ? 1 : scale;
     final Color _iconColor = iconColor == null ? null : iconColor;
 
     return
       pic == null ? null :
       Transform.scale(
-        scale: _scale,
+        scale: scale,
         child:
         ObjectChecker.objectIsJPGorPNG(pic)?
         Image.asset(pic, fit: _boxFit)
