@@ -291,7 +291,7 @@ class FireFlyerOps{
           /// a - upload File to fireStorage/slidesPics/slideID and get URL
           final String _newPicURL = await Storage.createStoragePicAndGetURL(
             context: context,
-            docName: StorageDoc.slideHighRes,
+            docName: StorageDoc.slides,
             picName: SlideModel.generateSlideID(updatedFlyer.id, slide.slideIndex),
             inputFile: slide.pic,
             ownerID: originalFlyer.authorID,
@@ -357,7 +357,7 @@ class FireFlyerOps{
       for (var slideID in _slidesIDsToBeDeleted){
         await Storage.deleteStoragePic(
           context: context,
-          docName: StorageDoc.slideHighRes,
+          docName: StorageDoc.slides,
           picName: slideID,
         );
       }
@@ -532,7 +532,7 @@ class FireFlyerOps{
       await Storage.deleteStoragePic(
         context: context,
         picName: id,
-        docName: StorageDoc.slideHighRes,
+        docName: StorageDoc.slides,
       );
 
     }

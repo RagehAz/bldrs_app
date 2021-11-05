@@ -1,10 +1,10 @@
 import 'package:bldrs/controllers/drafters/colorizers.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
-import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/clip_shadow_path.dart';
+import 'package:bldrs/views/widgets/general/images/super_image.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

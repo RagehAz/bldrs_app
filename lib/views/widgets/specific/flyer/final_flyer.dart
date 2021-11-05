@@ -1503,7 +1503,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             }
 
             else {
-              final File _newFile = await Imagers.getFileFromAsset(_newAsset);
+              final File _newFile = await Imagers.getFileFromPickerAsset(_newAsset);
 
               final MutableSlide _mutableSlide = MutableSlide(
                 slideIndex: i,
@@ -1820,7 +1820,10 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       _triggerLoading();
 
-      final File croppedFile = await Imagers.cropImage(context, _superFlyer.mSlides[_superFlyer.currentSlideIndex].picFile);
+      final File croppedFile = await Imagers.cropImage(
+          context: context,
+          file: _superFlyer.mSlides[_superFlyer.currentSlideIndex].picFile
+      );
 
       if (croppedFile != null) {
         setState(() {
@@ -1839,7 +1842,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     if(_superFlyer.mSlides.isNotEmpty){
 
       if(_superFlyer.mSlides[_superFlyer.currentSlideIndex].picAsset != null){
-        final File _file = await Imagers.getFileFromAsset(_superFlyer.mSlides[_superFlyer.currentSlideIndex].picAsset);
+        final File _file = await Imagers.getFileFromPickerAsset(_superFlyer.mSlides[_superFlyer.currentSlideIndex].picAsset);
 
         setState(() {
           _superFlyer.mSlides[_superFlyer.currentSlideIndex].picFile = _file;

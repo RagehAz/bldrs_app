@@ -1,20 +1,12 @@
-import 'dart:io';
 
-import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/dashboard/exotic_methods.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/db/fire/methods/firestore.dart';
-import 'package:bldrs/db/fire/methods/paths.dart';
-import 'package:bldrs/db/fire/methods/storage.dart';
-import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/ui_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -101,6 +93,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
     _counter.value += 3;
   }
 // -----------------------------------------------------------------------------
+//   File _file;
 
   @override
   Widget build(BuildContext context) {
@@ -217,169 +210,54 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
                   }
                   ),
 
+              /// DON SOMETHING
               WideButton(
                   color: Colorz.bloodTest,
-                  verse: 'Get',
+                  verse: 'Do Something',
                   icon: Iconz.Share,
                   onTap: () async {
 
                     _triggerLoading();
-
-                    final Reference _picRef  = Storage.getRef(
-                        context: context,
-                        docName: StorageDoc.dumz,
-                        picName: 'icon',
-                    );
-
-                    print(_picRef);
-
-                    FullMetadata _meta = await _picRef.getMetadata();
-
-                    print('meta : ${_meta.customMetadata}');
-
-                    Mapper.printMap(_meta.customMetadata);
 
                     _triggerLoading();
 
                   }
               ),
 
-              WideButton(
-                  color: Colorz.bloodTest,
-                  verse: 'update',
-                  icon: Iconz.Share,
-                  onTap: () async {
-
-                    _triggerLoading();
-
-                    final Reference _picRef  = Storage.getRef(
-                      context: context,
-                      docName: StorageDoc.dumz,
-                      picName: 'icon',
-                    );
-                    //
-                    // print(_picRef);
-                    //
-                    // final SettableMetadata metaData = SettableMetadata(
-                    //     customMetadata:
-                    //     {
-                    //       'thing': 'hahaha',
-                    //       'dog': 'roukie'
-                    //     }
-                    // );
-                    //
-                    // Uint8List _data = await Imagers.getBytesFromLocalRasterAsset(
-                    //   asset: Iconz.DumSlide1,
-                    //   width: 50,
-                    // );
-
-                    // _picRef.bucket.
-
-                    // FullMetadata _meta = await _picRef.getMetadata();
-
-                    // print('meta : ${_meta}');
-
-
-                    FullMetadata metadata = await _picRef.getMetadata();
-
-                    Mapper.printMap(metadata.customMetadata);
-
-                    FullMetadata metadatax = await _picRef.updateMetadata(
-                        SettableMetadata(
-                          contentType: 'sexy/jpg',
-                          customMetadata: {
-                            'a77a' : 'fuck you bitch',
-                          },
-                        )
-                    );
-
-                    Mapper.printMap(metadatax.customMetadata);
-
-
-                    _triggerLoading();
-
-                  }
-              ),
-
-              WideButton(
-                  color: Colorz.bloodTest,
-                  verse: 'fix users pics',
-                  icon: Iconz.Share,
-                  onTap: () async {
-
-                    _triggerLoading();
-
-                    // final List<BzModel> _allModel = await ExoticMethods.readAllBzzModels(context: context, limit: 500);
-                    final List<UserModel> _allModel = await ExoticMethods.readAllUserModels(limit: 400);
-
-                    for (var model in _allModel){
-
-                      String _url = model.pic;
-
-                      final File _file = await Storage.getFileFromPicURL(
-                        context: context,
-                        url: _url,
-                      );
-
-                      final String _newURL = await Storage.createStoragePicAndGetURL(
-                        context: context,
-                        inputFile: _file,
-                        docName: 'users',
-                        picName: model.id,
-                        ownerID: model.id,
-                      );
-
-                      await Fire.updateDocField(
-                          context: context,
-                          collName: FireColl.users,
-                          docName: model.id,
-                          field: 'pic',
-                          input: _newURL,
-                      );
-
-                    }
-
-                    // final Reference _picRef  = Storage.getRef(
-                    //   context: context,
-                    //   docName: StorageDoc.dumz,
-                    //   fileName: 'icon',
-                    // );
-
-                    //
-                    // print(_picRef);
-                    //
-                    // final SettableMetadata metaData = SettableMetadata(
-                    //     customMetadata:
-                    //     {
-                    //       'thing': 'hahaha',
-                    //       'dog': 'roukie'
-                    //     }
-                    // );
-                    //
-                    // Uint8List _data = await Imagers.getBytesFromLocalRasterAsset(
-                    //   asset: Iconz.DumSlide1,
-                    //   width: 50,
-                    // );
-
-                    // _picRef.bucket.
-
-                    // FullMetadata _meta = await _picRef.getMetadata();
-
-                    // print('meta : ${_meta}');
-
-
-                    // FullMetadata metadata = await _picRef.getMetadata();
-                    //
-                    // Mapper.printMap(metadata.customMetadata);
-                    //
-                    //
-                    //
-                    // Mapper.printMap(metadatax.customMetadata);
-
-                    _triggerLoading();
-
-                  }
-              ),
+              /// MANIPULATE LOCAL ASSETS TESTING
+              // GestureDetector(
+              //   onTap: () async {
+              //
+              //     _triggerLoading();
+              //
+              //     File file = await Imagers.getFileFromLocalRasterAsset(
+              //       context: context,
+              //       width: 200,
+              //       localAsset: Iconz.BldrsAppIcon,
+              //     );
+              //
+              //     if (file != null){
+              //       setState(() {
+              //         _file = file;
+              //       });
+              //
+              //     }
+              //
+              //     _triggerLoading();
+              //   },
+              //   child: Container(
+              //     width: 100,
+              //     height: 100,
+              //     color: Colorz.facebook,
+              //     alignment: Alignment.center,
+              //     child: SuperImage(
+              //       _file ?? Iconz.DumAuthorPic,
+              //       width: 100,
+              //       height: 100,
+              //
+              //     ),
+              //   ),
+              // ),
 
             ],
           ),

@@ -67,7 +67,7 @@ class MutableSlide {
   }
 // -----------------------------------------------------------------------------
   static Future<MutableSlide> getDraftMutableSlideFromSlideModel(SlideModel slide) async {
-    final File _file = await Imagers.urlToFile(slide.pic);
+    final File _file = await Imagers.getFileFromURL(slide.pic);
     return
       MutableSlide(
         slideIndex : slide.slideIndex,
