@@ -4,7 +4,6 @@ import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/kw/kw.dart';
-import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:flutter/material.dart';
 
@@ -27,10 +26,10 @@ class SearchResultWall extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
 
-    const double _buttonHeight = 60;
-    final double _buttonWidth = _screenWidth - Ratioz.appBarMargin * 2;
-    const double _bzButtonMargin = Ratioz.appBarPadding;
-    final double _clearDialogWidth = BottomDialog.dialogClearWidth(context);
+    // const double _buttonHeight = 60;
+    // final double _buttonWidth = _screenWidth - Ratioz.appBarMargin * 2;
+    // const double _bzButtonMargin = Ratioz.appBarPadding;
+    // final double _clearDialogWidth = BottomDialog.dialogClearWidth(context);
 
     return Container(
       width: _screenWidth,

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
@@ -65,13 +66,13 @@ class ImageSize{
       final bool _isUints = ObjectChecker.objectIsUint8List(image) == true;
       // print('_isUints : $_isUints');
       // -----------------------------------------------------------o
-      var _decodedImage;
+      ui.Image _decodedImage;
       Uint8List _uInt8List;
       // -----------------------------------------------------------o
       if (_isURL == true) {
-        final File _file = await Imagers.urlToFile(image);
+        final File _file = await Imagers.getFileFromURL(image);
         _uInt8List = await _file.readAsBytesSync();
-        _decodedImage = await Imagers.decodeUint8List(_uInt8List);
+        _decodedImage = await Imagers.getUiImageFromUint8List(_uInt8List);
       }
       // --------------------------o
       else if(_isAsset == true){
@@ -85,18 +86,18 @@ class ImageSize{
         // print('_isFile staring aho : $_isFile');
         _uInt8List = await image.readAsBytesSync();
         // print('_uInt8List : $_uInt8List');
-        _decodedImage = await Imagers.decodeUint8List(_uInt8List);
+        _decodedImage = await Imagers.getUiImageFromUint8List(_uInt8List);
         // print('_decodedImage : $_decodedImage');
       }
       // --------------------------o
       else if (_isUints == true) {
-        _decodedImage = await Imagers.decodeUint8List(image);
+        _decodedImage = await Imagers.getUiImageFromUint8List(image);
       }
       // -----------------------------------------------------------o
       if (_decodedImage != null){
         _imageSize = ImageSize(
-          width: _decodedImage.bubbleWidth.toDouble(), // was _decodedImage.size.toDouble() I don't know why,, needs a test
-          height: _decodedImage.collapsedHeight.toDouble(),
+          width: _decodedImage.width.toDouble(), // was _decodedImage.size.toDouble() I don't know why,, needs a test
+          height: _decodedImage.height.toDouble(),
         );
       }
       // -----------------------------------------------------------o
@@ -171,5 +172,9 @@ class ImageSize{
     return _imageSize;
   }
 // -----------------------------------------------------------------------------
+  static double concludeHeightByGraphicSizes({@required double width, @required double graphicWidth, @required double graphicHeight}){
+    /// height / width = graphicHeight / graphicWidth
+    return (graphicHeight * width) / graphicWidth;
+  }
 
 }

@@ -167,7 +167,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _attachGalleryPicture() async {
-    File _pic = await Imagers.takeGalleryPicture(PicType.slideHighRes);
+    File _pic = await Imagers.takeGalleryPicture(picType: PicType.slideHighRes);
 
     print('pic is : $_pic');
 
@@ -175,7 +175,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     print('_picSize is : W ${_picSize.width} x H ${_picSize.height}');
 
-    final double _picViewHeight = Imagers.concludeHeightByGraphicSizes(
+    final double _picViewHeight = ImageSize.concludeHeightByGraphicSizes(
       width: NotificationCard.bodyWidth(context),
       graphicWidth: _picSize.width,
       graphicHeight: _picSize.height,

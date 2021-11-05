@@ -153,7 +153,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (_canPickImage == true){
       _canPickImage = false;
 
-      final _imageFile = await Imagers.takeGalleryPicture(PicType.userPic);
+      final _imageFile = await Imagers.takeGalleryPicture(picType: PicType.userPic);
 
       setState(() {
         _currentPicFile = _imageFile;

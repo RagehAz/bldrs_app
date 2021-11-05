@@ -18,7 +18,6 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:bldrs/models/secondary_models/image_size.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -29,10 +28,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:websafe_svg/websafe_svg.dart';
 
-
-// -----------------------------------------------------------------------------
 enum PicType{
   userPic,
   authorPic,
@@ -43,85 +39,49 @@ enum PicType{
   askPic,
   notiBanner,
 }
-// -----------------------------------------------------------------------------
+
 abstract class Imagers{
 // -----------------------------------------------------------------------------
-  static int concludeImageQuality(PicType picType){
-  switch (picType){
-    case PicType.userPic      :  return  100   ;  break;
-    case PicType.authorPic    :  return  100   ;  break;
-    case PicType.bzLogo       :  return  100   ;  break;
-    case PicType.slideHighRes :  return  100  ;  break;
-    case PicType.slideLowRes  :  return  80   ;  break;
-    case PicType.dum          :  return  100  ;  break;
-    case PicType.askPic       :  return  100  ;  break;
-    case PicType.notiBanner   :  return  100  ; break;
-    default : return   100;
-}
-}
-// -----------------------------------------------------------------------------
-  static double concludeImageMaxWidth(PicType picType){
-  switch (picType){
-    case PicType.userPic      :  return  150   ;  break;
-    case PicType.authorPic    :  return  150   ;  break;
-    case PicType.bzLogo       :  return  150   ;  break;
-    case PicType.slideHighRes :  return  1000  ;  break;
-    case PicType.slideLowRes  :  return  150   ;  break;
-    case PicType.dum          :  return  null  ;  break;
-    case PicType.askPic       :  return  null  ;  break;
-    default : return   200;
+
+  /// PHONE GALLERY
+
+// ---------------------------------------------------
+  static Future<File> takeGalleryPicture({@required PicType picType}) async {
+    final _picker = ImagePicker();
+
+    final XFile _imageFile = await _picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: concludeImageQuality(picType),
+      maxWidth: concludeImageMaxWidth(picType),
+      // maxHeight: concludeImageMaxHeight(picType)
+    );
+
+    final File _result = _imageFile != null ? File(_imageFile.path) : null;
+
+    return _result;
   }
-}
-// -----------------------------------------------------------------------------
-  ///
-// double concludeImageMaxHeight(PicType picType){
-//   switch (picType){
-//     case PicType.userPic      :   return  150   ;     break;
-//     case PicType.authorPic    :   return  200   ;     break;
-//     case PicType.bzLogo       :   return  400   ;     break;
-//     case PicType.slideHighRes :   return  800   ;     break;
-//     case PicType.slideLowRes  :   return  400   ;     break;
-//     default : return   null;
-//   }
-// }
-  ///
-// -----------------------------------------------------------------------------
-  /// secret sacred code that will fix the world someday
-  /// final _appDir = await sysPaths.getApplicationDocumentsDirectory();
-  /// final _fileName = path.basename(_imageFile.path);
-  /// final _savedImage = await _currentPic.copy('${_appDir.path}/$_fileName');
-  /// _selectImage(savedImage);
-  static Future<File> takeGalleryPicture(PicType picType) async {
-  final _picker = ImagePicker();
+// ---------------------------------------------------
+  static Future<File> takeCameraPicture({@required PicType picType}) async {
+    final _picker = ImagePicker();
 
-  final XFile _imageFile = await _picker.pickImage(
-    source: ImageSource.gallery,
-    imageQuality: concludeImageQuality(picType),
-    maxWidth: concludeImageMaxWidth(picType),
-    // maxHeight: concludeImageMaxHeight(picType)
-  );
+    final XFile _imageFile = await _picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: concludeImageQuality(picType),
+      maxWidth: concludeImageMaxWidth(picType),
+      // maxHeight: concludeImageMaxHeight(picType)
+    );
 
-  final File _result = _imageFile != null ? File(_imageFile.path) : null;
+    final File _result = _imageFile != null ? File(_imageFile.path) : null;
 
-  return _result;
-}
-// -----------------------------------------------------------------------------
-  static Future<File> takeCameraPicture(PicType picType) async {
-  final _picker = ImagePicker();
-
-  final XFile _imageFile = await _picker.pickImage(
-    source: ImageSource.camera,
-    imageQuality: concludeImageQuality(picType),
-    maxWidth: concludeImageMaxWidth(picType),
-    // maxHeight: concludeImageMaxHeight(picType)
-  );
-
-  final File _result = _imageFile != null ? File(_imageFile.path) : null;
-
-  return _result;
-}
-// -----------------------------------------------------------------------------
-  static Future<List<Asset>> takeGalleryMultiPictures({@required BuildContext context, @required List<Asset> images, @required bool mounted, @required BzAccountType accountType}) async {
+    return _result;
+  }
+// ---------------------------------------------------
+  static Future<List<Asset>> takeGalleryMultiPictures({
+    @required BuildContext context,
+    @required List<Asset> images,
+    @required bool mounted,
+    @required BzAccountType accountType,
+  }) async {
     List<Asset> _resultList = <Asset>[];
     String _error = 'No Error Detected';
 
@@ -178,242 +138,11 @@ abstract class Imagers{
     }
 
   }
-// -----------------------------------------------------------------------------
-  static Future<dynamic> decodeUint8List(Uint8List uInt) async {
-    var _decodedImage;
-
-    if(uInt != null){
-      _decodedImage= await decodeImageFromList(uInt);
-    }
-
-    return _decodedImage;
-  }
-// -----------------------------------------------------------------------------
-  static Future<Uint8List> getBytesFromLocalRasterAsset({@required String asset, @required int width}) async {
-    final ByteData _byteData = await rootBundle.load(asset);
-
-
-    final ui.Codec _codec = await ui.instantiateImageCodec(_byteData.buffer.asUint8List(), targetWidth: width);
-    final ui.FrameInfo _fi = await _codec.getNextFrame();
-    final Uint8List _result = (await _fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
-    return _result;
-  }
-// -----------------------------------------------------------------------------
-  static Future<Uint8List> getBytesFromCanvas(int width, int height,String urlAsset) async {
-
-  final ui.PictureRecorder _pictureRecorder = ui.PictureRecorder();
-  final Canvas _canvas = Canvas(_pictureRecorder);
-  final Paint _paint = Paint()..color = Colors.transparent;
-  const Radius _radius = const Radius.circular(20.0);
-
-  _canvas.drawRRect(
-      RRect.fromRectAndCorners(
-        Rect.fromLTWH(0.0, 0.0, width.toDouble(), height.toDouble()),
-        topLeft: _radius,
-        topRight: _radius,
-        bottomLeft: _radius,
-        bottomRight: _radius,
-      ),
-      _paint
-  );
-
-  final ByteData _detail = await rootBundle.load(urlAsset);
-  final ui.Image _imaged = await loadImage(new Uint8List.view(_detail.buffer));
-
-  _canvas.drawImage(_imaged, const Offset(0, 0), Paint());
-
-  final _img = await _pictureRecorder.endRecording().toImage(width, height);
-  final _data = await _img.toByteData(format: ui.ImageByteFormat.png);
-
-  return _data.buffer.asUint8List();
-}
-// -----------------------------------------------------------------------------
-  static Future<ui.Image> loadImage(List<int> img) async {
-
-  final Completer < ui.Image > completer = new Completer();
-
-  ui.decodeImageFromList(img, (ui.Image img) {
-    return completer.complete(img);
-  });
-
-  return completer.future;
-}
-// -----------------------------------------------------------------------------
-  static Future<File> getImageFileFromLocalAsset(BuildContext context, String inputAsset) async {
-
-  File _file;
-  final String _asset = ObjectChecker.objectIsSVG(inputAsset) ? Iconz.DumBusinessLogo : inputAsset;
-
-  await tryAndCatch(
-      context: context,
-      methodName : 'getImageFileFromAssets',
-      functions: () async {
-        print('0. removing [assets/] from input image path');
-        String _pathTrimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(_asset, 7);
-        print('1. starting getting image from assets');
-        final ByteData _byteData = await rootBundle.load('assets/$_pathTrimmed');
-        print('2. we got byteData and creating the File aho');
-        final String _tempFileName = TextMod.getFileNameFromAsset(_pathTrimmed);
-        final File _tempFile = await createTempEmptyFile(_tempFileName);
-        print('3. we created the FILE and will overwrite image data as bytes');
-        final File _finalFile = await writeBytesOnFile(file: _tempFile, byteData: _byteData);
-        _tempFile.delete(recursive: true);
-
-        _file = _finalFile;
-
-        print('4. file is ${_file.path}');
-
-      }
-  );
-
-  return _file;
-}
-// -----------------------------------------------------------------------------
-  static Future<File> createTempEmptyFile(String fileName) async {
-    final File _tempFile = File('${(await getTemporaryDirectory()).path}/${fileName}');
-    return _tempFile;
-  }
-// -----------------------------------------------------------------------------
-  static Uint8List getUint8ListFromByteData(ByteData byteData){
-    final Uint8List _uInts = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
-    return _uInts;
-  }
-// -----------------------------------------------------------------------------
-  static Future<File> writeUint8ListOnFile({@required File file, @required Uint8List uint8list}) async {
-    await file.writeAsBytes(uint8list);
-    await file.create(recursive: true);
-    return file;
-  }
-// -----------------------------------------------------------------------------
-  static Future<File> writeBytesOnFile({@required File file, @required ByteData byteData}) async {
-  File _file;
-
-  if (file != null){
-    final Uint8List _uInts = getUint8ListFromByteData(byteData);
-    _file = await writeUint8ListOnFile(file: file, uint8list: _uInts);
-  }
-
-  return _file;
-}
-// -----------------------------------------------------------------------------
-  static Future<File> getFileFromUint8List({@required Uint8List Uint8List, @required String fileName}) async {
-    File _file = await createTempEmptyFile(fileName);
-
-
-    _file = await writeUint8ListOnFile(
-      uint8list: Uint8List,
-      file: _file,
-    );
-
-    return _file;
-  }
-// -----------------------------------------------------------------------------
-  static Future<File> urlToFile(String imageUrl) async {
-/// generate random number.
-  final Random _rng = new Random();
-/// get temporary directory of device.
-  final Directory _tempDir = await getTemporaryDirectory();
-/// get temporary path from temporary directory.
-  final String _tempPath = _tempDir.path;
-/// create a new file in temporary path with random file name.
-  final File _file = new File('$_tempPath'+ (_rng.nextInt(100)).toString() +'.png');
-/// call http.get method and pass imageUrl into it to get response.
-  final Uri _imageUri = Uri.parse(imageUrl);
-  final http.Response _response = await http.get(_imageUri);
-/// write bodyBytes received in response to file.
-  await _file.writeAsBytes(_response.bodyBytes);
-/// now return the file which is created with random name in
-/// temporary directory and image bytes from response is written to // that file.
-  return _file;
-}
-// -----------------------------------------------------------------------------
-  static Future<Asset> urlToAsset(String imageUrl) async {
-    File _file = await urlToFile(imageUrl);
-    Asset _asset;
-
-    ImageSize imageSize = await ImageSize.superImageSize(_file);
-  //
-  //
-    _asset = Asset(
-      // identifier
-      _file.fileNameWithExtension,
-      // _name
-      _file.fileNameWithExtension,
-      // _originalWidth
-        imageSize.width.toInt(),
-      // _originalHeight
-      imageSize.height.toInt(),
-    );
-  //
-  //   // ByteData _byteData = await _file.get(asset.originalWidth, asset.originalHeight, quality: 100);
-  //   //
-  //   // String _name = TextMod.trimTextAfterLastSpecialCharacter(asset.name, '.');
-  //   //
-  //   // print('====================================================================================== asset name is : ${asset.runtimeType}');
-  //   //
-  //   // final _tempFile = File('${(await getTemporaryDirectory()).path}/${_name}');
-  //   // await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
-  //   // await _tempFile.create(recursive: true);
-  //
-  //   // File _file = _tempFile;
-  //
-    return _asset;
-  //
-  }
-// -----------------------------------------------------------------------------
-  static Future<File> getFileFromAsset(Asset asset) async {
-  ByteData _byteData = await asset.getThumbByteData(asset.originalWidth, asset.originalHeight, quality: 100);
-
-  String _name = TextMod.trimTextAfterLastSpecialCharacter(asset.name, '.');
-
-  print('====================================================================================== asset name is : ${asset.runtimeType}');
-
-  final _tempFile = File('${(await getTemporaryDirectory()).path}/${_name}');
-  await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
-  await _tempFile.create(recursive: true);
-
-  File _file = _tempFile;
-
-  return _file;
-}
-// -----------------------------------------------------------------------------
-static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
-  List<File> _files = [];
-
-  for (Asset asset in assets) {
-
-    final File _file = await Imagers.getFileFromAsset(asset);
-    _files.add(_file);
-
-  }
-  return _files;
-}
-// -----------------------------------------------------------------------------
-  static List<CropAspectRatioPreset> getAndroidCropAspectRatioPresets(){
-    const List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
-      CropAspectRatioPreset.square,
-      CropAspectRatioPreset.ratio3x2,
-      CropAspectRatioPreset.original,
-      CropAspectRatioPreset.ratio4x3,
-    ];
-    return _androidRatios;
-  }
-// -----------------------------------------------------------------------------
-  static List<CropAspectRatioPreset> getIOSCropAspectRatioPresets(){
-    const List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
-      CropAspectRatioPreset.original,
-      CropAspectRatioPreset.square,
-      CropAspectRatioPreset.ratio3x2,
-      CropAspectRatioPreset.ratio4x3,
-      CropAspectRatioPreset.ratio5x3,
-      CropAspectRatioPreset.ratio5x4,
-      CropAspectRatioPreset.ratio7x5,
-      CropAspectRatioPreset.ratio16x9,
-    ];
-    return _androidRatios;
-  }
-// -----------------------------------------------------------------------------
-  static Future<File> cropImage(BuildContext context, File file) async {
+// ---------------------------------------------------
+  static Future<File> cropImage({
+    @required BuildContext context,
+    @required File file,
+  }) async {
 
     /// flyer ratio is : (1 x 1.74)
     const double _flyerHeightRatio = Ratioz.xxflyerZoneHeight; // 1.74
@@ -487,12 +216,536 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
 
   }
 // -----------------------------------------------------------------------------
-  static BoxFit concludeBoxFitOld(Asset asset){
-  BoxFit _fit = asset.isPortrait ? BoxFit.fitHeight : BoxFit.fitWidth;
-  return _fit;
+
+  /// FILE GETTERS
+
+// ---------------------------------------------------
+  static Future<File> getEmptyFile(String fileName) async {
+    final Directory _appDocDir = await getApplicationDocumentsDirectory();
+    final String _appDocPath = _appDocDir.path;
+    final String _filePath = '${_appDocPath}/${fileName}';
+    final File _file = File(_filePath);
+    return _file;
+  }
+// ---------------------------------------------------
+  /// THIS IS TEMP DIRECTORY
+  static Future<File> getTempEmptyFile(String fileName) async {
+    final Directory _tempDir = await getTemporaryDirectory();
+    final String _tempPath = _tempDir.path;
+    final String _tempFilePath = '${_tempPath}/${fileName}';
+    final File _tempFile = File(_tempFilePath);
+    return _tempFile;
+  }
+// ---------------------------------------------------
+  /// TAMAM
+  static Future<File> getFileFromLocalRasterAsset({
+    @required BuildContext context,
+    @required String localAsset,
+    int width = 100,
+  }) async {
+
+    File _file;
+    final String _asset = ObjectChecker.objectIsSVG(localAsset) ? Iconz.BldrsAppIcon : localAsset;
+
+    await tryAndCatch(
+        context: context,
+        methodName : 'getFileFromLocalRasterAsset',
+        functions: () async {
+          // print('0. removing [assets/] from input image path');
+          String _pathTrimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(_asset, 7);
+          // print('1. starting getting image from assets');
+          // final ByteData _byteData = await rootBundle.load('assets/$_pathTrimmed');
+          // print('2. we got byteData and creating the File aho');
+          final String _fileName = TextMod.getFileNameFromAsset(_pathTrimmed);
+          // final File _tempFile = await getEmptyFile(_fileNae);
+          // print('3. we created the FILE and will overwrite image data as bytes');
+          // final File _finalFile = await writeBytesOnFile(file: _tempFile, byteData: _byteData);
+          // _tempFile.delete(recursive: true);
+          //
+          // _file = _finalFile;
+          //
+          // print('4. file is ${_file.path}');
+
+          Uint8List _uInt = await Imagers.getUint8ListFromLocalRasterAsset(asset: _asset, width: width);
+          _file = await Imagers.getFileFromUint8List(uInt8List: _uInt, fileName: _fileName);
+
+        }
+    );
+
+    return _file;
+  }
+// ---------------------------------------------------
+  static Future<File> getFileFromUint8List({
+    @required Uint8List uInt8List,
+    @required String fileName,
+  }) async {
+    File _file = await getTempEmptyFile(fileName);
+
+    _file = await writeUint8ListOnFile(
+      uint8list: uInt8List,
+      file: _file,
+    );
+
+    return _file;
+  }
+// ---------------------------------------------------
+  static Future<File> getFileFromURL(String imageUrl) async {
+    /// generate random number.
+    final Random _rng = new Random();
+    /// get temporary directory of device.
+    final Directory _tempDir = await getTemporaryDirectory();
+    /// get temporary path from temporary directory.
+    final String _tempPath = _tempDir.path;
+    /// create a new file in temporary path with random file name.
+    final File _file = new File('$_tempPath'+ (_rng.nextInt(100)).toString() +'.png');
+    /// call http.get method and pass imageUrl into it to get response.
+    final Uri _imageUri = Uri.parse(imageUrl);
+    final http.Response _response = await http.get(_imageUri);
+    /// write bodyBytes received in response to file.
+    await _file.writeAsBytes(_response.bodyBytes);
+    /// now return the file which is created with random name in
+    /// temporary directory and image bytes from response is written to // that file.
+    return _file;
+  }
+// ---------------------------------------------------
+  static Future<File> getFileFromPickerAsset(Asset asset) async {
+    ByteData _byteData = await asset.getThumbByteData(asset.originalWidth, asset.originalHeight, quality: 100);
+
+    String _name = TextMod.trimTextAfterLastSpecialCharacter(asset.name, '.');
+
+    print('====================================================================================== asset name is : ${asset.runtimeType}');
+
+    final _tempFile = File('${(await getTemporaryDirectory()).path}/${_name}');
+    await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
+    await _tempFile.create(recursive: true);
+
+    File _file = _tempFile;
+
+    return _file;
+  }
+// ---------------------------------------------------
+  static Future<List<File>> getFilesFromPickerAssets(List<Asset> assets) async {
+    List<File> _files = <File>[];
+
+    if (Mapper.canLoopList(assets)){
+
+      for (Asset asset in assets) {
+
+        final File _file = await Imagers.getFileFromPickerAsset(asset);
+        _files.add(_file);
+
+      }
+
+    }
+
+    return _files;
+  }
+// ---------------------------------------------------
+  static Future<File> getFileFromDynamic(dynamic pic) async {
+    File _file;
+
+    if(pic != null){
+
+      if(ObjectChecker.objectIsFile(pic) == true){
+        _file = pic;
+      }
+
+      else if (ObjectChecker.objectIsAsset(pic) == true){
+        _file = await  getFileFromPickerAsset(pic);
+      }
+
+      else if (ObjectChecker.objectIsURL(pic) == true){
+        _file = await getFileFromURL(pic);
+      }
+
+      else if (ObjectChecker.objectIsJPGorPNG(pic) == true){
+        // _file = await getFile
+      }
+
+    }
+
+    return _file;
+  }
+// ---------------------------------------------------
+  static Future<File> getFilerFromBase64(String base64) async {
+
+    final Uint8List _fileAgainAsInt = await base64Decode(base64);
+
+    final File _fileAgain = await Imagers.getFileFromUint8List(
+      uInt8List: _fileAgainAsInt,
+      fileName: '${Numeric.createUniqueID()}',
+    );
+
+    return _fileAgain;
   }
 // -----------------------------------------------------------------------------
-  bool slideBlurIsOn({
+
+  /// FILE WRITING
+
+// ---------------------------------------------------
+  static Future<File> writeUint8ListOnFile({@required File file, @required Uint8List uint8list}) async {
+    await file.writeAsBytes(uint8list);
+    await file.create(recursive: true);
+    return file;
+  }
+// ---------------------------------------------------
+  static Future<File> writeBytesOnFile({@required File file, @required ByteData byteData}) async {
+    File _file;
+
+    if (file != null && byteData != null){
+      final Uint8List _uInts = getUint8ListFromByteData(byteData);
+      _file = await writeUint8ListOnFile(file: file, uint8list: _uInts);
+    }
+
+    return _file;
+  }
+// -----------------------------------------------------------------------------
+
+  /// PICKER ASSET
+
+// ---------------------------------------------------
+  static Future<Asset> getPickerAssetFromURL(String url) async {
+    File _file = await getFileFromURL(url);
+    Asset _asset;
+
+    ImageSize imageSize = await ImageSize.superImageSize(_file);
+    //
+    //
+    _asset = Asset(
+      // identifier
+      _file.fileNameWithExtension,
+      // _name
+      _file.fileNameWithExtension,
+      // _originalWidth
+      imageSize.width.toInt(),
+      // _originalHeight
+      imageSize.height.toInt(),
+    );
+    //
+    //   // ByteData _byteData = await _file.get(asset.originalWidth, asset.originalHeight, quality: 100);
+    //   //
+    //   // String _name = TextMod.trimTextAfterLastSpecialCharacter(asset.name, '.');
+    //   //
+    //   // print('====================================================================================== asset name is : ${asset.runtimeType}');
+    //   //
+    //   // final _tempFile = File('${(await getTemporaryDirectory()).path}/${_name}');
+    //   // await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
+    //   // await _tempFile.create(recursive: true);
+    //
+    //   // File _file = _tempFile;
+    //
+    return _asset;
+    //
+  }
+// ---------------------------------------------------
+  static Asset getOnlyAssetFromDynamic(dynamic input){
+    Asset _asset;
+    if(ObjectChecker.objectIsAsset(input) == true){
+      _asset = input;
+    }
+
+    return _asset;
+  }
+// ---------------------------------------------------
+  static List<Asset> getOnlyAssetsFromDynamics(List<dynamic> inputs){
+    List<Asset> _assets = <Asset>[];
+
+    if(inputs != null){
+      if(inputs.length > 0){
+        for (var x in inputs){
+          _assets.add(getOnlyAssetFromDynamic(x));
+        }
+      }
+    }
+
+    return _assets;
+  }
+// -----------------------------------------------------------------------------
+
+  /// ui.Image
+
+// ---------------------------------------------------
+  static Future<ui.Image> getUiImageFromUint8List(Uint8List uInt) async {
+    ui.Image _decodedImage;
+
+    if(uInt != null){
+      _decodedImage= await decodeImageFromList(uInt);
+    }
+
+    return _decodedImage;
+  }
+// ---------------------------------------------------
+  static Future<ui.Image> getUiImageFromIntList(List<int> img) async {
+
+    final Completer <ui.Image> completer = new Completer();
+
+    ui.decodeImageFromList(img, (ui.Image img) {
+      return completer.complete(img);
+    });
+
+    return completer.future;
+  }
+// -----------------------------------------------------------------------------
+
+  /// uInt8List
+
+// ---------------------------------------------------
+  static Uint8List getUint8ListFromByteData(ByteData byteData){
+    final Uint8List _uInts = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+    return _uInts;
+  }
+// ---------------------------------------------------
+  static Future<Uint8List> getUint8ListFromFile(File file) async {
+    final Uint8List _uInt = await file.readAsBytes();
+    return _uInt;
+  }
+// ---------------------------------------------------
+  static Future<List<Uint8List>> getUint8ListsFromFiles(List<File> files) async {
+    List<Uint8List> _screenShots = <Uint8List>[];
+
+    if (Mapper.canLoopList(files)){
+      for (File file in files){
+        final Uint8List _uInt = await getUint8ListFromFile(file);
+        _screenShots.add(_uInt);
+      }
+    }
+
+    return _screenShots;
+  }
+// ---------------------------------------------------
+  /// TAMAM
+  static Future<Uint8List> getUint8ListFromLocalRasterAsset({@required String asset, @required int width}) async {
+    final ByteData _byteData = await rootBundle.load(asset);
+
+
+    final ui.Codec _codec = await ui.instantiateImageCodec(_byteData.buffer.asUint8List(), targetWidth: width);
+    final ui.FrameInfo _fi = await _codec.getNextFrame();
+    final Uint8List _result = (await _fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
+    return _result;
+  }
+// ---------------------------------------------------
+  static Future<Uint8List> getUint8ListFromRasterURL(int width, int height, String urlAsset) async {
+
+  final ui.PictureRecorder _pictureRecorder = ui.PictureRecorder();
+  final Canvas _canvas = Canvas(_pictureRecorder);
+  final Paint _paint = Paint()..color = Colors.transparent;
+  const Radius _radius = const Radius.circular(20.0);
+
+  _canvas.drawRRect(
+      RRect.fromRectAndCorners(
+        Rect.fromLTWH(0.0, 0.0, width.toDouble(), height.toDouble()),
+        topLeft: _radius,
+        topRight: _radius,
+        bottomLeft: _radius,
+        bottomRight: _radius,
+      ),
+      _paint
+  );
+
+  final ByteData _detail = await rootBundle.load(urlAsset);
+  final ui.Image _imaged = await getUiImageFromIntList(new Uint8List.view(_detail.buffer));
+
+  _canvas.drawImage(_imaged, const Offset(0, 0), Paint());
+
+  final _img = await _pictureRecorder.endRecording().toImage(width, height);
+  final _data = await _img.toByteData(format: ui.ImageByteFormat.png);
+
+  return _data.buffer.asUint8List();
+}
+// -----------------------------------------------------------------------------
+
+  /// Base64
+
+// ---------------------------------------------------
+  static Future<String> getBase64FromFileOrURL(dynamic image) async {
+
+    File _file;
+
+    bool _isFile = ObjectChecker.objectIsFile(image);
+    // bool _isString = ObjectChecker.objectIsString(image);
+
+    if (_isFile == true){
+      _file = image;
+    } else {
+      _file = await Imagers.getFileFromURL(image);
+    }
+
+    final List<int> imageBytes = _file.readAsBytesSync();
+
+    final String _base64Image = base64Encode(imageBytes);
+
+    /*
+
+        Uint8List _bytesImage;
+
+        String _imgString = 'iVBORw0KGgoAAAANSUhEUg.....';
+
+        _bytesImage = Base64Decoder().convert(_imgString);
+
+        Image.memory(_bytesImage)
+
+     */
+
+
+    return _base64Image;
+  }
+// -----------------------------------------------------------------------------
+
+  /// BitmapDescriptor
+
+// ---------------------------------------------------
+  static Future<BitmapDescriptor> getBitmapFromSVG({
+    @required BuildContext context,
+    @required String assetName,
+  }) async {
+    // Read SVG file as String
+    String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
+    // Create DrawableRoot from SVG String
+    DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, null);
+
+    // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
+    MediaQueryData queryData = MediaQuery.of(context);
+    double devicePixelRatio = queryData.devicePixelRatio;
+    double width = 32 * devicePixelRatio; // where 32 is your SVG's original width
+    double height = 32 * devicePixelRatio; // same thing
+
+    // Convert to ui.Picture
+    ui.Picture picture = svgDrawableRoot.toPicture(size: Size(width, height));
+
+    // Convert to ui.Image. toImage() takes width and height as parameters
+    // you need to find the best size to suit your needs and take into account the
+    // screen DPI
+    ui.Image image = await picture.toImage(width.toInt(), height.toInt());
+    ByteData bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    return BitmapDescriptor.fromBytes(bytes.buffer.asUint8List());
+  }
+// ---------------------------------------------------
+  static Future<BitmapDescriptor> getBitmapFromPNG({String pngPic = Iconz.FlyerPinPNG}) async {
+    final BitmapDescriptor _marker = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty, pngPic);
+    return _marker;
+  }
+// -----------------------------------------------------------------------------
+
+  /// BOX FIT
+
+// ---------------------------------------------------
+  static BoxFit concludeBoxFitOld(Asset asset){
+    BoxFit _fit = asset.isPortrait ? BoxFit.fitHeight : BoxFit.fitWidth;
+    return _fit;
+  }
+// ---------------------------------------------------
+  static BoxFit concludeBoxFit({
+    @required double picWidth,
+    @required double picHeight,
+    @required double viewWidth,
+    @required double viewHeight,
+  }){
+    BoxFit _boxFit;
+
+    /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
+    // double _originalImageRatio = _originalImageWidth / _originalImageHeight
+        ;
+    // double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
+
+    // double _fittedImageWidth = flyerBoxWidth; // for info only
+    final double _fittedImageHeight = (viewWidth * picHeight) / picWidth;
+
+    final double _heightAllowingFitHeight = (Ratioz.slideFitWidthLimit/100) * viewHeight;
+
+    /// if fitted height is less than the limit
+    if(_fittedImageHeight < _heightAllowingFitHeight){
+      _boxFit = BoxFit.fitWidth;
+    }
+
+    /// if fitted height is higher that the limit
+    else {
+      _boxFit = BoxFit.fitHeight;
+    }
+
+    return _boxFit;
+  }
+// ---------------------------------------------------
+  static BoxFit concludeBoxFitForAsset({
+    @required Asset asset,
+    @required double flyerBoxWidth,
+  }){
+    BoxFit _boxFit;
+
+    /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
+    final double _originalImageWidth = asset.originalWidth.toDouble();
+    final double _originalImageHeight= asset.originalHeight.toDouble();
+    // double _originalImageRatio = _originalImageWidth / _originalImageHeight
+        ;
+    /// slide aspect ratio : 1 / 1.74 ~= 0.575
+    final double _flyerZoneHeight = flyerBoxWidth * Ratioz.xxflyerZoneHeight;
+
+    _boxFit = concludeBoxFit(
+      picWidth: _originalImageWidth,
+      picHeight: _originalImageHeight,
+      viewWidth: flyerBoxWidth,
+      viewHeight: _flyerZoneHeight,
+    );
+
+    return _boxFit;
+  }
+// ---------------------------------------------------
+  static List<BoxFit> concludeBoxesFitsForAssets({
+    @required List<Asset> assets,
+    @required double flyerBoxWidth,
+  }){
+    List<BoxFit> _fits = [];
+
+    for (Asset asset in assets){
+
+      /// straigh forward solution,, bas ezzay,, I'm Rage7 and I can't just let it go keda,,
+      // if(asset.isPortrait){
+      //   _fits.add(BoxFit.fitHeight);
+      // } else {
+      //   _fits.add(BoxFit.fitWidth);
+      // }
+
+      /// boss ba2a
+      final BoxFit _fit = concludeBoxFitForAsset(asset: asset, flyerBoxWidth: flyerBoxWidth);
+
+      _fits.add(_fit);
+    }
+
+    return _fits;
+  }
+// -----------------------------------------------------------------------------
+
+  /// CropAspectRatioPreset
+
+// ---------------------------------------------------
+  static List<CropAspectRatioPreset> getAndroidCropAspectRatioPresets(){
+    const List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
+      CropAspectRatioPreset.square,
+      CropAspectRatioPreset.ratio3x2,
+      CropAspectRatioPreset.original,
+      CropAspectRatioPreset.ratio4x3,
+    ];
+    return _androidRatios;
+  }
+// ---------------------------------------------------
+  static List<CropAspectRatioPreset> getIOSCropAspectRatioPresets(){
+    const List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
+      CropAspectRatioPreset.original,
+      CropAspectRatioPreset.square,
+      CropAspectRatioPreset.ratio3x2,
+      CropAspectRatioPreset.ratio4x3,
+      CropAspectRatioPreset.ratio5x3,
+      CropAspectRatioPreset.ratio5x4,
+      CropAspectRatioPreset.ratio7x5,
+      CropAspectRatioPreset.ratio16x9,
+    ];
+    return _androidRatios;
+  }
+// -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// ---------------------------------------------------
+  static bool slideBlurIsOn({
     @required dynamic pic,
     @required ImageSize imageSize,
     @required BoxFit boxFit,
@@ -572,141 +825,11 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
 
     return _blurIsOn;
 }
-// -----------------------------------------------------------------------------
-  static BoxFit concludeBoxFit({@required double picWidth, @required double picHeight, @required double viewWidth, @required double viewHeight}){
-    BoxFit _boxFit;
-
-    /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
-    // double _originalImageRatio = _originalImageWidth / _originalImageHeight
-        ;
-    // double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
-
-    // double _fittedImageWidth = flyerBoxWidth; // for info only
-    final double _fittedImageHeight = (viewWidth * picHeight) / picWidth;
-
-    final double _heightAllowingFitHeight = (Ratioz.slideFitWidthLimit/100) * viewHeight;
-
-    /// if fitted height is less than the limit
-    if(_fittedImageHeight < _heightAllowingFitHeight){
-      _boxFit = BoxFit.fitWidth;
-    }
-
-    /// if fitted height is higher that the limit
-    else {
-      _boxFit = BoxFit.fitHeight;
-    }
-
-    return _boxFit;
-  }
-// -----------------------------------------------------------------------------
-  static BoxFit concludeBoxFitForAsset({@required Asset asset, @required double flyerBoxWidth}){
-  BoxFit _boxFit;
-
-  /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
-  final double _originalImageWidth = asset.originalWidth.toDouble();
-  final double _originalImageHeight= asset.originalHeight.toDouble();
-  // double _originalImageRatio = _originalImageWidth / _originalImageHeight
-  ;
-  /// slide aspect ratio : 1 / 1.74 ~= 0.575
-  final double _flyerZoneHeight = flyerBoxWidth * Ratioz.xxflyerZoneHeight;
-
-  _boxFit = concludeBoxFit(
-    picWidth: _originalImageWidth,
-    picHeight: _originalImageHeight,
-    viewWidth: flyerBoxWidth,
-    viewHeight: _flyerZoneHeight,
-  );
-
-  return _boxFit;
-  }
-// -----------------------------------------------------------------------------
-  static List<BoxFit> concludeBoxesFitsForAssets({@required List<Asset> assets, @required double flyerBoxWidth}){
-  List<BoxFit> _fits = [];
-
-  for (Asset asset in assets){
-
-    /// straigh forward solution,, bas ezzay,, I'm Rage7 and I can't just let it go keda,,
-    // if(asset.isPortrait){
-    //   _fits.add(BoxFit.fitHeight);
-    // } else {
-    //   _fits.add(BoxFit.fitWidth);
-    // }
-
-    /// boss ba2a
-    final BoxFit _fit = concludeBoxFitForAsset(asset: asset, flyerBoxWidth: flyerBoxWidth);
-
-    _fits.add(_fit);
-  }
-
-  return _fits;
-  }
-// -----------------------------------------------------------------------------
-  static Future<File> getFileFromDynamic(dynamic pic) async {
-    File _file;
-
-    if(pic != null){
-
-      if(ObjectChecker.objectIsFile(pic) == true){
-        _file = pic;
-      }
-
-      else if (ObjectChecker.objectIsAsset(pic) == true){
-        _file = await  getFileFromAsset(pic);
-      }
-
-      else if (ObjectChecker.objectIsURL(pic) == true){
-        _file = await urlToFile(pic);
-      }
-
-      else if (ObjectChecker.objectIsJPGorPNG(pic) == true){
-        // _file = await getFile
-      }
-
-    }
-
-    return _file;
-  }
-// -----------------------------------------------------------------------------
-  static Future<List<Uint8List>> getScreenShotsFromFiles(List<File> files) async {
-    List<Uint8List> _screenShots = <Uint8List>[];
-
-    if (Mapper.canLoopList(files)){
-      for (File file in files){
-
-        Uint8List _uInt = await file.readAsBytes();
-
-        _screenShots.add(_uInt);
-
-      }
-    }
-
-    return _screenShots;
-  }
-// -----------------------------------------------------------------------------
-  static Asset getOnlyAssetFromDynamic(dynamic input){
-    Asset _asset;
-    if(ObjectChecker.objectIsAsset(input) == true){
-      _asset = input;
-    }
-
-    return _asset;
-  }
-// -----------------------------------------------------------------------------
-  static List<Asset> getOnlyAssetsFromDynamics(List<dynamic> inputs){
-    List<Asset> _assets = <Asset>[];
-
-    if(inputs != null){
-      if(inputs.length > 0){
-        for (var x in inputs){
-          _assets.add(getOnlyAssetFromDynamic(x));
-        }
-      }
-    }
-
-    return _assets;
-  }
-// -----------------------------------------------------------------------------
-  static bool picturesURLsAreTheSame({@required List<String> urlsA, @required List<String> urlsB}){
+// ---------------------------------------------------
+  static bool picturesURLsAreTheSame({
+    @required List<String> urlsA,
+    @required List<String> urlsB,
+  }){
     bool _areTheSame = true;
 
     if (urlsA == null && urlsB != null){
@@ -733,170 +856,37 @@ static Future<List<File>> getFilesFromAssets(List<Asset> assets) async {
     return _areTheSame;
   }
 // -----------------------------------------------------------------------------
-  static double concludeHeightByGraphicSizes({@required double width, @required double graphicWidth, @required double graphicHeight}){
-    /// height / width = graphicHeight / graphicWidth
-    return (graphicHeight * width) / graphicWidth;
-  }
-// -----------------------------------------------------------------------------
-  static Future<String> urlOrImageFileToBase64(dynamic image) async {
 
-    File _file;
+  /// IMAGE QUALITY
 
-    bool _isFile = ObjectChecker.objectIsFile(image);
-    // bool _isString = ObjectChecker.objectIsString(image);
-
-    if (_isFile == true){
-      _file = image;
-    } else {
-      _file = await Imagers.urlToFile(image);
+// ---------------------------------------------------
+  static int concludeImageQuality(PicType picType){
+    switch (picType){
+      case PicType.userPic      :  return  100   ;  break;
+      case PicType.authorPic    :  return  100   ;  break;
+      case PicType.bzLogo       :  return  100   ;  break;
+      case PicType.slideHighRes :  return  100  ;  break;
+      case PicType.slideLowRes  :  return  80   ;  break;
+      case PicType.dum          :  return  100  ;  break;
+      case PicType.askPic       :  return  100  ;  break;
+      case PicType.notiBanner   :  return  100  ; break;
+      default : return   100;
     }
-
-    final List<int> imageBytes = _file.readAsBytesSync();
-
-    final String _base64Image = base64Encode(imageBytes);
-
-    /*
-
-        Uint8List _bytesImage;
-
-        String _imgString = 'iVBORw0KGgoAAAANSUhEUg.....';
-
-        _bytesImage = Base64Decoder().convert(_imgString);
-
-        Image.memory(_bytesImage)
-
-     */
-
-
-    return _base64Image;
+  }
+// ---------------------------------------------------
+  static double concludeImageMaxWidth(PicType picType){
+    switch (picType){
+      case PicType.userPic      :  return  150   ;  break;
+      case PicType.authorPic    :  return  150   ;  break;
+      case PicType.bzLogo       :  return  150   ;  break;
+      case PicType.slideHighRes :  return  1000  ;  break;
+      case PicType.slideLowRes  :  return  150   ;  break;
+      case PicType.dum          :  return  null  ;  break;
+      case PicType.askPic       :  return  null  ;  break;
+      default : return   200;
+    }
   }
 // -----------------------------------------------------------------------------
-  static Future<File> base64ToFile(String base64) async {
-
-    final Uint8List _fileAgainAsInt = await base64Decode(base64);
-
-    final File _fileAgain = await Imagers.getFileFromUint8List(
-      Uint8List: _fileAgainAsInt,
-      fileName: '${Numeric.createUniqueID()}',
-    );
-
-    return _fileAgain;
-  }
-// -----------------------------------------------------------------------------
-  static Future<BitmapDescriptor> getCustomMapMarkerFromSVG({@required BuildContext context, @required String assetName}) async {
-    // Read SVG file as String
-    String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
-    // Create DrawableRoot from SVG String
-    DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, null);
-
-    // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
-    MediaQueryData queryData = MediaQuery.of(context);
-    double devicePixelRatio = queryData.devicePixelRatio;
-    double width = 32 * devicePixelRatio; // where 32 is your SVG's original width
-    double height = 32 * devicePixelRatio; // same thing
-
-    // Convert to ui.Picture
-    ui.Picture picture = svgDrawableRoot.toPicture(size: Size(width, height));
-
-    // Convert to ui.Image. toImage() takes width and height as parameters
-    // you need to find the best size to suit your needs and take into account the
-    // screen DPI
-    ui.Image image = await picture.toImage(width.toInt(), height.toInt());
-    ByteData bytes = await image.toByteData(format: ui.ImageByteFormat.png);
-    return BitmapDescriptor.fromBytes(bytes.buffer.asUint8List());
-  }
-// -----------------------------------------------------------------------------
-  static Future<BitmapDescriptor> getCustomMapMarkerFromPNG() async {
-    final BitmapDescriptor _marker = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty, Iconz.FlyerPinPNG);
-    return _marker;
-  }
 
 }
 
-class SuperImage extends StatelessWidget {
-  final dynamic pic;
-  final double width;
-  final double height;
-  final BoxFit fit;
-  final double scale;
-  final Color  iconColor;
-
-  const SuperImage(
-    this.pic,
-      {
-    this.width,
-    this.height,
-    this.fit,
-    this.scale,
-    this.iconColor,
-});
-
-// -----------------------------------------------------------------------------
-  static DecorationImage decorationImage({@required String picture, BoxFit boxFit}){
-    DecorationImage _image;
-
-    if (picture != null && picture != ''){
-
-      _image = DecorationImage(
-        image: AssetImage(picture),
-        fit: boxFit ?? BoxFit.cover,
-      );
-
-    }
-
-    return picture == '' ? null : _image;
-  }
-// -----------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
-    final BoxFit _boxFit = fit == null ? BoxFit.cover : fit;
-    // int _width = fit == BoxFit.fitWidth ? width : null;
-    // int _height = fit == BoxFit.fitHeight ? height : null;
-    // Asset _asset = ObjectChecker.objectIsAsset(pic) == true ? pic : null;
-    final double _scale = scale == null ? 1 : scale;
-    final Color _iconColor = iconColor == null ? null : iconColor;
-
-    return
-      pic == null ? null :
-      Transform.scale(
-        scale: _scale,
-        child:
-        ObjectChecker.objectIsJPGorPNG(pic)?
-        Image.asset(pic, fit: _boxFit)
-            :
-        ObjectChecker.objectIsSVG(pic)?
-        WebsafeSvg.asset(pic, fit: _boxFit,color: _iconColor)
-            :
-        /// max user NetworkImage(userPic), to try it later
-        ObjectChecker.objectIsURL(pic)?
-        Image.network(pic, fit: _boxFit)
-            :
-        ObjectChecker.objectIsFile(pic)?
-        Image.file(
-          pic,
-          fit: _boxFit,
-          width: width,
-          height: height,
-        )
-            :
-        ObjectChecker.objectIsUint8List(pic) || ObjectChecker.isBase64(pic) ? // Image.memory(logoBase64!);
-        Image.memory(base64Decode(pic),
-          fit: _boxFit,
-          // width: width?.toDouble(),
-          // height: height?.toDouble(),
-        )
-            :
-        ObjectChecker.objectIsAsset(pic)?
-        AssetThumb(
-          asset: pic,
-          width: (pic.originalWidth).toInt(),
-          height: (pic.originalHeight).toInt(),
-          spinner: const Loading(loading: true,),
-        )
-            :
-        Container(),
-
-      );
-  }
-}

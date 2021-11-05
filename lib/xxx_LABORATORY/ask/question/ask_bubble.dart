@@ -104,7 +104,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   }
   // ----------------------------------------------------------------------
   Future<void> _addPic() async {
-    final _imageFile = await Imagers.takeGalleryPicture(PicType.askPic);
+    final _imageFile = await Imagers.takeGalleryPicture(picType: PicType.askPic);
     setState(() {_questionPics.add(File(_imageFile.path));});
   }
   // ----------------------------------------------------------------------

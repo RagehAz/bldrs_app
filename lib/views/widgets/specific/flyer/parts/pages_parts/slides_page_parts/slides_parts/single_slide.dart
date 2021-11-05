@@ -1,22 +1,23 @@
 import 'dart:ui';
+
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/colorizers.dart';
+import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
-import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/secondary_models/image_size.dart';
 import 'package:bldrs/views/screens/i_flyer/x_3_slide_full_screen.dart';
+import 'package:bldrs/views/widgets/general/images/super_image.dart';
+import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/slide_headline.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/zoomable_pic.dart';
-import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:bldrs/controllers/drafters/keyboarders.dart';
 
 class SingleSlide extends StatelessWidget {
   final double flyerBoxWidth;

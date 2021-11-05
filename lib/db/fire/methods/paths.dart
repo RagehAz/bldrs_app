@@ -20,7 +20,6 @@ abstract class FireColl{
 // -----------------------------------------------------------------------------
 abstract class FireDoc {
 
-  static const String admin_sponsors = 'sponsors';
   static const String admin_statistics = 'statistics';
   static const String admin_appState = 'appState';
 
@@ -78,13 +77,11 @@ abstract class FireSubDoc{
 // -----------------------------------------------------------------------------
 abstract class StorageDoc{
 
-  static const String usersPics     = 'usersPics';   /// storage/usersPics/{userID}
-  static const String bzLogos       = 'bzLogos';     /// storage/authorsPics/{bzID}
-  static const String slideHighRes  = 'slidesPics';  /// storage/slidesPics/{flyerID__XX} => XX is two digits for slideIndex
-  static const String slideLowRes   = 'slidesPicsLow';  /// not used till now
-  static const String dumz          = 'dumz'; /// for testing
-  static const String askPics       = 'askPics'; /// not used till now
-  static const String notiBanners   = 'notiBanners'; /// storage/notiBanners/{notiID}
+  static const String users         = 'users';        /// storage/users/{userID}
+  static const String logos         = 'logos';        /// storage/logos/{bzID}
+  static const String slides        = 'slides';       /// storage/slides/{flyerID__XX} => XX is two digits for slideIndex
+  static const String askPics       = 'askPics';      /// not used till now
+  static const String notiBanners   = 'notiBanners';  /// storage/notiBanners/{notiID}
   static const String authors       = 'authors';
 
 }
