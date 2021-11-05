@@ -41,7 +41,7 @@ class SlideModel {
 
     this.flyerID, /// only used in sql ops
   });
-  // -------------------------
+// -----------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
     return {
       'slideIndex': slideIndex,
@@ -56,7 +56,62 @@ class SlideModel {
       'midColor' : Colorizer.cipherColor(midColor),
     };
   }
-// -------------------------
+// -----------------------------------------------------------------------------
+  static SlideModel decipherSlide(dynamic map){
+    return SlideModel(
+        slideIndex : map['slideIndex'],
+        pic : map['picture'],
+        headline : map['headline'],
+        description : map['description'],
+        // -------------------------
+        sharesCount : map['sharesCount'],
+        viewsCount : map['viewsCount'],
+        savesCount : map['savesCount'],
+        picFit: ImageSize.decipherBoxFit(map['boxFit']),
+        imageSize: ImageSize.decipherImageSize(map['imageSize']),
+        midColor: Colorizer.decipherColor(map['midColor'])
+    );
+  }
+// -----------------------------------------------------------------------------
+  static Map<String,Object> cipherSlides(List<SlideModel> slides) {
+    Map<String,Object> _slidesMap = {};
+
+    if (Mapper.canLoopList(slides)){
+
+      for (var slide in slides){
+
+        _slidesMap = Mapper.insertPairInMap(
+          map: _slidesMap,
+          key: '${slide.slideIndex}',
+          value: slide.toMap(),
+        );
+
+      }
+
+    }
+
+    return _slidesMap;
+  }
+// -----------------------------------------------------------------------------
+  static List<SlideModel> decipherSlides(Map<String, dynamic> maps){
+    final List<SlideModel> _slides = <SlideModel>[];
+    final List<String> _keys = maps.keys.toList();
+
+    if (Mapper.canLoopList(_keys)){
+
+      for (String key in _keys){
+
+        final Map<String, dynamic> _slideMap = maps[key];
+        final SlideModel _slide = decipherSlide(_slideMap);
+        _slides.add(_slide);
+
+      }
+
+    }
+
+    return _slides;
+  }
+// -----------------------------------------------------------------------------
   SlideModel clone(){
     return SlideModel(
       slideIndex : slideIndex,
@@ -73,25 +128,6 @@ class SlideModel {
     );
   }
 // -------------------------
-  void printSlide(){
-
-    print('SLIDE-PRINT --------------------------------------------------START');
-
-    // print('SLIDE-PRINT : flyerID : ${flyerID}');
-    print('SLIDE-PRINT : slideIndex : ${slideIndex}');
-    print('SLIDE-PRINT : pic : ${pic}');
-    print('SLIDE-PRINT : headline : ${headline}');
-    print('SLIDE-PRINT : description : ${description}');
-    print('SLIDE-PRINT : sharesCount : ${sharesCount}');
-    print('SLIDE-PRINT : viewsCount : ${viewsCount}');
-    print('SLIDE-PRINT : savesCount : ${savesCount}');
-    print('SLIDE-PRINT : picFit : ${picFit}');
-    print('SLIDE-PRINT : imageSize : ${imageSize}');
-    print('SLIDE-PRINT : midColor : ${midColor}');
-
-    print('SLIDE-PRINT --------------------------------------------------END');
-
-  }
 // -------------------------
   static void printSlides(List<SlideModel> slides){
     if (slides == null || slides.length == 0){
@@ -159,42 +195,6 @@ class SlideModel {
     }
 
     return _allSlidesPicsAreTheSame;
-  }
-// -----------------------------------------------------------------------------
-  static List<Map<String,Object>> cipherSlidesModels(List<SlideModel> slidesList) {
-    final List<Map<String,Object>> _slidesMaps = [];
-    slidesList.forEach((sl) {
-      _slidesMaps.add(sl.toMap());
-    });
-    return _slidesMaps;
-  }
-// -----------------------------------------------------------------------------
-  static List<SlideModel> decipherSlidesMaps(List<dynamic> maps){
-    final List<SlideModel> _slidesList = <SlideModel> [];
-
-    if (Mapper.canLoopList(maps)){
-      maps?.forEach((map) {
-        _slidesList.add(decipherSlideMap(map));
-      });
-    }
-
-    return _slidesList;
-  }
-// -----------------------------------------------------------------------------
-  static SlideModel decipherSlideMap(dynamic map){
-    return SlideModel(
-      slideIndex : map['slideIndex'],
-      pic : map['picture'],
-      headline : map['headline'],
-      description : map['description'],
-      // -------------------------
-      sharesCount : map['sharesCount'],
-      viewsCount : map['viewsCount'],
-      savesCount : map['savesCount'],
-      picFit: ImageSize.decipherBoxFit(map['boxFit']),
-      imageSize: ImageSize.decipherImageSize(map['imageSize']),
-      midColor: Colorizer.decipherColor(map['midColor'])
-    );
   }
 // -----------------------------------------------------------------------------
   static String generateSlideID(String flyerID, int slideIndex){
@@ -279,7 +279,7 @@ class SlideModel {
     if (Mapper.canLoopList(slides)){
       for (SlideModel slide in slides){
 
-        final File _file = await Imagers.urlToFile(slide.pic);
+        final File _file = await Imagers.getFileFromURL(slide.pic);
 
         _files.add(_file);
 
@@ -296,7 +296,7 @@ class SlideModel {
     if (Mapper.canLoopList(slides)){
       for (SlideModel slide in slides){
 
-        final File _file = await Imagers.urlToFile(slide.pic);
+        final File _file = await Imagers.getFileFromURL(slide.pic);
         final ImageSize imageSize = await ImageSize.superImageSize(_file);
 
 
@@ -418,4 +418,25 @@ class SlideModel {
             midColor: Colorz.black255,
         );
   }
+// -----------------------------------------------------------------------------
+  void printSlide(){
+
+    print('SLIDE-PRINT --------------------------------------------------START');
+
+    // print('SLIDE-PRINT : flyerID : ${flyerID}');
+    print('SLIDE-PRINT : slideIndex : ${slideIndex}');
+    print('SLIDE-PRINT : pic : ${pic}');
+    print('SLIDE-PRINT : headline : ${headline}');
+    print('SLIDE-PRINT : description : ${description}');
+    print('SLIDE-PRINT : sharesCount : ${sharesCount}');
+    print('SLIDE-PRINT : viewsCount : ${viewsCount}');
+    print('SLIDE-PRINT : savesCount : ${savesCount}');
+    print('SLIDE-PRINT : picFit : ${picFit}');
+    print('SLIDE-PRINT : imageSize : ${imageSize}');
+    print('SLIDE-PRINT : midColor : ${midColor}');
+
+    print('SLIDE-PRINT --------------------------------------------------END');
+
+  }
+// -----------------------------------------------------------------------------
 }

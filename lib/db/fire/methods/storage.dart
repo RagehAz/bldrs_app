@@ -78,19 +78,19 @@ class Storage {
     @required String fileName,
   }) async {
 
-    final Reference _ref = getRef(
-        context: context,
-        docName: docName,
-        picName: fileName
-    );
+    // final Reference _ref = getRef(
+    //     context: context,
+    //     docName: docName,
+    //     picName: fileName
+    // );
 
-    final UploadTask _uploadTask = _ref.putFile(file);
+    // final UploadTask _uploadTask = _ref.putFile(file);
 
-    final TaskSnapshot _snapshot = await _uploadTask.whenComplete((){
-
-      print('upload completed');
-
-    });
+    // final TaskSnapshot _snapshot = await _uploadTask.whenComplete((){
+    //
+    //   print('upload completed');
+    //
+    // });
 
     /*
 
@@ -228,7 +228,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
         context: context,
         inputFile: slide.pic,
         picName: SlideModel.generateSlideID(flyerID, slide.slideIndex),
-        docName: StorageDoc.slideHighRes,
+        docName: StorageDoc.slides,
         ownerID: authorID,
       );
 
@@ -255,7 +255,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
         final String _picURL = await createStoragePicAndGetURL(
           context: context,
           inputFile: pics[i],
-          docName: StorageDoc.slideHighRes,
+          docName: StorageDoc.slides,
           picName: names[i],
           ownerID: userID,
         );
@@ -278,7 +278,10 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   }) async {
     String _url;
 
-    final File _result = await Imagers.getImageFileFromLocalAsset(context, asset);
+    final File _result = await Imagers.getFileFromLocalRasterAsset(
+        context: context,
+        localAsset: asset,
+    );
 
     print('uploading $fileName pic to fireStorage in folder of $docName');
 
@@ -311,7 +314,17 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       picName: picName,
     );
 
-    final String _url = await _ref.getDownloadURL();
+    String _url;
+
+    await tryAndCatch(
+      context: context,
+      methodName: '',
+      functions: () async {
+
+        _url = await _ref.getDownloadURL();
+
+      }
+    );
 
     return _url;
   }
@@ -330,13 +343,44 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       if (_ref != null){
         final Uint8List _uInts = await _ref.getData();
 
-        _file = await Imagers.getFileFromUint8List(Uint8List: _uInts, fileName: _ref.name);
+        _file = await Imagers.getFileFromUint8List(uInt8List: _uInts, fileName: _ref.name);
       }
 
     }
 
     return _file;
   }
+// ------------------------------------------------
+  static Future<File> getFileByPath({
+    @required BuildContext context,
+    @required String docName,
+    @required String picName
+  }) async {
+
+    File _file;
+
+    // final String _url = await readStoragePicURL(
+    //     context: context,
+    //     docName: docName,
+    //     picName: picName
+    // );
+    // if (_url != null){
+    //   _file = await getFileFromPicURL(context: context, url: _url);
+    //
+    //
+    //
+    // }
+
+    final Reference _ref = await getRef(context: context, docName: docName, picName: picName);
+
+    if (_ref != null){
+      final Uint8List _uInts = await _ref.getData();
+
+      _file = await Imagers.getFileFromUint8List(uInt8List: _uInts, fileName: _ref.name);
+    }
+
+    return _file;
+}
 // -----------------------------------------------------------------------------
 
   /// UPDATE

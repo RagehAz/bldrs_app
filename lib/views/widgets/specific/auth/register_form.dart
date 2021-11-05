@@ -36,7 +36,6 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  final FireAuthOps _auth = FireAuthOps();
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController = TextEditingController();

@@ -98,12 +98,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           await _bzzProvider.fetchSponsors(context);
 
-          await _keywordsProvider.getsetAllKeywords(context);
 
           setState(() {
             _sponsors = _bzzProvider.sponsors;
             _progress = 40;
           });
+
+          await _keywordsProvider.getsetAllKeywords(context);
 
           print('x - fetching UserBzz');
           await _bzzProvider.fetchMyBzz(context);

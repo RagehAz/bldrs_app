@@ -62,18 +62,35 @@ abstract class FireBzOps{
         context: context,
         inputFile: inputBz.logo,
         picName: _bzID,
-        docName: StorageDoc.bzLogos,
+        docName: StorageDoc.logos,
         ownerID: userModel.id,
       );
     }
 
-    /// TASK : when user updates his picture name , title or contacts,,, should go update all his AuthorModels in all his bzModels,
+    /// upload authorPic
+    String _authorPicURL;
+    if(inputBz.authors[0].pic == null){
+
+      _authorPicURL = userModel.pic;
+
+    } else {
+
+      _authorPicURL = await Storage.createStoragePicAndGetURL(
+        context: context,
+        inputFile: inputBz.authors[0].pic,
+        picName: AuthorModel.generateAuthorPicID(authorID: userModel.id, bzID: _bzID),
+        docName: StorageDoc.authors,
+        ownerID: userModel.id,
+      );
+
+    }
+
     /// update authorModel with _authorPicURL
     final AuthorModel _masterAuthor = AuthorModel(
       userID: userModel.id,
       name: inputBz.authors[0].name,
       title: inputBz.authors[0].title,
-      pic: userModel.pic,
+      pic: _authorPicURL,
       isMaster: true,
       contacts: inputBz.authors[0].contacts,
     );
@@ -231,9 +248,7 @@ abstract class FireBzOps{
     final String _authorID = _oldAuthor.userID;
 
     String _authorPicURL;
-    if(authorPicFile == null) {
-      // do Nothing, author pic was not changed, will keep as
-    } else {
+    if(authorPicFile != null) {
 
       final String _picName = AuthorModel.generateAuthorPicID(
         authorID: _authorID,
@@ -243,8 +258,8 @@ abstract class FireBzOps{
       _authorPicURL = await Storage.createStoragePicAndGetURL(
         context: context,
         inputFile: authorPicFile,
-        picName: _picName,
         docName:  StorageDoc.authors,
+        picName: _picName,
         ownerID: _oldAuthor.userID,
       );
 
@@ -254,7 +269,7 @@ abstract class FireBzOps{
     final AuthorModel _newAuthor = AuthorModel(
       userID : _authorID,
       name : _oldAuthor.name,
-      pic : _authorPicURL ?? originalBz.authors[AuthorModel.getAuthorIndexByAuthorID(originalBz.authors, _authorID)].pic,
+      pic : _authorPicURL ?? _oldAuthor.pic,
       title : _oldAuthor.title,
       isMaster : _oldAuthor.isMaster,
       contacts : _oldAuthor.contacts,
@@ -471,7 +486,7 @@ abstract class FireBzOps{
     await Storage.deleteStoragePic(
       context: context,
       picName: bzModel.id,
-      docName: StorageDoc.bzLogos,
+      docName: StorageDoc.logos,
     );
 
     print('11 - delete all authors pictures');

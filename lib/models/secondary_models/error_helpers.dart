@@ -14,7 +14,12 @@ class HttpException implements Exception{
   }
 }
 // -----------------------------------------------------------------------------
-Future<void> tryAndCatch({Function onError, BuildContext context, Function functions, String methodName,}) async {
+Future<void> tryAndCatch({
+  @required BuildContext context,
+  @required Function functions,
+  String methodName,
+  Function onError,
+}) async {
   try{
     await functions();
   } catch (error){
