@@ -79,7 +79,7 @@ abstract class UserFireOps{
         context: context,
         inputFile: userModel.pic,
         picName: userModel.id,
-        docName: StorageDoc.usersPics,
+        docName: StorageDoc.users,
         ownerID: userModel.id,
       );
     }
@@ -89,12 +89,12 @@ abstract class UserFireOps{
 
       /// TASK : this facebook / google image thing is not tested
       if (authBy == AuthBy.facebook || authBy == AuthBy.google ){
-        File _picFile = await Imagers.urlToFile(userModel.pic);
+        File _picFile = await Imagers.getFileFromURL(userModel.pic);
         _userPicURL = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: _picFile,
           picName: userModel.id,
-          docName: StorageDoc.usersPics,
+          docName: StorageDoc.users,
           ownerID: userModel.id,
         );
       }
@@ -719,7 +719,7 @@ abstract class UserFireOps{
             print('I - deleting user pic');
             await Storage.deleteStoragePic(
               context: context,
-              docName: StorageDoc.usersPics,
+              docName: StorageDoc.users,
               picName: userModel.id,
             );
 
@@ -774,7 +774,7 @@ abstract class UserFireOps{
         print('I - deleting user pic');
         await Storage.deleteStoragePic(
           context: context,
-          docName: StorageDoc.usersPics,
+          docName: StorageDoc.users,
           picName: userModel.id,
         );
 

@@ -297,4 +297,10 @@ class AuthorModel{
     print('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
 
   }
+// -----------------------------------------------------------------------------
+  static AuthorModel getMasterAuthorFromBzModel(BzModel bzModel){
+    AuthorModel _masterAuthor = bzModel.authors.firstWhere((author) => author.isMaster == true, orElse: () => null);
+    return _masterAuthor;
+  }
+// -----------------------------------------------------------------------------
 }

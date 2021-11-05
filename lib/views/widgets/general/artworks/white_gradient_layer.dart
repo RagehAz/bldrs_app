@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/views/widgets/general/images/super_image.dart';
 import 'package:flutter/material.dart';
 
 class GradientLayer extends StatelessWidget {

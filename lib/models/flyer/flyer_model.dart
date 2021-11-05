@@ -66,8 +66,8 @@ class FlyerModel with ChangeNotifier{
   Map<String, dynamic> toMap({@required bool toJSON}){
     return {
       'id' : id,
-      'title' : title,
-      'trigram' : trigram,
+      'title' : slides[0].headline,//title,
+      'trigram' : TextGen.createTrigram(input: slides[0].headline), //trigram,
       // -------------------------
       'flyerType' : FlyerTypeClass.cipherFlyerType(flyerType),
       'flyerState' : cipherFlyerState(flyerState),
@@ -80,7 +80,7 @@ class FlyerModel with ChangeNotifier{
       // -------------------------
       'position' : Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
       // -------------------------
-      'slides' : SlideModel.cipherSlidesModels(slides),
+      'slides' : SlideModel.cipherSlides(slides),
       // -------------------------
       'isBanned' : isBanned,
       'specs' : Spec.cipherSpecs(specs),
@@ -109,7 +109,7 @@ class FlyerModel with ChangeNotifier{
         // -------------------------
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
         // -------------------------
-        slides: SlideModel.decipherSlidesMaps(map['slides']),
+        slides: SlideModel.decipherSlides(map['slides']),
         // -------------------------
         isBanned: map['isBanned'],
         specs: Spec.decipherSpecs(map['specs']),
