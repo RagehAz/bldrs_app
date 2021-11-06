@@ -1,45 +1,157 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:flutter/cupertino.dart';
-// -----------------------------------------------------------------------------
+
 enum SpecType {
-  width,
-  length,
-  height,
-  volume,
-  area,
-  count,
-  weight,
-  oldPrice,
-  currentPrice,
-  inStock,
+
+  // -------------------------------------------------------------------------
+
+  /// PROPERTIES
+
+  // ------------------------------------------
+  /// PROPERTY TYPE
+  propertyForm, // from a list
+  propertyLicense, // from a list
+  // ------------------------------------------
+  /// PROPERTY PRICING
+  propertyContractType, // from a List (for sale or rent)
+  propertyPaymentMethod, // from a list
+  propertySalePrice, // double
+  propertyRentPrice, // double
+  propertyRentType, // from a list ( per day per week per month)
+  propertyPriceCurrency, // from a list
+  propertyNumberOfInstallments, // int
+  propertyInstallmentsDuration, // int
+  propertyInstallmentsDurationUnit, // form a list
+
+  // ------------------------------------------
+  /// PROPERTY AREAS
+  propertyArea, // double
+  propertyAreaUnit, // from a List
+  lotArea,  // from double slider
+  lotAreaUnit, // from a List
+  // ------------------------------------------
+  /// PROPERTY FEATURES
+  propertyView, // from a List
+  numberOfFloor, // int
+  indoorFeatures, // from a List
+  amenities, // from a List
+  additionalServices, // from a list
+  inACompound, // bool
+  finishingLevel, // from a List
+  buildingAgeInYears, // int
+  // ------------------------------------------
+  /// PROPERTY SPACES
+  propertySpaces, // from a list
+  propertyNumberOfParkingLots, // int
+  propertyNumberOfBedrooms, // int
+  propertyNumberOfBathrooms, // int
+  // -------------------------------------------------------------------------
+
+  /// DESIGNS
+
+  // ------------------------------------------
+  /// STYLE
+  designArchitecturalStyle, // from a list
+  // ------------------------------------------
+  /// PROPERTY TYPE
+  // propertyForm, // from a list
+  // propertyLicense, // from a list
+  // ------------------------------------------
+  /// SPACES
+  // propertySpaces, // from a list
+  // -------------------------------------------------------------------------
+
+  /// CRAFTS
+
+  // ------------------------------------------
+  /// PRICING
+  activityPrice, // double
+  activityPriceCurrency, // from a list
+  activityMeasurementUnit, // form a list (per piece, per unit length, per unit area, per day, per month, ...etc)
+  // -------------------------------------------------------------------------
+
+  /// PRODUCTS
+
+  // ------------------------------------------
+  /// PRICING
+  productContractType, // from a list (for sale or rent)
+  productSalePrice, // double
+  productRentPrice, // double
+  productPriceCurrency, // from a list
+  productOldPrice, // double
+  productPaymentMethod, // from a list
+  productNumberOfInstallments, // int
+  productInstallmentCost, // double
+  productInstallmentCostCurrency, // from a list
+  productInstallmentsDuration, // double
+  productInstallmentsDurationUnit, // from a list
+  // ------------------------------------------
+  /// MEASUREMENTS
+  width, // double
+  length, // double
+  height, // double
+  thickness, // double
+  diameter, // double
+  radius, // double
+  dimensionsUnit, // from a list
+  volume, // double
+  volumeUnit, // from a list
+  footPrint, // double
+  footPrintUnit, // from a list
+  weight, // double
+  weightUnit, // from a list
+  count, // int
+  capacity, // double
+  capacityUnit, // from list (litre, cubic meter ...
+  size, // from list (3x, 2x, xs, s, m, l, xl, 2x, 3x)
+  // ------------------------------------------
+  /// ELECTRICITY
+  wattage, // double
+  voltage, // double
+  ampere, // double
+
+  // ------------------------------------------
+  /// LOGISTICS
+  inStock, // bool
+  deliverable, // bool
+  deliveryCost, // double
+  deliveryCostUnit, // from list
+  deliveryMinDuration, // double
+  deliveryMaxDuration, // double
+  deliveryDurationUnit, // from list
+  // ------------------------------------------
+  /// materials
+
+  productColor, // from a list
+  // -------------------------------------------------------------------------
+  /// info
+  madeIn, // from a list "counties IDs"
+  insuranceDuration, // int
+  insuranceDurationUnit, // from list
+  // -------------------------------------------------------------------------
+
+  /// EQUIPMENT
+
+  // ------------------------------------------
+
 }
 
-enum MeasureUnit {
-  meter_linear,
-  meter_square,
-  meter_cubic,
 
-
-}
 /// ----------------------------------------------------------------------------
 class Spec {
   final SpecType specType;
-  final dynamic value; // string, int, double
-  // final MeasureUnit unit;
+  final dynamic value; // string, int, double, List<String>, List<double>, list<dynamic>
 
   const Spec({
     @required this.specType,
     @required this.value,
-    // @required this.unit,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
     return {
       'specType': cipherSpecType(specType),
       'value': value,
-      // 'unit' : cipherMeasureUnit(unit),
     };
   }
 // -----------------------------------------------------------------------------
@@ -48,7 +160,6 @@ class Spec {
       Spec(
           specType: specType,
           value: value,
-        // unit: unit,
       );
   }
 // -----------------------------------------------------------------------------
@@ -64,27 +175,18 @@ class Spec {
     return _specs;
   }
 // -----------------------------------------------------------------------------
-  static Spec decipherSpec(Map<String, dynamic> map) {
-    return
-      Spec(
-        specType: decipherSpecType(map['specType']),
-        value: map['value'],
-        // unit: map['unit'],
-      );
-  }
-// -----------------------------------------------------------------------------
   static String cipherSpecType(SpecType specType){
     switch (specType) {
-      case SpecType.width         : return 'width'        ; break;
-      case SpecType.length        : return 'length'       ; break;
-      case SpecType.height        : return 'height'       ; break;
-      case SpecType.volume        : return 'volume'       ; break;
-      case SpecType.area          : return 'area'         ; break;
-      case SpecType.count         : return 'count'        ; break;
-      case SpecType.weight        : return 'weight'       ; break;
-      case SpecType.oldPrice      : return 'oldPrice'     ; break;
-      case SpecType.currentPrice  : return 'currentPrice' ; break;
-      case SpecType.inStock       : return 'inStock' ; break;
+      // case SpecType.width         : return 'width'        ; break;
+      // case SpecType.length        : return 'length'       ; break;
+      // case SpecType.height        : return 'height'       ; break;
+      // case SpecType.volume        : return 'volume'       ; break;
+      // case SpecType.area          : return 'area'         ; break;
+      // case SpecType.count         : return 'count'        ; break;
+      // case SpecType.weight        : return 'weight'       ; break;
+      // case SpecType.oldPrice      : return 'oldPrice'     ; break;
+      // case SpecType.currentPrice  : return 'currentPrice' ; break;
+      // case SpecType.inStock       : return 'inStock' ; break;
       default :
         return null;
     }
@@ -92,16 +194,16 @@ class Spec {
 // -----------------------------------------------------------------------------
   static SpecType decipherSpecType(String input) {
     switch (input) {
-      case 'width':return SpecType.width;break;
-      case 'length':return SpecType.length;break;
-      case 'height':return SpecType.height;break;
-      case 'volume':return SpecType.volume;break;
-      case 'area':return SpecType.area;break;
-      case 'count':return SpecType.count;break;
-      case 'weight':return SpecType.weight;break;
-      case 'oldPrice' : return SpecType.oldPrice; break;
-      case 'currentPrice' : return SpecType.currentPrice; break;
-      case 'inStock' : return SpecType.inStock; break;
+      // case 'width':return SpecType.width;break;
+      // case 'length':return SpecType.length;break;
+      // case 'height':return SpecType.height;break;
+      // case 'volume':return SpecType.volume;break;
+      // case 'area':return SpecType.area;break;
+      // case 'count':return SpecType.count;break;
+      // case 'weight':return SpecType.weight;break;
+      // case 'oldPrice' : return SpecType.oldPrice; break;
+      // case 'currentPrice' : return SpecType.currentPrice; break;
+      // case 'inStock' : return SpecType.inStock; break;
       default :
         return null;
     }
@@ -109,16 +211,16 @@ class Spec {
 // -----------------------------------------------------------------------------
   static String getDataTypeOfSpecType({SpecType specType}){
     switch (specType) {
-      case SpecType.width         : return 'double'     ; break;
-      case SpecType.length        : return 'double'     ; break;
-      case SpecType.height        : return 'double'     ; break;
-      case SpecType.volume        : return 'double'     ; break;
-      case SpecType.area          : return 'double'     ; break;
-      case SpecType.count         : return 'int'        ; break;
-      case SpecType.weight        : return 'double'     ; break;
-      case SpecType.oldPrice      : return 'double'     ; break;
-      case SpecType.currentPrice  : return 'double'     ; break;
-      case SpecType.inStock       : return 'bool'     ; break;
+      // case SpecType.width         : return 'double'     ; break;
+      // case SpecType.length        : return 'double'     ; break;
+      // case SpecType.height        : return 'double'     ; break;
+      // case SpecType.volume        : return 'double'     ; break;
+      // case SpecType.area          : return 'double'     ; break;
+      // case SpecType.count         : return 'int'        ; break;
+      // case SpecType.weight        : return 'double'     ; break;
+      // case SpecType.oldPrice      : return 'double'     ; break;
+      // case SpecType.currentPrice  : return 'double'     ; break;
+      // case SpecType.inStock       : return 'bool'     ; break;
       default :
         return null;
     }
@@ -152,24 +254,42 @@ class Spec {
     return _output;
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, dynamic>> cipherSpecs(List<Spec> specs){
-    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+  static Map<String, dynamic> cipherSpecs(List<Spec> specs){
+    Map<String, dynamic> _map = {};
 
     if (Mapper.canLoopList(specs)){
+
       for (Spec spec in specs){
-        _maps.add(spec.toMap());
+
+        _map = Mapper.insertPairInMap(
+            map: _map,
+            key: cipherSpecType(spec.specType),
+            value: spec.value,
+        );
+
       }
+
     }
 
-    return _maps;
+    return _map;
   }
 // -----------------------------------------------------------------------------
-  static List<Spec> decipherSpecs(List<dynamic> maps){
+  static List<Spec> decipherSpecs(Map<String, dynamic> map){
     final List<Spec> _specs = <Spec>[];
 
-    if(Mapper.canLoopList(maps)){
-      for (var map in maps){
-        _specs.add(Spec.decipherSpec(map));
+    final List<String> _keys = map.keys.toList();
+
+    if(Mapper.canLoopList(_keys)){
+
+      for (String key in _keys){
+
+        final Spec _spec = Spec(
+            specType: decipherSpecType(key),
+            value: map[key],
+        );
+
+        _specs.add(_spec);
+
       }
 
     }
@@ -200,78 +320,6 @@ class Spec {
 
     return _output;
 
-  }
-// -----------------------------------------------------------------------------
-  static String sqlCipherSpec(Spec spec){
-    String _string;
-
-    if (spec != null){
-
-      final String _specTypeString = cipherSpecType(spec.specType);
-      final String _specValueString = cipherSpecValue(spec);
-
-      _string = '${_specTypeString}#${_specValueString}';
-    }
-
-    return _string;
-  }
-// -----------------------------------------------------------------------------
-  static Spec sqlDecipherSpec(String string){
-    Spec spec;
-
-    if (string != null){
-      final String _specTypeString = TextMod.trimTextAfterLastSpecialCharacter(string, '#');
-      final String _specValueString = TextMod.trimTextBeforeFirstSpecialCharacter(string, '#');
-
-      final SpecType _specType = decipherSpecType(_specTypeString);
-
-      final dynamic _specValue = assignValueDataTypeAccordingToSpecType(specType: _specType, specValueString: _specValueString);
-
-      spec = Spec(
-        specType: _specType,
-        value: _specValue,
-      );
-    }
-
-    return spec;
-  }
-// -----------------------------------------------------------------------------
-  static String sqlCipherSpecs(List<Spec> specs){
-
-    String _output;
-
-    if (Mapper.canLoopList(specs)){
-
-      final List<String> _specsSQLStrings = <String>[];
-
-      for (Spec spec in specs){
-        final String _specString = sqlCipherSpec(spec);
-        _specsSQLStrings.add(_specString);
-      }
-
-      final String _sqlString = TextMod.sqlCipherStrings(_specsSQLStrings);
-
-      _output = _sqlString;
-    }
-
-    return _output;
-  }
-// -----------------------------------------------------------------------------
-  static List<Spec> sqlDecipherSpecs(String sqlSpecsString){
-
-    final List<Spec> _specs = <Spec>[];
-
-    if (sqlSpecsString != null){
-
-      final List<String> _sqlSpecsStrings = TextMod.sqlDecipherStrings(sqlSpecsString);
-
-      for (String sqlString in _sqlSpecsStrings){
-        final Spec _spec = sqlDecipherSpec(sqlString);
-        _specs.add(_spec);
-      }
-    }
-
-    return _specs;
   }
 // -----------------------------------------------------------------------------
   static bool specsAreTheSame(Spec specA, Spec specB){

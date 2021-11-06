@@ -1,7 +1,13 @@
 
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/dashboard/exotic_methods.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/db/fire/ops/search_ops.dart';
+import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/providers/ui_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -213,11 +219,22 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
               /// DON SOMETHING
               WideButton(
                   color: Colorz.bloodTest,
-                  verse: 'Do Something',
+                  verse: 'search specs',
                   icon: Iconz.Share,
                   onTap: () async {
 
                     _triggerLoading();
+
+                    List<Map<String, dynamic>> _result = await FireSearchOps.mapsByFieldValue(
+                      context: context,
+                      collName: FireColl.admin,
+                      field: 'specs.size',
+                      compareValue: 4,
+                      valueIs: ValueIs.GreaterOrEqualThan,
+                      limit: 10,
+                    );
+
+                    Mapper.printMaps(_result);
 
                     _triggerLoading();
 

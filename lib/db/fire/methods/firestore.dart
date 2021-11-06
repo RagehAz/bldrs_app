@@ -252,7 +252,7 @@ abstract class Fire{
     return _map;
   }
 // ---------------------------------------------------
-  static Future<List<dynamic>> readCollectionDocs({
+  static Future<List<Map<String, dynamic>>> readCollectionDocs({
     @required String collName,
     @required String orderBy,
     @required int limit,
@@ -279,7 +279,7 @@ abstract class Fire{
     final List<QueryDocumentSnapshot> _docsSnapshots = _collectionSnapshot.docs;
 
     /// to return maps
-    final List<dynamic> _maps = <dynamic>[];
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     for (QueryDocumentSnapshot docSnapshot in _docsSnapshots){
 

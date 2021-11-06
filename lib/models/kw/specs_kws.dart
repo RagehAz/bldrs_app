@@ -2,64 +2,24 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/kw/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
 
+/// specs are used only to describe and filter flyers or keywords
+///
+/// shall be saved like this inside flyerModel
+/// specs : {
+/// 'specName' : 'value',
+/// 'weight' : 15,
+/// 'weightUnit' : 'Kg',
+/// 'price' : 160,
+/// 'priceUnit' : 'EGP',
+///
+/// 'numberOfInstallments' : 12,
+/// 'installmentsDuration' : 12,
+/// 'installmentsDurationUnit' : 'months'
+/// },
+
 abstract class Specs{
 
-  static const List<Chain> chains = <Chain>[
-
-    // -----------------------------------------------
-    /// Kiosk Type
-    const Chain(
-      id: 'group_dz_kioskType',
-      icon: null,
-      names: <Name>[Name(code: 'en', value: 'Kiosk Type'), Name(code: 'ar', value: 'نوع الكشك')],
-      sons: const <KW>[
-        const KW(id: 'kiosk_food', names: <Name>[Name(code: 'en', value: 'Food & Beverages'), Name(code: 'ar', value: 'أكل و شراب')],),
-        const KW(id: 'kiosk_medical', names: <Name>[Name(code: 'en', value: 'Medical'), Name(code: 'ar', value: 'صحي')],),
-        const KW(id: 'kiosk_retail', names: <Name>[Name(code: 'en', value: 'Retail'), Name(code: 'ar', value: 'تجاري')],),
-        const KW(id: 'kiosk_admin', names: <Name>[Name(code: 'en', value: 'Admin.'), Name(code: 'ar', value: 'إداري')],),
-      ],
-    ),
-    // -----------------------------------------------
-    /// Architectural Style
-    const Chain(
-      id: 'group_dz_style',
-      icon: null,
-      names: <Name>[Name(code: 'en', value: 'Architectural Style'), Name(code: 'ar', value: 'الطراز المعماري')],
-      sons: const <KW>[
-        KW(id: 'arch_style_arabian', names: <Name>[Name(code: 'en', value: 'Arabian'), Name(code: 'ar', value: 'عربي')],),
-        KW(id: 'arch_style_andalusian', names: <Name>[Name(code: 'en', value: 'Andalusian'), Name(code: 'ar', value: 'أندلسي')],),
-        KW(id: 'arch_style_asian', names: <Name>[Name(code: 'en', value: 'Asian'), Name(code: 'ar', value: 'آسيوي')],),
-        KW(id: 'arch_style_chinese', names: <Name>[Name(code: 'en', value: 'Chinese'), Name(code: 'ar', value: 'صيني')],),
-        KW(id: 'arch_style_contemporary', names: <Name>[Name(code: 'en', value: 'Contemporary'), Name(code: 'ar', value: 'معاصر')],),
-        KW(id: 'arch_style_classic', names: <Name>[Name(code: 'en', value: 'Classic'), Name(code: 'ar', value: 'كلاسيكي')],),
-        KW(id: 'arch_style_eclectic', names: <Name>[Name(code: 'en', value: 'Eclectic'), Name(code: 'ar', value: 'انتقائي')],),
-        KW(id: 'arch_style_english', names: <Name>[Name(code: 'en', value: 'English'), Name(code: 'ar', value: 'إنجليزي')],),
-        KW(id: 'arch_style_farmhouse', names: <Name>[Name(code: 'en', value: 'Farmhouse'), Name(code: 'ar', value: 'ريفي')],),
-        KW(id: 'arch_style_french', names: <Name>[Name(code: 'en', value: 'French'), Name(code: 'ar', value: 'فرنساوي')],),
-        KW(id: 'arch_style_gothic', names: <Name>[Name(code: 'en', value: 'Gothic'), Name(code: 'ar', value: 'قوطي')],),
-        KW(id: 'arch_style_greek', names: <Name>[Name(code: 'en', value: 'Greek'), Name(code: 'ar', value: 'يوناني')],),
-        KW(id: 'arch_style_indian', names: <Name>[Name(code: 'en', value: 'Indian'), Name(code: 'ar', value: 'هندي')],),
-        KW(id: 'arch_style_industrial', names: <Name>[Name(code: 'en', value: 'Industrial'), Name(code: 'ar', value: 'صناعي')],),
-        KW(id: 'arch_style_japanese', names: <Name>[Name(code: 'en', value: 'Japanese'), Name(code: 'ar', value: 'ياباني')],),
-        KW(id: 'arch_style_mediterranean', names: <Name>[Name(code: 'en', value: 'Mediterranean'), Name(code: 'ar', value: 'البحر المتوسط')],),
-        KW(id: 'arch_style_midcentury', names: <Name>[Name(code: 'en', value: 'Mid century modern'), Name(code: 'ar', value: 'منتصف القرن الحديث')],),
-        KW(id: 'arch_style_medieval', names: <Name>[Name(code: 'en', value: 'Medieval'), Name(code: 'ar', value: 'القرون الوسطى')],),
-        KW(id: 'arch_style_minimalist', names: <Name>[Name(code: 'en', value: 'Minimalist'), Name(code: 'ar', value: 'مينيماليزم')],),
-        KW(id: 'arch_style_modern', names: <Name>[Name(code: 'en', value: 'Modern'), Name(code: 'ar', value: 'حديث')],),
-        KW(id: 'arch_style_moroccan', names: <Name>[Name(code: 'en', value: 'Moroccan'), Name(code: 'ar', value: 'مغربي')],),
-        KW(id: 'arch_style_rustic', names: <Name>[Name(code: 'en', value: 'Rustic'), Name(code: 'ar', value: 'فلاحي')],),
-        KW(id: 'arch_style_scandinavian', names: <Name>[Name(code: 'en', value: 'Scandinavian'), Name(code: 'ar', value: 'إسكاندنيفي')],),
-        KW(id: 'arch_style_shabbyChic', names: <Name>[Name(code: 'en', value: 'Shabby Chic'), Name(code: 'ar', value: 'مهترئ أنيق')],),
-        KW(id: 'arch_style_american', names: <Name>[Name(code: 'en', value: 'American'), Name(code: 'ar', value: 'أمريكي')],),
-        KW(id: 'arch_style_spanish', names: <Name>[Name(code: 'en', value: 'Spanish'), Name(code: 'ar', value: 'أسباني')],),
-        KW(id: 'arch_style_traditional', names: <Name>[Name(code: 'en', value: 'Traditional'), Name(code: 'ar', value: 'تقليدي')],),
-        KW(id: 'arch_style_transitional', names: <Name>[Name(code: 'en', value: 'Transitional'), Name(code: 'ar', value: 'انتقالي')],),
-        KW(id: 'arch_style_tuscan', names: <Name>[Name(code: 'en', value: 'Tuscan'), Name(code: 'ar', value: 'توسكاني')],),
-        KW(id: 'arch_style_tropical', names: <Name>[Name(code: 'en', value: 'Tropical'), Name(code: 'ar', value: 'استوائي')],),
-        KW(id: 'arch_style_victorian', names: <Name>[Name(code: 'en', value: 'Victorian'), Name(code: 'ar', value: 'فيكتوريان')],),
-        KW(id: 'arch_style_vintage', names: <Name>[Name(code: 'en', value: 'Vintage'), Name(code: 'ar', value: 'عتيق')],),
-      ],
-    ),
+  static const List<Chain> properties = <Chain>[
     // -----------------------------------------------
     /// Area
     const Chain(
@@ -462,71 +422,48 @@ abstract class Specs{
       ],
     ),
     // -----------------------------------------------
-    /// Product Price
+  ];
+
+  static const List<Chain> designs = <Chain>[
+    // -----------------------------------------------
+    /// Architectural Style
     const Chain(
-      id: 'group_prd_price',
+      id: 'group_dz_style',
       icon: null,
-      names: <Name>[Name(code: 'en', value: 'Product Price'), Name(code: 'ar', value: 'سعر المنتج')],
-      sons: const <Chain>[
-        // ----------------------------------
-        /// Product price
-        const Chain(
-          id: 'sub_prd_price',
-          icon: null,
-          names: <Name>[Name(code: 'en', value: 'Product price'), Name(code: 'ar', value: 'سعر المنتج')],
-          sons: const <KW>[
-            KW(id: 'prd_price_sell_egp_100_500', names: <Name>[Name(code: 'en', value: '10 - 500 EGP'), Name(code: 'ar', value: 'بين  10 - 500 جم')],),
-            KW(id: 'prd_price_sell_egp_500_1k', names: <Name>[Name(code: 'en', value: '500 - 1K EGP'), Name(code: 'ar', value: 'بين  500 - 1 ألف جم')],),
-            KW(id: 'prd_price_sell_egp_1k_2k', names: <Name>[Name(code: 'en', value: '1K - 2K EGP'), Name(code: 'ar', value: 'بين  1 ألف - 2 ألف جم')],),
-            KW(id: 'prd_price_sell_egp_2k_5k', names: <Name>[Name(code: 'en', value: '2K - 5K EGP'), Name(code: 'ar', value: 'بين  2 ألف - 5 ألف جم')],),
-            KW(id: 'prd_price_sell_egp_5k_10k', names: <Name>[Name(code: 'en', value: '5K - 10K EGP'), Name(code: 'ar', value: 'بين  5 ألف - 10 ألف جم')],),
-            KW(id: 'prd_price_sell_egp_10k_20k', names: <Name>[Name(code: 'en', value: '10K - 20K EGP'), Name(code: 'ar', value: 'بين  10 ألف - 20 ألف جم')],),
-            KW(id: 'prd_price_sell_egp_20k_50k', names: <Name>[Name(code: 'en', value: '20K - 50K EGP'), Name(code: 'ar', value: 'بين  20 ألف - 50 ألف جم')],),
-            KW(id: 'prd_price_sell_egp_50k_100k', names: <Name>[Name(code: 'en', value: '50K - 100K EGP'), Name(code: 'ar', value: 'بين  50 ألف - 100 ألف جم')],),
-            KW(id: 'prd_price_sell_egp_100k_200k', names: <Name>[Name(code: 'en', value: '100K - 200K EGP'), Name(code: 'ar', value: 'بين  100 ألف - 200 ألف جم')],),
-            KW(id: 'prd_price_sell_egp_200k_500k', names: <Name>[Name(code: 'en', value: '200K - 500K EGP'), Name(code: 'ar', value: 'بين  200 ألف - 500 ألف جم')],),
-            KW(id: 'prd_price_sell_egp_500k_1M', names: <Name>[Name(code: 'en', value: '500K - 1M EGP'), Name(code: 'ar', value: 'بين  500 ألف - 1 مليون جم')],),
-            KW(id: 'prd_price_sell_egp_more', names: <Name>[Name(code: 'en', value: 'More than 1M EGP'), Name(code: 'ar', value: 'أكثر من 1 مليون جم')],),
-          ],
-        ),
-        // ----------------------------------
-        /// Price type
-        const Chain(
-          id: 'sub_prd_priceType',
-          icon: null,
-          names: <Name>[Name(code: 'en', value: 'Price type'), Name(code: 'ar', value: 'نوع السعر')],
-          sons: const <KW>[
-            KW(id: 'prd_price_type_sale', names: <Name>[Name(code: 'en', value: 'Selling price'), Name(code: 'ar', value: 'سعر البيع')],),
-            KW(id: 'prd_price_type_rent', names: <Name>[Name(code: 'en', value: 'Rent price'), Name(code: 'ar', value: 'سعر الإيجار')],),
-          ],
-        ),
-        // ----------------------------------
-        /// Rent type
-        const Chain(
-          id: 'sub_prd_rentType',
-          icon: null,
-          names: <Name>[Name(code: 'en', value: 'Rent type'), Name(code: 'ar', value: 'نوع الإيجار')],
-          sons: const <KW>[
-            KW(id: 'prd_price_rent_hour', names: <Name>[Name(code: 'en', value: 'Per Hour'), Name(code: 'ar', value: 'في الساعة')],),
-            KW(id: 'prd_price_rent_day', names: <Name>[Name(code: 'en', value: 'Per Day'), Name(code: 'ar', value: 'في اليوم')],),
-            KW(id: 'prd_price_rent_week', names: <Name>[Name(code: 'en', value: 'Per Week'), Name(code: 'ar', value: 'في الأسبوع')],),
-            KW(id: 'prd_price_rent_year', names: <Name>[Name(code: 'en', value: 'Per Year'), Name(code: 'ar', value: 'في السنة')],),
-          ],
-        ),
-        // ----------------------------------
-        /// Measurement unit
-        const Chain(
-          id: 'sub_prd_price_unit',
-          icon: null,
-          names: <Name>[Name(code: 'en', value: 'Measurement unit'), Name(code: 'ar', value: 'وحدة القياس')],
-          sons: const <KW>[
-            KW(id: 'pd_price_unit_m', names: <Name>[Name(code: 'en', value: 'Meter'), Name(code: 'ar', value: 'متر طولي')],),
-            KW(id: 'pd_price_unit_sqm', names: <Name>[Name(code: 'en', value: 'Square Meter'), Name(code: 'ar', value: 'متر مربع')],),
-            KW(id: 'pd_price_unit_cubicm', names: <Name>[Name(code: 'en', value: 'Cubic Meter'), Name(code: 'ar', value: 'متر مكعب')],),
-            KW(id: 'pd_price_unit_ml', names: <Name>[Name(code: 'en', value: 'Millilitre'), Name(code: 'ar', value: 'مللي لتر')],),
-            KW(id: 'pd_price_unit_l', names: <Name>[Name(code: 'en', value: 'Litre'), Name(code: 'ar', value: 'لتر')],),
-          ],
-        ),
+      names: <Name>[Name(code: 'en', value: 'Architectural Style'), Name(code: 'ar', value: 'الطراز المعماري')],
+      sons: const <KW>[
+        KW(id: 'arch_style_arabian', names: <Name>[Name(code: 'en', value: 'Arabian'), Name(code: 'ar', value: 'عربي')],),
+        KW(id: 'arch_style_andalusian', names: <Name>[Name(code: 'en', value: 'Andalusian'), Name(code: 'ar', value: 'أندلسي')],),
+        KW(id: 'arch_style_asian', names: <Name>[Name(code: 'en', value: 'Asian'), Name(code: 'ar', value: 'آسيوي')],),
+        KW(id: 'arch_style_chinese', names: <Name>[Name(code: 'en', value: 'Chinese'), Name(code: 'ar', value: 'صيني')],),
+        KW(id: 'arch_style_contemporary', names: <Name>[Name(code: 'en', value: 'Contemporary'), Name(code: 'ar', value: 'معاصر')],),
+        KW(id: 'arch_style_classic', names: <Name>[Name(code: 'en', value: 'Classic'), Name(code: 'ar', value: 'كلاسيكي')],),
+        KW(id: 'arch_style_eclectic', names: <Name>[Name(code: 'en', value: 'Eclectic'), Name(code: 'ar', value: 'انتقائي')],),
+        KW(id: 'arch_style_english', names: <Name>[Name(code: 'en', value: 'English'), Name(code: 'ar', value: 'إنجليزي')],),
+        KW(id: 'arch_style_farmhouse', names: <Name>[Name(code: 'en', value: 'Farmhouse'), Name(code: 'ar', value: 'ريفي')],),
+        KW(id: 'arch_style_french', names: <Name>[Name(code: 'en', value: 'French'), Name(code: 'ar', value: 'فرنساوي')],),
+        KW(id: 'arch_style_gothic', names: <Name>[Name(code: 'en', value: 'Gothic'), Name(code: 'ar', value: 'قوطي')],),
+        KW(id: 'arch_style_greek', names: <Name>[Name(code: 'en', value: 'Greek'), Name(code: 'ar', value: 'يوناني')],),
+        KW(id: 'arch_style_indian', names: <Name>[Name(code: 'en', value: 'Indian'), Name(code: 'ar', value: 'هندي')],),
+        KW(id: 'arch_style_industrial', names: <Name>[Name(code: 'en', value: 'Industrial'), Name(code: 'ar', value: 'صناعي')],),
+        KW(id: 'arch_style_japanese', names: <Name>[Name(code: 'en', value: 'Japanese'), Name(code: 'ar', value: 'ياباني')],),
+        KW(id: 'arch_style_mediterranean', names: <Name>[Name(code: 'en', value: 'Mediterranean'), Name(code: 'ar', value: 'البحر المتوسط')],),
+        KW(id: 'arch_style_midcentury', names: <Name>[Name(code: 'en', value: 'Mid century modern'), Name(code: 'ar', value: 'منتصف القرن الحديث')],),
+        KW(id: 'arch_style_medieval', names: <Name>[Name(code: 'en', value: 'Medieval'), Name(code: 'ar', value: 'القرون الوسطى')],),
+        KW(id: 'arch_style_minimalist', names: <Name>[Name(code: 'en', value: 'Minimalist'), Name(code: 'ar', value: 'مينيماليزم')],),
+        KW(id: 'arch_style_modern', names: <Name>[Name(code: 'en', value: 'Modern'), Name(code: 'ar', value: 'حديث')],),
+        KW(id: 'arch_style_moroccan', names: <Name>[Name(code: 'en', value: 'Moroccan'), Name(code: 'ar', value: 'مغربي')],),
+        KW(id: 'arch_style_rustic', names: <Name>[Name(code: 'en', value: 'Rustic'), Name(code: 'ar', value: 'فلاحي')],),
+        KW(id: 'arch_style_scandinavian', names: <Name>[Name(code: 'en', value: 'Scandinavian'), Name(code: 'ar', value: 'إسكاندنيفي')],),
+        KW(id: 'arch_style_shabbyChic', names: <Name>[Name(code: 'en', value: 'Shabby Chic'), Name(code: 'ar', value: 'مهترئ أنيق')],),
+        KW(id: 'arch_style_american', names: <Name>[Name(code: 'en', value: 'American'), Name(code: 'ar', value: 'أمريكي')],),
+        KW(id: 'arch_style_spanish', names: <Name>[Name(code: 'en', value: 'Spanish'), Name(code: 'ar', value: 'أسباني')],),
+        KW(id: 'arch_style_traditional', names: <Name>[Name(code: 'en', value: 'Traditional'), Name(code: 'ar', value: 'تقليدي')],),
+        KW(id: 'arch_style_transitional', names: <Name>[Name(code: 'en', value: 'Transitional'), Name(code: 'ar', value: 'انتقالي')],),
+        KW(id: 'arch_style_tuscan', names: <Name>[Name(code: 'en', value: 'Tuscan'), Name(code: 'ar', value: 'توسكاني')],),
+        KW(id: 'arch_style_tropical', names: <Name>[Name(code: 'en', value: 'Tropical'), Name(code: 'ar', value: 'استوائي')],),
+        KW(id: 'arch_style_victorian', names: <Name>[Name(code: 'en', value: 'Victorian'), Name(code: 'ar', value: 'فيكتوريان')],),
+        KW(id: 'arch_style_vintage', names: <Name>[Name(code: 'en', value: 'Vintage'), Name(code: 'ar', value: 'عتيق')],),
       ],
     ),
     // -----------------------------------------------
@@ -646,8 +583,108 @@ abstract class Specs{
         ),
       ],
     ),
+
+  ];
+
+  static const List<Chain> crafts = <Chain>[];
+
+  static const List<Chain> products = <Chain>[];
+
+  static const List<Chain> equipment = <Chain>[
+
+  ];
+
+  static const List<Chain> chains = <Chain>[
+
+    // -----------------------------------------------
+    /// Product Price
+    const Chain(
+      id: 'group_prd_price',
+      icon: null,
+      names: <Name>[Name(code: 'en', value: 'Product Price'), Name(code: 'ar', value: 'سعر المنتج')],
+      sons: const <Chain>[
+        // ----------------------------------
+        /// Product price
+        const Chain(
+          id: 'sub_prd_price',
+          icon: null,
+          names: <Name>[Name(code: 'en', value: 'Product price'), Name(code: 'ar', value: 'سعر المنتج')],
+          sons: const <KW>[
+            KW(id: 'prd_price_sell_egp_100_500', names: <Name>[Name(code: 'en', value: '10 - 500 EGP'), Name(code: 'ar', value: 'بين  10 - 500 جم')],),
+            KW(id: 'prd_price_sell_egp_500_1k', names: <Name>[Name(code: 'en', value: '500 - 1K EGP'), Name(code: 'ar', value: 'بين  500 - 1 ألف جم')],),
+            KW(id: 'prd_price_sell_egp_1k_2k', names: <Name>[Name(code: 'en', value: '1K - 2K EGP'), Name(code: 'ar', value: 'بين  1 ألف - 2 ألف جم')],),
+            KW(id: 'prd_price_sell_egp_2k_5k', names: <Name>[Name(code: 'en', value: '2K - 5K EGP'), Name(code: 'ar', value: 'بين  2 ألف - 5 ألف جم')],),
+            KW(id: 'prd_price_sell_egp_5k_10k', names: <Name>[Name(code: 'en', value: '5K - 10K EGP'), Name(code: 'ar', value: 'بين  5 ألف - 10 ألف جم')],),
+            KW(id: 'prd_price_sell_egp_10k_20k', names: <Name>[Name(code: 'en', value: '10K - 20K EGP'), Name(code: 'ar', value: 'بين  10 ألف - 20 ألف جم')],),
+            KW(id: 'prd_price_sell_egp_20k_50k', names: <Name>[Name(code: 'en', value: '20K - 50K EGP'), Name(code: 'ar', value: 'بين  20 ألف - 50 ألف جم')],),
+            KW(id: 'prd_price_sell_egp_50k_100k', names: <Name>[Name(code: 'en', value: '50K - 100K EGP'), Name(code: 'ar', value: 'بين  50 ألف - 100 ألف جم')],),
+            KW(id: 'prd_price_sell_egp_100k_200k', names: <Name>[Name(code: 'en', value: '100K - 200K EGP'), Name(code: 'ar', value: 'بين  100 ألف - 200 ألف جم')],),
+            KW(id: 'prd_price_sell_egp_200k_500k', names: <Name>[Name(code: 'en', value: '200K - 500K EGP'), Name(code: 'ar', value: 'بين  200 ألف - 500 ألف جم')],),
+            KW(id: 'prd_price_sell_egp_500k_1M', names: <Name>[Name(code: 'en', value: '500K - 1M EGP'), Name(code: 'ar', value: 'بين  500 ألف - 1 مليون جم')],),
+            KW(id: 'prd_price_sell_egp_more', names: <Name>[Name(code: 'en', value: 'More than 1M EGP'), Name(code: 'ar', value: 'أكثر من 1 مليون جم')],),
+          ],
+        ),
+        // ----------------------------------
+        /// Price type
+        const Chain(
+          id: 'sub_prd_priceType',
+          icon: null,
+          names: <Name>[Name(code: 'en', value: 'Price type'), Name(code: 'ar', value: 'نوع السعر')],
+          sons: const <KW>[
+            KW(id: 'prd_price_type_sale', names: <Name>[Name(code: 'en', value: 'Selling price'), Name(code: 'ar', value: 'سعر البيع')],),
+            KW(id: 'prd_price_type_rent', names: <Name>[Name(code: 'en', value: 'Rent price'), Name(code: 'ar', value: 'سعر الإيجار')],),
+          ],
+        ),
+        // ----------------------------------
+        /// Rent type
+        const Chain(
+          id: 'sub_prd_rentType',
+          icon: null,
+          names: <Name>[Name(code: 'en', value: 'Rent type'), Name(code: 'ar', value: 'نوع الإيجار')],
+          sons: const <KW>[
+            KW(id: 'prd_price_rent_hour', names: <Name>[Name(code: 'en', value: 'Per Hour'), Name(code: 'ar', value: 'في الساعة')],),
+            KW(id: 'prd_price_rent_day', names: <Name>[Name(code: 'en', value: 'Per Day'), Name(code: 'ar', value: 'في اليوم')],),
+            KW(id: 'prd_price_rent_week', names: <Name>[Name(code: 'en', value: 'Per Week'), Name(code: 'ar', value: 'في الأسبوع')],),
+            KW(id: 'prd_price_rent_year', names: <Name>[Name(code: 'en', value: 'Per Year'), Name(code: 'ar', value: 'في السنة')],),
+          ],
+        ),
+        // ----------------------------------
+        /// Measurement unit
+        const Chain(
+          id: 'sub_prd_price_unit',
+          icon: null,
+          names: <Name>[Name(code: 'en', value: 'Measurement unit'), Name(code: 'ar', value: 'وحدة القياس')],
+          sons: const <KW>[
+            KW(id: 'pd_price_unit_m', names: <Name>[Name(code: 'en', value: 'Meter'), Name(code: 'ar', value: 'متر طولي')],),
+            KW(id: 'pd_price_unit_sqm', names: <Name>[Name(code: 'en', value: 'Square Meter'), Name(code: 'ar', value: 'متر مربع')],),
+            KW(id: 'pd_price_unit_cubicm', names: <Name>[Name(code: 'en', value: 'Cubic Meter'), Name(code: 'ar', value: 'متر مكعب')],),
+            KW(id: 'pd_price_unit_ml', names: <Name>[Name(code: 'en', value: 'Millilitre'), Name(code: 'ar', value: 'مللي لتر')],),
+            KW(id: 'pd_price_unit_l', names: <Name>[Name(code: 'en', value: 'Litre'), Name(code: 'ar', value: 'لتر')],),
+          ],
+        ),
+      ],
+    ),
     // -----------------------------------------------
 
   ];
+
+}
+
+
+class zebala {
+// -----------------------------------------------
+  /// Kiosk Type
+  static const kioskThing = const Chain(
+    id: 'group_dz_kioskType',
+    icon: null,
+    names: <Name>[Name(code: 'en', value: 'Kiosk Type'), Name(code: 'ar', value: 'نوع الكشك')],
+    sons: const <KW>[
+      const KW(id: 'kiosk_food', names: <Name>[Name(code: 'en', value: 'Food & Beverages'), Name(code: 'ar', value: 'أكل و شراب')],),
+      const KW(id: 'kiosk_medical', names: <Name>[Name(code: 'en', value: 'Medical'), Name(code: 'ar', value: 'صحي')],),
+      const KW(id: 'kiosk_retail', names: <Name>[Name(code: 'en', value: 'Retail'), Name(code: 'ar', value: 'تجاري')],),
+      const KW(id: 'kiosk_admin', names: <Name>[Name(code: 'en', value: 'Admin.'), Name(code: 'ar', value: 'إداري')],),
+    ],
+  );
+// -----------------------------------------------
 
 }
