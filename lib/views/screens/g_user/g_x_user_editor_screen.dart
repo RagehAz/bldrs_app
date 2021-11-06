@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
@@ -9,9 +10,9 @@ import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/fire/ops/user_ops.dart';
 import 'package:bldrs/db/fire/ops/zone_ops.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/add_gallery_pic_bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/contact_field_bubble.dart';
@@ -19,7 +20,6 @@ import 'package:bldrs/views/widgets/general/bubbles/locale_bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/general/images/super_image.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
