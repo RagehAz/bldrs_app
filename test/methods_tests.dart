@@ -8,7 +8,6 @@ import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
-import 'package:bldrs/models/flyer/sub/spec_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -290,39 +289,6 @@ void main(){
 
     dynamic _expected = const GeoPoint(12.3, 45.6);
     expect(_pointAgain, _expected);
-
-  });
-// -----------------------------------------------------------------------------
-  test('sqlCipherSpec and sqlDecipherSpec', (){
-
-    Spec _spec = const Spec(specType: SpecType.inStock, value: false);
-    String _specString = Spec.sqlCipherSpec(_spec);
-
-    Spec _specAgain = Spec.sqlDecipherSpec(_specString);
-
-    dynamic _expected = _spec.value;
-    expect(_specAgain.value, _expected);
-
-  });
-// -----------------------------------------------------------------------------
-  test('sqlCipherSpecs and sqlDecipherSpecs', (){
-
-    const Spec _specA = Spec(specType: SpecType.inStock, value: false);
-    const Spec _specB = Spec(specType: SpecType.height, value: 10.4);
-    const Spec _specC = Spec(specType: SpecType.count, value: 12);
-
-    final List<Spec> _specs = <Spec>[_specA, _specB, _specC];
-
-    final String _specsString = Spec.sqlCipherSpecs(_specs);
-
-    final List<Spec> specsBack = Spec.sqlDecipherSpecs(_specsString);
-
-    print('specs back are : ${specsBack.toString()}');
-
-    bool _specsListsAreTheSame = Spec.specsListsAreTheSame(_specs, specsBack);
-
-    dynamic _expected =  true;
-    expect(_specsListsAreTheSame, _expected);
 
   });
 // -----------------------------------------------------------------------------
