@@ -7,7 +7,7 @@ import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
-import 'package:bldrs/models/flyer/sub/spec_model.dart';
+import 'package:bldrs/models/kw/spec_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
@@ -471,7 +471,7 @@ class FlyerModel with ChangeNotifier{
       title: 'Dummy Flyer',
       trigram: TextGen.createTrigram(input: 'Dummy Flyer'),
       authorID: 'Svj0ln7UtoMtHKfZiPhzTSPejr52',
-      flyerType : FlyerType.rentalProperty,
+      flyerType : FlyerType.property,
       flyerState : FlyerState.published,
       keywordsIDs : [],
       showsAuthor : true,

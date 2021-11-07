@@ -20,32 +20,28 @@ abstract class Iconizer{
 // -----------------------------------------------------------------------------
   static String sectionIconOn (Section section){
     return
-      section == Section.NewProperties ? Iconz.BxNewPropertiesOn :
-      section == Section.ResaleProperties ? Iconz.BxResalePropertiesOn :
-      section == Section.RentalProperties ? Iconz.BxRentPropertiesOn :
+      section == Section.properties ? Iconz.BxPropertiesOn :
 
-      section == Section.Designs ? Iconz.BxDesignsOn :
-      section == Section.Projects ? Iconz.BxProjectsOn :
-      section == Section.Crafts ? Iconz.BxCraftsOn :
+      section == Section.designs ? Iconz.BxDesignsOn :
+      section == Section.projects ? Iconz.BxProjectsOn :
+      section == Section.crafts ? Iconz.BxCraftsOn :
 
-      section == Section.Products ? Iconz.BxProductsOn :
-      section == Section.Equipment ? Iconz.BxEquipmentOn :
+      section == Section.products ? Iconz.BxProductsOn :
+      section == Section.equipment ? Iconz.BxEquipmentOn :
 
       Iconz.Bz;
   }
 // -----------------------------------------------------------------------------
   static String sectionIconOff (Section section){
     return
-      section == Section.NewProperties ? Iconz.BxNewPropertiesOff :
-      section == Section.ResaleProperties ? Iconz.BxResalePropertiesOff :
-      section == Section.RentalProperties ? Iconz.BxRentPropertiesOff :
+      section == Section.properties ? Iconz.BxPropertiesOff :
 
-      section == Section.Designs ? Iconz.BxDesignsOff :
-      section == Section.Projects ? Iconz.BxProjectsOff :
-      section == Section.Crafts ? Iconz.BxCraftsOff :
+      section == Section.designs ? Iconz.BxDesignsOff :
+      section == Section.projects ? Iconz.BxProjectsOff :
+      section == Section.crafts ? Iconz.BxCraftsOff :
 
-      section == Section.Products ? Iconz.BxProductsOff :
-      section == Section.Equipment ? Iconz.BxEquipmentOff :
+      section == Section.products ? Iconz.BxProductsOff :
+      section == Section.equipment ? Iconz.BxEquipmentOff :
 
       section == Section.All ? Iconz.SavedFlyers :
 
@@ -94,7 +90,7 @@ abstract class Iconizer{
 // -----------------------------------------------------------------------------
   static String flyerTypeIconOn (FlyerType flyerType){
     final String icon =
-    flyerType == FlyerType.rentalProperty ? Iconz.BxPropertiesOn :
+    flyerType == FlyerType.property ? Iconz.BxPropertiesOn :
     flyerType == FlyerType.design ? Iconz.BxDesignsOn :
     flyerType == FlyerType.project ? Iconz.BxProjectsOn :
     flyerType == FlyerType.craft ? Iconz.BxCraftsOn :
@@ -106,9 +102,7 @@ abstract class Iconizer{
 // -----------------------------------------------------------------------------
   static String flyerTypeIconOff (FlyerType flyerType){
     final String _icon =
-    flyerType == FlyerType.newProperty ? Iconz.BxNewPropertiesOff :
-    flyerType == FlyerType.resaleProperty ? Iconz.BxResalePropertiesOff :
-    flyerType == FlyerType.rentalProperty ? Iconz.BxRentPropertiesOff :
+    flyerType == FlyerType.property ? Iconz.BxPropertiesOff :
     flyerType == FlyerType.design ? Iconz.BxDesignsOff :
     flyerType == FlyerType.project ? Iconz.BxProjectsOff :
     flyerType == FlyerType.craft ? Iconz.BxCraftsOff :

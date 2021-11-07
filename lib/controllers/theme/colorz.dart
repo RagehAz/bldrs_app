@@ -41,11 +41,11 @@ abstract class Colorz {
   static const blue125 = Color.fromARGB(_125, 133, 203, 218);
   static const blue225 = Color.fromARGB(_225, 133, 203, 218);
 // -----------------------------------------------------------------------------
-  static const darkBlue = Color.fromARGB(_225, 20, 20, 80);
+  static const darkBlue = Color.fromARGB(255, 20, 20, 80);
 // -----------------------------------------------------------------------------
-  static const skyDarkBlue = Color.fromARGB(_225,19, 36, 75); // #13244b
+  static const skyDarkBlue = Color.fromARGB(255,19, 36, 75); // #13244b
 // -----------------------------------------------------------------------------
-  static const skyLightBlue = Color.fromARGB(_225, 0, 71, 123);
+  static const skyLightBlue = Color.fromARGB(255, 0, 71, 123);
 // -----------------------------------------------------------------------------
   static const yellow10 = Color.fromARGB(_10, 255, 192, 0);
   static const yellow20 = Color.fromARGB(_20, 255, 192, 0);

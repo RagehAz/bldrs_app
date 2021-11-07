@@ -2,9 +2,7 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/keywords/section_class.dart';
 
 enum FlyerType {
-  newProperty,
-  resaleProperty,
-  rentalProperty,
+  property,
   design,
   project,
   craft,
@@ -19,21 +17,19 @@ class FlyerTypeClass {
   static FlyerType getFlyerTypeBySection({Section section}){
 
     FlyerType _flyersTypes =
-    section == Section.NewProperties ? FlyerType.newProperty :
-    section == Section.ResaleProperties ? FlyerType.resaleProperty :
-    section == Section.RentalProperties ? FlyerType.rentalProperty :
-    section == Section.Designs ? FlyerType.design :
-    section == Section.Projects ? FlyerType.project :
-    section == Section.Crafts ? FlyerType.craft :
-    section == Section.Products ? FlyerType.product :
-    section == Section.Equipment ? FlyerType.equipment :
+    section == Section.properties ? FlyerType.property :
+    section == Section.designs ? FlyerType.design :
+    section == Section.projects ? FlyerType.project :
+    section == Section.crafts ? FlyerType.craft :
+    section == Section.products ? FlyerType.product :
+    section == Section.equipment ? FlyerType.equipment :
     null;
 
     return _flyersTypes;
   }
 // -----------------------------------------------------------------------------
   static List<FlyerType> flyerTypesList = <FlyerType>[
-    FlyerType.rentalProperty,
+    FlyerType.property,
     FlyerType.design,
     FlyerType.product,
     FlyerType.project,
@@ -59,14 +55,12 @@ class FlyerTypeClass {
 // -----------------------------------------------------------------------------
   static FlyerType decipherFlyerType (String x){
     switch (x){
-      case 'rentalProperty' :   return  FlyerType.rentalProperty;     break; // 1
+      case 'property'       :   return  FlyerType.property;     break; // 1
       case 'design'         :   return  FlyerType.design;             break; // 2
       case 'product'        :   return  FlyerType.product;            break; // 3
       case 'project'        :   return  FlyerType.project;            break; // 4
       case 'craft'          :   return  FlyerType.craft;              break; // 5
       case 'equipment'      :   return  FlyerType.equipment;          break; // 6
-      case 'newProperty'    :   return  FlyerType.newProperty;        break; // 7
-      case 'resaleProperty' :   return  FlyerType.resaleProperty;     break; // 8
 
       default : return   null;
     }
@@ -74,14 +68,12 @@ class FlyerTypeClass {
 // -----------------------------------------------------------------------------
   static String cipherFlyerType (FlyerType x){
     switch (x){
-      case FlyerType.rentalProperty   :    return  'rentalProperty';  break;
+      case FlyerType.property         :    return  'property';  break;
       case FlyerType.design           :    return  'design'        ;  break;
       case FlyerType.product          :    return  'product'       ;  break;
       case FlyerType.project          :    return  'project'       ;  break;
       case FlyerType.craft            :    return  'craft'         ;  break;
       case FlyerType.equipment        :    return  'equipment'     ;  break;
-      case FlyerType.newProperty      :    return  'newProperty'   ;  break;
-      case FlyerType.resaleProperty   :    return  'resaleProperty';  break;
 
       default : return null;
     }
@@ -89,8 +81,8 @@ class FlyerTypeClass {
 // -----------------------------------------------------------------------------
   static FlyerType concludeFlyerType(BzType bzType){
     switch (bzType){
-      case BzType.developer    :   return FlyerType.rentalProperty;   break;
-      case BzType.broker       :   return FlyerType.rentalProperty;   break;
+      case BzType.developer    :   return FlyerType.property;   break;
+      case BzType.broker       :   return FlyerType.property;   break;
       case BzType.designer     :   return FlyerType.design;     break;
       case BzType.contractor   :   return FlyerType.project;    break;
       case BzType.artisan      :   return FlyerType.craft;      break;
@@ -102,8 +94,8 @@ class FlyerTypeClass {
 // -----------------------------------------------------------------------------
   static List<FlyerType> concludePossibleFlyerTypesForBz({BzType bzType}){
     switch (bzType){
-      case BzType.developer    :   return <FlyerType>[FlyerType.newProperty, FlyerType.rentalProperty, FlyerType.resaleProperty];   break;
-      case BzType.broker       :   return <FlyerType>[FlyerType.newProperty, FlyerType.rentalProperty, FlyerType.resaleProperty];   break;
+      case BzType.developer    :   return <FlyerType>[FlyerType.property];   break;
+      case BzType.broker       :   return <FlyerType>[FlyerType.property];   break;
       case BzType.designer     :   return <FlyerType>[FlyerType.design];     break;
       case BzType.contractor   :   return <FlyerType>[FlyerType.project];    break;
       case BzType.artisan      :   return <FlyerType>[FlyerType.craft];      break;

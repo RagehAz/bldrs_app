@@ -11,7 +11,7 @@ class Chain {
   final String id;
   final String icon;
   final List<Name> names;
-  final List<dynamic> sons;
+  final dynamic sons;
 
   /// can be KWs or sub-Chains
 
