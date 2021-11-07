@@ -3,11 +3,11 @@ import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:flutter/cupertino.dart';
 
 enum SpecType {
-    propertyForm, // from a list
-  propertyLicense, // from a list
+    // propertyForm, // from a list
+  // propertyLicense, // from a list
   // ------------------------------------------
   /// PROPERTY PRICING
-  propertyContractType, // from a List (for sale or rent)
+  // propertyContractType, // from a List (for sale or rent)
   propertyPaymentMethod, // from a list
   propertySalePrice, // double
   propertyRentPrice, // double

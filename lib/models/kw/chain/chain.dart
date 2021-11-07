@@ -1,10 +1,10 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
-import 'package:bldrs/models/kw/chain_crafts.dart';
-import 'package:bldrs/models/kw/chain_designs.dart';
-import 'package:bldrs/models/kw/chain_equipment.dart';
-import 'package:bldrs/models/kw/chain_products.dart';
-import 'package:bldrs/models/kw/chain_properties.dart';
+import 'package:bldrs/models/kw/chain/chain_crafts.dart';
+import 'package:bldrs/models/kw/chain/chain_designs.dart';
+import 'package:bldrs/models/kw/chain/chain_equipment.dart';
+import 'package:bldrs/models/kw/chain/chain_products.dart';
+import 'package:bldrs/models/kw/chain/chain_properties.dart';
 import 'package:flutter/foundation.dart';
 
 class Chain {
