@@ -7,7 +7,7 @@ import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/secondary_models/app_updates.dart';
 import 'package:bldrs/models/secondary_models/big_mac.dart';
-import 'package:bldrs/models/kw/chain.dart';
+import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/secondary_models/feedback_model.dart';
