@@ -63,20 +63,8 @@ class SectionDialog extends StatelessWidget {
                 buttons: <Widget>[
 
                   SectionDialogButton(
-                    section: Section.NewProperties,
+                    section: Section.properties,
                     inActiveMode: false,
-                    dialogHeight: dialogHeight,
-                  ),
-
-                  SectionDialogButton(
-                    section: Section.ResaleProperties,
-                    inActiveMode: false,
-                    dialogHeight: dialogHeight,
-                  ),
-
-                  SectionDialogButton(
-                    section: Section.RentalProperties,
-                    inActiveMode: true,
                     dialogHeight: dialogHeight,
                   ),
 
@@ -92,19 +80,19 @@ class SectionDialog extends StatelessWidget {
                 buttons: <Widget>[
 
                   SectionDialogButton(
-                    section: Section.Designs,
+                    section: Section.designs,
                     inActiveMode: false,
                     dialogHeight: dialogHeight,
                   ),
 
                   SectionDialogButton(
-                    section: Section.Projects,
+                    section: Section.projects,
                     inActiveMode: false,
                     dialogHeight: dialogHeight,
                   ),
 
                   SectionDialogButton(
-                    section: Section.Crafts,
+                    section: Section.crafts,
                     inActiveMode: false,
                     dialogHeight: dialogHeight,
                   ),
@@ -120,13 +108,13 @@ class SectionDialog extends StatelessWidget {
               buttons: <Widget>[
 
                 SectionDialogButton(
-                  section: Section.Products,
+                  section: Section.products,
                   inActiveMode: false,
                   dialogHeight: dialogHeight,
                 ),
 
                 SectionDialogButton(
-                  section: Section.Equipment,
+                  section: Section.equipment,
                   inActiveMode: false,
                   dialogHeight: dialogHeight,
                 ),

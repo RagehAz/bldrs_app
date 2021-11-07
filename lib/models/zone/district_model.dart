@@ -124,7 +124,7 @@ class DistrictModel{
 
     if (city != null && districtID != null){
       final DistrictModel _district = DistrictModel.getDistrictFromDistricts(districts: city.districts, districtID: districtID);
-      _districtName = Name.getNameByCurrentLingoFromNames(context, _district.names);
+      _districtName = Name.getNameByCurrentLingoFromNames(context, _district?.names);
     }
 
     return _districtName;

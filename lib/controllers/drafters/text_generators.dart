@@ -15,16 +15,14 @@ abstract class TextGen{
 // -----------------------------------------------------------------------------
   static String sectionStringer (BuildContext context, Section section){
     return
-      section == Section.NewProperties ? 'New Properties' : //Wordz.realEstate(context) :
-      section == Section.ResaleProperties ? 'Resale Properties' : //Wordz.realEstate(context) :
-      section == Section.RentalProperties ? 'Rental Properties' : //Wordz.realEstate(context) :
+      section == Section.properties ? 'properties' : //Wordz.realEstate(context) :
 
-      section == Section.Designs ? 'Designs' : //Wordz.construction(context) :
-      section == Section.Projects ? 'Projects' : //Wordz.construction(context) :
-      section == Section.Crafts ? 'Crafts & Trades' : //Wordz.construction(context) :
+      section == Section.designs ? 'Designs' : //Wordz.construction(context) :
+      section == Section.projects ? 'Projects' : //Wordz.construction(context) :
+      section == Section.crafts ? 'Crafts & Trades' : //Wordz.construction(context) :
 
-      section == Section.Products ? 'Products & Materials' : //Wordz.supplies(context) :
-      section == Section.Equipment ? 'Tools & Equipment' : //Wordz.supplies(context) :
+      section == Section.products ? 'Products & Materials' : //Wordz.supplies(context) :
+      section == Section.equipment ? 'Tools & Equipment' : //Wordz.supplies(context) :
 
       section == Section.All ? 'All flyers' : //Wordz.supplies(context) :
 
@@ -33,16 +31,14 @@ abstract class TextGen{
 // -----------------------------------------------------------------------------
   static String sectionDescriptionStringer(BuildContext context, Section section){
     final String _description =
-    section == Section.NewProperties ? 'By RealEstate Developers.' : //Wordz.realEstateTagLine(context) :
-    section == Section.ResaleProperties ? 'By RealEstate Brokers.' : //Wordz.realEstateTagLine(context) :
-    section == Section.RentalProperties ? 'By Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
+    section == Section.properties ? 'By RealEstate Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
 
-    section == Section.Designs ? 'By Architects & Designers' : //Wordz.constructionTagLine(context) :
-    section == Section.Projects ? 'By Contractors' : //Wordz.constructionTagLine(context) :
-    section == Section.Crafts ? 'By Craftsmen, Technicians & Artists.' : //Wordz.constructionTagLine(context) :
+    section == Section.designs ? 'By Architects & Designers' : //Wordz.constructionTagLine(context) :
+    section == Section.projects ? 'By Contractors' : //Wordz.constructionTagLine(context) :
+    section == Section.crafts ? 'By Craftsmen, Technicians & Artists.' : //Wordz.constructionTagLine(context) :
 
-    section == Section.Products ? 'By Manufacturers & Suppliers.' : //Wordz.suppliesTagLine(context) :
-    section == Section.Equipment ? 'By Manufacturers & Suppliers.' : //Wordz.constructionTagLine(context) :
+    section == Section.products ? 'By Manufacturers & Suppliers.' : //Wordz.suppliesTagLine(context) :
+    section == Section.equipment ? 'By Manufacturers & Suppliers.' : //Wordz.constructionTagLine(context) :
 
     Wordz.bldrsShortName(context);
 
@@ -94,9 +90,7 @@ abstract class TextGen{
   static String flyerTypeSingleStringer (BuildContext context, FlyerType flyerType){
 
     return
-      flyerType == FlyerType.newProperty      ? 'New Property'  :
-      flyerType == FlyerType.resaleProperty   ? 'Resale Property'  :
-      flyerType == FlyerType.rentalProperty   ? 'Rental Property'  :
+      flyerType == FlyerType.property         ?  Wordz.property(context)  :
       flyerType == FlyerType.design           ? Wordz.design(context)  :
       flyerType == FlyerType.product          ? Wordz.product(context)  :
       flyerType == FlyerType.project          ? Wordz.project(context)  :
@@ -113,7 +107,7 @@ abstract class TextGen{
 // -----------------------------------------------------------------------------
   static String flyerTypePluralStringer (BuildContext context, FlyerType flyerType){
     return
-      flyerType == FlyerType.rentalProperty   ? Wordz.properties(context)  :
+      flyerType == FlyerType.property   ? Wordz.properties(context)  :
       flyerType == FlyerType.design     ? Wordz.designs(context)  :
       flyerType == FlyerType.product    ? Wordz.products(context)  :
       flyerType == FlyerType.project    ? Wordz.projects(context)  :

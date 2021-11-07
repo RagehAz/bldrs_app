@@ -10,7 +10,7 @@ import 'package:bldrs/models/flyer/mutables/flyer_recorder.dart';
 import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/flyer/sub/spec_model.dart';
+import 'package:bldrs/models/kw/spec_model.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
