@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/keywords/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/tab_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';

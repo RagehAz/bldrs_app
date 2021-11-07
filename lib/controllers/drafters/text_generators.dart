@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
-import 'package:bldrs/models/keywords/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/district_model.dart';

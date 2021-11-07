@@ -1,5 +1,5 @@
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/keywords/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart';
 
 enum FlyerType {
   property,

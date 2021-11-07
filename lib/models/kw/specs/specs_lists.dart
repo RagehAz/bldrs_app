@@ -1,38 +1,14 @@
-import 'package:bldrs/models/kw/chain.dart';
+import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
+import 'package:bldrs/models/kw/specs/data_creator.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
-
-enum DataCreator{
-
-  fromList,
-  doubleSlider,
-  integerSlider,
-  doubleRangeSlider,
-  boolSwitch,
-  textKeyboard,
-  numberKeyboard,
+import 'package:flutter/foundation.dart';
 
 
-}
-//
-// class SpecSelector{
-//   final SpecType specType,
-//   final Selector selector,
-// canPickMany
-//   final Chain chain,
-//
-//   const SpecSelector({
-//     @required this.specType,
-//     @required this.selector,
-//     this.chain,
-// });
-//
-//  }
-
-abstract class SpecsLists {
+abstract class SpecChain {
   // -------------------------------------------------------------------------
   /// STYLE ANATOMY
-  static const Chain _style = const Chain(
+  static const Chain style = const Chain(
     id: 'style',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Design Style'), Name(code: 'ar', value: 'الطراز التصميمي')],
@@ -71,7 +47,7 @@ abstract class SpecsLists {
       KW(id: 'arch_style_vintage', names: <Name>[Name(code: 'en', value: 'Vintage'), Name(code: 'ar', value: 'عتيق')],),
     ],
   );
-  static const Chain _color = const Chain(
+  static const Chain color = const Chain(
     id: 'color',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Color'), Name(code: 'ar', value: 'اللون')],
@@ -90,7 +66,7 @@ abstract class SpecsLists {
   );
   // -------------------------------------------------------------------------
   /// PRICING ANATOMY
-  static const Chain _contractType = const Chain(
+  static const Chain contractType = const Chain(
     id: 'contractType',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Contract Type'), Name(code: 'ar', value: 'نوع التعاقد')],
@@ -100,7 +76,7 @@ abstract class SpecsLists {
       KW(id: 'contractType_Rent', names: <Name>[Name(code: 'en', value: 'Rent'), Name(code: 'ar', value: 'للإيجار')],),
     ],
   );
-  static const Chain _paymentMethod = const Chain(
+  static const Chain paymentMethod = const Chain(
     id: 'paymentMethod',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Payment Method'), Name(code: 'ar', value: 'طريقة السداد')],
@@ -109,19 +85,19 @@ abstract class SpecsLists {
       KW(id: 'payment_installments', names: <Name>[Name(code: 'en', value: 'Installments'), Name(code: 'ar', value: 'على دفعات')],),
     ],
   );
-  static const Chain _price = const Chain(
+  static const Chain price = const Chain(
     id: 'price',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'price'), Name(code: 'ar', value: 'السعر')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _currency = const Chain(
+  static const Chain currency = const Chain(
     id: 'currency',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Currency'), Name(code: 'ar', value: 'العملة')],
     sons: null, // getCurrenciesAsKeywords();
   );
-  static const Chain _unitPriceInterval = const Chain(
+  static const Chain unitPriceInterval = const Chain(
     id: 'unitPriceInterval',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Standard interval'), Name(code: 'ar', value: 'مقياس الفترة')],
@@ -133,19 +109,19 @@ abstract class SpecsLists {
       KW(id: 'perYear', names: <Name>[Name(code: 'en', value: 'per year'), Name(code: 'ar', value: 'في السنة')],),
     ],
   );
-  static const Chain _numberOfInstallments = const Chain(
+  static const Chain numberOfInstallments = const Chain(
     id: 'numberOfInstallments',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Number of Installments'), Name(code: 'ar', value: 'عدد الدفعات')],
     sons: DataCreator.integerSlider,
   );
-  static const Chain _installmentsDuration = const Chain(
+  static const Chain installmentsDuration = const Chain(
     id: 'installmentsDuration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Installments duration'), Name(code: 'ar', value: 'مدة الدفعات')],
     sons: DataCreator.integerSlider,
   );
-  static const Chain _installmentsDurationUnit = const Chain(
+  static const Chain installmentsDurationUnit = const Chain(
     id: 'installmentsDurationUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Installments duration unit'), Name(code: 'ar', value: 'مقياس مدة الدفعات')],
@@ -158,13 +134,13 @@ abstract class SpecsLists {
   );
   // -------------------------------------------------------------------------
   /// AREAL ANATOMY
-  static const Chain _propertyArea = const Chain(
+  static const Chain propertyArea = const Chain(
     id: 'propertyArea',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Area'), Name(code: 'ar', value: 'مساحة العقار')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _propertyAreaUnit = const Chain(
+  static const Chain propertyAreaUnit = const Chain(
     id: 'propertyAreaUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Area Unit'), Name(code: 'ar', value: 'وحدة قياس مساحة العقار')],
@@ -173,13 +149,13 @@ abstract class SpecsLists {
       KW(id: 'square_feet', names: <Name>[Name(code: 'en', value: 'ft²'), Name(code: 'ar', value: 'قدم²')],),
     ],
   );
-  static const Chain _lotArea = const Chain(
+  static const Chain lotArea = const Chain(
     id: 'plotArea',
     names: <Name>[Name(code: 'en', value: 'Lot Area'), Name(code: 'ar', value: 'مساحة قطعة الأرض')],
     icon: null,
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _lotAreaUnit = const Chain(
+  static const Chain lotAreaUnit = const Chain(
     id: 'lotAreaUnit',
     names: <Name>[Name(code: 'en', value: 'Lot Area Unit'), Name(code: 'ar', value: 'وحدة قياس مساحة أرض العقار')],
     icon: null,
@@ -194,7 +170,7 @@ abstract class SpecsLists {
   );
   // -------------------------------------------------------------------------
   /// PROPERTY GENERAL ANATOMY
-  static const Chain _propertyForm = const Chain(
+  static const Chain propertyForm = const Chain(
     id: 'propertyForm',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Form'), Name(code: 'ar', value: 'هيئة العقار')],
@@ -207,7 +183,7 @@ abstract class SpecsLists {
       KW(id: 'pf_mobile', names: <Name>[Name(code: 'en', value: 'Mobile'), Name(code: 'ar', value: 'منشأ متنقل')],),
     ],
   );
-  static const Chain _propertyLicense = const Chain(
+  static const Chain propertyLicense = const Chain(
     id: 'propertyLicense',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property License'), Name(code: 'ar', value: 'رخصة العقار')],
@@ -226,7 +202,7 @@ abstract class SpecsLists {
   );
   // -------------------------------------------------------------------------
   /// PROPERTY SPACIAL ANATOMY
-  static const Chain _propertySpaces = const Chain(
+  static const Chain propertySpaces = const Chain(
     id: 'group_space_type',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Space Type'), Name(code: 'ar', value: 'نوع الفراغ')],
@@ -346,25 +322,25 @@ abstract class SpecsLists {
       ),
     ],
   );
-  static const Chain _propertyFloorNumber = const Chain(
+  static const Chain propertyFloorNumber = const Chain(
     id: 'propertyFloorNumber',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Floor Number'), Name(code: 'ar', value: 'رقم دور العقار')],
     sons: DataCreator.integerSlider,
   );
-  static const Chain _propertyDedicatedParkingLots = const Chain(
+  static const Chain propertyDedicatedParkingLots = const Chain(
     id: 'propertyDedicatedParkingSpaces',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Number property dedicated of parking lots'), Name(code: 'ar', value: 'عدد مواقف السيارات المخصصة للعقار')],
     sons: DataCreator.integerSlider,
   );
-  static const Chain _propertyNumberOfBedrooms = const Chain(
+  static const Chain propertyNumberOfBedrooms = const Chain(
     id: 'propertyNumberOfBedrooms',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Number of Bedrooms'), Name(code: 'ar', value: 'عدد غرف نوم العقار')],
     sons: DataCreator.integerSlider,
   );
-  static const Chain _propertyNumberOfBathrooms = const Chain(
+  static const Chain propertyNumberOfBathrooms = const Chain(
     id: 'propertyNumberOfBathrooms',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Number of bathrooms'), Name(code: 'ar', value: 'عدد حمامات العقار')],
@@ -372,7 +348,7 @@ abstract class SpecsLists {
   );
   // -------------------------------------------------------------------------
   /// PROPERTY FEATURES ANATOMY
-  static const Chain _propertyView = const Chain(
+  static const Chain propertyView = const Chain(
     id: 'propertyView',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property View'), Name(code: 'ar', value: 'المنظر المطل عليه  العقار')],
@@ -392,7 +368,7 @@ abstract class SpecsLists {
       KW(id: 'view_pool', names: <Name>[Name(code: 'en', value: 'Pool view'), Name(code: 'ar', value: 'حمام سباحة')],),
     ],
   );
-  static const Chain _propertyIndoorFeatures = const Chain(
+  static const Chain propertyIndoorFeatures = const Chain(
     id: 'sub_ppt_feat_indoor',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Indoor Features'), Name(code: 'ar', value: 'خواص العقار الداخلية')],
@@ -411,7 +387,7 @@ abstract class SpecsLists {
       KW(id: 'pFeature_tv', names: <Name>[Name(code: 'en', value: 'Satellite / Cable TV'), Name(code: 'ar', value: 'قمر صناعي / تلفزيون مركزي')],),
     ],
   );
-  static const Chain _propertyFinishingLevel = const Chain(
+  static const Chain propertyFinishingLevel = const Chain(
     id: 'sub_ppt_feat_finishing',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Finishing level'), Name(code: 'ar', value: 'مستوى التشطيب')],
@@ -426,31 +402,31 @@ abstract class SpecsLists {
   );
   // -------------------------------------------------------------------------
   /// BUILDING FEATURES ANATOMY
-  static const Chain _buildingNumberOfFloors = const Chain(
+  static const Chain buildingNumberOfFloors = const Chain(
     id: 'buildingNumberOfFloors',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Building number of floors'), Name(code: 'ar', value: 'عدد أدوار المبنى')],
     sons: DataCreator.integerSlider, // TASK : define range 0 - g163
   );
-  static const Chain _inACompound = const Chain(
+  static const Chain inACompound = const Chain(
     id: 'sub_ppt_feat_compound',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'In a Compound'), Name(code: 'ar', value: 'في مجمع سكني')],
     sons: DataCreator.boolSwitch,
   );
-  static const Chain _buildingAgeInYears = const Chain(
+  static const Chain buildingAgeInYears = const Chain(
     id: 'buildingAge',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Building Age'), Name(code: 'ar', value: 'عمر المنشأ')],
     sons: DataCreator.integerSlider,
   );
-  static const Chain _buildingTotalParkingLotsCount = const Chain(
+  static const Chain buildingTotalParkingLotsCount = const Chain(
     id: 'buildingTotalParkingLotsCount',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Total Building parking lots count'), Name(code: 'ar', value: 'مجموع عدد مواقف السيارات للمبنى')],
     sons: DataCreator.integerSlider,
   );
-  static const Chain _buildingTotalUnitsCount = const Chain(
+  static const Chain buildingTotalUnitsCount = const Chain(
     id: 'buildingTotalPropertiesCount',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Total Building units count'), Name(code: 'ar', value: 'مجموع عدد وحدات المبنى')],
@@ -458,7 +434,7 @@ abstract class SpecsLists {
   );
   // -------------------------------------------------------------------------
   /// COMMUNITY FEATURES ANATOMY
-  static const Chain _amenities = const Chain(
+  static const Chain amenities = const Chain(
     id: 'sub_ppt_feat_amenities',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Amenities'), Name(code: 'ar', value: 'منشآت خدمية ملحقة')],
@@ -480,7 +456,7 @@ abstract class SpecsLists {
       KW(id: 'am_lobby', names: <Name>[Name(code: 'en', value: 'Building lobby'), Name(code: 'ar', value: 'ردهة مدخل للمبنى')],),
     ],
   );
-  static const Chain _communityServices = const Chain(
+  static const Chain communityServices = const Chain(
     id: 'sub_ppt_feat_services',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Community Services'), Name(code: 'ar', value: 'خدمات المجتمع')],
@@ -499,7 +475,7 @@ abstract class SpecsLists {
   );
   // -------------------------------------------------------------------------
   /// CONSTRUCTION ACTIVITY ANATOMY
-  static const Chain _constructionActivityMeasurementMethod = const Chain(
+  static const Chain constructionActivityMeasurementMethod = const Chain(
     id: 'constructionActivityMeasurementMethod',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Measurement unit'), Name(code: 'ar', value: 'أسلوب القياس')],
@@ -514,43 +490,43 @@ abstract class SpecsLists {
   );
   // -------------------------------------------------------------------------
   /// SIZING ANATOMY
-  static const Chain _width = const Chain(
+  static const Chain width = const Chain(
     id: 'width',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Width'), Name(code: 'ar', value: 'العرض')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _length = const Chain(
+  static const Chain length = const Chain(
     id: 'length',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Length'), Name(code: 'ar', value: 'الطول')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _height = const Chain(
+  static const Chain height = const Chain(
     id: 'height',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Height'), Name(code: 'ar', value: 'الارتفاع')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _thickness = const Chain(
+  static const Chain thickness = const Chain(
     id: 'thickness',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Thickness'), Name(code: 'ar', value: 'السمك')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _diameter = const Chain(
+  static const Chain diameter = const Chain(
     id: 'diameter',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Diameter'), Name(code: 'ar', value: 'القطر')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _radius = const Chain(
+  static const Chain radius = const Chain(
     id: 'radius',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Radius'), Name(code: 'ar', value: 'نصف القطر')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _linearMeasurementUnit = const Chain(
+  static const Chain linearMeasurementUnit = const Chain(
     id: 'linearMeasureUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Linear measurement unit'), Name(code: 'ar', value: 'وحدة القياس الطولي')],
@@ -566,13 +542,13 @@ abstract class SpecsLists {
       KW(id: 'mile', names: <Name>[Name(code: 'en', value: 'mile'), Name(code: 'ar', value: 'ميل')],),
     ],
   );
-  static const Chain _footPrint = const Chain(
+  static const Chain footPrint = const Chain(
     id: 'footPrint',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Footprint'), Name(code: 'ar', value: 'مساحة الأرضية')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _areaMeasureUnit = const Chain(
+  static const Chain areaMeasureUnit = const Chain(
     id: 'areaMeasureUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Area measurement unit'), Name(code: 'ar', value: 'وحدة القياس المساحة')],
@@ -586,13 +562,13 @@ abstract class SpecsLists {
 
     ],
   );
-  static const Chain _volume = const Chain(
+  static const Chain volume = const Chain(
     id: 'volume',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Volume'), Name(code: 'ar', value: 'الحجم')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _volumeMeasurementUnit = const Chain(
+  static const Chain volumeMeasurementUnit = const Chain(
     id: 'volumeMeasurementUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Volume measurement unit'), Name(code: 'ar', value: 'وحدة قياس الحجم')],
@@ -607,13 +583,13 @@ abstract class SpecsLists {
       KW(id: 'cubic_feet', names: <Name>[Name(code: 'en', value: 'feet³'), Name(code: 'ar', value: 'قدم مكعب')],),
      ],
   );
-  static const Chain _weight = const Chain(
+  static const Chain weight = const Chain(
     id: 'weight',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Weight'), Name(code: 'ar', value: 'الوزن')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _weightMeasurementUnit = const Chain(
+  static const Chain weightMeasurementUnit = const Chain(
     id: 'weightMeasurementUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Weight measurement unit'), Name(code: 'ar', value: 'وحدة قياس الوزن')],
@@ -625,13 +601,13 @@ abstract class SpecsLists {
       KW(id: 'kilogram', names: <Name>[Name(code: 'en', value: 'kg'), Name(code: 'ar', value: 'كج')],),
     ],
   );
-  static const Chain _count = const Chain(
+  static const Chain count = const Chain(
     id: 'count',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Count'), Name(code: 'ar', value: 'العدد')],
     sons: DataCreator.integerSlider,
   );
-  static const Chain _size = const Chain (
+  static const Chain size = const Chain (
     id: 'size',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Size'), Name(code: 'ar', value: 'المقاس')],
@@ -649,19 +625,19 @@ abstract class SpecsLists {
   );
   // ------------------------------------------
   /// ELECTRICAL ANATOMY
-  static const Chain _wattage = const Chain(
+  static const Chain wattage = const Chain(
     id: 'wattage',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Watt'), Name(code: 'ar', value: 'وات')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _voltage = const Chain(
+  static const Chain voltage = const Chain(
     id: 'voltage',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'volt'), Name(code: 'ar', value: 'فولت')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _ampere = const Chain(
+  static const Chain ampere = const Chain(
     id: 'ampere',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'amps'), Name(code: 'ar', value: 'أمبير')],
@@ -669,25 +645,25 @@ abstract class SpecsLists {
   );
   // ------------------------------------------
   /// LOGISTICS ANATOMY
-  static const Chain _inStock = const Chain(
+  static const Chain inStock = const Chain(
     id: 'inStock',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'In Stock'), Name(code: 'ar', value: 'متوفر في المخزون')],
     sons: DataCreator.boolSwitch,
   );
-  static const Chain _deliveryAvailable = const Chain(
+  static const Chain deliveryAvailable = const Chain(
     id: 'deliveryAvailable',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Available delivery'), Name(code: 'ar', value: 'التوصيل متوفر')],
     sons: DataCreator.boolSwitch,
   );
-  static const Chain _deliveryDuration = const Chain(
+  static const Chain deliveryDuration = const Chain(
     id: 'deliveryMinDuration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Delivery duration'), Name(code: 'ar', value: 'فترة التوصيل')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _deliveryDurationUnit = const Chain(
+  static const Chain deliveryDurationUnit = const Chain(
     id: 'deliveryDurationUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Delivery duration unit'), Name(code: 'ar', value: 'مقياس فترة التوصيل')],
@@ -700,19 +676,19 @@ abstract class SpecsLists {
   );
   // ------------------------------------------
   /// PRODUCT INFO
-  static const Chain _madeIn = const Chain(
+  static const Chain madeIn = const Chain(
     id: 'madeIn',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Made in'), Name(code: 'ar', value: 'صنع في')],
     sons: null, // getCountriesAsKeywords()
   );
-  static const Chain _warrantyDuration = const Chain(
+  static const Chain warrantyDuration = const Chain(
     id: 'insuranceDuration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Warranty duration'), Name(code: 'ar', value: 'مدة الضمان')],
     sons: DataCreator.numberKeyboard,
   );
-  static const Chain _warrantyDurationUnit = const Chain(
+  static const Chain warrantyDurationUnit = const Chain(
     id: 'warrantyDurationUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Warranty duration unit'), Name(code: 'ar', value: 'وحدة قياس مدة الضمان')],
