@@ -93,10 +93,12 @@ class Name {
     final String _currentLanguageCode = Wordz.languageCode(context);
     String _name;
 
+    if (Mapper.canLoopList(names)){
       _name = getNameByLingoFromNames(
         names: names,
         lingoCode: _currentLanguageCode,
       );
+    }
 
     return _name;
   }

@@ -5,66 +5,58 @@ import 'package:bldrs/models/bz/bz_model.dart';
 
 enum Section{
   All,
-  NewProperties,
-  ResaleProperties,
-  RentalProperties,
-  Designs,
-  Projects,
-  Crafts,
-  Products,
-  Equipment,
+  properties,
+  designs,
+  projects,
+  crafts,
+  products,
+  equipment,
 }
 // -----------------------------------------------------------------------------
 abstract class SectionClass{
 
   static const List<Section> SectionsList = const <Section>[
-    Section.NewProperties,
-    Section.ResaleProperties,
-    Section.RentalProperties,
-    Section.Designs,
-    Section.Projects,
-    Section.Crafts,
-    Section.Products,
-    Section.Equipment,
+    Section.properties,
+    Section.designs,
+    Section.projects,
+    Section.crafts,
+    Section.products,
+    Section.equipment,
   ];
 // -----------------------------------------------------------------------------
   static Section decipherSection (int x){
     switch (x){
-      case 1:   return   Section.NewProperties;       break;
-      case 2:   return   Section.ResaleProperties;    break;
-      case 3:   return   Section.RentalProperties;    break;
-      case 4:   return   Section.Designs;             break;
-      case 5:   return   Section.Projects;            break;
-      case 6:   return   Section.Crafts;              break;
-      case 7:   return   Section.Products;            break;
-      case 8:   return   Section.Equipment;           break;
+      case 1:   return   Section.properties;       break;
+      case 4:   return   Section.designs;             break;
+      case 5:   return   Section.projects;            break;
+      case 6:   return   Section.crafts;              break;
+      case 7:   return   Section.products;            break;
+      case 8:   return   Section.equipment;           break;
       default : return   null;
     }
   }
 // -----------------------------------------------------------------------------
   static int cipherSection (Section x){
     switch (x){
-      case Section.NewProperties :    return 1; break;
-      case Section.ResaleProperties : return 2; break;
-      case Section.RentalProperties : return 3; break;
-      case Section.Designs :          return 4; break;
-      case Section.Projects :         return 5; break;
-      case Section.Crafts :           return 6; break;
-      case Section.Products :         return 7; break;
-      case Section.Equipment :        return 8; break;
+      case Section.properties :    return 1; break;
+      case Section.designs :          return 4; break;
+      case Section.projects :         return 5; break;
+      case Section.crafts :           return 6; break;
+      case Section.products :         return 7; break;
+      case Section.equipment :        return 8; break;
       default : return null;
     }
   }
 // -----------------------------------------------------------------------------
   static Section getSectionByBzType(BzType bzType){
     switch (bzType){
-      case BzType.developer:    return   Section.NewProperties;     break;
-      case BzType.broker:       return   Section.ResaleProperties;  break;
-      case BzType.designer:     return   Section.Designs;           break;
-      case BzType.contractor:   return   Section.Projects;          break;
-      case BzType.artisan:      return   Section.Crafts;            break;
-      case BzType.manufacturer: return   Section.Products;          break;
-      case BzType.supplier:     return   Section.Products;          break;
+      case BzType.developer:    return   Section.properties;     break;
+      case BzType.broker:       return   Section.properties;  break;
+      case BzType.designer:     return   Section.designs;           break;
+      case BzType.contractor:   return   Section.projects;          break;
+      case BzType.artisan:      return   Section.crafts;            break;
+      case BzType.manufacturer: return   Section.products;          break;
+      case BzType.supplier:     return   Section.products;          break;
       default : return   null;
     }
   }

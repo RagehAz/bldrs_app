@@ -34,7 +34,7 @@ class GeneralProvider extends ChangeNotifier {
   Section _currentSection;
 // -------------------------------------
   Section get currentSection {
-    return _currentSection ?? Section.Designs;
+    return _currentSection ?? Section.designs;
   }
 // -------------------------------------
   Future<void> changeSection(BuildContext context, Section section) async {

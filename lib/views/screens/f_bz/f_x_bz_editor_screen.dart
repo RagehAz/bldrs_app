@@ -206,14 +206,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       /// Task : FIX THIS SHIT
       _bzTypeInActivityList =
 
-      _currentSection == Section.NewProperties ?    <bool>[false, false, true, true, true, true, true] :
-      _currentSection == Section.ResaleProperties ? <bool>[false, false, true, true, true, true, true] :
-      _currentSection == Section.RentalProperties ? <bool>[false, false, true, true, true, true, true] :
-      _currentSection == Section.Designs ?          <bool>[true, true, false, false, true, true, true] :
-      _currentSection == Section.Projects ?         <bool>[true, true, false, false, true, true, true] :
-      _currentSection == Section.Crafts ?           <bool>[true, true, true, true, false, true, true] :
-      _currentSection == Section.Products ?         <bool>[true, true, true, true, true, false, false] :
-      _currentSection == Section.Equipment ?        <bool>[true, true, true, true, true, false, false] :
+      _currentSection == Section.properties ?    <bool>[false, false, true, true, true, true, true] :
+      _currentSection == Section.designs ?          <bool>[true, true, false, false, true, true, true] :
+      _currentSection == Section.projects ?         <bool>[true, true, false, false, true, true, true] :
+      _currentSection == Section.crafts ?           <bool>[true, true, true, true, false, true, true] :
+      _currentSection == Section.products ?         <bool>[true, true, true, true, true, false, false] :
+      _currentSection == Section.equipment ?        <bool>[true, true, true, true, true, false, false] :
       _bzTypeInActivityList;
     });
   }
