@@ -3,14 +3,7 @@ import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:flutter/cupertino.dart';
 
 enum SpecType {
-
-  // -------------------------------------------------------------------------
-
-  /// PROPERTIES
-
-  // ------------------------------------------
-  /// PROPERTY TYPE
-  propertyForm, // from a list
+    propertyForm, // from a list
   propertyLicense, // from a list
   // ------------------------------------------
   /// PROPERTY PRICING
@@ -102,8 +95,6 @@ enum SpecType {
   weight, // double
   weightUnit, // from a list
   count, // int
-  capacity, // double
-  capacityUnit, // from list (litre, cubic meter ...
   size, // from list (3x, 2x, xs, s, m, l, xl, 2x, 3x)
   // ------------------------------------------
   /// ELECTRICITY
@@ -137,6 +128,29 @@ enum SpecType {
 
 }
 
+/// specs are used only to describe and filter flyers or keywords
+///
+/// shall be saved like this inside flyerModel
+/// specs : {
+/// 'specName' : 'value',
+/// 'weight' : 15,
+/// 'weightUnit' : 'Kg',
+/// 'price' : 160,
+/// 'priceUnit' : 'EGP',
+/// ...
+///
+/// and should be saved like this in specs docs
+/// 'propertiesSpecs' : {
+///   'xxx' : {},
+///   'yyy' : {},
+/// }
+///
+///
+///
+/// 'numberOfInstallments' : 12,
+/// 'installmentsDuration' : 12,
+/// 'installmentsDurationUnit' : 'months'
+/// },
 
 /// ----------------------------------------------------------------------------
 class Spec {

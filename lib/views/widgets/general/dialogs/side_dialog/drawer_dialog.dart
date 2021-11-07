@@ -238,7 +238,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                           SectionTile(
                             bubbleWidth: _bubbleWidth,
                             inActiveMode: false,
-                            section: Section.NewProperties,
+                            section: Section.properties,
                             chain: _propertiesChain,
                           ),
 
@@ -255,7 +255,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                           SectionTile(
                             bubbleWidth: _bubbleWidth,
                             inActiveMode: false,
-                            section: Section.Designs,
+                            section: Section.designs,
                             chain: _designsChain,
                           ),
 
@@ -264,7 +264,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                           SectionTile(
                             bubbleWidth: _bubbleWidth,
                             inActiveMode: false,
-                            section: Section.Crafts,
+                            section: Section.crafts,
                             chain: _craftsChain,
                           ),
 
@@ -281,7 +281,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                         SectionTile(
                           bubbleWidth: _bubbleWidth,
                           inActiveMode: false,
-                          section: Section.Products,
+                          section: Section.products,
                           chain: _productsChain,
                         ),
 
@@ -290,7 +290,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                         SectionTile(
                           bubbleWidth: _bubbleWidth,
                           inActiveMode: false,
-                          section: Section.Equipment,
+                          section: Section.equipment,
                           chain: _equipmentChain,
                         ),
 

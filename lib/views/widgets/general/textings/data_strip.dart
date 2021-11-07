@@ -29,9 +29,9 @@ class DataStrip extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const double _rowHeight = 60;
-    const double _margin = 2.5;
-    final double _rowWidth = width ?? BottomDialog.dialogClearWidth(context) - _margin * 2;
-    const double _keyButtonMargin = Ratioz.appBarPadding;
+    const double _verticalMargin = 2.5;
+    final double _rowWidth = width ?? BottomDialog.dialogClearWidth(context) - _verticalMargin * 2;
+    const double _keyButtonMargin = Ratioz.appBarMargin;
 
     const double _keyRowHeight = _rowHeight * 0.4;
     const double _valueRowHeight = _rowHeight * 0.6;
@@ -44,7 +44,7 @@ class DataStrip extends StatelessWidget {
       child: Container(
         height: _rowHeight,
         width: _rowWidth,
-        margin: const EdgeInsets.symmetric(vertical: _margin),
+        margin: const EdgeInsets.symmetric(vertical: _verticalMargin),
         // color: Colorz.White10,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -58,10 +58,10 @@ class DataStrip extends StatelessWidget {
               alignment: Aligners.superCenterAlignment(context),
               child: SuperVerse(
                 labelColor: Colorz.nothing,
-                verse: dataKey.toString(),
-                size: 2,
-                weight: VerseWeight.thin,
-                color: Colorz.white255,
+                verse: dataKey.toString().toUpperCase(),
+                size: 1,
+                weight: VerseWeight.black,
+                color: Colorz.white200,
                 shadow: false,
                 italic: true,
                 onTap: () async {
@@ -156,7 +156,7 @@ class DataStrip extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: _keyButtonMargin),
                       child: SuperVerse(
                         verse: _valueString,
-                        size: 1,
+                        size: 2,
                         centered: false,
                         shadow: true,
                       ),
