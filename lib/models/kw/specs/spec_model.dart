@@ -6,48 +6,48 @@ enum SpecType {
     // propertyForm, // from a list
   // propertyLicense, // from a list
   // ------------------------------------------
-  /// PROPERTY PRICING
+  // PROPERTY PRICING
   // propertyContractType, // from a List (for sale or rent)
-  propertyPaymentMethod, // from a list
-  propertySalePrice, // double
-  propertyRentPrice, // double
-  propertyRentType, // from a list ( per day per week per month)
-  propertyPriceCurrency, // from a list
-  propertyNumberOfInstallments, // int
-  propertyInstallmentsDuration, // int
-  propertyInstallmentsDurationUnit, // form a list
+  // propertyPaymentMethod, // from a list
+  // propertySalePrice, // double
+  // propertyRentPrice, // double
+  // propertyRentType, // from a list ( per day per week per month)
+  // propertyPriceCurrency, // from a list
+  // propertyNumberOfInstallments, // int
+  // propertyInstallmentsDuration, // int
+  // propertyInstallmentsDurationUnit, // form a list
 
   // ------------------------------------------
-  /// PROPERTY AREAS
-  propertyArea, // double
-  propertyAreaUnit, // from a List
-  lotArea,  // from double slider
-  lotAreaUnit, // from a List
+  // PROPERTY AREAS
+  // propertyArea, // double
+  // propertyAreaUnit, // from a List
+  // lotArea,  // from double slider
+  // lotAreaUnit, // from a List
   // ------------------------------------------
-  /// PROPERTY FEATURES
-  propertyView, // from a List
-  numberOfFloor, // int
-  indoorFeatures, // from a List
-  amenities, // from a List
-  additionalServices, // from a list
-  inACompound, // bool
-  finishingLevel, // from a List
-  buildingAgeInYears, // int
+  // PROPERTY FEATURES
+  // propertyView, // from a List
+  // numberOfFloor, // int
+  // indoorFeatures, // from a List
+  // amenities, // from a List
+  // additionalServices, // from a list
+  // inACompound, // bool
+  // finishingLevel, // from a List
+  // buildingAgeInYears, // int
   // ------------------------------------------
-  /// PROPERTY SPACES
-  propertySpaces, // from a list
-  propertyNumberOfParkingLots, // int
-  propertyNumberOfBedrooms, // int
-  propertyNumberOfBathrooms, // int
+  // PROPERTY SPACES
+  // propertySpaces, // from a list
+  // propertyNumberOfParkingLots, // int
+  // propertyNumberOfBedrooms, // int
+  // propertyNumberOfBathrooms, // int
   // -------------------------------------------------------------------------
 
-  /// DESIGNS
+  // DESIGNS
 
   // ------------------------------------------
-  /// STYLE
-  designArchitecturalStyle, // from a list
+  // STYLE
+  // designArchitecturalStyle, // from a list
   // ------------------------------------------
-  /// PROPERTY TYPE
+  // PROPERTY TYPE
   // propertyForm, // from a list
   // propertyLicense, // from a list
   // ------------------------------------------
