@@ -133,6 +133,27 @@ abstract class SpecChain {
     ],
   );
   // -------------------------------------------------------------------------
+  /// TIME ANATOMY
+  static const Chain duration = const Chain(
+    id: 'duration',
+    icon: null,
+    names: <Name>[Name(code: 'en', value: 'Duration'), Name(code: 'ar', value: 'الزمن')],
+    sons: DataCreator.integerSlider,
+  );
+  static const Chain durationUnit = const Chain(
+    id: 'durationUnit',
+    icon: null,
+    names: <Name>[Name(code: 'en', value: 'Duration unit'), Name(code: 'ar', value: 'مقياس الزمن')],
+    sons: <KW>[
+      KW(id: 'minute', names: <Name>[Name(code: 'en', value: 'minute'), Name(code: 'ar', value: 'دقيقة')],),
+      KW(id: 'hour', names: <Name>[Name(code: 'en', value: 'hour'), Name(code: 'ar', value: 'ساعة')],),
+      KW(id: 'day', names: <Name>[Name(code: 'en', value: 'day'), Name(code: 'ar', value: 'يوم')],),
+      KW(id: 'week', names: <Name>[Name(code: 'en', value: 'week'), Name(code: 'ar', value: 'أسبوع')],),
+      KW(id: 'month', names: <Name>[Name(code: 'en', value: 'month'), Name(code: 'ar', value: 'شهر')],),
+      KW(id: 'year', names: <Name>[Name(code: 'en', value: 'year'), Name(code: 'ar', value: 'سنة')],),
+    ],
+  );
+  // -------------------------------------------------------------------------
   /// AREAL ANATOMY
   static const Chain propertyArea = const Chain(
     id: 'propertyArea',
@@ -201,7 +222,7 @@ abstract class SpecChain {
     ],
   );
   // -------------------------------------------------------------------------
-  /// PROPERTY SPACIAL ANATOMY
+  /// PROPERTY SPATIAL ANATOMY
   static const Chain propertySpaces = const Chain(
     id: 'group_space_type',
     icon: null,
@@ -328,7 +349,7 @@ abstract class SpecChain {
     names: <Name>[Name(code: 'en', value: 'Property Floor Number'), Name(code: 'ar', value: 'رقم دور العقار')],
     sons: DataCreator.integerSlider,
   );
-  static const Chain propertyDedicatedParkingLots = const Chain(
+  static const Chain propertyDedicatedParkingLotsCount = const Chain(
     id: 'propertyDedicatedParkingSpaces',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Number property dedicated of parking lots'), Name(code: 'ar', value: 'عدد مواقف السيارات المخصصة للعقار')],
@@ -408,12 +429,6 @@ abstract class SpecChain {
     names: <Name>[Name(code: 'en', value: 'Building number of floors'), Name(code: 'ar', value: 'عدد أدوار المبنى')],
     sons: DataCreator.integerSlider, // TASK : define range 0 - g163
   );
-  static const Chain inACompound = const Chain(
-    id: 'sub_ppt_feat_compound',
-    icon: null,
-    names: <Name>[Name(code: 'en', value: 'In a Compound'), Name(code: 'ar', value: 'في مجمع سكني')],
-    sons: DataCreator.boolSwitch,
-  );
   static const Chain buildingAgeInYears = const Chain(
     id: 'buildingAge',
     icon: null,
@@ -434,6 +449,12 @@ abstract class SpecChain {
   );
   // -------------------------------------------------------------------------
   /// COMMUNITY FEATURES ANATOMY
+  static const Chain inACompound = const Chain(
+    id: 'sub_ppt_feat_compound',
+    icon: null,
+    names: <Name>[Name(code: 'en', value: 'In a Compound'), Name(code: 'ar', value: 'في مجمع سكني')],
+    sons: DataCreator.boolSwitch,
+  );
   static const Chain amenities = const Chain(
     id: 'sub_ppt_feat_amenities',
     icon: null,
@@ -475,6 +496,19 @@ abstract class SpecChain {
   );
   // -------------------------------------------------------------------------
   /// CONSTRUCTION ACTIVITY ANATOMY
+  // static const Chain projectCost = const Chain(
+  //   id: 'projectCost',
+  //   icon: null,
+  //   names: <Name>[Name(code: 'en', value: 'Project cost'), Name(code: 'ar', value: 'تكلفة المشروع')],
+  //   sons: DataCreator.numberKeyboard,
+  // );
+
+  static const Chain constructionActivities = const Chain(
+    id: 'constructionActivities',
+    icon: null,
+    names: <Name>[Name(code: 'en', value: 'Project construction activities'), Name(code: 'ar', value: 'بنود تنفيذ المشروع')],
+    sons: null, /// TASK : getConstructionActivitiesChainFromCraftsKeywordsList();
+  );
   static const Chain constructionActivityMeasurementMethod = const Chain(
     id: 'constructionActivityMeasurementMethod',
     icon: null,
