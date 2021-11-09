@@ -209,7 +209,6 @@ class SpecList{
       range: null,
       specChain: SpecChain.propertyNumberOfBathrooms,
     ),
-
     // ------------------------------------------------------------
     /// - PROPERTY FEATURES SPECIFICATIONS
     // ----------------------------
@@ -472,7 +471,35 @@ class SpecList{
     // ------------------------------------------------------------
   ];
 
-  static List<SpecList> craftSpecLists = <SpecList>[];
+  static List<SpecList> craftSpecLists = <SpecList>[
+    /// CONSTRUCTION ACTIVITY PRICE
+    SpecList(
+        id: 'constructionActivityPrice',
+        names: SpecChain.price.names,
+        canPickMany: false,
+        isRequired: false,
+        range: null,
+        specChain: SpecChain.price
+    ),
+    /// CONSTRUCTION ACTIVITY PRICE CURRENCY
+    SpecList(
+      id: 'projectCostCurrency',
+      names: SpecChain.currency.names,
+      canPickMany: false,
+      isRequired: false,
+      range: null,
+      specChain: SpecChain.currency,
+    ),
+    /// CONSTRUCTION ACTIVITY MEASUREMENT METHOD
+    SpecList(
+      id: 'constructionActivityMeasurementMethod',
+      names: SpecChain.constructionActivityMeasurementMethod.names,
+      canPickMany: false,
+      isRequired: false,
+      range: null,
+      specChain: SpecChain.constructionActivityMeasurementMethod,
+    ),
+  ];
 
   static List<SpecList> productSpecLists = <SpecList>[];
 
