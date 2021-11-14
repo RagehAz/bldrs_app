@@ -1,78 +1,15 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
+import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/providers/keywords_provider.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart';
+import 'package:bldrs/views/widgets/general/chain_expander/components/expanding_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-class BldrsChain extends StatelessWidget {
-  final double boxWidth;
-  final Chain chain;
-
-  const BldrsChain({
-    this.boxWidth,
-    this.chain,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-
-    final double _boxWidth = boxWidth ?? Scale.superScreenWidth(context);
-    final Chain _allChains = chain ?? Chain.bldrsChain;
-
-    return Container(
-      width: _boxWidth,
-      // height: _allChains.sons.length * Inception.buttonHeight,
-      child:
-
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-
-            ...List.generate(_allChains.sons.length, (index){
-
-                  dynamic son = _allChains.sons[index];
-
-                  return Inception(
-                    son: son,
-                    level: 0,
-                    boxWidth: _boxWidth,
-                  );
-
-            }),
-
-          ],
-        ),
-
-      // ListView.builder(
-      //   physics: const NeverScrollableScrollPhysics(),
-      //   itemCount: _allChains.sons.length,
-      //   shrinkWrap: false,
-      //   itemExtent: Inception.buttonHeight + Ratioz.appBarMargin,
-      //   itemBuilder: (ctx, index){
-      //
-      //     dynamic son = _allChains.sons[index];
-      //
-      //     return Inception(
-      //       son: son,
-      //       level: 0,
-      //       boxWidth: _boxWidth,
-      //     );
-      //
-      //   },
-      // ),
-
-
-    );
-  }
-}
 
 class Inception extends StatelessWidget {
   final dynamic son;

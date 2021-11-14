@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:flutter/cupertino.dart';
 
 enum SpecType {
@@ -154,26 +153,46 @@ enum SpecType {
 
 /// ----------------------------------------------------------------------------
 class Spec {
-  final SpecType specType;
+  /// specID is the specList's id value, and the key of firebase map
+  final String specID;
   final dynamic value; // string, int, double, List<String>, List<double>, list<dynamic>
 
   const Spec({
-    @required this.specType,
+    @required this.specID,
     @required this.value,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
     return {
-      'specType': cipherSpecType(specType),
-      'value': value,
+      specID : value,
     };
+  }
+// -----------------------------------------------------------------------------
+  static Map<String, dynamic> cipherSpecs(List<Spec> specs){
+    Map<String, dynamic> _map = {};
+
+    if (Mapper.canLoopList(specs)){
+
+      for (Spec spec in specs){
+
+        _map = Mapper.insertPairInMap(
+          map: _map,
+          key: spec.specID,
+          value: spec.value,
+        );
+
+      }
+
+    }
+
+    return _map;
   }
 // -----------------------------------------------------------------------------
   Spec clone(){
     return
       Spec(
-          specType: specType,
-          value: value,
+        specID: specID,
+        value: value,
       );
   }
 // -----------------------------------------------------------------------------
@@ -189,104 +208,85 @@ class Spec {
     return _specs;
   }
 // -----------------------------------------------------------------------------
-  static String cipherSpecType(SpecType specType){
-    switch (specType) {
-      // case SpecType.width         : return 'width'        ; break;
-      // case SpecType.length        : return 'length'       ; break;
-      // case SpecType.height        : return 'height'       ; break;
-      // case SpecType.volume        : return 'volume'       ; break;
-      // case SpecType.area          : return 'area'         ; break;
-      // case SpecType.count         : return 'count'        ; break;
-      // case SpecType.weight        : return 'weight'       ; break;
-      // case SpecType.oldPrice      : return 'oldPrice'     ; break;
-      // case SpecType.currentPrice  : return 'currentPrice' ; break;
-      // case SpecType.inStock       : return 'inStock' ; break;
-      default :
-        return null;
-    }
-  }
+//   static String cipherSpecType(SpecType specType){
+//     switch (specType) {
+//       // case SpecType.width         : return 'width'        ; break;
+//       // case SpecType.length        : return 'length'       ; break;
+//       // case SpecType.height        : return 'height'       ; break;
+//       // case SpecType.volume        : return 'volume'       ; break;
+//       // case SpecType.area          : return 'area'         ; break;
+//       // case SpecType.count         : return 'count'        ; break;
+//       // case SpecType.weight        : return 'weight'       ; break;
+//       // case SpecType.oldPrice      : return 'oldPrice'     ; break;
+//       // case SpecType.currentPrice  : return 'currentPrice' ; break;
+//       // case SpecType.inStock       : return 'inStock' ; break;
+//       default :
+//         return null;
+//     }
+//   }
+// // -----------------------------------------------------------------------------
+//   static SpecType decipherSpecType(String input) {
+//     switch (input) {
+//       // case 'width':return SpecType.width;break;
+//       // case 'length':return SpecType.length;break;
+//       // case 'height':return SpecType.height;break;
+//       // case 'volume':return SpecType.volume;break;
+//       // case 'area':return SpecType.area;break;
+//       // case 'count':return SpecType.count;break;
+//       // case 'weight':return SpecType.weight;break;
+//       // case 'oldPrice' : return SpecType.oldPrice; break;
+//       // case 'currentPrice' : return SpecType.currentPrice; break;
+//       // case 'inStock' : return SpecType.inStock; break;
+//       default :
+//         return null;
+//     }
+//   }
+// // -----------------------------------------------------------------------------
+//   static String getDataTypeOfSpecType({SpecType specType}){
+//     switch (specType) {
+//       // case SpecType.width         : return 'double'     ; break;
+//       // case SpecType.length        : return 'double'     ; break;
+//       // case SpecType.height        : return 'double'     ; break;
+//       // case SpecType.volume        : return 'double'     ; break;
+//       // case SpecType.area          : return 'double'     ; break;
+//       // case SpecType.count         : return 'int'        ; break;
+//       // case SpecType.weight        : return 'double'     ; break;
+//       // case SpecType.oldPrice      : return 'double'     ; break;
+//       // case SpecType.currentPrice  : return 'double'     ; break;
+//       // case SpecType.inStock       : return 'bool'     ; break;
+//       default :
+//         return null;
+//     }
+//   }
 // -----------------------------------------------------------------------------
-  static SpecType decipherSpecType(String input) {
-    switch (input) {
-      // case 'width':return SpecType.width;break;
-      // case 'length':return SpecType.length;break;
-      // case 'height':return SpecType.height;break;
-      // case 'volume':return SpecType.volume;break;
-      // case 'area':return SpecType.area;break;
-      // case 'count':return SpecType.count;break;
-      // case 'weight':return SpecType.weight;break;
-      // case 'oldPrice' : return SpecType.oldPrice; break;
-      // case 'currentPrice' : return SpecType.currentPrice; break;
-      // case 'inStock' : return SpecType.inStock; break;
-      default :
-        return null;
-    }
-  }
+//   static dynamic assignValueDataTypeAccordingToSpecType({@required SpecType specType, @required String specValueString}){
+//     final String _dataType = getDataTypeOfSpecType(specType: specType);
+//     dynamic _output;
+//
+//     if(_dataType == 'double'){
+//       final double _value = Numeric.stringToDouble(specValueString);
+//       _output = _value;
+//     }
+//
+//     else if (_dataType == 'int'){
+//       final int _value = Numeric.stringToInt(specValueString);
+//       _output = _value;
+//     }
+//
+//     else if (_dataType == 'String'){
+//       final String _value = specValueString;
+//       _output = _value;
+//     }
+//
+//     else if (_dataType == 'bool'){
+//       final int _boolAsInt = Numeric.stringToInt(specValueString);
+//       final bool _value = Numeric.decipherBool(_boolAsInt);
+//       _output = _value;
+//     }
+//
+//     return _output;
+//   }
 // -----------------------------------------------------------------------------
-  static String getDataTypeOfSpecType({SpecType specType}){
-    switch (specType) {
-      // case SpecType.width         : return 'double'     ; break;
-      // case SpecType.length        : return 'double'     ; break;
-      // case SpecType.height        : return 'double'     ; break;
-      // case SpecType.volume        : return 'double'     ; break;
-      // case SpecType.area          : return 'double'     ; break;
-      // case SpecType.count         : return 'int'        ; break;
-      // case SpecType.weight        : return 'double'     ; break;
-      // case SpecType.oldPrice      : return 'double'     ; break;
-      // case SpecType.currentPrice  : return 'double'     ; break;
-      // case SpecType.inStock       : return 'bool'     ; break;
-      default :
-        return null;
-    }
-  }
-// -----------------------------------------------------------------------------
-  static dynamic assignValueDataTypeAccordingToSpecType({@required SpecType specType, @required String specValueString}){
-    final String _dataType = getDataTypeOfSpecType(specType: specType);
-    dynamic _output;
-
-    if(_dataType == 'double'){
-      final double _value = Numeric.stringToDouble(specValueString);
-      _output = _value;
-    }
-
-    else if (_dataType == 'int'){
-      final int _value = Numeric.stringToInt(specValueString);
-      _output = _value;
-    }
-
-    else if (_dataType == 'String'){
-      final String _value = specValueString;
-      _output = _value;
-    }
-
-    else if (_dataType == 'bool'){
-      final int _boolAsInt = Numeric.stringToInt(specValueString);
-      final bool _value = Numeric.decipherBool(_boolAsInt);
-      _output = _value;
-    }
-
-    return _output;
-  }
-// -----------------------------------------------------------------------------
-  static Map<String, dynamic> cipherSpecs(List<Spec> specs){
-    Map<String, dynamic> _map = {};
-
-    if (Mapper.canLoopList(specs)){
-
-      for (Spec spec in specs){
-
-        _map = Mapper.insertPairInMap(
-            map: _map,
-            key: cipherSpecType(spec.specType),
-            value: spec.value,
-        );
-
-      }
-
-    }
-
-    return _map;
-  }
 // -----------------------------------------------------------------------------
   static List<Spec> decipherSpecs(Map<String, dynamic> map){
     final List<Spec> _specs = <Spec>[];
@@ -298,7 +298,7 @@ class Spec {
       for (String key in _keys){
 
         final Spec _spec = Spec(
-            specType: decipherSpecType(key),
+            specID: key,
             value: map[key],
         );
 
@@ -311,37 +311,37 @@ class Spec {
     return _specs;
   }
 // -----------------------------------------------------------------------------
-  static String cipherSpecValue(Spec spec){
-    final String _dataType = getDataTypeOfSpecType(specType: spec.specType);
-    String _output;
-
-    if(_dataType == 'double'){
-      _output = spec.value.toString();
-    }
-
-    else if (_dataType == 'int'){
-      _output = spec.value.toString();
-    }
-
-    else if (_dataType == 'String'){
-      _output = spec.value;
-    }
-
-    else if (_dataType == 'bool'){
-      final int _valueAsInt = Numeric.cipherBool(spec.value);
-      _output = '$_valueAsInt';
-    }
-
-    return _output;
-
-  }
+//   static String cipherSpecValue(Spec spec){
+//     final String _dataType = getDataTypeOfSpecType(specType: spec.specType);
+//     String _output;
+//
+//     if(_dataType == 'double'){
+//       _output = spec.value.toString();
+//     }
+//
+//     else if (_dataType == 'int'){
+//       _output = spec.value.toString();
+//     }
+//
+//     else if (_dataType == 'String'){
+//       _output = spec.value;
+//     }
+//
+//     else if (_dataType == 'bool'){
+//       final int _valueAsInt = Numeric.cipherBool(spec.value);
+//       _output = '$_valueAsInt';
+//     }
+//
+//     return _output;
+//
+//   }
 // -----------------------------------------------------------------------------
   static bool specsAreTheSame(Spec specA, Spec specB){
     bool _areTheSame = false;
 
     if (specA != null && specB != null){
 
-      if (specA.specType == specB.specType){
+      if (specA.specID == specB.specID){
 
         if (specA.value == specB.value){
 
@@ -385,6 +385,18 @@ class Spec {
 
     return _listsAreTheSame;
   }
+// -----------------------------------------------------------------------------
+  static List<Spec> dummySpecs(){
+
+    return <Spec>[
+
+      const Spec(specID: 'style', value: 'arch_style_arabian'),
+      const Spec(specID: 'numberOfInstallments', value: 12),
+      const Spec(specID: 'propertyForm', value: 'pf_fullFloor'),
+
+    ];
+  }
+// -----------------------------------------------------------------------------
 }
 /// ============================================================================
 
