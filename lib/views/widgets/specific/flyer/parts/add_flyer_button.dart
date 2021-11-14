@@ -7,7 +7,7 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
-import 'package:bldrs/views/screens/f_bz/f_1_flyer_editor_screen.dart';
+import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/flyer_maker_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_header.dart';
@@ -36,7 +36,7 @@ class AddFlyerButton extends StatelessWidget {
 
     await Future.delayed(Ratioz.durationFading200, () async {
       dynamic _result = await Nav.goToNewScreen(context,
-          new FlyerEditorScreen(
+          new FlyerMakerScreen(
             firstTimer: true,
             bzModel: bzModel,
             flyerModel: null,

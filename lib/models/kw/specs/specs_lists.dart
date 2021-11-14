@@ -2,10 +2,9 @@ import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/specs/data_creator.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
-import 'package:flutter/foundation.dart';
 
 
-abstract class SpecChain {
+abstract class RawSpecs {
   // -------------------------------------------------------------------------
   /// STYLE ANATOMY
   static const Chain style = const Chain(
@@ -352,7 +351,7 @@ abstract class SpecChain {
   static const Chain propertyDedicatedParkingLotsCount = const Chain(
     id: 'propertyDedicatedParkingSpaces',
     icon: null,
-    names: <Name>[Name(code: 'en', value: 'Number property dedicated of parking lots'), Name(code: 'ar', value: 'عدد مواقف السيارات المخصصة للعقار')],
+    names: <Name>[Name(code: 'en', value: 'Number of property dedicated parking lots'), Name(code: 'ar', value: 'عدد مواقف السيارات المخصصة للعقار')],
     sons: DataCreator.integerSlider,
   );
   static const Chain propertyNumberOfBedrooms = const Chain(

@@ -10,12 +10,12 @@ import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 
-class FlyerEditorScreen extends StatelessWidget {
+class FlyerMakerScreen extends StatelessWidget {
   final BzModel bzModel;
   final bool firstTimer;
   final FlyerModel flyerModel;
 
-  FlyerEditorScreen({
+  FlyerMakerScreen({
     @required this.bzModel,
     @required this.firstTimer,
     @required this.flyerModel,

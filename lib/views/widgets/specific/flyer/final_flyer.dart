@@ -39,8 +39,8 @@ import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
-import 'package:bldrs/views/screens/f_bz/f_1_flyer_editor_screen.dart';
-import 'package:bldrs/views/screens/x_select_keywords_screen.dart';
+import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/flyer_maker_screen.dart';
+import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/keywords_picker_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog_buttons.dart';
@@ -770,7 +770,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       // FlyerModel _flyer = firstTimer == true ? null : widget.flyerModel;
 
       final dynamic _result = await Nav.goToNewScreen(context,
-          new FlyerEditorScreen(
+          new FlyerMakerScreen(
             firstTimer: firstTimer,
             bzModel: _bzModel,
             flyerModel: firstTimer == true ? null : widget.flyerModel,
