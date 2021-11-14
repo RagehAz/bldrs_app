@@ -32,20 +32,20 @@ class SpecList{
     /// PROPERTY FORM
     SpecList(
         id: 'propertyForm',
-        names: SpecChain.propertyForm.names,
+        names: RawSpecs.propertyForm.names,
         canPickMany: false,
         isRequired: true,
         range: null,
-        specChain: SpecChain.propertyForm
+        specChain: RawSpecs.propertyForm
     ),
     /// PROPERTY LICENSE
     SpecList(
         id: 'propertyLicense',
-        names: SpecChain.propertyLicense.names,
+        names: RawSpecs.propertyLicense.names,
         canPickMany: true,
         isRequired: true,
         range: null,
-        specChain: SpecChain.propertyLicense
+        specChain: RawSpecs.propertyLicense
     ),
     // ------------------------------------------------------------
     /// - PROPERTY PRICING SPECIFICATIONS
@@ -57,16 +57,16 @@ class SpecList{
         canPickMany: false,
         isRequired: true,
         range: null,
-        specChain: SpecChain.contractType
+        specChain: RawSpecs.contractType
     ),
     /// PROPERTY PAYMENT METHOD
     SpecList(
         id: 'propertyPaymentMethod',
-        names: SpecChain.paymentMethod.names,
+        names: RawSpecs.paymentMethod.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.paymentMethod
+        specChain: RawSpecs.paymentMethod
     ),
     /// PROPERTY SALE PRICE
     const SpecList(
@@ -75,7 +75,7 @@ class SpecList{
         canPickMany: true,
         isRequired: false,
         range: null,
-        specChain: SpecChain.price
+        specChain: RawSpecs.price
     ),
     /// PROPERTY RENT PRICE
     const SpecList(
@@ -84,43 +84,43 @@ class SpecList{
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.price
+        specChain: RawSpecs.price
     ),
     /// PROPERTY PRICE CURRENCY
     SpecList(
         id: 'propertyPriceCurrency',
-        names: SpecChain.currency.names,
+        names: RawSpecs.currency.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.currency
+        specChain: RawSpecs.currency
     ),
     /// PROPERTY NUMBER OF INSTALLMENTS
     SpecList(
         id: 'propertyNumberOfInstallments',
-        names: SpecChain.numberOfInstallments.names,
+        names: RawSpecs.numberOfInstallments.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.numberOfInstallments
+        specChain: RawSpecs.numberOfInstallments
     ),
     /// PROPERTY INSTALLMENTS DURATION
     SpecList(
         id: 'propertyInstallmentsDuration',
-        names: SpecChain.installmentsDuration.names,
+        names: RawSpecs.installmentsDuration.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.installmentsDuration
+        specChain: RawSpecs.installmentsDuration
     ),
     /// PROPERTY INSTALLMENTS DURATION UNIT
     SpecList(
         id: 'propertyInstallmentsDurationUnit',
-        names: SpecChain.installmentsDurationUnit.names,
+        names: RawSpecs.installmentsDurationUnit.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.installmentsDurationUnit
+        specChain: RawSpecs.installmentsDurationUnit
     ),
     // ------------------------------------------------------------
     /// - PROPERTY AREA SPECIFICATIONS
@@ -128,38 +128,38 @@ class SpecList{
     /// PROPERTY AREA
     SpecList(
         id: 'propertyArea',
-        names: SpecChain.propertyArea.names,
+        names: RawSpecs.propertyArea.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.propertyArea
+        specChain: RawSpecs.propertyArea
     ),
     /// PROPERTY AREA UNIT
     SpecList(
         id: 'propertyAreaUnit',
-        names: SpecChain.propertyAreaUnit.names,
+        names: RawSpecs.propertyAreaUnit.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.propertyAreaUnit
+        specChain: RawSpecs.propertyAreaUnit
     ),
     /// LOT AREA
     SpecList(
         id: 'lotArea',
-        names: SpecChain.lotArea.names,
+        names: RawSpecs.lotArea.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.lotArea
+        specChain: RawSpecs.lotArea
     ),
     /// LOT AREA UNIT
     SpecList(
         id: 'lotAreaUnit',
-        names: SpecChain.lotAreaUnit.names,
+        names: RawSpecs.lotAreaUnit.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.lotAreaUnit
+        specChain: RawSpecs.lotAreaUnit
     ),
     // ------------------------------------------------------------
     /// - PROPERTY SPATIAL SPECIFICATION
@@ -167,47 +167,47 @@ class SpecList{
     /// PROPERTY SPACES
     SpecList(
         id: 'propertySpaces',
-        names: SpecChain.propertySpaces.names,
+        names: RawSpecs.propertySpaces.names,
         canPickMany: true,
         isRequired: false,
         range: null,
-        specChain: SpecChain.propertySpaces
+        specChain: RawSpecs.propertySpaces
     ),
     /// PROPERTY FLOOR NUMBER
     SpecList(
         id: 'propertyFloorNumber',
-        names: SpecChain.propertyFloorNumber.names,
+        names: RawSpecs.propertyFloorNumber.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.propertyFloorNumber
+        specChain: RawSpecs.propertyFloorNumber
     ),
     /// PROPERTY DEDICATED PARKING LOTS COUNT
     SpecList(
         id: 'propertyDedicatedParkingLotsCount',
-        names: SpecChain.propertyDedicatedParkingLotsCount.names,
+        names: RawSpecs.propertyDedicatedParkingLotsCount.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.propertyDedicatedParkingLotsCount
+        specChain: RawSpecs.propertyDedicatedParkingLotsCount
     ),
     /// PROPERTY NUMBER OF BEDROOMS
     SpecList(
         id: 'propertyNumberOfBedrooms',
-        names: SpecChain.propertyNumberOfBedrooms.names,
+        names: RawSpecs.propertyNumberOfBedrooms.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.propertyNumberOfBedrooms,
+        specChain: RawSpecs.propertyNumberOfBedrooms,
     ),
     /// PROPERTY NUMBER OF BATHROOMS
     SpecList(
       id: 'propertyNumberOfBathrooms',
-      names: SpecChain.propertyNumberOfBathrooms.names,
+      names: RawSpecs.propertyNumberOfBathrooms.names,
       canPickMany: false,
       isRequired: false,
       range: null,
-      specChain: SpecChain.propertyNumberOfBathrooms,
+      specChain: RawSpecs.propertyNumberOfBathrooms,
     ),
     // ------------------------------------------------------------
     /// - PROPERTY FEATURES SPECIFICATIONS
@@ -215,29 +215,29 @@ class SpecList{
     /// PROPERTY VIEW
     SpecList(
         id: 'propertyView',
-        names: SpecChain.propertyView.names,
+        names: RawSpecs.propertyView.names,
         canPickMany: true,
         isRequired: false,
         range: null,
-        specChain: SpecChain.propertyView
+        specChain: RawSpecs.propertyView
     ),
     /// PROPERTY INDOOR FEATURES
     SpecList(
         id: 'propertyIndoorFeatures',
-        names: SpecChain.propertyIndoorFeatures.names,
+        names: RawSpecs.propertyIndoorFeatures.names,
         canPickMany: true,
         isRequired: false,
         range: null,
-        specChain: SpecChain.propertyIndoorFeatures
+        specChain: RawSpecs.propertyIndoorFeatures
     ),
     /// PROPERTY FINISHING LEVEL
     SpecList(
         id: 'propertyFinishingLevel',
-        names: SpecChain.propertyFinishingLevel.names,
+        names: RawSpecs.propertyFinishingLevel.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.propertyFinishingLevel
+        specChain: RawSpecs.propertyFinishingLevel
     ),
     /// PROPERTY DECORATION STYLE
     const SpecList(
@@ -246,7 +246,7 @@ class SpecList{
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.style,
+        specChain: RawSpecs.style,
     ),
     // ------------------------------------------------------------
     /// - COMMUNITY FEATURES SPECIFICATIONS
@@ -254,29 +254,29 @@ class SpecList{
     /// IN  A COMPOUND
     SpecList(
         id: 'propertyInACompound',
-        names: SpecChain.inACompound.names,
+        names: RawSpecs.inACompound.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.inACompound
+        specChain: RawSpecs.inACompound
     ),
     /// AMENITIES
     SpecList(
         id: 'propertyAmenities',
-        names: SpecChain.amenities.names,
+        names: RawSpecs.amenities.names,
         canPickMany: true,
         isRequired: false,
         range: null,
-        specChain: SpecChain.amenities
+        specChain: RawSpecs.amenities
     ),
     /// COMMUNITY SERVICES
     SpecList(
         id: 'communityServices',
-        names: SpecChain.communityServices.names,
+        names: RawSpecs.communityServices.names,
         canPickMany: true,
         isRequired: false,
         range: null,
-        specChain: SpecChain.communityServices
+        specChain: RawSpecs.communityServices
     ),
     // ------------------------------------------------------------
     /// - BUILDING FEATURES SPECIFICATIONS
@@ -284,38 +284,38 @@ class SpecList{
     /// BUILDING NUMBER OF FLOORS
     SpecList(
         id: 'buildingNumberOfFloors',
-        names: SpecChain.buildingNumberOfFloors.names,
+        names: RawSpecs.buildingNumberOfFloors.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.buildingNumberOfFloors
+        specChain: RawSpecs.buildingNumberOfFloors
     ),
     /// BUILDING AGE IN YEARS
     SpecList(
         id: 'buildingAgeInYears',
-        names: SpecChain.buildingAgeInYears.names,
+        names: RawSpecs.buildingAgeInYears.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.buildingAgeInYears
+        specChain: RawSpecs.buildingAgeInYears
     ),
     /// BUILDING TOTAL UNITS COUNTS
     SpecList(
         id: 'buildingTotalUnitsCount',
-        names: SpecChain.buildingTotalUnitsCount.names,
+        names: RawSpecs.buildingTotalUnitsCount.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.buildingTotalUnitsCount
+        specChain: RawSpecs.buildingTotalUnitsCount
     ),
     /// BUILDING TOTAL PARKING LOTS COUNTS
     SpecList(
         id: 'buildingTotalParkingLotsCount',
-        names: SpecChain.buildingTotalParkingLotsCount.names,
+        names: RawSpecs.buildingTotalParkingLotsCount.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.buildingTotalParkingLotsCount
+        specChain: RawSpecs.buildingTotalParkingLotsCount
     ),
     // ------------------------------------------------------------
   ];
@@ -327,20 +327,20 @@ class SpecList{
     /// PROPERTY FORM
     SpecList(
         id: 'propertyForm',
-        names: SpecChain.propertyForm.names,
+        names: RawSpecs.propertyForm.names,
         canPickMany: false,
         isRequired: true,
         range: null,
-        specChain: SpecChain.propertyForm
+        specChain: RawSpecs.propertyForm
     ),
     /// PROPERTY LICENSE
     SpecList(
         id: 'propertyLicense',
-        names: SpecChain.propertyLicense.names,
+        names: RawSpecs.propertyLicense.names,
         canPickMany: true,
         isRequired: true,
         range: null,
-        specChain: SpecChain.propertyLicense
+        specChain: RawSpecs.propertyLicense
     ),
     /// PROPERTY SPACES
     const SpecList(
@@ -349,7 +349,7 @@ class SpecList{
         canPickMany: true,
         isRequired: true,
         range: null,
-        specChain: SpecChain.propertySpaces
+        specChain: RawSpecs.propertySpaces
     ),
     // ------------------------------------------------------------
     /// - STYLE SPECIFICATIONS
@@ -357,20 +357,20 @@ class SpecList{
     /// DESIGN STYLE
     SpecList(
         id: 'designStyle',
-        names: SpecChain.style.names,
+        names: RawSpecs.style.names,
         canPickMany: true,
         isRequired: false,
         range: null,
-        specChain: SpecChain.style
+        specChain: RawSpecs.style
     ),
     /// DESIGN COLORS
     SpecList(
         id: 'designColors',
-        names: SpecChain.color.names,
+        names: RawSpecs.color.names,
         canPickMany: true,
         isRequired: false,
         range: null,
-        specChain: SpecChain.color,
+        specChain: RawSpecs.color,
     ),
     // ------------------------------------------------------------
     /// - CONSTRUCTION SPECIFICATIONS
@@ -382,7 +382,7 @@ class SpecList{
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.price
+        specChain: RawSpecs.price
     ),
     /// PROJECT COST CURRENCY
     const SpecList(
@@ -391,7 +391,7 @@ class SpecList{
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.currency,
+        specChain: RawSpecs.currency,
     ),
     /// Construction DURATION
     const SpecList(
@@ -400,7 +400,7 @@ class SpecList{
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.duration,
+        specChain: RawSpecs.duration,
     ),
     /// Construction DURATION UNIT
     const SpecList(
@@ -409,7 +409,7 @@ class SpecList{
       canPickMany: false,
       isRequired: false,
       range: ['day', 'week', 'month', 'year'],
-      specChain: SpecChain.duration,
+      specChain: RawSpecs.duration,
     ),
     /// NUMBER OF CONSTRUCTION ACTIVITIES
     const SpecList(
@@ -418,16 +418,16 @@ class SpecList{
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.count
+        specChain: RawSpecs.count
     ),
     /// CONSTRUCTION ACTIVITIES
     SpecList(
         id: 'constructionActivities',
-        names: SpecChain.constructionActivities.names,
+        names: RawSpecs.constructionActivities.names,
         canPickMany: true,
         isRequired: false,
         range: null,
-        specChain: SpecChain.constructionActivities,
+        specChain: RawSpecs.constructionActivities,
     ),
     // ------------------------------------------------------------
     /// - PROPERTY AREA SPECIFICATIONS
@@ -435,38 +435,38 @@ class SpecList{
     /// PROPERTY AREA
     SpecList(
         id: 'propertyArea',
-        names: SpecChain.propertyArea.names,
+        names: RawSpecs.propertyArea.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.propertyArea
+        specChain: RawSpecs.propertyArea
     ),
     /// PROPERTY AREA UNIT
     SpecList(
         id: 'propertyAreaUnit',
-        names: SpecChain.propertyAreaUnit.names,
+        names: RawSpecs.propertyAreaUnit.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.propertyAreaUnit
+        specChain: RawSpecs.propertyAreaUnit
     ),
     /// LOT AREA
     SpecList(
         id: 'lotArea',
-        names: SpecChain.lotArea.names,
+        names: RawSpecs.lotArea.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.lotArea
+        specChain: RawSpecs.lotArea
     ),
     /// LOT AREA UNIT
     SpecList(
         id: 'lotAreaUnit',
-        names: SpecChain.lotAreaUnit.names,
+        names: RawSpecs.lotAreaUnit.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.lotAreaUnit
+        specChain: RawSpecs.lotAreaUnit
     ),
     // ------------------------------------------------------------
   ];
@@ -475,29 +475,29 @@ class SpecList{
     /// CONSTRUCTION ACTIVITY PRICE
     SpecList(
         id: 'constructionActivityPrice',
-        names: SpecChain.price.names,
+        names: RawSpecs.price.names,
         canPickMany: false,
         isRequired: false,
         range: null,
-        specChain: SpecChain.price
+        specChain: RawSpecs.price
     ),
     /// CONSTRUCTION ACTIVITY PRICE CURRENCY
     SpecList(
       id: 'projectCostCurrency',
-      names: SpecChain.currency.names,
+      names: RawSpecs.currency.names,
       canPickMany: false,
       isRequired: false,
       range: null,
-      specChain: SpecChain.currency,
+      specChain: RawSpecs.currency,
     ),
     /// CONSTRUCTION ACTIVITY MEASUREMENT METHOD
     SpecList(
       id: 'constructionActivityMeasurementMethod',
-      names: SpecChain.constructionActivityMeasurementMethod.names,
+      names: RawSpecs.constructionActivityMeasurementMethod.names,
       canPickMany: false,
       isRequired: false,
       range: null,
-      specChain: SpecChain.constructionActivityMeasurementMethod,
+      specChain: RawSpecs.constructionActivityMeasurementMethod,
     ),
   ];
 

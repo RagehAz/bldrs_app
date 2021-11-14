@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/views/widgets/general/expansion_tiles/expanding_tile.dart';
+import 'package:bldrs/views/widgets/general/chain_expander/components/expanding_tile.dart';
 import 'package:flutter/material.dart';
 
 class SectionBubble extends StatelessWidget {

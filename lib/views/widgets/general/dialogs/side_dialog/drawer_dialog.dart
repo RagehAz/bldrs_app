@@ -61,13 +61,13 @@ class _DrawerDialogState extends State<DrawerDialog> {
 // ---------------------------
   Future<void> _onSearchChanged(String text) async {
 
-    print('drawer recieves text : ${text} : _isSearching : ${_isSearching}');
+    print('drawer receives text : ${text} : Length ${text.length}: _isSearching : ${_isSearching}');
 
     /// A - not searching
     if (_isSearching == false){
 
       /// A.1 starts searching
-      if (text.length > 0){
+      if (text.length > 1){
 
         setState(() {
           _isSearching = true;
@@ -81,7 +81,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
     else {
 
       /// B.1 ends searching
-      if (text.length == 0){
+      if (text.length < 3){
         setState(() {
           _isSearching = false;
           _foundKeywords = [];

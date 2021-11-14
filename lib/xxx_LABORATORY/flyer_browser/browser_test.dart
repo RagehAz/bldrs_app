@@ -15,7 +15,7 @@
 // import 'package:bldrs/models/kw/kw.dart';
 // import 'package:bldrs/providers/general_provider.dart';
 // import 'package:bldrs/views/screens/c_search/search_result_wall.dart';
-// import 'package:bldrs/views/screens/x_select_keywords_screen.dart';
+// import 'package:bldrs/views/screens/keywords_picker_screen.dart';
 // import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 // import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 // import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
