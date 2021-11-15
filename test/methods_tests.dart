@@ -8,6 +8,7 @@ import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
+import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -470,4 +471,68 @@ void main(){
 
   });
 // -----------------------------------------------------------------------------
+  test("Specs are the same", () async {
+
+    List<Spec> specsA = const [
+
+      Spec(specsListID: 'x', value: 'x'),
+      Spec(specsListID: 'y', value: 'y'),
+      Spec(specsListID: 'z', value: 'z'),
+
+    ];
+
+    List<Spec> specsB = const [
+
+      Spec(specsListID: 'x', value: 'x'),
+      Spec(specsListID: 'y', value: 'y'),
+      Spec(specsListID: 'z', value: 'z'),
+
+    ];
+
+    final bool _areTheSame = Spec.specsListsAreTheSame(specsA, specsB);
+
+    expect(_areTheSame, true);
+
+  });
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+  test("Specs are the same", () async {
+
+    List<Spec> specsA = const [
+
+      Spec(specsListID: 'x', value: 'x'),
+      Spec(specsListID: 'y', value: 'y'),
+      Spec(specsListID: 'z', value: 'z'),
+
+    ];
+
+    const Spec _aSpec = Spec(specsListID: 'z', value: 'v');
+
+    final bool _contains = Spec.specsContainThis(specs: specsA, spec: _aSpec);
+
+    expect(_contains, false);
+
+  });
+// -----------------------------------------------------------------------------
+  test("Object is list of specs", () async {
+
+    List<Spec> specsA = const [
+
+      Spec(specsListID: 'x', value: 'x'),
+      Spec(specsListID: 'y', value: 'y'),
+      Spec(specsListID: 'z', value: 'z'),
+
+    ];
+
+    dynamic thing = ['d', 'r'];
+
+    final bool isSpecs = ObjectChecker.objectIsListOfSpecs(thing);
+
+    expect(isSpecs, false);
+
+  });
+// -----------------------------------------------------------------------------
+
+
 }

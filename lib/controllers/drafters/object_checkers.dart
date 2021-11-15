@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
@@ -188,4 +189,21 @@ abstract class ObjectChecker {
 
     return _isTimestamp;
   }
+// -----------------------------------------------------------------------------
+  static bool objectIsListOfSpecs(dynamic object){
+
+    bool _objectsListIsSpecs = false;
+
+    if (object != null){
+      if (object.length > 0){
+        if (object[0].runtimeType == Spec){
+          _objectsListIsSpecs = true;
+        }
+
+      }
+    }
+
+    return _objectsListIsSpecs;
+  }
+// -----------------------------------------------------------------------------
 }

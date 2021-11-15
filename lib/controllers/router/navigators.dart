@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -150,6 +151,13 @@ abstract class Nav{
         ),
             (route) => route.isFirst
     );
+  }
+// -----------------------------------------------------------------------------
+  static PageTransitionType superHorizontalTransition(BuildContext context){
+
+    final PageTransitionType _transition = appIsLeftToRight(context) == true ? PageTransitionType.rightToLeftWithFade : PageTransitionType.leftToRightWithFade;
+    return _transition;
+
   }
 // -----------------------------------------------------------------------------
 }
