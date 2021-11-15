@@ -29,7 +29,7 @@ class FloatingDialog extends StatefulWidget {
 }
 
 class _FloatingDialogState extends State<FloatingDialog> {
-  String chosenValue = '';
+  int selectedIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -38,74 +38,85 @@ class _FloatingDialogState extends State<FloatingDialog> {
     final double actionBtSize = SuperVerse.superVerseRealHeight(context, titleVerseSize, 1, null);
     final double actionBtCorner = actionBtSize * 0.4;
 
+    const double _stripHeight = 50;
+
+    TextStyle _textStyle = SuperVerse.createStyle(
+        context: context,
+        color: Colorz.red230,
+        weight: VerseWeight.thin,
+        italic: false,
+        size: 2,
+        shadow: false
+    );
+
     return Bubble(
+      // actionBtIcon: widget.actionBtIcon,
+      // actionBtFunction: widget.actionBtFunction,
+      title: widget.title,
+      redDot: widget.fieldIsRequired,
       columnChildren: <Widget>[
 
         Container(
-          // color: Colorz.YellowSmoke,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-
-              /// BUBBLE TITLE
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-                child: SuperVerse(
-                  verse: widget.title,
-                  size: titleVerseSize,
-                  redDot: widget.fieldIsRequired,
-                ),
-              ),
-
-              /// ACTION BUTTON
-              widget.actionBtIcon == null ? Container() :
-              DreamBox(
-                height: actionBtSize,
-                width: actionBtSize,
-                corners: actionBtCorner,
-                color: widget.actionBtColor,
-                icon: widget.actionBtIcon,
-                iconSizeFactor: 0.6,
-                onTap: widget.actionBtFunction,
-              ),
-
-            ],
-          ),
-        ),
-
-        Container(
           width: Bubble.clearWidth(context),
-          height: 35,
+          height: _stripHeight,
           decoration: BoxDecoration(
-            color: Colorz.bloodTest,
-            borderRadius: Borderers.superBorderOnly(context: context, enTopLeft: 10, enBottomLeft: 10, enBottomRight: 10, enTopRight: 10),
+            color: Colorz.white10,
+            borderRadius: Borderers.superBorderAll(context, 10),
           ),
+
           child: DropdownButtonFormField(
-            value: widget.list[0] ?? widget.list[0],
-            dropdownColor: Colorz.blue225,
-            elevation: 0,
-            style: const TextStyle(color: Colorz.red255, ),
-            iconSize: 20,
-            isExpanded: true,
-            isDense: true,
 
-            itemHeight: 48,
+            /// INEFFECTIVE
+            iconSize: 0,
+            isExpanded: false,
+            alignment: Alignment.center,
+            style: _textStyle,
+            value: widget.list[0],
+
+            /// STRIP
             onTap: (){print('ganzabeel');},
-            icon: const DreamBox(height: 20, icon: Iconz.ArrowDown, bubble: false,),
-            decoration: InputDecoration(
 
-              border: Borderers.superOutlineInputBorder(Colorz.red255, 10),
-              isDense: true,
+            /// STRIP STYLING
+            isDense: false,
+            decoration: InputDecoration(
+              // border: Borderers.superOutlineInputBorder(Colorz.red255, 10),
+
+              floatingLabelStyle: _textStyle,
               contentPadding: const EdgeInsets.all(0),
+
+              /// STRIP STYLING
+              fillColor: null,
+              filled: true, /// removes bottom line
+              enabled: false, /// removes bottom line
+
+              /// INEFFECTIVE
+              isDense: false,
+
+              /// UNNECESSARY
+              // icon: const DreamBox(height: 35, icon: Iconz.DvGouran,),
               // labelText: 'label text',
-              icon: const DreamBox(height: 35, icon: Iconz.DvGouran,),
-              fillColor: Colorz.blue225,
-              filled: true,
-              enabled: true,
-              focusColor: Colorz.bloodTest,
+              // floatingLabelBehavior: FloatingLabelBehavior.never,
+              // focusColor: null,
 
             ),
+
+            /// ARROW STYLING
+            icon: const DreamBox(
+              height: _stripHeight,
+              width: _stripHeight,
+              icon: Iconz.ArrowDown,
+              iconSizeFactor: 0.2,
+              bubble: false,
+            ),
+
+            /// DROP DOWN
+            menuMaxHeight: 500,
+            itemHeight: _stripHeight,
+            hint: SuperVerse(verse: 'xx',),
+            dropdownColor: Colorz.white255,
+            elevation: 30,
+
+
             items: widget.list.map((item){
               return DropdownMenuItem(
                 value: item,
@@ -116,7 +127,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
                 ),
               );
             }).toList(),
-            onChanged: (val) => setState(()=> chosenValue = val),
+            onChanged: (val) => setState(()=> selectedIndex = val),
           ),
         ),
 
