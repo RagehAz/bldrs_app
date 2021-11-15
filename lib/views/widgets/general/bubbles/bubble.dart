@@ -56,7 +56,7 @@ class Bubble extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static double defaultWidth(BuildContext context){
     final double _screenWidth = Scale.superScreenWidth(context);
-    const double _bubbleMargins = Ratioz.appBarMargin * 2;
+    const double _bubbleMargins = Ratioz.appBarPadding * 2;
     final double _bubbleWidth = _screenWidth - _bubbleMargins;
     return _bubbleWidth;
   }
@@ -145,6 +145,7 @@ class Bubble extends StatelessWidget {
               mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
               crossAxisAlignment: centered == true ? CrossAxisAlignment.center : CrossAxisAlignment.start,
               children: <Widget>[
+
                 if (title !=null || actionBtIcon != null)
                   Row(
                     mainAxisAlignment: centered == true ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
