@@ -1,4 +1,7 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/models/kw/kw.dart';
+import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
+import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:flutter/cupertino.dart';
 
 enum SpecType {
@@ -154,17 +157,17 @@ enum SpecType {
 /// ----------------------------------------------------------------------------
 class Spec {
   /// specID is the specList's id value, and the key of firebase map
-  final String specID;
+  final String specsListID;
   final dynamic value; // string, int, double, List<String>, List<double>, list<dynamic>
 
   const Spec({
-    @required this.specID,
+    @required this.specsListID,
     @required this.value,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
     return {
-      specID : value,
+      specsListID : value,
     };
   }
 // -----------------------------------------------------------------------------
@@ -177,7 +180,7 @@ class Spec {
 
         _map = Mapper.insertPairInMap(
           map: _map,
-          key: spec.specID,
+          key: spec.specsListID,
           value: spec.value,
         );
 
@@ -191,7 +194,7 @@ class Spec {
   Spec clone(){
     return
       Spec(
-        specID: specID,
+        specsListID: specsListID,
         value: value,
       );
   }
@@ -298,7 +301,7 @@ class Spec {
       for (String key in _keys){
 
         final Spec _spec = Spec(
-            specID: key,
+            specsListID: key,
             value: map[key],
         );
 
@@ -341,7 +344,7 @@ class Spec {
 
     if (specA != null && specB != null){
 
-      if (specA.specID == specB.specID){
+      if (specA.specsListID == specB.specsListID){
 
         if (specA.value == specB.value){
 
@@ -357,31 +360,14 @@ class Spec {
   }
 // -----------------------------------------------------------------------------
   static bool specsListsAreTheSame(List<Spec> specsA, List<Spec> specsB){
-    bool _listsAreTheSame = false;
 
-    if (Mapper.canLoopList(specsA) && Mapper.canLoopList(specsB)){
+    Map<String, dynamic> specsAMap = cipherSpecs(specsA);
+    Map<String, dynamic> specsBMap = cipherSpecs(specsB);
 
-      bool _stillTheSame;
-
-      for (int i = 0; i < specsA.length; i++){
-
-        final bool _specsAreTheSame = specsAreTheSame(specsA[i], specsB[i]);
+    final bool _listsAreTheSame = Mapper.mapsAreTheSame(specsAMap, specsBMap);
 
 
-        if (_specsAreTheSame == false){
-          _stillTheSame = false;
-          break;
-        }{
-          _stillTheSame = true;
-        };
-
-      }
-
-      if (_stillTheSame == true){
-        _listsAreTheSame = true;
-      }
-
-    }
+    print('specsListsAreTheSame : _listsAreTheSame : ${_listsAreTheSame}');
 
     return _listsAreTheSame;
   }
@@ -390,11 +376,120 @@ class Spec {
 
     return <Spec>[
 
-      const Spec(specID: 'style', value: 'arch_style_arabian'),
-      const Spec(specID: 'numberOfInstallments', value: 12),
-      const Spec(specID: 'propertyForm', value: 'pf_fullFloor'),
+      const Spec(specsListID: 'style', value: 'arch_style_arabian'),
+      const Spec(specsListID: 'numberOfInstallments', value: 12),
+      const Spec(specsListID: 'propertyForm', value: 'pf_fullFloor'),
 
     ];
+  }
+// -----------------------------------------------------------------------------
+  void printSpec(){
+    print('spec is : ${specsListID} : ${value.toString()}');
+  }
+// -----------------------------------------------------------------------------
+  static void printSpecs(List<Spec> specs){
+    print('SPECS-PRINT -------------------------------------------------- START');
+    for (var spec in specs){
+      print('${spec.specsListID} : ${spec.value}');
+    }
+    print('SPECS-PRINT -------------------------------------------------- END');
+  }
+// -----------------------------------------------------------------------------
+  static bool specsContainThis({@required List<Spec> specs, @required Spec spec}){
+
+    bool _contains = false;
+
+    if (Mapper.canLoopList(specs) && spec != null){
+
+      final Spec _result = specs.firstWhere((sp) => Spec.specsAreTheSame(sp, spec) == true, orElse: () => null);
+
+      _contains = _result == null ? false : true;
+
+    }
+
+    return _contains;
+  }
+// -----------------------------------------------------------------------------
+  static Spec getSpecFromKW({@required KW kw, @required String specsListID}){
+
+    final Spec _spec = Spec(
+      value: kw.id,
+      specsListID: specsListID,
+    );
+
+    // _spec.printSpec();
+
+    return _spec;
+  }
+// -----------------------------------------------------------------------------
+  static List<Spec> getSpecsByListID({@required List<Spec> specsList, @required String specsListID}){
+    List<Spec> _result = [];
+
+    if (Mapper.canLoopList(specsList) == true && specsListID != null){
+      _result = specsList.where((spec) => spec.specsListID == specsListID,).toList();
+    }
+
+    return _result;
+  }
+// -----------------------------------------------------------------------------
+  static bool specsContainOfSameListID({@required List<Spec> specs, @required String specsListID}){
+
+    bool _contains = false;
+
+    if (Mapper.canLoopList(specs) && specsListID != null){
+
+      final Spec _result = specs.firstWhere((sp) => sp.specsListID == specsListID, orElse: () => null);
+
+      _contains = _result == null ? false : true;
+
+    }
+
+    return _contains;
+
+  }
+// -----------------------------------------------------------------------------
+  /// This inserts specs in Parent specs list if absent
+  static List<Spec> putSpecsInSpecs({@required List<Spec> parentSpecs, @required List<Spec> childrenSpecs}){
+    final List<Spec> _specs = parentSpecs;
+
+    if (Mapper.canLoopList(childrenSpecs)){
+
+      for (Spec spec in childrenSpecs){
+
+        final bool _alreadyThere = specsContainThis(specs: _specs, spec: spec);
+
+        if (_alreadyThere == false){
+          _specs.add(spec);
+        }
+
+      }
+
+    }
+
+    return _specs;
+  }
+// -----------------------------------------------------------------------------
+  static String getSpecNameFromSpecsLists({@required BuildContext context, @required Spec spec, @required List<SpecList> specsLists}){
+
+    final String _specsListID = spec.specsListID;
+    String _name = '${spec.value.toString()}';
+
+    final SpecList _specList = specsLists.singleWhere((list) => list.id == _specsListID, orElse: () => null);
+
+    if (_specList != null){
+
+      final String _kwID = spec.value;
+
+      final List<KW> _kws = _specList.specChain.sons;
+      final KW _kw = _kws.singleWhere((kw) => kw.id == _kwID, orElse: ()=> null);
+
+      if (_kw != null){
+        _name = Name.getNameByCurrentLingoFromNames(context, _kw.names);
+      }
+
+    }
+
+    return _name;
   }
 // -----------------------------------------------------------------------------
 }

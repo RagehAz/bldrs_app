@@ -1,5 +1,5 @@
 import 'package:bldrs/models/kw/chain/chain.dart';
-import 'package:bldrs/models/kw/specs/specs_lists.dart';
+import 'package:bldrs/models/kw/specs/raw_specs.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:flutter/foundation.dart';
 
