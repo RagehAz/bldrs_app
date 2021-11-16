@@ -66,7 +66,7 @@ class IconsViewerScreen extends StatelessWidget {
                       height: _iconBoxSize * 0.25,
                       color: Colorz.black255,
                       child: SuperVerse(
-                        verse: TextMod.trimTextBeforeLastSpecialCharacter(_icons[index], '/'),
+                        verse: TextMod.removeTextBeforeLastSpecialCharacter(_icons[index], '/'),
                         size: 1,
                         maxLines: 2,
                       ),

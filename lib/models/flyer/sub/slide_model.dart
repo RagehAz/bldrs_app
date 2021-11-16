@@ -223,7 +223,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static String getFlyerIDFromSlideID(String slideID){
-    final String _flyerID = TextMod.trimTextAfterFirstSpecialCharacter(slideID, '_');
+    final String _flyerID = TextMod.removeTextAfterFirstSpecialCharacter(slideID, '_');
     return _flyerID;
   }
 // -----------------------------------------------------------------------------

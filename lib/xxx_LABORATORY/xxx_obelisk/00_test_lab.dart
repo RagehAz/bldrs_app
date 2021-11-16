@@ -1,7 +1,11 @@
 
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/dashboard/exotic_methods.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/models/zone/currency_model.dart';
 import 'package:bldrs/providers/ui_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
@@ -213,26 +217,26 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
               /// DO SOMETHING
               WideButton(
                   color: Colorz.bloodTest,
-                  verse: 'fix flyers',
+                  verse: 'currencies gog',
                   icon: Iconz.Share,
                   onTap: () async {
 
                     _triggerLoading();
 
-                    // final List<FlyerModel> _allFlyers = await ExoticMethods.readAllFlyers(context: context, limit: 500);
-                    //
-                    // for (FlyerModel flyer in _allFlyers){
-                    //
-                    //   FlyerType _flyerType = flyer.flyerType;
-                    //
-                    //   if (_flyerType == FlyerType.rentalProperty || _flyerType == FlyerType.resaleProperty || _flyerType == FlyerType.newProperty){
-                    //
-                    //     await Fire.updateDocField(context: context, collName: FireColl.flyers, docName: flyer.id, field: 'flyerType', input: 'property');
-                    //
-                    //   }
-                    //
+                    final List<CurrencyModel> _currencies = await currencyData.updateCurrencies(context);
+
+                    // for (var curr in _currencies){
+                    //   curr.printCurrency();
                     // }
 
+                    await Fire.createNamedDoc(
+                        context: context,
+                        collName: FireColl.zones,
+                        docName: FireDoc.zones_currencies,
+                        input: CurrencyModel.cipherCurrencies(_currencies),
+                    );
+
+                    print('tamam');
 
                     _triggerLoading();
 

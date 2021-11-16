@@ -58,7 +58,7 @@ class PersonButton extends StatelessWidget {
             height: _nameHeight,
             // margin: EdgeInsets.symmetric(horizontal: _nameWidth * 0.2),
             child: SuperVerse(
-              verse: TextMod.trimTextAfterFirstSpecialCharacter(name, ' '),
+              verse: TextMod.removeTextAfterFirstSpecialCharacter(name, ' '),
               size: 1,
               scaleFactor: 1,
               centered: true,

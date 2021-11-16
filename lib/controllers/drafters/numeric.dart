@@ -196,7 +196,7 @@ abstract class Numeric {
   static double getFractions({@required double number, int fractionDigits}){
 
     final String _numberAsString = fractionDigits == null ? number.toString() : getFractionStringWithoutZero(fraction: number, fractionDigits: fractionDigits);
-    final String _fractionsString = TextMod.trimTextBeforeLastSpecialCharacter(_numberAsString, '.');
+    final String _fractionsString = TextMod.removeTextBeforeLastSpecialCharacter(_numberAsString, '.');
     final double _fraction = stringToDouble('0.$_fractionsString');
     return _fraction;
   }
@@ -214,7 +214,7 @@ abstract class Numeric {
 // -----------------------------------------------------------------------------
   static String getFractionStringWithoutZero({@required double fraction, int fractionDigits}){
     final String _fractionAsString = fraction.toString();
-    String _fractionAsStringWithoutZero = TextMod.trimTextBeforeLastSpecialCharacter(_fractionAsString, '.');
+    String _fractionAsStringWithoutZero = TextMod.removeTextBeforeLastSpecialCharacter(_fractionAsString, '.');
 
     if (fractionDigits != null){
       final int _fractionStringLength = _fractionAsStringWithoutZero.length;
@@ -225,6 +225,15 @@ abstract class Numeric {
     }
 
     return _fractionAsStringWithoutZero;
+  }
+// -----------------------------------------------------------------------------
+  static int getNumberOfFractions({@required double number}){
+    final double _numberFraction = Numeric.getFractions(number: number, fractionDigits: 100);
+    final String _numberFractionsString = TextMod.removeTextBeforeFirstSpecialCharacter(_numberFraction.toString(), '.');
+    print('getNumberOfFractions : _numberFractionsString : ${_numberFractionsString}');
+    final int _numberFractions = _numberFractionsString.trim().length;
+    print('_numberFractions : ${_numberFractions}');
+    return _numberFractions;
   }
 // -----------------------------------------------------------------------------
   static int discountPercentage({@required double oldPrice, @required double currentPrice}){

@@ -273,10 +273,10 @@ abstract class Mapper{
       /// trim urlQuery into string pairs
       for (int i = 0; i < _numberOfAnds; i++){
 
-        final String _beforeAnd = TextMod.trimTextAfterFirstSpecialCharacter(_trimmedURL, '&');
+        final String _beforeAnd = TextMod.removeTextAfterFirstSpecialCharacter(_trimmedURL, '&');
         _pairs.add(_beforeAnd);
 
-        final String _afterAnd = TextMod.trimTextBeforeFirstSpecialCharacter(_trimmedURL, '&');
+        final String _afterAnd = TextMod.removeTextBeforeFirstSpecialCharacter(_trimmedURL, '&');
 
         if (i == _numberOfAnds - 1){
           _pairs.add(_afterAnd);
@@ -289,8 +289,8 @@ abstract class Mapper{
       /// add pairs to a map
       for (String pair in _pairs){
 
-        final String _key = TextMod.trimTextAfterFirstSpecialCharacter(pair, '=');
-        final String _value = TextMod.trimTextBeforeFirstSpecialCharacter(pair, '=');
+        final String _key = TextMod.removeTextAfterFirstSpecialCharacter(pair, '=');
+        final String _value = TextMod.removeTextBeforeFirstSpecialCharacter(pair, '=');
 
         _output = Mapper.insertPairInMap(map: _output, key: _key,value: _value,);
 
@@ -425,4 +425,5 @@ abstract class Mapper{
     return _containsIt;
   }
 // -----------------------------------------------------------------------------
+
 }

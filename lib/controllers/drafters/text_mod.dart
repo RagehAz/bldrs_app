@@ -1,5 +1,6 @@
 
 import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class TextMod {
@@ -153,33 +154,95 @@ abstract class TextMod {
     '${_stringSplit[_beforeLastIndex]}${_stringSplit[_lastIndex]}';
 }
 // -----------------------------------------------------------------------------
-  static String trimTextAfterFirstSpecialCharacter(String verse, String specialCharacter){
-    // int _position = verse == null ? null : verse.indexOf(specialCharacter);
+  static String removeTextAfterFirstSpecialCharacter(String verse, String specialCharacter){
+    String _result;
 
-    final String _result = verse == null ? null : verse.substring(0, verse.indexOf(specialCharacter));
+    final bool _verseContainsChar = TextChecker.stringContainsSubString(
+      string: verse,
+      subString: specialCharacter,
+      caseSensitive: false,
+      multiLine: true,
+    );
+
+    if (_verseContainsChar == true){
+      _result = verse == null ? null : verse.substring(0, verse.indexOf(specialCharacter));
+    }
+
+    else {
+      _result = '';
+    }
+
   return _result;
 }
 // -----------------------------------------------------------------------------
-  static String trimTextBeforeFirstSpecialCharacter(String verse, String specialCharacter){
-    final int _position = verse == null ? null : verse.indexOf(specialCharacter);
-    final String _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
+  static String removeTextBeforeFirstSpecialCharacter(String verse, String specialCharacter){
+    String _result;
+
+    final bool _verseContainsChar = TextChecker.stringContainsSubString(
+      string: verse,
+      subString: specialCharacter,
+      caseSensitive: false,
+      multiLine: true,
+    );
+
+    if (_verseContainsChar == true){
+      final int _position = verse == null ? null : verse.indexOf(specialCharacter);
+       _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
+    }
+
+    else {
+      _result = '';
+    }
+
     return _result;
 }
 // -----------------------------------------------------------------------------
-  static String trimTextAfterLastSpecialCharacter(String verse, String specialCharacter){
-    final String _result = verse == null ? null : verse.substring(0, verse.lastIndexOf(specialCharacter));
+  static String removeTextAfterLastSpecialCharacter(String verse, String specialCharacter){
+    String _result;
+
+    final bool _verseContainsChar = TextChecker.stringContainsSubString(
+      string: verse,
+      subString: specialCharacter,
+      caseSensitive: false,
+      multiLine: true,
+    );
+
+    if (_verseContainsChar == true){
+      _result = verse == null ? null : verse.substring(0, verse.lastIndexOf(specialCharacter));
+    }
+
+    else {
+      _result = '';
+    }
+
   return _result;
 }
 // -----------------------------------------------------------------------------
-  static String trimTextBeforeLastSpecialCharacter(String verse, String specialCharacter){
-    final int _position = verse == null ? null : verse.lastIndexOf(specialCharacter);
-    final String _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
+  static String removeTextBeforeLastSpecialCharacter(String verse, String specialCharacter){
+    String _result;
+
+    final bool _verseContainsChar = TextChecker.stringContainsSubString(
+      string: verse,
+      subString: specialCharacter,
+      caseSensitive: false,
+      multiLine: true,
+    );
+
+    if (_verseContainsChar == true){
+      final int _position = verse == null ? null : verse.lastIndexOf(specialCharacter);
+      _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
+    }
+
+    else {
+      _result = '';
+    }
+
   return _result;
 }
 // -----------------------------------------------------------------------------
 /// this trims paths like 'assets/xx/pp_sodic/builds_1.jpg' to 'builds_1.jpg'
   static String getFileNameFromAsset(String asset){
-    final String _fileName = trimTextBeforeLastSpecialCharacter(asset, '/');
+    final String _fileName = removeTextBeforeLastSpecialCharacter(asset, '/');
   return _fileName;
 }
 // -----------------------------------------------------------------------------
