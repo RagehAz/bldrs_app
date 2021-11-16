@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -9,6 +10,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/specs/data_creator.dart';
+import 'package:bldrs/models/kw/specs/raw_specs.dart';
 import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
@@ -16,7 +18,9 @@ import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/spec_picker_
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/specs/spec_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -35,8 +39,12 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
 
   List<Spec> _allSelectedSpecs;
 
-  ScrollController _ScrollController;
+  ScrollController _scrollController;
   AnimationController _animationController;
+
+  List<SpecList> _sourceSpecsLists = [];
+  List<SpecList> _refinedSpecsLists = [];
+  List<String> _groupsIDs = [];
 
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -66,14 +74,17 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _ScrollController = new ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
+    _scrollController = new ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
 
     _animationController = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
     );
 
+    _sourceSpecsLists = SpecList.propertySpecLists;
     _allSelectedSpecs = <Spec>[];
+    _refinedSpecsLists = SpecList.generateRefinedSpecsLists(sourceSpecsLists: _sourceSpecsLists, selectedSpecs: _allSelectedSpecs);
+    _groupsIDs = SpecList.getGroupsFromSpecsLists(specsLists: _sourceSpecsLists);
 
     super.initState();
   }
@@ -111,78 +122,21 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
   // void _incrementCounter(){
   //   _counter.value += 3;
   // }
-// -----------------------------------------------------------------------------
-//   File _file;
-// -----------------------------------------------------------------------------
-  List<Spec> _statelessAddSpecToAllSelectedSpecs(Spec spec, SpecList specList){
 
-    final bool _alreadySelected = Spec.specsContainThis(specs: _allSelectedSpecs, spec: spec);
-
-    print('_statelessAddSpecToAllSelectedSpecs : value : ${spec.value} : specsListID : ${spec.specsListID} : canPickMany : ${specList.canPickMany} : _alreadySelected : ${_alreadySelected}');
-
-    final List<Spec> _specs = _allSelectedSpecs;
-
-    // ----------------------------------------------
-    /// A - WHEN ALREADY SELECTED
-    if (_alreadySelected == true){
-      // --------------------------------
-      /// A1 - WHEN CAN PICK MANY
-      if (specList.canPickMany == true){
-        _specs.add(spec);
-      }
-      // --------------------------------
-      /// A2 - WHEN CAN NOT PICK MANY
-      else {
-        final int _specIndex = _allSelectedSpecs.indexWhere((sp) => sp.specsListID == specList.id);
-        if (_specIndex != -1){
-          _specs.removeAt(_specIndex);
-          _specs.insert(_specIndex, spec);
-        }
-      }
-      // --------------------------------
-    }
-    // ----------------------------------------------
-    /// B - WHEN NOT SELECTED
-    else {
-      // --------------------------------
-      /// B1 - WHEN CAN PICK MANY
-      if (specList.canPickMany == true){
-        _specs.add(spec);
-      }
-      // --------------------------------
-      /// B2 - WHEN CAN NOT PICK MANY
-      else {
-
-        final bool _listContainSameListID = Spec.specsContainOfSameListID(
-          specs: _specs,
-          specsListID: specList.id,
-        );
-
-        /// C1 - WHEN LIST CONTAIN SAME LIST ID ALREADY
-        if (_listContainSameListID == true){
-          final int _specIndex = _allSelectedSpecs.indexWhere((sp) => sp.specsListID == specList.id);
-          if (_specIndex != -1){
-            _specs.removeAt(_specIndex);
-            _specs.insert(_specIndex, spec);
-          }
-        }
-
-        /// C2 - WHEN LIST DOES NOT CONTAIN ANY OF SAME LIST ID
-        else {
-          _specs.add(spec);
-        }
-      }
-      // --------------------------------
-    }
-    // ----------------------------------------------
-
-    return _specs;
-
-  }
+  // void _refineSourceSpecsLists(){
+  //
+  //   /// WHEN [FOR SALE]
+  //   bool _containsNewSale = SpecsValidator.specsContainsNewSale(_allSelectedSpecs);
+  //   if (_containsNewSale == true){
+  //     int _rentPriceIndex = SpecList.getSpecsListIndexByID(specsLists: _sourceSpecsLists, specsListID: 'propertyRentPrice');
+  //
+  //     _sourceSpecsLists[_rentPriceIndex].hidden = true;
+  //     print('_sourceSpecsLists[_rentPriceIndex].hidden : ${_sourceSpecsLists[_rentPriceIndex].hidden}');
+  //   }
+  //
+  // }
 // -----------------------------------------------------------------------------
   Future<void> _onSpecsListTap(SpecList specList) async {
-
-    List<Spec> _finalSpecsList;
 
     final dynamic _result = await Nav.goToNewScreen(context,
       SpecPickerScreen(
@@ -207,41 +161,11 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
 
         setState(() {
           _allSelectedSpecs = _result;
+          Spec.printSpecs(_allSelectedSpecs);
+          // _refineSourceSpecsLists();
+          _refinedSpecsLists = SpecList.generateRefinedSpecsLists(sourceSpecsLists: _sourceSpecsLists, selectedSpecs: _allSelectedSpecs);
+          _groupsIDs = SpecList.getGroupsFromSpecsLists(specsLists: _refinedSpecsLists);
         });
-
-        // /// B1 - WHEN CAN PICK MANY
-        // if (specList.canPickMany == true){
-        //
-        //   setState(() {
-        //     _allSelectedSpecs = Spec.putSpecsInSpecs(
-        //       parentSpecs: _allSelectedSpecs,
-        //       childrenSpecs: _result,
-        //     );
-        //   });
-        //
-        // }
-        //
-        // /// B2 - WHEN CAN ONLY PICK ONE
-        // else {
-        //
-        //   int _specIndex = _allSelectedSpecs.indexWhere((spec) => spec.specsListID == specList.id);
-        //
-        //   /// if first spec of this list
-        //   if (_specIndex == -1){
-        //     setState(() {
-        //       _allSelectedSpecs.addAll(_result);
-        //     });
-        //   }
-        //
-        //   /// if a spec of this list exists
-        //   else {
-        //     setState(() {
-        //       _allSelectedSpecs.removeAt(_specIndex);
-        //       _allSelectedSpecs.addAll(_result);
-        //     });
-        //   }
-        //
-        // }
 
       }
       // ------------------------------------
@@ -265,210 +189,130 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
 
   }
 // -----------------------------------------------------------------------------
+  // List<String> getGroupsFromRefinedLists(){
+  //
+  //   List<String> _groups = <String>[];
+  //
+  //   for (var list in _refinedSpecsLists){
+  //
+  //     _groups = TextMod.addStringToListIfDoesNotContainIt(
+  //       strings: _groups,
+  //       stringToAdd: list.groupID,
+  //     );
+  //
+  //   }
+  //
+  //   return _groups;
+  // }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
 
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-
-    final List<SpecList> propertySpecLists = SpecList.propertySpecLists;
-
     const double _specTileHeight = 70;
     final double _specTileWidth = _screenWidth - (Ratioz.appBarMargin * 2);
     final BorderRadius _tileBorders = Borderers.superBorderAll(context, Ratioz.appBarCorner);
-
     final double _specNameBoxWidth = _specTileWidth - (2 * _specTileHeight);
+// -----------------------------------------------------------------------------
 
     return MainLayout(
+      sky: Sky.Black,
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidzYellow,
       loading: _loading,
-      tappingRageh: (){
-        print('wtf');
-      },
-      appBarRowWidgets: const<Widget>[],
+      pageTitle: 'Select Flyer Specifications',
 
       layoutWidget: Container(
         width: _screenWidth,
         height: _screenHeight,
         child: MaxBounceNavigator(
-          child: ListView.builder(
-              itemCount: propertySpecLists.length,
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
-              itemBuilder: (ctx, index){
+          child: Scroller(
+            controller: _scrollController,
+            child: ListView.builder(
+                itemCount: _groupsIDs.length,
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
+                itemBuilder: (ctx, index){
 
-                final SpecList _specList = propertySpecLists[index];
-                final Chain _chain = _specList.specChain;
+                  final String _groupID = _groupsIDs[index];
 
-                final List<Spec> _selectedSpecs = Spec.getSpecsByListID(
-                  specsList: _allSelectedSpecs,
-                  specsListID: _specList.id,
-                );
-
-                return
-                  GestureDetector(
-                    onTap: () => _onSpecsListTap(_specList),
-                    child: Center(
-                      child: Container(
-                        width: _specTileWidth,
-                        // height: _specTileHeight,
-                        margin: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
-                        decoration: BoxDecoration(
-                          color: Colorz.white10,
-                          borderRadius: _tileBorders,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-
-                            /// SPECS LIST ROW
-                            Container(
-                              width: _specTileWidth,
-                              child: Row(
-                                children: <Widget>[
-
-                                  /// - ICON
-                                  DreamBox(
-                                    width: _specTileHeight,
-                                    height: _specTileHeight,
-                                    color: Colorz.white10,
-                                    corners: _tileBorders,
-                                    bubble: false,
-                                  ),
-
-                                  /// - LIST NAME
-                                  Expanded(
-                                    child: Container(
-                                      height: _specTileHeight,
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: <Widget>[
-
-                                          Container(
-                                            width: _specNameBoxWidth,
-                                            child: SuperVerse(
-                                              verse: Name.getNameByCurrentLingoFromNames(context, _chain.names),
-                                              centered: false,
-                                              margin: 10,
-                                              maxLines: 2,
-                                            ),
-                                          ),
-
-                                          // SuperVerse(
-                                          //   verse: Name.getNameByCurrentLingoFromNames(context, _chain.names),
-                                          //   centered: false,
-                                          // ),
-
-                                        ],
-                                      ),
-
-                                    ),
-                                  ),
-
-                                  /// - ARROW
-                                  DreamBox(
-                                    width: _specTileHeight,
-                                    height: _specTileHeight,
-                                    corners: _tileBorders,
-                                    icon: Iconizer.superArrowENRight(context),
-                                    iconSizeFactor: 0.3,
-                                    bubble: false,
-                                  ),
-
-                                ],
-                              ),
-                            ),
-
-                            /// SELECTED SPECS ROW
-                            if (_selectedSpecs.length != 0)
-                            Container(
-                              width: _specTileWidth,
-                              child: Row(
-                                children: <Widget>[
-
-                                  /// FAKE SPACE UNDER ICON
-                                  Container(
-                                    width: _specTileHeight,
-                                    height: 10,
-                                  ),
-
-                                   /// SELECTED SPECS BOX
-                                   Container(
-                                     width: _specTileWidth - _specTileHeight,
-                                     padding: const EdgeInsets.all(Ratioz.appBarMargin),
-                                     child: Wrap(
-                                       spacing: Ratioz.appBarPadding,
-                                       children: <Widget>[
-
-                                         ...List<Widget>.generate(
-                                             _selectedSpecs.length,
-                                                 (index){
-
-                                               final Spec _spec = _selectedSpecs[index];
-                                               // final String _specID = _spec.specsListID;
-                                               // final dynamic _value = _spec.value;
-
-                                               final String _specName = Spec.getSpecNameFromSpecsLists(
-                                                 context: context,
-                                                 spec: _spec,
-                                                 specsLists: propertySpecLists,
-                                               );
-
-                                               return
-                                                 DreamBox(
-                                                     height: 30,
-                                                     icon: Iconz.XLarge,
-                                                     margins: const EdgeInsets.symmetric(vertical: 2.5),
-                                                     verse: _specName,
-                                                     verseColor: Colorz.white255,
-                                                     verseWeight: VerseWeight.thin,
-                                                     verseItalic: true,
-                                                     verseScaleFactor: 1.5,
-                                                     verseShadow: false,
-                                                     iconSizeFactor: 0.4,
-                                                     color: Colorz.black255,
-                                                     bubble: false,
-                                                     onTap: () => _removeSpec(_spec),
-                                                 );
-
-                                             }
-                                         ),
-
-                                       ],
-                                     ),
-                                   ),
-
-                                ],
-
-                              ),
-                            ),
-
-                          ],
-
-
-                        ),
-                      ),
-                    ),
+                  List<SpecList> _listsOfThisGroup = SpecList.getSpecsListsByGroupID(
+                    specsLists: _refinedSpecsLists,
+                    groupID: _groupID,
                   );
 
 
+                  return
 
-                // ChainExpander(
-                  //   chain: _chain,
-                  //   width: _screenWidth * 0.9,
-                  //   margin: const EdgeInsets.only(top: Ratioz.appBarPadding, bottom: Ratioz.appBarPadding),
-                  //   onTap: (bool isExpanded) => _onSpecsListTap(isExpanded),
-                  //   icon: _chain.icon,
-                  //   firstHeadline: Name.getNameByCurrentLingoFromNames(context, _chain.names),
-                  //   secondHeadline: null,
-                  // );
 
-              }
+                      Container(
+                        width: _screenHeight,
+                        // height: 80 + (_listsOfThisGroup.length * (SpecListTile.height() + 5)),
+                        child: Column(
+                          children: <Widget>[
+
+                            Container(
+                              width: _screenHeight,
+                              height: 50,
+                              margin: const EdgeInsets.only(top: Ratioz.appBarMargin),
+                              // color: Colorz.bloodTest,
+                              child: SuperVerse(
+                                verse: _groupID.toUpperCase(),
+                                weight: VerseWeight.black,
+                                centered: false,
+                                margin: 10,
+                                size: 3,
+                                scaleFactor: 0.85,
+                                italic: true,
+                              ),
+                            ),
+
+                            Container(
+                              width: _screenHeight,
+                              // height: (_listsOfThisGroup.length * (SpecListTile.height() + 5)),
+
+                              child: Column(
+                                children: <Widget>[
+
+                                  ...List.generate(
+                                      _listsOfThisGroup.length,
+                                          (index){
+
+                                        final SpecList _specList = _listsOfThisGroup[index];
+                                        final List<Spec> _selectedSpecs = Spec.getSpecsByListID(
+                                          specsList: _allSelectedSpecs,
+                                          specsListID: _specList.id,
+                                        );
+
+                                        return
+
+                                          SpecListTile(
+                                            onTap: () => _onSpecsListTap(_specList),
+                                            specList: _specList,
+                                            sourceSpecsLists: _sourceSpecsLists,
+                                            selectedSpecs: _selectedSpecs,
+                                            onDeleteSpec: (Spec spec) => _removeSpec(spec),
+                                          );
+
+
+                                      }),
+
+                                ],
+                              ),
+
+                            ),
+
+                          ],
+                        ),
+                      );
+
+
+                }
+            ),
           ),
         ),
       ),
