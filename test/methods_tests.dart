@@ -509,7 +509,7 @@ void main(){
 
     const Spec _aSpec = Spec(specsListID: 'z', value: 'v');
 
-    final bool _contains = Spec.specsContainThis(specs: specsA, spec: _aSpec);
+    final bool _contains = Spec.specsContainThisSpec(specs: specsA, spec: _aSpec);
 
     expect(_contains, false);
 

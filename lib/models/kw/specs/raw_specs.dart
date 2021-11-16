@@ -5,6 +5,11 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
 
 
 abstract class RawSpecs {
+
+  static const String newSaleID = 'contractType_NewSale';
+  static const String resaleID = 'contractType_Resale';
+  static const String rentID = 'contractType_Rent';
+
   // -------------------------------------------------------------------------
   /// STYLE ANATOMY
   static const Chain style = const Chain(
@@ -70,9 +75,9 @@ abstract class RawSpecs {
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Contract Type'), Name(code: 'ar', value: 'نوع التعاقد')],
     sons: const <KW>[
-      KW(id: 'contractType_NewSale', names: <Name>[Name(code: 'en', value: 'New Sale'), Name(code: 'ar', value: 'للبيع جديد')],),
-      KW(id: 'contractType_Resale', names: <Name>[Name(code: 'en', value: 'Resale'), Name(code: 'ar', value: 'لإعادة البيع')],),
-      KW(id: 'contractType_Rent', names: <Name>[Name(code: 'en', value: 'Rent'), Name(code: 'ar', value: 'للإيجار')],),
+      KW(id: newSaleID, names: <Name>[Name(code: 'en', value: 'New Sale'), Name(code: 'ar', value: 'للبيع جديد')],), // if you change ID revise specs_picker_screen
+      KW(id: resaleID, names: <Name>[Name(code: 'en', value: 'Resale'), Name(code: 'ar', value: 'لإعادة البيع')],), // if you change ID revise specs_picker_screen
+      KW(id: rentID, names: <Name>[Name(code: 'en', value: 'Rent'), Name(code: 'ar', value: 'للإيجار')],), // if you change ID revise specs_picker_screen
     ],
   );
   static const Chain paymentMethod = const Chain(
