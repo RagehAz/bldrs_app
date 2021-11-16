@@ -19,6 +19,7 @@ abstract class LDBDoc {
   static const String countries = 'sessionCountries';
   static const String cities = 'sessionCities';
   static const String continents = 'continents';
+  static const String currencies = 'currencies';
 
   static const List<String> bzModelsDocs = const <String>[
     bzz,
@@ -33,21 +34,22 @@ abstract class LDBDoc {
   ];
 
   static const List<String> allDocs = <String>[
-  follows,
-  calls,
-  shares,
-  views,
-  saves,
-  reviews,
-  questions,
-  answers,
-  flyers,
-  bzz,
-  users,
-  keywords,
-  countries,
-  cities,
-  continents,
+    follows,
+    calls,
+    shares,
+    views,
+    saves,
+    reviews,
+    questions,
+    answers,
+    flyers,
+    bzz,
+    users,
+    keywords,
+    countries,
+    cities,
+    continents,
+    currencies,
   ];
 }
 
@@ -75,6 +77,7 @@ abstract class LDBOps{
       case LDBDoc.countries : return 'id';
       case LDBDoc.cities : return 'cityID';
       case LDBDoc.continents : return 'name';
+      case LDBDoc.currencies : return 'currencies';
       default : return null;
     }
 

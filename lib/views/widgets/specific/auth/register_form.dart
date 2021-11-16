@@ -216,10 +216,10 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: '...',
             maxLength: 100,
             validator: (val) => _passwordValidator(val),
-              comments: Wordz.min6Char(context),
-              maxLines: 1,
-              obscured: _passwordObscured,
-              horusOnTap: _horusOnTap,
+            comments: Wordz.min6Char(context),
+            maxLines: 1,
+            obscured: _passwordObscured,
+            horusOnTap: _horusOnTap,
           ),
 
           /// ENTER CONFIRM PASSWORD

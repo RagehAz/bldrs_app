@@ -27,6 +27,7 @@ abstract class FireDoc {
   static const String zones_countries = 'countries';
   static const String zones_continents = 'continents';
   static const String zones_usa = 'usa'; /// TASK : temp
+  static const String zones_currencies = 'currencies';
 
   static const String keys_stats = 'stats';
   static const String keys_specs = 'specs';

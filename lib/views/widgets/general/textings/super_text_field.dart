@@ -31,7 +31,7 @@ class SuperTextField extends StatefulWidget {
   final Function onSaved;
   final bool fieldIsFormField;
   final String initialValue;
-  final Function validator;
+  final ValueChanged<String> validator;
   final TextDirection textDirection;
   final Key key;
   final Function onTap;
@@ -225,7 +225,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
       focusedBorder: Borderers.superOutlineInputBorder(Colorz.yellow80, _labelCorner),
       enabledBorder: Borderers.superOutlineInputBorder(Colorz.nothing, _labelCorner),
 
-      errorStyle: superTextStyle(Colorz.red255, 0.7),
+      errorStyle: superTextStyle(Colorz.red255, 0.6),
       focusedErrorBorder: Borderers.superOutlineInputBorder(Colorz.yellow80, _labelCorner),
 
       errorBorder: Borderers.superOutlineInputBorder(Colorz.red125, _labelCorner),
