@@ -2,12 +2,12 @@
 
 enum DataCreator{
 
-  fromList,
+  // fromList,
   doubleSlider,
   integerSlider,
   doubleRangeSlider,
   boolSwitch,
-  textKeyboard,
+  // textKeyboard,
   numberKeyboard,
 
 }

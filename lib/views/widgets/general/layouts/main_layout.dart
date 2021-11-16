@@ -201,7 +201,7 @@ class MainLayout extends StatelessWidget {
     // ------------------------------------------------------------------
     // print('superScreenHeightWithoutSafeArea(context) = ${superScreenHeightWithoutSafeArea(context)},, superScreenHeight(context) = ${superScreenHeight(context)}');
 
-    final Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.black230 : Colorz.skyDarkBlue;
+    final Color _backgroundColor = sky == Sky.Non || sky == Sky.Black? Colorz.blackSemi255 : Colorz.skyDarkBlue;
 
     return StreamProvider<UserModel>.value(
       value: UsersProvider().myUserModelStream,
