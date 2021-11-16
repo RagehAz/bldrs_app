@@ -284,11 +284,14 @@ class _SuperTextFieldState extends State<SuperTextField> {
       /// TEXT FORM FIELD -------------------------------
       Container(
         width: widget.width,
+        height: widget.height,
         padding: _boxPadding,
         margin: widget.margin,
         decoration: _boxDecoration,
+        alignment: Alignment.topCenter,
         child: TextFormField(
           key: widget.key,
+
           // initialValue: widget.initialValue,
           controller: widget.textController,
           textInputAction: widget.keyboardTextInputAction,
