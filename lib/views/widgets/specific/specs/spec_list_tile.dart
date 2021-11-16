@@ -119,7 +119,7 @@ class SpecListTile extends StatelessWidget {
                       height: _specTileHeight,
                       corners: _tileBorders,
                       icon: Iconizer.superArrowENRight(context),
-                      iconSizeFactor: 0.3,
+                      iconSizeFactor: 0.15,
                       bubble: false,
                     ),
 

@@ -208,7 +208,6 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
   @override
   Widget build(BuildContext context) {
 
-
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
@@ -240,7 +239,7 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
 
                   final String _groupID = _groupsIDs[index];
 
-                  List<SpecList> _listsOfThisGroup = SpecList.getSpecsListsByGroupID(
+                  final List<SpecList> _listsOfThisGroup = SpecList.getSpecsListsByGroupID(
                     specsLists: _refinedSpecsLists,
                     groupID: _groupID,
                   );
