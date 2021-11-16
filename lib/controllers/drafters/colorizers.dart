@@ -94,21 +94,21 @@ abstract class Colorizer{
       // String _string = '${_alpha}*${_r}*${_g}*${_b}';
 
       /// ALPHA
-      final String _a = TextMod.trimTextAfterFirstSpecialCharacter(colorString, '*');
+      final String _a = TextMod.removeTextAfterFirstSpecialCharacter(colorString, '*');
       final int _alpha = Numeric.stringToInt(_a);
 
       /// RED
-      final String _rX_gX_b = TextMod.trimTextBeforeFirstSpecialCharacter(colorString, '*');
-      final String _r = TextMod.trimTextAfterFirstSpecialCharacter(_rX_gX_b, '*');
+      final String _rX_gX_b = TextMod.removeTextBeforeFirstSpecialCharacter(colorString, '*');
+      final String _r = TextMod.removeTextAfterFirstSpecialCharacter(_rX_gX_b, '*');
       final int _red = Numeric.stringToInt(_r);
 
       /// GREEN
-      final String _gX_b = TextMod.trimTextBeforeFirstSpecialCharacter(_rX_gX_b, '*');
-      final String _g = TextMod.trimTextAfterFirstSpecialCharacter(_gX_b, '*');
+      final String _gX_b = TextMod.removeTextBeforeFirstSpecialCharacter(_rX_gX_b, '*');
+      final String _g = TextMod.removeTextAfterFirstSpecialCharacter(_gX_b, '*');
       final int _green = Numeric.stringToInt(_g);
 
       /// BLUE
-      final String _b = TextMod.trimTextBeforeFirstSpecialCharacter(_gX_b, '*');
+      final String _b = TextMod.removeTextBeforeFirstSpecialCharacter(_gX_b, '*');
       final int _blue = Numeric.stringToInt(_b);
 
       _color = Color.fromARGB(_alpha, _red, _green, _blue);

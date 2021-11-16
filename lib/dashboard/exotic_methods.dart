@@ -14,6 +14,7 @@ import 'package:bldrs/models/secondary_models/feedback_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/continent_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/currency_model.dart';
 import 'package:bldrs/models/zone/region_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
@@ -373,4 +374,48 @@ abstract class RagehMethods{
 
   }
 // -----------------------------------------------------------------------------
+}
+
+abstract class zebela {
+/// -----------------------------------------------------------------------------
+  // static Future<List<CurrencyModel>> getCurrenciesFromCountries({@required BuildContext context}) async {
+  //
+  //   final List<CurrencyModel> _currencies = <CurrencyModel>[];
+  //
+  //   List<CountryModel> _countries = await fetchAllCountryModels(context: context);
+  //
+  //   for (var country in _countries){
+  //
+  //     final bool _currenciesContainCurrency = CurrencyModel.currenciesContainCurrency(
+  //       currencyCode: country.currency,
+  //       currencies: _currencies,
+  //     );
+  //
+  //     /// add country to currency
+  //     if (_currenciesContainCurrency == true){
+  //
+  //       final int _currencyIndex = _currencies.indexWhere((curr) => curr.code == country.currency);
+  //       _currencies[_currencyIndex].countriesIDs.add(country.id);
+  //
+  //     }
+  //
+  //     /// add currency
+  //     else {
+  //
+  //       final CurrencyModel _newCurrency = CurrencyModel(
+  //         code: country.currency,
+  //         countriesIDs: [country.id],
+  //         names: [],
+  //         symbol: null,
+  //         digits: null,
+  //         nativeSymbol: null,
+  //       );
+  //       _currencies.add(_newCurrency);
+  //     }
+  //
+  //   }
+  //
+  //   return _currencies;
+  // }
+/// -----------------------------------------------------------------------------
 }

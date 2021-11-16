@@ -37,7 +37,7 @@ class _FontLabState extends State<FontLab> {
   Widget _superVerse(int size){
 
     String _pixelsAsString = '${SuperVerse.superVerseSizeValue(context, size, 1)}';
-    String _pixels = TextMod.trimTextAfterFirstSpecialCharacter(_pixelsAsString, '.');
+    String _pixels = TextMod.removeTextAfterFirstSpecialCharacter(_pixelsAsString, '.');
 
     return
       SuperVerse(

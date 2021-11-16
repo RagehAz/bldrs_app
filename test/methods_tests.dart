@@ -533,6 +533,12 @@ void main(){
 
   });
 // -----------------------------------------------------------------------------
+  test("getNumberOfFractions", () async {
 
+    const double _number = 10.12553;
+    final int _numberFractions = Numeric.getNumberOfFractions(number: _number);
+    expect(_numberFractions, 5);
 
+  });
+// -----------------------------------------------------------------------------
 }

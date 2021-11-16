@@ -128,7 +128,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
               _attachmentTypesList.length,
                   (index) {
 
-                final String _attachmentTypeString = TextMod.trimTextBeforeLastSpecialCharacter(_attachmentTypesList[index].toString(), '.');
+                final String _attachmentTypeString = TextMod.removeTextBeforeLastSpecialCharacter(_attachmentTypesList[index].toString(), '.');
                 final Color _color = _attachmentType == _attachmentTypesList[index]? Colorz.yellow255 : Colorz.blue20;
 
 
