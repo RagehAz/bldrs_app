@@ -430,4 +430,10 @@ class ZoneProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   /// TASK : ACTIVATED & GLOBAL COUNTRIES
+// -----------------------------------------------------------------------------
+  /// CURRENCY
+  String getCurrencyOfCurrentCountry(){
+
+  }
+
 }
