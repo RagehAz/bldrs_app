@@ -245,9 +245,7 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
                     groupID: _groupID,
                   );
 
-
                   return
-
 
                       Container(
                         width: _screenHeight,
@@ -255,10 +253,12 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
                         child: Column(
                           children: <Widget>[
 
+                            /// GROUP TITLE
                             Container(
                               width: _screenHeight,
                               height: 50,
                               margin: const EdgeInsets.only(top: Ratioz.appBarMargin),
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
                               // color: Colorz.bloodTest,
                               child: SuperVerse(
                                 verse: _groupID.toUpperCase(),
@@ -268,9 +268,11 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
                                 size: 3,
                                 scaleFactor: 0.85,
                                 italic: true,
+                                color: Colorz.yellow125,
                               ),
                             ),
 
+                            /// GROUP SPECS LISTS
                             Container(
                               width: _screenHeight,
                               // height: (_listsOfThisGroup.length * (SpecListTile.height() + 5)),
@@ -309,7 +311,6 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
                           ],
                         ),
                       );
-
 
                 }
             ),
