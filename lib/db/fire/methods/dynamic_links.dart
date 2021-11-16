@@ -108,13 +108,13 @@ class DynamicLinksApi {
   static String getFlyerIDFromDynamicLink(String link){
     /// sample link
     /// https://bldrs.page.link/flyer/5FzRLxTgRekkRzKflsjs/0
-    final String _withoutIndex = TextMod.trimTextAfterLastSpecialCharacter(link, '/');
-    final String _flyerID = TextMod.trimTextBeforeLastSpecialCharacter(_withoutIndex, '/');
+    final String _withoutIndex = TextMod.removeTextAfterLastSpecialCharacter(link, '/');
+    final String _flyerID = TextMod.removeTextBeforeLastSpecialCharacter(_withoutIndex, '/');
     return _flyerID;
   }
 // -----------------------------------------------------------------------------
   static int getSlideIndexFromDynamicLink(String link){
-    final String indexString = TextMod.trimTextBeforeLastSpecialCharacter(link, '/');
+    final String indexString = TextMod.removeTextBeforeLastSpecialCharacter(link, '/');
 
     int _index = Numeric.stringToInt(indexString);
 

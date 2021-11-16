@@ -9,6 +9,7 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/continent_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/currency_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
@@ -339,6 +340,23 @@ abstract class ZoneOps{
 
 
     return _placeMarks;
+  }
+// -----------------------------------------------------------------------------
+
+  /// CURRENCY
+
+// ---------------------------------------------------
+  static Future<List<CurrencyModel>> readCurrencies(BuildContext context) async {
+
+    final Map<String, dynamic> _map = await Fire.readDoc(
+      context: context,
+      collName: FireColl.zones,
+      docName: FireDoc.zones_currencies,
+    );
+
+    List<CurrencyModel> _currencies = CurrencyModel.decipherCurrencies(_map);
+
+    return _currencies;
   }
 // -----------------------------------------------------------------------------
 }

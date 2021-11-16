@@ -65,7 +65,7 @@ class QuestionOps {
       List<String> _picsNames = <String>[];
       for (int i = 0; i < question.pics.length; i++){
         final File _file = question.pics[i];
-        final String _name = TextMod.trimTextBeforeLastSpecialCharacter(_file.path, '.');
+        final String _name = TextMod.removeTextBeforeLastSpecialCharacter(_file.path, '.');
         _picsNames.add(_name);
       }
 

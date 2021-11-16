@@ -241,4 +241,20 @@ class Name {
     return _codes;
   }
 // -----------------------------------------------------------------------------
+  static void printNames(List<Name> names){
+
+    // print('PRINTING NAME --------------------------------------- START');
+
+    if (Mapper.canLoopList(names)){
+
+      for (Name name in names){
+        print('code : [ ${name.code} ] : name : [ ${name.value} ] : trigramLength : ${name.trigram?.length}');
+      }
+
+    }
+
+    // print('PRINTING NAME --------------------------------------- END');
+
+  }
+// -----------------------------------------------------------------------------
 }

@@ -315,7 +315,7 @@ abstract class Imagers{
   static Future<File> getFileFromPickerAsset(Asset asset) async {
     ByteData _byteData = await asset.getThumbByteData(asset.originalWidth, asset.originalHeight, quality: 100);
 
-    String _name = TextMod.trimTextAfterLastSpecialCharacter(asset.name, '.');
+    String _name = TextMod.removeTextAfterLastSpecialCharacter(asset.name, '.');
 
     print('====================================================================================== asset name is : ${asset.runtimeType}');
 

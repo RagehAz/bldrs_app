@@ -7,6 +7,7 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/continent_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
+import 'package:bldrs/models/zone/currency_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
@@ -303,6 +304,45 @@ class ZoneProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
+  Future<List<CurrencyModel>> fetchCurrencies({@required BuildContext context}) async {
+
+    List<CurrencyModel> _currencies;
+
+    /// 1 - search in LDB
+    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
+      docName: LDBDoc.currencies,
+    );
+
+    if (Mapper.canLoopList(_maps)){
+      print('fetchCurrencies : currencies found in local db : ${LDBDoc.currencies}');
+      _currencies = CurrencyModel.decipherCurrencies(_maps[0]);
+    }
+
+    /// 2 - if not found, search firebase
+    if (_currencies == null){
+      print('fetchCurrencies : currencies NOT found in local db');
+
+      /// 2.1 read firebase country ops
+      _currencies = await ZoneOps.readCurrencies(context,);
+
+      /// 2.2 if found on firebase, store in ldb LDBDoc.currencies
+      if (_currencies != null){
+        print('fetchCurrencies : adding currencies from firestore to LDB');
+
+        await LDBOps.insertMap(
+          input: CurrencyModel.cipherCurrencies(_currencies),
+          docName: LDBDoc.currencies,
+          primaryKey: 'code',
+        );
+
+      }
+
+    }
+
+    return _currencies;
+
+  }
+// -----------------------------------------------------------------------------
   /// CONTINENTS
   Continent _currentContinent;
 // -------------------------------------
@@ -365,6 +405,8 @@ class ZoneProvider extends ChangeNotifier {
     _currentZone = zone;
     _currentCountryModel = _country;
     _currentCityModel = _city;
+
+    await _getSetAllCurrenciesAndCurrentCurrency(context: context);
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
@@ -432,8 +474,28 @@ class ZoneProvider extends ChangeNotifier {
   /// TASK : ACTIVATED & GLOBAL COUNTRIES
 // -----------------------------------------------------------------------------
   /// CURRENCY
-  String getCurrencyOfCurrentCountry(){
-
+  CurrencyModel _currentCurrency;
+  List<CurrencyModel> _allCurrencies;
+  // -------------------------------------
+  CurrencyModel get currentCurrency{
+    return _currentCurrency;
   }
+  List<CurrencyModel> get allCurrencies{
+    return _allCurrencies;
+  }
+  // -------------------------------------
+  Future<void> _getSetAllCurrenciesAndCurrentCurrency({@required BuildContext context}) async {
+
+    final List<CurrencyModel> _currencies = await fetchCurrencies(context: context);
+
+    final CurrencyModel _currencyByCountryID = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
+      currencies: _currencies,
+      countryID: _currentCountryModel.id,
+    );
+
+    _allCurrencies = _currencies;
+    _currentCurrency = _currencyByCountryID;
+  }
+// -----------------------------------------------------------------------------
 
 }
