@@ -50,7 +50,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
       kw: kw,
     );
 
-    final bool _alreadySelected = Spec.specsContainThis(specs: _selectedSpecs, spec: _spec);
+    final bool _alreadySelected = Spec.specsContainThisSpec(specs: _selectedSpecs, spec: _spec);
     final int _specIndex = _selectedSpecs.indexWhere((sp) => sp.value == _spec.value);
 
     // ----------------------------------------------------------
@@ -176,7 +176,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
                   final KW _kw = widget.specList.specChain.sons[index];
 
-                  final bool _specsContainThis = Spec.specsContainThis(
+                  final bool _specsContainThis = Spec.specsContainThisSpec(
                       specs: _selectedSpecs,
                       spec: Spec.getSpecFromKW(kw: _kw, specsListID: widget.specList.id),
                   );

@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/models/kw/kw.dart';
+import 'package:bldrs/models/kw/specs/raw_specs.dart';
 import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -131,30 +132,6 @@ enum SpecType {
 }
 
 /// specs are used only to describe and filter flyers or keywords
-///
-/// shall be saved like this inside flyerModel
-/// specs : {
-/// 'specName' : 'value',
-/// 'weight' : 15,
-/// 'weightUnit' : 'Kg',
-/// 'price' : 160,
-/// 'priceUnit' : 'EGP',
-/// ...
-///
-/// and should be saved like this in specs docs
-/// 'propertiesSpecs' : {
-///   'xxx' : {},
-///   'yyy' : {},
-/// }
-///
-///
-///
-/// 'numberOfInstallments' : 12,
-/// 'installmentsDuration' : 12,
-/// 'installmentsDurationUnit' : 'months'
-/// },
-
-/// ----------------------------------------------------------------------------
 class Spec {
   /// specID is the specList's id value, and the key of firebase map
   final String specsListID;
@@ -166,6 +143,25 @@ class Spec {
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
+    /// shall be saved like this inside flyerModel
+    /// specs : {
+    /// 'specName' : 'value',
+    /// 'weight' : 15,
+    /// 'weightUnit' : 'Kg',
+    /// 'price' : 160,
+    /// 'priceUnit' : 'EGP',
+    /// ...
+    ///
+    /// and should be saved like this in specs docs
+    /// 'propertiesSpecs' : {
+    ///   'xxx' : {},
+    ///   'yyy' : {},
+    /// }
+    ///
+    /// 'numberOfInstallments' : 12,
+    /// 'installmentsDuration' : 12,
+    /// 'installmentsDurationUnit' : 'months'
+    /// },
     return {
       specsListID : value,
     };
@@ -395,15 +391,30 @@ class Spec {
     print('SPECS-PRINT -------------------------------------------------- END');
   }
 // -----------------------------------------------------------------------------
-  static bool specsContainThis({@required List<Spec> specs, @required Spec spec}){
+  static bool specsContainThisSpec({@required List<Spec> specs, @required Spec spec}) {
+    bool _contains = false;
+
+    if (Mapper.canLoopList(specs) && spec != null) {
+      final Spec _result = specs.firstWhere((sp) =>
+      Spec.specsAreTheSame(sp, spec) == true, orElse: () => null);
+
+      _contains = _result == null ? false : true;
+    }
+
+    return _contains;
+  }
+// -----------------------------------------------------------------------------
+  static bool specsContainThisSpecValue({@required List<Spec> specs, @required dynamic value}){
 
     bool _contains = false;
 
-    if (Mapper.canLoopList(specs) && spec != null){
+    if (Mapper.canLoopList(specs) && value != null){
 
-      final Spec _result = specs.firstWhere((sp) => Spec.specsAreTheSame(sp, spec) == true, orElse: () => null);
+      final List<Spec> _specs = specs.where((spec) => spec.value == value).toList();
 
-      _contains = _result == null ? false : true;
+      if (_specs.length > 0){
+        _contains = true;
+      }
 
     }
 
@@ -456,7 +467,7 @@ class Spec {
 
       for (Spec spec in childrenSpecs){
 
-        final bool _alreadyThere = specsContainThis(specs: _specs, spec: spec);
+        final bool _alreadyThere = specsContainThisSpec(specs: _specs, spec: spec);
 
         if (_alreadyThere == false){
           _specs.add(spec);
@@ -495,4 +506,12 @@ class Spec {
 }
 /// ============================================================================
 
+abstract class  SpecsValidator {
 
+  static bool specsContainsNewSale(List<Spec> specs){
+    const Spec _newSaleSpec = Spec(specsListID: 'propertyContractType', value: RawSpecs.newSaleID);
+    final bool _containsNewSale = Spec.specsContainThisSpec(specs: specs, spec: _newSaleSpec);
+    return _containsNewSale;
+  }
+
+}
