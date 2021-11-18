@@ -91,10 +91,6 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidzYellow,
       loading: _loading,
-      tappingRageh: (){
-        print('wtf');
-      },
-
       appBarRowWidgets: <Widget>[
 
         DreamBox(

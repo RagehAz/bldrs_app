@@ -57,7 +57,6 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
       appBarType: AppBarType.Basic,
       appBarRowWidgets: const <Widget>[],
       sky: Sky.Night,
-      tappingRageh: (){},
       layoutWidget: Center(
         child: RotationTransition(
           turns: Tween(begin: 0.0, end: 2.0).animate(_blackHoleController),

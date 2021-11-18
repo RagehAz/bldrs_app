@@ -59,7 +59,6 @@ class Expander extends StatelessWidget {
 class MainLayout extends StatelessWidget {
   final List<Widget> appBarRowWidgets;
   final Widget layoutWidget;
-  final Function tappingRageh;
   final String pyramids;
   final AppBarType appBarType;
   final String pageTitle;
@@ -79,7 +78,6 @@ class MainLayout extends StatelessWidget {
   const MainLayout({
     this.appBarRowWidgets,
     this.layoutWidget,
-    this.tappingRageh,
     this.pyramids,
     this.appBarType,
     this.pageTitle,
@@ -119,8 +117,6 @@ class MainLayout extends StatelessWidget {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
     final List<BzModel> _userBzz = appBarType == AppBarType.Main ? _bzzProvider.myBzz : <BzModel>[];
-
-    final bool _ragehIsOn = tappingRageh == null ? false : true;
 
 // -----------------------------------------------------------------------------
     List<Widget> _mainLayoutStackWidgets() {
@@ -170,21 +166,6 @@ class MainLayout extends StatelessWidget {
               barType: BarType.minWithText,
               myBzz: _userBzz,
             ),
-
-          _ragehIsOn == false ? Container() :
-          Rageh(
-            tappingRageh: tappingRageh != null ? tappingRageh : (){print('no function here bitch');},
-            doubleTappingRageh:
-            Wordz.activeLanguage(context) == Lingo.arabicLingo.code ?
-                () async {
-              Locale temp = await Localizer.setLocale(Lingo.englishLingo.code);
-              BldrsApp.setLocale(context, temp);
-            } :
-                () async {
-              Locale temp = await Localizer.setLocale(Lingo.arabicLingo.code);
-              BldrsApp.setLocale(context, temp);
-            },
-          ),
 
           if (pyramids != null && DeviceChecker.deviceIsIOS() == true)
             Positioned(

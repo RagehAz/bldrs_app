@@ -1,41 +1,34 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/iconizers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/specs/data_creator.dart';
-import 'package:bldrs/models/kw/specs/raw_specs.dart';
 import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
-import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/spec_picker_screen.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/specs/spec_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
-class SpecSelectorScreen extends StatefulWidget {
+class SpecsPickersScreen extends StatefulWidget {
   final FlyerType flyerType;
 
-  SpecSelectorScreen({
+  SpecsPickersScreen({
     @required this.flyerType,
 });
 
   @override
-  _SpecSelectorScreenState createState() => _SpecSelectorScreenState();
+  _SpecsPickersScreenState createState() => _SpecsPickersScreenState();
 }
 
-class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTickerProviderStateMixin{
+class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTickerProviderStateMixin{
 
   List<Spec> _allSelectedSpecs;
 
@@ -159,10 +152,10 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
       /// B - WHEN FROM LIST OF KWs
       if (ObjectChecker.objectIsListOfSpecs(_result)){
 
+          // Spec.printSpecs(_allSelectedSpecs);
+
         setState(() {
           _allSelectedSpecs = _result;
-          Spec.printSpecs(_allSelectedSpecs);
-          // _refineSourceSpecsLists();
           _refinedSpecsLists = SpecList.generateRefinedSpecsLists(sourceSpecsLists: _sourceSpecsLists, selectedSpecs: _allSelectedSpecs);
           _groupsIDs = SpecList.getGroupsFromSpecsLists(specsLists: _refinedSpecsLists);
         });
@@ -224,7 +217,6 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
       pyramids: Iconz.PyramidzYellow,
       loading: _loading,
       pageTitle: 'Select Flyer Specifications',
-
       layoutWidget: Container(
         width: _screenWidth,
         height: _screenHeight,
@@ -298,7 +290,6 @@ class _SpecSelectorScreenState extends State<SpecSelectorScreen> with SingleTick
                                             selectedSpecs: _selectedSpecs,
                                             onDeleteSpec: (Spec spec) => _removeSpec(spec),
                                           );
-
 
                                       }),
 

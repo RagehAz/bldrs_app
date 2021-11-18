@@ -61,15 +61,6 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidsGlass,
       pageTitle: 'Slider test',
-      tappingRageh: (){
-
-        setState(() {
-
-        });
-
-        print('testing slider');
-
-        },
       layoutWidget: Center(
         child: ListView(
           children: <Widget>[
