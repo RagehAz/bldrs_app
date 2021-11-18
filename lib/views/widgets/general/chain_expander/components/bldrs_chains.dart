@@ -1,15 +1,20 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/views/widgets/general/chain_expander/components/inception.dart';
 import 'package:flutter/material.dart';
 
 class BldrsChain extends StatelessWidget {
   final double boxWidth;
   final Chain chain;
+  final ValueChanged<KW> onKeywordTap;
+  final List<String> selectedKeywordsIDs;
 
   const BldrsChain({
     this.boxWidth,
     this.chain,
+    this.onKeywordTap,
+    this.selectedKeywordsIDs,
   });
 
   @override
@@ -36,6 +41,8 @@ class BldrsChain extends StatelessWidget {
                     son: son,
                     level: 0,
                     boxWidth: _boxWidth,
+                    onKeywordTap: onKeywordTap,
+                    selectedKeywordsIDs: selectedKeywordsIDs,
                   );
 
             }),

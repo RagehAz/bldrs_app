@@ -8,7 +8,7 @@ enum DataCreator{
   doubleRangeSlider,
   boolSwitch,
   // textKeyboard,
-  numberKeyboard,
+  doubleCreator,
   price,
   currency,
 }

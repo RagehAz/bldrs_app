@@ -119,7 +119,7 @@ class QuestionModel {
         originalQuestion.body == updateQuestion.body &&
         originalQuestion.title == updateQuestion.title &&
         originalQuestion.ownerID == updateQuestion.ownerID &&
-        KW.KeywordsListsAreTheSame(originalQuestion.keywords, updateQuestion.keywords,) == true &&
+        KW.keywordsListsAreTheSame(originalQuestion.keywords, updateQuestion.keywords,) == true &&
         originalQuestion.questionIsOpen == updateQuestion.questionIsOpen &&
         originalQuestion.questionType == updateQuestion.questionType &&
         originalQuestion.userDeletedQuestion == updateQuestion.userDeletedQuestion &&

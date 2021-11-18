@@ -1,5 +1,7 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/localization/lingo.dart';
+import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
+import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:flutter/cupertino.dart';
@@ -146,7 +148,7 @@ class KW {
     return _ids;
   }
 // -----------------------------------------------------------------------------
-  static bool KeywordsAreTheSame(KW _firstKeyword, KW _secondKeyword){
+  static bool keywordsAreTheSame(KW _firstKeyword, KW _secondKeyword){
     final bool _keywordsAreTheSame =
     _firstKeyword == null || _secondKeyword == null ? false
         :
@@ -158,14 +160,14 @@ class KW {
     return _keywordsAreTheSame;
   }
 // -----------------------------------------------------------------------------
-  static bool KeywordsListsAreTheSame(List<KW> listA, List<KW> listB){
+  static bool keywordsListsAreTheSame(List<KW> listA, List<KW> listB){
     bool _same;
 
     if(listA != null && listB != null){
       if (listA.length == listB.length){
         for (int i = 0; i < listA.length; i++){
 
-          if (KeywordsAreTheSame(listA[i], listB[i]) == true){
+          if (keywordsAreTheSame(listA[i], listB[i]) == true){
             _same = true;
           }
           else {
@@ -222,6 +224,38 @@ class KW {
   static String translateKeyword(BuildContext context, KW kw){
     final String _name = Name.getNameByCurrentLingoFromNames(context, kw.names);
     return _name;
+  }
+// -----------------------------------------------------------------------------
+  static bool keywordsContainKeyword({@required List<KW> keywords, @required KW keyword}){
+    bool _contains = false;
+
+    if (Mapper.canLoopList(keywords) && keyword != null) {
+      final KW _result = keywords.firstWhere((kw) => KW.keywordsAreTheSame(kw, keyword) == true, orElse: () => null);
+
+      _contains = _result == null ? false : true;
+    }
+
+    return _contains;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> getKeywordsIDsFromSpecs(List<Spec> specs){
+    final List<String> _keywordsIDs = <String>[];
+
+    if (Mapper.canLoopList(specs)){
+
+      for (Spec spec in specs){
+        // final SpecList _specList = SpecList.getSpecListFromSpecsListsByID(specsLists: specsLists, specListID: specListID)
+        final dynamic _keywordID = spec.value;
+
+        if (_keywordID.runtimeType == String){
+          _keywordsIDs.add(_keywordID);
+        }
+
+      }
+
+    }
+
+    return _keywordsIDs;
   }
 // -----------------------------------------------------------------------------
 }

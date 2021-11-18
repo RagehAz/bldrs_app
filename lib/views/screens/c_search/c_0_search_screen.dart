@@ -190,7 +190,7 @@ class _SearchScreenState extends State<SearchScreen> {
           _results.add(
               SearchResult(
                 title: Name.getNameByCurrentLingoFromNames(context, kw.names),
-                icon: _keywordsProvider.getIcon(kw),
+                icon: _keywordsProvider.getIcon(context: context, son: kw),
                 flyers: _flyersByKeyword,
               )
           );
