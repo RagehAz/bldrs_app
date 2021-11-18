@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/models/kw/kw.dart';
+import 'package:bldrs/models/kw/specs/data_creator.dart';
 import 'package:bldrs/models/kw/specs/raw_specs.dart';
 import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
@@ -461,7 +462,7 @@ class Spec {
 // -----------------------------------------------------------------------------
   /// This considers if the specList can or can't pick many spec of same list, then adds if absent and updates or ignores if exists accordingly
   static List<Spec> putSpecsInSpecs({@required List<Spec> parentSpecs, @required List<Spec> inputSpecs, @required bool canPickMany}){
-    final List<Spec> _specs = parentSpecs;
+    List<Spec> _specs = parentSpecs;
 
     if (Mapper.canLoopList(inputSpecs)){
 
@@ -515,6 +516,9 @@ class Spec {
 
     }
 
+    /// CLEAN SPECS
+    _specs = Spec.cleanSpecs(_specs);
+
     return _specs;
   }
 // -----------------------------------------------------------------------------
@@ -525,20 +529,42 @@ class Spec {
 
     final SpecList _specList = specsLists.singleWhere((list) => list.id == _specsListID, orElse: () => null);
 
-    if (_specList != null && spec.value.runtimeType == String){
+    if (_specList != null && spec.value.runtimeType == String && _specList.specChain.sons.runtimeType != DataCreator){
 
       final String _kwID = spec.value;
 
       final List<KW> _kws = _specList.specChain.sons;
-      final KW _kw = _kws.singleWhere((kw) => kw.id == _kwID, orElse: ()=> null);
 
-      if (_kw != null){
-        _name = Name.getNameByCurrentLingoFromNames(context, _kw.names);
+      if (Mapper.canLoopList(_kws)){
+        final KW _kw = _kws.singleWhere((kw) => kw.id == _kwID, orElse: ()=> null);
+
+        if (_kw != null){
+          _name = Name.getNameByCurrentLingoFromNames(context, _kw.names);
+        }
       }
 
     }
 
     return _name;
+  }
+// -----------------------------------------------------------------------------
+  static List<Spec> cleanSpecs(List<Spec> specs){
+
+    final List<Spec> _output = <Spec>[];
+
+    if (Mapper.canLoopList(specs)){
+
+      for (Spec spec in specs){
+
+        if (spec != null && spec.value != null && spec.value != 0 && spec.value != '' && spec.specsListID != null && spec.specsListID != ''){
+          _output.add(spec);
+        }
+
+      }
+
+    }
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
 }

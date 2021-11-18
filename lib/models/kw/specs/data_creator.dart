@@ -4,10 +4,11 @@ enum DataCreator{
 
   // fromList,
   doubleSlider,
-  integerSlider,
+  integerIncrementer,
   doubleRangeSlider,
   boolSwitch,
   // textKeyboard,
   numberKeyboard,
   price,
+  currency,
 }

@@ -9,26 +9,28 @@ import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/kw/specs/data_creator.dart';
 import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
+import 'package:bldrs/models/zone/currency_model.dart';
 import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/spec_picker_screen.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/specs/price_data_creator.dart';
 import 'package:bldrs/views/widgets/specific/specs/spec_list_tile.dart';
 import 'package:flutter/material.dart';
 
-class SpecsPickersScreen extends StatefulWidget {
+class SpecsListsPickersScreen extends StatefulWidget {
   final FlyerType flyerType;
 
-  SpecsPickersScreen({
+  SpecsListsPickersScreen({
     @required this.flyerType,
 });
 
   @override
-  _SpecsPickersScreenState createState() => _SpecsPickersScreenState();
+  _SpecsListsPickersScreenState createState() => _SpecsListsPickersScreenState();
 }
 
-class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTickerProviderStateMixin{
+class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with SingleTickerProviderStateMixin{
 
   List<Spec> _allSelectedSpecs;
 
@@ -110,26 +112,30 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  /// VALUE NOTIFIER
-  // ValueNotifier<int> _counter = ValueNotifier(0);
-  // void _incrementCounter(){
-  //   _counter.value += 3;
-  // }
-
-  // void _refineSourceSpecsLists(){
-  //
-  //   /// WHEN [FOR SALE]
-  //   bool _containsNewSale = SpecsValidator.specsContainsNewSale(_allSelectedSpecs);
-  //   if (_containsNewSale == true){
-  //     int _rentPriceIndex = SpecList.getSpecsListIndexByID(specsLists: _sourceSpecsLists, specsListID: 'propertyRentPrice');
-  //
-  //     _sourceSpecsLists[_rentPriceIndex].hidden = true;
-  //     print('_sourceSpecsLists[_rentPriceIndex].hidden : ${_sourceSpecsLists[_rentPriceIndex].hidden}');
-  //   }
-  //
-  // }
-// -----------------------------------------------------------------------------
   Future<void> _onSpecsListTap(SpecList specList) async {
+
+    print('fi eh ${specList.specChain.sons}');
+
+    if (specList.specChain.sons.runtimeType != DataCreator){
+      await _goToSpecPickerScreen(specList);
+    }
+
+    else if (specList.specChain.sons == DataCreator.price){
+      await _goToSpecPickerScreen(specList);
+    }
+
+    else if (specList.specChain.sons == DataCreator.currency){
+      await _runCurrencyDialog(specList);
+    }
+
+    else if (specList.specChain.sons == DataCreator.integerIncrementer){
+      print('aho');
+      await _goToSpecPickerScreen(specList);
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _goToSpecPickerScreen(SpecList specList) async {
 
     final dynamic _result = await Nav.goToNewScreen(context,
       SpecPickerScreen(
@@ -141,8 +147,44 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
 
     print('result is ${_result}');
 
+    _updateSpecsListsAndGroups(
+      specList: specList,
+      specPickerResult: _result,
+    );
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _runCurrencyDialog(SpecList specList) async {
+    await PriceDataCreator.showCurrencyDialog(
+      context: context,
+      onSelectCurrency: (CurrencyModel currency) async {
+
+        final Spec _currencySpec = Spec(
+          specsListID: specList.id,
+          value: currency.code,
+        );
+
+        final List<Spec> _result = Spec.putSpecsInSpecs(
+          parentSpecs: _allSelectedSpecs,
+          inputSpecs: [_currencySpec],
+          canPickMany: specList.canPickMany,
+        );
+
+        _updateSpecsListsAndGroups(
+          specList: specList,
+          specPickerResult: _result,
+        );
+
+        await Nav.goBack(context);
+
+      },
+    );
+
+  }
+// -----------------------------------------------------------------------------
+  void _updateSpecsListsAndGroups({@required dynamic specPickerResult, @required SpecList specList}){
     // -------------------------------------------------------------
-    if (_result != null){
+    if (specPickerResult != null){
       // ------------------------------------
       /// A - SONS ARE FROM DATA CREATOR
       if (specList.specChain.sons.runtimeType == DataCreator){
@@ -150,12 +192,12 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
       }
       // ------------------------------------
       /// B - WHEN FROM LIST OF KWs
-      if (ObjectChecker.objectIsListOfSpecs(_result)){
+      if (ObjectChecker.objectIsListOfSpecs(specPickerResult)){
 
-          // Spec.printSpecs(_allSelectedSpecs);
+        // Spec.printSpecs(_allSelectedSpecs);
 
         setState(() {
-          _allSelectedSpecs = _result;
+          _allSelectedSpecs = specPickerResult;
           _refinedSpecsLists = SpecList.generateRefinedSpecsLists(sourceSpecsLists: _sourceSpecsLists, selectedSpecs: _allSelectedSpecs);
           _groupsIDs = SpecList.getGroupsFromSpecsLists(specsLists: _refinedSpecsLists);
         });
@@ -165,13 +207,12 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
       /// C - WHEN SOMETHING GOES WRONG
       else {
 
-        print('RED ALERT : result : ${_result}');
+        print('RED ALERT : result : ${specPickerResult.toString()}');
 
       }
       // ------------------------------------
     }
     // -------------------------------------------------------------
-
   }
 // -----------------------------------------------------------------------------
   void _removeSpec(Spec spec){
@@ -181,22 +222,6 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
     });
 
   }
-// -----------------------------------------------------------------------------
-  // List<String> getGroupsFromRefinedLists(){
-  //
-  //   List<String> _groups = <String>[];
-  //
-  //   for (var list in _refinedSpecsLists){
-  //
-  //     _groups = TextMod.addStringToListIfDoesNotContainIt(
-  //       strings: _groups,
-  //       stringToAdd: list.groupID,
-  //     );
-  //
-  //   }
-  //
-  //   return _groups;
-  // }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

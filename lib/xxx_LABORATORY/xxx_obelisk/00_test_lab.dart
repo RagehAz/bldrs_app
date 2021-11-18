@@ -128,8 +128,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 
               const Stratosphere(),
 
-
-
               /// AVOID SET STATE : WAY # 1
               ValueListenableBuilder<int>(
                   valueListenable: _counter,
