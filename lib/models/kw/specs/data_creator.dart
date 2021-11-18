@@ -9,5 +9,5 @@ enum DataCreator{
   boolSwitch,
   // textKeyboard,
   numberKeyboard,
-
+  price,
 }

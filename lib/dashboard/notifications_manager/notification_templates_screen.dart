@@ -86,22 +86,22 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
 
     return MainLayout(
       appBarType: AppBarType.Basic,
-      tappingRageh: () async {
-
-        bool upload = await CenterDialog.showCenterDialog(
-          context: context,
-          title: 'Upload ?',
-          body: 'upload all these local templates ?',
-          boolDialog: true,
-        );
-
-        if (upload == true){
-          print('uploading aho');
-
-
-        }
-
-      },
+      // tappingRageh: () async {
+      //
+      //   bool upload = await CenterDialog.showCenterDialog(
+      //     context: context,
+      //     title: 'Upload ?',
+      //     body: 'upload all these local templates ?',
+      //     boolDialog: true,
+      //   );
+      //
+      //   if (upload == true){
+      //     print('uploading aho');
+      //
+      //
+      //   }
+      //
+      // },
       appBarRowWidgets: <Widget>[
 
         const Expander(),

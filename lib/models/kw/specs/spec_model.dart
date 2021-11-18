@@ -459,18 +459,56 @@ class Spec {
 
   }
 // -----------------------------------------------------------------------------
-  /// This inserts specs in Parent specs list if absent
-  static List<Spec> putSpecsInSpecs({@required List<Spec> parentSpecs, @required List<Spec> childrenSpecs}){
+  /// This considers if the specList can or can't pick many spec of same list, then adds if absent and updates or ignores if exists accordingly
+  static List<Spec> putSpecsInSpecs({@required List<Spec> parentSpecs, @required List<Spec> inputSpecs, @required bool canPickMany}){
     final List<Spec> _specs = parentSpecs;
 
-    if (Mapper.canLoopList(childrenSpecs)){
+    if (Mapper.canLoopList(inputSpecs)){
 
-      for (Spec spec in childrenSpecs){
+      for (Spec inputSpec in inputSpecs){
 
-        final bool _alreadyThere = specsContainThisSpec(specs: _specs, spec: spec);
+        /// A - CAN PICK MANY "of this list ID"
+        if (canPickMany == true){
 
-        if (_alreadyThere == false){
-          _specs.add(spec);
+          final bool _alreadyThere = specsContainThisSpec(specs: _specs, spec: inputSpec);
+
+          /// A1 - SPEC ALREADY SELECTED => do nothing
+          if (_alreadyThere == true){
+
+          }
+
+          /// A2 - SPEC IS NOT SELECTED => add spec
+          else {
+            _specs.add(inputSpec);
+          }
+
+        }
+
+        /// B - CAN NOT PICK MANY " of this list ID"
+        else {
+
+          final bool _specsContainOfSameListID = specsContainOfSameListID(specs: _specs, specsListID: inputSpec.specsListID);
+
+          /// B1 - LIST ID IS ALREADY THERE in [_specs] => REPLACE
+          if (_specsContainOfSameListID == true){
+              final int _specOfSameListIDIndex = _specs.indexWhere((sp) => sp.specsListID == inputSpec.specsListID);
+              _specs[_specOfSameListIDIndex] = inputSpec;
+          }
+
+          /// B2 - LIST ID IS NOT THERE in [_specs] => ADD
+          else {
+              _specs.add(inputSpec);
+          }
+
+          // if (_alreadyThere == true){
+          //   final int _specIndex = _specs.indexWhere((sp) => Spec.specsAreTheSame(sp, inputSpec));
+          //   _specs[_specIndex] = inputSpec;
+          // }
+          //
+          // else {
+          //   _specs.add(inputSpec);
+          // }
+
         }
 
       }
@@ -487,7 +525,7 @@ class Spec {
 
     final SpecList _specList = specsLists.singleWhere((list) => list.id == _specsListID, orElse: () => null);
 
-    if (_specList != null){
+    if (_specList != null && spec.value.runtimeType == String){
 
       final String _kwID = spec.value;
 

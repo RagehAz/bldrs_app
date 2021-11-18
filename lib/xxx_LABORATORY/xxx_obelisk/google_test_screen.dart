@@ -190,10 +190,6 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidzYellow,
       loading: _loading,
-      tappingRageh: (){
-        print('wtf');
-      },
-
       appBarRowWidgets: const <Widget>[],
 
       layoutWidget: Center(

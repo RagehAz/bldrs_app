@@ -91,10 +91,6 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidzYellow,
       loading: _loading,
-      tappingRageh: (){
-        print('wtf');
-      },
-
       appBarRowWidgets: const <Widget>[],
 
       layoutWidget: Container(

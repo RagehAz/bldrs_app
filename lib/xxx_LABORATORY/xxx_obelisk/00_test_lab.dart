@@ -116,10 +116,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidzYellow,
       loading: _loading,
-      tappingRageh: (){
-        print('wtf');
-      },
-
       appBarRowWidgets: const<Widget>[],
 
       layoutWidget: Center(

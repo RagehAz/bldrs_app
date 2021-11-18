@@ -1,21 +1,16 @@
-
-
 import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/secondary_models/name_model.dart';
+import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/zone/currency_model.dart';
-import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/buttons/flagbox_button.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
@@ -24,19 +19,22 @@ import 'package:bldrs/views/widgets/specific/specs/currency_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SpecsTextField extends StatefulWidget {
+class PriceDataCreator extends StatefulWidget {
+  final ValueChanged<CurrencyModel> onCurrencyChanged;
+  final ValueChanged<String> onValueChanged;
 
-  const SpecsTextField({
+  const PriceDataCreator({
+    @required this.onCurrencyChanged,
+    @required this.onValueChanged,
     Key key
   }) : super(key: key);
 
   @override
-  State<SpecsTextField> createState() => _SpecsTextFieldState();
+  State<PriceDataCreator> createState() => _PriceDataCreatorState();
 }
 
-class _SpecsTextFieldState extends State<SpecsTextField> {
+class _PriceDataCreatorState extends State<PriceDataCreator> {
   final _formKey = GlobalKey<FormState>();
-
   final TextEditingController controller = TextEditingController();
   CurrencyModel _currency;
 // -----------------------------------------------------------------------------
@@ -57,6 +55,8 @@ class _SpecsTextFieldState extends State<SpecsTextField> {
     });
 
     _validate();
+
+    widget.onCurrencyChanged(currency);
 
     await Nav.goBack(context);
 
@@ -199,6 +199,15 @@ class _SpecsTextFieldState extends State<SpecsTextField> {
 
   }
 // -----------------------------------------------------------------------------
+  void _onTextChanged(String val){
+
+    _validate();
+
+    widget.onValueChanged(val);
+    widget.onCurrencyChanged(_currency);
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -256,7 +265,7 @@ class _SpecsTextFieldState extends State<SpecsTextField> {
                   labelColor: Colorz.blackSemi255,
 
                   validator: (String val) => _validator(val),
-                  onChanged: (String val) => _validate(),
+                  onChanged: (String val) => _onTextChanged(val),
                 ),
               ),
             ),

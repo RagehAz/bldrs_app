@@ -185,7 +185,7 @@ class SpecList{
         id: 'PropertySalePrice',
         groupID: 'Pricing Specifications',
         names: <Name>[Name(code: 'en', value: 'Property sale price'), Name(code: 'ar', value: 'سعر بيع العقار')],
-        canPickMany: true,
+        canPickMany: false,
         isRequired: false,
         range: null,
         specChain: RawSpecs.price

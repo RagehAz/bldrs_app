@@ -129,28 +129,28 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       pageTitle: 'News And Notifications',
       sky: Sky.Black,
       pyramids: Iconz.PyramidzYellow,
-      tappingRageh: () async {
-
-        print('fuck fuck');
-
-        final UserModel _rageh = await UserFireOps.readUser(
-          context: context,
-          userID: superUserID(),
-        );
-
-        final List<String> _tri = TextGen.createTrigram(input: _rageh.name);
-
-        await Fire.updateDocField(
-          context: context,
-          collName: FireColl.users,
-          docName: _rageh.id,
-          field: 'nameTrigram',
-          input: _tri,
-        );
-
-        print('finished');
-
-        },
+      // tappingRageh: () async {
+      //
+      //   print('fuck fuck');
+      //
+      //   final UserModel _rageh = await UserFireOps.readUser(
+      //     context: context,
+      //     userID: superUserID(),
+      //   );
+      //
+      //   final List<String> _tri = TextGen.createTrigram(input: _rageh.name);
+      //
+      //   await Fire.updateDocField(
+      //     context: context,
+      //     collName: FireColl.users,
+      //     docName: _rageh.id,
+      //     field: 'nameTrigram',
+      //     input: _tri,
+      //   );
+      //
+      //   print('finished');
+      //
+      //   },
 
       layoutWidget:
 
