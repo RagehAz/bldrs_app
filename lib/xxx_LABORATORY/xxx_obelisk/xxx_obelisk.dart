@@ -9,7 +9,7 @@ import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/db/ldb/sembast/sembast_test_screen.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
-import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/specs_picker_screen.dart';
+import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/specs_lists_pickers_screen.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/buttons/obelisk_button.dart';
@@ -110,7 +110,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           ObeliskButton('TEST LAB', Iconz.Flyer, TestLab()),
 
-          ObeliskButton('Specs Selector', Iconz.Flyer, SpecsPickersScreen(
+          ObeliskButton('Specs Selector', Iconz.Flyer, SpecsListsPickersScreen(
             flyerType: FlyerType.property,
           )),
 

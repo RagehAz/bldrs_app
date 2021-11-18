@@ -2,6 +2,7 @@ import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/specs/data_creator.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
+import 'package:bldrs/models/zone/currency_model.dart';
 
 
 abstract class RawSpecs {
@@ -99,7 +100,7 @@ abstract class RawSpecs {
     id: 'currency',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Currency'), Name(code: 'ar', value: 'العملة')],
-    sons: null, // getCurrenciesAsKeywords();
+    sons: DataCreator.currency,
   );
   static const Chain unitPriceInterval = const Chain(
     id: 'unitPriceInterval',
@@ -117,13 +118,13 @@ abstract class RawSpecs {
     id: 'numberOfInstallments',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Number of Installments'), Name(code: 'ar', value: 'عدد الدفعات')],
-    sons: DataCreator.integerSlider,
+    sons: DataCreator.integerIncrementer,
   );
   static const Chain installmentsDuration = const Chain(
     id: 'installmentsDuration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Installments duration'), Name(code: 'ar', value: 'مدة الدفعات')],
-    sons: DataCreator.integerSlider,
+    sons: DataCreator.integerIncrementer,
   );
   static const Chain installmentsDurationUnit = const Chain(
     id: 'installmentsDurationUnit',
@@ -142,7 +143,7 @@ abstract class RawSpecs {
     id: 'duration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Duration'), Name(code: 'ar', value: 'الزمن')],
-    sons: DataCreator.integerSlider,
+    sons: DataCreator.integerIncrementer,
   );
   static const Chain durationUnit = const Chain(
     id: 'durationUnit',
@@ -351,25 +352,25 @@ abstract class RawSpecs {
     id: 'propertyFloorNumber',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Floor Number'), Name(code: 'ar', value: 'رقم دور العقار')],
-    sons: DataCreator.integerSlider,
+    sons: DataCreator.integerIncrementer,
   );
   static const Chain propertyDedicatedParkingLotsCount = const Chain(
     id: 'propertyDedicatedParkingSpaces',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Number of property dedicated parking lots'), Name(code: 'ar', value: 'عدد مواقف السيارات المخصصة للعقار')],
-    sons: DataCreator.integerSlider,
+    sons: DataCreator.integerIncrementer,
   );
   static const Chain propertyNumberOfBedrooms = const Chain(
     id: 'propertyNumberOfBedrooms',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Number of Bedrooms'), Name(code: 'ar', value: 'عدد غرف نوم العقار')],
-    sons: DataCreator.integerSlider,
+    sons: DataCreator.integerIncrementer,
   );
   static const Chain propertyNumberOfBathrooms = const Chain(
     id: 'propertyNumberOfBathrooms',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Number of bathrooms'), Name(code: 'ar', value: 'عدد حمامات العقار')],
-    sons: DataCreator.integerSlider,
+    sons: DataCreator.integerIncrementer,
   );
   // -------------------------------------------------------------------------
   /// PROPERTY FEATURES ANATOMY
@@ -431,25 +432,25 @@ abstract class RawSpecs {
     id: 'buildingNumberOfFloors',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Building number of floors'), Name(code: 'ar', value: 'عدد أدوار المبنى')],
-    sons: DataCreator.integerSlider, // TASK : define range 0 - g163
+    sons: DataCreator.integerIncrementer, // TASK : define range 0 - g163
   );
   static const Chain buildingAgeInYears = const Chain(
     id: 'buildingAge',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Building Age'), Name(code: 'ar', value: 'عمر المنشأ')],
-    sons: DataCreator.integerSlider,
+    sons: DataCreator.integerIncrementer,
   );
   static const Chain buildingTotalParkingLotsCount = const Chain(
     id: 'buildingTotalParkingLotsCount',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Total Building parking lots count'), Name(code: 'ar', value: 'مجموع عدد مواقف السيارات للمبنى')],
-    sons: DataCreator.integerSlider,
+    sons: DataCreator.integerIncrementer,
   );
   static const Chain buildingTotalUnitsCount = const Chain(
     id: 'buildingTotalPropertiesCount',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Total Building units count'), Name(code: 'ar', value: 'مجموع عدد وحدات المبنى')],
-    sons: DataCreator.integerSlider,
+    sons: DataCreator.integerIncrementer,
   );
   // -------------------------------------------------------------------------
   /// COMMUNITY FEATURES ANATOMY
@@ -643,7 +644,7 @@ abstract class RawSpecs {
     id: 'count',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Count'), Name(code: 'ar', value: 'العدد')],
-    sons: DataCreator.integerSlider,
+    sons: DataCreator.integerIncrementer,
   );
   static const Chain size = const Chain (
     id: 'size',

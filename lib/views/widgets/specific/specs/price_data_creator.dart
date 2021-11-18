@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -22,13 +23,122 @@ import 'package:provider/provider.dart';
 class PriceDataCreator extends StatefulWidget {
   final ValueChanged<CurrencyModel> onCurrencyChanged;
   final ValueChanged<String> onValueChanged;
+  final double initialPriceValue;
+  final Function onSubmitted;
 
   const PriceDataCreator({
     @required this.onCurrencyChanged,
     @required this.onValueChanged,
+    @required this.initialPriceValue,
+    @required this.onSubmitted,
     Key key
   }) : super(key: key);
+// -----------------------------------------------------------------------------
+  static Future<void> showCurrencyDialog({
+    @required BuildContext context,
+    @required ValueChanged<CurrencyModel> onSelectCurrency,
+    // @required
+  }) async {
 
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final List<CurrencyModel> _allCurrencies = _zoneProvider.allCurrencies;
+    final CurrencyModel _currentCurrency = _zoneProvider.currentCurrency;
+    final CurrencyModel _USDCurrency = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
+  currencies: _allCurrencies,
+  countryID: 'usa',
+);
+
+    final double _clearWidth = BottomDialog.dialogClearWidth(context);
+
+    await BottomDialog.showBottomDialog(
+      context: context,
+      draggable: true,
+      child: Container(
+        width: _clearWidth,
+        height: BottomDialog.dialogClearHeight(context: context, draggable: true),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+
+            CurrencyButton(
+              width: _clearWidth,
+              currency: _currentCurrency,
+              countryID: _currentCurrency.countriesIDs[0],
+              onTap: () => onSelectCurrency(_currentCurrency),
+            ),
+
+            CurrencyButton(
+              width: _clearWidth,
+              currency: _USDCurrency,
+              countryID: 'USA',
+              onTap: () => onSelectCurrency(_USDCurrency),
+            ),
+
+            const BubblesSeparator(),
+
+            DreamBox(
+              height: 60,
+              width: _clearWidth,
+              verse: 'More Currencies',
+              verseShadow: false,
+              verseWeight: VerseWeight.thin,
+              verseCentered: false,
+              verseItalic: true,
+              icon: Iconz.Dollar,
+              iconSizeFactor: 0.6,
+              color: Colorz.blackSemi255,
+              bubble: false,
+              onTap: () async {
+
+                await BottomDialog.showBottomDialog(
+                  context: context,
+                  draggable: true,
+                  child: Container(
+                    width: _clearWidth,
+                    height: BottomDialog.dialogClearHeight(context: context, draggable: true),
+                    child: MaxBounceNavigator(
+                      child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: _allCurrencies.length,
+                          itemBuilder: (ctx, index){
+
+                            final CurrencyModel _currency = _allCurrencies[index];
+
+                            return
+
+                              CurrencyButton(
+                                width: _clearWidth,
+                                currency: _currency,
+                                countryID: _currency.countriesIDs[0],
+                                onTap: () async {
+
+                                  await onSelectCurrency(_currency);
+
+                                  await Nav.goBack(context);
+
+                                },
+                              );
+
+                          }
+                      ),
+                    ),
+                  ),
+                );
+
+
+              },
+            ),
+
+          ],
+
+
+        ),
+      ),
+    );
+
+  }
+// -----------------------------------------------------------------------------
   @override
   State<PriceDataCreator> createState() => _PriceDataCreatorState();
 }
@@ -36,23 +146,23 @@ class PriceDataCreator extends StatefulWidget {
 class _PriceDataCreatorState extends State<PriceDataCreator> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
-  CurrencyModel _currency;
+  ValueNotifier<CurrencyModel> _currency = ValueNotifier(null);
 // -----------------------------------------------------------------------------
   @override
   void initState() {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    _currency = _zoneProvider.currentCurrency;
-
+    _currency.value = _zoneProvider.currentCurrency;
+    controller.text = widget.initialPriceValue?.toString() ?? '';
     super.initState();
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSelectCurrency(CurrencyModel currency) async {
 
 
-    setState(() {
-      _currency = currency;
-    });
+    // setState(() {
+      _currency.value = currency;
+    // });
 
     _validate();
 
@@ -64,103 +174,10 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 // -----------------------------------------------------------------------------
   Future<void> _onCurrencyTap() async {
 
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final List<CurrencyModel> _allCurrencies = _zoneProvider.allCurrencies;
-    final CurrencyModel _currentCurrency = _zoneProvider.currentCurrency;
-    final CurrencyModel _USDCurrency = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
-        currencies: _allCurrencies,
-        countryID: 'usa',
-    );
-
-    final double _clearWidth = BottomDialog.dialogClearWidth(context);
-
-    await BottomDialog.showBottomDialog(
+    await PriceDataCreator.showCurrencyDialog(
         context: context,
-        draggable: true,
-        child: Container(
-          width: _clearWidth,
-          height: BottomDialog.dialogClearHeight(context: context, draggable: true),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-
-              CurrencyButton(
-                width: _clearWidth,
-                currency: _currentCurrency,
-                countryID: _currentCurrency.countriesIDs[0],
-                onTap: () => _onSelectCurrency(_currentCurrency),
-              ),
-
-              CurrencyButton(
-                width: _clearWidth,
-                currency: _USDCurrency,
-                countryID: 'USA',
-                onTap: () => _onSelectCurrency(_USDCurrency),
-              ),
-
-              const BubblesSeparator(),
-
-              DreamBox(
-                height: 60,
-                width: _clearWidth,
-                verse: 'More Currencies',
-                verseShadow: false,
-                verseWeight: VerseWeight.thin,
-                verseCentered: false,
-                verseItalic: true,
-                icon: Iconz.Dollar,
-                iconSizeFactor: 0.6,
-                color: Colorz.blackSemi255,
-                bubble: false,
-                onTap: () async {
-
-                  await BottomDialog.showBottomDialog(
-                    context: context,
-                    draggable: true,
-                    child: Container(
-                      width: _clearWidth,
-                      height: BottomDialog.dialogClearHeight(context: context, draggable: true),
-                      child: MaxBounceNavigator(
-                        child: ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: _allCurrencies.length,
-                            itemBuilder: (ctx, index){
-
-                              final CurrencyModel _currency = _allCurrencies[index];
-
-                              return
-
-                                CurrencyButton(
-                                  width: _clearWidth,
-                                  currency: _currency,
-                                  countryID: _currency.countriesIDs[0],
-                                  onTap: () async {
-
-                                    await _onSelectCurrency(_currency);
-
-                                    await Nav.goBack(context);
-
-                                  },
-                                );
-
-                            }
-                        ),
-                      ),
-                    ),
-                  );
-
-
-                },
-              ),
-
-            ],
-
-
-          ),
-        ),
+        onSelectCurrency: (CurrencyModel currency) => _onSelectCurrency(currency),
     );
-
 
   }
 // -----------------------------------------------------------------------------
@@ -170,7 +187,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 // -----------------------------------------------------------------------------
   String _validator(String val){
 
-    final int _maxDigits = _currency.digits;
+    final int _maxDigits = _currency.value.digits;
 
     final String _numberString = controller.text;
     final String _fractionsStrings = TextMod.removeTextBeforeFirstSpecialCharacter(_numberString, '.');
@@ -204,7 +221,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
     _validate();
 
     widget.onValueChanged(val);
-    widget.onCurrencyChanged(_currency);
+    widget.onCurrencyChanged(_currency.value);
 
   }
 // -----------------------------------------------------------------------------
@@ -263,9 +280,18 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
                   corners: Ratioz.appBarCorner,
                   keyboardTextInputType: TextInputType.number,
                   labelColor: Colorz.blackSemi255,
-
                   validator: (String val) => _validator(val),
                   onChanged: (String val) => _onTextChanged(val),
+                  onSubmitted: (String val) async  {
+
+                    _onTextChanged(val);
+                    await Keyboarders.minimizeKeyboardOnTapOutSide(context);
+
+                    await Future.delayed(Ratioz.durationSliding400, ()async {
+                      widget.onSubmitted();
+                    });
+
+                  },
                 ),
               ),
             ),
@@ -278,10 +304,19 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
                 height: _fieldHeight,
                 alignment: Alignment.topCenter,
                 color: Colorz.nothing,
-                child: SuperVerse(
-                  verse: _currency.symbol,
-                  weight: VerseWeight.black,
-                  size: 3,
+                child: ValueListenableBuilder<CurrencyModel>(
+                  valueListenable: _currency,
+                  builder: (ctx, value, child){
+
+                    return
+
+                      SuperVerse(
+                        verse: _currency.value.symbol,
+                        weight: VerseWeight.black,
+                        size: 3,
+                      );
+
+                  },
                 ),
               ),
             ),
