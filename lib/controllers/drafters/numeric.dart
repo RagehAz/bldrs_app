@@ -113,7 +113,7 @@ abstract class Numeric {
 
     // print('stringToDouble : string : $string');
 
-    if (string != null){
+    if (string != null && string != ''){
       _value = double.parse(string);
     }
 
