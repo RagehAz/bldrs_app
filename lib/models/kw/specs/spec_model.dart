@@ -533,7 +533,7 @@ class Spec {
 
       final String _kwID = spec.value;
 
-      final List<KW> _kws = _specList.specChain.sons;
+      final List<KW> _kws = KW.getKeywordsFromChain(_specList.specChain); //_specList.specChain.sons;
 
       if (Mapper.canLoopList(_kws)){
         final KW _kw = _kws.singleWhere((kw) => kw.id == _kwID, orElse: ()=> null);

@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -15,11 +16,15 @@ class Inception extends StatelessWidget {
   final dynamic son;
   final int level;
   final double boxWidth;
+  final ValueChanged<KW> onKeywordTap;
+  final List<String> selectedKeywordsIDs;
 
   const Inception({
     @required this.son,
     this.level = 0,
     this.boxWidth,
+    this.onKeywordTap,
+    this.selectedKeywordsIDs,
   });
 
   static const double buttonHeight = 60;
@@ -39,16 +44,21 @@ class Inception extends StatelessWidget {
 
     if(son.runtimeType == KW){
 
+      final KW _kw = son;
+      final bool _isSelected = Mapper.stringsContainString(strings: selectedKeywordsIDs, string: _kw.id);
+      final Color _color = _isSelected == true ? Colorz.green255 : Colorz.white20;
+
       return
         DreamBox(
           width: _buttonWidth,
           height: _buttonHeight,
-          icon: _keywordsProvider.getIcon(son),
-          verse: Name.getNameByCurrentLingoFromNames(context, son.names),
+          icon: _keywordsProvider.getIcon(son: _kw, context: context),
+          verse: Name.getNameByCurrentLingoFromNames(context, _kw.names),
           verseScaleFactor: 0.7,
           verseCentered: false,
-          color: Colorz.white20,
+          color: _color,
           margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+          onTap: () => onKeywordTap(_kw),
         );
 
     }
@@ -61,7 +71,7 @@ class Inception extends StatelessWidget {
       return
 
         ExpandingTile(
-          icon: _keywordsProvider.getIcon(son),
+          icon: _keywordsProvider.getIcon(son: son, context: context),
           width: _buttonWidth,
           collapsedHeight: _buttonHeight,
           firstHeadline: Name.getNameByCurrentLingoFromNames(context, son.names),
@@ -78,6 +88,8 @@ class Inception extends StatelessWidget {
                       son: son,
                       level: level + 1,
                       boxWidth: _boxWidth,
+                      selectedKeywordsIDs: selectedKeywordsIDs,
+                      onKeywordTap: onKeywordTap,
                     );
                   }
               ),

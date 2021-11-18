@@ -14,6 +14,7 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/currency_model.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/specs/double_data_creator.dart';
 import 'package:bldrs/views/widgets/specific/specs/integer_data_creator.dart';
 import 'package:bldrs/views/widgets/specific/specs/price_data_creator.dart';
 import 'package:bldrs/views/widgets/specific/specs/specs_selector_bubble.dart';
@@ -50,6 +51,8 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSpecTap(BuildContext context, KW kw) async {
+
+    print('received kw : ${kw.id}');
 
     // spec.printSpec();
 
@@ -159,6 +162,21 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
     final List<Spec> _updatedList = Spec.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
       inputSpecs: [_integerSpec],
+      canPickMany: widget.specList.canPickMany,
+    );
+
+    _selectedSpecs.value = _updatedList;
+
+  }
+// -----------------------------------------------------------------------------
+  void _onAddDouble(double num){
+
+    print('received double : ${num}');
+    final Spec _doubleSpec = Spec(specsListID: widget.specList.id, value: num);
+
+    final List<Spec> _updatedList = Spec.putSpecsInSpecs(
+      parentSpecs: _selectedSpecs.value,
+      inputSpecs: [_doubleSpec],
       canPickMany: widget.specList.canPickMany,
     );
 
@@ -278,6 +296,24 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
                   return
                     IntegerDataCreator(
                       onIntegerChanged: (int integer) => _onAddInteger(integer),
+                      initialValue: null,
+                      onSubmitted: _onBack,
+                      specList: widget.specList,
+                    );
+
+                }
+            ),
+
+          /// DOUBLE DATA CREATOR
+          if (widget.specList.specChain.sons == DataCreator.doubleCreator)
+            ValueListenableBuilder<List<Spec>>(
+                valueListenable: _selectedSpecs,
+                builder: (ctx, value, child){
+
+
+                  return
+                    DoubleDataCreator(
+                      onDoubleChanged: (double num) => _onAddDouble(num),
                       initialValue: null,
                       onSubmitted: _onBack,
                       specList: widget.specList,

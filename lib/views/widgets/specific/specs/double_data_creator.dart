@@ -23,14 +23,14 @@ import 'package:bldrs/views/widgets/specific/specs/currency_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class IntegerDataCreator extends StatefulWidget {
-  final ValueChanged<int> onIntegerChanged;
-  final int initialValue;
+class DoubleDataCreator extends StatefulWidget {
+  final ValueChanged<double> onDoubleChanged;
+  final double initialValue;
   final Function onSubmitted;
   final SpecList specList;
 
-  const IntegerDataCreator({
-    @required this.onIntegerChanged,
+  const DoubleDataCreator({
+    @required this.onDoubleChanged,
     @required this.initialValue,
     @required this.onSubmitted,
     @required this.specList,
@@ -38,13 +38,13 @@ class IntegerDataCreator extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<IntegerDataCreator> createState() => _IntegerDataCreatorState();
+  State<DoubleDataCreator> createState() => _DoubleDataCreatorState();
 }
 
-class _IntegerDataCreatorState extends State<IntegerDataCreator> {
+class _DoubleDataCreatorState extends State<DoubleDataCreator> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
-  ValueNotifier<int> _integer = ValueNotifier(null);
+  ValueNotifier<double> _double = ValueNotifier(null);
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -93,29 +93,29 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
 
     _validate();
 
-    final int _intFromString = Numeric.stringToInt(val);
-    _integer.value = _intFromString;
-    widget.onIntegerChanged(_intFromString);
+    final double _doubleFromString = Numeric.stringToDouble(val);
+    _double.value = _doubleFromString;
+    widget.onDoubleChanged(_doubleFromString);
 
   }
 // -----------------------------------------------------------------------------
   Future<void> _increment() async {
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    if (_integer.value == null){
-      _integer.value = 0;
+    if (_double.value == null){
+      _double.value = 0;
     }
 
-    _integer.value ++;
-    controller.text = _integer.value.toString();
-    widget.onIntegerChanged(_integer.value);
+    _double.value ++;
+    controller.text = _double.value.toString();
+    widget.onDoubleChanged(_double.value);
   }
 // -----------------------------------------------------------------------------
   Future<void> _decrement() async {
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
-    _integer.value --;
-    controller.text = _integer.value.toString();
-    widget.onIntegerChanged(_integer.value);
+    _double.value --;
+    controller.text = _double.value.toString();
+    widget.onDoubleChanged(_double.value);
   }
 // -----------------------------------------------------------------------------
   @override
@@ -188,41 +188,6 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
 
                   },
                 ),
-              ),
-            ),
-
-            /// INCREMENTER BUTTONS
-            Container(
-              width: _buttonsBoxWidth,
-              height: _fieldHeight,
-              // color: Colorz.bloodTest,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-
-                  DreamBox(
-                    width: _buttonSize,
-                    height: _buttonSize,
-                    icon: Iconz.ArrowUp,
-                    iconSizeFactor: 0.4,
-                    onTap: _increment,
-                  ),
-
-                  const SizedBox(
-                    width: 5,
-                    height: 5,
-                  ),
-
-                  DreamBox(
-                    width: _buttonSize,
-                    height: _buttonSize,
-                    icon: Iconz.ArrowDown,
-                    iconSizeFactor: 0.4,
-                    onTap: _decrement,
-                  ),
-
-                ],
               ),
             ),
 
