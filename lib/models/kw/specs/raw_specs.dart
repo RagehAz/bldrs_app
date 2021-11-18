@@ -93,7 +93,7 @@ abstract class RawSpecs {
     id: 'price',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'price'), Name(code: 'ar', value: 'السعر')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.price,
   );
   static const Chain currency = const Chain(
     id: 'currency',

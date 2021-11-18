@@ -110,7 +110,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           ObeliskButton('TEST LAB', Iconz.Flyer, TestLab()),
 
-          ObeliskButton('Specs Selector', Iconz.Flyer, SpecSelectorScreen(
+          ObeliskButton('Specs Selector', Iconz.Flyer, SpecsPickersScreen(
             flyerType: FlyerType.property,
           )),
 

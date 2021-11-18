@@ -51,7 +51,6 @@ class SpecListTile extends StatelessWidget {
     final double _specNameBoxWidth = _specTileWidth - (2 * _specTileHeight);
 // -----------------------------------------------------------------------------
 
-
     return GestureDetector(
       onTap: onTap,
       child: Center(
@@ -99,6 +98,7 @@ class SpecListTile extends StatelessWidget {
                                 centered: false,
                                 margin: 10,
                                 maxLines: 2,
+                                redDot: specList.isRequired,
                               ),
                             ),
 

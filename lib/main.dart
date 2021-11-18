@@ -94,20 +94,22 @@ class _BldrsAppState extends State<BldrsApp> {
   @override
   void didChangeDependencies() {
     Localizer.getLocale().then((locale) {
-      setState(() {
-        this._locale = locale;
-      });
+
+      // setState(() {
+        this._locale.value = locale;
+      // });
+
     });
     super.didChangeDependencies();
   }
 // ---------------------------------------------------------------------------
-  Locale _locale;
+  ValueNotifier<Locale> _locale = ValueNotifier(null);
   List<Locale> _supportedLocales = Localizer.getSupportedLocales();
   List<LocalizationsDelegate> _localizationDelegates = Localizer.getLocalizationDelegates();
   void _setLocale(Locale locale) {
-    setState(() {
-      _locale = locale;
-    });
+    // setState(() {
+      _locale.value = locale;
+    // });
   }
 // ---------------------------------------------------------------------------
   bool _initialized = false;
@@ -163,13 +165,11 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
         ),
       );
     }
-
     else {
       /// Show error message if initialization failed
       if (_error) {
         print("Error has occurred");
       }
-
       /// Show a loader until FlutterFire is initialized
       if (!_initialized) {
         print("Firebase Couldn't be initialized");
@@ -216,40 +216,48 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
           ),
 
         ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          debugShowMaterialGrid: false,
-          showPerformanceOverlay: false,
-          checkerboardOffscreenLayers: false,
-          checkerboardRasterCacheImages: false,
+        child: ValueListenableBuilder<Locale>(
+          valueListenable: _locale,
+          builder: (ctx, value, child){
 
-          title: 'Bldrs.net',
+            return
+              MaterialApp(
+                debugShowCheckedModeBanner: false,
+                debugShowMaterialGrid: false,
+                showPerformanceOverlay: false,
+                checkerboardOffscreenLayers: false,
+                checkerboardRasterCacheImages: false,
 
-          // theme:
-          // ThemeData(
-          //   primarySwatch: MaterialColor(),
-          //   accentColor: Colorz.BlackBlack,
-          // ),
-          locale: _locale,
-          supportedLocales: _supportedLocales,
-          localizationsDelegates: _localizationDelegates,
-          localeResolutionCallback: (deviceLocale, supportedLocales) {
-            for (var locale in supportedLocales) {
-              if (locale.languageCode == deviceLocale.languageCode &&
-                  locale.countryCode == deviceLocale.countryCode) {
-                return deviceLocale;
-              }
-            }
-            return supportedLocales.first;
-          },
-          onGenerateRoute: Routerer.allRoutes,
-          initialRoute: Routez.UserChecker,
-          routes: {
-            Routez.FlyerScreen: (ctx) => FlyerScreen(),
-            // Routez.Starting: (ctx) => StartingScreen(),
-            Routez.UserChecker: (ctx) => UserChecker(),
-            Routez.Home: (ctx) => HomeScreen(notiIsOn: _notiIsOn,),
-            // Routez.InPyramids: (ctx) => InPyramidsScreen(),
+                title: 'Bldrs.net',
+
+                // theme:
+                // ThemeData(
+                //   primarySwatch: MaterialColor(),
+                //   accentColor: Colorz.BlackBlack,
+                // ),
+                locale: _locale.value,
+                supportedLocales: _supportedLocales,
+                localizationsDelegates: _localizationDelegates,
+                localeResolutionCallback: (deviceLocale, supportedLocales) {
+                  for (var locale in supportedLocales) {
+                    if (locale.languageCode == deviceLocale.languageCode &&
+                        locale.countryCode == deviceLocale.countryCode) {
+                      return deviceLocale;
+                    }
+                  }
+                  return supportedLocales.first;
+                },
+                onGenerateRoute: Routerer.allRoutes,
+                initialRoute: Routez.UserChecker,
+                routes: {
+                  Routez.FlyerScreen: (ctx) => FlyerScreen(),
+                  // Routez.Starting: (ctx) => StartingScreen(),
+                  Routez.UserChecker: (ctx) => UserChecker(),
+                  Routez.Home: (ctx) => HomeScreen(notiIsOn: _notiIsOn,),
+                  // Routez.InPyramids: (ctx) => InPyramidsScreen(),
+                },
+              );
+
           },
         ),
       );

@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/borderers.dart';
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -10,13 +10,11 @@ import 'package:bldrs/models/kw/specs/data_creator.dart';
 import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
-import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/models/zone/currency_model.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
-import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/specs/price_data_creator.dart';
 import 'package:bldrs/views/widgets/specific/specs/specs_selector_bubble.dart';
-import 'package:bldrs/views/widgets/specific/specs/specs_text_field.dart';
 import 'package:flutter/material.dart';
 
 class SpecPickerScreen extends StatefulWidget {
@@ -37,6 +35,7 @@ class SpecPickerScreen extends StatefulWidget {
 class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
   List<Spec> _selectedSpecs = [];
+
 
   // -----------------------------------------------------------------------------
   @override
@@ -117,6 +116,39 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  void _onCurrencyChanged(CurrencyModel currency){
+
+    final Spec _currencySpec = Spec(specsListID: 'currency', value: currency.code);
+
+    final List<Spec> _updatedList = Spec.putSpecsInSpecs(
+      parentSpecs: _selectedSpecs,
+      inputSpecs: [_currencySpec],
+      canPickMany: false,
+    );
+
+    // setState(() {
+    //   _selectedSpecs = _updatedList;
+    // });
+
+  }
+// -----------------------------------------------------------------------------
+  void _onPriceChanged(String price){
+
+    final double _priceDouble = Numeric.stringToDouble(price);
+    final Spec _priceSpec = Spec(specsListID: widget.specList.id, value: _priceDouble);
+
+    final List<Spec> _updatedList = Spec.putSpecsInSpecs(
+      parentSpecs: _selectedSpecs,
+      inputSpecs: [_priceSpec],
+      canPickMany: widget.specList.canPickMany,
+    );
+
+    setState(() {
+      _selectedSpecs = _updatedList;
+    });
+
+  }
+// -----------------------------------------------------------------------------
   Future<void> _onBack() async {
     await Nav.goBack(context, argument: _selectedSpecs);
   }
@@ -138,6 +170,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     return _instructions;
   }
+// -----------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +212,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
             // color: Colorz.white10,
           ),
 
-          /// SPEC SELECTOR
+          /// SPECS LIST SELECTOR
           if (widget.specList.specChain.sons.runtimeType != DataCreator)
             SpecSelectorBubble(
               bubbleHeight: _listZoneHeight,
@@ -188,9 +221,11 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
               onSpecTap: (KW kw) => _onSpecTap(context, kw),
             ),
 
-          ///
-          if (widget.specList.specChain.sons.runtimeType == DataCreator)
-            SpecsTextField(
+          /// PRICE SPECS CREATOR
+          if (widget.specList.specChain.sons == DataCreator.price)
+            PriceDataCreator(
+              onCurrencyChanged: (CurrencyModel currency) => _onCurrencyChanged(currency),
+              onValueChanged: (String value) => _onPriceChanged(value),
             ),
 
         ],

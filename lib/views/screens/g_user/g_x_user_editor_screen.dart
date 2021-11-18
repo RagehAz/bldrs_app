@@ -400,57 +400,57 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       loading: _loading,
       appBarType: AppBarType.Basic,
       pageTitle: widget.firstTimer == true ? 'Add your profile data' : Wordz.editProfile(context),
-      tappingRageh: () async {
-        
-        final bool _result = await CenterDialog.showCenterDialog(
-          context: context,
-          title: 'Delete user ?',
-          boolDialog: true,
-        );
-        
-        if (_result == true){
-
-          /// create new updated user model
-          final UserModel _updatedModel = UserModel(
-            // -------------------------
-            id : widget.user.id,
-            createdAt : widget.user.createdAt,
-            status : widget.user.status,
-            // -------------------------
-            name : _nameController.text,
-            trigram: TextGen.createTrigram(input: _nameController.text),
-            pic :  _currentPicFile ?? _currentPicURL,
-            title :  _titleController.text,
-            company: _companyController.text,
-            gender : _currentGender,
-            zone : _currentZone,
-            language : Wordz.languageCode(context),
-            position : _currentPosition,
-            contacts : _createContactList(existingContacts : widget.user.contacts),
-            // -------------------------
-            myBzzIDs: widget.user.myBzzIDs,
-            // -------------------------
-            isAdmin: widget.user.isAdmin,
-            emailIsVerified: widget.user.emailIsVerified,
-            authBy: widget.user.authBy,
-            fcmToken: widget.user.fcmToken,
-            followedBzzIDs: widget.user.followedBzzIDs,
-            savedFlyersIDs: widget.user.savedFlyersIDs,
-          );
-          await UserFireOps.deleteUser(context: context, userModel: _updatedModel);
-          await Nav.goBack(context);
-        }
-
-        else {
-          _currentZone.printZone();
-
-          setState(() {
-
-          });
-
-        }
-        
-      },
+      // tappingRageh: () async {
+      //
+      //   final bool _result = await CenterDialog.showCenterDialog(
+      //     context: context,
+      //     title: 'Delete user ?',
+      //     boolDialog: true,
+      //   );
+      //
+      //   if (_result == true){
+      //
+      //     /// create new updated user model
+      //     final UserModel _updatedModel = UserModel(
+      //       // -------------------------
+      //       id : widget.user.id,
+      //       createdAt : widget.user.createdAt,
+      //       status : widget.user.status,
+      //       // -------------------------
+      //       name : _nameController.text,
+      //       trigram: TextGen.createTrigram(input: _nameController.text),
+      //       pic :  _currentPicFile ?? _currentPicURL,
+      //       title :  _titleController.text,
+      //       company: _companyController.text,
+      //       gender : _currentGender,
+      //       zone : _currentZone,
+      //       language : Wordz.languageCode(context),
+      //       position : _currentPosition,
+      //       contacts : _createContactList(existingContacts : widget.user.contacts),
+      //       // -------------------------
+      //       myBzzIDs: widget.user.myBzzIDs,
+      //       // -------------------------
+      //       isAdmin: widget.user.isAdmin,
+      //       emailIsVerified: widget.user.emailIsVerified,
+      //       authBy: widget.user.authBy,
+      //       fcmToken: widget.user.fcmToken,
+      //       followedBzzIDs: widget.user.followedBzzIDs,
+      //       savedFlyersIDs: widget.user.savedFlyersIDs,
+      //     );
+      //     await UserFireOps.deleteUser(context: context, userModel: _updatedModel);
+      //     await Nav.goBack(context);
+      //   }
+      //
+      //   else {
+      //     _currentZone.printZone();
+      //
+      //     setState(() {
+      //
+      //     });
+      //
+      //   }
+      //
+      // },
       layoutWidget: Form(
         key: _formKey,
         child: ListView(

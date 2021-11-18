@@ -189,10 +189,7 @@ class _UserCheckerState extends State<UserChecker> {
         loading: _loading,
         pyramids: Iconz.PyramidzYellow,
         appBarType: AppBarType.Non,
-        // tappingRageh: (){
-        //   Nav.goBack(context);
-        // },
-        layoutWidget: _logoIsShown ? const Center(child: LogoSlogan(sizeFactor: 0.7)) : null,
+        layoutWidget: _logoIsShown  == true ? const Center(child: LogoSlogan(sizeFactor: 0.7)) : Container(),
 
       );
 
