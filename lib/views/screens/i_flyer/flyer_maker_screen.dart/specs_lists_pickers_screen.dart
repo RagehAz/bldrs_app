@@ -133,6 +133,11 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
       await _goToSpecPickerScreen(specList);
     }
 
+    else if (specList.specChain.sons == DataCreator.doubleCreator){
+      print('aho');
+      await _goToSpecPickerScreen(specList);
+    }
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _goToSpecPickerScreen(SpecList specList) async {

@@ -194,7 +194,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                             color: Colorz.white20,
                             verse: Name.getNameByCurrentLingoFromNames(context, _keyword.names),
                             // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
-                            icon: _keywordsProvider.getIcon(_keyword),
+                            icon: _keywordsProvider.getIcon(context: context, son: _keyword),
                             margins: const EdgeInsets.only(top: Ratioz.appBarPadding),
                             verseScaleFactor: 0.7,
                             verseCentered: false,
