@@ -164,7 +164,7 @@ abstract class RawSpecs {
     id: 'propertyArea',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Area'), Name(code: 'ar', value: 'مساحة العقار')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain propertyAreaUnit = const Chain(
     id: 'propertyAreaUnit',
@@ -179,7 +179,7 @@ abstract class RawSpecs {
     id: 'plotArea',
     names: <Name>[Name(code: 'en', value: 'Lot Area'), Name(code: 'ar', value: 'مساحة قطعة الأرض')],
     icon: null,
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain lotAreaUnit = const Chain(
     id: 'lotAreaUnit',
@@ -458,7 +458,10 @@ abstract class RawSpecs {
     id: 'sub_ppt_feat_compound',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'In a Compound'), Name(code: 'ar', value: 'في مجمع سكني')],
-    sons: DataCreator.boolSwitch,
+    sons: const <KW>[
+      KW(id: 'in_compound', names: <Name>[Name(code: 'en', value: 'In a compound'), Name(code: 'ar', value: 'في مجمع سكني')],),
+      KW(id: 'not_in_compound', names: <Name>[Name(code: 'en', value: 'Not in a compound'), Name(code: 'ar', value: 'ليست في مجمع سكني')],),
+    ],
   );
   static const Chain amenities = const Chain(
     id: 'sub_ppt_feat_amenities',
@@ -533,37 +536,37 @@ abstract class RawSpecs {
     id: 'width',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Width'), Name(code: 'ar', value: 'العرض')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain length = const Chain(
     id: 'length',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Length'), Name(code: 'ar', value: 'الطول')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain height = const Chain(
     id: 'height',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Height'), Name(code: 'ar', value: 'الارتفاع')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain thickness = const Chain(
     id: 'thickness',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Thickness'), Name(code: 'ar', value: 'السمك')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain diameter = const Chain(
     id: 'diameter',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Diameter'), Name(code: 'ar', value: 'القطر')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain radius = const Chain(
     id: 'radius',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Radius'), Name(code: 'ar', value: 'نصف القطر')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain linearMeasurementUnit = const Chain(
     id: 'linearMeasureUnit',
@@ -585,7 +588,7 @@ abstract class RawSpecs {
     id: 'footPrint',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Footprint'), Name(code: 'ar', value: 'مساحة الأرضية')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain areaMeasureUnit = const Chain(
     id: 'areaMeasureUnit',
@@ -605,7 +608,7 @@ abstract class RawSpecs {
     id: 'volume',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Volume'), Name(code: 'ar', value: 'الحجم')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain volumeMeasurementUnit = const Chain(
     id: 'volumeMeasurementUnit',
@@ -626,7 +629,7 @@ abstract class RawSpecs {
     id: 'weight',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Weight'), Name(code: 'ar', value: 'الوزن')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain weightMeasurementUnit = const Chain(
     id: 'weightMeasurementUnit',
@@ -668,19 +671,19 @@ abstract class RawSpecs {
     id: 'wattage',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Watt'), Name(code: 'ar', value: 'وات')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain voltage = const Chain(
     id: 'voltage',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'volt'), Name(code: 'ar', value: 'فولت')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain ampere = const Chain(
     id: 'ampere',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'amps'), Name(code: 'ar', value: 'أمبير')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   // ------------------------------------------
   /// LOGISTICS ANATOMY
@@ -700,7 +703,7 @@ abstract class RawSpecs {
     id: 'deliveryMinDuration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Delivery duration'), Name(code: 'ar', value: 'فترة التوصيل')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain deliveryDurationUnit = const Chain(
     id: 'deliveryDurationUnit',
@@ -725,7 +728,7 @@ abstract class RawSpecs {
     id: 'insuranceDuration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Warranty duration'), Name(code: 'ar', value: 'مدة الضمان')],
-    sons: DataCreator.numberKeyboard,
+    sons: DataCreator.doubleCreator,
   );
   static const Chain warrantyDurationUnit = const Chain(
     id: 'warrantyDurationUnit',

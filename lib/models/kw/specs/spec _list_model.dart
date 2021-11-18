@@ -78,6 +78,19 @@ class SpecList{
     return _lists;
   }
 // -----------------------------------------------------------------------------
+  static SpecList getSpecListFromSpecsListsByID({@required List<SpecList> specsLists, @required String specListID}){
+
+    SpecList _specList;
+
+    if (Mapper.canLoopList(specsLists) && specListID != null){
+
+      _specList = specsLists.singleWhere((list) => list.id == specListID, orElse: () => null);
+
+    }
+
+    return _specList;
+  }
+// -----------------------------------------------------------------------------
   static int getSpecsListIndexByID({@required List<SpecList> specsLists, @required String specsListID}){
     final int _index = specsLists.indexWhere((list) => list.id == specsListID);
     return _index;

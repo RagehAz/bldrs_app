@@ -5,6 +5,7 @@ import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/secondary_models/app_updates.dart';
 import 'package:bldrs/models/kw/kw.dart';
+import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -128,39 +129,45 @@ class KeywordsProvider extends ChangeNotifier{
 
   }
 // -----------------------------------------------------------------------------
-  String getIcon(dynamic son){
+  String getIcon({@required BuildContext context, @required dynamic son}){
     String _icon;
 
-    /// WHEN SON IS KEYWORD ID "never happens"
-    if (son.runtimeType == String){
-      _icon = 'assets/keywords/$son.jpg';
-      print('HEY : Im  a son, and im a keyword ID ${son}');
-    }
-    /// WHEN SON IS A KEYWORD
-    else if (son.runtimeType == KW){
-      final KW _keyword = son;
-      _icon = 'assets/keywords/${_keyword.id}.jpg';
-    }
-    /// WHEN SON IS A CHAIN
-    else if (son.runtimeType == Chain){
-      final Chain _chain = son;
+    tryAndCatch(
+        context: context,
+        methodName: 'get icon',
+        functions: (){
+          /// WHEN SON IS KEYWORD ID "never happens"
+          if (son.runtimeType == String){
+            _icon = 'assets/keywords/$son.jpg';
+            print('HEY : Im  a son, and im a keyword ID ${son}');
+          }
+          /// WHEN SON IS A KEYWORD
+          else if (son.runtimeType == KW){
+            final KW _keyword = son;
+            _icon = 'assets/keywords/${_keyword.id}.jpg';
+          }
+          /// WHEN SON IS A CHAIN
+          else if (son.runtimeType == Chain){
+            final Chain _chain = son;
 
-      if (_chain.icon == null){
-        // _icon = null;
-      }
-      else if (_chain.icon == 'id'){
-        _icon = 'assets/keywords/${_chain.id}.jpg';
-      }
-      else {
-        _icon = _chain.icon;
-      }
+            if (_chain.icon == null){
+              // _icon = null;
+            }
+            else if (_chain.icon == 'id'){
+              _icon = 'assets/keywords/${_chain.id}.jpg';
+            }
+            else {
+              _icon = _chain.icon;
+            }
 
-    }
-    /// HOWEVER
-    else {
-      // _keywordID = null;
-    }
+          }
+          /// HOWEVER
+          else {
+            // _keywordID = null;
+          }
 
+        }
+    );
 
     return _icon;
   }
