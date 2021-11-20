@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scrollers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
@@ -20,6 +21,7 @@ import 'package:bldrs/views/widgets/general/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/info_page_parts/review_bubble.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/info_page_parts/specs_bubble.dart';
 import 'package:bldrs/views/widgets/specific/keywords/keywords_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -212,8 +214,23 @@ class InfoPage extends StatelessWidget {
         //     users: _users,
         //   ),
 
+        /// SPECS
+        if ((Mapper.canLoopList(superFlyer.specs)) || _editMode == true)
+          SpecsBubble(
+            key: const ValueKey<String>('info_page_keywords_bubble'),
+            bubbleWidth: _bubbleWidth,
+            margins: _bubbleMargins,
+            corners: _keywordsBubbleCorners,
+            title: 'Flyer Specifications',
+            specs: superFlyer.specs,
+            selectedWords: null,
+            onTap: _editMode == true ? superFlyer.edit.onEditSpecsTap : null,
+            addButtonIsOn: superFlyer.edit.editMode,
+          ),
+
+
         /// KEYWORDS
-        if ((superFlyer.keywords != null && superFlyer.keywords.length != 0) || _editMode == true)
+        if ((Mapper.canLoopList(superFlyer.keywords)) || _editMode == true)
           KeywordsBubble(
             key: const ValueKey<String>('info_page_keywords_bubble'),
             bubbleWidth: _bubbleWidth,

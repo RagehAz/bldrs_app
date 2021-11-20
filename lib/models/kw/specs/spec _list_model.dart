@@ -1,7 +1,9 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
+import 'package:bldrs/models/kw/chain/chain_designs.dart';
 import 'package:bldrs/models/kw/specs/raw_specs.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
@@ -134,6 +136,26 @@ class SpecList{
     return _groups;
 }
 // -----------------------------------------------------------------------------
+  static List<SpecList> getSpecsListsByFlyerType(FlyerType flyerType){
+
+    final List<SpecList> _specList =
+        flyerType == FlyerType.property ? propertySpecLists
+            :
+        flyerType == FlyerType.design ? designSpecLists
+            :
+        flyerType == FlyerType.craft ? craftSpecLists
+            :
+        flyerType == FlyerType.project ? designSpecLists
+            :
+        flyerType == FlyerType.product ? productSpecLists
+            :
+        flyerType == FlyerType.equipment ? equipmentSpecLists
+            :
+        <SpecList>[];
+
+    return _specList;
+  }
+// -----------------------------------------------------------------------------
   static List<SpecList> propertySpecLists = <SpecList>[
     // ------------------------------------------------------------
     /// - MAIN SPECIFICATIONS
@@ -168,7 +190,7 @@ class SpecList{
     /// PROPERTY CONTRACT TYPE
     SpecList(
         id: 'propertyContractType',
-        groupID: 'Pricing Specifications',
+        groupID: 'Pricing',
         names: <Name>[Name(code: 'en', value: 'Property contract Type'), Name(code: 'ar', value: 'نوع التعاقد على الغقار')],
         canPickMany: false,
         isRequired: true,
@@ -183,7 +205,7 @@ class SpecList{
     /// PROPERTY PAYMENT METHOD
     SpecList(
         id: 'propertyPaymentMethod',
-        groupID: 'Pricing Specifications',
+        groupID: 'Pricing',
         names: RawSpecs.paymentMethod.names,
         canPickMany: false,
         isRequired: false,
@@ -196,7 +218,7 @@ class SpecList{
     /// PROPERTY SALE PRICE
     SpecList(
         id: 'PropertySalePrice',
-        groupID: 'Pricing Specifications',
+        groupID: 'Pricing',
         names: <Name>[Name(code: 'en', value: 'Property sale price'), Name(code: 'ar', value: 'سعر بيع العقار')],
         canPickMany: false,
         isRequired: false,
@@ -206,7 +228,7 @@ class SpecList{
     /// PROPERTY RENT PRICE
     SpecList(
         id: 'propertyRentPrice',
-        groupID: 'Pricing Specifications',
+        groupID: 'Pricing',
         names: <Name>[Name(code: 'en', value: 'Property rent price'), Name(code: 'ar', value: 'سعر إيجار العقار')],
         canPickMany: false,
         isRequired: false,
@@ -215,18 +237,21 @@ class SpecList{
     ),
     /// PROPERTY PRICE CURRENCY
     SpecList(
-        id: 'propertyPriceCurrency',
-        groupID: 'Pricing Specifications',
+        id: 'currency',
+        groupID: 'Pricing',
         names: RawSpecs.currency.names,
         canPickMany: false,
         isRequired: false,
         range: null,
         specChain: RawSpecs.currency
     ),
+    // ------------------------------------------------------------
+    /// - INSTALLMENTS
+    // ----------------------------
     /// PROPERTY NUMBER OF INSTALLMENTS
     SpecList(
         id: 'propertyNumberOfInstallments',
-        groupID: 'Pricing Specifications',
+        groupID: 'Installments',
         names: RawSpecs.numberOfInstallments.names,
         canPickMany: false,
         isRequired: false,
@@ -236,7 +261,7 @@ class SpecList{
     /// PROPERTY INSTALLMENTS DURATION
     SpecList(
         id: 'propertyInstallmentsDuration',
-        groupID: 'Pricing Specifications',
+        groupID: 'Installments',
         names: RawSpecs.installmentsDuration.names,
         canPickMany: false,
         isRequired: false,
@@ -246,7 +271,7 @@ class SpecList{
     /// PROPERTY INSTALLMENTS DURATION UNIT
     SpecList(
         id: 'propertyInstallmentsDurationUnit',
-        groupID: 'Pricing Specifications',
+        groupID: 'Installments',
         names: RawSpecs.installmentsDurationUnit.names,
         canPickMany: false,
         isRequired: false,
@@ -254,12 +279,12 @@ class SpecList{
         specChain: RawSpecs.installmentsDurationUnit
     ),
     // ------------------------------------------------------------
-    /// - PROPERTY AREA SPECIFICATIONS
+    /// - PROPERTY AREA
     // ----------------------------
     /// PROPERTY AREA
     SpecList(
         id: 'propertyArea',
-        groupID: 'Area Specifications',
+        groupID: 'Property Area',
         names: RawSpecs.propertyArea.names,
         canPickMany: false,
         isRequired: false,
@@ -269,17 +294,20 @@ class SpecList{
     /// PROPERTY AREA UNIT
     SpecList(
         id: 'propertyAreaUnit',
-        groupID: 'Area Specifications',
+        groupID: 'Property Area',
         names: RawSpecs.propertyAreaUnit.names,
         canPickMany: false,
         isRequired: false,
         range: null,
         specChain: RawSpecs.propertyAreaUnit
     ),
+    // ------------------------------------------------------------
+    /// - LOT AREA
+    // ----------------------------
     /// LOT AREA
     SpecList(
         id: 'lotArea',
-        groupID: 'Area Specifications',
+        groupID: 'Lot Area',
         names: RawSpecs.lotArea.names,
         canPickMany: false,
         isRequired: false,
@@ -289,7 +317,7 @@ class SpecList{
     /// LOT AREA UNIT
     SpecList(
         id: 'lotAreaUnit',
-        groupID: 'Area Specifications',
+        groupID: 'Lot Area',
         names: RawSpecs.lotAreaUnit.names,
         canPickMany: false,
         isRequired: false,
@@ -473,6 +501,39 @@ class SpecList{
 
   static List<SpecList> designSpecLists = <SpecList>[
     // ------------------------------------------------------------
+    /// - DESIGN SPECIFICATIONS
+    // ----------------------------
+    /// DESIGN TYPE
+    SpecList(
+        id: 'designType',
+        groupID: 'Design Specifications',
+        names: <Name>[Name(code: 'en', value: 'Design type'), Name(code: 'ar', value: 'نوع التصميم')],
+        canPickMany: true,
+        isRequired: true,
+        range: null,
+        specChain: ChainDesigns.chain
+    ),
+    /// DESIGN SPACES
+    SpecList(
+        id: 'designSpaces',
+        groupID: 'Design Specifications',
+        names: <Name>[Name(code: 'en', value: 'Design spaces'), Name(code: 'ar', value: 'فراغات التصميم')],
+        canPickMany: true,
+        isRequired: true,
+        range: null,
+        specChain: RawSpecs.propertySpaces
+    ),
+    /// DESIGN STYLE
+    SpecList(
+        id: 'designStyle',
+        groupID: 'Design Specifications',
+        names: RawSpecs.style.names,
+        canPickMany: true,
+        isRequired: false,
+        range: null,
+        specChain: RawSpecs.style
+    ),
+    // ------------------------------------------------------------
     /// - PROPERTY SPECIFICATIONS
     // ----------------------------
     /// PROPERTY FORM
@@ -495,46 +556,13 @@ class SpecList{
         range: null,
         specChain: RawSpecs.propertyLicense
     ),
-    /// PROPERTY SPACES
-    SpecList(
-        id: 'designSpaces',
-        groupID: 'Property Specifications',
-        names: <Name>[Name(code: 'en', value: 'Design spaces'), Name(code: 'ar', value: 'فراغات التصميم')],
-        canPickMany: true,
-        isRequired: true,
-        range: null,
-        specChain: RawSpecs.propertySpaces
-    ),
     // ------------------------------------------------------------
-    /// - STYLE SPECIFICATIONS
-    // ----------------------------
-    /// DESIGN STYLE
-    SpecList(
-        id: 'designStyle',
-        groupID: 'Styling',
-        names: RawSpecs.style.names,
-        canPickMany: true,
-        isRequired: false,
-        range: null,
-        specChain: RawSpecs.style
-    ),
-    /// DESIGN COLORS
-    SpecList(
-      id: 'designColors',
-      groupID: 'Styling',
-      names: RawSpecs.color.names,
-      canPickMany: true,
-      isRequired: false,
-      range: null,
-      specChain: RawSpecs.color,
-    ),
-    // ------------------------------------------------------------
-    /// - CONSTRUCTION SPECIFICATIONS
+    /// - CONSTRUCTION COST
     // ----------------------------
     /// PROJECT COST
     SpecList(
         id: 'projectCost',
-        groupID: 'Construction Specifications',
+        groupID: 'Construction Cost',
         names: <Name>[Name(code: 'en', value: 'Project cost'), Name(code: 'ar', value: 'تكلفة المشروع')],
         canPickMany: false,
         isRequired: false,
@@ -543,18 +571,21 @@ class SpecList{
     ),
     /// PROJECT COST CURRENCY
     SpecList(
-      id: 'projectCostCurrency',
-      groupID: 'Construction Specifications',
+      id: 'currency',
+      groupID: 'Construction Cost',
       names: <Name>[Name(code: 'en', value: 'Project cost currency'), Name(code: 'ar', value: 'عملة تكلفة المشروع')],
       canPickMany: false,
       isRequired: false,
       range: null,
       specChain: RawSpecs.currency,
     ),
+    // ------------------------------------------------------------
+    /// - CONSTRUCTION DURATION
+    // ----------------------------
     /// Construction DURATION
     SpecList(
       id: 'constructionDuration',
-      groupID: 'Construction Specifications',
+      groupID: 'Construction Duration',
       names: <Name>[Name(code: 'en', value: 'Project duration'), Name(code: 'ar', value: 'زمن تنفيذ المشروع')],
       canPickMany: false,
       isRequired: false,
@@ -564,27 +595,20 @@ class SpecList{
     /// Construction DURATION UNIT
     SpecList(
       id: 'constructionDurationUnit',
-      groupID: 'Construction Specifications',
+      groupID: 'Construction Duration',
       names: <Name>[Name(code: 'en', value: 'Project duration unit'), Name(code: 'ar', value: 'وحدة قياس زمن تنفيذ المشروع')],
       canPickMany: false,
       isRequired: false,
       range: ['day', 'week', 'month', 'year'],
-      specChain: RawSpecs.duration,
+      specChain: RawSpecs.durationUnit,
     ),
-    /// NUMBER OF CONSTRUCTION ACTIVITIES
-    SpecList(
-        id: 'numberOfConstructionActivities',
-        groupID: 'Construction Specifications',
-        names: <Name>[Name(code: 'en', value: 'Number of construction activities'), Name(code: 'ar', value: 'عدد بنود التنفيذ الإنشائية')],
-        canPickMany: false,
-        isRequired: false,
-        range: null,
-        specChain: RawSpecs.count
-    ),
+    // ------------------------------------------------------------
+    /// - CONSTRUCTION ACTIVITIES
+    // ----------------------------
     /// CONSTRUCTION ACTIVITIES
     SpecList(
       id: 'constructionActivities',
-      groupID: 'Construction Specifications',
+      groupID: 'Construction Activities',
       names: RawSpecs.constructionActivities.names,
       canPickMany: true,
       isRequired: false,
@@ -592,12 +616,12 @@ class SpecList{
       specChain: RawSpecs.constructionActivities,
     ),
     // ------------------------------------------------------------
-    /// - PROPERTY AREA SPECIFICATIONS
+    /// - PROPERTY AREA
     // ----------------------------
     /// PROPERTY AREA
     SpecList(
         id: 'propertyArea',
-        groupID: 'Area Specifications',
+        groupID: 'Property Area',
         names: RawSpecs.propertyArea.names,
         canPickMany: false,
         isRequired: false,
@@ -607,17 +631,20 @@ class SpecList{
     /// PROPERTY AREA UNIT
     SpecList(
         id: 'propertyAreaUnit',
-        groupID: 'Area Specifications',
+        groupID: 'Property Area',
         names: RawSpecs.propertyAreaUnit.names,
         canPickMany: false,
         isRequired: false,
         range: null,
         specChain: RawSpecs.propertyAreaUnit
     ),
+    // ------------------------------------------------------------
+    /// - PROPERTY AREA
+    // ----------------------------
     /// LOT AREA
     SpecList(
         id: 'lotArea',
-        groupID: 'Area Specifications',
+        groupID: 'Lot Area',
         names: RawSpecs.lotArea.names,
         canPickMany: false,
         isRequired: false,
@@ -627,7 +654,7 @@ class SpecList{
     /// LOT AREA UNIT
     SpecList(
         id: 'lotAreaUnit',
-        groupID: 'Area Specifications',
+        groupID: 'Lot Area',
         names: RawSpecs.lotAreaUnit.names,
         canPickMany: false,
         isRequired: false,
@@ -650,7 +677,7 @@ class SpecList{
     ),
     /// CONSTRUCTION ACTIVITY PRICE CURRENCY
     SpecList(
-      id: 'projectCostCurrency',
+      id: 'currency',
       groupID: 'Cost',
       names: RawSpecs.currency.names,
       canPickMany: false,
