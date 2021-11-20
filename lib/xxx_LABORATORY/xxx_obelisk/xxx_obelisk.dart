@@ -111,7 +111,8 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           ObeliskButton('TEST LAB', Iconz.Flyer, TestLab()),
 
           ObeliskButton('Specs Selector', Iconz.Flyer, SpecsListsPickersScreen(
-            flyerType: FlyerType.property,
+            flyerType: FlyerType.design,
+            selectedSpecs: [],
           )),
 
           ObeliskButton('Google map Test screen', Iconz.Flyer, LocationsTestScreen()),

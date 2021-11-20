@@ -11,6 +11,7 @@ class FlyerEditor {
   final Function onZoneTap; // FlyerEditor
   final Function onEditInfoTap; // FlyerEditor
   final Function onEditKeywordsTap; // FlyerEditor
+  final Function onEditSpecsTap;
   final Function onShowAuthorTap; // FlyerEditor
   final Function onTriggerEditMode; // FlyerEditor
   final Function onPublishFlyer; // FlyerEditor
@@ -33,6 +34,7 @@ class FlyerEditor {
     @required this.onZoneTap,
     @required this.onEditInfoTap,
     @required this.onEditKeywordsTap,
+    @required this.onEditSpecsTap,
     @required this.onShowAuthorTap,
     @required this.onTriggerEditMode,
     @required this.onPublishFlyer,

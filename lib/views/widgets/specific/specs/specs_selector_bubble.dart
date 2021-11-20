@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
@@ -47,19 +48,19 @@ class SpecSelectorBubble extends StatelessWidget {
         alignment: Alignment.topCenter,
         child:
 
-       ListView(
+        ListView(
+          physics: const BouncingScrollPhysics(),
+          children: <Widget>[
 
-         children: <Widget>[
+            BldrsChain(
+              boxWidth: BldrsAppBar.width(context) - Ratioz.appBarMargin * 2,
+              chain: Chain.filterSpecListChainRange(specList),
+              onKeywordTap: (KW kw) => onSpecTap(kw),
+              selectedKeywordsIDs: KW.getKeywordsIDsFromSpecs(selectedSpecs),
+            ),
 
-           BldrsChain(
-             boxWidth: BldrsAppBar.width(context) - Ratioz.appBarMargin * 2,
-             chain: specList.specChain,
-             onKeywordTap: (KW kw) => onSpecTap(kw),
-             selectedKeywordsIDs: KW.getKeywordsIDsFromSpecs(selectedSpecs),
-           ),
-
-         ],
-       ),
+          ],
+        ),
 
         // ListView.builder(
         //     itemCount: specList.specChain.sons.length,
