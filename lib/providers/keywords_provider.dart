@@ -97,7 +97,7 @@ class KeywordsProvider extends ChangeNotifier{
 // -------------------------------------
   Future<void> getsetAllKeywords(BuildContext context) async {
 
-    List<KW> _keywords = await fetchAllKeywords(context: context);
+    final List<KW> _keywords = await fetchAllKeywords(context: context);
 
     _allKeywords = _keywords;
     notifyListeners();

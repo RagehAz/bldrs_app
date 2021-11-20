@@ -62,7 +62,7 @@ class ExpandingTile extends StatefulWidget {
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
   static const double cornersValue = Ratioz.appBarCorner;
   static const Color collapsedColor = Colorz.white10;
-  static const Color expandedColor = Colorz.blue80;
+  static const Color expandedColor = Colorz.white30;
 
   static BorderRadius borders(BuildContext context){
     return Borderers.superBorderAll(context, cornersValue);

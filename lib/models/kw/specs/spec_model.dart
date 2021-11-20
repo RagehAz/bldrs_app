@@ -434,11 +434,11 @@ class Spec {
     return _spec;
   }
 // -----------------------------------------------------------------------------
-  static List<Spec> getSpecsByListID({@required List<Spec> specsList, @required String specsListID}){
+  static List<Spec> getSpecsByListID({@required List<Spec> specs, @required String specsListID}){
     List<Spec> _result = [];
 
-    if (Mapper.canLoopList(specsList) == true && specsListID != null){
-      _result = specsList.where((spec) => spec.specsListID == specsListID,).toList();
+    if (Mapper.canLoopList(specs) == true && specsListID != null){
+      _result = specs.where((spec) => spec.specsListID == specsListID,).toList();
     }
 
     return _result;
