@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
@@ -33,6 +34,7 @@ class BldrsChain extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
+            if(Mapper.canLoopList(_allChains.sons))
             ...List.generate(_allChains.sons.length, (index){
 
                   dynamic son = _allChains.sons[index];

@@ -1,4 +1,5 @@
 import 'package:bldrs/models/kw/chain/chain.dart';
+import 'package:bldrs/models/kw/chain/chain_crafts.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/specs/data_creator.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
@@ -511,11 +512,11 @@ abstract class RawSpecs {
   //   sons: DataCreator.numberKeyboard,
   // );
 
-  static const Chain constructionActivities = const Chain(
+  static Chain constructionActivities = Chain(
     id: 'constructionActivities',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Project construction activities'), Name(code: 'ar', value: 'بنود تنفيذ المشروع')],
-    sons: null, /// TASK : getConstructionActivitiesChainFromCraftsKeywordsList();
+    sons: ChainCrafts.chain.sons,
   );
   static const Chain constructionActivityMeasurementMethod = const Chain(
     id: 'constructionActivityMeasurementMethod',

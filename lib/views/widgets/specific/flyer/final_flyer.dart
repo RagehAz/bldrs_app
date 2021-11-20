@@ -41,6 +41,7 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/flyer_maker_screen.dart';
 import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/keywords_picker_screen.dart';
+import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/specs_lists_pickers_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog_buttons.dart';
@@ -527,6 +528,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onZoneTap: () async {await _onChangeZone();},
         onAboutTap: () async {await _onMoreInfoTap();},
         onKeywordsTap: () async {await _onAddKeywords();},
+        onSpecsTap: () async {await _onAddSpecs();},
         onShowAuthorTap: _onShowAuthorTap,
         onTriggerEditMode: _onTriggerEditMode,
         onPublishFlyer: () async {await _onPublishFlyer();},
@@ -581,6 +583,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onZoneTap: () async {await _onChangeZone();},
       onAboutTap: () async {await _onMoreInfoTap();},
       onKeywordsTap: () async {await _onAddKeywords();},
+      onSpecsTap: () async {await _onAddSpecs();},
       onShowAuthorTap: _onShowAuthorTap,
       onTriggerEditMode: _onTriggerEditMode,
       onPublishFlyer: () async {await _onPublishFlyer();},
@@ -2194,6 +2197,27 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     //       );
     //     }
     // );
+  }
+
+  Future<void> _onAddSpecs() async {
+
+    final dynamic _result = await Nav.goToNewScreen(context,
+
+      SpecsListsPickersScreen(
+        flyerType:  _superFlyer.flyerType,
+        selectedSpecs: _superFlyer.specs,
+      )
+
+    );
+
+    /// when user selected some keywords
+    if (_result != null){
+      setState(() {
+        _superFlyer.specs = _result;
+      });
+    }
+
+
   }
 // -----------------------------------------------------o
 //   Future<void>_selectOnMap() async {

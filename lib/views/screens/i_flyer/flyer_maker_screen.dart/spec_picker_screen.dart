@@ -125,7 +125,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 // -----------------------------------------------------------------------------
   void _onCurrencyChanged(CurrencyModel currency){
 
-    final Spec _currencySpec = Spec(specsListID: 'propertyPriceCurrency', value: currency.code);
+    final Spec _currencySpec = Spec(specsListID: 'currency', value: currency.code);
 
     final List<Spec> _updatedList = Spec.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
@@ -258,7 +258,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
                     SpecSelectorBubble(
                       bubbleHeight: _listZoneHeight,
                       specList: widget.specList,
-                      selectedSpecs: value,
+                      selectedSpecs: Spec.getSpecsByListID(specs: value, specsListID: widget.specList.id),
                       onSpecTap: (KW kw) => _onSpecTap(context, kw),
                     );
 
@@ -271,7 +271,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
                 valueListenable: _selectedSpecs,
                 builder: (ctx, value, child){
 
-                  final List<Spec> _priceSpec = Spec.getSpecsByListID(specsList: value, specsListID: widget.specList.id);
+                  final List<Spec> _priceSpec = Spec.getSpecsByListID(specs: value, specsListID: widget.specList.id);
 
                   final double _initialPriceValue = Mapper.canLoopList(_priceSpec) ? _priceSpec[0].value : null;
 

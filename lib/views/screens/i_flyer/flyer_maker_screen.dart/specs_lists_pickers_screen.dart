@@ -21,9 +21,11 @@ import 'package:flutter/material.dart';
 
 class SpecsListsPickersScreen extends StatefulWidget {
   final FlyerType flyerType;
+  final List<Spec> selectedSpecs;
 
   SpecsListsPickersScreen({
     @required this.flyerType,
+    @required this.selectedSpecs,
 });
 
   @override
@@ -35,7 +37,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
   List<Spec> _allSelectedSpecs;
 
   ScrollController _scrollController;
-  AnimationController _animationController;
+  // AnimationController _animationController;
 
   List<SpecList> _sourceSpecsLists = [];
   List<SpecList> _refinedSpecsLists = [];
@@ -71,13 +73,13 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
   void initState() {
     _scrollController = new ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
 
-    _animationController = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-    );
+    // _animationController = AnimationController(
+    //   duration: const Duration(seconds: 1),
+    //   vsync: this,
+    // );
 
-    _sourceSpecsLists = SpecList.propertySpecLists;
-    _allSelectedSpecs = <Spec>[];
+    _sourceSpecsLists = SpecList.getSpecsListsByFlyerType(widget.flyerType);
+    _allSelectedSpecs = widget.selectedSpecs;
     _refinedSpecsLists = SpecList.generateRefinedSpecsLists(sourceSpecsLists: _sourceSpecsLists, selectedSpecs: _allSelectedSpecs);
     _groupsIDs = SpecList.getGroupsFromSpecsLists(specsLists: _sourceSpecsLists);
 
@@ -108,7 +110,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    _animationController.dispose();
+    // _animationController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -142,7 +144,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
 // -----------------------------------------------------------------------------
   Future<void> _goToSpecPickerScreen(SpecList specList) async {
 
-    final dynamic _result = await Nav.goToNewScreen(context,
+    final List<Spec> _result = await Nav.goToNewScreen(context,
       SpecPickerScreen(
         specList: specList,
         allSelectedSpecs: _allSelectedSpecs,
@@ -150,7 +152,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
       transitionType: Nav.superHorizontalTransition(context),
     );
 
-    print('result is ${_result}');
+    Spec.printSpecs(_result);
 
     _updateSpecsListsAndGroups(
       specList: specList,
@@ -307,7 +309,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
 
                                         final SpecList _specList = _listsOfThisGroup[index];
                                         final List<Spec> _selectedSpecs = Spec.getSpecsByListID(
-                                          specsList: _allSelectedSpecs,
+                                          specs: _allSelectedSpecs,
                                           specsListID: _specList.id,
                                         );
 
