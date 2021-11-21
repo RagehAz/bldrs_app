@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class ReviewUserLabel extends StatelessWidget {

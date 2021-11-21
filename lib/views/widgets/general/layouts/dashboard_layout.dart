@@ -1,10 +1,11 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class DashBoardLayout extends StatelessWidget {
@@ -36,7 +37,7 @@ class DashBoardLayout extends StatelessWidget {
       appBarType: AppBarType.Basic,
       pageTitle: pageTitle,
       // appBarBackButton: true,
-      sky: Sky.Night,
+      skyType: SkyType.Night,
       loading: loading,
       appBarRowWidgets: <Widget>[
 

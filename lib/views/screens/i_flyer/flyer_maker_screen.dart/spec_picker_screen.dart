@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -12,7 +11,8 @@ import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/currency_model.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/specs/double_data_creator.dart';
 import 'package:bldrs/views/widgets/specific/specs/integer_data_creator.dart';
@@ -220,7 +220,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
     return MainLayout(
       appBarType: AppBarType.Basic,
       // appBarBackButton: true,
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       pageTitle: Name.getNameByCurrentLingoFromNames(context, widget.specList.names),
       pyramids: Iconz.PyramidzYellow,
       onBack: _onBack,

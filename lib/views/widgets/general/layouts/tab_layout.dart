@@ -3,8 +3,9 @@ import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class TabModel{
@@ -69,7 +70,7 @@ class TabLayout extends StatelessWidget {
 
     return MainLayout(
       appBarType: AppBarType.Basic,
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       pageTitle: pageTitle,
       pyramids: Iconz.DvBlankSVG,
       onBack: selectionMode == false ? null : () async {await Nav.goBack(context, argument: selectedItems);},

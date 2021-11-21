@@ -11,7 +11,8 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ class AddAuthorScreen extends StatelessWidget {
 
 
     return MainLayout(
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       pageTitle: 'Add new Author',
       pyramids: Iconz.PyramidzYellow,
       // appBarBackButton: true,

@@ -7,7 +7,8 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -162,7 +163,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
       },
       sectionButtonIsOn: false,
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       layoutWidget: Stack(
         children: <Widget>[
 

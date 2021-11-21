@@ -6,7 +6,7 @@ import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart' show Expander;
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart' show Expander;
 
 class TileBubble extends StatelessWidget {
   final String verse;

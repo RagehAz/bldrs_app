@@ -13,7 +13,7 @@ import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/appbar/search_bar.dart';
 import 'package:bldrs/views/widgets/general/buttons/flagbox_button.dart';
 import 'package:bldrs/views/widgets/general/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/textings/data_strip.dart';
 import 'package:bldrs/xxx_LABORATORY/google_maps/google_map_screen.dart';

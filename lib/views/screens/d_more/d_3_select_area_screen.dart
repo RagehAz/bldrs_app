@@ -9,7 +9,7 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/layouts/list_layout.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart' show Sky;
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +39,7 @@ class SelectAreaScreen extends StatelessWidget {
       mapModels: _districtsMapModel,
       pageIcon: null,
       pageIconVerse: _cityName,
-      sky: Sky.Black,
+      sky: SkyType.Black,
       onItemTap: (districtID) async {
         print('districtID is $districtID');
 

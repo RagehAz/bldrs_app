@@ -5,7 +5,7 @@ import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_bubble.dart';
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_button.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:flutter/material.dart';
 

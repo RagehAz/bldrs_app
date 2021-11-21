@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class TestingLayout extends StatelessWidget {
@@ -7,7 +7,7 @@ class TestingLayout extends StatelessWidget {
   final String screenTitle;
   final String appbarButtonVerse;
   final Function appbarButtonOnTap;
-  final Key scaffoldKey;
+  // final Key scaffoldKey;
   final bool scrollable;
 
   const TestingLayout({
@@ -16,7 +16,7 @@ class TestingLayout extends StatelessWidget {
     @required this.appbarButtonVerse,
     @required this.appbarButtonOnTap,
     this.scrollable = false,
-    this.scaffoldKey,
+    // this.scaffoldKey,
   });
 
   @override
@@ -26,7 +26,7 @@ class TestingLayout extends StatelessWidget {
       appBarType: AppBarType.Basic,
       pyramids: Iconz.DvBlankSVG,
       pageTitle: screenTitle,
-      scaffoldKey: scaffoldKey,
+      // scaffoldKey: scaffoldKey,
 
       // loading: _loading,
       appBarRowWidgets: <Widget>[

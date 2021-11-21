@@ -1,11 +1,10 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/textings/data_strip.dart';
-import 'package:bldrs/views/widgets/specific/keywords/keyword_button.dart';
 import 'package:flutter/material.dart';
 
 class SpecsBubble extends StatelessWidget {
@@ -49,6 +48,7 @@ class SpecsBubble extends StatelessWidget {
       bubbleColor: bubbleColor,
       margins: margins,
       corners: corners,
+      actionBtIcon: Iconz.Gears,
       title: title,
       width: bubbleWidth,
       bubbleOnTap: passKeywordOnTap == true ? null : onTap,
@@ -60,19 +60,17 @@ class SpecsBubble extends StatelessWidget {
               specs?.length,
                   (index){
 
-                Spec _spec = specs[index];
+                final Spec _spec = specs[index];
 
                 return
                   DataStrip(dataKey: _spec.specsListID, dataValue: _spec.value);
               }
           ),
 
-
         // if(Mapper.canLoopList(specs) && addButtonIsOn == true)
         //   AddKeywordsButton(
         //     onTap: passKeywordOnTap == true ? null : onTap,
         //   ),
-
 
         Container(
           height: _bottomPadding,

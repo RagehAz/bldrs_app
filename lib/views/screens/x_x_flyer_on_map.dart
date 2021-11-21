@@ -6,7 +6,8 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -156,7 +157,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     final double _screenHeight = Scale.superScreenHeight(context);
 
     return MainLayout(
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       pyramids: Iconz.DvBlankSVG,
       // tappingRageh: getUserLocation,
       layoutWidget:

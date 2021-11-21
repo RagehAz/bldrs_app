@@ -1,9 +1,8 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/localization/lingo.dart';
-import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
+import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
-import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:flutter/cupertino.dart';
 
 class KW {

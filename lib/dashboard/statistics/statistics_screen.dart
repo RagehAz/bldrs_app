@@ -6,7 +6,8 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart';
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_counter.dart';
@@ -21,7 +22,7 @@ class GeneralStatistics extends StatelessWidget {
     return MainLayout(
       pyramids: Iconz.PyramidsYellow,
       appBarType: AppBarType.Basic,
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       pageTitle: Wordz.allahoAkbar(context),
       appBarRowWidgets: const <Widget>[
 

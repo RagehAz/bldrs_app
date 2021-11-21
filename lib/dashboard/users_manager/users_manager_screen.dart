@@ -8,7 +8,8 @@ import 'package:bldrs/db/fire/methods/firestore.dart';
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -125,7 +126,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
       pageTitle: 'Users Manager',
       appBarType: AppBarType.Basic,
       pyramids: Iconz.DvBlankSVG,
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       appBarRowWidgets: <Widget>[
 
         const Expander(),

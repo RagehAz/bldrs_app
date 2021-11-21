@@ -1,5 +1,6 @@
 import 'package:bldrs/db/fire/methods/dynamic_links.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/layouts/walls/home_wall.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
@@ -74,8 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return WillPopScope(
       onWillPop: () => Future.value(false),
       child: MainLayout(
+        key: const ValueKey('mainLayout'),
         appBarType: AppBarType.Main,
-        sky: Sky.Night,
+        skyType: SkyType.Night,
         canRefreshFlyers: false,
         // tappingRageh: () async {
         //   await Nav.goToNewScreen(context, QuestionScreen());
