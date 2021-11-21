@@ -24,8 +24,8 @@ import 'package:bldrs/views/widgets/general/artworks/blur_layer.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart' show Sky;
 import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/bar_button.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/bzz_button.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -41,14 +41,15 @@ enum BarType{
 
 class NavBar extends StatelessWidget {
   final BarType barType;
-  final Sky sky;
-  final List<BzModel> myBzz;
+  final SkyType sky;
+  // final List<BzModel> myBzz;
 
   NavBar({
     this.barType = _standardBarType,
-    this.sky = Sky.Night,
-    this.myBzz,
-});
+    this.sky = SkyType.Night,
+    // this.myBzz,
+    Key key
+}) : super (key: key);
 // -----------------------------------------------------------------------------
   /// --- MAIN CONTROLS
   static const double _circleWidth = Ratioz.appBarButtonSize;
@@ -172,7 +173,7 @@ class NavBar extends StatelessWidget {
     return _bottomOffset;
   }
 
-  double _myBzzListSlideHeight(BuildContext context){
+  double _myBzzListSlideHeight(BuildContext context, List<BzModel> myBzz){
     final double _wantedHeight = (Scale.superScreenWidth(context) * 0.3 * myBzz.length);
     final double _maxHeight = Scale.superScreenHeight(context) * 0.5;
     double _finalHeight;
@@ -184,9 +185,9 @@ class NavBar extends StatelessWidget {
     return _finalHeight;
   }
 // -----------------------------------------------------------------------------
-  Future<void> _multiBzzSlider(BuildContext context, UserModel userModel) async {
+  Future<void> _multiBzzSlider(BuildContext context, UserModel userModel, List<BzModel> myBzz) async {
 
-    final double _sliderHeight = _myBzzListSlideHeight(context);
+    final double _sliderHeight = _myBzzListSlideHeight(context, myBzz);
     // double _sliderHeightRatio = _sliderHeight / Scale.superScreenHeight(context);
     final double _bzButtonWidth = Scale.superScreenWidth(context) - BottomDialog.draggerZoneHeight(draggable: true) * 2;
 
@@ -274,6 +275,8 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: true);
     final UserModel _myUserModel = _usersProvider.myUserModel;
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
+    final List<BzModel> _myBzz = _bzzProvider.myBzz;
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     const double _buttonCircleCorner = buttonCircleCorner;
@@ -293,7 +296,7 @@ class NavBar extends StatelessWidget {
 
     final double _boxWidth = navBarWidth(context: context, userModel: _myUserModel);
 
-    final List<String> _userBzzIDs = BzModel.getBzzIDsFromBzz(myBzz);
+    final List<String> _userBzzIDs = BzModel.getBzzIDsFromBzz(_myBzz);
 
     // List<dynamic> _followedBzzIDs = _myUserModel != null ? _myUserModel?.followedBzzIDs : [];
     // String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
@@ -303,6 +306,7 @@ class NavBar extends StatelessWidget {
     return
 
       Positioned(
+        key: key,
         bottom: _bottomOffset,
         child: Container(
           width: _screenWidth,
@@ -316,7 +320,7 @@ class NavBar extends StatelessWidget {
                 DreamBox(
                   height: _circleWidth,
                   width: _circleWidth,
-                  color: sky == Sky.Black ? Colorz.yellow50 : Colorz.white20,
+                  color: sky == SkyType.Black ? Colorz.yellow50 : Colorz.white20,
                   corners: _buttonCircleCorner,
                   margins: const EdgeInsets.all(Ratioz.appBarPadding),
                   icon: Iconizer.superBackIcon(context),
@@ -395,10 +399,10 @@ class NavBar extends StatelessWidget {
                               if (_userBzzIDs.length == 1){
                                 Nav.goToNewScreen(context, MyBzScreen(
                                   userModel: _myUserModel,
-                                  bzModel: myBzz[0],
+                                  bzModel: _myBzz[0],
                                 ));
                               } else {
-                                _multiBzzSlider(context, _myUserModel);
+                                _multiBzzSlider(context, _myUserModel, _myBzz);
                               }
 
 

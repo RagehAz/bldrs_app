@@ -1,7 +1,8 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class KeywordsManager extends StatefulWidget {
@@ -34,7 +35,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
       pageTitle: 'All Keywords',
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidsYellow,
-      sky: Sky.Night,
+      skyType: SkyType.Night,
       layoutWidget: Container(
         width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2, // this dictates overall width
         // child: Scrollbar(

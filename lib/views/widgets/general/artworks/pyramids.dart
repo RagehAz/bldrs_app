@@ -5,14 +5,13 @@ import 'package:websafe_svg/websafe_svg.dart';
 
 class Pyramids extends StatefulWidget {
   final String pyramidsIcon;
-  final Function onDoubleTap;
   final bool loading;
 
   const Pyramids({
     @required this.pyramidsIcon,
-    this.onDoubleTap,
     @required this.loading,
-  });
+    Key key,
+  }) : super (key : key);
 
   @override
   _PyramidsState createState() => _PyramidsState();
@@ -52,6 +51,7 @@ static const int _fadeCycleDuration = 750;
     // final _user = Provider.of<UserModel>(context);
 
     return Positioned(
+      key: widget.key,
       bottom: 0,
       right: 0,
       child: Container(
@@ -62,7 +62,8 @@ static const int _fadeCycleDuration = 750;
         // alignment: Alignment.bottomRight,
 
         child: GestureDetector(
-          onDoubleTap: widget.onDoubleTap,
+
+          /// TASK : REMOVE THIS ON RELEASE
           onLongPress: () {
             Navigator.pushNamed(context, Routez.Obelisk);
           },

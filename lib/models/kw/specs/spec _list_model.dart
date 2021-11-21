@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
@@ -191,7 +190,7 @@ class SpecList{
     SpecList(
         id: 'propertyContractType',
         groupID: 'Pricing',
-        names: <Name>[Name(code: 'en', value: 'Property contract Type'), Name(code: 'ar', value: 'نوع التعاقد على الغقار')],
+        names: const <Name>[Name(code: 'en', value: 'Property contract Type'), Name(code: 'ar', value: 'نوع التعاقد على الغقار')],
         canPickMany: false,
         isRequired: true,
         deactivators: [
@@ -219,7 +218,7 @@ class SpecList{
     SpecList(
         id: 'PropertySalePrice',
         groupID: 'Pricing',
-        names: <Name>[Name(code: 'en', value: 'Property sale price'), Name(code: 'ar', value: 'سعر بيع العقار')],
+        names: const <Name>[Name(code: 'en', value: 'Property sale price'), Name(code: 'ar', value: 'سعر بيع العقار')],
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -229,7 +228,7 @@ class SpecList{
     SpecList(
         id: 'propertyRentPrice',
         groupID: 'Pricing',
-        names: <Name>[Name(code: 'en', value: 'Property rent price'), Name(code: 'ar', value: 'سعر إيجار العقار')],
+        names: const <Name>[Name(code: 'en', value: 'Property rent price'), Name(code: 'ar', value: 'سعر إيجار العقار')],
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -414,7 +413,7 @@ class SpecList{
     SpecList(
       id: 'propertyDecorationStyle',
       groupID: 'Property Features',
-      names: <Name>[Name(code: 'en', value: 'Property decoration style'), Name(code: 'ar', value: 'الطراز التصميمي لديكور العقار')],
+      names: const <Name>[Name(code: 'en', value: 'Property decoration style'), Name(code: 'ar', value: 'الطراز التصميمي لديكور العقار')],
       canPickMany: false,
       isRequired: false,
       range: null,
@@ -507,7 +506,7 @@ class SpecList{
     SpecList(
         id: 'designType',
         groupID: 'Design Specifications',
-        names: <Name>[Name(code: 'en', value: 'Design type'), Name(code: 'ar', value: 'نوع التصميم')],
+        names: const <Name>[Name(code: 'en', value: 'Design type'), Name(code: 'ar', value: 'نوع التصميم')],
         canPickMany: true,
         isRequired: true,
         range: null,
@@ -517,7 +516,7 @@ class SpecList{
     SpecList(
         id: 'designSpaces',
         groupID: 'Design Specifications',
-        names: <Name>[Name(code: 'en', value: 'Design spaces'), Name(code: 'ar', value: 'فراغات التصميم')],
+        names: const <Name>[Name(code: 'en', value: 'Design spaces'), Name(code: 'ar', value: 'فراغات التصميم')],
         canPickMany: true,
         isRequired: true,
         range: null,
@@ -563,7 +562,7 @@ class SpecList{
     SpecList(
         id: 'projectCost',
         groupID: 'Construction Cost',
-        names: <Name>[Name(code: 'en', value: 'Project cost'), Name(code: 'ar', value: 'تكلفة المشروع')],
+        names: const <Name>[Name(code: 'en', value: 'Project cost'), Name(code: 'ar', value: 'تكلفة المشروع')],
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -573,7 +572,7 @@ class SpecList{
     SpecList(
       id: 'currency',
       groupID: 'Construction Cost',
-      names: <Name>[Name(code: 'en', value: 'Project cost currency'), Name(code: 'ar', value: 'عملة تكلفة المشروع')],
+      names: const <Name>[Name(code: 'en', value: 'Project cost currency'), Name(code: 'ar', value: 'عملة تكلفة المشروع')],
       canPickMany: false,
       isRequired: false,
       range: null,
@@ -586,7 +585,7 @@ class SpecList{
     SpecList(
       id: 'constructionDuration',
       groupID: 'Construction Duration',
-      names: <Name>[Name(code: 'en', value: 'Project duration'), Name(code: 'ar', value: 'زمن تنفيذ المشروع')],
+      names: const <Name>[Name(code: 'en', value: 'Project duration'), Name(code: 'ar', value: 'زمن تنفيذ المشروع')],
       canPickMany: false,
       isRequired: false,
       range: null,
@@ -596,7 +595,7 @@ class SpecList{
     SpecList(
       id: 'constructionDurationUnit',
       groupID: 'Construction Duration',
-      names: <Name>[Name(code: 'en', value: 'Project duration unit'), Name(code: 'ar', value: 'وحدة قياس زمن تنفيذ المشروع')],
+      names: const <Name>[Name(code: 'en', value: 'Project duration unit'), Name(code: 'ar', value: 'وحدة قياس زمن تنفيذ المشروع')],
       canPickMany: false,
       isRequired: false,
       range: ['day', 'week', 'month', 'year'],

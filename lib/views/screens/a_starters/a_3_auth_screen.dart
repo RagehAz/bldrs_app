@@ -1,7 +1,8 @@
 import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/specific/auth/register_form.dart';
 import 'package:bldrs/views/widgets/specific/auth/signin_form.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -54,7 +55,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       appBarType: AppBarType.Non,
       layoutWidget: Stack(
         children: <Widget>[

@@ -11,8 +11,9 @@ import 'package:bldrs/views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/specific/keywords/keywords_bubble.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class CountryEditorScreen extends StatefulWidget {
@@ -99,7 +100,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     final String _countryName = Name.getNameByCurrentLingoFromNames(context, widget.country.names);
 
     return MainLayout(
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       pyramids: Iconz.PyramidzYellow,
       loading: _loading,
       appBarType: AppBarType.Scrollable,

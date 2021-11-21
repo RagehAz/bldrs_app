@@ -8,7 +8,8 @@ import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/providers/streamers/questions_streamer.dart';
 import 'package:bldrs/views/widgets/general/bubbles/chat_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/chat/chat_model.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/chat/chat_ops.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/chat/message_model.dart';
@@ -100,7 +101,7 @@ class _ChatScreenState extends State<ChatScreen> {
       appBarType: AppBarType.Basic,
       pageTitle: 'Chat Screen',
       pyramids: Iconz.DvBlankSVG,
-      sky: Sky.Night,
+      skyType: SkyType.Night,
       appBarRowWidgets: const <Widget>[const BackButton(),],
       layoutWidget: chatStreamBuilder(
           context: context,

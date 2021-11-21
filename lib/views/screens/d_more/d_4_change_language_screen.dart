@@ -1,10 +1,10 @@
-import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/localization/lingo.dart';
+import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/secondary_models/map_model.dart';
 import 'package:bldrs/views/widgets/general/layouts/list_layout.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class SelectLanguageScreen extends StatelessWidget {
@@ -28,7 +28,7 @@ class SelectLanguageScreen extends StatelessWidget {
       mapModels: _languageMaps,
       pageIcon: null,
       pageIconVerse: null,
-      sky: Sky.Black,
+      sky: SkyType.Black,
       onItemTap: (value) => _tapLanguage(context, value),
     );
 

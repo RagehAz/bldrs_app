@@ -1,6 +1,6 @@
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 
 class TempClass{

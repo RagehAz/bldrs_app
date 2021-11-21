@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -8,7 +9,7 @@ import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/views/screens/f_bz/f_2_deactivated_flyers_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/tab_button.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/gallery.dart';
@@ -75,7 +76,7 @@ class BzFlyersTab extends StatelessWidget {
             actionBtFunction: () => _showOldFlyersOnTap(context, bzModel),
             columnChildren: <Widget>[
 
-              if (flyers != null && flyers.length !=0)
+              if (Mapper.canLoopList(flyers))
               Gallery(
                 galleryBoxWidth: Bubble.clearWidth(context),
                 superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(

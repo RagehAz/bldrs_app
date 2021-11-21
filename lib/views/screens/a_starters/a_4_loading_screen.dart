@@ -16,7 +16,7 @@ import 'package:bldrs/providers/keywords_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bzz_bubble.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -158,6 +158,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     print('-------------- Starting Loading screen --------------');
 
     return MainLayout(
+      key: const ValueKey('mainLayout'),
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Non,
       loading: _loading,

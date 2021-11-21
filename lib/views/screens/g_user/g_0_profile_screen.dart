@@ -18,8 +18,9 @@ import 'package:bldrs/views/widgets/general/bubbles/user_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -321,7 +322,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
       return MainLayout(
         appBarType: AppBarType.Basic,
-        sky: Sky.Black,
+        skyType: SkyType.Black,
         // appBarBackButton: true,
         pyramids: Iconz.PyramidzYellow,
         layoutWidget: MaxBounceNavigator(

@@ -7,7 +7,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart' show Expander;
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart' show Expander;
 import 'package:email_validator/email_validator.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';

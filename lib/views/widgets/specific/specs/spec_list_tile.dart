@@ -1,6 +1,5 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/iconizers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -42,8 +41,8 @@ class SpecListTile extends StatelessWidget {
   Widget build(BuildContext context) {
 
 // -----------------------------------------------------------------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
+//     final double _screenWidth = Scale.superScreenWidth(context);
+//     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
     double _specTileHeight = height();
     final double _specTileWidth = width(context);

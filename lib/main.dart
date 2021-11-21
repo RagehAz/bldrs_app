@@ -33,8 +33,7 @@ void main() async {
   // debugRepaintTextRainbowEnabled = false;
   // debugPaintLayerBordersEnabled = false;
   // debugRepaintRainbowEnabled = false;
-
-  // debugPrintLayouts = true;
+  debugPrintLayouts = true;
 
   /// insures awaiting async methods below to finish then continue
   WidgetsFlutterBinding.ensureInitialized();
@@ -252,7 +251,7 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
                 routes: {
                   Routez.FlyerScreen: (ctx) => FlyerScreen(),
                   // Routez.Starting: (ctx) => StartingScreen(),
-                  Routez.UserChecker: (ctx) => UserChecker(),
+                  Routez.UserChecker: (ctx) => UserChecker(key: const ValueKey('userChecker'),),
                   Routez.Home: (ctx) => HomeScreen(notiIsOn: _notiIsOn,),
                   // Routez.InPyramids: (ctx) => InPyramidsScreen(),
                 },

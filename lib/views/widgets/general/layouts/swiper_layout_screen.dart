@@ -3,7 +3,8 @@ import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
@@ -14,11 +15,11 @@ class SwiperLayoutScreen extends StatefulWidget {
   /// 'widget' : pageWidgetInsideFullScreenContainer
   /// }
   final List<Map<String, dynamic>> swiperPages;
-  final Sky sky;
+  final SkyType sky;
 
   const SwiperLayoutScreen({
     @required this. swiperPages,
-    this.sky = Sky.Night,
+    this.sky = SkyType.Night,
   });
 
   @override
@@ -54,7 +55,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
     final double _pageHeight = _screenHeight - Ratioz.stratosphere;
 
     return MainLayout(
-      sky: widget.sky,
+      skyType: widget.sky,
       appBarType: AppBarType.Basic,
       pageTitle: _title,
       pyramids: Iconz.DvBlankSVG,

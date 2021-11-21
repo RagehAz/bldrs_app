@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
@@ -11,9 +10,10 @@ import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/zone/currency_model.dart';
 import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/spec_picker_screen.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/specs/price_data_creator.dart';
 import 'package:bldrs/views/widgets/specific/specs/spec_list_tile.dart';
@@ -237,14 +237,14 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    const double _specTileHeight = 70;
-    final double _specTileWidth = _screenWidth - (Ratioz.appBarMargin * 2);
-    final BorderRadius _tileBorders = Borderers.superBorderAll(context, Ratioz.appBarCorner);
-    final double _specNameBoxWidth = _specTileWidth - (2 * _specTileHeight);
+//     const double _specTileHeight = 70;
+//     final double _specTileWidth = _screenWidth - (Ratioz.appBarMargin * 2);
+    // final BorderRadius _tileBorders = Borderers.superBorderAll(context, Ratioz.appBarCorner);
+    // final double _specNameBoxWidth = _specTileWidth - (2 * _specTileHeight);
 // -----------------------------------------------------------------------------
 
     return MainLayout(
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidzYellow,
       loading: _loading,

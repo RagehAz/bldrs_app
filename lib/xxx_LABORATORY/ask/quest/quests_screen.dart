@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/quest/quests_list.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/question/questions_provider.dart';

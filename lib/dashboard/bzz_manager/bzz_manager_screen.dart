@@ -13,8 +13,9 @@ import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/textings/data_strip.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
@@ -206,7 +207,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
         // appBarBackButton: true,
         loading: _loading,
         sectionButtonIsOn: false,
-        sky: Sky.Black,
+        skyType: SkyType.Black,
         searchController: _searchController,
         onSearchSubmit: (val) => _onSearchChanged(val),
         historyButtonIsOn: false,

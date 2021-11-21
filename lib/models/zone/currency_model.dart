@@ -1,6 +1,4 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/db/fire/methods/firestore.dart';
-import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/db/fire/ops/zone_ops.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:flutter/foundation.dart';
