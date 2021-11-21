@@ -1,19 +1,17 @@
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/notifications/noti_ops.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart';
-import 'package:bldrs/db/fire/ops/user_ops.dart';
 import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
-import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/specific/notifications/notification_card.dart';
 import 'package:flutter/material.dart';
 
@@ -127,7 +125,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       ],
       loading: _loading,
       pageTitle: 'News And Notifications',
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       pyramids: Iconz.PyramidzYellow,
       // tappingRageh: () async {
       //

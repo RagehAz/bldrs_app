@@ -6,8 +6,9 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/secondary_models/map_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class ListLayout extends StatelessWidget {
   final Function onItemTap;
   final String pageIcon;
   final String pageIconVerse;
-  final Sky sky;
+  final SkyType sky;
 
   const ListLayout({
     this.pageTitle,
@@ -29,7 +30,7 @@ class ListLayout extends StatelessWidget {
     this.onItemTap,
     this.pageIcon,
     this.pageIconVerse,
-    this.sky = Sky.Night,
+    this.sky = SkyType.Night,
 });
 
   @override
@@ -42,7 +43,7 @@ class ListLayout extends StatelessWidget {
     final double _bubbleHeight = _screenHeight - Ratioz.stratosphere - Ratioz.appBarSmallHeight - _verseHeight  - (Ratioz.appBarMargin * 4);
 // -----------------------------------------------------------------------------
     return MainLayout(
-      sky: sky,
+      skyType: sky,
       appBarType: AppBarType.Basic,
       pageTitle: pageTitle,
       pyramids: pyramids,

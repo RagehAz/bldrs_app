@@ -19,7 +19,7 @@ import 'package:bldrs/providers/keywords_provider.dart';
 import 'package:bldrs/views/widgets/general/appbar/search_bar.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_bubble.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/zebala/section_tile.dart';
 import 'package:flutter/material.dart';

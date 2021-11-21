@@ -10,7 +10,7 @@ import 'package:bldrs/views/screens/a_starters/a_4_loading_screen.dart';
 import 'package:bldrs/views/screens/g_user/g_x_user_editor_screen.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +19,10 @@ import 'package:provider/provider.dart';
 /// TASK : if device is offline
 /// and we get this value from database and to be controlled from dashboard
 class UserChecker extends StatefulWidget {
+
+  UserChecker({
+    Key key
+  }) : super (key: key);
 
   @override
   _UserCheckerState createState() => _UserCheckerState();
@@ -57,7 +61,6 @@ class _UserCheckerState extends State<UserChecker> {
   void initState() {
     super.initState();
   }
-
 // -----------------------------------------------------------------------------
   @override
   void didChangeDependencies() {
@@ -185,12 +188,16 @@ class _UserCheckerState extends State<UserChecker> {
     Tracer.traceWidgetBuild(widgetName: 'UserChecker', varName: 'userID', varValue: _userProvided?.id);
     return
 
-      MainLayout(
-        loading: _loading,
-        pyramids: Iconz.PyramidzYellow,
-        appBarType: AppBarType.Non,
-        layoutWidget: _logoIsShown  == true ? const Center(child: LogoSlogan(sizeFactor: 0.7)) : Container(),
+      Container(
+        key: widget.key,
+        child: MainLayout(
+          key: const ValueKey('mainLayout'),
+          loading: _loading,
+          pyramids: Iconz.PyramidzYellow,
+          appBarType: AppBarType.Non,
+          layoutWidget: _logoIsShown  == true ? const Center(child: LogoSlogan(sizeFactor: 0.7)) : Container(),
 
+        ),
       );
 
     // /// when the user is null after sign out, or did not auth yet

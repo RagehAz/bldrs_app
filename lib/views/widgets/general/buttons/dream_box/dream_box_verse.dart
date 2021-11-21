@@ -228,10 +228,8 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                           :
                       ObjectChecker.objectIsJPGorPNG(icon) ?
                       Container(
-                        width:
-                        _jpgGraphicWidth,
-                        height:
-                        _jpgGraphicWidth,
+                        width: _jpgGraphicWidth,
+                        height: _jpgGraphicWidth,
                         margin: EdgeInsets.all(iconMargin),
                         decoration: BoxDecoration(
                             borderRadius: iconCorners,
@@ -258,6 +256,15 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                               _jpgGraphicWidth,
                               decoration: BoxDecoration(
                                 image: DecorationImage(image: AssetImage(icon), fit: BoxFit.cover),
+                              ),
+                              child: Image.asset(
+                                icon,
+                                errorBuilder: (ctx, error, stackTrace){
+
+                                  print('error of image is : ${error}');
+
+                                  return  Container();
+                                },
                               ),
                             ),
                           ),),

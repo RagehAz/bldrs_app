@@ -3,7 +3,6 @@ import 'package:bldrs/models/kw/chain/chain_crafts.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/specs/data_creator.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
-import 'package:bldrs/models/zone/currency_model.dart';
 
 
 abstract class RawSpecs {
@@ -515,7 +514,7 @@ abstract class RawSpecs {
   static Chain constructionActivities = Chain(
     id: 'constructionActivities',
     icon: null,
-    names: <Name>[Name(code: 'en', value: 'Project construction activities'), Name(code: 'ar', value: 'بنود تنفيذ المشروع')],
+    names: const <Name>[Name(code: 'en', value: 'Project construction activities'), Name(code: 'ar', value: 'بنود تنفيذ المشروع')],
     sons: ChainCrafts.chain.sons,
   );
   static const Chain constructionActivityMeasurementMethod = const Chain(

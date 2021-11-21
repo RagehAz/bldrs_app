@@ -2,26 +2,16 @@ import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_mod.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
-import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
-import 'package:bldrs/models/zone/currency_model.dart';
-import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
-import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
-import 'package:bldrs/views/widgets/specific/specs/currency_button.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class IntegerDataCreator extends StatefulWidget {
   final ValueChanged<int> onIntegerChanged;

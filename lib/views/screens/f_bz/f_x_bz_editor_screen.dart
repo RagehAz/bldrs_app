@@ -26,7 +26,8 @@ import 'package:bldrs/views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -541,7 +542,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       loading: _loading,
       appBarType: AppBarType.Basic,
       pyramids: Iconz.PyramidzYellow,
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       pageTitle: widget.firstTimer == true ? Wordz.createBzAccount(context) : 'Edit Business account info', // createBzAccount
       // appBarBackButton: true,
       layoutWidget: Stack(

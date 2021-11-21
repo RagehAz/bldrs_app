@@ -13,7 +13,8 @@ import 'package:bldrs/views/screens/a_starters/a_3_auth_screen.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -124,7 +125,7 @@ class _StartingScreenState extends State<StartingScreen> {
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
-      sky: Sky.Night,
+      skyType: SkyType.Night,
       appBarType: AppBarType.Non,
       loading: _loading,
       // tappingRageh: (){

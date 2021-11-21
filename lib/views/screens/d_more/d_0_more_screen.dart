@@ -18,9 +18,10 @@ import 'package:bldrs/views/screens/f_bz/f_x_bz_editor_screen.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/general/bubbles/tile_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/flagbox_button.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +43,7 @@ class MoreScreen extends StatelessWidget {
     return MainLayout(
       appBarType: AppBarType.Basic,
       // appBarBackButton: true,
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       pageTitle: 'Options',
       pyramids: Iconz.PyramidzYellow,
       layoutWidget: MaxBounceNavigator(
