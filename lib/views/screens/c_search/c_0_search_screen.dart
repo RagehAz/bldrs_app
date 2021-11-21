@@ -17,7 +17,7 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/keywords_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:flutter/material.dart';

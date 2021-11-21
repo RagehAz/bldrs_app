@@ -91,7 +91,8 @@ class GalleryGrid extends StatelessWidget {
     final bool _viewerIsAuthor = _concludeUserIsAuthor();
 // -----------------------------------------------------------------------------
     final int _flyersLength = addButtonIsOn == true ? _gridFlyers.length + 1 : _gridFlyers.length;
-    final double _gridFlyerWidth = gridFlyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: _flyersLength);
+    /// TASK : THERE IS SOMETHING WRONG WITH THE BELOW -5 PIXELS !
+    final double _gridFlyerWidth = gridFlyerBoxWidth(gridZoneWidth: gridZoneWidth, flyersLength: _flyersLength) - 5;
     final double _gridSpacing = gridSpacing(gridZoneWidth: gridZoneWidth, flyersLength: _flyersLength);
 // -----------------------------------------------------------------------------
     final double _gridHeight = gridHeight(
@@ -115,11 +116,21 @@ class GalleryGrid extends StatelessWidget {
             addAutomaticKeepAlives: true,
             padding: EdgeInsets.only(right: _gridSpacing, left: _gridSpacing, top: _gridSpacing , bottom: _gridSpacing ),
             key: PageStorageKey<String>('gridFlyers_${bzID}'),//new Key(loadedFlyers[flyerIndex].f01flyerID),
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            gridDelegate:
+
+            // SliverGridDelegateWithMaxCrossAxisExtent(
+            //   crossAxisSpacing: _gridSpacing,
+            //   mainAxisSpacing: _gridSpacing,
+            //   childAspectRatio: 1 / (Ratioz.xxflyerZoneHeight),
+            //   maxCrossAxisExtent: _gridFlyerWidth,
+            // ),
+
+            SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: 1 / (Ratioz.xxflyerZoneHeight),
+              crossAxisCount: 2,
               crossAxisSpacing: _gridSpacing,
+              mainAxisExtent: _gridFlyerWidth * Ratioz.xxflyerZoneHeight,
               mainAxisSpacing: _gridSpacing,
-              childAspectRatio: 1 / Ratioz.xxflyerZoneHeight,
-              maxCrossAxisExtent: _gridFlyerWidth,
             ),
 
             children: <Widget>[

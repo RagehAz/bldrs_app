@@ -525,12 +525,13 @@ void main(){
 
     ];
 
-    dynamic thing = ['d', 'r'];
+    dynamic things = ['d', 'r'];
 
-    final bool isSpecs = ObjectChecker.objectIsListOfSpecs(thing);
+    final bool isThingsSpecs = ObjectChecker.objectIsListOfSpecs(things);
+    final bool isSpecs = ObjectChecker.objectIsListOfSpecs(specsA);
 
-    expect(isSpecs, false);
-
+    expect(isSpecs, true);
+    expect(isThingsSpecs, false);
   });
 // -----------------------------------------------------------------------------
   test("getNumberOfFractions", () async {

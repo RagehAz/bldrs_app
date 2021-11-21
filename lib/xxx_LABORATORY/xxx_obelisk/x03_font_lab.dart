@@ -10,7 +10,7 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/main.dart';
 import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/views/widgets/general/buttons/rageh_button.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
@@ -87,7 +87,7 @@ class _FontLabState extends State<FontLab> {
         body: Stack(
           children: <Widget>[
 
-            const NightSky(),
+            const Sky(),
 
             Scroller(
               child: ListView(

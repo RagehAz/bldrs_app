@@ -8,7 +8,8 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_grid.dart';
@@ -192,7 +193,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     print(_ids);
 
     return MainLayout(
-      sky: Sky.Black,
+      skyType: SkyType.Black,
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
       // appBarBackButton: true,

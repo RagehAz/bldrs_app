@@ -8,7 +8,7 @@ import 'package:bldrs/views/widgets/general/appbar/sections_button.dart';
 import 'package:bldrs/views/widgets/general/appbar/zone_button.dart';
 import 'package:bldrs/views/widgets/general/artworks/blur_layer.dart';
 import 'package:bldrs/views/widgets/general/buttons/back_anb_search_button.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,8 @@ class BldrsAppBar extends StatelessWidget {
     this.onSearchSubmit,
     this.historyButtonIsOn,
     this.onSearchChanged,
-  });
+    Key key
+  }) : super (key: key);
 // -----------------------------------------------------------------------------
   static double width(BuildContext context, {double boxWidth}){
 
@@ -108,6 +109,7 @@ class BldrsAppBar extends StatelessWidget {
     final double _titleHorizontalMargins = _backButtonIsOn == true ? 5 : 15;
 // -----------------------------------------------------------------------------
     return Column(
+      key: key,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[

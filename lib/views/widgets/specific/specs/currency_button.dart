@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -7,8 +5,6 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/currency_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/buttons/flagbox_button.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 

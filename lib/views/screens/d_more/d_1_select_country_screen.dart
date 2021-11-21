@@ -7,7 +7,7 @@ import 'package:bldrs/models/zone/continent_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/screens/d_more/d_2_select_city_screen.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/layouts/swiper_layout_screen.dart';
 import 'package:bldrs/views/widgets/specific/zone/zones_page.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +125,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
   Widget build(BuildContext context) {
 
     return SwiperLayoutScreen(
-      sky: Sky.Black,
+      sky: SkyType.Black,
       swiperPages: Mapper.canLoopList(_allContinents) ? _generatePages() : <Map<String, dynamic>>[{'title' : '...', 'widget' : Container()}],
     );
 

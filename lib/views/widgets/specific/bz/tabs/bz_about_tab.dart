@@ -7,7 +7,7 @@ import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/general/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/stats_line.dart';
 import 'package:bldrs/views/widgets/general/buttons/tab_button.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';
 import 'package:flutter/material.dart';
 
