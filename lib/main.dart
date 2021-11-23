@@ -33,7 +33,7 @@ void main() async {
   // debugRepaintTextRainbowEnabled = false;
   // debugPaintLayerBordersEnabled = false;
   // debugRepaintRainbowEnabled = false;
-  debugPrintLayouts = true;
+  // debugPrintLayouts = true;
 
   /// insures awaiting async methods below to finish then continue
   WidgetsFlutterBinding.ensureInitialized();

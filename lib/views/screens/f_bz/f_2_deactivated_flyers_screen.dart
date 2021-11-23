@@ -157,6 +157,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
       context: context,
       flyerModel: _getFlyerFromDeactivatedFlyersByFlyerID(flyerID: flyerModel.id),
       bzModel: widget.bz,
+      deleteFlyerIDFromBzzFlyersIDs: true,
     );
 
     final int _flyerIndex = _allFlyers.indexWhere((tFlyer) => tFlyer.id == flyerModel.id);

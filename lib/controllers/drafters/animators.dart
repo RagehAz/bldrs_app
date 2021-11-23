@@ -27,8 +27,9 @@ abstract class Animators{
     if( newIndex > oldIndex ){
       _swipeDirection = SwipeDirection.next;
     }
-    else if( newIndex < oldIndex)
+    else if( newIndex < oldIndex){
       _swipeDirection = SwipeDirection.back;
+    }
     else {
       _swipeDirection = SwipeDirection.freeze;
     }

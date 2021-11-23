@@ -60,11 +60,11 @@ class BzAppBar extends StatelessWidget {
           verse: '${bzModel.name}',
           verseCentered: false,
           bubble: false,
-          verseScaleFactor: 0.7,
+          verseScaleFactor: 0.65,
           color: Colorz.white20,
           secondLine: '${TextGen.bzTypeSingleStringer(context, bzModel.bzType)} $_zoneString',
           secondLineColor: Colorz.white200,
-          secondLineScaleFactor: 0.8,
+          secondLineScaleFactor: 0.7,
         ),
 
         const SizedBox(
