@@ -404,9 +404,10 @@ abstract class FireBzOps{
     // ----------
 
     print('1 - start delete flyer ops for all flyers');
-    final List<String> _flyersIDs = bzModel.flyersIDs;
-    if(Mapper.canLoopList(_flyersIDs)){
-      for (var id in _flyersIDs){
+    // final List<String> _flyersIDs = bzModel.flyersIDs;
+    if(Mapper.canLoopList(bzModel.flyersIDs)){
+
+      for (var id in bzModel.flyersIDs){
 
         print('a - getting flyer : $id');
         final FlyerModel _flyerModel = await FireFlyerOps.readFlyerOps(
@@ -419,9 +420,11 @@ abstract class FireBzOps{
           context: context,
           bzModel: bzModel,
           flyerModel: _flyerModel,
+          deleteFlyerIDFromBzzFlyersIDs: false,
         );
 
       }
+
     }
 
     print('3 - delete bzID : ${bzModel.id} in all author\'s myBzIDs lists');

@@ -452,10 +452,11 @@ class FireFlyerOps{
     @required BuildContext context,
     @required FlyerModel flyerModel,
     @required BzModel bzModel,
+    @required bool deleteFlyerIDFromBzzFlyersIDs,
   }) async {
     // steps ----------
-    /// A1 - remove nano flyer from bz nanoFlyers
-    /// A2 - update fireStore/bzz/bzID['nanoFlyers']
+    /// A1 - get flyers IDs of this bzModel
+    /// A2 - update fireStore/bzz/bzID['flyersIDs']
     /// D - delete fireStore/flyers/flyerID/views/(all sub docs)
     /// E - delete fireStore/flyers/flyerID/shares/(all sub docs)
     /// F - delete fireStore/flyers/flyerID/saves/(all sub docs)
@@ -464,88 +465,93 @@ class FireFlyerOps{
     /// I - delete firestore/flyers/flyerID
     // ----------
 
-    /// A1 - remove nano flyer from bz nanoFlyers
-    print('A1 - remove nano flyer from bz nanoFlyers');
-    final List<String> _bzFlyersIDs = bzModel.flyersIDs;
+    if (flyerModel != null && flyerModel.id != null && bzModel != null){
 
-    /// A2 - update fireStore/bzz/bzID['nanoFlyers']
-    if (Mapper.canLoopList(_bzFlyersIDs)){
+      /// A1 - get flyers IDs of this bzModel
+      print('A1 - get flyers IDs of this bzModel');
+      final List<String> _bzFlyersIDs = bzModel.flyersIDs;
 
-      _bzFlyersIDs.remove(flyerModel.id);
+      /// A2 - update fireStore/bzz/bzID['flyersIDs']
+      if (Mapper.canLoopList(_bzFlyersIDs) && deleteFlyerIDFromBzzFlyersIDs == true){
 
-      await Fire.updateDocField(
+        _bzFlyersIDs.remove(flyerModel.id);
+
+        await Fire.updateDocField(
+          context: context,
+          collName: FireColl.bzz,
+          docName: bzModel.id,
+          field: 'flyersIDs',
+          input: _bzFlyersIDs,
+        );
+      }
+
+
+      /// D - delete fireStore/flyers/flyerID/views/(all sub docs)
+      print('D - delete flyer views sub docs');
+      await Fire.deleteAllSubDocs(
         context: context,
-        collName: FireColl.bzz,
-        docName: bzModel.id,
-        field: 'flyersIDs',
-        input: _bzFlyersIDs,
+        collName: FireColl.flyers,
+        docName: flyerModel.id,
+        subCollName: FireSubColl.flyers_flyer_views,
       );
-    }
 
+      /// E - delete fireStore/flyers/flyerID/shares/(all sub docs)
+      print('E - delete shares sub docs');
+      await Fire.deleteAllSubDocs(
+        context: context,
+        collName: FireColl.flyers,
+        docName: flyerModel.id,
+        subCollName: FireSubColl.flyers_flyer_shares,
+      );
 
-    /// D - delete fireStore/flyers/flyerID/views/(all sub docs)
-    print('D - delete flyer views sub docs');
-    await Fire.deleteAllSubDocs(
-      context: context,
-      collName: FireColl.flyers,
-      docName: flyerModel.id,
-      subCollName: FireSubColl.flyers_flyer_views,
-    );
+      /// F - delete fireStore/flyers/flyerID/saves/(all sub docs)
+      print('F - delete saves sub docs');
+      await Fire.deleteAllSubDocs(
+        context: context,
+        collName: FireColl.flyers,
+        docName: flyerModel.id,
+        subCollName: FireSubColl.flyers_flyer_saves,
+      );
 
-    /// E - delete fireStore/flyers/flyerID/shares/(all sub docs)
-    print('E - delete shares sub docs');
-    await Fire.deleteAllSubDocs(
-      context: context,
-      collName: FireColl.flyers,
-      docName: flyerModel.id,
-      subCollName: FireSubColl.flyers_flyer_shares,
-    );
-
-    /// F - delete fireStore/flyers/flyerID/saves/(all sub docs)
-    print('F - delete saves sub docs');
-    await Fire.deleteAllSubDocs(
-      context: context,
-      collName: FireColl.flyers,
-      docName: flyerModel.id,
-      subCollName: FireSubColl.flyers_flyer_saves,
-    );
-
-    /// G - delete fireStore/flyers/flyerID/counters/counters
-    print('G - delete counters sub doc');
-    await Fire.deleteSubDoc(
+      /// G - delete fireStore/flyers/flyerID/counters/counters
+      print('G - delete counters sub doc');
+      await Fire.deleteSubDoc(
         context: context,
         collName: FireColl.flyers,
         docName: flyerModel.id,
         subCollName: FireSubColl.flyers_flyer_counters,
         subDocName: FireSubDoc.flyers_flyer_counters_counters,
-    );
-
-    /// H - delete fireStorage/slidesPics/slideID for all flyer slides
-    print('H - delete flyer slide pics');
-    final List<String> _slidesIDs = SlideModel.generateSlidesIDs(
-      flyerID: flyerModel.id,
-      numberOfSlides: flyerModel.slides.length,
-    );
-    for (var id in _slidesIDs){
-
-      print('a - delete slideHighRes : $id from ${_slidesIDs.length} slides');
-      await Storage.deleteStoragePic(
-        context: context,
-        picName: id,
-        docName: StorageDoc.slides,
       );
 
+      /// H - delete fireStorage/slidesPics/slideID for all flyer slides
+      print('H - delete flyer slide pics');
+      final List<String> _slidesIDs = SlideModel.generateSlidesIDs(
+        flyerID: flyerModel.id,
+        numberOfSlides: flyerModel.slides.length,
+      );
+      for (var id in _slidesIDs){
+
+        print('a - delete slideHighRes : $id from ${_slidesIDs.length} slides');
+        await Storage.deleteStoragePic(
+          context: context,
+          picName: id,
+          docName: StorageDoc.slides,
+        );
+
+      }
+
+      /// I - delete firestore/flyers/flyerID
+      print('I - delete flyer doc');
+      await Fire.deleteDoc(
+        context: context,
+        collName: FireColl.flyers,
+        docName: flyerModel.id,
+      );
+
+      print('DELETE FLYER OPS ENDED for ${flyerModel.id} ---------------------------');
+
+
     }
-
-    /// I - delete firestore/flyers/flyerID
-    print('I - delete flyer doc');
-    await Fire.deleteDoc(
-      context: context,
-      collName: FireColl.flyers,
-      docName: flyerModel.id,
-    );
-
-    print('DELETE FLYER OPS ENDED ---------------------------');
 
   }
 // -----------------------------------------------------------------------------
