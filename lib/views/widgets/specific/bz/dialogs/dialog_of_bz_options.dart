@@ -74,7 +74,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
   Future<void> _deleteBzOnTap(BzModel bzModel) async {
 
 
-    Nav.goBack(context);
+    // Nav.goBack(context);
 
     final bool _dialogResult = await CenterDialog.showCenterDialog(
       context: context,
@@ -181,7 +181,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
     print(_result);
   }
 // -----------------------------------------------------------------------------
-  List<Widget> createButtons({BuildContext context, BzModel bzModel, UserModel userModel}){
+  List<Widget> createButtons({@required BuildContext context,@required  BzModel bzModel,@required  UserModel userModel}){
 
     return
     <Widget>[
