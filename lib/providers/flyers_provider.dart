@@ -237,6 +237,8 @@ class FlyersProvider extends ChangeNotifier {
     // // );
     //
     //
+
+    /// TASK : test this later before launch
     await tryAndCatch(
         context: context,
         methodName: 'fetchAndSetTinyFlyersBySectionType',

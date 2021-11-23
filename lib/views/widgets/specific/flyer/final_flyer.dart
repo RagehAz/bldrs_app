@@ -2682,6 +2682,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         context: context,
         bzModel: _bzModel,
         flyerModel : _originalFlyer,
+        deleteFlyerIDFromBzzFlyersIDs: true,
       );
 
       /// remove tinyFlyer from Local list

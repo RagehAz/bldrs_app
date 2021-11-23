@@ -129,6 +129,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
               /// AVOID SET STATE : WAY # 1
               ValueListenableBuilder<int>(
                   valueListenable: _counter,
+                  child: Container(),
                   builder: (ctx, value, child){
 
                     return
@@ -140,6 +141,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
                           verseScaleFactor: 0.6,
                           verseWeight: VerseWeight.black,
                           onTap: _incrementCounter,
+
                         );
 
                   }
@@ -209,24 +211,11 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
               /// DO SOMETHING
               WideButton(
                   color: Colorz.bloodTest,
-                  verse: 'currencies gog',
+                  verse: 'DO SOMETHING',
                   icon: Iconz.Share,
                   onTap: () async {
 
                     _triggerLoading();
-
-                    final List<CurrencyModel> _currencies = await currencyData.updateCurrencies(context);
-
-                    // for (var curr in _currencies){
-                    //   curr.printCurrency();
-                    // }
-
-                    await Fire.createNamedDoc(
-                        context: context,
-                        collName: FireColl.zones,
-                        docName: FireDoc.zones_currencies,
-                        input: CurrencyModel.cipherCurrencies(_currencies),
-                    );
 
                     print('tamam');
 
