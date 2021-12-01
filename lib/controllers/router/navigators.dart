@@ -92,7 +92,7 @@ abstract class Nav{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> goBack(BuildContext context, {argument}) async {
+  static Future<void> goBack(BuildContext context, {dynamic argument}) async {
     /// you can send whatever you want in Navigator.pop(context,whatever you want to pass)
     await Navigator.pop(context, argument);
   }
@@ -142,14 +142,14 @@ abstract class Nav{
         .pushNamedAndRemoveUntil(goToRoute, (Route<dynamic> route) => false);
   }
 // -----------------------------------------------------------------------------
-  static Future<void> pushAndRemoveUntil({BuildContext context, Widget screen}) async {
+  static Future<void> pushAndRemoveUntil({@required BuildContext context, @required Widget screen}) async {
 
     await Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
             builder: (_) => screen,
         ),
-            (route) => route.isFirst
+            (Route route) => route.isFirst
     );
   }
 // -----------------------------------------------------------------------------

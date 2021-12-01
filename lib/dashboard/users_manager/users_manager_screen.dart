@@ -93,7 +93,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     });
 
 
-    await Future.delayed(const Duration(milliseconds: 400), () async {
+    await Future<void>.delayed(const Duration(milliseconds: 400), () async {
 
       await Scrollers.scrollToBottom(controller: _scrollController);
 
@@ -111,7 +111,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
     else if (_result == 'deleted'){
 
-      final int _userIndex = _usersModels.indexWhere((user) => user.id == userModel.id);
+      final int _userIndex = _usersModels.indexWhere((UserModel user) => user.id == userModel.id);
       setState(() {
       _usersModels.removeAt(_userIndex);
       });
@@ -155,7 +155,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
         itemCount: _usersModels.length,
         padding: const EdgeInsets.only(bottom: Ratioz.grandHorizon, top: Ratioz.stratosphere),
         itemExtent: 70,
-        itemBuilder: (context, index){
+        itemBuilder: (BuildContext context, int index){
 
           return
             dashboardUserButton(

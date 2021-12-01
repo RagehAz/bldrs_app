@@ -228,7 +228,7 @@ class NavBar extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 // controller: _myBzzListController,
                 itemCount: myBzz.length,
-                itemBuilder: (context, index){
+                itemBuilder: (BuildContext context, int index){
 
                   final BzModel _bzModel = myBzz[index];
 

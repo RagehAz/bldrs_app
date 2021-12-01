@@ -21,7 +21,7 @@ import 'package:provider/provider.dart';
 
 class UserBubble extends StatefulWidget {
   final UserModel user;
-  final Function switchUserType;
+  final ValueChanged<UserStatus> switchUserType;
   final Function editProfileBtOnTap;
   final bool loading;
 

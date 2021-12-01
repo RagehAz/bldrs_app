@@ -335,7 +335,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
               UserBubble(
                 user: widget.userModel,
-                switchUserType: (type) => _switchUserStatus(type),
+                switchUserType: (UserStatus type) => _switchUserStatus(type),
                 editProfileBtOnTap: () =>
                     _slideUserOptions(context, widget.userModel),
                 loading: StreamChecker.valueIsLoading(widget.userModel),
@@ -348,7 +348,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               /// --- STATUS LABEL : STATUS SURVEY WILL BE IN VERSION 2 ISA
               StatusBubble(
                 status: _status,
-                switchUserStatus: (type) => _switchUserStatus(type),
+                switchUserStatus: (UserStatus type) => _switchUserStatus(type),
                 userStatus: _currentUserStatus == null ? widget.userModel
                     ?.status : _currentUserStatus,
                 currentUserStatus: _currentUserStatus,

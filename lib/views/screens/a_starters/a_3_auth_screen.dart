@@ -78,7 +78,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 switchSignIn: _switchSignIn,
                 email: _email,
                 password: _password,
-                fieldOnTap: (keyboard) => moveScreen(keyboard),
+                fieldOnTap: (double keyboardHeight) => moveScreen(keyboardHeight),
               )
                   :
               // REGISTER NEW ACCOUNT

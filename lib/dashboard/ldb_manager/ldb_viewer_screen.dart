@@ -33,9 +33,9 @@ class LDBViewerScreen extends StatefulWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
 
     return
-      List.generate(
+      List<Widget>.generate(
           maps?.length ?? 0,
-              (index){
+              (int index){
 
             final Map<String, Object> _map = maps[index];
 
@@ -84,7 +84,7 @@ class LDBViewerScreen extends StatefulWidget {
 
                     ...List.generate(
                         _values.length,
-                            (i){
+                            (int i){
 
                           String _key = _keys[i];
                           String _value = _values[i].toString();

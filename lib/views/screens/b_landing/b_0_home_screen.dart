@@ -74,9 +74,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     Tracer.traceScreenBuild(screenName: 'HomeScreen');
     return WillPopScope(
-      onWillPop: () => Future.value(false),
+      onWillPop: () => Future<bool>.value(false),
       child: MainLayout(
-        key: const ValueKey('mainLayout'),
+        key: const ValueKey<String>('mainLayout'),
         appBarType: AppBarType.Main,
         skyType: SkyType.Night,
         canRefreshFlyers: false,

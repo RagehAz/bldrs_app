@@ -98,7 +98,7 @@ class MainLayout extends StatelessWidget {
     final Color _backgroundColor = skyType == SkyType.Non || skyType == SkyType.Black? Colorz.blackSemi255 : Colorz.skyDarkBlue;
 
     final Widget _mainLayoutStackWidgets = MainLayoutStackWidgets(
-      key: const ValueKey('mainStack'),
+      key: const ValueKey<String>('mainStack'),
       alignment: Alignment.topCenter,
       skyType: skyType,
       appBarType: appBarType,
@@ -127,14 +127,14 @@ class MainLayout extends StatelessWidget {
 
             if(skyType == SkyType.Non)
               Container(
-                key: const ValueKey('noSkyBackground'),
+                key: const ValueKey<String>('noSkyBackground'),
                 width: Scale.superScreenWidth(context),
                 height: Scale.superScreenHeight(context),
                 color: _backgroundColor,
               ),
 
             Scaffold(
-              key: scaffoldKey == null ? const ValueKey('mainScaffold') : scaffoldKey,
+              key: scaffoldKey == null ? const ValueKey<String>('mainScaffold') : scaffoldKey,
               resizeToAvoidBottomInset: false, // this false prevents keyboard from pushing pyramids up
               // resizeToAvoidBottomPadding: false,
               backgroundColor: _backgroundColor,

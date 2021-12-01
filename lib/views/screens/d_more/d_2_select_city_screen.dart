@@ -30,7 +30,7 @@ class SelectCityScreen extends StatefulWidget {
 
 class _SelectCityScreenState extends State<SelectCityScreen> {
 
-  List<CityModel> _cities = [];
+  List<CityModel> _cities = <CityModel>[];
 
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -107,7 +107,7 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
       pageIcon: _countryFlag,
       pageIconVerse: _countryName,
       sky: SkyType.Black,
-      onItemTap: (value) async {
+      onItemTap: (String value) async {
 
         final String _cityID = value;
 

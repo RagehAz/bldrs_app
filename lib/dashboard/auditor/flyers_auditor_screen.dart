@@ -244,7 +244,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       });
 
       /// B - wait fading to start deleting + update index to null
-      await Future.delayed(Ratioz.durationFading210, () async {
+      await Future<void>.delayed(Ratioz.durationFading210, () async {
 
         /// Dx - delete data
         setState(() {
@@ -267,7 +267,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       });
 
       /// B - wait fading to start sliding
-      await Future.delayed(Ratioz.durationFading210, () async {
+      await Future<void>.delayed(Ratioz.durationFading210, () async {
 
         /// C - slide
         await Sliders.slideToNext(_pageController, _flyers.length, _currentPageIndex);
@@ -275,7 +275,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
         /// D - delete when one slide remaining
         /// E - wait for sliding to end
-        await Future.delayed(Ratioz.durationFading210, () async {
+        await Future<void>.delayed(Ratioz.durationFading210, () async {
 
 
           // /// F - snap to index 0
@@ -314,7 +314,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       });
 
       /// B - wait fading to start sliding
-      await Future.delayed(Ratioz.durationFading210, () async {
+      await Future<void>.delayed(Ratioz.durationFading210, () async {
 
         /// C - slide
         await  Sliders.slideToNext(_pageController, _flyers.length, _currentPageIndex);
@@ -333,7 +333,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
         else {
 
           /// E - wait for sliding to end
-          await Future.delayed(Ratioz.durationFading210, () async {
+          await Future<void>.delayed(Ratioz.durationFading210, () async {
 
             /// Dx - delete data
             _statelessFlyerRemove(_currentPageIndex);
@@ -373,7 +373,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     // print('XXX after first rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
 
     /// B - wait fading to start sliding
-    await Future.delayed(Ratioz.durationFading210, () async {
+    await Future<void>.delayed(Ratioz.durationFading210, () async {
 
       // print('_currentIndex before slide : $_draft.currentSlideIndex');
 
@@ -382,7 +382,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       // print('_currentIndex after slide : $_draft.currentSlideIndex');
 
       /// E - wait for sliding to end
-      await Future.delayed(Ratioz.durationFading210, () async {
+      await Future<void>.delayed(Ratioz.durationFading210, () async {
 
         /// Dx - delete data & trigger progress bar listener (onPageChangedIsOn)
         setState(() {
@@ -602,7 +602,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                     onPageChanged: (int i) => _onPageChange(i),
                     pageSnapping: true,
                     // scrollBehavior: ScrollBehavior().,
-                    itemBuilder: (ctx, index){
+                    itemBuilder: (BuildContext ctx, int index){
                       return
                         AnimatedOpacity(
                           opacity: _pagesOpacities[index],

@@ -49,14 +49,14 @@ class RecordBubble extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 itemCount: users.length,
-                itemBuilder: (ctx, index){
+                itemBuilder: (BuildContext ctx, int index){
                   return
                     PersonButton(
                       totalHeight: _peopleBubbleBoxHeight,
                       image: users[index].pic,
                       id: users[index].id,
                       name: users[index].name,
-                      onTap: (userID){
+                      onTap: (String userID){
                         print('id is : $userID');
                       },
                     );

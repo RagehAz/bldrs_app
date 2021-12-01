@@ -20,14 +20,14 @@ class TextLinesAnalyzer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (ctx, size){
+      builder: (BuildContext ctx, BoxConstraints size){
 
-        final _span = TextSpan(
+        final TextSpan _span = TextSpan(
           text: text,
           style: textStyle,
         );
 
-        final _textPainter = TextPainter(
+        final TextPainter _textPainter = TextPainter(
           text: _span,
           maxLines: maxLines,
           textDirection: superTextDirectionSwitcher(text),

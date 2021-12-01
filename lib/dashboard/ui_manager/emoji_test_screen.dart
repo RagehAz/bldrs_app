@@ -52,7 +52,7 @@ class EmojiTestScreen extends StatelessWidget {
               crossAxisSpacing: 2.5,
               childAspectRatio: 1  / 1,
             ),
-            itemBuilder: (ctx, index){
+            itemBuilder: (BuildContext ctx, int index){
 
               final EmojiModel _emoji = _emojis[index];
 

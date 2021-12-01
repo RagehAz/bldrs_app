@@ -14,7 +14,7 @@ class ZonesPage extends StatelessWidget {
   final String title;
   final String continentIcon;
   final List<String> countriesIDs;
-  final Function buttonTap;
+  final ValueChanged<String> buttonTap;
   final double pageHeight;
 
   const ZonesPage({

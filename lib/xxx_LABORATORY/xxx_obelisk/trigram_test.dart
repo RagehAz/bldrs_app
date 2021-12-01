@@ -99,7 +99,7 @@ class _TrigramTestState extends State<TrigramTest> {
                   physics: const BouncingScrollPhysics(),
                   itemCount: _result.length,
                   padding: const EdgeInsets.all(5),
-                  itemBuilder: (ctx, index){
+                  itemBuilder: (BuildContext ctx, int index){
                     String _tri = _result[index];
                     return
                       SuperVerse(

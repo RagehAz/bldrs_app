@@ -8,6 +8,7 @@ import 'package:bldrs/dashboard/dashboard.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/db/ldb/sembast/sembast_test_screen.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/specs_lists_pickers_screen.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
@@ -113,7 +114,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           const ObeliskButton('Specs Selector', Iconz.Flyer, const SpecsListsPickersScreen(
             flyerType: FlyerType.design,
-            selectedSpecs: const [],
+            selectedSpecs: const <Spec>[],
           )),
 
           const ObeliskButton('Google map Test screen', Iconz.Flyer, LocationsTestScreen()),

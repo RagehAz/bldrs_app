@@ -41,7 +41,7 @@ class SearchResultWall extends StatelessWidget {
         itemCount: bzz?.length,
         padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2),
 
-        itemBuilder: (ctx, index){
+        itemBuilder: (BuildContext ctx, int index){
 
           final BzModel _bz = bzz[index];
 
@@ -54,7 +54,7 @@ class SearchResultWall extends StatelessWidget {
                 flyerOnTap: (){print('flyer tapped');},
                 onScrollEnd: (){print('scroll ended');},
                 // flyersType: FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: _bz.bzType)[0],
-                flyers: [FlyerModel.dummyFlyer()],
+                flyers: <FlyerModel>[FlyerModel.dummyFlyer()],
               );
 
             // DreamBox(

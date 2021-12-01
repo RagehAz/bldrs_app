@@ -190,7 +190,7 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
                   padding: const EdgeInsets.only(top: Ratioz.appBarMargin, left: Ratioz.appBarMargin, right: Ratioz.appBarMargin, bottom: Ratioz.horizon),
                   shrinkWrap: false,
                   itemCount: _users.length,
-                  itemBuilder: (ctx, index){
+                  itemBuilder: (BuildContext ctx, int index){
 
                     UserModel _userModel = _users[index];
 

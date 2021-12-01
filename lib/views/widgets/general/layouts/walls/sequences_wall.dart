@@ -250,7 +250,7 @@
 //         scrollDirection: Axis.vertical,
 //         itemCount: _sequenceWallWidgets.length,
 //
-//         itemBuilder: (ctx, index){
+//         itemBuilder: (BuildContext ctx, int index){
 //
 //           return
 //             _sequenceWallWidgets[index];

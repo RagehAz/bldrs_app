@@ -20,7 +20,7 @@ class PricingScreen extends StatelessWidget {
     final List<BigMac> _macs = BigMac.bigMacs();
 
     _macs.sort(
-            (macA,macB) =>
+            (BigMac macA, BigMac macB) =>
                 BigMac.localPriceToDollar(localPrice: macB.localPrice, toDollarRate: macB.toDollarRate)
                     .compareTo(
                     BigMac.localPriceToDollar(localPrice: macA.localPrice, toDollarRate: macA.toDollarRate)
@@ -34,9 +34,9 @@ class PricingScreen extends StatelessWidget {
         pageTitle: 'Prices',
         listWidgets: <Widget>[
 
-          ...List.generate(
+          ...List<Widget>.generate(
               _macs.length,
-                  (index){
+                  (int index){
 
                 final BigMac _mac = _macs[index];
                 final String _iso3 = _mac.countryID;
