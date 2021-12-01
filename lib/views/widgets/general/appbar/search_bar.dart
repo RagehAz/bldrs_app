@@ -17,10 +17,10 @@ class SearchBar extends StatefulWidget {
   final String hintText;
 
   const SearchBar({
-    this.searchController,
     @required this.onSearchSubmit,
-    this.onSearchChanged,
     @required this.historyButtonIsOn,
+    this.searchController,
+    this.onSearchChanged,
     this.boxWidth,
     this.hintText,
     Key key,

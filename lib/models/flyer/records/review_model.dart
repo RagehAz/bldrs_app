@@ -13,10 +13,10 @@ class ReviewModel {
   // final DateTime lastTimeStamp; // to help firebase query
 
   const ReviewModel ({
-    this.reviewID,
     @required this.body,
     @required this.userID,
     @required this.time,
+    this.reviewID,
 });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({bool toJSON = false}){

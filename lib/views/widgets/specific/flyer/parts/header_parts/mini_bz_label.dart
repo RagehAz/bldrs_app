@@ -13,8 +13,8 @@ class BzLabel extends StatelessWidget {
   final double flyerBoxWidth;
 
   const BzLabel({
-    this.superFlyer,
     @required this.flyerBoxWidth,
+    this.superFlyer,
     Key key,
   }) : super(key: key);
 

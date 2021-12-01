@@ -29,8 +29,8 @@ class AuthorLabel extends StatelessWidget {
     @required this.bzModel,
     @required this.showLabel,
     @required this.authorGalleryCount,
-    this.labelIsOn = false,
     @required this.onTap,
+    this.labelIsOn = false,
     Key key,
   }) : super(key: key);
 

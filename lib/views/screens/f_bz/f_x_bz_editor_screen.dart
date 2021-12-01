@@ -39,8 +39,8 @@ class BzEditorScreen extends StatefulWidget {
   final BzModel bzModel;
 
   const BzEditorScreen({
-    this.firstTimer = false,
     @required this.userModel,
+    this.firstTimer = false,
     this.bzModel,
     Key key,
   }) : super(key: key);

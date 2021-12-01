@@ -160,9 +160,9 @@ class Dialogz{
   }
 // -----------------------------------------------------------------------------
   static Future<bool> flyersDeactivationDialog({
-    BuildContext context,
-    List<BzModel> bzzToDeactivate,
+    @required BuildContext context,
     @required List<FlyerModel> flyers,
+    List<BzModel> bzzToDeactivate,
   }) async {
 
     final int _totalNumOfFlyers = FlyerModel.getNumberOfFlyersFromBzzModels(bzzToDeactivate);

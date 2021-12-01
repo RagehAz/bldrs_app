@@ -16,10 +16,10 @@ class SlideCounters extends StatelessWidget {
 
   const SlideCounters({
     @required this.flyerBoxWidth,
+    @required this.onCountersTap,
     this.shares = 0,
     this.views = 0,
     this.saves = 0,
-    @required this.onCountersTap,
     Key key,
   }) : super(key: key);
 

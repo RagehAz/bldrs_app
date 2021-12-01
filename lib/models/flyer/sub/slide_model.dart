@@ -28,16 +28,16 @@ class SlideModel {
   final String flyerID; /// only used in sql ops
 
   SlideModel({
-    this.slideIndex,
-    this.pic,
-    this.headline,
     @required this.description,
-    this.sharesCount,
-    this.viewsCount,
-    this.savesCount,
     @required this.picFit, /// TASK : update all methods below to include this boxfit parameter
     @required this.imageSize,
     @required this.midColor,
+    this.slideIndex,
+    this.pic,
+    this.headline,
+    this.sharesCount,
+    this.viewsCount,
+    this.savesCount,
 
     this.flyerID, /// only used in sql ops
   });

@@ -44,9 +44,7 @@ class FlyerModel with ChangeNotifier{
     @required this.trigram,
     // -------------------------
     @required this.flyerType,
-    this.flyerState = FlyerState.draft,
     @required this.keywordsIDs,
-    this.showsAuthor = false,
     @required this.zone,
     // -------------------------
     @required this.authorID,
@@ -61,6 +59,9 @@ class FlyerModel with ChangeNotifier{
     @required this.info,
     @required this.times,
     @required this.priceTagIsOn,
+    // -------------------------
+    this.flyerState = FlyerState.draft,
+    this.showsAuthor = false,
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){

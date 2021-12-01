@@ -12,9 +12,9 @@ class BzPgVerse extends StatelessWidget {
 
   const BzPgVerse({
     @required this.flyerBoxWidth,
-    this.bzPageIsOn = true,
     @required this.verse,
     @required this.size,
+    this.bzPageIsOn = true,
     this.maxLines = 1,
     Key key,
   }) : super(key: key);
@@ -55,9 +55,9 @@ class BzAboutVerse extends StatefulWidget {
 
   const BzAboutVerse({
     @required this.flyerBoxWidth,
-    this.bzPageIsOn = true,
     @required this.verse,
     @required this.bzName,
+    this.bzPageIsOn = true,
     Key key,
   }) : super(key: key);
 

@@ -26,16 +26,16 @@ class GalleryGrid extends StatelessWidget {
 
   const GalleryGrid({
     @required this.gridZoneWidth,
-    this.galleryFlyers,
     @required this.flyersVisibilities,
     @required this.bzID,
     @required this.bzAuthors,
     @required this.bz,
     @required this.bzCountry,
     @required this.bzCity,
+    @required this.addPublishedFlyerToGallery,
+    this.galleryFlyers,
     this.addButtonIsOn = false,
     // @required this.flyerOnTap,
-    @required this.addPublishedFlyerToGallery,
     Key key,
 }) : super(key: key);
 // -----------------------------------------------------------------------------

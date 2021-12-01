@@ -21,8 +21,8 @@ class ParagraphBubble extends StatefulWidget {
   final Function onParagraphTap;
 
   const ParagraphBubble({
-    this.title,
     @required this.paragraph,
+    this.title,
     this.maxLines = 5,
     this.centered = false,
     this.actionBtIcon,
