@@ -51,7 +51,9 @@ abstract class Sliders{
 
     final Curve _curve = curve == null ? Curves.easeInOutCirc : curve;
 
-  if (currentSlide == 0){print('can not slide back');} else {
+  if (currentSlide == 0){
+    print('can not slide back');
+  } else {
     await slidingController.animateToPage(currentSlide - 1,
         duration: Ratioz.durationSliding400,
         curve: _curve,

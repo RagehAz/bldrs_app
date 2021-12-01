@@ -63,8 +63,10 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
     _headerCornerTween = new BorderRadiusTween();
     _logoCornersTween = new BorderRadiusTween();
     _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
-    if (_isExpanded) {_controller.value = 1.0;}
 
+    if (_isExpanded){
+      _controller.value = 1.0;
+    }
 
     _followCallButtonsScaleTween = Tween<double>(
       begin: 1,

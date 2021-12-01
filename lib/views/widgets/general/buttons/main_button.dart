@@ -80,9 +80,12 @@ class MainButton extends StatelessWidget {
             if (function.runtimeType != String)
             {function();}
             else {
-              if (function == 'GoBackFucker')
-              {Navigator.pop(context);}
-              else {Navigator.pushNamed(context, function);}
+              if (function == 'GoBackFucker') {
+                Navigator.pop(context);
+              }
+              else {
+                Navigator.pushNamed(context, function);
+              }
 }
           },
           style: ButtonStyle(

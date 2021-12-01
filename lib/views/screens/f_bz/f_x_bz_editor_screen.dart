@@ -145,11 +145,16 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    if (TextChecker.textControllerIsEmpty(_bzNameTextController))_bzNameTextController.dispose();
-    if (TextChecker.textControllerIsEmpty(_bzScopeTextController))_bzScopeTextController.dispose();
-    if (TextChecker.textControllerIsEmpty(_bzAboutTextController))_bzAboutTextController.dispose();
-    if (TextChecker.textControllerIsEmpty(_authorNameTextController))_authorNameTextController.dispose();
-    if (TextChecker.textControllerIsEmpty(_authorTitleTextController))_authorTitleTextController.dispose();
+    if (TextChecker.textControllerIsEmpty(_bzNameTextController))
+      _bzNameTextController.dispose();
+    if (TextChecker.textControllerIsEmpty(_bzScopeTextController))
+      _bzScopeTextController.dispose();
+    if (TextChecker.textControllerIsEmpty(_bzAboutTextController))
+      _bzAboutTextController.dispose();
+    if (TextChecker.textControllerIsEmpty(_authorNameTextController))
+      _authorNameTextController.dispose();
+    if (TextChecker.textControllerIsEmpty(_authorTitleTextController))
+      _authorTitleTextController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------

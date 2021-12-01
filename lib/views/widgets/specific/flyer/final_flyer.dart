@@ -1096,7 +1096,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       final String _contact = ContactModel.getAContactValueFromContacts(_superFlyer.bz.contacts, ContactType.email);
 
       /// alert user there is no contact to call
-      if (_contact == null){print('no contact here');}
+      if (_contact == null){
+        print('no contact here');
+      }
 
       /// or launch call and start call bz ops
       else {
