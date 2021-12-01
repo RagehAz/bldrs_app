@@ -30,7 +30,7 @@ Widget chatStreamBuilder({
 
     StreamBuilder<ChatModel>(
       stream: getChatStream(questionID, bzID),
-      builder: (context, snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<ChatModel> snapshot) {
         if (StreamChecker.connectionIsLoading(snapshot) == true) {
           return const Loading(loading: true,);
         } else {

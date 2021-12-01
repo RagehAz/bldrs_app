@@ -32,9 +32,9 @@ class IntegerDataCreator extends StatefulWidget {
 }
 
 class _IntegerDataCreatorState extends State<IntegerDataCreator> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
-  ValueNotifier<int> _integer = ValueNotifier(null);
+  ValueNotifier<int> _integer = ValueNotifier<int>(null);
 // -----------------------------------------------------------------------------
   @override
   void initState() {

@@ -380,7 +380,7 @@ class SlideModel {
   static List<SlideModel> getSlidesFromMutableSlides(List<MutableSlide> mSlides){
     final List<SlideModel> _slides = [];
     if (mSlides != null && mSlides.length != 0){
-      for (var mSlide in mSlides){
+      for (MutableSlide mSlide in mSlides){
         _slides.add(getSlideFromMutableSlide(mSlide));
       }
     }

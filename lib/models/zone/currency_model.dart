@@ -26,7 +26,7 @@ class CurrencyModel {
 
     return
 
-        {
+      <String, dynamic>{
           'code' : code,
           'names' : Name.cipherNames(names: names, addTrigrams: false),
           'countriesIDs' : countriesIDs,
@@ -49,11 +49,11 @@ class CurrencyModel {
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> cipherCurrencies(List<CurrencyModel> currencies){
 
-    Map<String, dynamic> _map = {};
+    Map<String, dynamic> _map = <String, dynamic>{};
 
     if (Mapper.canLoopList(currencies)){
 
-      for (var currency in currencies){
+      for (CurrencyModel currency in currencies){
 
         _map = Mapper.insertPairInMap(
             map: _map,
@@ -110,7 +110,7 @@ class CurrencyModel {
 
     if (Mapper.canLoopList(currencies) && currencyCode != null){
 
-      for (var currency in currencies){
+      for (CurrencyModel currency in currencies){
 
         if (currency.code == currencyCode){
           _contains = true;
@@ -130,7 +130,7 @@ class CurrencyModel {
 
     if (Mapper.canLoopList(currencies) == true && countryID != null){
 
-      final CurrencyModel _currencyFound = currencies.firstWhere((curr) => Mapper.stringsContainString(strings: curr.countriesIDs, string: countryID), orElse: () => null);
+      final CurrencyModel _currencyFound = currencies.firstWhere((CurrencyModel curr) => Mapper.stringsContainString(strings: curr.countriesIDs, string: countryID), orElse: () => null);
 
       if (_currencyFound != null)
         _currency = _currencyFound;
@@ -172,8 +172,8 @@ class currencyData {
     return _newCurrencies;
   }
 
-  static Map<String,  dynamic> superMap = {
-    "USD": {
+  static Map<String,  dynamic> superMap = <String, dynamic>{
+    "USD": <String, dynamic>{
       "symbol": "\$",
       "name": "US Dollar",
       "symbol_native": "\$",
@@ -182,7 +182,7 @@ class currencyData {
       "code": "USD",
       "name_plural": "US dollars"
     },
-    "CAD": {
+    "CAD": <String, dynamic>{
       "symbol": "CA\$",
       "name": "Canadian Dollar",
       "symbol_native": "\$",
@@ -191,7 +191,7 @@ class currencyData {
       "code": "CAD",
       "name_plural": "Canadian dollars"
     },
-    "EUR": {
+    "EUR": <String, dynamic>{
       "symbol": "€",
       "name": "Euro",
       "symbol_native": "€",
@@ -200,7 +200,7 @@ class currencyData {
       "code": "EUR",
       "name_plural": "euros"
     },
-    "AED": {
+    "AED": <String, dynamic>{
       "symbol": "AED",
       "name": "United Arab Emirates Dirham",
       "symbol_native": "د.إ",
@@ -209,7 +209,7 @@ class currencyData {
       "code": "AED",
       "name_plural": "UAE dirhams"
     },
-    "AFN": {
+    "AFN": <String, dynamic>{
       "symbol": "Af",
       "name": "Afghan Afghani",
       "symbol_native": "؋",
@@ -218,7 +218,7 @@ class currencyData {
       "code": "AFN",
       "name_plural": "Afghan Afghanis"
     },
-    "ALL": {
+    "ALL": <String, dynamic>{
       "symbol": "ALL",
       "name": "Albanian Lek",
       "symbol_native": "Lek",
@@ -227,7 +227,7 @@ class currencyData {
       "code": "ALL",
       "name_plural": "Albanian lekë"
     },
-    "AMD": {
+    "AMD": <String, dynamic>{
       "symbol": "AMD",
       "name": "Armenian Dram",
       "symbol_native": "դր.",
@@ -236,7 +236,7 @@ class currencyData {
       "code": "AMD",
       "name_plural": "Armenian drams"
     },
-    "ARS": {
+    "ARS": <String, dynamic>{
       "symbol": "AR\$",
       "name": "Argentine Peso",
       "symbol_native": "\$",
@@ -245,7 +245,7 @@ class currencyData {
       "code": "ARS",
       "name_plural": "Argentine pesos"
     },
-    "AUD": {
+    "AUD": <String, dynamic>{
       "symbol": "AU\$",
       "name": "Australian Dollar",
       "symbol_native": "\$",
@@ -254,7 +254,7 @@ class currencyData {
       "code": "AUD",
       "name_plural": "Australian dollars"
     },
-    "AZN": {
+    "AZN": <String, dynamic>{
       "symbol": "man.",
       "name": "Azerbaijani Manat",
       "symbol_native": "ман.",
@@ -263,7 +263,7 @@ class currencyData {
       "code": "AZN",
       "name_plural": "Azerbaijani manats"
     },
-    "BAM": {
+    "BAM": <String, dynamic>{
       "symbol": "KM",
       "name": "Bosnia-Herzegovina Convertible Mark",
       "symbol_native": "KM",
@@ -272,7 +272,7 @@ class currencyData {
       "code": "BAM",
       "name_plural": "Bosnia-Herzegovina convertible marks"
     },
-    "BDT": {
+    "BDT": <String, dynamic>{
       "symbol": "Tk",
       "name": "Bangladeshi Taka",
       "symbol_native": "৳",
@@ -281,7 +281,7 @@ class currencyData {
       "code": "BDT",
       "name_plural": "Bangladeshi takas"
     },
-    "BGN": {
+    "BGN": <String, dynamic>{
       "symbol": "BGN",
       "name": "Bulgarian Lev",
       "symbol_native": "лв.",
@@ -290,7 +290,7 @@ class currencyData {
       "code": "BGN",
       "name_plural": "Bulgarian leva"
     },
-    "BHD": {
+    "BHD": <String, dynamic>{
       "symbol": "BD",
       "name": "Bahraini Dinar",
       "symbol_native": "د.ب",
@@ -299,7 +299,7 @@ class currencyData {
       "code": "BHD",
       "name_plural": "Bahraini dinars"
     },
-    "BIF": {
+    "BIF": <String, dynamic>{
       "symbol": "FBu",
       "name": "Burundian Franc",
       "symbol_native": "FBu",
@@ -308,7 +308,7 @@ class currencyData {
       "code": "BIF",
       "name_plural": "Burundian francs"
     },
-    "BND": {
+    "BND": <String, dynamic>{
       "symbol": "BN\$",
       "name": "Brunei Dollar",
       "symbol_native": "\$",
@@ -317,7 +317,7 @@ class currencyData {
       "code": "BND",
       "name_plural": "Brunei dollars"
     },
-    "BOB": {
+    "BOB": <String, dynamic>{
       "symbol": "Bs",
       "name": "Bolivian Boliviano",
       "symbol_native": "Bs",
@@ -326,7 +326,7 @@ class currencyData {
       "code": "BOB",
       "name_plural": "Bolivian bolivianos"
     },
-    "BRL": {
+    "BRL": <String, dynamic>{
       "symbol": "R\$",
       "name": "Brazilian Real",
       "symbol_native": "R\$",
@@ -335,7 +335,7 @@ class currencyData {
       "code": "BRL",
       "name_plural": "Brazilian reals"
     },
-    "BWP": {
+    "BWP": <String, dynamic>{
       "symbol": "BWP",
       "name": "Botswanan Pula",
       "symbol_native": "P",
@@ -344,7 +344,7 @@ class currencyData {
       "code": "BWP",
       "name_plural": "Botswanan pulas"
     },
-    "BYN": {
+    "BYN": <String, dynamic>{
       "symbol": "Br",
       "name": "Belarusian Ruble",
       "symbol_native": "руб.",
@@ -353,7 +353,7 @@ class currencyData {
       "code": "BYN",
       "name_plural": "Belarusian rubles"
     },
-    "BZD": {
+    "BZD": <String, dynamic>{
       "symbol": "BZ\$",
       "name": "Belize Dollar",
       "symbol_native": "\$",
@@ -362,7 +362,7 @@ class currencyData {
       "code": "BZD",
       "name_plural": "Belize dollars"
     },
-    "CDF": {
+    "CDF": <String, dynamic>{
       "symbol": "CDF",
       "name": "Congolese Franc",
       "symbol_native": "FrCD",
@@ -371,7 +371,7 @@ class currencyData {
       "code": "CDF",
       "name_plural": "Congolese francs"
     },
-    "CHF": {
+    "CHF": <String, dynamic>{
       "symbol": "CHF",
       "name": "Swiss Franc",
       "symbol_native": "CHF",
@@ -380,7 +380,7 @@ class currencyData {
       "code": "CHF",
       "name_plural": "Swiss francs"
     },
-    "CLP": {
+    "CLP": <String, dynamic>{
       "symbol": "CL\$",
       "name": "Chilean Peso",
       "symbol_native": "\$",
@@ -389,7 +389,7 @@ class currencyData {
       "code": "CLP",
       "name_plural": "Chilean pesos"
     },
-    "CNY": {
+    "CNY": <String, dynamic>{
       "symbol": "CN¥",
       "name": "Chinese Yuan",
       "symbol_native": "CN¥",
@@ -398,7 +398,7 @@ class currencyData {
       "code": "CNY",
       "name_plural": "Chinese yuan"
     },
-    "COP": {
+    "COP": <String, dynamic>{
       "symbol": "CO\$",
       "name": "Colombian Peso",
       "symbol_native": "\$",
@@ -407,7 +407,7 @@ class currencyData {
       "code": "COP",
       "name_plural": "Colombian pesos"
     },
-    "CRC": {
+    "CRC": <String, dynamic>{
       "symbol": "₡",
       "name": "Costa Rican Colón",
       "symbol_native": "₡",
@@ -416,7 +416,7 @@ class currencyData {
       "code": "CRC",
       "name_plural": "Costa Rican colóns"
     },
-    "CVE": {
+    "CVE": <String, dynamic>{
       "symbol": "CV\$",
       "name": "Cape Verdean Escudo",
       "symbol_native": "CV\$",
@@ -425,7 +425,7 @@ class currencyData {
       "code": "CVE",
       "name_plural": "Cape Verdean escudos"
     },
-    "CZK": {
+    "CZK": <String, dynamic>{
       "symbol": "Kč",
       "name": "Czech Republic Koruna",
       "symbol_native": "Kč",
@@ -434,7 +434,7 @@ class currencyData {
       "code": "CZK",
       "name_plural": "Czech Republic korunas"
     },
-    "DJF": {
+    "DJF": <String, dynamic>{
       "symbol": "Fdj",
       "name": "Djiboutian Franc",
       "symbol_native": "Fdj",
@@ -443,7 +443,7 @@ class currencyData {
       "code": "DJF",
       "name_plural": "Djiboutian francs"
     },
-    "DKK": {
+    "DKK": <String, dynamic>{
       "symbol": "Dkr",
       "name": "Danish Krone",
       "symbol_native": "kr",
@@ -452,7 +452,7 @@ class currencyData {
       "code": "DKK",
       "name_plural": "Danish kroner"
     },
-    "DOP": {
+    "DOP": <String, dynamic>{
       "symbol": "RD\$",
       "name": "Dominican Peso",
       "symbol_native": "RD\$",
@@ -461,7 +461,7 @@ class currencyData {
       "code": "DOP",
       "name_plural": "Dominican pesos"
     },
-    "DZD": {
+    "DZD": <String, dynamic>{
       "symbol": "DA",
       "name": "Algerian Dinar",
       "symbol_native": "د.ج",
@@ -470,7 +470,7 @@ class currencyData {
       "code": "DZD",
       "name_plural": "Algerian dinars"
     },
-    "EEK": {
+    "EEK": <String, dynamic>{
       "symbol": "Ekr",
       "name": "Estonian Kroon",
       "symbol_native": "kr",
@@ -479,7 +479,7 @@ class currencyData {
       "code": "EEK",
       "name_plural": "Estonian kroons"
     },
-    "EGP": {
+    "EGP": <String, dynamic>{
       "symbol": "EGP",
       "name": "Egyptian Pound",
       "symbol_native": "ج.م",
@@ -488,7 +488,7 @@ class currencyData {
       "code": "EGP",
       "name_plural": "Egyptian pounds"
     },
-    "ERN": {
+    "ERN": <String, dynamic>{
       "symbol": "Nfk",
       "name": "Eritrean Nakfa",
       "symbol_native": "Nfk",
@@ -497,7 +497,7 @@ class currencyData {
       "code": "ERN",
       "name_plural": "Eritrean nakfas"
     },
-    "ETB": {
+    "ETB": <String, dynamic>{
       "symbol": "Br",
       "name": "Ethiopian Birr",
       "symbol_native": "Br",
@@ -506,7 +506,7 @@ class currencyData {
       "code": "ETB",
       "name_plural": "Ethiopian birrs"
     },
-    "GBP": {
+    "GBP": <String, dynamic>{
       "symbol": "£",
       "name": "British Pound Sterling",
       "symbol_native": "£",
@@ -515,7 +515,7 @@ class currencyData {
       "code": "GBP",
       "name_plural": "British pounds sterling"
     },
-    "GEL": {
+    "GEL": <String, dynamic>{
       "symbol": "GEL",
       "name": "Georgian Lari",
       "symbol_native": "GEL",
@@ -524,7 +524,7 @@ class currencyData {
       "code": "GEL",
       "name_plural": "Georgian laris"
     },
-    "GHS": {
+    "GHS": <String, dynamic>{
       "symbol": "GH₵",
       "name": "Ghanaian Cedi",
       "symbol_native": "GH₵",
@@ -533,7 +533,7 @@ class currencyData {
       "code": "GHS",
       "name_plural": "Ghanaian cedis"
     },
-    "GNF": {
+    "GNF": <String, dynamic>{
       "symbol": "FG",
       "name": "Guinean Franc",
       "symbol_native": "FG",
@@ -542,7 +542,7 @@ class currencyData {
       "code": "GNF",
       "name_plural": "Guinean francs"
     },
-    "GTQ": {
+    "GTQ": <String, dynamic>{
       "symbol": "GTQ",
       "name": "Guatemalan Quetzal",
       "symbol_native": "Q",
@@ -551,7 +551,7 @@ class currencyData {
       "code": "GTQ",
       "name_plural": "Guatemalan quetzals"
     },
-    "HKD": {
+    "HKD": <String, dynamic>{
       "symbol": "HK\$",
       "name": "Hong Kong Dollar",
       "symbol_native": "\$",
@@ -560,7 +560,7 @@ class currencyData {
       "code": "HKD",
       "name_plural": "Hong Kong dollars"
     },
-    "HNL": {
+    "HNL": <String, dynamic>{
       "symbol": "HNL",
       "name": "Honduran Lempira",
       "symbol_native": "L",
@@ -569,7 +569,7 @@ class currencyData {
       "code": "HNL",
       "name_plural": "Honduran lempiras"
     },
-    "HRK": {
+    "HRK": <String, dynamic>{
       "symbol": "kn",
       "name": "Croatian Kuna",
       "symbol_native": "kn",
@@ -578,7 +578,7 @@ class currencyData {
       "code": "HRK",
       "name_plural": "Croatian kunas"
     },
-    "HUF": {
+    "HUF": <String, dynamic>{
       "symbol": "Ft",
       "name": "Hungarian Forint",
       "symbol_native": "Ft",
@@ -587,7 +587,7 @@ class currencyData {
       "code": "HUF",
       "name_plural": "Hungarian forints"
     },
-    "IDR": {
+    "IDR": <String, dynamic>{
       "symbol": "Rp",
       "name": "Indonesian Rupiah",
       "symbol_native": "Rp",
@@ -596,7 +596,7 @@ class currencyData {
       "code": "IDR",
       "name_plural": "Indonesian rupiahs"
     },
-    "ILS": {
+    "ILS": <String, dynamic>{
       "symbol": "₪",
       "name": "Israeli New Sheqel",
       "symbol_native": "₪",
@@ -605,7 +605,7 @@ class currencyData {
       "code": "ILS",
       "name_plural": "Israeli new sheqels"
     },
-    "INR": {
+    "INR": <String, dynamic>{
       "symbol": "Rs",
       "name": "Indian Rupee",
       "symbol_native": "টকা",
@@ -614,7 +614,7 @@ class currencyData {
       "code": "INR",
       "name_plural": "Indian rupees"
     },
-    "IQD": {
+    "IQD": <String, dynamic>{
       "symbol": "IQD",
       "name": "Iraqi Dinar",
       "symbol_native": "د.ع",
@@ -623,7 +623,7 @@ class currencyData {
       "code": "IQD",
       "name_plural": "Iraqi dinars"
     },
-    "IRR": {
+    "IRR": <String, dynamic>{
       "symbol": "IRR",
       "name": "Iranian Rial",
       "symbol_native": "﷼",
@@ -632,7 +632,7 @@ class currencyData {
       "code": "IRR",
       "name_plural": "Iranian rials"
     },
-    "ISK": {
+    "ISK": <String, dynamic>{
       "symbol": "Ikr",
       "name": "Icelandic Króna",
       "symbol_native": "kr",
@@ -641,7 +641,7 @@ class currencyData {
       "code": "ISK",
       "name_plural": "Icelandic krónur"
     },
-    "JMD": {
+    "JMD": <String, dynamic>{
       "symbol": "J\$",
       "name": "Jamaican Dollar",
       "symbol_native": "\$",
@@ -650,7 +650,7 @@ class currencyData {
       "code": "JMD",
       "name_plural": "Jamaican dollars"
     },
-    "JOD": {
+    "JOD": <String, dynamic>{
       "symbol": "JD",
       "name": "Jordanian Dinar",
       "symbol_native": "د.أ",
@@ -659,7 +659,7 @@ class currencyData {
       "code": "JOD",
       "name_plural": "Jordanian dinars"
     },
-    "JPY": {
+    "JPY": <String, dynamic>{
       "symbol": "¥",
       "name": "Japanese Yen",
       "symbol_native": "￥",
@@ -668,7 +668,7 @@ class currencyData {
       "code": "JPY",
       "name_plural": "Japanese yen"
     },
-    "KES": {
+    "KES": <String, dynamic>{
       "symbol": "Ksh",
       "name": "Kenyan Shilling",
       "symbol_native": "Ksh",
@@ -677,7 +677,7 @@ class currencyData {
       "code": "KES",
       "name_plural": "Kenyan shillings"
     },
-    "KHR": {
+    "KHR": <String, dynamic>{
       "symbol": "KHR",
       "name": "Cambodian Riel",
       "symbol_native": "៛",
@@ -686,7 +686,7 @@ class currencyData {
       "code": "KHR",
       "name_plural": "Cambodian riels"
     },
-    "KMF": {
+    "KMF": <String, dynamic>{
       "symbol": "CF",
       "name": "Comorian Franc",
       "symbol_native": "FC",
@@ -695,7 +695,7 @@ class currencyData {
       "code": "KMF",
       "name_plural": "Comorian francs"
     },
-    "KRW": {
+    "KRW": <String, dynamic>{
       "symbol": "₩",
       "name": "South Korean Won",
       "symbol_native": "₩",
@@ -704,7 +704,7 @@ class currencyData {
       "code": "KRW",
       "name_plural": "South Korean won"
     },
-    "KWD": {
+    "KWD": <String, dynamic>{
       "symbol": "KD",
       "name": "Kuwaiti Dinar",
       "symbol_native": "د.ك",
@@ -713,7 +713,7 @@ class currencyData {
       "code": "KWD",
       "name_plural": "Kuwaiti dinars"
     },
-    "KZT": {
+    "KZT": <String, dynamic>{
       "symbol": "KZT",
       "name": "Kazakhstani Tenge",
       "symbol_native": "тңг.",
@@ -722,7 +722,7 @@ class currencyData {
       "code": "KZT",
       "name_plural": "Kazakhstani tenges"
     },
-    "LBP": {
+    "LBP": <String, dynamic>{
       "symbol": "L.L.",
       "name": "Lebanese Pound",
       "symbol_native": "ل.ل",
@@ -731,7 +731,7 @@ class currencyData {
       "code": "LBP",
       "name_plural": "Lebanese pounds"
     },
-    "LKR": {
+    "LKR": <String, dynamic>{
       "symbol": "SLRs",
       "name": "Sri Lankan Rupee",
       "symbol_native": "SL Re",
@@ -740,7 +740,7 @@ class currencyData {
       "code": "LKR",
       "name_plural": "Sri Lankan rupees"
     },
-    "LTL": {
+    "LTL": <String, dynamic>{
       "symbol": "Lt",
       "name": "Lithuanian Litas",
       "symbol_native": "Lt",
@@ -749,7 +749,7 @@ class currencyData {
       "code": "LTL",
       "name_plural": "Lithuanian litai"
     },
-    "LVL": {
+    "LVL": <String, dynamic>{
       "symbol": "Ls",
       "name": "Latvian Lats",
       "symbol_native": "Ls",
@@ -758,7 +758,7 @@ class currencyData {
       "code": "LVL",
       "name_plural": "Latvian lati"
     },
-    "LYD": {
+    "LYD": <String, dynamic>{
       "symbol": "LD",
       "name": "Libyan Dinar",
       "symbol_native": "د.ل",
@@ -767,7 +767,7 @@ class currencyData {
       "code": "LYD",
       "name_plural": "Libyan dinars"
     },
-    "MAD": {
+    "MAD": <String, dynamic>{
       "symbol": "MAD",
       "name": "Moroccan Dirham",
       "symbol_native": "د.م",
@@ -776,7 +776,7 @@ class currencyData {
       "code": "MAD",
       "name_plural": "Moroccan dirhams"
     },
-    "MDL": {
+    "MDL": <String, dynamic>{
       "symbol": "MDL",
       "name": "Moldovan Leu",
       "symbol_native": "MDL",
@@ -785,7 +785,7 @@ class currencyData {
       "code": "MDL",
       "name_plural": "Moldovan lei"
     },
-    "MGA": {
+    "MGA": <String, dynamic>{
       "symbol": "MGA",
       "name": "Malagasy Ariary",
       "symbol_native": "MGA",
@@ -794,7 +794,7 @@ class currencyData {
       "code": "MGA",
       "name_plural": "Malagasy Ariaries"
     },
-    "MKD": {
+    "MKD": <String, dynamic>{
       "symbol": "MKD",
       "name": "Macedonian Denar",
       "symbol_native": "MKD",
@@ -803,7 +803,7 @@ class currencyData {
       "code": "MKD",
       "name_plural": "Macedonian denari"
     },
-    "MMK": {
+    "MMK": <String, dynamic>{
       "symbol": "MMK",
       "name": "Myanma Kyat",
       "symbol_native": "K",
@@ -812,7 +812,7 @@ class currencyData {
       "code": "MMK",
       "name_plural": "Myanma kyats"
     },
-    "MOP": {
+    "MOP": <String, dynamic>{
       "symbol": "MOP\$",
       "name": "Macanese Pataca",
       "symbol_native": "MOP\$",
@@ -821,7 +821,7 @@ class currencyData {
       "code": "MOP",
       "name_plural": "Macanese patacas"
     },
-    "MUR": {
+    "MUR": <String, dynamic>{
       "symbol": "MURs",
       "name": "Mauritian Rupee",
       "symbol_native": "MURs",
@@ -830,7 +830,7 @@ class currencyData {
       "code": "MUR",
       "name_plural": "Mauritian rupees"
     },
-    "MXN": {
+    "MXN": <String, dynamic>{
       "symbol": "MX\$",
       "name": "Mexican Peso",
       "symbol_native": "\$",
@@ -839,7 +839,7 @@ class currencyData {
       "code": "MXN",
       "name_plural": "Mexican pesos"
     },
-    "MYR": {
+    "MYR": <String, dynamic>{
       "symbol": "RM",
       "name": "Malaysian Ringgit",
       "symbol_native": "RM",
@@ -848,7 +848,7 @@ class currencyData {
       "code": "MYR",
       "name_plural": "Malaysian ringgits"
     },
-    "MZN": {
+    "MZN": <String, dynamic>{
       "symbol": "MTn",
       "name": "Mozambican Metical",
       "symbol_native": "MTn",
@@ -857,7 +857,7 @@ class currencyData {
       "code": "MZN",
       "name_plural": "Mozambican meticals"
     },
-    "NAD": {
+    "NAD": <String, dynamic>{
       "symbol": "N\$",
       "name": "Namibian Dollar",
       "symbol_native": "N\$",
@@ -866,7 +866,7 @@ class currencyData {
       "code": "NAD",
       "name_plural": "Namibian dollars"
     },
-    "NGN": {
+    "NGN": <String, dynamic>{
       "symbol": "₦",
       "name": "Nigerian Naira",
       "symbol_native": "₦",
@@ -875,7 +875,7 @@ class currencyData {
       "code": "NGN",
       "name_plural": "Nigerian nairas"
     },
-    "NIO": {
+    "NIO": <String, dynamic>{
       "symbol": "C\$",
       "name": "Nicaraguan Córdoba",
       "symbol_native": "C\$",
@@ -884,7 +884,7 @@ class currencyData {
       "code": "NIO",
       "name_plural": "Nicaraguan córdobas"
     },
-    "NOK": {
+    "NOK": <String, dynamic>{
       "symbol": "Nkr",
       "name": "Norwegian Krone",
       "symbol_native": "kr",
@@ -893,7 +893,7 @@ class currencyData {
       "code": "NOK",
       "name_plural": "Norwegian kroner"
     },
-    "NPR": {
+    "NPR": <String, dynamic>{
       "symbol": "NPRs",
       "name": "Nepalese Rupee",
       "symbol_native": "नेरू",
@@ -902,7 +902,7 @@ class currencyData {
       "code": "NPR",
       "name_plural": "Nepalese rupees"
     },
-    "NZD": {
+    "NZD": <String, dynamic>{
       "symbol": "NZ\$",
       "name": "New Zealand Dollar",
       "symbol_native": "\$",
@@ -911,7 +911,7 @@ class currencyData {
       "code": "NZD",
       "name_plural": "New Zealand dollars"
     },
-    "OMR": {
+    "OMR": <String, dynamic>{
       "symbol": "OMR",
       "name": "Omani Rial",
       "symbol_native": "ر.ع",
@@ -920,7 +920,7 @@ class currencyData {
       "code": "OMR",
       "name_plural": "Omani rials"
     },
-    "PAB": {
+    "PAB": <String, dynamic>{
       "symbol": "B/.",
       "name": "Panamanian Balboa",
       "symbol_native": "B/.",
@@ -929,7 +929,7 @@ class currencyData {
       "code": "PAB",
       "name_plural": "Panamanian balboas"
     },
-    "PEN": {
+    "PEN": <String, dynamic>{
       "symbol": "S/.",
       "name": "Peruvian Nuevo Sol",
       "symbol_native": "S/.",
@@ -938,7 +938,7 @@ class currencyData {
       "code": "PEN",
       "name_plural": "Peruvian nuevos soles"
     },
-    "PHP": {
+    "PHP": <String, dynamic>{
       "symbol": "₱",
       "name": "Philippine Peso",
       "symbol_native": "₱",
@@ -947,7 +947,7 @@ class currencyData {
       "code": "PHP",
       "name_plural": "Philippine pesos"
     },
-    "PKR": {
+    "PKR": <String, dynamic>{
       "symbol": "PKRs",
       "name": "Pakistani Rupee",
       "symbol_native": "₨",
@@ -956,7 +956,7 @@ class currencyData {
       "code": "PKR",
       "name_plural": "Pakistani rupees"
     },
-    "PLN": {
+    "PLN": <String, dynamic>{
       "symbol": "zł",
       "name": "Polish Zloty",
       "symbol_native": "zł",
@@ -965,7 +965,7 @@ class currencyData {
       "code": "PLN",
       "name_plural": "Polish zlotys"
     },
-    "PYG": {
+    "PYG": <String, dynamic>{
       "symbol": "₲",
       "name": "Paraguayan Guarani",
       "symbol_native": "₲",
@@ -974,7 +974,7 @@ class currencyData {
       "code": "PYG",
       "name_plural": "Paraguayan guaranis"
     },
-    "QAR": {
+    "QAR": <String, dynamic>{
       "symbol": "QR",
       "name": "Qatari Rial",
       "symbol_native": "ر.ق",
@@ -983,7 +983,7 @@ class currencyData {
       "code": "QAR",
       "name_plural": "Qatari rials"
     },
-    "RON": {
+    "RON": <String, dynamic>{
       "symbol": "RON",
       "name": "Romanian Leu",
       "symbol_native": "RON",
@@ -992,7 +992,7 @@ class currencyData {
       "code": "RON",
       "name_plural": "Romanian lei"
     },
-    "RSD": {
+    "RSD": <String, dynamic>{
       "symbol": "din.",
       "name": "Serbian Dinar",
       "symbol_native": "дин.",
@@ -1001,7 +1001,7 @@ class currencyData {
       "code": "RSD",
       "name_plural": "Serbian dinars"
     },
-    "RUB": {
+    "RUB": <String, dynamic>{
       "symbol": "RUB",
       "name": "Russian Ruble",
       "symbol_native": "₽.",
@@ -1010,7 +1010,7 @@ class currencyData {
       "code": "RUB",
       "name_plural": "Russian rubles"
     },
-    "RWF": {
+    "RWF": <String, dynamic>{
       "symbol": "RWF",
       "name": "Rwandan Franc",
       "symbol_native": "FR",
@@ -1019,7 +1019,7 @@ class currencyData {
       "code": "RWF",
       "name_plural": "Rwandan francs"
     },
-    "SAR": {
+    "SAR": <String, dynamic>{
       "symbol": "SR",
       "name": "Saudi Riyal",
       "symbol_native": "ر.س",
@@ -1028,7 +1028,7 @@ class currencyData {
       "code": "SAR",
       "name_plural": "Saudi riyals"
     },
-    "SDG": {
+    "SDG": <String, dynamic>{
       "symbol": "SDG",
       "name": "Sudanese Pound",
       "symbol_native": "SDG",
@@ -1037,7 +1037,7 @@ class currencyData {
       "code": "SDG",
       "name_plural": "Sudanese pounds"
     },
-    "SEK": {
+    "SEK": <String, dynamic>{
       "symbol": "Skr",
       "name": "Swedish Krona",
       "symbol_native": "kr",
@@ -1046,7 +1046,7 @@ class currencyData {
       "code": "SEK",
       "name_plural": "Swedish kronor"
     },
-    "SGD": {
+    "SGD": <String, dynamic>{
       "symbol": "S\$",
       "name": "Singapore Dollar",
       "symbol_native": "\$",
@@ -1055,7 +1055,7 @@ class currencyData {
       "code": "SGD",
       "name_plural": "Singapore dollars"
     },
-    "SOS": {
+    "SOS": <String, dynamic>{
       "symbol": "Ssh",
       "name": "Somali Shilling",
       "symbol_native": "Ssh",
@@ -1064,7 +1064,7 @@ class currencyData {
       "code": "SOS",
       "name_plural": "Somali shillings"
     },
-    "SYP": {
+    "SYP": <String, dynamic>{
       "symbol": "SY£",
       "name": "Syrian Pound",
       "symbol_native": "ل.س",
@@ -1073,7 +1073,7 @@ class currencyData {
       "code": "SYP",
       "name_plural": "Syrian pounds"
     },
-    "THB": {
+    "THB": <String, dynamic>{
       "symbol": "฿",
       "name": "Thai Baht",
       "symbol_native": "฿",
@@ -1082,7 +1082,7 @@ class currencyData {
       "code": "THB",
       "name_plural": "Thai baht"
     },
-    "TND": {
+    "TND": <String, dynamic>{
       "symbol": "DT",
       "name": "Tunisian Dinar",
       "symbol_native": "د.ت",
@@ -1091,7 +1091,7 @@ class currencyData {
       "code": "TND",
       "name_plural": "Tunisian dinars"
     },
-    "TOP": {
+    "TOP": <String, dynamic>{
       "symbol": "T\$",
       "name": "Tongan Paʻanga",
       "symbol_native": "T\$",
@@ -1100,7 +1100,7 @@ class currencyData {
       "code": "TOP",
       "name_plural": "Tongan paʻanga"
     },
-    "TRY": {
+    "TRY": <String, dynamic>{
       "symbol": "TL",
       "name": "Turkish Lira",
       "symbol_native": "TL",
@@ -1109,7 +1109,7 @@ class currencyData {
       "code": "TRY",
       "name_plural": "Turkish Lira"
     },
-    "TTD": {
+    "TTD": <String, dynamic>{
       "symbol": "TT\$",
       "name": "Trinidad and Tobago Dollar",
       "symbol_native": "\$",
@@ -1118,7 +1118,7 @@ class currencyData {
       "code": "TTD",
       "name_plural": "Trinidad and Tobago dollars"
     },
-    "TWD": {
+    "TWD": <String, dynamic>{
       "symbol": "NT\$",
       "name": "New Taiwan Dollar",
       "symbol_native": "NT\$",
@@ -1127,7 +1127,7 @@ class currencyData {
       "code": "TWD",
       "name_plural": "New Taiwan dollars"
     },
-    "TZS": {
+    "TZS": <String, dynamic>{
       "symbol": "TSh",
       "name": "Tanzanian Shilling",
       "symbol_native": "TSh",
@@ -1136,7 +1136,7 @@ class currencyData {
       "code": "TZS",
       "name_plural": "Tanzanian shillings"
     },
-    "UAH": {
+    "UAH": <String, dynamic>{
       "symbol": "₴",
       "name": "Ukrainian Hryvnia",
       "symbol_native": "₴",
@@ -1145,7 +1145,7 @@ class currencyData {
       "code": "UAH",
       "name_plural": "Ukrainian hryvnias"
     },
-    "UGX": {
+    "UGX": <String, dynamic>{
       "symbol": "USh",
       "name": "Ugandan Shilling",
       "symbol_native": "USh",
@@ -1154,7 +1154,7 @@ class currencyData {
       "code": "UGX",
       "name_plural": "Ugandan shillings"
     },
-    "UYU": {
+    "UYU": <String, dynamic>{
       "symbol": "\$U",
       "name": "Uruguayan Peso",
       "symbol_native": "\$",
@@ -1163,7 +1163,7 @@ class currencyData {
       "code": "UYU",
       "name_plural": "Uruguayan pesos"
     },
-    "UZS": {
+    "UZS": <String, dynamic>{
       "symbol": "UZS",
       "name": "Uzbekistan Som",
       "symbol_native": "UZS",
@@ -1172,7 +1172,7 @@ class currencyData {
       "code": "UZS",
       "name_plural": "Uzbekistan som"
     },
-    "VEF": {
+    "VEF": <String, dynamic>{
       "symbol": "Bs.F.",
       "name": "Venezuelan Bolívar",
       "symbol_native": "Bs.F.",
@@ -1181,7 +1181,7 @@ class currencyData {
       "code": "VEF",
       "name_plural": "Venezuelan bolívars"
     },
-    "VND": {
+    "VND": <String, dynamic>{
       "symbol": "₫",
       "name": "Vietnamese Dong",
       "symbol_native": "₫",
@@ -1190,7 +1190,7 @@ class currencyData {
       "code": "VND",
       "name_plural": "Vietnamese dong"
     },
-    "XAF": {
+    "XAF": <String, dynamic>{
       "symbol": "FCFA",
       "name": "CFA Franc BEAC",
       "symbol_native": "FCFA",
@@ -1199,7 +1199,7 @@ class currencyData {
       "code": "XAF",
       "name_plural": "CFA francs BEAC"
     },
-    "XOF": {
+    "XOF": <String, dynamic>{
       "symbol": "CFA",
       "name": "CFA Franc BCEAO",
       "symbol_native": "CFA",
@@ -1208,7 +1208,7 @@ class currencyData {
       "code": "XOF",
       "name_plural": "CFA francs BCEAO"
     },
-    "YER": {
+    "YER": <String, dynamic>{
       "symbol": "YR",
       "name": "Yemeni Rial",
       "symbol_native": "ر.ي",
@@ -1217,7 +1217,7 @@ class currencyData {
       "code": "YER",
       "name_plural": "Yemeni rials"
     },
-    "ZAR": {
+    "ZAR": <String, dynamic>{
       "symbol": "R",
       "name": "South African Rand",
       "symbol_native": "R",
@@ -1226,7 +1226,7 @@ class currencyData {
       "code": "ZAR",
       "name_plural": "South African rand"
     },
-    "ZMK": {
+    "ZMK": <String, dynamic>{
       "symbol": "ZK",
       "name": "Zambian Kwacha",
       "symbol_native": "ZK",
@@ -1235,7 +1235,7 @@ class currencyData {
       "code": "ZMK",
       "name_plural": "Zambian kwachas"
     },
-    "ZWL": {
+    "ZWL": <String, dynamic>{
       "symbol": "ZWL\$",
       "name": "Zimbabwean Dollar",
       "symbol_native": "ZWL\$",

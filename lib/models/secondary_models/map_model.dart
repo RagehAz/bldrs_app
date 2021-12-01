@@ -13,7 +13,7 @@ class MapModel{
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return
-        {
+      <String, dynamic>{
           'key': key,
           'value': value,
         };
@@ -32,7 +32,7 @@ class MapModel{
     final List<MapModel> _models = <MapModel>[];
 
     if (map != null){
-      map.forEach((key, value) => _models.add(MapModel(key: key, value: value)));
+      map.forEach((String key, dynamic value) => _models.add(MapModel(key: key, value: value)));
     }
     return _models;
   }

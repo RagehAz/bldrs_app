@@ -54,7 +54,7 @@ Widget bzModelBuilder({
         collName: FireColl.bzz,
         docName: bzID,
       ),
-      builder: (ctx, snapshot){
+      builder: (BuildContext ctx, AsyncSnapshot snapshot){
 
 
         if (snapshot.connectionState == ConnectionState.waiting){

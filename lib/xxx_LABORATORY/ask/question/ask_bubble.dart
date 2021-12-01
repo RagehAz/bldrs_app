@@ -360,7 +360,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                       // padding: EdgeInsets.all(_gridSpacing),
                       gridDelegate: _gridDelegate,
                       children: _boxesColors.map(
-                            (color) => BzLogo(
+                            (Color color) => BzLogo(
                               width: _gridBzWidth,
                               image: color,
                               bzPageIsOn: false,

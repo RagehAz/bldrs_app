@@ -143,9 +143,9 @@ class PriceDataCreator extends StatefulWidget {
 }
 
 class _PriceDataCreatorState extends State<PriceDataCreator> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
-  ValueNotifier<CurrencyModel> _currency = ValueNotifier(null);
+  ValueNotifier<CurrencyModel> _currency = ValueNotifier<CurrencyModel>(null);
 // -----------------------------------------------------------------------------
   @override
   void initState() {

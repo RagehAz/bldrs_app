@@ -20,17 +20,17 @@ void main(){
 
 
     final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
-      {
+      <String, dynamic>{
         'id' : 'a',
         'name' : 'Ahmad',
       },
-      {
+      <String, dynamic>{
         'id' : 'b',
         'name' : 'meshmesh',
       },
     ];
 
-    final Map<String, dynamic> _aMapInTheList = {
+    final Map<String, dynamic> _aMapInTheList = <String, dynamic>{
       'id' : 'b',
       'name' : 'meshmesh',
     };
@@ -47,17 +47,17 @@ void main(){
 // -----------------------------------------------------------------------------
   test('in-correct _aMapNotInTheListByOneField', (){
 
-    final Map<String, dynamic> _aMapNotInTheListByOneField = {
+    final Map<String, dynamic> _aMapNotInTheListByOneField = <String, dynamic>{
       'id' : 'b',
       'name' : 'meshmeshaaaaaaaaayaaaaaaa',
     };
 
     final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
-      {
+      <String, dynamic>{
         'id' : 'a',
         'name' : 'Ahmad',
       },
-      {
+      <String, dynamic>{
         'id' : 'b',
         'name' : 'meshmesh',
       },
@@ -74,17 +74,17 @@ void main(){
 // -----------------------------------------------------------------------------
   test('in-correct _aMapNotInTheListByTwoFields', (){
 
-    final Map<String, dynamic> _aMapNotInTheListByTwoFields = {
+    final Map<String, dynamic> _aMapNotInTheListByTwoFields = <String, dynamic>{
       'id' : 'beeeeeeee',
       'name' : 'meshmeshaaaaaaaaayaaaaaaa',
     };
 
     final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
-      {
+      <String, dynamic>{
         'id' : 'a',
         'name' : 'Ahmad',
       },
-      {
+      <String, dynamic>{
         'id' : 'b',
         'name' : 'meshmesh',
       },
@@ -102,13 +102,13 @@ void main(){
 // -----------------------------------------------------------------------------
   test('map == map', (){
 
-    final Map<String, dynamic> _aMapInTheList = {
+    final Map<String, dynamic> _aMapInTheList = <String, dynamic>{
       'id' : 'b',
       'name' : 'meshmesh',
     };
 
 
-    final Map<String, dynamic> _aMapInTheListCopy = {
+    final Map<String, dynamic> _aMapInTheListCopy = <String, dynamic>{
       'id' : 'b',
       'name' : 'meshmesh',
     };
@@ -122,13 +122,13 @@ void main(){
 // -----------------------------------------------------------------------------
   test('maps are not equal', (){
 
-    final Map<String, dynamic> _aMapInTheList = {
+    final Map<String, dynamic> _aMapInTheList = <String, dynamic>{
       'id' : 'b',
       'name' : 'meshmesh',
     };
 
 
-    final Map<String, dynamic> _aMapNotInTheListByOneField = {
+    final Map<String, dynamic> _aMapNotInTheListByOneField = <String, dynamic>{
       'id' : 'b',
       'name' : 'meshmeshaaaaaaaaayaaaaaaa',
     };
@@ -166,17 +166,17 @@ void main(){
 // -----------------------------------------------------------------------------
   test('index of a map in list of maps', (){
 
-    final Map<String, dynamic> _aMapInTheList = {
+    final Map<String, dynamic> _aMapInTheList = <String, dynamic>{
       'id' : 'b',
       'name' : 'meshmesh',
     };
 
     final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
-      {
+      <String, dynamic>{
         'id' : 'a',
         'name' : 'Ahmad',
       },
-      {
+      <String, dynamic>{
         'id' : 'b',
         'name' : 'meshmesh',
       },
@@ -195,17 +195,17 @@ void main(){
 // -----------------------------------------------------------------------------
   test('index of a map not in the list of maps', (){
 
-    final Map<String, dynamic> _aMapNotInTheListByOneField = {
+    final Map<String, dynamic> _aMapNotInTheListByOneField = <String, dynamic>{
       'id' : 'b',
       'name' : 'meshmeshaaaaaaaaayaaaaaaa',
     };
 
     final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
-      {
+      <String, dynamic>{
         'id' : 'a',
         'name' : 'Ahmad',
       },
-      {
+      <String, dynamic>{
         'id' : 'b',
         'name' : 'meshmesh',
       },
@@ -225,11 +225,11 @@ void main(){
   test('get index of a map by key value', (){
 
     final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
-      {
+      <String, dynamic>{
         'id' : 'a',
         'name' : 'Ahmad',
       },
-      {
+      <String, dynamic>{
         'id' : 'b',
         'name' : 'meshmesh',
       },
@@ -256,7 +256,7 @@ void main(){
 
     Map<String,dynamic> _map = Mapper.getMapFromURLQuery(urlQuery: _urlQuery);
 
-    Map<String, dynamic> _expected = {
+    Map<String, dynamic> _expected = <String, dynamic>{
       'country':'eg',
       'category':'business',
       'apiKey':'65f7556ec76449fa7dc7c0069f040ca',
@@ -297,7 +297,7 @@ void main(){
 
     final PublishTime timeA = PublishTime(state: FlyerState.suspended, time: Timers.createDate(year: 1987, month: 06, day: 10));
     final PublishTime timeB = PublishTime(state: FlyerState.banned, time: Timers.createDate(year: 2011, month: 02, day: 26));
-    final List<PublishTime> _times = [timeA, timeB];
+    final List<PublishTime> _times = <PublishTime>[timeA, timeB];
 
 
     print('2 : _times[0].timeStamp : ${_times[0].time}');
@@ -368,7 +368,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test('replace map pair', () async {
 
-    final Map<String, Object> map = {
+    final Map<String, Object> map = <String, Object>{
       'one' : 'wa7ed',
       'two' : 'etneen',
       'three' : 'talata',
@@ -380,7 +380,7 @@ void main(){
       inputValue: 'it works'
     );
 
-    final Map<String, Object> _expected = {
+    final Map<String, Object> _expected = <String, Object>{
       'one' : 'wa7ed',
       'two' : 'it works',
       'three' : 'talata',
@@ -397,11 +397,11 @@ void main(){
     String _string = "This is #VAR01 app text #VAR02.";
 
     Iterable<String> _allStringMatches(String text, RegExp regExp) =>
-        regExp.allMatches(text).map((m) => m.group(0));
+        regExp.allMatches(text).map((RegExpMatch m) => m.group(0));
 
     dynamic _things = _allStringMatches(_string, RegExp(r'#VAR..'));
 
-    List<String> _expectation = ['#VAR01', '#VAR02'];
+    List<String> _expectation = <String>['#VAR01', '#VAR02'];
 
     print('things are ${_things.toString()}');
 
@@ -473,7 +473,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test("Specs are the same", () async {
 
-    List<Spec> specsA = const [
+    List<Spec> specsA = const <Spec>[
 
       Spec(specsListID: 'x', value: 'x'),
       Spec(specsListID: 'y', value: 'y'),
@@ -481,7 +481,7 @@ void main(){
 
     ];
 
-    List<Spec> specsB = const [
+    List<Spec> specsB = const <Spec>[
 
       Spec(specsListID: 'x', value: 'x'),
       Spec(specsListID: 'y', value: 'y'),
@@ -499,7 +499,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test("Specs are the same", () async {
 
-    List<Spec> specsA = const [
+    List<Spec> specsA = const <Spec>[
 
       Spec(specsListID: 'x', value: 'x'),
       Spec(specsListID: 'y', value: 'y'),
@@ -517,7 +517,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test("Object is list of specs", () async {
 
-    List<Spec> specsA = const [
+    List<Spec> specsA = const <Spec>[
 
       Spec(specsListID: 'x', value: 'x'),
       Spec(specsListID: 'y', value: 'y'),
@@ -525,7 +525,7 @@ void main(){
 
     ];
 
-    dynamic things = ['d', 'r'];
+    List<String> things = <String>['d', 'r'];
 
     final bool isThingsSpecs = ObjectChecker.objectIsListOfSpecs(things);
     final bool isSpecs = ObjectChecker.objectIsListOfSpecs(specsA);

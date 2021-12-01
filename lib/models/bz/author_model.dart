@@ -99,7 +99,7 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static AuthorModel getAuthorFromBzByAuthorID(BzModel bz, String authorID){
-    final AuthorModel author = bz?.authors?.singleWhere((au) => au.userID == authorID, orElse: ()=> null );
+    final AuthorModel author = bz?.authors?.singleWhere((AuthorModel au) => au.userID == authorID, orElse: ()=> null );
     return author;
   }
 // -----------------------------------------------------------------------------
@@ -132,7 +132,7 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static int getAuthorIndexByAuthorID(List<AuthorModel> authors, String authorID){
-    final int _currentAuthorIndex = authors.indexWhere((au) => authorID == au.userID);
+    final int _currentAuthorIndex = authors.indexWhere((AuthorModel au) => authorID == au.userID);
     return _currentAuthorIndex;
   }
 // -----------------------------------------------------------------------------

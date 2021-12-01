@@ -158,7 +158,7 @@ class BigMac{
     //   _orderedISO3s.sort()
     // }
 
-    bigMacs().sort((a,b) => a.localPrice.compareTo(b.localPrice));
+    bigMacs().sort((BigMac a, BigMac b) => a.localPrice.compareTo(b.localPrice));
 
     return _macs;
   }
@@ -228,7 +228,7 @@ class BigMac{
 // -----------------------------------------------------------------------------
   static String getCurrencyByCountryIdFromBigMacs({@required String countryID, List<BigMac> bigMacs}){
 
-    final BigMac _bigMacOfThisCountry = bigMacs.singleWhere((bigMac) => bigMac.countryID == countryID, orElse: ()=> null);
+    final BigMac _bigMacOfThisCountry = bigMacs.singleWhere((BigMac bigMac) => bigMac.countryID == countryID, orElse: ()=> null);
     final String _currency = _bigMacOfThisCountry?.currency;
     return _currency;
   }

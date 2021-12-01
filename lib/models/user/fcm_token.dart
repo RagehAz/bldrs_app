@@ -15,7 +15,7 @@ class FCMToken {
   Map<String, dynamic> toMap({@required bool toJSON}){
 
     return
-        {
+      <String, dynamic>{
           'token' : token,
           'createdAt' : Timers.cipherTime(time: createdAt, toJSON: toJSON),
           'platform' : platform,

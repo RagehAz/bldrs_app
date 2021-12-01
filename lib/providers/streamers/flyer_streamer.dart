@@ -113,7 +113,7 @@ Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
   // print('getFlyerReviewsStream : _reviewsStream : $_reviewsStream');
   //
   final Stream<List<ReviewModel>> _reviews = _reviewsStream.map(
-          (qShot) => qShot.docs.map((doc) => ReviewModel(
+          (QuerySnapshot<Object> qShot) => qShot.docs.map((QueryDocumentSnapshot<Object> doc) => ReviewModel(
             userID: doc['userID'],
             time: Timers.decipherTime(time: doc['time'], fromJSON: false),
             body: doc['body'],
@@ -143,7 +143,7 @@ Widget reviewsStreamBuilder({
     StreamBuilder<List<ReviewModel>>(
       key: const ValueKey<String>('reviews_stream_builder'),
       stream: getFlyerReviewsStream(flyerID),
-      builder: (context, snapshot){
+      builder: (BuildContext context, AsyncSnapshot<List<ReviewModel>> snapshot){
 
         print('reviewsStreamBuilder : snapshot is : $snapshot');
 
