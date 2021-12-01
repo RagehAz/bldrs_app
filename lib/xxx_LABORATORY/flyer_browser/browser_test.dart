@@ -194,7 +194,7 @@
 //               scrollDirection: Axis.horizontal,
 //               itemPositionsListener: _itemPositionListener,
 //               itemCount: _selectedKeywords.length,
-//               itemBuilder: (ctx, index){
+//               itemBuilder: (BuildContext ctx, int index){
 //
 //                 final Keyword _keyword = index >= 0 ? _selectedKeywords[index] : null;
 //
@@ -453,7 +453,7 @@
 //     //       itemHeight: 45,
 //     //       itemZoneHeight: 50,
 //     //       itemCount: _areasMaps.length,
-//     //       itemBuilder: (ctx, index){
+//     //       itemBuilder: (BuildContext ctx, int index){
 //     //
 //     //         String _areaName = _areasMaps[index]['value'];
 //     //

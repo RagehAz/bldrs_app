@@ -34,7 +34,7 @@ class SelectLanguageScreen extends StatelessWidget {
       pageIcon: null,
       pageIconVerse: null,
       sky: SkyType.Black,
-      onItemTap: (value) => _tapLanguage(context, value),
+      onItemTap: (String value) => _tapLanguage(context, value),
     );
 
   }

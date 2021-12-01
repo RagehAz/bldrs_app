@@ -17,7 +17,7 @@ class ListLayout extends StatelessWidget {
   final String pyramids;
   final List<MapModel> mapModels;
   final List<String> icons;
-  final Function onItemTap;
+  final ValueChanged<String> onItemTap;
   final String pageIcon;
   final String pageIconVerse;
   final SkyType sky;
@@ -91,7 +91,7 @@ class ListLayout extends StatelessWidget {
 
                       shrinkWrap: false,
                       itemCount: mapModels.length,
-                      itemBuilder: (context, index){
+                      itemBuilder: (BuildContext context, int index){
 
                         return
                           Align(

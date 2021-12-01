@@ -186,42 +186,42 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
           ),
 
           ChangeNotifierProvider(
-            create: (ctx) => UiProvider(),
+            create: (BuildContext ctx) => UiProvider(),
           ),
 
           ChangeNotifierProvider(
-            create: (ctx) => GeneralProvider(),
+            create: (BuildContext ctx) => GeneralProvider(),
           ),
 
           ChangeNotifierProvider(
-            create: (ctx) => UsersProvider(),
+            create: (BuildContext ctx) => UsersProvider(),
           ),
 
           ChangeNotifierProvider(
-            create: (ctx) => ZoneProvider(),
+            create: (BuildContext ctx) => ZoneProvider(),
           ),
 
           ChangeNotifierProvider(
-            create: (ctx) => BzzProvider(),
+            create: (BuildContext ctx) => BzzProvider(),
           ),
 
           ChangeNotifierProvider(
-            create: (ctx) => FlyersProvider(),
+            create: (BuildContext ctx) => FlyersProvider(),
           ),
 
           ChangeNotifierProvider(
-            create: (ctx) => KeywordsProvider(),
+            create: (BuildContext ctx) => KeywordsProvider(),
           ),
 
 
           ChangeNotifierProvider(
-            create: (ctx) => QuestionsProvider(),
+            create: (BuildContext ctx) => QuestionsProvider(),
           ),
 
         ],
         child: ValueListenableBuilder<Locale>(
           valueListenable: _locale,
-          builder: (ctx, value, child){
+          builder: (BuildContext ctx, Locale value, Widget child){
 
             return
               MaterialApp(
@@ -241,8 +241,8 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
                 locale: _locale.value,
                 supportedLocales: _supportedLocales,
                 localizationsDelegates: _localizationDelegates,
-                localeResolutionCallback: (deviceLocale, supportedLocales) {
-                  for (var locale in supportedLocales) {
+                localeResolutionCallback: (Locale deviceLocale, Iterable<Locale> supportedLocales) {
+                  for (Locale locale in supportedLocales) {
                     if (locale.languageCode == deviceLocale.languageCode &&
                         locale.countryCode == deviceLocale.countryCode) {
                       return deviceLocale;
@@ -253,10 +253,10 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
                 onGenerateRoute: Routerer.allRoutes,
                 initialRoute: Routez.UserChecker,
                 routes: {
-                  Routez.FlyerScreen: (ctx) => const FlyerScreen(),
+                  Routez.FlyerScreen: (BuildContext ctx) => const FlyerScreen(),
                   // Routez.Starting: (ctx) => StartingScreen(),
-                  Routez.UserChecker: (ctx) => UserChecker(key: const ValueKey('userChecker'),),
-                  Routez.Home: (ctx) => HomeScreen(notiIsOn: _notiIsOn,),
+                  Routez.UserChecker: (BuildContext ctx) => UserChecker(key: const ValueKey<String>('userChecker'),),
+                  Routez.Home: (BuildContext ctx) => HomeScreen(notiIsOn: _notiIsOn,),
                   // Routez.InPyramids: (ctx) => InPyramidsScreen(),
                 },
               );

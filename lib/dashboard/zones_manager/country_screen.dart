@@ -159,7 +159,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
           /// --- Language
           TextFieldBubble(
             title: 'Main language',
-            textOnChanged: (val) => setState(() {_language = val;}),
+            textOnChanged: (String val) => setState(() {_language = val;}),
             fieldIsRequired: true,
             fieldIsFormField: true,
             initialTextValue: _language,
@@ -171,7 +171,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
           /// --- FLAG
           TextFieldBubble(
             title: 'flag',
-            textOnChanged: (val) => setState(() {_flag = val;}),
+            textOnChanged: (String val) => setState(() {_flag = val;}),
             fieldIsRequired: true,
             fieldIsFormField: true,
             initialTextValue: _flag,
@@ -186,7 +186,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
           /// --- REGION
           TextFieldBubble(
             title: 'Region',
-            textOnChanged: (val) => setState(() {_region = val;}),
+            textOnChanged: (String val) => setState(() {_region = val;}),
             fieldIsRequired: true,
             fieldIsFormField: true,
             initialTextValue: _region,
@@ -198,7 +198,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
           /// --- CONTINENT
           TextFieldBubble(
             title: 'Continent',
-            textOnChanged: (val) => setState(() {_continent = val;}),
+            textOnChanged: (String val) => setState(() {_continent = val;}),
             fieldIsRequired: true,
             fieldIsFormField: true,
             initialTextValue: _continent,

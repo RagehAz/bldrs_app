@@ -53,7 +53,7 @@ class SavedFlyersGrid extends StatelessWidget {
             crossAxisSpacing: _spacing,
             childAspectRatio: 1  / Ratioz.xxflyerZoneHeight,
           ),
-          itemBuilder: (ctx, index){
+          itemBuilder: (BuildContext ctx, int index){
 
             final bool _isSelected = FlyerModel.flyersContainThisID(
               flyers: selectedFlyers,

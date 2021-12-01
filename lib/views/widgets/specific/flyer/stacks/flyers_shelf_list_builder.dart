@@ -73,10 +73,10 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
 
       // cacheExtent: screenHeight*5,
       // dragStartBehavior: DragStartBehavior.start,
-      separatorBuilder: (context, _y) => const SizedBox(height: 1,width: Ratioz.appBarMargin,),
+      separatorBuilder: (BuildContext context, int _y) => const SizedBox(height: 1,width: Ratioz.appBarMargin,),
       // key: const PageStorageKey<String>('flyers'),
       // cacheExtent: screenHeight*5,
-      itemBuilder: (context,_x) {
+      itemBuilder: (BuildContext context, int _x) {
 
         // print('_flyers[_x].flyerID = ${_flyers[_x].flyerID}');
 

@@ -35,7 +35,7 @@ class NotificationFlyers extends StatelessWidget {
           itemCount: flyers.length,
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: 5),
-          itemBuilder: (ctx, index){
+          itemBuilder: (BuildContext ctx, int index){
 
             final String _flyerID = flyers[0].runtimeType == String ? flyers[index] : null;
             final FlyerModel _flyer = flyers[0].runtimeType == FlyerModel ? flyers[index] : null;

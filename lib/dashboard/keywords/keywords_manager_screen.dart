@@ -51,7 +51,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
         //   //   physics: const BouncingScrollPhysics(),
         //   //   padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.stratosphere),
         //   //   itemExtent: _keywordButtonHeight + _spacing,
-        //   //   itemBuilder: (ctx, index){
+        //   //   itemBuilder: (BuildContext ctx, int index){
         //   //
         //   //     final Keyword _keyword = _allKeywords[index];
         //   //     final String _keywordID = _allKeywords[index].keywordID;

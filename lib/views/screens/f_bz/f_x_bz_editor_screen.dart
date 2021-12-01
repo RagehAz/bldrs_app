@@ -280,12 +280,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   }
 // -----------------------------------------------------------------------------
   Future<void> _takeBzLogo() async {
-    final _imageFile = await Imagers.takeGalleryPicture(picType: PicType.bzLogo);
+    final File _imageFile = await Imagers.takeGalleryPicture(picType: PicType.bzLogo);
     setState(() {_currentBzLogoFile = _imageFile;});
   }
 // -----------------------------------------------------------------------------
   Future<void> _takeAuthorPicture() async {
-    final _imageFile = await Imagers.takeGalleryPicture(picType: PicType.authorPic);
+    final File _imageFile = await Imagers.takeGalleryPicture(picType: PicType.authorPic);
     setState(() {_currentAuthorPicFile = File(_imageFile.path);});
   }
 // -----------------------------------------------------------------------------
@@ -642,9 +642,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
               /// --- bzLocale
               LocaleBubble(
-                changeCountry : (countryID) => setState(() {_currentBzCountry = countryID;}),
-                changeCity : (cityID) => setState(() {_currentBzCity = cityID;}),
-                changeDistrict : (districtID) => setState(() {_currentBzDistrict = districtID;}),
+                changeCountry : (String countryID) => setState(() {_currentBzCountry = countryID;}),
+                changeCity : (String cityID) => setState(() {_currentBzCity = cityID;}),
+                changeDistrict : (String districtID) => setState(() {_currentBzDistrict = districtID;}),
                 currentZone: ZoneModel(countryID: _currentBzCountry, cityID: _currentBzCity, districtID: _currentBzDistrict),
                 title: 'Headquarters District',//Wordz.hqCity(context),
               ),

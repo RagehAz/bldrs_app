@@ -163,7 +163,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     print('-------------- Starting Loading screen --------------');
 
     return MainLayout(
-      key: const ValueKey('mainLayout'),
+      key: const ValueKey<String>('mainLayout'),
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Non,
       loading: _loading,

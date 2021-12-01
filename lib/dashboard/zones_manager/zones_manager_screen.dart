@@ -142,7 +142,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
           shrinkWrap: false,
           padding: const EdgeInsets.only(top: Ratioz.stratosphere),
           itemCount: _countries?.length,
-          itemBuilder: (context, index){
+          itemBuilder: (BuildContext context, int index){
 
             final CountryModel _countryModel = _countries[index];
             final String _countryName = Name.getNameByCurrentLingoFromNames(context, _countryModel.names);

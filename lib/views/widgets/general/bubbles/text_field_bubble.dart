@@ -16,13 +16,13 @@ class TextFieldBubble extends StatelessWidget {
   final int maxLength;
   final TextEditingController textController;
   final TextInputType keyboardTextInputType;
-  final Function textOnChanged;
+  final ValueChanged<String> textOnChanged;
   final bool obscured;
   final bool fieldIsFormField;
   final Function onSaved;
   final TextInputAction keyboardTextInputAction;
   final String initialTextValue;
-  final Function validator;
+  final ValueChanged<String> validator;
   final String comments;
   final bool fieldIsRequired;
   final bool loading;

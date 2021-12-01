@@ -24,7 +24,7 @@ class NotificationTemplatesScreen extends StatefulWidget {
 }
 
 class _NotificationTemplatesScreenState extends State<NotificationTemplatesScreen> {
-  List<dynamic> _notifications = [];
+  List<dynamic> _notifications = <dynamic>[];
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -149,7 +149,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
         addAutomaticKeepAlives: true,
         itemCount: _notifications.length,
         padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
-        itemBuilder: (ctx, index){
+        itemBuilder: (BuildContext ctx, int index){
 
           final NotiModel _notiModel = _notifications[index];
 

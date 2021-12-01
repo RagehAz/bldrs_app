@@ -130,7 +130,7 @@ class _FlyersGridState extends State<FlyersGrid> {
               maxCrossAxisExtent: gridFlyerWidth,
             ),
               itemCount: flyers.length,
-              itemBuilder: (ctx, index){
+              itemBuilder: (BuildContext ctx, int index){
 
               print('FlyersGrid : flyerID : ${flyers[index].id} : midColor : ${flyers[index].slides[0].midColor}');
 

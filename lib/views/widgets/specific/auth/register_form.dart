@@ -190,7 +190,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
           /// ENTER E-MAIL
           TextFieldBubble(
-            key: const ValueKey('email'),
+            key: const ValueKey<String>('email'),
             textController: _emailController,
             loading: _loading,
             bubbleColor: Colorz.white20,
@@ -202,12 +202,12 @@ class _RegisterFormState extends State<RegisterForm> {
             title: Wordz.emailAddress(context),
             hintText: '...',
             maxLength: 100,
-            validator: (val) => _emailValidator(val),
+            validator: (String val) => _emailValidator(val),
           ),
 
           /// ENTER PASSWORD
           TextFieldBubble(
-            key: const ValueKey('password'),
+            key: const ValueKey<String>('password'),
             textController: _passwordController,
             loading: _loading,
             bubbleColor: Colorz.white20,
@@ -219,7 +219,7 @@ class _RegisterFormState extends State<RegisterForm> {
             title: Wordz.password(context),
             hintText: '...',
             maxLength: 100,
-            validator: (val) => _passwordValidator(val),
+            validator: (String val) => _passwordValidator(val),
             comments: Wordz.min6Char(context),
             maxLines: 1,
             obscured: _passwordObscured,
@@ -228,7 +228,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
           /// ENTER CONFIRM PASSWORD
           TextFieldBubble(
-            key: const ValueKey('confirm'),
+            key: const ValueKey<String>('confirm'),
             textController: _confirmPasswordController,
             loading: _loading,
             bubbleColor: Colorz.white20,
@@ -240,7 +240,7 @@ class _RegisterFormState extends State<RegisterForm> {
             title: Wordz.confirmPassword(context),
             hintText: '...',
             maxLength: 100,
-            validator: (val) => _confirmPasswordValidator(val),
+            validator: (String val) => _confirmPasswordValidator(val),
               comments: Wordz.min6Char(context),
               maxLines: 1,
               obscured: _passwordObscured,

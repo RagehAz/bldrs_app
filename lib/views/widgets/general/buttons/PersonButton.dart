@@ -10,7 +10,7 @@ class PersonButton extends StatelessWidget {
   final String image;
   final String name;
   final String id;
-  final Function onTap;
+  final ValueChanged<String> onTap;
 
   const PersonButton({
     @required this.totalHeight,

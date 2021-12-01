@@ -57,7 +57,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
 
      ///
      if(widget.selectionMode == true){
-       _selectedFlyers = [];
+       _selectedFlyers = <FlyerModel>[];
      }
   }
 // -----------------------------------------------------------------------------

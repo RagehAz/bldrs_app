@@ -25,7 +25,7 @@ class SearchHistoryScreen extends StatelessWidget {
       layoutWidget: ListView.builder(
           itemCount: _searchList.length,
           padding: const EdgeInsets.only(top: Ratioz.stratosphere),
-          itemBuilder: (context, index){
+          itemBuilder: (BuildContext context, int index){
 
             final String _searchWord = _searchList[index];
 

@@ -138,7 +138,7 @@ class _HomeWallState extends State<HomeWall> {
       scrollDirection: Axis.vertical,
         itemCount: _homeWallWidgets.length,
 
-        itemBuilder: (ctx, index){
+        itemBuilder: (BuildContext ctx, int index){
 
         return
             _homeWallWidgets[index];
