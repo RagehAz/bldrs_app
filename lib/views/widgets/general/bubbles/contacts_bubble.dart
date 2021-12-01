@@ -77,7 +77,7 @@ class ContactsBubble extends StatelessWidget {
 
             ...List<Widget>.generate(
                 _socialMediaContacts.length,
-                    (index){
+                    (int index){
 
                   final String _value = _socialMediaContacts[index].contact;
 

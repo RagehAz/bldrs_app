@@ -357,7 +357,7 @@ abstract class FireBzOps{
     /// 3 - delete bzID from myBzzIDs for each author
     final List<AuthorModel> _authors = bzModel.authors;
     final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(_authors);
-    for (var id in _authorsIDs){
+    for (String id in _authorsIDs){
 
       final UserModel _user = await UserFireOps.readUser(context: context, userID: id);
 

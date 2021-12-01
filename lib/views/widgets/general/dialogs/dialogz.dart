@@ -138,7 +138,7 @@ class Dialogz{
             if (bzzToKeep.length != 0)
               BzzBubble(
                 bzzModels: bzzToKeep,
-                onTap: (value){print(value);},
+                onTap: (String value){print(value);},
                 numberOfColumns: 6,
                 numberOfRows: 1,
                 scrollDirection: Axis.horizontal,

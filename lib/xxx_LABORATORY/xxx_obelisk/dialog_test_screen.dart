@@ -6,6 +6,7 @@ import 'package:bldrs/db/fire/ops/bz_ops.dart';
 import 'package:bldrs/db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/streamers/user_streamer.dart';
 import 'package:bldrs/views/widgets/general/bubbles/flyers_bubble.dart';
@@ -52,7 +53,7 @@ class DialogTestScreen extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: _numberOfBzz,
                     scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index){
+                    itemBuilder: (BuildContext context, int index){
                       return
                         FlyersBubble(
                           flyers: _flyers,
@@ -125,7 +126,7 @@ class DialogTestScreen extends StatelessWidget {
                 userModelBuilder(
                     context: context,
                     userID: superUserID(),
-                    builder: (ctx, userModel){
+                    builder: (BuildContext ctx, UserModel userModel){
 
                       return
                         MainButton(

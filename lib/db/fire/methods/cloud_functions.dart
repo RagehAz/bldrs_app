@@ -47,7 +47,7 @@ class CloudFunctionz{
 
       final Map<String, dynamic> _arguments = toDBMap == null ? {} : toDBMap;
 
-      final _result = await _function.call(_arguments);
+      final HttpsCallableResult _result = await _function.call(_arguments);
 
       return _result.data;
     }

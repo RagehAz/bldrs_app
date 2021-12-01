@@ -16,7 +16,7 @@ class AuthorBubble extends StatelessWidget {
   final List<AuthorModel> bzAuthors;
   final bool showFlyers;
   final BzModel bzModel;
-  final Function onAuthorLabelTap;
+  final ValueChanged<String> onAuthorLabelTap;
   final String selectedAuthorID;
   final List<FlyerModel> bzFlyers;
 
@@ -136,7 +136,7 @@ class AuthorBubble extends StatelessWidget {
                                   ),
                                   onTap:
                                   // widget.bzTeamIDs.length == 1 ?
-                                      (id) {
+                                      (String id) {
                                     onAuthorLabelTap(id);
                                   },
                                   // :(id){print('a77a');// tappingAuthorLabel();},

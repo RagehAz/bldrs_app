@@ -386,7 +386,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                       // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
                       gridDelegate: _gridDelegate,
                       children: _questionPics.map(
-                            (pic) => BzLogo(
+                            (File pic) => BzLogo(
                             width: _gridBzWidth,
                             image: pic,
                             bzPageIsOn: false,

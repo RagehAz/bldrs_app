@@ -131,7 +131,7 @@ class _SearchBarState extends State<SearchBar> {
               inputSize: 2,
               inputShadow: false,
               inputWeight: VerseWeight.thin,
-              onSaved: (){
+              onSaved: (String val){
                 print('on saved');
               },
               onSubmitted: (String val){
