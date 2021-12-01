@@ -13,7 +13,8 @@ class HeaderLabels extends StatelessWidget {
   const HeaderLabels({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
-  });
+    Key key,
+  }) : super(key: key);
 
   static double getHeaderLabelWidth(double flyerBoxWidth){
     return flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);

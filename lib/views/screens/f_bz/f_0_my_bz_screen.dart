@@ -19,10 +19,11 @@ class MyBzScreen extends StatefulWidget {
   final BzModel bzModel;
   final UserModel userModel;
 
-  MyBzScreen({
+  const MyBzScreen({
     @required this.bzModel,
     @required this.userModel,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _MyBzScreenState createState() => _MyBzScreenState();

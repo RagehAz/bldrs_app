@@ -42,7 +42,7 @@ import 'package:bldrs/views/widgets/specific/notifications/notification_flyers.d
 import 'package:flutter/material.dart';
 
 class NotificationMaker extends StatefulWidget {
-
+  const NotificationMaker({Key key}) : super(key: key);
 
   @override
   _NotificationMakerState createState() => _NotificationMakerState();
@@ -199,7 +199,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
         context,
-        SavedFlyersScreen(
+        const SavedFlyersScreen(
           selectionMode: true,
         ),
     );

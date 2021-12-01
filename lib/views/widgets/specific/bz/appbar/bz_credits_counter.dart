@@ -14,7 +14,8 @@ class BzCreditsCounter extends StatelessWidget {
     @required this.width,
     @required this.slidesCredit,
     @required this.ankhsCredit,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,8 @@ class CreditsRow extends StatelessWidget {
     @required this.icon,
     @required this.value,
     @required this.width,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

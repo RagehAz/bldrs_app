@@ -27,7 +27,8 @@ class SpecPickerScreen extends StatefulWidget {
   const SpecPickerScreen({
     @required this.specList,
     @required this.allSelectedSpecs,
-});
+    Key key,
+  }) : super(key: key);
 
   static const double instructionBoxHeight = 50;
 

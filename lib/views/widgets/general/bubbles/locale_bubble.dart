@@ -30,7 +30,8 @@ class LocaleBubble extends StatefulWidget {
     @required this.changeDistrict,
     @required this.currentZone,
     this.title = 'Preferred Location',
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _LocaleBubbleState createState() => _LocaleBubbleState();
@@ -313,7 +314,8 @@ class LocaleButton extends StatelessWidget {
     @required this.verse,
     this.icon,
     @required this.onTap,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

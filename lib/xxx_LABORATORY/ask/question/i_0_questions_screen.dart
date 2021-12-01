@@ -3,6 +3,7 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart
 import 'package:flutter/material.dart';
 
 class QuestionsScreen extends StatefulWidget {
+  const QuestionsScreen({Key key}) : super(key: key);
 
   @override
   _QuestionsScreenState createState() => _QuestionsScreenState();

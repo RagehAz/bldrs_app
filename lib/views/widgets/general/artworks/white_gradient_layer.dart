@@ -13,7 +13,8 @@ class GradientLayer extends StatelessWidget {
     @required this.height,
     @required this.isWhite,
     this.color,
-});
+    Key key,
+}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

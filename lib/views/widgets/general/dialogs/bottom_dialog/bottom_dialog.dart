@@ -39,7 +39,8 @@ class BottomDialog extends StatelessWidget {
     this.draggable = true,
     this.child,
     this.title,
-});
+    Key key,
+}) : super(key: key);
 
 // -----------------------------------------------------------------------------
   /// one side value only

@@ -15,7 +15,8 @@ class Strip extends StatelessWidget {
     @required this.numberOfSlides,
     this.margins,
     @required this.isWhite,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

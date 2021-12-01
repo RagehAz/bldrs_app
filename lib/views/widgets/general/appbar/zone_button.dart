@@ -21,12 +21,13 @@ class ZoneButton extends StatelessWidget {
   const ZoneButton({
     this.onTap,
     this.isOn = false,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   Future<void> _zoneButtonOnTap(BuildContext context) async {
 
     await Nav.goToNewScreen(context,
-        SelectCountryScreen()
+        const SelectCountryScreen()
 
       //   /// but now we go to Egypt cities directly
       // SelectCityScreen(countryID: 'egy',)

@@ -22,7 +22,8 @@ class FloatingDialog extends StatefulWidget {
     this.actionBtColor,
     this.actionBtIcon,
     this.actionBtFunction,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _FloatingDialogState createState() => _FloatingDialogState();

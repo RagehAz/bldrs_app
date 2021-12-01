@@ -25,7 +25,8 @@ class ReviewCreator extends StatelessWidget {
     @required this.userModel,
     @required this.superFlyer,
     @required this.reloadReviews,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

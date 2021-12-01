@@ -19,7 +19,8 @@ class WideButton extends StatelessWidget {
     this.isActive = true,
     this.color,
     this.verseColor = Colorz.white255,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

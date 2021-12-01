@@ -16,8 +16,8 @@ class DreamList extends StatelessWidget {
     @required this.itemBuilder,
     this.itemHeight = 50,
     this.itemZoneHeight = 60,
-
-});
+    Key key,
+  }) : super(key: key);
 
 
   @override
@@ -81,7 +81,9 @@ class DreamTile extends StatelessWidget {
     this.icon,
     this.verse,
     this.secondLine,
-});
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
 

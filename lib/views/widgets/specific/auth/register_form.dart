@@ -29,7 +29,8 @@ class RegisterForm extends StatefulWidget {
     @required this.password,
     // @required this.emailTextOnChanged,
     // @required this.passwordTextOnChanged,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _RegisterFormState createState() => _RegisterFormState();

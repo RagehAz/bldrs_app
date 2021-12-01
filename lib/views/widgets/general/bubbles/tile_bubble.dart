@@ -37,7 +37,8 @@ class TileBubble extends StatelessWidget {
     this.insideDialog = false,
     this.moreBtOnTap,
     this.child,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static const double iconBoxWidth = 30;
 // -----------------------------------------------------------------------------

@@ -15,11 +15,12 @@ class FlyerMakerScreen extends StatelessWidget {
   final bool firstTimer;
   final FlyerModel flyerModel;
 
-  FlyerMakerScreen({
+  const FlyerMakerScreen({
     @required this.bzModel,
     @required this.firstTimer,
     @required this.flyerModel,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +37,11 @@ class FlyerMakerScreen extends StatelessWidget {
     return MainLayout(
       pyramids: Iconz.DvBlankSVG,
       appBarType: AppBarType.Basic,
-      appBarRowWidgets: <Widget>[
+      appBarRowWidgets: const <Widget>[
 
         SlidesCounter(),
 
-        const Expander(),
+        Expander(),
 
         // PublishButton(
         //     firstTimer: firstTimer,

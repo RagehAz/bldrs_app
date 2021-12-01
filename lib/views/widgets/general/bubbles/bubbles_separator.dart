@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class BubblesSeparator extends StatelessWidget {
 
-  const BubblesSeparator();
+  const BubblesSeparator({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

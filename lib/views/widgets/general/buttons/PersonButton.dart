@@ -18,7 +18,8 @@ class PersonButton extends StatelessWidget {
     @required this.name,
     @required this.id,
     @required this.onTap,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

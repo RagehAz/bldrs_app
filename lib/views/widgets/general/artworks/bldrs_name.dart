@@ -8,7 +8,8 @@ class BldrsName extends StatelessWidget {
 
   const BldrsName({
     @required this.size,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,8 @@ class BldrsButton extends StatelessWidget {
   const BldrsButton({
     this.onTap,
     // this.size = 40,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

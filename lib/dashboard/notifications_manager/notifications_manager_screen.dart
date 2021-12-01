@@ -6,6 +6,11 @@ import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 
 class NotificationsManager extends StatefulWidget {
+
+  const NotificationsManager({
+    Key key
+  }) : super(key: key);
+
   @override
   _NotificationsManagerState createState() => _NotificationsManagerState();
 }
@@ -55,12 +60,12 @@ class _NotificationsManagerState extends State<NotificationsManager> {
 
         WideButton(
             verse: 'Templates',
-            onTap: () => Nav.goToNewScreen(context, NotificationTemplatesScreen()),
+            onTap: () => Nav.goToNewScreen(context, const NotificationTemplatesScreen()),
         ),
 
         WideButton(
           verse: 'Send to single user',
-          onTap: () => Nav.goToNewScreen(context, NotificationMaker()),
+          onTap: () => Nav.goToNewScreen(context,  const NotificationMaker()),
         ),
 
 

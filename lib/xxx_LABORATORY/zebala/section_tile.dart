@@ -26,7 +26,8 @@ class SectionTile extends StatelessWidget {
     @required this.section,
     @required this.inActiveMode,
     @required this.chain,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   String _sectionIcon({@required Section section, @required bool inActiveMode}){
     String _icon;

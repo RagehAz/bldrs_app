@@ -14,7 +14,8 @@ class EnumListerTile extends StatelessWidget {
     @required this.verse,
     @required this.onTap,
     @required this.tileIsOn,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

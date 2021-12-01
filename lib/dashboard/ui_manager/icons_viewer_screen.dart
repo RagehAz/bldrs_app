@@ -10,7 +10,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class IconsViewerScreen extends StatelessWidget {
-
+  const IconsViewerScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

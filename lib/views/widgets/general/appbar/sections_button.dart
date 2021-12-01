@@ -15,7 +15,8 @@ class SectionsButton extends StatelessWidget {
   const SectionsButton({
     this.onTap,
     this.color = Colorz.white10,
-});
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   void _changeSection(BuildContext context) async {
 

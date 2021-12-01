@@ -19,6 +19,7 @@ import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 
 class FCMTestScreen extends StatefulWidget {
+  const FCMTestScreen({Key key}) : super(key: key);
 
   @override
   _FCMTestScreenState createState() => _FCMTestScreenState();
@@ -28,7 +29,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
   /// FCM : firebase cloud messaging
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
-  StreamSubscription iosSubscription;
+  // StreamSubscription _iosSubscription;
 
   @override
   void initState() {

@@ -10,6 +10,8 @@ import 'package:bldrs/xxx_LABORATORY/animations/animated_dream_box.dart';
 import 'package:flutter/material.dart';
 
 class AnimationsScreen extends StatefulWidget {
+  const AnimationsScreen({Key key}) : super(key: key);
+
   @override
   _AnimationsScreenState createState() => _AnimationsScreenState();
 }
@@ -186,13 +188,13 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               onTap: (){
                 print('ripple effect works now');
                 Navigator.push(context,
-                MaterialPageRoute(builder: (context) => HeroMax())
+                MaterialPageRoute(builder: (context) => const HeroMax())
                 );
                 },
             ),
           ),
 
-          TweenTest(),
+          const TweenTest(),
 
           Container(
             width: 300,
@@ -206,7 +208,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                 verse: 'ana ho',
                 onTap: (){
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HeroMax())
+                      MaterialPageRoute(builder: (context) => const HeroMax())
                   );
                 },
               ),
@@ -348,6 +350,8 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
 /// tween animation like this requires being in separate stateless widget but
 /// restarts each time widget rebuilds
 class TweenTest extends StatelessWidget {
+  const TweenTest({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
 
@@ -380,6 +384,8 @@ class TweenTest extends StatelessWidget {
 }
 
 class HeroMax extends StatelessWidget {
+  const HeroMax({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MainLayout(

@@ -31,7 +31,8 @@ class AuthorLabel extends StatelessWidget {
     @required this.authorGalleryCount,
     this.labelIsOn = false,
     @required this.onTap,
-});
+    Key key,
+  }) : super(key: key);
 
 // tappingAuthorLabel (){
 //     setState(() {
@@ -168,10 +169,10 @@ class AuthorPic extends StatelessWidget {
 
   const AuthorPic({
     this.isAddAuthorButton = false,
-
     this.width,
     this.authorPic,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   void _tapAddAuthor(BuildContext context){
 

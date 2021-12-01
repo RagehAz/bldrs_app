@@ -16,7 +16,8 @@ class BldrsChain extends StatelessWidget {
     this.chain,
     this.onKeywordTap,
     this.selectedKeywordsIDs,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

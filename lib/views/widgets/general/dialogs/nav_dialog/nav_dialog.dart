@@ -16,7 +16,9 @@ class NavDialog extends StatelessWidget {
     @required this.firstLine,
     @required this.secondLine,
     this.color = Colorz.darkRed255,
-});
+    Key key,
+}) : super(key: key);
+  
 // -----------------------------------------------------------------------------
   static Future<void> showNavDialog({
     @required BuildContext context,

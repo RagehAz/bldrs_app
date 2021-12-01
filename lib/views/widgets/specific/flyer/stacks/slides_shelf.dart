@@ -24,7 +24,8 @@ class SlidesShelf extends StatelessWidget {
     @required this.onImageTap,
     @required this.onAddButtonOnTap,
     @required this.shelfHeight,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

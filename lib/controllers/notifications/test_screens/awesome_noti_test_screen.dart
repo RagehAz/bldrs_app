@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
 class AwesomeNotiTestScreen extends StatefulWidget {
+  const AwesomeNotiTestScreen({Key key}) : super(key: key);
 
 
   @override
@@ -146,7 +147,9 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
         
         await Nav.pushAndRemoveUntil(
             context: context,
-            screen: const SecondNotiTestScreen(thing: 'thing'),
+            screen: const SecondNotiTestScreen(
+                // thing: 'thing'
+            ),
         );
       });
 

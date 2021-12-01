@@ -23,7 +23,8 @@ class FlyerFooter extends StatelessWidget {
     @required this.saves,
     @required this.onShareTap,
     @required this.onCountersTap,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static double boxCorners(double flyerBoxWidth){
     return flyerBoxWidth * Ratioz.xxflyerBottomCorners;

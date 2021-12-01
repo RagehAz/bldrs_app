@@ -25,6 +25,10 @@ import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
 
+  const SearchScreen({
+    Key key
+  }) : super(key: key);
+
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }

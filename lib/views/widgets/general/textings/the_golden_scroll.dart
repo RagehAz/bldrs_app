@@ -8,7 +8,11 @@ class GoldenScroll extends StatelessWidget {
   final String scrollScript;
   final String scrollTitle;
 
-  const GoldenScroll({@required this.scrollScript, @required this.scrollTitle});
+  const GoldenScroll({
+    @required this.scrollScript,
+    @required this.scrollTitle,
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

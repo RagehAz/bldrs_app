@@ -11,7 +11,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class TimerTest extends StatelessWidget {
-
+  const TimerTest({Key key}) : super(key: key);
 
   Widget line(String verse){
     return

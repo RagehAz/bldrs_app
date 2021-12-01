@@ -19,6 +19,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DialogTestScreen extends StatelessWidget {
+  const DialogTestScreen({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
 

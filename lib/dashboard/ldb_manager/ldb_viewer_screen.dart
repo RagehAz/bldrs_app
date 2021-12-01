@@ -18,7 +18,8 @@ class LDBViewerScreen extends StatefulWidget {
 
   const LDBViewerScreen({
     @required this.ldbDocName,
-});
+    Key key,
+}) : super(key: key);
 // -----------------------------------------------------------------------------
   static List<Widget> rows({
     @required BuildContext context,

@@ -36,7 +36,8 @@ class GalleryGrid extends StatelessWidget {
     this.addButtonIsOn = false,
     // @required this.flyerOnTap,
     @required this.addPublishedFlyerToGallery,
-});
+    Key key,
+}) : super(key: key);
 // -----------------------------------------------------------------------------
   bool _concludeUserIsAuthor(){
     final List<String> _authorsIDsList = <String>[];

@@ -7,6 +7,8 @@ import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class BlackHoleScreen extends StatefulWidget {
+  const BlackHoleScreen({Key key}) : super(key: key);
+
 
   @override
   _BlackHoleScreenState createState() => _BlackHoleScreenState();

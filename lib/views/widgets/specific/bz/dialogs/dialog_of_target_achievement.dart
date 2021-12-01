@@ -6,6 +6,8 @@ import 'package:bldrs/views/widgets/specific/bz/dialogs/dialog_of_slides_and_ank
 import 'package:flutter/material.dart';
 
 class DialogOfTargetAchievement extends StatelessWidget {
+  const DialogOfTargetAchievement({Key key}) : super(key: key);
+
 
   static Future<void> show({BuildContext context, TargetModel target}) async {
 

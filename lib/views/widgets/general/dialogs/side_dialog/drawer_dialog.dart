@@ -28,9 +28,10 @@ import 'package:provider/provider.dart';
 class DrawerDialog extends StatefulWidget {
   final double width;
 
-  DrawerDialog({
+  const DrawerDialog({
     this.width = 350,
-  });
+    Key key,
+  }) : super(key: key);
 
   static const double drawerEdgeDragWidth = 15;
   static const bool drawerEnableOpenDragGesture = true;

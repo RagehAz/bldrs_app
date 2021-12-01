@@ -23,7 +23,9 @@ class ReviewCard extends StatelessWidget {
     @required this.userModel,
     @required this.flyerID,
     @required this.onShowReviewOptions,
-});
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
 

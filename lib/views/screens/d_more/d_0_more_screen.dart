@@ -31,7 +31,8 @@ class MoreScreen extends StatelessWidget {
 
   MoreScreen({
     @required this.userModel,
-});
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -89,7 +90,7 @@ class MoreScreen extends StatelessWidget {
                 btOnTap: () => Nav.goToNewScreen(context,
 
 
-                    SelectCountryScreen()
+                    const SelectCountryScreen()
 
                   //   /// but now we go to Egypt cities directly
                   // SelectCityScreen(countryID: 'egy',)
@@ -100,7 +101,7 @@ class MoreScreen extends StatelessWidget {
               TileBubble(
                 verse: Wordz.changeLanguage(context),
                 icon: Iconz.Language,
-                btOnTap: () => Nav.goToNewScreen(context, SelectLanguageScreen()),
+                btOnTap: () => Nav.goToNewScreen(context, const SelectLanguageScreen()),
               ),
 
               const BubblesSeparator(),
@@ -109,14 +110,14 @@ class MoreScreen extends StatelessWidget {
                 verse: '${Wordz.about(context)} ${Wordz.bldrsShortName(context)}',
                 icon: Iconz.PyramidSingleYellow,
                 iconSizeFactor: 0.8,
-                btOnTap: () => Nav.goToNewScreen(context, AboutBldrsScreen()),
+                btOnTap: () => Nav.goToNewScreen(context, const AboutBldrsScreen()),
 
               ),
               TileBubble(
                 verse: Wordz.feedback(context),
                 icon: Iconz.UTSearching,
                 iconSizeFactor: 0.6,
-                btOnTap: () => Nav.goToNewScreen(context, FeedBack()),
+                btOnTap: () => Nav.goToNewScreen(context, const FeedBack()),
               ),
               TileBubble(
                 verse: Wordz.termsRegulations(context),

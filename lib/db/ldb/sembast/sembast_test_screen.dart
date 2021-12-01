@@ -11,6 +11,10 @@ import 'package:flutter/material.dart';
 
 class SembastTestScreen extends StatefulWidget {
 
+  const SembastTestScreen({
+    Key key
+  }) : super(key: key);
+
   @override
   _SembastTestScreenState createState() => _SembastTestScreenState();
 }
@@ -145,7 +149,8 @@ class SmallFuckingButton extends StatelessWidget {
   const SmallFuckingButton({
     @required this.verse,
     @required this.onTap,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

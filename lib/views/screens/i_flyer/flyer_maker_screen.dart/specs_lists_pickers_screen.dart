@@ -23,10 +23,11 @@ class SpecsListsPickersScreen extends StatefulWidget {
   final FlyerType flyerType;
   final List<Spec> selectedSpecs;
 
-  SpecsListsPickersScreen({
+  const SpecsListsPickersScreen({
     @required this.flyerType,
     @required this.selectedSpecs,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _SpecsListsPickersScreenState createState() => _SpecsListsPickersScreenState();

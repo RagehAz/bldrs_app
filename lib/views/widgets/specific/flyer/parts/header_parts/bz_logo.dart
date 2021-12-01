@@ -29,7 +29,8 @@ class BzLogo extends StatelessWidget {
     this.onTap,
     this.blackAndWhite = false,
     this.shadowIsOn = false,
-  });
+    Key key,
+  }) : super(key: key);
 
   static double cornersValue(double logoWidth){
     return  logoWidth * Ratioz.bzLogoCorner;

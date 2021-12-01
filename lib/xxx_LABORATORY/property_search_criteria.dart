@@ -19,7 +19,8 @@ class PropertySearchCriteria extends StatelessWidget {
     // @required this.currentPropertyUse,
     // @required this.currentPropertyType,
     // @required this.currentPropertyContract,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

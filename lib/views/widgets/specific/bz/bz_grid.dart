@@ -24,7 +24,8 @@ class BzGrid extends StatelessWidget {
     @required this.scrollDirection,
     this.numberOfRows = 1,
     this.corners,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

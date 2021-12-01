@@ -23,7 +23,8 @@ class CenterDialog extends StatelessWidget {
     @required this.height,
     this.child,
     @required this.confirmButtonText,
-});
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static Future<bool> showCenterDialog({
     @required BuildContext context,

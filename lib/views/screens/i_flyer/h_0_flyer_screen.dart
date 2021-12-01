@@ -22,12 +22,12 @@ class FlyerScreen extends StatelessWidget {
   final int initialSlideIndex;
   final String flyerID;
 
-  FlyerScreen({
+  const FlyerScreen({
     this.flyerModel,
     this.initialSlideIndex,
     this.flyerID,
-});
-
+    Key key,
+  }) : super(key: key);
 
   static const routeName = Routez.FlyerScreen;
 

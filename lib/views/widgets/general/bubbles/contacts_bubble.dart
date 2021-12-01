@@ -19,7 +19,8 @@ class ContactsBubble extends StatelessWidget {
     @required this.contacts,
     this.stretchy = false,
     this.onTap,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

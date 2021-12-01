@@ -10,10 +10,14 @@ import 'package:flutter/material.dart';
 
 class PricingScreen extends StatelessWidget {
 
-  final List<BigMac> _macs = BigMac.bigMacs();
+  const PricingScreen({
+    Key key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    final List<BigMac> _macs = BigMac.bigMacs();
 
     _macs.sort(
             (macA,macB) =>

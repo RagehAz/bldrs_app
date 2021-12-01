@@ -12,7 +12,8 @@ class GroupsPage extends StatelessWidget {
     @required this.groups,
     @required this.onTap,
     @required this.selectedGroup,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

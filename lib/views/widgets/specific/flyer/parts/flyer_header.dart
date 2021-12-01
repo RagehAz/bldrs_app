@@ -15,7 +15,8 @@ class FlyerHeader extends StatelessWidget {
   const FlyerHeader({
     this.superFlyer,
     @required this.flyerBoxWidth,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -25,7 +25,8 @@ class BackAndSearchButton extends StatelessWidget {
     this.color = Colorz.white10,
     @required this.backAndSearchAction,
     this.passSearchHistory,
-});
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -67,11 +68,11 @@ class BackAndSearchButton extends StatelessWidget {
           }
 
           else if(backAndSearchAction == BackAndSearchAction.GoToSearchScreen){
-            Nav.goToNewScreen(context, SearchScreen());
+            Nav.goToNewScreen(context, const SearchScreen());
           }
 
           else if(backAndSearchAction == BackAndSearchAction.ShowHistory){
-            final String _result = await Nav.goToNewScreen(context, SearchHistoryScreen());
+            final String _result = await Nav.goToNewScreen(context, const SearchHistoryScreen());
             print('received back this result : $_result');
             passSearchHistory(_result);
           }

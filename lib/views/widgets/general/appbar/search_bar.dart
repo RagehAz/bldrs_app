@@ -23,7 +23,8 @@ class SearchBar extends StatefulWidget {
     @required this.historyButtonIsOn,
     this.boxWidth,
     this.hintText,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _SearchBarState createState() => _SearchBarState();

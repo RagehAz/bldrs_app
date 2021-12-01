@@ -11,8 +11,8 @@ class CheckBox extends StatelessWidget {
   const CheckBox({
     this.onTap,
     @required this.checkBoxIsOn,
-
-});
+    Key key,
+  }) : super(key: key);
 
 
   @override

@@ -10,7 +10,9 @@ class HeaderShadow extends StatelessWidget {
   const HeaderShadow({
     @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
-});
+    Key key,
+}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
 

@@ -23,7 +23,8 @@ class SectionDialogButton extends StatelessWidget {
     @required this.dialogHeight,
     @required this.section,
     @required this.inActiveMode,
-});
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   String _sectionIcon({Section section, bool inActiveMode}){
     String _icon;

@@ -39,7 +39,6 @@ class SingleSlide extends StatelessWidget {
   final SuperFlyer superFlyer;
 
   const SingleSlide({
-
     @required this.flyerBoxWidth,
     @required this.superFlyer,
     @required this.slideIndex,
@@ -57,7 +56,8 @@ class SingleSlide extends StatelessWidget {
     @required this.imageSize,
     this.autoFocus,
     @required this.onTap,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   void _onBehindSlideImageTap(BuildContext context, bool tinyMode){
 
