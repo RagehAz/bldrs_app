@@ -116,7 +116,7 @@ class _SearchBarState extends State<SearchBar> {
               fieldColor: null,
               corners: Ratioz.appBarButtonCorner,
               onTap: (){},
-              onChanged: (val){
+              onChanged: (String val){
 
                 if (widget.onSearchChanged != null){
                   if (val != null){

@@ -91,7 +91,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
   }
 // -----------------------------------------------------------------------------
   /// VALUE NOTIFIER
-  ValueNotifier<int> _counter = ValueNotifier(0);
+  ValueNotifier<int> _counter = ValueNotifier<int>(0);
   void _incrementCounter(){
 
     _counter.value += 3;

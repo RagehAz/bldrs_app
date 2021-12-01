@@ -146,7 +146,7 @@ class _FontLabState extends State<FontLab> {
 
                   // --- VERSE HEIGHT REVERSE ENGINEERING
                   Stack(
-                    children: [
+                    children: <Widget>[
                       // --- BACKGROUND REVERSE ENGINEERING BOX TO MEASURE FONT HEIGHT FACTOR
                       Container(
                         width: _screenWidth,
@@ -178,7 +178,7 @@ class _FontLabState extends State<FontLab> {
 
                   // --- FONT SIZE TEST
                   Column(
-                    children: [
+                    children: <Widget>[
                       SuperVerse(
                         verse: '$fontSize1 Nano Text test\n$testVerse',
                         size: fontSize1,
@@ -270,7 +270,7 @@ class _FontLabState extends State<FontLab> {
 
                   // --- PARAGRAPH TEST
                   Column(
-                    children: [
+                    children: <Widget>[
                       SuperVerse(
                         verse: 'عنوان المقال',
                         size: 5,
@@ -298,7 +298,6 @@ class _FontLabState extends State<FontLab> {
                     ],
                   ),
 
-                  // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                   Container(
                     height: 10,
                     width: _screenWidth,
@@ -307,7 +306,7 @@ class _FontLabState extends State<FontLab> {
 
                   // --- FONT WEIGHT TEST
                   Column(
-                    children: [
+                    children: <Widget>[
                       SuperVerse(
                         verse: 'black : ABC | أبح | лгзб |πωσαχδ | ',
                         weight: VerseWeight.black,
@@ -359,7 +358,7 @@ class _FontLabState extends State<FontLab> {
 
                   // --- SHADOW TEST
                   Column(
-                    children: [
+                    children: <Widget>[
 
                       SuperVerse(
                         verse: shadowTestVerse,color: shadowTestColor, italic: italiany, centered: centeredOn, shadow: true,
@@ -587,7 +586,7 @@ class _FontLabState extends State<FontLab> {
                         children:
                         List<Widget>.generate(
                             fields.length,
-                                (index) {
+                                (int index) {
                               return
                                 Chip(
                                   label:

@@ -93,7 +93,7 @@ class CityModel{
 
     if (Mapper.canLoopList(maps)){
 
-      for (var map in maps){
+      for (Map<String, dynamic> map in maps){
 
         _cities.add(decipherCityMap(map: map, fromJSON: fromJSON));
 
@@ -130,7 +130,7 @@ class CityModel{
   static List<String> getTranslatedCitiesNamesFromCities({@required BuildContext context, @required List<CityModel> cities}){
     List<String> _citiesNames = <String>[];
 
-    cities.forEach((city) {
+    cities.forEach((CityModel city) {
 
       String _cityName = Name.getNameByCurrentLingoFromNames(context, city.names);
 
@@ -159,7 +159,7 @@ class CityModel{
   static List<KW> getKeywordsFromCities({@required BuildContext context, @required List<CityModel> cities}){
     final List<KW> _keywords = <KW>[];
 
-    cities.forEach((city) {
+    cities.forEach((CityModel city) {
 
       final KW _cityKeyword = getKeywordFromCity(context: context, city: city);
 
@@ -193,7 +193,7 @@ class CityModel{
 
     if (Mapper.canLoopList(cities)){
 
-      cities.forEach((city) {
+      cities.forEach((CityModel city) {
 
         _citiesMapModels.add(
             MapModel(
@@ -213,7 +213,7 @@ class CityModel{
     CityModel _city;
     if (Mapper.canLoopList(cities)){
 
-      _city = cities.firstWhere((city) => city.cityID == cityID, orElse: () => null);
+      _city = cities.firstWhere((CityModel city) => city.cityID == cityID, orElse: () => null);
 
     }
     return _city;

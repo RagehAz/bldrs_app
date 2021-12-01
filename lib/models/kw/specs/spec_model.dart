@@ -527,7 +527,7 @@ class Spec {
     final String _specsListID = spec.specsListID;
     String _name = '${spec.value.toString()}';
 
-    final SpecList _specList = specsLists.singleWhere((list) => list.id == _specsListID, orElse: () => null);
+    final SpecList _specList = specsLists.singleWhere((SpecList list) => list.id == _specsListID, orElse: () => null);
 
     if (_specList != null && spec.value.runtimeType == String && _specList.specChain.sons.runtimeType != DataCreator){
 
@@ -536,7 +536,7 @@ class Spec {
       final List<KW> _kws = KW.getKeywordsFromChain(_specList.specChain); //_specList.specChain.sons;
 
       if (Mapper.canLoopList(_kws)){
-        final KW _kw = _kws.singleWhere((kw) => kw.id == _kwID, orElse: ()=> null);
+        final KW _kw = _kws.singleWhere((KW kw) => kw.id == _kwID, orElse: ()=> null);
 
         if (_kw != null){
           _name = Name.getNameByCurrentLingoFromNames(context, _kw.names);

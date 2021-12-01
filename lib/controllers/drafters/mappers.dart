@@ -41,7 +41,7 @@ abstract class Mapper{
   static List<String> cloneListOfStrings(List<String> list){
     List<dynamic> _newList = <dynamic>[];
 
-    for (var x in list){
+    for (String x in list){
       _newList.add(x);
     }
     return _newList;
@@ -74,7 +74,7 @@ abstract class Mapper{
 
     if (Mapper.canLoopList(queryDocumentSnapshots)){
 
-      for (var docSnapshot in queryDocumentSnapshots){
+      for (QueryDocumentSnapshot docSnapshot in queryDocumentSnapshots){
 
         final String _docID = docSnapshot.id;
 
@@ -107,11 +107,11 @@ abstract class Mapper{
 
   }
 // -----------------------------------------------------------------------------
-  static bool listOfMapsContainValue({@required List<dynamic> listOfMaps, @required String field, @required String value}){
+  static bool listOfMapsContainValue({@required List<Map<String, dynamic>> listOfMaps, @required String field, @required String value}){
 
     bool _listOfMapContainsTheValue;
 
-    for (var map in listOfMaps){
+    for (Map<String, dynamic> map in listOfMaps){
 
       if (map[field] == value){
         _listOfMapContainsTheValue = true;
@@ -144,7 +144,7 @@ abstract class Mapper{
 
     else {
 
-    for (var _map in listOfMaps){
+    for (Map<String, dynamic> _map in listOfMaps){
 
       if (mapsAreTheSame(_map, map)){
         _listOfMapContainsTheMap = true;
@@ -230,7 +230,7 @@ abstract class Mapper{
   }
 // -----------------------------------------------------------------------------
   static int indexOfMapInListOfMaps(List<Map<String, dynamic>> listOfMaps, Map<String,dynamic> map){
-    final int _indexOfTheMap = listOfMaps.indexWhere((m) => Mapper.mapsAreTheSame(m, map));
+    final int _indexOfTheMap = listOfMaps.indexWhere((Map<String, dynamic> m) => Mapper.mapsAreTheSame(m, map));
     return _indexOfTheMap;
   }
 // -----------------------------------------------------------------------------
@@ -242,7 +242,7 @@ abstract class Mapper{
   static Map<String, dynamic> insertPairInMap({@required Map<String,dynamic> map, @required String key, @required dynamic value}){
     map.putIfAbsent(key, () => value);
 
-    Map<String, dynamic> _result = {};
+    Map<String, dynamic> _result = <String, dynamic>{};
     _result.addAll(map);
 
     return _result;
@@ -253,7 +253,7 @@ abstract class Mapper{
     /// url query should look like this
     /// 'country=eg&category=business&apiKey=65f7556ec76449fa7dc7c0069f040ca';
 
-    Map<String, dynamic> _output = {};
+    Map<String, dynamic> _output = <String, dynamic>{};
 
     final int _numberOfAnds = '&'.allMatches(urlQuery).length;
     final int _numberOfEquals = '='.allMatches(urlQuery).length;
@@ -383,11 +383,11 @@ abstract class Mapper{
 
   }
 // -----------------------------------------------------------------------------
-  static void printMaps(List<dynamic> maps){
+  static void printMaps(List<Map<String, dynamic>> maps){
 
     if (canLoopList(maps)){
 
-      maps.forEach((map) {
+      maps.forEach((Map<String, dynamic> map) {
         printMap(map);
       });
 

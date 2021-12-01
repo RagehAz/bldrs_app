@@ -553,7 +553,7 @@ class CountryIso{
   }
 
 // -----------------------------------------------------------------------------
-  static const List<CountryIso> _allCountriesIsoCodes = const [
+  static const List<CountryIso> _allCountriesIsoCodes = const <CountryIso>[
     const CountryIso(countryID: 'afg', iso: 'af',),
     const CountryIso(countryID: 'alb', iso: 'al',),
     const CountryIso(countryID: 'dza', iso: 'dz',),

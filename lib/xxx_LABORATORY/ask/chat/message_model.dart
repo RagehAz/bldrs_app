@@ -14,7 +14,7 @@ class MessageModel{
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
-    return {
+    return <String, dynamic>{
       'ownerID' : ownerID,
       'body' : body,
       'time' : Timers.cipherTime(time: time, toJSON: toJSON),
@@ -31,7 +31,7 @@ class MessageModel{
 // -----------------------------------------------------------------------------
   static List<dynamic> cipherMessages({@required List<MessageModel> messages, @required bool toJSON}){
     final List<Map<String, dynamic>> _messagesMaps = <Map<String, dynamic>>[];
-    messages.forEach((msg) {
+    messages.forEach((MessageModel msg) {
       _messagesMaps.add(msg.toMap(toJSON: toJSON));
     });
     return _messagesMaps;
@@ -45,10 +45,10 @@ class MessageModel{
     );
   }
 // -----------------------------------------------------------------------------
-  static List<MessageModel> decipherMessages({@required List<dynamic> msgsMaps, @required bool fromJSON}){
+  static List<MessageModel> decipherMessages({@required List<Map<String, dynamic>> msgsMaps, @required bool fromJSON}){
     final List<MessageModel> _postsModels = <MessageModel>[];
 
-    msgsMaps.forEach((postMap) {
+    msgsMaps.forEach((Map<String, dynamic> postMap) {
       _postsModels.add(decipherMessage(msgMap: postMap, fromJSON: fromJSON));
     });
 

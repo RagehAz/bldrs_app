@@ -57,7 +57,7 @@ class NotiOps{
     }
 
 
-    final _fbm = FirebaseMessaging.instance;
+    final FirebaseMessaging _fbm = FirebaseMessaging.instance;
 
     _fbm.requestPermission(
       criticalAlert: true,
@@ -79,7 +79,7 @@ class NotiOps{
     });
 
     /// when launching the app
-    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage event) {
 
       printRemoteMessage(
         methodName: 'initializeNoti',
@@ -297,7 +297,7 @@ class NotiOps{
   static Future<void> onNotifyButtonTap(BuildContext context, Widget screenToGoToOnNotiTap) async {
     await notify();
 
-    AwesomeNotifications().actionStream.listen((receivedNoti) {
+    AwesomeNotifications().actionStream.listen((ReceivedAction receivedNoti) {
 
       Nav.pushAndRemoveUntil(
           context: context,
@@ -376,7 +376,7 @@ Widget notiStreamBuilder({
       key: const ValueKey<String>('notifications_stream_builder'),
       stream: getNotiModelsStream(context, userID),
       initialData: const <NotiModel>[],
-      builder: (ctx, snapshot){
+      builder: (BuildContext ctx, AsyncSnapshot<List<NotiModel>> snapshot){
         if(StreamChecker.connectionIsLoading(snapshot) == true){
 
           print('the shit is looooooooooooooooooooooooading');

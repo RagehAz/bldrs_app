@@ -383,7 +383,7 @@ class BzModel with ChangeNotifier{
 }
 // -----------------------------------------------------------------------------
   static BzModel getBzFromBzzByBzID(List<BzModel> bzz, String bzID){
-    final BzModel _bz = bzz.singleWhere((_b) => _b.id == bzID, orElse: ()=> null);
+    final BzModel _bz = bzz.singleWhere((BzModel _b) => _b.id == bzID, orElse: ()=> null);
     return _bz;
   }
 // -----------------------------------------------------------------------------
@@ -489,9 +489,9 @@ class BzModel with ChangeNotifier{
         totalFlyers: 10,
         bzState: BzState.online,
         position: Atlas.dummyPosition(),
-        flyersIDs: [],
-        authors: [],
-        contacts: [],
+        flyersIDs: <String>[],
+        authors: <AuthorModel>[],
+        contacts: <ContactModel>[],
         bzForm: BzForm.company,
         accountType: BzAccountType.normal,
         createdAt: Timers.createDate(year: 1987, month: 10, day: 06),

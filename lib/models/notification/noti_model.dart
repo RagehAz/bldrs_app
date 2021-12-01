@@ -80,8 +80,8 @@ class NotiModel{
           'picType' : cipherNotiPicType(notiPicType),
           'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: toJSON),
           /// {notification: {body: Bldrs.net is super Awesome, title: Bldrs.net}, data: {}}
-          'notification' : {
-            'notification' : {
+          'notification' : <String, dynamic>{
+            'notification' : <String, dynamic>{
               'title' : title,
               'body' : body,
             },
@@ -96,7 +96,7 @@ class NotiModel{
 
   }
 // -----------------------------------------------------------------------------
-  static NotiModel decipherNotiModel({@required dynamic map, @required fromJSON}){
+  static NotiModel decipherNotiModel({@required dynamic map, @required bool fromJSON}){
     NotiModel _noti;
 
     if (map != null){
@@ -128,12 +128,12 @@ class NotiModel{
     return _noti;
   }
 // -----------------------------------------------------------------------------
-  static List<NotiModel> decipherNotiModels({@required List<dynamic> maps, @required bool fromJSON}){
+  static List<NotiModel> decipherNotiModels({@required List<Map<String, dynamic>> maps, @required bool fromJSON}){
     final List<NotiModel> _notiModels = <NotiModel>[];
 
     if (Mapper.canLoopList(maps)){
 
-      for (var map in maps){
+      for (Map<String, dynamic> map in maps){
 
         final NotiModel _notiModel = decipherNotiModel(
           map: map,
