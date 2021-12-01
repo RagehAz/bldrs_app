@@ -21,7 +21,7 @@ Widget bzModelStreamBuilder({
 
     StreamBuilder<BzModel>(
       stream: getBzStream(bzID),
-      builder: (context, snapshot){
+      builder: (BuildContext context, AsyncSnapshot<BzModel> snapshot){
         if(StreamChecker.connectionIsLoading(snapshot) == true){
           return const Loading(loading: true,);
         } else {

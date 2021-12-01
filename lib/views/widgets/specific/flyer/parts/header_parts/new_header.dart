@@ -229,7 +229,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
 
     final bool _closed = _isExpanded == false && _controller.isDismissed == true;
     //------------------------------------------------------------o
-    final _slideHeightWithoutHeader = FlyerBox.height(context, widget.flyerBoxWidth) - FlyerBox.headerBoxHeight(false, widget.flyerBoxWidth);
+    final double _slideHeightWithoutHeader = FlyerBox.height(context, widget.flyerBoxWidth) - FlyerBox.headerBoxHeight(false, widget.flyerBoxWidth);
 
 
 

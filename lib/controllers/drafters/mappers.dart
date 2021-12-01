@@ -235,7 +235,7 @@ abstract class Mapper{
   }
 // -----------------------------------------------------------------------------
   static int indexOfMapByValueInListOfMaps({@required List<Map<String, dynamic>> listOfMaps, @required String key, @required dynamic value}){
-    final int _indexOfTheMap = listOfMaps.indexWhere((map) => map[key] == value);
+    final int _indexOfTheMap = listOfMaps.indexWhere((Map<String, dynamic> map) => map[key] == value);
     return _indexOfTheMap;
   }
 // -----------------------------------------------------------------------------

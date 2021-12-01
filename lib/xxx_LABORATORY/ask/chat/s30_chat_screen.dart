@@ -108,7 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
           context: context,
           questionID: widget.question.questionID,
           bzID: widget.bzID,
-          builder: (xxx, chatModel){
+          builder: (BuildContext xxx, ChatModel chatModel){
             return
 
               Column(
@@ -170,7 +170,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           margin: const EdgeInsets.all(10),
                           maxLines: 10,
                           textController: _msgController,
-                          onSaved: () => _sendMessage(body: _msgController.text.trim(), existingMsgs: chatModel.messages),
+                          onSaved: (String val) => _sendMessage(body: _msgController.text.trim(), existingMsgs: chatModel.messages),
                         ),
 
                         DreamBox(

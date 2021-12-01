@@ -23,12 +23,12 @@ class SuperTextField extends StatefulWidget {
   final bool counterIsOn;
   final double width;
   final double height;
-  final Function onChanged;
+  final ValueChanged<String> onChanged;
   final TextEditingController textController;
   final Color fieldColor;
   final Color hintColor;
   final TextInputAction keyboardTextInputAction;
-  final Function onSaved;
+  final ValueChanged<String> onSaved;
   final bool fieldIsFormField;
   final String initialValue;
   final ValueChanged<String> validator;
@@ -196,7 +196,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
         wordSpacing: _verseWordSpacing,
         fontSize: _verseSize * _sizeFactor,
         fontWeight: SuperVerse.superVerseWeight(VerseWeight.thin),
-        shadows: const [],
+        shadows: const <Shadow>[],
       );
     }
 // -----------------------------------------------------------------------------
@@ -260,7 +260,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 // -----------------------------------------------------------------------------
     final int _maxLines = widget.obscured == true ? 1 : widget.maxLines;
 // -----------------------------------------------------------------------------
-    void _onChanged(val){
+    void _onChanged(String val){
 
       if (val != null){
         _changeTextDirection(val);

@@ -238,7 +238,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                   margin: EdgeInsets.all(iconMargin),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
-                                      boxShadow: [
+                                      boxShadow: <BoxShadow>[
                                         CustomBoxShadow(
                                             color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
                                             offset: new Offset(0, jpgGraphicWidth * -0.019 ),
@@ -416,7 +416,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                 print('boxWidth: $boxWidth, widget.width: ${widget.width}');
                                 setState(() {
                                   boxWidth = widget.width * 1.05;
-                                  Future.delayed(widget.duration, (){setState(() {
+                                  Future<void>.delayed(widget.duration, (){setState(() {
                                     boxWidth = widget.width;
                                     boxHeight = widget.width;
                                   });});

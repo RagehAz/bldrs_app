@@ -551,8 +551,8 @@ abstract class Imagers{
 
   _canvas.drawImage(_imaged, const Offset(0, 0), Paint());
 
-  final _img = await _pictureRecorder.endRecording().toImage(width, height);
-  final _data = await _img.toByteData(format: ui.ImageByteFormat.png);
+  final ui.Image _img = await _pictureRecorder.endRecording().toImage(width, height);
+  final ByteData _data = await _img.toByteData(format: ui.ImageByteFormat.png);
 
   return _data.buffer.asUint8List();
 }

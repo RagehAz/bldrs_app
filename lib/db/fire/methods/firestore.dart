@@ -679,7 +679,7 @@ abstract class Fire{
         context: context,
         methodName: 'updateSubDocField',
         functions: () async {
-          await _subDoc.update({field : input});
+          await _subDoc.update(<String, dynamic>{field : input});
         }
     );
 

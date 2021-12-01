@@ -68,7 +68,7 @@ class ExpandingTile extends StatefulWidget {
     return collapsedTileHeight + buttonVerticalPadding;
   }
 // -----------------------------------------------------------------------------
-  static double calculateTitleIconSize({@required String icon, @required collapsedHeight}){
+  static double calculateTitleIconSize({@required String icon, @required double collapsedHeight}){
      final double _iconSize = icon == null ? 0 : collapsedHeight ?? collapsedGroupHeight;
      return _iconSize;
   }

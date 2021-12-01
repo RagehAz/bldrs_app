@@ -21,7 +21,7 @@ class AuthorLabel extends StatelessWidget {
   final bool showLabel;
   final int authorGalleryCount;
   final bool labelIsOn;
-  final Function onTap;
+  final ValueChanged<String> onTap;
 
   const AuthorLabel({
     @required this.flyerBoxWidth,
