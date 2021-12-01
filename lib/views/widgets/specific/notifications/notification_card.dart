@@ -141,8 +141,8 @@ class NotificationCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
 
-                              ...List.generate(notiModel.attachment.length,
-                                      (index){
+                              ...List<Widget>.generate(notiModel.attachment.length,
+                                      (int index){
 
                                 final double _width = (_bodyWidth - ((notiModel.attachment.length + 1) * Ratioz.appBarMargin) ) / (notiModel.attachment.length);
 

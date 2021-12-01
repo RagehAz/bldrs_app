@@ -45,7 +45,7 @@ class SliverFlyersGrid extends StatelessWidget {
         ),
 
         delegate: SliverChildBuilderDelegate(
-              (context, flyerIndex) {
+              (BuildContext context, int flyerIndex) {
 
                 return
 

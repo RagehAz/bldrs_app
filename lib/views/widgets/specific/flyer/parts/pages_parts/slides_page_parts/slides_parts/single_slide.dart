@@ -29,8 +29,8 @@ class SingleSlide extends StatelessWidget {
   final int slideIndex;
   final BoxFit boxFit;
   final TextEditingController titleController;
-  final Function textFieldOnChanged;
-  final Function onTextFieldSubmitted;
+  final ValueChanged<String> textFieldOnChanged;
+  final ValueChanged<String> onTextFieldSubmitted;
   final Color slideColor;
   final String flyerID;
   final ImageSize imageSize;
@@ -264,7 +264,7 @@ class SingleSlide extends StatelessWidget {
 
               if (superFlyer.edit.editMode == true)
                 SuperTextField(
-                  key: ValueKey('slide${slideIndex}'),
+                  key: ValueKey<String>('slide${slideIndex}'),
                   hintText: 'T i t l e',
                   width: flyerBoxWidth,
                   // height: flyerBoxWidth * 0.15,

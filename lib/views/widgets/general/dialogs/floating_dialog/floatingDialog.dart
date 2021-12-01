@@ -118,7 +118,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
             elevation: 30,
 
 
-            items: widget.list.map((item){
+            items: widget.list.map((String item){
               return DropdownMenuItem(
                 value: item,
                 onTap: (){print(item);},

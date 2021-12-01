@@ -145,7 +145,7 @@ class _GalleryState extends State<Gallery> {
         _flyersVisibilities = _createVisibilities(fillingValue: true);
       }
 
-      _flyers.asMap().forEach((index, flyer) {
+      _flyers.asMap().forEach((int index, FlyerModel flyer) {
         if(_flyers[index].authorID == _selectedAuthorID){
           _flyersVisibilities[index] = true;
         }

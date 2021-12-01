@@ -48,7 +48,7 @@ Widget build(BuildContext context) {
   final String _sectionName = TextGen.sectionStringer(context, _currentSection);
 
   return Builder(
-    builder: (context) => GestureDetector(
+    builder: (BuildContext context) => GestureDetector(
       onTap: onTap == null ? () => _changeSection(context) : onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

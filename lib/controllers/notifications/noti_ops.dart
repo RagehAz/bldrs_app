@@ -111,7 +111,7 @@ class NotiOps{
 
     await tryAndCatch(
       context: context,
-      onError: (error) => print(error),
+      onError: (String error) => print(error),
       methodName: 'receiveAndActUponNoti',
       functions: (){
         _noti = NotiModel.decipherNotiModel(

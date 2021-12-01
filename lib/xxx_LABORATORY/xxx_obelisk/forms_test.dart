@@ -25,12 +25,12 @@ class TestFormScreen extends StatefulWidget {
 }
 
 class _TestFormScreenState extends State<TestFormScreen> {
-  final _focusNode = FocusNode();
-  final _bolbolFocusNode = FocusNode();
-  final _imageUrlController = TextEditingController();
-  final _imageUrlFocusNode = FocusNode();
-  final _form = GlobalKey<FormState>();
-  var _editedProduct = TempClass(
+  final FocusNode _focusNode = FocusNode();
+  final FocusNode _bolbolFocusNode = FocusNode();
+  final TextEditingController _imageUrlController = TextEditingController();
+  final FocusNode _imageUrlFocusNode = FocusNode();
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
+  TempClass _editedProduct = TempClass(
     a: '',
     b: 0,
     c: '',

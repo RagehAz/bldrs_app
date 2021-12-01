@@ -270,7 +270,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
           if (widget.specList.specChain.sons == DataCreator.price)
             ValueListenableBuilder<List<Spec>>(
                 valueListenable: _selectedSpecs,
-                builder: (ctx, value, child){
+                builder: (BuildContext ctx, List<Spec> value, Widget child){
 
                   final List<Spec> _priceSpec = Spec.getSpecsByListID(specs: value, specsListID: widget.specList.id);
 

@@ -134,7 +134,7 @@ class _SearchBarState extends State<SearchBar> {
               onSaved: (){
                 print('on saved');
               },
-              onSubmitted: (val){
+              onSubmitted: (String val){
                 widget.onSearchSubmit(val);
 
               },

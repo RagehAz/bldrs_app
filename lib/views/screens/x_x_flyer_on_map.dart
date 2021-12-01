@@ -136,8 +136,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   @override
   Widget build(BuildContext context) {
 
-    var theMarkers = _pickedLocation == null ? null :
-    {
+    Set<Marker> theMarkers = _pickedLocation == null ? null :
+    <Marker>{
       Marker(
         markerId: const MarkerId('m1'),
         position: _pickedLocation,

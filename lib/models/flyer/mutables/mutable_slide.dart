@@ -215,7 +215,7 @@ static List<Asset> getAssetsFromMutableSlides(List<MutableSlide> mSlides){
 
     if(mSlides != null && mSlides.isNotEmpty && assetToSearchFor != null){
       _assetIndexInAssets = mSlides.indexWhere(
-            (mSlide) => mSlide?.picAsset?.identifier == assetToSearchFor.identifier,);
+            (MutableSlide mSlide) => mSlide?.picAsset?.identifier == assetToSearchFor.identifier,);
     }
 
     return _assetIndexInAssets;
