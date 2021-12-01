@@ -21,15 +21,15 @@ class KeywordsBubble extends StatelessWidget {
   const KeywordsBubble({
     @required this.title,
     @required this.keywords,
+    @required this.selectedWords,
+    @required this.addButtonIsOn,
     this.verseSize = 2,
     this.onTap,
     this.bubbleColor = Colorz.white20,
-    @required this.selectedWords,
     this.bubbleWidth,
     this.margins,
     this.corners,
     this.passKeywordOnTap = false,
-    @required this.addButtonIsOn,
     Key key,
   }) : super(key: key);
 // -----------------------------------------------------------------------------

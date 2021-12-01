@@ -21,8 +21,8 @@ class CenterDialog extends StatelessWidget {
     @required this.title,
     @required this.boolDialog,
     @required this.height,
-    this.child,
     @required this.confirmButtonText,
+    this.child,
     Key key,
   }) : super(key: key);
 // -----------------------------------------------------------------------------

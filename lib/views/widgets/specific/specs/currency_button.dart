@@ -19,8 +19,8 @@ class CurrencyButton extends StatelessWidget {
     @required this.width,
     @required this.currency,
     @required this.countryID,
-    this.height = 60,
     @required this.onTap,
+    this.height = 60,
     Key key
   }) : super(key: key);
 

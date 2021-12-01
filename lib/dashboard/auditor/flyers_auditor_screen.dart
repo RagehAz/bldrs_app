@@ -668,11 +668,11 @@ class AuditorButton extends StatelessWidget {
   final Function onTap;
 
   const AuditorButton({
-    Key key,
     @required this.verse,
     @required this.onTap,
     @required this.color,
     @required this.icon,
+    Key key,
 }) : super(key: key);
 
   @override

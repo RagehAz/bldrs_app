@@ -106,8 +106,8 @@ abstract class Fire{
   static Future<DocumentReference> createDoc({
     @required BuildContext context,
     @required String collName,
-    bool addDocID = false,
     @required Map<String, dynamic> input,
+    bool addDocID = false,
   }) async {
 
     DocumentReference _docRef;
@@ -379,10 +379,10 @@ abstract class Fire{
     @required String collName,
     @required String docName,
     @required String subCollName,
-    QueryDocumentSnapshot startAfter,
     @required int limit,
     @required String orderBy,
     @required bool addDocSnapshotToEachMap,
+    QueryDocumentSnapshot startAfter,
   }) async {
 
     /*

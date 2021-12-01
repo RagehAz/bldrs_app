@@ -23,10 +23,10 @@ class MainButton extends StatelessWidget {
   const MainButton({
     @required this.buttonVerse,
     @required this.buttonIcon,
+    @required this.function,
     this.buttonColor = Colorz.white50,
     this.splashColor = Colorz.yellow255,
     this.buttonVerseShadow = true,
-    @required this.function,
     this.stretched = false,
 
     this.iconSizeFactor = 0.75,

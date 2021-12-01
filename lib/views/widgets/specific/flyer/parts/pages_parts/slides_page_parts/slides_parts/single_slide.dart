@@ -42,6 +42,10 @@ class SingleSlide extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.superFlyer,
     @required this.slideIndex,
+    @required this.slideColor,
+    @required this.flyerID,
+    @required this.imageSize,
+    @required this.onTap,
     this.picture,
     this.headline,
     this.shares = 0,
@@ -51,11 +55,7 @@ class SingleSlide extends StatelessWidget {
     this.titleController,
     this.textFieldOnChanged,
     this.onTextFieldSubmitted,
-    @required this.slideColor,
-    @required this.flyerID,
-    @required this.imageSize,
     this.autoFocus,
-    @required this.onTap,
     Key key,
   }) : super(key: key);
 // -----------------------------------------------------------------------------

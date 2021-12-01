@@ -50,11 +50,11 @@ class Strips extends StatelessWidget {
 
   Strips({
     @required this.flyerBoxWidth,
-    this.barIsOn = true,
     @required this.numberOfStrips,
+    @required this.swipeDirection,
+    this.barIsOn = true,
     this.slideIndex = 0,
     this.margins,
-    @required this.swipeDirection,
     Key key,
   }) : super(key: key);
 // -----------------------------------------------------------------------------

@@ -53,9 +53,9 @@ class TabLayout extends StatelessWidget {
 
   const TabLayout({
     @required this.tabModels,
-    this.pageTitle,
     @required this.tabController,
     @required this.currentIndex,
+    this.pageTitle,
     this.selectionMode = false,
     this.selectedItems,
     this.appBarRowWidgets,

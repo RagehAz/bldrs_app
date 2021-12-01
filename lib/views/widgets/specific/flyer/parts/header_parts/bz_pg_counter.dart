@@ -15,9 +15,9 @@ class BzPgCounter extends StatelessWidget {
 
   const BzPgCounter({
     @required this.flyerBoxWidth,
-    this.bzPageIsOn = true,
     @required this.count,
     @required this.verse,
+    this.bzPageIsOn = true,
     this.icon,
     this.iconSizeFactor = 1,
     Key key,

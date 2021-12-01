@@ -29,9 +29,9 @@ class SpecList{
     @required this.names,
     @required this.canPickMany,
     @required this.isRequired,
-    this.deactivators,
     @required this.range,
     @required this.specChain,
+    this.deactivators,
   });
 // -----------------------------------------------------------------------------
   static List<SpecList> generateRefinedSpecsLists({@required List<SpecList> sourceSpecsLists, @required List<Spec> selectedSpecs}){

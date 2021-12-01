@@ -16,15 +16,15 @@ class PanelButton extends StatelessWidget {
   final Color color;
 
   const PanelButton({
+    @required this.onTap,
+    @required this.flyerBoxWidth,
     // this.size,
     this.icon,
     this.verse,
     this.verseColor = Colorz.white255,
-    @required this.onTap,
     this.iconSizeFactor = 0.6,
     this.blackAndWhite,
     this.isAuthorButton = false,
-    @required this.flyerBoxWidth,
     this.color = Colorz.white80,
     Key key,
   }) : super(key: key);

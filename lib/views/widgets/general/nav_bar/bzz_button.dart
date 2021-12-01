@@ -17,10 +17,10 @@ class BzzButton extends StatelessWidget {
   // final List<dynamic> bzzIDs;
 
   const BzzButton({
-    this.barType = BarType.maxWithText,
-    this.onTap,
     @required this.width,
     @required this.circleWidth,
+    this.barType = BarType.maxWithText,
+    this.onTap,
     // @required this.bzzIDs,
     Key key,
   }) : super(key: key);

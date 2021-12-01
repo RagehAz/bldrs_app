@@ -13,8 +13,8 @@ class Strip extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.stripWidth,
     @required this.numberOfSlides,
-    this.margins,
     @required this.isWhite,
+    this.margins,
     Key key,
   }) : super(key: key);
 
