@@ -96,7 +96,8 @@ class DreamBox extends StatelessWidget {
     this.redDot = false,
     this.secondLineScaleFactor = 1,
     this.loading = false,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static Color getIconColor({bool blackAndWhite, bool inActiveMode, Color colorOverride}){
 

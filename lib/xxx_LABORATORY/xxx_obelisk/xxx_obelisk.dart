@@ -38,7 +38,8 @@ class ObeliskScreen extends StatefulWidget {
 
   ObeliskScreen({
     this.controller,
-  });
+    Key key,
+  }) : super(key: key);
 
 
   @override
@@ -87,7 +88,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
         const Expander(),
 
         BldrsButton(
-          onTap: () => Nav.goToNewScreen(context, DashBoard())
+          onTap: () => Nav.goToNewScreen(context, const DashBoard())
         ),
 
       ],
@@ -108,47 +109,47 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
             margin: 10,
           ),
 
-          ObeliskButton('TEST LAB', Iconz.Flyer, TestLab()),
+          const ObeliskButton('TEST LAB', Iconz.Flyer, TestLab()),
 
-          ObeliskButton('Specs Selector', Iconz.Flyer, SpecsListsPickersScreen(
+          const ObeliskButton('Specs Selector', Iconz.Flyer, const SpecsListsPickersScreen(
             flyerType: FlyerType.design,
             selectedSpecs: const [],
           )),
 
-          ObeliskButton('Google map Test screen', Iconz.Flyer, LocationsTestScreen()),
+          const ObeliskButton('Google map Test screen', Iconz.Flyer, LocationsTestScreen()),
 
-          ObeliskButton('Expansion Tiles Test', Iconz.Flyer, ExpansionTilesTest()),
+          const ObeliskButton('Expansion Tiles Test', Iconz.Flyer, ExpansionTilesTest()),
 
-          ObeliskButton('Providers Test', Iconz.Terms, ProvidersTestScreen()),
+          const ObeliskButton('Providers Test', Iconz.Terms, ProvidersTestScreen()),
 
-          ObeliskButton('TimersTest', Iconz.Clock, TimerTest()),
+          const ObeliskButton('TimersTest', Iconz.Clock, TimerTest()),
 
-          ObeliskButton('Trigram Test', Iconz.More, TrigramTest()),
+          const ObeliskButton('Trigram Test', Iconz.More, TrigramTest()),
 
-          ObeliskButton('Cloud Functions', Iconz.Gears, CloudFunctionsTest()),
+          const ObeliskButton('Cloud Functions', Iconz.Gears, const CloudFunctionsTest()),
 
-          ObeliskButton('Sembast Screen', Iconz.DvGouran, SembastTestScreen()),
+          const ObeliskButton('Sembast Screen', Iconz.DvGouran, SembastTestScreen()),
 
-          ObeliskButton('Notification test', Iconz.News, FCMTestScreen()),
+          const ObeliskButton('Notification test', Iconz.News, FCMTestScreen()),
 
-          ObeliskButton('Awesome Notification test', Iconz.News, AwesomeNotiTestScreen()),
+          const ObeliskButton('Awesome Notification test', Iconz.News, const AwesomeNotiTestScreen()),
 
 
           // ObeliskButton('HERO TEST', Iconz.DvDonaldDuck, HeroMinScreen()),
 
           ObeliskButton('go to user checker', Iconz.Flyer, UserChecker()),
 
-          ObeliskButton('Slider Test Screen', Iconz.Flyer, SliderTestScreen()),
+          const ObeliskButton('Slider Test Screen', Iconz.Flyer, SliderTestScreen()),
 
-          ObeliskButton('Dialog Test', Iconz.More, DialogTestScreen(), color: Colorz.bloodTest),
+          const ObeliskButton('Dialog Test', Iconz.More, DialogTestScreen(), color: Colorz.bloodTest),
 
-          ObeliskButton('10 - Font lab', Iconz.Language, FontLab()),
+          const ObeliskButton('10 - Font lab', Iconz.Language, FontLab()),
 
           // ObeliskButton('12 - Swiper Layout', Iconz.Gallery, SwiperScreen()),
 
           // ObeliskButton('21 - Soundz', Iconz.News, SoundzScreen()),
 
-          ObeliskButton('23 - Form', Iconz.Terms, TestFormScreen()),
+          const ObeliskButton('23 - Form', Iconz.Terms, TestFormScreen()),
 
           // ObeliskButton('28 - Google Maps - Defined size Pin', Iconz.ComMap, GoogleMapScreen2()),
 
@@ -156,9 +157,9 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           // ObeliskButton('30 - Google Maps - text box canvas', Iconz.ComMap, GoogleMapScreen4()),
 
-          ObeliskButton('36 - Animations Screen', Iconz.DvDonaldDuck, AnimationsScreen()),
+          const ObeliskButton('36 - Animations Screen', Iconz.DvDonaldDuck, AnimationsScreen()),
 
-          ObeliskButton('BLACK HOLE', Iconz.DvBlackHole, BlackHoleScreen()),
+          const ObeliskButton('BLACK HOLE', Iconz.DvBlackHole, BlackHoleScreen()),
 
           /// --- BLDRS DEVELOPMENT SCROLLS --------------------------------
           Column(

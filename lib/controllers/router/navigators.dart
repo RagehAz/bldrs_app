@@ -61,9 +61,9 @@ abstract class Nav{
           pageBuilder: (_,__,___){
             return Hero(
               tag: flyerID, // galleryCoFlyers[index].flyer.flyerID,
-              child: Material(
+              child: const Material(
                 type: MaterialType.transparency,
-                child: new FlyerScreen(
+                child: const FlyerScreen(
                   // flyerID: flyerID, // galleryCoFlyers[index].flyer.flyerID,
                 ),
               ),

@@ -17,7 +17,8 @@ class FlyersShelfListBuilder extends StatefulWidget {
     @required this.flyerSizeFactor,
     @required this.flyerOnTap,
     this.onScrollEnd,
-});
+    Key key,
+}) : super(key: key);
 
   @override
   _FlyersShelfListBuilderState createState() => _FlyersShelfListBuilderState();

@@ -4,6 +4,7 @@ import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class Continents extends StatelessWidget {
+  const Continents({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

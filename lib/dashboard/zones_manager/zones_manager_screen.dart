@@ -18,6 +18,10 @@ import 'package:flutter/material.dart';
 
 class ZonesManagerScreen extends StatefulWidget {
 
+  const ZonesManagerScreen({
+    Key key
+  }) : super(key: key);
+
   @override
   _ZonesManagerScreenState createState() => _ZonesManagerScreenState();
 }

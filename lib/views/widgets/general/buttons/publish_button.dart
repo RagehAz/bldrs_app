@@ -13,7 +13,9 @@ class PublishButton extends StatelessWidget {
     @required this.firstTimer,
     @required this.loading,
     this.onTap,
-});
+    Key key,
+  }) : super(key: key);
+
 // -----------------------------------------------------------------------------
   String _verse(){
     String _verse;

@@ -27,7 +27,8 @@ class MaxHeader extends StatelessWidget {
     @required this.bzPageIsOn,
     @required this.bzModel,
     @required this.superFlyer,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
 //   Future<void> _openGalleryFlyer (BuildContext context, String flyerID) async {
 //

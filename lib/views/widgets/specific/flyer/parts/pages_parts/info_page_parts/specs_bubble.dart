@@ -19,7 +19,6 @@ class SpecsBubble extends StatelessWidget {
   final dynamic corners;
   final bool passKeywordOnTap;
   final bool addButtonIsOn;
-  final Key key;
 
   const SpecsBubble({
     @required this.title,
@@ -33,8 +32,8 @@ class SpecsBubble extends StatelessWidget {
     this.corners,
     this.passKeywordOnTap = false,
     @required this.addButtonIsOn,
-    this.key,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

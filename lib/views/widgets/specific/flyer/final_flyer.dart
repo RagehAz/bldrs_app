@@ -84,7 +84,8 @@ class FinalFlyer extends StatefulWidget {
     this.bzModel,
     this.flyerID,
     this.flyerKey,
-  });
+    Key key,
+  }) : super(key: key);
       // :
   // assert(isDraft != null),
   // assert(child != null),
@@ -2589,7 +2590,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     FlyerModel _uploadedFlyerModel;
 
     /// assert that all required fields are valid
-    if (_inputsValidator() == false){
+    final bool _inputsAreValid = await _inputsValidator();
+    if (_inputsAreValid == false){
       // show something for user to know
 
       await CenterDialog.showCenterDialog(

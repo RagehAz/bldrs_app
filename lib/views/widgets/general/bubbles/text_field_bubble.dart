@@ -33,7 +33,6 @@ class TextFieldBubble extends StatelessWidget {
   final Function pasteFunction;
   final TextDirection textDirection;
   final Color bubbleColor;
-  final Key key;
   final Function fieldOnTap;
 
   const TextFieldBubble({
@@ -61,9 +60,9 @@ class TextFieldBubble extends StatelessWidget {
     this.pasteFunction,
     this.textDirection,
     this.bubbleColor = Colorz.white20,
-    this.key,
     this.fieldOnTap,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -29,7 +29,8 @@ class AuthorBubble extends StatelessWidget {
     @required this.onAuthorLabelTap,
     @required this.selectedAuthorID,
     @required this.bzFlyers,
-});
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static double bubbleWidth(double flyerBoxWidth){
     return flyerBoxWidth - (2 * Ratioz.appBarMargin);

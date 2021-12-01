@@ -19,7 +19,10 @@ import 'package:flutter/material.dart';
 class CountryEditorScreen extends StatefulWidget {
   final CountryModel country;
 
-  CountryEditorScreen({@required this.country});
+  const CountryEditorScreen({
+    @required this.country,
+    Key key,
+  }) : super(key: key);
 
   @override
   _CountryEditorScreenState createState() => _CountryEditorScreenState();

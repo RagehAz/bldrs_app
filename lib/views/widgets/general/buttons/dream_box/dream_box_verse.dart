@@ -72,7 +72,8 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required this.secondLineScaleFactor,
     @required this.secondLineColor,
     @required this.centered,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static CrossAxisAlignment versesCrossAlignment({String icon, TextDirection textDirection, String secondLine, bool verseCentered}){
     final CrossAxisAlignment _versesCrossAlignment =

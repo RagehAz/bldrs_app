@@ -10,11 +10,12 @@ class SelectKeywordsScreen extends StatefulWidget {
   final FlyerType flyerType;
   // final Function onKeywordTap;
 
-  SelectKeywordsScreen({
+  const SelectKeywordsScreen({
     @required this.selectedKeywords,
     @required this.flyerType,
     // @required this.onKeywordTap,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _SelectKeywordsScreenState createState() => _SelectKeywordsScreenState();

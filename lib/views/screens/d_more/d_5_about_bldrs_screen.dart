@@ -10,6 +10,11 @@ import 'package:flutter/material.dart';
 
 class AboutBldrsScreen extends StatelessWidget {
 
+  const AboutBldrsScreen({
+    Key key
+  }) : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
 

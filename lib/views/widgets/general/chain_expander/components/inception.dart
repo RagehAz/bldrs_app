@@ -25,7 +25,8 @@ class Inception extends StatelessWidget {
     this.boxWidth,
     this.onKeywordTap,
     this.selectedKeywordsIDs,
-  });
+    Key key,
+  }) : super(key: key);
 
   static const double buttonHeight = 60;
 

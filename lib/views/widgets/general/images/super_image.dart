@@ -24,7 +24,8 @@ class SuperImage extends StatelessWidget {
         this.fit,
         this.scale = 1,
         this.iconColor,
-      });
+        Key key,
+      }) : super(key: key);
 
 // -----------------------------------------------------------------------------
   static DecorationImage decorationImage({@required String picture, BoxFit boxFit}){

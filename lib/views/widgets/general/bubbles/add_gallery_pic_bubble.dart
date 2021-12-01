@@ -30,7 +30,9 @@ class AddGalleryPicBubble extends StatelessWidget {
     @required this.deletePicFunction,
     this.title = '',
     this.bubbleType = BubbleType.none,
-  });
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
 

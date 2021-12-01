@@ -26,7 +26,8 @@ class PanelButton extends StatelessWidget {
     this.isAuthorButton = false,
     @required this.flyerBoxWidth,
     this.color = Colorz.white80,
-  });
+    Key key,
+  }) : super(key: key);
 
   static Widget panelDot({double panelButtonWidth}){
 

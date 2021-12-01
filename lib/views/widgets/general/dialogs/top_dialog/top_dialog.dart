@@ -20,8 +20,8 @@ class TopDialog extends StatelessWidget {
     @required this.verse,
     @required this.onTap,
     // @required this.duration,
-
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static void showTopDialog({
     @required BuildContext context,

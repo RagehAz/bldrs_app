@@ -28,9 +28,10 @@ import 'package:provider/provider.dart';
 class UserProfileScreen extends StatefulWidget {
   final UserModel userModel;
 
-  UserProfileScreen({
+  const UserProfileScreen({
     @required this.userModel,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _UserProfileScreenState createState() => _UserProfileScreenState();
@@ -85,7 +86,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
         await _bzzProvider.fetchFollowedBzz(context);
 
-        _followedBzzIDs = _usersProvider.myUserModel.followedBzzIDs;;
+        _followedBzzIDs = _usersProvider.myUserModel.followedBzzIDs;
 
         if (Mapper.canLoopList(_followedBzzIDs)){
           for (var id in _followedBzzIDs) {

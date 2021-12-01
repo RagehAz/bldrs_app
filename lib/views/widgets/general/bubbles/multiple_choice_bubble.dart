@@ -17,7 +17,8 @@ class MultipleChoiceBubble extends StatelessWidget {
     @required this.tappingAButton,
     @required this.chosenButton,
     this.buttonsInActivityList,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

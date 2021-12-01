@@ -18,6 +18,8 @@ class TempClass{
 }
 
 class TestFormScreen extends StatefulWidget {
+  const TestFormScreen({Key key}) : super(key: key);
+
   @override
   _TestFormScreenState createState() => _TestFormScreenState();
 }

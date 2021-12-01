@@ -18,9 +18,10 @@ import 'package:flutter/material.dart';
 class DeactivatedFlyerScreen extends StatefulWidget {
   final BzModel bz;
 
-  DeactivatedFlyerScreen({
+  const DeactivatedFlyerScreen({
     @required this.bz,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _DeactivatedFlyerScreenState createState() => _DeactivatedFlyerScreenState();

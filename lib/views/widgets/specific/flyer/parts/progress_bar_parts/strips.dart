@@ -16,7 +16,8 @@ class ProgressBox extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.strips,
     @required this.margins,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,8 @@ class Strips extends StatelessWidget {
     this.slideIndex = 0,
     this.margins,
     @required this.swipeDirection,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static double boxWidth(double flyerBoxWidth){
     return flyerBoxWidth;

@@ -22,7 +22,8 @@ class EditorPanel extends StatelessWidget {
     @required this.bzModel,
     @required this.flyerBoxWidth,
     @required this.panelWidth,
-});
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

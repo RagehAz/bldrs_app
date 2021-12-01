@@ -14,7 +14,8 @@ class SlideHeadline extends StatelessWidget {
     @required this.verseSize,
     @required this.verseColor,
     @required this.tappingVerse,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

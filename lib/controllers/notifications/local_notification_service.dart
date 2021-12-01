@@ -23,7 +23,7 @@ class LocalNotificationService{
 
           print('initializing localNotificationService : route is : $route');
 
-          Nav.goToNewScreen(context, AwesomeNotiTestScreen());
+          Nav.goToNewScreen(context, const AwesomeNotiTestScreen());
         }
 
       }

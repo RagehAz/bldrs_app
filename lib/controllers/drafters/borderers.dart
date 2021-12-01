@@ -136,7 +136,7 @@ abstract class Borderers {
   }
 
 // -----------------------------------------------------------------------------
-  /// used in [MiniHeaderStrip] widget
+  /// used in MiniHeaderStrip widget
   static BorderRadius superLogoCorner({BuildContext context, double flyerBoxWidth, bool zeroCornerIsOn = false}) {
     final double _headerMainPadding = flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
     final double _headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners; //bzPageIsOn == false ? flyerBoxWidth * Ratioz.xxflyerTopCorners : flyerBoxWidth * Ratioz.bzLogCorner;
@@ -179,16 +179,24 @@ abstract class Borderers {
 
 // -----------------------------------------------------------------------------
   static BorderRadius superBorder({BuildContext context, dynamic corners}) {
-    final BorderRadius _corner =
-    corners == null || corners == 0 ? BorderRadius.zero
-        :
-    corners.runtimeType == double ? superBorderAll(context, corners)
-        :
-    corners.runtimeType == int ? superBorderAll(context, corners.toDouble())
-        :
-    corners.runtimeType == BorderRadius ? corners
-        :
-    corners;
+    BorderRadius _corner;
+
+    if (corners == null || corners == 0){
+      _corner = BorderRadius.zero;
+    }
+
+    else if (corners is num){
+      _corner = superBorderAll(context, corners.toDouble());
+    }
+
+    else if (corners is BorderRadius){
+      _corner = corners;
+    }
+
+    else {
+      throw 'superBorder corners is invalid';
+    }
+
     return _corner;
 // -----------------------------------------------------------------------------
 

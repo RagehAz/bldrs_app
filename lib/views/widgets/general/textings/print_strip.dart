@@ -8,7 +8,8 @@ class PrintStrip extends StatelessWidget {
 
   const PrintStrip({
     @required this.verse,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

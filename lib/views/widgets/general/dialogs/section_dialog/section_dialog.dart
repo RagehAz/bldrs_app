@@ -12,9 +12,10 @@ import 'package:flutter/material.dart';
 class SectionDialog extends StatelessWidget {
   final double dialogHeight;
 
-  SectionDialog({
+  const SectionDialog({
     @required this.dialogHeight,
-  });
+    Key key,
+  }) : super(key: key);
 
 // -----------------------------------------------------------------------------
   static Future<void> slideDialog({BuildContext context, double dialogHeight}) async {

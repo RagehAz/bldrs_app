@@ -24,7 +24,8 @@ class BzAppBar extends StatelessWidget {
     @required this.userModel,
     @required this.countryModel,
     @required this.cityModel,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   Future<void> _slideBzOptions(BuildContext context, BzModel bzModel) async {
 

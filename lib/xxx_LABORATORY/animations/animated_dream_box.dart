@@ -67,7 +67,8 @@ class AnimatedDreamBox extends StatefulWidget {
     this.underLineColor = Colorz.white255,
     this.underLineLabelColor = Colorz.white10,
     this.duration = Ratioz.duration150ms,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _AnimatedDreamBoxState createState() => _AnimatedDreamBoxState();

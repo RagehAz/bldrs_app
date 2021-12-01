@@ -27,7 +27,6 @@ class ExpandingTile extends StatefulWidget {
   final double corners;
   final Widget child;
   final bool inActiveMode;
-  final Key key;
   final EdgeInsets margin;
 
   const ExpandingTile({
@@ -50,9 +49,9 @@ class ExpandingTile extends StatefulWidget {
     this.corners,
     @required this.child,
     this.inActiveMode = false,
-    this.key,
     this.margin,
-  });
+    Key key,
+  }) : super(key: key);
 
   static const double collapsedTileHeight = 50;
   static const double buttonVerticalPadding = Ratioz.appBarPadding;

@@ -19,9 +19,10 @@ import 'package:provider/provider.dart';
 class SelectCityScreen extends StatefulWidget {
   final CountryModel country;
 
-  SelectCityScreen({
+  const SelectCityScreen({
     this.country,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   State<SelectCityScreen> createState() => _SelectCityScreenState();

@@ -23,7 +23,8 @@ class FlyersShelf extends StatelessWidget {
     this.flyerOnTap,
     this.onScrollEnd,
     this.flyerSizeFactor = 0.3,
-});
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static const double spacing = Ratioz.appBarMargin;
   static const double titleIconWidth = Ratioz.appBarButtonSize;

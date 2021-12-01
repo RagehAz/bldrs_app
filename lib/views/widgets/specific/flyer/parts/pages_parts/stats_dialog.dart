@@ -13,9 +13,10 @@ import 'package:flutter/material.dart';
 class FlyerStatsDialog extends StatefulWidget {
   final String flyerID;
 
-  FlyerStatsDialog({
+  const FlyerStatsDialog({
     @required this.flyerID,
-});
+    Key key,
+}) : super(key: key);
 // -----------------------------------------------------------------------------
   @override
   State<FlyerStatsDialog> createState() => _FlyerStatsDialogState();

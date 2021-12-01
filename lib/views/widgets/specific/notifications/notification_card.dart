@@ -13,9 +13,10 @@ import 'package:flutter/material.dart';
 class NotificationCard extends StatelessWidget {
   final NotiModel notiModel;
 
-  NotificationCard({
+  const NotificationCard({
     @required this.notiModel,
-});
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static double bubbleWidth(BuildContext context){
     return Bubble.defaultWidth(context);

@@ -21,7 +21,8 @@ class MaxBounceNavigator extends StatefulWidget {
     this.onNavigate,
     this.notificationListenerKey,
     this.axis = Axis.vertical,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _MaxBounceNavigatorState createState() => _MaxBounceNavigatorState();

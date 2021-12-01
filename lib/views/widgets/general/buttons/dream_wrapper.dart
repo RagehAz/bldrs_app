@@ -24,7 +24,8 @@ class DreamWrapper extends StatelessWidget {
     this.margins,
     this.boxWidth,
     this.boxHeight,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

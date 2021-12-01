@@ -648,7 +648,7 @@ abstract class Imagers{
 
     /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
     // double _originalImageRatio = _originalImageWidth / _originalImageHeight
-        ;
+
     // double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
 
     // double _fittedImageWidth = flyerBoxWidth; // for info only
@@ -679,7 +679,7 @@ abstract class Imagers{
     final double _originalImageWidth = asset.originalWidth.toDouble();
     final double _originalImageHeight= asset.originalHeight.toDouble();
     // double _originalImageRatio = _originalImageWidth / _originalImageHeight
-        ;
+
     /// slide aspect ratio : 1 / 1.74 ~= 0.575
     final double _flyerZoneHeight = flyerBoxWidth * Ratioz.xxflyerZoneHeight;
 
@@ -806,9 +806,9 @@ abstract class Imagers{
       /// so
       /// if _originalImageRatio < 0.575 image is narrower than slide,
       /// if ratio > 0.575 image is wider than slide
-      final double _errorPercentage = Ratioz.slideFitWidthLimit; // ~= max limit from flyer width => flyerBoxWidth * 90%
-      final double _maxRatioForBlur = _slideRatio / (_errorPercentage / 100);
-      final double _minRatioForBlur = _slideRatio * (_errorPercentage / 100);
+      const double _errorPercentage = Ratioz.slideFitWidthLimit; // ~= max limit from flyer width => flyerBoxWidth * 90%
+      const double _maxRatioForBlur = _slideRatio / (_errorPercentage / 100);
+      const double _minRatioForBlur = _slideRatio * (_errorPercentage / 100);
 
       /// so if narrower more than 10% or wider more than 10%, blur should be active and boxFit shouldn't be cover
       if(_minRatioForBlur > _fittedImageRatio || _fittedImageRatio > _maxRatioForBlur){

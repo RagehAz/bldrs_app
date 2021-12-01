@@ -16,7 +16,8 @@ class FollowingBzzBubble extends StatelessWidget {
   const FollowingBzzBubble({
     @required this.bzzModels,
     this.onBzTap,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

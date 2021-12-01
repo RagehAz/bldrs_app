@@ -14,8 +14,10 @@ class ObeliskButton extends StatelessWidget {
       this.title,
       this.icon,
       this.screen,
-      {this.color = Colorz.black125}
-      );
+      {
+        this.color = Colorz.black125,
+        Key key,
+      }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -27,7 +27,8 @@ class AddFlyerButton extends StatelessWidget {
     @required this.bzCountry,
     @required this.bzCity,
     @required this.addPublishedFlyerToGallery,
-  });
+    Key key,
+  }) : super(key: key);
 
 // -----------------------------------------------------------------------------
   Future<void> _goToFlyerEditor(BuildContext context) async {

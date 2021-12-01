@@ -12,6 +12,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class TrigramTest extends StatefulWidget {
+  const TrigramTest({Key key}) : super(key: key);
 
   @override
   _TrigramTestState createState() => _TrigramTestState();

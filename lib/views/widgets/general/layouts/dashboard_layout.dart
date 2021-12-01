@@ -19,7 +19,8 @@ class DashBoardLayout extends StatelessWidget {
     this.pageTitle,
     this.loading = false,
     this.onBldrsTap,
-});
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static double clearScreenHeight(BuildContext context){
     return
@@ -75,7 +76,8 @@ class FloatingLayout extends StatelessWidget {
 
   const FloatingLayout({
     @required this.child,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -23,7 +23,8 @@ class ZonesPage extends StatelessWidget {
     @required this.countriesIDs,
     @required this.buttonTap,
     @required this.pageHeight,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

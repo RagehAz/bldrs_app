@@ -31,7 +31,8 @@ class ListLayout extends StatelessWidget {
     this.pageIcon,
     this.pageIconVerse,
     this.sky = SkyType.Night,
-});
+    Key key,
+}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

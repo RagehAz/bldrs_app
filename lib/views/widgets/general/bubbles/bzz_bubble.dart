@@ -25,7 +25,8 @@ class BzzBubble extends StatelessWidget {
     this.scrollDirection = Axis.horizontal,
     this.onTap,
     this.corners,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

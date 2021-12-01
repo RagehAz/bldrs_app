@@ -8,9 +8,10 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatefulWidget {
   final bool notiIsOn;
 
-  HomeScreen({
+  const HomeScreen({
     @required this.notiIsOn,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();

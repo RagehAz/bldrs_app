@@ -9,6 +9,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class EmojiTestScreen extends StatelessWidget {
+  const EmojiTestScreen({Key key}) : super(key: key);
 
   Future<void> onEmojiTap({BuildContext context, EmojiModel emo, int index}) async {
 

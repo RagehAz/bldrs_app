@@ -419,7 +419,7 @@ class NavBar extends StatelessWidget {
                           iconSizeFactor: 0.45,
                           barType: barType,
                           onTap: () {
-                            Nav.goToNewScreen(context, NotificationsScreen());
+                            Nav.goToNewScreen(context, const NotificationsScreen());
                           },
                         ),
 

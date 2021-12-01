@@ -14,10 +14,11 @@ class BzCardScreen extends StatefulWidget {
   final String bzID;
   final double flyerBoxWidth;
 
-  BzCardScreen({
+  const BzCardScreen({
     @required this.bzID,
     @required this.flyerBoxWidth,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _BzCardScreenState createState() => _BzCardScreenState();

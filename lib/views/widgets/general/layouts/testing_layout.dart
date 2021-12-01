@@ -17,7 +17,8 @@ class TestingLayout extends StatelessWidget {
     @required this.appbarButtonOnTap,
     this.scrollable = false,
     // this.scaffoldKey,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

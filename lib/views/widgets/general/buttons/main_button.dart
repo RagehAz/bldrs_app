@@ -33,7 +33,8 @@ class MainButton extends StatelessWidget {
     this.verseColor = Colorz.white255,
     this.verseWeight = VerseWeight.bold,
     this.iconColor,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

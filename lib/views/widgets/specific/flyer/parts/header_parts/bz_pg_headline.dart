@@ -19,7 +19,8 @@ class BzPageHeadline extends StatelessWidget {
     @required this.bzModel,
     @required this.country,
     @required this.city,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

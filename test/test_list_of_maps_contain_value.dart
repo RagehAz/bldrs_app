@@ -83,7 +83,7 @@ void main(){
       int _uniqueVal = Numeric.createUniqueIndex(existingIndexes: _numbers);
 
       if (_numbers.contains(_uniqueVal)){
-        _allLoopsAreGood == false;
+        _allLoopsAreGood = false;
         break;
       }
 

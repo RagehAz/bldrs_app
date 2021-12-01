@@ -4,14 +4,19 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart
 import 'package:flutter/material.dart';
 
 class SecondNotiTestScreen extends StatelessWidget {
-  final String thing;
+  const SecondNotiTestScreen({Key key}) : super(key: key);
 
-  const SecondNotiTestScreen({
-    @required this.thing,
-});
+//   final String thing;
+//
+//   const SecondNotiTestScreen({
+//     @required this.thing,
+// });
 
   @override
   Widget build(BuildContext context) {
+
+    // log(thing);
+
     return MainLayout(
       pyramids: Iconz.PyramidsWhite,
       layoutWidget: Column(

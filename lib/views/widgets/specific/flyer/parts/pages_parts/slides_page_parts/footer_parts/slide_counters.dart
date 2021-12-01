@@ -20,7 +20,8 @@ class SlideCounters extends StatelessWidget {
     this.views = 0,
     this.saves = 0,
     @required this.onCountersTap,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

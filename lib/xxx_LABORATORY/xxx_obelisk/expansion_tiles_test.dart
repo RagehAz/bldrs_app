@@ -8,6 +8,7 @@ import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_naviga
 import 'package:flutter/material.dart';
 
 class ExpansionTilesTest extends StatefulWidget {
+  const ExpansionTilesTest({Key key}) : super(key: key);
 
   @override
   _ExpansionTilesTestState createState() => _ExpansionTilesTestState();

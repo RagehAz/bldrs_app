@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 
 class ScreensManagerScreen extends StatelessWidget {
 
+  const ScreensManagerScreen({
+    Key key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class ScreensManagerScreen extends StatelessWidget {
           WideButton(
             verse: 'Loading screen',
             onTap: () async {
-              await Nav.goToNewScreen(context, LoadingScreen());
+              await Nav.goToNewScreen(context, const LoadingScreen());
             },
           )
 

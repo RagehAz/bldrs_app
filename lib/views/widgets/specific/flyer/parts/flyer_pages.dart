@@ -14,7 +14,8 @@ class FlyerPages extends StatelessWidget {
   const FlyerPages({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

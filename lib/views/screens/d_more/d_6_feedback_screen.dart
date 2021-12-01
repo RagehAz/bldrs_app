@@ -15,6 +15,11 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class FeedBack extends StatefulWidget {
+
+  const FeedBack({
+    Key key
+  }) : super(key: key);
+
   @override
   _FeedBackState createState() => _FeedBackState();
 }

@@ -19,9 +19,10 @@ import 'package:flutter/material.dart';
 class AddAuthorScreen extends StatelessWidget {
   final BzModel tinyBz;
 
-  AddAuthorScreen({
+  const AddAuthorScreen({
     @required this.tinyBz,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

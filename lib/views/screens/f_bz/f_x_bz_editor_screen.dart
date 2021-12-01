@@ -38,11 +38,12 @@ class BzEditorScreen extends StatefulWidget {
   final UserModel userModel;
   final BzModel bzModel;
 
-  BzEditorScreen({
+  const BzEditorScreen({
     this.firstTimer = false,
     @required this.userModel,
     this.bzModel,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _BzEditorScreenState createState() => _BzEditorScreenState();

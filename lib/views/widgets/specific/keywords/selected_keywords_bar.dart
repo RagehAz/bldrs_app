@@ -21,7 +21,8 @@ class SelectedKeywordsBar extends StatelessWidget {
     @required this.itemPositionListener,
     @required this.highlightedKeyword,
     @required this.removeKeyword,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

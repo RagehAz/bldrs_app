@@ -25,7 +25,8 @@ class SavedFlyersGrid extends StatelessWidget {
     @required this.selectedFlyers,
     @required this.selectionMode,
     @required this.onSelectFlyer,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -25,6 +25,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BzzManagerScreen extends StatefulWidget {
+  const BzzManagerScreen({Key key}) : super(key: key);
 
   @override
   _BzzManagerScreenState createState() => _BzzManagerScreenState();
@@ -198,7 +199,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     return
 
     _bzzModels == null ?
-    LoadingFullScreenLayer()
+    const LoadingFullScreenLayer()
         :
       MainLayout(
         pyramids: Iconz.PyramidsYellow,

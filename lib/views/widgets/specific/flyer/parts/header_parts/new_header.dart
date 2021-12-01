@@ -21,7 +21,8 @@ class NewHeader extends StatefulWidget {
     @required this.superFlyer,
     @required this.flyerBoxWidth,
     this.initiallyExpanded = false,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _NewHeaderState createState() => _NewHeaderState();

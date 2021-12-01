@@ -16,8 +16,9 @@ class KeywordBarButton extends StatelessWidget {
     @required this.keyword,
     @required this.xIsOn,
     @required this.onTap,
-    this.color = Colorz.blue80
-});
+    this.color = Colorz.blue80,
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +124,8 @@ class AddKeywordsButton extends StatelessWidget {
 
   AddKeywordsButton({
     @required this.onTap,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -18,7 +18,8 @@ class TabButton extends StatelessWidget {
     this.verse,
     this.onTap,
     this.triggerIconColor = true,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

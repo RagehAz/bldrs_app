@@ -14,6 +14,8 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_coun
 import 'package:flutter/material.dart';
 
 class GeneralStatistics extends StatelessWidget {
+  const GeneralStatistics({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
 
