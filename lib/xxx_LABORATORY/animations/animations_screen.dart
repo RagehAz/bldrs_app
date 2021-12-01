@@ -188,7 +188,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               onTap: (){
                 print('ripple effect works now');
                 Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const HeroMax())
+                MaterialPageRoute(builder: (BuildContext context) => const HeroMax())
                 );
                 },
             ),

@@ -204,7 +204,7 @@ class NavBar extends StatelessWidget {
       title: 'My Business accounts',
       child: Container(
         // height: 100,
-        child: NotificationListener(
+        child: NotificationListener<ScrollUpdateNotification>(
           onNotification: (ScrollUpdateNotification details){
 
             final bool _canPageUp = Scrollers.canSlide(

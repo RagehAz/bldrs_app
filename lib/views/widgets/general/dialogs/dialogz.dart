@@ -30,41 +30,41 @@ class Dialogz{
 
     final List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
       /// SIGN IN ERROR
-      {
+      <String, dynamic>{
         'error' : '[firebase_auth/user-not-found]',// There is no user record corresponding to this identifier. The user may have been deleted.',
         'reply' : Wordz.emailNotFound(context),
       },
-      {
+      <String, dynamic>{
         'error' : '[firebase_auth/network-request-failed]',// A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
         'reply' : 'No Internet connection available',
       },
-      {
+      <String, dynamic>{
         'error' : '[firebase_auth/invalid-email]',// The email address is badly formatted.',
         'reply' : Wordz.emailWrong(context),
       },
-      {
+      <String, dynamic>{
         'error' : '[firebase_auth/wrong-password]',// The password is invalid or the user does not have a password.',
         'reply' : Wordz.wrongPassword(context), /// TASK : should link accounts authentication
       },
-      {
+      <String, dynamic>{
         'error' : '[firebase_auth/too-many-requests]',// We have blocked all requests from this device due to unusual activity. Try again later.',
         'reply' : 'Too many failed sign in attempts.\nThis device is put on hold for some time to secure the account', /// TASK : should link accounts authentication and delete this dialog
       },
-      {
+      <String, dynamic>{
         'error' : 'PlatformException(sign_in_failed, com.google.android.gms.common.api.ApiException: 10: , null, null)',
         'reply' : 'Sorry, Could not sign in by google.',
       },
       /// REGISTER ERRORS
-      {
+      <String, dynamic>{
         'error' : '[firebase_auth/email-already-in-use]',// The email address is already in use by another account.',
         'reply' : Wordz.emailAlreadyRegistered(context),
       },
-      {
+      <String, dynamic>{
         'error' : '[firebase_auth/invalid-email]',// The email address is badly formatted.',
         'reply' : Wordz.emailWrong(context),
       },
       /// SHARED ERRORS
-      {
+      <String, dynamic>{
         'error' : null,
         'reply' : Wordz.somethingIsWrong(context),
       },
@@ -74,7 +74,7 @@ class Dialogz{
 
     String _errorReply;
 
-    for (var map in _errors){
+    for (Map<String, dynamic> map in _errors){
 
       bool _mapContainsTheError = TextChecker.stringContainsSubString(
         string: result,
@@ -128,7 +128,7 @@ class Dialogz{
             if (bzzToDeactivate.length != 0)
               BzzBubble(
                 bzzModels: bzzToDeactivate,
-                onTap: (value){print(value);},
+                onTap: (String value){print(value);},
                 numberOfColumns: 6,
                 numberOfRows: 1,
                 scrollDirection: Axis.horizontal,

@@ -560,7 +560,7 @@ class SuperFlyer{
         verticalIndex: 0,
 
         /// flyer identifiers
-        key: ValueKey('${bzModel.id} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
+        key: ValueKey<String>('${bzModel.id} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
         flyerID: SuperFlyer.draftID,
         authorID: superUserID(),
         title: null,

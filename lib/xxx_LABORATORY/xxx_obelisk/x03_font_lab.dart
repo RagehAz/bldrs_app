@@ -595,7 +595,7 @@ class _FontLabState extends State<FontLab> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
-                                    children: [
+                                    children: <Widget>[
                                       Text(fields[index]),
                                     ],
                                   ),

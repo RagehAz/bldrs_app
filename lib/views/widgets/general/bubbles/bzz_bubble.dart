@@ -14,7 +14,7 @@ class BzzBubble extends StatelessWidget {
   final int numberOfColumns;
   final int numberOfRows;
   final Axis scrollDirection;
-  final Function onTap;
+  final ValueChanged<String> onTap;
   final double corners;
 
   const BzzBubble({
@@ -52,7 +52,7 @@ class BzzBubble extends StatelessWidget {
             numberOfRows: numberOfRows,
             scrollDirection: scrollDirection,
             corners: corners == null ? null : corners - Ratioz.appBarMargin,
-            itemOnTap: (bzID) {
+            itemOnTap: (String bzID) {
 
               if (onTap == null) {
                 Nav.goToNewScreen(context, BzCardScreen(bzID: bzID, flyerBoxWidth: Bubble.clearWidth(context),));

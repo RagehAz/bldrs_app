@@ -43,9 +43,9 @@ class _FlyerTypeSelectorState extends State<FlyerTypeSelector> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
-          ...List.generate(
+          ...List<Widget>.generate(
               _numberOfButtons,
-                  (index) {
+                  (int index) {
 
                 final FlyerType _flyerType = _possibleFlyerTypes[index];
                 final String _flyerTypeName = TextGen.flyerTypeSingleStringer(context, _flyerType);

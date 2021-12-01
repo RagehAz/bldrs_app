@@ -36,7 +36,7 @@ class BldrsChain extends StatelessWidget {
           children: <Widget>[
 
             if(Mapper.canLoopList(_allChains.sons))
-            ...List.generate(_allChains.sons.length, (index){
+            ...List<Widget>.generate(_allChains.sons.length, (int index){
 
                   dynamic son = _allChains.sons[index];
 

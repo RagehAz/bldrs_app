@@ -190,8 +190,8 @@ class ReviewsStreamBubbles extends StatelessWidget {
 
         children: <Widget>[
 
-          ...List.generate
-            (_length, (index) =>
+          ...List<Widget>.generate
+            (_length, (int index) =>
               ReviewCard(
                 width: bubbleWidth,
                 corners: cardCorners,

@@ -20,7 +20,7 @@ abstract class Numeric {
       else {
 
         final double _fractions = getFractions(number: number.toDouble());
-        final _number = number.floor();
+        final int _number = number.floor();
         final String _digits = _number.abs().toString();
         final StringBuffer _separatedNumberWithoutFractions = StringBuffer(_number < 0 ? '-' : '');
         final int _maxDigitIndex = _digits.length - 1;
@@ -156,11 +156,11 @@ abstract class Numeric {
     return _randomNumber;
   }
 // -----------------------------------------------------------------------------
-  static List<int> getValuesFromKeys({@required List<ValueKey> keys}) {
+  static List<int> getValuesFromKeys({@required List<ValueKey<int>> keys}) {
     List<int> _values = <int>[];
 
     if (Mapper.canLoopList(keys)) {
-      keys.forEach((key) {
+      keys.forEach((ValueKey<int> key) {
         _values.add(key.value);
       });
     }
@@ -168,22 +168,22 @@ abstract class Numeric {
     return _values;
   }
 // -----------------------------------------------------------------------------
-  static List<ValueKey> addUniqueKeyToKeys({@required List<ValueKey> keys}) {
+  static List<ValueKey<int>> addUniqueKeyToKeys({@required List<ValueKey<int>> keys}) {
     final List<int> _numbers = getValuesFromKeys(keys: keys);
 
     final int _newValue = createUniqueIndex(existingIndexes: _numbers);
 
-    final List<ValueKey> _newKeys = <ValueKey>[...keys, ValueKey(_newValue)];
+    final List<ValueKey<int>> _newKeys = <ValueKey<int>>[...keys, ValueKey<int>(_newValue)];
 
     return _newKeys;
   }
 // -----------------------------------------------------------------------------
-  static ValueKey createUniqueKeyFrom({@required List<ValueKey> existingKeys}) {
+  static ValueKey<int> createUniqueKeyFrom({@required List<ValueKey<int>> existingKeys}) {
     final List<int> _existingValues = getValuesFromKeys(keys: existingKeys);
 
     final int _newValue = createUniqueIndex(existingIndexes: _existingValues);
 
-    return ValueKey(_newValue);
+    return ValueKey<int>(_newValue);
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> createListWithDummyValue({@required int length, @required int value}){

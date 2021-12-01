@@ -89,7 +89,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         _followedBzzIDs = _usersProvider.myUserModel.followedBzzIDs;
 
         if (Mapper.canLoopList(_followedBzzIDs)){
-          for (var id in _followedBzzIDs) {
+          for (String id in _followedBzzIDs) {
             final BzModel _bzModel = await FireBzOps.readBz(
               context: context,
               bzID: id,

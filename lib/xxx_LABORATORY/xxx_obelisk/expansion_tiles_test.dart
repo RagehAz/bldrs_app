@@ -101,7 +101,7 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
         child: MaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
-            children: [
+            children: <Widget>[
 
               Container(
                 width: 300,

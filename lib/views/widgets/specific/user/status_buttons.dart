@@ -52,7 +52,7 @@ class StatusButtons extends StatelessWidget {
             children: <Widget>[
               ...(status[stateIndex]['buttons'] as List<Map<String, Object>>)
                 .map(
-                (x){
+                (Map<String, Object> x){
 
                   final Color _color = x['userStatus'] == UserStatus.finishing &&
                       ( currentUserStatus == UserStatus.finishing ||
@@ -63,7 +63,7 @@ class StatusButtons extends StatelessWidget {
                   Colorz.yellow255 :
                   Colorz.nothing;
 
-                  final _verseColor =
+                  final Color _verseColor =
                   x['userStatus'] == UserStatus.finishing &&
                       ( currentUserStatus == UserStatus.finishing ||
                           currentUserStatus == UserStatus.planning ||
@@ -73,7 +73,7 @@ class StatusButtons extends StatelessWidget {
                   Colorz.black230 :
                   Colorz.white255;
 
-                  final _verseWeight = x['userStatus'] == UserStatus.finishing &&
+                  final VerseWeight _verseWeight = x['userStatus'] == UserStatus.finishing &&
                       ( currentUserStatus == UserStatus.finishing ||
                           currentUserStatus == UserStatus.planning ||
                           currentUserStatus == UserStatus.building) ?

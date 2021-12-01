@@ -54,7 +54,7 @@ class BzPgFields extends StatelessWidget {
               direction: Axis.horizontal,
               runAlignment: WrapAlignment.center,
               children:
-              bzScope == '' ? [Container()] :
+              bzScope == '' ? <Widget>[Container()] :
               List<Widget>.generate(
               1,
                   (int index) {
