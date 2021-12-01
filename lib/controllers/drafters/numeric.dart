@@ -26,8 +26,12 @@ abstract class Numeric {
         final int _maxDigitIndex = _digits.length - 1;
 
         for (int i = 0; i <= _maxDigitIndex; i += 1) {
+
           _separatedNumberWithoutFractions.write(_digits[i]);
-          if (i < _maxDigitIndex && (_maxDigitIndex - i) % 3 == 0) _separatedNumberWithoutFractions.write('\'');
+
+          if (i < _maxDigitIndex && (_maxDigitIndex - i) % 3 == 0)
+            _separatedNumberWithoutFractions.write('\'');
+
         }
 
         if (_fractions > 0){
@@ -51,8 +55,12 @@ abstract class Numeric {
     final int maxDigitIndex = _digits.length - 1;
 
     for (int i = 0; i <= maxDigitIndex; i += 1) {
+
       _resultStringBuffer.write(_digits[i]);
-      if (i < maxDigitIndex && (maxDigitIndex - i) % 3 == 0) _resultStringBuffer.write('\'');
+
+      if (i < maxDigitIndex && (maxDigitIndex - i) % 3 == 0)
+        _resultStringBuffer.write('\'');
+
     }
     return _resultStringBuffer.toString();
   }

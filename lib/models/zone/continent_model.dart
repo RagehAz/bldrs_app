@@ -119,11 +119,21 @@ class Continent{
 
           }
 
-          if(_cont != null){break;}
+          if(_cont != null){
+            break;
+          }
+
         }
-        if(_cont != null){break;}
+
+        if(_cont != null){
+          break;
+        }
+
       }
-      if(_cont != null){break;}
+
+      if(_cont != null){
+        break;
+      }
     }
 
     return _cont;

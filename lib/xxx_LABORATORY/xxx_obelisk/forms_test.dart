@@ -114,7 +114,9 @@ class _TestFormScreenState extends State<TestFormScreen> {
 
                 TextFormField(
                   validator: (value){
-                    if (value.isEmpty){return 'write something';}
+                    if (value.isEmpty){
+                      return 'write something';
+                    }
                     else
                       return null;
                   },
@@ -160,11 +162,22 @@ class _TestFormScreenState extends State<TestFormScreen> {
                   // some validators
                   // !value.startsWith, !value.isEmpty, !value.EndsWith
                   validator: (value){
-                    if(value.isEmpty){return 'Enter number';}
-                    if(double.tryParse(value) == null){return 'Enter a Valid number';}
-                    if(double.parse(value) <= 0){return 'Enter a good number';}
+
+                    if(value.isEmpty){
+                      return 'Enter number';
+                    }
+
+                    if(double.tryParse(value) == null){
+                      return 'Enter a Valid number';
+                    }
+
+                    if(double.parse(value) <= 0){
+                      return 'Enter a good number';
+                    }
+
                     return null;
                   },
+
                   onSaved: (value){_editedProduct = TempClass(a: _editedProduct.a, b: double.tryParse(value), c: _editedProduct.c, d: _editedProduct.d);},
                 ),
 
