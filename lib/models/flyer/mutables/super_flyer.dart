@@ -100,10 +100,6 @@ class SuperFlyer{
     /// animation parameters
     @required this.loading,
 
-    /// editor data
-    @required this.infoController,
-    this.screenShots,
-
     /// slides settings
     @required this.numberOfSlides,
     @required this.numberOfStrips,
@@ -144,6 +140,11 @@ class SuperFlyer{
     @required this.bzCity,
     @required this.flyerCountry,
     @required this.flyerCity,
+
+    /// editor data
+    @required this.infoController,
+    this.screenShots,
+
   });
 // -----------------------------------------------------------------------------
   static const String draftID = 'draft';
@@ -763,7 +764,7 @@ class SuperFlyer{
   }
 // -----------------------------------------------------------------------------
 static SuperFlyer getSuperFlyerFromBzModelOnly({
-  BzModel bzModel,
+  @required BzModel bzModel,
   @required onHeaderTap,
   @required CountryModel bzCountry,
   @required CityModel bzCity,

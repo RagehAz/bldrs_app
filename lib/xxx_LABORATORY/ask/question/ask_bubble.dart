@@ -32,8 +32,8 @@ class QuestionBubble extends StatefulWidget {
   final Function tappingAskInfo;
 
   const QuestionBubble({
-    this.bzType,
     @required this.tappingAskInfo,
+    this.bzType,
     Key key,
   }) : super(key: key);
 

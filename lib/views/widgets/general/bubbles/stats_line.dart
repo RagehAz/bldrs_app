@@ -14,9 +14,9 @@ class StatsLine extends StatelessWidget {
 
   const StatsLine({
     @required this.icon,
+    @required this.verse,
     this.iconSizeFactor = 0.7,
     this.verseScaleFactor = 0.85,
-    @required this.verse,
     this.onTap,
     this.bubbleWidth,
     Key key,

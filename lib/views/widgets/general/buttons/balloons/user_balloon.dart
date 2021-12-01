@@ -21,12 +21,12 @@ class UserBalloon extends StatelessWidget {
   final bool shadowIsOn;
 
   const UserBalloon({
-    this.balloonType,
     @required this.userModel,
     @required this.balloonWidth,
+    @required this.loading,
+    this.balloonType,
     this.blackAndWhite = false,
     this.onTap,
-    @required this.loading,
     this.balloonColor,
     this.child,
     this.shadowIsOn = true,
@@ -116,11 +116,11 @@ class Balloona extends StatelessWidget {
 
   const Balloona({
     @required this.balloonWidth,
-    this.onTap,
     @required this.pic,
+    @required this.loading,
+    this.onTap,
     this.shadowIsOn = false,
     this.child,
-    @required this.loading,
     this.balloonColor = Colorz.white10,
     this.blackAndWhite = false,
     this.userStatus = UserStatus.normal,
@@ -183,11 +183,11 @@ class BalloonComponents extends StatelessWidget {
 
   const BalloonComponents({
     @required this.balloonWidth,
-    this.balloonColor,
     @required this.blackAndWhite,
-    this.loading = false,
     @required this.pic,
     @required this.child,
+    this.balloonColor,
+    this.loading = false,
     Key key,
   }) : super(key: key);
 

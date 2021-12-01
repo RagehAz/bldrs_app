@@ -15,9 +15,9 @@ class MaxBounceNavigator extends StatefulWidget {
   final Axis axis;
 
   const MaxBounceNavigator({
+    @required this.child,
     this.boxDistance,
     this.numberOfScreens = 1,
-    @required this.child,
     this.onNavigate,
     this.notificationListenerKey,
     this.axis = Axis.vertical,

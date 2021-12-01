@@ -138,9 +138,9 @@ class ZoneProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   Future<CityModel> fetchCityByName({
     @required BuildContext context,
-    String countryID,
     @required String cityName,
     @required String lingoCode,
+    String countryID,
   }) async {
 
     CityModel _city;

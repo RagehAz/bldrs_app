@@ -20,13 +20,13 @@ class ChainExpander extends StatelessWidget {
 
   const ChainExpander({
     @required this.chain,
-    this.inActiveMode = false,
     @required this.width,
-    this.margin,
     @required this.onTap,
     @required this.icon,
     @required this.firstHeadline,
     @required this.secondHeadline,
+    this.inActiveMode = false,
+    this.margin,
     this.initialColor = Colorz.black50,
     this.expansionColor = Colorz.white20,
     Key key

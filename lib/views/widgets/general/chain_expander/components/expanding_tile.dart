@@ -30,24 +30,21 @@ class ExpandingTile extends StatefulWidget {
   final EdgeInsets margin;
 
   const ExpandingTile({
+    @required this.firstHeadline,
+    @required this.secondHeadline,
+    @required this.child,
+
     this.width,
     this.collapsedHeight,
     this.maxHeight,
-
     this.scrollable = true,
-
     this.icon,
     this.iconSizeFactor = 1,
     this.onTap,
     this.initiallyExpanded: false,
-
-    @required this.firstHeadline,
-    @required this.secondHeadline,
-
     this.initialColor = Colorz.white10,
     this.expansionColor,
     this.corners,
-    @required this.child,
     this.inActiveMode = false,
     this.margin,
     Key key,

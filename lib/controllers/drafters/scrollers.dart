@@ -57,16 +57,20 @@ abstract class Scrollers{
     return _isAtTenPercentFromTop;
   }
 // -----------------------------------------------------------------------------
-  static bool canSlide({ScrollUpdateNotification details, double boxDistance, int numberOfBoxes, @required bool goesBackOnly, @required Axis axis}){
+  static bool canSlide({
+    @required ScrollUpdateNotification details,
+    @required double boxDistance,
+    @required bool goesBackOnly,
+    @required Axis axis,
+    int numberOfBoxes = 2,
+  }){
     final double _offset = details.metrics.pixels;
 
     const double _limitRatio = 0.25;
 
     final double _backLimit = boxDistance * _limitRatio * (-1);
 
-    final int _numberOfBoxes = numberOfBoxes ?? 2;
-
-    final double _nextLimit = (boxDistance * (_numberOfBoxes - 1)) + (_backLimit * (-1));
+    final double _nextLimit = (boxDistance * (numberOfBoxes - 1)) + (_backLimit * (-1));
 
     bool _canSlide;
 
