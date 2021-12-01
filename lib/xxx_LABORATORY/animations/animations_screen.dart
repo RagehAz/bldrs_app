@@ -362,7 +362,7 @@ class TweenTest extends StatelessWidget {
       height: screenWidth * 0.5,
       color: Colorz.bloodTest,
       alignment: Alignment.topCenter,
-      child: TweenAnimationBuilder(
+      child: TweenAnimationBuilder<double>(
         child: SuperVerse(
           verse: 'WTF is this',
           size: 4,

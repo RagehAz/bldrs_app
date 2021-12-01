@@ -8,7 +8,7 @@ import 'package:bldrs/xxx_LABORATORY/ask/question/ask_bubble.dart';
 import 'package:flutter/material.dart';
 
 /// WE STOPPPEDDDDD HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEREEEE, GOOD NIGHT
-const Map<String, Object> bzTypesMap = {
+const Map<String, Object> bzTypesMap = <String, dynamic>{
   'Title' : 'Business Types',
   'Strings' : <String>[
     'developers',
@@ -34,8 +34,8 @@ class _OldAskScreenState extends State<OldAskScreen> {
   bool enumListerIsOn = false;
 
   String enumListTitle = '';
-  List<String> enumListerStrings = [''];
-  List<bool> enumListerTriggers = [false];
+  List<String> enumListerStrings = <String>[''];
+  List<bool> enumListerTriggers = <bool>[false];
 
   void _openEnumLister(Map<String,Object> passedMap){
     setState(() {

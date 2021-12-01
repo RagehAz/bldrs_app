@@ -59,10 +59,10 @@ class Slides extends StatelessWidget {
         allowImplicitScrolling: false,
         clipBehavior: Clip.antiAlias,
         restorationId: '${superFlyer.key.value}',
-        onPageChanged: superFlyer.nav.listenToSwipe ? (i) => superFlyer.nav.onHorizontalSlideSwipe(i) : (i) => Sliders.zombie(i),
+        onPageChanged: superFlyer.nav.listenToSwipe ? (int i) => superFlyer.nav.onHorizontalSlideSwipe(i) : (int i) => Sliders.zombie(i),
         children: <Widget>[
 
-          ...List.generate(superFlyer.numberOfSlides, (i){
+          ...List<Widget>.generate(superFlyer.numberOfSlides, (int i){
 
             final BoxFit _currentPicFit = FlyerMethod.getCurrentBoxFitFromSuperFlyer(superFlyer: superFlyer);
             // ------------------------------------------------------o

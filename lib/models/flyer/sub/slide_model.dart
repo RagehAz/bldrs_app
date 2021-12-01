@@ -294,7 +294,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static Future <List<Asset>> getImageAssetsFromPublishedSlides(List<SlideModel> slides) async {
-    final List<Asset> _assets = [];
+    final List<Asset> _assets = <Asset>[];
 
 
     if (Mapper.canLoopList(slides)){

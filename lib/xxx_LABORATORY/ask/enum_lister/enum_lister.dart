@@ -147,7 +147,7 @@ class EnumLister extends StatelessWidget {
                             shrinkWrap: true,
                             itemCount: stringsList.length,
                             padding: const EdgeInsets.only(bottom: Ratioz.pyramidsHeight, top: Ratioz.appBarMargin ),
-                            itemBuilder: (_, index) =>
+                            itemBuilder: (_, int index) =>
 
                                  EnumListerTile(
                                   verse: stringsList[index],

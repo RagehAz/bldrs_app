@@ -40,7 +40,7 @@ class _HomeWallState extends State<HomeWall> {
         bzzModels: _userBzz,
         numberOfRows: 1,
         numberOfColumns: 5,
-        onTap: (value){print(value);},
+        onTap: (String value){print(value);},
         title: '${TextGen.bldrsTypePageTitle(context, BzType.designer)} in Province',
       ),
 

@@ -146,7 +146,7 @@ class FlyersProvider extends ChangeNotifier {
   bool getAnkh(String flyerID){
     bool _ankhIsOn = false;
 
-    final FlyerModel _flyer = _savedFlyers?.firstWhere((flyer) => flyer.id == flyerID, orElse: () => null);
+    final FlyerModel _flyer = _savedFlyers?.firstWhere((FlyerModel flyer) => flyer.id == flyerID, orElse: () => null);
 
     if(_flyer == null){
       _ankhIsOn = false;
@@ -160,7 +160,7 @@ class FlyersProvider extends ChangeNotifier {
   Future<void> saveOrUnSaveFlyer({@required BuildContext context, @required FlyerModel inputFlyer,}) async {
 
     final FlyerModel _savedFlyer =
-    _savedFlyers.singleWhere((tf) => tf.id == inputFlyer.id, orElse: ()=> null);
+    _savedFlyers.singleWhere((FlyerModel tf) => tf.id == inputFlyer.id, orElse: ()=> null);
 
     final List<String> _savedFlyersIDs = FlyerModel.getFlyersIDsFromFlyers(_savedFlyers);
 
@@ -190,7 +190,7 @@ class FlyersProvider extends ChangeNotifier {
     } else {
       /// so flyer is already saved, so we remove it
       final int _savedFlyerIndex =
-      _savedFlyers.indexWhere((tf) => tf.id == inputFlyer.id, );
+      _savedFlyers.indexWhere((FlyerModel tf) => tf.id == inputFlyer.id, );
       _savedFlyers.removeAt(_savedFlyerIndex);
 
       // /// remove from ldb

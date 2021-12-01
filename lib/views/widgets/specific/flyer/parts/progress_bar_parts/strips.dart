@@ -274,7 +274,7 @@ class Strips extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: List.generate(numberOfStrips, (index) {
+              children: List<Widget>.generate(numberOfStrips, (int index) {
 
                 return
                   Strip(

@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -232,7 +233,7 @@ class _GalleryState extends State<Gallery> {
                 bzAuthors: widget.superFlyer.bz.authors,
                 showFlyers: widget.showFlyers,
                 bzModel: widget.superFlyer.bz,
-                onAuthorLabelTap: (id) => _onAuthorLabelTap(id),
+                onAuthorLabelTap: (String id) => _onAuthorLabelTap(id),
                 selectedAuthorID: _selectedAuthorID,
                 bzFlyers: _flyers,
               ),
@@ -241,7 +242,7 @@ class _GalleryState extends State<Gallery> {
             // if (widget.galleryBoxWidth != null)
               GalleryGrid(
                 gridZoneWidth: widget.galleryBoxWidth,
-                bzID: widget.superFlyer.bz.authors == null || widget.superFlyer.bz.authors == [] || widget.superFlyer.bz.authors.isEmpty ?  '': widget.superFlyer.bz.id,
+                bzID: widget.superFlyer.bz.authors == null || widget.superFlyer.bz.authors == <AuthorModel>[] || widget.superFlyer.bz.authors.isEmpty ?  '': widget.superFlyer.bz.id,
                 flyersVisibilities: _flyersVisibilities,
                 galleryFlyers: _flyers,
                 bzAuthors: widget.superFlyer.bz.authors,

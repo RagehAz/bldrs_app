@@ -132,7 +132,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
               ValueListenableBuilder<int>(
                   valueListenable: _counter,
                   child: Container(),
-                  builder: (ctx, value, child){
+                  builder: (BuildContext ctx, int value, Widget child){
 
                     return
 
@@ -151,7 +151,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 
               /// AVOID SET STATE : WAY # 2
               Consumer<UiProvider>(
-                builder: (ctx, uiProvider, child){
+                builder: (BuildContext ctx, UiProvider uiProvider, Widget child){
                   final String _name = uiProvider.name;
                   return
                     DreamBox(

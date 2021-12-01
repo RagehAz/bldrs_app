@@ -219,7 +219,7 @@ class _SignInFormState extends State<SignInForm> {
             maxLength: 100,
             obscured: _passwordObscured,
             horusOnTap: _horusOnTap,
-            validator: (val){
+            validator: (String val){
               return
                 val.isEmpty ? Wordz.enterPassword(context) :
                 val.length < 6 ? Wordz.min6Char(context) :

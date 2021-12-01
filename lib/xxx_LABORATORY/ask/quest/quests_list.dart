@@ -13,7 +13,7 @@ class QuestList extends StatelessWidget {
     return ListView.builder(
       padding: Stratosphere.stratosphereSandwich,
         itemCount: questions.length,
-        itemBuilder: (context, index) {
+        itemBuilder: (BuildContext context, int index) {
           return ListTile(
             title: SuperVerse(
               verse: '($index) :\n${questions[index].body}',

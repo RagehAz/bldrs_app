@@ -200,17 +200,17 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
                 //
                 //   return 'the semantic formatter call back value is : $value';
                 // },
-                onChangeEnd: (value){
+                onChangeEnd: (double value){
                   setState(() {
                   _onChangeEnd = value;
                   });
                 },
-                onChangeStart: (value){
+                onChangeStart: (double value){
                   setState(() {
                     _onChangeStart = value;
                   });
                 },
-                onChanged: (value){
+                onChanged: (double value){
                   setState(() {
                     _theValue = value;
                   });
@@ -278,17 +278,17 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
 
                 return 'the semantic formatter call back value is : $value';
               },
-              onChangeEnd: (values){
+              onChangeEnd: (RangeValues values){
                 setState(() {
                   _onChangeRangeEnd = values;
                 });
               },
-              onChangeStart: (rangeValue){
+              onChangeStart: (RangeValues rangeValue){
                 setState(() {
                   _onChangeRangeStart = rangeValue;
                 });
               },
-              onChanged: (rangeValue){
+              onChanged: (RangeValues rangeValue){
                 setState(() {
                   _rangeValues = rangeValue;
                 });
