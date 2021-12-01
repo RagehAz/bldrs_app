@@ -66,7 +66,7 @@ abstract class Imagers{
   }
 // ---------------------------------------------------
   static Future<File> takeCameraPicture({@required PicType picType}) async {
-    final _picker = ImagePicker();
+    final ImagePicker _picker = ImagePicker();
 
     final XFile _imageFile = await _picker.pickImage(
       source: ImageSource.camera,

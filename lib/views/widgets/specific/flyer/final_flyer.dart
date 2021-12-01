@@ -2080,7 +2080,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               inputShadow: false,
               fieldIsFormField: false,
 
-              onSubmitted: (val){
+              onSubmitted: (String val){
                 print('val is : $val');
               },
               keyboardTextInputType: TextInputType.multiline,

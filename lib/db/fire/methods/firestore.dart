@@ -811,7 +811,7 @@ abstract class Fire{
     //     functions: () async {
 
     // Remove field from the document
-    final Map<String, Object> updates = new Map();
+    final Map<String, Object> updates = new Map<String, Object>();
 
     updates.addAll({
       field : FieldValue.delete(),
@@ -846,7 +846,7 @@ abstract class Fire{
         functions: () async {
 
           // Remove field from the document
-          final Map<String, Object> updates = new Map();
+          final Map<String, Object> updates = new Map<String, Object>();
 
           updates.addAll({
             field : FieldValue.delete(),

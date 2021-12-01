@@ -16,7 +16,7 @@ class KW {
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
 
-    return {
+    return <String, dynamic>{
       'id': id,
       'names' : Name.cipherNames(names: names, addTrigrams: toJSON),
     };

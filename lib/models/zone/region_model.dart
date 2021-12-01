@@ -14,7 +14,7 @@ class Region{
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
 
-    return {
+    return <String, dynamic>{
       'continent' : continent,
       'name' : name,
       'countriesIDs' : countriesIDs,
@@ -33,7 +33,7 @@ class Region{
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> cipherRegions(List<Region> regions){
 
-    Map<String, dynamic> _map = {};
+    Map<String, dynamic> _map = <String, dynamic>{};
 
     if (Mapper.canLoopList(regions)){
 

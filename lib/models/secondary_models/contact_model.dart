@@ -233,7 +233,7 @@ class ContactModel{
 // -----------------------------------------------------------------------------
   static List<String> getListOfValuesFromContactsModelsList(List<ContactModel> contacts){
     final List<String> values = <String>[];
-    contacts.forEach((co) {values.add(co.contact); });
+    contacts.forEach((ContactModel co) {values.add(co.contact); });
     return values;
   }
 // -----------------------------------------------------------------------------

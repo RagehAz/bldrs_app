@@ -115,7 +115,7 @@ class UsersProvider extends ChangeNotifier {
 
     if (doc != null) {
       try {
-        Map<String, dynamic> _map = doc.data() as Map;
+        Map<String, dynamic> _map = doc.data() as Map<String, dynamic>;
 
         _userModel = UserModel.decipherUserMap(map: _map, fromJSON: false);
 

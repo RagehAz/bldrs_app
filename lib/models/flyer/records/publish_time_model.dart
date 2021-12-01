@@ -61,7 +61,7 @@ class PublishTime {
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> cipherPublishTimesToMap({@required List<PublishTime> times,@required  bool toJSON}) {
 
-    Map<String, dynamic> _outPut = {};
+    Map<String, dynamic> _outPut = <String, dynamic>{};
 
 
     if (Mapper.canLoopList(times)){
@@ -116,7 +116,7 @@ class PublishTime {
     DateTime _time;
 
     if (times != null){
-      _time = times.firstWhere((time) => time.state == state, orElse: () => null)?.time;
+      _time = times.firstWhere((PublishTime time) => time.state == state, orElse: () => null)?.time;
     }
 
     return _time;

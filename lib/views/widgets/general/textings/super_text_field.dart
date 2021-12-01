@@ -368,7 +368,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           cursorHeight: null,
           textAlign: _textAlign,
           autofocus: widget.autofocus == null ? false : widget.autofocus,
-          onSubmitted: (val){
+          onSubmitted: (String val){
 
             if (widget.onSubmitted != null){
               widget.onSubmitted(val);
