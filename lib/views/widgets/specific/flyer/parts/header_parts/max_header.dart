@@ -46,7 +46,7 @@ class MaxHeader extends StatelessWidget {
     return bzModelBuilder(
       context: context,
       bzID: bzModel.id,
-      builder: (ctx, bz){
+      builder: (BuildContext ctx, BzModel bz){
 // -----------------------------------------------------------------------------
         final String _bzScope = bz != null ? bz.scope : '';
 // -----------------------------------------------------------------------------
@@ -56,7 +56,7 @@ class MaxHeader extends StatelessWidget {
 // -----------------------------------------------------------------------------
         final List<String> _bzTeamIDs = <String>[];
         if(_bzAuthors != null) {
-          _bzAuthors.forEach((au) {
+          _bzAuthors.forEach((AuthorModel au) {
             _bzTeamIDs.add(au.userID);
           });
         }

@@ -65,7 +65,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   final TextEditingController pasteController = TextEditingController();
 
   Future<void> _pasteFunction() async {
-    final value = await FlutterClipboard.paste();
+    final String value = await FlutterClipboard.paste();
     setState(() {
       paste = value;
       pasteController.text = paste;

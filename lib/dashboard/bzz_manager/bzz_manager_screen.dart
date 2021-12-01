@@ -210,9 +210,9 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
         sectionButtonIsOn: false,
         skyType: SkyType.Black,
         searchController: _searchController,
-        onSearchSubmit: (val) => _onSearchChanged(val),
+        onSearchSubmit: (String val) => _onSearchChanged(val),
         historyButtonIsOn: false,
-        onSearchChanged: (val) => _onSearchChanged(val),
+        onSearchChanged: (String val) => _onSearchChanged(val),
         layoutWidget: Container(
           width: _screenWidth,
           height: _screenHeight,

@@ -29,7 +29,7 @@ class FlyerScreen extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  static const routeName = Routez.FlyerScreen;
+  static const String routeName = Routez.FlyerScreen;
 
   @override
   Widget build(BuildContext context) {
