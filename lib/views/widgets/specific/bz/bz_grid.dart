@@ -130,7 +130,7 @@ class BzGrid extends StatelessWidget {
                   children: <Widget>[
 
                     ..._bzz.map(
-                          (bz) => Column(
+                          (BzModel bz) => Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[

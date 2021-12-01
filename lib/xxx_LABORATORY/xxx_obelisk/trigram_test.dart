@@ -132,7 +132,7 @@ class _TrigramTestState extends State<TrigramTest> {
 
               List<BzModel> _allBzz = await ExoticMethods.readAllBzzModels(context: context, limit: 200);
 
-              for (var bz in _allBzz){
+              for (BzModel bz in _allBzz){
 
                 List<String> _newTrigram = TextGen.createTrigram(input: bz.name);
 

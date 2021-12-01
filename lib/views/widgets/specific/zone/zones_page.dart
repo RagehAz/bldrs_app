@@ -80,7 +80,7 @@ class ZonesPage extends StatelessWidget {
                       child: ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         itemCount: countriesIDs.length,
-                        itemBuilder: (context, index){
+                        itemBuilder: (BuildContext context, int index){
 
                           final String _id = countriesIDs[index];
 

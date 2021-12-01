@@ -76,7 +76,7 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
       skyType: SkyType.Night,
       layoutWidget: Center(
         child: RotationTransition(
-          turns: Tween(begin: 0.0, end: 2.0).animate(_blackHoleController),
+          turns: Tween<double>(begin: 0.0, end: 2.0).animate(_blackHoleController),
           child: DreamBox(
             height: 300.0,
             width: 300.0,

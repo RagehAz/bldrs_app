@@ -54,19 +54,19 @@ class PropertySearchCriteria extends StatelessWidget {
     // double contractTypeBtWidth = (buttonsZoneWidth - (2*buttonSpacing) - buttonSpacing)/2;
 
 
-  const Map<String, Object> propertyUseMap = {
+  const Map<String, Object> propertyUseMap = <String, Object>{
     'Title' : 'Use of property',
     'Strings' : <String>['Residential', 'Commercial', 'Industrial', 'Governmental', 'Administration', 'Transportation', 'Utilities', 'Religious', 'Educational', 'Agricultural', 'Medical', 'Hotel room', 'Sports', 'Entertainment',],
     'Triggers' : <bool>[false, false, false, false, false, false, false, false, false, false, false, false, false, false],
   };
 
-    const Map<String, Object> propertyTypeMap = {
+    const Map<String, Object> propertyTypeMap = <String, Object>{
     'Title' : 'Type of property',
     'Strings' : <String>['Apartment', 'Penthouse', 'Chalet', 'TwinHouse', 'FullFloor', 'HalfFloor', 'Building', 'Land', 'Bungalow', 'Cabana', 'HotelRoom', 'Villa', 'Room', 'Office', 'Store', 'WareHouse', 'ExhibitionHall', 'MeetingRoom', 'Hostel', 'MedicalFacility',],
     'Triggers' : <bool>[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, ],
   };
 
-    const Map<String, Object> contractTypeMap = {
+    const Map<String, Object> contractTypeMap = <String, Object>{
     'Title' : 'Contract type of property',
     'Strings' : <String>['For Sale', 'For Rent'],
     'Triggers' : <bool>[false, false],

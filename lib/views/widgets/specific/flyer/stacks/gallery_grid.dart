@@ -148,7 +148,7 @@ class GalleryGrid extends StatelessWidget {
 
               /// GALLERY FLYERS
               ...List<Widget>.generate(_gridFlyers.length,
-                      (index) =>
+                      (int index) =>
 
                   Opacity(
                     opacity: flyersVisibilities == null || flyersVisibilities.length == 0 || flyersVisibilities[index] == true ? 1 : 0.1,

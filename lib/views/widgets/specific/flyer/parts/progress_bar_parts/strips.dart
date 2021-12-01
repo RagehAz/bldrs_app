@@ -294,7 +294,7 @@ class Strips extends StatelessWidget {
               tween: _tween(),
               curve: Curves.easeOut,
               // onEnd: (){},
-              key: ValueKey(slideIndex),
+              key: ValueKey<int>(slideIndex),
               builder: (BuildContext context,double tweenVal, Widget child){
 
                 final double _tweenVal = swipeDirection == SwipeDirection.freeze ? _aStripLength : tweenVal;
@@ -307,7 +307,7 @@ class Strips extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
 
-                        ...List.generate(_numberOfWhiteStrips(), (index) {
+                        ...List<Widget>.generate(_numberOfWhiteStrips(), (int index) {
                           // print('numberOfSlides : $numberOfSlides ,currentSlide : $currentSlide, index : $index, _numberOfWhiteStrips() : ${_numberOfWhiteStrips()}' );
 
                           return

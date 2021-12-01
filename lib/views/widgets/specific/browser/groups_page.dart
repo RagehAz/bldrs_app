@@ -24,7 +24,7 @@ class GroupsPage extends StatelessWidget {
       child: ListView.builder(
           itemCount: groups.length,
           padding: const EdgeInsets.all(Ratioz.appBarMargin),
-          itemBuilder: (context, groupIndex){
+          itemBuilder: (BuildContext context, int groupIndex){
 
             final String _group = groups[groupIndex];
             final Color _color = selectedGroup == _group ? Colorz.yellow255 : Colorz.nothing;

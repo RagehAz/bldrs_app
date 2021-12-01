@@ -168,8 +168,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 
               /// AVOID SET STATE : WAY # 3
               Selector<UiProvider, int>(
-                selector: (_, uiProvider) => uiProvider.theCounter,
-                builder: (ctx, value, child){
+                selector: (_, UiProvider uiProvider) => uiProvider.theCounter,
+                builder: (BuildContext ctx, int value, Widget child){
 
                   return
                     DreamBox(

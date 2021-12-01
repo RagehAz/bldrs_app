@@ -184,7 +184,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                   children: <Widget>[
 
                     if (Mapper.canLoopList(_foundKeywords))
-                      ...List.generate(_foundKeywords.length, (int index){
+                      ...List<Widget>.generate(_foundKeywords.length, (int index){
 
                         final KW _keyword = _foundKeywords[index];
 

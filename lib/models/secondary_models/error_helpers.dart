@@ -46,7 +46,12 @@ Future<void> tryAndCatch({
   }
 }
 // -----------------------------------------------------------------------------
-Future<bool> tryCatchAndReturn({Function onError, BuildContext context, Function functions, String methodName}) async {
+Future<bool> tryCatchAndReturn({
+  @required BuildContext context,
+  @required Function functions,
+  ValueChanged<String> onError,
+  String methodName,
+}) async {
   try{
     await functions();
     return true;

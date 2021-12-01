@@ -121,7 +121,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
         },
 
-        onError: (e){
+        onError: (String e){
           print('ERROR IS : ${e.toString()}');
       }
       );

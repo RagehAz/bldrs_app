@@ -250,9 +250,9 @@ class _NotificationMakerState extends State<NotificationMaker> {
       draggable: true,
       title: 'Search for a user',
       height: _dialogHeight,
-      builder: (ctx, title){
+      builder: (BuildContext ctx, String title){
         return StatefulBuilder(
-          builder: (xxx, setDialogState){
+          builder: (BuildContext xxx, setDialogState){
 
             return
               Column(

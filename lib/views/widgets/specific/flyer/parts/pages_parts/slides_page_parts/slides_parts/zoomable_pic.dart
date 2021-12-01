@@ -52,7 +52,7 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
   }
 // -----------------------------------------------------------------------------
   Future<void> _resetZoom() async {
-    final _reset = await Matrix4Tween(
+    final Animation<Matrix4> _reset = await Matrix4Tween(
       begin: _transformationController.value,
       end: Matrix4.identity(),
     ).animate(_zoomAnimationController);

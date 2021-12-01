@@ -61,7 +61,7 @@ class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
     final bool _goesBackOnly = widget.axis == Axis.vertical ? true : false;
 
     return
-      NotificationListener(
+      NotificationListener<ScrollUpdateNotification>(
         key: widget.notificationListenerKey,
         onNotification: (ScrollUpdateNotification details){
           bool _canSlide = Scrollers.canSlide(

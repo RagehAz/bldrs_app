@@ -118,7 +118,7 @@ class AuthorBubble extends StatelessWidget {
                   if (bzAuthors != null)
                     ...List<Widget>.generate(
                         bzAuthors.length,
-                            (authorIndex) {
+                            (int authorIndex) {
                           AuthorModel _author = bzAuthors[authorIndex];
                           return
                             Row(

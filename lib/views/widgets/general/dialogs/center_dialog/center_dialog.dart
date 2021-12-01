@@ -121,7 +121,7 @@ class CenterDialog extends StatelessWidget {
         ),
 
         content: Builder(
-          builder: (context){
+          builder: (BuildContext context){
             return
 
               GestureDetector(

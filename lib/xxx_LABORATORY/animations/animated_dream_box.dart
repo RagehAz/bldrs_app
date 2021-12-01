@@ -350,7 +350,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                             // color: Colorz.White,
                               borderRadius: BorderRadius.circular(
                                   widget.corners - (boxHeight * 0.8) ),
-                              boxShadow: [
+                              boxShadow: <BoxShadow>[
                                 CustomBoxShadow(
                                     color: Colorz.white50,
                                     offset: new Offset(0, boxHeight * -0.33),

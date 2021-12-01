@@ -235,7 +235,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
 
     return AnimatedBuilder(
       animation: _controller.view,
-      builder: (ctx, child){
+      builder: (BuildContext ctx, Widget child){
 
         final Color _headerColor = _backgroundColorTween.evaluate(_animation);
         final BorderRadius _headerBorders = _headerCornerTween.evaluate(_animation);

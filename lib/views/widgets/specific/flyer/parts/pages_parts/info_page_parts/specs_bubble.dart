@@ -57,7 +57,7 @@ class SpecsBubble extends StatelessWidget {
         if(Mapper.canLoopList(specs))
           ...List<Widget>.generate(
               specs?.length,
-                  (index){
+                  (int index){
 
                 final Spec _spec = specs[index];
 

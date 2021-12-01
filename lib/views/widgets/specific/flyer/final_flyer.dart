@@ -1166,11 +1166,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       draggable: true,
       height: _dialogHeight,
       title: 'Add your review on this flyer',
-      builder: (ctx, title){
+      builder: (BuildContext ctx, String title){
 
         return
           StatefulBuilder(
-            builder: (xxx, setDialogState){
+            builder: (BuildContext xxx, setDialogState){
 
               return
                 BottomDialog(

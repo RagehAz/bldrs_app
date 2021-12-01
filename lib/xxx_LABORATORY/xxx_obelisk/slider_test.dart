@@ -268,7 +268,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               inactiveColor: Colorz.bloodTest,
               max: _maxValue,
               min: _minValue,
-              semanticFormatterCallback: (value){
+              semanticFormatterCallback: (double value){
 
                 // if(_isInit == true){
                 //   setState(() {
