@@ -132,7 +132,7 @@ class TimerTest extends StatelessWidget {
         shrinkWrap: false,
         padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
         itemCount: _mapModels.length,
-          itemBuilder: (ctx, index){
+          itemBuilder: (BuildContext ctx, int index){
 
           MapModel _pair = _mapModels[index];
 

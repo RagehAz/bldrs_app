@@ -132,7 +132,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
         // );
       });
 
-      _awesomeNotification.actionStream.listen((notification) async {
+      _awesomeNotification.actionStream.listen((ReceivedAction notification) async {
 
         bool _isBasicChannel = notification.channelKey == NotiOps.getNotiChannelName(NotiChannel.basic);
         bool _isIOS = DeviceChecker.deviceIsIOS();
@@ -177,19 +177,19 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
           _pyramids = Iconz.PyramidsWhite;
       });
 
-      await Future.delayed(const Duration(milliseconds: 50), (){
+      await Future<void>.delayed(const Duration(milliseconds: 50), (){
         setState(() {
         _pyramids = Iconz.PyramidsYellow;
         });
       });
 
-    await Future.delayed(const Duration(milliseconds: 100), (){
+    await Future<void>.delayed(const Duration(milliseconds: 100), (){
       setState(() {
         _pyramids = Iconz.PyramidsWhite;
       });
     });
 
-    await Future.delayed(const Duration(milliseconds: 150), (){
+    await Future<void>.delayed(const Duration(milliseconds: 150), (){
       setState(() {
         _pyramids = Iconz.PyramidsYellow;
       });

@@ -291,7 +291,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
           if (widget.specList.specChain.sons == DataCreator.integerIncrementer)
             ValueListenableBuilder<List<Spec>>(
                 valueListenable: _selectedSpecs,
-                builder: (ctx, value, child){
+                builder: (BuildContext ctx, List<Spec> value, Widget child){
 
 
                   return
@@ -309,7 +309,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
           if (widget.specList.specChain.sons == DataCreator.doubleCreator)
             ValueListenableBuilder<List<Spec>>(
                 valueListenable: _selectedSpecs,
-                builder: (ctx, value, child){
+                builder: (BuildContext ctx, List<Spec> value, Widget child){
 
 
                   return

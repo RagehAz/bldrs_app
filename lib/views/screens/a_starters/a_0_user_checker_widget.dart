@@ -191,7 +191,7 @@ class _UserCheckerState extends State<UserChecker> {
       Container(
         key: widget.key,
         child: MainLayout(
-          key: const ValueKey('mainLayout'),
+          key: const ValueKey<String>('mainLayout'),
           loading: _loading,
           pyramids: Iconz.PyramidzYellow,
           appBarType: AppBarType.Non,

@@ -282,7 +282,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                           name: val,
                         );
 
-                        if (_resultUsers == []){
+                        if (_resultUsers == <UserModel>[]){
                           print('result is null, no result found');
                         }
                         else {
@@ -308,13 +308,13 @@ class _NotificationMakerState extends State<NotificationMaker> {
                         physics: const BouncingScrollPhysics(),
                           padding: const EdgeInsets.only(bottom: Ratioz.horizon),
                           itemCount: _usersModels.length,
-                          itemBuilder: (xyz, index){
+                          itemBuilder: (BuildContext ctx, int index){
 
                           bool _userSelected = _selectedUser == _usersModels[index];
 
                             return
 
-                              _usersModels == [] ?
+                              _usersModels == <UserModel>[] ?
 
                               Container(
                                 width: _dialogClearWidth,
@@ -671,8 +671,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
 
-                                ...List.generate(_attachment.length,
-                                        (index){
+                                ...List<Widget>.generate(_attachment.length,
+                                        (int index){
 
                                       double _width = (_bodyWidth - ((_attachment.length + 1) * Ratioz.appBarMargin) ) / (_attachment.length);
 

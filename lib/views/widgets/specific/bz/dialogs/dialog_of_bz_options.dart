@@ -245,7 +245,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
     return ListView.builder(
       itemCount: DialogOfBzOptions.numberOfButtons,
       physics: const BouncingScrollPhysics(),
-      itemBuilder: (ctx, index){
+      itemBuilder: (BuildContext ctx, int index){
         return
           Column(
             children: <Widget>[

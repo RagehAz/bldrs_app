@@ -9,6 +9,9 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
+import 'package:bldrs/models/flyer/records/publish_time_model.dart';
+import 'package:bldrs/models/flyer/sub/slide_model.dart';
+import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/views/widgets/general/artworks/blur_layer.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -213,7 +216,7 @@ class BottomDialog extends StatelessWidget {
       child: ListView.builder(
         itemCount: buttons.length,
         physics: const BouncingScrollPhysics(),
-        itemBuilder: (ctx, index){
+        itemBuilder: (BuildContext ctx, int index){
           return
             Column(
               children: <Widget>[
@@ -282,12 +285,12 @@ class BottomDialog extends StatelessWidget {
               priceTagIsOn: false,
               position: null,
               flyerType: null,
-              times: [],
-              slides: [],
+              times: <PublishTime>[],
+              slides: <SlideModel>[],
               isBanned: null,
-              keywordsIDs: [],
-              specs: [],
-              trigram: [],
+              keywordsIDs: <String>[],
+              specs: <Spec>[],
+              trigram: <String>[],
               flyerState: FlyerState.draft,
               showsAuthor: false,
             ),

@@ -17,7 +17,7 @@ class TileBubble extends StatelessWidget {
   final Function btOnTap;
   final String secondLine;
   final bool switchIsOn;
-  final Function switching;
+  final ValueChanged<bool> switching;
   final bool iconIsBubble;
   final bool insideDialog;
   final Function moreBtOnTap;
@@ -143,7 +143,7 @@ class TileBubble extends StatelessWidget {
                 inactiveThumbColor: Colorz.grey225,
                 inactiveTrackColor: Colorz.grey80,
                 value: switchIsOn,
-                onChanged: (val) => switching(val),
+                onChanged: (bool val) => switching(val),
               ),
             ),
 

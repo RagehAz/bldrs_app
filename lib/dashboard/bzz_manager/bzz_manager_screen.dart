@@ -106,7 +106,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  List<BzModel> _searchedBzz = [];
+  List<BzModel> _searchedBzz = <BzModel>[];
   void _onSearchChanged(String value){
 
     final String val = TextMod.removeSpacesFromAString(value);
@@ -120,7 +120,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
       /// B - when search result has values
       if (_searchResultIsEmpty == false){
         setState(() {
-          _searchedBzz = [];
+          _searchedBzz = <BzModel>[];
         });
       }
 
@@ -227,7 +227,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
               shrinkWrap: false,
               addAutomaticKeepAlives: true,
               padding: const EdgeInsets.only(bottom: Ratioz.stratosphere, top: Stratosphere.bigAppBarStratosphere),
-              itemBuilder: (ctx, index){
+              itemBuilder: (BuildContext ctx, int index){
 
                 final BzModel _bz = _bzz[index];
                 final String _bzName = _bz.name == null || _bz.name == '' ? '.....' : _bz.name;

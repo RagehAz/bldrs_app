@@ -169,7 +169,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       notiStreamBuilder(
           context: context,
           userID: superUserID(),
-          builder: (ctx, notiModels){
+          builder: (BuildContext ctx, List<NotiModel> notiModels){
 
             print('the shit is : notiModels : $notiModels');
 
@@ -184,7 +184,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 addAutomaticKeepAlives: true,
                 itemCount: notiModels?.length,
                 padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
-                itemBuilder: (ctx, index){
+                itemBuilder: (BuildContext ctx, int index){
 
                   final NotiModel _notiModel = notiModels == null ? null : notiModels[index];
 

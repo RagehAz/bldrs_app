@@ -40,9 +40,9 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
   ScrollController _scrollController;
   // AnimationController _animationController;
 
-  List<SpecList> _sourceSpecsLists = [];
-  List<SpecList> _refinedSpecsLists = [];
-  List<String> _groupsIDs = [];
+  List<SpecList> _sourceSpecsLists = <SpecList>[];
+  List<SpecList> _refinedSpecsLists = <SpecList>[];
+  List<String> _groupsIDs = <String>[];
 
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -260,7 +260,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
                 itemCount: _groupsIDs.length,
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
-                itemBuilder: (ctx, index){
+                itemBuilder: (BuildContext ctx, int index){
 
                   final String _groupID = _groupsIDs[index];
 

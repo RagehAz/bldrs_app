@@ -41,7 +41,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // --------------------
   TextEditingController _nameController = TextEditingController();
   File _currentPicFile;
@@ -502,7 +502,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputType: TextInputType.name,
               keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: true,
-              validator: (val) => val.isEmpty ? Wordz.enterJobTitle(context) : null,
+              validator: (String val) => val.isEmpty ? Wordz.enterJobTitle(context) : null,
             ),
 
             /// --- EDIT COMPANY NAME
@@ -521,9 +521,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             if (_currentZone?.isNotEmpty() == true)
             LocaleBubble(
               title : 'Preferred Location',
-              changeCountry : (countryID) => _changeCountry(countryID),
-              changeCity : (cityID) => _changeCity(cityID),
-              changeDistrict : (districtID) => _changeDistrict(districtID),
+              changeCountry : (String countryID) => _changeCountry(countryID),
+              changeCity : (String cityID) => _changeCity(cityID),
+              changeDistrict : (String districtID) => _changeDistrict(districtID),
               // zone: Zone(countryID: userModel.country, cityID: userModel.city, districtID: userModel.districtID),
               currentZone: _currentZone,
             ),

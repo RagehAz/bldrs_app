@@ -225,7 +225,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 //     //       itemHeight: 45,
 //     //       itemZoneHeight: 50,
 //     //       itemCount: _areasMaps.length,
-//     //       itemBuilder: (ctx, index){
+//     //       itemBuilder: (BuildContext ctx, int index){
 //     //
 //     //         String _areaName = _areasMaps[index]['value'];
 //     //
@@ -347,7 +347,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
           //       shrinkWrap: false,
           //       itemCount: _chains.length,
           //       padding: const EdgeInsets.only(top: Ratioz.appBarPadding),
-          //       itemBuilder: (ctx, index){
+          //       itemBuilder: (BuildContext ctx, int index){
           //         return
           //
           //           GroupTile(

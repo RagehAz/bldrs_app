@@ -362,7 +362,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
         if (val.length == 0){
           setState(() {
-            _allResults = [];
+            _allResults = <SearchResult>[];
           });
         }
 
@@ -383,7 +383,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 itemCount: _allResults.length,
                 padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2),
 
-                itemBuilder: (ctx, index){
+                itemBuilder: (BuildContext ctx, int index){
 
                   final SearchResult _result = _allResults[index];
 
