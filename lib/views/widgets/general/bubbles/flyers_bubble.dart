@@ -11,7 +11,7 @@ class FlyersBubble extends StatelessWidget {
   final int numberOfColumns;
   final int numberOfRows;
   final Axis scrollDirection;
-  final Function onTap;
+  final ValueChanged<String> onTap;
   final double bubbleWidth;
 
   const FlyersBubble({

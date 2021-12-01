@@ -125,7 +125,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       physics: const BouncingScrollPhysics(),
                       itemCount: chatModel.messages.length,
                       shrinkWrap: false,
-                      itemBuilder: (xyz, index){
+                      itemBuilder: (BuildContext xyz, int index){
 
                         final MessageModel _msg = chatModel.messages[index];
                         final bool _isMyVerse = _currentUserID == _msg.ownerID;

@@ -84,7 +84,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
         outer: false,
         // control: new SwiperControl(),
         // transformer: ,
-        onIndexChanged: (index){
+        onIndexChanged: (int index){
           setState(() {
             _title = widget.swiperPages[index]['title'];
           });

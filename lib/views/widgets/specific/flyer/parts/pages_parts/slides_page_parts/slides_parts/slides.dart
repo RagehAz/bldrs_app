@@ -101,7 +101,7 @@ class Slides extends StatelessWidget {
                       views: superFlyer.mSlides[i].viewsCount,
                       saves: superFlyer.mSlides[i].savesCount,
                       shares: superFlyer.mSlides[i].sharesCount,
-                      textFieldOnChanged: (text){
+                      textFieldOnChanged: (String text){
                         print('text is : $text');
                       },
                       onTap: () => _onSingleSlideTap(context),

@@ -156,7 +156,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       appBarType: AppBarType.Basic,
       loading: _loading,
       pyramids: Iconz.DvBlankSVG,
-      appBarRowWidgets: const [],
+      appBarRowWidgets: const <Widget>[],
       onBack: () async {
 
         await Nav.goBack(context, argument: _geoPoint);

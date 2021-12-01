@@ -99,7 +99,7 @@ class ContactModel{
   }
   // -----------------------------------------------------------------------------
   static ContactModel getAContactModelFromContacts(List<ContactModel> contacts, ContactType contactType){
-    final ContactModel contactValue = contacts?.singleWhere((x) => x.contactType == contactType,
+    final ContactModel contactValue = contacts?.singleWhere((ContactModel x) => x.contactType == contactType,
         orElse: ()=>null);
     return contactValue;
   }

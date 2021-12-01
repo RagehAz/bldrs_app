@@ -57,7 +57,7 @@ class KeywordsBubble extends StatelessWidget {
 
             ...List<Widget>.generate(
                 keywords?.length,
-                    (index){
+                    (int index){
 
                   KW _keyword = keywords[index];
 

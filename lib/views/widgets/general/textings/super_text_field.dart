@@ -35,7 +35,7 @@ class SuperTextField extends StatefulWidget {
   final TextDirection textDirection;
   final Function onTap;
   final double corners;
-  final Function onSubmitted;
+  final ValueChanged<String> onSubmitted;
   final bool autofocus;
   final Function onMaxLinesReached;
 
@@ -296,9 +296,9 @@ class _SuperTextFieldState extends State<SuperTextField> {
           textInputAction: widget.keyboardTextInputAction,
           // onSaved: (String koko) => widget.onSaved(koko),
           validator: widget.validator,
-          onChanged: (val) => _onChanged(val),
+          onChanged: (String val) => _onChanged(val),
           // focusNode: ,
-          onFieldSubmitted: widget.onSubmitted == null ? null : (val) => widget.onSubmitted(val),
+          onFieldSubmitted: widget.onSubmitted == null ? null : (String val) => widget.onSubmitted(val),
           onTap: (){
             // double _keyboardHeight;
             //
@@ -347,7 +347,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
         child: TextField(
           key: widget.key,
           controller: widget.textController,
-          onChanged: (val) => _onChanged(val),
+          onChanged: (String val) => _onChanged(val),
           // onTap: () => widget.onTap(_keyboard),
           keyboardType: widget.keyboardTextInputType,
           style: superTextStyle(widget.inputColor, 1),

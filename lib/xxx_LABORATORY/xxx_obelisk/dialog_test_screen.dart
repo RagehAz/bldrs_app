@@ -60,8 +60,8 @@ class DialogTestScreen extends StatelessWidget {
                           numberOfColumns: 2,
                           title: 'flyers',
                           numberOfRows: 1,
-                          onTap: (value){
-                            print(value);
+                          onTap: (String flyerID){
+                            print(flyerID);
                           },
                         );
                     },

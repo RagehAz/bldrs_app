@@ -221,7 +221,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
       margin: widget.margin,
       child: new AnimatedBuilder(
         animation: _controller.view,
-        builder: (context, child){
+        builder: (BuildContext context, Widget child){
 
           /// final Color borderSideColor = _borderColor.evaluate(_easeOutAnimation) ?? Colors.transparent;
           /// final Color _subTitleLabelColor = _subtitleLabelColorTween.evaluate(_easeInAnimation);

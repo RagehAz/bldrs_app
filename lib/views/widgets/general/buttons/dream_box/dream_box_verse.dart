@@ -260,7 +260,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                               ),
                               child: Image.asset(
                                 icon,
-                                errorBuilder: (ctx, error, stackTrace){
+                                errorBuilder: (BuildContext ctx, Object error, StackTrace stackTrace){
 
                                   print('error of image is : ${error}');
 

@@ -97,7 +97,7 @@ class _BldrsAppState extends State<BldrsApp> {
 // ---------------------------------------------------------------------------
   @override
   void didChangeDependencies() {
-    Localizer.getLocale().then((locale) {
+    Localizer.getLocale().then((Locale locale) {
 
       // setState(() {
         this._locale.value = locale;
@@ -107,7 +107,7 @@ class _BldrsAppState extends State<BldrsApp> {
     super.didChangeDependencies();
   }
 // ---------------------------------------------------------------------------
-  ValueNotifier<Locale> _locale = ValueNotifier(null);
+  ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null);
   List<Locale> _supportedLocales = Localizer.getSupportedLocales();
   List<LocalizationsDelegate> _localizationDelegates = Localizer.getLocalizationDelegates();
   void _setLocale(Locale locale) {

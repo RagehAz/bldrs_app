@@ -252,7 +252,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
               userStreamBuilder(
                 context: context,
                 listen: false,
-                builder: (context, userModel){
+                builder: (BuildContext context, UserModel userModel){
 
                   return
                     /// USER NAME AND TITLE

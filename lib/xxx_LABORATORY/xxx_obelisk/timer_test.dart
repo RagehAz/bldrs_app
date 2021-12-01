@@ -30,7 +30,7 @@ class TimerTest extends StatelessWidget {
     DateTime _ragehBD = Timers.createDate(year: 1987, month: 6, day: 10);
 
     return
-        {
+        <String, dynamic>{
           'DateTime\n.now()': _now,
           'sex' : '',
           'Timers.getString_dd_month_yyy' : Timers.getString_dd_month_yyyy(context: context, time: _now,),
