@@ -28,7 +28,8 @@ class Gallery extends StatefulWidget {
     @required this.showFlyers,
     this.addAuthorButtonIsOn = true,
     // @required this.tinyFlyers,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _GalleryState createState() => _GalleryState();

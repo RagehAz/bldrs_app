@@ -17,9 +17,12 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/progress_bar.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FlyersAuditor extends StatefulWidget {
+  const FlyersAuditor({Key key}) : super(key: key);
+
   @override
   _FlyersAuditorState createState() => _FlyersAuditorState();
 }
@@ -665,11 +668,21 @@ class AuditorButton extends StatelessWidget {
   final Function onTap;
 
   const AuditorButton({
+    Key key,
     @required this.verse,
     @required this.onTap,
     @required this.color,
     @required this.icon,
-});
+}) : super(key: key);
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<String>('verse', verse));
+    properties.add(DiagnosticsProperty<Color>('color', color));
+    properties.add(DiagnosticsProperty<String>('icon', icon));
+    properties.add(DiagnosticsProperty<Function>('onTap', onTap));
+  }
 
   @override
   Widget build(BuildContext context) {

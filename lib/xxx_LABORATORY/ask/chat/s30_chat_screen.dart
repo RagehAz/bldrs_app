@@ -28,7 +28,8 @@ class ChatScreen extends StatefulWidget {
     @required this.bzID,
     @required this.author1ID,
     @required this.author2ID,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _ChatScreenState createState() => _ChatScreenState();

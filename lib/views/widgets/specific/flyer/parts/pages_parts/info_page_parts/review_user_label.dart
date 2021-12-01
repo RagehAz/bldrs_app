@@ -16,7 +16,8 @@ class ReviewUserLabel extends StatelessWidget {
     @required this.tinyUser,
     @required this.hasEditButton,
     @required this.onReviewOptions,
-  });
+    Key key,
+  }) : super(key: key);
 
 
   @override

@@ -15,7 +15,8 @@ class LogoSlogan extends StatelessWidget {
     this.sizeFactor = 1,
     this.showTagLine = false,
     this.showSlogan = false,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

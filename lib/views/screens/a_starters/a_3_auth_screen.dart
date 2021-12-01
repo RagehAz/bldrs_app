@@ -6,6 +6,11 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
+
+  const AuthScreen({
+    Key key
+  }) : super(key: key);
+
   @override
   _AuthScreenState createState() => _AuthScreenState();
 }

@@ -16,7 +16,8 @@ class NotificationFlyers extends StatelessWidget {
     @required this.bodyWidth,
     @required this.flyers,
     this.onFlyerTap,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

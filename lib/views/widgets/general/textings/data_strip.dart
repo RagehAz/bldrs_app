@@ -23,7 +23,8 @@ class DataStrip extends StatelessWidget {
     this.width,
     this.valueBoxColor = Colorz.white10,
     this.isPercent = false,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

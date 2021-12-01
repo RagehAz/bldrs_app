@@ -17,6 +17,11 @@ import 'package:provider/provider.dart';
 /// but will put a sketch because i already did while thinking this through
 
 class SelectCountryScreen extends StatefulWidget {
+
+  const SelectCountryScreen({
+    Key key
+  }) : super(key: key);
+
   @override
   _SelectCountryScreenState createState() => _SelectCountryScreenState();
 }

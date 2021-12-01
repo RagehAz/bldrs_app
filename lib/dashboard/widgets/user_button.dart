@@ -29,7 +29,8 @@ class dashboardUserButton extends StatelessWidget {
     @required this.userModel,
     @required this.index,
     @required this.onDeleteUser,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static double height(){
     return 60;

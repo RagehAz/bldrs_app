@@ -22,7 +22,8 @@ class BzzButton extends StatelessWidget {
     @required this.width,
     @required this.circleWidth,
     // @required this.bzzIDs,
-  });
+    Key key,
+  }) : super(key: key);
 
 Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
   return Container(

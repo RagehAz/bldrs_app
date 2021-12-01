@@ -12,10 +12,11 @@ class SlideFullScreen extends StatelessWidget {
   final dynamic image;
   final ImageSize imageSize;
 
-  SlideFullScreen({
+  const SlideFullScreen({
     @required this.image,
     @required this.imageSize,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

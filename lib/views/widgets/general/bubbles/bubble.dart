@@ -25,9 +25,8 @@ class Bubble extends StatelessWidget {
   final Color leadingIconColor;
   final dynamic margins;
   final dynamic corners;
-  final Key key;
 
-  Bubble({
+  const Bubble({
     @required this.columnChildren,
     this.centered = false,
     this.bubbleColor = Colorz.white20,
@@ -44,8 +43,8 @@ class Bubble extends StatelessWidget {
     this.leadingIconColor,
     this.margins,
     this.corners,
-    this.key,
-});
+    Key key,
+}) : super(key: key);
 // -----------------------------------------------------------------------------
   static double clearWidth(BuildContext context){
     final double _bubbleWidth = defaultWidth(context);

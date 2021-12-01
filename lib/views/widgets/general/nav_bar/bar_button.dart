@@ -25,7 +25,8 @@ class BarButton extends StatelessWidget {
     this.onTap,
     @required this.width,
     this.corners,
-  });
+    Key key,
+  }) : super(key: key);
 
 
   @override

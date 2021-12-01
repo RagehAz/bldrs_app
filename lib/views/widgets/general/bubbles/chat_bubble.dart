@@ -13,7 +13,8 @@ class ChatBubble extends StatelessWidget {
     @required this.verse,
     @required this.isMyVerse,
     @required this.userID,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

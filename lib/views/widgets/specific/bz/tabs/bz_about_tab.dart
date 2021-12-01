@@ -16,7 +16,8 @@ class BzAboutTab extends StatelessWidget {
 
   const BzAboutTab({
     @required this.bzModel,
-});
+    Key key,
+  }) :   super(key: key);
 // -----------------------------------------------------------------------------
   static aboutTabModel({
     @required Function onChangeTab,

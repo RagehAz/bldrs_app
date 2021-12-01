@@ -20,7 +20,8 @@ class FollowAndCallBTs extends StatelessWidget {
   const FollowAndCallBTs({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
-});
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static double getPaddings({double flyerBoxWidth}){
     return flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
@@ -92,7 +93,8 @@ class FollowBT extends StatelessWidget {
     @required this.onFollowTap,
     @required this.tappingUnfollow,
     @required this.followOn,
-  });
+    Key key,
+  }) : super(key: key);
   // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-
   @override
   Widget build(BuildContext context) {
@@ -188,7 +190,8 @@ class CallBT extends StatelessWidget {
   const CallBT({
     @required this.onCallTap,
     @required this.flyerBoxWidth,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

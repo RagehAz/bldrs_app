@@ -13,7 +13,8 @@ class Loading extends StatelessWidget {
     this.size = 50,
     this.onTap,
     @required this.loading,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,8 @@ class Loading extends StatelessWidget {
 
 
 class LoadingFullScreenLayer extends StatelessWidget {
+  const LoadingFullScreenLayer({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(

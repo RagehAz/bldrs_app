@@ -8,6 +8,8 @@ import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_grid.dart';
 import 'package:flutter/material.dart';
 
 class AllFlyersScreen extends StatefulWidget {
+  const AllFlyersScreen({Key key}) : super(key: key);
+
 
   @override
   _AllFlyersScreenState createState() => _AllFlyersScreenState();

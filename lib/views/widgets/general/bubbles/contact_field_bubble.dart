@@ -53,7 +53,8 @@ class ContactFieldBubble extends StatefulWidget {
     this.horusOnTapCancel,
     this.leadingIcon,
     this.keyboardTextInputType = TextInputType.url,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _ContactFieldBubbleState createState() => _ContactFieldBubbleState();

@@ -8,7 +8,7 @@ import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 
 class UIManager extends StatelessWidget {
-
+  const UIManager({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class UIManager extends StatelessWidget {
           verse: 'Bldrs icons',
           icon: Iconz.DvGouran,
           onTap: () async {
-            await Nav.goToNewScreen(context, IconsViewerScreen());
+            await Nav.goToNewScreen(context, const IconsViewerScreen());
           },
         ),
 
@@ -29,7 +29,7 @@ class UIManager extends StatelessWidget {
           verse: 'Screens Manager',
           icon: Iconz.MobilePhone,
           onTap: () async {
-            await Nav.goToNewScreen(context, ScreensManagerScreen());
+            await Nav.goToNewScreen(context, const ScreensManagerScreen());
           },
         ),
 
@@ -37,7 +37,7 @@ class UIManager extends StatelessWidget {
           verse: 'Emojis',
           icon: Iconz.Emoji,
           onTap: () async {
-            await Nav.goToNewScreen(context, EmojiTestScreen());
+            await Nav.goToNewScreen(context, const EmojiTestScreen());
           },
         ),
 

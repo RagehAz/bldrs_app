@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeWall extends StatefulWidget {
+  HomeWall({Key key}) : super(key: key);
 
   @override
   _HomeWallState createState() => _HomeWallState();

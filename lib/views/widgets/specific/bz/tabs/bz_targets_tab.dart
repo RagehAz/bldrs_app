@@ -11,7 +11,8 @@ class BzTargetsTab extends StatelessWidget {
 
   const BzTargetsTab({
     @required this.bzModel,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static TabModel targetsTabModel({
     @required Function onChangeTab,

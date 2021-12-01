@@ -20,7 +20,8 @@ class DialogOfBzOptions extends StatefulWidget {
   const DialogOfBzOptions({
     @required this.bzModel,
     @required this.userModel,
-});
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static const double buttonHeight = 50;
   static const int numberOfButtons = 3;

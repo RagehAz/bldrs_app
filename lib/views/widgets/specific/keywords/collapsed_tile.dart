@@ -40,7 +40,8 @@ class CollapsedTile extends StatelessWidget {
     this.iconCorners,
     this.marginIsOn = true,
     this.iconSizeFactor = 1,
-  });
+    Key key,
+  }) : super(key: key);
 
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
   static const double arrowBoxSize = ExpandingTile.arrowBoxSize;

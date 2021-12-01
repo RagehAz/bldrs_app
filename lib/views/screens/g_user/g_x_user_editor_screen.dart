@@ -30,10 +30,11 @@ class EditProfileScreen extends StatefulWidget {
   final UserModel user;
   final bool firstTimer;
 
-  EditProfileScreen({
+  const EditProfileScreen({
     @required this.user,
     this.firstTimer = false,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();

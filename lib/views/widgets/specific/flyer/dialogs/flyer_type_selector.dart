@@ -14,7 +14,8 @@ class FlyerTypeSelector extends StatefulWidget {
   const FlyerTypeSelector({
     @required this.superFlyer,
     @required this.onChangeFlyerType,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _FlyerTypeSelectorState createState() => _FlyerTypeSelectorState();

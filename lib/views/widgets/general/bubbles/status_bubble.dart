@@ -22,7 +22,8 @@ class StatusBubble extends StatelessWidget {
     @required this.switchUserStatus,
     @required this.currentUserStatus,
     this.openEnumLister,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

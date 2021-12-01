@@ -19,7 +19,6 @@ class ParagraphBubble extends StatefulWidget {
   final dynamic corners;
   final bool editMode;
   final Function onParagraphTap;
-  final Key key;
 
   const ParagraphBubble({
     this.title,
@@ -32,8 +31,8 @@ class ParagraphBubble extends StatefulWidget {
     this.margins,
     this.editMode = false,
     this.onParagraphTap,
-    this.key,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _ParagraphBubbleState createState() => _ParagraphBubbleState();

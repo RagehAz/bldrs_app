@@ -19,7 +19,8 @@ class AnkhButton extends StatefulWidget {
     @required this.listenToSwipe,
     @required this.ankhIsOn,
     @required this.onAnkhTap,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _AnkhButtonState createState() => _AnkhButtonState();

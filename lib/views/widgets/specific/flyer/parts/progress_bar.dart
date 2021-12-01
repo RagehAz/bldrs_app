@@ -27,7 +27,8 @@ class ProgressBar extends StatelessWidget {
     this.loading = true,
     @required this.swipeDirection,
     this.margins,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

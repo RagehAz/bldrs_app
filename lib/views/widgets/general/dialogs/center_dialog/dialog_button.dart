@@ -17,7 +17,8 @@ class DialogButton extends StatelessWidget {
     this.width = 100,
     this.color,
     this.onTap,
-  });
+    Key key,
+  }) : super(key: key);
 
   static const double height = 50;
 

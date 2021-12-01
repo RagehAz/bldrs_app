@@ -49,7 +49,8 @@ class SuperVerse extends StatelessWidget {
     this.leadingDot = false,
     this.redDot = false,
     this.strikethrough = false,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static Widget dotVerse({String verse}){
     return

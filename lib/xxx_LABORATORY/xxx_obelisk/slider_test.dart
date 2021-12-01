@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SliderTestScreen extends StatefulWidget {
+  const SliderTestScreen({Key key}) : super(key: key);
+
 
   @override
   _SliderTestScreenState createState() => _SliderTestScreenState();

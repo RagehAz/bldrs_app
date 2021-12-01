@@ -12,14 +12,15 @@ class StatsLine extends StatelessWidget {
   final Function onTap;
   final double bubbleWidth;
 
-  StatsLine({
+  const StatsLine({
     @required this.icon,
     this.iconSizeFactor = 0.7,
     this.verseScaleFactor = 0.85,
     @required this.verse,
     this.onTap,
-    this.bubbleWidth
-});
+    this.bubbleWidth,
+    Key key,
+  }) : super(key: key);
 
 
   @override

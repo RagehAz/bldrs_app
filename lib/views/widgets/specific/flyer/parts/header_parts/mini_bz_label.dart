@@ -15,7 +15,8 @@ class BzLabel extends StatelessWidget {
   const BzLabel({
     this.superFlyer,
     @required this.flyerBoxWidth,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

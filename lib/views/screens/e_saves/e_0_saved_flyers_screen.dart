@@ -15,9 +15,10 @@ import 'package:provider/provider.dart';
 class SavedFlyersScreen extends StatefulWidget {
   final bool selectionMode;
 
-  SavedFlyersScreen({
+  const SavedFlyersScreen({
     this.selectionMode = false,
-});
+    Key key,
+}) : super(key: key);
 
   @override
   _SavedFlyersScreenState createState() => _SavedFlyersScreenState();

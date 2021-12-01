@@ -6,6 +6,8 @@ import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class KeywordsManager extends StatefulWidget {
+  const KeywordsManager({Key key}) : super(key: key);
+
 
   @override
   _KeywordsManagerState createState() => _KeywordsManagerState();

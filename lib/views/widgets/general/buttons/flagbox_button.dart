@@ -14,7 +14,8 @@ class FlagBox extends StatelessWidget {
     @required this.flag,
     this.onTap,
     this.size = 35,
-  });
+    Key key,
+  }) : super(key: key);
 
   static const double corner = Ratioz.boxCorner12;
 

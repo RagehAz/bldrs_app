@@ -18,7 +18,8 @@ class SearchResultWall extends StatelessWidget {
     @required this.bzz,
     @required this.authors,
     @required this.flyers,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

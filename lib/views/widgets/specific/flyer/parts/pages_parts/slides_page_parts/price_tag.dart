@@ -19,7 +19,8 @@ class PriceTag extends StatelessWidget {
   const PriceTag({
     @required this.flyerBoxWidth,
     @required this.superFlyer,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

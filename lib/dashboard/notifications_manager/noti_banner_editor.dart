@@ -19,7 +19,8 @@ class NotiBannerEditor extends StatelessWidget {
     @required this.height,
     @required this.attachment,
     @required this.onDelete,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

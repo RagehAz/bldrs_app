@@ -16,7 +16,8 @@ class BzPgVerse extends StatelessWidget {
     @required this.verse,
     @required this.size,
     this.maxLines = 1,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,8 @@ class BzAboutVerse extends StatefulWidget {
     this.bzPageIsOn = true,
     @required this.verse,
     @required this.bzName,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _BzAboutVerseState createState() => _BzAboutVerseState();

@@ -16,9 +16,10 @@ import 'package:provider/provider.dart';
 class SelectAreaScreen extends StatelessWidget {
   final CityModel city;
 
-  SelectAreaScreen({
+  const SelectAreaScreen({
     @required this.city,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
