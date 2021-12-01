@@ -381,7 +381,7 @@ Widget notiStreamBuilder({
 
           print('the shit is looooooooooooooooooooooooading');
 
-          return LoadingFullScreenLayer();
+          return const LoadingFullScreenLayer();
         } else {
 
           final List<NotiModel> notiModels = snapshot.data;

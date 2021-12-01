@@ -14,7 +14,8 @@ class NotificationSenderBalloon extends StatelessWidget {
   const NotificationSenderBalloon({
     @required this.sender,
     @required this.pic,
-  });
+    Key key,
+  }) : super(key: key);
 
   static const double balloonWidth = 40;
 

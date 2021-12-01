@@ -26,7 +26,7 @@ enum AppBarType{
 // -----------------------------------------------------------------------------
 class Expander extends StatelessWidget {
 
-  const Expander();
+  const Expander({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +139,7 @@ class MainLayout extends StatelessWidget {
               // resizeToAvoidBottomPadding: false,
               backgroundColor: _backgroundColor,
 
-              drawer: DrawerDialog(),
+              drawer: const DrawerDialog(),
               drawerDragStartBehavior: DragStartBehavior.start,
               drawerEdgeDragWidth: DrawerDialog.drawerEdgeDragWidth,
               drawerEnableOpenDragGesture: DrawerDialog.drawerEnableOpenDragGesture,
@@ -254,7 +254,8 @@ class PyramidsHorizon extends StatelessWidget {
 
   const PyramidsHorizon({
     this.heightFactor = 1,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -274,7 +275,8 @@ class Stratosphere extends StatelessWidget {
   const Stratosphere({
     this.heightFactor = 1,
     this.bigAppBar = false,
-});
+    Key key,
+  }) : super(key: key);
 
   static const EdgeInsets stratosphereInsets = EdgeInsets.only(top: Ratioz.stratosphere);
   static const EdgeInsets stratosphereSandwich = EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.stratosphere);

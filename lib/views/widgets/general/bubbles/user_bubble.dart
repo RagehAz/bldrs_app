@@ -25,12 +25,13 @@ class UserBubble extends StatefulWidget {
   final Function editProfileBtOnTap;
   final bool loading;
 
-  UserBubble({
+  const UserBubble({
     @required this.user,
     @required this.switchUserType,
     @required this.editProfileBtOnTap,
     @required this.loading,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   State<UserBubble> createState() => _UserBubbleState();

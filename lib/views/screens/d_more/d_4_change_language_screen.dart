@@ -8,6 +8,11 @@ import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class SelectLanguageScreen extends StatelessWidget {
+
+  const SelectLanguageScreen({
+    Key key
+  }) : super(key: key);
+
 // -----------------------------------------------------------------------------
   Future<void> _tapLanguage(BuildContext context,String languageCode) async {
     await Localizer.changeAppLanguage(context, languageCode);

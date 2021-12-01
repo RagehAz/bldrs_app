@@ -17,7 +17,9 @@ class FlyerCoversStack extends StatelessWidget {
   FlyerCoversStack({
     @required this.flyersDataList,
     @required this.collectionTitle,
-});
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
 
@@ -119,7 +121,8 @@ class TopFlyersStack extends StatelessWidget {
     @required this.flyersDataList,
     @required this.collectionTitle,
     this.numberOfFlyers = 3,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

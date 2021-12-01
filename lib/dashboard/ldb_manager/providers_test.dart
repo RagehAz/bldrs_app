@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProvidersTestScreen extends StatefulWidget {
+  const ProvidersTestScreen({Key key}) : super(key: key);
+
 
   @override
   _ProvidersTestScreenState createState() => _ProvidersTestScreenState();

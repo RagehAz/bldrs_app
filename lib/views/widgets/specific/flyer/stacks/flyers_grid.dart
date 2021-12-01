@@ -28,7 +28,8 @@ class FlyersGrid extends StatefulWidget {
     this.stratosphere = false,
     this.scrollDirection = Axis.vertical,
     this.tinyFlyerOnTap,
-});
+    Key key,
+}) : super(key: key);
 
   @override
   _FlyersGridState createState() => _FlyersGridState();

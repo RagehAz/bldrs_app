@@ -17,7 +17,8 @@ class KeywordsButtonsList extends StatelessWidget {
     @required this.buttonWidth,
     @required this.keywords,
     @required this.onKeywordTap,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

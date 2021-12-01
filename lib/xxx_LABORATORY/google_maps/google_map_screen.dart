@@ -27,10 +27,10 @@ class GoogleMapScreen extends StatefulWidget {
   final GeoPoint geoPoint;
   final bool isSelecting;
 
-  GoogleMapScreen({
+  const GoogleMapScreen({Key key,
     this.geoPoint,
     this.isSelecting = false,
-  });
+  }) : super(key: key);
 
   @override
   _GoogleMapScreenState createState() => _GoogleMapScreenState();

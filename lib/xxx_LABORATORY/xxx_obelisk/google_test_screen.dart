@@ -23,6 +23,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
 class LocationsTestScreen extends StatefulWidget {
+  const LocationsTestScreen({Key key}) : super(key: key);
 
   @override
   _LocationsTestScreenState createState() => _LocationsTestScreenState();
@@ -135,7 +136,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
     final GeoPoint _pickedPoint = await Nav.goToNewScreen(
         context,
-        GoogleMapScreen(
+        const GoogleMapScreen(
           isSelecting: true,
         )
     );

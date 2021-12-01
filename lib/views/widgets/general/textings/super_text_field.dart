@@ -33,7 +33,6 @@ class SuperTextField extends StatefulWidget {
   final String initialValue;
   final ValueChanged<String> validator;
   final TextDirection textDirection;
-  final Key key;
   final Function onTap;
   final double corners;
   final Function onSubmitted;
@@ -68,13 +67,13 @@ class SuperTextField extends StatefulWidget {
     this.initialValue,
     this.validator,
     this.textDirection,
-    this.key,
     this.onTap,
     this.corners,
     this.onSubmitted,
     this.autofocus,
     this.onMaxLinesReached,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _SuperTextFieldState createState() => _SuperTextFieldState();

@@ -11,7 +11,8 @@ class Rageh extends StatelessWidget {
   const Rageh({
     @required this.tappingRageh,
     @required this.doubleTappingRageh,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

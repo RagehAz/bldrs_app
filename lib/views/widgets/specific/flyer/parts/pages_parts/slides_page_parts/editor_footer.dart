@@ -26,7 +26,8 @@ class EditorFooter extends StatelessWidget {
     @required this.currentPicFit,
     @required this.numberOfSlides,
     @required this.superFlyer,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,8 @@ class Scroller extends StatelessWidget {
   const Scroller({
     @required this.child,
     this.controller,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

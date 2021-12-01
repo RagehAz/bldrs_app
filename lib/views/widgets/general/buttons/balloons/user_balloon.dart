@@ -30,7 +30,8 @@ class UserBalloon extends StatelessWidget {
     this.balloonColor,
     this.child,
     this.shadowIsOn = true,
-  });
+    Key key,
+  }) : super(key: key);
 
   // Color _bubbleDarkness(){
   //   return
@@ -123,7 +124,8 @@ class Balloona extends StatelessWidget {
     this.balloonColor = Colorz.white10,
     this.blackAndWhite = false,
     this.userStatus = UserStatus.normal,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -186,7 +188,8 @@ class BalloonComponents extends StatelessWidget {
     this.loading = false,
     @required this.pic,
     @required this.child,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

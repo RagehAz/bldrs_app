@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LDBViewersScreen extends StatelessWidget {
+  const LDBViewersScreen({Key key}) : super(key: key);
+
 // -----------------------------------------------------------------------------
   Future<void> goToLDBViewer(BuildContext context, String ldbDocName) async {
     await Nav.goToNewScreen(context, LDBViewerScreen(

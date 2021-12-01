@@ -26,7 +26,8 @@ class BzFlyersTab extends StatelessWidget {
     @required this.flyers,
     @required this.bzCountry,
     @required this.bzCity,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static TabModel flyersTabModel({
     @required Function onChangeTab,

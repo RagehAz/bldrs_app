@@ -22,7 +22,8 @@ class BottomDialogButtons extends StatelessWidget {
     this.bottomDialogType = BottomDialogType.countries,
     this.dialogHeight,
     this.buttonHeight = 35,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

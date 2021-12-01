@@ -22,7 +22,8 @@ class EnumLister extends StatelessWidget {
     @required this.triggerTile,
     @required this.triggersList,
     @required this.closeEnumLister,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

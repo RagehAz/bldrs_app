@@ -10,15 +10,14 @@ class RecordBubble extends StatelessWidget {
   final String bubbleTitle;
   final String bubbleIcon;
   final List<UserModel> users;
-  final Key key;
 
   const RecordBubble({
     @required this.flyerBoxWidth,
     @required this.bubbleTitle,
     @required this.bubbleIcon,
     @required this.users,
-    this.key,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

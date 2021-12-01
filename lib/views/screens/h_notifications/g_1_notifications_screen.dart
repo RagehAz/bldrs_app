@@ -16,6 +16,8 @@ import 'package:bldrs/views/widgets/specific/notifications/notification_card.dar
 import 'package:flutter/material.dart';
 
 class NotificationsScreen extends StatefulWidget {
+  const NotificationsScreen({Key key}) : super(key: key);
+
   @override
   _NotificationsScreenState createState() => _NotificationsScreenState();
 }

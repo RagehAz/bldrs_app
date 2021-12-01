@@ -11,7 +11,8 @@ class BldrsWelcomeBanner extends StatelessWidget {
   const BldrsWelcomeBanner({
     @required this.width,
     this.corners = 0,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

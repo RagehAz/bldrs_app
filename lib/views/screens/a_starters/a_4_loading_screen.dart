@@ -21,6 +21,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoadingScreen extends StatefulWidget {
+
+  const LoadingScreen({
+    Key key
+  }) : super(key: key);
+
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }

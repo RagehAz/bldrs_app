@@ -23,7 +23,8 @@ class FlyersBubble extends StatelessWidget {
     this.onTap,
     this.flyerSizeFactor = 0.3,
     this.bubbleWidth,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

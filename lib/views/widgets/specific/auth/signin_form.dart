@@ -26,7 +26,8 @@ class SignInForm extends StatefulWidget {
     @required this.email,
     @required this.password,
     @required this.fieldOnTap,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _SignInFormState createState() => _SignInFormState();

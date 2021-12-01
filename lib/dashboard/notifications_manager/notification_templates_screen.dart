@@ -14,6 +14,11 @@ import 'package:bldrs/views/widgets/specific/notifications/notification_card.dar
 import 'package:flutter/material.dart';
 
 class NotificationTemplatesScreen extends StatefulWidget {
+  const NotificationTemplatesScreen({
+    Key key
+  }) : super(key: key);
+
+
   @override
   _NotificationTemplatesScreenState createState() => _NotificationTemplatesScreenState();
 }

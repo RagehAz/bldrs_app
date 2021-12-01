@@ -101,7 +101,7 @@ class _UserCheckerState extends State<UserChecker> {
                 /// XX - userModel is completed : go to LoadingScreen()
                 print('userModel is completed : go to LoadingScreen()');
                 // var _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
-                await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
+                await Nav.goToNewScreen(context, const LoadingScreen(), transitionType: PageTransitionType.fade);
 
                 print('user has a completed userModel and was in home screen and came back to user checker, and this should not happen, at home page you can not go back to userChecker or loading screen man');
                 /// so we loop once more to user check
@@ -127,7 +127,7 @@ class _UserCheckerState extends State<UserChecker> {
                 /// after returning from edit profile, we go to LoadingScreen()
                 print('user has completed profile and good to go to LoadingScreen()');
                 // var _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
-                await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
+                await Nav.goToNewScreen(context, const LoadingScreen(), transitionType: PageTransitionType.fade);
 
               }
             }
@@ -141,7 +141,7 @@ class _UserCheckerState extends State<UserChecker> {
               user: _userModel, firstTimer: true,),);
 
             /// after returning from creating profile, we go to LoadingScreen()
-            final dynamic _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
+            final dynamic _result = await Nav.goToNewScreen(context, const LoadingScreen(), transitionType: PageTransitionType.fade);
             print('user has created profile and good to go to LoadingScreen() : _result : $_result');
           }
 
@@ -152,7 +152,7 @@ class _UserCheckerState extends State<UserChecker> {
             _triggerLoading();
 
             /// route to sign in
-            final dynamic _result = await Nav.goToNewScreen(context, StartingScreen(), transitionType: PageTransitionType.fade);
+            final dynamic _result = await Nav.goToNewScreen(context, const StartingScreen(), transitionType: PageTransitionType.fade);
 
             print('just came back from starting screen : _result : $_result');
             /// and we loop again in userChecker

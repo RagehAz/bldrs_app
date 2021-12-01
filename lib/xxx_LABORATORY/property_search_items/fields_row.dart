@@ -9,13 +9,12 @@ class FieldsRow extends StatelessWidget {
   final List<String> fields;
   final String title;
 
-
-  FieldsRow({
+  const FieldsRow({
     @required this.openList,
     @required this.fields,
     @required this.title,
-});
-
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

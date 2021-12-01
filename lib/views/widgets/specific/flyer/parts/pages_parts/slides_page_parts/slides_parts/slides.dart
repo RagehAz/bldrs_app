@@ -16,7 +16,8 @@ class Slides extends StatelessWidget {
   const Slides({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   void _onSingleSlideTap(BuildContext context){
 

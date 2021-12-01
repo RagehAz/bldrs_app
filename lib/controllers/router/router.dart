@@ -25,7 +25,7 @@ abstract class Routerer {
     /// s01
     /// (s02 signin page, s03 register page) are pages insides StartingScreen();
       case Routez.Starting:
-        return Nav.fadeToScreen(StartingScreen(), settings); break;
+        return Nav.fadeToScreen(const StartingScreen(), settings); break;
 // -----------------------------------------------------------------------------
 //     /// s10
 //       case Routez.Home:
@@ -33,11 +33,11 @@ abstract class Routerer {
 // -----------------------------------------------------------------------------
     /// s12
       case Routez.SavedFlyers:
-        return Nav.slideToScreen(SavedFlyersScreen(), settings); break;
+        return Nav.slideToScreen(const SavedFlyersScreen(), settings); break;
 // -----------------------------------------------------------------------------
     /// s13
       case Routez.News:
-        return Nav.slideToScreen(NotificationsScreen(), settings); break;
+        return Nav.slideToScreen(const NotificationsScreen(), settings); break;
 // -----------------------------------------------------------------------------
 //     /// s14
 //       case Routez.More:
@@ -53,7 +53,7 @@ abstract class Routerer {
 // -----------------------------------------------------------------------------
     /// s20
       case Routez.Search:
-        return Nav.fadeToScreen(SearchScreen(), settings); break;
+        return Nav.fadeToScreen(const SearchScreen(), settings); break;
 // -----------------------------------------------------------------------------
 //     /// s40
 //       case Routez.BzEditor:
@@ -73,7 +73,7 @@ abstract class Routerer {
 // -----------------------------------------------------------------------------
     ///  s51
       case Routez.FlyerScreen:
-        return Nav.slideToScreen(FlyerScreen(), settings); break;
+        return Nav.slideToScreen(const FlyerScreen(), settings); break;
 // -----------------------------------------------------------------------------
 
     // --- XXX GENERAL SCREENS

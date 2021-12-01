@@ -15,13 +15,12 @@ import 'package:flutter/material.dart';
 class ReviewBubble extends StatefulWidget {
   final double flyerBoxWidth;
   final SuperFlyer superFlyer;
-  final Key key;
 
   const ReviewBubble({
     @required this.flyerBoxWidth,
     @required this.superFlyer,
-    this.key,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _ReviewBubbleState createState() => _ReviewBubbleState();
@@ -177,7 +176,8 @@ class ReviewsStreamBubbles extends StatelessWidget {
     @required this.cardCorners,
     @required this.userModel,
     @required this.reviews,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -32,7 +32,8 @@ class GoogleMapScreen extends StatefulWidget {
     this.geoPoint, // = const PlaceLocation(latitude: 37.43296265331129, longitude: -122.08832357078792),
     this.isSelecting = false,
     @required this.flyerBoxWidth,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _GoogleMapScreenState createState() => _GoogleMapScreenState();

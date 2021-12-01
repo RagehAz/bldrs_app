@@ -20,6 +20,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FontLab extends StatefulWidget {
+  const FontLab({Key key}) : super(key: key);
+
   @override
   _FontLabState createState() => _FontLabState();
 }

@@ -11,7 +11,8 @@ class SliverFlyersGrid extends StatelessWidget {
 
   SliverFlyersGrid({
     @required this.flyers,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static const double spacing = Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------

@@ -14,7 +14,8 @@ class TextLinesAnalyzer extends StatelessWidget {
     @required this.maxLines,
     @required this.childIfExceededMaxLines,
     @required this.childIfWithinMaxLines,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

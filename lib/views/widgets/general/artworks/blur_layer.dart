@@ -18,7 +18,8 @@ class BlurLayer extends StatelessWidget {
     this.height = double.infinity,
     this.color,
     this.blurIsOn = false,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

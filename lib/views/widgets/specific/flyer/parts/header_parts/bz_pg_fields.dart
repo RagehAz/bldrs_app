@@ -12,8 +12,8 @@ class BzPgFields extends StatelessWidget {
     @required this.bzPageIsOn,
     @required this.flyerBoxWidth,
     @required this.bzScope,
-
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

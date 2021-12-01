@@ -16,7 +16,8 @@ class StatusButtons extends StatelessWidget {
     @required this.switchUserStatus,
     @required this.stateIndex,
     @required this.currentUserStatus,
-  });
+    Key key,
+  }) : super(key: key);
 
 
   @override

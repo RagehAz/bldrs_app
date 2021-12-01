@@ -9,6 +9,7 @@ import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_naviga
 import 'package:flutter/material.dart';
 
 class CloudFunctionsTest extends StatefulWidget {
+  const CloudFunctionsTest({Key key}) : super(key: key);
 
   @override
   _CloudFunctionsTestState createState() => _CloudFunctionsTestState();

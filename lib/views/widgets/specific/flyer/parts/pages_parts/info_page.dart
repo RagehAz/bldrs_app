@@ -35,7 +35,8 @@ class InfoPage extends StatelessWidget {
   const InfoPage({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
-  });
+    Key key,
+  }) : super(key: key);
 
 
   @override
@@ -271,7 +272,8 @@ class NeedToSaveScrollPosition extends StatefulWidget {
     @required this.superFlyer,
     @required this.flyerZoneHeight,
     @required this.children,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   _NeedToSaveScrollPositionState createState() => _NeedToSaveScrollPositionState();

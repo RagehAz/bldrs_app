@@ -5,6 +5,8 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class PropertyUse extends StatelessWidget {
+  const PropertyUse({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
 

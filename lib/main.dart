@@ -42,13 +42,17 @@ void main() async {
 
   await NotiOps.preInitializeNoti();
 
-  runApp(BldrsApp());
+  runApp(const BldrsApp());
 
 }
 
 
 
 class BldrsApp extends StatefulWidget {
+
+  const BldrsApp({
+    Key key
+  }) : super(key: key);
 
   static void setLocale(BuildContext context, Locale locale) {
     _BldrsAppState state = context.findAncestorStateOfType<_BldrsAppState>();
@@ -249,7 +253,7 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
                 onGenerateRoute: Routerer.allRoutes,
                 initialRoute: Routez.UserChecker,
                 routes: {
-                  Routez.FlyerScreen: (ctx) => FlyerScreen(),
+                  Routez.FlyerScreen: (ctx) => const FlyerScreen(),
                   // Routez.Starting: (ctx) => StartingScreen(),
                   Routez.UserChecker: (ctx) => UserChecker(key: const ValueKey('userChecker'),),
                   Routez.Home: (ctx) => HomeScreen(notiIsOn: _notiIsOn,),

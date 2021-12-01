@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:bldrs/controllers/drafters/borderers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
@@ -10,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TestLab extends StatefulWidget {
+  const TestLab({Key key}) : super(key: key);
+
 
   @override
   _TestLabState createState() => _TestLabState();
@@ -214,7 +219,14 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 
                     _triggerLoading();
 
-                    print('tamam');
+                    const dynamic shit = 2;
+
+                    final BorderRadius _border = Borderers.superBorder(
+                      context: context,
+                      corners: shit,
+                    );
+
+                    log(_border.toString());
 
                     _triggerLoading();
 

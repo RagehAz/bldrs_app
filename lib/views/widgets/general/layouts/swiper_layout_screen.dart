@@ -20,7 +20,8 @@ class SwiperLayoutScreen extends StatefulWidget {
   const SwiperLayoutScreen({
     @required this. swiperPages,
     this.sky = SkyType.Night,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _SwiperLayoutScreenState createState() => _SwiperLayoutScreenState();

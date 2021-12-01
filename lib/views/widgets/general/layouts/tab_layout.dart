@@ -59,7 +59,8 @@ class TabLayout extends StatelessWidget {
     this.selectionMode = false,
     this.selectedItems,
     this.appBarRowWidgets,
-  });
+    Key key,
+  }) : super(key: key);
 
 
   @override

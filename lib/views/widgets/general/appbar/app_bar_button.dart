@@ -14,7 +14,8 @@ class AppBarButton extends StatelessWidget {
     this.verseColor = Colorz.white255,
     this.buttonColor = Colorz.white20,
     this.onTap,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

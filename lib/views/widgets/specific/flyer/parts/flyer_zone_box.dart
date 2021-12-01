@@ -15,7 +15,6 @@ class FlyerBox extends StatelessWidget {
   final Function onFlyerZoneLongPress;
   final BzModel editorBzModel;
   final bool editorMode;
-  final Key key;
 
   const FlyerBox({
     @required this.superFlyer,
@@ -25,8 +24,8 @@ class FlyerBox extends StatelessWidget {
     this.onFlyerZoneLongPress,
     this.editorBzModel,
     this.editorMode = false,
-    this.key,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static double width (BuildContext context, double flyerSizeFactor){
     final double _screenWidth = Scale.superScreenWidth(context);

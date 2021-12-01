@@ -15,7 +15,8 @@ class BzPowersTab extends StatelessWidget {
 
   const BzPowersTab({
     @required this.bzModel,
-  });
+    Key key,
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static TabModel powersTabModel({
     @required Function onChangeTab,
@@ -54,42 +55,42 @@ class BzPowersTab extends StatelessWidget {
 
         const BubblesSeparator(),
 
-        Bubble(
+        const Bubble(
           title: 'Get More Ankhs',
           columnChildren: const <Widget>[],
         ),
 
         const BubblesSeparator(),
 
-        Bubble(
+        const Bubble(
           title: 'Get Premium Account',
           columnChildren: const <Widget>[],
         ),
 
         const BubblesSeparator(),
 
-        Bubble(
+        const Bubble(
           title: 'Get Super Account',
           columnChildren: const <Widget>[],
         ),
 
         const BubblesSeparator(),
 
-        Bubble(
+        const Bubble(
           title: 'Boost a flyer',
           columnChildren: const <Widget>[],
         ),
 
         const BubblesSeparator(),
 
-        Bubble(
+        const Bubble(
           title: 'Create an Advertisement',
           columnChildren: const <Widget>[],
         ),
 
         const BubblesSeparator(),
 
-        Bubble(
+        const Bubble(
           title: 'Sponsor Bldrs.net in your city',
           columnChildren: const <Widget>[],
         ),

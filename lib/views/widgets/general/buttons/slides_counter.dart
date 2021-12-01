@@ -5,6 +5,7 @@ import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.
 import 'package:flutter/material.dart';
 
 class SlidesCounter extends StatelessWidget {
+  const SlidesCounter({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -20,7 +20,8 @@ class BzPgCounter extends StatelessWidget {
     @required this.verse,
     this.icon,
     this.iconSizeFactor = 1,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

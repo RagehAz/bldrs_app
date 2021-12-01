@@ -21,6 +21,11 @@ import 'package:provider/provider.dart';
 
 
 class StartingScreen extends StatefulWidget {
+
+  const StartingScreen({
+    Key key
+  }) : super(key: key);
+
 // -----------------------------------------------------------------------------
   @override
   _StartingScreenState createState() => _StartingScreenState();
@@ -196,7 +201,7 @@ class _StartingScreenState extends State<StartingScreen> {
                 buttonColor: Colorz.white10,
                 splashColor: Colorz.yellow255,
                 buttonVerseShadow: false,
-                function: () => Nav.goToNewScreen(context, AuthScreen()),
+                function: () => Nav.goToNewScreen(context, const AuthScreen()),
                 stretched: false,
               ),
 

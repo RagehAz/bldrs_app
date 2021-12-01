@@ -15,7 +15,8 @@ class SectionBubble extends StatelessWidget {
     @required this.bubbleWidth,
     @required this.icon,
     @required this.buttons,
-});
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

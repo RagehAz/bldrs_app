@@ -23,6 +23,8 @@ const Map<String, Object> bzTypesMap = {
 };
 
 class OldAskScreen extends StatefulWidget {
+  const OldAskScreen({Key key}) : super(key: key);
+
   @override
   _OldAskScreenState createState() => _OldAskScreenState();
 }

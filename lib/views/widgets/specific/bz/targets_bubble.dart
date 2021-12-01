@@ -13,7 +13,12 @@ import 'package:flutter/material.dart';
 
 class TargetsBubble extends StatelessWidget {
 
-  const TargetsBubble();
+  const TargetsBubble({
+    Key key
+  }) : super(key: key);
+
+
+
 // -----------------------------------------------------------------------------
   static List<TargetModel> getAllTargets(){
 
