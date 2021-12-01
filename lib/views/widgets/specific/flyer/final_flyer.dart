@@ -569,7 +569,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onSlideLeftTap: _onSlideLeftTap,
       onSwipeFlyer: (SwipeDirection direction) => widget.onSwipeFlyer(direction),
       onTinyFlyerTap: () async {await _openTinyFlyer();},
-      onView: (i) => _onViewSlide(i),
+      onView: (int i) => _onViewSlide(i),
       onAnkhTap: () async {await _onAnkhTap();} ,
       onShareTap: _onShareTap,
       onFollowTap: () async { await _onFollowTap();},

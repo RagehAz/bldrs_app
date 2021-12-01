@@ -39,7 +39,7 @@ class SpecPickerScreen extends StatefulWidget {
 class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
   // List<Spec> _selectedSpecs = [];
-  ValueNotifier<List<Spec>> _selectedSpecs = ValueNotifier(<Spec>[]);
+  ValueNotifier<List<Spec>> _selectedSpecs = ValueNotifier<List<Spec>>(<Spec>[]);
 
   // -----------------------------------------------------------------------------
   @override

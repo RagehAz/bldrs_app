@@ -20,7 +20,7 @@ class ContactModel{
   }
 // -----------------------------------------------------------------------------
   static Map<String, Object> cipherContacts(List<ContactModel> contacts){
-    Map<String, Object> _map = {};
+    Map<String, Object> _map = <String, Object>{};
 
     if (Mapper.canLoopList(contacts)){
 

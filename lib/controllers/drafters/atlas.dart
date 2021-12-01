@@ -67,7 +67,7 @@ abstract class Atlas{
 
 
 // ----------------------------------------------------------------------
-const GOOGLE_API_KEY = 'AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI';
+const String GOOGLE_API_KEY = 'AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI';
 // ----------------------------------------------------------------------
 int zoom = 15;
 String size = '600x1044';
@@ -82,9 +82,9 @@ class LocationHelper{
   }
 
   static Future<String> getPlaceAddressFromGoogleMaps({@required double lat, @required double lng}) async {
-    final _url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$GOOGLE_API_KEY';
+    final String _url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$GOOGLE_API_KEY';
     Uri _uri = Uri.parse(_url);
-    final response = await http.get(_uri);
+    final http.Response response = await http.get(_uri);
     return json.decode(response.body)['results'][0]['formatted_address'];
   }
 

@@ -265,7 +265,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 onTap: () => widget.switchSignIn(_emailController.text, _passwordController.text),
               ),
 
-              ChangeNotifierProvider.value(
+              ChangeNotifierProvider<ZoneProvider>.value(
                 value: _zoneProvider,
                 child: DreamBox(
                   height: 50,

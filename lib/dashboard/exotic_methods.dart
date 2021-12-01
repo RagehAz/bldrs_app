@@ -200,7 +200,7 @@ abstract class ExoticMethods{
 
 
       /// add country to region
-      final int _regionIndex = _continents[_continentIndex].regions.indexWhere((region) => region.name == country.region);
+      final int _regionIndex = _continents[_continentIndex].regions.indexWhere((Region region) => region.name == country.region);
       final bool _countryIsAddedAlready = CountryModel.countriesIDsIncludeCountryID(
         countryID: country.id,
         countriesIDs:  _continents[_continentIndex].regions[_regionIndex].countriesIDs,

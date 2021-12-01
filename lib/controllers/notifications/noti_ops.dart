@@ -419,7 +419,7 @@ Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID)
       print('getNotiModelsStream : _querySnapshots : ${_querySnapshots}');
 
       _notiModelsStream = _querySnapshots.map(
-              (qShot) => qShot.docs.map((doc) =>
+              (QuerySnapshot<Object> qShot) => qShot.docs.map((QueryDocumentSnapshot<Object> doc) =>
                   NotiModel.decipherNotiModel(
                     map: doc,
                     fromJSON: false,
