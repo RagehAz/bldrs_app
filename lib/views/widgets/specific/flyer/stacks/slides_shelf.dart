@@ -83,7 +83,7 @@ class SlidesShelf extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
                 addAutomaticKeepAlives: true,
-                itemBuilder: (ctx, index){
+                itemBuilder: (BuildContext ctx, int index){
 
                   final dynamic _pic = pics[index];
 

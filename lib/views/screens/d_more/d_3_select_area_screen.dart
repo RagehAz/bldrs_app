@@ -41,7 +41,7 @@ class SelectAreaScreen extends StatelessWidget {
       pageIcon: null,
       pageIconVerse: _cityName,
       sky: SkyType.Black,
-      onItemTap: (districtID) async {
+      onItemTap: (String districtID) async {
         print('districtID is $districtID');
 
         final ZoneModel _zone = ZoneModel(

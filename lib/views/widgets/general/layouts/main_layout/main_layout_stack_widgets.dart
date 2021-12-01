@@ -54,13 +54,13 @@ class MainLayoutStackWidgets extends StatelessWidget {
       children: <Widget>[
 
         Sky(
-            key: const ValueKey('sky'),
+            key: const ValueKey<String>('sky'),
             skyType: skyType
         ),
 
         if (layoutWidget != null)
           Container(
-            key: const ValueKey('layoutWidget'),
+            key: const ValueKey<String>('layoutWidget'),
             width: Scale.superScreenWidth(context),
             height: Scale.superScreenHeight(context),
             alignment: Alignment.topCenter,
@@ -69,7 +69,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
 
         if(appBarType != AppBarType.Non)
           BldrsAppBar(
-            key: const ValueKey('appBar'),
+            key: const ValueKey<String>('appBar'),
             appBarType: appBarType,
             appBarRowWidgets: appBarRowWidgets,
             pageTitle: pageTitle,
@@ -85,7 +85,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
 
         if (pyramids != null && pyramids != Iconz.DvBlankSVG)
           Pyramids(
-            key: const ValueKey('pyramids'),
+            key: const ValueKey<String>('pyramids'),
             pyramidsIcon: pyramids,
             loading: loading,
           ),
@@ -93,13 +93,13 @@ class MainLayoutStackWidgets extends StatelessWidget {
         /// NAV BAR
         if (pyramids == null)
           NavBar(
-            key: const ValueKey('navBar'),
+            key: const ValueKey<String>('navBar'),
             barType: BarType.minWithText,
           ),
 
         if (pyramids != null && DeviceChecker.deviceIsIOS() == true)
           Positioned(
-            key: const ValueKey('backAndSearchButton'),
+            key: const ValueKey<String>('backAndSearchButton'),
             bottom: 0,
             left: 0,
             child: BackAndSearchButton(

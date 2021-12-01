@@ -88,7 +88,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  List<Continent> _allContinents = [];
+  List<Continent> _allContinents = <Continent>[];
   List<Map<String, dynamic>> _generatePages(){
     final List<Map<String, dynamic>> _pages = <Map<String, dynamic>>[];
 
@@ -96,14 +96,14 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
     final double _pageHeight = _screenHeight - Ratioz.stratosphere;
 
 
-    _allContinents.forEach((continent) {
+    _allContinents.forEach((Continent continent) {
 
       final List<String> _countriesIDs = CountryModel.getCountriesIDsOfContinent(continent);
       final String _continentIcon = Iconizer.getContinentIcon(continent);
 
       _pages.add(
 
-        {
+        <String, dynamic>{
 
           'title' : continent.name,
 
@@ -114,7 +114,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
               continentIcon: _continentIcon,
               countriesIDs: _countriesIDs,
               pageHeight: _pageHeight,
-              buttonTap: (countryID) => _onCountryTap(countryID: countryID),
+              buttonTap: (String countryID) => _onCountryTap(countryID: countryID),
             ),
           ),
 

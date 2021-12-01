@@ -83,7 +83,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 // -----------------------------------------------------------------------------
   FlyerModel _getFlyerFromDeactivatedFlyersByFlyerID({String flyerID}){
 
-    final int _index = _deactivatedFlyers.indexWhere((flyer) => flyer.id == flyerID, );
+    final int _index = _deactivatedFlyers.indexWhere((FlyerModel flyer) => flyer.id == flyerID, );
 
     final FlyerModel _flyer = _deactivatedFlyers[_index];
     return _flyer;
@@ -161,7 +161,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
       deleteFlyerIDFromBzzFlyersIDs: true,
     );
 
-    final int _flyerIndex = _allFlyers.indexWhere((tFlyer) => tFlyer.id == flyerModel.id);
+    final int _flyerIndex = _allFlyers.indexWhere((FlyerModel tFlyer) => tFlyer.id == flyerModel.id);
 
     setState(() {
       _allFlyers.removeAt(_flyerIndex);

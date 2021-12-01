@@ -62,7 +62,7 @@ class SpecSelectorBubble extends StatelessWidget {
         //     itemCount: specList.specChain.sons.length,
         //     physics: const BouncingScrollPhysics(),
         //     padding: const EdgeInsets.symmetric(vertical: 5),
-        //     itemBuilder: (ctx, index){
+        //     itemBuilder: (BuildContext ctx, int index){
         //
         //        final KW _kw = specList.specChain.sons[index];
         //

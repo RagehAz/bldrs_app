@@ -275,9 +275,11 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
                       StreamBuilder<int>(
                         stream: _stopWatchTimer.rawTime,
                         initialData: _stopWatchTimer.rawTime.value,
-                        builder: (context, snap) {
-                          final value = snap.data;
-                          final displayTime = StopWatchTimer.getDisplayTime(value, hours: _isHours);
+                        builder: (BuildContext context, AsyncSnapshot<int> snap) {
+
+                          final int value = snap.data;
+
+                          final String displayTime = StopWatchTimer.getDisplayTime(value, hours: _isHours);
 
                           return
                             DreamBox(
@@ -364,7 +366,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
                   child: StreamBuilder<List<StopWatchRecord>>(
                     stream: _stopWatchTimer.records,
                     initialData: _stopWatchTimer.records.value,
-                    builder: (context, snap){
+                    builder: (BuildContext context, AsyncSnapshot<List<StopWatchRecord>> snap){
 
                       final List<StopWatchRecord> records = snap.data;
 
@@ -376,7 +378,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
                         return ListView.builder(
                             itemCount: records.length,
                             controller: _scrollController,
-                            itemBuilder: (ctx, index){
+                            itemBuilder: (BuildContext ctx, int index){
 
                               final StopWatchRecord record = records[index];
 

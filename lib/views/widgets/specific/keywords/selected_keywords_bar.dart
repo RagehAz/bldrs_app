@@ -81,7 +81,7 @@ class SelectedKeywordsBar extends StatelessWidget {
               itemPositionsListener: itemPositionListener,
               itemCount: selectedKeywords.length,
               padding: _barPadding,
-              itemBuilder: (ctx, index){
+              itemBuilder: (BuildContext ctx, int index){
 
                 final KW _keyword = index >= 0 ? selectedKeywords[index] : null;
 

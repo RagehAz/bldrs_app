@@ -100,7 +100,7 @@ class PriceDataCreator extends StatefulWidget {
                       child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           itemCount: _allCurrencies.length,
-                          itemBuilder: (ctx, index){
+                          itemBuilder: (BuildContext ctx, int index){
 
                             final CurrencyModel _currency = _allCurrencies[index];
 

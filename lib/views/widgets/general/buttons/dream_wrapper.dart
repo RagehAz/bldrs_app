@@ -52,7 +52,7 @@ class DreamWrapper extends StatelessWidget {
 
           ...List<Widget>.generate(
               _listLength,
-                  (index){
+                  (int index){
 
                 final String _verse = verses[index];
 

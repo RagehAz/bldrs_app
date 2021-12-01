@@ -109,9 +109,9 @@ class LDBViewersScreen extends StatelessWidget {
 
         },
 
-        listWidgets: [
+        listWidgets: <Widget>[
 
-          ...List.generate(LDBDoc.allDocs.length, (index){
+          ...List<Widget>.generate(LDBDoc.allDocs.length, (int index){
 
             final String ldbDoc = LDBDoc.allDocs[index];
 

@@ -106,7 +106,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
               dynamic map = await CloudFunctionz.callFunction(
                   context: context,
                   cloudFunctionName: 'n001_notifyUser',
-                  toDBMap: {
+                  toDBMap: <String, dynamic>{
                     'from': superUserID(),
                     'to': '60a1SPzftGdH6rt15NF96m0j9Et2', // rageh by facebook
                     'title': 'Targetted notification',

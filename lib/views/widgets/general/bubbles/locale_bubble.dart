@@ -18,9 +18,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LocaleBubble extends StatefulWidget {
-  final Function changeCountry;
-  final Function changeCity;
-  final Function changeDistrict;
+  final ValueChanged<String> changeCountry;
+  final ValueChanged<String> changeCity;
+  final ValueChanged<String> changeDistrict;
   final ZoneModel currentZone;
   final String title;
 

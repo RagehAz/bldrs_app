@@ -45,7 +45,7 @@ class IconsViewerScreen extends StatelessWidget {
           addAutomaticKeepAlives: true,
           addRepaintBoundaries: true,
           shrinkWrap: false,
-          itemBuilder: (ctx, index){
+          itemBuilder: (BuildContext ctx, int index){
 
             return
 
