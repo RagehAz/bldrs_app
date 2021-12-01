@@ -181,7 +181,7 @@ class BottomDialog extends StatelessWidget {
         elevation: 20,
         isScrollControlled: true,
         context: context,
-        builder: (bCtx){
+        builder: (BuildContext bCtx){
           return Container(
             height: _height,
             width: Scale.superScreenWidth(context),

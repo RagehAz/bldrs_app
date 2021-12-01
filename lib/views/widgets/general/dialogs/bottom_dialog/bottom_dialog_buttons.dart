@@ -43,11 +43,11 @@ class BottomDialogButtons extends StatelessWidget {
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: mapsModels.length,
-        itemBuilder: (context, index){
+        itemBuilder: (BuildContext context, int index){
 
-          final String id = mapsModels[index].key;
-          final dynamic value = mapsModels[index].value;
-          final String _icon = bottomDialogType == BottomDialogType.countries ? Flag.getFlagIconByCountryID(id) : null;
+          final String _id = mapsModels[index].key;
+          final dynamic _value = mapsModels[index].value;
+          final String _icon = bottomDialogType == BottomDialogType.countries ? Flag.getFlagIconByCountryID(_id) : null;
 
           return
             Align(
@@ -56,13 +56,13 @@ class BottomDialogButtons extends StatelessWidget {
                   height: buttonHeight,
                   icon: _icon,
                   iconSizeFactor: 0.8,
-                  verse: value.toString(),
+                  verse: _value.toString(),
                   bubble: false,
                   margins: const EdgeInsets.all(Ratioz.appBarPadding),
                   verseScaleFactor: 0.8,
                   color: Colorz.white10,
                   textDirection: bottomDialogType == BottomDialogType.bottomSheet? superTextDirection(context) : superInverseTextDirection(context),
-                  onTap: () => buttonTap(id),
+                  onTap: () => buttonTap(_id),
               ),
             );
         },

@@ -24,13 +24,13 @@ class FlyerPages extends StatelessWidget {
 
     Tracer.traceWidgetBuild(widgetName: 'FlyerPages', varName: '_tinyMode', varValue: _tinyMode, tracerIsOn: false);
     return MaxBounceNavigator(
-      notificationListenerKey: ValueKey('${superFlyer.flyerID}_flyerPages_notification_listener_key'),
+      notificationListenerKey: ValueKey<String>('${superFlyer.flyerID}_flyerPages_notification_listener_key'),
       child: PageView(
         pageSnapping: true,
         scrollDirection: Axis.vertical,
         physics: const BouncingScrollPhysics(),
         allowImplicitScrolling: true, /// test keda w shoof
-        onPageChanged: superFlyer.nav.listenToSwipe ? (i) => superFlyer.nav.onVerticalPageSwipe(i) : (i) => Sliders.zombie(i),
+        onPageChanged: superFlyer.nav.listenToSwipe ? (int i) => superFlyer.nav.onVerticalPageSwipe(i) : (i) => Sliders.zombie(i),
         controller: superFlyer.nav.verticalController,
         children: <Widget>[
 

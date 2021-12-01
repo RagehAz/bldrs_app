@@ -103,7 +103,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
         }
         else {
           setState(() {
-            _foundKeywords = [];
+            _foundKeywords = <KW>[];
             _noResultFound = true;
           });
         }

@@ -94,7 +94,7 @@ class ZoneButton extends StatelessWidget {
                 Radius.circular(Ratioz.appBarButtonCorner)),
             color: isOn ? Colorz.yellow255 : Colorz.white10
         ),
-        child: ChangeNotifierProvider.value(
+        child: ChangeNotifierProvider<ZoneProvider>.value(
           value: _zoneProvider,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,

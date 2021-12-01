@@ -252,7 +252,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
           if (widget.specList.specChain.sons.runtimeType != DataCreator)
             ValueListenableBuilder<List<Spec>>(
                 valueListenable: _selectedSpecs,
-                builder: (ctx, value, child){
+                builder: (BuildContext ctx, List<Spec> value, Widget child){
 
                   return
 

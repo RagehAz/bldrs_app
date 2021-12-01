@@ -118,7 +118,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     if (_awesomeNotification.isNotificationAllowed() != null) {
 
 
-      _awesomeNotification.createdStream.listen((notification) async {
+      _awesomeNotification.createdStream.listen((ReceivedNotification notification) async {
 
         print('the FUCKING notification is aho 5ara :  Channel : ${notification.channelKey} : id : ${notification.id}');
 

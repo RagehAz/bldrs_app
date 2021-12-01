@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -51,7 +52,9 @@ class Storage {
         _ref = await _storage.refFromURL(url);
 
       },
-      onError: () async {
+      onError: (String error) async {
+
+        log(error);
 
         /// TASK : this is temp ,, or see how it goes
         await CenterDialog.showCenterDialog(

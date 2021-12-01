@@ -18,7 +18,7 @@ Future<void> tryAndCatch({
   @required BuildContext context,
   @required Function functions,
   String methodName,
-  Function onError,
+  ValueChanged<String> onError,
 }) async {
   try{
     await functions();
