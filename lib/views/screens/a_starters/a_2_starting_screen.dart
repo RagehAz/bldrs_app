@@ -9,6 +9,7 @@ import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
+import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/screens/a_starters/a_3_auth_screen.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
@@ -18,7 +19,6 @@ import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'a_0_user_checker_widget.dart';
 
 class StartingScreen extends StatefulWidget {
 // -----------------------------------------------------------------------------
