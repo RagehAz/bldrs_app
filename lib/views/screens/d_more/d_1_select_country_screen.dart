@@ -131,7 +131,17 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 
     return SwiperLayoutScreen(
       sky: SkyType.Black,
-      swiperPages: Mapper.canLoopList(_allContinents) ? _generatePages() : <Map<String, dynamic>>[{'title' : '...', 'widget' : Container()}],
+      swiperPages:
+      Mapper.canLoopList(_allContinents) ?
+      _generatePages()
+          :
+      <Map<String, dynamic>>[
+
+        <String,dynamic>{
+        'title' : '...', 'widget' : Container()
+      }
+
+      ],
     );
 
   }

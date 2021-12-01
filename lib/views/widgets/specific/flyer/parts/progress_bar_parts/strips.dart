@@ -155,8 +155,8 @@ class Strips extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
-    Tween _tween(){
-      Tween _tween;
+    Tween<double> _tween(){
+      Tween<double> _tween;
 
       /// NO TWEEN
       if (swipeDirection == SwipeDirection.freeze){

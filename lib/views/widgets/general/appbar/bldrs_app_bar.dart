@@ -21,9 +21,9 @@ class BldrsAppBar extends StatelessWidget {
   final ScrollController appBarScrollController;
   final bool sectionButtonIsOn;
   final TextEditingController searchController;
-  final Function onSearchSubmit;
+  final ValueChanged<String> onSearchSubmit;
   final bool historyButtonIsOn;
-  final Function onSearchChanged;
+  final ValueChanged<String> onSearchChanged;
 
   const BldrsAppBar({
     this.appBarType,

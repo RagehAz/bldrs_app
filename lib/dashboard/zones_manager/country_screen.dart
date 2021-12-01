@@ -234,7 +234,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             iconBoxColor: Colorz.grey50,
             iconSizeFactor: 1,
             switchIsOn: _isGlobal,
-            switching: (val){
+            switching: (bool val){
               setState(() {_isGlobal = val;});
               _updateCountryFieldOnFirestore('isGlobal', _isGlobal);
               print(val);

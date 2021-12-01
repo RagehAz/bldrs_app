@@ -110,29 +110,32 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   static const List<Map<String, dynamic>> _status = <Map<String, dynamic>>[
     {
       'title': 'Property Status',
-      'buttons': [
-        {
+      'buttons': <Map<String, dynamic>>[
+        <String, dynamic>{
           'state': 'Looking for a\nnew property',
           'userStatus': UserStatus.searching
         },
-        {
+        <String, dynamic>{
           'state': 'Constructing\nan existing\nproperty',
           'userStatus': UserStatus.finishing
         },
-        {
+        <String, dynamic>{
           'state': 'Want to\nSell / Rent\nmy property',
           'userStatus': UserStatus.selling
         }
       ],
     },
-    {
+    <String, dynamic>{
       'title': 'Construction Status',
-      'buttons': [
-        {
+      'buttons': <Map<String, dynamic>>[
+        <String, dynamic>{
           'state': 'Planning Construction',
           'userStatus': UserStatus.planning
         },
-        {'state': 'Under Construction', 'userStatus': UserStatus.building}
+        <String, dynamic>{
+          'state': 'Under Construction',
+          'userStatus': UserStatus.building
+      }
       ],
     },
   ];

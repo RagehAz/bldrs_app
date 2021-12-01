@@ -73,7 +73,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
     return _newListWithAddButton;
   }
 // -----------------------------------------------------------------------------
-  List<TabModel> _tabModels = [];
+  List<TabModel> _tabModels = <TabModel>[];
   List<TabModel> createTabModels(){
     final List<TabModel> _models = <TabModel>[];
 

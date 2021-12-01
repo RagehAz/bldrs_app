@@ -490,7 +490,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputType: TextInputType.name,
               keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: true,
-              validator: (val) => val.isEmpty ? Wordz.enterName(context) : null,
+              validator: (String val) => val.isEmpty ? Wordz.enterName(context) : null,
             ),
 
             /// --- EDIT JOB TITLE
