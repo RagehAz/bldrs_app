@@ -62,7 +62,9 @@ TextDirection superTextDirectionSwitcherByController(TextEditingController contr
       _textDirection = null;
     }
 
-  } else {_textDirection = null;}
+  } else {
+    _textDirection = null;
+  }
 
   return _textDirection;
 }

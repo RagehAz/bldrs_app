@@ -119,9 +119,17 @@ class ContactModel{
     final ContactModel _email = getAContactModelFromContacts(contacts, ContactType.email);
     final ContactModel _website = getAContactModelFromContacts(contacts, ContactType.website);
 
-    if(_phone   != null || _phone?.contact?.isNotEmpty  == true){_contactsList.add(_phone);}
-    if(_email   != null || _email?.contact?.isNotEmpty  == true){_contactsList.add(_email);}
-    if(_website != null || _website?.contact?.isNotEmpty  == true){_contactsList.add(_website);}
+    if(_phone   != null || _phone?.contact?.isNotEmpty  == true){
+      _contactsList.add(_phone);
+    }
+
+    if(_email   != null || _email?.contact?.isNotEmpty  == true){
+      _contactsList.add(_email);
+    }
+
+    if(_website != null || _website?.contact?.isNotEmpty  == true){
+      _contactsList.add(_website);
+    }
 
     return _contactsList;
   }
@@ -139,13 +147,33 @@ class ContactModel{
     final ContactModel _tiktok = getAContactModelFromContacts(contacts, ContactType.tiktok);
     final ContactModel _twitter = getAContactModelFromContacts(contacts, ContactType.twitter);
 
-    if(_facebook  != null && _facebook?.contact?.isNotEmpty  == true ){_contactsList.add(_facebook);}else{}
-    if(_linkedin  != null && _linkedin?.contact?.isNotEmpty  == true ){_contactsList.add(_linkedin);}else{}
-    if(_youtube   != null && _youtube?.contact?.isNotEmpty   == true ){_contactsList.add(_youtube);}else{}
-    if(_instagram != null && _instagram?.contact?.isNotEmpty == true ){_contactsList.add(_instagram);}else{}
-    if(_pinterest != null && _pinterest?.contact?.isNotEmpty == true ){_contactsList.add(_pinterest);}else{}
-    if(_tiktok    != null && _tiktok?.contact?.isNotEmpty    == true ){_contactsList.add(_tiktok);}else{}
-    if(_twitter   != null && _twitter?.contact?.isNotEmpty   == true ){_contactsList.add(_twitter);}else{}
+    if(_facebook  != null && _facebook?.contact?.isNotEmpty  == true ){
+      _contactsList.add(_facebook);
+    }
+
+    if(_linkedin  != null && _linkedin?.contact?.isNotEmpty  == true ){
+      _contactsList.add(_linkedin);
+    }
+
+    if(_youtube   != null && _youtube?.contact?.isNotEmpty   == true ){
+      _contactsList.add(_youtube);
+    }
+
+    if(_instagram != null && _instagram?.contact?.isNotEmpty == true ){
+      _contactsList.add(_instagram);
+    }
+
+    if(_pinterest != null && _pinterest?.contact?.isNotEmpty == true ){
+      _contactsList.add(_pinterest);
+    }
+
+    if(_tiktok    != null && _tiktok?.contact?.isNotEmpty    == true ){
+      _contactsList.add(_tiktok);
+    }
+
+    if(_twitter   != null && _twitter?.contact?.isNotEmpty   == true ){
+      _contactsList.add(_twitter);
+    }
 
     return _contactsList;
   }
@@ -155,7 +183,11 @@ class ContactModel{
     // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
     final List<String> phones = <String>[];
     contacts?.forEach((co) {
-      if(co.contactType == ContactType.phone){phones.add(co.contact);}
+
+      if(co.contactType == ContactType.phone){
+        phones.add(co.contact);
+      }
+
     });
     return phones.length == 0 ? null : phones[0];
   }
@@ -176,17 +208,26 @@ class ContactModel{
 
     /// when contact already exists in existingContacts
     if (_contactExistsInExistingContacts == true){
+
       /// if value have changed add this new value otherwise add the existing value
       if (_userChangedValue == true){
         newContacts.add(ContactModel(contact: value, contactType: type));
-      } else { newContacts.add(ContactModel(contact: _existingContactValue, contactType: type)); }
+      }
+
+      else {
+        newContacts.add(ContactModel(contact: _existingContactValue, contactType: type));
+      }
+
     }
+
     /// when contact is new to existingContacts
     else {
+
       /// add new ContactModel to the new list only if a new value is assigned ( value != null )
       if (_userChangedValue == true){
         newContacts.add(ContactModel(contact: value, contactType: type));
       }
+
     }
   }
 // -----------------------------------------------------------------------------

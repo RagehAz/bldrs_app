@@ -163,8 +163,12 @@ class SlideModel {
   static bool slidesPicsAreTheSame(SlideModel finalSlide, SlideModel originalSlide){
     bool _slidesPicsAreTheSame;
 
-    if (finalSlide.pic != originalSlide.pic){_slidesPicsAreTheSame = false;}
-    else {_slidesPicsAreTheSame = true;}
+    if (finalSlide.pic != originalSlide.pic){
+      _slidesPicsAreTheSame = false;
+    }
+    else {
+      _slidesPicsAreTheSame = true;
+    }
 
     return _slidesPicsAreTheSame;
   }

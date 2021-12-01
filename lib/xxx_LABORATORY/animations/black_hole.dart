@@ -38,18 +38,32 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
 // ---------------------------------------------------------------------------
   Timer _timoor(){
     Timer _timoor = Timer(Duration(seconds: _spinsDuration),
+
             (){
-          if(mounted){_blackHoleController.reset();}
-          if(mounted){_enterTheBlackHole();}
-        }
+      if(mounted){
+        _blackHoleController.reset();
+      }
+
+      if(mounted){
+        _enterTheBlackHole();
+      }
+
+    }
     );
     return _timoor;
   }
 // ---------------------------------------------------------------------------
   void _enterTheBlackHole(){
     print('ezayak el awwal');
-    if(mounted){_blackHoleController.forward();}
-    if(mounted){_timoor();}
+
+    if(mounted){
+      _blackHoleController.forward();
+    }
+
+    if(mounted){
+      _timoor();
+    }
+
   }
 // ---------------------------------------------------------------------------
   @override

@@ -26,6 +26,9 @@ linter:
     unnecessary_statements: true
     unrelated_type_equality_checks: true
     use_key_in_widget_constructors: true
+    valid_regexps: true
+    always_put_control_body_on_new_line: true
+    always_put_required_named_parameters_first: true
 
     diagnostic_describe_all_properties: false
     avoid_types_as_parameter_names: false

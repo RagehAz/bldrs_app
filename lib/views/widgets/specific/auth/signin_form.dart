@@ -74,8 +74,10 @@ class _SignInFormState extends State<SignInForm> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    if (TextChecker.textControllerIsEmpty(_emailController))_emailController.dispose();
-    if (TextChecker.textControllerIsEmpty(_passwordController))_passwordController.dispose();
+    if (TextChecker.textControllerIsEmpty(_emailController))
+      _emailController.dispose();
+    if (TextChecker.textControllerIsEmpty(_passwordController))
+      _passwordController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -188,7 +190,11 @@ class _SignInFormState extends State<SignInForm> {
             maxLines: 1,
             maxLength: 100,
             validator: (val){
-              if (val.isEmpty){return Wordz.enterEmail(context);}
+
+              if (val.isEmpty){
+                return Wordz.enterEmail(context);
+              }
+
               else {
                 return EmailValidator.validate(val) == true ? null : Wordz.emailInvalid(context);
               }

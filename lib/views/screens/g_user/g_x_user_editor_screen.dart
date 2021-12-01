@@ -134,19 +134,32 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    if (TextChecker.textControllerIsEmpty(_nameController))_nameController.dispose();
-    if (TextChecker.textControllerIsEmpty(_titleController))_titleController.dispose();
-    if (TextChecker.textControllerIsEmpty(_companyController))_companyController.dispose();
-    if (TextChecker.textControllerIsEmpty(_phoneController))_phoneController.dispose();
-    if (TextChecker.textControllerIsEmpty(_emailController))_emailController.dispose();
-    if (TextChecker.textControllerIsEmpty(_websiteController))_websiteController.dispose();
-    if (TextChecker.textControllerIsEmpty(_facebookController))_facebookController.dispose();
-    if (TextChecker.textControllerIsEmpty(_linkedInController))_linkedInController.dispose();
-    if (TextChecker.textControllerIsEmpty(_youTubeController))_youTubeController.dispose();
-    if (TextChecker.textControllerIsEmpty(_instagramController))_instagramController.dispose();
-    if (TextChecker.textControllerIsEmpty(_pinterestController))_pinterestController.dispose();
-    if (TextChecker.textControllerIsEmpty(_tiktokController))_tiktokController.dispose();
-    if (TextChecker.textControllerIsEmpty(_twitterController))_twitterController.dispose();
+    if (TextChecker.textControllerIsEmpty(_nameController))
+      _nameController.dispose();
+    if (TextChecker.textControllerIsEmpty(_titleController))
+      _titleController.dispose();
+    if (TextChecker.textControllerIsEmpty(_companyController))
+      _companyController.dispose();
+    if (TextChecker.textControllerIsEmpty(_phoneController))
+      _phoneController.dispose();
+    if (TextChecker.textControllerIsEmpty(_emailController))
+      _emailController.dispose();
+    if (TextChecker.textControllerIsEmpty(_websiteController))
+      _websiteController.dispose();
+    if (TextChecker.textControllerIsEmpty(_facebookController))
+      _facebookController.dispose();
+    if (TextChecker.textControllerIsEmpty(_linkedInController))
+      _linkedInController.dispose();
+    if (TextChecker.textControllerIsEmpty(_youTubeController))
+      _youTubeController.dispose();
+    if (TextChecker.textControllerIsEmpty(_instagramController))
+      _instagramController.dispose();
+    if (TextChecker.textControllerIsEmpty(_pinterestController))
+      _pinterestController.dispose();
+    if (TextChecker.textControllerIsEmpty(_tiktokController))
+      _tiktokController.dispose();
+    if (TextChecker.textControllerIsEmpty(_twitterController))
+      _twitterController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
