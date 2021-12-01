@@ -138,7 +138,11 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
     _arrowTurns = new Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
     _borderRadius = new BorderRadiusTween();
     _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
-    if (_isExpanded) {_controller.value = 1.0;}
+
+    if (_isExpanded){
+      _controller.value = 1.0;
+    }
+
   }
 // -----------------------------------------------------------------------------
   @override

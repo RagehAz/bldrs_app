@@ -47,10 +47,21 @@ class ZoneModel{
   static bool zonesAreTheSame(ZoneModel finalZone, ZoneModel originalZone){
     bool _zonesAreTheSame = true;
 
-    if (finalZone.countryID != originalZone.countryID){_zonesAreTheSame = false;}
-    else if (finalZone.cityID != originalZone.cityID){_zonesAreTheSame = false;}
-    else if (finalZone.districtID != originalZone.districtID){_zonesAreTheSame = false;}
-    else {_zonesAreTheSame = true;}
+    if (finalZone.countryID != originalZone.countryID){
+      _zonesAreTheSame = false;
+    }
+
+    else if (finalZone.cityID != originalZone.cityID){
+      _zonesAreTheSame = false;
+    }
+
+    else if (finalZone.districtID != originalZone.districtID){
+      _zonesAreTheSame = false;
+    }
+
+    else {
+      _zonesAreTheSame = true;
+    }
 
     return _zonesAreTheSame;
   }

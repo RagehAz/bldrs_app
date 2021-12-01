@@ -315,12 +315,29 @@ class UserModel {
   static List<String> missingFields(UserModel userModel){
     final List<String> _missingFields = <String>[];
 
-    if (userModel?.name == null || userModel?.name == ''){_missingFields.add('name');}
-    if (userModel?.pic == null || userModel?.pic == ''){_missingFields.add('pic');}
-    if (userModel?.title == null || userModel?.title == ''){_missingFields.add('title');}
-    if (userModel?.company == null || userModel?.company == ''){_missingFields.add('company');}
-    if (userModel?.zone?.countryID == null || userModel?.zone?.countryID == ''){_missingFields.add('country');}
-    if (userModel?.zone?.cityID == null || userModel?.zone?.cityID == ''){_missingFields.add('city');}
+    if (userModel?.name == null || userModel?.name == ''){
+      _missingFields.add('name');
+    }
+
+    if (userModel?.pic == null || userModel?.pic == ''){
+      _missingFields.add('pic');
+    }
+
+    if (userModel?.title == null || userModel?.title == ''){
+      _missingFields.add('title');
+    }
+
+    if (userModel?.company == null || userModel?.company == ''){
+      _missingFields.add('company');
+    }
+
+    if (userModel?.zone?.countryID == null || userModel?.zone?.countryID == ''){
+      _missingFields.add('country');
+    }
+
+    if (userModel?.zone?.cityID == null || userModel?.zone?.cityID == ''){
+      _missingFields.add('city');
+    }
 
     return _missingFields;
   }
