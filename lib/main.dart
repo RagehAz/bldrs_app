@@ -22,6 +22,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 
 
 void main() async {
@@ -179,42 +180,42 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
       }
 
       return MultiProvider(
-        providers: [
+        providers: <SingleChildWidget>[
+
           StreamProvider<UserModel>.value(
             value: UserFireOps.streamInitialUser(),
             initialData: UserModel.initializeUserModelStreamFromUser(),
           ),
 
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<UiProvider>(
             create: (BuildContext ctx) => UiProvider(),
           ),
 
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<GeneralProvider>(
             create: (BuildContext ctx) => GeneralProvider(),
           ),
 
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<UsersProvider>(
             create: (BuildContext ctx) => UsersProvider(),
           ),
 
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<ZoneProvider>(
             create: (BuildContext ctx) => ZoneProvider(),
           ),
 
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<BzzProvider>(
             create: (BuildContext ctx) => BzzProvider(),
           ),
 
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<FlyersProvider>(
             create: (BuildContext ctx) => FlyersProvider(),
           ),
 
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<KeywordsProvider>(
             create: (BuildContext ctx) => KeywordsProvider(),
           ),
 
-
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<QuestionsProvider>(
             create: (BuildContext ctx) => QuestionsProvider(),
           ),
 

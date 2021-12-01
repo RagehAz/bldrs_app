@@ -24,7 +24,7 @@ class NotificationTemplatesScreen extends StatefulWidget {
 }
 
 class _NotificationTemplatesScreenState extends State<NotificationTemplatesScreen> {
-  List<dynamic> _notifications = <dynamic>[];
+  List<NotiModel> _notifications = <NotiModel>[];
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -80,7 +80,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
     print('removing noti with id : $id');
 
     setState(() {
-      _notifications.removeWhere((notiModel) => notiModel.districtID == id,);
+      _notifications.removeWhere((NotiModel notiModel) => notiModel.id == id,);
     });
   }
 // -----------------------------------------------------------------------------

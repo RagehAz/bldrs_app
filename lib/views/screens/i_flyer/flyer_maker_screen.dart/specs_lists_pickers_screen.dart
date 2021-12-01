@@ -304,9 +304,9 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
                               child: Column(
                                 children: <Widget>[
 
-                                  ...List.generate(
+                                  ...List<Widget>.generate(
                                       _listsOfThisGroup.length,
-                                          (index){
+                                          (int index){
 
                                         final SpecList _specList = _listsOfThisGroup[index];
                                         final List<Spec> _selectedSpecs = Spec.getSpecsByListID(

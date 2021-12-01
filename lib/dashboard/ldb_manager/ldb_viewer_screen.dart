@@ -82,7 +82,7 @@ class LDBViewerScreen extends StatefulWidget {
                       color: Colorz.white10,
                     ),
 
-                    ...List.generate(
+                    ...List<Widget>.generate(
                         _values.length,
                             (int i){
 

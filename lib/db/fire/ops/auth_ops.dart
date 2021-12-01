@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
@@ -603,7 +605,10 @@ class FireAuthOps {
 
         _isSignedIn = false;
       },
-      onError: (){
+      onError: (String error){
+
+        log(error);
+
         _isSignedIn = true;
       }
     );

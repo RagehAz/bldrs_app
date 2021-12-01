@@ -242,7 +242,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   void _createBzTypeInActivityList(){
     if(widget.firstTimer){
       setState(() {
-        _bzTypeInActivityList = List.filled(BzModel.bzTypesList.length, true);
+        _bzTypeInActivityList = List<bool>.filled(BzModel.bzTypesList.length, true);
       });
     } else {
       /// TASK : FIX THIS SHIT
