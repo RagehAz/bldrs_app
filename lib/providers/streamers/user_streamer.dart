@@ -32,7 +32,7 @@ Widget userStreamBuilder({
 
     StreamBuilder<UserModel>(
       stream: _usersProvider.myUserModelStream,
-      builder: (context, snapshot){
+      builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot){
         if(StreamChecker.connectionIsLoading(snapshot) == true){
           return const Loading(loading: true,);
         } else {

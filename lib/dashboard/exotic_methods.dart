@@ -177,9 +177,9 @@ abstract class ExoticMethods{
       if (_continentIsAddedAlready == false){
         _continents.add(Continent(
           name: country.continent,
-          regions: [],
-          globalCountriesIDs: [],
-          activatedCountriesIDs: [],
+          regions: <Region>[],
+          globalCountriesIDs: <String>[],
+          activatedCountriesIDs: <String>[],
         ));
       }
 

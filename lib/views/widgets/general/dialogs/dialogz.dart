@@ -184,7 +184,7 @@ class Dialogz{
               itemCount: _numberOfBzz,
               scrollDirection: Axis.vertical,
               itemExtent: 200,
-              itemBuilder: (context, index){
+              itemBuilder: (BuildContext context, int index){
 
                 return
                   FlyersBubble(

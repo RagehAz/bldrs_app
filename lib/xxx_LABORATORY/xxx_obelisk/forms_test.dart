@@ -67,7 +67,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
   }
 
   void _saveForm(){
-    final isValid = _form.currentState.validate();
+    final bool isValid = _form.currentState.validate();
     if (!isValid){
       return;
     }
@@ -113,7 +113,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
               children: <Widget>[
 
                 TextFormField(
-                  validator: (value){
+                  validator: (String value){
                     if (value.isEmpty){
                       return 'write something';
                     }
@@ -125,7 +125,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
                   ),
                   textInputAction: TextInputAction.next,
                   onFieldSubmitted: (_){FocusScope.of(context).requestFocus(_bolbolFocusNode);},
-                  onSaved: (value){_editedProduct = TempClass(a: value, b: _editedProduct.b, c: _editedProduct.c, d: _editedProduct.d);},
+                  onSaved: (String value){_editedProduct = TempClass(a: value, b: _editedProduct.b, c: _editedProduct.c, d: _editedProduct.d);},
                 ),
 
                 const Divider(
@@ -161,7 +161,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
 
                   // some validators
                   // !value.startsWith, !value.isEmpty, !value.EndsWith
-                  validator: (value){
+                  validator: (String value){
 
                     if(value.isEmpty){
                       return 'Enter number';
@@ -178,7 +178,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
                     return null;
                   },
 
-                  onSaved: (value){_editedProduct = TempClass(a: _editedProduct.a, b: double.tryParse(value), c: _editedProduct.c, d: _editedProduct.d);},
+                  onSaved: (String value){_editedProduct = TempClass(a: _editedProduct.a, b: double.tryParse(value), c: _editedProduct.c, d: _editedProduct.d);},
                 ),
 
                 TextFormField(
@@ -188,7 +188,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
                   textInputAction: TextInputAction.next,
                   focusNode: _focusNode,
                   onFieldSubmitted: (_){FocusScope.of(context).requestFocus(_imageUrlFocusNode);},
-                  onSaved: (value){_editedProduct = TempClass(a: _editedProduct.a, b: _editedProduct.b, c: value, d: _editedProduct.d);},
+                  onSaved: (String value){_editedProduct = TempClass(a: _editedProduct.a, b: _editedProduct.b, c: value, d: _editedProduct.d);},
 
                 ),
 
@@ -221,7 +221,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
                   textInputAction: TextInputAction.done,
                   controller: _imageUrlController,
                   focusNode: _imageUrlFocusNode,
-                  onSaved: (value){_editedProduct = TempClass(a: _editedProduct.a, b: _editedProduct.b, c: _editedProduct.c, d: value);},
+                  onSaved: (String value){_editedProduct = TempClass(a: _editedProduct.a, b: _editedProduct.b, c: _editedProduct.c, d: value);},
                   onEditingComplete: (){
                     setState(() {
 

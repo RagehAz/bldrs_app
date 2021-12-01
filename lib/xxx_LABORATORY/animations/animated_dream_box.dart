@@ -183,7 +183,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                             // --- ICON
                             Stack(
                               alignment: Alignment.center,
-                              children: [
+                              children: <Widget>[
                                 widget.iconFile != null ?
                                 AnimatedContainer(
                                   duration: widget.duration,

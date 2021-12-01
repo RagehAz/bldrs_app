@@ -41,7 +41,7 @@ class NotiSudo{
 });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
-    return {
+    return <String, dynamic>{
     'subject' : cipherNotiSubject(subject),
     'eventTrigger' : eventTrigger,
     'scheduledTiming' : scheduledTiming,

@@ -37,7 +37,7 @@ class QuestionModel {
 });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({bool toJSON = false}){
-    return {
+    return <String, dynamic>{
     'questionID' : questionID,
     'userID' : ownerID,
     'questionType' : FlyerTypeClass.cipherFlyerType(questionType),
