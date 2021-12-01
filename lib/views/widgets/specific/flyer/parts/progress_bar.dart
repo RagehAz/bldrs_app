@@ -20,13 +20,13 @@ class ProgressBar extends StatelessWidget {
     @required this.numberOfSlides,
     @required this.numberOfStrips,
     @required this.index,
-    // @required this.duration,
     @required this.opacity,
     @required this.flyerBoxWidth,
-    // @required this.draft,
-    this.loading = true,
     @required this.swipeDirection,
+    this.loading = true,
     this.margins,
+    // @required this.duration,
+    // @required this.draft,
     Key key,
   }) : super(key: key);
 

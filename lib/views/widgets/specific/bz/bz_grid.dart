@@ -18,10 +18,10 @@ class BzGrid extends StatelessWidget {
 
   const BzGrid({
     @required this.gridZoneWidth,
-    this.numberOfColumns = 3,
     @required this.bzzModels,
-    this.itemOnTap,
     @required this.scrollDirection,
+    this.numberOfColumns = 3,
+    this.itemOnTap,
     this.numberOfRows = 1,
     this.corners,
     Key key,

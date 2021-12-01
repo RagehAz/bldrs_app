@@ -18,12 +18,12 @@ class BarButton extends StatelessWidget {
 
   const BarButton({
     @required this.text,
+    @required this.width,
     this.icon,
     this.iconSizeFactor,
     this.clipperWidget,
     this.barType = BarType.maxWithText,
     this.onTap,
-    @required this.width,
     this.corners,
     Key key,
   }) : super(key: key);

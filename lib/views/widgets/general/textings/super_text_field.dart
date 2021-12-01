@@ -40,6 +40,7 @@ class SuperTextField extends StatefulWidget {
   final Function onMaxLinesReached;
 
   const SuperTextField({
+    @required this.textController,
     this.keyboardTextInputType = TextInputType.text,
     this.inputColor = Colorz.white255,
     this.maxLines = 7,
@@ -58,7 +59,6 @@ class SuperTextField extends StatefulWidget {
     this.width,
     this.height,
     this.onChanged,
-    @required this.textController,
     this.fieldColor,
     this.hintColor = Colorz.white80,
     this.keyboardTextInputAction,

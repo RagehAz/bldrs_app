@@ -312,8 +312,8 @@ class LocaleButton extends StatelessWidget {
   LocaleButton({
     @required this.title,
     @required this.verse,
-    this.icon,
     @required this.onTap,
+    this.icon,
     Key key,
   }) : super(key: key);
 

@@ -26,21 +26,21 @@ class MutableSlide {
   double opacity;
 
   MutableSlide({
-    this.slideIndex,
-    this.picURL,
     @required this.picAsset,
     @required this.picFile,
     @required this.headline,
     @required this.headlineController,
-    this.description,
     @required this.descriptionController,
+    @required this.imageSize,
+    @required this.midColor,
+    @required this.opacity,
+    this.slideIndex,
+    this.picURL,
+    this.description,
     this.sharesCount,
     this.viewsCount,
     this.savesCount,
     this.picFit, /// TASK : update all methods below to include this boxfit parameter
-    @required this.imageSize,
-    @required this.midColor,
-    @required this.opacity,
   });
 // -----------------------------------------------------------------------------
   static MutableSlide getViewMutableSlideFromSlideModel(SlideModel slide) {

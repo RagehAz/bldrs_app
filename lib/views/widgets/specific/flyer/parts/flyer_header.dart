@@ -13,8 +13,8 @@ class FlyerHeader extends StatelessWidget {
   final double flyerBoxWidth;
 
   const FlyerHeader({
-    this.superFlyer,
     @required this.flyerBoxWidth,
+    this.superFlyer,
     Key key,
   }) : super(key: key);
 

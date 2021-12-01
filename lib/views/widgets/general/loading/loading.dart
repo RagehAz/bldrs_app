@@ -10,9 +10,9 @@ class Loading extends StatelessWidget {
   final bool loading;
 
   const Loading({
+    @required this.loading,
     this.size = 50,
     this.onTap,
-    @required this.loading,
     Key key,
   }) : super(key: key);
 

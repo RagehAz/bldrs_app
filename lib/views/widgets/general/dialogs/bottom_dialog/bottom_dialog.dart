@@ -109,7 +109,12 @@ class BottomDialog extends StatelessWidget {
     return _dialogHeight;
   }
 // -----------------------------------------------------------------------------
-  static double dialogClearHeight({@required BuildContext context, double overridingDialogHeight, bool titleIsOn, @required bool draggable}){
+  static double dialogClearHeight({
+    @required BuildContext context,
+    @required bool draggable,
+    double overridingDialogHeight,
+    bool titleIsOn,
+  }){
 
     // bool _draggable = draggable == null ? false : draggable;
 
@@ -148,7 +153,13 @@ class BottomDialog extends StatelessWidget {
     return _corners;
   }
 // -----------------------------------------------------------------------------
-  static Future<void> showBottomDialog({@required BuildContext context, double height, @required bool draggable, @required Widget child, String title}) async {
+  static Future<void> showBottomDialog({
+    @required BuildContext context,
+    @required bool draggable,
+    @required Widget child,
+    double height,
+    String title,
+  }) async {
 
     final double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
 
@@ -301,7 +312,11 @@ class BottomDialog extends StatelessWidget {
       );
   }
 // -----------------------------------------------------------------------------
-  static Future<String> keyboardDialog({@required BuildContext context, String hintText, @required String flag}) async { /// TASK flag is temp
+  static Future<String> keyboardDialog({
+    @required BuildContext context,
+    @required String flag,
+    String hintText,
+  }) async { /// TASK flag is temp
 
     final TextEditingController _textController = TextEditingController();
 
@@ -350,7 +365,6 @@ class BottomDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
 
     final double _dialogWidth = dialogWidth(context);
     final double _dialogHeight = dialogHeight(context, overridingDialogHeight: height);
