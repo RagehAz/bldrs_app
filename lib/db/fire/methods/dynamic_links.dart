@@ -191,7 +191,7 @@ class DynamicLinksApi {
       final bool _isRefer = _deepLink.pathSegments.contains('refer');
 
       if (_isRefer) {
-        var _code = _deepLink.queryParameters['code'];
+        String _code = _deepLink.queryParameters['code'];
         print(_code.toString());
         if (_code != null) {
 

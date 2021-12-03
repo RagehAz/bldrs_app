@@ -96,7 +96,7 @@ class FireAuthOps {
 
       },
 
-      onError: (error) {
+      onError: (String error) {
         // String _error = error.toString();
       }
     );
@@ -169,7 +169,7 @@ class FireAuthOps {
           _userCredential = await _auth.signInWithEmailAndPassword(email: email.trim(), password: password);
           print('_userCredential : $_userCredential');
         },
-        onError: (error) async {
+        onError: (String error) async {
 
           {
 
@@ -232,7 +232,7 @@ class FireAuthOps {
         _user = await _createFirebaseUser(email: email, password: password);
 
       },
-      onError: (error) async {
+      onError: (String error) async {
         _error = error.toString();
       }
     );
@@ -356,7 +356,7 @@ class FireAuthOps {
 
         },
 
-      onError: (error) async {
+      onError: (String error) async {
 
         _error =  error.toString();
 
@@ -498,7 +498,7 @@ class FireAuthOps {
 
         },
 
-      onError: (error) async {
+      onError: (String error) async {
 
         _error =  error.toString();
 

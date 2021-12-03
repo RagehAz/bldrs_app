@@ -159,13 +159,17 @@ class CityModel{
   static List<KW> getKeywordsFromCities({@required BuildContext context, @required List<CityModel> cities}){
     final List<KW> _keywords = <KW>[];
 
-    cities.forEach((CityModel city) {
+    if (Mapper.canLoopList(cities)){
 
-      final KW _cityKeyword = getKeywordFromCity(context: context, city: city);
+      cities.forEach((CityModel city) {
 
-      _keywords.add(_cityKeyword);
+        final KW _cityKeyword = getKeywordFromCity(context: context, city: city);
 
-    });
+        _keywords.add(_cityKeyword);
+
+      });
+
+    }
 
     return _keywords;
   }

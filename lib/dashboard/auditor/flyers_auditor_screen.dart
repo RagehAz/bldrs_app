@@ -87,7 +87,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  QueryDocumentSnapshot _lastSnapshot;
+  QueryDocumentSnapshot<Object> _lastSnapshot;
   Future<void> _readMoreFlyers() async {
 
     if (_loading == false){

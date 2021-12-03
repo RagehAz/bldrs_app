@@ -25,8 +25,8 @@ abstract class Scale{
   }
 // -----------------------------------------------------------------------------
   static double superDeviceRatio(BuildContext context){
-    final _size = MediaQuery.of(context).size;
-    final _deviceRatio = _size.aspectRatio;
+    final Size _size = MediaQuery.of(context).size;
+    final double _deviceRatio = _size.aspectRatio;
     return _deviceRatio;
   }
 // -----------------------------------------------------------------------------

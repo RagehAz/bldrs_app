@@ -192,7 +192,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
           print('X2 - image size is ${imageSize.height} * ${imageSize.width}');
 
           final SettableMetadata metaData = SettableMetadata(
-              customMetadata: {
+              customMetadata: <String, String>{
                 'width': '${imageSize.width}',
                 'height': '${imageSize.height}',
                 'owner' : ownerID,
@@ -225,7 +225,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     final List<String> _picturesURLs = <String>[];
 
-    for (var slide in slides) {
+    for (SlideModel slide in slides) {
 
       final String _picURL = await createStoragePicAndGetURL(
         context: context,

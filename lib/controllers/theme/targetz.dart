@@ -219,7 +219,7 @@ abstract class Targetz {
 
     for (TargetModel target in allTargets){
 
-      final TargetProgress _progress = targetsProgress.singleWhere((prog) => prog.targetID == target.id, orElse: () => null);
+      final TargetProgress _progress = targetsProgress.singleWhere((TargetProgress prog) => prog.targetID == target.id, orElse: () => null);
 
       final TargetModel _target = TargetModel(
         id: target.id,

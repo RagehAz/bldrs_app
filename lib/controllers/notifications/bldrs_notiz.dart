@@ -88,7 +88,7 @@ class BldrsNotiModelz {
   static const String notiSound = 'default';
   static const String notiStatus = 'done';
 
-  static const dynamic notiDefaultMap = {
+  static const dynamic notiDefaultMap = <String, dynamic>{
     "click_action": "FLUTTER_NOTIFICATION_CLICK",
     "sound": notiSound,
     "status": notiStatus,

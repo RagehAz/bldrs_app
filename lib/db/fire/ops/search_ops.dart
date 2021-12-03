@@ -36,16 +36,16 @@ abstract class FireSearchOps {
   /// GENERAL
 
 // -----------------------------------------------
-  static Future<QuerySnapshot> _searchAndGetCollectionSnapshots({
+  static Future<QuerySnapshot<Object>> _searchAndGetCollectionSnapshots({
     @required BuildContext context,
-    @required CollectionReference collRef,
+    @required CollectionReference<Object> collRef,
     @required ValueIs valueIs,
     @required String field,
     @required dynamic compareValue,
     @required int limit,
   }) async {
 
-    QuerySnapshot _collectionSnapshot;
+    QuerySnapshot<Object> _collectionSnapshot;
 
     await tryAndCatch(
         context: context,
@@ -150,9 +150,9 @@ abstract class FireSearchOps {
 
     // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
 
-    final CollectionReference _collRef = Fire.getCollectionRef(collName);
+    final CollectionReference<Object> _collRef = Fire.getCollectionRef(collName);
 
-    final QuerySnapshot _collectionSnapshot = await _searchAndGetCollectionSnapshots(
+    final QuerySnapshot<Object> _collectionSnapshot = await _searchAndGetCollectionSnapshots(
       context: context,
       collRef: _collRef,
       valueIs: valueIs,
@@ -190,13 +190,13 @@ abstract class FireSearchOps {
 
     // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
 
-    final CollectionReference _collRef = Fire.getSubCollectionRef(
+    final CollectionReference<Object> _collRef = Fire.getSubCollectionRef(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
     );
 
-    final QuerySnapshot _collectionSnapshot = await _searchAndGetCollectionSnapshots(
+    final QuerySnapshot<Object> _collectionSnapshot = await _searchAndGetCollectionSnapshots(
       context: context,
       collRef: _collRef,
       valueIs: valueIs,
@@ -221,7 +221,7 @@ abstract class FireSearchOps {
 // -----------------------------------------------
   static Future<dynamic> mapsByValueInArray({
     @required BuildContext context,
-    @required CollectionReference collRef,
+    @required CollectionReference<Object> collRef,
     @required String field,
     @required dynamic value,
     bool addDocsIDs = false,
@@ -235,7 +235,7 @@ abstract class FireSearchOps {
         methodName: 'mapsByValueInArray',
         functions: () async {
 
-          QuerySnapshot _collectionSnapshot;
+          QuerySnapshot<Object> _collectionSnapshot;
 
           /// if search value is just 1 string
           if (ObjectChecker.objectIsString(value) == true){
@@ -262,7 +262,7 @@ abstract class FireSearchOps {
 // -----------------------------------------------
   static Future<dynamic> mapsByTwoValuesEqualTo({
     @required BuildContext context,
-    @required CollectionReference collRef,
+    @required CollectionReference<Object> collRef,
     @required String fieldA,
     @required dynamic valueA,
     @required String fieldB,
@@ -278,7 +278,7 @@ abstract class FireSearchOps {
         methodName: 'mapsByTwoValuesEqualTo',
         functions: () async {
 
-          QuerySnapshot _collectionSnapshot;
+          QuerySnapshot<Object> _collectionSnapshot;
 
             _collectionSnapshot = await collRef
                 .where(fieldA, isEqualTo: valueA)
@@ -318,7 +318,7 @@ abstract class FireSearchOps {
           methodName: 'mapsByTwoValuesEqualTo',
           functions: () async {
 
-            final CollectionReference _flyersCollection = Fire.getCollectionRef(FireColl.flyers);
+            final CollectionReference<Object> _flyersCollection = Fire.getCollectionRef(FireColl.flyers);
 
 
             final String _flyerType = FlyerTypeClass.cipherFlyerType(flyerType);
@@ -326,7 +326,7 @@ abstract class FireSearchOps {
 
             print('searching flyers of type : $_flyerType : in $_zone');
 
-            final QuerySnapshot _collectionSnapshot = await _flyersCollection
+            final QuerySnapshot<Object> _collectionSnapshot = await _flyersCollection
                 .where('flyerType', isEqualTo: _flyerType)
                 .where('flyerZone.cityID', isEqualTo: _zone.cityID)
                 .get();
@@ -362,13 +362,13 @@ abstract class FireSearchOps {
         methodName: 'flyersByZoneAndKeyword',
         functions: () async {
 
-          final CollectionReference _flyersCollection = Fire.getCollectionRef(FireColl.flyers);
+          final CollectionReference<Object> _flyersCollection = Fire.getCollectionRef(FireColl.flyers);
 
           final ZoneModel _zone = zone;
 
           print('searching flyers of keyword : ${kw.id} : in ${_zone.countryID} - ${_zone.cityID}');
 
-          final QuerySnapshot _collectionSnapshot = await _flyersCollection
+          final QuerySnapshot<Object> _collectionSnapshot = await _flyersCollection
               .where('zone.countryID', isEqualTo: _zone.countryID)
               .where('zone.cityID', isEqualTo: _zone.cityID)
               .where('keywordsIDs', arrayContains: kw.id)
@@ -486,9 +486,9 @@ abstract class FireSearchOps {
         methodName: 'usersByNameAndIsAuthor',
         functions: () async {
 
-          final CollectionReference _usersCollection = Fire.getCollectionRef(FireColl.users);
+          final CollectionReference<Object> _usersCollection = Fire.getCollectionRef(FireColl.users);
 
-          final QuerySnapshot _collectionSnapshot = await _usersCollection
+          final QuerySnapshot<Object> _collectionSnapshot = await _usersCollection
               .where('myBzzIDs', isNotEqualTo: [])
               .where('trigram', arrayContains: name.trim().toLowerCase())
               .limit(limit)
@@ -601,7 +601,7 @@ abstract class FireSearchOps {
         methodName: 'mapsByTwoValuesEqualTo',
         functions: () async {
 
-          final CollectionReference _collRef = Fire.getSubCollectionRef(
+          final CollectionReference<Object> _collRef = Fire.getSubCollectionRef(
             collName: FireColl.zones,
             docName: FireDoc.zones_cities,
             subCollName: FireSubColl.zones_cities_cities,
@@ -612,7 +612,7 @@ abstract class FireSearchOps {
             numberOfCharacters: Standards.maxTrigramLength,
           );
 
-          final QuerySnapshot _collectionSnapshot = await _collRef
+          final QuerySnapshot<Object> _collectionSnapshot = await _collRef
               .where('countryID', isEqualTo: countryID)
               .where('names.$lingoCode.trigram', arrayContains: _searchValue)
               .get();

@@ -47,7 +47,7 @@ abstract class Imagers{
 
 // ---------------------------------------------------
   static Future<File> takeGalleryPicture({@required PicType picType}) async {
-    final _picker = ImagePicker();
+    final ImagePicker _picker = ImagePicker();
     File _result;
 
     final XFile _imageFile = await _picker.pickImage(
@@ -319,7 +319,7 @@ abstract class Imagers{
 
     print('====================================================================================== asset name is : ${asset.runtimeType}');
 
-    final _tempFile = File('${(await getTemporaryDirectory()).path}/${_name}');
+    final File _tempFile = File('${(await getTemporaryDirectory()).path}/${_name}');
     await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
     await _tempFile.create(recursive: true);
 
@@ -454,12 +454,12 @@ abstract class Imagers{
   static List<Asset> getOnlyAssetsFromDynamics(List<dynamic> inputs){
     List<Asset> _assets = <Asset>[];
 
-    if(inputs != null){
-      if(inputs.length > 0){
-        for (var x in inputs){
-          _assets.add(getOnlyAssetFromDynamic(x));
-        }
+    if (Mapper.canLoopList(inputs)){
+
+      for (dynamic x in inputs){
+        _assets.add(getOnlyAssetFromDynamic(x));
       }
+
     }
 
     return _assets;
@@ -481,7 +481,7 @@ abstract class Imagers{
 // ---------------------------------------------------
   static Future<ui.Image> getUiImageFromIntList(List<int> img) async {
 
-    final Completer <ui.Image> completer = new Completer();
+    final Completer<ui.Image> completer = new Completer<ui.Image>();
 
     ui.decodeImageFromList(img, (ui.Image img) {
       return completer.complete(img);
@@ -697,7 +697,7 @@ abstract class Imagers{
     @required List<Asset> assets,
     @required double flyerBoxWidth,
   }){
-    List<BoxFit> _fits = [];
+    List<BoxFit> _fits = <BoxFit>[];
 
     for (Asset asset in assets){
 
