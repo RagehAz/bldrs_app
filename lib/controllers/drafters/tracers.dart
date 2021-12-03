@@ -19,13 +19,13 @@ abstract class Tracer{
     }
   }
 // -----------------------------------------------------------------------------
-  static void traceSetState({@required screenName, @required String varName, @required dynamic varNewValue, bool tracerIsOn = true}){
+  static void traceSetState({@required String screenName, @required String varName, @required dynamic varNewValue, bool tracerIsOn = true}){
     if(_traceSetState == true && tracerIsOn == true){
       print('x - ss-> ${screenName} : ${varName} : ${varNewValue.toString()}');
     }
   }
 // -----------------------------------------------------------------------------
-  static void traceMethod({@required methodName, @required String varName,@required dynamic varNewValue, bool tracerIsOn = true}){
+  static void traceMethod({@required String methodName, @required String varName,@required dynamic varNewValue, bool tracerIsOn = true}){
     if(_traceSetState == true && tracerIsOn == true){
       print('x - mm-> ${methodName} : ${varName} : ${varNewValue.toString()}');
     }

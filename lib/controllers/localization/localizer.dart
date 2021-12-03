@@ -42,13 +42,13 @@ class Localizer{
 // -----------------------------------------------------------------------------
   static const LocalizationsDelegate<Localizer> delegate = _DemoLocalizationDelegate();
 // -----------------------------------------------------------------------------
-  Future load() async {
+  Future<void> load() async {
     final String _jsonStringValues =
         await rootBundle.loadString('assets/languages/${locale.languageCode}.json');
 
     final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
 
-    _localizedValues = _mappedJson.map((key, value) => MapEntry(key, value.toString()));
+    _localizedValues = _mappedJson.map((String key, value) => MapEntry(key, value.toString()));
   }
 // -----------------------------------------------------------------------------
   String getTranslatedValue(String key) {
@@ -161,14 +161,14 @@ class Localizer{
         _jsonStringValues = await rootBundle.loadString('assets/languages/${lingoCode}.json');
 
         },
-      onError: (error){},
+      onError: (String error){},
     );
 
     if (_result == true){
 
       final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
 
-      final Map<String, dynamic> _map = _mappedJson.map((key, value) => MapEntry(key, value.toString()));
+      final Map<String, dynamic> _map = _mappedJson.map((String key, value) => MapEntry(key, value.toString()));
 
       _output = _map[countryID];
 
@@ -185,7 +185,7 @@ class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {
 
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'ar', 'es', 'fr', 'zh', 'de', 'it'].contains(locale.languageCode);
+    return <String>['en', 'ar', 'es', 'fr', 'zh', 'de', 'it'].contains(locale.languageCode);
   }
 
   @override

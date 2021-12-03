@@ -160,7 +160,7 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
 @override
   Widget build(BuildContext context) {
 
-    print({'building Bldrs with _locale : $_locale'});
+    print('building Bldrs with _locale : $_locale');
 
     if (_locale == null) {
       return Container(
@@ -253,7 +253,7 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
                 },
                 onGenerateRoute: Routerer.allRoutes,
                 initialRoute: Routez.UserChecker,
-                routes: {
+                routes: <String, Widget Function(BuildContext)>{
                   Routez.FlyerScreen: (BuildContext ctx) => const FlyerScreen(),
                   // Routez.Starting: (ctx) => StartingScreen(),
                   Routez.UserChecker: (BuildContext ctx) => UserChecker(key: const ValueKey<String>('userChecker'),),

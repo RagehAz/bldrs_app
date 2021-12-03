@@ -124,9 +124,9 @@ class _NotificationMakerState extends State<NotificationMaker> {
       child: Column(
         children: <Widget>[
 
-          ...List.generate(
+          ...List<Widget>.generate(
               _attachmentTypesList.length,
-                  (index) {
+                  (int index) {
 
                 final String _attachmentTypeString = TextMod.removeTextBeforeLastSpecialCharacter(_attachmentTypesList[index].toString(), '.');
                 final Color _color = _attachmentType == _attachmentTypesList[index]? Colorz.yellow255 : Colorz.blue20;

@@ -21,12 +21,12 @@ abstract class FireBzOps{
 
 // ------------------------------------------------
   /// bzz firestore collection reference getter
-  static CollectionReference collRef(){
+  static CollectionReference<Object> collRef(){
     return Fire.getCollectionRef(FireColl.bzz);
   }
 // ------------------------------------------------
   /// bz firestore document reference
-  static DocumentReference docRef(String bzID){
+  static DocumentReference<Object> docRef(String bzID){
     return
       Fire.getDocRef(
           collName: FireColl.bzz,
@@ -48,10 +48,10 @@ abstract class FireBzOps{
     // inputBz has inputBz.bzLogo & inputBz.authors[0].authorPic as Files not URLs
 
     /// create empty firestore bz doc to get back _bzID
-    final DocumentReference _docRef = await Fire.createDoc(
+    final DocumentReference<Object> _docRef = await Fire.createDoc(
       context: context,
       collName: FireColl.bzz,
-      input: {},
+      input: <String, dynamic>{},
     );
     final String _bzID = _docRef.id;
 
@@ -188,7 +188,7 @@ abstract class FireBzOps{
 
     final List<BzModel> _bzzToDeactivate = <BzModel>[];
     final List<BzModel> _bzzToKeep = <BzModel>[];
-    for (var id in userModel.myBzzIDs){
+    for (String id in userModel.myBzzIDs){
 
       final BzModel _bz = await FireBzOps.readBz(
         context: context,
@@ -203,7 +203,7 @@ abstract class FireBzOps{
 
     }
 
-    final Map<String, dynamic> _bzzMap = {
+    final Map<String, dynamic> _bzzMap = <String, dynamic>{
       'bzzToKeep' : _bzzToKeep,
       'bzzToDeactivate' : _bzzToDeactivate,
     };
@@ -344,7 +344,7 @@ abstract class FireBzOps{
     final List<String> _flyersIDs = bzModel.flyersIDs;
 
     if (_flyersIDs.length > 0){
-      for (var id in _flyersIDs){
+      for (String id in _flyersIDs){
         await FireFlyerOps.deactivateFlyerOps(
           context: context,
           bzModel: bzModel,
@@ -361,8 +361,8 @@ abstract class FireBzOps{
 
       final UserModel _user = await UserFireOps.readUser(context: context, userID: id);
 
-      final List<dynamic> _myBzzIDs = _user.myBzzIDs;
-      final int _bzIndex = _myBzzIDs.indexWhere((id) => id == bzModel.id);
+      final List<String> _myBzzIDs = _user.myBzzIDs;
+      final int _bzIndex = _myBzzIDs.indexWhere((String id) => id == bzModel.id);
       _myBzzIDs.removeAt(_bzIndex);
 
       await Fire.updateDocField(
@@ -407,7 +407,7 @@ abstract class FireBzOps{
     // final List<String> _flyersIDs = bzModel.flyersIDs;
     if(Mapper.canLoopList(bzModel.flyersIDs)){
 
-      for (var id in bzModel.flyersIDs){
+      for (String id in bzModel.flyersIDs){
 
         print('a - getting flyer : $id');
         final FlyerModel _flyerModel = await FireFlyerOps.readFlyerOps(
@@ -493,7 +493,7 @@ abstract class FireBzOps{
     );
 
     print('11 - delete all authors pictures');
-    for (var id in _authorsIDs){
+    for (String id in _authorsIDs){
 
       final String _authorPicName = AuthorModel.generateAuthorPicID(
           authorID: id,

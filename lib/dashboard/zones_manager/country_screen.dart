@@ -66,7 +66,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
   void initState() {
     super.initState();
     // _countriesCollection = _fireInstance.collection('countries');
-    _name = Name.getNameByCurrentLingoFromNames(context, widget.country.names);
+    _name = 'blah';//Name.getNameByCurrentLingoFromNames(context, widget.country.names);
     _region = widget.country.region;
     _continent = widget.country.continent;
     _flag = Flag.getFlagIconByCountryID(widget.country.id);
@@ -94,7 +94,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final List<String> _citiesNames = [];
+    final List<String> _citiesNames = <String>[];
     // CityModel.getCitiesNamesFromCountryModelByCurrentLingo(
     //   context: context,
     //   country: widget.country,
@@ -147,7 +147,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
           /// --- NAME
           TextFieldBubble(
             title: 'Country Name',
-            textOnChanged: (val) => setState(() {_name = val;}),
+            textOnChanged: (String val) => setState(() {_name = val;}),
             fieldIsRequired: true,
             fieldIsFormField: true,
             initialTextValue: _name,

@@ -28,7 +28,7 @@ abstract class TextMod {
   static List<String> sortAlphabetically2(List<String> inputList){
   // List<String> _outputList = <String>[];
 
-  inputList.sort((a, b) => a.toString().compareTo(b.toString()));
+  inputList.sort((String a, String b) => a.toString().compareTo(b.toString()));
 
   return inputList;
 }
@@ -247,7 +247,7 @@ abstract class TextMod {
 }
 // -----------------------------------------------------------------------------
   /// converts list of strings to map of keywords with true map value
-  static Future<Map<String, dynamic>> getKeywordsMap(List<dynamic> list) async {
+  static Future<Map<String, dynamic>> getKeywordsMap(List<String> keywordsIDs) async {
     /// example
     ///
     /// List<String> listExample = <String>['construction', 'architecture', 'decor'];
@@ -274,13 +274,15 @@ abstract class TextMod {
   // Map<int, String> _result = list.asMap();
 
   // mirroring the map
-  Map<String, dynamic> _stringIndexMap = {};
+  Map<String, dynamic> _stringIndexMap = <String, dynamic>{};
   int _index = 0;
-  await Future.forEach(list, (keyword){
+  await Future.forEach(keywordsIDs, (String keywordID){
 
-    _stringIndexMap.addAll({
-      keyword : _index,
-    });
+    _stringIndexMap.addAll(
+        <String, dynamic>{
+          keywordID : _index,
+        }
+        );
     _index++;
 
   });
@@ -289,7 +291,7 @@ abstract class TextMod {
 }
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> getValueAndTrueMap(List<String> list){
-    final Map<String, dynamic> _result = { for (var string in list) string : true };
+    final Map<String, dynamic> _result = <String, dynamic>{ for (String string in list) string : true };
   return _result;
 }
 // -----------------------------------------------------------------------------
