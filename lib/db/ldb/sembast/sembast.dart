@@ -94,7 +94,7 @@ class Sembast {
 
   }
 // -----------------------------------------------------------------------------
-  static Future insertAll({
+  static Future<void> insertAll({
     @required String primaryKey,
     @required List<Map<String, Object>> inputs,
     @required String docName,
@@ -102,7 +102,7 @@ class Sembast {
 
     if (Mapper.canLoopList(inputs)){
 
-      for (var map in inputs){
+      for (Map<String, Object> map in inputs){
 
         await insert(primaryKey: primaryKey, map: map, docName: docName);
 
@@ -142,7 +142,7 @@ class Sembast {
       // finder: _finder,
     );
 
-    final List<Map<String, Object>> _maps = _recordSnapshots.map((snapshot){
+    final List<Map<String, Object>> _maps = _recordSnapshots.map((RecordSnapshot<int, Map<String, Object>> snapshot){
       return snapshot.value;
     }).toList();
 
@@ -183,7 +183,7 @@ class Sembast {
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
 
-    final _finder = Finder(
+    final Finder _finder = Finder(
       filter: Filter.equals(searchField, searchValue, anyInList: true),
       sortOrders: <SortOrder>[
         SortOrder(fieldToSortBy)
@@ -195,7 +195,7 @@ class Sembast {
       finder: _finder,
     );
 
-    final List<Map<String, Object>> _maps = _recordSnapshots.map((snapshot){
+    final List<Map<String, Object>> _maps = _recordSnapshots.map((RecordSnapshot<int, Map<String, Object>> snapshot){
       return snapshot.value;
     }).toList();
 
@@ -212,7 +212,7 @@ class Sembast {
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
 
-    final _finder = Finder(
+    final Finder _finder = Finder(
       filter: Filter.equals(searchField, searchValue, anyInList: false),
       // sortOrders: <SortOrder>[
       //   SortOrder(fieldToSortBy)
@@ -290,7 +290,7 @@ class Sembast {
 
     List<Map<String, Object>> _allMaps = await readAll(docName: docName);
 
-    for (var map in _allMaps){
+    for (Map<String, Object> map in _allMaps){
 
       final String _id = map[primaryKey];
 

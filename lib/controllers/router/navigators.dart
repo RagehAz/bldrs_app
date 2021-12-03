@@ -129,12 +129,12 @@ abstract class Nav{
   }
 // -----------------------------------------------------------------------------
   static Future<dynamic> replaceScreen(BuildContext context, Widget screen) async {
-    final dynamic _result = await Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => screen));
+    final dynamic _result = await Navigator.pushReplacement(context, MaterialPageRoute<dynamic>(builder: (BuildContext context) => screen));
     return _result;
   }
 // -----------------------------------------------------------------------------
   static Future<void> removeRouteBelow(BuildContext context, Widget screen) async {
-    Navigator.removeRouteBelow(context, MaterialPageRoute(builder: (BuildContext context) => screen));
+    Navigator.removeRouteBelow(context, MaterialPageRoute<dynamic>(builder: (BuildContext context) => screen));
   }
 // -----------------------------------------------------------------------------
   static Future<void> pushNamedAndRemoveAllBelow(BuildContext context, String goToRoute) async {
@@ -146,10 +146,10 @@ abstract class Nav{
 
     await Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(
+        MaterialPageRoute<dynamic>(
             builder: (_) => screen,
         ),
-            (Route route) => route.isFirst
+            (Route<dynamic> route) => route.isFirst
     );
   }
 // -----------------------------------------------------------------------------

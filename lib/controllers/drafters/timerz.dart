@@ -65,7 +65,7 @@ abstract class Timers {
   /// "2019-07-19 8:40:23"
   static final DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
 // -----------------------------------------------------------------------------
-  static dynamic cipherTime({@required DateTime time, @required toJSON}){
+  static dynamic cipherTime({@required DateTime time, @required bool toJSON}){
     final dynamic _output = toJSON ? _cipherDateTimeIso8601(time) : time;
     return _output;
   }
@@ -80,7 +80,7 @@ abstract class Timers {
 
     if (Mapper.canLoopList(times)){
 
-      for (var time in times){
+      for (DateTime time in times){
         _times.add(cipherTime(
           time: time,
           toJSON: toJSON,

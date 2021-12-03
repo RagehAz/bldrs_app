@@ -37,21 +37,21 @@ abstract class Fire{
   /// REFERENCES
 
 // ---------------------------------------------------
-  static CollectionReference getCollectionRef (String collName){
+  static CollectionReference<Object> getCollectionRef (String collName){
     final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
-    final CollectionReference _collection = _fireInstance.collection(collName);
+    final CollectionReference<Object> _collection = _fireInstance.collection(collName);
     return _collection;
   }
 // ---------------------------------------------------
-  static DocumentReference getDocRef ({
+  static DocumentReference<Object> getDocRef ({
     @required String collName,
     @required String docName,
   }){
-    final CollectionReference _collection = Fire.getCollectionRef(collName);
-    final DocumentReference _doc =  _collection.doc(docName);
+    final CollectionReference<Object> _collection = Fire.getCollectionRef(collName);
+    final DocumentReference<Object> _doc =  _collection.doc(docName);
 
     // or this syntax
-    // final DocumentReference _doc =
+    // final DocumentReference<Object> _doc =
     // FirebaseFirestore.instance
     //     .collection(collName)
     //     .doc(docName)
@@ -59,16 +59,16 @@ abstract class Fire{
     return _doc;
   }
 // ---------------------------------------------------
-  static CollectionReference getSubCollectionRef ({
+  static CollectionReference<Object> getSubCollectionRef ({
     @required String collName,
     @required String docName,
     @required String subCollName
   }){
-    final CollectionReference _subCollection = FirebaseFirestore.instance
+    final CollectionReference<Object> _subCollection = FirebaseFirestore.instance
         .collection('$collName/$docName/$subCollName');
 
     // or this syntax
-    // final CollectionReference _subCollection =
+    // final CollectionReference<Object> _subCollection =
     // FirebaseFirestore.instance
     //     .collection(collName)
     //     .doc(docName)
@@ -77,18 +77,18 @@ abstract class Fire{
     return _subCollection;
   }
 // ---------------------------------------------------
-  static DocumentReference getSubDocRef ({
+  static DocumentReference<Object> getSubDocRef ({
     @required String collName,
     @required String docName,
     @required String subCollName,
     @required String subDocName,
   }){
-    final CollectionReference _subCollection = FirebaseFirestore.instance
+    final CollectionReference<Object> _subCollection = FirebaseFirestore.instance
         .collection('$collName/$docName/$subCollName');
-    final DocumentReference _subDocRef = _subCollection.doc(subDocName);
+    final DocumentReference<Object> _subDocRef = _subCollection.doc(subDocName);
 
     // or this syntax
-    // final DocumentReference _subDocRef =
+    // final DocumentReference<Object> _subDocRef =
     // FirebaseFirestore.instance
     //     .collection(collName)
     //     .doc(docName)
@@ -103,21 +103,21 @@ abstract class Fire{
 
 // ---------------------------------------------------
   /// creates firestore doc with auto generated ID then returns doc reference
-  static Future<DocumentReference> createDoc({
+  static Future<DocumentReference<Object>> createDoc({
     @required BuildContext context,
     @required String collName,
     @required Map<String, dynamic> input,
     bool addDocID = false,
   }) async {
 
-    DocumentReference _docRef;
+    DocumentReference<Object> _docRef;
 
     await tryAndCatch(
         context: context,
         methodName: 'createDoc',
         functions: () async {
 
-          final CollectionReference _bzCollectionRef = Fire.getCollectionRef(collName);
+          final CollectionReference<Object> _bzCollectionRef = Fire.getCollectionRef(collName);
 
           _docRef = _bzCollectionRef.doc();
 
@@ -139,21 +139,21 @@ abstract class Fire{
     return _docRef;
   }
 // ---------------------------------------------------
-  static Future<DocumentReference> createNamedDoc({
+  static Future<DocumentReference<Object>> createNamedDoc({
     @required BuildContext context,
     @required String collName,
     @required String docName,
     @required Map<String, dynamic> input,
   }) async {
 
-    DocumentReference _docRef;
+    DocumentReference<Object> _docRef;
 
     await tryAndCatch(
         context: context,
         methodName: 'createNamedDoc',
         functions: () async {
 
-          final _docRef = getDocRef(
+          final DocumentReference<Object> _docRef = getDocRef(
             collName: collName,
             docName: docName,
           );
@@ -168,7 +168,7 @@ abstract class Fire{
   }
 // ---------------------------------------------------
   /// creates firestore sub doc with auto ID
-  static Future<DocumentReference> createSubDoc({
+  static Future<DocumentReference<Object>> createSubDoc({
     @required BuildContext context,
     @required String collName,
     @required String docName,
@@ -181,7 +181,7 @@ abstract class Fire{
     /// updates the sub doc if existed
     /// and creates random name for sub doc if sub doc name is null
 
-    final DocumentReference _subDocRef = await createNamedSubDoc(
+    final DocumentReference<Object> _subDocRef = await createNamedSubDoc(
       context: context,
       collName: collName,
       docName: docName,
@@ -193,7 +193,7 @@ abstract class Fire{
     return _subDocRef;
   }
 // ---------------------------------------------------
-  static Future<DocumentReference> createNamedSubDoc({
+  static Future<DocumentReference<Object>> createNamedSubDoc({
     @required BuildContext context,
     @required String collName,
     @required String docName,
@@ -207,7 +207,7 @@ abstract class Fire{
     /// updates the sub doc if existed
     /// and creates random name for sub doc if sub doc name is null
 
-    DocumentReference _subDocRef;
+    DocumentReference<Object> _subDocRef;
 
     await tryAndCatch(
         context: context,
@@ -235,10 +235,10 @@ abstract class Fire{
   /// READ
 
 // ---------------------------------------------------
-  static Future<dynamic> _getMapByDocRef(DocumentReference docRef) async {
+  static Future<dynamic> _getMapByDocRef(DocumentReference<Object> docRef) async {
     dynamic _map;
 
-    final DocumentSnapshot snapshot = await docRef.get();
+    final DocumentSnapshot<Object> snapshot = await docRef.get();
 
     if (snapshot.exists == true){
       _map = Mapper.getMapFromDocumentSnapshot(snapshot);
@@ -256,14 +256,14 @@ abstract class Fire{
     @required String collName,
     @required String orderBy,
     @required int limit,
-    QueryDocumentSnapshot startAfter,
+    QueryDocumentSnapshot<Object> startAfter,
     bool addDocSnapshotToEachMap = false,
     bool addDocsIDs = false,
   }) async {
 
-    final QueryDocumentSnapshot _startAfter = startAfter ?? null;
+    final QueryDocumentSnapshot<Object> _startAfter = startAfter ?? null;
 
-    QuerySnapshot _collectionSnapshot;
+    QuerySnapshot<Object> _collectionSnapshot;
 
 
     if(_startAfter == null){
@@ -276,12 +276,12 @@ abstract class Fire{
 
 
 
-    final List<QueryDocumentSnapshot> _docsSnapshots = _collectionSnapshot.docs;
+    final List<QueryDocumentSnapshot<Object>> _docsSnapshots = _collectionSnapshot.docs;
 
     /// to return maps
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    for (QueryDocumentSnapshot docSnapshot in _docsSnapshots){
+    for (QueryDocumentSnapshot<Object> docSnapshot in _docsSnapshots){
 
       Map<String, dynamic> _map = docSnapshot.data();
 
@@ -304,7 +304,7 @@ abstract class Fire{
       _maps.add(_map);
 
     }
-    // return <List<QueryDocumentSnapshot>>
+    // return <List<QueryDocumentSnapshot<Object>>>
 
     return _maps;
   }
@@ -327,7 +327,7 @@ abstract class Fire{
       methodName: 'readDoc',
       functions: () async {
 
-        final DocumentReference _docRef = Fire.getDocRef(
+        final DocumentReference<Object> _docRef = Fire.getDocRef(
             collName: collName,
             docName: docName
         );
@@ -382,14 +382,14 @@ abstract class Fire{
     @required int limit,
     @required String orderBy,
     @required bool addDocSnapshotToEachMap,
-    QueryDocumentSnapshot startAfter,
+    QueryDocumentSnapshot<Object> startAfter,
   }) async {
 
     /*
 
         final QueryDocumentSnapshot _startAfter = startAfter ?? null;
 
-    QuerySnapshot _collectionSnapshot;
+    QuerySnapshot<Object> _collectionSnapshot;
 
 
     if(_startAfter == null){
@@ -446,15 +446,15 @@ abstract class Fire{
         methodName: 'readSubCollectionDocs',
         functions: () async {
 
-          final CollectionReference _subCollection = getSubCollectionRef(
+          final CollectionReference<Object> _subCollection = getSubCollectionRef(
             collName: collName,
             docName: docName,
             subCollName: subCollName,
           );
 
-          QuerySnapshot _collectionSnapshot;
+          QuerySnapshot<Object> _collectionSnapshot;
 
-          final QueryDocumentSnapshot _startAfter = startAfter ?? null;
+          final QueryDocumentSnapshot<Object> _startAfter = startAfter ?? null;
 
           if(_startAfter == null){
             _collectionSnapshot = await _subCollection.orderBy(orderBy).limit(limit).get();
@@ -493,7 +493,7 @@ abstract class Fire{
         methodName: 'readSubDoc',
         functions: () async {
 
-          final DocumentReference _subDocRef = getSubDocRef(
+          final DocumentReference<Object> _subDocRef = getSubDocRef(
             collName: collName,
             docName: docName,
             subCollName: subCollName,
@@ -508,13 +508,13 @@ abstract class Fire{
     return _map;
   }
 // ---------------------------------------------------
-  static Stream<QuerySnapshot> streamCollection(String collectionName){
-    final CollectionReference _collection = Fire.getCollectionRef(collectionName);
-    final Stream<QuerySnapshot> _snapshots = _collection.snapshots();
+  static Stream<QuerySnapshot<Object>> streamCollection(String collectionName){
+    final CollectionReference<Object> _collection = Fire.getCollectionRef(collectionName);
+    final Stream<QuerySnapshot<Object>> _snapshots = _collection.snapshots();
     return _snapshots;
   }
 // ---------------------------------------------------
-  static Stream<QuerySnapshot> streamSubCollection({
+  static Stream<QuerySnapshot<Object>> streamSubCollection({
     @required String collName,
     @required String docName,
     @required String subCollName,
@@ -524,13 +524,13 @@ abstract class Fire{
     dynamic compareValue,
   }){
 
-    final CollectionReference _collection = Fire.getSubCollectionRef(
+    final CollectionReference<Object> _collection = Fire.getSubCollectionRef(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
     );
 
-    Stream<QuerySnapshot> _snapshots;
+    Stream<QuerySnapshot<Object>> _snapshots;
 
     if (field != null && compareValue != null){
       _snapshots = _collection
@@ -550,30 +550,30 @@ abstract class Fire{
     return _snapshots;
   }
 // ---------------------------------------------------
-  static Stream<DocumentSnapshot> streamDoc(String collectionName, String documentName){
-    final DocumentReference _document = Fire.getDocRef(
+  static Stream<DocumentSnapshot<Object>> streamDoc(String collectionName, String documentName){
+    final DocumentReference<Object> _document = Fire.getDocRef(
         collName: collectionName,
         docName: documentName
     );
-    final Stream<DocumentSnapshot> _snapshots = _document.snapshots();
+    final Stream<DocumentSnapshot<Object>> _snapshots = _document.snapshots();
     return _snapshots;
   }
 // ---------------------------------------------------
-  static Stream<DocumentSnapshot> streamSubDoc({
+  static Stream<DocumentSnapshot<Object>> streamSubDoc({
     @required String collName,
     @required String docName,
     @required String subCollName,
     @required String subDocName,
   }){
 
-    final DocumentReference _document = Fire.getSubDocRef(
+    final DocumentReference<Object> _document = Fire.getSubDocRef(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
       subDocName: subDocName,
     );
 
-    final Stream<DocumentSnapshot> _snapshots = _document.snapshots();
+    final Stream<DocumentSnapshot<Object>> _snapshots = _document.snapshots();
 
     return _snapshots;
   }
@@ -602,7 +602,7 @@ abstract class Fire{
     //     context: context,
     //     functions: () async {
     //
-    //       DocumentReference _docRef = getDocRef(collName, docName);
+    //       DocumentReference<Object> _docRef = getDocRef(collName, docName);
     //       await _docRef.set(input);
     //
     //     }
@@ -618,7 +618,7 @@ abstract class Fire{
     @required dynamic input
   }) async {
 
-    final DocumentReference _doc =  Fire.getDocRef(
+    final DocumentReference<Object> _doc =  Fire.getDocRef(
         collName: collName,
         docName: docName
     );
@@ -628,7 +628,7 @@ abstract class Fire{
         methodName: 'updateDocField',
         functions: () async {
 
-          await _doc.update({field : input});
+          await _doc.update(<String, dynamic>{field : input});
 
           print('Updated doc : $docName : field : [$field] : to : ${input.toString()}');
 
@@ -668,7 +668,7 @@ abstract class Fire{
     @required dynamic input
   }) async {
 
-    final DocumentReference _subDoc =  Fire.getSubDocRef(
+    final DocumentReference<Object> _subDoc =  Fire.getSubDocRef(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
@@ -700,7 +700,7 @@ abstract class Fire{
         methodName: 'deleteDoc',
         functions: () async {
 
-          final DocumentReference _doc = Fire.getDocRef(
+          final DocumentReference<Object> _doc = Fire.getDocRef(
             collName: collName,
             docName: docName,
           );
@@ -724,7 +724,7 @@ abstract class Fire{
         methodName: 'deleteSubDoc',
         functions: () async {
 
-          final DocumentReference _subDoc = Fire.getSubDocRef(
+          final DocumentReference<Object> _subDoc = Fire.getSubDocRef(
             collName: collName,
             docName: docName,
             subCollName: subCollName,
@@ -800,7 +800,7 @@ abstract class Fire{
     @required String field,
   }) async {
 
-    final DocumentReference _docRef = Fire.getDocRef(
+    final DocumentReference<Object> _docRef = Fire.getDocRef(
       collName: collName,
       docName: docName,
     );
@@ -813,7 +813,7 @@ abstract class Fire{
     // Remove field from the document
     final Map<String, Object> updates = new Map<String, Object>();
 
-    updates.addAll({
+    updates.addAll(<String, dynamic>{
       field : FieldValue.delete(),
     });
 
@@ -833,7 +833,7 @@ abstract class Fire{
     @required String subDocName,
   }) async {
 
-    final DocumentReference _docRef = Fire.getSubDocRef(
+    final DocumentReference<Object> _docRef = Fire.getSubDocRef(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
@@ -848,7 +848,7 @@ abstract class Fire{
           // Remove field from the document
           final Map<String, Object> updates = new Map<String, Object>();
 
-          updates.addAll({
+          updates.addAll(<String, dynamic>{
             field : FieldValue.delete(),
           });
 

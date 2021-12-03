@@ -14,7 +14,7 @@ abstract class DeviceChecker{
   }
 // -----------------------------------------------------------------------------
   static bool deviceIsLandscape(BuildContext context){
-    final _mediaQuery = MediaQuery.of(context);
+    final MediaQueryData _mediaQuery = MediaQuery.of(context);
     return
       _mediaQuery.orientation == Orientation.landscape ? true : false;
   }

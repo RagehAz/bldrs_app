@@ -27,13 +27,13 @@ abstract class UserFireOps{
 
 // ---------------------------------------------------
   /// users firestore collection reference getter
-  static CollectionReference collRef(){
-    final CollectionReference _usersCollectionRef = Fire.getCollectionRef(FireColl.users);
+  static CollectionReference<Object> collRef(){
+    final CollectionReference<Object> _usersCollectionRef = Fire.getCollectionRef(FireColl.users);
     return _usersCollectionRef;
   }
 // ---------------------------------------------------
   /// user firestore document reference
-  static DocumentReference docRef(String userID){
+  static DocumentReference<Object> docRef(String userID){
     return
       Fire.getDocRef(
           collName: FireColl.users,
@@ -123,8 +123,8 @@ abstract class UserFireOps{
       isAdmin: userModel.isAdmin,
       emailIsVerified: userModel.emailIsVerified,
       fcmToken: userModel.fcmToken,
-      followedBzzIDs: [],
-      savedFlyersIDs: [],
+      followedBzzIDs: <String>[],
+      savedFlyersIDs: <String>[],
     );
 
     /// create user doc in fireStore
@@ -187,7 +187,7 @@ abstract class UserFireOps{
       /// E3 - return new userModel inside userModel-firstTimer map
       return
 
-        {
+        <String, dynamic>{
           'userModel' : _finalUserModel,
           'firstTimer' : true,
         };
@@ -199,7 +199,7 @@ abstract class UserFireOps{
 
       /// E3 - return existing userMode inside userModel-firstTimer map
       return
-        {
+        <String, dynamic>{
           'userModel' : _existingUserModel,
           'firstTimer' : false,
         };
@@ -349,7 +349,7 @@ abstract class UserFireOps{
     @required String userID
   }) async {
 
-    final List<String> _savedFlyersIDs = [];
+    final List<String> _savedFlyersIDs = <String>[];
 
     if (Mapper.canLoopList(savedFlyersIDs)){
       _savedFlyersIDs.addAll(savedFlyersIDs);
@@ -374,7 +374,7 @@ abstract class UserFireOps{
   }) async {
 
 
-    final int _index = savedFlyersIDs.indexWhere((id) => id == flyerID);
+    final int _index = savedFlyersIDs.indexWhere((String id) => id == flyerID);
 
     if (_index >= 0){
 
@@ -516,7 +516,7 @@ abstract class UserFireOps{
             );
 
             /// G - DEACTIVATE all deactivable bzz
-            for (var bz in _bzzToDeactivate){
+            for (BzModel bz in _bzzToDeactivate){
               await FireBzOps.deactivateBz(
                 context: context,
                 bzModel: bz,
@@ -706,7 +706,7 @@ abstract class UserFireOps{
             );
 
             /// G - DELETE all deactivable bzz : firestore/bzz/bzID
-            for (var bz in _bzzToDeactivate){
+            for (BzModel bz in _bzzToDeactivate){
               await FireBzOps.deleteBz(
                 context: context,
                 bzModel: bz,

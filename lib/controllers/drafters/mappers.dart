@@ -48,12 +48,12 @@ abstract class Mapper{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String, dynamic>> getMapsFromQuerySnapshot({
-    @required QuerySnapshot querySnapshot,
+    @required QuerySnapshot<Object> querySnapshot,
     @required bool addDocsIDs,
     @required bool addDocSnapshotToEachMap,
   }){
 
-    final List<QueryDocumentSnapshot> _docsSnapshots = querySnapshot?.docs;
+    final List<QueryDocumentSnapshot<Object>> _docsSnapshots = querySnapshot?.docs;
 
     final List<Map<String, dynamic>> _maps = getMapsFromQueryDocumentSnapshotsList(
       queryDocumentSnapshots: _docsSnapshots,
@@ -65,7 +65,7 @@ abstract class Mapper{
   }
 // -----------------------------------------------------------------------------
   static List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
-    @required List<QueryDocumentSnapshot> queryDocumentSnapshots,
+    @required List<QueryDocumentSnapshot<Object>> queryDocumentSnapshots,
     @required bool addDocsIDs,
     @required bool addDocSnapshotToEachMap,
   }){
@@ -74,7 +74,7 @@ abstract class Mapper{
 
     if (Mapper.canLoopList(queryDocumentSnapshots)){
 
-      for (QueryDocumentSnapshot docSnapshot in queryDocumentSnapshots){
+      for (QueryDocumentSnapshot<Object> docSnapshot in queryDocumentSnapshots){
 
         final String _docID = docSnapshot.id;
 
@@ -101,7 +101,7 @@ abstract class Mapper{
     return _maps;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, dynamic> getMapFromDocumentSnapshot(DocumentSnapshot documentSnapshot){
+  static Map<String, dynamic> getMapFromDocumentSnapshot(DocumentSnapshot<Object> documentSnapshot){
     final Map<String, dynamic> _map = documentSnapshot.data();
     return _map;
 

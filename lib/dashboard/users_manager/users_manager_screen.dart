@@ -70,7 +70,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 // -----------------------------------------------------------------------------
   ScrollController _scrollController = ScrollController();
 // -----------------------------------------------------------------------------
-  QueryDocumentSnapshot _lastSnapshot;
+  QueryDocumentSnapshot<Object> _lastSnapshot;
   List<UserModel> _usersModels = <UserModel>[];
   Future<void> _readMoreUsers() async {
 
