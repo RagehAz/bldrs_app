@@ -29,7 +29,7 @@ class ZonesManagerScreen extends StatefulWidget {
 class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
   List<CountryModel> _countries;
   ScrollController _ScrollController;
-  QueryDocumentSnapshot _lastSnap;
+  QueryDocumentSnapshot<Object> _lastSnap;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -107,7 +107,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
 
     List<CountryModel> _countriesModels = CountryModel.decipherCountriesMaps(maps: _maps, fromJSON: false);
 
-    QueryDocumentSnapshot _snap = _maps[_maps.length - 1]['docSnapshot'];
+    QueryDocumentSnapshot<Object> _snap = _maps[_maps.length - 1]['docSnapshot'];
 
     setState(() {
       _countries = _countriesModels;

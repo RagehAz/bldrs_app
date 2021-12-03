@@ -49,7 +49,7 @@ class FireFlyerOps{
     print('1- staring create flyer ops');
 
     /// create empty firestore flyer document to get back _flyerID
-    final DocumentReference _docRef = await Fire.createDoc(
+    final DocumentReference<Object> _docRef = await Fire.createDoc(
       context: context,
       collName: FireColl.flyers,
       input: inputFlyerModel.toMap(toJSON: false),
@@ -279,7 +279,7 @@ class FireFlyerOps{
 
       /// A1 - loop each slide in updated slides to check which changed
       final List<SlideModel> _finalSlides = <SlideModel>[];
-      for (var slide in updatedFlyer.slides){
+      for (SlideModel slide in updatedFlyer.slides){
 
         print('A1 - checking slide ${slide.slideIndex}');
 
@@ -354,7 +354,7 @@ class FireFlyerOps{
       }
 
       /// B2 - delete pictures from fireStorage/slidesPics/slideID : slide ID is "flyerID_index"
-      for (var slideID in _slidesIDsToBeDeleted){
+      for (String slideID in _slidesIDsToBeDeleted){
         await Storage.deleteStoragePic(
           context: context,
           docName: StorageDoc.slides,
@@ -529,7 +529,7 @@ class FireFlyerOps{
         flyerID: flyerModel.id,
         numberOfSlides: flyerModel.slides.length,
       );
-      for (var id in _slidesIDs){
+      for (String id in _slidesIDs){
 
         print('a - delete slideHighRes : $id from ${_slidesIDs.length} slides');
         await Storage.deleteStoragePic(

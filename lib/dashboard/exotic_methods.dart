@@ -45,7 +45,7 @@ abstract class ExoticMethods{
         fromJSON: false,
       );
 
-      for (var user in _allUserModels){
+      for (UserModel user in _allUserModels){
 
         await LDBOps.insertMap(
           docName: LDBDoc.users,
@@ -147,7 +147,7 @@ abstract class ExoticMethods{
 
     List<CountryModel> _countries = <CountryModel>[];
 
-    for (var id in _allCountriesIDs){
+    for (String id in _allCountriesIDs){
 
       CountryModel _country = await zoneProvider.fetchCountryByID(context: context, countryID: id);
 
@@ -185,7 +185,7 @@ abstract class ExoticMethods{
 
 
       /// add region to continent
-      final int _continentIndex = _continents.indexWhere((continent) => continent.name == country.continent);
+      final int _continentIndex = _continents.indexWhere((Continent continent) => continent.name == country.continent);
       final bool _regionIsAddedAlready = Region.regionsIncludeRegion(
         name: country.region,
         regions: _continents[_continentIndex].regions,
@@ -194,7 +194,7 @@ abstract class ExoticMethods{
         _continents[_continentIndex].regions.add(Region(
           continent: _continents[_continentIndex].name,
           name: country.region,
-          countriesIDs: [],
+          countriesIDs: <String>[],
         ));
       }
 
@@ -245,7 +245,7 @@ abstract class ExoticMethods{
   /// super dangerous method,, take care !!
   static Future<void> updateAFieldInAllCollDocs({@required BuildContext context, @required String collName, @required String field, @required dynamic input}) async {
 
-    final List<dynamic> _maps = await Fire.readCollectionDocs(
+    final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
       limit: 1000,
       collName: collName,
       addDocSnapshotToEachMap: false,
@@ -253,7 +253,7 @@ abstract class ExoticMethods{
       orderBy: 'id',
     );
 
-    for (var map in _maps){
+    for (Map<String, dynamic> map in _maps){
 
       await Fire.updateDocField(
           context: context,
@@ -312,7 +312,7 @@ abstract class ExoticMethods{
 // -----------------------------------------------------------------------------
   static Future<void> uploadChainKeywords({@required BuildContext context, @required Chain chain, @required String docName,}) async {
 
-    Map<String, dynamic> _keywordsMap = {};
+    Map<String, dynamic> _keywordsMap = <String, dynamic>{};
 
     List<KW> _allKeywords = KW.getKeywordsFromChain(chain);
 

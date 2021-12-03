@@ -206,27 +206,27 @@ abstract class Iconizer{
   }
 // -----------------------------------------------------------------------------
   static const List<Map<String, dynamic>> continentsMaps = const <Map<String, dynamic>>[
-    {
+    <String, dynamic>{
       'name' : 'Africa',
       'icon' : Iconz.ContAfrica,
     },
-    {
+    <String, dynamic>{
       'name' : 'Asia',
       'icon' : Iconz.ContAsia,
     },
-    {
+    <String, dynamic>{
       'name' : 'Oceania',
       'icon' : Iconz.ContAustralia,
     },
-    {
+    <String, dynamic>{
       'name' : 'Europe',
       'icon' : Iconz.ContEurope,
     },
-    {
+    <String, dynamic>{
       'name' : 'North America',
       'icon' : Iconz.ContNorthAmerica,
     },
-    {
+    <String, dynamic>{
       'name' : 'South America',
       'icon' : Iconz.ContSouthAmerica,
     },

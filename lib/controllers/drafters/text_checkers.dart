@@ -52,7 +52,7 @@ abstract class TextChecker{
   static void disposeAllTextControllers(List<TextEditingController> controllers){
 
     if(controllers != null){
-      controllers.forEach((controller) {
+      controllers.forEach((TextEditingController controller) {
         disposeControllerIfPossible(controller);
       });
     }
@@ -60,7 +60,7 @@ abstract class TextChecker{
   }
 // -----------------------------------------------------------------------------
   static List<TextEditingController> createEmptyTextControllers(int length){
-    List<TextEditingController> _controllers = [];
+    List<TextEditingController> _controllers = <TextEditingController>[];
 
     for (int i = 0; i <= length; i++){
 
