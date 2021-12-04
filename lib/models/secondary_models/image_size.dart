@@ -21,7 +21,7 @@ class ImageSize{
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return
-      {
+      <String, dynamic>{
         'width' : width,
         'height' : height,
       };

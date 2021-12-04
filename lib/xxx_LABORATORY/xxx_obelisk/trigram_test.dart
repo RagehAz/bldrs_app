@@ -29,7 +29,7 @@ class _TrigramTestState extends State<TrigramTest> {
   }
 
   // String _input = 'Rageh mohammed Fawzi Fahim Soliman El Azzazy';
-  List<String> _result = ['Nothing Yet'];
+  List<String> _result = <String>['Nothing Yet'];
 
   // void _createTrigram(String input){
   //

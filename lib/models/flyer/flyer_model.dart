@@ -65,7 +65,7 @@ class FlyerModel with ChangeNotifier{
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
-    return {
+    return <String, dynamic>{
       'id' : id,
       'title' : slides[0].headline,//title,
       'trigram' : TextGen.createTrigram(input: slides[0].headline), //trigram,
@@ -141,18 +141,17 @@ class FlyerModel with ChangeNotifier{
     return _maps;
   }
 // -----------------------------------------------------------------------------
-  static List<FlyerModel> decipherFlyers({@required List<dynamic> maps, @required bool fromJSON}){
+  static List<FlyerModel> decipherFlyers({@required List<Map<String, dynamic>> maps, @required bool fromJSON}){
     final List<FlyerModel> _flyersList = <FlyerModel>[];
 
     if (Mapper.canLoopList(maps)){
 
-      maps?.forEach((map) {
+      maps.forEach((Map<String, dynamic> map) {
         _flyersList.add(decipherFlyer(
           map: map,
           fromJSON: fromJSON,
         ));
       });
-
 
     }
 
@@ -233,7 +232,7 @@ class FlyerModel with ChangeNotifier{
   static List<String> getListOfFlyerIDsFromFlyers(List<FlyerModel> flyers){
     final List<String> _flyerIDs = <String>[];
 
-    flyers.forEach((flyer) {
+    flyers.forEach((FlyerModel flyer) {
       _flyerIDs.add(flyer.id);
     });
 
@@ -253,7 +252,7 @@ class FlyerModel with ChangeNotifier{
   /// TASK : why ?
   static int getNumberOfFlyersFromBzzModels(List<BzModel> bzzModels){
     int _totalFlyers = 0;
-    bzzModels.forEach((bzModel) {
+    bzzModels.forEach((BzModel bzModel) {
       _totalFlyers = _totalFlyers + (bzModel.flyersIDs.length);
     });
     return _totalFlyers;
@@ -264,7 +263,7 @@ class FlyerModel with ChangeNotifier{
 
     if (flyer != null && Mapper.canLoopList(flyer.slides)){
 
-      flyer.slides.forEach((slide) {
+      flyer.slides.forEach((SlideModel slide) {
         _totalSaves = _totalSaves + slide.savesCount;
       });
 
@@ -277,7 +276,7 @@ class FlyerModel with ChangeNotifier{
 
     if (flyer != null && Mapper.canLoopList(flyer?.slides)){
 
-      flyer.slides.forEach((slide) {
+      flyer.slides.forEach((SlideModel slide) {
         _totalShares = _totalShares + slide.sharesCount;
       });
 
@@ -290,7 +289,7 @@ class FlyerModel with ChangeNotifier{
 
     if (flyer != null &&Mapper.canLoopList(flyer?.slides)){
 
-      flyer.slides.forEach((slide) {
+      flyer.slides.forEach((SlideModel slide) {
         _totalViews = _totalViews + slide.viewsCount;
       });
 
@@ -313,7 +312,7 @@ class FlyerModel with ChangeNotifier{
   static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel flyerModel){
   final List<TextEditingController> _controllers = <TextEditingController>[];
 
-  flyerModel.slides.forEach((slide) {
+  flyerModel.slides.forEach((SlideModel slide) {
     TextEditingController _controller = new TextEditingController(text: slide.headline);
     _controllers.add(_controller);
   });
@@ -324,7 +323,7 @@ class FlyerModel with ChangeNotifier{
   static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
-    flyerModel.slides.forEach((slide) {
+    flyerModel.slides.forEach((SlideModel slide) {
       TextEditingController _controller = new TextEditingController(text: slide.description);
       _controllers.add(_controller);
     });
@@ -332,7 +331,7 @@ class FlyerModel with ChangeNotifier{
     return _controllers;
   }
 // -----------------------------------------------------------------------------
-  static FlyerModel getFlyerModelFromSnapshot(DocumentSnapshot doc){
+  static FlyerModel getFlyerModelFromSnapshot(DocumentSnapshot<Object> doc){
     final Object _map = doc.data();
     final FlyerModel _flyerModel = FlyerModel.decipherFlyer(
       map: _map,
@@ -413,7 +412,7 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static FlyerModel getFlyerFromFlyersByID({List<FlyerModel> flyers, String flyerID}){
-    final FlyerModel _flyer = flyers.singleWhere((tinyFlyer) => tinyFlyer.id == flyerID, orElse: () => null);
+    final FlyerModel _flyer = flyers.singleWhere((FlyerModel tinyFlyer) => tinyFlyer.id == flyerID, orElse: () => null);
     return _flyer;
   }
 // -----------------------------------------------------------------------------
@@ -421,7 +420,7 @@ class FlyerModel with ChangeNotifier{
     final List<String> _flyerIDs = <String>[];
 
     if (Mapper.canLoopList(flyers)){
-      flyers?.forEach((flyer) {
+      flyers?.forEach((FlyerModel flyer) {
         _flyerIDs.add(flyer.id);
       });
 
@@ -474,7 +473,7 @@ class FlyerModel with ChangeNotifier{
       authorID: 'Svj0ln7UtoMtHKfZiPhzTSPejr52',
       flyerType : FlyerType.property,
       flyerState : FlyerState.published,
-      keywordsIDs : [],
+      keywordsIDs : <String>[],
       showsAuthor : true,
       bzID: 'br1',
       position : const GeoPoint(0,0),

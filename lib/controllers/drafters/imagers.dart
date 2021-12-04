@@ -766,13 +766,21 @@ abstract class Imagers{
 
     bool _blurIsOn = false;
 
-    final bool _imageSizeIsValid =
-    imageSize == null ? false :
-    imageSize.width == null ? false :
-    imageSize.height == null ? false :
-    imageSize.width <= 0 ? false :
-    imageSize.height <= 0 ? false :
-    true;
+    bool _imageSizeIsValid;
+
+    if (
+        imageSize == null ||
+        imageSize.width == null ||
+        imageSize.height == null ||
+        imageSize.width <= 0 ||
+        imageSize.height <= 0
+    ){
+      _imageSizeIsValid = false;
+    }
+    else {
+      _imageSizeIsValid = true;
+    }
+
 
     if(_imageSizeIsValid == true){
 

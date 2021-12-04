@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
@@ -246,7 +247,8 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
           KeywordsBubble(
             title: '${_citiesNames.length} Provinces',
             keywords: CityModel.getKeywordsFromCities(context: context, cities: _cities),
-            onTap: (val) {print(val);},
+            onTap: () {print('bubble tapped');},
+            onKeywordTap: (KW kw){kw.printKeyword();},
             selectedWords: const <dynamic>[],
             addButtonIsOn: false,
           ),

@@ -11,7 +11,7 @@ class BzGrid extends StatelessWidget {
   final double gridZoneWidth;
   final int numberOfColumns;
   final List<BzModel> bzzModels;
-  final Function itemOnTap;
+  final ValueChanged<String> itemOnTap;
   final Axis scrollDirection;
   final int numberOfRows;
   final double corners;
@@ -80,7 +80,7 @@ class BzGrid extends StatelessWidget {
                   padding: _gridPadding,
                   gridDelegate: _gridDelegate,
                   children: _boxesColors.map(
-                        (color) => Container(
+                        (Color color) => Container(
                           width: _logoWidth,
                           height: _logoWidth * 1.25,
                           // color: Colorz.Yellow50,

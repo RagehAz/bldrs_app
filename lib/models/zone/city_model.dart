@@ -33,7 +33,7 @@ class CityModel{
   });
 // -----------------------------------------------------------------------------
   Map<String, Object> toMap({@required bool toJSON}){
-    return {
+    return <String, Object>{
       'countryID' : countryID,
       'cityID' : CountryModel.fixCountryName(cityID),
       'districts' : DistrictModel.cipherDistricts(districts),
@@ -47,7 +47,7 @@ class CityModel{
   }
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> cipherCities({@required List<CityModel> cities, @required bool toJSON}){
-    Map<String, dynamic> _citiesMap = {};
+    Map<String, dynamic> _citiesMap = <String, dynamic>{};
 
     if (Mapper.canLoopList(cities)){
 

@@ -34,7 +34,7 @@ class ZoneProvider extends ChangeNotifier {
       searchField: 'id',
       searchValue: countryID,
     );
-    if (_map != null && _map != {}){
+    if (_map != null && _map != <String, Object>{}){
       print('fetchCountryByID : country found in local db : ${LDBDoc.countries}');
       _countryModel = CountryModel.decipherCountryMap(map: _map, fromJSON: true);
     }
@@ -102,7 +102,7 @@ class ZoneProvider extends ChangeNotifier {
         searchField: 'cityID',
         searchValue: cityID,
       );
-      if (_map != null && _map != {}){
+      if (_map != null && _map != <String, dynamic>{}){
         print('fetchCityByID : City found in local db : ${LDBDoc.cities}');
         _cityModel = CityModel.decipherCityMap(map: _map, fromJSON: true);
       }
@@ -195,7 +195,7 @@ class ZoneProvider extends ChangeNotifier {
           if (Mapper.canLoopList(_foundCities) == true){
 
             /// insert all cities in ldb
-            for (var city in _foundCities){
+            for (CityModel city in _foundCities){
               await LDBOps.insertMap(
                 input: city.toMap(toJSON: true),
                 docName: LDBDoc.cities,

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class QuestionsProvider with ChangeNotifier {
   List<Quest> _questions = <Quest>[];
 // ----------------------------------------------------------------------------
-  CollectionReference questionsFirebase =
+  CollectionReference<Object> questionsFirebase =
       FirebaseFirestore.instance.collection('questions');
 // ----------------------------------------------------------------------------
   QuestionsProvider() {
@@ -16,8 +16,8 @@ class QuestionsProvider with ChangeNotifier {
 // ----------------------------------------------------------------------------
   fetchQuestions() async {
     _questions.clear();
-    questionsFirebase.get().then((QuerySnapshot querySnapshot) => {
-          querySnapshot.docs.forEach((doc) {
+    questionsFirebase.get().then((QuerySnapshot<Object> querySnapshot) => <void>{
+          querySnapshot.docs.forEach((QueryDocumentSnapshot<Object> doc) {
             final Quest newQuestion = Quest.fromMap(doc.data());
             _questions.add(newQuestion);
           })
@@ -27,10 +27,10 @@ class QuestionsProvider with ChangeNotifier {
 // ----------------------------------------------------------------------------
   add(String question) {
     questionsFirebase
-        .add({"body": question, "userID": 'kjhfkskfkfk'})
-        .then((value) => print("Question Added to Database."))
+        .add(<String, dynamic>{"body": question, "userID": 'kjhfkskfkfk'})
+        .then((DocumentReference<Object> value) => print("Question Added to Database."))
         .catchError(
-            (error) => print("Failed to add Question to DataBase: $error"));
+            (Object error) => print("Failed to add Question to DataBase: $error"));
     fetchQuestions();
     notifyListeners();
   }

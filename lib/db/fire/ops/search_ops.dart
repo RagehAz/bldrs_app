@@ -238,13 +238,13 @@ abstract class FireSearchOps {
           QuerySnapshot<Object> _collectionSnapshot;
 
           /// if search value is just 1 string
-          if (ObjectChecker.objectIsString(value) == true){
+          if (value is String == true){
             _collectionSnapshot = await collRef
                 .where(field, arrayContains: value)
                 .get();
           }
           /// i search value is list of strings
-          else if(ObjectChecker.objectIsList(value) == true){
+          else if(value is List == true){
             _collectionSnapshot = await collRef
                 .where(field, whereIn: value)
                 .get();
@@ -489,7 +489,7 @@ abstract class FireSearchOps {
           final CollectionReference<Object> _usersCollection = Fire.getCollectionRef(FireColl.users);
 
           final QuerySnapshot<Object> _collectionSnapshot = await _usersCollection
-              .where('myBzzIDs', isNotEqualTo: [])
+              .where('myBzzIDs', isNotEqualTo: <String>[])
               .where('trigram', arrayContains: name.trim().toLowerCase())
               .limit(limit)
               .get();

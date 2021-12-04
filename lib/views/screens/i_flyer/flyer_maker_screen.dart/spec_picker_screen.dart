@@ -63,7 +63,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
     );
 
     final bool _alreadySelected = Spec.specsContainThisSpec(specs: _selectedSpecs.value, spec: _spec);
-    final int _specIndex = _selectedSpecs.value.indexWhere((sp) => sp.value == _spec.value);
+    final int _specIndex = _selectedSpecs.value.indexWhere((Spec sp) => sp.value == _spec.value);
 
     // ----------------------------------------------------------
     /// A - ALREADY SELECTED SPEC
@@ -98,7 +98,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
       /// B2 - WHEN CAN NOT PICK MANY
       else {
 
-          final int _specIndex = _selectedSpecs.value.indexWhere((spec) => spec.specsListID == widget.specList.id);
+          final int _specIndex = _selectedSpecs.value.indexWhere((Spec spec) => spec.specsListID == widget.specList.id);
 
             /// C1 - WHEN NO SPEC OF THIS KIND IS SELECTED
             if (_specIndex == -1){
@@ -130,7 +130,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     final List<Spec> _updatedList = Spec.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
-      inputSpecs: [_currencySpec],
+      inputSpecs: <Spec>[_currencySpec],
       canPickMany: false,
     );
 
@@ -147,7 +147,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     final List<Spec> _updatedList = Spec.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
-      inputSpecs: [_priceSpec],
+      inputSpecs: <Spec>[_priceSpec],
       canPickMany: widget.specList.canPickMany,
     );
 
@@ -162,7 +162,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     final List<Spec> _updatedList = Spec.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
-      inputSpecs: [_integerSpec],
+      inputSpecs: <Spec>[_integerSpec],
       canPickMany: widget.specList.canPickMany,
     );
 
@@ -177,7 +177,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     final List<Spec> _updatedList = Spec.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
-      inputSpecs: [_doubleSpec],
+      inputSpecs: <Spec>[_doubleSpec],
       canPickMany: widget.specList.canPickMany,
     );
 

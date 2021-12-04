@@ -43,7 +43,7 @@ class AppState {
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return
-      {
+      <String, dynamic>{
         'appUpdateRequired' : appUpdateRequired,
 
         'wordzUpdateRequired' : wordzUpdateRequired,

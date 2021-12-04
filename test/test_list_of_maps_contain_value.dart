@@ -7,11 +7,11 @@ import 'package:bldrs/controllers/drafters/mappers.dart';
 void main(){
 
   List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
-    {
+    <String, dynamic>{
       'id' : 'a',
       'name' : 'Ahmad',
     },
-    {
+    <String, dynamic>{
       'id' : 'b',
       'name' : 'meshmesh',
     },

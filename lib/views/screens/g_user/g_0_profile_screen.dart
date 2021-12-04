@@ -108,7 +108,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   }
 // -----------------------------------------------------------------------------
   static const List<Map<String, dynamic>> _status = <Map<String, dynamic>>[
-    {
+    <String, dynamic>{
       'title': 'Property Status',
       'buttons': <Map<String, dynamic>>[
         <String, dynamic>{

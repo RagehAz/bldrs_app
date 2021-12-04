@@ -42,7 +42,7 @@ class KW {
 
     if (Mapper.canLoopList(keywords)){
 
-      for (var kw in keywords){
+      for (KW kw in keywords){
 
         _map = Mapper.insertPairInMap(
             map: _map,
@@ -63,7 +63,7 @@ class KW {
 
     if (Mapper.canLoopList(keywords)){
 
-      for (var kw in keywords){
+      for (KW kw in keywords){
 
         final Map<String, dynamic> _map = kw.toMap(toJSON: true);
         maps.add(_map);
@@ -103,7 +103,7 @@ class KW {
 
     if (Mapper.canLoopList(maps)){
 
-      for (var map in maps){
+      for (Map<String, dynamic> map in maps){
 
         final KW _kw = decipherKeyword(map: map, fromJSON: true);
         _keywords.add(_kw);
@@ -128,7 +128,7 @@ class KW {
   static String getKeywordArabicName(KW keyword){
     List<Name> _names = keyword.names;
 
-    final Name _arabicName = _names.firstWhere((name) => name.code == Lingo.arabicLingo.code, orElse: () => null);
+    final Name _arabicName = _names.firstWhere((Name name) => name.code == Lingo.arabicLingo.code, orElse: () => null);
     final String _name = _arabicName == null ? null : _arabicName.value;
 
     return _name;
@@ -138,7 +138,7 @@ class KW {
     final List<String> _ids = <String>[];
 
     if (Mapper.canLoopList(keywords)){
-      for (var keyword in keywords){
+      for (KW keyword in keywords){
 
         _ids.add(keyword.id);
       }
@@ -229,7 +229,7 @@ class KW {
     bool _contains = false;
 
     if (Mapper.canLoopList(keywords) && keyword != null) {
-      final KW _result = keywords.firstWhere((kw) => KW.keywordsAreTheSame(kw, keyword) == true, orElse: () => null);
+      final KW _result = keywords.firstWhere((KW kw) => KW.keywordsAreTheSame(kw, keyword) == true, orElse: () => null);
 
       _contains = _result == null ? false : true;
     }

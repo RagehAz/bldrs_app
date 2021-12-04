@@ -30,9 +30,9 @@ class DoubleDataCreator extends StatefulWidget {
 }
 
 class _DoubleDataCreatorState extends State<DoubleDataCreator> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
-  ValueNotifier<double> _double = ValueNotifier(null);
+  ValueNotifier<double> _double = ValueNotifier<double>(null);
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -170,7 +170,7 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
                     _onTextChanged(val);
                     await Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-                    await Future.delayed(Ratioz.durationSliding400, ()async {
+                    await Future<void>.delayed(Ratioz.durationSliding400, ()async {
                       widget.onSubmitted();
                     });
 

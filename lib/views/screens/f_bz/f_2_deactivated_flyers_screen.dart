@@ -88,7 +88,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     final FlyerModel _flyer = _deactivatedFlyers[_index];
     return _flyer;
   }
-
+// -----------------------------------------------------------------------------
   void _slideFlyerOptions(BuildContext context, FlyerModel flyerModel){
 
     const double _buttonHeight = 50;
@@ -212,12 +212,6 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
         flyers: _allFlyers,
         scrollable: true,
         stratosphere: true,
-        tinyFlyerOnTap: (tinyFlyer){
-          print('tiny flyer is : ${tinyFlyer.id}');
-
-          _slideFlyerOptions(context, tinyFlyer);
-
-        },
       ),
 
     );

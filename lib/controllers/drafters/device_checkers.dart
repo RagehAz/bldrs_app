@@ -4,19 +4,47 @@ import 'package:flutter/cupertino.dart';
 abstract class DeviceChecker{
 // -----------------------------------------------------------------------------
   static bool deviceIsIOS(){
-    return
-      Platform.isIOS ? true : false;
+    bool _isIOS;
+
+    if (Platform.isIOS == true){
+      _isIOS = true;
+    }
+
+    else {
+      _isIOS = false;
+    }
+
+    return _isIOS;
   }
 // -----------------------------------------------------------------------------
   static bool deviceIsAndroid(){
-    return
-      Platform.isAndroid ? true : false;
+    bool _inAndroid;
+
+    if (Platform.isAndroid == true){
+      _inAndroid = true;
+    }
+
+    else {
+      _inAndroid = false;
+    }
+
+    return _inAndroid;
   }
 // -----------------------------------------------------------------------------
   static bool deviceIsLandscape(BuildContext context){
     final MediaQueryData _mediaQuery = MediaQuery.of(context);
-    return
-      _mediaQuery.orientation == Orientation.landscape ? true : false;
+
+    bool _isLandscape;
+
+    if (_mediaQuery.orientation == Orientation.landscape){
+      _isLandscape = true;
+    }
+
+    else {
+      _isLandscape = false;
+    }
+
+    return _isLandscape;
   }
 // -----------------------------------------------------------------------------
 }
