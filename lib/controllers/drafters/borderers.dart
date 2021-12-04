@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 /// TASK : use clipBehaviour : Clip.antiAliasWithSaveLayer instead of ClipRRect
