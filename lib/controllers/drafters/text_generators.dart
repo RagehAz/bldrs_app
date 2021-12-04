@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';

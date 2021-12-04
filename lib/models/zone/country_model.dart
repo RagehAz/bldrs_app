@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/models/secondary_models/map_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
