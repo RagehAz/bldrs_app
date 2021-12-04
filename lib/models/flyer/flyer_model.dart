@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/atlas.dart';
+import 'package:bldrs/controllers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
