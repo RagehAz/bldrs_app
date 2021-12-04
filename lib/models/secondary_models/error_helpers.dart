@@ -20,15 +20,17 @@ Future<void> tryAndCatch({
   String methodName,
   ValueChanged<String> onError,
 }) async {
+
   try{
     await functions();
-  } catch (error){
+  }
+  on Exception catch (error){
 
     print('$methodName : tryAndCatch ERROR : $error');
 
     if (onError != null){
 
-      await onError(error);
+      await onError(error.toString());
 
     }
     else {
@@ -52,15 +54,18 @@ Future<bool> tryCatchAndReturn({
   ValueChanged<String> onError,
   String methodName,
 }) async {
+
   try{
     await functions();
     return true;
-  } catch (error){
+  }
+
+  on Exception catch (error){
 
     print('$methodName : tryAndCatch ERROR : $error');
 
     if (onError != null){
-      await onError(error);
+      await onError(error.toString());
     }
 
     // else {
