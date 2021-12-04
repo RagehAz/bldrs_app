@@ -13,7 +13,7 @@ import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/db/fire/ops/bz_ops.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/kw/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
@@ -59,7 +59,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   // String _currentBzID;
   BzAccountType _currentAccountType;
   // -------------------------
-  Section _currentSection;
+  SectionClass.Section _currentSection;
   List<bool> _bzTypeInActivityList;
   BzType _currentBzType; // profession
   List<bool> _bzFormInActivityList;
@@ -214,12 +214,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       /// Task : FIX THIS SHIT
       _bzTypeInActivityList =
 
-      _currentSection == Section.properties ?    <bool>[false, false, true, true, true, true, true] :
-      _currentSection == Section.designs ?          <bool>[true, true, false, false, true, true, true] :
-      _currentSection == Section.projects ?         <bool>[true, true, false, false, true, true, true] :
-      _currentSection == Section.crafts ?           <bool>[true, true, true, true, false, true, true] :
-      _currentSection == Section.products ?         <bool>[true, true, true, true, true, false, false] :
-      _currentSection == Section.equipment ?        <bool>[true, true, true, true, true, false, false] :
+      _currentSection == SectionClass.Section.properties ?    <bool>[false, false, true, true, true, true, true] :
+      _currentSection == SectionClass.Section.designs ?          <bool>[true, true, false, false, true, true, true] :
+      _currentSection == SectionClass.Section.projects ?         <bool>[true, true, false, false, true, true, true] :
+      _currentSection == SectionClass.Section.crafts ?           <bool>[true, true, true, true, false, true, true] :
+      _currentSection == SectionClass.Section.products ?         <bool>[true, true, true, true, true, false, false] :
+      _currentSection == SectionClass.Section.equipment ?        <bool>[true, true, true, true, true, false, false] :
       _bzTypeInActivityList;
     });
   }
@@ -248,7 +248,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     } else {
       /// TASK : FIX THIS SHIT
 
-      final Section _section = SectionClass.getSectionByBzType(_currentBzType);
+      final SectionClass.Section _section = SectionClass.getSectionByBzType(_currentBzType);
 
       setState(() {
         _currentSection = _section;

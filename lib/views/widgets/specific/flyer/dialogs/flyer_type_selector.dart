@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class _FlyerTypeSelectorState extends State<FlyerTypeSelector> {
 
     final double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
 
-    final List<FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: widget.superFlyer.bz.bzType);
+    final List<FlyerTypeClass.FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: widget.superFlyer.bz.bzType);
     final int _numberOfButtons = _possibleFlyerTypes.length;
     final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
     final double _dialogClearHeight = BottomDialog.dialogClearHeight(context: context, overridingDialogHeight: _dialogHeight, titleIsOn: true, draggable: true);
@@ -47,7 +47,7 @@ class _FlyerTypeSelectorState extends State<FlyerTypeSelector> {
               _numberOfButtons,
                   (int index) {
 
-                final FlyerType _flyerType = _possibleFlyerTypes[index];
+                final FlyerTypeClass.FlyerType _flyerType = _possibleFlyerTypes[index];
                 final String _flyerTypeName = TextGen.flyerTypeSingleStringer(context, _flyerType);
                 final Color _buttonColor = widget.superFlyer.flyerType == _flyerType ? Colorz.yellow255 : Colorz.white20;
                 final Color _verseColor = widget.superFlyer.flyerType == _flyerType ? Colorz.black230 : Colorz.white255;

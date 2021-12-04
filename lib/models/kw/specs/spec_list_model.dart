@@ -1,9 +1,9 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/chain/chain_designs.dart';
-import 'package:bldrs/models/kw/specs/raw_specs.dart';
+import 'package:bldrs/models/kw/specs/raw_specs.dart' as RawSpecs;
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:flutter/foundation.dart';
@@ -135,20 +135,20 @@ class SpecList{
     return _groups;
 }
 // -----------------------------------------------------------------------------
-  static List<SpecList> getSpecsListsByFlyerType(FlyerType flyerType){
+  static List<SpecList> getSpecsListsByFlyerType(FlyerTypeClass.FlyerType flyerType){
 
     final List<SpecList> _specList =
-        flyerType == FlyerType.property ? propertySpecLists
+        flyerType == FlyerTypeClass.FlyerType.property ? propertySpecLists
             :
-        flyerType == FlyerType.design ? designSpecLists
+        flyerType == FlyerTypeClass.FlyerType.design ? designSpecLists
             :
-        flyerType == FlyerType.craft ? craftSpecLists
+        flyerType == FlyerTypeClass.FlyerType.craft ? craftSpecLists
             :
-        flyerType == FlyerType.project ? designSpecLists
+        flyerType == FlyerTypeClass.FlyerType.project ? designSpecLists
             :
-        flyerType == FlyerType.product ? productSpecLists
+        flyerType == FlyerTypeClass.FlyerType.product ? productSpecLists
             :
-        flyerType == FlyerType.equipment ? equipmentSpecLists
+        flyerType == FlyerTypeClass.FlyerType.equipment ? equipmentSpecLists
             :
         <SpecList>[];
 

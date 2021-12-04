@@ -1,8 +1,9 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
-import 'package:bldrs/db/ldb/ldb_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
@@ -354,7 +355,7 @@ import 'package:provider/provider.dart';
 // abstract class RagehMethods{
 // -----------------------------------------------------------------------------
   Future<void> updateNumberOfKeywords(BuildContext context, List<KW> allKeywords) async {
-    if (superUserID() == '60a1SPzftGdH6rt15NF96m0j9Et2'){
+    if (FireAuthOps.superUserID() == '60a1SPzftGdH6rt15NF96m0j9Et2'){
 
       if (Mapper.canLoopList(allKeywords)){
 

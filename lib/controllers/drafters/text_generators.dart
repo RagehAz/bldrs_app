@@ -2,41 +2,41 @@ import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/controllers/theme/standards.dart' as Standards;
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/secondary_models/name_model.dart';
-import 'package:bldrs/models/kw/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/district_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:flutter/material.dart';
 
-  String sectionStringer (BuildContext context, Section section){
+  String sectionStringer (BuildContext context, SectionClass.Section section){
     return
-      section == Section.properties ? 'properties' : //Wordz.realEstate(context) :
+      section == SectionClass.Section.properties ? 'properties' : //Wordz.realEstate(context) :
 
-      section == Section.designs ? 'Designs' : //Wordz.construction(context) :
-      section == Section.projects ? 'Projects' : //Wordz.construction(context) :
-      section == Section.crafts ? 'Crafts & Trades' : //Wordz.construction(context) :
+      section == SectionClass.Section.designs ? 'Designs' : //Wordz.construction(context) :
+      section == SectionClass.Section.projects ? 'Projects' : //Wordz.construction(context) :
+      section == SectionClass.Section.crafts ? 'Crafts & Trades' : //Wordz.construction(context) :
 
-      section == Section.products ? 'Products & Materials' : //Wordz.supplies(context) :
-      section == Section.equipment ? 'Tools & Equipment' : //Wordz.supplies(context) :
+      section == SectionClass.Section.products ? 'Products & Materials' : //Wordz.supplies(context) :
+      section == SectionClass.Section.equipment ? 'Tools & Equipment' : //Wordz.supplies(context) :
 
-      section == Section.All ? 'All flyers' : //Wordz.supplies(context) :
+      section == SectionClass.Section.All ? 'All flyers' : //Wordz.supplies(context) :
 
       Wordz.bldrsShortName(context);
   }
 // -----------------------------------------------------------------------------
-  String sectionDescriptionStringer(BuildContext context, Section section){
+  String sectionDescriptionStringer(BuildContext context, SectionClass.Section section){
     final String _description =
-    section == Section.properties ? 'By RealEstate Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
+    section == SectionClass.Section.properties ? 'By RealEstate Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
 
-    section == Section.designs ? 'By Architects & Designers' : //Wordz.constructionTagLine(context) :
-    section == Section.projects ? 'By Contractors' : //Wordz.constructionTagLine(context) :
-    section == Section.crafts ? 'By Craftsmen, Technicians & Artists.' : //Wordz.constructionTagLine(context) :
+    section == SectionClass.Section.designs ? 'By Architects & Designers' : //Wordz.constructionTagLine(context) :
+    section == SectionClass.Section.projects ? 'By Contractors' : //Wordz.constructionTagLine(context) :
+    section == SectionClass.Section.crafts ? 'By Craftsmen, Technicians & Artists.' : //Wordz.constructionTagLine(context) :
 
-    section == Section.products ? 'By Manufacturers & Suppliers.' : //Wordz.suppliesTagLine(context) :
-    section == Section.equipment ? 'By Manufacturers & Suppliers.' : //Wordz.constructionTagLine(context) :
+    section == SectionClass.Section.products ? 'By Manufacturers & Suppliers.' : //Wordz.suppliesTagLine(context) :
+    section == SectionClass.Section.equipment ? 'By Manufacturers & Suppliers.' : //Wordz.constructionTagLine(context) :
 
     Wordz.bldrsShortName(context);
 
@@ -44,9 +44,9 @@ import 'package:flutter/material.dart';
   }
 // -----------------------------------------------------------------------------
   List<String> sectionsListStrings (BuildContext context){
-    const List<Section> _sections = SectionClass.SectionsList;
+    const List<SectionClass.Section> _sections = SectionClass.SectionsList;
     final List<String> _sectionsStrings = <String>[];
-    for(Section bs in _sections){
+    for(SectionClass.Section bs in _sections){
       _sectionsStrings.add(sectionStringer(context, bs));
     }
     return _sectionsStrings;
@@ -85,32 +85,32 @@ import 'package:flutter/material.dart';
       'Builders';
   }
 // -----------------------------------------------------------------------------
-  String flyerTypeSingleStringer (BuildContext context, FlyerType flyerType){
+  String flyerTypeSingleStringer (BuildContext context, FlyerTypeClass.FlyerType flyerType){
 
     return
-      flyerType == FlyerType.property         ?  Wordz.property(context)  :
-      flyerType == FlyerType.design           ? Wordz.design(context)  :
-      flyerType == FlyerType.product          ? Wordz.product(context)  :
-      flyerType == FlyerType.project          ? Wordz.project(context)  :
-      flyerType == FlyerType.equipment        ? Wordz.equipment(context)  :
-      flyerType == FlyerType.craft            ? Wordz.craft(context)  :
+      flyerType == FlyerTypeClass.FlyerType.property         ?  Wordz.property(context)  :
+      flyerType == FlyerTypeClass.FlyerType.design           ? Wordz.design(context)  :
+      flyerType == FlyerTypeClass.FlyerType.product          ? Wordz.product(context)  :
+      flyerType == FlyerTypeClass.FlyerType.project          ? Wordz.project(context)  :
+      flyerType == FlyerTypeClass.FlyerType.equipment        ? Wordz.equipment(context)  :
+      flyerType == FlyerTypeClass.FlyerType.craft            ? Wordz.craft(context)  :
       Wordz.general(context);
   }
 // -----------------------------------------------------------------------------
   String flyerTypeSingleStringerByBzType(BuildContext context, BzType bzType){
-    final FlyerType _defaultFlyerType = FlyerTypeClass.concludeFlyerType(bzType);
+    final FlyerTypeClass.FlyerType _defaultFlyerType = FlyerTypeClass.concludeFlyerType(bzType);
     final String _string = flyerTypeSingleStringer(context, _defaultFlyerType);
     return _string;
   }
 // -----------------------------------------------------------------------------
-  String flyerTypePluralStringer (BuildContext context, FlyerType flyerType){
+  String flyerTypePluralStringer (BuildContext context, FlyerTypeClass.FlyerType flyerType){
     return
-      flyerType == FlyerType.property   ? Wordz.properties(context)  :
-      flyerType == FlyerType.design     ? Wordz.designs(context)  :
-      flyerType == FlyerType.product    ? Wordz.products(context)  :
-      flyerType == FlyerType.project    ? Wordz.projects(context)  :
-      flyerType == FlyerType.equipment  ? Wordz.equipments(context)  :
-      flyerType == FlyerType.craft      ? Wordz.crafts(context)  :
+      flyerType == FlyerTypeClass.FlyerType.property   ? Wordz.properties(context)  :
+      flyerType == FlyerTypeClass.FlyerType.design     ? Wordz.designs(context)  :
+      flyerType == FlyerTypeClass.FlyerType.product    ? Wordz.products(context)  :
+      flyerType == FlyerTypeClass.FlyerType.project    ? Wordz.projects(context)  :
+      flyerType == FlyerTypeClass.FlyerType.equipment  ? Wordz.equipments(context)  :
+      flyerType == FlyerTypeClass.FlyerType.craft      ? Wordz.crafts(context)  :
       Wordz.general(context);
   }
 // -----------------------------------------------------------------------------

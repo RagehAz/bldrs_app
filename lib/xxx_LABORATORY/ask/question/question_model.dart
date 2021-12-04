@@ -1,14 +1,14 @@
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class QuestionModel {
   final String questionID;
   final String ownerID;
-  final FlyerType questionType;
+  final FlyerTypeClass.FlyerType questionType;
   final DateTime time;
   final List<KW> keywords;
   final List<dynamic> pics;

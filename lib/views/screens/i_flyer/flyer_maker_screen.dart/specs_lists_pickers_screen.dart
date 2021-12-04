@@ -4,9 +4,9 @@ import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/kw/specs/data_creator.dart';
-import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
+import 'package:bldrs/models/kw/specs/spec_list_model.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/zone/currency_model.dart';
 import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/spec_picker_screen.dart';
@@ -20,7 +20,7 @@ import 'package:bldrs/views/widgets/specific/specs/spec_list_tile.dart';
 import 'package:flutter/material.dart';
 
 class SpecsListsPickersScreen extends StatefulWidget {
-  final FlyerType flyerType;
+  final FlyerTypeClass.FlyerType flyerType;
   final List<Spec> selectedSpecs;
 
   const SpecsListsPickersScreen({

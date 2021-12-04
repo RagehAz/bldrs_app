@@ -2,13 +2,13 @@ import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/db/fire/ops/search_ops.dart';
 import 'package:bldrs/db/fire/ops/user_ops.dart';
-import 'package:bldrs/db/ldb/ldb_ops.dart';
+import 'package:bldrs/db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
-import 'package:bldrs/models/kw/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
@@ -16,6 +16,7 @@ import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 
 /// fetch : a method that returns searched value in LDB, then in firebase, and stores in LDB if found
 /// get : a method that returns processed inputs with provider global variables
@@ -227,7 +228,7 @@ class FlyersProvider extends ChangeNotifier {
     return <FlyerModel>[..._wallFlyers];
   }
 // -------------------------------------
-  Future<void> getsetWallFlyersBySection({@required BuildContext context, @required Section section}) async {
+  Future<void> getsetWallFlyersBySection({@required BuildContext context, @required SectionClass.Section section}) async {
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
     final ZoneModel _currentZone = _zoneProvider.currentZone;
     //
@@ -244,7 +245,7 @@ class FlyersProvider extends ChangeNotifier {
         methodName: 'fetchAndSetTinyFlyersBySectionType',
         functions: () async {
 
-          final FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
+          final FlyerTypeClass.FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
 
           // print('_flyerType is : ${_flyerType.toString()}');
 
@@ -271,7 +272,7 @@ class FlyersProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  Future<void> getsetWallFlyersByFlyerType({@required BuildContext context, @required FlyerType flyerType}) async {
+  Future<void> getsetWallFlyersByFlyerType({@required BuildContext context, @required FlyerTypeClass.FlyerType flyerType}) async {
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
     final ZoneModel _currentZone = _zoneProvider.currentZone;

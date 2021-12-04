@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -72,7 +72,7 @@ class AuthorBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final List<String> _bzTeamIDs = BzModel.getBzTeamIDs(bzModel);
-    final bool _thisIsMyBz = _bzTeamIDs.contains(superUserID());
+    final bool _thisIsMyBz = _bzTeamIDs.contains(FireAuthOps.superUserID());
     final BzModel _bz = bzModel;
 
     final double _bubbleWidth = bubbleWidth(flyerBoxWidth);

@@ -1,5 +1,5 @@
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/kw/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 
 enum FlyerType {
   property,
@@ -12,23 +12,22 @@ enum FlyerType {
 }
 // -----------------------------------------------------------------------------
 
-class FlyerTypeClass {
 // -----------------------------------------------------------------------------
-  static FlyerType getFlyerTypeBySection({Section section}){
+  FlyerType getFlyerTypeBySection({SectionClass.Section section}){
 
     FlyerType _flyersTypes =
-    section == Section.properties ? FlyerType.property :
-    section == Section.designs ? FlyerType.design :
-    section == Section.projects ? FlyerType.project :
-    section == Section.crafts ? FlyerType.craft :
-    section == Section.products ? FlyerType.product :
-    section == Section.equipment ? FlyerType.equipment :
+    section == SectionClass.Section.properties ? FlyerType.property :
+    section == SectionClass.Section.designs ? FlyerType.design :
+    section == SectionClass.Section.projects ? FlyerType.project :
+    section == SectionClass.Section.crafts ? FlyerType.craft :
+    section == SectionClass.Section.products ? FlyerType.product :
+    section == SectionClass.Section.equipment ? FlyerType.equipment :
     null;
 
     return _flyersTypes;
   }
 // -----------------------------------------------------------------------------
-  static List<FlyerType> flyerTypesList = <FlyerType>[
+  List<FlyerType> flyerTypesList = <FlyerType>[
     FlyerType.property,
     FlyerType.design,
     FlyerType.product,
@@ -38,7 +37,7 @@ class FlyerTypeClass {
     // FlyerType.General,
   ];
 // -----------------------------------------------------------------------------
-  static String fixFlyerTypeFromIntToString (int x){
+  String fixFlyerTypeFromIntToString (int x){
     switch (x){
       case 1 :   return  'rentalProperty';     break; // 1
       case 2 :   return  'design'        ;     break; // 2
@@ -53,7 +52,7 @@ class FlyerTypeClass {
     }
   }
 // -----------------------------------------------------------------------------
-  static FlyerType decipherFlyerType (String x){
+  FlyerType decipherFlyerType (String x){
     switch (x){
       case 'property'       :   return  FlyerType.property;     break; // 1
       case 'design'         :   return  FlyerType.design;             break; // 2
@@ -66,7 +65,7 @@ class FlyerTypeClass {
     }
   }
 // -----------------------------------------------------------------------------
-  static String cipherFlyerType (FlyerType x){
+  String cipherFlyerType (FlyerType x){
     switch (x){
       case FlyerType.property         :    return  'property';  break;
       case FlyerType.design           :    return  'design'        ;  break;
@@ -79,7 +78,7 @@ class FlyerTypeClass {
     }
   }
 // -----------------------------------------------------------------------------
-  static FlyerType concludeFlyerType(BzType bzType){
+  FlyerType concludeFlyerType(BzType bzType){
     switch (bzType){
       case BzType.developer    :   return FlyerType.property;   break;
       case BzType.broker       :   return FlyerType.property;   break;
@@ -92,7 +91,7 @@ class FlyerTypeClass {
     }
   }
 // -----------------------------------------------------------------------------
-  static List<FlyerType> concludePossibleFlyerTypesForBz({BzType bzType}){
+  List<FlyerType> concludePossibleFlyerTypesForBz({BzType bzType}){
     switch (bzType){
       case BzType.developer    :   return <FlyerType>[FlyerType.property];   break;
       case BzType.broker       :   return <FlyerType>[FlyerType.property];   break;
@@ -105,4 +104,3 @@ class FlyerTypeClass {
     }
   }
 // -----------------------------------------------------------------------------
-}

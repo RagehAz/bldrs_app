@@ -5,10 +5,10 @@ import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
-import 'package:bldrs/models/kw/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,7 +19,7 @@ class FlyerModel with ChangeNotifier{
   final String title;
   final List<String> trigram;
   // -------------------------
-  final FlyerType flyerType;
+  final FlyerTypeClass.FlyerType flyerType;
   final FlyerState flyerState;
   final List<String> keywordsIDs;
   final bool showsAuthor;
@@ -429,16 +429,16 @@ class FlyerModel with ChangeNotifier{
     return _flyerIDs;
   }
 // -----------------------------------------------------------------------------
-  static List<FlyerModel> filterFlyersBySection({List<FlyerModel> flyers, Section section}){
+  static List<FlyerModel> filterFlyersBySection({List<FlyerModel> flyers, SectionClass.Section section}){
     List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
-    if (section == Section.All){
+    if (section == SectionClass.Section.All){
       _filteredFlyers = flyers;
     }
 
     else {
 
-      final FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
+      final FlyerTypeClass.FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
 
       _filteredFlyers = filterFlyersByFlyerType(
         flyers: flyers,
@@ -449,7 +449,7 @@ class FlyerModel with ChangeNotifier{
     return _filteredFlyers;
   }
 // -----------------------------------------------------------------------------
-  static List<FlyerModel> filterFlyersByFlyerType({List<FlyerModel> flyers, FlyerType flyerType}){
+  static List<FlyerModel> filterFlyersByFlyerType({List<FlyerModel> flyers, FlyerTypeClass.FlyerType flyerType}){
     final List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
     if(Mapper.canLoopList(flyers)){
@@ -471,7 +471,7 @@ class FlyerModel with ChangeNotifier{
       title: 'Dummy Flyer',
       trigram: TextGen.createTrigram(input: 'Dummy Flyer'),
       authorID: 'Svj0ln7UtoMtHKfZiPhzTSPejr52',
-      flyerType : FlyerType.property,
+      flyerType : FlyerTypeClass.FlyerType.property,
       flyerState : FlyerState.published,
       keywordsIDs : <String>[],
       showsAuthor : true,
