@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/progress_bar_parts/strip.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 
 class ProgressBox extends StatelessWidget {
   final double flyerBoxWidth;

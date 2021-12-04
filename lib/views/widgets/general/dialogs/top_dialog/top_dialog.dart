@@ -1,5 +1,5 @@
 import 'package:another_flushbar/flushbar.dart';
-import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';

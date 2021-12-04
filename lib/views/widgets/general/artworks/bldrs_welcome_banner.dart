@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/secondary_models/image_size.dart';
 import 'package:bldrs/views/widgets/general/images/super_image.dart';

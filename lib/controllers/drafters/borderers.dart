@@ -3,9 +3,8 @@ import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/material.dart';
 
 /// TASK : use clipBehaviour : Clip.antiAliasWithSaveLayer instead of ClipRRect
-abstract class Borderers {
 // -----------------------------------------------------------------------------
-  static BorderRadius superBorderOnly({
+  BorderRadius superBorderOnly({
     BuildContext context,
     double enTopLeft,
     double enBottomLeft,
@@ -29,7 +28,7 @@ abstract class Borderers {
       );
   }
 // -----------------------------------------------------------------------------
-  static BorderRadius superFlyerCorners(BuildContext context, double flyerBoxWidth) {
+  BorderRadius superFlyerCorners(BuildContext context, double flyerBoxWidth) {
     final double bottomFlyerCorner = flyerBoxWidth * Ratioz.xxflyerBottomCorners;
     final double upperFlyerCorner = flyerBoxWidth * Ratioz.xxflyerTopCorners;
     final BorderRadius flyerCorners = superBorderOnly(
@@ -42,7 +41,7 @@ abstract class Borderers {
   }
 
 // -----------------------------------------------------------------------------
-  static BorderRadius superHeaderShadowCorners(BuildContext context, double flyerBoxWidth) {
+  BorderRadius superHeaderShadowCorners(BuildContext context, double flyerBoxWidth) {
     final double upperFlyerCorner = flyerBoxWidth * Ratioz.xxflyerTopCorners;
     final BorderRadius flyerCorners = superBorderOnly(
         context: context,
@@ -55,7 +54,7 @@ abstract class Borderers {
   }
 
 // -----------------------------------------------------------------------------
-  static BorderRadius superHeaderCorners(BuildContext context, bool bzPageIsOn, double flyerBoxWidth) {
+  BorderRadius superHeaderCorners(BuildContext context, bool bzPageIsOn, double flyerBoxWidth) {
     final double headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners;
     final double headerZeroCorner = bzPageIsOn == true ? 0 : headerMainCorners;
     final BorderRadius headerCorners = superBorderOnly(
@@ -69,7 +68,7 @@ abstract class Borderers {
   }
 
 // -----------------------------------------------------------------------------
-  static BorderRadius superHeaderStripCorners(BuildContext context, bool bzPageIsOn, double flyerBoxWidth) {
+  BorderRadius superHeaderStripCorners(BuildContext context, bool bzPageIsOn, double flyerBoxWidth) {
     final double headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners; //bzPageIsOn == false ? flyerBoxWidth * Ratioz.xxflyerTopCorners : flyerBoxWidth * Ratioz.bzLogCorner;
     final double headerZeroCorner = bzPageIsOn == false ? headerMainCorners : 0;
     final BorderRadius headerStripCorners = superBorderOnly(
@@ -82,7 +81,7 @@ abstract class Borderers {
     return headerStripCorners;
   }
 // -----------------------------------------------------------------------------
-  static BorderRadius superPriceTagCorners(BuildContext context, double flyerBoxWidth){
+  BorderRadius superPriceTagCorners(BuildContext context, double flyerBoxWidth){
     final double headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners;
     return
       superBorderOnly(
@@ -94,7 +93,7 @@ abstract class Borderers {
       );
   }
 // -----------------------------------------------------------------------------
-  static BorderRadius superFollowOrCallCorners(BuildContext context, double flyerBoxWidth, bool gettingFollowCorner) {
+  BorderRadius superFollowOrCallCorners(BuildContext context, double flyerBoxWidth, bool gettingFollowCorner) {
     final double headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners;
     final double headerOffsetCorner = headerMainCorners - flyerBoxWidth * Ratioz.xxfollowCallSpacing;
     final double followBTCornerTL = flyerBoxWidth * Ratioz.xxauthorImageCorners;
@@ -119,7 +118,7 @@ abstract class Borderers {
   }
 
 // -----------------------------------------------------------------------------
-  static OutlineInputBorder superOutlineInputBorder(Color borderColor, double corner) {
+  OutlineInputBorder superOutlineInputBorder(Color borderColor, double corner) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(corner),
       borderSide: BorderSide(
@@ -131,13 +130,13 @@ abstract class Borderers {
   }
 
 // -----------------------------------------------------------------------------
-  static BorderRadius superBorderAll(BuildContext context, double corners) {
+  BorderRadius superBorderAll(BuildContext context, double corners) {
     return BorderRadius.all(Radius.circular(corners));
   }
 
 // -----------------------------------------------------------------------------
   /// used in MiniHeaderStrip widget
-  static BorderRadius superLogoCorner({BuildContext context, double flyerBoxWidth, bool zeroCornerIsOn = false}) {
+  BorderRadius superLogoCorner({BuildContext context, double flyerBoxWidth, bool zeroCornerIsOn = false}) {
     final double _headerMainPadding = flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
     final double _headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners; //bzPageIsOn == false ? flyerBoxWidth * Ratioz.xxflyerTopCorners : flyerBoxWidth * Ratioz.bzLogCorner;
     final double _headerOffsetCorner = _headerMainCorners - _headerMainPadding;
@@ -155,7 +154,7 @@ abstract class Borderers {
   }
 
 // -----------------------------------------------------------------------------
-  static BorderRadius superLogoShape({BuildContext context, bool zeroCornerEnIsRight, double corner}) {
+  BorderRadius superLogoShape({BuildContext context, bool zeroCornerEnIsRight, double corner}) {
     final BorderRadius _superLogoShape =
     zeroCornerEnIsRight ?
     superBorderOnly(
@@ -178,7 +177,7 @@ abstract class Borderers {
   }
 
 // -----------------------------------------------------------------------------
-  static BorderRadius superBorder({BuildContext context, dynamic corners}) {
+  BorderRadius superBorder({BuildContext context, dynamic corners}) {
     BorderRadius _corner;
 
     if (corners == null || corners == 0){
@@ -202,7 +201,7 @@ abstract class Borderers {
 
   }
 // -----------------------------------------------------------------------------
-  static double getCornersAsDouble(dynamic corners){
+  double getCornersAsDouble(dynamic corners){
     BorderRadius _cornerBorders;
     double _topLeftCorner;
     if (corners.runtimeType == BorderRadius){
@@ -217,7 +216,7 @@ abstract class Borderers {
     return _topLeftCorner == null ? 0 : _topLeftCorner;
   }
 // -----------------------------------------------------------------------------
-  static BorderRadius getCornersAsBorderRadius(BuildContext context, dynamic corners){
+  BorderRadius getCornersAsBorderRadius(BuildContext context, dynamic corners){
     BorderRadius _cornerBorders;
     // double _topLeftCorner;
     if(corners == 0){
@@ -226,13 +225,13 @@ abstract class Borderers {
     else if (corners.runtimeType == BorderRadius){
       _cornerBorders = corners;
     } else {
-      _cornerBorders = Borderers.superBorderAll(context, corners.toDouble());
+      _cornerBorders = superBorderAll(context, corners.toDouble());
     }
 
     return _cornerBorders;
   }
 // -----------------------------------------------------------------------------
-  static BorderRadius superOneSideBorders({@required BuildContext context, @required AxisDirection side, @required double corner}){
+  BorderRadius superOneSideBorders({@required BuildContext context, @required AxisDirection side, @required double corner}){
 
     switch (side){
 
@@ -274,4 +273,3 @@ abstract class Borderers {
 
   }
 // -----------------------------------------------------------------------------
-}
