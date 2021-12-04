@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/models/secondary_models/map_model.dart';

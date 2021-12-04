@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-abstract class Launch{
 // -----------------------------------------------------------------------------
-  static Future<void> launchURL(String link) async {
+  Future<void> launchURL(String link) async {
     /// should make a condition
     /// if it starts with http:// or not
     /// then do whats necessary, as the link should include http://
@@ -16,7 +15,7 @@ abstract class Launch{
     }
   }
 // -----------------------------------------------------------------------------
-  static Future<void> launchCall(String link) async {
+  Future<void> launchCall(String link) async {
     if (await canLaunch(link)) {
       await launch(link);
     }else{
@@ -24,7 +23,7 @@ abstract class Launch{
     }
   }
 // -----------------------------------------------------------------------------
-  static Future<void> shareLink (BuildContext context, LinkModel link) async {
+  Future<void> shareLink (BuildContext context, LinkModel link) async {
     final RenderBox _box = context.findRenderObject();
     // final String url = '${flyerLink.url} & ${flyerLink.description}';
 
@@ -67,7 +66,7 @@ abstract class Launch{
 // // }
 // -----------------------------------------------------------------------------
 
-  static Future<void> shareFlyer (BuildContext context, LinkModel flyerLink) async {
+  Future<void> shareFlyer (BuildContext context, LinkModel flyerLink) async {
     final RenderBox box = context.findRenderObject();
 
     await Share.share(
@@ -77,7 +76,5 @@ abstract class Launch{
     );
 
   }
-
-}
 
 

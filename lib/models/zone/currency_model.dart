@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/db/fire/ops/zone_ops.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:flutter/foundation.dart';

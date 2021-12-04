@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/device_checkers.dart' as DeviceChecker;
-import 'package:bldrs/controllers/drafters/launchers.dart';
+import 'package:bldrs/controllers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
@@ -70,7 +70,7 @@ class MoreScreen extends StatelessWidget {
                 iconBoxColor: Colorz.black230,
                 verseColor: Colorz.white255,
                 btOnTap: () async {
-                  await Launch.shareLink(context, LinkModel.bldrsWebSiteLink);
+                  await Launcher.shareLink(context, LinkModel.bldrsWebSiteLink);
                 },
               ),
 

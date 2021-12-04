@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/db/fire/ops/search_ops.dart';
 import 'package:bldrs/db/fire/ops/zone_ops.dart';

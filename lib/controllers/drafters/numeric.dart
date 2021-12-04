@@ -1,13 +1,12 @@
 import 'dart:math';
 
-import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
-abstract class Numeric {
   /// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
-  static String separateKilos({@required dynamic number, int fractions = 2}) {
+  String separateKilos({@required dynamic number, int fractions = 2}) {
 
     String _result = '0';
 
@@ -65,7 +64,7 @@ abstract class Numeric {
     return _resultStringBuffer.toString();
   }
 // -----------------------------------------------------------------------------
-  static String counterCaliber(BuildContext context, int x) {
+  String counterCaliber(BuildContext context, int x) {
 
     String _stringOfCalibratedNumber = '0';
 
@@ -106,7 +105,7 @@ abstract class Numeric {
     return _stringOfCalibratedNumber;
   }
 // -----------------------------------------------------------------------------
-  static int stringToInt(String string) {
+  int stringToInt(String string) {
     int _value;
 
     if (string != null){
@@ -116,7 +115,7 @@ abstract class Numeric {
     return _value;
   }
 // -----------------------------------------------------------------------------
-  static double stringToDouble(String string){
+  double stringToDouble(String string){
     double _value;
 
     // print('stringToDouble : string : $string');
@@ -128,18 +127,18 @@ abstract class Numeric {
     return _value;
   }
 // -----------------------------------------------------------------------------
-  static int lastTwoIntegersFromAString(String string) {
+  int lastTwoIntegersFromAString(String string) {
     final String _lastTwoSubStrings = TextMod.lastTwoSubStringsFromAString(string);
     final int _asIntegers = stringToInt(_lastTwoSubStrings);
     return _asIntegers;
   }
 // -----------------------------------------------------------------------------
-  static int createRandomIndex({int listLength}){
+  int createRandomIndex({int listLength}){
     final Random _random = new Random();
     return _random.nextInt(listLength);
   }
 // -----------------------------------------------------------------------------
-  static int createUniqueIndex({@required List<int> existingIndexes, int maxIndex = 999999}) {
+  int createUniqueIndex({@required List<int> existingIndexes, int maxIndex = 999999}) {
     final Random _random = new Random();
 
     /// from 0 up to 999'999 included
@@ -156,7 +155,7 @@ abstract class Numeric {
     return _randomNumber;
   }
 // -----------------------------------------------------------------------------
-  static List<int> getValuesFromKeys({@required List<ValueKey<int>> keys}) {
+  List<int> getValuesFromKeys({@required List<ValueKey<int>> keys}) {
     List<int> _values = <int>[];
 
     if (Mapper.canLoopList(keys)) {
@@ -168,7 +167,7 @@ abstract class Numeric {
     return _values;
   }
 // -----------------------------------------------------------------------------
-  static List<ValueKey<int>> addUniqueKeyToKeys({@required List<ValueKey<int>> keys}) {
+  List<ValueKey<int>> addUniqueKeyToKeys({@required List<ValueKey<int>> keys}) {
     final List<int> _numbers = getValuesFromKeys(keys: keys);
 
     final int _newValue = createUniqueIndex(existingIndexes: _numbers);
@@ -178,7 +177,7 @@ abstract class Numeric {
     return _newKeys;
   }
 // -----------------------------------------------------------------------------
-  static ValueKey<int> createUniqueKeyFrom({@required List<ValueKey<int>> existingKeys}) {
+  ValueKey<int> createUniqueKeyFrom({@required List<ValueKey<int>> existingKeys}) {
     final List<int> _existingValues = getValuesFromKeys(keys: existingKeys);
 
     final int _newValue = createUniqueIndex(existingIndexes: _existingValues);
@@ -186,7 +185,7 @@ abstract class Numeric {
     return ValueKey<int>(_newValue);
   }
 // -----------------------------------------------------------------------------
-  static List<dynamic> createListWithDummyValue({@required int length, @required int value}){
+  List<dynamic> createListWithDummyValue({@required int length, @required int value}){
     List<dynamic> _dummies = <dynamic>[];
 
     for (int i = 0; i < length; i++){
@@ -196,12 +195,12 @@ abstract class Numeric {
     return _dummies;
   }
 // -----------------------------------------------------------------------------
-  static int createUniqueID(){
+  int createUniqueID(){
     return DateTime.now().microsecondsSinceEpoch;
   }
 // -----------------------------------------------------------------------------
   /// for 1.123 => returns 0.123
-  static double getFractions({@required double number, int fractionDigits}){
+  double getFractions({@required double number, int fractionDigits}){
 
     final String _numberAsString = fractionDigits == null ? number.toString() : getFractionStringWithoutZero(fraction: number, fractionDigits: fractionDigits);
     final String _fractionsString = TextMod.removeTextBeforeLastSpecialCharacter(_numberAsString, '.');
@@ -209,18 +208,18 @@ abstract class Numeric {
     return _fraction;
   }
 // -----------------------------------------------------------------------------
-  static removeFractions({@required double number}){
+  removeFractions({@required double number}){
     final double _fractions = getFractions(number: number);
     return number - _fractions;
   }
 // -----------------------------------------------------------------------------
-  static double roundFractions(double value, int fractions){
+  double roundFractions(double value, int fractions){
     final String _roundedAsString = value.toStringAsFixed(fractions);
     final double _rounded = stringToDouble(_roundedAsString);
     return _rounded;
   }
 // -----------------------------------------------------------------------------
-  static String getFractionStringWithoutZero({@required double fraction, int fractionDigits}){
+  String getFractionStringWithoutZero({@required double fraction, int fractionDigits}){
     final String _fractionAsString = fraction.toString();
     String _fractionAsStringWithoutZero = TextMod.removeTextBeforeLastSpecialCharacter(_fractionAsString, '.');
 
@@ -235,8 +234,8 @@ abstract class Numeric {
     return _fractionAsStringWithoutZero;
   }
 // -----------------------------------------------------------------------------
-  static int getNumberOfFractions({@required double number}){
-    final double _numberFraction = Numeric.getFractions(number: number, fractionDigits: 100);
+  int getNumberOfFractions({@required double number}){
+    final double _numberFraction = getFractions(number: number, fractionDigits: 100);
     final String _numberFractionsString = TextMod.removeTextBeforeFirstSpecialCharacter(_numberFraction.toString(), '.');
     print('getNumberOfFractions : _numberFractionsString : ${_numberFractionsString}');
     final int _numberFractions = _numberFractionsString.trim().length;
@@ -244,12 +243,12 @@ abstract class Numeric {
     return _numberFractions;
   }
 // -----------------------------------------------------------------------------
-  static int discountPercentage({@required double oldPrice, @required double currentPrice}){
+  int discountPercentage({@required double oldPrice, @required double currentPrice}){
     final double _percent = ((oldPrice - currentPrice) / oldPrice ) * 100;
     return _percent.round();
   }
 // -----------------------------------------------------------------------------
-  static List<int> getRandomIndexes({@required int numberOfIndexes, @required int maxIndex}){
+  List<int> getRandomIndexes({@required int numberOfIndexes, @required int maxIndex}){
     List<int> _indexes = <int>[];
     for (int i = 0; i < numberOfIndexes; i++) {
       int _newIndex = createUniqueIndex(existingIndexes: _indexes, maxIndex: maxIndex);
@@ -259,7 +258,7 @@ abstract class Numeric {
   }
 // -----------------------------------------------------------------------------
   /// true => 1; false => 0 else => null
-  static int cipherBool(bool bool){
+  int cipherBool(bool bool){
     switch (bool){
       case true: return 1; break;
       case false: return 0; break;
@@ -268,7 +267,7 @@ abstract class Numeric {
   }
 // -----------------------------------------------------------------------------
   /// 1 => true; 0 => false else => null
-  static bool decipherBool(int int){
+  bool decipherBool(int int){
     switch (int){
       case 1: return true; break;
       case 0: return false; break;
@@ -280,7 +279,7 @@ abstract class Numeric {
   /// for digits = 4,, any number should be written like this 0000
   /// 0001 -> 0010 -> 0100 -> 1000 -> 9999
   /// when num = 10000 => should return 'increase digits to view number'
-  static String getNumberWithinDigits({@required int num, @required int digits}){
+  String getNumberWithinDigits({@required int num, @required int digits}){
 
     final int _maxPlusOne = power(num: 10, power: digits);
     final int _maxPossibleNum = _maxPlusOne - 1;
@@ -313,7 +312,7 @@ abstract class Numeric {
   }
 // -----------------------------------------------------------------------------
   /// num = 10; power = 2; => 10^2 = 100,, cheers
-  static int power({@required int num, @required int power}) {
+  int power({@required int num, @required int power}) {
     int _output = 1;
 
     for (int i = 0; i < power; i++) {
@@ -323,4 +322,3 @@ abstract class Numeric {
     return _output;
   }
 // -----------------------------------------------------------------------------
-}

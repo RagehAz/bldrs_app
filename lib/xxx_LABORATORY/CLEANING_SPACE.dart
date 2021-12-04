@@ -1,6 +1,4 @@
-
-
-import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/foundation.dart';
 
 /// THIS METHOD GENERATES ALL PERMUTATIONS OF A STRING
