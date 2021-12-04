@@ -351,7 +351,9 @@ abstract class Mapper{
 
       _aMap[fieldKey] = inputValue;
 
-    } catch (e){
+    }
+
+    on Exception catch(e){
 
       print('error is : $e');
       print('map is : ${map}');
