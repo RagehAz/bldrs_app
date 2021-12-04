@@ -159,9 +159,11 @@ import 'package:flutter/material.dart';
     List<int> _values = <int>[];
 
     if (Mapper.canLoopList(keys)) {
-      keys.forEach((ValueKey<int> key) {
+
+      for (ValueKey<int> key in keys){
         _values.add(key.value);
-      });
+      }
+
     }
 
     return _values;

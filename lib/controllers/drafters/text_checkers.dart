@@ -57,9 +57,11 @@ import 'package:intl/intl.dart' as international;
   void disposeAllTextControllers(List<TextEditingController> controllers){
 
     if(controllers != null){
-      controllers.forEach((TextEditingController controller) {
+
+      for (TextEditingController controller in controllers){
         disposeControllerIfPossible(controller);
-      });
+      }
+
     }
 
   }

@@ -201,12 +201,12 @@ class BzModel with ChangeNotifier{
   static List<BzModel> decipherBzz({@required List<Map<String, dynamic>> maps,@required bool fromJSON}) {
     final List<BzModel> _bzList = <BzModel>[];
 
-    maps?.forEach((Map<String, dynamic> map) {
+    for (Map<String, dynamic> map in maps){
       _bzList.add(decipherBz(
         map: map,
         fromJSON: fromJSON,
       ));
-    });
+    }
 
     return _bzList;
   }
@@ -373,9 +373,10 @@ class BzModel with ChangeNotifier{
     final List<String> _bzTeamIDs = <String>[];
 
     if (_authors != null){
-      _authors.forEach((AuthorModel au) {
-        _bzTeamIDs.add(au.userID);
-      });
+
+      for (AuthorModel author in _authors){
+        _bzTeamIDs.add(author.userID);
+      }
 
     }
 
@@ -461,12 +462,9 @@ class BzModel with ChangeNotifier{
 
     if (Mapper.canLoopList(bzzModels)){
 
-      if (bzzModels != null){
-        bzzModels.forEach((BzModel bz) {
+        for (BzModel bz in bzzModels){
           _ids.add(bz.id);
-        });
-      }
-
+        }
 
     }
 

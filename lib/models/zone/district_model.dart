@@ -91,16 +91,14 @@ class DistrictModel{
 
     if (Mapper.canLoopList(districts)){
 
-      districts.forEach((DistrictModel district) {
-
+      for (DistrictModel district in districts){
         _districtsMapModels.add(
             MapModel(
                 key: district.districtID,
                 value: Name.getNameByCurrentLingoFromNames(context, district.names)
             )
         );
-
-      });
+      }
 
     }
 

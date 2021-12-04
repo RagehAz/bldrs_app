@@ -402,9 +402,9 @@ import 'package:sembast/utils/value_utils.dart';
 
     if (canLoopList(maps)){
 
-      maps.forEach((Map<String, dynamic> map) {
+      for (Map<String, dynamic> map in maps){
         printMap(map);
-      });
+      }
 
     }
 
