@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:bldrs/controllers/drafters/aligners.dart';
+import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
