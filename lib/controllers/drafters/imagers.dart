@@ -109,7 +109,7 @@ enum PicType{
           lightStatusBar: false,
           // actionBarTitleColor: "#13244b", // page title color, White is Default
           autoCloseOnSelectionLimit: false,
-          selectionLimitReachedText: 'Can\'t add more Images !',
+          selectionLimitReachedText: "Can\'t add more Images !",
           // unknown impact
           // backButtonDrawable: 'wtf is this backButtonDrawable',
           // okButtonDrawable: 'dunno okButtonDrawable',

@@ -76,12 +76,12 @@ import 'package:bldrs/models/bz/target/target_reward.dart';
     description: 'Contribute in Bldrs network growth, and take part in deciding in which direction by attentively selecting which of our Bldr contacts on your phone you see suitable to join the community',
     reward: communityGrowthReward,
     instructions: <String>[
-      'Verify your business account',
-      'Share your BLDR link to people you know who will benefit creating a business account on Bldrs.net',
-      'Tell them personally what you really think about Bldrs.net.',
-      'Wait until they create a new business account then your business account will get linked.',
-      'Wait the linked account to publish 30 slides and link with another business account.',
-      'At that point, Both your account and the linked account grow their accounts\' credits together',
+      "Verify your business account",
+      "Share your BLDR link to people you know who will benefit creating a business account on Bldrs.net",
+      "Tell them personally what you really think about Bldrs.net.",
+      "Wait until they create a new business account then your business account will get linked.",
+      "Wait the linked account to publish 30 slides and link with another business account.",
+      "At that point, Both your account and the linked account grow their accounts\' credits together",
     ],
 
   );
@@ -89,14 +89,14 @@ import 'package:bldrs/models/bz/target/target_reward.dart';
   const TargetModel payItBack = const TargetModel(
     id: 'payItBack',
     name: 'Pay it back',
-    description: 'You have joined Bldrs.net through a link sent to you from another business account, in such case, your account\'s growth impacts theirs as well',
+    description: "You have joined Bldrs.net through a link sent to you from another business account, in such case, your account\'s growth impacts theirs as well",
     reward: payItBackReward,
     instructions: <String>[
       'Verify your business account',
       'Publish 30 slides',
       'Share your BLDR link below to another person who will open a business account on Bldrs.net',
       'Wait until they create a new business account then your business account will get linked.',
-      'At that point, Both your account and the one sent you the invitation grow their accounts\' credits together',
+      "At that point, Both your account and the one sent you the invitation grow their accounts\' credits together",
     ],
   );
 // -----------------------------------------------------------------------------
