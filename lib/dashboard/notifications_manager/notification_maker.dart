@@ -17,7 +17,7 @@ import 'package:bldrs/dashboard/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/dashboard/widgets/user_button.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart';
-import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/ops/search_ops.dart';
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/db/fire/methods/storage.dart';

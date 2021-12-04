@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 

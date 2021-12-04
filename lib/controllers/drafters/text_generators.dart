@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/controllers/theme/standards.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/controllers/theme/standards.dart' as Standards;
+import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
