@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
@@ -117,7 +117,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   }
   // ----------------------------------------------------------------------
   Future<void> _addPic() async {
-    final File _imageFile = await Imagers.takeGalleryPicture(picType: PicType.askPic);
+    final File _imageFile = await Imagers.takeGalleryPicture(picType: Imagers.PicType.askPic);
     setState(() {_questionPics.add(File(_imageFile.path));});
   }
   // ----------------------------------------------------------------------

@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -8,8 +8,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/rendering.dart';
 import 'package:image/image.dart' as img;
 
-abstract class Colorizer{
-  static Gradient superSlideGradient(){
+  Gradient superSlideGradient(){
     const Gradient slideGradient = const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
@@ -19,7 +18,7 @@ abstract class Colorizer{
     return slideGradient;
   }
 // -----------------------------------------------------------------------------
-  static Gradient superHeaderStripGradient(Color color){
+  Gradient superHeaderStripGradient(Color color){
     final Gradient headerStripGradient = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
@@ -28,7 +27,7 @@ abstract class Colorizer{
     return headerStripGradient;
   }
 // -----------------------------------------------------------------------------
-  static Gradient superFollowBTGradient(){
+  Gradient superFollowBTGradient(){
     const Gradient followBTGradient = const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
@@ -38,7 +37,7 @@ abstract class Colorizer{
     return followBTGradient;
   }
 // -----------------------------------------------------------------------------
-  static ui.ImageFilter superBlur(bool trigger){
+  ui.ImageFilter superBlur(bool trigger){
     final double blueValue = trigger == true ? 8 : 0;
     final ui.ImageFilter blur = ui.ImageFilter.blur(sigmaX: blueValue, sigmaY: blueValue);
     return blur;
@@ -48,7 +47,7 @@ abstract class Colorizer{
   /// child: ColorFiltered(
   ///     colorFilter: superDesaturation(blackAndWhite),
   ///     child: ,
-  static ColorFilter superDesaturation(bool isItBlackAndWhite){
+  ColorFilter superDesaturation(bool isItBlackAndWhite){
     final Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.grey225 : Colorz.nothing;
     return ColorFilter.mode(
         imageSaturationColor,
@@ -56,7 +55,7 @@ abstract class Colorizer{
     );
   }
 // -----------------------------------------------------------------------------
-  static Future<Color> getAverageColor(dynamic pic) async {
+  Future<Color> getAverageColor(dynamic pic) async {
     final File _imageFile = await Imagers.getFileFromDynamic(pic);
 
     final img.Image bitmap =
@@ -84,7 +83,7 @@ abstract class Colorizer{
     return _averageColor;
   }
 // -----------------------------------------------------------------------------
-  static Color decipherColor(String colorString){
+  Color decipherColor(String colorString){
     Color _color;
 
     // print('decipherColor : colorString : $colorString');
@@ -118,7 +117,7 @@ abstract class Colorizer{
     return _color;
   }
 // -----------------------------------------------------------------------------
-  static String cipherColor(Color color){
+  String cipherColor(Color color){
 
     final Color _color = color == null ? Colorz.nothing : color;
 
@@ -131,7 +130,7 @@ abstract class Colorizer{
     return _string;
   }
 // -----------------------------------------------------------------------------
-  static bool colorsAreTheSame(Color colorA, Color colorB){
+  bool colorsAreTheSame(Color colorA, Color colorB){
     bool _areTheSame = false;
 
     if(
@@ -149,13 +148,13 @@ abstract class Colorizer{
     return _areTheSame;
   }
 // -----------------------------------------------------------------------------
-  static Color getRandomColor(){
+  Color getRandomColor(){
     const List<Color> _bldrsColors = Colorz.allColorz;
     final int _randomIndex = Numeric.createRandomIndex(listLength: _bldrsColors.length);
     return _bldrsColors[_randomIndex];
   }
 // -----------------------------------------------------------------------------
-  static bool isBlack(Color color){
+  bool isBlack(Color color){
     bool _isBlack = false;
 
     const Color _black = Colorz.black255;
@@ -167,4 +166,3 @@ abstract class Colorizer{
     return _isBlack;
   }
 // -----------------------------------------------------------------------------
-}

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
@@ -171,7 +171,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       print('getting the pic');
 
-      final File _imageFile = await Imagers.takeGalleryPicture(picType: PicType.userPic);
+      final File _imageFile = await Imagers.takeGalleryPicture(picType: Imagers.PicType.userPic);
 
       print('we got the pic in : ${_imageFile.path}');
 
