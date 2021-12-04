@@ -16,7 +16,7 @@ class FeedbackModel{
 });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
-    return {
+    return <String,dynamic>{
       'id' : id,
       'userID' : userID,
       'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: false),
@@ -34,12 +34,12 @@ static FeedbackModel decipherFeedbackMap(Map<String, dynamic> map){
         );
 }
 // -----------------------------------------------------------------------------
-static List<FeedbackModel> decipherFeedbacks(List<dynamic> maps){
+static List<FeedbackModel> decipherFeedbacks(List<Map<String, dynamic>> maps){
     final List<FeedbackModel> _feedbacks = <FeedbackModel>[];
 
     if (Mapper.canLoopList(maps)){
 
-      for (var map in maps){
+      for (Map<String, dynamic> map in maps){
 
         _feedbacks.add(FeedbackModel.decipherFeedbackMap(map));
 

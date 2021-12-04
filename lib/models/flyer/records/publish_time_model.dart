@@ -36,7 +36,7 @@ class PublishTime {
   }
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
-    return {
+    return <String, dynamic>{
       'state': FlyerModel.cipherFlyerState(state),
       'time': Timers.cipherTime(time: time, toJSON: toJSON),
     };

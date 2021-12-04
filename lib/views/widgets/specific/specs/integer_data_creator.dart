@@ -172,7 +172,7 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
                     _onTextChanged(val);
                     await Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-                    await Future.delayed(Ratioz.durationSliding400, ()async {
+                    await Future<void>.delayed(Ratioz.durationSliding400, () async {
                       widget.onSubmitted();
                     });
 

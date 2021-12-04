@@ -85,7 +85,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
       if (text.length < 3){
         setState(() {
           _isSearching = false;
-          _foundKeywords = [];
+          _foundKeywords = <KW>[];
         });
       }
 

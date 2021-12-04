@@ -12,6 +12,7 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
@@ -241,6 +242,7 @@ class InfoPage extends StatelessWidget {
             keywords: superFlyer.keywords,
             selectedWords: null,
             onTap: _editMode == true ? superFlyer.edit.onEditKeywordsTap : null,
+            onKeywordTap: (KW kw){kw.printKeyword();},
             addButtonIsOn: superFlyer.edit.editMode,
           ),
 

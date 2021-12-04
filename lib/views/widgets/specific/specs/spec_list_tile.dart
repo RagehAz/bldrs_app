@@ -149,7 +149,7 @@ class SpecListTile extends StatelessWidget {
 
                             ...List<Widget>.generate(
                                 selectedSpecs.length,
-                                    (index){
+                                    (int index){
 
                                   final Spec _spec = selectedSpecs[index];
 

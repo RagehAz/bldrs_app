@@ -42,7 +42,7 @@ class SpecList{
       final List<String> _allListsIDsToDeactivate = <String>[];
 
       /// GET DEACTIVATED LISTS
-      for (var list in sourceSpecsLists){
+      for (SpecList list in sourceSpecsLists){
         final List<SpecDeactivator> _deactivators = list.deactivators;
 
         if (Mapper.canLoopList(_deactivators)){
@@ -62,7 +62,7 @@ class SpecList{
       }
 
       /// REFINE
-      for (var list in sourceSpecsLists){
+      for (SpecList list in sourceSpecsLists){
 
         final bool _listShouldBeDeactivated = Mapper.stringsContainString(strings: _allListsIDsToDeactivate, string: list.id);
 
@@ -85,7 +85,7 @@ class SpecList{
 
     if (Mapper.canLoopList(specsLists) && specListID != null){
 
-      _specList = specsLists.singleWhere((list) => list.id == specListID, orElse: () => null);
+      _specList = specsLists.singleWhere((SpecList list) => list.id == specListID, orElse: () => null);
 
     }
 
@@ -93,7 +93,7 @@ class SpecList{
   }
 // -----------------------------------------------------------------------------
   static int getSpecsListIndexByID({@required List<SpecList> specsLists, @required String specsListID}){
-    final int _index = specsLists.indexWhere((list) => list.id == specsListID);
+    final int _index = specsLists.indexWhere((SpecList list) => list.id == specsListID);
     return _index;
   }
 // -----------------------------------------------------------------------------
@@ -103,7 +103,7 @@ class SpecList{
 
     if (Mapper.canLoopList(specsLists)){
 
-      for (var list in specsLists){
+      for (SpecList list in specsLists){
 
         if (list.groupID == groupID){
 
@@ -123,7 +123,7 @@ class SpecList{
 
     List<String> _groups = <String>[];
 
-    for (var list in specsLists){
+    for (SpecList list in specsLists){
 
       _groups = TextMod.addStringToListIfDoesNotContainIt(
         strings: _groups,
@@ -166,9 +166,9 @@ class SpecList{
         names: RawSpecs.propertyForm.names,
         canPickMany: false,
         isRequired: true,
-        deactivators: [
-          SpecDeactivator(specValue: 'pf_land', specsListsIDsToDeactivate: ['propertyArea', 'propertyAreaUnit']),
-          SpecDeactivator(specValue: 'pf_mobile', specsListsIDsToDeactivate: ['lotArea', 'lotAreaUnit', 'propertyFloorNumber', 'propertyNumberOfBedrooms', 'propertyNumberOfBathrooms', 'propertyInACompound']),
+        deactivators: <SpecDeactivator>[
+          SpecDeactivator(specValue: 'pf_land', specsListsIDsToDeactivate: <String>['propertyArea', 'propertyAreaUnit']),
+          SpecDeactivator(specValue: 'pf_mobile', specsListsIDsToDeactivate: <String>['lotArea', 'lotAreaUnit', 'propertyFloorNumber', 'propertyNumberOfBedrooms', 'propertyNumberOfBathrooms', 'propertyInACompound']),
         ],
         range: null,
         specChain: RawSpecs.propertyForm
@@ -193,10 +193,10 @@ class SpecList{
         names: const <Name>[Name(code: 'en', value: 'Property contract Type'), Name(code: 'ar', value: 'نوع التعاقد على الغقار')],
         canPickMany: false,
         isRequired: true,
-        deactivators: [
-          SpecDeactivator(specValue: 'contractType_NewSale', specsListsIDsToDeactivate: ['propertyRentPrice', ]),
-          SpecDeactivator(specValue: 'contractType_Resale', specsListsIDsToDeactivate: ['propertyRentPrice', ]),
-          SpecDeactivator(specValue: 'contractType_Rent', specsListsIDsToDeactivate: ['PropertySalePrice', ]),
+        deactivators: <SpecDeactivator>[
+          SpecDeactivator(specValue: 'contractType_NewSale', specsListsIDsToDeactivate: <String>['propertyRentPrice', ]),
+          SpecDeactivator(specValue: 'contractType_Resale', specsListsIDsToDeactivate: <String>['propertyRentPrice', ]),
+          SpecDeactivator(specValue: 'contractType_Rent', specsListsIDsToDeactivate: <String>['PropertySalePrice', ]),
         ],
         range: null,
         specChain: RawSpecs.contractType
@@ -209,8 +209,8 @@ class SpecList{
         canPickMany: false,
         isRequired: false,
         range: null,
-        deactivators: [
-          SpecDeactivator(specValue: 'payment_cash', specsListsIDsToDeactivate: ['propertyNumberOfInstallments', 'propertyInstallmentsDuration', 'propertyInstallmentsDurationUnit']),
+        deactivators: <SpecDeactivator>[
+          SpecDeactivator(specValue: 'payment_cash', specsListsIDsToDeactivate: <String>['propertyNumberOfInstallments', 'propertyInstallmentsDuration', 'propertyInstallmentsDurationUnit']),
         ],
         specChain: RawSpecs.paymentMethod
     ),
@@ -598,7 +598,7 @@ class SpecList{
       names: const <Name>[Name(code: 'en', value: 'Project duration unit'), Name(code: 'ar', value: 'وحدة قياس زمن تنفيذ المشروع')],
       canPickMany: false,
       isRequired: false,
-      range: ['day', 'week', 'month', 'year'],
+      range: <String>['day', 'week', 'month', 'year'],
       specChain: RawSpecs.durationUnit,
     ),
     // ------------------------------------------------------------

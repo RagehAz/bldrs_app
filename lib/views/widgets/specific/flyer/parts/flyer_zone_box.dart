@@ -114,7 +114,7 @@ class FlyerBox extends StatelessWidget {
     return _logoWidth;
   }
 // -----------------------------------------------------------------------------
-  static double headerAndProgressHeights(BuildContext, double flyerZoneHeight){
+  static double headerAndProgressHeights(double flyerZoneHeight){
     return
       headerBoxHeight(false, flyerZoneHeight) + flyerZoneHeight * Ratioz.xxProgressBarHeightRatio;
   }

@@ -51,13 +51,13 @@ Widget userModelBuilder({
   userModelWidgetBuilder builder,
 }){
 
-  return FutureBuilder(
+  return FutureBuilder<Map<String, dynamic>>(
       future: Fire.readDoc(
         context: context,
         collName: FireColl.users,
         docName: userID,
       ),
-      builder: (ctx, snapshot){
+      builder: (BuildContext ctx, AsyncSnapshot<Object> snapshot){
 
         if (snapshot.connectionState == ConnectionState.waiting){
           return const Loading(loading: true,);

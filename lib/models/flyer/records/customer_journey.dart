@@ -46,7 +46,7 @@ class Record {
   Map<String, dynamic> cipher({@required bool toJSON}){
 
     return
-      {
+      <String, dynamic>{
         'userID' : userID,
         'bzID' : bzID,
         'activity' : cipherActivity(activity),

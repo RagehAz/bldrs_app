@@ -38,7 +38,7 @@ class CountryModel{
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
 
-    return {
+    return <String, dynamic>{
       'id' : id,
       'region' : region,
       'continent' : continent,
@@ -75,11 +75,11 @@ class CountryModel{
     return _countryModel;
   }
 // -----------------------------------------------------------------------------
-  static List<CountryModel> decipherCountriesMaps({@required List<dynamic> maps, @required bool fromJSON}){
+  static List<CountryModel> decipherCountriesMaps({@required List<Map<String, dynamic>> maps, @required bool fromJSON}){
     final List<CountryModel> _countries = <CountryModel>[];
 
     if (Mapper.canLoopList(maps)){
-      maps?.forEach((map) {
+      maps?.forEach((Map<String, dynamic> map) {
         _countries.add(decipherCountryMap(
           map: map,
           fromJSON: fromJSON,
@@ -207,7 +207,7 @@ class CountryModel{
   static List<String> getAllCountriesIDs(){
     final List<String> _ids = <String>[];
 
-    Flag.allFlags.forEach((flag) {
+    Flag.allFlags.forEach((Flag flag) {
 
       _ids.add(flag.countryID);
 

@@ -194,7 +194,7 @@ class Dialogz{
                     title: 'flyers of ${bzzToDeactivate[index].name}',
                     numberOfRows: 1,
                     bubbleWidth: CenterDialog.dialogWidth(context: context) - (Ratioz.appBarMargin * 4),
-                    onTap: (value){
+                    onTap: (String value){
                       print(value);
                     },
                   );
@@ -235,8 +235,8 @@ class Dialogz{
           verse: 'Please confirm your city',
         ),
 
-        ...List.generate(cities.length,
-                (index){
+        ...List<Widget>.generate(cities.length,
+                (int index){
 
               final CityModel _foundCity = cities[index];
               final String _foundCityName = Name.getNameByCurrentLingoFromNames(context, _foundCity.names);

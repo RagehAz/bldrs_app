@@ -63,7 +63,7 @@ class UserModel {
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
 
-    return {
+    return <String, dynamic>{
       'id' : id,
       'authBy' : cipherAuthBy(authBy),
       'createdAt' : Timers.cipherTime(time: createdAt, toJSON: toJSON),
@@ -79,12 +79,12 @@ class UserModel {
       'position' : Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
       'contacts' : ContactModel.cipherContacts(contacts),
 // -------------------------
-      'myBzzIDs' : myBzzIDs ?? [],
+      'myBzzIDs' : myBzzIDs ?? <String>[],
       'emailIsVerified' : emailIsVerified,
       'isAdmin': isAdmin,
       'fcmToken' : fcmToken?.toMap(toJSON: toJSON),
-      'savedFlyersIDs' : savedFlyersIDs ?? [],
-      'followedBzzIDs' : followedBzzIDs ?? [],
+      'savedFlyersIDs' : savedFlyersIDs ?? <String>[],
+      'followedBzzIDs' : followedBzzIDs ?? <String>[],
     };
   }
 // -----------------------------------------------------------------------------
@@ -119,12 +119,12 @@ class UserModel {
 
   }
 // -----------------------------------------------------------------------------
-  static List<UserModel> decipherUsersMaps({@required List<dynamic> maps, @required bool fromJSON}){
+  static List<UserModel> decipherUsersMaps({@required List<Map<String, dynamic>> maps, @required bool fromJSON}){
     final List<UserModel> _users = <UserModel>[];
 
     if (Mapper.canLoopList(maps)){
 
-      for (var map in maps){
+      for (Map<String, dynamic> map in maps){
 
         _users.add(decipherUserMap(map: map, fromJSON: fromJSON));
 
@@ -223,7 +223,7 @@ class UserModel {
   ];
 // -----------------------------------------------------------------------------
   static List<String> removeIDFromIDs(List<String> ids, String id){
-    final int _idIndex = ids.indexWhere((_id) => _id == id,);
+    final int _idIndex = ids.indexWhere((String _id) => _id == id,);
 
     if (_idIndex != null){
       ids.removeAt(_idIndex);

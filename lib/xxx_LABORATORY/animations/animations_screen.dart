@@ -135,7 +135,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
 
             child: Center(
               child: RotationTransition(
-                turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+                turns: Tween<double>(begin: 0.0, end: 1.0).animate(_controller),
 
                 child: AnimatedOpacity(
                   opacity: condition() == true ? 1 : 0.2,
@@ -188,7 +188,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               onTap: (){
                 print('ripple effect works now');
                 Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext context) => const HeroMax())
+                MaterialPageRoute<HeroMax>(builder: (BuildContext context) => const HeroMax())
                 );
                 },
             ),
@@ -208,7 +208,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                 verse: 'ana ho',
                 onTap: (){
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const HeroMax())
+                      MaterialPageRoute<HeroMax>(builder: (BuildContext context) => const HeroMax())
                   );
                 },
               ),
@@ -224,7 +224,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               onTap: (){
                 setState(() {
                   btWidth = 80;
-                  Future.delayed(Duration(milliseconds: btDuration), (){setState(() {
+                  Future<void>.delayed(Duration(milliseconds: btDuration), (){setState(() {
                     btWidth = 100;
                   });});
 
@@ -239,7 +239,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                 // _btController.forward();
                 setState(() {
                   btWidth = 85;
-                  Future.delayed(Duration(milliseconds: btDuration), (){setState(() {
+                  Future<void>.delayed(Duration(milliseconds: btDuration), (){setState(() {
                     btWidth = 90;
                   });});
                 });
@@ -248,7 +248,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                 // _btController.reverse();
                 setState(() {
                   btWidth = 105;
-                  Future.delayed(Duration(milliseconds: btDuration), (){setState(() {
+                  Future<void>.delayed(Duration(milliseconds: btDuration), (){setState(() {
                     btWidth = 100;
                   });});
 

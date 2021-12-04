@@ -514,7 +514,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               keyboardTextInputType: TextInputType.name,
               keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: true,
-              validator: (val) => val.isEmpty ? Wordz.enterCompanyName(context) : null,
+              validator: (String val) => val.isEmpty ? Wordz.enterCompanyName(context) : null,
             ),
 
             /// --- EDIT ZONE

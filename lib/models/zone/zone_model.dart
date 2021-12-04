@@ -21,7 +21,7 @@ class ZoneModel{
   }
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
-    return {
+    return <String, dynamic>{
       'countryID' : countryID,
       'cityID' : cityID,
       'districtID' : districtID,

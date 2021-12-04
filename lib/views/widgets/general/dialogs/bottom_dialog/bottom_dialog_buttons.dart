@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class BottomDialogButtons extends StatelessWidget {
   final List<MapModel> mapsModels;
   final Alignment alignment;
-  final Function buttonTap;
+  final ValueChanged<String> buttonTap;
   final BottomDialogType bottomDialogType;
   final double dialogHeight;
   final double buttonHeight;

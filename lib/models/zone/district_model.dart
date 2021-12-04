@@ -28,7 +28,7 @@ class DistrictModel{
   });
 
   Map<String, Object> toMap(){
-    return {
+    return <String, Object>{
       'countryID' : countryID,
       'cityID' : cityID,
       'districtID' : CountryModel.fixCountryName(districtID),
@@ -39,7 +39,7 @@ class DistrictModel{
   }
 // -----------------------------------------------------------------------------
   static Map<String,dynamic> cipherDistricts(List<DistrictModel> districts){
-    Map<String, dynamic> _districtsMap = {};
+    Map<String, dynamic> _districtsMap = <String, dynamic>{};
 
     for (DistrictModel district in districts){
 
@@ -91,7 +91,7 @@ class DistrictModel{
 
     if (Mapper.canLoopList(districts)){
 
-      districts.forEach((district) {
+      districts.forEach((DistrictModel district) {
 
         _districtsMapModels.add(
             MapModel(
@@ -112,7 +112,7 @@ class DistrictModel{
     DistrictModel _district;
     if (Mapper.canLoopList(districts)){
 
-      _district = districts.firstWhere((district) => district.districtID == districtID, orElse: () => null);
+      _district = districts.firstWhere((DistrictModel district) => district.districtID == districtID, orElse: () => null);
 
     }
     return _district;

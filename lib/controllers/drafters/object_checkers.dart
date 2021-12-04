@@ -17,42 +17,32 @@ extension FileExtention on FileSystemEntity {
 // -----------------------------------------------------------------------------
 abstract class ObjectChecker {
 // -----------------------------------------------------------------------------
-  static bool listCanBeUsed(List<dynamic> list){
-
-    final bool _canBeUsed =
-    list == null ? false :
-    list.length == 0 ? false : true;
-
-    return _canBeUsed;
-  }
-// -----------------------------------------------------------------------------
   static fileExtensionOf(dynamic file) {
     return
       file == null ? null
           :
-    objectIsString(file) == true ? File(file).fileExtension
+    file is String == true ? File(file).fileExtension
         :
     null;
   }
 // -----------------------------------------------------------------------------
-  static bool objectIsString(dynamic value) {
-    final bool _valueIsString = value.runtimeType == String ? true : false;
-    return _valueIsString;
-  }
-// -----------------------------------------------------------------------------
-  static bool objectIsList(dynamic value) {
-    final bool _valueIsString = value.runtimeType == List ? true : false;
-    return _valueIsString;
-  }
-// -----------------------------------------------------------------------------
   static bool objectIsURL(dynamic file) {
-    final bool _validURL = objectIsString(file) == true ? Uri.parse(file).isAbsolute : false;
+    bool _validURL;
+
+    if (file is String){
+      _validURL = Uri.parse(file).isAbsolute;
+    }
+
+    else {
+      _validURL = false;
+    }
+
     return _validURL;
   }
 // -----------------------------------------------------------------------------
   static bool isBase64(dynamic value) {
 
-    if (objectIsString(value) == true){
+    if (value is String == true){
       final RegExp rx = RegExp(r'^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$', multiLine: true, unicode: true);
 
       final bool isBase64Valid = rx.hasMatch(value);
@@ -95,7 +85,17 @@ abstract class ObjectChecker {
   }
 // -----------------------------------------------------------------------------
   static bool objectIsSVG(dynamic object) {
-    return fileExtensionOf(object) == 'svg' ? true : false;
+
+    bool _isSVG;
+
+    if (fileExtensionOf(object) == 'svg'){
+      _isSVG = true;
+    }
+    else {
+      _isSVG = false;
+    }
+
+    return _isSVG;
   }
 // -----------------------------------------------------------------------------
   static bool objectIsAsset(dynamic object){

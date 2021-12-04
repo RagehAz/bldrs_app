@@ -286,7 +286,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
                     _onTextChanged(val);
                     await Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-                    await Future.delayed(Ratioz.durationSliding400, ()async {
+                    await Future<void>.delayed(Ratioz.durationSliding400, ()async {
                       widget.onSubmitted();
                     });
 
@@ -305,7 +305,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
                 color: Colorz.nothing,
                 child: ValueListenableBuilder<CurrencyModel>(
                   valueListenable: _currency,
-                  builder: (ctx, value, child){
+                  builder: (BuildContext ctx, CurrencyModel value, Widget child){
 
                     return
 

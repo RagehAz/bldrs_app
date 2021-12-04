@@ -21,7 +21,7 @@ class UsersProvider extends ChangeNotifier {
         searchValue: userID,
       );
 
-      if (_map != null && _map != {}){
+      if (_map != null && _map != <String, dynamic>{}){
         print('fetchUserModelByID : UserModel found in local db : ${doc}');
         _userModel = UserModel.decipherUserMap(map: _map, fromJSON: true);
         break;
@@ -105,12 +105,12 @@ class UsersProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   /// USER STREAM
   Stream<UserModel> get myUserModelStream {
-    final CollectionReference _userCollection = UserFireOps.collRef();
+    final CollectionReference<Object> _userCollection = UserFireOps.collRef();
     final Stream<UserModel> _stream = _userCollection.doc(_myUserModel?.id).snapshots().map(_userModelFromSnapshot);
     return _stream;
   }
 // -------------------------------------
-  static UserModel _userModelFromSnapshot(DocumentSnapshot doc) {
+  static UserModel _userModelFromSnapshot(DocumentSnapshot<Object> doc) {
     UserModel _userModel;
 
     if (doc != null) {
