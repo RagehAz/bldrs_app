@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/theme/standards.dart';
+import 'package:bldrs/controllers/theme/standards.dart' as Standards;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';

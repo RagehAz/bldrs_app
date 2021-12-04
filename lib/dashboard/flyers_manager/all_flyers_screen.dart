@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';

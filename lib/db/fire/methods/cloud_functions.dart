@@ -32,15 +32,14 @@ FieldValue ++
 
 
 
-class CloudFunctionz{
 
-  static const String funcName_myFunction = 'myFunction';
-  // static String callable_toBlackHole = 'toBlackHole';
-  static const String callable_randomNumber = 'randomNumber';
-  static const String callable_sayHello = 'x_sayHello';
+  const String funcName_myFunction = 'myFunction';
+  // String callable_toBlackHole = 'toBlackHole';
+  const String callable_randomNumber = 'randomNumber';
+  const String callable_sayHello = 'x_sayHello';
 
   /// http trigger -> ( callable function - end point request )
-  static Future<dynamic> callFunction({@required BuildContext context, String cloudFunctionName, Map<String, dynamic> toDBMap}) async {
+  Future<dynamic> callFunction({@required BuildContext context, String cloudFunctionName, Map<String, dynamic> toDBMap}) async {
     final HttpsCallable _function = _getCallableFunction(funcName: cloudFunctionName);
 
     try {
@@ -93,7 +92,7 @@ class CloudFunctionz{
 
   }
 
-  static HttpsCallable _getCallableFunction({String funcName}){
+  HttpsCallable _getCallableFunction({String funcName}){
     return
         FirebaseFunctions.instance.httpsCallable(
           funcName,
@@ -101,9 +100,8 @@ class CloudFunctionz{
         );
   }
 
-  static Future<String> deleteFirebaseUser({String userID}) async {
+  Future<String> deleteFirebaseUser({String userID}) async {
     print('will delete user tomorrow isa, after 3eid');
     return 'rabena ysahhel';
   }
 
-}
