@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/progress_bar_parts/strips.dart';
@@ -13,7 +13,7 @@ class ProgressBar extends StatelessWidget {
   final double flyerBoxWidth;
   // final DraftFlyerModel draft;
   final bool loading;
-  final SwipeDirection swipeDirection;
+  final Sliders.SwipeDirection swipeDirection;
   final EdgeInsets margins;
 
   const ProgressBar({

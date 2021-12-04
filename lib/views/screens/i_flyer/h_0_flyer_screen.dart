@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -91,7 +91,7 @@ class FlyerScreen extends StatelessWidget {
           initialSlideIndex: initialSlideIndex ?? 0,
           goesToEditor: false,
           flyerKey: PageStorageKey<String>(_flyerID),
-          onSwipeFlyer: (SwipeDirection direction){
+          onSwipeFlyer: (Sliders.SwipeDirection direction){
             // print('Direction is $direction');
           },
         ),

@@ -1,5 +1,4 @@
-import 'package:bldrs/controllers/drafters/sliders.dart';
-
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 // -----------------------------------------------------------------------------
 //   PageTransitionType superHorizontalTransition(BuildContext context){
 //     return
@@ -18,16 +17,16 @@ import 'package:bldrs/controllers/drafters/sliders.dart';
   //   return radian;
   // }
 // -----------------------------------------------------------------------------
-  SwipeDirection getSwipeDirection({int oldIndex, int newIndex}){
-    SwipeDirection _swipeDirection;
+  Sliders.SwipeDirection getSwipeDirection({int oldIndex, int newIndex}){
+    Sliders.SwipeDirection _swipeDirection;
     if( newIndex > oldIndex ){
-      _swipeDirection = SwipeDirection.next;
+      _swipeDirection = Sliders.SwipeDirection.next;
     }
     else if( newIndex < oldIndex){
-      _swipeDirection = SwipeDirection.back;
+      _swipeDirection = Sliders.SwipeDirection.back;
     }
     else {
-      _swipeDirection = SwipeDirection.freeze;
+      _swipeDirection = Sliders.SwipeDirection.freeze;
     }
 
     // print('getSwipeDirection concluded going from [ old index ($oldIndex) ] to [ new index ($newIndex) ] is [$_swipeDirection]');

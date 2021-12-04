@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
-import 'package:bldrs/controllers/drafters/text_checkers.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/secondary_models/image_size.dart';
 import 'package:flutter/material.dart';
