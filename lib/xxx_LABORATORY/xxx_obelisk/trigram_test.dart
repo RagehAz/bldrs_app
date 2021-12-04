@@ -1,14 +1,9 @@
 import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/dashboard/exotic_methods.dart';
-import 'package:bldrs/db/fire/methods/firestore.dart';
-import 'package:bldrs/db/fire/methods/paths.dart';
-import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/xxx_LABORATORY/CLEANING_SPACE.dart';
 import 'package:flutter/material.dart';
 
 class TrigramTest extends StatefulWidget {
@@ -76,9 +71,11 @@ class _TrigramTestState extends State<TrigramTest> {
               keyboardTextInputAction: TextInputAction.search,
               onChanged: (String val){
 
-                List<String> _trigram = TextGen.createTrigram(
-                  input: val,
-                );
+                // List<String> _trigram = TextGen.createTrigram(
+                //   input: val,
+                // );
+
+                List<String> _trigram = generateStringPermutations(val);
 
                 setState(() {
                   _result = _trigram;
@@ -119,36 +116,6 @@ class _TrigramTestState extends State<TrigramTest> {
             verse: 'tirgram has : ${_result.length} entries',
             labelColor: Colorz.blue125,
             margin: 10,
-          ),
-
-          DreamBox(
-            height: 40,
-            verse: 'fix bbzz',
-            color: Colorz.red255,
-            verseScaleFactor: 0.7,
-            onTap: () async {
-
-              print('wtf');
-
-              List<BzModel> _allBzz = await ExoticMethods.readAllBzzModels(context: context, limit: 200);
-
-              for (BzModel bz in _allBzz){
-
-                List<String> _newTrigram = TextGen.createTrigram(input: bz.name);
-
-                await Fire.updateDocField(
-                    context: context,
-                    collName: FireColl.bzz,
-                    docName: bz.id,
-                    field: 'trigram',
-                    input: _newTrigram,
-                );
-
-              }
-
-              print('DONEEE');
-
-            },
           ),
 
       ],

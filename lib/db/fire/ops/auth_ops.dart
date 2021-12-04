@@ -278,7 +278,8 @@ class FireAuthOps {
 
       return await _auth.signOut();
 
-    } catch (error) {
+    }
+    on Exception catch (error) {
 
       await CenterDialog.showCenterDialog(
         context: context,

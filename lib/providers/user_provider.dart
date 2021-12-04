@@ -114,12 +114,14 @@ class UsersProvider extends ChangeNotifier {
     UserModel _userModel;
 
     if (doc != null) {
+
       try {
         Map<String, dynamic> _map = doc.data() as Map<String, dynamic>;
 
         _userModel = UserModel.decipherUserMap(map: _map, fromJSON: false);
 
-      } catch (error) {
+      }
+      on Exception catch (error) {
         print(
             '_userModelFromSnapshot error is : $error');
         throw (error);

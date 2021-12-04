@@ -9,6 +9,7 @@ import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
+import 'package:bldrs/xxx_LABORATORY/CLEANING_SPACE.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -539,6 +540,23 @@ void main(){
     const double _number = 10.12553;
     final int _numberFractions = Numeric.getNumberOfFractions(number: _number);
     expect(_numberFractions, 5);
+
+  });
+// -----------------------------------------------------------------------------
+  test("get Factorial", () async {
+
+    int input = 0;
+    int _factorial = getFactorial(input);
+    int _expected = 1;
+
+    expect(_factorial, _expected);
+
+    int _numberOfPermutations = getNumberOfPermutations(number: 5, numberOfSelectedObjects: 3);
+    expect(_numberOfPermutations, 60);
+
+    int _numberOfCombinations = getNumberOfCombinations(number: 5, numberOfSelectedObjects: 3);
+    expect(_numberOfCombinations, 10);
+
 
   });
 // -----------------------------------------------------------------------------
