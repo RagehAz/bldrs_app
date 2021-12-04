@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';

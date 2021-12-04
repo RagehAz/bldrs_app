@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class FCMToken {

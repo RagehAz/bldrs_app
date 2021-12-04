@@ -14,6 +14,7 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/controllers/drafters/tracers.dart' as Tracer;
 
 /// TASK : if appNeedsUpdate = true ? goTO(AppStore) : check the user as you wish
 /// TASK : if device is offline

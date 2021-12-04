@@ -315,7 +315,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     // const double _selectedKeywordsZoneHeight = 80;
     // final double _keywordsZoneHeight =  _screenHeight - Ratioz.stratosphere - _selectedKeywordsZoneHeight;
 
-    Tracer.traceWidgetBuild(widgetName: 'SelectKeywordsScreen', varName: '_selectedKeywords.length', varValue: _selectedKeywords.length);
+    traceWidgetBuild(widgetName: 'SelectKeywordsScreen', varName: '_selectedKeywords.length', varValue: _selectedKeywords.length);
     return MainLayout(
       pageTitle: 'Select Flyer keywords',
       appBarType: AppBarType.Basic,

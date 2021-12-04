@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/db/fire/methods/firestore.dart';
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/db/fire/methods/storage.dart';
