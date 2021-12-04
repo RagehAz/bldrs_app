@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/controllers/drafters/numeric.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';

@@ -3,14 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sembast/utils/value_utils.dart';
 
-abstract class Mapper{
 // -----------------------------------------------------------------------------
   /// TODO : check getFirstValuesFromMaps if not used in production
   /// [
   /// {'key' : 'ID'         , 'key' : 'Value'       },
   /// {'key' : 'firstValue' , 'key' : 'secondValue' },
   /// ]
-  static List<String> getFirstValuesFromMaps(List<Map<String, Object>> listOfMaps){
+  List<String> getFirstValuesFromMaps(List<Map<String, Object>> listOfMaps){
     List<String> _listOfFirstValues = <String>[];
 
     for (int x = 0; x<listOfMaps.length; x++){
@@ -26,7 +25,7 @@ abstract class Mapper{
   /// {'key' : 'ID'         , 'key' : 'Value'       },
   /// {'key' : 'firstValue' , 'key' : 'secondValue' },
   /// ]
-  static List<String> getSecondValuesFromMaps(List<Map<String, Object>> listOfMaps){
+  List<String> getSecondValuesFromMaps(List<Map<String, Object>> listOfMaps){
     List<String> _listOfValues = <String>[];
 
     for (int x = 0; x<listOfMaps.length; x++){
@@ -37,7 +36,7 @@ abstract class Mapper{
     return _listOfValues;
   }
 // -----------------------------------------------------------------------------
-  static List<String> cloneListOfStrings(List<String> list){
+  List<String> cloneListOfStrings(List<String> list){
     List<dynamic> _newList = <dynamic>[];
 
     for (String x in list){
@@ -46,7 +45,7 @@ abstract class Mapper{
     return _newList;
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, dynamic>> getMapsFromQuerySnapshot({
+  List<Map<String, dynamic>> getMapsFromQuerySnapshot({
     @required QuerySnapshot<Object> querySnapshot,
     @required bool addDocsIDs,
     @required bool addDocSnapshotToEachMap,
@@ -63,7 +62,7 @@ abstract class Mapper{
     return _maps;
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
+  List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
     @required List<QueryDocumentSnapshot<Object>> queryDocumentSnapshots,
     @required bool addDocsIDs,
     @required bool addDocSnapshotToEachMap,
@@ -71,7 +70,7 @@ abstract class Mapper{
 
     List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Mapper.canLoopList(queryDocumentSnapshots)){
+    if (canLoopList(queryDocumentSnapshots)){
 
       for (QueryDocumentSnapshot<Object> docSnapshot in queryDocumentSnapshots){
 
@@ -84,7 +83,7 @@ abstract class Mapper{
         }
 
         if (addDocSnapshotToEachMap == true){
-          _map = Mapper.insertPairInMap(
+          _map = insertPairInMap(
             map: _map,
             key: 'docSnapshot',
             value: docSnapshot,
@@ -100,13 +99,13 @@ abstract class Mapper{
     return _maps;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, dynamic> getMapFromDocumentSnapshot(DocumentSnapshot<Object> documentSnapshot){
+  Map<String, dynamic> getMapFromDocumentSnapshot(DocumentSnapshot<Object> documentSnapshot){
     final Map<String, dynamic> _map = documentSnapshot.data();
     return _map;
 
   }
 // -----------------------------------------------------------------------------
-  static bool listOfMapsContainValue({@required List<Map<String, dynamic>> listOfMaps, @required String field, @required String value}){
+  bool listOfMapsContainValue({@required List<Map<String, dynamic>> listOfMaps, @required String field, @required String value}){
 
     bool _listOfMapContainsTheValue;
 
@@ -131,7 +130,7 @@ abstract class Mapper{
   /// ];
   ///
   /// map = {'key1' : 'value', 'key2' : 'value2'};
-  static bool listOfMapsContainMap({@required List<Map<String, dynamic>> listOfMaps, @required Map<String, dynamic> map}){
+  bool listOfMapsContainMap({@required List<Map<String, dynamic>> listOfMaps, @required Map<String, dynamic> map}){
 
     // ---------------------------------
     bool _inputsAreInvalid;
@@ -167,7 +166,7 @@ abstract class Mapper{
     return _listOfMapContainsTheMap;
   }
 // -----------------------------------------------------------------------------
-  static bool listsAreTheSame({@required List<dynamic> list1, @required List<dynamic> list2}){
+  bool listsAreTheSame({@required List<dynamic> list1, @required List<dynamic> list2}){
     bool listsAreTheSame;
 
     if (list1.length != list2.length){
@@ -195,7 +194,7 @@ abstract class Mapper{
     return listsAreTheSame;
   }
 // -----------------------------------------------------------------------------
-  static bool mapsAreTheSame(Map<String, dynamic> map1, Map<String, dynamic> map2){
+  bool mapsAreTheSame(Map<String, dynamic> map1, Map<String, dynamic> map2){
     bool _mapsAreTheSame;
 
     bool _inputsAreInvalid;
@@ -243,17 +242,17 @@ abstract class Mapper{
     return _mapsAreTheSame;
   }
 // -----------------------------------------------------------------------------
-  static int indexOfMapInListOfMaps(List<Map<String, dynamic>> listOfMaps, Map<String,dynamic> map){
-    final int _indexOfTheMap = listOfMaps.indexWhere((Map<String, dynamic> m) => Mapper.mapsAreTheSame(m, map));
+  int indexOfMapInListOfMaps(List<Map<String, dynamic>> listOfMaps, Map<String,dynamic> map){
+    final int _indexOfTheMap = listOfMaps.indexWhere((Map<String, dynamic> m) => mapsAreTheSame(m, map));
     return _indexOfTheMap;
   }
 // -----------------------------------------------------------------------------
-  static int indexOfMapByValueInListOfMaps({@required List<Map<String, dynamic>> listOfMaps, @required String key, @required dynamic value}){
+  int indexOfMapByValueInListOfMaps({@required List<Map<String, dynamic>> listOfMaps, @required String key, @required dynamic value}){
     final int _indexOfTheMap = listOfMaps.indexWhere((Map<String, dynamic> map) => map[key] == value);
     return _indexOfTheMap;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, dynamic> insertPairInMap({@required Map<String,dynamic> map, @required String key, @required dynamic value}){
+  Map<String, dynamic> insertPairInMap({@required Map<String,dynamic> map, @required String key, @required dynamic value}){
     map.putIfAbsent(key, () => value);
 
     Map<String, dynamic> _result = <String, dynamic>{};
@@ -263,7 +262,7 @@ abstract class Mapper{
   }
 // -----------------------------------------------------------------------------
   /// url query looks like "key1=value1&key1=value2&key3=value3"
-  static Map<String, dynamic> getMapFromURLQuery({@required String urlQuery}){
+  Map<String, dynamic> getMapFromURLQuery({@required String urlQuery}){
     /// url query should look like this
     /// 'country=eg&category=business&apiKey=65f7556ec76449fa7dc7c0069f040ca';
 
@@ -306,7 +305,7 @@ abstract class Mapper{
         final String _key = TextMod.removeTextAfterFirstSpecialCharacter(pair, '=');
         final String _value = TextMod.removeTextBeforeFirstSpecialCharacter(pair, '=');
 
-        _output = Mapper.insertPairInMap(map: _output, key: _key,value: _value,);
+        _output = insertPairInMap(map: _output, key: _key,value: _value,);
 
       }
 
@@ -322,10 +321,10 @@ abstract class Mapper{
     return _output;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getStringsFromDynamics({@required List<dynamic> dynamics}){
+  List<String> getStringsFromDynamics({@required List<dynamic> dynamics}){
     final List<String> _strings = <String>[];
 
-    if (Mapper.canLoopList(dynamics)){
+    if (canLoopList(dynamics)){
       for (dynamic thing in dynamics){
 
         if (thing is String == true){
@@ -343,7 +342,7 @@ abstract class Mapper{
     return _strings;
   }
 // -----------------------------------------------------------------------------
-  static Map<String, Object> replacePair({@required Map<String, Object> map,@required  String fieldKey,@required  dynamic inputValue}){
+  Map<String, Object> replacePair({@required Map<String, Object> map,@required  String fieldKey,@required  dynamic inputValue}){
 
     final Map<String, Object> _aMap = cloneMap(map);
 
@@ -365,7 +364,7 @@ abstract class Mapper{
     return _aMap;
 }
 // -----------------------------------------------------------------------------
-  static Map<String, Object> removePair({@required Map<String, Object> map,@required  String fieldKey}){
+  Map<String, Object> removePair({@required Map<String, Object> map,@required  String fieldKey}){
 
     final Map<String, Object> _map = cloneMap(map);
 
@@ -374,7 +373,7 @@ abstract class Mapper{
     return _map;
   }
 // -----------------------------------------------------------------------------
-  static bool canLoopList(List<dynamic> list){
+  bool canLoopList(List<dynamic> list){
 
     bool _canLoop = false;
 
@@ -384,7 +383,7 @@ abstract class Mapper{
     return _canLoop;
   }
 // -----------------------------------------------------------------------------
-  static void printMap(Map<String, dynamic> map){
+  void printMap(Map<String, dynamic> map){
 
     print('MAP-PRINT --------------------------------------------------START');
 
@@ -399,7 +398,7 @@ abstract class Mapper{
 
   }
 // -----------------------------------------------------------------------------
-  static void printMaps(List<Map<String, dynamic>> maps){
+  void printMaps(List<Map<String, dynamic>> maps){
 
     if (canLoopList(maps)){
 
@@ -411,7 +410,7 @@ abstract class Mapper{
 
   }
 // -----------------------------------------------------------------------------
-  static List<Map<String, dynamic>> getMapsFromDynamics(List<dynamic> dynamics){
+  List<Map<String, dynamic>> getMapsFromDynamics(List<dynamic> dynamics){
 
     List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
@@ -428,7 +427,7 @@ abstract class Mapper{
     return _maps;
   }
 // -----------------------------------------------------------------------------
-  static bool stringsContainString({@required List<String> strings,@required  String string}){
+  bool stringsContainString({@required List<String> strings,@required  String string}){
 
     bool _containsIt = false;
 
@@ -441,5 +440,3 @@ abstract class Mapper{
     return _containsIt;
   }
 // -----------------------------------------------------------------------------
-
-}

@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/numeric.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/zone/flag_model.dart';

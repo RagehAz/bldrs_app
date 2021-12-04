@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart';
 import 'package:bldrs/db/fire/methods/paths.dart';

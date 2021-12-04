@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/controllers/drafters/launchers.dart';
+import 'package:bldrs/controllers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -68,7 +68,7 @@ class SectionTile extends StatelessWidget {
                 verse: 'Inform a friend',
                 width: 133,
                 onTap: () async {
-                  await Launch.shareLink(context, LinkModel.bldrsWebSiteLink);
+                  await Launcher.shareLink(context, LinkModel.bldrsWebSiteLink);
                 },
               ),
 
