@@ -106,6 +106,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
+  @override
   void initState(){
     super.initState();
     // -------------------------
@@ -582,7 +583,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               MultipleChoiceBubble(
                 title: Wordz.businessForm(context),
                 buttonsList: TextGen.bzFormStrings(context),
-                tappingAButton: (index) => setState(() {_currentBzForm = BzModel.bzFormsList[index];}),
+                tappingAButton: (int index) => setState(() {_currentBzForm = BzModel.bzFormsList[index];}),
                 chosenButton: TextGen.bzFormStringer(context, _currentBzForm),
                 buttonsInActivityList: _bzFormInActivityList,
               ),

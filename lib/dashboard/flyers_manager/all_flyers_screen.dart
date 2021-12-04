@@ -94,7 +94,6 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
         scrollDirection: Axis.vertical,
         numberOfColumns: 2,
         scrollable: true,
-        tinyFlyerOnTap: (String flyerID) => print('flyerID is : $flyerID'),
         flyers: _flyers,
       ),
 

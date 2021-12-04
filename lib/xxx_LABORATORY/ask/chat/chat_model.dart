@@ -24,7 +24,7 @@ class ChatModel{
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
-    return {
+    return <String, dynamic>{
       'bzID' : bzID,
       'messages' : MessageModel.cipherMessages(messages: messages, toJSON: toJSON),
       'author1' : authorID1,
@@ -56,7 +56,7 @@ class ChatModel{
 // -----------------------------------------------------------------------------
   }
 // -----------------------------------------------------------------------------
-  static ChatModel getChatModelFromSnapshot(DocumentSnapshot doc){
+  static ChatModel getChatModelFromSnapshot(DocumentSnapshot<Object> doc){
     final Object _map = doc.data();
     ChatModel _chat = ChatModel.decipherChatMap(map: _map, fromJSON: false);
     return _chat;

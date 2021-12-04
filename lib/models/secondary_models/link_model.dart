@@ -10,7 +10,7 @@ class LinkModel{
   });
 
   Map<String, Object> toMap(){
-    return {
+    return <String, Object>{
       'url' : url,
       'description' : description,
     };

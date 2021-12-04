@@ -16,7 +16,7 @@ class Continent{
 });
 
   Map<String, dynamic> toMap(){
-    return {
+    return <String, dynamic>{
       'name' : name,
       'regions' : Region.cipherRegions(regions),
       'activatedCountriesIDs' : activatedCountriesIDs,
@@ -38,7 +38,7 @@ class Continent{
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> cipherContinents(List<Continent> continents){
 
-    Map<String, dynamic> _map = {};
+    Map<String, dynamic> _map = <String, dynamic>{};
 
     if (Mapper.canLoopList(continents)){
 
@@ -97,7 +97,7 @@ class Continent{
 // -----------------------------------------------------------------------------
   static Continent getContinentFromContinents({@required List<Continent> continents, @required String name}){
 
-    final Continent cont = continents.firstWhere((continent) => continent.name == name, orElse: () => null);
+    final Continent cont = continents.firstWhere((Continent continent) => continent.name == name, orElse: () => null);
 
     return cont;
   }

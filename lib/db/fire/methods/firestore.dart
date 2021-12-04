@@ -309,7 +309,7 @@ abstract class Fire{
     return _maps;
   }
 // ---------------------------------------------------
-  static Future<dynamic> readDoc({
+  static Future<Map<String, dynamic>> readDoc({
     @required BuildContext context,
     @required String collName,
     @required String docName
@@ -373,7 +373,7 @@ abstract class Fire{
     return _map[fieldName];
   }
 // ---------------------------------------------------
-  static Future<dynamic> readSubCollectionDocs({
+  static Future<List<Map<String, dynamic>>> readSubCollectionDocs({
     @required BuildContext context,
     @required bool addDocsIDs,
     @required String collName,

@@ -292,7 +292,7 @@ abstract class ZoneOps{
     _serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!_serviceEnabled) {
       await Geolocator.openLocationSettings();
-      return Future.error('Location services are disabled.');
+      return Future<Object>.error('Location services are disabled.');
     }
 
     permission = await Geolocator.checkPermission();
@@ -304,13 +304,13 @@ abstract class ZoneOps{
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
+        return Future<Object>.error('Location permissions are denied');
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      return Future.error(
+      return Future<Object>.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 

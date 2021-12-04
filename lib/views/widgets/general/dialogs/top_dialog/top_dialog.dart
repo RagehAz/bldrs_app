@@ -174,7 +174,7 @@ class TopDialog extends StatelessWidget {
       borderWidth: _screenWidth,
       dismissDirection: FlushbarDismissDirection.VERTICAL,
       flushbarPosition: FlushbarPosition.TOP,
-      boxShadows: const [],
+      boxShadows: const <BoxShadow>[],
       endOffset: Offset.zero,
       flushbarStyle: FlushbarStyle.FLOATING,
       forwardAnimationCurve: Curves.easeInOut,

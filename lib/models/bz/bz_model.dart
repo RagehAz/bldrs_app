@@ -122,7 +122,7 @@ class BzModel with ChangeNotifier{
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
 
-    return {
+    return <String, dynamic>{
       'id' : id,
       // -------------------------
       'bzType' : cipherBzType(bzType),
@@ -198,10 +198,10 @@ class BzModel with ChangeNotifier{
     return _bzModel;
   }
 // -----------------------------------------------------------------------------
-  static List<BzModel> decipherBzz({@required List<dynamic> maps,@required bool fromJSON}) {
+  static List<BzModel> decipherBzz({@required List<Map<String, dynamic>> maps,@required bool fromJSON}) {
     final List<BzModel> _bzList = <BzModel>[];
 
-    maps?.forEach((map) {
+    maps?.forEach((Map<String, dynamic> map) {
       _bzList.add(decipherBz(
         map: map,
         fromJSON: fromJSON,
@@ -373,7 +373,7 @@ class BzModel with ChangeNotifier{
     final List<String> _bzTeamIDs = <String>[];
 
     if (_authors != null){
-      _authors.forEach((au) {
+      _authors.forEach((AuthorModel au) {
         _bzTeamIDs.add(au.userID);
       });
 
@@ -387,8 +387,8 @@ class BzModel with ChangeNotifier{
     return _bz;
   }
 // -----------------------------------------------------------------------------
-  static BzModel getBzModelFromSnapshot(DocumentSnapshot doc){
-    final DocumentSnapshot _map = doc.data();
+  static BzModel getBzModelFromSnapshot(DocumentSnapshot<Object> doc){
+    final DocumentSnapshot<Object> _map = doc.data();
     final BzModel _bzModel = BzModel.decipherBz(
       map: _map,
       fromJSON: false,
@@ -462,7 +462,7 @@ class BzModel with ChangeNotifier{
     if (Mapper.canLoopList(bzzModels)){
 
       if (bzzModels != null){
-        bzzModels.forEach((bz) {
+        bzzModels.forEach((BzModel bz) {
           _ids.add(bz.id);
         });
       }

@@ -248,7 +248,7 @@ class _GalleryState extends State<Gallery> {
                 bzAuthors: widget.superFlyer.bz.authors,
                 bz: _bzModel, /// TASK : maybe should remove this as long as super flyer is here
                 // flyerOnTap: widget.flyerOnTap,
-                addPublishedFlyerToGallery: (flyerModel) => _addPublishedFlyerToGallery(flyerModel),
+                addPublishedFlyerToGallery: (FlyerModel flyerModel) => _addPublishedFlyerToGallery(flyerModel),
                 addButtonIsOn: widget.addAuthorButtonIsOn,
                 bzCountry: _bzCountry,
                 bzCity: _bzCity,

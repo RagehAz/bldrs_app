@@ -189,7 +189,7 @@ class _SignInFormState extends State<SignInForm> {
             hintText: '...',
             maxLines: 1,
             maxLength: 100,
-            validator: (val){
+            validator: (String val){
 
               if (val.isEmpty){
                 return Wordz.enterEmail(context);

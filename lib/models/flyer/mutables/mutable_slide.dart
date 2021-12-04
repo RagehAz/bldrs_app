@@ -170,7 +170,7 @@ class MutableSlide {
     int _trueIndex;
 
     /// A - search for first slide where its picture of object type asset
-    final MutableSlide _firstSlideWithAssetPicture = mutableSlides.firstWhere((slide) => ObjectChecker.objectIsAsset(slide.picURL) == true, orElse: ()=> null);
+    final MutableSlide _firstSlideWithAssetPicture = mutableSlides.firstWhere((MutableSlide slide) => ObjectChecker.objectIsAsset(slide.picURL) == true, orElse: ()=> null);
 
     /// B - when found
     if(_firstSlideWithAssetPicture != null){

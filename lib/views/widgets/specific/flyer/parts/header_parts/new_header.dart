@@ -132,7 +132,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
   void _statelessFadeMaxHeader(){
     print('_maxHeaderOpacity = $_maxHeaderOpacity');
 
-    Future.delayed(Ratioz.durationFading200, (){
+    Future<void>.delayed(Ratioz.durationFading200, (){
       if (_maxHeaderOpacity == 1){
         _maxHeaderOpacity = 0;
       }

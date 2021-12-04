@@ -21,7 +21,7 @@ class ReviewModel {
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({bool toJSON = false}){
     return
-        {
+      <String, dynamic>{
           'body' : body,
           'userID' : userID,
           'time' : Timers.cipherTime(time: time, toJSON: toJSON),
@@ -42,12 +42,12 @@ class ReviewModel {
     return _review;
   }
 
-  static List<ReviewModel> decipherReviews({@required List<dynamic> maps, bool fromJSON}){
+  static List<ReviewModel> decipherReviews({@required List<Map<String, dynamic>> maps, bool fromJSON}){
     final List<ReviewModel> _reviews = <ReviewModel>[];
 
     if (Mapper.canLoopList(maps)){
 
-      for (var map in maps){
+      for (Map<String, dynamic> map in maps){
         _reviews.add(decipherReview(
           map: map,
           fromJSON: fromJSON,

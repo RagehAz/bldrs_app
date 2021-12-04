@@ -10,6 +10,7 @@ class KeywordsBubble extends StatelessWidget {
   final List<KW> keywords;
   final int verseSize;
   final Function onTap;
+  final ValueChanged<KW> onKeywordTap;
   final Color bubbleColor;
   final List<dynamic> selectedWords;
   final double bubbleWidth;
@@ -23,6 +24,7 @@ class KeywordsBubble extends StatelessWidget {
     @required this.keywords,
     @required this.selectedWords,
     @required this.addButtonIsOn,
+    @required this.onKeywordTap,
     this.verseSize = 2,
     this.onTap,
     this.bubbleColor = Colorz.white20,
@@ -68,7 +70,7 @@ class KeywordsBubble extends StatelessWidget {
                       child: KeywordBarButton(
                         keyword: _keyword,
                         xIsOn: false,
-                        onTap: passKeywordOnTap == true ? () => onTap(_keyword) : null,
+                        onTap: passKeywordOnTap == true ? () => onKeywordTap(_keyword) : null,
                       ),
                     );
 

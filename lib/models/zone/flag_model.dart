@@ -15,7 +15,7 @@ class Flag {
     String _flagIcon = Iconz.DvBlankSVG;
 
     if (countryID != null){
-      final Flag _flag = allFlags.singleWhere((flag) => flag.countryID == countryID, orElse: () => null);
+      final Flag _flag = allFlags.singleWhere((Flag flag) => flag.countryID == countryID, orElse: () => null);
       _flagIcon = _flag?.icon;
     }
 
@@ -542,7 +542,7 @@ class CountryIso{
 });
 // -----------------------------------------------------------------------------
   static String getCountryIDByIso(String iso){
-    final CountryIso _countryIso = _allCountriesIsoCodes.firstWhere((countryIso) => countryIso.iso == iso?.toLowerCase());
+    final CountryIso _countryIso = _allCountriesIsoCodes.firstWhere((CountryIso countryIso) => countryIso.iso == iso?.toLowerCase());
 
     if (_countryIso == null){
       return null;

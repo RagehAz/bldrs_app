@@ -176,15 +176,20 @@ abstract class Iconizer{
   }
 // -----------------------------------------------------------------------------
   static bool iconIsContinent(String icon){
-    final bool _iconIsContinent =
-            icon == Iconz.ContAfrica ||
-            icon == Iconz.ContAsia ||
-            icon == Iconz.ContSouthAmerica ||
-            icon == Iconz.ContNorthAmerica ||
-            icon == Iconz.ContEurope ||
-            icon == Iconz.ContAustralia ?
+    bool _iconIsContinent;
 
-            true : false;
+    if (icon == Iconz.ContAfrica ||
+        icon == Iconz.ContAsia ||
+        icon == Iconz.ContSouthAmerica ||
+        icon == Iconz.ContNorthAmerica ||
+        icon == Iconz.ContEurope ||
+        icon == Iconz.ContAustralia){
+      _iconIsContinent = true;
+    }
+
+    else {
+      _iconIsContinent = false;
+    }
 
     return _iconIsContinent;
   }

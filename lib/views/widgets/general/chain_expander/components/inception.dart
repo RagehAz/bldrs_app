@@ -33,7 +33,7 @@ class Inception extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final _offset = (2 * Ratioz.appBarMargin) * level;
+    final double _offset = (2 * Ratioz.appBarMargin) * level;
 
     final double _screenWidth = Scale.superScreenWidth(context);
     const double _buttonHeight = buttonHeight;

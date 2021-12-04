@@ -174,7 +174,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
 
         final List<Spec> _result = Spec.putSpecsInSpecs(
           parentSpecs: _allSelectedSpecs,
-          inputSpecs: [_currencySpec],
+          inputSpecs: <Spec>[_currencySpec],
           canPickMany: specList.canPickMany,
         );
 

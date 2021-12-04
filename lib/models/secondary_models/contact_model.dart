@@ -12,8 +12,8 @@ class ContactModel{
     @required this.contactType,
   });
 // -----------------------------------------------------------------------------
-  Map<String,Object> toMap(){
-    return {
+  Map<String, Object> toMap(){
+    return <String, Object>{
       'contact' : contact,
       'contactType' : cipherContactType(contactType),
     };
@@ -182,7 +182,7 @@ class ContactModel{
   static String getFirstPhoneFromContacts(List<ContactModel> contacts){
     // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
     final List<String> phones = <String>[];
-    contacts?.forEach((co) {
+    contacts?.forEach((ContactModel co) {
 
       if(co.contactType == ContactType.phone){
         phones.add(co.contact);
@@ -239,7 +239,7 @@ class ContactModel{
 // -----------------------------------------------------------------------------
   static List<String> getListOfIconzFromContactsModelsList(List<ContactModel> contacts){
     final List<String> icons = <String>[];
-    contacts.forEach((co) {icons.add(Iconizer.superContactIcon(co.contactType));});
+    contacts.forEach((ContactModel co) {icons.add(Iconizer.superContactIcon(co.contactType));});
     return icons;
   }
 // -----------------------------------------------------------------------------

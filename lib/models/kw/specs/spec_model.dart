@@ -163,13 +163,13 @@ class Spec {
     /// 'installmentsDuration' : 12,
     /// 'installmentsDurationUnit' : 'months'
     /// },
-    return {
+    return <String, dynamic>{
       specsListID : value,
     };
   }
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> cipherSpecs(List<Spec> specs){
-    Map<String, dynamic> _map = {};
+    Map<String, dynamic> _map = <String, dynamic>{};
 
     if (Mapper.canLoopList(specs)){
 
@@ -386,7 +386,7 @@ class Spec {
 // -----------------------------------------------------------------------------
   static void printSpecs(List<Spec> specs){
     print('SPECS-PRINT -------------------------------------------------- START');
-    for (var spec in specs){
+    for (Spec spec in specs){
       print('${spec.specsListID} : ${spec.value}');
     }
     print('SPECS-PRINT -------------------------------------------------- END');
@@ -396,7 +396,7 @@ class Spec {
     bool _contains = false;
 
     if (Mapper.canLoopList(specs) && spec != null) {
-      final Spec _result = specs.firstWhere((sp) =>
+      final Spec _result = specs.firstWhere((Spec sp) =>
       Spec.specsAreTheSame(sp, spec) == true, orElse: () => null);
 
       _contains = _result == null ? false : true;
@@ -411,7 +411,7 @@ class Spec {
 
     if (Mapper.canLoopList(specs) && value != null){
 
-      final List<Spec> _specs = specs.where((spec) => spec.value == value).toList();
+      final List<Spec> _specs = specs.where((Spec spec) => spec.value == value).toList();
 
       if (_specs.length > 0){
         _contains = true;
@@ -435,10 +435,10 @@ class Spec {
   }
 // -----------------------------------------------------------------------------
   static List<Spec> getSpecsByListID({@required List<Spec> specs, @required String specsListID}){
-    List<Spec> _result = [];
+    List<Spec> _result = <Spec>[];
 
     if (Mapper.canLoopList(specs) == true && specsListID != null){
-      _result = specs.where((spec) => spec.specsListID == specsListID,).toList();
+      _result = specs.where((Spec spec) => spec.specsListID == specsListID,).toList();
     }
 
     return _result;
@@ -450,7 +450,7 @@ class Spec {
 
     if (Mapper.canLoopList(specs) && specsListID != null){
 
-      final Spec _result = specs.firstWhere((sp) => sp.specsListID == specsListID, orElse: () => null);
+      final Spec _result = specs.firstWhere((Spec sp) => sp.specsListID == specsListID, orElse: () => null);
 
       _contains = _result == null ? false : true;
 
@@ -492,7 +492,7 @@ class Spec {
 
           /// B1 - LIST ID IS ALREADY THERE in [_specs] => REPLACE
           if (_specsContainOfSameListID == true){
-              final int _specOfSameListIDIndex = _specs.indexWhere((sp) => sp.specsListID == inputSpec.specsListID);
+              final int _specOfSameListIDIndex = _specs.indexWhere((Spec sp) => sp.specsListID == inputSpec.specsListID);
               _specs[_specOfSameListIDIndex] = inputSpec;
           }
 

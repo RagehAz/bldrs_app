@@ -22,7 +22,7 @@ class Name {
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({bool addTrigram = true}) {
 
-    Map<String, dynamic> _map = {
+    Map<String, dynamic> _map = <String, dynamic>{
       'code': code,
       'value': value,
     };
@@ -39,11 +39,11 @@ class Name {
   }
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> cipherNames({@required List<Name> names, bool addTrigrams = true}) {
-    Map<String, dynamic> _namezMaps = {};
+    Map<String, dynamic> _namezMaps = <String, dynamic>{};
 
     if (Mapper.canLoopList(names)){
 
-      names.forEach((name) {
+      names.forEach((Name name) {
 
         _namezMaps = Mapper.insertPairInMap(
             map: _namezMaps,
@@ -109,10 +109,10 @@ class Name {
 
     if (Mapper.canLoopList(names)) {
 
-      Name _foundName = names.singleWhere((name) => name.code == lingoCode, orElse: () => null);
+      Name _foundName = names.singleWhere((Name name) => name.code == lingoCode, orElse: () => null);
 
       if (_foundName == null){
-        _nameValue = names.singleWhere((name) => name.code == Lingo.englishCode)?.value;
+        _nameValue = names.singleWhere((Name name) => name.code == Lingo.englishCode)?.value;
       }
 
       else {
@@ -199,8 +199,8 @@ class Name {
 
         for (String code in codes){
 
-          final firstName = getNameByLingoFromNames(names: firstNames, lingoCode: code);
-          final secondName = getNameByLingoFromNames(names: secondNames, lingoCode: code);
+          final String firstName = getNameByLingoFromNames(names: firstNames, lingoCode: code);
+          final String secondName = getNameByLingoFromNames(names: secondNames, lingoCode: code);
 
           if (firstName == secondName){
 
@@ -232,7 +232,7 @@ class Name {
 
     if (Mapper.canLoopList(names)){
 
-      names.forEach((name) {
+      names.forEach((Name name) {
         _codes.add(name.code);
       });
 

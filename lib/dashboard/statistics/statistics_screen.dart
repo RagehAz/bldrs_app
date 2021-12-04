@@ -44,7 +44,7 @@ class GeneralStatistics extends StatelessWidget {
       StreamBuilder(
         stream: Fire.streamDoc(FireColl.admin, 'statistics'),
         initialData: null,
-        builder: (BuildContext context, AsyncSnapshot snapshot){
+        builder: (BuildContext context, AsyncSnapshot<Object> snapshot){
 
           if(StreamChecker.connectionIsLoading(snapshot) == true){
             return const Loading(loading: true,);
