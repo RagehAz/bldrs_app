@@ -43,15 +43,13 @@ class Name {
 
     if (Mapper.canLoopList(names)){
 
-      names.forEach((Name name) {
-
+      for (Name name in names){
         _namezMaps = Mapper.insertPairInMap(
-            map: _namezMaps,
-            key: name.code,
-            value: name.toMap(addTrigram: addTrigrams),
+          map: _namezMaps,
+          key: name.code,
+          value: name.toMap(addTrigram: addTrigrams),
         );
-
-      });
+      }
 
     }
 
@@ -232,9 +230,9 @@ class Name {
 
     if (Mapper.canLoopList(names)){
 
-      names.forEach((Name name) {
+      for (Name name in names){
         _codes.add(name.code);
-      });
+      }
 
     }
 
