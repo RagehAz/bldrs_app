@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/db/fire/ops/search_ops.dart';
-import 'package:bldrs/db/ldb/ldb_ops.dart';
+import 'package:bldrs/db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/kw/kw.dart';
@@ -22,6 +22,7 @@ import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_naviga
 import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 
 class SearchScreen extends StatefulWidget {
 

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/fire/methods/cloud_functions.dart' as CloudFunctionz;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
@@ -66,7 +66,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
   }
 // -----------------------------------------------------------------------------
    Future<void> _saveDeviceTokenToUserDocInFireStore() async {
-    String _userID = superUserID();
+    String _userID = FireAuthOps.superUserID();
     // User _firebaseUser = superFirebaseUser();
 
     String _fcmToken = await _fcm.getToken();

@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/kw/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/views/widgets/general/dialogs/side_dialog/drawer_dialog.dart';
@@ -83,7 +83,7 @@ class MainLayout extends StatelessWidget {
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
-    final Section _currentSection = _generalProvider.currentSection;
+    final SectionClass.Section _currentSection = _generalProvider.currentSection;
     await _flyersProvider.getsetWallFlyersBySection(
         context: context,
         section: _currentSection

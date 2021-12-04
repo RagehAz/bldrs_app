@@ -5,9 +5,9 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/dashboard.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/ldb/sembast/sembast_test_screen.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/specs_lists_pickers_screen.dart';
@@ -65,7 +65,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
   bool _isSignedInCheck(){
     bool _isSignedIn;
 
-    User _firebaseUser = superFirebaseUser();
+    User _firebaseUser = FireAuthOps.superFirebaseUser();
 
     if (_firebaseUser == null){
       _isSignedIn = false;
@@ -80,7 +80,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
   @override
   Widget build(BuildContext context) {
 
-    User _firebaseUser = superFirebaseUser();
+    User _firebaseUser = FireAuthOps.superFirebaseUser();
 
 // ---------------------------------------------------------------------------
     return MainLayout(
@@ -126,7 +126,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           const ObeliskButton('TEST LAB', Iconz.Flyer, TestLab()),
 
           const ObeliskButton('Specs Selector', Iconz.Flyer, const SpecsListsPickersScreen(
-            flyerType: FlyerType.design,
+            flyerType: FlyerTypeClass.FlyerType.design,
             selectedSpecs: const <Spec>[],
           )),
 

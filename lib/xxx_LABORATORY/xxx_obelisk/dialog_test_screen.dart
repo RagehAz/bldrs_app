@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/fire/ops/bz_ops.dart';
 import 'package:bldrs/db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -12,7 +12,7 @@ import 'package:bldrs/providers/streamers/user_streamer.dart';
 import 'package:bldrs/views/widgets/general/bubbles/flyers_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
+import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart' as Dialogz;
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -94,7 +94,7 @@ class DialogTestScreen extends StatelessWidget {
 
                 userModelBuilder(
                     context: context,
-                    userID: superUserID(),
+                    userID: FireAuthOps.superUserID(),
                     builder: (BuildContext ctx, UserModel userModel){
 
                       return
@@ -125,7 +125,7 @@ class DialogTestScreen extends StatelessWidget {
 
                 userModelBuilder(
                     context: context,
-                    userID: superUserID(),
+                    userID: FireAuthOps.superUserID(),
                     builder: (BuildContext ctx, UserModel userModel){
 
                       return

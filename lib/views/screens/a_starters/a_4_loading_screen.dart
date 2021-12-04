@@ -5,9 +5,9 @@ import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/kw/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -124,7 +124,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           _increaseProgressTo(95);
 
           /// TASK : wallahi mana 3aref hane3mel eh hena
-          final Section _currentSection = _generalProvider.currentSection;
+          final SectionClass.Section _currentSection = _generalProvider.currentSection;
           await _flyersProvider.getsetWallFlyersBySection(
               context: context,
               section: _currentSection,

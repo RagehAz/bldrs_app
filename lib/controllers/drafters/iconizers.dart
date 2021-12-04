@@ -3,8 +3,8 @@ import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/models/kw/section_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/continent_model.dart';
@@ -17,32 +17,32 @@ import 'package:bldrs/views/widgets/general/buttons/balloons/path_selling_user.d
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
-  String sectionIconOn (Section section){
+  String sectionIconOn (SectionClass.Section section){
     return
-      section == Section.properties ? Iconz.BxPropertiesOn :
+      section == SectionClass.Section.properties ? Iconz.BxPropertiesOn :
 
-      section == Section.designs ? Iconz.BxDesignsOn :
-      section == Section.projects ? Iconz.BxProjectsOn :
-      section == Section.crafts ? Iconz.BxCraftsOn :
+      section == SectionClass.Section.designs ? Iconz.BxDesignsOn :
+      section == SectionClass.Section.projects ? Iconz.BxProjectsOn :
+      section == SectionClass.Section.crafts ? Iconz.BxCraftsOn :
 
-      section == Section.products ? Iconz.BxProductsOn :
-      section == Section.equipment ? Iconz.BxEquipmentOn :
+      section == SectionClass.Section.products ? Iconz.BxProductsOn :
+      section == SectionClass.Section.equipment ? Iconz.BxEquipmentOn :
 
       Iconz.Bz;
   }
 // -----------------------------------------------------------------------------
-  String sectionIconOff (Section section){
+  String sectionIconOff (SectionClass.Section section){
     return
-      section == Section.properties ? Iconz.BxPropertiesOff :
+      section == SectionClass.Section.properties ? Iconz.BxPropertiesOff :
 
-      section == Section.designs ? Iconz.BxDesignsOff :
-      section == Section.projects ? Iconz.BxProjectsOff :
-      section == Section.crafts ? Iconz.BxCraftsOff :
+      section == SectionClass.Section.designs ? Iconz.BxDesignsOff :
+      section == SectionClass.Section.projects ? Iconz.BxProjectsOff :
+      section == SectionClass.Section.crafts ? Iconz.BxCraftsOff :
 
-      section == Section.products ? Iconz.BxProductsOff :
-      section == Section.equipment ? Iconz.BxEquipmentOff :
+      section == SectionClass.Section.products ? Iconz.BxProductsOff :
+      section == SectionClass.Section.equipment ? Iconz.BxEquipmentOff :
 
-      section == Section.All ? Iconz.SavedFlyers :
+      section == SectionClass.Section.All ? Iconz.SavedFlyers :
 
       Iconz.Bz;
   }
@@ -87,26 +87,26 @@ import 'package:flutter/material.dart';
     return icon;
   }
 // -----------------------------------------------------------------------------
-  String flyerTypeIconOn (FlyerType flyerType){
+  String flyerTypeIconOn (FlyerTypeClass.FlyerType flyerType){
     final String icon =
-    flyerType == FlyerType.property ? Iconz.BxPropertiesOn :
-    flyerType == FlyerType.design ? Iconz.BxDesignsOn :
-    flyerType == FlyerType.project ? Iconz.BxProjectsOn :
-    flyerType == FlyerType.craft ? Iconz.BxCraftsOn :
-    flyerType == FlyerType.product ? Iconz.BxProductsOn :
-    flyerType == FlyerType.equipment ? Iconz.BxEquipmentOn :
+    flyerType == FlyerTypeClass.FlyerType.property ? Iconz.BxPropertiesOn :
+    flyerType == FlyerTypeClass.FlyerType.design ? Iconz.BxDesignsOn :
+    flyerType == FlyerTypeClass.FlyerType.project ? Iconz.BxProjectsOn :
+    flyerType == FlyerTypeClass.FlyerType.craft ? Iconz.BxCraftsOn :
+    flyerType == FlyerTypeClass.FlyerType.product ? Iconz.BxProductsOn :
+    flyerType == FlyerTypeClass.FlyerType.equipment ? Iconz.BxEquipmentOn :
     null;
     return icon;
   }
 // -----------------------------------------------------------------------------
-  String flyerTypeIconOff (FlyerType flyerType){
+  String flyerTypeIconOff (FlyerTypeClass.FlyerType flyerType){
     final String _icon =
-    flyerType == FlyerType.property ? Iconz.BxPropertiesOff :
-    flyerType == FlyerType.design ? Iconz.BxDesignsOff :
-    flyerType == FlyerType.project ? Iconz.BxProjectsOff :
-    flyerType == FlyerType.craft ? Iconz.BxCraftsOff :
-    flyerType == FlyerType.product ? Iconz.BxProductsOff :
-    flyerType == FlyerType.equipment ? Iconz.BxEquipmentOff :
+    flyerType == FlyerTypeClass.FlyerType.property ? Iconz.BxPropertiesOff :
+    flyerType == FlyerTypeClass.FlyerType.design ? Iconz.BxDesignsOff :
+    flyerType == FlyerTypeClass.FlyerType.project ? Iconz.BxProjectsOff :
+    flyerType == FlyerTypeClass.FlyerType.craft ? Iconz.BxCraftsOff :
+    flyerType == FlyerTypeClass.FlyerType.product ? Iconz.BxProductsOff :
+    flyerType == FlyerTypeClass.FlyerType.equipment ? Iconz.BxEquipmentOff :
     null;
     return _icon;
   }

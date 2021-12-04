@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
+import 'package:bldrs/models/kw/specs/spec_list_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';

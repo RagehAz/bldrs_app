@@ -9,9 +9,9 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/streamers/user_streamer.dart';
@@ -47,7 +47,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   bool _askButtonInactive = true;
   List<File> _questionPics;
   List<KW> _keywords;
-  FlyerType _questionType;
+  FlyerTypeClass.FlyerType _questionType;
 // -----------------------------------------------------------------------------
 //   /// --- FUTURE LOADING BLOCK
 //   bool _loading = false;
@@ -165,7 +165,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
           time: DateTime.now(),
           keywords: _keywords,
           title: _titleController.text,
-          ownerID: superUserID(),
+          ownerID: FireAuthOps.superUserID(),
           questionIsOpen: true,
           questionType: _questionType,
           totalChats: 0,
@@ -177,7 +177,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         await QuestionOps.createQuestionOps(
           context: context,
           question: _question,
-          userID: superUserID(),
+          userID: FireAuthOps.superUserID(),
         );
 
         await NavDialog.showNavDialog(

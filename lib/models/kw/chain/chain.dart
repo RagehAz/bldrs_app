@@ -6,7 +6,7 @@ import 'package:bldrs/models/kw/chain/chain_equipment.dart';
 import 'package:bldrs/models/kw/chain/chain_products.dart';
 import 'package:bldrs/models/kw/chain/chain_properties.dart';
 import 'package:bldrs/models/kw/kw.dart';
-import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
+import 'package:bldrs/models/kw/specs/spec_list_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:flutter/foundation.dart';
 

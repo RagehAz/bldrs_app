@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/kw/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/section_dialog/section_bubble.dart';
@@ -64,7 +64,7 @@ class SectionDialog extends StatelessWidget {
                 buttons: <Widget>[
 
                   SectionDialogButton(
-                    section: Section.properties,
+                    section: SectionClass.Section.properties,
                     inActiveMode: false,
                     dialogHeight: dialogHeight,
                   ),
@@ -81,19 +81,19 @@ class SectionDialog extends StatelessWidget {
                 buttons: <Widget>[
 
                   SectionDialogButton(
-                    section: Section.designs,
+                    section: SectionClass.Section.designs,
                     inActiveMode: false,
                     dialogHeight: dialogHeight,
                   ),
 
                   SectionDialogButton(
-                    section: Section.projects,
+                    section: SectionClass.Section.projects,
                     inActiveMode: false,
                     dialogHeight: dialogHeight,
                   ),
 
                   SectionDialogButton(
-                    section: Section.crafts,
+                    section: SectionClass.Section.crafts,
                     inActiveMode: false,
                     dialogHeight: dialogHeight,
                   ),
@@ -109,13 +109,13 @@ class SectionDialog extends StatelessWidget {
               buttons: <Widget>[
 
                 SectionDialogButton(
-                  section: Section.products,
+                  section: SectionClass.Section.products,
                   inActiveMode: false,
                   dialogHeight: dialogHeight,
                 ),
 
                 SectionDialogButton(
-                  section: Section.equipment,
+                  section: SectionClass.Section.equipment,
                   inActiveMode: false,
                   dialogHeight: dialogHeight,
                 ),

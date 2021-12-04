@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/flyer_editor.dart';
@@ -9,7 +9,7 @@ import 'package:bldrs/models/flyer/mutables/flyer_navigator.dart';
 import 'package:bldrs/models/flyer/mutables/flyer_recorder.dart';
 import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/zone/city_model.dart';
@@ -60,7 +60,7 @@ class SuperFlyer{
   TextEditingController titleController;
 
   /// flyer data
-  FlyerType flyerType; // MutableFlyer -- ?
+  FlyerTypeClass.FlyerType flyerType; // MutableFlyer -- ?
   FlyerState flyerState; // MutableFlyer -- ?
   bool flyerShowsAuthor; // MutableFlyer -- ?
 
@@ -565,9 +565,9 @@ class SuperFlyer{
         verticalIndex: 0,
 
         /// flyer identifiers
-        key: ValueKey<String>('${bzModel.id} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
+        key: ValueKey<String>('${bzModel.id} : ${bzModel.flyersIDs.length + 1} : ${FireAuthOps.superUserID()}'),
         flyerID: SuperFlyer.draftID,
-        authorID: superUserID(),
+        authorID: FireAuthOps.superUserID(),
         title: null,
         titleController: new TextEditingController(),
 
@@ -734,9 +734,9 @@ class SuperFlyer{
         verticalIndex: 0,
 
         /// flyer identifiers
-        key: ValueKey<String>('${SuperFlyer.draftID} : ${bzModel.id} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
+        key: ValueKey<String>('${SuperFlyer.draftID} : ${bzModel.id} : ${bzModel.flyersIDs.length + 1} : ${FireAuthOps.superUserID()}'),
         flyerID: flyerModel.id,
-        authorID: superUserID(),
+        authorID: FireAuthOps.superUserID(),
         title: flyerModel.title,
         titleController: new TextEditingController(text: flyerModel.title),
 
@@ -859,7 +859,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
         /// flyer identifiers
         key: null,
         flyerID: SuperFlyer.emptyFlyerBzOnlyFlyerID,
-        authorID: superUserID(),
+        authorID: FireAuthOps.superUserID(),
         title: null,
         titleController: null,
 

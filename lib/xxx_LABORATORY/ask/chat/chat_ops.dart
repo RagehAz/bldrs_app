@@ -4,7 +4,6 @@ import 'package:bldrs/xxx_LABORATORY/ask/chat/chat_model.dart';
 import 'package:flutter/material.dart';
 
 /// db/questions/questionID/chats/chatID/messages/messageID
-class ChatOps{
 // -----------------------------------------------------------------------------
 //   /// chats sub collection reference
 //   CollectionReference _chatsSubCollectionRef(){
@@ -23,7 +22,7 @@ class ChatOps{
 //   }
 // -----------------------------------------------------------------------------
   /// create
-  static Future<void> createChatOps({@required BuildContext context, @required ChatModel chatModel, @required String questionID}) async {
+  Future<void> createChatOps({@required BuildContext context, @required ChatModel chatModel, @required String questionID}) async {
 
     await Fire.createSubDoc(
       context: context,
@@ -36,7 +35,7 @@ class ChatOps{
   }
 // -----------------------------------------------------------------------------
   /// read
-  static Future<ChatModel> readChatOps({@required BuildContext context, @required String bzID, @required String questionID}) async {
+  Future<ChatModel> readChatOps({@required BuildContext context, @required String bzID, @required String questionID}) async {
 
     final dynamic _chatMap = await Fire.readSubDoc(
       context: context,
@@ -52,7 +51,7 @@ class ChatOps{
   }
 // -----------------------------------------------------------------------------
   /// edit
-  static Future<void> updateChatOps({@required BuildContext context, @required ChatModel updatedChat, @required String questionID}) async {
+  Future<void> updateChatOps({@required BuildContext context, @required ChatModel updatedChat, @required String questionID}) async {
 
     await Fire.updateSubDoc(
       context: context,
@@ -66,7 +65,7 @@ class ChatOps{
   }
 // -----------------------------------------------------------------------------
   /// delete
-  static Future<void> deleteChatOps({BuildContext context, String bzID, String questionID}) async {
+  Future<void> deleteChatOps({BuildContext context, String bzID, String questionID}) async {
 
     await Fire.deleteSubDoc(
       context: context,
@@ -78,4 +77,3 @@ class ChatOps{
 
   }
 // -----------------------------------------------------------------------------
-}

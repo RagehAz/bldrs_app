@@ -5,7 +5,7 @@ import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -305,7 +305,7 @@ abstract class FireSearchOps {
   static Future<List<FlyerModel>> flyersByZoneAndFlyerType({
     @required BuildContext context,
     @required ZoneModel zone,
-    @required FlyerType flyerType,
+    @required FlyerTypeClass.FlyerType flyerType,
     bool addDocsIDs = false,
     bool addDocSnapshotToEachMap = false,
   }) async {

@@ -3,9 +3,8 @@ import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:flutter/cupertino.dart';
 
-abstract class FireKeywordOps {
 // -----------------------------------------------------------------------------
-  static Future<List<KW>> readKeywordsOps({@required BuildContext context}) async {
+  Future<List<KW>> readKeywordsOps({@required BuildContext context}) async {
 
     const List<String> _keywordsDocs = const <String>[
       FireDoc.keys_propertiesKeywords,
@@ -33,7 +32,3 @@ abstract class FireKeywordOps {
     return _allKeywords;
   }
 // -----------------------------------------------------------------------------
-
-
-
-}

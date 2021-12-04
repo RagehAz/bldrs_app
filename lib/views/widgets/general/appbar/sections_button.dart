@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
-import 'package:bldrs/models/kw/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class SectionsButton extends StatelessWidget {
 Widget build(BuildContext context) {
 
   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
-  final Section _currentSection = _generalProvider.currentSection;
+  final SectionClass.Section _currentSection = _generalProvider.currentSection;
 
 
   const double _corners = Ratioz.boxCorner12;
