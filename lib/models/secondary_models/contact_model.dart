@@ -182,13 +182,13 @@ class ContactModel{
   static String getFirstPhoneFromContacts(List<ContactModel> contacts){
     // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
     final List<String> phones = <String>[];
-    contacts?.forEach((ContactModel co) {
 
+    for (ContactModel co in contacts){
       if(co.contactType == ContactType.phone){
         phones.add(co.contact);
       }
+    }
 
-    });
     return phones.length == 0 ? null : phones[0];
   }
 // -----------------------------------------------------------------------------
@@ -244,13 +244,25 @@ class ContactModel{
 // -----------------------------------------------------------------------------
   static List<String> getListOfValuesFromContactsModelsList(List<ContactModel> contacts){
     final List<String> values = <String>[];
-    contacts.forEach((ContactModel co) {values.add(co.contact); });
+
+    if (Mapper.canLoopList(contacts)){
+      for (ContactModel co in contacts){
+        values.add(co.contact);
+      }
+    }
+
     return values;
   }
 // -----------------------------------------------------------------------------
   static List<String> getListOfIconzFromContactsModelsList(List<ContactModel> contacts){
     final List<String> icons = <String>[];
-    contacts.forEach((ContactModel co) {icons.add(Iconizer.superContactIcon(co.contactType));});
+
+    if (Mapper.canLoopList(contacts)){
+      for (ContactModel co in contacts){
+        icons.add(Iconizer.superContactIcon(co.contactType));
+      }
+    }
+
     return icons;
   }
 // -----------------------------------------------------------------------------

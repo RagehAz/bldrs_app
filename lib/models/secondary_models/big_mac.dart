@@ -87,9 +87,9 @@ class BigMac{
 
     if (Mapper.canLoopList(bigMacs)){
 
-      bigMacs.forEach((BigMac bigMac) {
+      for (BigMac bigMac in bigMacs){
         _countriesIDs.add(bigMac.countryID);
-      });
+      }
 
     }
 

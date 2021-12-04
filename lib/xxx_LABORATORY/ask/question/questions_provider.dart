@@ -16,18 +16,20 @@ class QuestionsProvider with ChangeNotifier {
 // ----------------------------------------------------------------------------
   fetchQuestions() async {
     _questions.clear();
-    questionsFirebase.get().then((QuerySnapshot<Object> querySnapshot) => <void>{
-          querySnapshot.docs.forEach((QueryDocumentSnapshot<Object> doc) {
-            final Quest newQuestion = Quest.fromMap(doc.data());
-            _questions.add(newQuestion);
-          })
-        });
+
+    final QuerySnapshot<Object> _snapshot = await questionsFirebase.get();
+
+    for (QueryDocumentSnapshot<Object> doc in _snapshot.docs){
+      final Quest _newQ = Quest.fromMap(doc.data());
+      _questions.add(_newQ);
+    }
+
     notifyListeners();
   }
 // ----------------------------------------------------------------------------
   add(String question) {
     questionsFirebase
-        .add(<String, dynamic>{"body": question, "userID": 'kjhfkskfkfk'})
+        .add(<String, dynamic>{"body": question, "userID": 'xxxxxxxxxxxxxxxxx'})
         .then((DocumentReference<Object> value) => print("Question Added to Database."))
         .catchError(
             (Object error) => print("Failed to add Question to DataBase: $error"));
