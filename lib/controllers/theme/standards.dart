@@ -1,31 +1,30 @@
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 
-abstract class Standards{
 // -----------------------------------------------------------------------------
-  static const int maxFlyerSlidesFreeAccount = 50; /// TASK : should be save on firestore
-  static const int maxFlyerSlidesPremiumAccount = 7;
-  static const int maxFlyerSlidesFreeSuper = 25;
+  const int maxFlyerSlidesFreeAccount = 50; /// TASK : should be save on firestore
+  const int maxFlyerSlidesPremiumAccount = 7;
+  const int maxFlyerSlidesFreeSuper = 25;
 
-  static const int maxDraftsAtOnce = 5;
+  const int maxDraftsAtOnce = 5;
 
-  static const int flyerTitleMaxLength = 50;
+  const int flyerTitleMaxLength = 50;
 
-  static const int maxAuthorsPerBz = 20;
+  const int maxAuthorsPerBz = 20;
 
-  // static const int maxSlidesPerFlyer = 10;
+  // const int maxSlidesPerFlyer = 10;
 
-  static const int maxUserFollows = 500;
-  static const int maxUserSavedFlyers = 1000;
-  static const int maxUserBzz = 10;
+  const int maxUserFollows = 500;
+  const int maxUserSavedFlyers = 1000;
+  const int maxUserBzz = 10;
 
-  static const int maxTrigramLength = 7;
+  const int maxTrigramLength = 7;
 
-  static const int maxLocationFetchSeconds = 10;
+  const int maxLocationFetchSeconds = 10;
 
-  static const String ipRegistryAPIKey = '89i23ivki8p5tsqj';
+  const String ipRegistryAPIKey = '89i23ivki8p5tsqj';
 // -----------------------------------------------------------------------------
-  static int getMaxSlidesCount(BzAccountType accountType){
+  int getMaxSlidesCount(BzAccountType accountType){
 
     switch (accountType){
       case BzAccountType.normal:   return  maxFlyerSlidesFreeAccount;     break;
@@ -36,7 +35,7 @@ abstract class Standards{
 
   }
 // -----------------------------------------------------------------------------
-  static bool canAddMoreSlides({SuperFlyer superFlyer}){
+  bool canAddMoreSlides({SuperFlyer superFlyer}){
     bool _canAdd = false;
 
     if (superFlyer != null){
@@ -51,7 +50,7 @@ abstract class Standards{
     return _canAdd;
   }
 // -----------------------------------------------------------------------------
-static bool canDeleteSlide({SuperFlyer superFlyer}){
+  bool canDeleteSlide({SuperFlyer superFlyer}){
     bool _canDelete = false;
 
     if (superFlyer != null){
@@ -64,7 +63,4 @@ static bool canDeleteSlide({SuperFlyer superFlyer}){
 
 
     return _canDelete;
-}
-// -----------------------------------------------------------------------------
-
 }

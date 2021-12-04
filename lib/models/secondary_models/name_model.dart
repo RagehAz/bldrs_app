@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/localization/lingo.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

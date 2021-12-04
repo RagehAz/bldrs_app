@@ -6,7 +6,7 @@ import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart';
+import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/main.dart';
 import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/views/widgets/general/buttons/rageh_button.dart';

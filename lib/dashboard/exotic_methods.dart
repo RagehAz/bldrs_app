@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/db/ldb/ldb_ops.dart';
@@ -20,9 +20,7 @@ import 'package:bldrs/providers/zone_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-abstract class ExoticMethods{
-// -----------------------------------------------------------------------------
-  static Future<List<UserModel>> readAllUserModels({@required int limit}) async {
+  Future<List<UserModel>> readAllUserModels({@required int limit}) async {
     // List<UserModel> _allUsers = await ExoticMethods.readAllUserModels(limit: limit);
 
     List<UserModel> _allUserModels = <UserModel>[];
@@ -65,7 +63,7 @@ abstract class ExoticMethods{
     return _allUserModels;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<NotiModel>> readAllNotiModels({@required BuildContext context, @required String userID,}) async {
+  Future<List<NotiModel>> readAllNotiModels({@required BuildContext context, @required String userID,}) async {
     // List<NotiModel> _allNotiModels = await ExoticMethods.readAllNotiModels(context: context, userID: userID);
 
     final List<dynamic> _maps = await Fire.readSubCollectionDocs(
@@ -88,7 +86,7 @@ abstract class ExoticMethods{
     return _allModels;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<BzModel>> readAllBzzModels({@required BuildContext context, @required int limit,}) async {
+  Future<List<BzModel>> readAllBzzModels({@required BuildContext context, @required int limit,}) async {
     // List<BzModel> _allBzz = await ExoticMethods.readAllBzzModels(context: context, limit: limit);
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
@@ -106,7 +104,7 @@ abstract class ExoticMethods{
     return _allModels;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<FeedbackModel>> readAllFeedbacks({@required BuildContext context, @required int limit,}) async {
+  Future<List<FeedbackModel>> readAllFeedbacks({@required BuildContext context, @required int limit,}) async {
     // List<FeedbackModel> _allFeedbacks = await ExoticMethods.readAllFeedbacks(context: context, limit: limit);
 
 
@@ -123,7 +121,7 @@ abstract class ExoticMethods{
     return _allModels;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<FlyerModel>> readAllFlyers({@required BuildContext context, @required int limit,}) async {
+  Future<List<FlyerModel>> readAllFlyers({@required BuildContext context, @required int limit,}) async {
     // List<FlyerModel> _allFlyers = await ExoticMethods.readAllFlyers(context: context, limit: limit);
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
@@ -139,7 +137,7 @@ abstract class ExoticMethods{
     return _allModels;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<CountryModel>> fetchAllCountryModels({@required BuildContext context, }) async {
+  Future<List<CountryModel>> fetchAllCountryModels({@required BuildContext context, }) async {
 
     final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
@@ -160,10 +158,10 @@ abstract class ExoticMethods{
     return _countries;
   }
 // -----------------------------------------------------------------------------
-  static Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context) async {
+  Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context) async {
     /// in case any (continent name) or (region name) or (countryID) has changed
 
-    final List<CountryModel> _allCountries = await ExoticMethods.fetchAllCountryModels(context: context);
+    final List<CountryModel> _allCountries = await fetchAllCountryModels(context: context);
 
     final List<Continent> _continents = <Continent>[];
 
@@ -224,7 +222,7 @@ abstract class ExoticMethods{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<List<BigMac>> readAllBigMacs(BuildContext context) async {
+  Future<List<BigMac>> readAllBigMacs(BuildContext context) async {
 
     final List<dynamic> _allMaps = await Fire.readSubCollectionDocs(
       context: context,
@@ -243,7 +241,7 @@ abstract class ExoticMethods{
   }
 // -----------------------------------------------------------------------------
   /// super dangerous method,, take care !!
-  static Future<void> updateAFieldInAllCollDocs({@required BuildContext context, @required String collName, @required String field, @required dynamic input}) async {
+  Future<void> updateAFieldInAllCollDocs({@required BuildContext context, @required String collName, @required String field, @required dynamic input}) async {
 
     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
       limit: 1000,
@@ -269,7 +267,7 @@ abstract class ExoticMethods{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> changeFieldName({@required BuildContext context,}) async {
+  Future<void> changeFieldName({@required BuildContext context,}) async {
 
       print('LET THE GAMES BEGIN');
 
@@ -310,7 +308,7 @@ abstract class ExoticMethods{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> uploadChainKeywords({@required BuildContext context, @required Chain chain, @required String docName,}) async {
+  Future<void> uploadChainKeywords({@required BuildContext context, @required Chain chain, @required String docName,}) async {
 
     Map<String, dynamic> _keywordsMap = <String, dynamic>{};
 
@@ -352,11 +350,10 @@ abstract class ExoticMethods{
 
   }
 // -----------------------------------------------------------------------------
-}
 
-abstract class RagehMethods{
+// abstract class RagehMethods{
 // -----------------------------------------------------------------------------
-  static Future<void> updateNumberOfKeywords(BuildContext context, List<KW> allKeywords) async {
+  Future<void> updateNumberOfKeywords(BuildContext context, List<KW> allKeywords) async {
     if (superUserID() == '60a1SPzftGdH6rt15NF96m0j9Et2'){
 
       if (Mapper.canLoopList(allKeywords)){
@@ -373,11 +370,9 @@ abstract class RagehMethods{
 
   }
 // -----------------------------------------------------------------------------
-}
 
-abstract class zebela {
 /// -----------------------------------------------------------------------------
-  // static Future<List<CurrencyModel>> getCurrenciesFromCountries({@required BuildContext context}) async {
+  // Future<List<CurrencyModel>> getCurrenciesFromCountries({@required BuildContext context}) async {
   //
   //   final List<CurrencyModel> _currencies = <CurrencyModel>[];
   //
@@ -416,5 +411,3 @@ abstract class zebela {
   //
   //   return _currencies;
   // }
-/// -----------------------------------------------------------------------------
-}
