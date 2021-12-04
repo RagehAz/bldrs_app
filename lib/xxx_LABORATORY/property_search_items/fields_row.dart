@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -56,17 +56,18 @@ class FieldsRow extends StatelessWidget {
           child: Center(
             child: Container(
               width: _buttonsZoneWidth,
-                decoration: BoxDecoration(
-                    color: Colorz.white10,
-                    borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
-                    boxShadow: const <BoxShadow>[
-                      const CustomBoxShadow(
-                          color: Colorz.black200,
-                          offset: const Offset(0,0 ),
-                          blurRadius: _boxHeight * 0.15,
-                          blurStyle: BlurStyle.outer
-                      ),
-                    ]),
+              decoration: BoxDecoration(
+                  color: Colorz.white10,
+                  borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
+                  boxShadow: const <BoxShadow>[
+                    const Shadowz.CustomBoxShadow(
+                        color: Colorz.black200,
+                        offset: const Offset(0,0 ),
+                        blurRadius: _boxHeight * 0.15,
+                        blurStyle: BlurStyle.outer
+                    ),
+                  ]
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(_buttonSpacing),
                 child: Wrap(

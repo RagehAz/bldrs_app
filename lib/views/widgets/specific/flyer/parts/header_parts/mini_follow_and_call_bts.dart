@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/drafters/colorizers.dart' as Colorizer;
-import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -131,7 +131,7 @@ class FollowBT extends StatelessWidget {
           width: followBTWidth,
           decoration: BoxDecoration(
             color: followBTColor,
-            boxShadow: superFollowBtShadow(followBTHeight),
+            boxShadow: Shadowz.superFollowBtShadow(followBTHeight),
             borderRadius: Borderers.superFollowOrCallCorners(context, flyerBoxWidth, true),
           ),
           child: Stack(
@@ -217,7 +217,7 @@ class CallBT extends StatelessWidget {
           width: _callBTWidth,
           decoration: BoxDecoration(
               color: _callBTColor,
-              boxShadow: superFollowBtShadow(_callBTHeight),
+              boxShadow: Shadowz.superFollowBtShadow(_callBTHeight),
               borderRadius: _corners
           ),
           child: Stack(

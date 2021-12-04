@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -83,12 +83,14 @@ class PropertySearchCriteria extends StatelessWidget {
           color: Colorz.white10,
           borderRadius: BorderRadius.circular(corners),
           boxShadow: const <BoxShadow>[
-            const CustomBoxShadow(
+            const Shadowz.CustomBoxShadow(
                 color: _bubble == true ? Colorz.black200 : Colorz.nothing,
                 offset: const Offset(0, 0),
                 blurRadius: _boxHeight * 0.15,
-                blurStyle: BlurStyle.outer),
-          ]),
+                blurStyle: BlurStyle.outer
+            ),
+          ]
+      ),
 
           child: ClipRRect(
             borderRadius: BorderRadius.circular(corners),
@@ -104,15 +106,15 @@ class PropertySearchCriteria extends StatelessWidget {
                     height: _boxHeight * 0.27,
                     decoration: BoxDecoration(
                       // color: Colorz.White,
-                        borderRadius: BorderRadius.circular(
-                            corners - (_boxHeight * 0.8) ),
+                        borderRadius: BorderRadius.circular(corners - (_boxHeight * 0.8) ),
                         boxShadow: <BoxShadow>[
-                          CustomBoxShadow(
+                          Shadowz.CustomBoxShadow(
                               color: Colorz.white50,
                               offset: new Offset(0, _boxWidth * -0.01),
                               blurRadius: _boxHeight * 0.2,
                               blurStyle: BlurStyle.normal),
-                        ]),
+                        ]
+                    ),
                   ),
                 ),
 

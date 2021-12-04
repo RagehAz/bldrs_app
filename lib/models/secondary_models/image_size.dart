@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

@@ -8,9 +8,7 @@ enum SlidingDirection{
   freeze,
 }
 // -----------------------------------------------------------------------------
-abstract class Scrollers{
-// -----------------------------------------------------------------------------
-  static ScrollPhysics superScroller(bool trigger){
+  ScrollPhysics superScroller(bool trigger){
     ScrollPhysics scroller = trigger == true ?
     const BouncingScrollPhysics()
         :
@@ -19,17 +17,17 @@ abstract class Scrollers{
     return scroller;
   }
 // -----------------------------------------------------------------------------
-  static bool isAtTop(ScrollController scrollController){
+  bool isAtTop(ScrollController scrollController){
     final bool _atTop = scrollController.offset == scrollController.position.minScrollExtent;
     return _atTop;
   }
 // -----------------------------------------------------------------------------
-  static bool isAtBottom(ScrollController scrollController){
+  bool isAtBottom(ScrollController scrollController){
     final bool _atTop = scrollController.offset == scrollController.position.maxScrollExtent;
     return _atTop;
   }
 // -----------------------------------------------------------------------------
-  static bool isGoingDown(ScrollController scrollController){
+  bool isGoingDown(ScrollController scrollController){
     bool _goingDown;
 
     if(scrollController != null){
@@ -41,12 +39,12 @@ abstract class Scrollers{
     return _goingDown;
   }
 // -----------------------------------------------------------------------------
-  static bool isGoingUp(ScrollController scrollController){
+  bool isGoingUp(ScrollController scrollController){
     final bool _goingUp = scrollController.position.userScrollDirection == ScrollDirection.reverse;
     return _goingUp;
   }
 // -----------------------------------------------------------------------------
-  static bool isAtPercentFromTop({ScrollController scrollController, double percent, double maxHeight}){
+  bool isAtPercentFromTop({ScrollController scrollController, double percent, double maxHeight}){
 
     final double _min = scrollController.position.minScrollExtent;
     final double _max = maxHeight; //scrollController.position.maxScrollExtent;
@@ -57,7 +55,7 @@ abstract class Scrollers{
     return _isAtTenPercentFromTop;
   }
 // -----------------------------------------------------------------------------
-  static bool canSlide({
+  bool canSlide({
     @required ScrollUpdateNotification details,
     @required double boxDistance,
     @required bool goesBackOnly,
@@ -90,7 +88,7 @@ abstract class Scrollers{
     return _canSlide;
   }
 // -----------------------------------------------------------------------------
-  static Future<void> scrollTo({ScrollController controller, double offset}) async {
+  Future<void> scrollTo({ScrollController controller, double offset}) async {
 
     // if (controller.positions.isEmpty == true){
       controller.animateTo(
@@ -102,11 +100,9 @@ abstract class Scrollers{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> scrollToBottom({@required ScrollController controller}) async {
+  Future<void> scrollToBottom({@required ScrollController controller}) async {
 
     await controller.animateTo(controller.position.maxScrollExtent, duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
 
   }
-// -----------------------------------------------------------------------------
-}
 // -----------------------------------------------------------------------------

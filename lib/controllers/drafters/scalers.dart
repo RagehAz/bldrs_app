@@ -2,35 +2,34 @@ import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-abstract class Scale{
 // -----------------------------------------------------------------------------
-  static double superScreenWidth (BuildContext context){
+  double superScreenWidth (BuildContext context){
     final double _screenWidth = MediaQuery.of(context).size.width;
     return _screenWidth;
   }
 // -----------------------------------------------------------------------------
-  static double superScreenHeight (BuildContext context){
+  double superScreenHeight (BuildContext context){
     final double _screenHeight = MediaQuery.of(context).size.height;
     return _screenHeight;
   }
 // -----------------------------------------------------------------------------
-  static double superSafeAreaTopPadding (BuildContext context){
+  double superSafeAreaTopPadding (BuildContext context){
     final double _safeAreaHeight = MediaQuery.of(context).padding.top;
     return _safeAreaHeight;
   }
 // -----------------------------------------------------------------------------
-  static double superScreenHeightWithoutSafeArea (BuildContext context){
+  double superScreenHeightWithoutSafeArea (BuildContext context){
     final double _screenWithoutSafeAreaHeight = superScreenHeight(context) - superSafeAreaTopPadding(context);
     return _screenWithoutSafeAreaHeight;
   }
 // -----------------------------------------------------------------------------
-  static double superDeviceRatio(BuildContext context){
+  double superDeviceRatio(BuildContext context){
     final Size _size = MediaQuery.of(context).size;
     final double _deviceRatio = _size.aspectRatio;
     return _deviceRatio;
   }
 // -----------------------------------------------------------------------------
-  static EdgeInsets superInsets(BuildContext context,{double enBottom, double enLeft, double enRight, double enTop}){
+  EdgeInsets superInsets(BuildContext context,{double enBottom, double enLeft, double enRight, double enTop}){
 
     final double _enBottom = enBottom ?? 0;
     final double _enLeft = enLeft ?? 0;
@@ -44,7 +43,7 @@ abstract class Scale{
       EdgeInsets.only(bottom: _enBottom, left: _enRight, right: _enLeft, top: _enTop);
   }
 // -----------------------------------------------------------------------------
-  static EdgeInsets superMargins({dynamic margins}){
+  EdgeInsets superMargins({dynamic margins}){
     final EdgeInsets _boxMargins =
     margins == null || margins == 0 ? const EdgeInsets.all(0)
         :
@@ -60,10 +59,9 @@ abstract class Scale{
 // -----------------------------------------------------------------------------
   /// this concludes item width after dividing screen width over number of items
   /// while considering 10 pixels spacing between them
-  static double getUniformRowItemWidth(BuildContext context, int numberOfItems){
+  double getUniformRowItemWidth(BuildContext context, int numberOfItems){
     final double _screenWidth = superScreenWidth(context);
     final double _width = (_screenWidth - (Ratioz.appBarMargin * (numberOfItems + 1))) / numberOfItems;
     return _width;
   }
 // -----------------------------------------------------------------------------
-}

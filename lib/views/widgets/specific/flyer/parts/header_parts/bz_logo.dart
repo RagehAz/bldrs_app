@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
-import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/images/super_image.dart';
@@ -72,8 +72,8 @@ class BzLogo extends StatelessWidget {
               borderRadius: bzLogoCorners,
               boxShadow:
               shadowIsOn == false ? null :
-              <CustomBoxShadow>[
-                  CustomBoxShadow(
+              <BoxShadow>[
+                Shadowz.CustomBoxShadow(
                       color: Colorz.black200,
                       offset: const Offset(0, 0),
                       blurRadius: width * 0.15,

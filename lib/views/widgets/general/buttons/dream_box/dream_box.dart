@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -248,7 +248,7 @@ class DreamBox extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: inActiveMode == true ? Colorz.white10 : _boxColor,
                     borderRadius: _cornersAsBorderRadius,
-                    boxShadow: const <CustomBoxShadow>[
+                    boxShadow: const <BoxShadow>[
                       // CustomBoxShadow(
                       //     color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
                       //     offset: new Offset(0, 0),
