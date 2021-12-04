@@ -29,9 +29,8 @@ enum FlyerSourceType {
   bzModel,
 }
 
-class FlyerMethod{
 // -----------------------------------------------------------------------------
-  static FlyerSourceType checkSuperFlyerSource(dynamic input){
+  FlyerSourceType checkSuperFlyerSource(dynamic input){
 
     FlyerSourceType _source;
 
@@ -58,7 +57,7 @@ class FlyerMethod{
     return _source;
   }
 // -----------------------------------------------------------------------------
-  static FlyerMode flyerModeSelector({BuildContext context, double flyerBoxWidth, bool inEditor, dynamic flyerSource}){
+  FlyerMode flyerModeSelector({BuildContext context, double flyerBoxWidth, bool inEditor, dynamic flyerSource}){
 
     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
     final bool _editMode = inEditor;
@@ -179,7 +178,7 @@ class FlyerMethod{
     return _flyerMode;
   }
 // -----------------------------------------------------------------------------
-  static dynamic selectFlyerSource({String flyerID, BzModel bzModel, FlyerModel flyerModel,}) {
+  dynamic selectFlyerSource({String flyerID, BzModel bzModel, FlyerModel flyerModel,}) {
     dynamic _flyerSource;
 
     final bool _byFlyerModel = flyerModel != null;
@@ -207,7 +206,7 @@ class FlyerMethod{
     return _flyerSource;
   }
 // -----------------------------------------------------------------------------
-  static bool flyerHasMoreThanOneSlide(SuperFlyer superFlyer){
+  bool flyerHasMoreThanOneSlide(SuperFlyer superFlyer){
     bool _hasMoreThanOneSlide = false;
 
     if (superFlyer != null){
@@ -227,17 +226,17 @@ class FlyerMethod{
     return _hasMoreThanOneSlide;
   }
 // -----------------------------------------------------------------------------
-  static int unNullIndexIfNull(int slideIndex){
+  int unNullIndexIfNull(int slideIndex){
     return slideIndex == null ? 0 : slideIndex;
   }
 // -----------------------------------------------------------------------------
-  static bool maxSlidesReached({SuperFlyer superFlyer}){
+  bool maxSlidesReached({SuperFlyer superFlyer}){
     final int _maxLength = Standards.getMaxSlidesCount(superFlyer.bz.accountType);
     final bool _reachedMaxSlides = _maxLength <= superFlyer.numberOfSlides;
     return _reachedMaxSlides;
   }
 // -----------------------------------------------------------------------------
-  static BoxFit getCurrentBoxFitFromSuperFlyer({SuperFlyer superFlyer}){
+  BoxFit getCurrentBoxFitFromSuperFlyer({SuperFlyer superFlyer}){
     BoxFit _fit;
 
     if (superFlyer.mSlides != null){
@@ -251,5 +250,3 @@ class FlyerMethod{
     return _fit;
   }
 // -----------------------------------------------------------------------------
-}
-

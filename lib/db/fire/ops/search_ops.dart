@@ -29,13 +29,12 @@ enum ValueIs{
   ArrayContainsAny,
 }
 
-abstract class FireSearchOps {
 // -----------------------------------------------------------------------------
 
   /// GENERAL
 
 // -----------------------------------------------
-  static Future<QuerySnapshot<Object>> _searchAndGetCollectionSnapshots({
+  Future<QuerySnapshot<Object>> _searchAndGetCollectionSnapshots({
     @required BuildContext context,
     @required CollectionReference<Object> collRef,
     @required ValueIs valueIs,
@@ -136,7 +135,7 @@ abstract class FireSearchOps {
     return _collectionSnapshot;
   }
 // -----------------------------------------------
-    static Future<dynamic> mapsByFieldValue({
+    Future<dynamic> mapsByFieldValue({
       @required BuildContext context,
       @required String collName,
       @required String field,
@@ -174,7 +173,7 @@ abstract class FireSearchOps {
 
   }
 // -----------------------------------------------
-  static Future<dynamic> subCollectionMapsByFieldValue({
+  Future<dynamic> subCollectionMapsByFieldValue({
     @required BuildContext context,
     @required String collName,
     @required String docName,
@@ -218,7 +217,7 @@ abstract class FireSearchOps {
 
   }
 // -----------------------------------------------
-  static Future<dynamic> mapsByValueInArray({
+  Future<dynamic> mapsByValueInArray({
     @required BuildContext context,
     @required CollectionReference<Object> collRef,
     @required String field,
@@ -259,7 +258,7 @@ abstract class FireSearchOps {
     return _maps;
     }
 // -----------------------------------------------
-  static Future<dynamic> mapsByTwoValuesEqualTo({
+  Future<dynamic> mapsByTwoValuesEqualTo({
     @required BuildContext context,
     @required CollectionReference<Object> collRef,
     @required String fieldA,
@@ -302,7 +301,7 @@ abstract class FireSearchOps {
 
 // -----------------------------------------------
 /// SEARCH FLYERS BY AREA AND FLYER TYPE
-  static Future<List<FlyerModel>> flyersByZoneAndFlyerType({
+  Future<List<FlyerModel>> flyersByZoneAndFlyerType({
     @required BuildContext context,
     @required ZoneModel zone,
     @required FlyerTypeClass.FlyerType flyerType,
@@ -345,7 +344,7 @@ abstract class FireSearchOps {
 
     }
 // -----------------------------------------------
-  static Future<List<FlyerModel>> flyersByZoneAndKeyword({
+  Future<List<FlyerModel>> flyersByZoneAndKeyword({
     @required BuildContext context,
     @required ZoneModel zone,
     @required KW kw,
@@ -389,7 +388,7 @@ abstract class FireSearchOps {
 
 }
 // -----------------------------------------------
-  static Future<List<FlyerModel>> flyersByZoneAndTitle({
+  Future<List<FlyerModel>> flyersByZoneAndTitle({
     @required BuildContext context,
     @required ZoneModel zone,
     @required String title,
@@ -428,7 +427,7 @@ abstract class FireSearchOps {
   /// USERS
 
 // -----------------------------------------------
-  static Future<List<UserModel>> usersByUserName({
+  Future<List<UserModel>> usersByUserName({
     @required BuildContext context,
     @required String name
   }) async {
@@ -470,7 +469,7 @@ abstract class FireSearchOps {
       return _usersModels;
     }
 // -----------------------------------------------
-  static Future<List<UserModel>> usersByNameAndIsAuthor({
+  Future<List<UserModel>> usersByNameAndIsAuthor({
     @required BuildContext context,
     @required String name,
     int limit = 3,
@@ -513,7 +512,7 @@ abstract class FireSearchOps {
   /// BZZ
 
 // -----------------------------------------------
-  static Future<List<BzModel>> bzzByBzName({
+  Future<List<BzModel>> bzzByBzName({
     @required BuildContext context,
     @required String bzName
   }) async {
@@ -547,7 +546,7 @@ abstract class FireSearchOps {
   /// ZONES
 
 // -----------------------------------------------
-  static Future<List<CityModel>> citiesByCityName({
+  Future<List<CityModel>> citiesByCityName({
     @required BuildContext context,
     @required String cityName,
     @required String lingoCode
@@ -586,7 +585,7 @@ abstract class FireSearchOps {
   }
 // -----------------------------------------------
   /// not tested
-  static Future<List<CityModel>> citiesByCityNameAndCountryID({
+  Future<List<CityModel>> citiesByCityNameAndCountryID({
     @required BuildContext context,
     @required String cityName,
     @required String countryID,
@@ -631,7 +630,5 @@ abstract class FireSearchOps {
 
   }
 // -----------------------------------------------------------------------------
-
-}
 
 

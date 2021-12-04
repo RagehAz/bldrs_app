@@ -20,13 +20,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-abstract class ZoneOps{
 // -----------------------------------------------------------------------------
 
   /// CONTINENT
 
 // ---------------------------------------------------
-  static Future<List<Continent>> readContinentsOps({@required BuildContext context}) async {
+  Future<List<Continent>> readContinentsOps({@required BuildContext context}) async {
 
     final Map<String, dynamic> _map = await Fire.readDoc(
       context: context,
@@ -43,7 +42,7 @@ abstract class ZoneOps{
   /// COUNTRY
 
 // ---------------------------------------------------
-  static Future<CountryModel> readCountryOps({
+  Future<CountryModel> readCountryOps({
     @required BuildContext context,
     @required String countryID
   }) async {
@@ -65,7 +64,7 @@ abstract class ZoneOps{
   /// CITY
 
 // ---------------------------------------------------
-  static Future<CityModel> readCityOps({
+  Future<CityModel> readCityOps({
     @required BuildContext context,
     @required String cityID,
   }) async {
@@ -83,7 +82,7 @@ abstract class ZoneOps{
     return _cityModel;
   }
 // -----------------------------------------------------------------------------
-  static Future<List<CityModel>> readCountryCitiesOps({
+  Future<List<CityModel>> readCountryCitiesOps({
     @required BuildContext context,
     @required String countryID,
   }) async {
@@ -120,7 +119,7 @@ abstract class ZoneOps{
 
 // ---------------------------------------------------
   /// this is limited and needs paid subscription
-  static Future<ZoneModel> _getZoneByIP_ipApi({@required BuildContext context}) async {
+  Future<ZoneModel> _getZoneByIP_ipApi({@required BuildContext context}) async {
 
     String _countryID;
     String _cityID;
@@ -179,7 +178,7 @@ abstract class ZoneOps{
   }
 // ---------------------------------------------------
   /// this needs subscription after first 100'000 requests
-  static Future<ZoneModel> _getZoneByIP_ipRegistry({@required BuildContext context}) async {
+  Future<ZoneModel> _getZoneByIP_ipRegistry({@required BuildContext context}) async {
 
     /// Note that on Android it requires the android.permission.INTERNET permission.
     String _countryID;
@@ -242,7 +241,7 @@ abstract class ZoneOps{
     return ZoneModel(countryID: _countryID, cityID: _cityID, districtID: null);
   }
 // ---------------------------------------------------
-  static Future<ZoneModel> _getZoneByGeoLocator({@required BuildContext context}) async {
+  Future<ZoneModel> _getZoneByGeoLocator({@required BuildContext context}) async {
 
     ZoneModel _zoneModel;
 
@@ -259,7 +258,7 @@ abstract class ZoneOps{
     return _zoneModel;
   }
 // ---------------------------------------------------
-  static Future<ZoneModel> superGetZone(BuildContext context) async {
+  Future<ZoneModel> superGetZone(BuildContext context) async {
 
     /// trial 1
     ZoneModel _zone = await _getZoneByIP_ipApi(context: context);
@@ -284,7 +283,7 @@ abstract class ZoneOps{
   /// GEO
 
 // ---------------------------------------------------
-  static Future<Position> getGeoLocatorCurrentPosition() async {
+  Future<Position> getGeoLocatorCurrentPosition() async {
     bool _serviceEnabled;
     LocationPermission permission;
 
@@ -323,7 +322,7 @@ abstract class ZoneOps{
     );
   }
 // ---------------------------------------------------
-  static Future<List<Placemark>> getAddressFromPosition({@required GeoPoint geoPoint}) async {
+  Future<List<Placemark>> getAddressFromPosition({@required GeoPoint geoPoint}) async {
 
     List<Placemark> _placeMarks = <Placemark>[];
 
@@ -346,7 +345,7 @@ abstract class ZoneOps{
   /// CURRENCY
 
 // ---------------------------------------------------
-  static Future<List<CurrencyModel>> readCurrencies(BuildContext context) async {
+  Future<List<CurrencyModel>> readCurrencies(BuildContext context) async {
 
     final Map<String, dynamic> _map = await Fire.readDoc(
       context: context,
@@ -359,4 +358,3 @@ abstract class ZoneOps{
     return _currencies;
   }
 // -----------------------------------------------------------------------------
-}

@@ -578,11 +578,6 @@ class Spec {
     return _output;
   }
 // -----------------------------------------------------------------------------
-}
-/// ============================================================================
-
-abstract class  SpecsValidator {
-
   static bool specsContainsNewSale(List<Spec> specs){
     const Spec _newSaleSpec = Spec(specsListID: 'propertyContractType', value: RawSpecs.newSaleID);
     final bool _containsNewSale = Spec.specsContainThisSpec(specs: specs, spec: _newSaleSpec);
@@ -590,3 +585,4 @@ abstract class  SpecsValidator {
   }
 
 }
+/// ============================================================================
