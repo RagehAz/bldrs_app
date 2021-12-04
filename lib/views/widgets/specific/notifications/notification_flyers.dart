@@ -18,7 +18,20 @@ class NotificationFlyers extends StatelessWidget {
     this.onFlyerTap,
     Key key,
   }) : super(key: key);
+// -----------------------------------------------------------------------------
+  bool _absorbFlyerTap(){
+    bool _absorb;
 
+    if (onFlyerTap == null){
+      _absorb = false;
+    }
+    else {
+      _absorb = true;
+    }
+
+    return _absorb;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,7 +59,7 @@ class NotificationFlyers extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: AbsorbPointer(
-                    absorbing: onFlyerTap == null ? false : true,
+                    absorbing: _absorbFlyerTap(),
                     child: FinalFlyer(
                       flyerBoxWidth: FlyerBox.width(context, FlyerBox.sizeFactorByHeight(context, 200)),
                       flyerModel: _flyer,

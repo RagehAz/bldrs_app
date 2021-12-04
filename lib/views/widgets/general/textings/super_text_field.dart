@@ -70,7 +70,7 @@ class SuperTextField extends StatefulWidget {
     this.onTap,
     this.corners,
     this.onSubmitted,
-    this.autofocus,
+    this.autofocus = false,
     this.onMaxLinesReached,
     Key key,
   }) : super(key: key);
@@ -332,7 +332,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           cursorWidth: 2,
           cursorHeight: null,
           textAlign: _textAlign,
-          autofocus: widget.autofocus == null ? false : widget.autofocus,
+          autofocus: widget.autofocus,
         ),
       )
 
@@ -367,7 +367,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           cursorWidth: 2,
           cursorHeight: null,
           textAlign: _textAlign,
-          autofocus: widget.autofocus == null ? false : widget.autofocus,
+          autofocus: widget.autofocus,
           onSubmitted: (String val){
 
             if (widget.onSubmitted != null){

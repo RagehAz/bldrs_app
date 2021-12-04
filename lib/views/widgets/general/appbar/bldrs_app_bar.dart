@@ -58,6 +58,137 @@ class BldrsAppBar extends StatelessWidget {
     return _appBarScrollWidth;
   }
 // -----------------------------------------------------------------------------
+  bool _backButtonIsOnCheck(){
+    bool _isOn;
+
+    if (appBarType == AppBarType.Basic){
+      _isOn = true;
+    }
+    else if (appBarType == AppBarType.Scrollable){
+      _isOn = true;
+    }
+    else if (appBarType == AppBarType.Main){
+      _isOn = false;
+    }
+    else if (appBarType == AppBarType.Intro){
+      _isOn = false;
+    }
+    else if (appBarType == AppBarType.Search){
+      _isOn = true;
+    }
+    else if (appBarType == AppBarType.Non){
+      _isOn = false;
+    }
+    else {
+      _isOn = false;
+    }
+
+    return _isOn;
+  }
+// -----------------------------------------------------------------------------
+  bool _searchButtonIsOnCheck(){
+    bool _isOn;
+
+    if (appBarType == AppBarType.Basic){
+      _isOn = false;
+    }
+    else if (appBarType == AppBarType.Scrollable){
+      _isOn = false;
+    }
+    else if (appBarType == AppBarType.Main){
+      _isOn = true;
+    }
+    else if (appBarType == AppBarType.Intro){
+      _isOn = false;
+    }
+    else if (appBarType == AppBarType.Search){
+      _isOn = false;
+    }
+    else if (appBarType == AppBarType.Non){
+      _isOn = false;
+    }
+    else {
+      _isOn = false;
+    }
+
+    return _isOn;
+  }
+// -----------------------------------------------------------------------------
+  bool _sectionButtonIsOnCheck(){
+    bool _isOn;
+
+    if (sectionButtonIsOn == true){
+      _isOn = true;
+    }
+    else if (sectionButtonIsOn == false){
+      _isOn = false;
+    }
+    else if (appBarType == AppBarType.Basic){
+      _isOn = false;
+    }
+    else if (appBarType == AppBarType.Scrollable){
+      _isOn = false;
+    }
+    else if (appBarType == AppBarType.Main){
+      _isOn = true;
+    }
+    else if (appBarType == AppBarType.Intro){
+      _isOn = false;
+    }
+    else if (appBarType == AppBarType.Search){
+      _isOn = true;
+    }
+    else if (appBarType == AppBarType.Non){
+      _isOn = false;
+    }
+    else {
+      _isOn = false;
+    }
+
+    return _isOn;
+  }
+// -----------------------------------------------------------------------------
+  bool _zoneButtonIsOnCheck(){
+    bool _isOn;
+
+    if (appBarType == AppBarType.Basic){
+      _isOn = false;
+    }
+    else if (appBarType == AppBarType.Scrollable){
+      _isOn = false;
+    }
+    else if (appBarType == AppBarType.Main){
+      _isOn = true;
+    }
+    else if (appBarType == AppBarType.Intro){
+      _isOn = true;
+    }
+    else if (appBarType == AppBarType.Search){
+      _isOn = true;
+    }
+    else if (appBarType == AppBarType.Non){
+      _isOn = false;
+    }
+    else {
+      _isOn = false;
+    }
+
+    return _isOn;
+  }
+// -----------------------------------------------------------------------------
+  bool _scrollableCheck(){
+    bool _scrollable;
+
+    if (appBarType == AppBarType.Scrollable){
+      _scrollable = true;
+    }
+    else {
+      _scrollable = false;
+    }
+
+    return _scrollable;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -65,47 +196,15 @@ class BldrsAppBar extends StatelessWidget {
     final double _abWidth = width(context);
     final double _abHeight = height(context, appBarType);
     const double _blurValue = Ratioz.blur1;
-    final bool _backButtonIsOn =
-    appBarType == AppBarType.Basic ? true :
-    appBarType == AppBarType.Scrollable ? true :
-    appBarType == AppBarType.Main ? false :
-    appBarType == AppBarType.Intro ? false :
-    appBarType == AppBarType.Search ? true :
-    appBarType == AppBarType.Non ? false :
-    false;
+    final bool _backButtonIsOn = _backButtonIsOnCheck();
+    final bool _searchButtonIsOn = _searchButtonIsOnCheck();
+    final bool _sectionButtonIsOn = _sectionButtonIsOnCheck();
 // -----------------------------------------------------------------------------
-    final bool _searchButtonIsOn =
-    appBarType == AppBarType.Basic ? false :
-    appBarType == AppBarType.Scrollable ? false :
-    appBarType == AppBarType.Main ? true :
-    appBarType == AppBarType.Intro ? false :
-    appBarType == AppBarType.Search ? false :
-    appBarType == AppBarType.Non ? false :
-    false;
-// -----------------------------------------------------------------------------
-    final bool _sectionButtonIsOn =
-    sectionButtonIsOn == true ? true :
-    sectionButtonIsOn == false ? false :
-    appBarType == AppBarType.Basic ? false :
-    appBarType == AppBarType.Scrollable ? false :
-    appBarType == AppBarType.Main ? true :
-    appBarType == AppBarType.Intro ? false :
-    appBarType == AppBarType.Search ? true :
-    appBarType == AppBarType.Non ? false :
-    false;
-// -----------------------------------------------------------------------------
-    final bool _zoneButtonIsOn =
-    appBarType == AppBarType.Basic ? false :
-    appBarType == AppBarType.Scrollable ? false :
-    appBarType == AppBarType.Main ? true :
-    appBarType == AppBarType.Intro ? true :
-    appBarType == AppBarType.Search ? true :
-    appBarType == AppBarType.Non ? false :
-    false;
+    final bool _zoneButtonIsOn = _zoneButtonIsOnCheck();
 // -----------------------------------------------------------------------------
     final double _backButtonWidth = _backButtonIsOn == true ? 50 : 0;
 // -----------------------------------------------------------------------------
-    final bool _scrollable = appBarType == AppBarType.Scrollable ? true : false;
+    final bool _scrollable = _scrollableCheck();
     final double _titleHorizontalMargins = _backButtonIsOn == true ? 5 : 15;
 // -----------------------------------------------------------------------------
     return Column(

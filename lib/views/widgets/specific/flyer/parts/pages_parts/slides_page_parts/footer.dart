@@ -48,10 +48,17 @@ class FlyerFooter extends StatelessWidget {
     return _flyerFooterHeight;
   }
 // -----------------------------------------------------------------------------
-  static double buttonMargin({BuildContext context, double flyerBoxWidth, bool buttonIsOn}){
+  static double buttonMargin({@required BuildContext context, @required double flyerBoxWidth, @required bool buttonIsOn}){
 
     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
-    final bool _buttonIsOn = buttonIsOn == null ? false : buttonIsOn;
+
+    bool _buttonIsOn;
+    if (buttonIsOn == null){
+      _buttonIsOn = false;
+    }
+    else {
+      _buttonIsOn = buttonIsOn;
+    }
 
     final double _footerBTMargins =
 

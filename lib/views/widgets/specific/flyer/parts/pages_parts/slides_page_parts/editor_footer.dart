@@ -28,7 +28,46 @@ class EditorFooter extends StatelessWidget {
     @required this.superFlyer,
     Key key,
   }) : super(key: key);
+// -----------------------------------------------------------------------------
+  bool _flyerHasNoSlidesCheck(){
+    bool _hasNoSlides;
 
+    if (numberOfSlides == 0){
+      _hasNoSlides = true;
+    }
+    else {
+      _hasNoSlides = false;
+    }
+
+    return _hasNoSlides;
+  }
+// -----------------------------------------------------------------------------
+  bool _addSlidesButtonInActiveModeCheck(){
+    bool _inActiveMode;
+
+    if (Standards.canAddMoreSlides(superFlyer: superFlyer) == true){
+      _inActiveMode = false;
+    }
+    else {
+      _inActiveMode = true;
+    }
+
+    return _inActiveMode;
+  }
+// -----------------------------------------------------------------------------
+  bool _deleteSlideButtonInActiveModeCheck(){
+    bool _inActiveMode;
+
+    if (Standards.canDeleteSlide(superFlyer: superFlyer) == true){
+      _inActiveMode = false;
+    }
+    else {
+      _inActiveMode = true;
+    }
+
+    return _inActiveMode;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -44,11 +83,11 @@ class EditorFooter extends StatelessWidget {
     final double _sumOfButtons = flyerBoxWidth - _sumOfSpacings;
     final double _fittingButtonSize = _sumOfButtons / _numberOfButtons;
 
-    final bool _flyerHasNoSlides = numberOfSlides == 0 ? true : false;
+    final bool _flyerHasNoSlides = _flyerHasNoSlidesCheck();
 
 
-    final bool _addSlidesButtonInActiveMode = Standards.canAddMoreSlides(superFlyer: superFlyer) == true ? false : true;
-    final bool _deleteSlideButtonInActiveMode = Standards.canDeleteSlide(superFlyer: superFlyer) == true ? false : true;
+    final bool _addSlidesButtonInActiveMode = _addSlidesButtonInActiveModeCheck();
+    final bool _deleteSlideButtonInActiveMode = _deleteSlideButtonInActiveModeCheck();
     final bool _cropButtonInActiveMode = _flyerHasNoSlides;
     final bool _resetButtonInActiveMode = _flyerHasNoSlides;
     final bool _fitButtonInActiveMode = _flyerHasNoSlides;
@@ -56,7 +95,8 @@ class EditorFooter extends StatelessWidget {
     /// FLYER FOOTER
     return Align(
       alignment: Alignment.bottomCenter,
-      // --- FLYER FOOTER BOX
+
+      /// --- FLYER FOOTER BOX
       child: Container(
         width: flyerBoxWidth,
         height: FlyerFooter.boxHeight(context: context, flyerBoxWidth: flyerBoxWidth),

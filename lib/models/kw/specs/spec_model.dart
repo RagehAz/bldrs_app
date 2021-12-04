@@ -399,7 +399,13 @@ class Spec {
       final Spec _result = specs.firstWhere((Spec sp) =>
       Spec.specsAreTheSame(sp, spec) == true, orElse: () => null);
 
-      _contains = _result == null ? false : true;
+      if (_result == null){
+        _contains = false;
+      }
+      else {
+        _contains = true;
+      }
+
     }
 
     return _contains;
@@ -452,7 +458,12 @@ class Spec {
 
       final Spec _result = specs.firstWhere((Spec sp) => sp.specsListID == specsListID, orElse: () => null);
 
-      _contains = _result == null ? false : true;
+      if (_result == null){
+        _contains = false;
+      }
+      else {
+        _contains = true;
+      }
 
     }
 

@@ -32,6 +32,12 @@ class LDBViewerScreen extends StatefulWidget {
     final String _primaryKey = primaryKey;
     final double _screenWidth = Scale.superScreenWidth(context);
 
+    bool _bubbleIsOn = true;
+    if (onRowTap == null){
+      _bubbleIsOn = false;
+    }
+
+
     return
       List<Widget>.generate(
           maps?.length ?? 0,
@@ -61,7 +67,7 @@ class LDBViewerScreen extends StatefulWidget {
                       width: 37,
                       icon: Iconz.Flyer,
                       iconSizeFactor: 0.7,
-                      bubble: onRowTap ==  null ? false : true,
+                      bubble: _bubbleIsOn,
                       onTap: (){
 
                         if (onRowTap !=  null){

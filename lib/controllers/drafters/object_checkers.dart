@@ -100,10 +100,15 @@ abstract class ObjectChecker {
 // -----------------------------------------------------------------------------
   static bool objectIsAsset(dynamic object){
 
-    final bool _objectIsAsset =
-    object == null ? null
-        :
-    object.runtimeType == Asset ? true : false;
+    bool _objectIsAsset;
+
+    if (object is Asset){
+      _objectIsAsset = true;
+    }
+
+    else {
+      _objectIsAsset = false;
+    }
 
     return
       _objectIsAsset;
@@ -111,16 +116,18 @@ abstract class ObjectChecker {
 // -----------------------------------------------------------------------------
   static bool objectIsJPGorPNG(dynamic object) {
 
-    return fileExtensionOf(object) == 'jpeg' ||
-            fileExtensionOf(object) == 'jpg' ||
-            fileExtensionOf(object) == 'png' ?
+    bool _objectIsJPGorPNG;
 
-    true : false;
-  }
-// -----------------------------------------------------------------------------
-  static bool objectIsColor(dynamic object) {
-    final bool _objectIsColor = object.runtimeType == Color ? true : false;
-    return _objectIsColor;
+    if (fileExtensionOf(object) == 'jpeg' ||
+        fileExtensionOf(object) == 'jpg' ||
+        fileExtensionOf(object) == 'png'){
+      _objectIsJPGorPNG = true;
+    }
+    else {
+      _objectIsJPGorPNG = false;
+    }
+
+    return _objectIsJPGorPNG;
   }
 // -----------------------------------------------------------------------------
   static Future<bool> objectIsIntInString(BuildContext context, dynamic string) async {
