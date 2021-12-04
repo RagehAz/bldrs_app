@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/stream_checkers.dart';
+import 'package:bldrs/controllers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';

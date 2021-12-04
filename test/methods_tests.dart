@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
-import 'package:bldrs/controllers/drafters/text_checkers.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';

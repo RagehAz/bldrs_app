@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/models/bz/author_model.dart';
@@ -162,7 +162,7 @@ class GalleryGrid extends StatelessWidget {
                         inEditor: false,
                         flyerKey: ValueKey<String>('${_gridFlyers[index].id}'),
                         // initialSlideIndex: _gridFlyers[index].slideIndex,
-                        onSwipeFlyer: (SwipeDirection direction){
+                        onSwipeFlyer: (Sliders.SwipeDirection direction){
                           // print('Direction is ${direction}');
                         },
                       ),

@@ -10,7 +10,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/controllers/notifications/audioz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/drafters/stream_checkers.dart';
+import 'package:bldrs/controllers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 

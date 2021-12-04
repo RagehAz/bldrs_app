@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/drafters/text_checkers.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart';

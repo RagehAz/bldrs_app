@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';

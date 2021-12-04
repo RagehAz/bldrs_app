@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
-import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';

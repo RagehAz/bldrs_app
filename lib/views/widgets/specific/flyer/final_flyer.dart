@@ -6,9 +6,9 @@ import 'package:bldrs/controllers/drafters/colorizers.dart' as Colorizer;
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/drafters/launchers.dart' as Launcher;
-import 'package:bldrs/controllers/drafters/sliders.dart';
-import 'package:bldrs/controllers/drafters/text_checkers.dart';
-import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -463,7 +463,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onHeaderTap: (bool isExpanded) { _onHeaderTap(isExpanded);},
         onSlideRightTap: _onSlideRightTap,
         onSlideLeftTap: _onSlideLeftTap,
-        onSwipeFlyer: (SwipeDirection direction) => widget.onSwipeFlyer(direction),
+        onSwipeFlyer: (Sliders.SwipeDirection direction) => widget.onSwipeFlyer(direction),
         onTinyFlyerTap: () async {await _openTinyFlyer();},
         onView: (int slideIndex) => _onViewSlide(slideIndex),
         onAnkhTap: () async {await _onAnkhTap();} ,
@@ -512,7 +512,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         onHeaderTap: (bool isExpanded) {_onHeaderTap(isExpanded);},
         onSlideRightTap: _onSlideRightTap,
         onSlideLeftTap: _onSlideLeftTap,
-        onSwipeFlyer: (SwipeDirection direction) => widget.onSwipeFlyer(direction),
+        onSwipeFlyer: (Sliders.SwipeDirection direction) => widget.onSwipeFlyer(direction),
         onTinyFlyerTap: () async {await _openTinyFlyer();},
         onView: (int i) => _onViewSlide(i),
         onAnkhTap: () async {await _onAnkhTap();} ,
@@ -567,7 +567,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       onHeaderTap: (bool isExpanded) { _onHeaderTap(isExpanded);},
       onSlideRightTap: _onSlideRightTap,
       onSlideLeftTap: _onSlideLeftTap,
-      onSwipeFlyer: (SwipeDirection direction) => widget.onSwipeFlyer(direction),
+      onSwipeFlyer: (Sliders.SwipeDirection direction) => widget.onSwipeFlyer(direction),
       onTinyFlyerTap: () async {await _openTinyFlyer();},
       onView: (int i) => _onViewSlide(i),
       onAnkhTap: () async {await _onAnkhTap();} ,
@@ -797,14 +797,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
   void _onHorizontalSlideSwipe (int newIndex){
     // print('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
-    final SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _superFlyer.currentSlideIndex,);
+    final Sliders.SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _superFlyer.currentSlideIndex,);
 
     /// A - if Keyboard is active
     if (Keyboarders.keyboardIsOn(context) == true){
       print('KEYBOARD IS ACTIVE');
 
       /// B - when direction is going next
-      if (_direction == SwipeDirection.next){
+      if (_direction == Sliders.SwipeDirection.next){
         print('going next');
         FocusScope.of(context).nextFocus();
         setState(() {
@@ -814,7 +814,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       }
 
       /// B - when direction is going back
-      else if (_direction == SwipeDirection.back){
+      else if (_direction == Sliders.SwipeDirection.back){
         print('going back');
         FocusScope.of(context).previousFocus();
         setState(() {
@@ -1742,7 +1742,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     setState(() {
       _superFlyer.nav.listenToSwipe = false;
       _superFlyer.currentSlideIndex = _superFlyer.currentSlideIndex - 1;
-      _superFlyer.nav.swipeDirection = SwipeDirection.freeze;
+      _superFlyer.nav.swipeDirection = Sliders.SwipeDirection.freeze;
       _superFlyer.numberOfStrips = _superFlyer.numberOfSlides - 1;
       _statelessTriggerSlideVisibility(_originalIndex);
     });
