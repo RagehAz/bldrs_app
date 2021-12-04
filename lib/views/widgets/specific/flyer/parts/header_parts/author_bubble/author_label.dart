@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/controllers/drafters/numeric.dart';
+import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';

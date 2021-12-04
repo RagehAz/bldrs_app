@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';

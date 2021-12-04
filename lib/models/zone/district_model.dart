@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/models/secondary_models/map_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';

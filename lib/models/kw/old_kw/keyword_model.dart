@@ -1,4 +1,4 @@
-// import 'package:bldrs/controllers/drafters/mappers.dart';
+// import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 // import 'package:bldrs/controllers/localization/lingo.dart';
 // import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
 // import 'package:bldrs/models/keywords/group_model.dart';

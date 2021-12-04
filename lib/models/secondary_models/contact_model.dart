@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------

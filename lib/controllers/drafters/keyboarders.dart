@@ -3,10 +3,9 @@ import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-abstract class Keyboarders {
 // -----------------------------------------------------------------------------
   /// TO MINIMIZE KEYBOARD WHEN TAPPING OUTSIDE
-  static void minimizeKeyboardOnTapOutSide (BuildContext context){
+  void minimizeKeyboardOnTapOutSide (BuildContext context){
 // FocusScope.of(context).requestFocus(FocusNode());
 // print('x minimizeKeyboardOnTapOutSide() unfocused keyboard');
   // // ANOTHER SOLUTION
@@ -16,11 +15,11 @@ abstract class Keyboarders {
   }
 }
 // -----------------------------------------------------------------------------
-  static void closeKeyboard(BuildContext context){
+  void closeKeyboard(BuildContext context){
   FocusScope.of(context).unfocus();
 }
 // -----------------------------------------------------------------------------
-  static bool keyboardIsOn(BuildContext context){
+  bool keyboardIsOn(BuildContext context){
   // bool _keyboardIsOn;
 ///
 //   bool _keyboardIsOn = FocusScope.of(context).hasFocus;
@@ -52,7 +51,7 @@ abstract class Keyboarders {
 // Does anyone know if it's possible to listen for a keyboard language change
 // on native Android?
 // -----------------------------------------------------------------------------
-  static Future<void> handlePaste(TextSelectionDelegate delegate) async {
+  Future<void> handlePaste(TextSelectionDelegate delegate) async {
 
   final TextEditingValue _value = delegate.textEditingValue; // Snapshot the input before using `await`.
   final ClipboardData _data = await Clipboard.getData(Clipboard.kTextPlain);
@@ -78,7 +77,7 @@ abstract class Keyboarders {
   delegate.hideToolbar();
 }
 // -----------------------------------------------------------------------------
-  static Future<void> copyToClipboard({BuildContext context, String copy}) async {
+  Future<void> copyToClipboard({BuildContext context, String copy}) async {
     await Clipboard.setData(ClipboardData(text: copy,));
 
     await NavDialog.showNavDialog(
@@ -92,5 +91,3 @@ abstract class Keyboarders {
 
   }
 // -----------------------------------------------------------------------------
-
-}

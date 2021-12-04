@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/mappers.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
