@@ -4,9 +4,9 @@ import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/db/fire/ops/bz_ops.dart';
+import 'package:bldrs/db/fire/ops/bz_ops.dart' as FireBzOps;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/db/fire/ops/flyer_ops.dart';
+import 'package:bldrs/db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/db/fire/methods/storage.dart' as Storage;
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -19,21 +19,21 @@ import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
 
-abstract class UserFireOps{
 // -----------------------------------------------------------------------------
 
   /// REFERENCES
 
 // ---------------------------------------------------
   /// users firestore collection reference getter
-  static CollectionReference<Object> collRef(){
+  CollectionReference<Object> collRef(){
     final CollectionReference<Object> _usersCollectionRef = Fire.getCollectionRef(FireColl.users);
     return _usersCollectionRef;
   }
 // ---------------------------------------------------
   /// user firestore document reference
-  static DocumentReference<Object> docRef(String userID){
+  DocumentReference<Object> docRef(String userID){
     return
       Fire.getDocRef(
           collName: FireColl.users,
@@ -46,7 +46,7 @@ abstract class UserFireOps{
 
 // ---------------------------------------------------
   /// create or update user document
-  static Future<void> _createOrUpdateUserDoc({
+  Future<void> _createOrUpdateUserDoc({
     @required BuildContext context,
     @required UserModel userModel
   }) async {
@@ -60,7 +60,7 @@ abstract class UserFireOps{
 
   }
 // ---------------------------------------------------
-  static Future<UserModel> createUser({
+  Future<UserModel> createUser({
     @required BuildContext context,
     @required UserModel userModel,
     @required AuthBy authBy,
@@ -138,7 +138,7 @@ abstract class UserFireOps{
 
   }
 // ---------------------------------------------------
-  static Future<Map<String, dynamic>> getOrCreateUserModelFromUser({
+  Future<Map<String, dynamic>> getOrCreateUserModelFromUser({
     @required BuildContext context,
     @required User user,
     @required ZoneModel zone,
@@ -211,7 +211,7 @@ abstract class UserFireOps{
   /// READ
 
 // ---------------------------------------------------
-  static Future<UserModel> readUser({
+  Future<UserModel> readUser({
     @required BuildContext context,
     @required String userID
   }) async {
@@ -245,7 +245,7 @@ abstract class UserFireOps{
   }
 // -----------------------------------------------------------------------------
   /// auth change user stream
-  static Stream<UserModel> streamInitialUser(){
+  Stream<UserModel> streamInitialUser(){
     final FirebaseAuth _auth = FirebaseAuth?.instance;
 
     return _auth.authStateChanges()
@@ -259,7 +259,7 @@ abstract class UserFireOps{
   /// UPDATE
 
 // ---------------------------------------------------
-  static Future<void> updateUser({
+  Future<void> updateUser({
     @required BuildContext context,
     @required UserModel oldUserModel,
     @required UserModel updatedUserModel
@@ -322,7 +322,7 @@ abstract class UserFireOps{
   }
 // -----------------------------------------------------------------------------
   /// returns new pic url
-  static Future<String> updateUserPic({
+  Future<String> updateUserPic({
     @required BuildContext context,
     @required String oldURL,
     @required File newPic,
@@ -342,7 +342,7 @@ abstract class UserFireOps{
     return _newURL;
   }
 // ---------------------------------------------------
-  static Future<void> addFlyerIDToSavedFlyersIDs({
+  Future<void> addFlyerIDToSavedFlyersIDs({
     @required BuildContext context,
     @required String flyerID,
     @required List<String> savedFlyersIDs,
@@ -366,7 +366,7 @@ abstract class UserFireOps{
     );
   }
 // ---------------------------------------------------
-  static Future<void> removeFlyerIDFromSavedFlyersIDs({
+  Future<void> removeFlyerIDFromSavedFlyersIDs({
     @required BuildContext context,
     @required String flyerID,
     @required String userID,
@@ -396,7 +396,7 @@ abstract class UserFireOps{
   /// DELETE
 
 // ---------------------------------------------------
-  static Future<dynamic> deactivateUser({
+  Future<dynamic> deactivateUser({
     @required BuildContext context,
     @required UserModel userModel,
   }) async {
@@ -581,7 +581,7 @@ abstract class UserFireOps{
 
   }
 // ---------------------------------------------------
-  static Future<dynamic> deleteUser({
+  Future<dynamic> deleteUser({
     @required BuildContext context,
     @required UserModel userModel,
   }) async {
@@ -814,5 +814,3 @@ abstract class UserFireOps{
 
   }
 // -----------------------------------------------------------------------------
-
-}
