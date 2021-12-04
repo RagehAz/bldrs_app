@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -57,17 +57,19 @@ class EnumLister extends StatelessWidget {
                   topRight: Radius.circular(Ratioz.appBarButtonCorner),
                 ),
                 boxShadow: <BoxShadow>[
-                  const CustomBoxShadow(
+                  const Shadowz.CustomBoxShadow(
                       color: Colorz.black230,
                       offset: const Offset(0, 0),
                       blurRadius: 30,
                       blurStyle: BlurStyle.outer),
-                  const CustomBoxShadow(
+                  const Shadowz.CustomBoxShadow(
                       color: Colorz.black230,
                       offset: const Offset(0, 0),
                       blurRadius: 30,
                       blurStyle: BlurStyle.outer),
-                ]),
+                ]
+            ),
+
             child: Stack(
               children: <Widget>[
 

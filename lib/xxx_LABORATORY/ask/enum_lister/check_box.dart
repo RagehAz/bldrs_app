@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -32,12 +32,12 @@ class CheckBox extends StatelessWidget {
         color: Colorz.white20,
         shape: BoxShape.circle,
           boxShadow: <BoxShadow>[
-            const CustomBoxShadow(
+            const Shadowz.CustomBoxShadow(
                 color: Colorz.black230,
                 blurRadius: 10,
                 blurStyle: BlurStyle.outer
             ),
-            const CustomBoxShadow(
+            const Shadowz.CustomBoxShadow(
                 color: Colorz.white20,
                 blurRadius: 10,
                 blurStyle: BlurStyle.outer
@@ -65,13 +65,15 @@ class CheckBox extends StatelessWidget {
                     decoration: const BoxDecoration(
                       borderRadius: const BorderRadius.all(
                           Radius.elliptical(checkBoxRadius * btOvalSizeFactor, checkBoxRadius * 0.7 * btOvalSizeFactor)),
-                      color: Colorz.nothing,
-                      boxShadow: <BoxShadow>[CustomBoxShadow(
-                        color: Colorz.white80,
-                        offset: Offset(0, checkBoxRadius * -0.5),
-                        blurRadius: checkBoxRadius * 0.3 ,
-                        blurStyle: BlurStyle.normal
-                      ),]
+                        color: Colorz.nothing,
+                        boxShadow: <BoxShadow>[
+                          Shadowz.CustomBoxShadow(
+                              color: Colorz.white80,
+                              offset: Offset(0, checkBoxRadius * -0.5),
+                              blurRadius: checkBoxRadius * 0.3 ,
+                              blurStyle: BlurStyle.normal
+                          ),
+                        ]
                     ),
                   ),
 

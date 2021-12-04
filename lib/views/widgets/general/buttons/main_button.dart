@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
-import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -68,7 +68,7 @@ class MainButton extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(_buttonCorner),
             boxShadow: <BoxShadow>[
-              CustomBoxShadow(
+              Shadowz.CustomBoxShadow(
                   color: Colorz.black230,
                   offset: const Offset(0, 0),
                   blurRadius: _buttonZoneHeight * 0.09,
@@ -115,12 +115,14 @@ class MainButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   // color: Colorz.White,
                   borderRadius: BorderRadius.circular(_buttonCorner-(_buttonHeight-(_buttonHeight * 0.22))),
-                  boxShadow: <BoxShadow>[CustomBoxShadow(
-                    color: Colorz.white50,
-                    offset: new Offset(0, _buttonHeight * -0.23),
-                    blurRadius: _buttonHeight * 0.18 ,
-                    blurStyle: BlurStyle.normal
-                  ),]
+                    boxShadow: <BoxShadow>[
+                      Shadowz.CustomBoxShadow(
+                          color: Colorz.white50,
+                          offset: new Offset(0, _buttonHeight * -0.23),
+                          blurRadius: _buttonHeight * 0.18 ,
+                          blurStyle: BlurStyle.normal
+                      ),
+                    ]
                 ),
               ),
 
