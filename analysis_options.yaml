@@ -35,6 +35,7 @@ linter:
     avoid_bool_literals_in_conditional_expressions: true
     avoid_catches_without_on_clauses: true
     avoid_catching_errors: true
+    avoid_classes_with_only_static_members: true
 
     # Pending
     diagnostic_describe_all_properties: false

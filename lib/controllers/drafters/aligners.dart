@@ -1,40 +1,39 @@
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:flutter/material.dart';
 
-abstract class Aligners{
 // -----------------------------------------------------------------------------
-  static Alignment superTopAlignment(BuildContext context){
+  Alignment superTopAlignment(BuildContext context){
     return
       appIsLeftToRight(context) ? Alignment.topLeft : Alignment.topRight;
   }
 // -----------------------------------------------------------------------------
-  static Alignment superBottomAlignment(BuildContext context){
+  Alignment superBottomAlignment(BuildContext context){
     return
       appIsLeftToRight(context) ? Alignment.bottomLeft : Alignment.bottomRight;
   }
 // -----------------------------------------------------------------------------
-  static Alignment superCenterAlignment(BuildContext context){
+  Alignment superCenterAlignment(BuildContext context){
     return
       appIsLeftToRight(context) ? Alignment.centerLeft : Alignment.centerRight;
   }
 // -----------------------------------------------------------------------------
-  static Alignment superInverseCenterAlignment(BuildContext context){
+  Alignment superInverseCenterAlignment(BuildContext context){
     return
       appIsLeftToRight(context) ? Alignment.centerRight : Alignment.centerLeft;
   }
 // -----------------------------------------------------------------------------
-  static Alignment superInverseTopAlignment(BuildContext context){
+  Alignment superInverseTopAlignment(BuildContext context){
     return
       appIsLeftToRight(context) ? Alignment.topRight : Alignment.topLeft;
   }
 // -----------------------------------------------------------------------------
-  static Alignment superInverseBottomAlignment(BuildContext context){
+  Alignment superInverseBottomAlignment(BuildContext context){
     return
       appIsLeftToRight(context) ? Alignment.bottomRight : Alignment.bottomLeft;
   }
 // -----------------------------------------------------------------------------
   /// gets [right position] of object that [aligns left] when app is english (LTR)
-  static double rightPositionInLeftAlignmentEn(BuildContext context, double offsetFromRight){
+  double rightPositionInLeftAlignmentEn(BuildContext context, double offsetFromRight){
     double _rightOffset;
 
     /// when in English
@@ -53,7 +52,7 @@ abstract class Aligners{
   }
 // -----------------------------------------------------------------------------
   /// gets [left position] of object that [aligns left] when app is english (LTR)
-  static double leftPositionInLeftAlignmentEn(BuildContext context, double offsetFromLeft){
+  double leftPositionInLeftAlignmentEn(BuildContext context, double offsetFromLeft){
     double _leftOffset;
 
     /// when in English
@@ -72,17 +71,16 @@ abstract class Aligners{
   }
 // -----------------------------------------------------------------------------
   /// gets [right position] of object that [aligns right] when app is english (LTR)
-  static double rightPositionInRightAlignmentEn(BuildContext context, double offsetFromRight){
+  double rightPositionInRightAlignmentEn(BuildContext context, double offsetFromRight){
 
     return
       leftPositionInLeftAlignmentEn(context, offsetFromRight);
   }
 // -----------------------------------------------------------------------------
   /// gets [left position] of object that [aligns right] when app is english (LTR)
-  static double leftPositionInRightAlignmentEn(BuildContext context, double offsetFromLeft){
+  double leftPositionInRightAlignmentEn(BuildContext context, double offsetFromLeft){
 
     return
       rightPositionInLeftAlignmentEn(context, offsetFromLeft);
   }
 // -----------------------------------------------------------------------------
-}
