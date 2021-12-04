@@ -99,15 +99,11 @@ class DreamBox extends StatelessWidget {
     Key key,
   }) : super(key: key);
 // -----------------------------------------------------------------------------
-  static Color getIconColor({bool blackAndWhite, bool inActiveMode, Color colorOverride}){
-
-    final bool _blackAndWhite = blackAndWhite == null ? false : blackAndWhite;
-    final bool _inActiveMode = inActiveMode == null ? false : inActiveMode;
-    final Color _colorOverride = colorOverride == null ? null : colorOverride;
+  static Color getIconColor({bool blackAndWhite = false, bool inActiveMode = false, Color colorOverride}){
 
     final Color _iconColor =
-    _blackAndWhite == true || _inActiveMode == true ? Colorz.white30 :
-    _colorOverride;
+    blackAndWhite == true || inActiveMode == true ? Colorz.white30 :
+    colorOverride;
 
     return _iconColor;
   }

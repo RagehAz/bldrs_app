@@ -8,9 +8,9 @@ import 'package:page_transition/page_transition.dart';
 
 abstract class Nav{
 // -----------------------------------------------------------------------------
-  static PageTransition<AnimatedWidget> slideToScreen(Widget screen, RouteSettings settings){
+  static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settings){
     return
-      PageTransition<AnimatedWidget>(
+      PageTransition<dynamic>(
         child: screen,
         type: PageTransitionType.bottomToTop,
         duration: Ratioz.durationFading200,
@@ -20,9 +20,9 @@ abstract class Nav{
       );
   }
 // -----------------------------------------------------------------------------
-  static PageTransition<AnimatedWidget> fadeToScreen(Widget screen, RouteSettings settings){
+  static PageTransition<dynamic> fadeToScreen(Widget screen, RouteSettings settings){
     return
-      PageTransition<AnimatedWidget>(
+      PageTransition<dynamic>(
         child: screen,
         type: PageTransitionType.fade,
         duration: Ratioz.duration150ms,
@@ -37,7 +37,7 @@ abstract class Nav{
     final PageTransitionType _transition = transitionType == null ? PageTransitionType.bottomToTop : transitionType;
 
     dynamic _result = await Navigator.push(context,
-      PageTransition<AnimatedWidget>(
+      PageTransition<dynamic>(
           type: _transition,
           child: screen,
           duration: Ratioz.durationFading200,

@@ -30,7 +30,7 @@ class MaxBounceNavigator extends StatefulWidget {
 
 class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
   bool _canNavigate = true;
-
+// -----------------------------------------------------------------------------
   Future<void> navigate() async {
 
     setState(() {
@@ -49,7 +49,20 @@ class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
     }
 
   }
+// -----------------------------------------------------------------------------
+  bool _goesBackOnlyCheck(){
+    bool _goesBack;
 
+    if (widget.axis == Axis.vertical){
+      _goesBack = true;
+    }
+    else {
+      _goesBack = false;
+    }
+
+    return _goesBack;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -58,7 +71,7 @@ class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
 
     final double _boxDistance = widget.axis == Axis.vertical ? _height : _width;
 
-    final bool _goesBackOnly = widget.axis == Axis.vertical ? true : false;
+    final bool _goesBackOnly = _goesBackOnlyCheck();
 
     return
       NotificationListener<ScrollUpdateNotification>(

@@ -63,6 +63,19 @@ class NavDialog extends StatelessWidget {
     );
   }
 // -----------------------------------------------------------------------------
+  bool _verseIsCentered(){
+
+    bool _isCentered;
+    if (secondLine == null){
+      _isCentered = false;
+    }
+    else {
+      _isCentered = true;
+    }
+
+    return _isCentered;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -106,7 +119,7 @@ class NavDialog extends StatelessWidget {
                       color: Colorz.white255,
                       weight: VerseWeight.bold,
                       shadow: true,
-                      centered: secondLine == null ? false : true,
+                      centered: _verseIsCentered(),
                     ),
                   ),
 

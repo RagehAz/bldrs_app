@@ -26,13 +26,13 @@ class FlyersShelfListBuilder extends StatefulWidget {
 
 class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
   final ScrollController _controller = ScrollController();
-
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _controller.addListener(listenToScrolling);
   }
-
+// -----------------------------------------------------------------------------
   void listenToScrolling(){
     if(_controller.position.atEdge){
       print('at edge');
@@ -50,7 +50,20 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
 
     }
   }
+// -----------------------------------------------------------------------------
+  bool _absorbingFlyerTap(){
+    bool _absorbing;
 
+    if (widget.flyerOnTap == null){
+      _absorbing = false;
+    }
+    else {
+      _absorbing = true;
+    }
+
+    return _absorbing;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -146,7 +159,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
               widget.flyerOnTap(_flyers[_x]);
             },
             child: AbsorbPointer(
-              absorbing: widget.flyerOnTap == null ? false : true,
+              absorbing: _absorbingFlyerTap(),
               child: FinalFlyer(
                 flyerBoxWidth: _flyerBoxWidth,
                 flyerModel: _flyers[_x],

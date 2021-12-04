@@ -86,7 +86,12 @@ class FlyerBox extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static bool isTinyMode (BuildContext context, double flyerBoxWidth){
-    final bool _tinyMode = flyerBoxWidth < (Scale.superScreenWidth(context) * 0.58) ? true : false; // 0.4 needs calibration
+    bool _tinyMode = false; // 0.4 needs calibration
+
+    if(flyerBoxWidth < (Scale.superScreenWidth(context) * 0.58)){
+      _tinyMode = true;
+    }
+
     return _tinyMode;
   }
 // -----------------------------------------------------------------------------
