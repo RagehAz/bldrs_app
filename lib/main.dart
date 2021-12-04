@@ -126,9 +126,10 @@ class _BldrsAppState extends State<BldrsApp> {
       setState(() {
         _initialized = true;
       });
-    } catch (e) {
+    }
+    on Exception catch (e) {
       /// Set `_error` state to true if Firebase initialization fails
-      print(e.message);
+      print(e);
       setState(() {
         _error = true;
       });

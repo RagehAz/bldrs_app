@@ -33,6 +33,8 @@ linter:
     cancel_subscriptions: true
     annotate_overrides: true
     avoid_bool_literals_in_conditional_expressions: true
+    avoid_catches_without_on_clauses: true
+    avoid_catching_errors: true
 
     # Pending
     diagnostic_describe_all_properties: false

@@ -52,7 +52,7 @@ class CloudFunctionz{
       return _result.data;
     }
 
-    catch (e) {
+    on Exception catch (e) {
 
       print('THE ERROR IS : xxxxx[${e.toString()}]xxxxx');
 
