@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/db/fire/ops/flyer_ops.dart';
-import 'package:bldrs/db/fire/ops/search_ops.dart';
-import 'package:bldrs/db/fire/ops/user_ops.dart';
+import 'package:bldrs/db/fire/ops/flyer_ops.dart' as FireFlyerOps;
+import 'package:bldrs/db/fire/ops/search_ops.dart' as FireSearchOps;
+import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';

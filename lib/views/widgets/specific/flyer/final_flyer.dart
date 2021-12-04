@@ -17,7 +17,7 @@ import 'package:bldrs/controllers/theme/standards.dart' as Standards;
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/fire/methods/dynamic_links.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/db/fire/ops/flyer_ops.dart';
+import 'package:bldrs/db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -52,7 +52,7 @@ import 'package:bldrs/views/widgets/general/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/dialogs/flyer_type_selector.dart';
-import 'package:bldrs/views/widgets/specific/flyer/flyer_methods.dart';
+import 'package:bldrs/views/widgets/specific/flyer/flyer_methods.dart' as FlyerMethod;
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_pages.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/new_header.dart';
@@ -187,7 +187,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           bzModel: widget.bzModel,
         );
 
-        final FlyerMode _flyerMode = FlyerMethod.flyerModeSelector(
+        final FlyerMethod.FlyerMode _flyerMode = FlyerMethod.flyerModeSelector(
           context: context,
           flyerBoxWidth: widget.flyerBoxWidth,
           flyerSource: _flyerSource,
@@ -201,7 +201,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
         SuperFlyer _builtSuperFlyer;
 
-        if (_flyerMode == FlyerMode.tinyModeByFlyerID){
+        if (_flyerMode == FlyerMethod.FlyerMode.tinyModeByFlyerID){
           final FlyerModel _flyer = await _flyersProvider.fetchFlyerByID(context: context, flyerID: widget.flyerID);
           final BzModel _bz = await _bzzProvider.fetchBzModel(context: context, bzID: _flyer.bzID);
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bz.zone.countryID);
@@ -219,7 +219,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           );
         }
 
-        else if (_flyerMode == FlyerMode.tinyModeByFlyerModel){
+        else if (_flyerMode == FlyerMethod.FlyerMode.tinyModeByFlyerModel){
           final BzModel _bz = await _bzzProvider.fetchBzModel(context: context, bzID: widget.flyerModel.bzID);
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bz.zone.countryID);
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: _bz.zone.cityID);
@@ -236,7 +236,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           );
         }
 
-        else if (_flyerMode == FlyerMode.tinyModeByBzModel){
+        else if (_flyerMode == FlyerMethod.FlyerMode.tinyModeByBzModel){
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: widget.bzModel.zone.countryID);
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: widget.bzModel.zone.cityID);
 
@@ -247,13 +247,13 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           );
         }
 
-        else if (_flyerMode == FlyerMode.tinyModeByNull){
+        else if (_flyerMode == FlyerMethod.FlyerMode.tinyModeByNull){
           _builtSuperFlyer = SuperFlyer.createEmptySuperFlyer(flyerBoxWidth: widget.flyerBoxWidth, goesToEditor: widget.goesToEditor);
         }
 
         // --------------------------------------------------------------------X
 
-        else if (_flyerMode == FlyerMode.bigModeByFlyerID){
+        else if (_flyerMode == FlyerMethod.FlyerMode.bigModeByFlyerID){
           final FlyerModel _flyer = await _flyersProvider.fetchFlyerByID(context: context, flyerID: widget.flyerID);
           final BzModel _bz = await _bzzProvider.fetchBzModel(context: context, bzID: widget.flyerModel.bzID);
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bz.zone.countryID);
@@ -271,7 +271,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           );
         }
 
-        else if (_flyerMode == FlyerMode.bigModeByFlyerModel){
+        else if (_flyerMode == FlyerMethod.FlyerMode.bigModeByFlyerModel){
           final BzModel _bz = await _bzzProvider.fetchBzModel(context: context, bzID: widget.flyerModel.bzID);
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bz.zone.countryID);
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: _bz.zone.cityID);
@@ -288,7 +288,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           );
         }
 
-        else if (_flyerMode == FlyerMode.bigModeByBzModel){
+        else if (_flyerMode == FlyerMethod.FlyerMode.bigModeByBzModel){
 
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: widget.bzModel.zone.countryID);
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: widget.bzModel.zone.cityID);
@@ -300,13 +300,13 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           );
         }
 
-        else if (_flyerMode == FlyerMode.bigModeByNull){
+        else if (_flyerMode == FlyerMethod.FlyerMode.bigModeByNull){
           _builtSuperFlyer = SuperFlyer.createEmptySuperFlyer(flyerBoxWidth: widget.flyerBoxWidth, goesToEditor: widget.goesToEditor);
         }
 
         // --------------------------------------------------------------------X
 
-        else if (_flyerMode == FlyerMode.editorModeByFlyerID){
+        else if (_flyerMode == FlyerMethod.FlyerMode.editorModeByFlyerID){
           _originalFlyer = await _flyersProvider.fetchFlyerByID(context: context, flyerID: widget.flyerID);
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bzModel.zone.countryID);
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: _bzModel.zone.cityID);
@@ -323,7 +323,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           );
         }
 
-        else if (_flyerMode == FlyerMode.editorModeByFlyerModel){
+        else if (_flyerMode == FlyerMethod.FlyerMode.editorModeByFlyerModel){
           _originalFlyer = widget.flyerModel;
 
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bzModel.zone.countryID);
@@ -341,7 +341,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           );
         }
 
-        else if (_flyerMode == FlyerMode.editorModeByBzModel){
+        else if (_flyerMode == FlyerMethod.FlyerMode.editorModeByBzModel){
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bzModel.zone.countryID);
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: _bzModel.zone.cityID);
 
@@ -352,7 +352,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           );
         }
 
-        else if (_flyerMode == FlyerMode.editorModeByNull){
+        else if (_flyerMode == FlyerMethod.FlyerMode.editorModeByNull){
 
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bzModel.zone.countryID);
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: _bzModel.zone.cityID);

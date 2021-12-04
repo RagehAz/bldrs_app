@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/db/fire/ops/zone_ops.dart';
+import 'package:bldrs/db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
