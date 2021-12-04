@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
-import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -302,7 +302,7 @@ class BottomDialog extends StatelessWidget {
               flyerState: FlyerState.draft,
               showsAuthor: false,
             ),
-            onSwipeFlyer: (SwipeDirection direction){
+            onSwipeFlyer: (Sliders.SwipeDirection direction){
               // print('Direction is ${direction}');
             },
           ),

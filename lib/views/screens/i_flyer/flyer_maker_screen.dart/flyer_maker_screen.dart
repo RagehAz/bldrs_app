@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -74,7 +74,7 @@ class FlyerMakerScreen extends StatelessWidget {
               initialSlideIndex: 0,
               inEditor: true,
               bzModel: bzModel,
-              onSwipeFlyer: (SwipeDirection direction){
+              onSwipeFlyer: (Sliders.SwipeDirection direction){
                 // print('Direction is $direction');
               },
             ),

@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -332,7 +332,7 @@ class SuperFlyer{
           onTinyFlyerTap: onTinyFlyerTap,
           /// animation parameters
           progressBarOpacity: 1,
-          swipeDirection: SwipeDirection.next,
+          swipeDirection: Sliders.SwipeDirection.next,
           bzPageIsOn: false,
           listenToSwipe: true,
 
@@ -500,7 +500,7 @@ class SuperFlyer{
           onTinyFlyerTap: onTinyFlyerTap,
           /// animation parameters
           progressBarOpacity: 1,
-          swipeDirection: SwipeDirection.next,
+          swipeDirection: Sliders.SwipeDirection.next,
           bzPageIsOn: false,
           listenToSwipe: true,
           onSaveInfoScrollOffset: onSaveInfoScrollOffset,
@@ -671,7 +671,7 @@ class SuperFlyer{
           onTinyFlyerTap: onTinyFlyerTap,
           /// animation parameters
           progressBarOpacity: 1,
-          swipeDirection: SwipeDirection.next,
+          swipeDirection: Sliders.SwipeDirection.next,
           bzPageIsOn: false,
           listenToSwipe: true,
           onSaveInfoScrollOffset: onSaveInfoScrollOffset,
@@ -792,7 +792,7 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
           onTinyFlyerTap: null,
           /// animation parameters
           progressBarOpacity: 1,
-          swipeDirection: SwipeDirection.next,
+          swipeDirection: Sliders.SwipeDirection.next,
           bzPageIsOn: false,
           listenToSwipe: true,
           getInfoScrollOffset: null,

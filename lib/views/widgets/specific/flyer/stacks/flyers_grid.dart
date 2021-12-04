@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -139,7 +139,7 @@ class _FlyersGridState extends State<FlyersGrid> {
                   flyerModel: flyers[index],
                   initialSlideIndex: 0,
                   goesToEditor: false,
-                  onSwipeFlyer: (SwipeDirection direction){
+                  onSwipeFlyer: (Sliders.SwipeDirection direction){
                     // print('Direction is ${direction}');
                   },
                 );

@@ -1,6 +1,6 @@
 
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/text_checkers.dart';
+import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
 import 'package:flutter/foundation.dart';
 
 abstract class TextMod {

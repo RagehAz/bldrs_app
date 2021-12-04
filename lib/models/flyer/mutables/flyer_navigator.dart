@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:flutter/material.dart';
 
 class FlyerNavigator {
@@ -17,7 +17,7 @@ class FlyerNavigator {
   final Function onTinyFlyerTap; // FlyerNavigation
   /// animation parameters
   double progressBarOpacity; // FlyerNavigation
-  SwipeDirection swipeDirection; // FlyerNavigation
+  Sliders.SwipeDirection swipeDirection; // FlyerNavigation
   bool bzPageIsOn; // FlyerNavigation
   bool listenToSwipe; // FlyerNavigation
 

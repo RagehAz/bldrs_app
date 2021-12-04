@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/animators.dart' as Animators;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -32,7 +32,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   List<FlyerModel> _flyers = <FlyerModel>[];
   FlyerModel _currentFlyer;
   int _currentPageIndex;
-  SwipeDirection _lastSwipeDirection;
+  Sliders.SwipeDirection _lastSwipeDirection;
   List<double> _pagesOpacities = <double>[];
   double _progressBarOpacity = 1;
 // -----------------------------------------------------------------------------
@@ -115,24 +115,24 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       _currentPageIndex = 0;
       _currentFlyer = _flyers[0];
       _numberOfStrips = _flyers.length;
-      _lastSwipeDirection = SwipeDirection.next;
+      _lastSwipeDirection = Sliders.SwipeDirection.next;
       _pagesOpacities = _createPagesOpacities(_numberOfStrips);
     });
 
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onSwipeFlyer(SwipeDirection direction, int pageIndex) async {
+  Future<void> _onSwipeFlyer(Sliders.SwipeDirection direction, int pageIndex) async {
 
     _lastSwipeDirection = direction;
 
-    if (direction == SwipeDirection.next){
+    if (direction == Sliders.SwipeDirection.next){
 
       if (pageIndex + 1 != _flyers.length){
         await Sliders.slideToNext(_pageController, _flyers.length, pageIndex);
       }
 
-    } else if (direction == SwipeDirection.back){
+    } else if (direction == Sliders.SwipeDirection.back){
 
       if (pageIndex != 0){
         await Sliders.slideToBackFrom(_pageController, pageIndex);
@@ -365,7 +365,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     /// A - decrease progress bar and trigger visibility
     setState(() {
       _currentPageIndex = _currentPageIndex - 1;
-      _lastSwipeDirection = SwipeDirection.freeze;
+      _lastSwipeDirection = Sliders.SwipeDirection.freeze;
       _numberOfStrips = _flyers.length - 1;
       _statelessTriggerPageVisibility(_originalIndex);
     });
@@ -490,7 +490,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 // -----------------------------------------------------o
   void _onPageChange (int newIndex){
     // print('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
-    final SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentPageIndex,);
+    final Sliders.SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentPageIndex,);
 
     // /// A - if Keyboard is active
     // if (Keyboarders.keyboardIsOn(context) == true){
@@ -611,7 +611,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                             flyerBoxWidth: FlyerBox.width(context, _flyerSizeFactor),
                             flyerModel: _flyers[index],
                             goesToEditor: false,
-                            onSwipeFlyer: (SwipeDirection direction) => _onSwipeFlyer(direction, index),
+                            onSwipeFlyer: (Sliders.SwipeDirection direction) => _onSwipeFlyer(direction, index),
                           ),
                         );
                     }

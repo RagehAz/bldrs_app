@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
@@ -46,9 +46,9 @@ class Slides extends StatelessWidget {
       numberOfScreens: superFlyer.numberOfSlides,
       onNavigate: (){
 
-        final SwipeDirection _direction = superFlyer.currentSlideIndex == null || superFlyer.currentSlideIndex == 0 ? SwipeDirection.back : SwipeDirection.next;
+        final Sliders.SwipeDirection _direction = superFlyer.currentSlideIndex == null || superFlyer.currentSlideIndex == 0 ? Sliders.SwipeDirection.back : Sliders.SwipeDirection.next;
 
-        superFlyer.nav.onSwipeFlyer(_direction ?? SwipeDirection.back);
+        superFlyer.nav.onSwipeFlyer(_direction ?? Sliders.SwipeDirection.back);
 
       },
       child: PageView(

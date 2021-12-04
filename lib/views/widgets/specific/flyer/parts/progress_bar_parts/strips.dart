@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/controllers/drafters/sliders.dart';
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
@@ -46,7 +46,7 @@ class Strips extends StatelessWidget {
   final int numberOfStrips;
   final int slideIndex;
   final EdgeInsets margins;
-  final SwipeDirection swipeDirection;
+  final Sliders.SwipeDirection swipeDirection;
 
   Strips({
     @required this.flyerBoxWidth,
@@ -159,11 +159,11 @@ class Strips extends StatelessWidget {
       Tween<double> _tween;
 
       /// NO TWEEN
-      if (swipeDirection == SwipeDirection.freeze){
+      if (swipeDirection == Sliders.SwipeDirection.freeze){
         _tween = Tween<double>(begin: _aStripLength, end: _aStripLength);
       }
       /// GOING NEXT
-      else if(swipeDirection == SwipeDirection.next){
+      else if(swipeDirection == Sliders.SwipeDirection.next){
         _tween = Tween<double>(begin: 0, end: _aStripLength);
       }
       /// GOING PREVIOUS
@@ -177,23 +177,23 @@ class Strips extends StatelessWidget {
     int _numberOfWhiteStrips(){
       // -----------------------------------------o
       int _numberOfStrips;
-      SwipeDirection _swipeDirection = swipeDirection;
+      Sliders.SwipeDirection _swipeDirection = swipeDirection;
       // -----------------------------------------o
       /// A - at first slide
       if(slideIndex == 0){
 
         /// B - FREEZING
-        if(_swipeDirection == SwipeDirection.freeze){
+        if(_swipeDirection == Sliders.SwipeDirection.freeze){
           // print('1 at first slide frozen');
           _numberOfStrips = 1;
         }
         /// B - GOING NEXT
-        else if(_swipeDirection == SwipeDirection.next){
+        else if(_swipeDirection == Sliders.SwipeDirection.next){
           // print('1 at first slide going next');
           _numberOfStrips = 1;
         }
         /// B - GOING PREVIOUS
-        else if (_swipeDirection == SwipeDirection.back){
+        else if (_swipeDirection == Sliders.SwipeDirection.back){
           // print('2 at first slide going previous');
           _numberOfStrips = 2;
         }
@@ -203,12 +203,12 @@ class Strips extends StatelessWidget {
       else if (slideIndex + 1 == numberOfStrips){
 
         /// B - FREEZING
-        if(_swipeDirection == SwipeDirection.freeze){
+        if(_swipeDirection == Sliders.SwipeDirection.freeze){
           // print('3- at last slide frozen');
           _numberOfStrips = numberOfStrips;
         }
         /// B - GOING NEXT
-        else if(_swipeDirection == SwipeDirection.next){
+        else if(_swipeDirection == Sliders.SwipeDirection.next){
           // print('3 at last slide going next');
           _numberOfStrips = numberOfStrips;
         }
@@ -223,12 +223,12 @@ class Strips extends StatelessWidget {
       // -----------------------------------------o
       else {
         /// B - FREEZING
-        if(_swipeDirection == SwipeDirection.freeze){
+        if(_swipeDirection == Sliders.SwipeDirection.freeze){
           // print('5 at middle slide frozen');
           _numberOfStrips = slideIndex + 1;
         }
         /// B - GOING NEXT
-        else if(_swipeDirection == SwipeDirection.next){
+        else if(_swipeDirection == Sliders.SwipeDirection.next){
           // print('5 at middle slide going next');
           _numberOfStrips = slideIndex + 1;
         }
@@ -297,7 +297,7 @@ class Strips extends StatelessWidget {
               key: ValueKey<int>(slideIndex),
               builder: (BuildContext context,double tweenVal, Widget child){
 
-                final double _tweenVal = swipeDirection == SwipeDirection.freeze ? _aStripLength : tweenVal;
+                final double _tweenVal = swipeDirection == Sliders.SwipeDirection.freeze ? _aStripLength : tweenVal;
 
                 return
                   Container(
