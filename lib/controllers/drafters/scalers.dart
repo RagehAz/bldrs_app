@@ -65,3 +65,11 @@ import 'package:flutter/material.dart';
     return _width;
   }
 // -----------------------------------------------------------------------------
+  EdgeInsets superPadding({BuildContext context, double enLeft, double enRight, double top, double bottom}){
+  return
+    appIsLeftToRight(context) ?
+
+    EdgeInsets.only(left: enLeft,right: enRight,top: top, bottom: bottom)
+        :
+    EdgeInsets.only(left: enRight,right: enLeft,top: top, bottom: bottom);
+}

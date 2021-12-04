@@ -8,9 +8,7 @@ enum SwipeDirection{
   freeze,
 }
 // -----------------------------------------------------------------------------
-abstract class Sliders{
-// -----------------------------------------------------------------------------
-  static Future<int> slideToNextAndGetNewIndex(PageController slidingController, int numberOfSlides, int currentSlide) async {
+  Future<int> slideToNextAndGetNewIndex(PageController slidingController, int numberOfSlides, int currentSlide) async {
 
     if (currentSlide+1 == numberOfSlides){
       print('Can not slide forward');
@@ -28,7 +26,7 @@ abstract class Sliders{
 // -----------------------------------------------------------------------------
   /// this checks if its the first slide, it won't change index and won't slide, otherwise
   /// will slide back and return decreased index
-  static Future<int> slideToBackAndGetNewIndex(PageController slidingController, int currentSlide) async {
+  Future<int> slideToBackAndGetNewIndex(PageController slidingController, int currentSlide) async {
   if (currentSlide == 0){
     print('can not slide back');
     return currentSlide;
@@ -42,12 +40,12 @@ abstract class Sliders{
 
 }
 // -----------------------------------------------------------------------------
-  static Future<void> slideToNext(PageController slidingController, int numberOfSlides, int currentSlide) async {
+  Future<void> slideToNext(PageController slidingController, int numberOfSlides, int currentSlide) async {
   await slidingController.animateToPage(currentSlide + 1,
       duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
 }
 // -----------------------------------------------------------------------------
-  static Future<void> slideToBackFrom(PageController slidingController, int currentSlide, {Curve curve}) async {
+  Future<void> slideToBackFrom(PageController slidingController, int currentSlide, {Curve curve}) async {
 
     final Curve _curve = curve == null ? Curves.easeInOutCirc : curve;
 
@@ -63,7 +61,7 @@ abstract class Sliders{
 }
 // -----------------------------------------------------------------------------
   /// never used
-//   static Future<void> snapToBack(PageController slidingController, int currentSlide) async {
+//   Future<void> snapToBack(PageController slidingController, int currentSlide) async {
 //
 //   if (currentSlide == 0){
 //     print('can not slide back');
@@ -74,7 +72,7 @@ abstract class Sliders{
 //   }
 // }
 // -----------------------------------------------------------------------------
-  static Future<void> slideTo({
+  Future<void> slideTo({
     PageController controller,
     int toIndex,
   }) async {
@@ -85,11 +83,11 @@ abstract class Sliders{
   // }
 }
 // -----------------------------------------------------------------------------
-  static Future<void> snapTo(PageController slidingController, int currentSlide) async {
+  Future<void> snapTo(PageController slidingController, int currentSlide) async {
   await slidingController.jumpToPage(currentSlide,);
 }
 // -----------------------------------------------------------------------------
-  static SwipeDirection slidingDecision(int numberOfSlides, int currentSlide){
+  SwipeDirection slidingDecision(int numberOfSlides, int currentSlide){
   final SwipeDirection _decision =
   numberOfSlides == 0 ? SwipeDirection.freeze :
   numberOfSlides == 1 ? SwipeDirection.freeze :
@@ -99,18 +97,16 @@ abstract class Sliders{
   return _decision;
 }
 // -----------------------------------------------------------------------------
-  static Future<void> slidingAction(PageController slidingController, int numberOfSlides, int currentSlide) async {
+  Future<void> slidingAction(PageController slidingController, int numberOfSlides, int currentSlide) async {
   // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before slidingAction');
     slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.next ? await slideToNext(slidingController, numberOfSlides, currentSlide) :
     slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.back ? await slideToBackFrom(slidingController, currentSlide) :
-    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.freeze ? await Sliders.slideTo(controller: slidingController, toIndex: currentSlide)
+    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.freeze ? await slideTo(controller: slidingController, toIndex: currentSlide)
         :
     print('no sliding possible ');
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingAction');
 }
 // -----------------------------------------------------------------------------
-  static void zombie (int slideIndex){
-  print('i wont fucking slide');
-}
-// -----------------------------------------------------------------------------
+  void zombie (int slideIndex){
+  print('i wont slide');
 }

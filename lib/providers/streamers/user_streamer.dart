@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/stream_checkers.dart';
+import 'package:bldrs/controllers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/db/fire/methods/firestore.dart';
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/user/user_model.dart';

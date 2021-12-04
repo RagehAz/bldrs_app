@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/text_generators.dart';
+import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';

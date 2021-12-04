@@ -11,9 +11,7 @@ import 'package:bldrs/models/zone/district_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:flutter/material.dart';
 
-abstract class TextGen{
-// -----------------------------------------------------------------------------
-  static String sectionStringer (BuildContext context, Section section){
+  String sectionStringer (BuildContext context, Section section){
     return
       section == Section.properties ? 'properties' : //Wordz.realEstate(context) :
 
@@ -29,7 +27,7 @@ abstract class TextGen{
       Wordz.bldrsShortName(context);
   }
 // -----------------------------------------------------------------------------
-  static String sectionDescriptionStringer(BuildContext context, Section section){
+  String sectionDescriptionStringer(BuildContext context, Section section){
     final String _description =
     section == Section.properties ? 'By RealEstate Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
 
@@ -45,7 +43,7 @@ abstract class TextGen{
     return _description;
   }
 // -----------------------------------------------------------------------------
-  static List<String> sectionsListStrings (BuildContext context){
+  List<String> sectionsListStrings (BuildContext context){
     const List<Section> _sections = SectionClass.SectionsList;
     final List<String> _sectionsStrings = <String>[];
     for(Section bs in _sections){
@@ -54,7 +52,7 @@ abstract class TextGen{
     return _sectionsStrings;
   }
 // -----------------------------------------------------------------------------
-  static List<String> bzTypesStrings (BuildContext context){
+  List<String> bzTypesStrings (BuildContext context){
     final List<String> _bzTypesStrings = <String>[];
 
     for(BzType bt in BzModel.bzTypesList){
@@ -63,7 +61,7 @@ abstract class TextGen{
     return _bzTypesStrings;
   }
 // -----------------------------------------------------------------------------
-  static String bzTypeSingleStringer (BuildContext context, BzType bzType){
+  String bzTypeSingleStringer (BuildContext context, BzType bzType){
     return
       bzType == BzType.developer ? Wordz.realEstateDeveloper(context) :
       bzType == BzType.broker ? Wordz.realEstateBroker(context) :
@@ -75,7 +73,7 @@ abstract class TextGen{
       'Builder';
   }
 // -----------------------------------------------------------------------------
-  static String bzTypePluralStringer (BuildContext context, BzType bzType){
+  String bzTypePluralStringer (BuildContext context, BzType bzType){
     return
       bzType == BzType.developer ? Wordz.realEstateDevelopers(context) :
       bzType == BzType.broker ? Wordz.brokers(context) :
@@ -87,7 +85,7 @@ abstract class TextGen{
       'Builders';
   }
 // -----------------------------------------------------------------------------
-  static String flyerTypeSingleStringer (BuildContext context, FlyerType flyerType){
+  String flyerTypeSingleStringer (BuildContext context, FlyerType flyerType){
 
     return
       flyerType == FlyerType.property         ?  Wordz.property(context)  :
@@ -99,13 +97,13 @@ abstract class TextGen{
       Wordz.general(context);
   }
 // -----------------------------------------------------------------------------
-  static String flyerTypeSingleStringerByBzType(BuildContext context, BzType bzType){
+  String flyerTypeSingleStringerByBzType(BuildContext context, BzType bzType){
     final FlyerType _defaultFlyerType = FlyerTypeClass.concludeFlyerType(bzType);
     final String _string = flyerTypeSingleStringer(context, _defaultFlyerType);
     return _string;
   }
 // -----------------------------------------------------------------------------
-  static String flyerTypePluralStringer (BuildContext context, FlyerType flyerType){
+  String flyerTypePluralStringer (BuildContext context, FlyerType flyerType){
     return
       flyerType == FlyerType.property   ? Wordz.properties(context)  :
       flyerType == FlyerType.design     ? Wordz.designs(context)  :
@@ -116,7 +114,7 @@ abstract class TextGen{
       Wordz.general(context);
   }
 // -----------------------------------------------------------------------------
-  static String bzFormStringer (BuildContext context, BzForm bzForm){
+  String bzFormStringer (BuildContext context, BzForm bzForm){
     return
       bzForm == BzForm.company ? Wordz.company(context) :
       bzForm == BzForm.individual ? Wordz.individual(context) :
@@ -124,7 +122,7 @@ abstract class TextGen{
 
   }
 // -----------------------------------------------------------------------------
-  static List<String> bzFormStrings (BuildContext context){
+  List<String> bzFormStrings (BuildContext context){
     final List<String> _bzFormStrings = <String>[];
 
     for(BzForm bt in BzModel.bzFormsList){
@@ -133,7 +131,7 @@ abstract class TextGen{
     return _bzFormStrings;
   }
 // -----------------------------------------------------------------------------
-  static String countryStringer ({@required BuildContext context, @required CountryModel country, @required CityModel city, @required ZoneModel zone}){
+  String countryStringer ({@required BuildContext context, @required CountryModel country, @required CityModel city, @required ZoneModel zone}){
     String _verse = '...';
 
     if (country != null && ZoneModel.zoneHasAllIDs(zone)){
@@ -158,7 +156,7 @@ abstract class TextGen{
     return _verse;
   }
 // -----------------------------------------------------------------------------
-  static String cityCountryStringer ({@required BuildContext context, @required CountryModel country, @required CityModel city, @required ZoneModel zone}){
+  String cityCountryStringer ({@required BuildContext context, @required CountryModel country, @required CityModel city, @required ZoneModel zone}){
 
     String _verse = '...';
 
@@ -178,7 +176,7 @@ abstract class TextGen{
     return _verse;
   }
 // -----------------------------------------------------------------------------
-  static String functionStringer(Function function) {
+  String functionStringer(Function function) {
     final String _functionNameAsAString = function.toString();
     final int _s = _functionNameAsAString.indexOf('\'');
     final int _e = _functionNameAsAString.lastIndexOf('\'');
@@ -186,7 +184,7 @@ abstract class TextGen{
     return _functionNameAsAString.substring(_s+1, _e);  // return functionNameAsAString;
   }
 // -----------------------------------------------------------------------------
-  static String askHinter (BuildContext context, BzType bzType){
+  String askHinter (BuildContext context, BzType bzType){
     final String _askHint =
     bzType == BzType.developer ? 'I\'m Looking for a property directly from the developer ...' :
     bzType == BzType.broker ? 'I\'m Looking for a property from brokers and re-sellers ...' :
@@ -199,7 +197,7 @@ abstract class TextGen{
     return _askHint;
   }
 // -----------------------------------------------------------------------------
-  static String bldrsTypePageTitle(BuildContext context, BzType bzType) {
+  String bldrsTypePageTitle(BuildContext context, BzType bzType) {
     return
       bzType == BzType.developer ? Wordz.realEstateDeveloper(context) :
       bzType == BzType.broker ? Wordz.realEstateBroker(context) :
@@ -211,7 +209,7 @@ abstract class TextGen{
       Wordz.bldrsShortName(context);
   }
 // -----------------------------------------------------------------------------
-  static List<String> createTrigram({@required String input}){
+  List<String> createTrigram({@required String input}){
     List<String> _trigram = <String>[];
 
     if (input != null){
@@ -304,5 +302,3 @@ abstract class TextGen{
 
     return _trigram;
   }
-// -----------------------------------------------------------------------------
-}

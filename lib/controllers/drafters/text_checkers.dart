@@ -2,9 +2,7 @@ import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as international;
 
-abstract class TextChecker{
-// -----------------------------------------------------------------------------
-  static bool textIsEnglish (String val){
+  bool textIsEnglish (String val){
     final RegExp exp = RegExp("[a-zA-Z]", multiLine: true, unicode: true);
     bool textIsEnglish;
 
@@ -21,7 +19,7 @@ abstract class TextChecker{
     return textIsEnglish;
   }
 // -----------------------------------------------------------------------------
-  static bool textControllerIsEmpty(TextEditingController controller){
+  bool textControllerIsEmpty(TextEditingController controller){
     bool _controllerIsEmpty;
 
     if (
@@ -39,24 +37,24 @@ abstract class TextChecker{
   }
 // -----------------------------------------------------------------------------
   /// TASK : is this the correct way to dispose a text controller ? are you sure ?
-  static void disposeControllerIfPossible(TextEditingController controller){
+  void disposeControllerIfPossible(TextEditingController controller){
     if(controller != null){
-      if(TextChecker.textControllerIsEmpty(controller) == true){
+      if(textControllerIsEmpty(controller) == true){
         controller.dispose();
       }
     }
   }
 // -----------------------------------------------------------------------------
   /// TASK : this makes more sense, dispose if controller has a value => tested and does not fire an error in search screen controller,,,
-  static void disposeControllerIfNotEmpty(TextEditingController controller){
+  void disposeControllerIfNotEmpty(TextEditingController controller){
     if(controller != null){
-      if(TextChecker.textControllerIsEmpty(controller) == false){
+      if(textControllerIsEmpty(controller) == false){
         controller.dispose();
       }
     }
   }
 // -----------------------------------------------------------------------------
-  static void disposeAllTextControllers(List<TextEditingController> controllers){
+  void disposeAllTextControllers(List<TextEditingController> controllers){
 
     if(controllers != null){
       controllers.forEach((TextEditingController controller) {
@@ -66,7 +64,7 @@ abstract class TextChecker{
 
   }
 // -----------------------------------------------------------------------------
-  static List<TextEditingController> createEmptyTextControllers(int length){
+  List<TextEditingController> createEmptyTextControllers(int length){
     List<TextEditingController> _controllers = <TextEditingController>[];
 
     for (int i = 0; i <= length; i++){
@@ -85,7 +83,7 @@ abstract class TextChecker{
   }
 // -----------------------------------------------------------------------------
   /// createTextControllersAndOverrideOneString
-//   static List<TextEditingController> createTextControllersAndOverrideOneString({int length, int indexToOverride, String overridingString}){
+//   List<TextEditingController> createTextControllersAndOverrideOneString({int length, int indexToOverride, String overridingString}){
 //     List<TextEditingController> _controllers = [];
 //
 //     for (int i = 0; i < length; i++){
@@ -103,7 +101,7 @@ abstract class TextChecker{
 //     return _controllers;
 //   }
 // -----------------------------------------------------------------------------
-  static bool stringIsEmpty(String val){
+  bool stringIsEmpty(String val){
     bool _controllerIsEmpty;
 
     if (
@@ -120,11 +118,11 @@ abstract class TextChecker{
     return _controllerIsEmpty;
   }
 // -----------------------------------------------------------------------------
-  static bool stringIsNotEmpty(String val){
+  bool stringIsNotEmpty(String val){
     return !stringIsEmpty(val);
   }
 // -----------------------------------------------------------------------------
-  static bool textStartsInArabic (String val){
+  bool textStartsInArabic (String val){
 
     /// \p{N} will match any unicode numeric digit.
     // String _reg = r"^[\u0621-\u064A\s\p{N}]+$" ;
@@ -163,7 +161,7 @@ abstract class TextChecker{
 
   }
 // -----------------------------------------------------------------------------
-  static bool textStartsInEnglish (String val){
+  bool textStartsInEnglish (String val){
 
     const String _reg = r"[a-zA-Z]";
     final RegExp _exp = RegExp(_reg, unicode: false, multiLine: true);
@@ -186,11 +184,11 @@ abstract class TextChecker{
   }
 // -----------------------------------------------------------------------------
   /// TASK : textIsRTL is not tested yet
-  static bool textIsRTL(String text) {
+  bool textIsRTL(String text) {
     return international.Bidi.detectRtlDirectionality(text);
   }
 // -----------------------------------------------------------------------------
-  static bool stringContainsSubString({String string, String subString, bool caseSensitive, bool multiLine = false}){
+  bool stringContainsSubString({String string, String subString, bool caseSensitive, bool multiLine = false}){
     bool _itContainsIt = false;
     // string.contains(new RegExp(subString, caseSensitive: caseSensitive, multiLine: multiLine));
 
@@ -209,7 +207,7 @@ abstract class TextChecker{
     return _itContainsIt;
   }
 // -----------------------------------------------------------------------------
-  static String concludeEnglishOrArabicLingo(String text){
+  String concludeEnglishOrArabicLingo(String text){
 
     final String _lingoCode =
         textStartsInArabic(text) == true ? 'ar'
@@ -220,5 +218,3 @@ abstract class TextChecker{
 
     return _lingoCode;
   }
-// -----------------------------------------------------------------------------
-}

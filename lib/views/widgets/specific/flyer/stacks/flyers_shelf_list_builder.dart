@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/drafters/sliders.dart';
-import 'package:bldrs/controllers/drafters/spacers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
@@ -75,7 +75,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
       itemCount: _flyers.length,
       controller: _controller,
       scrollDirection: Axis.horizontal,
-      padding: Spacers.superPadding(
+      padding: Scale.superPadding(
         context: context,
         enLeft: Ratioz.appBarMargin,
         enRight: _flyerBoxWidth,
@@ -164,7 +164,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
                 flyerBoxWidth: _flyerBoxWidth,
                 flyerModel: _flyers[_x],
                 goesToEditor: false,
-                onSwipeFlyer: (SwipeDirection direction){
+                onSwipeFlyer: (Sliders.SwipeDirection direction){
                   // print('Direction is ${direction}');
                 },
               ),
