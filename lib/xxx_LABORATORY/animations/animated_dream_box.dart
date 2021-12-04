@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
-import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -160,7 +160,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                       color: widget.inActiveMode == true ? Colorz.white10 : boxColor,
                       borderRadius: BorderRadius.circular(widget.corners),
                       boxShadow: <BoxShadow>[
-                        CustomBoxShadow(
+                        Shadowz.CustomBoxShadow(
                             color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
                             offset: new Offset(0, boxHeight * -0.019 * 0 ),
                             blurRadius: boxHeight * 0.15,
@@ -206,7 +206,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
                                       boxShadow: <BoxShadow>[
-                                        CustomBoxShadow(
+                                        Shadowz.CustomBoxShadow(
                                             color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
                                             offset: new Offset(0, jpgGraphicWidth * -0.019 ),
                                             blurRadius: jpgGraphicWidth * 0.2,
@@ -251,7 +251,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
                                       boxShadow: <BoxShadow>[
-                                        CustomBoxShadow(
+                                        Shadowz.CustomBoxShadow(
                                             color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
                                             offset: new Offset(0, jpgGraphicWidth * -0.019 ),
                                             blurRadius: jpgGraphicWidth * 0.2,
@@ -363,7 +363,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                               borderRadius: BorderRadius.circular(
                                   widget.corners - (boxHeight * 0.8) ),
                               boxShadow: <BoxShadow>[
-                                CustomBoxShadow(
+                                Shadowz.CustomBoxShadow(
                                     color: Colorz.white50,
                                     offset: new Offset(0, boxHeight * -0.33),
                                     blurRadius: boxHeight * 0.2,

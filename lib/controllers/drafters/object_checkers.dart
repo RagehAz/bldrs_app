@@ -15,9 +15,8 @@ extension FileExtention on FileSystemEntity {
   }
 }
 // -----------------------------------------------------------------------------
-abstract class ObjectChecker {
 // -----------------------------------------------------------------------------
-  static fileExtensionOf(dynamic file) {
+  fileExtensionOf(dynamic file) {
     return
       file == null ? null
           :
@@ -26,7 +25,7 @@ abstract class ObjectChecker {
     null;
   }
 // -----------------------------------------------------------------------------
-  static bool objectIsURL(dynamic file) {
+  bool objectIsURL(dynamic file) {
     bool _validURL;
 
     if (file is String){
@@ -40,7 +39,7 @@ abstract class ObjectChecker {
     return _validURL;
   }
 // -----------------------------------------------------------------------------
-  static bool isBase64(dynamic value) {
+  bool isBase64(dynamic value) {
 
     if (value is String == true){
       final RegExp rx = RegExp(r'^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$', multiLine: true, unicode: true);
@@ -60,7 +59,7 @@ abstract class ObjectChecker {
 
   }
 // -----------------------------------------------------------------------------
-  static bool objectIsFile(dynamic file) {
+  bool objectIsFile(dynamic file) {
     bool _isFile = false;
 
     if(file != null){
@@ -72,7 +71,7 @@ abstract class ObjectChecker {
     return _isFile;
   }
 // -----------------------------------------------------------------------------
-  static bool objectIsUint8List(dynamic file){
+  bool objectIsUint8List(dynamic file){
     bool _isUint8List = false;
 
     if(file != null){
@@ -84,7 +83,7 @@ abstract class ObjectChecker {
     return _isUint8List;
   }
 // -----------------------------------------------------------------------------
-  static bool objectIsSVG(dynamic object) {
+  bool objectIsSVG(dynamic object) {
 
     bool _isSVG;
 
@@ -98,7 +97,7 @@ abstract class ObjectChecker {
     return _isSVG;
   }
 // -----------------------------------------------------------------------------
-  static bool objectIsAsset(dynamic object){
+  bool objectIsAsset(dynamic object){
 
     bool _objectIsAsset;
 
@@ -114,7 +113,7 @@ abstract class ObjectChecker {
       _objectIsAsset;
   }
 // -----------------------------------------------------------------------------
-  static bool objectIsJPGorPNG(dynamic object) {
+  bool objectIsJPGorPNG(dynamic object) {
 
     bool _objectIsJPGorPNG;
 
@@ -130,7 +129,7 @@ abstract class ObjectChecker {
     return _objectIsJPGorPNG;
   }
 // -----------------------------------------------------------------------------
-  static Future<bool> objectIsIntInString(BuildContext context, dynamic string) async {
+  Future<bool> objectIsIntInString(BuildContext context, dynamic string) async {
 
     bool _objectIsIntInString;
     int _int;
@@ -154,7 +153,7 @@ abstract class ObjectChecker {
 
   }
 // -----------------------------------------------------------------------------
-  static bool objectIsDoubleInString(dynamic string) {
+  bool objectIsDoubleInString(dynamic string) {
 
     bool _objectIsDoubleInString;
     double _double;
@@ -175,7 +174,7 @@ abstract class ObjectChecker {
 
   }
 // -----------------------------------------------------------------------------
-  static bool objectIsDateTime(dynamic object){
+  bool objectIsDateTime(dynamic object){
 
     final bool _isDatTime = object?.runtimeType == DateTime;
 
@@ -183,21 +182,21 @@ abstract class ObjectChecker {
 
   }
 // -----------------------------------------------------------------------------
-  static bool objectIsGeoPoint(dynamic object){
+  bool objectIsGeoPoint(dynamic object){
 
     final bool _isGeoPoint = object?.runtimeType == GeoPoint;
 
     return _isGeoPoint;
   }
 // -----------------------------------------------------------------------------
-  static bool objectIsTimeStamp(dynamic object){
+  bool objectIsTimeStamp(dynamic object){
 
     final bool _isTimestamp = object?.runtimeType == Timestamp;
 
     return _isTimestamp;
   }
 // -----------------------------------------------------------------------------
-  static bool objectIsListOfSpecs(dynamic object){
+  bool objectIsListOfSpecs(dynamic object){
 
     bool _objectsListIsSpecs = false;
 
@@ -213,4 +212,3 @@ abstract class ObjectChecker {
     return _objectsListIsSpecs;
   }
 // -----------------------------------------------------------------------------
-}

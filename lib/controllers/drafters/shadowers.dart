@@ -43,20 +43,18 @@ List<BoxShadow> superFollowBtShadow(double btHeight){
   return null;
 }
 // -----------------------------------------------------------------------------
-abstract class Shadowz {
-// -----------------------------------------------------------------------------
-  static const BoxShadow basicOuterShadow = const CustomBoxShadow(
+  const BoxShadow basicOuterShadow = const CustomBoxShadow(
       color: Colorz.black200,
       offset: Offset(0, 0),
       blurRadius: 10,
       blurStyle: BlurStyle.outer
   );
 
-  static const List<BoxShadow> appBarShadow = <BoxShadow>[
+  const List<BoxShadow> appBarShadow = <BoxShadow>[
      basicOuterShadow,
   ];
 // -----------------------------------------------------------------------------
-  static List<BoxShadow> flyerZoneShadow(double flyerBoxWidth){
+  List<BoxShadow> flyerZoneShadow(double flyerBoxWidth){
     final List<BoxShadow> _flyerZoneShadow = <BoxShadow>[
       CustomBoxShadow(
           color: Colorz.black230,
@@ -68,7 +66,7 @@ abstract class Shadowz {
     return _flyerZoneShadow;
   }
 // -----------------------------------------------------------------------------
-  static List<BoxShadow> flyerHeaderShadow(double flyerBoxWidth){
+  List<BoxShadow> flyerHeaderShadow(double flyerBoxWidth){
     final List<BoxShadow> _shadows = <BoxShadow>[
       CustomBoxShadow(
         color: Colorz.black200,
@@ -79,8 +77,4 @@ abstract class Shadowz {
     ];
     return _shadows;
   }
-// -----------------------------------------------------------------------------
-
-
-}
 // -----------------------------------------------------------------------------

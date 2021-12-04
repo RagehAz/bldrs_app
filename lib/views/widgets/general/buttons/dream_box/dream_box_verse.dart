@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
-import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -235,8 +235,8 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                         margin: EdgeInsets.all(iconMargin),
                         decoration: BoxDecoration(
                             borderRadius: iconCorners,
-                            boxShadow: <CustomBoxShadow>[
-                              CustomBoxShadow(
+                            boxShadow: <BoxShadow>[
+                              Shadowz.CustomBoxShadow(
                                   color: bubble == true ? Colorz.black200 : Colorz.nothing,
                                   offset: new Offset(0, _jpgGraphicWidth * -0.019 ),
                                   blurRadius: _jpgGraphicWidth * 0.2,
@@ -277,7 +277,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: iconCorners,
                             boxShadow: <BoxShadow>[
-                              CustomBoxShadow(
+                              Shadowz.CustomBoxShadow(
                                   color: bubble == true ? Colorz.black200 : Colorz.nothing,
                                   offset: new Offset(0,
                                       _jpgGraphicWidth * -0.019 ),
@@ -323,7 +323,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: iconCorners,
                             boxShadow: <BoxShadow>[
-                              CustomBoxShadow(
+                              Shadowz.CustomBoxShadow(
                                   color: bubble == true ? Colorz.black200 : Colorz.nothing,
                                   offset: new Offset(0,
                                       _jpgGraphicWidth * -0.019 ),

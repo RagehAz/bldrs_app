@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -59,13 +59,13 @@ class SlideCounters extends StatelessWidget {
                       Radius.circular(flyerStateBoxCorner),
                     ),
                     boxShadow: <BoxShadow>[
-                      CustomBoxShadow(
+                      Shadowz.CustomBoxShadow(
                           color: Colorz.black50,
                           offset: const Offset(0, 0),
                           blurRadius: footerBTMargins * 0.7,
                           blurStyle: BlurStyle.outer
                       ),
-                      CustomBoxShadow(
+                      Shadowz.CustomBoxShadow(
                           color: Colorz.white20,
                           offset: const Offset(0, 0),
                           blurRadius: footerBTMargins * 0.7,

@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/controllers/drafters/scalers.dart';
-import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/router/navigators.dart';

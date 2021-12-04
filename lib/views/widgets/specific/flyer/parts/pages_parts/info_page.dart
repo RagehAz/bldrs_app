@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/scrollers.dart';
+import 'package:bldrs/controllers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';

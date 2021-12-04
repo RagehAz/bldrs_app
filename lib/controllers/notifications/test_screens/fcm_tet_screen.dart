@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/db/fire/methods/cloud_functions.dart';
@@ -16,7 +16,6 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-
 
 class FCMTestScreen extends StatefulWidget {
   const FCMTestScreen({Key key}) : super(key: key);

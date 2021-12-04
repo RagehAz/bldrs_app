@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/controllers/drafters/scalers.dart';
+import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/drafters/timerz.dart';
