@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/shadowers.dart';
+import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class FlagBox extends StatelessWidget {
           // color: Colorz.bloodTest,
             borderRadius: BorderRadius.circular(corner),
             boxShadow: <BoxShadow>[
-              CustomBoxShadow(
+              Shadowz.CustomBoxShadow(
                   color: Colorz.black230,
                   offset: const Offset(0, 0),
                   blurRadius: size * 0.12,
