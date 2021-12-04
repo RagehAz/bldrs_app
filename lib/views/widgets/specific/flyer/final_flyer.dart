@@ -4,8 +4,8 @@ import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/controllers/drafters/animators.dart' as Animators;
 import 'package:bldrs/controllers/drafters/colorizers.dart' as Colorizer;
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/controllers/drafters/keyboarders.dart';
-import 'package:bldrs/controllers/drafters/launchers.dart';
+import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/controllers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/controllers/drafters/sliders.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
@@ -1039,7 +1039,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       //   slideIndex: _superFlyer.currentSlideIndex,
       // );
 
-      await Launch.shareFlyer(context, _theFlyerLink);
+      await Launcher.shareFlyer(context, _theFlyerLink);
 
     }
 
@@ -1104,7 +1104,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       else {
 
         /// launch call
-        await Launch.launchCall('tel: $_contact');
+        await Launcher.launchCall('tel: $_contact');
 
         /// TASK : start call bz ops
         // await RecordOps.callBzOPs(

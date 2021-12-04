@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/controllers/drafters/launchers.dart';
+import 'package:bldrs/controllers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -61,7 +61,7 @@ class ContactsBubble extends StatelessWidget {
                         color: Colorz.bloodTest,
                         onTap:
                         onTap == null ?
-                            () async { await Launch.launchURL('https://${_contactsWithStrings[index].contact}');}
+                            () async { await Launcher.launchURL('https://${_contactsWithStrings[index].contact}');}
                             :
                             () => onTap(_value)
                     );
@@ -88,7 +88,7 @@ class ContactsBubble extends StatelessWidget {
                         margins: const EdgeInsets.all(_abPadding),
                         onTap:
                         onTap == null ?
-                            () async {await Launch.launchURL('https://${_socialMediaContacts[index].contact}');}
+                            () async {await Launcher.launchURL('https://${_socialMediaContacts[index].contact}');}
                             :
                             () => onTap(_value)
 
