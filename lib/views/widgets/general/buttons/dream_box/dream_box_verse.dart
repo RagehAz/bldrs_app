@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:bldrs/controllers/drafters/aligners.dart';
+import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
