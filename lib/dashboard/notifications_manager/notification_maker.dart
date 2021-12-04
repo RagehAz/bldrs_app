@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
@@ -168,7 +168,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _attachGalleryPicture() async {
-    File _pic = await Imagers.takeGalleryPicture(picType: PicType.slideHighRes);
+    File _pic = await Imagers.takeGalleryPicture(picType: Imagers.PicType.slideHighRes);
 
     print('pic is : $_pic');
 

@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/device_checkers.dart';
+import 'package:bldrs/controllers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';

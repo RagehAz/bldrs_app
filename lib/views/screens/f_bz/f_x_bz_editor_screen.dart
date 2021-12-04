@@ -2,7 +2,7 @@
 // import 'package:path/path.dart' as path;
 import 'dart:io';
 
-import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_generators.dart';
@@ -281,12 +281,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   }
 // -----------------------------------------------------------------------------
   Future<void> _takeBzLogo() async {
-    final File _imageFile = await Imagers.takeGalleryPicture(picType: PicType.bzLogo);
+    final File _imageFile = await Imagers.takeGalleryPicture(picType: Imagers.PicType.bzLogo);
     setState(() {_currentBzLogoFile = _imageFile;});
   }
 // -----------------------------------------------------------------------------
   Future<void> _takeAuthorPicture() async {
-    final File _imageFile = await Imagers.takeGalleryPicture(picType: PicType.authorPic);
+    final File _imageFile = await Imagers.takeGalleryPicture(picType: Imagers.PicType.authorPic);
     setState(() {_currentAuthorPicFile = File(_imageFile.path);});
   }
 // -----------------------------------------------------------------------------
