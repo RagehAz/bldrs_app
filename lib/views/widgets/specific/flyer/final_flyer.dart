@@ -1006,7 +1006,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       await TopDialog.showTopDialog(
         context: context,
         verse: 'Share button',
-        secondLine: 'Allows users to share this flyer\'s link to other apps',
+        secondLine: "Allows users to share this flyer\'s link to other apps",
 
       );
     }
@@ -1130,7 +1130,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       await TopDialog.showTopDialog(
         context: context,
         verse: 'Flyer stats',
-        secondLine: 'These count the flyer\'s counts of shares, views & saves',
+        secondLine: "These count the flyer\'s counts of shares, views & saves",
       );
     }
 

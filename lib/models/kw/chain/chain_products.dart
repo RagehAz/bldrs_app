@@ -2201,7 +2201,7 @@ abstract class ChainProducts {
               KW(
                 id: 'prd_furn_kitStore_baker',
                 names: <Name>[
-                  Name(code: 'en', value: 'Baker\'s racks'),
+                  Name(code: 'en', value: "Baker\'s racks"),
                   Name(code: 'ar', value: 'وحدة أرفف خباز')
                 ],
               ),
