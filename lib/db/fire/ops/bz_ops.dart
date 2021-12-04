@@ -5,28 +5,29 @@ import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/db/fire/methods/storage.dart' as Storage;
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/db/fire/ops/flyer_ops.dart';
-import 'package:bldrs/db/fire/ops/user_ops.dart';
+import 'package:bldrs/db/fire/ops/flyer_ops.dart' as FireFlyerOps;
+import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/db/fire/ops/bz_ops.dart' as FireBzOps;
 
 /// create, read, update, delete bz doc in cloud firestore
-abstract class FireBzOps{
 
+// ------------------------------------------------
   /// REFERENCES
 
 // ------------------------------------------------
   /// bzz firestore collection reference getter
-  static CollectionReference<Object> collRef(){
+  CollectionReference<Object> collRef(){
     return Fire.getCollectionRef(FireColl.bzz);
   }
 // ------------------------------------------------
   /// bz firestore document reference
-  static DocumentReference<Object> docRef(String bzID){
+  DocumentReference<Object> docRef(String bzID){
     return
       Fire.getDocRef(
           collName: FireColl.bzz,
@@ -39,7 +40,7 @@ abstract class FireBzOps{
 
 // ------------------------------------------------
   /// create bz operations on firestore
-  static Future<BzModel> createBz({
+  Future<BzModel> createBz({
     @required BuildContext context,
     @required BzModel inputBz,
     @required UserModel userModel
@@ -155,7 +156,7 @@ abstract class FireBzOps{
   /// READ
 
 // ------------------------------------------------
-  static Future<BzModel> readBz({
+  Future<BzModel> readBz({
     @required BuildContext context,
     @required String bzID,
   }) async {
@@ -173,7 +174,7 @@ abstract class FireBzOps{
     return _bz;
   }
 // ------------------------------------------------
-  static Future<dynamic> readAndFilterTeamlessBzzByUserModel({
+  Future<dynamic> readAndFilterTeamlessBzzByUserModel({
     @required BuildContext context,
     @required UserModel userModel,
   }) async {
@@ -216,7 +217,7 @@ abstract class FireBzOps{
   /// UPDATE
 
 // ------------------------------------------------
-  static Future<BzModel> updateBz({
+  Future<BzModel> updateBz({
     @required BuildContext context,
     @required BzModel modifiedBz,
     @required BzModel originalBz,
@@ -327,7 +328,7 @@ abstract class FireBzOps{
     return _finalBz;
   }
 // -----------------------------------------------------------------------------
-  static Future<void> deactivateBz({
+  Future<void> deactivateBz({
     @required BuildContext context,
     @required BzModel bzModel
   }) async {
@@ -386,7 +387,7 @@ abstract class FireBzOps{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> deleteBz({
+  Future<void> deleteBz({
     @required BuildContext context,
     @required BzModel bzModel
   }) async {
@@ -519,4 +520,3 @@ abstract class FireBzOps{
 
   }
 // -----------------------------------------------------------------------------
-}

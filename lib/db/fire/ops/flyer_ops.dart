@@ -13,22 +13,23 @@ import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/secondary_models/image_size.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/db/fire/ops/flyer_ops.dart' as FireFlyerOps;
+
 
 /// Should include all flyer firestore functions/operations
 /// except reading data/getting data for widgets injection
-class FireFlyerOps{
 // -----------------------------------------------------------------------------
 
   /// REFERENCES
 
 // ---------------------------------------------------
 //   /// flyers collection reference
-//   static CollectionReference _collRef(){
+//   CollectionReference _collRef(){
 //     return Fire.getCollectionRef(FireColl.flyers);
 //   }
 // // -----------------------------------------------------------------------------
 //   /// flyer document reference
-//   static DocumentReference _flyerDocRef(String flyerID){
+//   DocumentReference _flyerDocRef(String flyerID){
 //     return Fire.getDocRef(
 //           collName: FireColl.flyers,
 //           docName: flyerID
@@ -40,7 +41,7 @@ class FireFlyerOps{
 
 // ---------------------------------------------------
   /// create empty firestore flyer doc and return flyerID 'docID'
-  static Future<FlyerModel> createFlyerOps({
+  Future<FlyerModel> createFlyerOps({
     @required BuildContext context,
     @required FlyerModel inputFlyerModel,
     @required BzModel bzModel,
@@ -150,7 +151,7 @@ class FireFlyerOps{
   /// READ
 
 // ---------------------------------------------------
-  static Future<FlyerModel> readFlyerOps({
+  Future<FlyerModel> readFlyerOps({
     @required BuildContext context,
     @required String flyerID,
   }) async {
@@ -166,7 +167,7 @@ class FireFlyerOps{
     return _flyer;
   }
 // ---------------------------------------------------
-  static Future<List<FlyerModel>> readBzFlyers({
+  Future<List<FlyerModel>> readBzFlyers({
     @required BuildContext context,
     @required BzModel bzModel
   }) async {
@@ -191,7 +192,7 @@ class FireFlyerOps{
     return _flyers;
   }
 // ---------------------------------------------------
-  static Future<List<FlyerModel>> readBzzFlyers({
+  Future<List<FlyerModel>> readBzzFlyers({
     @required BuildContext context,
     @required List<BzModel> bzzModels,
   }) async {
@@ -215,7 +216,7 @@ class FireFlyerOps{
     return _allFlyers;
   }
 // ---------------------------------------------------
-  static Future<List<ReviewModel>> readAllReviews({
+  Future<List<ReviewModel>> readAllReviews({
     @required BuildContext context,
     @required String flyerID,
   }) async {
@@ -240,7 +241,7 @@ class FireFlyerOps{
   /// UPDATE
 
 // ---------------------------------------------------
-  static Future<FlyerModel> updateFlyerOps({
+  Future<FlyerModel> updateFlyerOps({
     @required BuildContext context,
     @required FlyerModel updatedFlyer,
     @required FlyerModel originalFlyer,
@@ -395,7 +396,7 @@ class FireFlyerOps{
     return _finalFlyer;
   }
 // ---------------------------------------------------
-//   static Future<void> switchFlyerShowsAuthor({
+//   Future<void> switchFlyerShowsAuthor({
 //     @required BuildContext context,
 //     @required String flyerID,
 //     @required bool val
@@ -413,7 +414,7 @@ class FireFlyerOps{
   /// DELETE
 
 // ---------------------------------------------------
-  static Future<void> deactivateFlyerOps({
+  Future<void> deactivateFlyerOps({
     @required BuildContext context,
     @required String flyerID,
     @required BzModel bzModel
@@ -448,7 +449,7 @@ class FireFlyerOps{
 
 }
 // -----------------------------------------------------------------------------
-  static Future<void> deleteFlyerOps({
+  Future<void> deleteFlyerOps({
     @required BuildContext context,
     @required FlyerModel flyerModel,
     @required BzModel bzModel,
@@ -555,4 +556,3 @@ class FireFlyerOps{
 
   }
 // -----------------------------------------------------------------------------
-}

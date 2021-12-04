@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
-import 'package:bldrs/db/fire/ops/search_ops.dart';
+import 'package:bldrs/db/fire/ops/search_ops.dart' as FireSearchOps;
 import 'package:bldrs/db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';

@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/db/fire/ops/user_ops.dart';
+import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/fcm_token.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
