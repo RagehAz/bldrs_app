@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/atlas.dart' as Atlas;
-import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/object_checkers.dart';

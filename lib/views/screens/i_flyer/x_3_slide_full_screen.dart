@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/secondary_models/image_size.dart';

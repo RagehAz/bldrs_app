@@ -40,13 +40,12 @@ enum PicType{
   notiBanner,
 }
 
-abstract class Imagers{
 // -----------------------------------------------------------------------------
 
   /// PHONE GALLERY
 
 // ---------------------------------------------------
-  static Future<File> takeGalleryPicture({@required PicType picType}) async {
+  Future<File> takeGalleryPicture({@required PicType picType}) async {
     final ImagePicker _picker = ImagePicker();
     File _result;
 
@@ -65,7 +64,7 @@ abstract class Imagers{
     return _result;
   }
 // ---------------------------------------------------
-  static Future<File> takeCameraPicture({@required PicType picType}) async {
+  Future<File> takeCameraPicture({@required PicType picType}) async {
     final ImagePicker _picker = ImagePicker();
 
     final XFile _imageFile = await _picker.pickImage(
@@ -80,7 +79,7 @@ abstract class Imagers{
     return _result;
   }
 // ---------------------------------------------------
-  static Future<List<Asset>> takeGalleryMultiPictures({
+  Future<List<Asset>> takeGalleryMultiPictures({
     @required BuildContext context,
     @required List<Asset> images,
     @required bool mounted,
@@ -143,7 +142,7 @@ abstract class Imagers{
 
   }
 // ---------------------------------------------------
-  static Future<File> cropImage({
+  Future<File> cropImage({
     @required BuildContext context,
     @required File file,
   }) async {
@@ -224,7 +223,7 @@ abstract class Imagers{
   /// FILE GETTERS
 
 // ---------------------------------------------------
-  static Future<File> getEmptyFile(String fileName) async {
+  Future<File> getEmptyFile(String fileName) async {
     final Directory _appDocDir = await getApplicationDocumentsDirectory();
     final String _appDocPath = _appDocDir.path;
     final String _filePath = '${_appDocPath}/${fileName}';
@@ -233,7 +232,7 @@ abstract class Imagers{
   }
 // ---------------------------------------------------
   /// THIS IS TEMP DIRECTORY
-  static Future<File> getTempEmptyFile(String fileName) async {
+  Future<File> getTempEmptyFile(String fileName) async {
     final Directory _tempDir = await getTemporaryDirectory();
     final String _tempPath = _tempDir.path;
     final String _tempFilePath = '${_tempPath}/${fileName}';
@@ -242,7 +241,7 @@ abstract class Imagers{
   }
 // ---------------------------------------------------
   /// TAMAM
-  static Future<File> getFileFromLocalRasterAsset({
+  Future<File> getFileFromLocalRasterAsset({
     @required BuildContext context,
     @required String localAsset,
     int width = 100,
@@ -270,8 +269,8 @@ abstract class Imagers{
           //
           // print('4. file is ${_file.path}');
 
-          Uint8List _uInt = await Imagers.getUint8ListFromLocalRasterAsset(asset: _asset, width: width);
-          _file = await Imagers.getFileFromUint8List(uInt8List: _uInt, fileName: _fileName);
+          Uint8List _uInt = await getUint8ListFromLocalRasterAsset(asset: _asset, width: width);
+          _file = await getFileFromUint8List(uInt8List: _uInt, fileName: _fileName);
 
         }
     );
@@ -279,7 +278,7 @@ abstract class Imagers{
     return _file;
   }
 // ---------------------------------------------------
-  static Future<File> getFileFromUint8List({
+  Future<File> getFileFromUint8List({
     @required Uint8List uInt8List,
     @required String fileName,
   }) async {
@@ -293,7 +292,7 @@ abstract class Imagers{
     return _file;
   }
 // ---------------------------------------------------
-  static Future<File> getFileFromURL(String imageUrl) async {
+  Future<File> getFileFromURL(String imageUrl) async {
     /// generate random number.
     final Random _rng = new Random();
     /// get temporary directory of device.
@@ -312,7 +311,7 @@ abstract class Imagers{
     return _file;
   }
 // ---------------------------------------------------
-  static Future<File> getFileFromPickerAsset(Asset asset) async {
+  Future<File> getFileFromPickerAsset(Asset asset) async {
     ByteData _byteData = await asset.getThumbByteData(asset.originalWidth, asset.originalHeight, quality: 100);
 
     String _name = TextMod.removeTextAfterLastSpecialCharacter(asset.name, '.');
@@ -328,14 +327,14 @@ abstract class Imagers{
     return _file;
   }
 // ---------------------------------------------------
-  static Future<List<File>> getFilesFromPickerAssets(List<Asset> assets) async {
+  Future<List<File>> getFilesFromPickerAssets(List<Asset> assets) async {
     List<File> _files = <File>[];
 
     if (Mapper.canLoopList(assets)){
 
       for (Asset asset in assets) {
 
-        final File _file = await Imagers.getFileFromPickerAsset(asset);
+        final File _file = await getFileFromPickerAsset(asset);
         _files.add(_file);
 
       }
@@ -345,7 +344,7 @@ abstract class Imagers{
     return _files;
   }
 // ---------------------------------------------------
-  static Future<File> getFileFromDynamic(dynamic pic) async {
+  Future<File> getFileFromDynamic(dynamic pic) async {
     File _file;
 
     if(pic != null){
@@ -371,11 +370,11 @@ abstract class Imagers{
     return _file;
   }
 // ---------------------------------------------------
-  static Future<File> getFilerFromBase64(String base64) async {
+  Future<File> getFilerFromBase64(String base64) async {
 
     final Uint8List _fileAgainAsInt = await base64Decode(base64);
 
-    final File _fileAgain = await Imagers.getFileFromUint8List(
+    final File _fileAgain = await getFileFromUint8List(
       uInt8List: _fileAgainAsInt,
       fileName: '${Numeric.createUniqueID()}',
     );
@@ -387,13 +386,13 @@ abstract class Imagers{
   /// FILE WRITING
 
 // ---------------------------------------------------
-  static Future<File> writeUint8ListOnFile({@required File file, @required Uint8List uint8list}) async {
+  Future<File> writeUint8ListOnFile({@required File file, @required Uint8List uint8list}) async {
     await file.writeAsBytes(uint8list);
     await file.create(recursive: true);
     return file;
   }
 // ---------------------------------------------------
-  static Future<File> writeBytesOnFile({@required File file, @required ByteData byteData}) async {
+  Future<File> writeBytesOnFile({@required File file, @required ByteData byteData}) async {
     File _file;
 
     if (file != null && byteData != null){
@@ -408,7 +407,7 @@ abstract class Imagers{
   /// PICKER ASSET
 
 // ---------------------------------------------------
-  static Future<Asset> getPickerAssetFromURL(String url) async {
+  Future<Asset> getPickerAssetFromURL(String url) async {
     File _file = await getFileFromURL(url);
     Asset _asset;
 
@@ -442,7 +441,7 @@ abstract class Imagers{
     //
   }
 // ---------------------------------------------------
-  static Asset getOnlyAssetFromDynamic(dynamic input){
+  Asset getOnlyAssetFromDynamic(dynamic input){
     Asset _asset;
     if(ObjectChecker.objectIsAsset(input) == true){
       _asset = input;
@@ -451,7 +450,7 @@ abstract class Imagers{
     return _asset;
   }
 // ---------------------------------------------------
-  static List<Asset> getOnlyAssetsFromDynamics(List<dynamic> inputs){
+  List<Asset> getOnlyAssetsFromDynamics(List<dynamic> inputs){
     List<Asset> _assets = <Asset>[];
 
     if (Mapper.canLoopList(inputs)){
@@ -469,7 +468,7 @@ abstract class Imagers{
   /// ui.Image
 
 // ---------------------------------------------------
-  static Future<ui.Image> getUiImageFromUint8List(Uint8List uInt) async {
+  Future<ui.Image> getUiImageFromUint8List(Uint8List uInt) async {
     ui.Image _decodedImage;
 
     if(uInt != null){
@@ -479,7 +478,7 @@ abstract class Imagers{
     return _decodedImage;
   }
 // ---------------------------------------------------
-  static Future<ui.Image> getUiImageFromIntList(List<int> img) async {
+  Future<ui.Image> getUiImageFromIntList(List<int> img) async {
 
     final Completer<ui.Image> completer = new Completer<ui.Image>();
 
@@ -494,17 +493,17 @@ abstract class Imagers{
   /// uInt8List
 
 // ---------------------------------------------------
-  static Uint8List getUint8ListFromByteData(ByteData byteData){
+  Uint8List getUint8ListFromByteData(ByteData byteData){
     final Uint8List _uInts = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
     return _uInts;
   }
 // ---------------------------------------------------
-  static Future<Uint8List> getUint8ListFromFile(File file) async {
+  Future<Uint8List> getUint8ListFromFile(File file) async {
     final Uint8List _uInt = await file.readAsBytes();
     return _uInt;
   }
 // ---------------------------------------------------
-  static Future<List<Uint8List>> getUint8ListsFromFiles(List<File> files) async {
+  Future<List<Uint8List>> getUint8ListsFromFiles(List<File> files) async {
     List<Uint8List> _screenShots = <Uint8List>[];
 
     if (Mapper.canLoopList(files)){
@@ -518,7 +517,7 @@ abstract class Imagers{
   }
 // ---------------------------------------------------
   /// TAMAM
-  static Future<Uint8List> getUint8ListFromLocalRasterAsset({@required String asset, @required int width}) async {
+  Future<Uint8List> getUint8ListFromLocalRasterAsset({@required String asset, @required int width}) async {
     final ByteData _byteData = await rootBundle.load(asset);
 
 
@@ -528,7 +527,7 @@ abstract class Imagers{
     return _result;
   }
 // ---------------------------------------------------
-  static Future<Uint8List> getUint8ListFromRasterURL(int width, int height, String urlAsset) async {
+  Future<Uint8List> getUint8ListFromRasterURL(int width, int height, String urlAsset) async {
 
   final ui.PictureRecorder _pictureRecorder = ui.PictureRecorder();
   final Canvas _canvas = Canvas(_pictureRecorder);
@@ -561,7 +560,7 @@ abstract class Imagers{
   /// Base64
 
 // ---------------------------------------------------
-  static Future<String> getBase64FromFileOrURL(dynamic image) async {
+  Future<String> getBase64FromFileOrURL(dynamic image) async {
 
     File _file;
 
@@ -571,7 +570,7 @@ abstract class Imagers{
     if (_isFile == true){
       _file = image;
     } else {
-      _file = await Imagers.getFileFromURL(image);
+      _file = await getFileFromURL(image);
     }
 
     final List<int> imageBytes = _file.readAsBytesSync();
@@ -598,7 +597,7 @@ abstract class Imagers{
   /// BitmapDescriptor
 
 // ---------------------------------------------------
-  static Future<BitmapDescriptor> getBitmapFromSVG({
+  Future<BitmapDescriptor> getBitmapFromSVG({
     @required BuildContext context,
     @required String assetName,
   }) async {
@@ -624,7 +623,7 @@ abstract class Imagers{
     return BitmapDescriptor.fromBytes(bytes.buffer.asUint8List());
   }
 // ---------------------------------------------------
-  static Future<BitmapDescriptor> getBitmapFromPNG({String pngPic = Iconz.FlyerPinPNG}) async {
+  Future<BitmapDescriptor> getBitmapFromPNG({String pngPic = Iconz.FlyerPinPNG}) async {
     final BitmapDescriptor _marker = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty, pngPic);
     return _marker;
   }
@@ -633,12 +632,12 @@ abstract class Imagers{
   /// BOX FIT
 
 // ---------------------------------------------------
-  static BoxFit concludeBoxFitOld(Asset asset){
+  BoxFit concludeBoxFitOld(Asset asset){
     BoxFit _fit = asset.isPortrait ? BoxFit.fitHeight : BoxFit.fitWidth;
     return _fit;
   }
 // ---------------------------------------------------
-  static BoxFit concludeBoxFit({
+  BoxFit concludeBoxFit({
     @required double picWidth,
     @required double picHeight,
     @required double viewWidth,
@@ -669,7 +668,7 @@ abstract class Imagers{
     return _boxFit;
   }
 // ---------------------------------------------------
-  static BoxFit concludeBoxFitForAsset({
+  BoxFit concludeBoxFitForAsset({
     @required Asset asset,
     @required double flyerBoxWidth,
   }){
@@ -693,7 +692,7 @@ abstract class Imagers{
     return _boxFit;
   }
 // ---------------------------------------------------
-  static List<BoxFit> concludeBoxesFitsForAssets({
+  List<BoxFit> concludeBoxesFitsForAssets({
     @required List<Asset> assets,
     @required double flyerBoxWidth,
   }){
@@ -721,7 +720,7 @@ abstract class Imagers{
   /// CropAspectRatioPreset
 
 // ---------------------------------------------------
-  static List<CropAspectRatioPreset> getAndroidCropAspectRatioPresets(){
+  List<CropAspectRatioPreset> getAndroidCropAspectRatioPresets(){
     const List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
       CropAspectRatioPreset.square,
       CropAspectRatioPreset.ratio3x2,
@@ -731,7 +730,7 @@ abstract class Imagers{
     return _androidRatios;
   }
 // ---------------------------------------------------
-  static List<CropAspectRatioPreset> getIOSCropAspectRatioPresets(){
+  List<CropAspectRatioPreset> getIOSCropAspectRatioPresets(){
     const List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
       CropAspectRatioPreset.original,
       CropAspectRatioPreset.square,
@@ -749,7 +748,7 @@ abstract class Imagers{
   /// CHECKERS
 
 // ---------------------------------------------------
-  static bool slideBlurIsOn({
+  bool slideBlurIsOn({
     @required dynamic pic,
     @required ImageSize imageSize,
     @required BoxFit boxFit,
@@ -838,7 +837,7 @@ abstract class Imagers{
     return _blurIsOn;
 }
 // ---------------------------------------------------
-  static bool picturesURLsAreTheSame({
+  bool picturesURLsAreTheSame({
     @required List<String> urlsA,
     @required List<String> urlsB,
   }){
@@ -872,7 +871,7 @@ abstract class Imagers{
   /// IMAGE QUALITY
 
 // ---------------------------------------------------
-  static int concludeImageQuality(PicType picType){
+  int concludeImageQuality(PicType picType){
     switch (picType){
       case PicType.userPic      :  return  100   ;  break;
       case PicType.authorPic    :  return  100   ;  break;
@@ -886,7 +885,7 @@ abstract class Imagers{
     }
   }
 // ---------------------------------------------------
-  static double concludeImageMaxWidth(PicType picType){
+  double concludeImageMaxWidth(PicType picType){
     switch (picType){
       case PicType.userPic      :  return  150   ;  break;
       case PicType.authorPic    :  return  150   ;  break;
@@ -899,6 +898,4 @@ abstract class Imagers{
     }
   }
 // -----------------------------------------------------------------------------
-
-}
 
