@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/notifications/local_notification_service.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/notifications/local_notification_service.dart' as LocalNotificationService;
+import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/db/fire/methods/firestore.dart';
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:flutter/material.dart';
@@ -8,22 +8,21 @@ import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/controllers/notifications/audioz.dart';
+import 'package:bldrs/controllers/notifications/audioz.dart' as Audioz;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class NotiOps{
 // -----------------------------------------------------------------------------
-//   static String _ahmedURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/slidesPics%2FXmwKpOsu1RZW3YfDAkli_00.jpg?alt=media&token=a4c8a548-74d2-4086-b3db-1678f46db00a';
+//   String _ahmedURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/slidesPics%2FXmwKpOsu1RZW3YfDAkli_00.jpg?alt=media&token=a4c8a548-74d2-4086-b3db-1678f46db00a';
 
-  static const String _redBldrsBanner = 'resource://drawable/res_red_bldrs';
-  static const String _flatBldrsNotiIcon = 'resource://drawable/res_flat_logo';
+  const String _redBldrsBanner = 'resource://drawable/res_red_bldrs';
+  const String _flatBldrsNotiIcon = 'resource://drawable/res_flat_logo';
 
   // -----------------------------------------------------------------------------
   /// THIS GOES BEFORE RUNNING THE BLDRS APP
-  static Future<void> preInitializeNoti() async {
+  Future<void> preInitializeNoti() async {
 
     FirebaseMessaging.onBackgroundMessage(fcmPushHandler);
 
@@ -41,7 +40,7 @@ class NotiOps{
   }
 // -----------------------------------------------------------------------------
   /// THIS GOES IN MAIN WIDGET INIT
-  static Future<void> initializeNoti() async  {
+  Future<void> initializeNoti() async  {
 
     final RemoteMessage initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
 
@@ -104,7 +103,7 @@ class NotiOps{
 
 }
 // -----------------------------------------------------------------------------
-  static Future<NotiModel> receiveAndActUponNoti({BuildContext context, dynamic msgMap, NotiType notiType}) async {
+  Future<NotiModel> receiveAndActUponNoti({BuildContext context, dynamic msgMap, NotiType notiType}) async {
     print('receiveAndActUponNoti : notiType : $notiType');
 
     NotiModel _noti;
@@ -127,7 +126,7 @@ class NotiOps{
   /// fcm on background
 //  AndroidNotificationChannel channel;
 // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  static Future<void> fcmPushHandler(RemoteMessage message) async {
+  Future<void> fcmPushHandler(RemoteMessage message) async {
 
     print('Handling a background message ${message.messageId}');
 
@@ -170,7 +169,7 @@ class NotiOps{
     // }
   }
 // -----------------------------------------------------------------------------
-  static String getNotiChannelName(NotiChannel channel){
+  String getNotiChannelName(NotiChannel channel){
     switch (channel){
       case NotiChannel.basic: return 'Basic Notifications'; break;
       case NotiChannel.scheduled: return 'Scheduled Notifications'; break;
@@ -179,7 +178,7 @@ class NotiOps{
   }
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-  static Future<void> createWelcomeNotification() async {
+  Future<void> createWelcomeNotification() async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: Numeric.createUniqueID(),
@@ -194,7 +193,7 @@ class NotiOps{
     );
   }
 // -----------------------------------------------------------------------------
-  static Future<void> createScheduledNotification() async {
+  Future<void> createScheduledNotification() async {
 
     await AwesomeNotifications().createNotification(
 
@@ -250,11 +249,11 @@ class NotiOps{
     );
   }
 // -----------------------------------------------------------------------------
-  static Future<void> cancelScheduledNotification() async {
+  Future<void> cancelScheduledNotification() async {
     await AwesomeNotifications().cancelAllSchedules();
   }
 // -----------------------------------------------------------------------------
-  static NotificationChannel basicNotificationChannel(){
+  NotificationChannel basicNotificationChannel(){
     return
       NotificationChannel(
         channelKey: getNotiChannelName(NotiChannel.basic),
@@ -274,7 +273,7 @@ class NotiOps{
       );
   }
 // -----------------------------------------------------------------------------
-  static NotificationChannel scheduledNotificationChannel(){
+  NotificationChannel scheduledNotificationChannel(){
     return
       NotificationChannel(
         channelKey: getNotiChannelName(NotiChannel.scheduled),
@@ -294,7 +293,7 @@ class NotiOps{
       );
   }
 // -----------------------------------------------------------------------------
-  static Future<void> onNotifyButtonTap(BuildContext context, Widget screenToGoToOnNotiTap) async {
+  Future<void> onNotifyButtonTap(BuildContext context, Widget screenToGoToOnNotiTap) async {
     await notify();
 
     AwesomeNotifications().actionStream.listen((ReceivedAction receivedNoti) {
@@ -308,7 +307,7 @@ class NotiOps{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<void> notify () async {
+  Future<void> notify () async {
 
     // String _timeZone = await AwesomeNotifications().getLocalTimeZoneIdentifier();
 
@@ -325,7 +324,7 @@ class NotiOps{
 
   }
 // -----------------------------------------------------------------------------
-  static printRemoteMessage({String methodName, RemoteMessage remoteMessage}){
+  printRemoteMessage({String methodName, RemoteMessage remoteMessage}){
 
     final RemoteNotification remoteNotification = remoteMessage.notification;
     final String category = remoteMessage.category;
@@ -362,7 +361,6 @@ class NotiOps{
 
   }
 // -----------------------------------------------------------------------------
-}
 
 Widget notiStreamBuilder({
   BuildContext context,

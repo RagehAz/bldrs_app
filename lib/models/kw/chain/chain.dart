@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/kw/chain/chain_crafts.dart';
 import 'package:bldrs/models/kw/chain/chain_designs.dart';
 import 'package:bldrs/models/kw/chain/chain_equipment.dart';

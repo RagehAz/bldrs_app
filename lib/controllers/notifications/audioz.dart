@@ -2,19 +2,17 @@
 // import 'package:audioplayers/audioplayers.dart';
 import 'dart:math';
 
-class Audioz{
+  const String _soundFile_name_nicole = 'res_name_nicole';
+  const String _soundFile_name_justina = 'res_name_justina';
+  const String _soundFile_name_emma = 'res_name_emma';
+  const String _soundFile_name_amy = 'res_name_amy';
 // -----------------------------------------------------------------------------
-  static const String _soundFile_name_nicole = 'res_name_nicole';
-  static const String _soundFile_name_justina = 'res_name_justina';
-  static const String _soundFile_name_emma = 'res_name_emma';
-  static const String _soundFile_name_amy = 'res_name_amy';
-// -----------------------------------------------------------------------------
-  static String getNotificationFilesPath(String fileNameWithoutExtension){
+  String getNotificationFilesPath(String fileNameWithoutExtension){
     return
       'resource://raw/$fileNameWithoutExtension';
   }
 // -----------------------------------------------------------------------------
-  static String  randomBldrsNameSoundPath(){
+  String  randomBldrsNameSoundPath(){
 
     final List<String> _notiSounds = <String>[
       _soundFile_name_nicole,
@@ -31,8 +29,8 @@ class Audioz{
 
 // // --- path of files neglects asset/ folder as you see because why not create some hidden bug to fuck developers bitch
 // class Soundz {
-//   static const String NextFlyer       = 'sounds/whip_high.mp3' ; // assets/sounds/whip_high.mp3
-//   static const String PreviousFlyer   = 'sounds/whip_long.mp3' ; // assets/sounds/whip_long.mp3
+//   const String NextFlyer       = 'sounds/whip_high.mp3' ; // assets/sounds/whip_high.mp3
+//   const String PreviousFlyer   = 'sounds/whip_long.mp3' ; // assets/sounds/whip_long.mp3
 // }
 //
 // Future<AudioPlayer> playSound (String sound) async {
@@ -41,5 +39,3 @@ class Audioz{
 //   return await audioCache.play(sound ,mode: PlayerMode.MEDIA_PLAYER, volume: 50, );
 // }
 //
-
-}
