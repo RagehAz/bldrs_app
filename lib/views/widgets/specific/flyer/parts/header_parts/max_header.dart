@@ -55,10 +55,11 @@ class MaxHeader extends StatelessWidget {
         final List<AuthorModel> _bzAuthors = bz != null ? bz?.authors : <AuthorModel>[];
 // -----------------------------------------------------------------------------
         final List<String> _bzTeamIDs = <String>[];
-        if(_bzAuthors != null) {
-          _bzAuthors.forEach((AuthorModel au) {
-            _bzTeamIDs.add(au.userID);
-          });
+
+        if(Mapper.canLoopList(_bzAuthors)) {
+          for (AuthorModel author in _bzAuthors){
+            _bzTeamIDs.add(author.userID);
+          }
         }
 // -----------------------------------------------------------------------------
         final int _followersCount  = bz != null ? bz.totalFollowers  : 0;

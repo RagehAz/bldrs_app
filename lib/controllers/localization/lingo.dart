@@ -41,16 +41,14 @@ class Lingo{
 
     if (Mapper.canLoopList(lingos)){
 
-      lingos.forEach((Lingo lingo) {
-
+      for (Lingo lingo in lingos){
         _lingosMapModels.add(
             MapModel(
-                key: lingo.code,
-                value: lingo.name,
+              key: lingo.code,
+              value: lingo.name,
             )
         );
-
-      });
+      }
 
     }
 

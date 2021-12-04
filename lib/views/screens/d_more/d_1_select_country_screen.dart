@@ -95,14 +95,11 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     final double _pageHeight = _screenHeight - Ratioz.stratosphere;
 
-
-    _allContinents.forEach((Continent continent) {
-
+    for (Continent continent in _allContinents){
       final List<String> _countriesIDs = CountryModel.getCountriesIDsOfContinent(continent);
       final String _continentIcon = Iconizer.getContinentIcon(continent);
 
       _pages.add(
-
         <String, dynamic>{
 
           'title' : continent.name,
@@ -119,9 +116,9 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
           ),
 
         },
-
       );
-    });
+
+    }
 
     return _pages;
   }

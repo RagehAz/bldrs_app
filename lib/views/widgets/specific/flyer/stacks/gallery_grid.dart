@@ -43,12 +43,16 @@ class GalleryGrid extends StatelessWidget {
     final List<String> _authorsIDsList = <String>[];
 
     if (bzAuthors != null){
-      bzAuthors.forEach((AuthorModel au) {_authorsIDsList.add(au.userID);});
+
+      for (AuthorModel author in bzAuthors){
+        _authorsIDsList.add(author.userID);
+      }
+
     }
 
     final String _viewerID = FireAuthOps.superUserID();
-
     final bool _viewerIsAuthor = _authorsIDsList.contains(_viewerID);
+
     return _viewerIsAuthor;
   }
 // -----------------------------------------------------------------------------

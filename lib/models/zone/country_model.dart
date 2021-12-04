@@ -79,12 +79,14 @@ class CountryModel{
     final List<CountryModel> _countries = <CountryModel>[];
 
     if (Mapper.canLoopList(maps)){
-      maps?.forEach((Map<String, dynamic> map) {
+
+      for (Map<String, dynamic> map in maps){
         _countries.add(decipherCountryMap(
           map: map,
           fromJSON: fromJSON,
         ));
-      });
+      }
+
     }
 
     return _countries;
@@ -207,11 +209,9 @@ class CountryModel{
   static List<String> getAllCountriesIDs(){
     final List<String> _ids = <String>[];
 
-    Flag.allFlags.forEach((Flag flag) {
-
+    for (Flag flag in Flag.allFlags){
       _ids.add(flag.countryID);
-
-    });
+    }
 
     return _ids;
   }

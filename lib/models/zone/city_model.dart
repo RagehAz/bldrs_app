@@ -130,12 +130,14 @@ class CityModel{
   static List<String> getTranslatedCitiesNamesFromCities({@required BuildContext context, @required List<CityModel> cities}){
     List<String> _citiesNames = <String>[];
 
-    cities.forEach((CityModel city) {
+    if (Mapper.canLoopList(cities)){
 
-      String _cityName = Name.getNameByCurrentLingoFromNames(context, city.names);
+      for (CityModel city in cities){
+        String _cityName = Name.getNameByCurrentLingoFromNames(context, city.names);
+        _citiesNames.add(_cityName);
+      }
 
-      _citiesNames.add(_cityName);
-    });
+    }
 
     _citiesNames = TextMod.sortAlphabetically(_citiesNames);
 
@@ -161,13 +163,10 @@ class CityModel{
 
     if (Mapper.canLoopList(cities)){
 
-      cities.forEach((CityModel city) {
-
+      for (CityModel city in cities){
         final KW _cityKeyword = getKeywordFromCity(context: context, city: city);
-
         _keywords.add(_cityKeyword);
-
-      });
+      }
 
     }
 
@@ -197,16 +196,14 @@ class CityModel{
 
     if (Mapper.canLoopList(cities)){
 
-      cities.forEach((CityModel city) {
-
-        _citiesMapModels.add(
-            MapModel(
-                key: city.cityID,
-                value: Name.getNameByCurrentLingoFromNames(context, city.names)
-            )
-        );
-
-      });
+        for (CityModel city in cities){
+          _citiesMapModels.add(
+              MapModel(
+                  key: city.cityID,
+                  value: Name.getNameByCurrentLingoFromNames(context, city.names)
+              )
+          );
+        }
 
     }
 
