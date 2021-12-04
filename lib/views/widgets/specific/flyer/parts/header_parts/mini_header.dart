@@ -29,7 +29,10 @@ class MiniHeader extends StatelessWidget {
       GestureDetector(
         onTap: _tinyMode == true ? null : () async { await superFlyer.nav.onTinyFlyerTap();},
         child: Container(
-          height: FlyerBox.headerBoxHeight(superFlyer.nav.bzPageIsOn, flyerBoxWidth),
+          height: FlyerBox.headerBoxHeight(
+              bzPageIsOn: superFlyer.nav.bzPageIsOn,
+              flyerBoxWidth: flyerBoxWidth
+          ),
           width: flyerBoxWidth,
           child: Stack(
             children: <Widget>[

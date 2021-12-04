@@ -173,11 +173,19 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
     const double _followCallScaleEnd = 1.5;
     final double _followCallPaddingEnd = FollowAndCallBTs.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) * _followCallScaleEnd;
     final double _followCallBoxWidthEnd = (FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5);
-    final double _logoSizeBegin = FlyerBox.logoWidth(false, widget.flyerBoxWidth);
+    final double _logoSizeBegin = FlyerBox.logoWidth(
+        bzPageIsOn: false,
+        flyerBoxWidth: widget.flyerBoxWidth
+    );
     final double _logoSizeEnd = widget.flyerBoxWidth * 0.6;
     final double _logoScaleRatio = _logoSizeEnd / _logoSizeBegin;
 
     final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
+
+    final double _headerBoxHeight = FlyerBox.headerBoxHeight(
+        bzPageIsOn: false,
+        flyerBoxWidth: widget.flyerBoxWidth
+    );
 
     //--------------------------------o
     _backgroundColorTween
@@ -186,7 +194,11 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
       Colorz.blackSemi230 : widget.superFlyer.mSlides[widget.superFlyer.currentSlideIndex].midColor;
 
     _headerCornerTween
-      ..begin = Borderers.superHeaderCorners(context, false, widget.flyerBoxWidth)
+      ..begin = Borderers.superHeaderCorners(
+          context: context,
+          bzPageIsOn: false,
+          flyerBoxWidth: widget.flyerBoxWidth,
+      )
       ..end = Borderers.superFlyerCorners(context, widget.flyerBoxWidth);
     // ..begin = Scale.superHeaderHeight(false, widget.flyerBoxWidth)
     // ..end = Scale.superFlyerZoneHeight(context, widget.flyerBoxWidth);
@@ -196,7 +208,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
       ..end = Borderers.superLogoCorner(context: context, flyerBoxWidth: widget.flyerBoxWidth * _logoScaleRatio, zeroCornerIsOn: false);
 
     _headerHeightTween = Tween<double>(
-      begin: FlyerBox.headerBoxHeight(false, widget.flyerBoxWidth),
+      begin: _headerBoxHeight,
       end: FlyerBox.height(context, widget.flyerBoxWidth),
     ).animate(_controller);
 
@@ -229,8 +241,8 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
 
     final bool _closed = _isExpanded == false && _controller.isDismissed == true;
     //------------------------------------------------------------o
-    final double _slideHeightWithoutHeader = FlyerBox.height(context, widget.flyerBoxWidth) - FlyerBox.headerBoxHeight(false, widget.flyerBoxWidth);
 
+    final double _slideHeightWithoutHeader = FlyerBox.height(context, widget.flyerBoxWidth) - _headerBoxHeight;
 
 
     return AnimatedBuilder(
@@ -269,7 +281,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                         /// MINI HEADER STRIP
                         Container(
                           width: widget.flyerBoxWidth,
-                          height: (FlyerBox.headerBoxHeight(false, widget.flyerBoxWidth) * _logoSizeRatioTween.value) + (_headerLeftSpacerTween.value),
+                          height: (_headerBoxHeight * _logoSizeRatioTween.value) + (_headerLeftSpacerTween.value),
                           alignment: Alignment.center,
                           padding: EdgeInsets.only(top: _headerLeftSpacerTween.value),
                           decoration: BoxDecoration(

@@ -260,7 +260,7 @@ import 'package:flutter/material.dart';
   }
 // -----------------------------------------------------------------------------
   /// true => 1; false => 0 else => null
-  int cipherBool(bool bool){
+  int cipherBool({@required bool bool}){
     switch (bool){
       case true: return 1; break;
       case false: return 0; break;

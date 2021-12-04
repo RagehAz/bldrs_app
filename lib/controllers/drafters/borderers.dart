@@ -54,7 +54,11 @@ import 'package:flutter/material.dart';
   }
 
 // -----------------------------------------------------------------------------
-  BorderRadius superHeaderCorners(BuildContext context, bool bzPageIsOn, double flyerBoxWidth) {
+  BorderRadius superHeaderCorners({
+    @required BuildContext context,
+    @required bool bzPageIsOn,
+    @required double flyerBoxWidth
+  }) {
     final double headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners;
     final double headerZeroCorner = bzPageIsOn == true ? 0 : headerMainCorners;
     final BorderRadius headerCorners = superBorderOnly(
@@ -68,7 +72,11 @@ import 'package:flutter/material.dart';
   }
 
 // -----------------------------------------------------------------------------
-  BorderRadius superHeaderStripCorners(BuildContext context, bool bzPageIsOn, double flyerBoxWidth) {
+  BorderRadius superHeaderStripCorners({
+    @required BuildContext context,
+    @required bool bzPageIsOn,
+    @required double flyerBoxWidth,
+  }) {
     final double headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners; //bzPageIsOn == false ? flyerBoxWidth * Ratioz.xxflyerTopCorners : flyerBoxWidth * Ratioz.bzLogCorner;
     final double headerZeroCorner = bzPageIsOn == false ? headerMainCorners : 0;
     final BorderRadius headerStripCorners = superBorderOnly(
@@ -93,7 +101,11 @@ import 'package:flutter/material.dart';
       );
   }
 // -----------------------------------------------------------------------------
-  BorderRadius superFollowOrCallCorners(BuildContext context, double flyerBoxWidth, bool gettingFollowCorner) {
+  BorderRadius superFollowOrCallCorners({
+    @required BuildContext context,
+    @required double flyerBoxWidth,
+    @required bool gettingFollowCorner,
+  }) {
     final double headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners;
     final double headerOffsetCorner = headerMainCorners - flyerBoxWidth * Ratioz.xxfollowCallSpacing;
     final double followBTCornerTL = flyerBoxWidth * Ratioz.xxauthorImageCorners;

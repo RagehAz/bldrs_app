@@ -95,14 +95,14 @@ class FlyerBox extends StatelessWidget {
     return _tinyMode;
   }
 // -----------------------------------------------------------------------------
-  static double headerBoxHeight(bool bzPageIsOn, double flyerBoxWidth){
+  static double headerBoxHeight({@required bool bzPageIsOn, @required double flyerBoxWidth}){
     final double _miniHeaderHeightAtMaxState = flyerBoxWidth * Ratioz.xxflyerHeaderMaxHeight;
     final double _miniHeaderHeightAtMiniState = flyerBoxWidth * Ratioz.xxflyerHeaderMiniHeight;
     final double _headerHeight = bzPageIsOn == true ? _miniHeaderHeightAtMaxState : _miniHeaderHeightAtMiniState;
     return _headerHeight;
   }
 // -----------------------------------------------------------------------------
-  static double headerStripHeight(bool bzPageIsOn, double flyerBoxWidth){
+  static double headerStripHeight({@required bool bzPageIsOn, @required double flyerBoxWidth}){
     final double _headerStripHeight = bzPageIsOn == true ? flyerBoxWidth : flyerBoxWidth * Ratioz.xxflyerHeaderMiniHeight;
     return _headerStripHeight;
   }
@@ -112,16 +112,22 @@ class FlyerBox extends StatelessWidget {
     return _headerOffsetHeight;
   }
 // -----------------------------------------------------------------------------
-  static double logoWidth(bool bzPageIsOn, double flyerBoxWidth ){
+  static double logoWidth({@required bool bzPageIsOn, @required double flyerBoxWidth}){
     final double _headerMainPadding = flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
     final double _headerOffsetWidth = flyerBoxWidth - (2 * _headerMainPadding);
     final double _logoWidth = bzPageIsOn == true ? _headerOffsetWidth : (flyerBoxWidth*Ratioz.xxflyerLogoWidth);
     return _logoWidth;
   }
 // -----------------------------------------------------------------------------
-  static double headerAndProgressHeights(double flyerZoneHeight){
+  static double headerAndProgressHeights(double flyerBoxHeight){
+
+    final double _headerBoxHeight = headerBoxHeight(
+        bzPageIsOn: false,
+        flyerBoxWidth: flyerBoxHeight
+    );
+
     return
-      headerBoxHeight(false, flyerZoneHeight) + flyerZoneHeight * Ratioz.xxProgressBarHeightRatio;
+      _headerBoxHeight + flyerBoxHeight * Ratioz.xxProgressBarHeightRatio;
   }
 // -----------------------------------------------------------------------------
   static const double editorPanelWidth = 50;
