@@ -117,7 +117,16 @@ class Localizer{
   }
 // -----------------------------------------------------------------------------
   static bool appIsArabic(BuildContext context){
-    final bool _isArabic = Wordz.languageCode(context) == Lingo.arabicLingo.code ? true : false;
+
+    bool _isArabic;
+
+    if (Wordz.languageCode(context) == Lingo.arabicLingo.code){
+      _isArabic = true;
+    }
+    else {
+      _isArabic = false;
+    }
+
     return _isArabic;
   }
 // -----------------------------------------------------------------------------

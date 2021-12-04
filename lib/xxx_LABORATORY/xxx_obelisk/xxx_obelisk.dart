@@ -54,8 +54,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
   void initState() {
     super.initState();
 
-    User _firebaseUser = superFirebaseUser();
-    _isSignedIn = _firebaseUser == null ? false : true;
+    _isSignedIn = _isSignedInCheck();
   }
 // ---------------------------------------------------------------------------
   @override
@@ -63,7 +62,21 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
     super.dispose();
   }
 // ---------------------------------------------------------------------------
+  bool _isSignedInCheck(){
+    bool _isSignedIn;
 
+    User _firebaseUser = superFirebaseUser();
+
+    if (_firebaseUser == null){
+      _isSignedIn = false;
+    }
+    else {
+      _isSignedIn = true;
+    }
+
+    return _isSignedIn;
+  }
+// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

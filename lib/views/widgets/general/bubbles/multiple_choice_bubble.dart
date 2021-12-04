@@ -44,10 +44,16 @@ class MultipleChoiceBubble extends StatelessWidget {
               List<Widget>.generate(
                   buttonsList.length,
                       (int index) {
+
+                    bool _inActiveMode = false;
+                    if (buttonsInActivityList != null){
+                      _inActiveMode = buttonsInActivityList[index];
+                    }
+
                     return
                       DreamBox(
                         height: 40,
-                        inActiveMode: buttonsInActivityList == null ? false : buttonsInActivityList[index],
+                        inActiveMode: _inActiveMode,
                         verse: buttonsList[index],
                         verseItalic: false,
                         color: chosenButton == buttonsList[index] ? Colorz.yellow255 : Colorz.white10,

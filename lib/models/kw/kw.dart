@@ -148,13 +148,17 @@ class KW {
   }
 // -----------------------------------------------------------------------------
   static bool keywordsAreTheSame(KW _firstKeyword, KW _secondKeyword){
-    final bool _keywordsAreTheSame =
-    _firstKeyword == null || _secondKeyword == null ? false
-        :
-    _firstKeyword.id == _secondKeyword.id && Name.namesListsAreTheSame(firstNames : _firstKeyword.names, secondNames: _secondKeyword.names) == true ?
-    true
-        :
-    false;
+    bool _keywordsAreTheSame;
+
+    if (_firstKeyword == null || _secondKeyword == null){
+      _keywordsAreTheSame = false;
+    }
+    else if (_firstKeyword.id == _secondKeyword.id && Name.namesListsAreTheSame(firstNames : _firstKeyword.names, secondNames: _secondKeyword.names) == true){
+      _keywordsAreTheSame = true;
+    }
+    else {
+      _keywordsAreTheSame = false;
+    }
 
     return _keywordsAreTheSame;
   }
@@ -231,7 +235,12 @@ class KW {
     if (Mapper.canLoopList(keywords) && keyword != null) {
       final KW _result = keywords.firstWhere((KW kw) => KW.keywordsAreTheSame(kw, keyword) == true, orElse: () => null);
 
-      _contains = _result == null ? false : true;
+      if (_result == null){
+        _contains = false;
+      }
+      else {
+        _contains = true;
+      }
     }
 
     return _contains;

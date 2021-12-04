@@ -55,6 +55,19 @@ class AuthorBubble extends StatelessWidget {
     return _bubbleHeight;
   }
 // -----------------------------------------------------------------------------
+  bool _labelIsOnCheck(int authorIndex){
+    bool _isOn;
+
+    if (selectedAuthorID == bzAuthors[authorIndex].userID){
+      _isOn = true;
+    }
+    else {
+      _isOn = false;
+    }
+
+    return _isOn;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -125,7 +138,7 @@ class AuthorBubble extends StatelessWidget {
                               children: <Widget>[
 
                                 AuthorLabel(
-                                  showLabel: showFlyers == true ? true : false,
+                                  showLabel: showFlyers,
                                   flyerBoxWidth: flyerBoxWidth,
                                   authorID: _author.userID,
                                   bzModel: _bz,
@@ -140,7 +153,7 @@ class AuthorBubble extends StatelessWidget {
                                     onAuthorLabelTap(id);
                                   },
                                   // :(id){print('a77a');// tappingAuthorLabel();},
-                                  labelIsOn: selectedAuthorID == bzAuthors[authorIndex].userID ? true : false,
+                                  labelIsOn: _labelIsOnCheck(authorIndex),
                                 ),
 
                                 const SizedBox(width: Ratioz.appBarPadding),

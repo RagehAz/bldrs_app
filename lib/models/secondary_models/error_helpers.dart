@@ -60,10 +60,9 @@ Future<bool> tryCatchAndReturn({
     print('$methodName : tryAndCatch ERROR : $error');
 
     if (onError != null){
-
       await onError(error);
-
     }
+
     // else {
       // await CenterDialog.showCenterDialog(
       //   context: context,
@@ -73,9 +72,17 @@ Future<bool> tryCatchAndReturn({
       // );
     // }
 
-
     // throw(error);
-    return error == null ? true : false;
+
+    bool _return;
+    if (error == null){
+      _return = true;
+    }
+    else {
+      _return = false;
+    }
+
+    return _return;
   }
 }
 // -----------------------------------------------------------------------------

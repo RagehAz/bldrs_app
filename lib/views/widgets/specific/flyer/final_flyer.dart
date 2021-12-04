@@ -1501,7 +1501,13 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               assetToSearchFor: _newAsset,
             );
 
-            final bool _assetFound = _assetIndexInAssets == -1 ? false : true;
+            bool _assetFound;
+            if (_assetIndexInAssets == -1){
+              _assetFound = false;
+            }
+            else {
+              _assetFound = true;
+            }
 
             if (_assetFound){
               // nothing shall be added to the existing mutable slides
@@ -1516,7 +1522,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                 opacity: 1,
                 picURL: null,
                 picAsset: _newAsset,
-                picFile:_newFile,
+                picFile: _newFile,
                 imageSize: await ImageSize.superImageSize(_newAsset),
                 picFit: Imagers.concludeBoxFitForAsset(asset: _newAsset, flyerBoxWidth: widget.flyerBoxWidth),
                 midColor: await Colorizer.getAverageColor(_newFile),
@@ -2864,15 +2870,27 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // //   }
 //
 // }
+// -----------------------------------------------------------------------------
+  bool _superFlyerHasIDCheck(){
+    bool _hasID;
 
+    if (_superFlyer?.flyerID == null){
+      _hasID = false;
+    }
+    else {
+      _hasID = true;
+    }
 
+    return _hasID;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
     final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
-    final bool _superFlyerHasID = _superFlyer?.flyerID == null ? false : true;
+    final bool _superFlyerHasID = _superFlyerHasIDCheck();
 
     // bool _flyerHasMoreThanOnePage = FlyerMethod.flyerHasMoreThanOneSlide(_superFlyer);
 

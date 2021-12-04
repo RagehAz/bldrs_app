@@ -25,6 +25,19 @@ class EditorPanel extends StatelessWidget {
     Key key,
   }) : super(key: key);
 // -----------------------------------------------------------------------------
+  bool _authorButtonIsBlackAndWhite(){
+    bool _isBlackAndWhite;
+
+    if (superFlyer.flyerShowsAuthor == true){
+      _isBlackAndWhite = false;
+    }
+    else {
+      _isBlackAndWhite = true;
+    }
+
+    return _isBlackAndWhite;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -76,8 +89,8 @@ class EditorPanel extends StatelessWidget {
             underLineShadowIsOn: false,
             underLineColor: superFlyer.flyerShowsAuthor == true ? Colorz.white255 : Colorz.white80,
             corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerBoxWidth),
-            blackAndWhite: superFlyer.flyerShowsAuthor == true ? false : true,
-            bubble: superFlyer.flyerShowsAuthor == true ? true : false,
+            blackAndWhite: _authorButtonIsBlackAndWhite(),
+            bubble: superFlyer.flyerShowsAuthor,
             onTap: superFlyer.edit.onShowAuthorTap,
           ),
 

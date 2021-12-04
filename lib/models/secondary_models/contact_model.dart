@@ -201,10 +201,21 @@ class ContactModel{
 
     final String _existingContactValue = getAContactValueFromContacts(existingContacts, type);
 
-    final bool _contactExistsInExistingContacts =
-    _existingContactValue == null || _existingContactValue == ''? false : true;
+    bool _contactExistsInExistingContacts;
+    if (_existingContactValue == null || _existingContactValue == ''){
+      _contactExistsInExistingContacts = false;
+    }
+    else {
+      _contactExistsInExistingContacts = true;
+    }
 
-    final bool _userChangedValue = value == null ? false : true;
+    bool _userChangedValue;
+    if (value == null){
+      _userChangedValue = false;
+    }
+    else {
+      _userChangedValue = true;
+    }
 
     /// when contact already exists in existingContacts
     if (_contactExistsInExistingContacts == true){

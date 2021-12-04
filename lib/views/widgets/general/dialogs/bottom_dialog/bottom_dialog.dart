@@ -77,7 +77,15 @@ class BottomDialog extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double titleZoneHeight({@required bool titleIsOn}){
-    final bool _titleIsOn = titleIsOn == null ? false : titleIsOn;
+    bool _titleIsOn;
+
+    if (titleIsOn == null){
+      _titleIsOn = false;
+    }
+    else {
+      _titleIsOn = titleIsOn;
+    }
+
     final double _titleZoneHeight = _titleIsOn == true ? Ratioz.appBarSmallHeight :  0;
 
     return _titleZoneHeight;
@@ -365,7 +373,20 @@ class BottomDialog extends StatelessWidget {
 
     return _textController.text;
   }
+// -----------------------------------------------------------------------------
+  bool _titleIsOnCheck(){
+    bool _isOn;
 
+    if (title == null || TextMod.removeSpacesFromAString(title) == ''){
+      _isOn = false;
+    }
+    else {
+      _isOn = true;
+    }
+
+    return _isOn;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -379,7 +400,7 @@ class BottomDialog extends StatelessWidget {
     final double _draggerCorner = _draggerHeight *0.5;
     final EdgeInsets _draggerMargins = draggerMargins(draggable: draggable);
 
-    final bool _titleIsOn = title == null || TextMod.removeSpacesFromAString(title) == '' ? false : true;
+    final bool _titleIsOn = _titleIsOnCheck();
 
     final double _titleZoneHeight = titleZoneHeight(titleIsOn: _titleIsOn);
 

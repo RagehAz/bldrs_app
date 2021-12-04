@@ -24,7 +24,6 @@ class BlurLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _blurIsOn = blurIsOn == null ? false : blurIsOn;
 
     return Container(
       width: width,
@@ -32,7 +31,7 @@ class BlurLayer extends StatelessWidget {
       child: ClipRRect(
         borderRadius: borders,
         child:
-        _blurIsOn == true ?
+        blurIsOn == true ?
         BackdropFilter(
           filter: ui.ImageFilter.blur(sigmaX: blur, sigmaY: blur),
           child: Container(

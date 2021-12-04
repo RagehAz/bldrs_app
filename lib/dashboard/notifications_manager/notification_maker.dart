@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/aligners.dart';
 import 'package:bldrs/controllers/drafters/imagers.dart';
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
+import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/scalers.dart';
 import 'package:bldrs/controllers/drafters/text_checkers.dart';
@@ -512,7 +513,10 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     flyers.remove(_flyer);
 
-    final bool _attachmentIsEmpty = flyers.length == 0 ? true : false;
+    bool _attachmentIsEmpty = true;
+    if (Mapper.canLoopList(flyers)){
+      _attachmentIsEmpty = false;
+    }
 
     setState(() {
       _attachment = flyers;

@@ -88,8 +88,8 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
       child: InteractiveViewer(
         key: widget.key,
         transformationController: _transformationController,
-        panEnabled: widget.isOn ? true : false,
-        scaleEnabled: widget.isOn ? true : false,
+        panEnabled: widget.isOn,
+        scaleEnabled: widget.isOn,
         constrained: false,
         alignPanAxis: false,
         boundaryMargin: EdgeInsets.zero,
