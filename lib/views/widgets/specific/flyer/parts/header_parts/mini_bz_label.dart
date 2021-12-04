@@ -25,7 +25,7 @@ class BzLabel extends StatelessWidget {
     final double screenWidth = Scale.superScreenWidth(context);
     const bool versesShadow = false;
 // -----------------------------------------------------------------------------
-    final double headerMainHeight = FlyerBox.headerStripHeight(superFlyer.nav.bzPageIsOn, flyerBoxWidth);
+    final double headerMainHeight = FlyerBox.headerStripHeight(bzPageIsOn: superFlyer.nav.bzPageIsOn, flyerBoxWidth: flyerBoxWidth);
     /// B.DATA
     final double businessDataHeight = superFlyer.flyerShowsAuthor == true ? headerMainHeight * 0.4 : headerMainHeight * 0.7; //0.0475;
     final double businessDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);

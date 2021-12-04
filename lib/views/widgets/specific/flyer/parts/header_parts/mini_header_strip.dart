@@ -22,8 +22,12 @@ class MiniHeaderStrip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    final double _stripHeight = FlyerBox.headerStripHeight(superFlyer.nav.bzPageIsOn, flyerBoxWidth);
-    final BorderRadius _stripBorders = Borderers.superHeaderStripCorners(context, superFlyer.nav.bzPageIsOn, flyerBoxWidth);
+    final double _stripHeight = FlyerBox.headerStripHeight(bzPageIsOn: superFlyer.nav.bzPageIsOn, flyerBoxWidth: flyerBoxWidth);
+    final BorderRadius _stripBorders = Borderers.superHeaderStripCorners(
+      context: context,
+      bzPageIsOn: superFlyer.nav.bzPageIsOn,
+      flyerBoxWidth: flyerBoxWidth,
+    );
 // -----------------------------------------------------------------------------
     return
       Align(
@@ -45,7 +49,10 @@ class MiniHeaderStrip extends StatelessWidget {
 
               /// --- BzLogo
               BzLogo(
-                width: FlyerBox.logoWidth(superFlyer.nav.bzPageIsOn, flyerBoxWidth),
+                width: FlyerBox.logoWidth(
+                    bzPageIsOn: superFlyer.nav.bzPageIsOn,
+                    flyerBoxWidth: flyerBoxWidth
+                ),
                 image: superFlyer.bz.logo,
                 tinyMode: FlyerBox.isTinyMode(context, flyerBoxWidth),
                 corners: Borderers.superLogoCorner(context: context, flyerBoxWidth: flyerBoxWidth, zeroCornerIsOn: superFlyer.flyerShowsAuthor),

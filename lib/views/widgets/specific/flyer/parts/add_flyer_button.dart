@@ -84,7 +84,10 @@ class AddFlyerButton extends StatelessWidget {
 
               /// --- FAKE HEADER FOOTPRINT
               SizedBox(
-                height: FlyerBox.headerBoxHeight(false, flyerBoxWidth),
+                height: FlyerBox.headerBoxHeight(
+                    bzPageIsOn: false,
+                    flyerBoxWidth: flyerBoxWidth
+                ),
               ),
 
               DreamBox(

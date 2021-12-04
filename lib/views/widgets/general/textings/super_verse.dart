@@ -189,7 +189,7 @@ class SuperVerse extends StatelessWidget {
 //     return textPainter.size;
 //   }
 // -----------------------------------------------------------------------------
-  static dynamic getTextAlign(bool centered){
+  static dynamic getTextAlign({@required bool centered}){
     return
     centered == true ? TextAlign.center : TextAlign.start;
   }
@@ -383,7 +383,12 @@ class SuperVerse extends StatelessWidget {
     return _verseHeight;
   }
 // -----------------------------------------------------------------------------
-  static double superVerseLabelMargin(BuildContext context, int verseSize, double scalingFactor, bool labelIsOn){
+  static double superVerseLabelMargin({
+    @required BuildContext context,
+    @required int verseSize,
+    @required double scalingFactor,
+    @required bool labelIsOn,
+  }){
     final double _sidePaddingValues = superVerseSidePaddingValues(context, verseSize);
     final double _sidePaddings = labelIsOn == false ? 0 : _sidePaddingValues;
     final double _superVerseLabelMargin = _sidePaddings * 0.25;
@@ -467,7 +472,7 @@ class SuperVerse extends StatelessWidget {
                     softWrap: false,
                     overflow: TextOverflow.ellipsis,
                     maxLines: maxLines,
-                    textAlign: getTextAlign(centered),
+                    textAlign: getTextAlign(centered: centered),
                     textScaleFactor: 1,
                     style:
                     createStyle(
