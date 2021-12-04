@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/controllers/router/navigators.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';

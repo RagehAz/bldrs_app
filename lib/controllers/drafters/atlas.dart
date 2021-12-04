@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

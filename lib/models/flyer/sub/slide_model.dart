@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/drafters/colorizers.dart' as Colorizer;
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/controllers/drafters/text_mod.dart';
+import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';

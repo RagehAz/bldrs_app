@@ -3,9 +3,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
 import 'package:flutter/foundation.dart';
 
-abstract class TextMod {
-// -----------------------------------------------------------------------------
-  static List<String> addStringToListIfDoesNotContainIt({List<String> strings, String stringToAdd}){
+  List<String> addStringToListIfDoesNotContainIt({List<String> strings, String stringToAdd}){
 
     List<String> _result = strings;
 
@@ -18,14 +16,14 @@ abstract class TextMod {
     return _result;
   }
 // -----------------------------------------------------------------------------
-  static List<String> sortAlphabetically(List<String> inputList){
+  List<String> sortAlphabetically(List<String> inputList){
   List<String> _outputList = <String>[];
   inputList.sort();
   _outputList = inputList;
   return _outputList;
 }
 // -----------------------------------------------------------------------------
-  static List<String> sortAlphabetically2(List<String> inputList){
+  List<String> sortAlphabetically2(List<String> inputList){
   // List<String> _outputList = <String>[];
 
   inputList.sort((String a, String b) => a.toString().compareTo(b.toString()));
@@ -33,7 +31,7 @@ abstract class TextMod {
   return inputList;
 }
 // -----------------------------------------------------------------------------
-  static String firstCharacterAfterRemovingSpacesFromAString(String string){
+  String firstCharacterAfterRemovingSpacesFromAString(String string){
   String _output;
 
   final String _stringTrimmed = string.trim();
@@ -51,12 +49,12 @@ abstract class TextMod {
     _output;
 }
 // -----------------------------------------------------------------------------
-  static String removeFirstCharacterFromAString(String string){
+  String removeFirstCharacterFromAString(String string){
     final String stringWithoutFirstCharacter = string.length >0 ? string?.substring(1) : null;
   return stringWithoutFirstCharacter;
 }
 // -----------------------------------------------------------------------------
-  static String removeNumberOfCharactersFromBeginningOfAString(String string, int numberOfCharacters){
+  String removeNumberOfCharactersFromBeginningOfAString(String string, int numberOfCharacters){
   String _stringTrimmed;
   if (numberOfCharacters > string.length){
     print('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
@@ -67,7 +65,7 @@ abstract class TextMod {
   return _stringTrimmed;
 }
 // -----------------------------------------------------------------------------
-  static String removeNumberOfCharactersFromEndOfAString(String string, int numberOfCharacters){
+  String removeNumberOfCharactersFromEndOfAString(String string, int numberOfCharacters){
     String _stringTrimmed;
     // if (numberOfCharacters > string.length){
     //   print('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
@@ -95,7 +93,7 @@ abstract class TextMod {
     return _stringTrimmed;
   }
 // -----------------------------------------------------------------------------
-  static String removeSpacesFromAString(String string){
+  String removeSpacesFromAString(String string){
     String _output5;
 
     if (string != null){
@@ -133,7 +131,7 @@ abstract class TextMod {
     _output5;
 }
 // -----------------------------------------------------------------------------
-  static String firstCharacterOfAString(String string){
+  String firstCharacterOfAString(String string){
     final String _output = string == null || string.length == 0 || string == '' || string == ' '? null :
   string?.substring(0,1);
 
@@ -143,7 +141,7 @@ abstract class TextMod {
 
 }
 // -----------------------------------------------------------------------------
-  static String lastTwoSubStringsFromAString(String string){
+  String lastTwoSubStringsFromAString(String string){
     final List<String> _stringSplit = string.split('');
     final int _listLength = _stringSplit.length;
     final int _lastIndex = _listLength - 1;
@@ -154,7 +152,7 @@ abstract class TextMod {
     '${_stringSplit[_beforeLastIndex]}${_stringSplit[_lastIndex]}';
 }
 // -----------------------------------------------------------------------------
-  static String removeTextAfterFirstSpecialCharacter(String verse, String specialCharacter){
+  String removeTextAfterFirstSpecialCharacter(String verse, String specialCharacter){
     String _result;
 
     final bool _verseContainsChar = TextChecker.stringContainsSubString(
@@ -175,7 +173,7 @@ abstract class TextMod {
   return _result;
 }
 // -----------------------------------------------------------------------------
-  static String removeTextBeforeFirstSpecialCharacter(String verse, String specialCharacter){
+  String removeTextBeforeFirstSpecialCharacter(String verse, String specialCharacter){
     String _result;
 
     final bool _verseContainsChar = TextChecker.stringContainsSubString(
@@ -197,7 +195,7 @@ abstract class TextMod {
     return _result;
 }
 // -----------------------------------------------------------------------------
-  static String removeTextAfterLastSpecialCharacter(String verse, String specialCharacter){
+  String removeTextAfterLastSpecialCharacter(String verse, String specialCharacter){
     String _result;
 
     final bool _verseContainsChar = TextChecker.stringContainsSubString(
@@ -218,7 +216,7 @@ abstract class TextMod {
   return _result;
 }
 // -----------------------------------------------------------------------------
-  static String removeTextBeforeLastSpecialCharacter(String verse, String specialCharacter){
+  String removeTextBeforeLastSpecialCharacter(String verse, String specialCharacter){
     String _result;
 
     final bool _verseContainsChar = TextChecker.stringContainsSubString(
@@ -241,13 +239,13 @@ abstract class TextMod {
 }
 // -----------------------------------------------------------------------------
 /// this trims paths like 'assets/xx/pp_sodic/builds_1.jpg' to 'builds_1.jpg'
-  static String getFileNameFromAsset(String asset){
+  String getFileNameFromAsset(String asset){
     final String _fileName = removeTextBeforeLastSpecialCharacter(asset, '/');
   return _fileName;
 }
 // -----------------------------------------------------------------------------
   /// converts list of strings to map of keywords with true map value
-  static Future<Map<String, dynamic>> getKeywordsMap(List<String> keywordsIDs) async {
+  Future<Map<String, dynamic>> getKeywordsMap(List<String> keywordsIDs) async {
     /// example
     ///
     /// List<String> listExample = <String>['construction', 'architecture', 'decor'];
@@ -290,21 +288,21 @@ abstract class TextMod {
   return _stringIndexMap;
 }
 // -----------------------------------------------------------------------------
-  static Map<String, dynamic> getValueAndTrueMap(List<String> list){
+  Map<String, dynamic> getValueAndTrueMap(List<String> list){
     final Map<String, dynamic> _result = <String, dynamic>{ for (String string in list) string : true };
   return _result;
 }
 // -----------------------------------------------------------------------------
-  static List<dynamic> getValuesFromValueAndTrueMap(Map<String, dynamic> map){
+  List<dynamic> getValuesFromValueAndTrueMap(Map<String, dynamic> map){
     final List<dynamic> _flyersIDs = map.keys.toList();
     return _flyersIDs;
 }
 // -----------------------------------------------------------------------------
-  static String lowerCase(String val){
+  String lowerCase(String val){
     return val.toLowerCase();
   }
 // -----------------------------------------------------------------------------
-  static String sqlCipherStrings(List<String> strings){
+  String sqlCipherStrings(List<String> strings){
     String _output;
 
     if (Mapper.canLoopList(strings)){
@@ -325,7 +323,7 @@ abstract class TextMod {
     return _output;
   }
 // -----------------------------------------------------------------------------
-  static List<String> sqlDecipherStrings(String text){
+  List<String> sqlDecipherStrings(String text){
     List<String> _strings;
 
     if (text != null){
@@ -335,14 +333,14 @@ abstract class TextMod {
     return _strings;
   }
 // -----------------------------------------------------------------------------
-  static String replaceAllCharactersWith({@required String CharacterToReplace, @required String replacement, @required String input}){
+  String replaceAllCharactersWith({@required String CharacterToReplace, @required String replacement, @required String input}){
 
     final String _output = input.replaceAll(CharacterToReplace, replacement);
 
     return _output;
   }
 // -----------------------------------------------------------------------------
-  static String removeAllCharactersAfterNumberOfCharacters({@required String input, @required int numberOfCharacters}){
+  String removeAllCharactersAfterNumberOfCharacters({@required String input, @required int numberOfCharacters}){
 
     String _output = input;
 
@@ -355,7 +353,7 @@ abstract class TextMod {
     return _output;
   }
 // -----------------------------------------------------------------------------
-  static String fixArabicText(String input){
+  String fixArabicText(String input){
 
     /// TASK : alef hamza issue
     /// TASK : ya2 w alef maksoura issue
@@ -377,13 +375,12 @@ String decoded = stringToBase64.decode(encoded);          // username:password
 
  */
 
-}
 
 // class DoubleFromStringTest {
 //
 //   /// lets just make a method that takes dynamic and returns double
 //   /// and it should process the strings and doubles
-//   static double getDoubleIfPossible(dynamic input){
+//   double getDoubleIfPossible(dynamic input){
 //     double _output;
 //
 //     print('starting : getDoubleIfPossible : input : ${input}');
@@ -432,7 +429,7 @@ String decoded = stringToBase64.decode(encoded);          // username:password
 //     return _output;
 //   }
 //
-//   static bool _objectIsDoubleInString(dynamic string) {
+//   bool _objectIsDoubleInString(dynamic string) {
 //
 //     bool _objectIsDoubleInString;
 //     double _double;
@@ -453,7 +450,7 @@ String decoded = stringToBase64.decode(encoded);          // username:password
 //
 //   }
 //
-//   static double _stringToDouble(String string){
+//   double _stringToDouble(String string){
 //     double _value;
 //
 //     if (string != null){
