@@ -28,7 +28,7 @@ class FollowAndCallBTs extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double getBoxHeight({double flyerBoxWidth, bool bzPageIsOn}){
-    final double _headerMainHeight = FlyerBox.headerStripHeight(bzPageIsOn, flyerBoxWidth);
+    final double _headerMainHeight = FlyerBox.headerStripHeight(bzPageIsOn: bzPageIsOn, flyerBoxWidth: flyerBoxWidth);
     final double _headerMainPadding = flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
     final double _followGalleryHeight = _headerMainHeight - (2 * _headerMainPadding);
     return _followGalleryHeight;
@@ -132,7 +132,11 @@ class FollowBT extends StatelessWidget {
           decoration: BoxDecoration(
             color: followBTColor,
             boxShadow: Shadowz.superFollowBtShadow(followBTHeight),
-            borderRadius: Borderers.superFollowOrCallCorners(context, flyerBoxWidth, true),
+            borderRadius: Borderers.superFollowOrCallCorners(
+                context: context,
+                flyerBoxWidth: flyerBoxWidth,
+                gettingFollowCorner: true
+            ),
           ),
           child: Stack(
             alignment: Alignment.center,
@@ -143,7 +147,11 @@ class FollowBT extends StatelessWidget {
                 height: followBTHeight,
                 width: followBTWidth,
                 decoration: BoxDecoration(
-                  borderRadius: Borderers.superFollowOrCallCorners(context, flyerBoxWidth, true),
+                  borderRadius: Borderers.superFollowOrCallCorners(
+                      context: context,
+                      flyerBoxWidth: flyerBoxWidth,
+                      gettingFollowCorner: true
+                  ),
                   gradient: Colorizer.superFollowBTGradient(),
                 ),
               ),
@@ -206,7 +214,11 @@ class CallBT extends StatelessWidget {
     const String _callIcon = Iconz.ComPhone;
     final double _callIconWidth = flyerBoxWidth * 0.05;
 // -----------------------------------------------------------------------------
-    final BorderRadius _corners = Borderers.superFollowOrCallCorners(context, flyerBoxWidth, false);
+    final BorderRadius _corners = Borderers.superFollowOrCallCorners(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+        gettingFollowCorner: false
+    );
 // -----------------------------------------------------------------------------
     return
       _isTinyMode == true ? Container() :

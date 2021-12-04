@@ -25,13 +25,16 @@ class FlyerHeader extends StatelessWidget {
     return GestureDetector(
         onTap: superFlyer.nav.onHeaderTap,
         child: ListView(
-          physics: Scrollers.superScroller(superFlyer.nav.bzPageIsOn),
+          physics: Scrollers.superScroller(trigger: superFlyer.nav.bzPageIsOn),
           shrinkWrap: true,
           addAutomaticKeepAlives: true,
           children: <Widget>[
 
             Container(
-              height: FlyerBox.headerBoxHeight(superFlyer.nav.bzPageIsOn, flyerBoxWidth),
+              height: FlyerBox.headerBoxHeight(
+                  bzPageIsOn: superFlyer.nav.bzPageIsOn,
+                  flyerBoxWidth: flyerBoxWidth,
+              ),
               width: flyerBoxWidth,
               child: Stack(
                 children: <Widget>[
