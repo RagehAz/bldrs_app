@@ -228,7 +228,7 @@ import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
 
     if (_userMap != null){
 
-      print('readUserOps : _userMap _userMap[\'userID\'] is : ${_userMap['id']}');
+      print("readUserOps : _userMap _userMap[\'userID\'] is : ${_userMap['id']}");
       // print('lng : ${Wordz.languageCode(context)}');
 
       _user = _userMap == null ? null : UserModel.decipherUserMap(

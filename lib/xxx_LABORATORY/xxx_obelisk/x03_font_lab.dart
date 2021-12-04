@@ -284,7 +284,7 @@ class _FontLabState extends State<FontLab> {
                       SuperVerse(
                         verse: 'Lo más correcto es jugar y divertirse\n'
                             'The most correct is playing and having fun\n'
-                            'Le plus correct est de jouer et de s\'amuser\n'
+                            "Le plus correct est de jouer et de s\'amuser\n"
                             'Најправилно е играње и забава\n'
                             'Το πιο σωστό είναι το παιχνίδι και η διασκέδαση\n'
                             'الراجح يلعب و يلهو',

@@ -428,7 +428,7 @@ import 'package:bldrs/db/fire/ops/bz_ops.dart' as FireBzOps;
 
     }
 
-    print('3 - delete bzID : ${bzModel.id} in all author\'s myBzIDs lists');
+    print("3 - delete bzID : ${bzModel.id} in all author\'s myBzIDs lists");
     final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(bzModel.authors);
     for (String authorID in _authorsIDs){
 
@@ -438,7 +438,7 @@ import 'package:bldrs/db/fire/ops/bz_ops.dart' as FireBzOps;
         userID: authorID,
       );
 
-      print('b - update user\'s myBzzIDs');
+      print("b - update user\'s myBzzIDs");
       final List<dynamic> _modifiedMyBzzIDs = UserModel.removeIDFromIDs(_user.myBzzIDs, bzModel.id);
 
       print('c - update myBzzIDs field in user doc');
