@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/providers/streamers/questions_streamer.dart';
 import 'package:bldrs/views/widgets/general/bubbles/chat_bubble.dart';

@@ -1,8 +1,8 @@
 import 'package:bldrs/controllers/localization/localizer.dart';
-import 'package:bldrs/controllers/notifications/local_notification_service.dart';
-import 'package:bldrs/controllers/notifications/noti_ops.dart';
+import 'package:bldrs/controllers/notifications/local_notification_service.dart' as LocalNotificationService;
+import 'package:bldrs/controllers/notifications/noti_ops.dart' as NotiOps;
 import 'package:bldrs/controllers/router/route_names.dart';
-import 'package:bldrs/controllers/router/router.dart';
+import 'package:bldrs/controllers/router/router.dart' as Routerer;
 import 'package:bldrs/db/fire/ops/user_ops.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -23,7 +23,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-
 
 void main() async {
 
@@ -46,8 +45,6 @@ void main() async {
   runApp(const BldrsApp());
 
 }
-
-
 
 class BldrsApp extends StatefulWidget {
 

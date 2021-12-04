@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/dashboard/notifications_manager/notification_maker.dart';
 import 'package:bldrs/dashboard/notifications_manager/notification_templates_screen.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
