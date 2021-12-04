@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/screens/e_saves/e_0_saved_flyers_screen.dart';
@@ -9,8 +9,7 @@ import 'package:bldrs/views/screens/c_search/c_0_search_screen.dart';
 import 'package:bldrs/xxx_LABORATORY/xxx_obelisk/xxx_obelisk.dart';
 import 'package:flutter/material.dart';
 
-abstract class Routerer {
-  static Route<dynamic> allRoutes(RouteSettings settings) {
+  Route<dynamic> allRoutes(RouteSettings settings) {
 
     /// TASK : check passing arguments inside Routerer
     // final _arg = settings.arguments;
@@ -86,4 +85,3 @@ abstract class Routerer {
     }
     return Nav.fadeToScreen(UserChecker(), settings);
   }
-}

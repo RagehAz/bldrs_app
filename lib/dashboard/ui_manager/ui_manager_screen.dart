@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/router/navigators.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/router/navigators.dart' as Nav;
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/dashboard/ui_manager/emoji_test_screen.dart';
 import 'package:bldrs/dashboard/ui_manager/screens_manager_screen.dart';
 import 'package:bldrs/dashboard/ui_manager/icons_viewer_screen.dart';

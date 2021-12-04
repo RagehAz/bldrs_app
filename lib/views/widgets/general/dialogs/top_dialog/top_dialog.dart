@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';

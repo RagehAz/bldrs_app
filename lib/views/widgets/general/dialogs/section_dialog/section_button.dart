@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/controllers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/section_class.dart';

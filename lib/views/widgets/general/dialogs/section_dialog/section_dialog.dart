@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/section_class.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';

@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/author_model.dart';

@@ -1,6 +1,6 @@
 import 'dart:core';
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/wordz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';

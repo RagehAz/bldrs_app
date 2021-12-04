@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/db/ldb/ldb_ops.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';

@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/screens/c_search/c_1_search_history_screen.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';

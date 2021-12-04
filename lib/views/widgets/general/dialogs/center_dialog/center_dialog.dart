@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
-import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/dialog_button.dart';
