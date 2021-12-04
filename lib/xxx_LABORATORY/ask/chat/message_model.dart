@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/timerz.dart';
+import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:flutter/foundation.dart';
 
