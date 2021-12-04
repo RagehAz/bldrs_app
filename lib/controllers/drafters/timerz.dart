@@ -60,22 +60,20 @@ Examples Using the US Locale:
 
  */
 
-abstract class Timers {
-// -----------------------------------------------------------------------------
   /// "2019-07-19 8:40:23"
-  static final DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+  final DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
 // -----------------------------------------------------------------------------
-  static dynamic cipherTime({@required DateTime time, @required bool toJSON}){
+  dynamic cipherTime({@required DateTime time, @required bool toJSON}){
     final dynamic _output = toJSON ? _cipherDateTimeIso8601(time) : time;
     return _output;
   }
 // -----------------------------------------------------------------------------
-  static DateTime decipherTime({@required dynamic time, @required bool fromJSON}){
+  DateTime decipherTime({@required dynamic time, @required bool fromJSON}){
     final DateTime _output = fromJSON == true ? _decipherDateTimeIso8601(time) : time?.toDate();
     return _output;
   }
 // -----------------------------------------------------------------------------
-  static List<dynamic> cipherTimes({@required List<DateTime> times, @required bool toJSON}){
+  List<dynamic> cipherTimes({@required List<DateTime> times, @required bool toJSON}){
     final List<dynamic> _times = <String>[];
 
     if (Mapper.canLoopList(times)){
@@ -92,7 +90,7 @@ abstract class Timers {
     return _times;
   }
 // -----------------------------------------------------------------------------
-  static List<DateTime> decipherTimes({@required List<dynamic> times, @required bool fromJSON}){
+  List<DateTime> decipherTimes({@required List<dynamic> times, @required bool fromJSON}){
     final List<DateTime> _dateTimes = <DateTime>[];
 
     for (dynamic time in times){
@@ -107,7 +105,7 @@ abstract class Timers {
     return _dateTimes;
   }
 // -----------------------------------------------------------------------------
-  static String _cipherDateTimeIso8601(DateTime dateTime){
+  String _cipherDateTimeIso8601(DateTime dateTime){
     String _string;
 
     if (dateTime != null){
@@ -117,7 +115,7 @@ abstract class Timers {
     return _string;
   }
 // -----------------------------------------------------------------------------
-  static DateTime _decipherDateTimeIso8601(String cipheredDateTimeIso8601){
+  DateTime _decipherDateTimeIso8601(String cipheredDateTimeIso8601){
     DateTime _time;
 
     if (cipheredDateTimeIso8601 != null){
@@ -127,7 +125,7 @@ abstract class Timers {
     return _time;
   }
 // -----------------------------------------------------------------------------
-  static String getMonthNameByInt(BuildContext context, int month){
+  String getMonthNameByInt(BuildContext context, int month){
     switch (month){
       case 1    :    return  Wordz.january(context);  break;
       case 2    :    return  Wordz.february(context);  break;
@@ -145,7 +143,7 @@ abstract class Timers {
   }
 // -----------------------------------------------------------------------------
   /// we may revise datetimes timestamps isoStrings for firebase, sembast & sql
-  static Timestamp decipherDateTimeIso8601ToTimeStamp(String cipheredDateTimeIso8601){
+  Timestamp decipherDateTimeIso8601ToTimeStamp(String cipheredDateTimeIso8601){
     Timestamp _time;
 
     if (cipheredDateTimeIso8601 != null){
@@ -156,7 +154,7 @@ abstract class Timers {
     return _time;
   }
 // -----------------------------------------------------------------------------
-  static DateTime createDateTime({int year, int month, int day, int hour, int minute, int second, int millisecond, int microsecond}){
+  DateTime createDateTime({int year, int month, int day, int hour, int minute, int second, int millisecond, int microsecond}){
      final DateTime _now = DateTime.now();
      final DateTime _localTime = _now.toLocal();
 
@@ -174,7 +172,7 @@ abstract class Timers {
     return _output;
   }
 // -----------------------------------------------------------------------------
-  static DateTime createDate({@required int year, @required int month, @required int day}){
+  DateTime createDate({@required int year, @required int month, @required int day}){
     return
         createDateTime(
             year: year,
@@ -188,7 +186,7 @@ abstract class Timers {
         );
   }
 // -----------------------------------------------------------------------------
-  static DateTime createClock({@required int hour, @required int minute, int second}){
+  DateTime createClock({@required int hour, @required int minute, int second}){
     return
       createDateTime(
         year: DateTime.now().toLocal().year,
@@ -202,7 +200,7 @@ abstract class Timers {
       );
   }
 // -----------------------------------------------------------------------------
-  static DateTime createDateAndClock({@required int year, @required int month, @required int day, @required int hour, @required int minute, int second}){
+  DateTime createDateAndClock({@required int year, @required int month, @required int day, @required int hour, @required int minute, int second}){
     return
       createDateTime(
         year: year,
@@ -216,7 +214,7 @@ abstract class Timers {
       );
   }
 // -----------------------------------------------------------------------------
-  static int getTimeDifferenceInSeconds({DateTime from, DateTime to}){
+  int getTimeDifferenceInSeconds({DateTime from, DateTime to}){
 
     // print('from is : $from');
     // print('to is : $to');
@@ -224,34 +222,34 @@ abstract class Timers {
     return (to.difference(from).inSeconds);
   }
 // -----------------------------------------------------------------------------
-  static int getTimeDifferenceInMinutes({DateTime from, DateTime to}){
+  int getTimeDifferenceInMinutes({DateTime from, DateTime to}){
     return (to.difference(from).inMinutes);
   }
 // -----------------------------------------------------------------------------
-  static int getTimeDifferenceInHours({DateTime from, DateTime to}){
+  int getTimeDifferenceInHours({DateTime from, DateTime to}){
     return (to.difference(from).inHours);
   }
 // -----------------------------------------------------------------------------
-  static int getTimeDifferenceInDays({DateTime from, DateTime to}){
+  int getTimeDifferenceInDays({DateTime from, DateTime to}){
     return (to.difference(from).inDays);
   }
 // -----------------------------------------------------------------------------
-  static int getTimeDifferenceInWeeks({DateTime from, DateTime to}){
+  int getTimeDifferenceInWeeks({DateTime from, DateTime to}){
     final int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
     return (_differenceInDays / 7).floor();
   }
 // -----------------------------------------------------------------------------
-  static int getTimeDifferenceInMonths({DateTime from, DateTime to}){
+  int getTimeDifferenceInMonths({DateTime from, DateTime to}){
     final int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
     return (_differenceInDays / 30).floor();
   }
 // -----------------------------------------------------------------------------
-  static int getTimeDifferenceInYears({DateTime from, DateTime to}){
+  int getTimeDifferenceInYears({DateTime from, DateTime to}){
     final int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
     return (_differenceInDays / 365).floor();
   }
 // -----------------------------------------------------------------------------
-  static String getSuperTimeDifferenceString({@required DateTime from, @required DateTime to}) {
+  String getSuperTimeDifferenceString({@required DateTime from, @required DateTime to}) {
     String _string = '...';
 
     if (from != null){
@@ -302,31 +300,31 @@ abstract class Timers {
     return _string;
   }
 // -----------------------------------------------------------------------------
-  static String stringOnDateMonthYear({BuildContext context, DateTime time}){
+  String stringOnDateMonthYear({BuildContext context, DateTime time}){
     final String _day = '${(time).day}';
-    final String _monthString = Timers.getMonthNameByInt(context, (time).month);
+    final String _monthString = getMonthNameByInt(context, (time).month);
     final String _year = '${(time).year}';
     final String _timeString = 'on ${_day} ${_monthString} ${_year}';
 
     return _timeString;
   }
 // -----------------------------------------------------------------------------
-  static String getString_dd_month_yyyy({BuildContext context, DateTime time}){
+  String getString_dd_month_yyyy({BuildContext context, DateTime time}){
     final String _day = '${(time).day}';
-    final String _monthString = Timers.getMonthNameByInt(context, (time).month);
+    final String _monthString = getMonthNameByInt(context, (time).month);
     final String _year = '${(time).year}';
     final String _timeString = '${_day} ${_monthString} ${_year}';
     return _timeString;
   }
 // -----------------------------------------------------------------------------
-  static String getString_dd_I_mm_I_yyyy({BuildContext context, DateTime time}){
+  String getString_dd_I_mm_I_yyyy({BuildContext context, DateTime time}){
     final String _day = '${(time).day}';
     final String _year = '${(time).year}';
     final String _timeString = '${_day} / ${(time).month} / ${_year}';
     return _timeString;
   }
 // -----------------------------------------------------------------------------
-  static String getString_hh_i_mm({BuildContext context, DateTime time}){
+  String getString_hh_i_mm({BuildContext context, DateTime time}){
     final String _hour = DateFormat("h").format(time);
     final String _minute = '${(time).minute}';
     final String _ampm = DateFormat("a").format(time);
@@ -335,22 +333,22 @@ abstract class Timers {
     return _timeString;
   }
 // -----------------------------------------------------------------------------
-  static String monthYearStringer(BuildContext context, DateTime time){
+  String monthYearStringer(BuildContext context, DateTime time){
     return
-      '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${Timers.getMonthNameByInt(context, (time).month)} ${(time).year}';
+      '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${getMonthNameByInt(context, (time).month)} ${(time).year}';
   }
 // -----------------------------------------------------------------------------
-  static String dayMonthYearStringer(BuildContext context, DateTime time){
+  String dayMonthYearStringer(BuildContext context, DateTime time){
     return
-      '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${(time).day} ${Timers.getMonthNameByInt(context, (time).month)} ${(time).year}';
+      '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${(time).day} ${getMonthNameByInt(context, (time).month)} ${(time).year}';
   }
 // -----------------------------------------------------------------------------
-  static String hourMinuteSecondStringer(DateTime time){
+  String hourMinuteSecondStringer(DateTime time){
     return
       '${time.hour}:${time.minute}:${time.second}';
   }
 // -----------------------------------------------------------------------------
-  static String hourMinuteSecondListOfStrings(List<DateTime> times){
+  String hourMinuteSecondListOfStrings(List<DateTime> times){
     String _output = '';
 
     for (int i = 0; i<times.length; i++){
@@ -359,7 +357,7 @@ abstract class Timers {
     return _output;
   }
 // -----------------------------------------------------------------------------
-  static String hourMinuteSecondListOfStringsWithIndexes(List<DateTime> times, List<int> indexes){
+  String hourMinuteSecondListOfStringsWithIndexes(List<DateTime> times, List<int> indexes){
     String _output = '';
 
     for (int i = 0; i<times.length; i++){
@@ -374,7 +372,7 @@ abstract class Timers {
 // -----------------------------------------------------------------------------
 
 
-  static String tempCipherDateTimeToString(DateTime dateTime){
+  String tempCipherDateTimeToString(DateTime dateTime){
     if(dateTime == null){
       return null;
     } else {
@@ -382,15 +380,13 @@ abstract class Timers {
     }
   }
 
-  static DateTime tempDecipherDateTimeString(String dateTimeString){
+  DateTime tempDecipherDateTimeString(String dateTimeString){
     if (dateTimeString == null){
       return null;
     } else {
       return dateFormat?.parse(dateTimeString);
     }
   }
-
-}
 
 /*
 

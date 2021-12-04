@@ -1,5 +1,5 @@
 import 'package:bldrs/controllers/drafters/scrollers.dart' as Scrollers;
-import 'package:bldrs/controllers/drafters/tracers.dart';
+import 'package:bldrs/controllers/drafters/tracers.dart' as Tracer;
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_headline.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/header_shadow.dart';
