@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/borderers.dart';
+import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/views/widgets/specific/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:flutter/material.dart';
 
