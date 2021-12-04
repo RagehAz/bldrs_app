@@ -134,7 +134,12 @@ import 'package:flutter/material.dart';
   /// double markerScale;
   /// bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
   /// if (isIOS){markerScale = 0.7;}else{markerScale = 1;}
-  String imageDir(String prefix, String fileName, double pixelRatio, bool isIOS) {
+  String imageDir({
+    @required String prefix,
+    @required String fileName,
+    @required double pixelRatio,
+    @required bool isIOS,
+  }) {
     String directory = '/';
     if (!isIOS) {
       if (pixelRatio >= 1.5) {

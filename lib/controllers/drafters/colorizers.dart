@@ -37,7 +37,7 @@ import 'package:image/image.dart' as img;
     return followBTGradient;
   }
 // -----------------------------------------------------------------------------
-  ui.ImageFilter superBlur(bool trigger){
+  ui.ImageFilter superBlur({@required bool trigger}){
     final double blueValue = trigger == true ? 8 : 0;
     final ui.ImageFilter blur = ui.ImageFilter.blur(sigmaX: blueValue, sigmaY: blueValue);
     return blur;
@@ -47,7 +47,7 @@ import 'package:image/image.dart' as img;
   /// child: ColorFiltered(
   ///     colorFilter: superDesaturation(blackAndWhite),
   ///     child: ,
-  ColorFilter superDesaturation(bool isItBlackAndWhite){
+  ColorFilter superDesaturation({@required bool isItBlackAndWhite}){
     final Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.grey225 : Colorz.nothing;
     return ColorFilter.mode(
         imageSaturationColor,

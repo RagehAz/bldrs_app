@@ -63,7 +63,10 @@ class InfoPage extends StatelessWidget {
     // double _peopleIconSize = flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 0.7;
     // double _peopleNameHeight = _peopleBubbleBoxHeight - _peopleIconSize;
 
-    final double _headerHeight = FlyerBox.headerBoxHeight(false, flyerBoxWidth);
+    final double _headerHeight = FlyerBox.headerBoxHeight(
+        bzPageIsOn: false,
+        flyerBoxWidth: flyerBoxWidth,
+    );
 
     const EdgeInsets _bubbleMargins = const EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
     // double _cornerSmall = flyerBoxWidth * Ratioz.xxflyerTopCorners;

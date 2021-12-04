@@ -267,7 +267,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
                                 Container(
                                   width: _clearDialogWidth,
-                                  height: FlyerBox.headerStripHeight(false, _clearDialogWidth),
+                                  height: FlyerBox.headerStripHeight(bzPageIsOn: false, flyerBoxWidth: _clearDialogWidth),
                                   child: Column(
 
                                     children: <Widget>[

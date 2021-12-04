@@ -208,7 +208,7 @@ class BalloonComponents extends StatelessWidget {
             height: balloonWidth,
             color: _balloonColor,
             child: ColorFiltered(
-                colorFilter: Colorizer.superDesaturation(blackAndWhite),
+                colorFilter: Colorizer.superDesaturation(isItBlackAndWhite: blackAndWhite),
                 child:
                 loading == true?
                 Loading(loading: loading,)
