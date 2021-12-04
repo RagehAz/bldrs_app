@@ -73,7 +73,7 @@ class Localizer{
         input: code,
       );
 
-      print('changed local language and firestore.user[\'language\']  updated to $code');
+      print("changed local language and firestore.user[\'language\']  updated to $code");
     }
 
   }

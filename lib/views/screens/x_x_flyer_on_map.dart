@@ -68,9 +68,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     await initialize();
     print('trying to get user location aho');
     currentLocation = await location.getLocation();
-    print('getlocation function finished aho and processing remaining functions');
+    print('get location function finished aho and processing remaining functions');
     if (currentLocation == null) {
-      print('Counldn\'t get current User Location');
+      print("Counldn\'t get current User Location");
       return;
     }
     _initialCameraPosition = CameraPosition(

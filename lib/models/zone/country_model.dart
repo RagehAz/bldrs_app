@@ -145,7 +145,7 @@ class CountryModel{
 
       final String _countryNameTrimmed9 = TextMod.replaceAllCharactersWith(
         input: _countryNameTrimmed8,
-        CharacterToReplace: '\'',
+        CharacterToReplace: "\'",
         replacement: '',
       );
 
