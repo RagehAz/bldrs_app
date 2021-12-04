@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:bldrs/controllers/drafters/colorizers.dart';
-import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/colorizers.dart' as Colorizer;
+import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/mappers.dart';
 import 'package:bldrs/controllers/drafters/numeric.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';

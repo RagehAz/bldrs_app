@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/device_checkers.dart';
+import 'package:bldrs/controllers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/controllers/notifications/audioz.dart';
 import 'package:bldrs/controllers/notifications/noti_ops.dart';
 import 'package:bldrs/controllers/notifications/test_screens/second_noti_test_screen.dart';

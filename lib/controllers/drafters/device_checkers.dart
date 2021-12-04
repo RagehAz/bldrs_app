@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 
-abstract class DeviceChecker{
+import 'package:flutter/material.dart';
+
 // -----------------------------------------------------------------------------
-  static bool deviceIsIOS(){
+  bool deviceIsIOS(){
     bool _isIOS;
 
     if (Platform.isIOS == true){
@@ -17,7 +17,7 @@ abstract class DeviceChecker{
     return _isIOS;
   }
 // -----------------------------------------------------------------------------
-  static bool deviceIsAndroid(){
+  bool deviceIsAndroid(){
     bool _inAndroid;
 
     if (Platform.isAndroid == true){
@@ -31,7 +31,7 @@ abstract class DeviceChecker{
     return _inAndroid;
   }
 // -----------------------------------------------------------------------------
-  static bool deviceIsLandscape(BuildContext context){
+  bool deviceIsLandscape(BuildContext context){
     final MediaQueryData _mediaQuery = MediaQuery.of(context);
 
     bool _isLandscape;
@@ -47,4 +47,3 @@ abstract class DeviceChecker{
     return _isLandscape;
   }
 // -----------------------------------------------------------------------------
-}

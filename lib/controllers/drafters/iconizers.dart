@@ -16,9 +16,8 @@ import 'package:bldrs/views/widgets/general/buttons/balloons/path_searching_user
 import 'package:bldrs/views/widgets/general/buttons/balloons/path_selling_user.dart';
 import 'package:flutter/material.dart';
 
-abstract class Iconizer{
 // -----------------------------------------------------------------------------
-  static String sectionIconOn (Section section){
+  String sectionIconOn (Section section){
     return
       section == Section.properties ? Iconz.BxPropertiesOn :
 
@@ -32,7 +31,7 @@ abstract class Iconizer{
       Iconz.Bz;
   }
 // -----------------------------------------------------------------------------
-  static String sectionIconOff (Section section){
+  String sectionIconOff (Section section){
     return
       section == Section.properties ? Iconz.BxPropertiesOff :
 
@@ -48,21 +47,21 @@ abstract class Iconizer{
       Iconz.Bz;
   }
 // -----------------------------------------------------------------------------
-  static String superArrowENRight (BuildContext context){
+  String superArrowENRight (BuildContext context){
     if (Wordz.textDirection(context) == 'ltr')
     {return Iconz.ArrowRight;}
     else
     {return Iconz.ArrowLeft;}
   }
 // -----------------------------------------------------------------------------
-  static String superArrowENLeft (BuildContext context){
+  String superArrowENLeft (BuildContext context){
     if (Wordz.textDirection(context) == 'ltr')
     {return Iconz.ArrowLeft;}
     else
     {return Iconz.ArrowRight;}
   }
 // -----------------------------------------------------------------------------
-  static String bzTypeIconOff (BzType bzType){
+  String bzTypeIconOff (BzType bzType){
     final String icon =
     bzType == BzType.developer ? Iconz.BxPropertiesOff :
     bzType == BzType.broker ? Iconz.BxPropertiesOff :
@@ -75,7 +74,7 @@ abstract class Iconizer{
     return icon;
   }
 // -----------------------------------------------------------------------------
-  static String bzTypeIconOn (BzType bzType){
+  String bzTypeIconOn (BzType bzType){
     final String icon =
     bzType == BzType.developer ? Iconz.BxPropertiesOn :
     bzType == BzType.broker ? Iconz.BxPropertiesOn :
@@ -88,7 +87,7 @@ abstract class Iconizer{
     return icon;
   }
 // -----------------------------------------------------------------------------
-  static String flyerTypeIconOn (FlyerType flyerType){
+  String flyerTypeIconOn (FlyerType flyerType){
     final String icon =
     flyerType == FlyerType.property ? Iconz.BxPropertiesOn :
     flyerType == FlyerType.design ? Iconz.BxDesignsOn :
@@ -100,7 +99,7 @@ abstract class Iconizer{
     return icon;
   }
 // -----------------------------------------------------------------------------
-  static String flyerTypeIconOff (FlyerType flyerType){
+  String flyerTypeIconOff (FlyerType flyerType){
     final String _icon =
     flyerType == FlyerType.property ? Iconz.BxPropertiesOff :
     flyerType == FlyerType.design ? Iconz.BxDesignsOff :
@@ -112,7 +111,7 @@ abstract class Iconizer{
     return _icon;
   }
 // -----------------------------------------------------------------------------
-  static CustomClipper<Path> userBalloon(UserStatus userType) {
+  CustomClipper<Path> userBalloon(UserStatus userType) {
     final CustomClipper<Path> userBalloon =
     userType == UserStatus.normal ? NormalCircle() :
     userType == UserStatus.searching ? SearchingThinking() :
@@ -135,7 +134,7 @@ abstract class Iconizer{
   /// double markerScale;
   /// bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
   /// if (isIOS){markerScale = 0.7;}else{markerScale = 1;}
-  static String imageDir(String prefix, String fileName, double pixelRatio, bool isIOS) {
+  String imageDir(String prefix, String fileName, double pixelRatio, bool isIOS) {
     String directory = '/';
     if (!isIOS) {
       if (pixelRatio >= 1.5) {
@@ -151,15 +150,15 @@ abstract class Iconizer{
     return '$prefix$directory$fileName';
   }
 // -----------------------------------------------------------------------------
-  static String superBackIcon(BuildContext context){
+  String superBackIcon(BuildContext context){
     return appIsLeftToRight(context) ? Iconz.Back : Iconz.BackArabic;
   }
 // -----------------------------------------------------------------------------
-  static String superInverseBackIcon(BuildContext context){
+  String superInverseBackIcon(BuildContext context){
     return appIsLeftToRight(context) ? Iconz.BackArabic : Iconz.Back;
   }
 // -----------------------------------------------------------------------------
-  static String superContactIcon(ContactType contactType){
+  String superContactIcon(ContactType contactType){
     switch (contactType){
       case ContactType.phone      :    return  Iconz.ComPhone;  break;
       case ContactType.email      :    return  Iconz.ComEmail;  break;
@@ -175,7 +174,7 @@ abstract class Iconizer{
     }
   }
 // -----------------------------------------------------------------------------
-  static bool iconIsContinent(String icon){
+  bool iconIsContinent(String icon){
     bool _iconIsContinent;
 
     if (icon == Iconz.ContAfrica ||
@@ -194,7 +193,7 @@ abstract class Iconizer{
     return _iconIsContinent;
   }
 // -----------------------------------------------------------------------------
-  static String getContinentIcon(Continent continent){
+  String getContinentIcon(Continent continent){
 
     final String _name = continent.name;
 
@@ -210,7 +209,7 @@ abstract class Iconizer{
 
   }
 // -----------------------------------------------------------------------------
-  static const List<Map<String, dynamic>> continentsMaps = const <Map<String, dynamic>>[
+  const List<Map<String, dynamic>> continentsMaps = const <Map<String, dynamic>>[
     <String, dynamic>{
       'name' : 'Africa',
       'icon' : Iconz.ContAfrica,
@@ -237,9 +236,8 @@ abstract class Iconizer{
     },
   ];
 // -----------------------------------------------------------------------------
-  static String valueIsNotNull(dynamic value){
+  String valueIsNotNull(dynamic value){
     final String _icon = value == null ? Iconz.XSmall : Iconz.Check;
     return _icon;
   }
 // -----------------------------------------------------------------------------
-}

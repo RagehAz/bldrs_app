@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/controllers/drafters/animators.dart' as Animators;
-import 'package:bldrs/controllers/drafters/colorizers.dart';
-import 'package:bldrs/controllers/drafters/imagers.dart';
+import 'package:bldrs/controllers/drafters/colorizers.dart' as Colorizer;
+import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/keyboarders.dart';
 import 'package:bldrs/controllers/drafters/launchers.dart';
 import 'package:bldrs/controllers/drafters/sliders.dart';

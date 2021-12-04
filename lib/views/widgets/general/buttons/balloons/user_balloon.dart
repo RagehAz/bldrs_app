@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/drafters/colorizers.dart';
-import 'package:bldrs/controllers/drafters/iconizers.dart';
+import 'package:bldrs/controllers/drafters/colorizers.dart' as Colorizer;
+import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/controllers/drafters/shadowers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/user/user_model.dart';
