@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/models/secondary_models/link_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';

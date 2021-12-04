@@ -4,14 +4,14 @@ import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/providers/streamers/questions_streamer.dart';
 import 'package:bldrs/views/widgets/general/bubbles/chat_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/chat/chat_model.dart';
-import 'package:bldrs/xxx_LABORATORY/ask/chat/chat_ops.dart';
+import 'package:bldrs/xxx_LABORATORY/ask/chat/chat_ops.dart' as ChatOps;
 import 'package:bldrs/xxx_LABORATORY/ask/chat/message_model.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +36,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final String _currentUserID = superUserID();
+  final String _currentUserID = FireAuthOps.superUserID();
   TextEditingController _msgController = new TextEditingController();
   // List<MessageModel> _messages;
 

@@ -4,16 +4,13 @@ import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/specs/data_creator.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 
-
-abstract class RawSpecs {
-
-  static const String newSaleID = 'contractType_NewSale';
-  static const String resaleID = 'contractType_Resale';
-  static const String rentID = 'contractType_Rent';
+  const String newSaleID = 'contractType_NewSale';
+  const String resaleID = 'contractType_Resale';
+  const String rentID = 'contractType_Rent';
 
   // -------------------------------------------------------------------------
   /// STYLE ANATOMY
-  static const Chain style = const Chain(
+  const Chain style = const Chain(
     id: 'style',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Design Style'), Name(code: 'ar', value: 'الطراز التصميمي')],
@@ -52,7 +49,7 @@ abstract class RawSpecs {
       KW(id: 'arch_style_vintage', names: <Name>[Name(code: 'en', value: 'Vintage'), Name(code: 'ar', value: 'عتيق')],),
     ],
   );
-  static const Chain color = const Chain(
+  const Chain color = const Chain(
     id: 'color',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Color'), Name(code: 'ar', value: 'اللون')],
@@ -71,7 +68,7 @@ abstract class RawSpecs {
   );
   // -------------------------------------------------------------------------
   /// PRICING ANATOMY
-  static const Chain contractType = const Chain(
+  const Chain contractType = const Chain(
     id: 'contractType',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Contract Type'), Name(code: 'ar', value: 'نوع التعاقد')],
@@ -81,7 +78,7 @@ abstract class RawSpecs {
       KW(id: rentID, names: <Name>[Name(code: 'en', value: 'Rent'), Name(code: 'ar', value: 'للإيجار')],), // if you change ID revise specs_picker_screen
     ],
   );
-  static const Chain paymentMethod = const Chain(
+  const Chain paymentMethod = const Chain(
     id: 'paymentMethod',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Payment Method'), Name(code: 'ar', value: 'طريقة السداد')],
@@ -90,19 +87,19 @@ abstract class RawSpecs {
       KW(id: 'payment_installments', names: <Name>[Name(code: 'en', value: 'Installments'), Name(code: 'ar', value: 'على دفعات')],),
     ],
   );
-  static const Chain price = const Chain(
+  const Chain price = const Chain(
     id: 'price',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'price'), Name(code: 'ar', value: 'السعر')],
     sons: DataCreator.price,
   );
-  static const Chain currency = const Chain(
+  const Chain currency = const Chain(
     id: 'currency',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Currency'), Name(code: 'ar', value: 'العملة')],
     sons: DataCreator.currency,
   );
-  static const Chain unitPriceInterval = const Chain(
+  const Chain unitPriceInterval = const Chain(
     id: 'unitPriceInterval',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Standard interval'), Name(code: 'ar', value: 'مقياس الفترة')],
@@ -114,19 +111,19 @@ abstract class RawSpecs {
       KW(id: 'perYear', names: <Name>[Name(code: 'en', value: 'per year'), Name(code: 'ar', value: 'في السنة')],),
     ],
   );
-  static const Chain numberOfInstallments = const Chain(
+  const Chain numberOfInstallments = const Chain(
     id: 'numberOfInstallments',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Number of Installments'), Name(code: 'ar', value: 'عدد الدفعات')],
     sons: DataCreator.integerIncrementer,
   );
-  static const Chain installmentsDuration = const Chain(
+  const Chain installmentsDuration = const Chain(
     id: 'installmentsDuration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Installments duration'), Name(code: 'ar', value: 'مدة الدفعات')],
     sons: DataCreator.integerIncrementer,
   );
-  static const Chain installmentsDurationUnit = const Chain(
+  const Chain installmentsDurationUnit = const Chain(
     id: 'installmentsDurationUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Installments duration unit'), Name(code: 'ar', value: 'مقياس مدة الدفعات')],
@@ -139,13 +136,13 @@ abstract class RawSpecs {
   );
   // -------------------------------------------------------------------------
   /// TIME ANATOMY
-  static const Chain duration = const Chain(
+  const Chain duration = const Chain(
     id: 'duration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Duration'), Name(code: 'ar', value: 'الزمن')],
     sons: DataCreator.integerIncrementer,
   );
-  static const Chain durationUnit = const Chain(
+  const Chain durationUnit = const Chain(
     id: 'durationUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Duration unit'), Name(code: 'ar', value: 'مقياس الزمن')],
@@ -160,13 +157,13 @@ abstract class RawSpecs {
   );
   // -------------------------------------------------------------------------
   /// AREAL ANATOMY
-  static const Chain propertyArea = const Chain(
+  const Chain propertyArea = const Chain(
     id: 'propertyArea',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Area'), Name(code: 'ar', value: 'مساحة العقار')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain propertyAreaUnit = const Chain(
+  const Chain propertyAreaUnit = const Chain(
     id: 'propertyAreaUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Area Unit'), Name(code: 'ar', value: 'وحدة قياس مساحة العقار')],
@@ -175,13 +172,13 @@ abstract class RawSpecs {
       KW(id: 'square_feet', names: <Name>[Name(code: 'en', value: 'ft²'), Name(code: 'ar', value: 'قدم²')],),
     ],
   );
-  static const Chain lotArea = const Chain(
+  const Chain lotArea = const Chain(
     id: 'plotArea',
     names: <Name>[Name(code: 'en', value: 'Lot Area'), Name(code: 'ar', value: 'مساحة قطعة الأرض')],
     icon: null,
     sons: DataCreator.doubleCreator,
   );
-  static const Chain lotAreaUnit = const Chain(
+  const Chain lotAreaUnit = const Chain(
     id: 'lotAreaUnit',
     names: <Name>[Name(code: 'en', value: 'Lot Area Unit'), Name(code: 'ar', value: 'وحدة قياس مساحة أرض العقار')],
     icon: null,
@@ -196,7 +193,7 @@ abstract class RawSpecs {
   );
   // -------------------------------------------------------------------------
   /// PROPERTY GENERAL ANATOMY
-  static const Chain propertyForm = const Chain(
+  const Chain propertyForm = const Chain(
     id: 'propertyForm',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Form'), Name(code: 'ar', value: 'هيئة العقار')],
@@ -209,7 +206,7 @@ abstract class RawSpecs {
       KW(id: 'pf_mobile', names: <Name>[Name(code: 'en', value: 'Mobile'), Name(code: 'ar', value: 'منشأ متنقل')],),
     ],
   );
-  static const Chain propertyLicense = const Chain(
+  const Chain propertyLicense = const Chain(
     id: 'propertyLicense',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property License'), Name(code: 'ar', value: 'رخصة العقار')],
@@ -228,7 +225,7 @@ abstract class RawSpecs {
   );
   // -------------------------------------------------------------------------
   /// PROPERTY SPATIAL ANATOMY
-  static const Chain propertySpaces = const Chain(
+  const Chain propertySpaces = const Chain(
     id: 'group_space_type',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Space Type'), Name(code: 'ar', value: 'نوع الفراغ')],
@@ -348,25 +345,25 @@ abstract class RawSpecs {
       ),
     ],
   );
-  static const Chain propertyFloorNumber = const Chain(
+  const Chain propertyFloorNumber = const Chain(
     id: 'propertyFloorNumber',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Floor Number'), Name(code: 'ar', value: 'رقم دور العقار')],
     sons: DataCreator.integerIncrementer,
   );
-  static const Chain propertyDedicatedParkingLotsCount = const Chain(
+  const Chain propertyDedicatedParkingLotsCount = const Chain(
     id: 'propertyDedicatedParkingSpaces',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Number of property dedicated parking lots'), Name(code: 'ar', value: 'عدد مواقف السيارات المخصصة للعقار')],
     sons: DataCreator.integerIncrementer,
   );
-  static const Chain propertyNumberOfBedrooms = const Chain(
+  const Chain propertyNumberOfBedrooms = const Chain(
     id: 'propertyNumberOfBedrooms',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Number of Bedrooms'), Name(code: 'ar', value: 'عدد غرف نوم العقار')],
     sons: DataCreator.integerIncrementer,
   );
-  static const Chain propertyNumberOfBathrooms = const Chain(
+  const Chain propertyNumberOfBathrooms = const Chain(
     id: 'propertyNumberOfBathrooms',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Number of bathrooms'), Name(code: 'ar', value: 'عدد حمامات العقار')],
@@ -374,7 +371,7 @@ abstract class RawSpecs {
   );
   // -------------------------------------------------------------------------
   /// PROPERTY FEATURES ANATOMY
-  static const Chain propertyView = const Chain(
+  const Chain propertyView = const Chain(
     id: 'propertyView',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property View'), Name(code: 'ar', value: 'المنظر المطل عليه  العقار')],
@@ -394,7 +391,7 @@ abstract class RawSpecs {
       KW(id: 'view_pool', names: <Name>[Name(code: 'en', value: 'Pool view'), Name(code: 'ar', value: 'حمام سباحة')],),
     ],
   );
-  static const Chain propertyIndoorFeatures = const Chain(
+  const Chain propertyIndoorFeatures = const Chain(
     id: 'sub_ppt_feat_indoor',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Indoor Features'), Name(code: 'ar', value: 'خواص العقار الداخلية')],
@@ -413,7 +410,7 @@ abstract class RawSpecs {
       KW(id: 'pFeature_tv', names: <Name>[Name(code: 'en', value: 'Satellite / Cable TV'), Name(code: 'ar', value: 'قمر صناعي / تلفزيون مركزي')],),
     ],
   );
-  static const Chain propertyFinishingLevel = const Chain(
+  const Chain propertyFinishingLevel = const Chain(
     id: 'sub_ppt_feat_finishing',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Finishing level'), Name(code: 'ar', value: 'مستوى التشطيب')],
@@ -428,25 +425,25 @@ abstract class RawSpecs {
   );
   // -------------------------------------------------------------------------
   /// BUILDING FEATURES ANATOMY
-  static const Chain buildingNumberOfFloors = const Chain(
+  const Chain buildingNumberOfFloors = const Chain(
     id: 'buildingNumberOfFloors',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Building number of floors'), Name(code: 'ar', value: 'عدد أدوار المبنى')],
     sons: DataCreator.integerIncrementer, // TASK : define range 0 - g163
   );
-  static const Chain buildingAgeInYears = const Chain(
+  const Chain buildingAgeInYears = const Chain(
     id: 'buildingAge',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Building Age'), Name(code: 'ar', value: 'عمر المنشأ')],
     sons: DataCreator.integerIncrementer,
   );
-  static const Chain buildingTotalParkingLotsCount = const Chain(
+  const Chain buildingTotalParkingLotsCount = const Chain(
     id: 'buildingTotalParkingLotsCount',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Total Building parking lots count'), Name(code: 'ar', value: 'مجموع عدد مواقف السيارات للمبنى')],
     sons: DataCreator.integerIncrementer,
   );
-  static const Chain buildingTotalUnitsCount = const Chain(
+  const Chain buildingTotalUnitsCount = const Chain(
     id: 'buildingTotalPropertiesCount',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Total Building units count'), Name(code: 'ar', value: 'مجموع عدد وحدات المبنى')],
@@ -454,7 +451,7 @@ abstract class RawSpecs {
   );
   // -------------------------------------------------------------------------
   /// COMMUNITY FEATURES ANATOMY
-  static const Chain inACompound = const Chain(
+  const Chain inACompound = const Chain(
     id: 'sub_ppt_feat_compound',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'In a Compound'), Name(code: 'ar', value: 'في مجمع سكني')],
@@ -463,7 +460,7 @@ abstract class RawSpecs {
       KW(id: 'not_in_compound', names: <Name>[Name(code: 'en', value: 'Not in a compound'), Name(code: 'ar', value: 'ليست في مجمع سكني')],),
     ],
   );
-  static const Chain amenities = const Chain(
+  const Chain amenities = const Chain(
     id: 'sub_ppt_feat_amenities',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Amenities'), Name(code: 'ar', value: 'منشآت خدمية ملحقة')],
@@ -485,7 +482,7 @@ abstract class RawSpecs {
       KW(id: 'am_lobby', names: <Name>[Name(code: 'en', value: 'Building lobby'), Name(code: 'ar', value: 'ردهة مدخل للمبنى')],),
     ],
   );
-  static const Chain communityServices = const Chain(
+  const Chain communityServices = const Chain(
     id: 'sub_ppt_feat_services',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Community Services'), Name(code: 'ar', value: 'خدمات المجتمع')],
@@ -504,20 +501,20 @@ abstract class RawSpecs {
   );
   // -------------------------------------------------------------------------
   /// CONSTRUCTION ACTIVITY ANATOMY
-  // static const Chain projectCost = const Chain(
+  // const Chain projectCost = const Chain(
   //   id: 'projectCost',
   //   icon: null,
   //   names: <Name>[Name(code: 'en', value: 'Project cost'), Name(code: 'ar', value: 'تكلفة المشروع')],
   //   sons: DataCreator.numberKeyboard,
   // );
 
-  static Chain constructionActivities = Chain(
+  Chain constructionActivities = Chain(
     id: 'constructionActivities',
     icon: null,
     names: const <Name>[Name(code: 'en', value: 'Project construction activities'), Name(code: 'ar', value: 'بنود تنفيذ المشروع')],
     sons: ChainCrafts.chain.sons,
   );
-  static const Chain constructionActivityMeasurementMethod = const Chain(
+  const Chain constructionActivityMeasurementMethod = const Chain(
     id: 'constructionActivityMeasurementMethod',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Measurement unit'), Name(code: 'ar', value: 'أسلوب القياس')],
@@ -532,43 +529,43 @@ abstract class RawSpecs {
   );
   // -------------------------------------------------------------------------
   /// SIZING ANATOMY
-  static const Chain width = const Chain(
+  const Chain width = const Chain(
     id: 'width',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Width'), Name(code: 'ar', value: 'العرض')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain length = const Chain(
+  const Chain length = const Chain(
     id: 'length',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Length'), Name(code: 'ar', value: 'الطول')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain height = const Chain(
+  const Chain height = const Chain(
     id: 'height',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Height'), Name(code: 'ar', value: 'الارتفاع')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain thickness = const Chain(
+  const Chain thickness = const Chain(
     id: 'thickness',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Thickness'), Name(code: 'ar', value: 'السمك')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain diameter = const Chain(
+  const Chain diameter = const Chain(
     id: 'diameter',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Diameter'), Name(code: 'ar', value: 'القطر')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain radius = const Chain(
+  const Chain radius = const Chain(
     id: 'radius',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Radius'), Name(code: 'ar', value: 'نصف القطر')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain linearMeasurementUnit = const Chain(
+  const Chain linearMeasurementUnit = const Chain(
     id: 'linearMeasureUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Linear measurement unit'), Name(code: 'ar', value: 'وحدة القياس الطولي')],
@@ -584,13 +581,13 @@ abstract class RawSpecs {
       KW(id: 'mile', names: <Name>[Name(code: 'en', value: 'mile'), Name(code: 'ar', value: 'ميل')],),
     ],
   );
-  static const Chain footPrint = const Chain(
+  const Chain footPrint = const Chain(
     id: 'footPrint',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Footprint'), Name(code: 'ar', value: 'مساحة الأرضية')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain areaMeasureUnit = const Chain(
+  const Chain areaMeasureUnit = const Chain(
     id: 'areaMeasureUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Area measurement unit'), Name(code: 'ar', value: 'وحدة القياس المساحة')],
@@ -604,13 +601,13 @@ abstract class RawSpecs {
 
     ],
   );
-  static const Chain volume = const Chain(
+  const Chain volume = const Chain(
     id: 'volume',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Volume'), Name(code: 'ar', value: 'الحجم')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain volumeMeasurementUnit = const Chain(
+  const Chain volumeMeasurementUnit = const Chain(
     id: 'volumeMeasurementUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Volume measurement unit'), Name(code: 'ar', value: 'وحدة قياس الحجم')],
@@ -625,13 +622,13 @@ abstract class RawSpecs {
       KW(id: 'cubic_feet', names: <Name>[Name(code: 'en', value: 'feet³'), Name(code: 'ar', value: 'قدم مكعب')],),
      ],
   );
-  static const Chain weight = const Chain(
+  const Chain weight = const Chain(
     id: 'weight',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Weight'), Name(code: 'ar', value: 'الوزن')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain weightMeasurementUnit = const Chain(
+  const Chain weightMeasurementUnit = const Chain(
     id: 'weightMeasurementUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Weight measurement unit'), Name(code: 'ar', value: 'وحدة قياس الوزن')],
@@ -643,13 +640,13 @@ abstract class RawSpecs {
       KW(id: 'kilogram', names: <Name>[Name(code: 'en', value: 'kg'), Name(code: 'ar', value: 'كج')],),
     ],
   );
-  static const Chain count = const Chain(
+  const Chain count = const Chain(
     id: 'count',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Count'), Name(code: 'ar', value: 'العدد')],
     sons: DataCreator.integerIncrementer,
   );
-  static const Chain size = const Chain (
+  const Chain size = const Chain (
     id: 'size',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Size'), Name(code: 'ar', value: 'المقاس')],
@@ -667,19 +664,19 @@ abstract class RawSpecs {
   );
   // ------------------------------------------
   /// ELECTRICAL ANATOMY
-  static const Chain wattage = const Chain(
+  const Chain wattage = const Chain(
     id: 'wattage',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Watt'), Name(code: 'ar', value: 'وات')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain voltage = const Chain(
+  const Chain voltage = const Chain(
     id: 'voltage',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'volt'), Name(code: 'ar', value: 'فولت')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain ampere = const Chain(
+  const Chain ampere = const Chain(
     id: 'ampere',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'amps'), Name(code: 'ar', value: 'أمبير')],
@@ -687,25 +684,25 @@ abstract class RawSpecs {
   );
   // ------------------------------------------
   /// LOGISTICS ANATOMY
-  static const Chain inStock = const Chain(
+  const Chain inStock = const Chain(
     id: 'inStock',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'In Stock'), Name(code: 'ar', value: 'متوفر في المخزون')],
     sons: DataCreator.boolSwitch,
   );
-  static const Chain deliveryAvailable = const Chain(
+  const Chain deliveryAvailable = const Chain(
     id: 'deliveryAvailable',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Available delivery'), Name(code: 'ar', value: 'التوصيل متوفر')],
     sons: DataCreator.boolSwitch,
   );
-  static const Chain deliveryDuration = const Chain(
+  const Chain deliveryDuration = const Chain(
     id: 'deliveryMinDuration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Delivery duration'), Name(code: 'ar', value: 'فترة التوصيل')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain deliveryDurationUnit = const Chain(
+  const Chain deliveryDurationUnit = const Chain(
     id: 'deliveryDurationUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Delivery duration unit'), Name(code: 'ar', value: 'مقياس فترة التوصيل')],
@@ -718,19 +715,19 @@ abstract class RawSpecs {
   );
   // ------------------------------------------
   /// PRODUCT INFO
-  static const Chain madeIn = const Chain(
+  const Chain madeIn = const Chain(
     id: 'madeIn',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Made in'), Name(code: 'ar', value: 'صنع في')],
     sons: null, // getCountriesAsKeywords()
   );
-  static const Chain warrantyDuration = const Chain(
+  const Chain warrantyDuration = const Chain(
     id: 'insuranceDuration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Warranty duration'), Name(code: 'ar', value: 'مدة الضمان')],
     sons: DataCreator.doubleCreator,
   );
-  static const Chain warrantyDurationUnit = const Chain(
+  const Chain warrantyDurationUnit = const Chain(
     id: 'warrantyDurationUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Warranty duration unit'), Name(code: 'ar', value: 'وحدة قياس مدة الضمان')],
@@ -742,4 +739,3 @@ abstract class RawSpecs {
     ],
   );
 // ------------------------------------------
-}

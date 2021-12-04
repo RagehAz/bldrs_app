@@ -13,9 +13,8 @@ enum Section{
   equipment,
 }
 // -----------------------------------------------------------------------------
-abstract class SectionClass{
 
-  static const List<Section> SectionsList = const <Section>[
+  const List<Section> SectionsList = const <Section>[
     Section.properties,
     Section.designs,
     Section.projects,
@@ -24,7 +23,7 @@ abstract class SectionClass{
     Section.equipment,
   ];
 // -----------------------------------------------------------------------------
-  static Section decipherSection (int x){
+  Section decipherSection (int x){
     switch (x){
       case 1:   return   Section.properties;       break;
       case 4:   return   Section.designs;             break;
@@ -36,7 +35,7 @@ abstract class SectionClass{
     }
   }
 // -----------------------------------------------------------------------------
-  static int cipherSection (Section x){
+  int cipherSection (Section x){
     switch (x){
       case Section.properties :    return 1; break;
       case Section.designs :          return 4; break;
@@ -48,7 +47,7 @@ abstract class SectionClass{
     }
   }
 // -----------------------------------------------------------------------------
-  static Section getSectionByBzType(BzType bzType){
+  Section getSectionByBzType(BzType bzType){
     switch (bzType){
       case BzType.developer:    return   Section.properties;     break;
       case BzType.broker:       return   Section.properties;  break;
@@ -61,4 +60,3 @@ abstract class SectionClass{
     }
   }
 // -----------------------------------------------------------------------------
-}

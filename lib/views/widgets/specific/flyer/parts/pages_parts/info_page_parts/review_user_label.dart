@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
@@ -41,7 +41,7 @@ class ReviewUserLabel extends StatelessWidget {
 
         const Expander(),
 
-        if(tinyUser?.id == superUserID() && hasEditButton == true)
+        if(tinyUser?.id == FireAuthOps.superUserID() && hasEditButton == true)
         DreamBox(
           height: 30,
           width: 30,

@@ -24,7 +24,6 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 /// we should consider same scenario with other auth methods that have this conflict with existing signed up e-mail
 /// need to fix if user signed in with facebook previously,, use the existing proile and not overwrite the existing user profile data
 
-class FireAuthOps {
 // -----------------------------------------------------------------------------
 
   /// REFERENCES
@@ -33,7 +32,7 @@ class FireAuthOps {
 //   /// firebaseAuth instance
 //   final FirebaseAuth _auth = FirebaseAuth?.instance;
 // -----------------------------------------------------------------------------
-  static bool userIsSignedIn(){
+  bool userIsSignedIn(){
     bool _userIsSignedIn = false;
 
     if (superFirebaseUser() == null){
@@ -56,7 +55,7 @@ class FireAuthOps {
 
 // ---------------------------------------------------
   /// create firebase user
-  static Future<User> _createFirebaseUser({
+  Future<User> _createFirebaseUser({
     @required String email,
     @required String password,
   }) async {
@@ -77,7 +76,7 @@ class FireAuthOps {
 // ---------------------------------------------------
   /// TASK : fix this error
   /// deleteFirebaseUser : tryAndCatch ERROR : [firebase_auth/requires-recent-login] This operation is sensitive and requires recent authentication. Log in again before retrying this request.
-  static Future<bool> deleteFirebaseUser({
+  Future<bool> deleteFirebaseUser({
     @required BuildContext context,
     @required String userID,
   }) async {
@@ -149,7 +148,7 @@ class FireAuthOps {
 
 // ---------------------------------------------------
   /// sign in with email & password
-  static Future<dynamic> emailSignInOps({
+  Future<dynamic> emailSignInOps({
     @required BuildContext context,
     @required String email,
     @required String password,
@@ -212,7 +211,7 @@ class FireAuthOps {
   }
 // -----------------------------------------------------------------------------
   /// register with email & password
-  static Future<dynamic> emailRegisterOps({
+  Future<dynamic> emailRegisterOps({
     @required BuildContext context,
     @required ZoneModel currentZone,
     @required String email,
@@ -270,7 +269,7 @@ class FireAuthOps {
   }
 // -----------------------------------------------------------------------------
   /// sign out
-  static Future<void> emailSignOutOps(BuildContext context) async {
+  Future<void> emailSignOutOps(BuildContext context) async {
 
     try {
 
@@ -292,7 +291,7 @@ class FireAuthOps {
     }
   }
 // -----------------------------------------------------------------------------
-  static Future<dynamic> facebookSignInOps({
+  Future<dynamic> facebookSignInOps({
     @required BuildContext context,
     @required ZoneModel currentZone,
   }) async {
@@ -395,7 +394,7 @@ class FireAuthOps {
 
   }
 // -----------------------------------------------------------------------------
-  static Future<dynamic> googleSignInOps({
+  Future<dynamic> googleSignInOps({
     @required BuildContext context,
     @required ZoneModel currentZone,
   }) async {
@@ -586,7 +585,7 @@ class FireAuthOps {
   }
 // -----------------------------------------------------------------------------
   /// google sign out
-  static Future<bool> googleSignOutOps(BuildContext context) async {
+  Future<bool> googleSignOutOps(BuildContext context) async {
 
     bool _isSignedIn = true;
 
@@ -619,7 +618,7 @@ class FireAuthOps {
     return _isSignedIn;
   }
 // -----------------------------------------------------------------------------
-  static Future<void> signOut({
+  Future<void> signOut({
     @required BuildContext context,
     @required bool routeToUserChecker,
   }) async {
@@ -637,7 +636,7 @@ class FireAuthOps {
 // -----------------------------------------------------------------------------
 
   /// TASK : send email verification : not tested yet
-  static Future<void> sendVerificationEmail({@required BuildContext context}) async {
+  Future<void> sendVerificationEmail({@required BuildContext context}) async {
 
     await tryAndCatch(
       context: context,
@@ -669,7 +668,7 @@ class FireAuthOps {
     );
 
 }
-}
+
 // =============================================================================
   String superUserID(){
     final String userID = superFirebaseUser()?.uid;

@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/db/fire/ops/user_ops.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -75,7 +75,7 @@ class _ReviewBubbleState extends State<ReviewBubble> {
 
           _userModel = await UserFireOps.readUser(
             context: context,
-            userID: superUserID(),
+            userID: FireAuthOps.superUserID(),
           );
 
           _reviews = await FireFlyerOps.readAllReviews(

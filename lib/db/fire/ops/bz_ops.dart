@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
-import 'package:bldrs/db/fire/methods/storage.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/methods/storage.dart' as Storage;
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/db/fire/ops/user_ops.dart';
 import 'package:bldrs/models/bz/author_model.dart';
@@ -244,7 +244,7 @@ abstract class FireBzOps{
     }
 
     /// 2 - update authorPic if changed
-    final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(modifiedBz, superUserID());
+    final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(modifiedBz, FireAuthOps.superUserID());
     final String _authorID = _oldAuthor.userID;
 
     String _authorPicURL;

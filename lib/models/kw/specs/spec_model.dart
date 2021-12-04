@@ -1,8 +1,8 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/specs/data_creator.dart';
-import 'package:bldrs/models/kw/specs/raw_specs.dart';
-import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
+import 'package:bldrs/models/kw/specs/raw_specs.dart' as RawSpecs;
+import 'package:bldrs/models/kw/specs/spec_list_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:flutter/cupertino.dart';
 

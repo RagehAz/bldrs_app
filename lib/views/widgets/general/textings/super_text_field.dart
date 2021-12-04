@@ -107,7 +107,19 @@ class _SuperTextFieldState extends State<SuperTextField> {
     // print('$val, $_textDirection');
   }
 // -----------------------------------------------------------------------------
+  bool _autoFocusCheck(){
+    bool _isOn;
 
+    if (widget.autofocus == null){
+      _isOn = false;
+    }
+    else {
+      _isOn = true;
+    }
+
+    return _isOn;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -332,7 +344,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           cursorWidth: 2,
           cursorHeight: null,
           textAlign: _textAlign,
-          autofocus: widget.autofocus,
+          autofocus: _autoFocusCheck(),
         ),
       )
 
@@ -367,7 +379,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           cursorWidth: 2,
           cursorHeight: null,
           textAlign: _textAlign,
-          autofocus: widget.autofocus,
+          autofocus: _autoFocusCheck(),
           onSubmitted: (String val){
 
             if (widget.onSubmitted != null){

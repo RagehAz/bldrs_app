@@ -1,9 +1,10 @@
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/fire/ops/user_ops.dart';
-import 'package:bldrs/db/ldb/ldb_ops.dart';
+import 'package:bldrs/db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 
   // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 class UsersProvider extends ChangeNotifier {
@@ -91,7 +92,7 @@ class UsersProvider extends ChangeNotifier {
 
     UserModel _userModel;
 
-    final String _myUserID = superUserID();
+    final String _myUserID = FireAuthOps.superUserID();
 
     if (_myUserID != null){
 

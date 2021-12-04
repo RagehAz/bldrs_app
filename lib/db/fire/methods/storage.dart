@@ -13,13 +13,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 /// FIREBASE STORAGE METHODS
-class Storage {
 
 // =============================================================================
 
   /// REFERENCES
 
-  static Reference getRef({
+  Reference getRef({
     @required BuildContext context,
     @required String docName,
     @required String picName,
@@ -36,7 +35,7 @@ class Storage {
     return _ref;
   }
 // ------------------------------------------------
-  static Future<Reference> getRefFromURL({
+  Future<Reference> getRefFromURL({
   @required String url,
   @required BuildContext context,
 }) async {
@@ -74,7 +73,7 @@ class Storage {
   /// CREATE
 
 // ------------------------------------------------
-  static Future<dynamic> uploadFile({
+  Future<dynamic> uploadFile({
     @required BuildContext context,
     @required File file,
     @required String docName,
@@ -165,7 +164,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 // ------------------------------------------------
   /// creates new pic in document name according to pic type,
   /// and overrides existing pic if already exists
-  static Future<String> createStoragePicAndGetURL({
+  Future<String> createStoragePicAndGetURL({
     @required BuildContext context,
     @required File inputFile,
     @required String docName,
@@ -216,7 +215,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _imageURL;
   }
 // ------------------------------------------------
-  static Future<List<String>> createStorageSlidePicsAndGetURLs({
+  Future<List<String>> createStorageSlidePicsAndGetURLs({
     @required BuildContext context,
     @required List<SlideModel> slides,
     @required String flyerID,
@@ -242,7 +241,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _picturesURLs;
   }
 // ------------------------------------------------
-  static Future<List<String>> createMultipleStoragePicsAndGetURLs({
+  Future<List<String>> createMultipleStoragePicsAndGetURLs({
     @required BuildContext context,
     @required List<dynamic> pics,
     @required List<String> names,
@@ -272,7 +271,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   }
 // ------------------------------------------------
   /// TASK : createStoragePicFromAssetAndGetURL not tested properly
-  static Future<String> createStoragePicFromLocalAssetAndGetURL ({
+  Future<String> createStoragePicFromLocalAssetAndGetURL ({
     @required BuildContext context,
     @required String asset,
     @required String fileName,
@@ -305,7 +304,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   /// READ
 
 // ------------------------------------------------
-  static Future<String> readStoragePicURL({
+  Future<String> readStoragePicURL({
     @required BuildContext context,
     @required String docName,
     @required String picName
@@ -332,7 +331,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _url;
   }
 // ------------------------------------------------
-  static Future<File> getFileFromPicURL({
+  Future<File> getFileFromPicURL({
     @required BuildContext context,
     @required String url,
   }) async {
@@ -354,7 +353,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _file;
   }
 // ------------------------------------------------
-  static Future<File> getFileByPath({
+  Future<File> getFileByPath({
     @required BuildContext context,
     @required String docName,
     @required String picName
@@ -390,7 +389,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
 // ------------------------------------------------
   /// returns updated pic new URL
-  static Future<String> updatePic({
+  Future<String> updatePic({
     @required BuildContext context,
     @required String oldURL,
     @required File newPic,
@@ -415,7 +414,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   /// DELETE
 
 // ------------------------------------------------
-  static Future<void> deleteStoragePic({
+  Future<void> deleteStoragePic({
     @required BuildContext context,
     @required String docName,
     @required String picName,
@@ -489,5 +488,3 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
   }
 // -----------------------------------------------------------------------------
-
-}

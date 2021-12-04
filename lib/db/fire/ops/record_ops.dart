@@ -15,9 +15,8 @@ import 'package:flutter/material.dart';
 ///   e - notify listeners
 
 
-abstract class FireRecordOps{
 
-  static Future<void> createRecord({BuildContext context, Record record}) async {
+  Future<void> createRecord({BuildContext context, Record record}) async {
 
   }
 
@@ -35,5 +34,3 @@ abstract class FireRecordOps{
   // static Future<List<Record>> readBzFollowers({BuildContext context, String bzID}) async {
   //
   // }
-
-}

@@ -5,7 +5,7 @@ import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
-import 'package:bldrs/models/kw/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/secondary_models/link_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 
 class SectionTile extends StatelessWidget {
   final double bubbleWidth;
-  final Section section;
+  final SectionClass.Section section;
   final bool inActiveMode;
   final Chain chain;
 
@@ -29,7 +29,7 @@ class SectionTile extends StatelessWidget {
     Key key,
   }) : super(key: key);
 // -----------------------------------------------------------------------------
-  String _sectionIcon({@required Section section, @required bool inActiveMode}){
+  String _sectionIcon({@required SectionClass.Section section, @required bool inActiveMode}){
     String _icon;
 
     if (inActiveMode == true){

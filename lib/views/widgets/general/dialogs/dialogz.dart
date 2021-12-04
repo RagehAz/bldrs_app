@@ -15,9 +15,8 @@ import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
-class Dialogz{
 // -----------------------------------------------------------------------------
-  static Future<void> maxSlidesReached(BuildContext context, int maxLength) async {
+  Future<void> maxSlidesReached(BuildContext context, int maxLength) async {
     await CenterDialog.showCenterDialog(
       context: context,
       title: 'Max. Images reached',
@@ -26,7 +25,7 @@ class Dialogz{
     );
   }
 // -----------------------------------------------------------------------------
-  static Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
+  Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
 
     final List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
       /// SIGN IN ERROR
@@ -108,7 +107,7 @@ class Dialogz{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<bool> bzzDeactivationDialog({
+  Future<bool> bzzDeactivationDialog({
     BuildContext context,
     List<BzModel> bzzToDeactivate,
     List<BzModel> bzzToKeep,
@@ -159,7 +158,7 @@ class Dialogz{
 
   }
 // -----------------------------------------------------------------------------
-  static Future<bool> flyersDeactivationDialog({
+  Future<bool> flyersDeactivationDialog({
     @required BuildContext context,
     @required List<FlyerModel> flyers,
     List<BzModel> bzzToDeactivate,
@@ -218,7 +217,7 @@ class Dialogz{
     return _flyersReviewResult;
   }
 // -----------------------------------------------------------------------------
-  static Future<CityModel> confirmCityDialog({
+  Future<CityModel> confirmCityDialog({
     @required BuildContext context,
     @required List<CityModel> cities,
 }) async {
@@ -266,4 +265,3 @@ class Dialogz{
     return _city;
 }
 // -----------------------------------------------------------------------------
-}

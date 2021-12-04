@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/secondary_models/feedback_model.dart';
@@ -70,7 +70,7 @@ class _FeedBackState extends State<FeedBack> {
       collName: FireColl.feedbacks,
       addDocID: true,
       input: FeedbackModel(
-        userID: superUserID(),
+        userID: FireAuthOps.superUserID(),
         timeStamp: DateTime.now(),
         feedback: _feedbackController.text,
       ).toMap(),

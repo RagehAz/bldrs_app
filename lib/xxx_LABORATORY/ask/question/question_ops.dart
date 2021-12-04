@@ -3,7 +3,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
-import 'package:bldrs/db/fire/methods/storage.dart';
+import 'package:bldrs/db/fire/methods/storage.dart' as Storage;
 import 'package:bldrs/xxx_LABORATORY/ask/question/question_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

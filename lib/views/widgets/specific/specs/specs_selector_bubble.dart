@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
-import 'package:bldrs/models/kw/specs/spec%20_list_model.dart';
+import 'package:bldrs/models/kw/specs/spec_list_model.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/general/chain_expander/components/bldrs_chains.dart';
