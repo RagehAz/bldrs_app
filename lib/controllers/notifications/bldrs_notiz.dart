@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -83,29 +83,27 @@ import 'package:flutter/foundation.dart';
 ///
 // -----------------------------------------------------------------------------
 
-class BldrsNotiModelz {
+  const String notiSound = 'default';
+  const String notiStatus = 'done';
 
-  static const String notiSound = 'default';
-  static const String notiStatus = 'done';
-
-  static const dynamic notiDefaultMap = <String, dynamic>{
+  const dynamic notiDefaultMap = <String, dynamic>{
     "click_action": "FLUTTER_NOTIFICATION_CLICK",
     "sound": notiSound,
     "status": notiStatus,
     "screen": "",
   };
 
-  static const String bldrsSenderID = 'bldrs';
+  const String bldrsSenderID = 'bldrs';
 // -----------------------------------------------------------------------------
-  static const String bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
+  const String bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
 
-  static final BzModel _dummyBz = BzModel.dummyBz('ar1');
-  static final FlyerModel _dummyFlyer = FlyerModel.dummyFlyers()[0];
-  static final UserModel _dummyUser = UserModel.dummyUsers(numberOfUsers: 1)[0];
-  static final AuthorModel _dummyAuthor = AuthorModel.dummyAuthor();
+  final BzModel _dummyBz = BzModel.dummyBz('ar1');
+  final FlyerModel _dummyFlyer = FlyerModel.dummyFlyers()[0];
+  final UserModel _dummyUser = UserModel.dummyUsers(numberOfUsers: 1)[0];
+  final AuthorModel _dummyAuthor = AuthorModel.dummyAuthor();
   // -----------------------------------------------------------------------------
   /// 1 - 28 days reminder
-  static NotiModel buildSomething(){
+  NotiModel buildSomething(){
     return
       NotiModel(
         id: 'n01',
@@ -134,7 +132,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 2 - 35 days reminder
-  static NotiModel createSomethingNew(){
+  NotiModel createSomethingNew(){
     return
       NotiModel(
         id: 'n02',
@@ -163,7 +161,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 3 - 42 days reminder
-  static NotiModel planYourFuture(){
+  NotiModel planYourFuture(){
     return
       NotiModel(
         id: 'n03',
@@ -192,7 +190,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 4 - 7 days reminder for non SIGNED-UP aslan (only downloaded Bldrs.net)
-  static NotiModel youDidNotSee(){
+  NotiModel youDidNotSee(){
     return
       NotiModel(
         id: 'n04',
@@ -221,7 +219,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 5 - 14 days reminder for non SIGNED-UP aslan (only downloaded Bldrs.net)
-  static NotiModel rememberYourOptions(){
+  NotiModel rememberYourOptions(){
     return
       NotiModel(
         id: 'n05',
@@ -250,7 +248,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 6 - city went public
-  static NotiModel cityWentPublic({@required String cityName, @required String iso3}){
+  NotiModel cityWentPublic({@required String cityName, @required String iso3}){
 
     return
       NotiModel(
@@ -280,7 +278,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 7 - after user feedback
-  static NotiModel feedbackAutoReply(){
+  NotiModel feedbackAutoReply(){
     return
       NotiModel(
         id: 'n07',
@@ -309,7 +307,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 8 - feedback bldrs reply
-  static NotiModel bldrsFeedbackReply({@required String reply}){
+  NotiModel bldrsFeedbackReply({@required String reply}){
 
     return
       NotiModel(
@@ -339,7 +337,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 9 - profile status reminder
-  static NotiModel chooseYourCustomerStatus(){
+  NotiModel chooseYourCustomerStatus(){
     return
       NotiModel(
         id: 'n09',
@@ -368,7 +366,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 10 - monthly statistics
-  static NotiModel monthlyStatistics({@required int numberOfNewBzz, @required int numberOfNewFlyers}){
+  NotiModel monthlyStatistics({@required int numberOfNewBzz, @required int numberOfNewFlyers}){
     return
       NotiModel(
         id: 'n10',
@@ -397,7 +395,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 11 - new flyer by followed non free bz account (premium - super)
-  static NotiModel newPublishedFlyer({@required BzModel bzModel, @required FlyerModel flyer}){
+  NotiModel newPublishedFlyer({@required BzModel bzModel, @required FlyerModel flyer}){
 
     // String _flyerType = TextGenerator.flyerTypeSingleStringer(context, flyerType);
 
@@ -429,7 +427,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 12 - flyer review reply
-  static NotiModel flyerReviewReply({@required BzModel bzModel, @required String reviewBody}){
+  NotiModel flyerReviewReply({@required BzModel bzModel, @required String reviewBody}){
     return
       NotiModel(
         id: 'n12',
@@ -458,7 +456,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 13 - flyerReview
-  static NotiModel flyerReviewed({@required UserModel userModel, @required String reviewBody}){
+  NotiModel flyerReviewed({@required UserModel userModel, @required String reviewBody}){
     return
       NotiModel(
         id: 'n13',
@@ -487,7 +485,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 14 - flyer Saved
-  static NotiModel flyerSaved({@required UserModel userModel, @required String flyerID}){
+  NotiModel flyerSaved({@required UserModel userModel, @required String flyerID}){
     return
       NotiModel(
         id: 'n14',
@@ -516,7 +514,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 14 - flyer Shared
-  static NotiModel flyerShared({@required UserModel userModel, @required String flyerID}){
+  NotiModel flyerShared({@required UserModel userModel, @required String flyerID}){
     return
       NotiModel(
         id: 'n15',
@@ -546,7 +544,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 14 - user follow
-  static NotiModel userFollowed({@required UserModel userModel}){
+  NotiModel userFollowed({@required UserModel userModel}){
     return
       NotiModel(
         id: 'n16',
@@ -575,7 +573,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 15 - weekly bz statistics
-  static NotiModel weeklyBzStatistics({@required int views, @required int saves, @required int shares, @required int reviews, @required int calls}){
+  NotiModel weeklyBzStatistics({@required int views, @required int saves, @required int shares, @required int reviews, @required int calls}){
     return
       NotiModel(
         id: 'n17',
@@ -609,7 +607,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 16 - authorInvitation
-  static NotiModel authorInvitation({@required AuthorModel authorModel, @required BzModel bzModel}){
+  NotiModel authorInvitation({@required AuthorModel authorModel, @required BzModel bzModel}){
     return
       NotiModel(
         id: 'n18',
@@ -638,7 +636,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 17 - author Invitation reply
-  static NotiModel authorInvitationReply({@required UserModel userModel, @required bool invitationAccepted}){
+  NotiModel authorInvitationReply({@required UserModel userModel, @required bool invitationAccepted}){
 
     String _reply = invitationAccepted == true ? 'accepted' : 'rejected';
 
@@ -670,7 +668,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 18 - authorInvitation
-  static NotiModel authorInvitationCC({@required AuthorModel sender, @required UserModel reciever, @required BzModel tinyBz}){
+  NotiModel authorInvitationCC({@required AuthorModel sender, @required UserModel reciever, @required BzModel tinyBz}){
     return
       NotiModel(
         id: 'n20',
@@ -699,7 +697,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 19 - country went global
-  static NotiModel countryWentGlobal({@required String iso3, @required String countryName}){
+  NotiModel countryWentGlobal({@required String iso3, @required String countryName}){
 
     return
       NotiModel(
@@ -729,7 +727,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 20 - section went live
-  static NotiModel sectionWentLive({@required String sectionName}){
+  NotiModel sectionWentLive({@required String sectionName}){
     return
       NotiModel(
         id: 'n22',
@@ -758,7 +756,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 21 - monthly bz statistics
-  static NotiModel monthlyBzStatistics({@required BzModel bzModel, @required String monthName, @required int followers, @required int calls, @required int saves, @required int views, @required int shares, @required int competitors,}){
+  NotiModel monthlyBzStatistics({@required BzModel bzModel, @required String monthName, @required int followers, @required int calls, @required int saves, @required int views, @required int shares, @required int competitors,}){
     return
       NotiModel(
         id: 'n23',
@@ -787,7 +785,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 22 - potential customer to bzz
-  static NotiModel potentialCustomerQuestion({@required UserModel userModel, @required String keyword, @required String cityName, @required String district}){
+  NotiModel potentialCustomerQuestion({@required UserModel userModel, @required String keyword, @required String cityName, @required String district}){
     return
       NotiModel(
         id: 'n24',
@@ -816,7 +814,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 23 - question reply
-  static NotiModel questionReply({@required BzModel bzModel, @required String reply}){
+  NotiModel questionReply({@required BzModel bzModel, @required String reply}){
     return
       NotiModel(
         id: 'n25',
@@ -845,7 +843,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
   /// 24 - welcome to bldrs
-  static NotiModel welcomeToBldrs(){
+  NotiModel welcomeToBldrs(){
     return
       NotiModel(
         id: 'n01',
@@ -874,7 +872,7 @@ class BldrsNotiModelz {
   }
 // -----------------------------------------------------------------------------
 //   /// X -
-//   static NotiModel xxx(){
+//   NotiModel xxx(){
 //     return
 //   NotiModel(
 //   reason: NotiReason.,
@@ -896,7 +894,7 @@ class BldrsNotiModelz {
 // -----------------------------------------------------------------------------
   ///
 // -----------------------------------------------------------------------------
-  static List<NotiModel> allNotifications(){
+  List<NotiModel> allNotifications(){
     return <NotiModel>[
       ///
       welcomeToBldrs(),
@@ -1023,7 +1021,6 @@ class BldrsNotiModelz {
 // -----------------------------------------------------------------------------
     ];
   }
-}
 
 // o ( FOLLOWING NOTIFICATIONS )
 // --- BZ NEWS : NEW FOLLOWERS : (MIN OF NUMBER = X && MIN OF DURATION = T)

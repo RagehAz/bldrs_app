@@ -1,15 +1,14 @@
 import 'package:bldrs/controllers/notifications/test_screens/awesome_noti_test_screen.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-class LocalNotificationService{
-  static final FlutterLocalNotificationsPlugin _notiPlugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin _notiPlugin = FlutterLocalNotificationsPlugin();
 
-  static const String _flatBldrsNotiIcon = 'res_flat_logo';//'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
+  const String _flatBldrsNotiIcon = 'res_flat_logo';//'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
 
-  static Future<void> initialize(BuildContext context) async {
+  Future<void> initialize(BuildContext context) async {
 
     const InitializationSettings initializationSettings = const InitializationSettings(
       android: AndroidInitializationSettings(_flatBldrsNotiIcon),
@@ -32,7 +31,7 @@ class LocalNotificationService{
 
   }
 
-  static Future<void> display(RemoteMessage remoteMessage) async {
+  Future<void> display(RemoteMessage remoteMessage) async {
 
     try {
 
@@ -63,5 +62,3 @@ class LocalNotificationService{
     }
 
   }
-
-}

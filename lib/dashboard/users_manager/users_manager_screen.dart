@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/scrollers.dart' as Scrollers;
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/widgets/user_button.dart';
 import 'package:bldrs/db/fire/methods/cloud_functions.dart';

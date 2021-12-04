@@ -1,10 +1,10 @@
 import 'package:bldrs/controllers/drafters/device_checkers.dart' as DeviceChecker;
-import 'package:bldrs/controllers/notifications/audioz.dart';
-import 'package:bldrs/controllers/notifications/noti_ops.dart';
+import 'package:bldrs/controllers/notifications/audioz.dart' as Audioz;
+import 'package:bldrs/controllers/notifications/noti_ops.dart' as NotiOps;
 import 'package:bldrs/controllers/notifications/test_screens/second_noti_test_screen.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';

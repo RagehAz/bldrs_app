@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/views/widgets/general/buttons/back_anb_search_button.dart';

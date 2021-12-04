@@ -1,8 +1,8 @@
 import 'package:bldrs/controllers/notifications/test_screens/awesome_noti_test_screen.dart';
 import 'package:bldrs/controllers/notifications/test_screens/fcm_tet_screen.dart';
-import 'package:bldrs/controllers/router/navigators.dart';
+import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/dashboard.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart';

@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart';
+import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/db/fire/methods/firestore.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
