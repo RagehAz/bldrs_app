@@ -43,9 +43,9 @@ class SlideModel {
   });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'slideIndex': slideIndex,
-      'picture': ObjectChecker.objectIsString(pic) == true ? pic : null,
+      'picture': pic is String == true ? pic : null,
       'headline': headline,
       'description': description,
       'sharesCount': sharesCount,
@@ -74,11 +74,11 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static Map<String,Object> cipherSlides(List<SlideModel> slides) {
-    Map<String,Object> _slidesMap = {};
+    Map<String,Object> _slidesMap = <String,Object>{};
 
     if (Mapper.canLoopList(slides)){
 
-      for (var slide in slides){
+      for (SlideModel slide in slides){
 
         _slidesMap = Mapper.insertPairInMap(
           map: _slidesMap,
@@ -154,7 +154,7 @@ class SlideModel {
   static List<SlideModel> cloneSlides(List<SlideModel> slides){
     final List<SlideModel> _newSlides = <SlideModel>[];
 
-    for (var slide in slides){
+    for (SlideModel slide in slides){
       _newSlides.add(slide.clone());
     }
     return _newSlides;
@@ -234,7 +234,7 @@ class SlideModel {
   static Future<List<SlideModel>> replaceSlidesPicturesWithNewURLs(List<String> newPicturesURLs, List<SlideModel> inputSlides) async {
     final List<SlideModel> _outputSlides = <SlideModel>[];
 
-    for (var slide in inputSlides){
+    for (SlideModel slide in inputSlides){
 
       final int i = slide.slideIndex;
 
@@ -260,13 +260,13 @@ class SlideModel {
     return _outputSlides;
   }
 // -----------------------------------------------------------------------------
-  static Future<dynamic> cipherSlidesCounters(List<SlideModel> slides) async {
+  static Future<Map<String, dynamic>> cipherSlidesCounters(List<SlideModel> slides) async {
 
-    Map<String, dynamic> _combinedMap = {};
+    Map<String, dynamic> _combinedMap = <String, dynamic>{};
 
-    await Future.forEach(slides, (slide){
+    await Future.forEach(slides, (SlideModel slide){
 
-      _combinedMap.addAll({
+      _combinedMap.addAll(<String, dynamic>{
         'saves/${slide.slideIndex}' : slide.savesCount,
         'shares/${slide.slideIndex}' : slide.sharesCount,
         'views/${slide.slideIndex}' : slide.viewsCount,
@@ -378,7 +378,7 @@ class SlideModel {
   }
 // -----------------------------------------------------------------------------
   static List<SlideModel> getSlidesFromMutableSlides(List<MutableSlide> mSlides){
-    final List<SlideModel> _slides = [];
+    final List<SlideModel> _slides = <SlideModel>[];
     if (mSlides != null && mSlides.length != 0){
       for (MutableSlide mSlide in mSlides){
         _slides.add(getSlideFromMutableSlide(mSlide));
@@ -402,7 +402,7 @@ class SlideModel {
 
     }
 
-    _foundSlides.sort((a,b) => a.slideIndex.compareTo(b.slideIndex));
+    _foundSlides.sort((SlideModel a, SlideModel b) => a.slideIndex.compareTo(b.slideIndex));
 
     return _foundSlides;
   }

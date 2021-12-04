@@ -5,7 +5,7 @@ class Quest {
 
   Quest({this.id, this.body, this.userID});
 
-  factory Quest.fromMap(data) {
+  factory Quest.fromMap(Map<String, dynamic>data) {
     return Quest(body: data['body']);
   }
 }

@@ -15,7 +15,7 @@ class BigMac{
 });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
-    return {
+    return <String, dynamic>{
       'countryID' : countryID,
       'localPrice' : localPrice,
       'currency' : currency,
@@ -48,7 +48,7 @@ class BigMac{
 
     if (Mapper.canLoopList(maps)){
 
-      for (var map in maps){
+      for (Map<String, dynamic> map in maps){
 
         _bigMacs.add(decipherBigMac(map));
 
@@ -61,7 +61,7 @@ class BigMac{
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> cipherBigMacs(List<BigMac> bigMacs){
 
-    Map<String, dynamic> _bigMacsMap = {};
+    Map<String, dynamic> _bigMacsMap = <String, dynamic>{};
 
     if (Mapper.canLoopList(bigMacs)){
 
@@ -87,7 +87,7 @@ class BigMac{
 
     if (Mapper.canLoopList(bigMacs)){
 
-      bigMacs.forEach((bigMac) {
+      bigMacs.forEach((BigMac bigMac) {
         _countriesIDs.add(bigMac.countryID);
       });
 
@@ -146,7 +146,7 @@ class BigMac{
   }
 // -----------------------------------------------------------------------------
   static BigMac getBigMacByISO3(String iso3){
-    return bigMacs().singleWhere((bigMac) => bigMac.countryID == iso3, orElse: ()=> null);
+    return bigMacs().singleWhere((BigMac bigMac) => bigMac.countryID == iso3, orElse: ()=> null);
   }
 // -----------------------------------------------------------------------------
   static List<BigMac> getBigMacsOrdered(){

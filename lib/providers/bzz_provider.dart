@@ -30,7 +30,7 @@ class BzzProvider extends ChangeNotifier {
         searchValue: bzID,
       );
 
-      if (_map != null && _map != {}){
+      if (_map != null && _map != <String, dynamic>{}){
         _bz = BzModel.decipherBz(
           map: _map,
           fromJSON: true,
@@ -175,7 +175,7 @@ class BzzProvider extends ChangeNotifier {
       );
 
 
-      final int _index = _myBzz.indexWhere((tinyBz) => tinyBz.id == bzID);
+      final int _index = _myBzz.indexWhere((BzModel bzModel) => bzModel.id == bzID);
       _myBzz.removeAt(_index);
 
       notifyListeners();
@@ -198,7 +198,7 @@ class BzzProvider extends ChangeNotifier {
         docName: LDBDoc.bzz,
       );
 
-      final int _indexOfOldTinyBz = _myBzz.indexWhere((bz) => modifiedBz.id == bz.id);
+      final int _indexOfOldTinyBz = _myBzz.indexWhere((BzModel bz) => modifiedBz.id == bz.id);
       _myBzz.removeAt(_indexOfOldTinyBz);
       _myBzz.insert(_indexOfOldTinyBz, modifiedBz);
 
@@ -244,7 +244,7 @@ class BzzProvider extends ChangeNotifier {
     final UserModel _myUserModel = _usersProvider.myUserModel;
 
 
-    final String _id = _myUserModel.followedBzzIDs?.firstWhere((id) => id == bzID, orElse: () => null);
+    final String _id = _myUserModel.followedBzzIDs?.firstWhere((String id) => id == bzID, orElse: () => null);
 
     if(_id == null){
       _isFollowing = false;

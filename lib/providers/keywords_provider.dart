@@ -91,7 +91,7 @@ class KeywordsProvider extends ChangeNotifier{
   }
 // -------------------------------------
   void emptyAllKeywords(){
-    _allKeywords = [];
+    _allKeywords = <KW>[];
     notifyListeners();
   }
 // -------------------------------------
@@ -104,7 +104,7 @@ class KeywordsProvider extends ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   KW getKeywordByID(String id){
-    final KW _kw = _allKeywords.firstWhere((kw) => kw.id == id, orElse: () => null);
+    final KW _kw = _allKeywords.firstWhere((KW kw) => kw.id == id, orElse: () => null);
     return _kw;
   }
 // -----------------------------------------------------------------------------

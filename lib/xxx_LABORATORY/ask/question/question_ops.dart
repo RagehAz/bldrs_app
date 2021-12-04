@@ -36,12 +36,12 @@ import 'package:flutter/material.dart';
 class QuestionOps {
 // -----------------------------------------------------------------------------
   /// Question collection ref
-  CollectionReference questionCollectionRef(){
+  CollectionReference<Object> questionCollectionRef(){
     return Fire.getCollectionRef(FireColl.questions);
   }
 // -----------------------------------------------------------------------------
   /// chat doc ref
-  DocumentReference questionDocRef(String questionID, String chatID){
+  DocumentReference<Object> questionDocRef(String questionID, String chatID){
     return
       Fire.getDocRef(
           collName: FireColl.questions,
@@ -83,7 +83,7 @@ class QuestionOps {
     _question = QuestionModel.updatePicsWithURLs(question: question, picsURLS: _picsURLs);
 
     /// C - create question doc with _question on firebase
-    final DocumentReference _questionDocRef = await Fire.createDoc(
+    final DocumentReference<Object> _questionDocRef = await Fire.createDoc(
       context: context,
       collName: FireColl.questions,
       input: _question.toMap(),

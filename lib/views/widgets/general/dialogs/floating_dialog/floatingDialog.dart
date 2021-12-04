@@ -65,7 +65,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
             borderRadius: Borderers.superBorderAll(context, 10),
           ),
 
-          child: DropdownButtonFormField(
+          child: DropdownButtonFormField<String>(
 
             /// INEFFECTIVE
             iconSize: 0,
@@ -119,7 +119,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
 
 
             items: widget.list.map((String item){
-              return DropdownMenuItem(
+              return DropdownMenuItem<String>(
                 value: item,
                 onTap: (){print(item);},
                 child: SuperVerse(
@@ -128,7 +128,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
                 ),
               );
             }).toList(),
-            onChanged: (val) => setState(()=> selectedIndex = val),
+            onChanged: (dynamic val) => setState(()=> selectedIndex = val),
           ),
         ),
 

@@ -85,7 +85,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     _isInit = false;
   }
 // -----------------------------------------------------------------------------
-  QueryDocumentSnapshot _lastSnapshot;
+  QueryDocumentSnapshot<Object> _lastSnapshot;
   List<BzModel> _bzzModels = <BzModel>[];
   Future<dynamic> _readMoreBzz() async {
 

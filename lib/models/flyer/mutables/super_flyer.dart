@@ -53,7 +53,7 @@ class SuperFlyer{
   int verticalIndex; // MutableFlyer -- ?
 
   /// flyer identifiers
-  final ValueKey key; // MutableFlyer -- ?
+  final ValueKey<String> key; // MutableFlyer -- ?
   final String flyerID; // MutableFlyer -- ?
   String authorID; // tinyAuthor
   String title;
@@ -150,7 +150,7 @@ class SuperFlyer{
   static const String draftID = 'draft';
   static const String emptyFlyerBzOnlyFlyerID = 'bzOnly';
 // -----------------------------------------------------------------------------
-  static SuperFlyer createEmptySuperFlyer({@required double flyerBoxWidth, @required goesToEditor}){
+  static SuperFlyer createEmptySuperFlyer({@required double flyerBoxWidth, @required bool goesToEditor}){
 
     return
         SuperFlyer(
@@ -392,7 +392,7 @@ class SuperFlyer{
         verticalIndex: 0,
 
         /// flyer identifiers
-        key: ValueKey(flyerModel.id),
+        key: ValueKey<String>(flyerModel.id),
         flyerID: flyerModel.id,
         authorID: flyerModel.authorID,
         title: flyerModel.title,
@@ -541,14 +541,14 @@ class SuperFlyer{
           editMode: true,
           canDelete: true,
         ),
-        mSlides: [],
+        mSlides: <MutableSlide>[],
         bz: bzModel,
 
         loading: false,
 
         /// editor data
         infoController: new TextEditingController(),
-        screenShots: [],
+        screenShots: <Uint8List>[],
 
         /// slides settings
         numberOfSlides: 0,
@@ -729,7 +729,7 @@ class SuperFlyer{
         verticalIndex: 0,
 
         /// flyer identifiers
-        key: ValueKey('${SuperFlyer.draftID} : ${bzModel.id} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
+        key: ValueKey<String>('${SuperFlyer.draftID} : ${bzModel.id} : ${bzModel.flyersIDs.length + 1} : ${superUserID()}'),
         flyerID: flyerModel.id,
         authorID: superUserID(),
         title: flyerModel.title,
@@ -765,7 +765,7 @@ class SuperFlyer{
 // -----------------------------------------------------------------------------
 static SuperFlyer getSuperFlyerFromBzModelOnly({
   @required BzModel bzModel,
-  @required onHeaderTap,
+  @required Function onHeaderTap,
   @required CountryModel bzCountry,
   @required CityModel bzCity,
 }){

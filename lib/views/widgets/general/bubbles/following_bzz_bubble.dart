@@ -36,7 +36,7 @@ class FollowingBzzBubble extends StatelessWidget {
           bzzModels: bzzModels,
           numberOfColumns: 7,
           scrollDirection: Axis.horizontal,
-          itemOnTap: (bzID) async {
+          itemOnTap: (String bzID) async {
 
             print('bzID = $bzID');
 

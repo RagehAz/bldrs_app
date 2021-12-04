@@ -95,7 +95,7 @@ class DialogTestScreen extends StatelessWidget {
                 userModelBuilder(
                     context: context,
                     userID: superUserID(),
-                    builder: (ctx, userModel){
+                    builder: (BuildContext ctx, UserModel userModel){
 
                       return
                         MainButton(

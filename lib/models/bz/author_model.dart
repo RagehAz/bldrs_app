@@ -23,7 +23,7 @@ class AuthorModel{
 });
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
-    return {
+    return <String, dynamic>{
       'userID' : userID,
       'name' : name,
       'pic' : pic,
@@ -34,7 +34,7 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static Map<String,Object> cipherAuthors(List<AuthorModel> authors){
-    Map<String, dynamic> _map = {};
+    Map<String, dynamic> _map = <String, dynamic>{};
 
     if (Mapper.canLoopList(authors)){
 
@@ -87,7 +87,7 @@ class AuthorModel{
 
     final List<String> _authorFlyersIDs = <String>[];
 
-    for (var flyerModel in bzFlyers){
+    for (FlyerModel flyerModel in bzFlyers){
       if(flyerModel.authorID == _authorID){
         _authorFlyersIDs.add(flyerModel.id);
       }
@@ -217,7 +217,7 @@ class AuthorModel{
   static List<String> getAuthorsIDsFromAuthors(List<AuthorModel> authors){
     final List<String> _authorsIDs = <String>[];
 
-    for (var author in authors){
+    for (AuthorModel author in authors){
       _authorsIDs.add(author.userID);
     }
 
@@ -248,7 +248,7 @@ class AuthorModel{
 
       for (String id in authorsIDs){
 
-        final AuthorModel _author = allAuthors.singleWhere((author) => author.userID == id, orElse: () => null);
+        final AuthorModel _author = allAuthors.singleWhere((AuthorModel author) => author.userID == id, orElse: () => null);
 
         if (_author != null){
           _bzAuthors.add(_author);
@@ -299,7 +299,7 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static AuthorModel getMasterAuthorFromBzModel(BzModel bzModel){
-    AuthorModel _masterAuthor = bzModel.authors.firstWhere((author) => author.isMaster == true, orElse: () => null);
+    AuthorModel _masterAuthor = bzModel.authors.firstWhere((AuthorModel author) => author.isMaster == true, orElse: () => null);
     return _masterAuthor;
   }
 // -----------------------------------------------------------------------------

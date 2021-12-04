@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class ZoomablePicture extends StatefulWidget {
   final Widget child;
   final bool isOn;
-  final autoShrink;
+  final bool autoShrink;
   final bool isFullScreen;
   final Function onTap;
 

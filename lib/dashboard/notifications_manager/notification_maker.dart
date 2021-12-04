@@ -252,7 +252,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
       height: _dialogHeight,
       builder: (BuildContext ctx, String title){
         return StatefulBuilder(
-          builder: (BuildContext xxx, setDialogState){
+          builder: (BuildContext xxx, void Function(void Function()) setDialogState){
 
             return
               Column(

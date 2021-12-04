@@ -457,15 +457,15 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         flyerModel: flyerModel,
         bzModel: bzModel,
         initialPage: widget.initialSlideIndex,
-        onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
-        onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
+        onHorizontalSlideSwipe: (int i) => _onHorizontalSlideSwipe(i),
+        onVerticalPageSwipe: (int i) => _onVerticalPageSwipe(i),
         onVerticalPageBack: () async {await _slideBackToSlidesPage();},
         onHeaderTap: (bool isExpanded) { _onHeaderTap(isExpanded);},
         onSlideRightTap: _onSlideRightTap,
         onSlideLeftTap: _onSlideLeftTap,
         onSwipeFlyer: (SwipeDirection direction) => widget.onSwipeFlyer(direction),
         onTinyFlyerTap: () async {await _openTinyFlyer();},
-        onView: (slideIndex) => _onViewSlide(slideIndex),
+        onView: (int slideIndex) => _onViewSlide(slideIndex),
         onAnkhTap: () async {await _onAnkhTap();} ,
         onShareTap: _onShareTap,
         onFollowTap: () async { await _onFollowTap();},
@@ -506,15 +506,15 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         context: context,
         bzModel: bzModel,
         flyerModel: flyerModel,
-        onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
-        onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
+        onHorizontalSlideSwipe: (int i) => _onHorizontalSlideSwipe(i),
+        onVerticalPageSwipe: (int i) => _onVerticalPageSwipe(i),
         onVerticalPageBack: () async {await _slideBackToSlidesPage();},
-        onHeaderTap: (isExpanded) {_onHeaderTap(isExpanded);},
+        onHeaderTap: (bool isExpanded) {_onHeaderTap(isExpanded);},
         onSlideRightTap: _onSlideRightTap,
         onSlideLeftTap: _onSlideLeftTap,
         onSwipeFlyer: (SwipeDirection direction) => widget.onSwipeFlyer(direction),
         onTinyFlyerTap: () async {await _openTinyFlyer();},
-        onView: (i) => _onViewSlide(i),
+        onView: (int i) => _onViewSlide(i),
         onAnkhTap: () async {await _onAnkhTap();} ,
         onShareTap: _onShareTap,
         onFollowTap: () async { await _onFollowTap();},
@@ -561,10 +561,10 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     SuperFlyer _superFlyer = SuperFlyer.createDraftSuperFlyerFromNothing(
       context: context,
       bzModel: bzModel,
-      onHorizontalSlideSwipe: (i) => _onHorizontalSlideSwipe(i),
-      onVerticalPageSwipe: (i) => _onVerticalPageSwipe(i),
+      onHorizontalSlideSwipe: (int i) => _onHorizontalSlideSwipe(i),
+      onVerticalPageSwipe: (int i) => _onVerticalPageSwipe(i),
       onVerticalPageBack: () async {await _slideBackToSlidesPage();},
-      onHeaderTap: (isExpanded) { _onHeaderTap(isExpanded);},
+      onHeaderTap: (bool isExpanded) { _onHeaderTap(isExpanded);},
       onSlideRightTap: _onSlideRightTap,
       onSlideLeftTap: _onSlideLeftTap,
       onSwipeFlyer: (SwipeDirection direction) => widget.onSwipeFlyer(direction),
@@ -751,7 +751,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         });
       }
       else {
-        Future.delayed(Ratioz.durationFading210, (){
+        Future<void>.delayed(Ratioz.durationFading210, (){
           setState(() {
             _statelessTriggerProgressOpacity();
             // _superFlyer.nav.bzPageIsOn = isExpanded;
@@ -769,7 +769,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     print('going to flyer editor for flyerID ${_superFlyer.flyerID} as firstTimer is ${firstTimer}');
 
-    await Future.delayed(Ratioz.durationFading200, () async {
+    await Future<void>.delayed(Ratioz.durationFading200, () async {
 
       // FlyerModel _flyer = firstTimer == true ? null : widget.flyerModel;
 
@@ -1170,7 +1170,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
         return
           StatefulBuilder(
-            builder: (BuildContext xxx, setDialogState){
+            builder: (BuildContext xxx, void Function(void Function()) setDialogState){
 
               return
                 BottomDialog(
@@ -1201,7 +1201,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                           inputWeight: VerseWeight.thin,
                           inputShadow: false,
                           fieldIsFormField: false,
-                          onChanged: (val){
+                          onChanged: (String val){
 
                             final bool _reviewControllerHasValue = TextChecker.textControllerIsEmpty(_superFlyer.rec.reviewController) == false;
 
@@ -1226,7 +1226,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                             }
 
                           },
-                          onSubmitted: (val){
+                          onSubmitted: (String val){
                             print('val is : $val');
                           },
                           keyboardTextInputType: TextInputType.multiline,
@@ -1609,7 +1609,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       });
 
       /// B - wait fading to start deleting + update index to null
-      await Future.delayed(Ratioz.durationFading210, () async {
+      await Future<void>.delayed(Ratioz.durationFading210, () async {
 
         /// Dx - delete data
         setState(() {
@@ -1633,7 +1633,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       });
 
       /// B - wait fading to start sliding
-      await Future.delayed(Ratioz.durationFading210, () async {
+      await Future<void>.delayed(Ratioz.durationFading210, () async {
 
         /// C - slide
         await Sliders.slideToNext(_superFlyer.nav.horizontalController, _superFlyer.numberOfSlides, _superFlyer.currentSlideIndex);
@@ -1641,7 +1641,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
         /// D - delete when one slide remaining
         /// E - wait for sliding to end
-        await Future.delayed(Ratioz.durationFading210, () async {
+        await Future<void>.delayed(Ratioz.durationFading210, () async {
 
 
           // /// F - snap to index 0
@@ -1682,7 +1682,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       });
 
       /// B - wait fading to start sliding
-      await Future.delayed(Ratioz.durationFading210, () async {
+      await Future<void>.delayed(Ratioz.durationFading210, () async {
 
         /// C - slide
         await  Sliders.slideToNext(_superFlyer.nav.horizontalController, _superFlyer.numberOfSlides, _superFlyer.currentSlideIndex);
@@ -1702,7 +1702,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         else {
 
           /// E - wait for sliding to end
-          await Future.delayed(Ratioz.durationFading210, () async {
+          await Future<void>.delayed(Ratioz.durationFading210, () async {
 
             /// Dx - delete data
             _statelessSlideDelete(_superFlyer.currentSlideIndex);
@@ -1744,7 +1744,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // print('XXX after first rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
 
     /// B - wait fading to start sliding
-    await Future.delayed(Ratioz.durationFading210, () async {
+    await Future<void>.delayed(Ratioz.durationFading210, () async {
 
       // print('_currentIndex before slide : $_draft.currentSlideIndex');
 
@@ -1753,7 +1753,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       // print('_currentIndex after slide : $_draft.currentSlideIndex');
 
       /// E - wait for sliding to end
-      await Future.delayed(Ratioz.durationFading210, () async {
+      await Future<void>.delayed(Ratioz.durationFading210, () async {
 
         /// Dx - delete data & trigger progress bar listener (onPageChangedIsOn)
         setState(() {
@@ -1961,8 +1961,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             _cities = _selectedCountryCities;
             _citiesMaps = CityModel.getCitiesNamesMapModels(context: context, cities: _selectedCountryCities);
 
-            _districts = [];
-            _districtsMaps = [];
+            _districts = <DistrictModel>[];
+            _districtsMaps = <MapModel>[];
 
             _openNextDialog = true;
           });
@@ -2031,7 +2031,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           mapsModels: _districtsMaps,
           alignment: Alignment.center,
           bottomDialogType: BottomDialogType.districts,
-          buttonTap: (districtID) async {
+          buttonTap: (String districtID) async {
             setState(() {
               _superFlyer.zone.districtID = districtID;
             });

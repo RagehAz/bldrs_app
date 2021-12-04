@@ -18,7 +18,6 @@ class FlyersGrid extends StatefulWidget {
   final bool scrollable;
   final bool stratosphere;
   final Axis scrollDirection;
-  final Function tinyFlyerOnTap;
 
   const FlyersGrid({
     @required this.gridZoneWidth,
@@ -27,7 +26,6 @@ class FlyersGrid extends StatefulWidget {
     this.scrollable = false,
     this.stratosphere = false,
     this.scrollDirection = Axis.vertical,
-    this.tinyFlyerOnTap,
     Key key,
 }) : super(key: key);
 

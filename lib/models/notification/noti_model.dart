@@ -70,7 +70,7 @@ class NotiModel{
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
     return
-        {
+      <String, dynamic>{
           'id' : id,
           'name' : name,
           'sudo' : sudo?.toMap(),
@@ -221,7 +221,7 @@ class NotiModel{
     print('$methodName : PRINTING NotiModel ---------------- END -- ');
   }
 // -----------------------------------------------------------------------------
-  static List<NotiModel> getNotiModelsFromSnapshot(DocumentSnapshot doc){
+  static List<NotiModel> getNotiModelsFromSnapshot(DocumentSnapshot<Object> doc){
     final Object _maps = doc.data();
     final List<NotiModel> _notiModels = decipherNotiModels(
       maps: _maps,

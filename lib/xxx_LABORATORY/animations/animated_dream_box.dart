@@ -193,7 +193,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                   margin: EdgeInsets.all(iconMargin),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
-                                      boxShadow: [
+                                      boxShadow: <BoxShadow>[
                                         CustomBoxShadow(
                                             color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
                                             offset: new Offset(0, jpgGraphicWidth * -0.019 ),

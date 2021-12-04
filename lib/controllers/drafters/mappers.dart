@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -134,9 +133,17 @@ abstract class Mapper{
   /// map = {'key1' : 'value', 'key2' : 'value2'};
   static bool listOfMapsContainMap({@required List<Map<String, dynamic>> listOfMaps, @required Map<String, dynamic> map}){
 
-    bool _listOfMapContainsTheMap;
+    // ---------------------------------
+    bool _inputsAreInvalid;
 
-    final bool _inputsAreInvalid = listOfMaps == null || listOfMaps.length == 0 || map == null ? true : false;
+    if (listOfMaps == null || listOfMaps.length == 0 || map == null){
+      _inputsAreInvalid = true;
+    }
+    else {
+      _inputsAreInvalid = false;
+    }
+    // ---------------------------------
+    bool _listOfMapContainsTheMap;
 
     if(_inputsAreInvalid == true){
       _listOfMapContainsTheMap = false;
@@ -191,7 +198,14 @@ abstract class Mapper{
   static bool mapsAreTheSame(Map<String, dynamic> map1, Map<String, dynamic> map2){
     bool _mapsAreTheSame;
 
-    final bool _inputsAreInvalid = map1 == null || map2 == null ? true : false;
+    bool _inputsAreInvalid;
+
+    if (map1 == null || map2 == null){
+      _inputsAreInvalid = true;
+    }
+    else {
+      _inputsAreInvalid = false;
+    }
 
     if (_inputsAreInvalid == true){
       _mapsAreTheSame = null;
@@ -314,7 +328,7 @@ abstract class Mapper{
     if (Mapper.canLoopList(dynamics)){
       for (dynamic thing in dynamics){
 
-        if (ObjectChecker.objectIsString(thing) == true){
+        if (thing is String == true){
           _strings.add(thing);
         }
 

@@ -48,7 +48,7 @@ abstract class Animators{
     return _visibilityList;
   }
 // -----------------------------------------------------------------------------
-  static void disposeControllerIfPossible(dynamic controller) {
+  static void disposeControllerIfPossible(controller) {
     if (controller != null) {
       controller.dispose();
     }

@@ -38,7 +38,7 @@ class CenterDialog extends StatelessWidget {
 
     final bool _result = await showDialog(
       context: context,
-      builder: (ctx)=> CenterDialog(
+      builder: (BuildContext ctx)=> CenterDialog(
         // context: context,
         // ctx: ctx,
         body: body,

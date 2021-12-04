@@ -44,7 +44,7 @@ class ContactsBubble extends StatelessWidget {
 
             ...List<Widget>.generate(
                 _contactsWithStrings.length,
-                    (index){
+                    (int index){
 
                   final String _value = _contactsWithStrings[index].contact;
 
