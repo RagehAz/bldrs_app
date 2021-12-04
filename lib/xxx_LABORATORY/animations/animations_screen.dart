@@ -23,7 +23,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
   AnimationController _btController;
   double btWidth;
   int btDuration = 200;
-
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -47,7 +47,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
       });
     });
   }
-
+// -----------------------------------------------------------------------------
   void resizeBox(){
     print('tapped aho');
     setState(() {
@@ -55,12 +55,20 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
       height = height == 100 ? Scale.superScreenHeight(context) : 100;
     });
   }
-
+// -----------------------------------------------------------------------------
   bool condition(){
-    bool condition = width > 100 ? true : false;
-    return condition;
-  }
+    bool _condition;
 
+    if (width > 100){
+      _condition = true;
+    }
+    else {
+      _condition = false;
+    }
+
+    return _condition;
+  }
+// -----------------------------------------------------------------------------
   // void animateBT(){
   //   setState(() {
   //     btWidth == 100 ? btWidth = 80 : btWidth = 100;
@@ -71,7 +79,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
   //     });
   //   });
   // }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

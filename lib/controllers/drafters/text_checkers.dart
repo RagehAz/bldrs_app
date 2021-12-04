@@ -22,13 +22,20 @@ abstract class TextChecker{
   }
 // -----------------------------------------------------------------------------
   static bool textControllerIsEmpty(TextEditingController controller){
-    final bool controllerIsEmpty =
+    bool _controllerIsEmpty;
+
+    if (
     controller == null || controller.text == '' || controller.text.length == 0 ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) == '' ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) == null
-        ?
-    true : false;
-    return controllerIsEmpty;
+    ){
+      _controllerIsEmpty = true;
+    }
+    else {
+      _controllerIsEmpty = false;
+    }
+
+    return _controllerIsEmpty;
   }
 // -----------------------------------------------------------------------------
   /// TASK : is this the correct way to dispose a text controller ? are you sure ?
@@ -97,13 +104,20 @@ abstract class TextChecker{
 //   }
 // -----------------------------------------------------------------------------
   static bool stringIsEmpty(String val){
-    final bool controllerIsEmpty =
+    bool _controllerIsEmpty;
+
+    if (
     val == null || val == '' || val.length == 0 ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(val) == '' ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(val) == null
-        ?
-    true : false;
-    return controllerIsEmpty;
+    ){
+      _controllerIsEmpty = true;
+    }
+    else {
+      _controllerIsEmpty = false;
+    }
+
+    return _controllerIsEmpty;
   }
 // -----------------------------------------------------------------------------
   static bool stringIsNotEmpty(String val){
@@ -133,21 +147,41 @@ abstract class TextChecker{
 
     final String _firstCharacter = TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
 
-    return
-      _firstCharacter == null  || _firstCharacter == '' ? false :
-      _exp.hasMatch(_firstCharacter) == true ? true : false;
+    bool _startInArabic;
+
+    if (_firstCharacter == null  || _firstCharacter == ''){
+      _startInArabic = false;
+    }
+    else if (_exp.hasMatch(_firstCharacter) == true){
+      _startInArabic = true;
+    }
+    else {
+      _startInArabic = false;
+    }
+
+    return _startInArabic;
 
   }
 // -----------------------------------------------------------------------------
   static bool textStartsInEnglish (String val){
-    // bool isEnglish;
+
     const String _reg = r"[a-zA-Z]";
     final RegExp _exp = RegExp(_reg, unicode: false, multiLine: true);
     final String _firstCharacter = TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
 
-    return
-      _firstCharacter == null  || _firstCharacter == '' ? false :
-      _exp.hasMatch(_firstCharacter) == true ? true : false;
+    bool _startsInEnglish;
+
+    if (_firstCharacter == null  || _firstCharacter == ''){
+      _startsInEnglish = false;
+    }
+    else if (_exp.hasMatch(_firstCharacter) == true){
+      _startsInEnglish = true;
+    }
+    else {
+      _startsInEnglish = false;
+    }
+
+    return _startsInEnglish;
 
   }
 // -----------------------------------------------------------------------------

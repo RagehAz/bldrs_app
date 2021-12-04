@@ -152,6 +152,11 @@ class SuperFlyer{
 // -----------------------------------------------------------------------------
   static SuperFlyer createEmptySuperFlyer({@required double flyerBoxWidth, @required bool goesToEditor}){
 
+    bool _editMode = false;
+    if (goesToEditor == true){
+      _editMode = true;
+    }
+
     return
         SuperFlyer(
 
@@ -214,7 +219,7 @@ class SuperFlyer{
             onRepublishFlyer: null,
             /// editor data
             firstTimer: goesToEditor == true ? true : null,
-            editMode: goesToEditor == true ? true : false,
+            editMode: _editMode,
             canDelete: true,
           ),
           mSlides: null,

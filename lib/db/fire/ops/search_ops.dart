@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/mappers.dart';
-import 'package:bldrs/controllers/drafters/object_checkers.dart';
 import 'package:bldrs/controllers/drafters/text_mod.dart';
 import 'package:bldrs/controllers/theme/standards.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart';

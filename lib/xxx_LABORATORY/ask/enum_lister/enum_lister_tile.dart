@@ -16,9 +16,23 @@ class EnumListerTile extends StatelessWidget {
     @required this.tileIsOn,
     Key key,
   }) : super(key: key);
+// -----------------------------------------------------------------------------
+  bool _shadow(){
+    bool _shadowIsOn;
+    if (tileIsOn == true){
+      _shadowIsOn = false;
+    }
+    else {
+      _shadowIsOn = true;
+    }
 
+    return _shadowIsOn;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -39,7 +53,7 @@ class EnumListerTile extends StatelessWidget {
               verse: verse,
               size: 3,
               color: tileIsOn == true ? Colorz.white255 : Colorz.grey225,
-              shadow: tileIsOn == true ? false : false,
+              shadow: _shadow(),
               weight: tileIsOn == true ? VerseWeight.bold : VerseWeight.thin,
               labelColor: tileIsOn == true ? Colorz.white50 : null,
             ),

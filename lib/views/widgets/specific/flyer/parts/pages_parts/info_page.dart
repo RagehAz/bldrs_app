@@ -38,8 +38,20 @@ class InfoPage extends StatelessWidget {
     @required this.flyerBoxWidth,
     Key key,
   }) : super(key: key);
+// -----------------------------------------------------------------------------
+  bool _flyerInfoExistsCheck(String flyerInfoParagraph){
+    bool _exists;
 
+    if (flyerInfoParagraph == null || flyerInfoParagraph.length == 0){
+      _exists = false;
+    }
+    else {
+      _exists = true;
+    }
 
+    return _exists;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -79,7 +91,7 @@ class InfoPage extends StatelessWidget {
     _editMode == true && superFlyer.infoController.text.length > 0 ? superFlyer.infoController.text :
     _editMode == false ? superFlyer.flyerInfo : superFlyer.flyerInfo;
 
-    final bool _flyerInfoExists = _flyerInfoParagraph == null ? false : _flyerInfoParagraph.length == 0 ? false : true;
+    final bool _flyerInfoExists = _flyerInfoExistsCheck(_flyerInfoParagraph);
 
     final List<FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: superFlyer.bz.bzType);
 

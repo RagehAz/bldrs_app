@@ -98,6 +98,48 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     return _verseIconSpacing;
   }
 // -----------------------------------------------------------------------------
+  bool _verseShadowIsOn(){
+    bool _isOn;
+
+    if (verseShadow != null){
+      _isOn = verseShadow;
+    }
+    else if (blackAndWhite == true || inActiveMode == true){
+      _isOn = false;
+    }
+    else {
+      _isOn = true;
+    }
+
+    return _isOn;
+  }
+// -----------------------------------------------------------------------------
+  bool _verseIsCentered(){
+    bool _centered;
+
+    if (icon == null){
+      _centered = true;
+    }
+    else {
+      _centered = false;
+    }
+
+    return _centered;
+  }
+// -----------------------------------------------------------------------------
+  bool _secondLineShadowIsOn(){
+    bool _isOn;
+
+    if (blackAndWhite == true || inActiveMode == true){
+      _isOn = false;
+    }
+    else {
+      _isOn = true;
+    }
+
+    return _isOn;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // ---------------------------------------------------------
@@ -368,9 +410,9 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                   size: verseSize,
                   weight: verseWeight,
                   color: blackAndWhite == true || inActiveMode == true ? Colorz.white30 : verseColor,
-                  shadow: verseShadow != null ? verseShadow : blackAndWhite == true || inActiveMode == true ? false : true,
+                  shadow: _verseShadowIsOn(),
                   maxLines: verseMaxLines,
-                  centered: icon == null ? true : false,
+                  centered: _verseIsCentered(),
                   scaleFactor: iconSizeFactor * verseScaleFactor,
                   italic: verseItalic,
                   redDot: redDot,
@@ -384,7 +426,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                     color: blackAndWhite == true || inActiveMode == true ? Colorz.white30 : secondLineColor,
                     maxLines: 10,
                     italic: true,
-                    shadow: blackAndWhite == true || inActiveMode == true ? false : true,
+                    shadow: _secondLineShadowIsOn(),
                     centered: false,
                     scaleFactor: secondLineScaleFactor,
                   ),

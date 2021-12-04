@@ -78,49 +78,61 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
   int bounceDuration = 200;
   double boxWidth ;
   double boxHeight ;
-
-
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
      boxWidth = widget.width ;
      boxHeight = widget.height;
   }
+// -----------------------------------------------------------------------------
+  bool _verseCenteredCheck(){
+    bool _centered;
 
+    if (widget.icon == null){
+      _centered = true;
+    }
+    else {
+      _centered = false;
+    }
+
+    return _centered;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    double sizeFactor = widget.iconSizeFactor;
+    final double sizeFactor = widget.iconSizeFactor;
 
-    Color imageSaturationColor =
+    final Color imageSaturationColor =
     widget.blackAndWhite == true ? Colorz.grey225 : Colorz.nothing;
 
-    double verseIconSpacing = widget.verse != null ? boxHeight * 0.3 * widget.iconSizeFactor * widget.verseScaleFactor : 0;
+    final double verseIconSpacing = widget.verse != null ? boxHeight * 0.3 * widget.iconSizeFactor * widget.verseScaleFactor : 0;
 
-    double svgGraphicWidth = boxHeight * sizeFactor;
-    double jpgGraphicWidth = boxHeight * sizeFactor;
-    double graphicWidth = widget.icon == null ? 0 :
+    final double svgGraphicWidth = boxHeight * sizeFactor;
+    final double jpgGraphicWidth = boxHeight * sizeFactor;
+    final double graphicWidth = widget.icon == null ? 0 :
     ObjectChecker.fileExtensionOf(widget.icon) == 'svg' ? svgGraphicWidth :
     ObjectChecker.fileExtensionOf(widget.icon) == 'jpg' ||
         ObjectChecker.fileExtensionOf(widget.icon) == 'jpeg' ||
         ObjectChecker.fileExtensionOf(widget.icon) == 'png' ? jpgGraphicWidth : boxHeight;
 
-    double iconMargin = widget.verse == null || widget.icon == null ? 0 : (boxHeight - graphicWidth)/2;
+    final double iconMargin = widget.verse == null || widget.icon == null ? 0 : (boxHeight - graphicWidth)/2;
 
-    double verseWidth = boxWidth  != null ? boxWidth - (iconMargin * 2) - graphicWidth - ((verseIconSpacing * 2) + iconMargin) : boxWidth;
+    final double verseWidth = boxWidth  != null ? boxWidth - (iconMargin * 2) - graphicWidth - ((verseIconSpacing * 2) + iconMargin) : boxWidth;
 
-    int verseSize =  widget.iconSizeFactor == 1 ? 4 : 4;
+    final int verseSize =  widget.iconSizeFactor == 1 ? 4 : 4;
 
-    double iconCorners = widget.iconRounded == true ? (widget.corners-iconMargin) : 0;
+    final double iconCorners = widget.iconRounded == true ? (widget.corners-iconMargin) : 0;
 
-    Color boxColor =
+    final Color boxColor =
     (widget.blackAndWhite == true && widget.color != Colorz.nothing) ?
     Colorz.grey80 :
     (widget.color == Colorz.nothing && widget.blackAndWhite == true) ?
     Colorz.nothing :
     widget.color;
 
-    Color _iconColor = widget.blackAndWhite == true ? Colorz.white80 : widget.iconColor;
+    final Color _iconColor = widget.blackAndWhite == true ? Colorz.white80 : widget.iconColor;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -137,7 +149,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
 
-                // --- THE BOX
+                /// --- THE BOX
                 AnimatedContainer(
                   duration: widget.duration,
                   curve: Curves.easeInOutQuint,
@@ -180,7 +192,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
 
-                            // --- ICON
+                            /// --- ICON
                             Stack(
                               alignment: Alignment.center,
                               children: <Widget>[
@@ -265,7 +277,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                 ) :
                                 Container(),
 
-                                // --- BUTTON BLACK LAYER IF GREYED OUT
+                                /// --- BUTTON BLACK LAYER IF GREYED OUT
                                 widget.blackAndWhite == true && widget.icon != null && ObjectChecker.fileExtensionOf(widget.icon) != 'svg'?
                                 AnimatedContainer(
                                   duration: widget.duration,
@@ -309,9 +321,9 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                     size: verseSize,
                                     weight: widget.verseWeight,
                                     color: widget.blackAndWhite == true || widget.inActiveMode == true ? Colorz.white80 : widget.verseColor,
-                                    shadow: widget.blackAndWhite == true ? false : true,
+                                    shadow: !widget.blackAndWhite,
                                     maxLines: widget.verseMaxLines,
-                                    centered: widget.icon == null ? true : false,
+                                    centered: _verseCenteredCheck(),
                                     scaleFactor: widget.iconSizeFactor * widget.verseScaleFactor,
                                     italic: widget.verseItalic,
                                   ),
@@ -359,7 +371,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                               ]),
                         ),
 
-                        // --- BOX GRADIENT
+                        /// --- BOX GRADIENT
                         widget.bubble == false ? Container() :
                         AnimatedContainer(
                           duration: widget.duration,
@@ -377,7 +389,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                           ),
                         ),
 
-                        // --- RIPPLE & TAP LAYER
+                        /// --- RIPPLE & TAP LAYER
                         AnimatedContainer(
                           duration: widget.duration,
                           curve: Curves.easeInOutQuint,
@@ -432,7 +444,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                   ),
                 ),
 
-                // --- THE UNDERlINE
+                /// --- THE UNDERLINE
                 widget.underLine == null ? Container() :
                 SuperVerse(
                   verse: widget.underLine,

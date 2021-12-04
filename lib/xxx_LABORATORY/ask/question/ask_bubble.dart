@@ -94,11 +94,23 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   }
   // ----------------------------------------------------------------------
   void textListener(){
+
     // print('ask body text controller value is : ${_askBodyController.text}');
+
     final String _text = _bodyController.text;
+
     if (_text.length == 1 || _text.length == 0){
+
+      bool _inactiveMode = false;
+      if (_text.length > 0){
+        _inactiveMode = false;
+      }
+      else {
+        _inactiveMode = true;
+      }
+
       setState(() {
-        _askButtonInactive = _text.length > 0 ? false : true;
+        _askButtonInactive = _inactiveMode;
       });
     }
 

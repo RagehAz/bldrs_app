@@ -11,7 +11,16 @@ import 'package:flutter/material.dart';
 // }
 // -----------------------------------------------------------------------------
 bool appIsLeftToRight(BuildContext context){
-  return Wordz.textDirection(context) == 'ltr' ? true : false;
+  bool _isLTR;
+
+  if (Wordz.textDirection(context) == 'ltr'){
+    _isLTR = true;
+  }
+  else {
+    _isLTR = false;
+  }
+
+  return _isLTR;
 }
 // -----------------------------------------------------------------------------
 TextDirection superTextDirection(BuildContext context){

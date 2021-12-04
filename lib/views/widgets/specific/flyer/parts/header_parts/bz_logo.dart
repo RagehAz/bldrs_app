@@ -65,7 +65,7 @@ class BzLogo extends StatelessWidget {
           width: width,
           margin: margins,
           decoration: BoxDecoration(
-              color: ObjectChecker.objectIsColor(image) ? null : Colorz.white10,
+              color: image is Color ? null : Colorz.white10,
               image:
               ObjectChecker.objectIsJPGorPNG(image) ?
               DecorationImage(image: AssetImage(image), fit: BoxFit.cover) : null,

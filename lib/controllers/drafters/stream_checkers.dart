@@ -5,8 +5,17 @@ import 'package:flutter/material.dart';
 abstract class StreamChecker{
 // -----------------------------------------------------------------------------
   static bool _connectionIsWaiting(AsyncSnapshot<dynamic> snapshot){
-    return
-      snapshot.connectionState == ConnectionState.waiting? true : false;
+
+    bool _isWaiting;
+
+    if (snapshot.connectionState == ConnectionState.waiting){
+      _isWaiting = true;
+    }
+    else {
+      _isWaiting = false;
+    }
+
+    return _isWaiting;
   }
 // -----------------------------------------------------------------------------
 //   static bool _connectionHasNoData(AsyncSnapshot<dynamic> snapshot){
@@ -15,19 +24,35 @@ abstract class StreamChecker{
 //   }
 // -----------------------------------------------------------------------------
   static bool valueIsLoading(dynamic value){
-    return
-      value == null ? true : false;
+
+    bool _isLoading;
+
+    if (value == null){
+      _isLoading = true;
+    }
+
+    else {
+      _isLoading = false;
+    }
+
+    return _isLoading;
   }
 // -----------------------------------------------------------------------------
   static bool connectionIsLoading(AsyncSnapshot<dynamic> snapshot){
-    bool _isLoading =
+    bool _isLoading;
+
+    if (
     // _connectionHasNoData(snapshot) == true
     //     ||
     _connectionIsWaiting(snapshot) == true
     //     ||
     // snapshot.error == null
-        ?
-    true : false;
+    ){
+      _isLoading = true;
+    }
+    else {
+      _isLoading = false;
+    }
 
     return _isLoading;
   }

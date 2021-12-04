@@ -37,7 +37,15 @@ class NotificationCard extends StatelessWidget {
 // -----------------------------------------------------------------------------
   void _onButtonTap(String value){
     /// TASK : notification buttons accept reject need better logic handling for translation
-    final bool _accepted = value == 'Accept' ? true : false;
+    bool _accepted;
+
+    if (value == 'Accept'){
+      _accepted = true;
+    }
+    else {
+      _accepted = false;
+    }
+
     print('_onButtonTap : _accepted : $_accepted');
   }
 // -----------------------------------------------------------------------------
