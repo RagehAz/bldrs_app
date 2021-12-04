@@ -14,7 +14,7 @@ import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/standards.dart' as Standards;
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/fire/methods/dynamic_links.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/ops/flyer_ops.dart';
@@ -25,7 +25,7 @@ import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/flyer/records/review_model.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
@@ -46,7 +46,7 @@ import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog_buttons.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart';
+import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart' as Dialogz;
 import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
@@ -1256,7 +1256,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                             await _onSubmitReview(
                               review: ReviewModel(
                                 body: _superFlyer.rec.reviewController.text, time: DateTime.now(),
-                                userID: superUserID(),
+                                userID: FireAuthOps.superUserID(),
                                 reviewID: review?.reviewID,
                               ),
                             );
@@ -1364,7 +1364,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           :
       ReviewModel(
         body: _superFlyer.rec.reviewController.text,
-        userID: superUserID(),
+        userID: FireAuthOps.superUserID(),
         time: DateTime.now(),
       );
 
@@ -1911,7 +1911,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       draggable: true,
       child: FlyerTypeSelector(
         superFlyer: _superFlyer,
-        onChangeFlyerType: (FlyerType flyerType){
+        onChangeFlyerType: (FlyerTypeClass.FlyerType flyerType){
 
           setState(() {
             _superFlyer.flyerType = flyerType;

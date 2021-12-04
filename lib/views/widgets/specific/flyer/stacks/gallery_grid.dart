@@ -1,6 +1,6 @@
 import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -46,7 +46,7 @@ class GalleryGrid extends StatelessWidget {
       bzAuthors.forEach((AuthorModel au) {_authorsIDsList.add(au.userID);});
     }
 
-    final String _viewerID = superUserID();
+    final String _viewerID = FireAuthOps.superUserID();
 
     final bool _viewerIsAuthor = _authorsIDsList.contains(_viewerID);
     return _viewerIsAuthor;

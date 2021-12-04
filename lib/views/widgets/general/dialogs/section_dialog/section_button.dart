@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/models/kw/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/secondary_models/link_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 
 class SectionDialogButton extends StatelessWidget {
   final double dialogHeight;
-  final Section section;
+  final SectionClass.Section section;
   final bool inActiveMode;
 
   const SectionDialogButton({
@@ -26,7 +26,7 @@ class SectionDialogButton extends StatelessWidget {
     Key key,
   }) : super(key: key);
 // -----------------------------------------------------------------------------
-  String _sectionIcon({Section section, bool inActiveMode}){
+  String _sectionIcon({SectionClass.Section section, bool inActiveMode}){
     String _icon;
 
     if (inActiveMode == true){
@@ -39,7 +39,7 @@ class SectionDialogButton extends StatelessWidget {
     return _icon;
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onSectionTap({BuildContext context, Section section, bool inActiveMode}) async {
+  Future<void> _onSectionTap({BuildContext context, SectionClass.Section section, bool inActiveMode}) async {
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);

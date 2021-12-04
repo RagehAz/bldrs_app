@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/main.dart';
@@ -64,11 +64,11 @@ class Localizer{
 
     BldrsApp.setLocale(context, _temp);
 
-    if (superUserID() != null){
+    if (FireAuthOps.superUserID() != null){
       await Fire.updateDocField(
         context: context,
         collName: FireColl.users,
-        docName: superUserID(),
+        docName: FireAuthOps.superUserID(),
         field: 'language',
         input: code,
       );

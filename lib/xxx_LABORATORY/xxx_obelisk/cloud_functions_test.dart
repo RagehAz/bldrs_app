@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/fire/methods/cloud_functions.dart' as CloudFunctionz;
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
@@ -107,7 +107,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
                   context: context,
                   cloudFunctionName: 'n001_notifyUser',
                   toDBMap: <String, dynamic>{
-                    'from': superUserID(),
+                    'from': FireAuthOps.superUserID(),
                     'to': '60a1SPzftGdH6rt15NF96m0j9Et2', // rageh by facebook
                     'title': 'Targetted notification',
                     'body': 'this is by far the first true targeted notification in this app',

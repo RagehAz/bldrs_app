@@ -1,65 +1,16 @@
+import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/db/ldb/sembast/sembast.dart';
 import 'package:bldrs/models/zone/country_model.dart';
 import 'package:flutter/foundation.dart';
 
 
-abstract class LDBDoc {
-  static const String follows = 'myFollows';
-  static const String calls = 'myCalls';
-  static const String shares = 'myShares';
-  static const String views = 'myViews';
-  static const String saves = 'mySaves';
-  static const String reviews = 'myReviews';
-  static const String questions = 'myQuestions';
-  static const String answers = 'myAnswers';
-  static const String flyers = 'sessionFlyers';
-  static const String bzz = 'sessionBzz';
-  static const String users = 'sessionUsers';
-  static const String keywords = 'keywords';
-  static const String countries = 'sessionCountries';
-  static const String cities = 'sessionCities';
-  static const String continents = 'continents';
-  static const String currencies = 'currencies';
 
-  static const List<String> bzModelsDocs = const <String>[
-    bzz,
-  ];
-
-  static const List<String> flyerModelsDocs = const <String>[
-    flyers,
-  ];
-
-  static const List<String> userModelsDocs = const <String>[
-    users,
-  ];
-
-  static const List<String> allDocs = <String>[
-    follows,
-    calls,
-    shares,
-    views,
-    saves,
-    reviews,
-    questions,
-    answers,
-    flyers,
-    bzz,
-    users,
-    keywords,
-    countries,
-    cities,
-    continents,
-    currencies,
-  ];
-}
-
-abstract class LDBOps{
 // -----------------------------------------------------------------------------
 
   /// REFERENCES
 
 // ---------------------------------------------------
-  static String getPrimaryKey(String docName){
+  String getPrimaryKey(String docName){
 
     switch (docName){
       case LDBDoc.follows : return 'followID';
@@ -87,7 +38,7 @@ abstract class LDBOps{
   /// CREATE
 
 // ---------------------------------------------------
-  static Future<void> insertMap({
+  Future<void> insertMap({
     @required String primaryKey,
     @required Map<String, Object> input,
     @required String docName,
@@ -102,7 +53,7 @@ abstract class LDBOps{
     print('LDBOps inserted in ${docName}');
   }
 // ---------------------------------------------------
-  static Future<void> insertMaps({
+  Future<void> insertMaps({
     @required String primaryKey,
     @required List<Map<String, Object>> inputs,
     @required String docName,
@@ -120,7 +71,7 @@ abstract class LDBOps{
   /// READ
 
 // ---------------------------------------------------
-  static Future<List<Map<String, Object>>> readAllMaps({@required String docName}) async {
+  Future<List<Map<String, Object>>> readAllMaps({@required String docName}) async {
 
     final List<Map<String, Object>> _result = await Sembast.readAll(
       docName: docName,
@@ -131,7 +82,7 @@ abstract class LDBOps{
     return _fixedMaps;
   }
 // ---------------------------------------------------
-  static Future<Map<String, Object>> searchFirstMap({
+  Future<Map<String, Object>> searchFirstMap({
     @required String fieldToSortBy,
     @required String searchField,
     @required dynamic searchValue,
@@ -153,7 +104,7 @@ abstract class LDBOps{
 
   }
 // ---------------------------------------------------
-  static Future<List<Map<String, Object>>> searchAllMaps({
+  Future<List<Map<String, Object>>> searchAllMaps({
     @required String fieldToSortBy,
     @required String searchField,
     @required dynamic searchValue,
@@ -175,7 +126,7 @@ abstract class LDBOps{
 
   }
 // ---------------------------------------------------
-  static Future<List<Map<String, Object>>> searchTrigram({
+  Future<List<Map<String, Object>>> searchTrigram({
     @required dynamic searchValue,
     @required String docName,
     @required String lingoCode,
@@ -195,7 +146,7 @@ abstract class LDBOps{
   /// UPDATE
 
 // ---------------------------------------------------
-  static Future<void> updateMap({
+  Future<void> updateMap({
     @required Map<String, Object> input,
     @required String objectID,
     @required String docName,
@@ -216,7 +167,7 @@ abstract class LDBOps{
   /// DELETE
 
 // ---------------------------------------------------
-  static Future<void> deleteMap({
+  Future<void> deleteMap({
     @required String objectID,
     @required String docName,
   }) async {
@@ -231,7 +182,7 @@ abstract class LDBOps{
 
   }
 // ---------------------------------------------------
-  static Future<void> deleteAllMaps({@required String docName}) async {
+  Future<void> deleteAllMaps({@required String docName}) async {
 
     await Sembast.deleteAll(
       docName: docName,
@@ -243,7 +194,7 @@ abstract class LDBOps{
 
 /// FIREBASE TO SEMBAST ADAPTERS
 // -----------------------------------------------------------------------------
-//   static Map<String, Object> _cipherFirebaseMapToSembastMap(Map<String, Object> mapOfFirebase){
+//   Map<String, Object> _cipherFirebaseMapToSembastMap(Map<String, Object> mapOfFirebase){
 //
 //     Map<String, Object> _fixedMap = mapOfFirebase;
 //     final List<String> _keys = mapOfFirebase.keys.toList();
@@ -298,7 +249,7 @@ abstract class LDBOps{
 //
 //   }
 // // -----------------------------------------------------------------------------
-//   static List<Map<String, Object>> _cipherFirebaseMapsToSembastMaps(List<Map<String, Object>> firebaseMaps){
+//   List<Map<String, Object>> _cipherFirebaseMapsToSembastMaps(List<Map<String, Object>> firebaseMaps){
 //
 //     final List<Map<String, Object>> _fixedMaps = <Map<String, Object>>[];
 //
@@ -312,7 +263,7 @@ abstract class LDBOps{
 //     return _fixedMaps;
 //   }
 // // -----------------------------------------------------------------------------
-//   static Map<String, Object> _decipherSembastMapToFirebaseMap(Map<String, Object> sembastMap){
+//   Map<String, Object> _decipherSembastMapToFirebaseMap(Map<String, Object> sembastMap){
 //
 //     Map<String, Object> _fixedMap = sembastMap;
 //
@@ -377,7 +328,7 @@ abstract class LDBOps{
 //     return _fixedMap;
 //   }
 // // -----------------------------------------------------------------------------
-//   static List<Map<String, Object>> _decipherSembastMapsToFirebaseMaps(List<Map<String, Object>> sembastMaps){
+//   List<Map<String, Object>> _decipherSembastMapsToFirebaseMaps(List<Map<String, Object>> sembastMaps){
 //     final List<Map<String, Object>> _fixedMaps = <Map<String, Object>>[];
 //
 //     for (var sembastMap in sembastMaps){
@@ -390,5 +341,3 @@ abstract class LDBOps{
 //     return _fixedMaps;
 //   }
 // // -----------------------------------------------------------------------------
-
-}

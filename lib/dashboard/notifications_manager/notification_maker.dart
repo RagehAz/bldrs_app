@@ -16,11 +16,11 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/dashboard/widgets/user_button.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/ops/search_ops.dart';
 import 'package:bldrs/db/fire/methods/paths.dart';
-import 'package:bldrs/db/fire/methods/storage.dart';
+import 'package:bldrs/db/fire/methods/storage.dart' as Storage;
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:bldrs/models/secondary_models/image_size.dart';
@@ -389,8 +389,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
 // -----------------------------------------------------------------------------
   Future<void> _onSendNotification({bool sendToMyself = false}) async {
 
-    final String _userID = sendToMyself == true ? superUserID() : _selectedUser.id;
-    final String _userName = sendToMyself == true ? 'YOURSELF : ${superUserID()}' : _selectedUser.name;
+    final String _userID = sendToMyself == true ? FireAuthOps.superUserID() : _selectedUser.id;
+    final String _userName = sendToMyself == true ? 'YOURSELF : ${FireAuthOps.superUserID()}' : _selectedUser.name;
 
     final bool _confirmSend = await CenterDialog.showCenterDialog(
       context: context,
@@ -445,7 +445,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
           await Fire.createNamedSubDoc(
             context: context,
             collName: FireColl.users,
-            docName: sendToMyself == true ? superUserID() : _selectedUser.id,
+            docName: sendToMyself == true ? FireAuthOps.superUserID() : _selectedUser.id,
             subCollName: FireSubColl.users_user_notifications,
             input: _newNoti.toMap(toJSON: false),
             subDocName: _id,

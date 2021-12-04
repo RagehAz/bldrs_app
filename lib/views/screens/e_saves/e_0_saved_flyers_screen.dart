@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/kw/section_class.dart';
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/tab_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';
@@ -26,7 +26,7 @@ class SavedFlyersScreen extends StatefulWidget {
 
 class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTickerProviderStateMixin {
   int _currentTabIndex;
-  List<Section> _sectionsList;
+  List<SectionClass.Section> _sectionsList;
   List<FlyerModel> _allFlyers;
   TabController _tabController;
   List<FlyerModel> _selectedFlyers;
@@ -67,9 +67,9 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  List<Section> addAllButtonToSections(){
-    const List<Section> _originalList = SectionClass.SectionsList;
-    const List<Section> _newListWithAddButton = <Section>[Section.All,..._originalList];
+  List<SectionClass.Section> addAllButtonToSections(){
+    const List<SectionClass.Section> _originalList = SectionClass.SectionsList;
+    const List<SectionClass.Section> _newListWithAddButton = <SectionClass.Section>[SectionClass.Section.All,..._originalList];
     return _newListWithAddButton;
   }
 // -----------------------------------------------------------------------------

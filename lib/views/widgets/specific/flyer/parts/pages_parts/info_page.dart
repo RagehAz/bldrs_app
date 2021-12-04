@@ -11,7 +11,7 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
@@ -72,7 +72,7 @@ class InfoPage extends StatelessWidget {
 
     final BorderRadius _keywordsBubbleCorners = Borderers.superBorderAll(context, flyerBoxWidth * Ratioz.xxflyerTopCorners);
 
-    final FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType) : superFlyer.flyerType;
+    final FlyerTypeClass.FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType) : superFlyer.flyerType;
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
     final CountryModel _currentCountry = _zoneProvider.currentCountry;
@@ -93,7 +93,7 @@ class InfoPage extends StatelessWidget {
 
     final bool _flyerInfoExists = _flyerInfoExistsCheck(_flyerInfoParagraph);
 
-    final List<FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: superFlyer.bz.bzType);
+    final List<FlyerTypeClass.FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: superFlyer.bz.bzType);
 
     return NeedToSaveScrollPosition(
       superFlyer: superFlyer,

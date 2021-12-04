@@ -1,13 +1,13 @@
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class SelectKeywordsScreen extends StatefulWidget {
   final List<KW> selectedKeywords;
-  final FlyerType flyerType;
+  final FlyerTypeClass.FlyerType flyerType;
   // final Function onKeywordTap;
 
   const SelectKeywordsScreen({
