@@ -80,7 +80,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
     });
 
     _tabController.animation
-      ..addListener(() {
+      .addListener(() {
         if(_tabController.indexIsChanging == false){
           _onChangeTab((_tabController.animation.value).round());
         }

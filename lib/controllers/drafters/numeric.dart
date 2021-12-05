@@ -259,21 +259,21 @@ import 'package:flutter/material.dart';
     return _indexes;
   }
 // -----------------------------------------------------------------------------
-  /// true => 1; false => 0 else => null
+  /// true => 1; false => 0 else => null => return false instead of null
   int cipherBool({@required bool bool}){
     switch (bool){
       case true: return 1; break;
       case false: return 0; break;
-      default: return null;
+      default: return 0;
     }
   }
 // -----------------------------------------------------------------------------
-  /// 1 => true; 0 => false else => null
+  /// 1 => true; 0 => false else => null (returning false instead of null)
   bool decipherBool(int int){
     switch (int){
       case 1: return true; break;
       case 0: return false; break;
-      default: return null;
+      default: return false;
     }
   }
 // -----------------------------------------------------------------------------

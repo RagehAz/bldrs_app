@@ -286,7 +286,6 @@ import 'package:flutter/foundation.dart' show kIsWeb;
         body: error,
       );
 
-      return null;
     }
   }
 // -----------------------------------------------------------------------------
