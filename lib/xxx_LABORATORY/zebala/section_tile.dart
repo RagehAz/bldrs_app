@@ -58,28 +58,26 @@ class SectionTile extends StatelessWidget {
         title: 'Section "${TextGen.sectionStringer(context, section)}" is\nTemporarily closed in $_currentCityID',
         body: 'The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
         height: 400,
-        child: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
 
-              DialogButton(
-                verse: 'Inform a friend',
-                width: 133,
-                onTap: () async {
-                  await Launcher.shareLink(context, LinkModel.bldrsWebSiteLink);
-                },
-              ),
+            DialogButton(
+              verse: 'Inform a friend',
+              width: 133,
+              onTap: () async {
+                await Launcher.shareLink(context, LinkModel.bldrsWebSiteLink);
+              },
+            ),
 
-              DialogButton(
-                verse: 'Go back',
-                color: Colorz.yellow255,
-                verseColor: Colorz.black230,
-                onTap: () => Nav.goBack(context),
-              ),
+            DialogButton(
+              verse: 'Go back',
+              color: Colorz.yellow255,
+              verseColor: Colorz.black230,
+              onTap: () => Nav.goBack(context),
+            ),
 
-            ],
-          ),
+          ],
         ),
       );
     }

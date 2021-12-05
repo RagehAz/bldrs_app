@@ -332,74 +332,71 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         ),
 
         /// ASK PICS
-        Container(
-          // color: Colorz.BloodTest,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
 
-              SuperVerse(
-                verse: 'Attach images to your Question',
-                color: Colorz.white10,
-                weight: VerseWeight.thin,
-                italic: true,
-                margin: Ratioz.appBarPadding,
-              ),
+            SuperVerse(
+              verse: 'Attach images to your Question',
+              color: Colorz.white10,
+              weight: VerseWeight.thin,
+              italic: true,
+              margin: Ratioz.appBarPadding,
+            ),
 
-              Stack(
-                children: <Widget>[
+            Stack(
+              children: <Widget>[
 
-                  /// GRID FOOTPRINTS
-                  if (_questionPics.length == 0)
-                    GridView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      // padding: EdgeInsets.all(_gridSpacing),
-                      gridDelegate: _gridDelegate,
-                      children: _boxesColors.map(
-                            (Color color) => BzLogo(
-                              width: _gridBzWidth,
-                              image: color,
-                              zeroCornerIsOn: false,
-                              onTap: (){
-                                Keyboarders.minimizeKeyboardOnTapOutSide(context);
-                                _addPic();
-                                },
-                            ),
-                      ).toList(),
-                    ),
-
-
-                  /// ASK PICS GRID
-                  if (_questionPics.length != 0)
-                    GridView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      // padding: EdgeInsets.all(_gridSpacing),
-                      // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
-                      gridDelegate: _gridDelegate,
-                      children: _questionPics.map(
-                            (File pic) => BzLogo(
+                /// GRID FOOTPRINTS
+                if (_questionPics.length == 0)
+                  GridView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    // padding: EdgeInsets.all(_gridSpacing),
+                    gridDelegate: _gridDelegate,
+                    children: _boxesColors.map(
+                          (Color color) => BzLogo(
                             width: _gridBzWidth,
-                            image: pic,
+                            image: color,
                             zeroCornerIsOn: false,
                             onTap: (){
-                              // TASK : tap ask picture to go full screen
-                              print('SHOULD GO FULL SCREEN AND BACK : ${pic.path}');
-                              // for now it will delete image
-                              _deletePic(pic);
-                            }
-                        ),
+                              Keyboarders.minimizeKeyboardOnTapOutSide(context);
+                              _addPic();
+                              },
+                          ),
+                    ).toList(),
+                  ),
 
-                      ).toList(),
 
-                    ),
+                /// ASK PICS GRID
+                if (_questionPics.length != 0)
+                  GridView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    // padding: EdgeInsets.all(_gridSpacing),
+                    // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
+                    gridDelegate: _gridDelegate,
+                    children: _questionPics.map(
+                          (File pic) => BzLogo(
+                          width: _gridBzWidth,
+                          image: pic,
+                          zeroCornerIsOn: false,
+                          onTap: (){
+                            // TASK : tap ask picture to go full screen
+                            print('SHOULD GO FULL SCREEN AND BACK : ${pic.path}');
+                            // for now it will delete image
+                            _deletePic(pic);
+                          }
+                      ),
 
-                ],
-              ),
+                    ).toList(),
 
-            ],
-          ),
+                  ),
+
+              ],
+            ),
+
+          ],
         ),
 
         /// ASK BUTTON

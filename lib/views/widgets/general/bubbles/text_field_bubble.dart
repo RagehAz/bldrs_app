@@ -88,97 +88,94 @@ class TextFieldBubble extends StatelessWidget {
           width: Bubble.defaultWidth(context),
           columnChildren: <Widget>[
 
-            Container(
-              // color: Colorz.BloodTest,
-              child: Stack(
-                alignment: Aligners.superInverseTopAlignment(context),
-                children: <Widget>[
+            Stack(
+              alignment: Aligners.superInverseTopAlignment(context),
+              children: <Widget>[
 
-                  /// TEXT FIELD
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                /// TEXT FIELD
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
 
-                      /// LEADING ICON
-                      if (leadingIcon != null)
-                      DreamBox(
-                        height: 35,
-                        width: 35,
-                        icon: leadingIcon,
-                        iconSizeFactor: leadingIcon == Iconz.ComWebsite ||
-                            leadingIcon == Iconz.ComEmail ||
-                            leadingIcon == Iconz.ComPhone ?
-                        0.6 : 1,
-                      ),
-
-                      /// SPACER
-                      if (leadingIcon != null)
-                      const SizedBox(width: 5,),
-
-                      /// TEXT FIELD
-                      Container(
-                        width: fieldWidth,
-                        child: SuperTextField(
-                          onTap: fieldOnTap,
-                          textDirection: textDirection,
-                          fieldIsFormField: fieldIsFormField,
-                          hintText: hintText,
-                          counterIsOn: counterIsOn,
-                          keyboardTextInputType: keyboardTextInputType,
-                          maxLines: maxLines,
-                          maxLength: maxLength,
-                          textController: textController,
-                          onChanged: textOnChanged,
-                          obscured: obscured,
-                          onSaved: onSaved,
-                          keyboardTextInputAction: keyboardTextInputAction,
-                          initialValue: initialTextValue,
-                          validator: validator,
-                          key: key,
-                        ),
-                      ),
-
-                      /// SPACER
-                      if (obscured != null)
-                        const SizedBox(width: 5,),
-
-                      /// OBSCURE BUTTON
-                      if (obscured != null)
-                      DreamBox(
-                        height: 35,
-                        width: 35,
-                        color: obscured? Colorz.nothing : Colorz.yellow200,
-                        icon: Iconz.Views,
-                        iconColor: obscured? Colorz.white20 : Colorz.black230,
-                        iconSizeFactor: 0.7,
-                        bubble: false,
-                        onTap: horusOnTap,
-                        // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
-                        corners: SuperVerse.superVerseLabelCornerValue(context, 3),
-                      ),
-
-
-                    ],
-                  ),
-
-                  /// --- LOADING INDICATOR
-                  if (loading)
-                  Loading(size: 35, loading: loading,),
-
-
-                  if (keyboardTextInputType == TextInputType.url)
+                    /// LEADING ICON
+                    if (leadingIcon != null)
                     DreamBox(
                       height: 35,
-                      verse: 'paste  ',
-                      verseScaleFactor: 0.5,
-                      verseWeight: VerseWeight.thin,
-                      verseItalic: true,
-                      color: Colorz.white10,
-                      onTap: pasteFunction,
+                      width: 35,
+                      icon: leadingIcon,
+                      iconSizeFactor: leadingIcon == Iconz.ComWebsite ||
+                          leadingIcon == Iconz.ComEmail ||
+                          leadingIcon == Iconz.ComPhone ?
+                      0.6 : 1,
                     ),
 
-                ],
-              ),
+                    /// SPACER
+                    if (leadingIcon != null)
+                    const SizedBox(width: 5,),
+
+                    /// TEXT FIELD
+                    Container(
+                      width: fieldWidth,
+                      child: SuperTextField(
+                        onTap: fieldOnTap,
+                        textDirection: textDirection,
+                        fieldIsFormField: fieldIsFormField,
+                        hintText: hintText,
+                        counterIsOn: counterIsOn,
+                        keyboardTextInputType: keyboardTextInputType,
+                        maxLines: maxLines,
+                        maxLength: maxLength,
+                        textController: textController,
+                        onChanged: textOnChanged,
+                        obscured: obscured,
+                        onSaved: onSaved,
+                        keyboardTextInputAction: keyboardTextInputAction,
+                        initialValue: initialTextValue,
+                        validator: validator,
+                        key: key,
+                      ),
+                    ),
+
+                    /// SPACER
+                    if (obscured != null)
+                      const SizedBox(width: 5,),
+
+                    /// OBSCURE BUTTON
+                    if (obscured != null)
+                    DreamBox(
+                      height: 35,
+                      width: 35,
+                      color: obscured? Colorz.nothing : Colorz.yellow200,
+                      icon: Iconz.Views,
+                      iconColor: obscured? Colorz.white20 : Colorz.black230,
+                      iconSizeFactor: 0.7,
+                      bubble: false,
+                      onTap: horusOnTap,
+                      // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
+                      corners: SuperVerse.superVerseLabelCornerValue(context, 3),
+                    ),
+
+
+                  ],
+                ),
+
+                /// --- LOADING INDICATOR
+                if (loading)
+                Loading(size: 35, loading: loading,),
+
+
+                if (keyboardTextInputType == TextInputType.url)
+                  DreamBox(
+                    height: 35,
+                    verse: 'paste  ',
+                    verseScaleFactor: 0.5,
+                    verseWeight: VerseWeight.thin,
+                    verseItalic: true,
+                    color: Colorz.white10,
+                    onTap: pasteFunction,
+                  ),
+
+              ],
             ),
 
             /// BUBBLE COMMENTS

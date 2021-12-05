@@ -298,36 +298,34 @@ class Strips extends StatelessWidget {
                 final double _tweenVal = swipeDirection == Sliders.SwipeDirection.freeze ? _aStripLength : tweenVal;
 
                 return
-                  Container(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
 
-                        ...List<Widget>.generate(_numberOfWhiteStrips(), (int index) {
-                          // print('numberOfSlides : $numberOfSlides ,currentSlide : $currentSlide, index : $index, _numberOfWhiteStrips() : ${_numberOfWhiteStrips()}' );
+                      ...List<Widget>.generate(_numberOfWhiteStrips(), (int index) {
+                        // print('numberOfSlides : $numberOfSlides ,currentSlide : $currentSlide, index : $index, _numberOfWhiteStrips() : ${_numberOfWhiteStrips()}' );
 
-                          return
-                            /// IF ITS LAST STRIP
-                            // index == slideIndex ?
-                            index + 1 == _numberOfWhiteStrips()?
-                            Strip(
-                              flyerBoxWidth: flyerBoxWidth,
-                              stripWidth: _tweenVal,
-                              numberOfSlides: numberOfStrips,
-                              isWhite: true,
-                            )
-                                :
-                            /// IF STATIC STRIPS
-                            Strip(
-                              flyerBoxWidth: flyerBoxWidth,
-                              stripWidth: _aStripLength,
-                              numberOfSlides: numberOfStrips,
-                              isWhite: true,
-                            );
+                        return
+                          /// IF ITS LAST STRIP
+                          // index == slideIndex ?
+                          index + 1 == _numberOfWhiteStrips()?
+                          Strip(
+                            flyerBoxWidth: flyerBoxWidth,
+                            stripWidth: _tweenVal,
+                            numberOfSlides: numberOfStrips,
+                            isWhite: true,
+                          )
+                              :
+                          /// IF STATIC STRIPS
+                          Strip(
+                            flyerBoxWidth: flyerBoxWidth,
+                            stripWidth: _aStripLength,
+                            numberOfSlides: numberOfStrips,
+                            isWhite: true,
+                          );
 
-                        }),
-                      ],
-                    ),
+                      }),
+                    ],
                   );
 
               },

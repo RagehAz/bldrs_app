@@ -15,22 +15,20 @@ class QuesScreen extends StatelessWidget {
 
     final QuestionsProvider questionsProvider = Provider.of<QuestionsProvider>(context);
 
-    return Container(
-      child: MainLayout(
-        pyramids: Iconz.PyramidsGlass,
-        appBarType: AppBarType.Basic,
-        appBarRowWidgets: <Widget>[
-          SuperVerse(
-            verse: 'Questions list',
-            labelColor: Colorz.white10,
-            margin: 5,
-            size: 4,
-          ),
+    return MainLayout(
+      pyramids: Iconz.PyramidsGlass,
+      appBarType: AppBarType.Basic,
+      appBarRowWidgets: <Widget>[
+        SuperVerse(
+          verse: 'Questions list',
+          labelColor: Colorz.white10,
+          margin: 5,
+          size: 4,
+        ),
 
-        ],
+      ],
 
-        layoutWidget: QuestList(questions: questionsProvider.getQuestionsList()),
-      ),
+      layoutWidget: QuestList(questions: questionsProvider.getQuestionsList()),
     );
   }
 }

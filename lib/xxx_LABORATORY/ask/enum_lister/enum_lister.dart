@@ -82,81 +82,76 @@ class EnumLister extends StatelessWidget {
                 ),
 
                 /// --- LIST CONTENTS
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
 
-                      /// --- LIST TITLE
-                      Container(
-                        // padding: EdgeInsets.all(Ratioz.ddAppBarMargin * 2),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
+                    /// --- LIST TITLE
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
 
-                            /// LIST TITLE
-                            SuperVerse(
-                              verse: listTitle,
-                              size: 3,
-                              shadow: true,
-                              italic: true,
-                              margin: Ratioz.appBarMargin * 2,
-                            ),
+                        /// LIST TITLE
+                        SuperVerse(
+                          verse: listTitle,
+                          size: 3,
+                          shadow: true,
+                          italic: true,
+                          margin: Ratioz.appBarMargin * 2,
+                        ),
 
-                            /// EXIT X ICON
-                            DreamBox(
-                              height: 50,
-                              width: 60,
-                              corners: 10,
-                              icon: Iconz.XLarge,
-                              onTap: closeEnumLister,
-                              // boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin),
-                              iconSizeFactor: 0.4,
-                              bubble: false,
-                            ),
-                          ],
+                        /// EXIT X ICON
+                        DreamBox(
+                          height: 50,
+                          width: 60,
+                          corners: 10,
+                          icon: Iconz.XLarge,
+                          onTap: closeEnumLister,
+                          // boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin),
+                          iconSizeFactor: 0.4,
+                          bubble: false,
+                        ),
+                      ],
+                    ),
+
+                    /// DIVIDING LINE
+                    Container(
+                      width: listWidth - Ratioz.appBarMargin,
+                      height: 0.5,
+                      color: Colorz.yellow255,
+                      margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
+
+                    ),
+
+                    /// LIST ITEMS
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
+                        decoration: const BoxDecoration(
+                          gradient: const LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            colors: <Color>[Colorz.black200, Colorz.black0],
+                            stops: <double>[0, 0.25]
+                          )
+                        ),
+                        child: ListView.builder(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: stringsList.length,
+                          padding: const EdgeInsets.only(bottom: Ratioz.pyramidsHeight, top: Ratioz.appBarMargin ),
+                          itemBuilder: (_, int index) =>
+
+                               EnumListerTile(
+                                verse: stringsList[index],
+                                onTap: () => triggerTile(index),
+                                tileIsOn: triggersList[index],
+                              )
+
                         ),
                       ),
-
-                      /// DIVIDING LINE
-                      Container(
-                        width: listWidth - Ratioz.appBarMargin,
-                        height: 0.5,
-                        color: Colorz.yellow255,
-                        margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
-
-                      ),
-
-                      /// LIST ITEMS
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
-                          decoration: const BoxDecoration(
-                            gradient: const LinearGradient(
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                              colors: <Color>[Colorz.black200, Colorz.black0],
-                              stops: <double>[0, 0.25]
-                            )
-                          ),
-                          child: ListView.builder(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: stringsList.length,
-                            padding: const EdgeInsets.only(bottom: Ratioz.pyramidsHeight, top: Ratioz.appBarMargin ),
-                            itemBuilder: (_, int index) =>
-
-                                 EnumListerTile(
-                                  verse: stringsList[index],
-                                  onTap: () => triggerTile(index),
-                                  tileIsOn: triggersList[index],
-                                )
-
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 )
               ],
             ),
