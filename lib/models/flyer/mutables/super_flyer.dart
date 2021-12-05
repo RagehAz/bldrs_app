@@ -228,7 +228,6 @@ class SuperFlyer{
           loading: false,
 
           infoController: null,
-          screenShots: null,
 
           /// slides settings
           numberOfSlides: 0,
@@ -311,15 +310,15 @@ class SuperFlyer{
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 
-    final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
+    final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);
 
     return
       SuperFlyer(
         nav: FlyerNavigator(
           /// animation controller
-          horizontalController: PageController(initialPage: _initialPage, viewportFraction: 1, keepPage: true),
-          verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
+          horizontalController: PageController(initialPage: _initialPage),
+          verticalController: PageController(),
           infoScrollController: _infoScrollController,
           /// animation functions
           onHorizontalSlideSwipe: onHorizontalSlideSwipe,
@@ -385,7 +384,6 @@ class SuperFlyer{
         loading: false,
 
         infoController: null,
-        screenShots: null,
 
         /// slides settings
         numberOfSlides: flyerModel.slides.length,
@@ -478,7 +476,7 @@ class SuperFlyer{
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-    final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
+    final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);
 
     return
@@ -486,8 +484,8 @@ class SuperFlyer{
 
         nav: FlyerNavigator(
           /// animation controller
-          horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
-          verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
+          horizontalController: PageController(),
+          verticalController: PageController(),
           infoScrollController: _infoScrollController,
           /// animation functions
           onHorizontalSlideSwipe: onHorizontalSlideSwipe,
@@ -650,15 +648,15 @@ class SuperFlyer{
 
     final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 
-    final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0, keepScrollOffset: true,);
+    final ScrollController _infoScrollController = ScrollController(initialScrollOffset: initialInfoScrollOffset ?? 0,);
     _infoScrollController.addListener(onSaveInfoScrollOffset);
 
     return
       SuperFlyer(
         nav: FlyerNavigator(
           /// animation controller
-          horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
-          verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
+          horizontalController: PageController(),
+          verticalController: PageController(),
           infoScrollController: _infoScrollController,
           /// animation functions
           onHorizontalSlideSwipe: onHorizontalSlideSwipe,
@@ -778,9 +776,9 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
       SuperFlyer(
         nav: FlyerNavigator(
           /// animation controller
-          horizontalController: PageController(initialPage: 0, viewportFraction: 1, keepPage: true),
-          verticalController: PageController(initialPage: 0, keepPage: true, viewportFraction: 1),
-          infoScrollController: ScrollController(keepScrollOffset: true,),
+          horizontalController: PageController(),
+          verticalController: PageController(),
+          infoScrollController: ScrollController(),
           /// animation functions
           onHorizontalSlideSwipe: null,
           onVerticalPageSwipe: null,
@@ -844,7 +842,6 @@ static SuperFlyer getSuperFlyerFromBzModelOnly({
 
         /// editor data
         infoController: null,
-        screenShots: null,
 
         /// slides settings
         numberOfSlides: 0,

@@ -102,7 +102,6 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
     return  ListLayout(
       pyramids: Iconz.PyramidzYellow,
       pageTitle: _countryName,
-      icons: null,
       mapModels: _citiesMapModels,
       pageIcon: _countryFlag,
       pageIconVerse: _countryName,
@@ -131,7 +130,6 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
            final ZoneModel _zone = ZoneModel(
              countryID: _city.countryID,
              cityID: _city.cityID,
-             districtID: null,
            );
 
            _zone.printZone(methodName: 'SELECTED ZONE');

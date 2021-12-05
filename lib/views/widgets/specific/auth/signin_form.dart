@@ -167,7 +167,6 @@ class _SignInFormState extends State<SignInForm> {
       key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
           const SizedBox(
@@ -179,16 +178,12 @@ class _SignInFormState extends State<SignInForm> {
             textController: _emailController,
             fieldOnTap: widget.fieldOnTap,
             loading: _loading,
-            bubbleColor: Colorz.white20,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.emailAddress,
             keyboardTextInputAction: TextInputAction.next,
             title: Wordz.emailAddress(context),
-            hintText: '...',
-            maxLines: 1,
-            maxLength: 100,
             validator: (String val){
 
               if (val.isEmpty){
@@ -206,17 +201,13 @@ class _SignInFormState extends State<SignInForm> {
             textController: _passwordController,
             fieldOnTap: widget.fieldOnTap,
             loading: _loading,
-            bubbleColor: Colorz.white20,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
             keyboardTextInputAction: TextInputAction.done,
             title: Wordz.password(context),
-            hintText: '...',
             onSaved: (){print('onSaved');},
-            maxLines: 1,
-            maxLength: 100,
             obscured: _passwordObscured,
             horusOnTap: _horusOnTap,
             validator: (String val){
@@ -230,7 +221,6 @@ class _SignInFormState extends State<SignInForm> {
 
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               // BtSkipAuth(),

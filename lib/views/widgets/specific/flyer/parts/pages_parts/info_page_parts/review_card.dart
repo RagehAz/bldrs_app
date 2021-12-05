@@ -53,7 +53,6 @@ class ReviewCard extends StatelessWidget {
             width: width,
             padding: const EdgeInsets.all(Ratioz.appBarMargin),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 
@@ -70,10 +69,8 @@ class ReviewCard extends StatelessWidget {
                 /// REVIEW TEXT
                 SuperVerse(
                   verse: review.body,
-                  size: 2,
                   centered: false,
                   maxLines: 3,
-                  color: Colorz.white255,
                   italic: true,
                 ),
 

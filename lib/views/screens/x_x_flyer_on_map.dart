@@ -173,14 +173,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             Loading(loading: isLoading,) :
             GoogleMap(
               mapType: MapType.hybrid,
-              indoorViewEnabled: false,
-              zoomGesturesEnabled: true,
-              myLocationButtonEnabled: true,
               myLocationEnabled: true,
-              liteModeEnabled: false,
               buildingsEnabled: false,
-              compassEnabled: true,
-              trafficEnabled: false,
               mapToolbarEnabled: false,
               initialCameraPosition: _initialCameraPosition,
               onMapCreated: _onMapCreated,

@@ -40,7 +40,6 @@ class _FlyerTypeSelectorState extends State<FlyerTypeSelector> {
       height: _dialogClearHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
           ...List<Widget>.generate(

@@ -311,7 +311,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             iconSizeFactor: 0.5,
             verse: 'Edit Account',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.white255,
             onTap: () => _editUserOnTap(userModel),
           ),
 

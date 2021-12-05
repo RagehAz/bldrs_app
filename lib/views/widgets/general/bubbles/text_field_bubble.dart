@@ -85,7 +85,6 @@ class TextFieldBubble extends StatelessWidget {
           redDot: fieldIsRequired,
           actionBtIcon: actionBtIcon,
           actionBtFunction: actionBtFunction,
-          stretchy: false,
           width: Bubble.defaultWidth(context),
           columnChildren: <Widget>[
 
@@ -97,7 +96,6 @@ class TextFieldBubble extends StatelessWidget {
 
                   /// TEXT FIELD
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
 
@@ -136,7 +134,6 @@ class TextFieldBubble extends StatelessWidget {
                           keyboardTextInputAction: keyboardTextInputAction,
                           initialValue: initialTextValue,
                           validator: validator,
-                          inputSize: 2,
                           key: key,
                         ),
                       ),
@@ -190,7 +187,6 @@ class TextFieldBubble extends StatelessWidget {
                 verse: comments,
                 italic: true,
                 color: Colorz.white80,
-                size: 2,
                 weight: VerseWeight.thin,
                 leadingDot: true,
               ),

@@ -32,7 +32,6 @@ class FieldsRow extends StatelessWidget {
     // double rowButtonHeight = 40;
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
 
@@ -62,7 +61,6 @@ class FieldsRow extends StatelessWidget {
                   boxShadow: const <BoxShadow>[
                     const Shadowz.CustomBoxShadow(
                         color: Colorz.black200,
-                        offset: const Offset(0,0 ),
                         blurRadius: _boxHeight * 0.15,
                         blurStyle: BlurStyle.outer
                     ),
@@ -71,11 +69,8 @@ class FieldsRow extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(_buttonSpacing),
                 child: Wrap(
-                    spacing: 0,
-                    runSpacing: 0,
                     alignment: WrapAlignment.center,
                     crossAxisAlignment: WrapCrossAlignment.center,
-                    direction: Axis.horizontal,
                     runAlignment: WrapAlignment.center,
                     children:
                     List<Widget>.generate(
@@ -84,12 +79,7 @@ class FieldsRow extends StatelessWidget {
                           return
                             SuperVerse(
                               verse: fields[index],
-                              italic: false,
-                              shadow: false,
                               labelColor: Colorz.white50,
-                              color: Colorz.white255,
-                              weight: VerseWeight.bold,
-                              size: 2,
                               margin: _boxHeight * 0 ,
                             );
                         }

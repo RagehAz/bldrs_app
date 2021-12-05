@@ -105,7 +105,6 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
           'title' : continent.name,
 
           'widget' : SafeArea(
-            top: true,
             child: ZonesPage(
               title: continent.name,
               continentIcon: _continentIcon,

@@ -15,7 +15,6 @@ class DialogOfTargetAchievement extends StatelessWidget {
       context: context,
       title: 'Congratulations',
       body: 'You have achieved the ${target.name} target and your account increased\n${target.reward.slides} Slides & ${target.reward.ankh} Ankhs',
-      boolDialog: false,
       confirmButtonText: 'CLAIM',
       child: Column(
         children: <Widget>[

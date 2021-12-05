@@ -30,7 +30,6 @@ class GradientLayer extends StatelessWidget {
         width: width,
         height: height,
         fit: BoxFit.cover,
-        scale: 1,
         iconColor: color,
       ),
     );

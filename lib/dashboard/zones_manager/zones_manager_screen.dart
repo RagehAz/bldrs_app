@@ -58,7 +58,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _ScrollController = new ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
+    _ScrollController = new ScrollController();
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -139,7 +139,6 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
         ListView.builder(
           physics: const BouncingScrollPhysics(),
           controller: _ScrollController,
-          shrinkWrap: false,
           padding: const EdgeInsets.only(top: Ratioz.stratosphere),
           itemCount: _countries?.length,
           itemBuilder: (BuildContext context, int index){

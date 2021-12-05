@@ -110,7 +110,6 @@ class EditorFooter extends StatelessWidget {
             /// BUTTONS
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
 
                 /// ADD IMAGES

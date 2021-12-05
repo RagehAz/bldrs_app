@@ -35,7 +35,6 @@ import 'package:provider/provider.dart';
       final List<dynamic> _maps = await Fire.readCollectionDocs(
         limit: limit ?? 100,
         collName: FireColl.users,
-        addDocSnapshotToEachMap: false,
         orderBy: 'id',
       );
 
@@ -93,7 +92,6 @@ import 'package:provider/provider.dart';
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
       collName: FireColl.bzz,
-      addDocSnapshotToEachMap: false,
       orderBy: 'id',
     );
 
@@ -112,7 +110,6 @@ import 'package:provider/provider.dart';
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
       collName: FireColl.feedbacks,
-      addDocSnapshotToEachMap: false,
       addDocsIDs: true,
       orderBy: 'timeStamp',
     );
@@ -128,8 +125,6 @@ import 'package:provider/provider.dart';
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       limit: limit ?? 100,
       collName: FireColl.flyers,
-      addDocSnapshotToEachMap: false,
-      addDocsIDs: false,
       orderBy: 'id',
     );
 
@@ -247,7 +242,6 @@ import 'package:provider/provider.dart';
     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
       limit: 1000,
       collName: collName,
-      addDocSnapshotToEachMap: false,
       addDocsIDs: true,
       orderBy: 'id',
     );

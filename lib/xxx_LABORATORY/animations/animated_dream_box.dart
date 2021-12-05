@@ -136,7 +136,6 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
 
@@ -146,7 +145,6 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
             padding: widget.boxMargins == null ? const EdgeInsets.all(0) : widget.boxMargins,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
 
                 /// --- THE BOX
@@ -188,7 +186,6 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
 
                         Row(
                           mainAxisAlignment: widget.verse != null ? MainAxisAlignment.start : MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
 
@@ -333,8 +330,6 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                     verse: widget.secondLine,
                                     weight: VerseWeight.regular,
                                     size: 1,
-                                    color: Colorz.white255,
-                                    maxLines: 1,
                                     italic: true,
                                     shadow: true,
                                     centered: false,
@@ -367,7 +362,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                     color: Colorz.white50,
                                     offset: new Offset(0, boxHeight * -0.33),
                                     blurRadius: boxHeight * 0.2,
-                                    blurStyle: BlurStyle.normal),
+                                ),
                               ]),
                         ),
 

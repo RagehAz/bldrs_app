@@ -79,7 +79,6 @@ class AddFlyerButton extends StatelessWidget {
         /// ADD FLYER BUTTON
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               /// --- FAKE HEADER FOOTPRINT
@@ -103,7 +102,6 @@ class AddFlyerButton extends StatelessWidget {
               SuperVerse(
                 verse: 'Add\nNew\nFlyer',
                 maxLines: 5,
-                size: 2,
                 scaleFactor: _flyerSizeFactor * 5,
                 color: Colorz.white200,
               ),

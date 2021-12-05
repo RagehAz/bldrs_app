@@ -82,7 +82,6 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
         bottom: 0,
         top: 0,
       ),
-      addAutomaticKeepAlives: true,
 
       // cacheExtent: screenHeight*5,
       // dragStartBehavior: DragStartBehavior.start,
@@ -163,7 +162,6 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
               child: FinalFlyer(
                 flyerBoxWidth: _flyerBoxWidth,
                 flyerModel: _flyers[_x],
-                goesToEditor: false,
                 onSwipeFlyer: (Sliders.SwipeDirection direction){
                   // print('Direction is ${direction}');
                 },

@@ -453,7 +453,6 @@ enum ValueIs{
       collName: FireColl.users,
       field: 'trigram',
       compareValue: name.trim(),
-      addDocsIDs: false,
       valueIs: ValueIs.ArrayContains,
     );
 
@@ -525,7 +524,6 @@ enum ValueIs{
         input: bzName.trim(),
         numberOfCharacters: Standards.maxTrigramLength,
       ),
-      addDocsIDs: false,
       valueIs: ValueIs.ArrayContains,
     );
 
@@ -566,7 +564,6 @@ enum ValueIs{
           input: CountryModel.fixCountryName(cityName),
           numberOfCharacters: Standards.maxTrigramLength,
         ),
-        addDocsIDs: false,
         valueIs: ValueIs.ArrayContains,
       );
 

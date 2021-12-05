@@ -62,11 +62,9 @@ class TileBubble extends StatelessWidget {
 
     return Bubble(
       bubbleOnTap: btOnTap,
-      bubbleColor: Colorz.white20,
       columnChildren: <Widget>[
 
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
@@ -79,14 +77,13 @@ class TileBubble extends StatelessWidget {
               // iconColor: Colorz.Green255,
               iconSizeFactor: iconSizeFactor,
               color: iconBoxColor,
-              iconRounded: true,
-              margins: const EdgeInsets.symmetric(horizontal: 0),
+              margins: const EdgeInsets.symmetric(),
               bubble: iconIsBubble,
 
             )
                 :
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
+              padding: const EdgeInsets.symmetric(),
               child: Container(
                 width: iconBoxWidth,
                 height: iconBoxWidth,
@@ -100,7 +97,6 @@ class TileBubble extends StatelessWidget {
               width: _verseWidth,
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
 
@@ -116,10 +112,8 @@ class TileBubble extends StatelessWidget {
                   SuperVerse(
                     verse: secondLine,
                     color: Colorz.white200,
-                    size: 2,
                     scaleFactor: 0.75,
                     italic: true,
-                    shadow: false,
                     maxLines: 10,
                     centered: false,
                     weight: VerseWeight.thin,

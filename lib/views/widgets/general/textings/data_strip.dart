@@ -48,7 +48,6 @@ class DataStrip extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: _verticalMargin),
         // color: Colorz.White10,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
@@ -63,7 +62,6 @@ class DataStrip extends StatelessWidget {
                 size: 1,
                 weight: VerseWeight.black,
                 color: Colorz.white200,
-                shadow: false,
                 italic: true,
                 onTap: () async {
 
@@ -82,7 +80,6 @@ class DataStrip extends StatelessWidget {
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
 
                           DreamBox(
@@ -157,7 +154,6 @@ class DataStrip extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: _keyButtonMargin),
                       child: SuperVerse(
                         verse: _valueString,
-                        size: 2,
                         centered: false,
                         shadow: true,
                       ),

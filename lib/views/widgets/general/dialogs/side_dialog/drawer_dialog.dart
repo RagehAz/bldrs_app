@@ -171,7 +171,6 @@ class _DrawerDialogState extends State<DrawerDialog> {
                 width: _drawerWidth,
                 height: 80,
                 child: SearchBar(
-                  searchController: null,
                   onSearchSubmit: (String val) => _onSearchSubmit(val),
                   historyButtonIsOn: false,
                   onSearchChanged: (String val) => _onSearchChanged(val),
@@ -217,7 +216,6 @@ class _DrawerDialogState extends State<DrawerDialog> {
 
                 if (_isSearching == false)
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
 

@@ -34,7 +34,6 @@ class IconsViewerScreen extends StatelessWidget {
     return MainLayout(
       skyType: SkyType.Black,
       pageTitle: 'UI Manager',
-      loading: false,
       pyramids: Iconz.DvBlankSVG,
       appBarType: AppBarType.Basic,
       layoutWidget: GridView.builder(
@@ -42,9 +41,6 @@ class IconsViewerScreen extends StatelessWidget {
           padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon, left: Ratioz.appBarMargin, right: Ratioz.appBarMargin),
           gridDelegate: _gridDelegate,
           itemCount: _icons.length,
-          addAutomaticKeepAlives: true,
-          addRepaintBoundaries: true,
-          shrinkWrap: false,
           itemBuilder: (BuildContext ctx, int index){
 
             return
@@ -56,7 +52,6 @@ class IconsViewerScreen extends StatelessWidget {
                       height: _iconBoxSize,
                       width: _iconBoxSize,
                       icon: _icons[index],
-                      iconSizeFactor: 1,
                       corners: 0,
                       color: Colorz.bloodTest,
                       bubble: false,

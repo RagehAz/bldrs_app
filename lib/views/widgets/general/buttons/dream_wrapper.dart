@@ -62,9 +62,7 @@ class DreamWrapper extends StatelessWidget {
                       icon: icons[index],
                       margins: margins,
                       verse: _verse,
-                      verseColor: Colorz.white255,
                       verseWeight: VerseWeight.thin,
-                      verseItalic: false,
                       iconSizeFactor: 0.6,
                       onTap: () => onTap(_verse)
                   );

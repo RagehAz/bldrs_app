@@ -195,7 +195,7 @@ class BldrsAppBar extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _abWidth = width(context);
     final double _abHeight = height(context, appBarType);
-    const double _blurValue = Ratioz.blur1;
+    // const double _blurValue = Ratioz.blur1;
     final bool _backButtonIsOn = _backButtonIsOnCheck();
     final bool _searchButtonIsOn = _searchButtonIsOnCheck();
     final bool _sectionButtonIsOn = _sectionButtonIsOnCheck();
@@ -209,8 +209,6 @@ class BldrsAppBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
     return Column(
       key: key,
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
 
         /// MAIN APPBAR
@@ -233,7 +231,6 @@ class BldrsAppBar extends StatelessWidget {
               BlurLayer(
                 width: _abWidth,
                 height: _abHeight,
-                blur: _blurValue,
                 borders: const BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
               ),
 
@@ -244,13 +241,10 @@ class BldrsAppBar extends StatelessWidget {
                 // color: Colorz.BabyBlueSmoke,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
 
                     /// BACK / SEARCH / SECTION / ZONE
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
 
                         const SizedBox(
@@ -299,7 +293,6 @@ class BldrsAppBar extends StatelessWidget {
                                 verse: pageTitle.toUpperCase(),
                                 weight: VerseWeight.black,
                                 color: Colorz.white200,
-                                size: 2,
                                 margin: 0,
                                 shadow: true,
                                 italic: true,

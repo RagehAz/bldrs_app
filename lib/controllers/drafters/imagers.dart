@@ -121,7 +121,6 @@ enum PicType{
       if (_error != 'The user has cancelled the selection'){
         await CenterDialog.showCenterDialog(
           context: context,
-          boolDialog: false,
           title: 'Error',
           body: _error,
         );

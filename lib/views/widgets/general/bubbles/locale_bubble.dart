@@ -134,11 +134,9 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
-      height: null,
       child: BottomDialogButtons(
         mapsModels: _countriesMapModels,
         alignment: Alignment.center,
-        bottomDialogType: BottomDialogType.countries,
         buttonTap: (String countryID) async {
 
           final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: countryID);
@@ -172,7 +170,6 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
-      height: null,
       child: BottomDialogButtons(
         mapsModels: _citiesMapModels,
         alignment: Alignment.center,
@@ -209,7 +206,6 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
-      height: null,
       child: BottomDialogButtons(
         mapsModels: _districtsMapModels,
         alignment: Alignment.center,
@@ -327,7 +323,6 @@ class LocaleButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: _buttonsSpacing),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
@@ -339,7 +334,6 @@ class LocaleButton extends StatelessWidget {
               centered: false,
               italic: true,
               weight: VerseWeight.thin,
-              size: 2,
               color: Colorz.white80,
             ),
           ),

@@ -28,7 +28,7 @@ class KeywordsButtonsList extends StatelessWidget {
     return Container(
       width: buttonWidth,
       height: ExpandingTile.calculateButtonsTotalHeight(keywords: keywords),
-      margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding, horizontal: 0),
+      margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
       child: ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         itemCount: keywords.length,

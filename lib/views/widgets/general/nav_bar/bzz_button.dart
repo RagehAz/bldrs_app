@@ -34,7 +34,6 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
       width: circleWidth * 0.47,
       corners: circleWidth * 0.47 * 0.25,
       icon: bzModel.logo,
-      bubble: true,
       onTap: onTap,
     ),
   );
@@ -77,8 +76,6 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
           // padding: EdgeInsets.symmetric(horizontal: _paddings * 0.25),
           // alignment: Alignment.topCenter,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               /// --- TOP MARGIN
@@ -99,9 +96,6 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
                   width: _circleWidth,
                   height: _circleWidth,
                   icon: _userBzz[0].logo,
-                  iconSizeFactor: 1,
-                  bubble: true,
-                  color: Colorz.nothing,
                   corners: _buttonCircleCorner,
                   onTap: onTap,
                 )
@@ -162,7 +156,6 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
                       ),
 
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
 

@@ -59,7 +59,6 @@ class ReviewCreator extends StatelessWidget {
               width: width,
               padding: const EdgeInsets.all(Ratioz.appBarMargin),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
 
@@ -91,7 +90,6 @@ class ReviewCreator extends StatelessWidget {
                   if (_reviewControllerHasValue == true)
                   SuperVerse(
                     verse: superFlyer.rec.reviewController.text.trim(),
-                    size: 2,
                     centered: false,
                     maxLines: 2,
                     color: Colorz.yellow255,
@@ -112,7 +110,6 @@ class ReviewCreator extends StatelessWidget {
                       color: Colorz.yellow255,
                       verseColor: Colorz.black255,
                       verseShadow: false,
-                      verseWeight: VerseWeight.bold,
                       onTap: (){
 
                         superFlyer.rec.onSubmitReview();

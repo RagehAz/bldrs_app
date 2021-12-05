@@ -45,7 +45,6 @@ class RecordBubble extends StatelessWidget {
             alignment: Alignment.center,
             child:
             ListView.builder(
-                shrinkWrap: false,
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 itemCount: users.length,

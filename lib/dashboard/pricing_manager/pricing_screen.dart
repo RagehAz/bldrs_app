@@ -30,7 +30,6 @@ class PricingScreen extends StatelessWidget {
     // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
     return DashBoardLayout(
-        loading: false,
         pageTitle: 'Prices',
         listWidgets: <Widget>[
 
@@ -76,7 +75,6 @@ class PricingScreen extends StatelessWidget {
                           verseCentered: false,
                           secondLine: _countryCurrency,
                           secondLineScaleFactor: 0.8,
-                          verseMaxLines: 1,
 
                         ),
 

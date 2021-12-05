@@ -96,9 +96,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
 
                     SuperVerse(
                       verse: '${Wordz.about(context)} ${widget.bzName}',
-                      size: 2,
                       weight: VerseWeight.thin,
-                      italic: false,
                       margin: 10,
                       color: Colorz.grey225,
                       maxLines: 3,

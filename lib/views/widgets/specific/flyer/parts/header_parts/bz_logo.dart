@@ -75,7 +75,6 @@ class BzLogo extends StatelessWidget {
               <BoxShadow>[
                 Shadowz.CustomBoxShadow(
                       color: Colorz.black200,
-                      offset: const Offset(0, 0),
                       blurRadius: width * 0.15,
                       blurStyle: BlurStyle.outer
                   ),

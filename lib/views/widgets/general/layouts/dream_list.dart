@@ -23,7 +23,6 @@ class DreamList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      reverse: false,
       padding: const EdgeInsets.symmetric(vertical: Ratioz.stratosphere),
       itemCount: itemCount,
       itemBuilder: itemBuilder,
@@ -38,7 +37,6 @@ Widget dreamListBuilder  (BuildContext c, int x, String info,String icon ,String
         width: Scale.superScreenWidth(c),
         alignment: Alignment.center,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
@@ -92,7 +90,6 @@ class DreamTile extends StatelessWidget {
       alignment: Alignment.center,
 
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 

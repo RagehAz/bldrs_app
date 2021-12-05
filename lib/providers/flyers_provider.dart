@@ -327,8 +327,6 @@ class FlyersProvider extends ChangeNotifier {
       context: context,
       zone: _currentZone,
       kw: kw,
-      addDocSnapshotToEachMap: false,
-      addDocsIDs: false,
       limit: limit,
     );
 

@@ -39,7 +39,6 @@ class TabButton extends StatelessWidget {
       iconColor: _iconColor,
       verseMaxLines: 2,
       verseCentered: false,
-      bubble: true,
       verseScaleFactor: 0.7,
       margins: const EdgeInsets.symmetric(vertical: 5),
       onTap: onTap,//() => _onSetSection(index),

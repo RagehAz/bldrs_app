@@ -91,8 +91,6 @@ class CollapsedTile extends StatelessWidget {
               width: tileWidth,
               color: Colorz.nothing, /// do no delete this,, it adjusts GestureDetector tapping area
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
 
                   /// Icon
@@ -119,9 +117,6 @@ class CollapsedTile extends StatelessWidget {
                         /// FIRST HEADLINE
                         SuperVerse(
                           verse: firstHeadline,
-                          weight: VerseWeight.bold,
-                          italic: false,
-                          size: 2,
                           centered: false,
                           maxLines: 2,
                         ),
@@ -144,7 +139,7 @@ class CollapsedTile extends StatelessWidget {
                   /// Arrow
                   new RotationTransition(
                     turns: arrowTurns,
-                    child: arrow(collapsedHeight: collapsedHeight, arrowColor: arrowColor, arrowDown: true),
+                    child: arrow(collapsedHeight: collapsedHeight, arrowColor: arrowColor),
                   ),
 
                 ],

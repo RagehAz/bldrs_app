@@ -40,7 +40,6 @@ class AddAuthorScreen extends StatelessWidget {
           const Stratosphere(),
 
           Bubble(
-              centered: false,
               title: 'Share invitation Link',
               width: Bubble.defaultWidth(context),
               columnChildren: <Widget>[
@@ -54,7 +53,6 @@ class AddAuthorScreen extends StatelessWidget {
                     weight: VerseWeight.thin,
                     maxLines: 5,
                     centered: false,
-                    size: 2,
                     color: Colorz.white125,
 
                   ),
@@ -145,7 +143,6 @@ class AddAuthorScreen extends StatelessWidget {
                 context: context,
                 title: 'tamam',
                 body: 'Done baby',
-                boolDialog: false,
               );
 
               Nav.goBack(context);

@@ -284,7 +284,6 @@ import 'package:flutter/foundation.dart' show kIsWeb;
         context: context,
         title: 'Trouble Signing out',
         body: error,
-        boolDialog: false,
       );
 
       return null;

@@ -21,7 +21,6 @@ import 'package:flutter/material.dart';
       context: context,
       title: 'Max. Images reached',
       body: 'Can not add more than $maxLength images in one slide',
-      boolDialog: false,
     );
   }
 // -----------------------------------------------------------------------------
@@ -78,7 +77,6 @@ import 'package:flutter/material.dart';
       bool _mapContainsTheError = TextChecker.stringContainsSubString(
         string: result,
         subString: map['error'],
-        multiLine: false,
         caseSensitive: true,
       );
 
@@ -102,7 +100,6 @@ import 'package:flutter/material.dart';
       context: context,
       title: 'Could not continue !',
       body: _errorReply,
-      boolDialog: false,
     );
 
   }
@@ -130,7 +127,6 @@ import 'package:flutter/material.dart';
                 onTap: (String value){print(value);},
                 numberOfColumns: 6,
                 numberOfRows: 1,
-                scrollDirection: Axis.horizontal,
                 title: 'These Accounts will be deactivated',
               ),
 
@@ -140,7 +136,6 @@ import 'package:flutter/material.dart';
                 onTap: (String value){print(value);},
                 numberOfColumns: 6,
                 numberOfRows: 1,
-                scrollDirection: Axis.horizontal,
                 title: 'Can not deactivate these businesses',
               ),
 
@@ -181,7 +176,6 @@ import 'package:flutter/material.dart';
             height: Scale.superScreenHeight(context) * 0.6,
             child: ListView.builder(
               itemCount: _numberOfBzz,
-              scrollDirection: Axis.vertical,
               itemExtent: 200,
               itemBuilder: (BuildContext context, int index){
 

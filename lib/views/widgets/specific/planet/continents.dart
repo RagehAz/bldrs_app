@@ -27,10 +27,7 @@ class Continents extends StatelessWidget {
               width: screenWidth,
               height: screenHeight,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisSize: MainAxisSize.max,
-                children: const <Widget>[],
+
               ),
             ),
 

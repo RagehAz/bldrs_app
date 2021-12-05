@@ -37,7 +37,6 @@ Future<void> tryAndCatch({
 
       await CenterDialog.showCenterDialog(
         context: context,
-        boolDialog: false,
         body: error,
         title: 'Something Went Wrong !',
       );

@@ -32,7 +32,6 @@ class BldrsChain extends StatelessWidget {
 
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
             if(Mapper.canLoopList(_allChains.sons))
@@ -42,7 +41,6 @@ class BldrsChain extends StatelessWidget {
 
                   return Inception(
                     son: son,
-                    level: 0,
                     boxWidth: _boxWidth,
                     onKeywordTap: onKeywordTap,
                     selectedKeywordsIDs: selectedKeywordsIDs,

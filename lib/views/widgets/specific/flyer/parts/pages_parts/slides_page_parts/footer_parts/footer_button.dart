@@ -56,7 +56,6 @@ class FooterButton extends StatelessWidget {
             onTap: inActiveMode == true ? null : onTap,
             childAlignment: Alignment.topCenter,
             inActiveMode: inActiveMode,
-            bubble: true,
             subChild:
             _tinyMode ? null :
             Container(
@@ -78,8 +77,6 @@ class FooterButton extends StatelessWidget {
             child: SuperVerse(
               verse: verse,
               size: 1,
-              weight: VerseWeight.bold,
-              italic: false,
               scaleFactor: FlyerBox.sizeFactorByWidth(context, flyerBoxWidth),
               color: DreamBox.getIconColor(inActiveMode: inActiveMode, colorOverride: Colorz.white125),
             ),

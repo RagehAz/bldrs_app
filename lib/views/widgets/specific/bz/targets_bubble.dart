@@ -60,7 +60,6 @@ class TargetsBubble extends StatelessWidget {
 
         SuperVerse(
           verse: 'Achieving the below targets will put you on track, and will give you an idea how to use Bldrs.net to acquire new customers and boost potential sales.',
-          size: 2,
           maxLines: 10,
           centered: false,
           margin: 5,
@@ -88,7 +87,6 @@ class TargetsBubble extends StatelessWidget {
                   margin: const EdgeInsets.only(bottom: 5),
                   padding: const EdgeInsets.all(5),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
 
@@ -105,9 +103,6 @@ class TargetsBubble extends StatelessWidget {
                             child: SuperVerse(
                               verse: _target.name,
                               centered: false,
-                              size: 2,
-                              weight: VerseWeight.bold,
-                              italic: false,
                               margin: 5,
                               color: Colorz.yellow255,
                             ),
@@ -123,7 +118,6 @@ class TargetsBubble extends StatelessWidget {
 
                                 /// bar
                                 Align(
-                                  alignment: Alignment.center,
                                   child: Stack(
                                     alignment: Alignment.center,
                                     children: <Widget>[
@@ -158,7 +152,6 @@ class TargetsBubble extends StatelessWidget {
                                         child: SuperVerse(
                                           verse: '${_progress?.current}/${_progress?.objective}',
                                           size: 1,
-                                          weight: VerseWeight.bold,
                                           scaleFactor: 0.8,
                                           color: Colorz.black255,
                                           centered: false,
@@ -214,9 +207,7 @@ class TargetsBubble extends StatelessWidget {
                       SuperVerse(
                     verse: _target.description,
                     centered: false,
-                    size: 2,
                     weight: VerseWeight.thin,
-                    italic: false,
                     maxLines: 10,
                     margin: 5,
                   ),

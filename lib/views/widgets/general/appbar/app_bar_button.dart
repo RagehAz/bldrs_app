@@ -29,8 +29,6 @@ class AppBarButton extends StatelessWidget {
         verseColor: verseColor,
         verseScaleFactor: 0.9,
         color: buttonColor,
-        // icon: loading ? null : Iconz.AddFlyer,
-        bubble: true,
         iconSizeFactor: 0.6,
         onTap: onTap,
         // loading: loading,

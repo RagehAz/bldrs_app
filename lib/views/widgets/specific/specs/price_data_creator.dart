@@ -56,7 +56,6 @@ class PriceDataCreator extends StatefulWidget {
         width: _clearWidth,
         height: BottomDialog.dialogClearHeight(context: context, draggable: true),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
@@ -253,7 +252,6 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
         alignment: Alignment.center,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
             /// NUMBER INPUT

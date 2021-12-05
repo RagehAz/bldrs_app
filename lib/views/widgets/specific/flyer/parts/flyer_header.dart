@@ -27,7 +27,6 @@ class FlyerHeader extends StatelessWidget {
         child: ListView(
           physics: Scrollers.superScroller(trigger: superFlyer.nav.bzPageIsOn),
           shrinkWrap: true,
-          addAutomaticKeepAlives: true,
           children: <Widget>[
 
             Container(

@@ -50,7 +50,6 @@ class SelectedKeywordsBar extends StatelessWidget {
       height: _selectedKeywordsZoneHeight,
       color: Colorz.white10,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
@@ -62,7 +61,6 @@ class SelectedKeywordsBar extends StatelessWidget {
             child: SuperVerse(
               verse: _screenTitle,
               size: 1,
-              weight: VerseWeight.bold,
               centered: false,
             ),
           ),
@@ -91,7 +89,7 @@ class SelectedKeywordsBar extends StatelessWidget {
                 // highlightedKeyword.flyerType == 'cities' ? true
                 //     : false;
 
-                const bool _isHighlighted = false;
+                // const bool _isHighlighted = false;
                 // _highlightedMapIsCity == true && _keyword.flyerType == 'cities'? true
                 //     :
                 // _highlightedMapIsCity == true && _keyword.flyerType == 'area'? true
@@ -119,7 +117,6 @@ class SelectedKeywordsBar extends StatelessWidget {
                     keyword: _keyword,
                     xIsOn: true,
                     onTap: () => removeKeyword(index),
-                    color: _isHighlighted == true ? Colorz.red255 : Colorz.blue80,
                   );
 
               },

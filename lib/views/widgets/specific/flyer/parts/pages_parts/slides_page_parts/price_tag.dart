@@ -64,8 +64,6 @@ class PriceTag extends StatelessWidget {
           fit: BoxFit.scaleDown,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
 
               Container(
@@ -73,7 +71,6 @@ class PriceTag extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
 
                     /// CURRENT PRICING
@@ -89,8 +86,6 @@ class PriceTag extends StatelessWidget {
                     if(_tinyMode == false)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
 
                         SuperVerse.priceVerse(
@@ -112,7 +107,6 @@ class PriceTag extends StatelessWidget {
                           color: Colorz.green255,
                           weight: VerseWeight.black,
                           italic: true,
-                          size: 2,
                           scaleFactor: _flyerSizeFactor,
                         ),
 

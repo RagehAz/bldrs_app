@@ -191,7 +191,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 // ---------------------------------------------------------
     return Row(
       mainAxisAlignment: _mainAxisAlignment,
-      crossAxisAlignment: CrossAxisAlignment.center,
       // mainAxisSize: MainAxisSize.min,
       textDirection: _textDirection,
       children: <Widget>[
@@ -204,7 +203,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
             alignment: Alignment.topCenter,
 
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 

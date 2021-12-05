@@ -32,14 +32,12 @@ class BzPageHeadline extends StatelessWidget {
         color: Colorz.nothing,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             /// BUSINESS NAME
             SuperVerse(
               verse: bzModel.name,
               size: 5,
               shadow: true,
-              centered: true,
               maxLines: 2,
               // softWrap: true,
             ),
@@ -51,12 +49,7 @@ class BzPageHeadline extends StatelessWidget {
                 country: country,
                 city: city,
               ),
-              size: 2,
-              centered: true,
               italic: true,
-              maxLines: 1,
-              // softWrap: true,
-              shadow: false,
               weight: VerseWeight.regular,
               color: Colorz.white200,
             ),

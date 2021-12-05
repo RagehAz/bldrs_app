@@ -26,7 +26,6 @@ class FollowingBzzBubble extends StatelessWidget {
     final List<dynamic> followedBzzIDs = _usersProvider.myUserModel.followedBzzIDs;
 
     return Bubble(
-      centered: false,
       title: 'Following ${followedBzzIDs?.length} Businesses',
       columnChildren: <Widget>[
 

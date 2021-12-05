@@ -33,11 +33,6 @@ class MultipleChoiceBubble extends StatelessWidget {
           ),
 
           Wrap(
-              spacing: 0,
-              runSpacing: 0,
-              alignment: WrapAlignment.start,
-              crossAxisAlignment: WrapCrossAlignment.start,
-              direction: Axis.horizontal,
               runAlignment: WrapAlignment.center,
 
               children:
@@ -55,7 +50,6 @@ class MultipleChoiceBubble extends StatelessWidget {
                         height: 40,
                         inActiveMode: _inActiveMode,
                         verse: buttonsList[index],
-                        verseItalic: false,
                         color: chosenButton == buttonsList[index] ? Colorz.yellow255 : Colorz.white10,
                         verseColor: chosenButton == buttonsList[index] ? Colorz.black230 : Colorz.white255,
                         verseWeight: chosenButton == buttonsList[index] ? VerseWeight.black :  VerseWeight.bold,

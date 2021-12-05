@@ -282,7 +282,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         context: context,
         title: '',
         body: 'Please add all required fields',
-        boolDialog: false,
       );
 
     } else {
@@ -329,7 +328,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         context: context,
         title: 'Great !',
         body: 'Successfully created your user account',
-        boolDialog: false,
       );
 
       // Nav.goToRoute(context, Routez.UserChecker);
@@ -349,7 +347,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         context: context,
         title: '',
         body: 'Please add all required fields',
-        boolDialog: false,
       );
 
     } else {
@@ -397,7 +394,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         context: context,
         title: 'Great !',
         body: 'Successfully updated your user account',
-        boolDialog: false,
       );
 
       Nav.goBack(context);
@@ -520,7 +516,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             /// --- EDIT ZONE
             if (_currentZone?.isNotEmpty() == true)
             LocaleBubble(
-              title : 'Preferred Location',
               changeCountry : (String countryID) => _changeCountry(countryID),
               changeCity : (String cityID) => _changeCity(cityID),
               changeDistrict : (String districtID) => _changeDistrict(districtID),
@@ -546,7 +541,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               title: Wordz.phone(context),
               leadingIcon: Iconz.ComPhone,
               keyboardTextInputAction: TextInputAction.next,
-              fieldIsRequired: false,
               keyboardTextInputType: TextInputType.phone,
             ),
 
@@ -557,8 +551,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               title: Wordz.website(context),
               leadingIcon: Iconz.ComWebsite,
               keyboardTextInputAction: TextInputAction.next,
-              fieldIsRequired: false,
-              keyboardTextInputType: TextInputType.url,
             ),
 
             /// --- EDIT FACEBOOK
@@ -568,8 +560,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               title: Wordz.facebookLink(context),
               leadingIcon: Iconz.ComFacebook,
               keyboardTextInputAction: TextInputAction.next,
-              fieldIsRequired: false,
-              keyboardTextInputType: TextInputType.url,
             ),
 
             /// --- EDIT INSTAGRAM
@@ -579,8 +569,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               title: Wordz.instagramLink(context),
               leadingIcon: Iconz.ComInstagram,
               keyboardTextInputAction: TextInputAction.next,
-              fieldIsRequired: false,
-              keyboardTextInputType: TextInputType.url,
             ),
 
             /// --- EDIT LINKEDIN
@@ -590,8 +578,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               title: Wordz.linkedinLink(context),
               leadingIcon: Iconz.ComLinkedin,
               keyboardTextInputAction: TextInputAction.next,
-              fieldIsRequired: false,
-              keyboardTextInputType: TextInputType.url,
             ),
 
             /// --- EDIT YOUTUBE
@@ -601,8 +587,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               title: Wordz.youtubeChannel(context),
               leadingIcon: Iconz.ComYoutube,
               keyboardTextInputAction: TextInputAction.next,
-              fieldIsRequired: false,
-              keyboardTextInputType: TextInputType.url,
             ),
 
             /// --- EDIT PINTEREST
@@ -612,8 +596,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               title: Wordz.pinterestLink(context),
               leadingIcon: Iconz.ComPinterest,
               keyboardTextInputAction: TextInputAction.next,
-              fieldIsRequired: false,
-              keyboardTextInputType: TextInputType.url,
             ),
 
             /// --- EDIT TIKTOK
@@ -623,8 +605,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               title: Wordz.tiktokLink(context),
               leadingIcon: Iconz.ComTikTok,
               keyboardTextInputAction: TextInputAction.next,
-              fieldIsRequired: false,
-              keyboardTextInputType: TextInputType.url,
             ),
 
             /// --- EDIT TWITTER
@@ -634,8 +614,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               title: 'Twitter link',//Wordz.twitterLink(context),
               leadingIcon: Iconz.ComTwitter,
               keyboardTextInputAction: TextInputAction.done,
-              fieldIsRequired: false,
-              keyboardTextInputType: TextInputType.url,
             ),
 
             /// --- CONFIRM BUTTON

@@ -116,8 +116,7 @@ class CenterDialog extends StatelessWidget {
         elevation: 10,
 
         insetPadding: const EdgeInsets.symmetric(
-          vertical: 0,
-          horizontal: 0,
+
         ),
 
         content: Builder(
@@ -154,7 +153,6 @@ class CenterDialog extends StatelessWidget {
                           // color: Colorz.White30,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
 
@@ -174,7 +172,6 @@ class CenterDialog extends StatelessWidget {
                                   maxLines: 2,
                                   // labelColor: Colorz.Yellow,
                                   margin: Ratioz.appBarMargin,
-                                  centered: true,
                                 ),
                               ),
 
@@ -184,10 +181,8 @@ class CenterDialog extends StatelessWidget {
                                 // height: _bodyZoneHeight,
                                 child: SuperVerse(
                                   verse: body.runtimeType == String ? body : body.toString(),
-                                  color: Colorz.white255,
                                   maxLines: 6,
                                   margin: Ratioz.appBarMargin,
-                                  centered: true,
                                 ),
                               ),
 
@@ -212,14 +207,11 @@ class CenterDialog extends StatelessWidget {
                             // color: Colorz.BloodTest,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
 
                                 if (boolDialog == true)
                                   DialogButton(
                                     verse: 'No',
-                                    verseColor: Colorz.white255,
-                                    width: 100,
                                     color: Colorz.white80,
                                     onTap: () => Nav.goBack(context, argument: false),
                                   ),
@@ -227,7 +219,6 @@ class CenterDialog extends StatelessWidget {
                                 DialogButton(
                                   verse: boolDialog == true ? 'Yes' : confirmButtonText,
                                   verseColor: Colorz.black230,
-                                  width: 100,
                                   color: Colorz.yellow255,
                                   onTap: boolDialog == true ?
                                       () => Nav.goBack(context, argument: true)

@@ -36,9 +36,7 @@ class SelectAreaScreen extends StatelessWidget {
     return  ListLayout(
       pyramids: Iconz.PyramidzYellow,
       pageTitle: _cityName,
-      icons: null,
       mapModels: _districtsMapModel,
-      pageIcon: null,
       pageIconVerse: _cityName,
       sky: SkyType.Black,
       onItemTap: (String districtID) async {
