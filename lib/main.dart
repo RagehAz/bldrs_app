@@ -161,10 +161,8 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
     print('building Bldrs with _locale : $_locale');
 
     if (_locale == null) {
-      return Container(
-        child: Center(
-          child: Loading(loading: _loading,),
-        ),
+      return Center(
+        child: Loading(loading: _loading,),
       );
     }
     else {

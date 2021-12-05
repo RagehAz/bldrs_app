@@ -17,29 +17,24 @@ class GroupsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // width: 20,
-      // height: 20,
-      // color: _colors[pageIndex],
-      child: ListView.builder(
-          itemCount: groups.length,
-          padding: const EdgeInsets.all(Ratioz.appBarMargin),
-          itemBuilder: (BuildContext context, int groupIndex){
+    return ListView.builder(
+        itemCount: groups.length,
+        padding: const EdgeInsets.all(Ratioz.appBarMargin),
+        itemBuilder: (BuildContext context, int groupIndex){
 
-            final String _group = groups[groupIndex];
-            final Color _color = selectedGroup == _group ? Colorz.yellow255 : Colorz.nothing;
+          final String _group = groups[groupIndex];
+          final Color _color = selectedGroup == _group ? Colorz.yellow255 : Colorz.nothing;
 
-            return
-              DreamBox(
-                height: 70,
-                // width: 120,
-                color: _color,
-                margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
-                verse: _group,
-                onTap: () => onTap(_group),
-              );
-          }
-      ),
+          return
+            DreamBox(
+              height: 70,
+              // width: 120,
+              color: _color,
+              margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+              verse: _group,
+              onTap: () => onTap(_group),
+            );
+        }
     );
   }
 }

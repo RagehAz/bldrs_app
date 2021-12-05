@@ -100,42 +100,39 @@ class _SearchBarState extends State<SearchBar> {
           ),
 
           /// SEARCH TEXT FIELD
-          Container(
-            // color: Colorz.BloodTest,
-            child: SuperTextField(
-              fieldIsFormField: true,
-              width: _textFieldWidth,
-              height: Ratioz.appBarButtonSize * 0.5,
-              textController: _searchTextController,
-              labelColor: Colorz.yellow255,
-              italic: true,
-              keyboardTextInputAction: TextInputAction.search,
-              counterIsOn: false,
-              corners: Ratioz.appBarButtonCorner,
-              onTap: (){},
-              onChanged: (String val){
+          SuperTextField(
+            fieldIsFormField: true,
+            width: _textFieldWidth,
+            height: Ratioz.appBarButtonSize * 0.5,
+            textController: _searchTextController,
+            labelColor: Colorz.yellow255,
+            italic: true,
+            keyboardTextInputAction: TextInputAction.search,
+            counterIsOn: false,
+            corners: Ratioz.appBarButtonCorner,
+            onTap: (){},
+            onChanged: (String val){
 
-                if (widget.onSearchChanged != null){
-                  if (val != null){
-                    widget.onSearchChanged(val);
-                  }
+              if (widget.onSearchChanged != null){
+                if (val != null){
+                  widget.onSearchChanged(val);
                 }
+              }
 
 
-              },
-              hintText: widget.hintText ?? ' Search ... ',
-              inputColor: Colorz.yellow255,
-              inputWeight: VerseWeight.thin,
-              onSaved: (String val){
-                print('on saved');
-              },
-              onSubmitted: (String val){
-                widget.onSearchSubmit(val);
+            },
+            hintText: widget.hintText ?? ' Search ... ',
+            inputColor: Colorz.yellow255,
+            inputWeight: VerseWeight.thin,
+            onSaved: (String val){
+              print('on saved');
+            },
+            onSubmitted: (String val){
+              widget.onSearchSubmit(val);
 
-              },
+            },
 
 
-            ),
           ),
 
           const SizedBox(
