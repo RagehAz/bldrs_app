@@ -32,7 +32,7 @@ class NavDialog extends StatelessWidget {
     // double _screenWidth = Scale.superScreenWidth(context);
 
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    await ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: const Duration(seconds: 5),
         backgroundColor: Colorz.nothing,
@@ -53,6 +53,7 @@ class NavDialog extends StatelessWidget {
         ),
       ),
     );
+    // await null;
   }
 // -----------------------------------------------------------------------------
   static Future<void> showNoInternetDialog(BuildContext context) async {

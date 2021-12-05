@@ -74,7 +74,13 @@ class TabLayout extends StatelessWidget {
       skyType: SkyType.Black,
       pageTitle: pageTitle,
       pyramids: Iconz.DvBlankSVG,
-      onBack: selectionMode == false ? null : () async {await Nav.goBack(context, argument: selectedItems);},
+      onBack: selectionMode == false ?
+      null
+          :
+          () {
+        Nav.goBack(context, argument: selectedItems);
+        // await null;
+        },
       appBarRowWidgets: appBarRowWidgets,
       layoutWidget: MaxBounceNavigator(
         child: NestedScrollView(

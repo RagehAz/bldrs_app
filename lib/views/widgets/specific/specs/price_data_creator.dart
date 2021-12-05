@@ -109,11 +109,13 @@ class PriceDataCreator extends StatefulWidget {
                                 width: _clearWidth,
                                 currency: _currency,
                                 countryID: _currency.countriesIDs[0],
-                                onTap: () async {
+                                onTap: (){
 
-                                  await onSelectCurrency(_currency);
+                                  onSelectCurrency(_currency);
+                                  // await null;
 
-                                  await Nav.goBack(context);
+                                  Nav.goBack(context);
+                                  // await null;
 
                                 },
                               );
@@ -155,7 +157,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onSelectCurrency(CurrencyModel currency) async {
+  void _onSelectCurrency(CurrencyModel currency){
 
 
     // setState(() {
@@ -166,7 +168,8 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 
     widget.onCurrencyChanged(currency);
 
-    await Nav.goBack(context);
+    Nav.goBack(context);
+    // await null;
 
   }
 // -----------------------------------------------------------------------------
@@ -282,9 +285,10 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
                   onSubmitted: (String val) async  {
 
                     _onTextChanged(val);
-                    await Keyboarders.minimizeKeyboardOnTapOutSide(context);
+                    Keyboarders.minimizeKeyboardOnTapOutSide(context);
+                    // await null;
 
-                    await Future<void>.delayed(Ratioz.durationSliding400, ()async {
+                    await Future<void>.delayed(Ratioz.durationSliding400, () async {
                       widget.onSubmitted();
                     });
 

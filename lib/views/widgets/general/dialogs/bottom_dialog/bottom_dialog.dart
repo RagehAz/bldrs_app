@@ -351,9 +351,10 @@ class BottomDialog extends StatelessWidget {
                 height: 200,
                 maxLines: 2,
                 keyboardTextInputAction: TextInputAction.done,
-                onSubmitted: (String val) async {
+                onSubmitted: (String val){
 
-                  await Nav.goBack(context);
+                  Nav.goBack(context);
+                  // await null;
                 },
                 hintText: hintText ?? 'text here ...',
                 corners: _corners,

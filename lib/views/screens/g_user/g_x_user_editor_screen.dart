@@ -257,7 +257,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return _inputsAreValid;
   }
 // -----------------------------------------------------------------------------
-  void _confirmEdits() async {
+  Future<void> _confirmEdits() async {
 
     bool _continueOps = await CenterDialog.showCenterDialog(
       context: context,
@@ -273,7 +273,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 // -----------------------------------------------------------------------------
   /// create new user
-  void _createNewUser() async {
+  Future<void> _createNewUser() async {
     /// validate all required fields are valid
     if(_inputsAreValid() == false){
 
@@ -338,7 +338,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 // -----------------------------------------------------------------------------
   /// update user
-  void _updateExistingUser() async {
+  Future<void> _updateExistingUser() async {
     /// validate all required fields are valid
     if(_inputsAreValid() == false){
 

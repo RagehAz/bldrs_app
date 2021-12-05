@@ -277,7 +277,7 @@ class Sembast {
     );
 
     await _doc.delete(
-      await _db,
+      _db,
       finder: _finder,
     );
 
