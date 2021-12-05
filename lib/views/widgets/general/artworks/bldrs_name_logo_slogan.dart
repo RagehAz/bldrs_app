@@ -1,5 +1,4 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -54,7 +53,6 @@ class LogoSlogan extends StatelessWidget {
               size: 3,
               shadow: true,
               weight: VerseWeight.black,
-              color: Colorz.white255,
               centered: false,
               italic: true,
               scaleFactor: sizeFactor,
@@ -76,7 +74,6 @@ class LogoSlogan extends StatelessWidget {
               shadow: true,
               centered: false,
               italic: true,
-              color: Colorz.white255,
               maxLines: 5,
               scaleFactor: sizeFactor,
               margin: _logoWidth * 0.025,

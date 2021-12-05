@@ -224,7 +224,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
     final SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
       crossAxisSpacing: _gridSpacing,
       mainAxisSpacing: _gridSpacing,
-      childAspectRatio: 1 / 1,
       maxCrossAxisExtent: _gridBzWidth,//gridFlyerWidth,
     );
 
@@ -239,7 +238,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         Container(
           height: _abButtonsHeight * 1.2,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
@@ -248,7 +246,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                 userModel: UserModel.dummyUsers(numberOfUsers: 1)[0],
                 balloonType: _userStatus,
                 balloonWidth: _abButtonsHeight,
-                blackAndWhite: false,
                 loading: false,
                 onTap: () {
                   print('this person should ask a fucking question');
@@ -269,12 +266,10 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                   return
                     /// USER NAME AND TITLE
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         SuperVerse(
                           verse: userModel.name,
-                          size: 2,
                           weight: VerseWeight.regular,
                           margin: 0,
                         ),
@@ -311,18 +306,14 @@ class _QuestionBubbleState extends State<QuestionBubble> {
           padding: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
           child: SuperTextField(
             maxLines: 2,
-            labelColor: Colorz.white10,
             textController: _titleController,
-            inputColor: Colorz.white255,
             hintText: 'Question title',
             centered: true,
             height: 60,
             inputSize: 3,
-            keyboardTextInputType: TextInputType.text,
             keyboardTextInputAction: TextInputAction.next,
             maxLength: 100,
             counterIsOn: false,
-            fieldIsFormField: false,
             // validator: (){}, // TASK : question body must include question mark '?'
           ),
         ),
@@ -332,13 +323,10 @@ class _QuestionBubbleState extends State<QuestionBubble> {
           padding: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
           child: SuperTextField(
             textController: _bodyController,
-            inputColor: Colorz.white255,
             hintText: askHint,
             keyboardTextInputType: TextInputType.multiline,
             maxLength: 1000,
-            maxLines: 7,
             counterIsOn: false,
-            fieldIsFormField: false,
             // validator: (){}, // TASK : question body must include question mark '?'
           ),
         ),
@@ -347,7 +335,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         Container(
           // color: Colorz.BloodTest,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
@@ -365,9 +352,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                   /// GRID FOOTPRINTS
                   if (_questionPics.length == 0)
                     GridView(
-                      physics: const NeverScrollableScrollPhysics() ,
-                      scrollDirection: Axis.vertical,
-                      addAutomaticKeepAlives: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       // padding: EdgeInsets.all(_gridSpacing),
                       gridDelegate: _gridDelegate,
@@ -375,8 +360,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                             (Color color) => BzLogo(
                               width: _gridBzWidth,
                               image: color,
-                              bzPageIsOn: false,
-                              tinyMode: true,
                               zeroCornerIsOn: false,
                               onTap: (){
                                 Keyboarders.minimizeKeyboardOnTapOutSide(context);
@@ -391,8 +374,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                   if (_questionPics.length != 0)
                     GridView(
                       physics: const NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      addAutomaticKeepAlives: true,
                       shrinkWrap: true,
                       // padding: EdgeInsets.all(_gridSpacing),
                       // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
@@ -401,8 +382,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                             (File pic) => BzLogo(
                             width: _gridBzWidth,
                             image: pic,
-                            bzPageIsOn: false,
-                            tinyMode: true,
                             zeroCornerIsOn: false,
                             onTap: (){
                               // TASK : tap ask picture to go full screen
@@ -426,7 +405,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         /// ASK BUTTON
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
             DreamBox(
@@ -454,7 +432,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                 verseColor: Colorz.black255,
                 verseScaleFactor: 0.7,
                 color: Colorz.yellow255,
-                verseWeight: VerseWeight.bold,
                 onTap: _onAsk,
               ),
             ),

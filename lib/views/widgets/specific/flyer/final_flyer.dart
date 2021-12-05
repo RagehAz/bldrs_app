@@ -1176,7 +1176,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                 BottomDialog(
                   title: title,
                   height: _dialogHeight,
-                  draggable: true,
                   child: Column(
                     children: <Widget>[
 
@@ -1187,20 +1186,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                           autofocus: true,
                           // onChanged: textFieldOnChanged,
                           width: _dialogClearWidth,
-                          hintText: '...',
                           fieldColor: Colorz.white20,
                           corners: _dialogInnerCorners,
                           // margin: EdgeInsets.only(top: (_dialogClearWidth * 0.3), left: 5, right: 5),
                           maxLines: 10,
                           minLines: 3,
                           maxLength: 500,
-                          counterIsOn: true,
-                          inputSize: 2,
-                          centered: false,
                           textController: _superFlyer.rec.reviewController,
                           inputWeight: VerseWeight.thin,
-                          inputShadow: false,
-                          fieldIsFormField: false,
                           onChanged: (String val){
 
                             final bool _reviewControllerHasValue = TextChecker.textControllerIsEmpty(_superFlyer.rec.reviewController) == false;
@@ -1231,7 +1224,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                           },
                           keyboardTextInputType: TextInputType.multiline,
                           keyboardTextInputAction: TextInputAction.newline,
-                          onMaxLinesReached: null,
                         ),
                       ),
 
@@ -1247,7 +1239,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                           color: Colorz.yellow255,
                           verseColor: Colorz.black255,
                           verseShadow: false,
-                          verseWeight: VerseWeight.bold,
                           inActiveMode: !_canUploadReview,
                           onTap: () async {
 
@@ -1300,7 +1291,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     final double _buttonWidth = (_dialogClearWidth - ((_numberOfButtons + 1) * _spacing) ) / _numberOfButtons;
 
     const Color _buttonColor = Colorz.white20;
-    const Color _verseColor = Colorz.white255;
+    // const Color _verseColor = Colorz.white255;
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -1312,7 +1303,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         height: _dialogClearHeight,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
             DreamBox(
@@ -1322,7 +1312,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               verseMaxLines: 2,
               verseScaleFactor: 0.7,
               color: _buttonColor,
-              verseColor: _verseColor,
               onTap: () => _deleteReview(review.reviewID),
             ),
 
@@ -1333,7 +1322,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               verseMaxLines: 2,
               verseScaleFactor: 0.7,
               color: _buttonColor,
-              verseColor: _verseColor,
               onTap:  () => _onEditReview(review: review),
             ),
 
@@ -1520,7 +1508,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               final MutableSlide _mutableSlide = MutableSlide(
                 slideIndex: i,
                 opacity: 1,
-                picURL: null,
                 picAsset: _newAsset,
                 picFile: _newFile,
                 imageSize: await ImageSize.superImageSize(_newAsset),
@@ -1528,7 +1515,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                 midColor: await Colorizer.getAverageColor(_newFile),
                 headline: null,
                 headlineController: new TextEditingController(),
-                description: null,
                 descriptionController: new TextEditingController(),
                 viewsCount: 0,
                 sharesCount: 0,
@@ -1944,12 +1930,10 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
-      height: null,
       title: 'Publish this flyer targeting a specific city',
       child: BottomDialogButtons(
         mapsModels: _countriesMapModels,
         alignment: Alignment.center,
-        bottomDialogType: BottomDialogType.countries,
         buttonTap: (String countryID) async {
 
           final String _lastCountryID = _superFlyer.zone.countryID;
@@ -1993,7 +1977,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       await BottomDialog.showBottomDialog(
         context: context,
         draggable: true,
-        height: null,
         title: '${CountryModel.getTranslatedCountryNameByID(context: context, countryID: _superFlyer.zone.countryID)} Cities',
         child: BottomDialogButtons(
           mapsModels: _citiesMaps,
@@ -2031,7 +2014,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       await BottomDialog.showBottomDialog(
         context: context,
         draggable: true,
-        height: null,
         title: '${CityModel.getTranslatedCityNameFromCity(context: context, city: _city,)} Districts',
         child: BottomDialogButtons(
           mapsModels: _districtsMaps,
@@ -2071,27 +2053,20 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               // autofocus: autoFocus,
               // onChanged: textFieldOnChanged,
               width: _dialogClearWidth,
-              hintText: '...',
               fieldColor: Colorz.white20,
               corners: _dialogInnerCorners,
               // margin: EdgeInsets.only(top: (_dialogClearWidth * 0.3), left: 5, right: 5),
               maxLines: 10,
               minLines: 5,
               maxLength: 500,
-              counterIsOn: true,
-              inputSize: 2,
-              centered: false,
               textController: _superFlyer.infoController,
               inputWeight: VerseWeight.thin,
-              inputShadow: false,
-              fieldIsFormField: false,
 
               onSubmitted: (String val){
                 print('val is : $val');
               },
               keyboardTextInputType: TextInputType.multiline,
               keyboardTextInputAction: TextInputAction.newline,
-              onMaxLinesReached: null,
             ),
           ),
 
@@ -2327,7 +2302,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     if (_superFlyer.mSlides == null || _superFlyer.mSlides.length == 0){
       await CenterDialog.showCenterDialog(
         context: context,
-        boolDialog: false,
         // title: 'No '
         body: 'First, select some pictures',
       );
@@ -2338,7 +2312,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     else if (_superFlyer.mSlides.length < 3){
       await CenterDialog.showCenterDialog(
         context: context,
-        boolDialog: false,
         // title: 'No '
         body: 'At least 3 pictures are required to publish this flyer',
       );
@@ -2417,7 +2390,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       context: context,
       title: 'Great !',
       body: _superFlyer.edit.firstTimer == true ? 'Flyer has been created' : 'Flyer has been updated',
-      boolDialog: false,
     );
 
     Nav.goBack(context, argument: _uploadedFlyer);
@@ -2606,7 +2578,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         context: context,
         title: '',
         body: 'Please add all required fields',
-        boolDialog: false,
       );
 
 
@@ -2663,7 +2634,6 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         context: context,
         title: 'Great !',
         body: 'Flyer has been updated',
-        boolDialog: false,
       );
 
     }

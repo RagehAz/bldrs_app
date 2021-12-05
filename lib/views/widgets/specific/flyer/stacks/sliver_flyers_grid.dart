@@ -51,7 +51,6 @@ class SliverFlyersGrid extends StatelessWidget {
 
                   FinalFlyer(
                     flyerBoxWidth: _flyerBoxWidth,
-                    goesToEditor: false,
                     flyerModel: flyers[flyerIndex],
                     flyerKey: Key(flyers[flyerIndex].id),
                     onSwipeFlyer: (Sliders.SwipeDirection direction){
@@ -60,7 +59,6 @@ class SliverFlyersGrid extends StatelessWidget {
                 );
                 },
           childCount: flyers.length,
-          addAutomaticKeepAlives: true,
           // addSemanticIndexes: false,
           // addRepaintBoundaries: false,
         ),

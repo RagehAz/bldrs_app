@@ -334,7 +334,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         context: context,
         title: '',
         body: 'Please add all required fields',
-        boolDialog: false,
       );
 
     } else {
@@ -407,7 +406,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         context: context,
         title: 'Great !',
         body: 'Successfully added your Business Account',
-        boolDialog: false,
       );
 
       Nav.goBack(context);
@@ -425,7 +423,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         context: context,
         title: '',
         body: 'Please add all required fields',
-        boolDialog: false,
       );
 
     } else {
@@ -507,7 +504,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         context: context,
         title: 'Great !',
         body: 'Successfully updated your Business Account',
-        boolDialog: false,
       );
 
       Nav.goBack(context, argument: true);
@@ -602,7 +598,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 textController: _bzNameTextController,
                 key: const Key('bzName'),
                 title: _currentBzForm == BzForm.individual ? 'Business Entity name' : Wordz.companyName(context),
-                hintText: '...',
                 counterIsOn: true,
                 maxLength: 72,
                 maxLines: 2,
@@ -616,7 +611,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 textController: _bzScopeTextController,
                 key: const Key('bzScope'),
                 title: '${Wordz.scopeOfServices(context)} :',
-                hintText: '...',
                 counterIsOn: true,
                 maxLength: 500,
                 maxLines: 4,
@@ -630,7 +624,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 textController: _bzAboutTextController,
                 key: const Key('bzAbout'),
                 title: _bzAboutBubbleTitle,
-                hintText: '...',
                 counterIsOn: true,
                 maxLength: 193,
                 maxLines: 4,
@@ -655,10 +648,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 textController: _authorNameTextController,
                 key: const Key('authorName'),
                 title: Wordz.authorName(context),
-                hintText: '...',
                 counterIsOn: true,
                 maxLength: 20,
-                maxLines: 1,
                 keyboardTextInputType: TextInputType.name,
                 fieldIsRequired: true,
                 fieldIsFormField: true,
@@ -669,10 +660,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 textController: _authorTitleTextController,
                 key: const Key('authorTitle'),
                 title: Wordz.jobTitle(context),
-                hintText: '...',
                 counterIsOn: true,
                 maxLength: 20,
-                maxLines: 1,
                 keyboardTextInputType: TextInputType.name,
                 fieldIsRequired: true,
                 fieldIsFormField: true,

@@ -49,7 +49,6 @@ class SearchResultWall extends StatelessWidget {
 
               FlyersShelf(
                 title: _bz.name,
-                flyerSizeFactor: 0.3,
                 titleIcon: _bz.logo,
                 flyerOnTap: (){print('flyer tapped');},
                 onScrollEnd: (){print('scroll ended');},

@@ -178,10 +178,8 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
             onTap: (){
               print('operating noti');
 
-              receiveAndActUponNoti(
-                msgMap: null,
-                notiType: null,
-              );
+              receiveAndActUponNoti();
+
             },
           ),
 
@@ -292,7 +290,6 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
 
                           /// START
@@ -324,7 +321,6 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
 
                           /// STOP

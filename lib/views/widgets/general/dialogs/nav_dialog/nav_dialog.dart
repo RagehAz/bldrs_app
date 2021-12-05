@@ -41,7 +41,7 @@ class NavDialog extends StatelessWidget {
         // width: _isBig == true ? _screenWidth : null,
 
         // margin: _isBig == true ? EdgeInsets.all(0) : null,
-        padding: const EdgeInsets.only(top: 0),
+        padding: const EdgeInsets.only(),
         // onVisible: () {
         //   print('is visible now');
         // },
@@ -80,9 +80,9 @@ class NavDialog extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.superScreenWidth(context);
-    const BarType _barType = BarType.minWithText;
+    // const BarType _barType = BarType.minWithText;
 
-    final double _navBarHeight = NavBar.navBarHeight(context: context, barType: _barType);
+    final double _navBarHeight = NavBar.navBarHeight(context: context);
     final double _navBarClearWidth = _screenWidth - (4 * Ratioz.appBarMargin);
     final double _titleHeight = secondLine == null ? _navBarHeight : _navBarHeight * 0.35;
     final double _bodyHeight = secondLine == null ? 0 : (_navBarHeight - _titleHeight);
@@ -103,7 +103,6 @@ class NavDialog extends StatelessWidget {
               ),
               alignment: Alignment.center,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: secondLine == null ? CrossAxisAlignment.center : CrossAxisAlignment.start,
                 children: <Widget>[
 
@@ -114,10 +113,7 @@ class NavDialog extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin,),
                     child: SuperVerse(
                       verse: firstLine,
-                      size: 2,
                       scaleFactor: secondLine == null ? 0.8 : 0.9,
-                      color: Colorz.white255,
-                      weight: VerseWeight.bold,
                       shadow: true,
                       centered: _verseIsCentered(),
                     ),
@@ -134,7 +130,6 @@ class NavDialog extends StatelessWidget {
                       size: 1,
                       color: Colorz.white200,
                       weight: VerseWeight.thin,
-                      shadow: false,
                       maxLines: 3,
                       centered: false,
                     ),

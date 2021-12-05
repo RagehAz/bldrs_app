@@ -40,7 +40,7 @@ class CityModel{
       'population' : population,
       'isActivated' : isActivated,
       'isPublic' : isPublic,
-      'names' : Name.cipherNames(names: names, addTrigrams: true),
+      'names' : Name.cipherNames(names: names),
       'position' : Atlas.cipherGeoPoint(point: position, toJSON: toJSON)
 
     };

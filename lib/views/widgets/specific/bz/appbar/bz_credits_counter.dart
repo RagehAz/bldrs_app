@@ -28,7 +28,6 @@ class BzCreditsCounter extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
           CreditsRow(
@@ -64,8 +63,6 @@ class CreditsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
 
         DreamBox(
@@ -83,7 +80,6 @@ class CreditsRow extends StatelessWidget {
           child: SuperVerse(
             verse: '$value',
             size: 1,
-            weight: VerseWeight.bold,
             italic: true,
             centered: false,
           ),

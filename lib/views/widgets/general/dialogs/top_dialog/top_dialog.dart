@@ -83,27 +83,19 @@ class TopDialog extends StatelessWidget {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
             SuperVerse(
               verse: verse,
-              size: 2,
               color: Colorz.black255,
-              shadow: false,
-              weight: VerseWeight.bold,
-              centered: true,
-              maxLines: 1,
             ),
 
             SuperVerse(
               verse: secondLine,
               size: 1,
               color: Colorz.black255,
-              shadow: false,
               weight: VerseWeight.thin,
               italic: true,
-              centered: true,
               maxLines: 2,
             ),
 

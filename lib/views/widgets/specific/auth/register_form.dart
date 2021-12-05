@@ -181,7 +181,6 @@ class _RegisterFormState extends State<RegisterForm> {
       key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
           const SizedBox(
@@ -193,15 +192,12 @@ class _RegisterFormState extends State<RegisterForm> {
             key: const ValueKey<String>('email'),
             textController: _emailController,
             loading: _loading,
-            bubbleColor: Colorz.white20,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.emailAddress,
             keyboardTextInputAction: TextInputAction.next,
             title: Wordz.emailAddress(context),
-            hintText: '...',
-            maxLength: 100,
             validator: (String val) => _emailValidator(val),
           ),
 
@@ -210,18 +206,14 @@ class _RegisterFormState extends State<RegisterForm> {
             key: const ValueKey<String>('password'),
             textController: _passwordController,
             loading: _loading,
-            bubbleColor: Colorz.white20,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword, // ----------------------------------------------------------
             keyboardTextInputAction: TextInputAction.next,
             title: Wordz.password(context),
-            hintText: '...',
-            maxLength: 100,
             validator: (String val) => _passwordValidator(val),
             comments: Wordz.min6Char(context),
-            maxLines: 1,
             obscured: _passwordObscured,
             horusOnTap: _horusOnTap,
           ),
@@ -231,27 +223,21 @@ class _RegisterFormState extends State<RegisterForm> {
             key: const ValueKey<String>('confirm'),
             textController: _confirmPasswordController,
             loading: _loading,
-            bubbleColor: Colorz.white20,
             textDirection: TextDirection.ltr,
             fieldIsFormField: true,
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword, // ----------------------------------------------------------
             keyboardTextInputAction: TextInputAction.done, // ----------------------------------------------------------
             title: Wordz.confirmPassword(context),
-            hintText: '...',
-            maxLength: 100,
             validator: (String val) => _confirmPasswordValidator(val),
               comments: Wordz.min6Char(context),
-              maxLines: 1,
               obscured: _passwordObscured,
               horusOnTap: _horusOnTap,
-            initialTextValue: null,
           ),
 
 
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               DreamBox(

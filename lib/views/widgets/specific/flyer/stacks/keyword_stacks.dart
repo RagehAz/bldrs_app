@@ -48,7 +48,6 @@ class FlyerCoversStack extends StatelessWidget {
 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
             Container(
@@ -57,7 +56,6 @@ class FlyerCoversStack extends StatelessWidget {
               child: FinalFlyer(
                 flyerBoxWidth: coverFlyerWidth,
                 flyerModel: flyersDataList[0],
-                goesToEditor: false,
                 onSwipeFlyer: (Sliders.SwipeDirection direction){
                   // print('Direction is ${direction}');
                 },
@@ -72,7 +70,6 @@ class FlyerCoversStack extends StatelessWidget {
                   child: GridView(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    addAutomaticKeepAlives: true,
                     padding: const EdgeInsets.all(gridSpacing),
 
                     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -89,9 +86,7 @@ class FlyerCoversStack extends StatelessWidget {
                               height: otherFlyersHeight,
                               child: FinalFlyer(
                                 flyerBoxWidth: otherFlyersWidth,
-                                initialSlideIndex: 0,
                                 flyerModel: flyersDataList[index],
-                                goesToEditor: false,
                                 onSwipeFlyer: (Sliders.SwipeDirection direction){
                                   // print('Direction is ${direction}');
                                 },
@@ -142,7 +137,6 @@ class TopFlyersStack extends StatelessWidget {
     final int gridLoopLength = flyersDataList.length > numberOfFlyers ? numberOfFlyers : flyersDataList.length;
 
     return Bubble(
-      centered: false,
       bubbleColor: Colorz.white10,
       title: collectionTitle,
       columnChildren: <Widget>[
@@ -155,7 +149,6 @@ class TopFlyersStack extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
-              addAutomaticKeepAlives: true,
               itemExtent: (flyerWidth + gridSpacing),
 
               children: <Widget>[
@@ -167,7 +160,6 @@ class TopFlyersStack extends StatelessWidget {
                         type: MaterialType.transparency,
                         child: FinalFlyer(
                           flyerBoxWidth: flyerWidth,
-                          goesToEditor: false,
                           flyerModel: flyersDataList[index],
                           onSwipeFlyer: (Sliders.SwipeDirection direction){
                             // print('Direction is ${direction}');

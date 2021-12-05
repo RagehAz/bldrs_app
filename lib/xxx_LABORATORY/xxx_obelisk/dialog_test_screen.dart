@@ -52,7 +52,6 @@ class DialogTestScreen extends StatelessWidget {
                   height: Scale.superScreenHeight(context) * 0.6,
                   child: ListView.builder(
                     itemCount: _numberOfBzz,
-                    scrollDirection: Axis.vertical,
                     itemBuilder: (BuildContext context, int index){
                       return
                         FlyersBubble(

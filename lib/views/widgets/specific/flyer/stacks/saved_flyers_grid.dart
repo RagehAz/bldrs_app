@@ -45,7 +45,6 @@ class SavedFlyersGrid extends StatelessWidget {
         child: GridView.builder(
           itemCount: flyers.length,
           physics: const BouncingScrollPhysics(),
-          shrinkWrap: false,
           padding: const EdgeInsets.all(_spacing),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: _numberOfColumns,
@@ -71,13 +70,9 @@ class SavedFlyersGrid extends StatelessWidget {
                   children: <Widget>[
 
                     AbsorbPointer(
-                      absorbing:  true,
                       child: FinalFlyer(
                         flyerBoxWidth: _flyerBoxWidth,
                         flyerModel: flyers[index],
-                        inEditor: false,
-                        goesToEditor: false,
-                        initialSlideIndex: 0,
                         onSwipeFlyer: (Sliders.SwipeDirection direction){
                           // print('Direction is ${direction}');
                         },
@@ -90,7 +85,6 @@ class SavedFlyersGrid extends StatelessWidget {
                         height: FlyerBox.height(context, _flyerBoxWidth),
                         color: Colorz.black50,
                         corners: Borderers.superFlyerCorners(context, _flyerBoxWidth),
-                        bubble: true,
                       ),
 
                     if(_isSelected == true)
@@ -102,8 +96,6 @@ class SavedFlyersGrid extends StatelessWidget {
                           verse: 'SELECTED',
                           weight: VerseWeight.black,
                           italic: true,
-                          color: Colorz.white255,
-                          size: 2,
                           scaleFactor: _flyerBoxWidth/100,
                           shadow: true,
                         ),
@@ -115,7 +107,7 @@ class SavedFlyersGrid extends StatelessWidget {
                         height: FlyerBox.height(context, _flyerBoxWidth),
                         alignment: Aligners.superInverseBottomAlignment(context),
                         decoration: BoxDecoration(
-                          border: Border.all(width: 1, color: Colorz.white20,),
+                          border: Border.all(color: Colorz.white20,),
                           borderRadius: Borderers.superFlyerCorners(context, _flyerBoxWidth),
                         ),
                         child: DreamBox(
@@ -139,9 +131,6 @@ class SavedFlyersGrid extends StatelessWidget {
               FinalFlyer(
                 flyerBoxWidth: _flyerBoxWidth,
                 flyerModel: flyers[index],
-                inEditor: false,
-                goesToEditor: false,
-                initialSlideIndex: 0,
                 onSwipeFlyer: (Sliders.SwipeDirection direction){
                   // print('Direction is ${direction}');
                 },

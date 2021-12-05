@@ -106,7 +106,6 @@ class EditorPanel extends StatelessWidget {
               icon:  Iconz.XSmall,
               iconSizeFactor: 0.5,
               verse: 'Delete',
-              verseColor: Colorz.white255,
 
               /// TASK : if all fields are valid should be green otherWise should be inActive
               color: Colorz.red230,

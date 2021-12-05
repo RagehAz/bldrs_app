@@ -41,8 +41,6 @@ class NotificationSenderBalloon extends StatelessWidget {
       sender == NotiPicType.user ?
       Balloona(
           balloonWidth: balloonWidth,
-          onTap: null,
-          shadowIsOn: false,
           pic: pic,
           loading: false,
       )

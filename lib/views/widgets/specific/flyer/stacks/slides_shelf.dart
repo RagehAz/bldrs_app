@@ -54,7 +54,6 @@ class SlidesShelf extends StatelessWidget {
         height: _stackZoneHeight + _titleZoneHeight,
         // color: Colorz.BloodTest,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
@@ -82,7 +81,6 @@ class SlidesShelf extends StatelessWidget {
                 itemExtent: _flyerZoneWidth + Ratioz.appBarPadding* 1.5,
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-                addAutomaticKeepAlives: true,
                 itemBuilder: (BuildContext ctx, int index){
 
                   final dynamic _pic = pics[index];
@@ -152,7 +150,6 @@ class SlidesShelf extends StatelessWidget {
                                   decoration: _flyerDecoration,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: <Widget>[
 
                                       /// PLUS ICON
@@ -162,8 +159,7 @@ class SlidesShelf extends StatelessWidget {
                                         icon: Iconz.Plus,
 
                                         iconColor: Colorz.white20,
-                                        bubble: false,
-                                        onTap: null,//() => _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth),
+                                        bubble: false,//() => _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth),
                                       ),
 
                                       SizedBox(
@@ -174,7 +170,6 @@ class SlidesShelf extends StatelessWidget {
                                         width: _flyerZoneWidth * 0.95,
                                         child: SuperVerse(
                                           verse: 'Add Photos',
-                                          size: 2,
                                           color: Colorz.white20,
                                           maxLines: 2,
                                         ),

@@ -44,8 +44,6 @@ class ZonesPage extends StatelessWidget {
         height: _pageHeight,
         // color: Colorz.BloodTest,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
             DreamBox(
@@ -58,7 +56,6 @@ class ZonesPage extends StatelessWidget {
               height: _verseHeight,
               child: SuperVerse(
                 verse: title,
-                size: 2,
                 labelColor: Colorz.white10,
               ),
             ),

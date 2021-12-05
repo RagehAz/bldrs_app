@@ -63,7 +63,6 @@ class FlyersShelf extends StatelessWidget {
         //   //   )
         // ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -90,7 +89,7 @@ class FlyersShelf extends StatelessWidget {
                         DreamBox(
                           height: titleIconWidth,
                           icon: titleIcon,
-                          margins: const EdgeInsets.symmetric(horizontal: _titleIconMargin),
+                          margins: const EdgeInsets.symmetric(),
                           corners: titleIconCorner,
                         ),
 
@@ -101,8 +100,6 @@ class FlyersShelf extends StatelessWidget {
                         width: _screenWidth - (Ratioz.appBarMargin * 5) - _titleIconWidthWithMargin,
                         child: SuperVerse(
                           verse: title,
-                          size: 2,
-                          weight: VerseWeight.bold,
                           centered: false,
                           shadow: true,
                           italic: true,

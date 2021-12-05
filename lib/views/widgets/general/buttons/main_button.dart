@@ -70,7 +70,6 @@ class MainButton extends StatelessWidget {
             boxShadow: <BoxShadow>[
               Shadowz.CustomBoxShadow(
                   color: Colorz.black230,
-                  offset: const Offset(0, 0),
                   blurRadius: _buttonZoneHeight * 0.09,
                   blurStyle: BlurStyle.outer),
             ]
@@ -119,8 +118,7 @@ class MainButton extends StatelessWidget {
                       Shadowz.CustomBoxShadow(
                           color: Colorz.white50,
                           offset: new Offset(0, _buttonHeight * -0.23),
-                          blurRadius: _buttonHeight * 0.18 ,
-                          blurStyle: BlurStyle.normal
+                          blurRadius: _buttonHeight * 0.18
                       ),
                     ]
                 ),
@@ -148,7 +146,6 @@ class MainButton extends StatelessWidget {
                   /// --- WHEN BUTTON DOES NOT HAVE AN ICON
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         /// --- ONLY THE BUTTON VERSE HERE
                         Padding(
@@ -156,11 +153,8 @@ class MainButton extends StatelessWidget {
                           child: SuperVerse(
                             verse: buttonVerse,
                             color: verseColor,
-                            italic: false,
                             weight: verseWeight,
-                            centered: true,
                             shadow: buttonVerseShadow,
-                            size: 2,
                           ),
                         ),
                       ],
@@ -170,14 +164,10 @@ class MainButton extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: _buttonZonePaddings, right: _buttonZonePaddings),
                     child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
 
                           /// --- OLD BUTTON ICON
                           Flexible(
-                            flex: 1,
                             child: new Container(
                               // color: Colorz.BloodTest,
                               width: _buttonZoneHeight * 0.4,
@@ -207,11 +197,9 @@ class MainButton extends StatelessWidget {
                               child: SuperVerse(
                                 verse: buttonVerse,
                                 color: verseColor,
-                                italic: false,
                                 weight: verseWeight,
                                 centered: false,
                                 shadow: buttonVerseShadow,
-                                size: 2,
                                 maxLines: 2,
 
                               ),

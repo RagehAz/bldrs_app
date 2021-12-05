@@ -265,14 +265,11 @@ class _NotificationMakerState extends State<NotificationMaker> {
                     height: _textFieldHeight,
                     child: SuperTextField(
                       height: _textFieldHeight,
-                      inputSize: 2,
                       textController: _userNameController,
-                      inputColor: Colorz.white255,
                       hintText: 'user name ...',
                       keyboardTextInputType: TextInputType.multiline,
                       maxLength: 30,
                       maxLines: 2,
-                      counterIsOn: true,
                       fieldIsFormField: true,
                       keyboardTextInputAction: TextInputAction.search,
                       onSubmitted: (String val) async {
@@ -460,7 +457,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
           context: context,
           title: 'Done',
           body: 'Notification has been sent to $_userName',
-          boolDialog: false,
         );
 
         setState(() {
@@ -479,7 +475,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
           context: context,
           title: 'FAILED',
           body: 'The notification was not sent',
-          boolDialog: false,
         );
       }
 
@@ -564,7 +559,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
             columnChildren: <Widget>[
 
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
 
@@ -587,22 +581,17 @@ class _NotificationMakerState extends State<NotificationMaker> {
                   Container(
                     width: _bodyWidth,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
 
                         /// TITLE
                         SuperTextField(
                           height: 80,
-                          inputSize: 2,
                           textController: _titleController,
-                          inputColor: Colorz.white255,
                           hintText: 'Title',
-                          keyboardTextInputType: TextInputType.text,
                           keyboardTextInputAction: TextInputAction.next,
                           maxLength: 30,
                           maxLines: 2,
-                          counterIsOn: true,
                           fieldIsFormField: true,
 
                           // validator: (){}, // TASK : question body must include question mark '?'
@@ -617,12 +606,10 @@ class _NotificationMakerState extends State<NotificationMaker> {
                         /// BODY
                         SuperTextField(
                           textController: _bodyController,
-                          inputColor: Colorz.white255,
                           hintText: 'body',
                           keyboardTextInputType: TextInputType.multiline,
                           maxLength: 80,
                           maxLines: 10,
-                          counterIsOn: true,
                           inputWeight: VerseWeight.thin,
                           fieldIsFormField: true,
                           // validator: (){}, // TASK : question body must include question mark '?'
@@ -672,7 +659,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
                             height: 70,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
 
                                 ...List<Widget>.generate(_attachment.length,
@@ -714,7 +700,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
             secondLine: 'This sends firebase cloud message to the receiver or to a group of receivers through a channel',
             icon: Iconz.News,
             iconSizeFactor: 0.5,
-            verseColor: Colorz.white255,
             iconBoxColor: Colorz.grey50,
             switchIsOn: _sendFCMIsOn,
             switching: (bool val) => _onSwitchSendFCM(val),
@@ -726,14 +711,12 @@ class _NotificationMakerState extends State<NotificationMaker> {
             secondLine: 'Choose who to send this notification to',
             icon: Iconz.NormalUser,
             iconSizeFactor: 0.5,
-            verseColor: Colorz.white255,
             iconBoxColor: Colorz.grey50,
             btOnTap: _onTapReciever,
             child: Container(
               width: Bubble.clearWidth(context),
               // height: 50,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
 

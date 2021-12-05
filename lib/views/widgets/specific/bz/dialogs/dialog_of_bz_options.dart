@@ -168,7 +168,6 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
         fullscreenDialog: true,
         builder: (BuildContext context){
           return new BzEditorScreen(
-            firstTimer: false,
             userModel: widget.userModel,
             bzModel: bzModel,
           );
@@ -226,7 +225,6 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
         iconSizeFactor: 0.5,
         verse: 'Edit Business Account info',
         verseScaleFactor: 1.2,
-        verseColor: Colorz.white255,
         onTap: () => _editBzOnTap(bzModel),
       ),
 

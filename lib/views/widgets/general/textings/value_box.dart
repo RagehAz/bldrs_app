@@ -28,7 +28,6 @@ class ValueBox extends StatelessWidget {
         color: color,
         margin: const EdgeInsets.all(2),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
@@ -41,8 +40,6 @@ class ValueBox extends StatelessWidget {
 
             SuperVerse(
               verse: '${value.toString()}',
-              weight: VerseWeight.bold,
-              italic: false,
               size: 1,
             ),
 

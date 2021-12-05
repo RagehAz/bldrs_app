@@ -117,8 +117,6 @@ class GalleryGrid extends StatelessWidget {
           child:
           GridView(
             physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: false,
-            addAutomaticKeepAlives: true,
             padding: EdgeInsets.only(right: _gridSpacing, left: _gridSpacing, top: _gridSpacing , bottom: _gridSpacing ),
             key: PageStorageKey<String>('gridFlyers_${bzID}'),//new Key(loadedFlyers[flyerIndex].f01flyerID),
             gridDelegate:
@@ -163,7 +161,6 @@ class GalleryGrid extends StatelessWidget {
                         flyerModel: _gridFlyers[index],
                         goesToEditor: true,
                         bzModel: bz,
-                        inEditor: false,
                         flyerKey: ValueKey<String>('${_gridFlyers[index].id}'),
                         // initialSlideIndex: _gridFlyers[index].slideIndex,
                         onSwipeFlyer: (Sliders.SwipeDirection direction){

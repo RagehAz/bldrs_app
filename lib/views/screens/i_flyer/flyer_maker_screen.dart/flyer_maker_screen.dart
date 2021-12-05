@@ -71,7 +71,6 @@ class FlyerMakerScreen extends StatelessWidget {
               flyerBoxWidth: _flyerBoxWidth,
               flyerModel: firstTimer == true ? null : flyerModel,
               goesToEditor: true,
-              initialSlideIndex: 0,
               inEditor: true,
               bzModel: bzModel,
               onSwipeFlyer: (Sliders.SwipeDirection direction){

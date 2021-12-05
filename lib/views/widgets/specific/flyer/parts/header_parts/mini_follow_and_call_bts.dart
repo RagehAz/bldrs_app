@@ -52,7 +52,6 @@ class FollowAndCallBTs extends StatelessWidget {
         height: followGalleryHeight,
         width: followGalleryWidth,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
@@ -101,7 +100,7 @@ class FollowBT extends StatelessWidget {
     // === === === === === === === === === === === === === === === === === ===
     final double screenWidth = Scale.superScreenWidth(context);
     final bool _isTinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth) ;
-    const bool versesShadow = false;
+    // const bool versesShadow = false;
     /// --- FOLLOW BUTTON
     final Color followBTColor = followOn == true ? Colorz.yellow255 : Colorz.white20;
     final double followBTHeight = flyerBoxWidth * Ratioz.xxfollowBTHeight;
@@ -159,7 +158,6 @@ class FollowBT extends StatelessWidget {
               /// FOLLOW BUTTON CONTENTS
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
 
                   /// FOLLOW ICON
@@ -173,12 +171,8 @@ class FollowBT extends StatelessWidget {
                   if (followOn == false)
                   SuperVerse(
                     verse: followText,
-                    centered: true,
                     color: followTextColor,
                     size: 0,
-                    weight: VerseWeight.bold,
-                    shadow: versesShadow,
-                    italic: false,
                     scaleFactor: flyerBoxWidth/screenWidth,
                   )
 
@@ -204,7 +198,7 @@ class CallBT extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    const bool _versesShadow = false;
+//     const bool _versesShadow = false;
     final bool _isTinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
     /// call BUTTON
     const Color _callBTColor = Colorz.white10;
@@ -249,7 +243,6 @@ class CallBT extends StatelessWidget {
               /// BUTTON COMPONENTS : ICON, NUMBER, VERSE
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
 
                   /// call ICON
@@ -268,13 +261,8 @@ class CallBT extends StatelessWidget {
 
                   /// FLYERS TEXT
                   SuperVerse(
-                    verse: Wordz.call(context),//'$callText',
-                    color: Colorz.white255,
-                    italic: false,
+                    verse: Wordz.call(context),
                     size: 1,
-                    centered: true,
-                    weight: VerseWeight.bold,
-                    shadow: _versesShadow,
                     scaleFactor: flyerBoxWidth/Scale.superScreenWidth(context),
                   )
 

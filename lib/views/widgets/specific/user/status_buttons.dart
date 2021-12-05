@@ -48,7 +48,6 @@ class StatusButtons extends StatelessWidget {
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               ...(status[stateIndex]['buttons'] as List<Map<String, Object>>)
                 .map(
@@ -90,7 +89,6 @@ class StatusButtons extends StatelessWidget {
                         verseScaleFactor: currentUserStatus == x['userStatus'] ? 0.55 : 0.55,
                         verseMaxLines: 4,
                         onTap: () => switchUserStatus(x['userStatus']),
-                        blackAndWhite: false,
                         color: _color,
                         verseColor: _verseColor,
                         verseWeight: _verseWeight,

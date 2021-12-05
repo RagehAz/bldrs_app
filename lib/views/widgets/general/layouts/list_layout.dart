@@ -65,7 +65,6 @@ class ListLayout extends StatelessWidget {
           if (pageIconVerse != null)
           SuperVerse(
             verse: pageIconVerse,
-            size: 2,
             labelColor: Colorz.white10,
           ),
 
@@ -88,8 +87,6 @@ class ListLayout extends StatelessWidget {
                     boxDistance: _bubbleHeight - (Ratioz.appBarMargin * 5),
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
-
-                      shrinkWrap: false,
                       itemCount: mapModels.length,
                       itemBuilder: (BuildContext context, int index){
 
@@ -108,7 +105,6 @@ class ListLayout extends StatelessWidget {
                               color: Colorz.white10,
                               // textDirection: superTextDirection(context),
                               onTap: () => onItemTap(mapModels[index].key),
-                              verseCentered: true,
                             ),
                           );
 

@@ -137,7 +137,6 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
           iconSizeFactor: 0.5,
           verse: 'Edit flyer',
           verseScaleFactor: 1.2,
-          verseColor: Colorz.white255,
           onTap: () => _editFlyerOnTap(flyerModel),
         ),
 
@@ -172,7 +171,6 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     await CenterDialog.showCenterDialog(
       context: context,
       body: 'Flyer has been deleted',
-      boolDialog: false,
       title: 'Great !',
     );
   }
@@ -208,7 +206,6 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
           :
       FlyersGrid(
         gridZoneWidth: Scale.superScreenWidth(context),
-        numberOfColumns: 3,
         flyers: _allFlyers,
         scrollable: true,
         stratosphere: true,

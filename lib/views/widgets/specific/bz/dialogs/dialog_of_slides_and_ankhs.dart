@@ -12,7 +12,6 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
     await CenterDialog.showCenterDialog(
       context: context,
       height: Scale.superScreenHeight(context) - Ratioz.appBarMargin * 4,
-      boolDialog: false,
       confirmButtonText: 'Tamam',
       title: 'Ankhs & Slides',
       body: 'Blah blah blah',

@@ -47,7 +47,6 @@ class _TrigramTestState extends State<TrigramTest> {
         screenTitle: 'Trigram Test',
         appbarButtonVerse: null,
         appbarButtonOnTap: null,
-        scrollable: false,
         listViewWidgets: <Widget>[
 
           /// TEXT FIELD
@@ -59,14 +58,11 @@ class _TrigramTestState extends State<TrigramTest> {
             child: SuperTextField(
               width: 400,
               height: 70,
-              inputSize: 2,
               textController: _controller,
-              inputColor: Colorz.white255,
               hintText: 'user name ...',
               keyboardTextInputType: TextInputType.multiline,
               maxLength: 20,
               maxLines: 1,
-              counterIsOn: true,
               fieldIsFormField: true,
               keyboardTextInputAction: TextInputAction.search,
               onChanged: (String val){
@@ -101,7 +97,6 @@ class _TrigramTestState extends State<TrigramTest> {
                     return
                       SuperVerse(
                         verse: '$index : $_tri',
-                        size: 2,
                         color: Colorz.black255,
                         centered: false,
                       );

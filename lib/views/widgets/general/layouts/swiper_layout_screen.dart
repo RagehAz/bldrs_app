@@ -63,7 +63,6 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
       // appBarBackButton: true,
       layoutWidget: Swiper(
         physics: const BouncingScrollPhysics(),
-        autoplay: false,
         pagination: const SwiperPagination(
           builder: const DotSwiperPaginationBuilder(
             color: Colorz.white255,
@@ -75,13 +74,10 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
           alignment: Alignment.topCenter,
           margin: const EdgeInsets.only(top: 54, right: Ratioz.appBarMargin * 2, left: Ratioz.appBarMargin * 2),
         ),
-        layout: SwiperLayout.DEFAULT,
         itemWidth: _screenWidth, // in-effective
         itemHeight: _pageHeight, // in-effective
         containerWidth: _screenWidth, // in-effective
-        containerHeight: _pageHeight, // in-effective
-        loop: true,
-        outer: false,
+        containerHeight: _pageHeight,
         // control: new SwiperControl(),
         // transformer: ,
         onIndexChanged: (int index){
@@ -92,7 +88,6 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
         fade: 0.1,
         controller: _swiperController,
         duration: 600,
-        viewportFraction: 1,
         curve: Curves.easeInOutCirc,
         scale: 0.6,
         itemCount: widget.swiperPages.length,

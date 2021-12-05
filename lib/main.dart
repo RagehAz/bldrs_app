@@ -225,10 +225,9 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
             return
               MaterialApp(
                 debugShowCheckedModeBanner: false,
-                debugShowMaterialGrid: false,
-                showPerformanceOverlay: false,
-                checkerboardOffscreenLayers: false,
-                checkerboardRasterCacheImages: false,
+                // debugShowMaterialGrid: false,
+                // showPerformanceOverlay: false,
+                // checkerboardRasterCacheImages: false,
 
                 title: 'Bldrs.net',
 

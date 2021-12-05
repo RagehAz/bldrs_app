@@ -71,7 +71,6 @@ FieldValue ++
           context: context,
           title: 'You Are not Signed in',
           body: 'Please Sign in into your account first',
-          boolDialog: false,
         );
 
       }
@@ -82,7 +81,6 @@ FieldValue ++
           context: context,
           title: 'error',
           body: e.toString(),
-          boolDialog: false,
         );
 
       }
@@ -96,7 +94,7 @@ FieldValue ++
     return
         FirebaseFunctions.instance.httpsCallable(
           funcName,
-          options: HttpsCallableOptions(timeout: const Duration(seconds: 60)),
+          options: HttpsCallableOptions(),
         );
   }
 

@@ -93,7 +93,6 @@ class LDBViewersScreen extends StatelessWidget {
 
     return DashBoardLayout(
       pageTitle: 'LDB viewers',
-      loading: false,
       onBldrsTap: () async {
 
         print('starting the thing');

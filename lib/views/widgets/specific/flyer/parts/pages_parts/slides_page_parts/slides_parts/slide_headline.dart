@@ -36,11 +36,8 @@ class SlideHeadline extends StatelessWidget {
           child: SuperVerse(
             verse: verse,
             color: verseColor,
-            italic: false,
             shadow: true,
-            weight: VerseWeight.bold,
             size: verseSize,
-            centered: true,
             maxLines: 3,
           ),
         ),

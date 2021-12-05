@@ -34,7 +34,6 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
     _zoomAnimationController = AnimationController(
       vsync: this,
       duration: Ratioz.duration150ms,
-      animationBehavior: AnimationBehavior.normal,
     );
     _transformationController.addListener(() {
       if(_transformationController.value.getMaxScaleOnAxis() > 1.5){
@@ -91,8 +90,6 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
         panEnabled: widget.isOn,
         scaleEnabled: widget.isOn,
         constrained: false,
-        alignPanAxis: false,
-        boundaryMargin: EdgeInsets.zero,
         maxScale: 10,
         minScale: 0.5,
         onInteractionEnd: (ScaleEndDetails scaleEndDetails) async {

@@ -146,7 +146,6 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
       ListView.builder(
         physics: const BouncingScrollPhysics(),
         controller: ScrollController(),
-        addAutomaticKeepAlives: true,
         itemCount: _notifications.length,
         padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
         itemBuilder: (BuildContext ctx, int index){
@@ -180,8 +179,6 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
             // },
             // dragStartBehavior: DragStartBehavior.start,
             key: ValueKey<String>(_notiModel.id),
-            crossAxisEndOffset: 0,
-            direction: DismissDirection.horizontal,
             movementDuration: const Duration(milliseconds: 250),
             resizeDuration: const Duration(milliseconds: 250),
             confirmDismiss: (DismissDirection direction) async {

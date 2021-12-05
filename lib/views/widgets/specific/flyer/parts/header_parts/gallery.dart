@@ -189,7 +189,6 @@ class _GalleryState extends State<Gallery> {
           :
       Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
             /// GRID TITLE
@@ -202,7 +201,6 @@ class _GalleryState extends State<Gallery> {
               widget.superFlyer.bz.showsTeam == false ?
               SuperVerse(
                 verse: '${Wordz.flyersPublishedBy(context)} ${widget.superFlyer.bz.name}',
-                size: 2,
                 italic: true,
                 margin: widget.galleryBoxWidth * Ratioz.xxflyersGridSpacing,
                 maxLines: 3,
@@ -214,7 +212,6 @@ class _GalleryState extends State<Gallery> {
               SuperVerse(
                 verse: _bzTeamIDs.length == 1 ? '${Wordz.flyersPublishedBy(context)} ${widget.superFlyer.bz.authors[0].name}' :
                 '${widget.superFlyer.bz.name} ${Wordz.authorsTeam(context)}',
-                size: 2,
                 italic: true,
                 margin: widget.galleryBoxWidth * Ratioz.xxflyersGridSpacing,
                 maxLines: 3,

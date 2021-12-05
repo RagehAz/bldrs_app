@@ -48,7 +48,6 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
     return
       SuperVerse(
         verse: verse,
-        size: 2,
         labelColor: Colorz.white20,
         weight: VerseWeight.thin,
         italic: true,
@@ -133,7 +132,6 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               margin: const EdgeInsets.all(10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
 
                   _button('min\n$_minValue'),
@@ -175,7 +173,6 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
                 // ),
 
                 rangeThumbShape: const RoundRangeSliderThumbShape(
-                  enabledThumbRadius: 10,
                   disabledThumbRadius: 30,
                   elevation: 10,
                   pressedElevation: 20,
@@ -184,7 +181,6 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               child: Slider(
                 value: _theValue,
                 activeColor: Colorz.yellow80,
-                autofocus: false,
                 divisions: _divisions == 0 ? null : _divisions,
                 inactiveColor: Colorz.bloodTest,
                 label: '${_theValue.toInt()}',

@@ -54,7 +54,7 @@ class BzGrid extends StatelessWidget {
 
     final double _zoneCorners = corners == null ? (_logoWidth * Ratioz.bzLogoCorner) + _gridSpacing : corners;
 
-    final EdgeInsets _gridPadding = EdgeInsets.only(top: _gridSpacing, left: _gridSpacing, right: _gridSpacing, bottom: 0);
+    final EdgeInsets _gridPadding = EdgeInsets.only(top: _gridSpacing, left: _gridSpacing, right: _gridSpacing);
 
     final Axis _scrollDirection = scrollDirection == null ? Axis.vertical : scrollDirection;
     final ScrollPhysics _physics = scrollDirection == null ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics();
@@ -75,8 +75,6 @@ class BzGrid extends StatelessWidget {
                 GridView(
                   physics: _physics,
                   scrollDirection: _scrollDirection,
-                  addAutomaticKeepAlives: true,
-                  shrinkWrap: false,
                   padding: _gridPadding,
                   gridDelegate: _gridDelegate,
                   children: _boxesColors.map(
@@ -85,7 +83,6 @@ class BzGrid extends StatelessWidget {
                           height: _logoWidth * 1.25,
                           // color: Colorz.Yellow50,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
 
@@ -122,8 +119,6 @@ class BzGrid extends StatelessWidget {
                 GridView(
                   physics: _physics,
                   scrollDirection: _scrollDirection,
-                  addAutomaticKeepAlives: true,
-                  shrinkWrap: false,
                   padding: _gridPadding,
                   // key: new Key(loadedFlyers[flyerIndex].f01flyerID),
                   gridDelegate: _gridDelegate,
@@ -132,15 +127,12 @@ class BzGrid extends StatelessWidget {
                     ..._bzz.map(
                           (BzModel bz) => Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
 
                               /// BZ LOGO
                               BzLogo(
                                   width: _logoWidth,
                                   image: bz.logo,
-                                  bzPageIsOn: false,
-                                  tinyMode: true,
                                   zeroCornerIsOn: false,
                                   onTap: () => itemOnTap(bz.id),
                               ),

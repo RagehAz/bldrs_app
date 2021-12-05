@@ -29,10 +29,7 @@ class SelectLanguageScreen extends StatelessWidget {
     return ListLayout(
       pyramids: Iconz.PyramidzYellow,
       pageTitle: Wordz.languageName(context),
-      icons: null,
       mapModels: _languageMaps,
-      pageIcon: null,
-      pageIconVerse: null,
       sky: SkyType.Black,
       onItemTap: (String value) => _tapLanguage(context, value),
     );

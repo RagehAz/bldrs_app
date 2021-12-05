@@ -32,13 +32,11 @@ class FlyersBubble extends StatelessWidget {
     return Bubble(
       bubbleColor: Colorz.white10,
       title: title,
-      titleColor: Colorz.white255,
       width: bubbleWidth,
       columnChildren: <Widget>[
 
         FlyersShelf(
           flyerSizeFactor: flyerSizeFactor,
-          title: null,
           flyers: flyers,
         ),
 

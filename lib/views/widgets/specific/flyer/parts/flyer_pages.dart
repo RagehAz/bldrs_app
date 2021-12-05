@@ -26,7 +26,6 @@ class FlyerPages extends StatelessWidget {
     return MaxBounceNavigator(
       notificationListenerKey: ValueKey<String>('${superFlyer.flyerID}_flyerPages_notification_listener_key'),
       child: PageView(
-        pageSnapping: true,
         scrollDirection: Axis.vertical,
         physics: const BouncingScrollPhysics(),
         allowImplicitScrolling: true, /// test keda w shoof
