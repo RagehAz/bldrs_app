@@ -891,8 +891,8 @@ enum PicType{
       case PicType.bzLogo       :  return  150   ;  break;
       case PicType.slideHighRes :  return  1000  ;  break;
       case PicType.slideLowRes  :  return  150   ;  break;
-      case PicType.dum          :  return  null  ;  break;
-      case PicType.askPic       :  return  null  ;  break;
+      case PicType.dum          :  return  150   ;  break;
+      case PicType.askPic       :  return  150  ;  break;
       default : return   200;
     }
   }

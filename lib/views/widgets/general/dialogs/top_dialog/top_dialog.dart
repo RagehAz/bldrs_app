@@ -141,7 +141,7 @@ class TopDialog extends StatelessWidget {
       positionOffset: 50,
       // userInputForm: ,
 
-    )..show(context);
+    ).show(context);
   }
 // -----------------------------------------------------------------------------
   @override
