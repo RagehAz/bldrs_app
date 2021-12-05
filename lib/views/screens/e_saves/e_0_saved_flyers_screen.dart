@@ -49,7 +49,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
      });
 
      _tabController.animation
-       ..addListener(() {
+       .addListener(() {
          if(_tabController.indexIsChanging == false){
          _onSetSection((_tabController.animation.value).round());
          }

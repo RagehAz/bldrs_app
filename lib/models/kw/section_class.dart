@@ -35,17 +35,17 @@ enum Section{
     }
   }
 // -----------------------------------------------------------------------------
-  int cipherSection (Section x){
-    switch (x){
-      case Section.properties :    return 1; break;
-      case Section.designs :          return 4; break;
-      case Section.projects :         return 5; break;
-      case Section.crafts :           return 6; break;
-      case Section.products :         return 7; break;
-      case Section.equipment :        return 8; break;
-      default : return null;
-    }
-  }
+//   int cipherSection (Section x){
+//     switch (x){
+//       case Section.properties :       return 1; break;
+//       case Section.designs :          return 4; break;
+//       case Section.projects :         return 5; break;
+//       case Section.crafts :           return 6; break;
+//       case Section.products :         return 7; break;
+//       case Section.equipment :        return 8; break;
+//       default : return null;
+//     }
+//   }
 // -----------------------------------------------------------------------------
   Section getSectionByBzType(BzType bzType){
     switch (bzType){

@@ -123,7 +123,7 @@ class ImageSize{
       case BoxFit.fill            :    return  5;  break;
       case BoxFit.scaleDown       :    return  6;  break;
       case BoxFit.contain         :    return  7;  break;
-      default : return null;
+      default : return 3;
     }
   }
 // -----------------------------------------------------------------------------
