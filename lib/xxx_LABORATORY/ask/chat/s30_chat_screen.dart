@@ -9,13 +9,12 @@ import 'package:bldrs/providers/streamers/questions_streamer.dart';
 import 'package:bldrs/views/widgets/general/bubbles/chat_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/chat/chat_model.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/chat/chat_ops.dart' as ChatOps;
 import 'package:bldrs/xxx_LABORATORY/ask/chat/message_model.dart';
 import 'package:bldrs/xxx_LABORATORY/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 
 class ChatScreen extends StatefulWidget {
   final QuestionModel question;
@@ -102,7 +101,6 @@ class _ChatScreenState extends State<ChatScreen> {
       appBarType: AppBarType.Basic,
       pageTitle: 'Chat Screen',
       pyramids: Iconz.DvBlankSVG,
-      skyType: SkyType.Night,
       appBarRowWidgets: const <Widget>[const BackButton(),],
       layoutWidget: chatStreamBuilder(
           context: context,
@@ -113,7 +111,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
 
                   if (Mapper.canLoopList(chatModel.messages))
@@ -124,7 +121,6 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount: chatModel.messages.length,
-                      shrinkWrap: false,
                       itemBuilder: (BuildContext xyz, int index){
 
                         final MessageModel _msg = chatModel.messages[index];
@@ -150,17 +146,13 @@ class _ChatScreenState extends State<ChatScreen> {
                     color: Colorz.bloodTest,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
 
                         SuperTextField(
-                          fieldIsFormField: false,
                           height: 40,
                           width: Scale.superScreenWidth(context) - 80,
-                          hintText: '...',
                           labelColor: Colorz.white20,
                           counterIsOn: false,
-                          keyboardTextInputType: TextInputType.text,
                           keyboardTextInputAction: TextInputAction.send,
                           // onChanged: (value) {
                           //   setState(() {

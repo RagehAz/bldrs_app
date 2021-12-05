@@ -100,7 +100,6 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                     padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
                     child: SuperVerse(
                       verse: widget.title,
-                      size: titleVerseSize,
                       redDot: widget.fieldIsRequired,
                     ),
                   ),
@@ -129,7 +128,6 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
                   /// TEXT FIELD
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     textDirection: TextDirection.ltr,
                     children: <Widget>[
@@ -163,7 +161,6 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                           keyboardTextInputAction: widget.keyboardTextInputAction,
                           initialValue: paste == '' ? widget.initialTextValue : null,
                           validator: widget.validator,
-                          inputSize: 2,
                           textDirection: TextDirection.ltr,
                         ),
                       ),
@@ -203,7 +200,6 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
               verse: widget.comments,
               italic: true,
               color: Colorz.white80,
-              size: 2,
               weight: VerseWeight.thin,
               leadingDot: true,
             ),

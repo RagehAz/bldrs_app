@@ -45,7 +45,7 @@ class AuthorLabel extends StatelessWidget {
 
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-    const bool _versesShadow = false;
+    // const bool _versesShadow = false;
 // -----------------------------------------------------------------------------
     final double _headerTextSidePadding = flyerBoxWidth * Ratioz.xxflyersGridSpacing;
 // -----------------------------------------------------------------------------
@@ -94,8 +94,6 @@ class AuthorLabel extends StatelessWidget {
 
             child:
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
 
                 /// AUTHOR IMAGE
@@ -119,12 +117,8 @@ class AuthorLabel extends StatelessWidget {
                       /// AUTHOR NAME
                       SuperVerse(
                         verse: _author?.name,
-                        italic: false,
                         centered: false,
-                        shadow: _versesShadow,
-                        size: 2,
                         scaleFactor: flyerBoxWidth / _screenWidth,
-                        maxLines: 1,
                       ),
 
                           /// AUTHOR TITLE
@@ -132,11 +126,9 @@ class AuthorLabel extends StatelessWidget {
                         verse: _author?.title,
                         size: 1,
                         weight: VerseWeight.regular,
-                        shadow: _versesShadow,
                         centered: false,
                         italic: true,
                         scaleFactor: flyerBoxWidth / _screenWidth,
-                        maxLines: 1,
                       ),
 
                       /// FOLLOWERS COUNTER
@@ -144,11 +136,9 @@ class AuthorLabel extends StatelessWidget {
                         verse: _followersCounter,
                         italic: true,
                         centered: false,
-                        shadow: _versesShadow,
                         weight: VerseWeight.regular,
                         size: 0,
                         scaleFactor: flyerBoxWidth / _screenWidth,
-                        maxLines: 1,
                       ),
 
                     ],
@@ -231,13 +221,11 @@ class AuthorPic extends StatelessWidget {
                   height: _authorImageHeight,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       DreamBox(
                         width: width * 0.35,
                         height: _authorImageHeight * 0.35,
                         icon: Iconz.Plus,
-                        iconSizeFactor: 1,
                         bubble: false,
                         onTap: () => _tapAddAuthor(context),
                       ),

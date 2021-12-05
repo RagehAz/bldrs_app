@@ -53,7 +53,6 @@ class ChatBubble extends StatelessWidget {
 
         Row(
           mainAxisAlignment: isMyVerse ? MainAxisAlignment.end : MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
               // width: _bubbleWidth,
@@ -66,7 +65,6 @@ class ChatBubble extends StatelessWidget {
               ),
               child: SuperVerse(
                 verse: verse,
-                size: 2,
                 maxLines: 100,
                 centered: false,
                 weight: VerseWeight.thin,

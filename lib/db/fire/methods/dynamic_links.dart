@@ -97,7 +97,6 @@ class DynamicLinksApi {
             context: context,
             title: 'ERROR',
             body: 'THERE IS SOME ERROR : $error',
-            boolDialog: false,
           );
 
         }

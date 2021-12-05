@@ -33,25 +33,19 @@ class BzPgFields extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: flyerBoxWidth * 0.02),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               SuperVerse(
                 verse: '${Wordz.scopeOfServices(context)}',
-                size: 2,
                 weight: VerseWeight.thin,
-                italic: false,
                 margin: 10,
                 color: Colorz.grey225,
                 maxLines: 2,
               ),
 
           Wrap(
-              spacing: 0,
-              runSpacing: 0,
               alignment: WrapAlignment.center,
               crossAxisAlignment: WrapCrossAlignment.center,
-              direction: Axis.horizontal,
               runAlignment: WrapAlignment.center,
               children:
               bzScope == '' ? <Widget>[Container()] :
@@ -61,12 +55,7 @@ class BzPgFields extends StatelessWidget {
                 return
                   SuperVerse(
                     verse: bzScope,
-                    italic: false,
-                    shadow: false,
                     labelColor: Colorz.white50,
-                    color: Colorz.white255,
-                    weight: VerseWeight.bold,
-                    size: 2,
                     margin: flyerBoxWidth * 0.02 * 0,
                   );
               }

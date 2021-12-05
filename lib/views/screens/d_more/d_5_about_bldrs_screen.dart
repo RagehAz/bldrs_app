@@ -52,9 +52,7 @@ class AboutBldrsScreen extends StatelessWidget {
             const ParagraphBubble(
               title: 'Bldrs.net Business types',
               centered: true,
-              editMode: false,
               maxLines: 100,
-              onParagraphTap: null,
               bubbleWidth: 200,
               paragraph: '',
             ),

@@ -91,7 +91,6 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
       FlyersGrid(
         gridZoneWidth: FlyerBox.width(context, 1),
         stratosphere: true,
-        scrollDirection: Axis.vertical,
         numberOfColumns: 2,
         scrollable: true,
         flyers: _flyers,

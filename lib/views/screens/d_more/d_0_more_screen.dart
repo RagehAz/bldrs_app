@@ -68,7 +68,6 @@ class MoreScreen extends StatelessWidget {
                 verse: Wordz.inviteFriends(context),
                 icon: DeviceChecker.deviceIsIOS() ? Iconz.ComApple : DeviceChecker.deviceIsAndroid() ? Iconz.ComGooglePlay : Iconz.Share,
                 iconBoxColor: Colorz.black230,
-                verseColor: Colorz.white255,
                 btOnTap: () async {
                   await Launcher.shareLink(context, LinkModel.bldrsWebSiteLink);
                 },
@@ -78,7 +77,6 @@ class MoreScreen extends StatelessWidget {
                 verse: Wordz.inviteBusinesses(context),
                 icon: Iconz.Bz,
                 iconBoxColor: Colorz.black230,
-                verseColor: Colorz.white255,
               ),
 
               const BubblesSeparator(),
@@ -116,13 +114,11 @@ class MoreScreen extends StatelessWidget {
               TileBubble(
                 verse: Wordz.feedback(context),
                 icon: Iconz.UTSearching,
-                iconSizeFactor: 0.6,
                 btOnTap: () => Nav.goToNewScreen(context, const FeedBack()),
               ),
               TileBubble(
                 verse: Wordz.termsRegulations(context),
                 icon: Iconz.Terms,
-                iconSizeFactor: 0.6,
               ),
 
               const BubblesSeparator(),
@@ -142,22 +138,18 @@ class MoreScreen extends StatelessWidget {
               const TileBubble(
                 verse: 'Open App Tutorial',
                 icon: Iconz.Scholar,
-                iconSizeFactor: 0.6,
               ),
               TileBubble(
                 verse: Wordz.whatIsFlyer(context),
                 icon: Iconz.Flyer,
-                iconSizeFactor: 0.6,
               ),
               TileBubble(
                 verse: Wordz.whoAreBldrs(context),
                 icon: Iconz.Bz,
-                iconSizeFactor: 0.6,
               ),
               TileBubble(
                 verse: Wordz.howItWorks(context),
                 icon: Iconz.Gears,
-                iconSizeFactor: 0.6,
               ),
 
               const BubblesSeparator(),
@@ -165,7 +157,6 @@ class MoreScreen extends StatelessWidget {
               TileBubble(
                 verse: Wordz.signOut(context),
                 icon: Iconz.Exit,
-                iconSizeFactor: 0.6,
                 btOnTap: () => FireAuthOps.signOut(context: context, routeToUserChecker: true),
               ),
 

@@ -226,7 +226,6 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
       pyramids: Iconz.PyramidzYellow,
       onBack: _onBack,
       layoutWidget: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 

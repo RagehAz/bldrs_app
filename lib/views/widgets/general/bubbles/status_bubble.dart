@@ -47,10 +47,7 @@ class StatusBubble extends StatelessWidget {
         /// HEADLINE QUESTION
         SuperVerse(
             verse: 'Let the Builders know',
-            size: 2,
-            centered: true,
             margin: 0,
-            shadow: false,
             italic: true,
             color: Colorz.yellow255,
             weight: VerseWeight.thin,
@@ -60,11 +57,9 @@ class StatusBubble extends StatelessWidget {
         SuperVerse(
             verse: 'What are you looking for ?',
             size: 3,
-            centered: true,
             shadow: true,
             italic: true,
             color: Colorz.yellow255,
-            weight: VerseWeight.bold,
             maxLines: 2,
           ),
 

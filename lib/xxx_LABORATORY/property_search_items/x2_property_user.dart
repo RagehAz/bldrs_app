@@ -22,7 +22,6 @@ class PropertyUse extends StatelessWidget {
     const double rowButtonHeight = 40;
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
 
@@ -32,13 +31,10 @@ class PropertyUse extends StatelessWidget {
           centered: false,
           italic: true,
           weight: VerseWeight.thin,
-          color: Colorz.white255,
-          shadow: false,
         ),
 
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
             DreamBox(

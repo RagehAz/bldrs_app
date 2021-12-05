@@ -73,9 +73,6 @@ class PanelButton extends StatelessWidget {
         underLine: verse,
         underLineShadowIsOn: false,
         underLineColor: verseColor,
-        // verseScaleFactor: 1.2,
-        // corners: Borderers.superLogoShape(context: context, zeroCornerEnIsRight: false, corner: Ratioz.xxflyerAuthorPicCorner * flyerBoxWidth),
-        bubble: true,
         onTap: onTap,
       );
 

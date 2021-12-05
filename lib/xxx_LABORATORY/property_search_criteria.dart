@@ -85,7 +85,6 @@ class PropertySearchCriteria extends StatelessWidget {
           boxShadow: const <BoxShadow>[
             const Shadowz.CustomBoxShadow(
                 color: _bubble == true ? Colorz.black200 : Colorz.nothing,
-                offset: const Offset(0, 0),
                 blurRadius: _boxHeight * 0.15,
                 blurStyle: BlurStyle.outer
             ),
@@ -111,8 +110,7 @@ class PropertySearchCriteria extends StatelessWidget {
                           Shadowz.CustomBoxShadow(
                               color: Colorz.white50,
                               offset: new Offset(0, _boxWidth * -0.01),
-                              blurRadius: _boxHeight * 0.2,
-                              blurStyle: BlurStyle.normal),
+                              blurRadius: _boxHeight * 0.2),
                         ]
                     ),
                   ),
@@ -138,7 +136,6 @@ class PropertySearchCriteria extends StatelessWidget {
 
                 /// --- SEARCH CRITERIA ROWS
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
 
@@ -197,7 +194,6 @@ class PropertySearchCriteria extends StatelessWidget {
                       verse: 'Add more details',
                       verseColor: Colorz.blue225,
                       onTap: (){print('3afreet enta');},
-                      blackAndWhite: false,
 
                     ),
 

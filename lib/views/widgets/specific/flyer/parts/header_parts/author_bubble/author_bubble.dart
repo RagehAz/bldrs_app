@@ -91,7 +91,6 @@ class AuthorBubble extends StatelessWidget {
       alignment: Alignment.center,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
           /// TOP SPACER
@@ -109,7 +108,6 @@ class AuthorBubble extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
             child: SuperVerse(
               verse: 'The Team',
-              size: 2,
               centered: false,
               weight: VerseWeight.thin,
               italic: true,
@@ -167,7 +165,6 @@ class AuthorBubble extends StatelessWidget {
                   if (_thisIsMyBz == true && addAuthorButtonIsOn == true)
                     AuthorPic(
                       width: flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth,
-                      authorPic: null,
                       isAddAuthorButton: true,
                     ),
 

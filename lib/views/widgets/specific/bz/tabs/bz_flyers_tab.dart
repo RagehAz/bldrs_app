@@ -72,7 +72,6 @@ class BzFlyersTab extends StatelessWidget {
         if (bzModel.flyersIDs != null)
           Bubble(
             title: 'Published Flyers',
-            centered: false,
             actionBtIcon: Iconz.Clock,
             actionBtFunction: () => _showOldFlyersOnTap(context, bzModel),
             columnChildren: <Widget>[

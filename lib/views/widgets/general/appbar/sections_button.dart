@@ -52,7 +52,6 @@ Widget build(BuildContext context) {
       onTap: onTap == null ? () => _changeSection(context) : onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
 
@@ -99,10 +98,6 @@ Widget build(BuildContext context) {
                         SuperVerse(
                           verse: _sectionName,
                           size: 1,
-                          italic: false,
-                          color: Colorz.white255,
-                          weight: VerseWeight.bold,
-                          scaleFactor: 1,
                           centered: false,
                         ),
 

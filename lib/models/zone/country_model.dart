@@ -46,7 +46,7 @@ class CountryModel{
       'isGlobal' : isGlobal,
       'citiesIDs' : citiesIDs,
       'language' : language,
-      'names': Name.cipherNames(names: names, addTrigrams: true),
+      'names': Name.cipherNames(names: names),
       'currency': currency,
     };
   }

@@ -39,7 +39,6 @@ class _HomeWallState extends State<HomeWall> {
       BzzBubble(
         bzzModels: _userBzz,
         numberOfRows: 1,
-        numberOfColumns: 5,
         onTap: (String value){print(value);},
         title: '${TextGen.bldrsTypePageTitle(context, BzType.designer)} in Province',
       ),
@@ -70,7 +69,6 @@ class _HomeWallState extends State<HomeWall> {
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
 
@@ -135,7 +133,6 @@ class _HomeWallState extends State<HomeWall> {
     return ListView.builder(
       padding: const EdgeInsets.only(top: Ratioz.stratosphere),
       physics: const BouncingScrollPhysics(),
-      scrollDirection: Axis.vertical,
         itemCount: _homeWallWidgets.length,
 
         itemBuilder: (BuildContext ctx, int index){

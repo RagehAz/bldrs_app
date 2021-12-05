@@ -47,7 +47,6 @@ class PersonButton extends StatelessWidget {
             margins: _imageWidth * 0.05,
             icon: image,
             underLine: name,
-            underLineShadowIsOn: true,
             iconRounded: false,
             bubble: false,
             onTap: () => onTap(id),
@@ -61,10 +60,7 @@ class PersonButton extends StatelessWidget {
             child: SuperVerse(
               verse: TextMod.removeTextAfterFirstSpecialCharacter(name, ' '),
               size: 1,
-              scaleFactor: 1,
-              centered: true,
               weight: VerseWeight.thin,
-              maxLines: 1,
               shadow: true,
             ),
           ),

@@ -140,10 +140,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
                   onSaved: (String value){
                     _editedProduct = TempClass(a: _editedProduct.a, b: _editedProduct.b, c: value, d: _editedProduct.d);
                     },
-                  maxLength: 50,
                   maxLines: 2,
-                  obscured: false,
-                  counterIsOn: true,
                 ),
 
                 const Divider(
@@ -194,7 +191,6 @@ class _TestFormScreenState extends State<TestFormScreen> {
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     DreamBox(
                       // width: 100,

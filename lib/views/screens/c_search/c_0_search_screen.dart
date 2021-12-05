@@ -1,11 +1,11 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/db/fire/ops/search_ops.dart' as FireSearchOps;
+import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -22,7 +22,6 @@ import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_naviga
 import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 
 class SearchScreen extends StatefulWidget {
 
@@ -158,7 +157,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
       await NavDialog.showNavDialog(
         context: context,
-        color: Colorz.black255,
         firstLine: 'No result found',
         secondLine: 'Try again with different words',
       );
@@ -188,7 +186,6 @@ class _SearchScreenState extends State<SearchScreen> {
         final List<FlyerModel> _flyersByKeyword = await _flyersProvider.fetchFlyersByCurrentZoneAndKeyword(
           context: context,
           kw: kw,
-          limit: 3,
         );
 
         if (_flyersByKeyword.length > 0){
@@ -226,8 +223,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
         final List<FlyerModel> _bzFlyers = await _flyersProvider.fetchFirstFlyersByBzModel(
           context: context,
-          bz: bz,
-          limit: 3
+          bz: bz
         );
 
         if (Mapper.canLoopList(_bzFlyers)){
@@ -269,8 +265,7 @@ class _SearchScreenState extends State<SearchScreen> {
             /// task should get only flyers showing authors
             final List<FlyerModel> _bzFlyers = await _flyersProvider.fetchFirstFlyersByBzModel(
                 context: context,
-                bz: bz,
-                limit: 3
+                bz: bz
             );
 
             if (Mapper.canLoopList(_bzFlyers)){
@@ -310,7 +305,6 @@ class _SearchScreenState extends State<SearchScreen> {
       context: context,
       zone: _zoneProvider.currentZone,
       title: _searchController.text,
-      limit: 3,
     );
 
     if (_flyers.length > 0){
@@ -392,7 +386,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
                     FlyersShelf(
                       title: _result.title,
-                      flyerSizeFactor: 0.3,
                       titleIcon: _result.icon,
                       flyerOnTap: (){print('flyer tapped');},
                       onScrollEnd: (){print('scroll ended');},

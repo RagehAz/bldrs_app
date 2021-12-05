@@ -21,17 +21,14 @@ class SectionBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Bubble(
-      centered: false,
       title: title,
       // actionBtIcon: Iconz.BxPropertiesOn,
       LeadingAndActionButtonsSizeFactor: 1,
       actionBtFunction: (){},
-      bubbleColor: Colorz.white20,
-      bubbleOnTap: null,
       width: bubbleWidth,
       // leadingIcon: icon,
       leadingIconColor: Colorz.white50,
-      margins: const EdgeInsets.only(bottom: 0, left: Ratioz.appBarMargin, right: Ratioz.appBarMargin, top: Ratioz.appBarMargin),
+      margins: const EdgeInsets.only(left: Ratioz.appBarMargin, right: Ratioz.appBarMargin, top: Ratioz.appBarMargin),
       titleColor: Colorz.white50,
       corners: ExpandingTile.cornersValue + Ratioz.appBarMargin,
       columnChildren: <Widget>[
@@ -40,7 +37,6 @@ class SectionBubble extends StatelessWidget {
         Container(
           width: bubbleWidth,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: buttons,
           ),

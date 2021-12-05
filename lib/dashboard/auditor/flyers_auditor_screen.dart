@@ -175,7 +175,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
         context: context,
         title: 'A77a',
         body: 'This flyer is already verified, check the next one. please',
-        boolDialog: false,
       );
 
     }
@@ -552,7 +551,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
     return DashBoardLayout(
       pageTitle: 'Flyers Auditor',
-      loading: false,
       onBldrsTap: (){
 
         print('aho');
@@ -594,13 +592,11 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                 Mapper.canLoopList(_flyers) == true ?
 
                 PageView.builder(
-                    scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),
                     itemCount: _flyers.length,
                     controller: _pageController,
                     allowImplicitScrolling: true,
                     onPageChanged: (int i) => _onPageChange(i),
-                    pageSnapping: true,
                     // scrollBehavior: ScrollBehavior().,
                     itemBuilder: (BuildContext ctx, int index){
                       return
@@ -610,7 +606,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                           child: FinalFlyer(
                             flyerBoxWidth: FlyerBox.width(context, _flyerSizeFactor),
                             flyerModel: _flyers[index],
-                            goesToEditor: false,
                             onSwipeFlyer: (Sliders.SwipeDirection direction) => _onSwipeFlyer(direction, index),
                           ),
                         );
@@ -628,7 +623,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                 alignment: Alignment.center,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
 
                     /// AUDIT

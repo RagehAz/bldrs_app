@@ -58,7 +58,6 @@ import 'package:flutter/material.dart';
         /// TASK : this is temp ,, or see how it goes
         await CenterDialog.showCenterDialog(
           context: context,
-          boolDialog: false,
           title: 'Something is wrong',
           body: 'Could not get this image',
         );
@@ -466,7 +465,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
           context: context,
           title: 'Can not delete image',
           body: '${_result.toString()}',
-          boolDialog: false,
         );
       }
 

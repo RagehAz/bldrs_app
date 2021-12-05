@@ -8,7 +8,6 @@ import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/views/widgets/general/dialogs/side_dialog/drawer_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -120,8 +119,6 @@ class MainLayout extends StatelessWidget {
       key: key,
       onTap: (){Keyboarders.minimizeKeyboardOnTapOutSide(context);},
       child: SafeArea(
-        top: true,
-        bottom: true,
         child: Stack(
           children: <Widget>[
 
@@ -140,9 +137,7 @@ class MainLayout extends StatelessWidget {
               backgroundColor: _backgroundColor,
 
               drawer: const DrawerDialog(),
-              drawerDragStartBehavior: DragStartBehavior.start,
               drawerEdgeDragWidth: DrawerDialog.drawerEdgeDragWidth,
-              drawerEnableOpenDragGesture: DrawerDialog.drawerEnableOpenDragGesture,
               drawerScrimColor: DrawerDialog.drawerScrimColor,
               onDrawerChanged: (bool thing){
 

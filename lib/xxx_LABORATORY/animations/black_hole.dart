@@ -1,9 +1,9 @@
 import 'dart:async';
+
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class BlackHoleScreen extends StatefulWidget {
@@ -73,7 +73,6 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
       pyramids: Iconz.PyramidzYellow,
       appBarType: AppBarType.Basic,
       appBarRowWidgets: const <Widget>[],
-      skyType: SkyType.Night,
       layoutWidget: Center(
         child: RotationTransition(
           turns: Tween<double>(begin: 0.0, end: 2.0).animate(_blackHoleController),

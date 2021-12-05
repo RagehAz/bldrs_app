@@ -142,7 +142,7 @@ import 'package:intl/intl.dart' as international;
     /// This works for Arabic/Persian even numbers.
     const String _reg = r"^[؀-ۿ]+$" ;
 
-    final RegExp _exp = RegExp(_reg, unicode: false, multiLine: true);
+    final RegExp _exp = RegExp(_reg, multiLine: true);
     // bool isArabic;
 
     final String _firstCharacter = TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
@@ -166,7 +166,7 @@ import 'package:intl/intl.dart' as international;
   bool textStartsInEnglish (String val){
 
     const String _reg = r"[a-zA-Z]";
-    final RegExp _exp = RegExp(_reg, unicode: false, multiLine: true);
+    final RegExp _exp = RegExp(_reg, multiLine: true);
     final String _firstCharacter = TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
 
     bool _startsInEnglish;

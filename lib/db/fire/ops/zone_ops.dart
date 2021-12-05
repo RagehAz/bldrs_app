@@ -174,7 +174,7 @@ import 'package:provider/provider.dart';
         }
     );
 
-    return ZoneModel(countryID: _countryID, cityID: _cityID, districtID: null);
+    return ZoneModel(countryID: _countryID, cityID: _cityID);
   }
 // ---------------------------------------------------
   /// this needs subscription after first 100'000 requests
@@ -238,7 +238,7 @@ import 'package:provider/provider.dart';
         }
     );
 
-    return ZoneModel(countryID: _countryID, cityID: _cityID, districtID: null);
+    return ZoneModel(countryID: _countryID, cityID: _cityID);
   }
 // ---------------------------------------------------
   Future<ZoneModel> _getZoneByGeoLocator({@required BuildContext context}) async {

@@ -169,7 +169,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
       loading: _loading,
       layoutWidget: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
 
         children: <Widget>[
 
@@ -177,7 +176,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           const LogoSlogan(
             showSlogan: true,
-            showTagLine: false,
             sizeFactor: 0.7,
           ),
 
@@ -185,7 +183,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           BzzBubble(
             bzzModels: _sponsors,
-            numberOfRows: 2,
             numberOfColumns: 3,
             title: 'Sponsored by',
             scrollDirection: Axis.vertical,

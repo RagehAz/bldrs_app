@@ -33,7 +33,6 @@ class ReviewUserLabel extends StatelessWidget {
           verse: tinyUser?.name,
           verseScaleFactor: 0.6,
           secondLine: tinyUser?.title,
-          underLineShadowIsOn: true,
           iconRounded: false,
           bubble: false,
           onTap: () => print('aho'),

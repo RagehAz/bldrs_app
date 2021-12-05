@@ -136,7 +136,6 @@ class _UserBubbleState extends State<UserBubble> {
             width: _editProfileBtSize,
             icon: Iconz.Gears,
             iconSizeFactor: 0.6,
-            bubble: true,
             onTap: widget.editProfileBtOnTap,
           ),
         ),
@@ -162,7 +161,6 @@ class _UserBubbleState extends State<UserBubble> {
         /// USER JOB TITLE
         SuperVerse(
           verse: '${widget.user?.title} @ ${widget.user?.company}',
-          size: 2,
           italic: true,
           weight: VerseWeight.thin,
         ),
@@ -172,7 +170,6 @@ class _UserBubbleState extends State<UserBubble> {
           height: 35,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               FlagBox(
@@ -190,7 +187,6 @@ class _UserBubbleState extends State<UserBubble> {
                 weight: VerseWeight.thin,
                 italic: true,
                 color: Colorz.grey225,
-                size: 2,
                 margin: 5,
               ),
 

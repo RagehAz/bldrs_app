@@ -91,7 +91,6 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
               // ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
 
                   DreamBox(
@@ -135,7 +134,6 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
       height: _clearHeight,
       // color: Colorz.Yellow80,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
@@ -146,7 +144,6 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
             // color: Colorz.Blue125,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
 
                 button(
@@ -184,11 +181,9 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
             // color: Colorz.BloodTest,
             // padding: const EdgeInsets.only(top: Ratioz.appBarMargin),
             child: MaxBounceNavigator(
-              axis: Axis.vertical,
               child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.only(top: Ratioz.appBarMargin, left: Ratioz.appBarMargin, right: Ratioz.appBarMargin, bottom: Ratioz.horizon),
-                  shrinkWrap: false,
                   itemCount: _users.length,
                   itemBuilder: (BuildContext ctx, int index){
 

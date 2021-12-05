@@ -139,7 +139,6 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
           caseSensitive: false,
           string: TextMod.lowerCase(tinyBz.name),
           subString: TextMod.lowerCase(val),
-          multiLine: false,
         );
 
         final bool _alreadyInList = BzModel.BzzContainThisBz(
@@ -224,8 +223,6 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
               physics: const BouncingScrollPhysics(),
               itemExtent: _bzButtonHeight + _bzButtonMargin,
               itemCount: _bzz.length,
-              shrinkWrap: false,
-              addAutomaticKeepAlives: true,
               padding: const EdgeInsets.only(bottom: Ratioz.stratosphere, top: Stratosphere.bigAppBarStratosphere),
               itemBuilder: (BuildContext ctx, int index){
 

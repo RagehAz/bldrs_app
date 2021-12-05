@@ -14,7 +14,6 @@ class ScreensManagerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DashBoardLayout(
       pageTitle: 'Screens Manager',
-        loading: false,
         listWidgets: <Widget>[
 
           WideButton(

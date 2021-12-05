@@ -62,7 +62,6 @@ class AddGalleryPicBubble extends StatelessWidget {
               /// GALLERY & DELETE LAYER
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
 
                   /// FAKE LEFT FOOTPRINT TO CENTER THE ROW IN THE MIDDLE O BUBBLE
@@ -83,7 +82,6 @@ class AddGalleryPicBubble extends StatelessWidget {
                     height: picWidth,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
 
                         /// GALLERY BUTTON
@@ -92,7 +90,6 @@ class AddGalleryPicBubble extends StatelessWidget {
                           height: btWidth,
                           icon: Iconz.PhoneGallery,
                           iconSizeFactor: 0.6,
-                          bubble: true,
                           onTap: addBtFunction,
                         ),
 
@@ -102,7 +99,6 @@ class AddGalleryPicBubble extends StatelessWidget {
                           height: btWidth,
                           icon: Iconz.XLarge,
                           iconSizeFactor: 0.5,
-                          bubble: true,
                           onTap: deletePicFunction,
                         ),
 
@@ -161,7 +157,6 @@ class AddGalleryPicBubble extends StatelessWidget {
           /// BUBBLE TITLE
           SuperVerse(
             verse: title,
-            centered: true,
             margin: 5,
             redDot: true,
           ),

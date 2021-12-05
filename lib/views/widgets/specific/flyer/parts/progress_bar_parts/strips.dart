@@ -271,8 +271,6 @@ class Strips extends StatelessWidget {
 
             /// --- BASE STRIP
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: List<Widget>.generate(numberOfStrips, (int index) {
 
@@ -302,8 +300,6 @@ class Strips extends StatelessWidget {
                 return
                   Container(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
 

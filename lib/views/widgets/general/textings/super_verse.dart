@@ -56,7 +56,6 @@ class SuperVerse extends StatelessWidget {
     return
       SuperVerse(
         verse: verse,
-        size: 2,
         scaleFactor: 0.9,
         leadingDot: true,
         maxLines: 10,
@@ -91,7 +90,6 @@ class SuperVerse extends StatelessWidget {
           SuperVerse(
             verse: '$currency',
             color: color,
-            weight: VerseWeight.bold,
             italic: true,
             size: 3,
             margin: scaleFactor * 3,
@@ -134,8 +132,8 @@ class SuperVerse extends StatelessWidget {
       final double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
       final double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
       final FontWeight _verseWeight = superVerseWeight(weight);
-      // --- SHADOWS -----------------------------------------------
-      const double _shadowBlur = 0;
+      /// --- SHADOWS -----------------------------------------------
+      // const double _shadowBlur = 0;
       const double _shadowYOffset = 0;
       final double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
       final double _secondShadowXOffset = -0.35 * _shadowXOffset;
@@ -158,12 +156,10 @@ class SuperVerse extends StatelessWidget {
             shadows: <Shadow>[
               if (shadow)
                 Shadow(
-                  blurRadius: _shadowBlur,
                   color: _leftShadow,
                   offset: Offset(_shadowXOffset, _shadowYOffset),
                 ),
               Shadow(
-                blurRadius: _shadowBlur,
                 color: _rightShadow,
                 offset: Offset(_secondShadowXOffset, _shadowYOffset),
               )
@@ -459,7 +455,6 @@ class SuperVerse extends StatelessWidget {
                 ),
 
               Flexible(
-                flex: 1,//_maxLines >= 1 ? 1 : 0,
                 child: Container(
                   padding: EdgeInsets.only(right: _sidePaddings, left: _sidePaddings),
                   margin: EdgeInsets.all(_sidePaddings * 0.25),

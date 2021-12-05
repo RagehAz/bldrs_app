@@ -30,7 +30,6 @@ class _DashBoardState extends State<DashBoard> {
 
     return DashBoardLayout(
         pageTitle: 'DashBoard',
-        loading: false,
         listWidgets: <Widget>[
 
           WideButton(

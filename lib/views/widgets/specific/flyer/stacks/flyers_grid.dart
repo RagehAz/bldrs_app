@@ -118,7 +118,6 @@ class _FlyersGridState extends State<FlyersGrid> {
 
           GridView.builder(
             physics: widget.scrollable ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
-            addAutomaticKeepAlives: true,
             scrollDirection: widget.scrollDirection,
             padding: _gridPadding,
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -137,8 +136,6 @@ class _FlyersGridState extends State<FlyersGrid> {
                 FinalFlyer(
                   flyerBoxWidth: FlyerBox.width(context, _flyerSizeFactor),
                   flyerModel: flyers[index],
-                  initialSlideIndex: 0,
-                  goesToEditor: false,
                   onSwipeFlyer: (Sliders.SwipeDirection direction){
                     // print('Direction is ${direction}');
                   },

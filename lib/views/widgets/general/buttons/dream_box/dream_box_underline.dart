@@ -40,7 +40,6 @@ class DreamBoxUnderLine extends StatelessWidget {
       height: underLine == null ? height : height,
       alignment: Alignment.topCenter,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 

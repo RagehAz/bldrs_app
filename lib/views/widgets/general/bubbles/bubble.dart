@@ -184,7 +184,6 @@ class Bubble extends StatelessWidget {
                             padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin, left: Ratioz.appBarPadding, right:  Ratioz.appBarPadding),
                             child: SuperVerse(
                               verse: title,
-                              size: _titleVerseSize,
                               redDot: redDot,
                               centered: centered,
                               color: titleColor,

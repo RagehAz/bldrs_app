@@ -137,7 +137,6 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
         alignment: Alignment.center,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
             /// NUMBER INPUT

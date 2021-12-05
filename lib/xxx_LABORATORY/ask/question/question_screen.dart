@@ -31,7 +31,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               /// INSTRUCTIONS
@@ -39,7 +38,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
                 child: SuperVerse(
                   verse: 'Ask the Builders in your city.',
-                  size: 2,
                 ),
               ),
 

@@ -462,7 +462,6 @@ class ZoneProvider extends ChangeNotifier {
         _zoneModel = ZoneModel(
           countryID: _countryID,
           cityID: _foundCity?.cityID,
-          districtID: null,
         );
 
       }

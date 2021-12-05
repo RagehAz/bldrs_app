@@ -141,7 +141,6 @@ class dashboardUserButton extends StatelessWidget {
                           context: context,
                           title: 'Contact',
                           body: '$_stringyContactsValues',
-                          boolDialog: false,
                         );
                       }
 
@@ -161,7 +160,6 @@ class dashboardUserButton extends StatelessWidget {
                           context: context,
                           title: 'Contact',
                           body: '$_socialContactsValues',
-                          boolDialog: false,
                         );
                       }
                   ),
@@ -171,7 +169,6 @@ class dashboardUserButton extends StatelessWidget {
                       height: 100,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
 
                           DreamBox(

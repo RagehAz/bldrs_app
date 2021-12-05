@@ -59,12 +59,10 @@ class EnumLister extends StatelessWidget {
                 boxShadow: <BoxShadow>[
                   const Shadowz.CustomBoxShadow(
                       color: Colorz.black230,
-                      offset: const Offset(0, 0),
                       blurRadius: 30,
                       blurStyle: BlurStyle.outer),
                   const Shadowz.CustomBoxShadow(
                       color: Colorz.black230,
-                      offset: const Offset(0, 0),
                       blurRadius: 30,
                       blurStyle: BlurStyle.outer),
                 ]
@@ -81,13 +79,11 @@ class EnumLister extends StatelessWidget {
                     topLeft: const Radius.circular(Ratioz.appBarButtonCorner),
                     topRight: const Radius.circular(Ratioz.appBarButtonCorner),
                   ),
-                  blur: 10,
                 ),
 
                 /// --- LIST CONTENTS
                 Container(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
 
@@ -96,7 +92,6 @@ class EnumLister extends StatelessWidget {
                         // padding: EdgeInsets.all(Ratioz.ddAppBarMargin * 2),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
 
                             /// LIST TITLE
