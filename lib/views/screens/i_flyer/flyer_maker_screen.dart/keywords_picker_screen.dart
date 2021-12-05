@@ -320,8 +320,9 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
       pageTitle: 'Select Flyer keywords',
       appBarType: AppBarType.Basic,
       pyramids: Iconz.DvBlankSVG,
-      onBack: () async {
-        await Nav.goBack(context, argument: _selectedKeywords);
+      onBack: () {
+        Nav.goBack(context, argument: _selectedKeywords);
+        // await null
       },
       layoutWidget: Column(
         children: const <Widget>[

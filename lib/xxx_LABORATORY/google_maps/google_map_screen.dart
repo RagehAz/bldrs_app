@@ -156,9 +156,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       loading: _loading,
       pyramids: Iconz.DvBlankSVG,
       appBarRowWidgets: const <Widget>[],
-      onBack: () async {
+      onBack: (){
 
-        await Nav.goBack(context, argument: _geoPoint);
+        Nav.goBack(context, argument: _geoPoint);
+        // await null;
 
       },
       sectionButtonIsOn: false,
@@ -276,9 +277,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               verseCentered: false,
               secondLine: 'lat ${Numeric.roundFractions(_geoPoint.latitude, 2)}, Lng ${Numeric.roundFractions(_geoPoint.longitude, 2)}',
               color: Colorz.black230,
-              onTap: () async {
+              onTap: (){
 
-                await Nav.goBack(context, argument: _geoPoint);
+                Nav.goBack(context, argument: _geoPoint);
+                // await null;
 
               },
             ),

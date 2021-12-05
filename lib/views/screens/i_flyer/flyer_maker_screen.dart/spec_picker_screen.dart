@@ -185,8 +185,9 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onBack() async {
-    await Nav.goBack(context, argument: _selectedSpecs.value);
+  void _onBack() {
+    Nav.goBack(context, argument: _selectedSpecs.value);
+    // await null;
   }
 // -----------------------------------------------------------------------------
   String _getInstructions(){

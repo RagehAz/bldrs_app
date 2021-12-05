@@ -337,7 +337,8 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
             /// Dx - delete data
             _statelessFlyerRemove(_currentPageIndex);
             /// F - snap to index 0
-            await Sliders.snapTo(_pageController, 0);
+             Sliders.snapTo(_pageController, 0);
+             // await null;
 
             print('now i can swipe again');
 

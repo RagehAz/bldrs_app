@@ -23,19 +23,19 @@ class TopDialog extends StatelessWidget {
     Key key,
   }) : super(key: key);
 // -----------------------------------------------------------------------------
-  static void showTopDialog({
+  static Future<void> showTopDialog({
     @required BuildContext context,
     @required String verse,
     String secondLine,
     Color color,
     Function onTap,
-  }){
+  }) async {
 
     final Color _dialogColor = color ?? Colorz.yellow255;
 
     final double _screenWidth = Scale.superScreenWidth(context);
 
-    Flushbar(
+    await Flushbar(
       /// BEHAVIOUR - POSITIONING ----------------------------------------------
       dismissDirection: FlushbarDismissDirection.VERTICAL,
       flushbarPosition: FlushbarPosition.TOP,
