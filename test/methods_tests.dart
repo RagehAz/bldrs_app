@@ -345,7 +345,6 @@ void main(){
     bool _mapContainsTheError = TextChecker.stringContainsSubString(
       string: _string,
       subString: _substring,
-      multiLine: false,
       caseSensitive: true,
     );
 

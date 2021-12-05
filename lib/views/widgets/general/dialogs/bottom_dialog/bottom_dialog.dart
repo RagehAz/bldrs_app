@@ -282,7 +282,6 @@ class BottomDialog extends StatelessWidget {
         child: Center(
           child: FinalFlyer(
             flyerBoxWidth: _flyerBoxWidth,
-            goesToEditor: false,
             flyerModel: FlyerModel(
               id: null,
               title: '',
@@ -299,8 +298,6 @@ class BottomDialog extends StatelessWidget {
               keywordsIDs: <String>[],
               specs: <Spec>[],
               trigram: <String>[],
-              flyerState: FlyerState.draft,
-              showsAuthor: false,
             ),
             onSwipeFlyer: (Sliders.SwipeDirection direction){
               // print('Direction is ${direction}');
@@ -358,7 +355,6 @@ class BottomDialog extends StatelessWidget {
 
                   await Nav.goBack(context);
                 },
-                counterIsOn: true,
                 hintText: hintText ?? 'text here ...',
                 corners: _corners,
               ),
@@ -470,9 +466,6 @@ class BottomDialog extends StatelessWidget {
                   // color: Colorz.BloodTest,
                   child: SuperVerse(
                     verse: title,
-                    size: 2,
-                    color: Colorz.white255,
-                    centered: true,
                   ),
                 ),
 

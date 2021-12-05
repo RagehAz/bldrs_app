@@ -62,7 +62,6 @@ class SpecListTile extends StatelessWidget {
             borderRadius: _tileBorders,
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
@@ -165,7 +164,6 @@ class SpecListTile extends StatelessWidget {
                                       icon: Iconz.XLarge,
                                       margins: const EdgeInsets.symmetric(vertical: 2.5),
                                       verse: _specName,
-                                      verseColor: Colorz.white255,
                                       verseWeight: VerseWeight.thin,
                                       verseItalic: true,
                                       verseScaleFactor: 1.5,

@@ -77,8 +77,6 @@ class TabLayout extends StatelessWidget {
       onBack: selectionMode == false ? null : () async {await Nav.goBack(context, argument: selectedItems);},
       appBarRowWidgets: appBarRowWidgets,
       layoutWidget: MaxBounceNavigator(
-        axis: Axis.vertical,
-
         child: NestedScrollView(
           physics: const BouncingScrollPhysics(),
           floatHeaderSlivers: true,
@@ -87,7 +85,6 @@ class TabLayout extends StatelessWidget {
               <Widget>[
 
                 DefaultTabController(
-                  initialIndex: 0,
                   length: tabModels.length,
                   child: SliverAppBar(
                     collapsedHeight: Ratioz.stratosphere,
@@ -103,7 +100,6 @@ class TabLayout extends StatelessWidget {
 
                       // indicatorColor: Colorz.BloodTest,
                       indicatorSize: TabBarIndicatorSize.tab,
-                      indicatorPadding: const EdgeInsets.symmetric(vertical: 0),
                       indicatorWeight: 0,
                       indicator: BoxDecoration(
                         color: Colorz.yellow255,

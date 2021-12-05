@@ -14,7 +14,7 @@ class Scroller extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    ScrollController _controller = controller == null ? ScrollController(keepScrollOffset: true, initialScrollOffset: 0,) : controller;
+    ScrollController _controller = controller == null ? ScrollController() : controller;
 
     return Scrollbar(
       thickness: 3,

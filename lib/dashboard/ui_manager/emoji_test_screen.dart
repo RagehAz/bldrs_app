@@ -50,7 +50,6 @@ class EmojiTestScreen extends StatelessWidget {
               crossAxisCount: 7,
               mainAxisSpacing: 2.5,
               crossAxisSpacing: 2.5,
-              childAspectRatio: 1  / 1,
             ),
             itemBuilder: (BuildContext ctx, int index){
 
@@ -61,7 +60,6 @@ class EmojiTestScreen extends StatelessWidget {
                   height: 50,
                   width: 50,
                   verse: '${_emoji.emoji}',
-                  verseScaleFactor: 1,
                   verseWeight: VerseWeight.thin,
                   // margins: EdgeInsets.symmetric(horizontal: 2.5),
                   onTap: () => onEmojiTap(

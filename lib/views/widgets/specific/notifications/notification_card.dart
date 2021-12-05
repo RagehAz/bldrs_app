@@ -62,7 +62,6 @@ class NotificationCard extends StatelessWidget {
           columnChildren: <Widget>[
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 
@@ -82,14 +81,12 @@ class NotificationCard extends StatelessWidget {
                 Container(
                   width: _bodyWidth,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
 
                       /// TITLE
                       SuperVerse(
                         verse: notiModel?.title,
-                        size: 2,
                         maxLines: 3,
                         centered: false,
                       ),
@@ -109,7 +106,6 @@ class NotificationCard extends StatelessWidget {
                       SuperVerse(
                         verse: notiModel.body,
                         weight: VerseWeight.thin,
-                        size: 2,
                         maxLines: 10,
                         centered: false,
                       ),
@@ -146,7 +142,6 @@ class NotificationCard extends StatelessWidget {
                           height: 70,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
 
                               ...List<Widget>.generate(notiModel.attachment.length,

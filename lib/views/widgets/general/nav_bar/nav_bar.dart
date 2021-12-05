@@ -241,10 +241,7 @@ class NavBar extends StatelessWidget {
                       icon: _bzModel.logo,
                       verse: _bzModel.name,
                       secondLine: TextGen.bzTypeSingleStringer(context, _bzModel.bzType),
-                      iconSizeFactor: 1,
                       verseScaleFactor: 0.7,
-                      bubble: true,
-                      color: Colorz.nothing,
                       verseCentered: false,
                       onTap: () async {
                         print('${_bzModel.id}');
@@ -312,7 +309,6 @@ class NavBar extends StatelessWidget {
           width: _screenWidth,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               /// ios back button
@@ -346,14 +342,12 @@ class NavBar extends StatelessWidget {
                     BlurLayer(
                       width: _boxWidth,
                       height: _boxHeight,
-                      blur: Ratioz.blur1,
                       borders: _boxCorners,
                     ),
 
                     /// BUTTONS
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
 
                         _halfSpacer,

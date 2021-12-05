@@ -49,8 +49,6 @@ class BzAboutTab extends StatelessWidget {
           ParagraphBubble(
             title: 'About ${bzModel.name}',
             paragraph: bzModel.about,
-            maxLines: 5,
-            centered: false,
           ),
 
         /// --- SCOPE
@@ -58,7 +56,6 @@ class BzAboutTab extends StatelessWidget {
           ParagraphBubble(
             title: 'Scope of services',
             paragraph: bzModel.scope,
-            maxLines: 5,
           ),
 
         if (bzModel.scope != null)
@@ -68,7 +65,6 @@ class BzAboutTab extends StatelessWidget {
         if (bzModel.totalSlides != null)
           Bubble(
               title: 'Stats',
-              centered: false,
               columnChildren: <Widget>[
 
                 /// FOLLOWERS

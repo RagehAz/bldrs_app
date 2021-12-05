@@ -108,12 +108,9 @@ class _SearchBarState extends State<SearchBar> {
               height: Ratioz.appBarButtonSize * 0.5,
               textController: _searchTextController,
               labelColor: Colorz.yellow255,
-              centered: false,
               italic: true,
-              keyboardTextInputType: TextInputType.text,
               keyboardTextInputAction: TextInputAction.search,
               counterIsOn: false,
-              fieldColor: null,
               corners: Ratioz.appBarButtonCorner,
               onTap: (){},
               onChanged: (String val){
@@ -128,8 +125,6 @@ class _SearchBarState extends State<SearchBar> {
               },
               hintText: widget.hintText ?? ' Search ... ',
               inputColor: Colorz.yellow255,
-              inputSize: 2,
-              inputShadow: false,
               inputWeight: VerseWeight.thin,
               onSaved: (String val){
                 print('on saved');

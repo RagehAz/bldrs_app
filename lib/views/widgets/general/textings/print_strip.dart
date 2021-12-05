@@ -18,7 +18,6 @@ class PrintStrip extends StatelessWidget {
       child: Bubble(
         bubbleColor: Colorz.black230,
         centered: true,
-        stretchy: false,
         columnChildren: <Widget>[
           SuperVerse(
             verse: verse ?? 'print Area',

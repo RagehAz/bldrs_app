@@ -271,7 +271,6 @@ class SingleSlide extends StatelessWidget {
                   fieldColor: Colorz.black80,
                   margin: EdgeInsets.only(top: (flyerBoxWidth * 0.3), left: 5, right: 5),
                   maxLines: 4,
-                  keyboardTextInputType: TextInputType.text,
                   counterIsOn: false,
                   inputSize: 3,
                   centered: true,

@@ -448,7 +448,6 @@ import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
           context: context,
           title: '',
           boolDialog: null,
-          height: null,
           body: 'Waiting',
           child: const Loading(loading: true,),
         );
@@ -510,7 +509,6 @@ import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
               context: context,
               title: '',
               boolDialog: null,
-              height: null,
               body: 'Waiting',
               child: const Loading(loading: true,),
             );
@@ -539,7 +537,7 @@ import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
             /// CLOSE WAITING DIALOG
             Nav.goBack(context);
 
-            await CenterDialog.showCenterDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
+            await CenterDialog.showCenterDialog(context: context, title: '', body: 'Done',);
 
             return 'deactivated';
 
@@ -563,7 +561,7 @@ import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
         );
 
 
-        CenterDialog.showCenterDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
+        CenterDialog.showCenterDialog(context: context, title: '', body: 'Done',);
 
         /// J - SIGN OUT
         await FireAuthOps.signOut(context: context, routeToUserChecker: false);
@@ -571,7 +569,7 @@ import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
         /// CLOSE WAITING DIALOG
         Nav.goBack(context);
 
-        await CenterDialog.showCenterDialog(context: context, title: '', boolDialog: false, height: null, body: 'Done',);
+        await CenterDialog.showCenterDialog(context: context, title: '', body: 'Done',);
 
         return 'deactivated';
 
@@ -639,7 +637,6 @@ import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
           context: context,
           title: '',
           boolDialog: null,
-          height: null,
           body: 'Waiting',
           child: const Loading(loading: true,),
         );
@@ -700,7 +697,6 @@ import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
               context: context,
               title: '',
               boolDialog: null,
-              height: null,
               body: 'Waiting',
               child: const Loading(loading: true,),
             );
@@ -764,7 +760,6 @@ import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
           context: context,
           title: '',
           boolDialog: null,
-          height: null,
           body: 'Waiting',
           child: const Loading(loading: true,),
         );

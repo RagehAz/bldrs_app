@@ -118,12 +118,11 @@ class _UserCheckerState extends State<UserChecker> {
                   context: context,
                   title: 'Ops!',
                   body: 'You have to complete your profile info\n ${_missingFields.toString()}',
-                  boolDialog: false,
                 );
 
                 /// route to complete profile missing data
                 await Nav.goToNewScreen(context, EditProfileScreen(
-                  user: _userModel, firstTimer: false,),);
+                  user: _userModel,),);
 
                 /// after returning from edit profile, we go to LoadingScreen()
                 print('user has completed profile and good to go to LoadingScreen()');

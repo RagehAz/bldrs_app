@@ -34,10 +34,8 @@ class Rageh extends StatelessWidget {
             child: Transform.scale(
               scale: 1.5,
               child: DreamBox(
-                color: Colorz.nothing,
                 width: 30,
                 height: 30,
-                iconSizeFactor: 1,
                 corners: Ratioz.boxCorner8,
                 icon: Iconz.DvRageh,
                 onTap: tappingRageh,

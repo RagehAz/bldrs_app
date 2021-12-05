@@ -47,8 +47,6 @@ class BzPgCounter extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: bzPageStripSideMargin),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
 
                 ///  ICON
@@ -64,9 +62,7 @@ class BzPgCounter extends StatelessWidget {
                 ),
 
                 SuperVerse(
-                  verse: Numeric.separateKilos(number: count),//formatDecimal(count),
-                  size: 2,
-                  weight: VerseWeight.bold,
+                  verse: Numeric.separateKilos(number: count),
                   margin: bzPageStripSideMargin * 0.1,
                 ),
 
@@ -74,7 +70,6 @@ class BzPgCounter extends StatelessWidget {
                 SuperVerse(
                   verse: verse,
                   color: Colorz.white200,
-                  size: 2,
                   weight: VerseWeight.thin,
                   italic: true,
                   margin: bzPageStripSideMargin*0.1,

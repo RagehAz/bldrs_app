@@ -11,7 +11,6 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -173,33 +172,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
             /// UI
             mapType: MapType.hybrid,
-            padding: const EdgeInsets.all(0),
 
             /// GOOGLE MAP BUTTONS
             compassEnabled: false,
             myLocationButtonEnabled: false,
-            zoomControlsEnabled: true,
-
-            /// GESTURES
-            zoomGesturesEnabled: true,
-            rotateGesturesEnabled: true,
-            scrollGesturesEnabled: true,
-            tiltGesturesEnabled: true,
-            gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{},
-
-            /// FEATURES
-            liteModeEnabled: false, // freezes map, add google map button in the corner to use google map app instead
-            indoorViewEnabled: false,
             buildingsEnabled: false,
-            trafficEnabled: false,
 
             /// IN-EFFECTIVE
             myLocationEnabled: true,
-            mapToolbarEnabled: true, // in-effective,
-
-            /// CAMERA
-            cameraTargetBounds: CameraTargetBounds.unbounded,
-            minMaxZoomPreference: MinMaxZoomPreference.unbounded,
             initialCameraPosition:
             CameraPosition(
               target: _geoPoint == null ? null : LatLng(_geoPoint?.latitude, _geoPoint?.longitude),
@@ -247,13 +227,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 print('on tap is tapped on : LAT : ${latLng.latitude} : LNG : ${latLng.longitude}');
               }
             },
-
-            /// SHAPES
-            // markers: theMarkers,
-            polygons: const <Polygon>{},
-            polylines: const <Polyline>{},
-            circles: const <Circle>{},
-            tileOverlays: const <TileOverlay>{},
           ),
 
           /// LOCATION PIN

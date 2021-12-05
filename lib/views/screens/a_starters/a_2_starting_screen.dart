@@ -6,8 +6,8 @@ import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
 import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/screens/a_starters/a_3_auth_screen.dart';
@@ -15,7 +15,6 @@ import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart
 import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart' as Dialogz;
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -130,7 +129,6 @@ class _StartingScreenState extends State<StartingScreen> {
 
     return MainLayout(
       pyramids: Iconz.PyramidzYellow,
-      skyType: SkyType.Night,
       appBarType: AppBarType.Non,
       loading: _loading,
       // tappingRageh: (){
@@ -161,10 +159,8 @@ class _StartingScreenState extends State<StartingScreen> {
                 buttonVerse: Wordz.continueApple(context),
                 buttonIcon: Iconz.ComApple,
                 buttonColor: Colorz.black230,
-                splashColor: Colorz.yellow255,
                 buttonVerseShadow: false,
                 function: Routez.Home,
-                stretched: false,
 
               )
                   :
@@ -174,10 +170,8 @@ class _StartingScreenState extends State<StartingScreen> {
                 buttonVerse: "Continue with Google",
                 buttonIcon: Iconz.ComGooglePlus,
                 buttonColor: Colorz.googleRed,
-                splashColor: Colorz.yellow255,
                 buttonVerseShadow: false,
                 function: () => _tapContinueWith(context, AuthBy.google),
-                stretched: false,
               )
                   :
               Container(),
@@ -188,10 +182,8 @@ class _StartingScreenState extends State<StartingScreen> {
                 buttonVerse: Wordz.continueFacebook(context),
                 buttonIcon: Iconz.ComFacebookWhite,
                 buttonColor: Colorz.facebook,
-                splashColor: Colorz.yellow255,
                 buttonVerseShadow: false,
                 function: () => _tapContinueWith(context, AuthBy.facebook),
-                stretched: false,
               ),
 
               /// --- CONTINUE WITH EMAIL
@@ -199,10 +191,8 @@ class _StartingScreenState extends State<StartingScreen> {
                 buttonVerse: Wordz.continueEmail(context),
                 buttonIcon: Iconz.ComEmail,
                 buttonColor: Colorz.white10,
-                splashColor: Colorz.yellow255,
                 buttonVerseShadow: false,
                 function: () => Nav.goToNewScreen(context, const AuthScreen()),
-                stretched: false,
               ),
 
             ],

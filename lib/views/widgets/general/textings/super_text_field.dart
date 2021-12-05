@@ -141,7 +141,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     final double _verseWordSpacing = SuperVerse.superVerseWordSpacing(_verseSize);
     /// --- SHADOWS -----------------------------------------------
     final bool _shadow = widget.inputShadow;
-    const double _shadowBlur = 0;
+    // const double _shadowBlur = 0;
     const double _shadowYOffset = 0;
     final double _shadowXOffset = SuperVerse.superVerseXOffset(_weight, _verseSize);
     final double _secondShadowXOffset = -0.35 * _shadowXOffset;
@@ -183,12 +183,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
           shadows: <Shadow>[
             if (_shadow)
               Shadow(
-                blurRadius: _shadowBlur,
                 color: _leftShadow,
                 offset: Offset(_shadowXOffset, _shadowYOffset),
               ),
             Shadow(
-              blurRadius: _shadowBlur,
               color: _rightShadow,
               offset: Offset(_secondShadowXOffset, _shadowYOffset),
             )
@@ -251,7 +249,6 @@ class _SuperTextFieldState extends State<SuperTextField> {
       isCollapsed: true,
       // semanticCounterText: 'semantic',
       focusColor: Colorz.green255,
-      enabled: true,
       filled: true,
       fillColor: Colorz.white10,
 
@@ -336,13 +333,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
           keyboardAppearance: Brightness.dark,
           textDirection: _concludedTextDirection,
           obscureText: widget.obscured,
-          maxLengthEnforcement: _maxLengthEnforced,
-          enableInteractiveSelection: true, // makes test selectable
+          maxLengthEnforcement: _maxLengthEnforced, // makes test selectable
           decoration: _inputDecoration,
           cursorColor: Colorz.yellow255,
           cursorRadius: const Radius.circular(3),
-          cursorWidth: 2,
-          cursorHeight: null,
           textAlign: _textAlign,
           autofocus: _autoFocusCheck(),
         ),
@@ -366,18 +360,14 @@ class _SuperTextFieldState extends State<SuperTextField> {
           enabled: true, // THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
           minLines: widget.minLines,
           maxLines: _maxLines,
-          maxLength: widget.maxLength,
-          autocorrect: true, // -------------------------------------------NO IMPACT
+          maxLength: widget.maxLength, // -------------------------------------------NO IMPACT
           keyboardAppearance: Brightness.dark,
           textDirection: _concludedTextDirection,
           obscureText: widget.obscured,
-          maxLengthEnforcement: _maxLengthEnforced,
-          enableInteractiveSelection: true, // makes test selectable
+          maxLengthEnforcement: _maxLengthEnforced, // makes test selectable
           decoration: _inputDecoration,
           cursorColor: Colorz.yellow255,
           cursorRadius: const Radius.circular(3),
-          cursorWidth: 2,
-          cursorHeight: null,
           textAlign: _textAlign,
           autofocus: _autoFocusCheck(),
           onSubmitted: (String val){

@@ -32,7 +32,6 @@ class ContactsBubble extends StatelessWidget {
     final List<ContactModel> _socialMediaContacts = ContactModel.getSocialMediaContactsFromContacts(contacts);
 
     return Bubble(
-      centered: false,
       stretchy: stretchy,
       title: '${Wordz.contacts(context)} :',
       columnChildren: <Widget>[
@@ -54,7 +53,6 @@ class ContactsBubble extends StatelessWidget {
                         icon: Iconizer.superContactIcon(_contactsWithStrings[index].contactType),
                         margins: const EdgeInsets.all(_abPadding),
                         verse: _value,
-                        verseColor: Colorz.white255,
                         verseWeight: VerseWeight.thin,
                         verseItalic: true,
                         iconSizeFactor: 0.6,

@@ -58,7 +58,6 @@ class CurrencyButton extends StatelessWidget {
             alignment: Alignment.center,
             child: SuperVerse(
               verse: currency.nativeSymbol,
-              centered: true,
             ),
           ),
 

@@ -43,7 +43,6 @@ class SpecsBubble extends StatelessWidget {
 
     return Bubble(
       key: key,
-      centered: false,
       bubbleColor: bubbleColor,
       margins: margins,
       corners: corners,

@@ -89,7 +89,6 @@ class FlyerScreen extends StatelessWidget {
           flyerModel: flyerModel,
           flyerID: flyerID,
           initialSlideIndex: initialSlideIndex ?? 0,
-          goesToEditor: false,
           flyerKey: PageStorageKey<String>(_flyerID),
           onSwipeFlyer: (Sliders.SwipeDirection direction){
             // print('Direction is $direction');

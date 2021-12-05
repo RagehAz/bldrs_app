@@ -40,7 +40,6 @@ class FlyerFooter extends StatelessWidget {
     final double _footerBTRadius = buttonRadius(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
-      buttonIsOn: null,
     );
 
     final double _flyerFooterHeight = (2 * _footerBTMargins) + (2 * _footerBTRadius);

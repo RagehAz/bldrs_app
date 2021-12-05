@@ -53,7 +53,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _ScrollController = new ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
+    _ScrollController = new ScrollController();
 
     _animationController = AnimationController(
       duration: const Duration(seconds: 1),

@@ -118,7 +118,6 @@ class InfoPage extends StatelessWidget {
             width: _bubbleWidth,
             margins: _bubbleMargins,
             corners: _bubbleCorners,
-            bubbleOnTap: null,
             columnChildren: <Widget>[
 
               /// Flyer Type
@@ -195,7 +194,6 @@ class InfoPage extends StatelessWidget {
             corners: _bubbleCorners,
             title: 'More info',
             maxLines: 3,
-            centered: false,
             paragraph: _flyerInfoParagraph,
             editMode: superFlyer.edit.editMode,
             onParagraphTap: superFlyer.edit.onEditInfoTap,
@@ -364,10 +362,7 @@ class _NeedToSaveScrollPositionState extends State<NeedToSaveScrollPosition> wit
       child: ListView(
         key: PageStorageKey<String>('$_flyerID info_slivers'),
         physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        addAutomaticKeepAlives: true,
         controller: widget.superFlyer.nav.infoScrollController,
-        shrinkWrap: false,
         children: widget.children,
       ),
 

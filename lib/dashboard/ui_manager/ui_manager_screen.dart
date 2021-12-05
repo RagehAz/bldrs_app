@@ -14,7 +14,6 @@ class UIManager extends StatelessWidget {
   Widget build(BuildContext context) {
     return DashBoardLayout(
       pageTitle: 'UI Manager',
-      loading: false,
       listWidgets: <Widget>[
 
         WideButton(

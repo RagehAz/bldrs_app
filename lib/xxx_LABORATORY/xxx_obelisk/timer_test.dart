@@ -17,8 +17,6 @@ class TimerTest extends StatelessWidget {
     return
         SuperVerse(
           verse: verse,
-          maxLines: 1,
-          size: 2,
           italic: true,
         );
   }
@@ -123,13 +121,10 @@ class TimerTest extends StatelessWidget {
 
     return MainLayout(
       pageTitle: 'Timers Test',
-      // onBldrsTap: (){},
-      loading: false,
       appBarType: AppBarType.Basic,
       pyramids: Iconz.DvBlankSVG,
       layoutWidget: ListView.builder(
         physics: const BouncingScrollPhysics(),
-        shrinkWrap: false,
         padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
         itemCount: _mapModels.length,
           itemBuilder: (BuildContext ctx, int index){
@@ -138,14 +133,12 @@ class TimerTest extends StatelessWidget {
 
           bool _isDateFormat = TextChecker.stringContainsSubString(
             caseSensitive: true,
-            multiLine: false,
             string: _pair.key,
             subString: 'dateFormat',
           );
 
           bool _isTimersMethod = TextChecker.stringContainsSubString(
             caseSensitive: true,
-            multiLine: false,
             string: _pair.key,
             subString: 'Timers.',
           );

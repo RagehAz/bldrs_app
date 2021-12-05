@@ -45,7 +45,6 @@ List<BoxShadow> superFollowBtShadow(double btHeight){
 // -----------------------------------------------------------------------------
   const BoxShadow basicOuterShadow = const CustomBoxShadow(
       color: Colorz.black200,
-      offset: Offset(0, 0),
       blurRadius: 10,
       blurStyle: BlurStyle.outer
   );
@@ -70,7 +69,6 @@ List<BoxShadow> superFollowBtShadow(double btHeight){
     final List<BoxShadow> _shadows = <BoxShadow>[
       CustomBoxShadow(
         color: Colorz.black200,
-        offset: const Offset(0, 0),
         blurRadius: flyerBoxWidth * 0.1,
         blurStyle: BlurStyle.outer
       ),

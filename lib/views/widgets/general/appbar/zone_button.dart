@@ -98,16 +98,13 @@ class ZoneButton extends StatelessWidget {
           value: _zoneProvider,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               /// --- COUNTRY & DISTRICTS NAMES
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2.5),
                 child: FittedBox(
-                  fit: BoxFit.contain,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
 

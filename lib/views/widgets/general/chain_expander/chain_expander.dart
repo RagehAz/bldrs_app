@@ -45,11 +45,8 @@ class ChainExpander extends StatelessWidget {
         inActiveMode: inActiveMode,
         // maxHeight: 150,
         icon: icon,
-        iconSizeFactor: 1,
-        initiallyExpanded: false,
         firstHeadline: firstHeadline,
         secondHeadline: secondHeadline,
-        scrollable: true,
         initialColor: initialColor,
         expansionColor: expansionColor,
         child: Container(

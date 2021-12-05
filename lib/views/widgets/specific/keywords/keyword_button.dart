@@ -29,7 +29,6 @@ class KeywordBarButton extends StatelessWidget {
       onTap: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
 
@@ -46,7 +45,6 @@ class KeywordBarButton extends StatelessWidget {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
 
@@ -80,7 +78,6 @@ class KeywordBarButton extends StatelessWidget {
                             verse: KW.translateKeyword(context, keyword),
                             size: 1,
                             italic: true,
-                            color: Colorz.white255,
                             weight: VerseWeight.thin,
                             centered: false,
                           ),
@@ -94,10 +91,6 @@ class KeywordBarButton extends StatelessWidget {
                             SuperVerse(
                               verse: KW.translateKeyword(context, keyword),
                               size: 1,
-                              italic: false,
-                              color: Colorz.white255,
-                              weight: VerseWeight.bold,
-                              scaleFactor: 1,
                               centered: false,
                             ),
 
@@ -136,7 +129,6 @@ class AddKeywordsButton extends StatelessWidget {
       onTap: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
 
@@ -153,7 +145,6 @@ class AddKeywordsButton extends StatelessWidget {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
 
@@ -184,10 +175,7 @@ class AddKeywordsButton extends StatelessWidget {
                             SuperVerse(
                               verse: 'Keywords',
                               size: 1,
-                              italic: false,
                               color: Colorz.white125,
-                              weight: VerseWeight.bold,
-                              scaleFactor: 1,
                               centered: false,
                             ),
 

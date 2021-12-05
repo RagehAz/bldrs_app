@@ -33,7 +33,6 @@ class FlagBox extends StatelessWidget {
             boxShadow: <BoxShadow>[
               Shadowz.CustomBoxShadow(
                   color: Colorz.black230,
-                  offset: const Offset(0, 0),
                   blurRadius: size * 0.12,
                   blurStyle: BlurStyle.outer
               ),

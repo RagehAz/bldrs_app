@@ -1,10 +1,9 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
@@ -22,49 +21,43 @@ class BzLabel extends StatelessWidget {
   Widget build(BuildContext context) {
 
 // -----------------------------------------------------------------------------
-    final double screenWidth = Scale.superScreenWidth(context);
-    const bool versesShadow = false;
+    final double _screenWidth = Scale.superScreenWidth(context);
+    // const bool versesShadow = false;
 // -----------------------------------------------------------------------------
-    final double headerMainHeight = FlyerBox.headerStripHeight(bzPageIsOn: superFlyer.nav.bzPageIsOn, flyerBoxWidth: flyerBoxWidth);
+    final double _headerMainHeight = FlyerBox.headerStripHeight(bzPageIsOn: superFlyer.nav.bzPageIsOn, flyerBoxWidth: flyerBoxWidth);
     /// B.DATA
-    final double businessDataHeight = superFlyer.flyerShowsAuthor == true ? headerMainHeight * 0.4 : headerMainHeight * 0.7; //0.0475;
-    final double businessDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
-    final double headerTextSidePadding = flyerBoxWidth * 0.02;
+    final double _businessDataHeight = superFlyer.flyerShowsAuthor == true ? _headerMainHeight * 0.4 : _headerMainHeight * 0.7; //0.0475;
+    final double _businessDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+    final double _headerTextSidePadding = flyerBoxWidth * 0.02;
     /// B.LOCALE
-    final String businessLocale = TextGen.countryStringer(
+    final String _businessLocale = TextGen.countryStringer(
       context: context,
       zone: superFlyer.bz.zone,
       country: superFlyer.bzCountry,
       city: superFlyer.bzCity,
     );
 // -----------------------------------------------------------------------------
-    final int bzNameSize = superFlyer.flyerShowsAuthor == true ? 3 : 5;
-    final int bLocaleSize = superFlyer.flyerShowsAuthor == true ? 1 : 1;
+    final int _bzNameSize = superFlyer.flyerShowsAuthor == true ? 3 : 5;
+    final int _bLocaleSize = superFlyer.flyerShowsAuthor == true ? 1 : 1;
     final int _maxLines = superFlyer.flyerShowsAuthor == true ? 1 : 2;
 // -----------------------------------------------------------------------------
 
     return Container(
-      height: businessDataHeight,
-      width: businessDataWidth,
+      height: _businessDataHeight,
+      width: _businessDataWidth,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
 
           /// B.NAME
           Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: headerTextSidePadding),
+              padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
               child: SuperVerse(
                 verse: superFlyer.bz.name,
-                color: Colorz.white255,
-                italic: false,
-                centered: false,
-                shadow: versesShadow,
-                weight: VerseWeight.bold ,
-                size: bzNameSize,
-                scaleFactor: (flyerBoxWidth / screenWidth) * 0.9,
+                centered: false ,
+                size: _bzNameSize,
+                scaleFactor: (flyerBoxWidth / _screenWidth) * 0.9,
                 maxLines: _maxLines,
 
               ),
@@ -74,17 +67,14 @@ class BzLabel extends StatelessWidget {
           /// B.LOCALE
           Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: headerTextSidePadding),
+              padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
               child: SuperVerse(
-                verse: businessLocale,
-                size: bLocaleSize,
-                weight: VerseWeight.regular ,
-                shadow: versesShadow,
+                verse: _businessLocale,
+                size: _bLocaleSize,
+                weight: VerseWeight.regular,
                 centered: false,
                 italic: true,
-                color: Colorz.white255,
-                scaleFactor: (flyerBoxWidth / screenWidth)*0.9,
-                maxLines: 1,
+                scaleFactor: (flyerBoxWidth / _screenWidth)*0.9,
               ),
             ),
           ),

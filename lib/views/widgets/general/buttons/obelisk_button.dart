@@ -28,10 +28,7 @@ class ObeliskButton extends StatelessWidget {
       buttonVerse: title,
       buttonColor: _color,
       buttonIcon: icon,
-      buttonVerseShadow: true,
-      splashColor: Colorz.yellow255,
       function: () => Nav.goToNewScreen(context, screen),
-      stretched: false,
     );
 
   }

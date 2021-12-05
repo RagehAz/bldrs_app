@@ -82,7 +82,6 @@ class _FeedBackState extends State<FeedBack> {
       context: context,
       title: 'Thanks',
       body: 'FeedBack sent',
-      boolDialog: false,
     );
 
     Nav.goBack(context);

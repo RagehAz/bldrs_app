@@ -55,7 +55,6 @@ class SectionDialogButton extends StatelessWidget {
         child: Container(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               DialogButton(

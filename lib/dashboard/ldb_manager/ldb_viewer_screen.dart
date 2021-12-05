@@ -58,7 +58,6 @@ class LDBViewerScreen extends StatefulWidget {
                 height: 42,
                 child: ListView(
                   physics: const BouncingScrollPhysics(),
-                  shrinkWrap: false,
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
 
@@ -232,7 +231,6 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
   Widget build(BuildContext context) {
     return DashBoardLayout(
       pageTitle: 'Local db :\n${widget.ldbDocName}',
-      loading: false,
       onBldrsTap: _onBldrsTap,
       listWidgets: <Widget>[
 

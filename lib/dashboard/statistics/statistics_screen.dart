@@ -62,14 +62,12 @@ class GeneralStatistics extends StatelessWidget {
             return
             ListView(
               physics: const BouncingScrollPhysics(),
-              shrinkWrap: false,
               children: <Widget>[
 
                 const Stratosphere(),
 
                 SuperVerse(
                   verse: 'General states :-',
-                  size: 2,
                   italic: true,
                   shadow: true,
                   weight: VerseWeight.black,

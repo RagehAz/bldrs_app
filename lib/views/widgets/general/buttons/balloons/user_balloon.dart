@@ -236,8 +236,7 @@ class BalloonComponents extends StatelessWidget {
                 CustomBoxShadow(
                     color: Colorz.white80,
                     offset: new Offset(0, balloonWidth * 0.5 * -0.5),
-                    blurRadius: balloonWidth * 0.2,
-                    blurStyle: BlurStyle.normal),
+                    blurRadius: balloonWidth * 0.2),
               ]
           ),
         ),

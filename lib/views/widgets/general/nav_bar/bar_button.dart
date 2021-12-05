@@ -1,4 +1,3 @@
-import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
@@ -60,8 +59,6 @@ class BarButton extends StatelessWidget {
           width: _buttonWidth,
           padding: const EdgeInsets.symmetric(horizontal: _paddings * 0.25),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               const SizedBox(
@@ -74,8 +71,6 @@ class BarButton extends StatelessWidget {
                 height: _circleWidth,
                 icon: icon,
                 iconSizeFactor: iconSizeFactor,
-                bubble: true,
-                color: Colorz.nothing,
                 corners: _buttonCircleCorner,
                 onTap: onTap,
               )

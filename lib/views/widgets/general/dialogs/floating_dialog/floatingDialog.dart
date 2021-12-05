@@ -69,7 +69,6 @@ class _FloatingDialogState extends State<FloatingDialog> {
 
             /// INEFFECTIVE
             iconSize: 0,
-            isExpanded: false,
             alignment: Alignment.center,
             style: _textStyle,
             value: widget.list[0],
@@ -84,9 +83,6 @@ class _FloatingDialogState extends State<FloatingDialog> {
 
               floatingLabelStyle: _textStyle,
               contentPadding: const EdgeInsets.all(0),
-
-              /// STRIP STYLING
-              fillColor: null,
               filled: true, /// removes bottom line
               enabled: false, /// removes bottom line
 

@@ -139,7 +139,6 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
         alignment: Alignment.center,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
             /// NUMBER INPUT
@@ -188,7 +187,6 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
               // color: Colorz.bloodTest,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
 
                   DreamBox(

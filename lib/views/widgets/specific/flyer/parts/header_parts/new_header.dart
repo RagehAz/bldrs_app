@@ -54,7 +54,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
     // widget.superFlyer.authorID = widget.superFlyer.bz.bzAuthors[0].userID;
     // widget.superFlyer.flyerTinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(widget.superFlyer.bz.bzAuthors[0]);
 
-    _verticalController = ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
+    _verticalController = ScrollController();
     _controller = new AnimationController(duration: Ratioz.durationFading200, vsync: this);
 
 
@@ -205,7 +205,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
 
     _logoCornersTween
       ..begin = Borderers.superLogoCorner(context: context, flyerBoxWidth: widget.flyerBoxWidth, zeroCornerIsOn: true,)//widget.superFlyer.flyerShowsAuthor)
-      ..end = Borderers.superLogoCorner(context: context, flyerBoxWidth: widget.flyerBoxWidth * _logoScaleRatio, zeroCornerIsOn: false);
+      ..end = Borderers.superLogoCorner(context: context, flyerBoxWidth: widget.flyerBoxWidth * _logoScaleRatio);
 
     _headerHeightTween = Tween<double>(
       begin: _headerBoxHeight,
@@ -272,9 +272,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                   borderRadius: _headerBorders,
                   child: MaxBounceNavigator(
                     child: ListView(
-                      shrinkWrap: false,
                       physics: _tinyMode == true || _isExpanded == false ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
-                      scrollDirection: Axis.vertical,
                       controller: _verticalController,
                       children: <Widget>[
 

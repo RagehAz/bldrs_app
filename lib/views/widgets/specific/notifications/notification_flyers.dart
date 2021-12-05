@@ -44,7 +44,6 @@ class NotificationFlyers extends StatelessWidget {
       ),
       child: ListView.builder(
           physics: const BouncingScrollPhysics(),
-          shrinkWrap: false,
           itemCount: flyers.length,
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: 5),
