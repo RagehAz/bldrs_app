@@ -31,14 +31,15 @@ class MaxBounceNavigator extends StatefulWidget {
 class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
   bool _canNavigate = true;
 // -----------------------------------------------------------------------------
-  Future<void> navigate() async {
+  void navigate(){
 
     setState(() {
       _canNavigate = false;
     });
 
     if (widget.onNavigate == null){
-      await Nav.goBack(context);
+      Nav.goBack(context);
+      // await null;
     }
 
     else {

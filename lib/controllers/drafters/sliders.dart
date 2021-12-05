@@ -83,8 +83,9 @@ enum SwipeDirection{
   // }
 }
 // -----------------------------------------------------------------------------
-  Future<void> snapTo(PageController slidingController, int currentSlide) async {
-  await slidingController.jumpToPage(currentSlide,);
+  void snapTo(PageController slidingController, int currentSlide) {
+  slidingController.jumpToPage(currentSlide,);
+  // await null;
 }
 // -----------------------------------------------------------------------------
   SwipeDirection slidingDecision(int numberOfSlides, int currentSlide){

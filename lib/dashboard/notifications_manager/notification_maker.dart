@@ -182,7 +182,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
       graphicHeight: _picSize.height,
     );
 
-    await Nav.goBack(context);
+    Nav.goBack(context);
+    // await null;
 
     if (_pic != null){
       setState(() {
@@ -210,7 +211,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
       _attachment = _selectedFlyers;
     });
 
-    await Nav.goBack(context);
+    Nav.goBack(context);
+    // await null;
 
   }
 // -----------------------------------------------------------------------------
@@ -359,7 +361,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
                                           _selectedUser = _usersModels[index];
                                         });
 
-                                        await Nav.goBack(context);
+                                        Nav.goBack(context);
+                                        // await null;
 
                                       },
                                     ),

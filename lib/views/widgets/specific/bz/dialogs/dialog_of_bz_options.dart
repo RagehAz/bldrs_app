@@ -155,7 +155,8 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       _triggerLoading();
 
       /// re-route back
-      await Nav.goBack(context, argument: true);
+      Nav.goBack(context, argument: true);
+      // await null;
 
     }
 

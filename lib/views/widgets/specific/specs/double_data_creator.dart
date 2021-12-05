@@ -167,7 +167,8 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
                   onSubmitted: (String val) async  {
 
                     _onTextChanged(val);
-                    await Keyboarders.minimizeKeyboardOnTapOutSide(context);
+                    Keyboarders.minimizeKeyboardOnTapOutSide(context);
+                    // await null;
 
                     await Future<void>.delayed(Ratioz.durationSliding400, ()async {
                       widget.onSubmitted();

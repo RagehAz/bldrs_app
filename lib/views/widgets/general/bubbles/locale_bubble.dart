@@ -121,8 +121,9 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 //   }
 // // -----------------------------------------------------------------------------
 
-  Future<void> _closeBottomSheet() async {
-    await Navigator.of(context).pop();
+  void _closeBottomSheet() {
+    Navigator.of(context).pop();
+    // await null;
   }
 // -----------------------------------------------------------------------------
   Future<void> _tapCountryButton({@required BuildContext context}) async {

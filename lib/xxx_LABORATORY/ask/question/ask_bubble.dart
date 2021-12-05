@@ -121,7 +121,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
     setState(() {_questionPics.add(File(_imageFile.path));});
   }
   // ----------------------------------------------------------------------
-  void _deletePic(File pic) async {
+  void _deletePic(File pic) {
     // int _picFileIndex = _questionPics.indexWhere((p) => p == pic);
     setState(() {
       _questionPics.remove(pic);

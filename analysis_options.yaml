@@ -59,6 +59,10 @@ linter:
     avoid_shadowing_type_parameters: true
     avoid_single_cascade_in_expression_statements: true
     avoid_unnecessary_containers: true
+    avoid_unused_constructor_parameters: true
+    avoid_void_async: true
+    await_only_futures: true
+    camel_case_extensions: true
 
     # Pending
     diagnostic_describe_all_properties: false

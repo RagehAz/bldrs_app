@@ -183,7 +183,8 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
           specPickerResult: _result,
         );
 
-        await Nav.goBack(context);
+        Nav.goBack(context);
+        // await null;
 
       },
     );
