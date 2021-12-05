@@ -84,7 +84,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             await _awesomeNotification.requestPermissionToSendNotifications();
           }
 
-          await Nav.goBack(context);
+          Nav.goBack(context);
+          // await null;
         }
 
         await _notiStream(context);

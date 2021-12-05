@@ -261,7 +261,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           final CountryModel _flyerCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _flyer.zone.countryID);
           final CityModel _flyerCity = await _zoneProvider.fetchCityByID(context: context, cityID: _flyer.zone.cityID);
 
-          _builtSuperFlyer = await _getSuperFlyerFromFlyer(
+          _builtSuperFlyer = _getSuperFlyerFromFlyer(
             flyerModel: _flyer,
             bzModel: _bz,
             bzCountry: _bzCountry,
@@ -269,6 +269,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             flyerCity: _flyerCity,
             flyerCountry: _flyerCountry,
           );
+          // await null;
         }
 
         else if (_flyerMode == FlyerMethod.FlyerMode.bigModeByFlyerModel){
@@ -278,7 +279,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           final CountryModel _flyerCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: widget.flyerModel.zone.countryID);
           final CityModel _flyerCity = await _zoneProvider.fetchCityByID(context: context, cityID: widget.flyerModel.zone.cityID);
 
-          _builtSuperFlyer = await _getSuperFlyerFromFlyer(
+          _builtSuperFlyer = _getSuperFlyerFromFlyer(
             flyerModel: widget.flyerModel,
             bzModel: _bz,
             bzCountry: _bzCountry,
@@ -286,6 +287,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             flyerCity: _flyerCity,
             flyerCountry: _flyerCountry,
           );
+          // await null;
         }
 
         else if (_flyerMode == FlyerMethod.FlyerMode.bigModeByBzModel){
@@ -345,11 +347,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bzModel.zone.countryID);
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: _bzModel.zone.cityID);
 
-          _builtSuperFlyer = await _getDraftSuperFlyerFromNothing(
+          _builtSuperFlyer = _getDraftSuperFlyerFromNothing(
             bzModel: _bzModel,
             bzCountry: _bzCountry,
             bzCity: _bzCity,
           );
+          // await null;
         }
 
         else if (_flyerMode == FlyerMethod.FlyerMode.editorModeByNull){
@@ -357,11 +360,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bzModel.zone.countryID);
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: _bzModel.zone.cityID);
 
-          _builtSuperFlyer = await _getDraftSuperFlyerFromNothing(
+          _builtSuperFlyer =  _getDraftSuperFlyerFromNothing(
             bzModel: _bzModel,
             bzCountry: _bzCountry,
             bzCity: _bzCity,
           );
+          // await null;
         }
 
         // --------------------------------------------------------------------X
@@ -1046,7 +1050,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   Future <void> _onFollowTap() async {
-    print('Following bz : followIsOn was ${_superFlyer.rec.followIsOn} & headline for slide ${_superFlyer.currentSlideIndex} is : ${_superFlyer.mSlides[_superFlyer.currentSlideIndex].headline}');
+    // print('Following bz : followIsOn was ${_superFlyer.rec.followIsOn} & headline for slide ${_superFlyer.currentSlideIndex} is : ${_superFlyer.mSlides[_superFlyer.currentSlideIndex].headline}');
 
     if(widget.inEditor == true){
       await TopDialog.showTopDialog(
@@ -1258,11 +1262,13 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                                 _existingReview = null;
                               });
 
-                              await Nav.goBack(context);
+                              Nav.goBack(context);
+                              // await null;
 
                             }
 
-                            await Nav.goBack(context);
+                            Nav.goBack(context);
+                            // await null;
 
                           },
                         ),
@@ -1381,7 +1387,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _deleteReview(String reviewID) async {
 
-    await Nav.goBack(context);
+    Nav.goBack(context);
+    // await null;
 
     await Fire.deleteSubDoc(
       context: context,
@@ -1699,7 +1706,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             /// Dx - delete data
             _statelessSlideDelete(_superFlyer.currentSlideIndex);
             /// F - snap to index 0
-            await Sliders.snapTo(_superFlyer.nav.horizontalController, 0);
+            Sliders.snapTo(_superFlyer.nav.horizontalController, 0);
+            // await null;
 
             print('now i can swipe again');
 
@@ -1965,7 +1973,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             });
           }
 
-          await Nav.goBack(context);
+          Nav.goBack(context);
+          // await null;
 
         },
       ),
@@ -2003,7 +2012,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               });
             }
 
-            await Nav.goBack(context);
+            Nav.goBack(context);
+            // await null;
           },
         ),
       );
@@ -2019,12 +2029,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           mapsModels: _districtsMaps,
           alignment: Alignment.center,
           bottomDialogType: BottomDialogType.districts,
-          buttonTap: (String districtID) async {
+          buttonTap: (String districtID){
+
             setState(() {
               _superFlyer.zone.districtID = districtID;
             });
 
-            await Nav.goBack(context);
+            Nav.goBack(context);
+            // await null;
           },
         ),
       );

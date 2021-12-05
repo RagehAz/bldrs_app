@@ -91,9 +91,10 @@ import 'package:page_transition/page_transition.dart';
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> goBack(BuildContext context, {dynamic argument}) async {
+  void goBack(BuildContext context, {dynamic argument}) {
     /// you can send whatever you want in Navigator.pop(context,whatever you want to pass)
-    await Navigator.pop(context, argument);
+    Navigator.pop(context, argument);
+    // await null;
   }
 // -----------------------------------------------------------------------------
   goBackToUserChecker(BuildContext context){

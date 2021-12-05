@@ -24,7 +24,7 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-void main() async {
+Future<void> main() async {
 
   /// TASK : In optimization : study this : https://pub.dev/packages/keframe
   // debugPrintMarkNeedsPaintStacks = false;
@@ -115,7 +115,7 @@ class _BldrsAppState extends State<BldrsApp> {
 // ---------------------------------------------------------------------------
   bool _initialized = false;
   bool _error = false;
-  void _initializeFlutterFire() async {
+  Future<void> _initializeFlutterFire() async {
     _triggerLoading();
     try {
       /// Wait for Firebase to initialize and set `_initialized` state to true

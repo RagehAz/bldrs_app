@@ -45,10 +45,11 @@ import 'package:flutter/material.dart';
     await tryAndCatch(
       context: context,
       methodName: 'getRefFromURL',
-      functions: () async {
+      functions: () {
 
         final FirebaseStorage  _storage = FirebaseStorage.instance;
-        _ref = await _storage.refFromURL(url);
+        _ref = _storage.refFromURL(url);
+        // await null;
 
       },
       onError: (String error) async {
@@ -372,7 +373,8 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     //
     // }
 
-    final Reference _ref = await getRef(context: context, docName: docName, picName: picName);
+    final Reference _ref = getRef(context: context, docName: docName, picName: picName);
+    // await null;
 
     if (_ref != null){
       final Uint8List _uInts = await _ref.getData();

@@ -71,14 +71,16 @@ class ImageSize{
       // -----------------------------------------------------------o
       if (_isURL == true) {
         final File _file = await Imagers.getFileFromURL(image);
-        _uInt8List = await _file.readAsBytesSync();
+        _uInt8List = _file.readAsBytesSync();
+        // await null;
         _decodedImage = await Imagers.getUiImageFromUint8List(_uInt8List);
       }
       // --------------------------o
       else if(_isAsset == true){
         final Asset _asset = image;
         final ByteData _byteData = await _asset.getByteData();
-        _uInt8List = await Imagers.getUint8ListFromByteData(_byteData);
+        _uInt8List = Imagers.getUint8ListFromByteData(_byteData);
+        // await null;
         _imageSize = ImageSize.getImageSizeFromAsset(image);
       }
       // --------------------------o

@@ -371,7 +371,8 @@ enum PicType{
 // ---------------------------------------------------
   Future<File> getFilerFromBase64(String base64) async {
 
-    final Uint8List _fileAgainAsInt = await base64Decode(base64);
+    final Uint8List _fileAgainAsInt = base64Decode(base64);
+    // await null;
 
     final File _fileAgain = await getFileFromUint8List(
       uInt8List: _fileAgainAsInt,

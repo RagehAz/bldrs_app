@@ -18,7 +18,7 @@ class SectionsButton extends StatelessWidget {
     Key key,
   }) : super(key: key);
 // -----------------------------------------------------------------------------
-  void _changeSection(BuildContext context) async {
+  void _changeSection(BuildContext context) {
 
   // final double _dialogHeight = Scale.superScreenHeight(context) * 0.95;
 

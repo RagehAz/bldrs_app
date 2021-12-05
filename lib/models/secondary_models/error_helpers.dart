@@ -30,7 +30,8 @@ Future<void> tryAndCatch({
 
     if (onError != null){
 
-      await onError(error.toString());
+      onError(error.toString());
+      // await null;
 
     }
     else {
@@ -64,7 +65,7 @@ Future<bool> tryCatchAndReturn({
     print('$methodName : tryAndCatch ERROR : $error');
 
     if (onError != null){
-      await onError(error.toString());
+      onError(error.toString());
     }
 
     // else {

@@ -90,7 +90,8 @@ class DataStrip extends StatelessWidget {
                             verseMaxLines: 2,
                             onTap: () async {
 
-                              await Nav.goBack(context);
+                              Nav.goBack(context);
+                              // await null;
 
                               await Keyboarders.copyToClipboard(
                                 context: context,
