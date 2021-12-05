@@ -88,110 +88,104 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
       Bubble(
           columnChildren: <Widget>[
 
-            Container(
-              // color: Colorz.YellowSmoke,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
 
-                  /// BUBBLE TITLE
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-                    child: SuperVerse(
-                      verse: widget.title,
-                      redDot: widget.fieldIsRequired,
-                    ),
+                /// BUBBLE TITLE
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
+                  child: SuperVerse(
+                    verse: widget.title,
+                    redDot: widget.fieldIsRequired,
                   ),
+                ),
 
-                  /// ACTION BUTTON
-                  widget.actionBtIcon == null ? Container() :
-                  DreamBox(
-                    height: actionBtSize,
-                    width: actionBtSize,
-                    corners: actionBtCorner,
-                    color: widget.actionBtColor,
-                    icon: widget.actionBtIcon,
-                    iconSizeFactor: 0.6,
-                    onTap: widget.actionBtFunction,
-                  ),
+                /// ACTION BUTTON
+                widget.actionBtIcon == null ? Container() :
+                DreamBox(
+                  height: actionBtSize,
+                  width: actionBtSize,
+                  corners: actionBtCorner,
+                  color: widget.actionBtColor,
+                  icon: widget.actionBtIcon,
+                  iconSizeFactor: 0.6,
+                  onTap: widget.actionBtFunction,
+                ),
 
-                ],
-              ),
+              ],
             ),
 
-            Container(
-              // color: Colorz.BloodTest,
-              child: Stack(
-                alignment: Aligners.superInverseTopAlignment(context),
-                children: <Widget>[
+            Stack(
+              alignment: Aligners.superInverseTopAlignment(context),
+              children: <Widget>[
 
-                  /// TEXT FIELD
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    textDirection: TextDirection.ltr,
-                    children: <Widget>[
+                /// TEXT FIELD
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  textDirection: TextDirection.ltr,
+                  children: <Widget>[
 
-                      widget.leadingIcon == null ? Container() :
-                      DreamBox(
-                        height: 35,
-                        width: 35,
-                        icon: widget.leadingIcon,
-                        iconSizeFactor: widget.leadingIcon == Iconz.ComWebsite ||
-                            widget.leadingIcon == Iconz.ComEmail ||
-                            widget.leadingIcon == Iconz.ComPhone ?
-                        0.6 : 1,
+                    widget.leadingIcon == null ? Container() :
+                    DreamBox(
+                      height: 35,
+                      width: 35,
+                      icon: widget.leadingIcon,
+                      iconSizeFactor: widget.leadingIcon == Iconz.ComWebsite ||
+                          widget.leadingIcon == Iconz.ComEmail ||
+                          widget.leadingIcon == Iconz.ComPhone ?
+                      0.6 : 1,
+                    ),
+
+                    widget.leadingIcon == null ? Container() :
+                    Container(
+                      width: 5,
+                    ),
+
+                    Container(
+                      width: fieldWidth,
+                      child: SuperTextField(
+                        fieldIsFormField: widget.fieldIsFormField,
+                        hintText: widget.hintText,
+                        counterIsOn: false,
+                        keyboardTextInputType: widget.keyboardTextInputType,
+                        textController: paste == '' ? widget.textController : pasteController,
+                        onChanged: widget.textOnChanged,
+                        onSaved: widget.onSaved,
+                        keyboardTextInputAction: widget.keyboardTextInputAction,
+                        initialValue: paste == '' ? widget.initialTextValue : null,
+                        validator: widget.validator,
+                        textDirection: TextDirection.ltr,
                       ),
+                    ),
 
-                      widget.leadingIcon == null ? Container() :
-                      Container(
-                        width: 5,
-                      ),
+                  ],
+                ),
 
-                      Container(
-                        width: fieldWidth,
-                        child: SuperTextField(
-                          fieldIsFormField: widget.fieldIsFormField,
-                          hintText: widget.hintText,
-                          counterIsOn: false,
-                          keyboardTextInputType: widget.keyboardTextInputType,
-                          textController: paste == '' ? widget.textController : pasteController,
-                          onChanged: widget.textOnChanged,
-                          onSaved: widget.onSaved,
-                          keyboardTextInputAction: widget.keyboardTextInputAction,
-                          initialValue: paste == '' ? widget.initialTextValue : null,
-                          validator: widget.validator,
-                          textDirection: TextDirection.ltr,
-                        ),
-                      ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  textDirection: TextDirection.ltr,
+                  children: <Widget>[
 
-                    ],
-                  ),
+                    /// LOADING INDICATOR
+                    if (widget.loading)
+                    Loading(size: 35,loading: widget.loading,),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    textDirection: TextDirection.ltr,
-                    children: <Widget>[
+                    DreamBox(
+                      height: 35,
+                      verse: '${Wordz.paste(context)}  ',
+                      verseScaleFactor: 0.5,
+                      verseWeight: VerseWeight.thin,
+                      verseItalic: true,
+                      color: Colorz.white10,
+                      onTap: _pasteFunction,
+                    ),
 
-                      /// LOADING INDICATOR
-                      if (widget.loading)
-                      Loading(size: 35,loading: widget.loading,),
+                  ],
+                ),
 
-                      DreamBox(
-                        height: 35,
-                        verse: '${Wordz.paste(context)}  ',
-                        verseScaleFactor: 0.5,
-                        verseWeight: VerseWeight.thin,
-                        verseItalic: true,
-                        color: Colorz.white10,
-                        onTap: _pasteFunction,
-                      ),
-
-                    ],
-                  ),
-
-                ],
-              ),
+              ],
             ),
 
             /// BUBBLE COMMENTS
