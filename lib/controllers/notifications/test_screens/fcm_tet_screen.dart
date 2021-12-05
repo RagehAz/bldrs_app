@@ -257,143 +257,141 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           ),
 
 
-          Container(
-            child: Row(
+          Row(
 
-              children: <Widget>[
+            children: <Widget>[
 
-                Container(
-                  width: _screenWidth * 0.5,
-                  height: 300,
-                  color: Colorz.bloodTest,
-                  child: Column(
-                    children: <Widget>[
+              Container(
+                width: _screenWidth * 0.5,
+                height: 300,
+                color: Colorz.bloodTest,
+                child: Column(
+                  children: <Widget>[
 
-                      StreamBuilder<int>(
-                        stream: _stopWatchTimer.rawTime,
-                        initialData: _stopWatchTimer.rawTime.value,
-                        builder: (BuildContext context, AsyncSnapshot<int> snap) {
+                    StreamBuilder<int>(
+                      stream: _stopWatchTimer.rawTime,
+                      initialData: _stopWatchTimer.rawTime.value,
+                      builder: (BuildContext context, AsyncSnapshot<int> snap) {
 
-                          final int value = snap.data;
+                        final int value = snap.data;
 
-                          final String displayTime = StopWatchTimer.getDisplayTime(value, hours: _isHours);
+                        final String displayTime = StopWatchTimer.getDisplayTime(value, hours: _isHours);
 
-                          return
-                            DreamBox(
-                              height: 150,
-                              width: 200,
-                              verse: displayTime,
-                              verseScaleFactor: 0.7,
-                            );
-                        },
-                      ),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-
-                          /// START
+                        return
                           DreamBox(
-                            height: 60,
-                            width: 100,
-                            verse: 'Start',
+                            height: 150,
+                            width: 200,
+                            verse: displayTime,
                             verseScaleFactor: 0.7,
-                            color: Colorz.blue80,
-                            verseColor: Colorz.black255,
-                            verseShadow: false,
-                            onTap: _startCounter,
-                          ),
+                          );
+                      },
+                    ),
 
-                          /// STOP
-                          DreamBox(
-                            height: 60,
-                            width: 100,
-                            verse: 'Stop',
-                            verseScaleFactor: 0.7,
-                            color: Colorz.blue80,
-                            verseColor: Colorz.black255,
-                            verseShadow: false,
-                            onTap: _stopCounter,
-                          ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
 
-                        ],
-                      ),
+                        /// START
+                        DreamBox(
+                          height: 60,
+                          width: 100,
+                          verse: 'Start',
+                          verseScaleFactor: 0.7,
+                          color: Colorz.blue80,
+                          verseColor: Colorz.black255,
+                          verseShadow: false,
+                          onTap: _startCounter,
+                        ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
+                        /// STOP
+                        DreamBox(
+                          height: 60,
+                          width: 100,
+                          verse: 'Stop',
+                          verseScaleFactor: 0.7,
+                          color: Colorz.blue80,
+                          verseColor: Colorz.black255,
+                          verseShadow: false,
+                          onTap: _stopCounter,
+                        ),
 
-                          /// STOP
-                          DreamBox(
-                            height: 60,
-                            width: 100,
-                            verse: 'Lap',
-                            verseScaleFactor: 0.7,
-                            color: Colorz.blue80,
-                            verseColor: Colorz.black255,
-                            verseShadow: false,
-                            onTap: _lapCounter,
-                          ),
+                      ],
+                    ),
 
-                          /// RESET
-                          DreamBox(
-                            height: 60,
-                            width: 100,
-                            verse: 'Reset',
-                            verseScaleFactor: 0.7,
-                            color: Colorz.blue80,
-                            verseColor: Colorz.black255,
-                            verseShadow: false,
-                            onTap: _resetCounter,
-                          ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
 
-                        ],
-                      ),
+                        /// STOP
+                        DreamBox(
+                          height: 60,
+                          width: 100,
+                          verse: 'Lap',
+                          verseScaleFactor: 0.7,
+                          color: Colorz.blue80,
+                          verseColor: Colorz.black255,
+                          verseShadow: false,
+                          onTap: _lapCounter,
+                        ),
 
-                    ],
-                  ),
+                        /// RESET
+                        DreamBox(
+                          height: 60,
+                          width: 100,
+                          verse: 'Reset',
+                          verseScaleFactor: 0.7,
+                          color: Colorz.blue80,
+                          verseColor: Colorz.black255,
+                          verseShadow: false,
+                          onTap: _resetCounter,
+                        ),
+
+                      ],
+                    ),
+
+                  ],
                 ),
+              ),
 
-                Container(
-                  width: _screenWidth * 0.5,
-                  height: 300,
-                  color: Colorz.blue80,
-                  child: StreamBuilder<List<StopWatchRecord>>(
-                    stream: _stopWatchTimer.records,
-                    initialData: _stopWatchTimer.records.value,
-                    builder: (BuildContext context, AsyncSnapshot<List<StopWatchRecord>> snap){
+              Container(
+                width: _screenWidth * 0.5,
+                height: 300,
+                color: Colorz.blue80,
+                child: StreamBuilder<List<StopWatchRecord>>(
+                  stream: _stopWatchTimer.records,
+                  initialData: _stopWatchTimer.records.value,
+                  builder: (BuildContext context, AsyncSnapshot<List<StopWatchRecord>> snap){
 
-                      final List<StopWatchRecord> records = snap.data;
+                    final List<StopWatchRecord> records = snap.data;
 
-                      if (records.isEmpty){
-                        return Container();
-                      }
+                    if (records.isEmpty){
+                      return Container();
+                    }
 
-                      else {
-                        return ListView.builder(
-                            itemCount: records.length,
-                            controller: _scrollController,
-                            itemBuilder: (BuildContext ctx, int index){
+                    else {
+                      return ListView.builder(
+                          itemCount: records.length,
+                          controller: _scrollController,
+                          itemBuilder: (BuildContext ctx, int index){
 
-                              final StopWatchRecord record = records[index];
+                            final StopWatchRecord record = records[index];
 
-                              return
-                                SuperVerse(
-                                  verse: '${index+1} : ${record.displayTime}',
-                                  size: 1,
-                                );
+                            return
+                              SuperVerse(
+                                verse: '${index+1} : ${record.displayTime}',
+                                size: 1,
+                              );
 
-                            }
-                            );
-                      }
+                          }
+                          );
+                    }
 
-                    },
-                  ),
+                  },
                 ),
+              ),
 
-              ],
+            ],
 
-            ),
           ),
 
         ],

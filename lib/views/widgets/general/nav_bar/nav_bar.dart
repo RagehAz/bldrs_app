@@ -202,65 +202,62 @@ class NavBar extends StatelessWidget {
       draggable: true,
       height: _sliderHeight,
       title: 'My Business accounts',
-      child: Container(
-        // height: 100,
-        child: NotificationListener<ScrollUpdateNotification>(
-          onNotification: (ScrollUpdateNotification details){
+      child: NotificationListener<ScrollUpdateNotification>(
+        onNotification: (ScrollUpdateNotification details){
 
-            final bool _canPageUp = Scrollers.canSlide(
-              details: details,
-              boxDistance: _bzzButtonsZoneHeight,
-              goesBackOnly: true,
-              axis: Axis.vertical,
-            );
+          final bool _canPageUp = Scrollers.canSlide(
+            details: details,
+            boxDistance: _bzzButtonsZoneHeight,
+            goesBackOnly: true,
+            axis: Axis.vertical,
+          );
 
-            if(_canPageUp){
-              Nav.goBackToHomeScreen(context);
-            }
+          if(_canPageUp){
+            Nav.goBackToHomeScreen(context);
+          }
 
-            return true;
-            },
-          child: Container(
-            height: _bzzButtonsZoneHeight,
-            child: Scroller(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(navbarPaddings),
-                physics: const BouncingScrollPhysics(),
-                // controller: _myBzzListController,
-                itemCount: myBzz.length,
-                itemBuilder: (BuildContext context, int index){
+          return true;
+          },
+        child: Container(
+          height: _bzzButtonsZoneHeight,
+          child: Scroller(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(navbarPaddings),
+              physics: const BouncingScrollPhysics(),
+              // controller: _myBzzListController,
+              itemCount: myBzz.length,
+              itemBuilder: (BuildContext context, int index){
 
-                  final BzModel _bzModel = myBzz[index];
+                final BzModel _bzModel = myBzz[index];
 
-                  return Align(
-                    alignment: Aligners.superCenterAlignment(context),
-                    child: DreamBox(
-                      height: 60,
-                      width: _bzButtonWidth,
-                      margins: const EdgeInsets.all(Ratioz.appBarPadding),
-                      icon: _bzModel.logo,
-                      verse: _bzModel.name,
-                      secondLine: TextGen.bzTypeSingleStringer(context, _bzModel.bzType),
-                      verseScaleFactor: 0.7,
-                      verseCentered: false,
-                      onTap: () async {
-                        print('${_bzModel.id}');
+                return Align(
+                  alignment: Aligners.superCenterAlignment(context),
+                  child: DreamBox(
+                    height: 60,
+                    width: _bzButtonWidth,
+                    margins: const EdgeInsets.all(Ratioz.appBarPadding),
+                    icon: _bzModel.logo,
+                    verse: _bzModel.name,
+                    secondLine: TextGen.bzTypeSingleStringer(context, _bzModel.bzType),
+                    verseScaleFactor: 0.7,
+                    verseCentered: false,
+                    onTap: () async {
+                      print('${_bzModel.id}');
 
-                        final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-                        final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-                        await _bzzProvider.setActiveBz(_bzModel);
-                        await _flyersProvider.getsetActiveBzFlyers(context: context, bzID: _bzModel.id);
+                      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+                      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+                      await _bzzProvider.setActiveBz(_bzModel);
+                      await _flyersProvider.getsetActiveBzFlyers(context: context, bzID: _bzModel.id);
 
-                        await Nav.goToNewScreen(context,
-                            MyBzScreen(
-                              userModel: userModel,
-                              bzModel: _bzModel,
-                            ));
-                        },
-                    ),
-                  );
-                  },
-              ),
+                      await Nav.goToNewScreen(context,
+                          MyBzScreen(
+                            userModel: userModel,
+                            bzModel: _bzModel,
+                          ));
+                      },
+                  ),
+                );
+                },
             ),
           ),
         ),
