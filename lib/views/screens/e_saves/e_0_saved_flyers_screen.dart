@@ -68,8 +68,8 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
   }
 // -----------------------------------------------------------------------------
   List<SectionClass.Section> addAllButtonToSections(){
-    const List<SectionClass.Section> _originalList = SectionClass.SectionsList;
-    const List<SectionClass.Section> _newListWithAddButton = <SectionClass.Section>[SectionClass.Section.All,..._originalList];
+    const List<SectionClass.Section> _originalList = SectionClass.sectionsList;
+    const List<SectionClass.Section> _newListWithAddButton = <SectionClass.Section>[SectionClass.Section.all,..._originalList];
     return _newListWithAddButton;
   }
 // -----------------------------------------------------------------------------

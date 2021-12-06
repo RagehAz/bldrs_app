@@ -89,8 +89,8 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
     // final double _buttonWidth = _screenWidth - (2 * Ratioz.appBarMargin);
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.PyramidzYellow,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.pyramidzYellow,
       loading: _loading,
       appBarRowWidgets: const <Widget>[],
 

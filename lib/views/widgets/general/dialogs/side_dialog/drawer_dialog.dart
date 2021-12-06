@@ -231,7 +231,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                     /// REAL ESTATE
                     SectionBubble(
                         title: 'RealEstate',
-                        icon: Iconz.PyramidSingleYellow,
+                        icon: Iconz.pyramidSingleYellow,
                         bubbleWidth: _bubbleWidth,
                         buttons: <Widget>[
 
@@ -248,7 +248,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                     /// Construction
                     SectionBubble(
                         title: 'Construction',
-                        icon: Iconz.PyramidSingleYellow,
+                        icon: Iconz.pyramidSingleYellow,
                         bubbleWidth: _bubbleWidth,
                         buttons: <Widget>[
 
@@ -274,7 +274,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                     /// Supplies
                     SectionBubble(
                       title: 'Supplies',
-                      icon: Iconz.PyramidSingleYellow,
+                      icon: Iconz.pyramidSingleYellow,
                       bubbleWidth: _bubbleWidth,
                       buttons: <Widget>[
 

@@ -28,7 +28,7 @@ class BzPowersTab extends StatelessWidget {
       TabModel(
         tabButton: TabButton(
           verse: BzModel.bzPagesTabsTitles[tabIndex],
-          icon: Iconz.Power,
+          icon: Iconz.power,
           isSelected: isSelected,
           onTap: () => onChangeTab(tabIndex),
           iconSizeFactor: 0.7,

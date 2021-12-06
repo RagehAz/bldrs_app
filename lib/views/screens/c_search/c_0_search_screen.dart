@@ -346,9 +346,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
 
     return MainLayout(
-      appBarType: AppBarType.Search,
+      appBarType: AppBarType.search,
       // appBarBackButton: true,
-      pyramids: Iconz.DvBlankSVG,
+      pyramids: Iconz.dvBlankSVG,
       searchController: _searchController,
       onSearchSubmit: (String value) => _onSearchSubmit(),
       onSearchChanged: (String val){

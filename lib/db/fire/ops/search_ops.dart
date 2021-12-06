@@ -16,17 +16,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 enum ValueIs{
-  GreaterThan,
-  GreaterOrEqualThan,
-  LessThan,
-  LessOrEqualThan,
-  EqualTo,
-  NotEqualTo,
-  Null,
-  WhereIn,
-  WhereNotIn,
-  ArrayContains,
-  ArrayContainsAny,
+  greaterThan,
+  greaterOrEqualThan,
+  lessThan,
+  lessOrEqualThan,
+  equalTo,
+  notEqualTo,
+  nullValue,
+  whereIn,
+  whereNotIn,
+  arrayContains,
+  arrayContainsAny,
 }
 
 // -----------------------------------------------------------------------------
@@ -51,77 +51,77 @@ enum ValueIs{
         functions: () async {
 
           /// IF EQUAL TO
-          if (valueIs == ValueIs.EqualTo){
+          if (valueIs == ValueIs.equalTo){
             _collectionSnapshot = await collRef
                 .where(field, isEqualTo: compareValue)
                 .limit(limit)
                 .get();
           }
           /// IF GREATER THAN
-          else if (valueIs == ValueIs.GreaterThan){
+          else if (valueIs == ValueIs.greaterThan){
             _collectionSnapshot = await collRef
                 .where(field, isGreaterThan: compareValue)
                 .limit(limit)
                 .get();
           }
           /// IF GREATER THAN OR EQUAL
-          else if (valueIs == ValueIs.GreaterOrEqualThan){
+          else if (valueIs == ValueIs.greaterOrEqualThan){
             _collectionSnapshot = await collRef
                 .where(field, isGreaterThanOrEqualTo: compareValue)
                 .limit(limit)
                 .get();
           }
           /// IF LESS THAN
-          else if (valueIs == ValueIs.LessThan){
+          else if (valueIs == ValueIs.lessThan){
             _collectionSnapshot = await collRef
                 .where(field, isLessThan: compareValue)
                 .limit(limit)
                 .get();
           }
           /// IF LESS THAN OR EQUAL
-          else if (valueIs == ValueIs.LessOrEqualThan){
+          else if (valueIs == ValueIs.lessOrEqualThan){
             _collectionSnapshot = await collRef
                 .where(field, isLessThanOrEqualTo: compareValue)
                 .limit(limit)
                 .get();
           }
           /// IF IS NOT EQUAL TO
-          else if (valueIs == ValueIs.NotEqualTo){
+          else if (valueIs == ValueIs.notEqualTo){
             _collectionSnapshot = await collRef
                 .where(field, isNotEqualTo: compareValue)
                 .limit(limit)
                 .get();
           }
           /// IF IS NULL
-          else if (valueIs == ValueIs.Null){
+          else if (valueIs == ValueIs.nullValue){
             _collectionSnapshot = await collRef
                 .where(field, isNull: compareValue)
                 .limit(limit)
                 .get();
           }
           /// IF whereIn
-          else if (valueIs == ValueIs.WhereIn){
+          else if (valueIs == ValueIs.whereIn){
             _collectionSnapshot = await collRef
                 .where(field, whereIn: compareValue)
                 .limit(limit)
                 .get();
           }
           /// IF whereNotIn
-          else if (valueIs == ValueIs.WhereNotIn){
+          else if (valueIs == ValueIs.whereNotIn){
             _collectionSnapshot = await collRef
                 .where(field, whereNotIn: compareValue)
                 .limit(limit)
                 .get();
           }
           /// IF array contains
-          else if (valueIs == ValueIs.ArrayContains){
+          else if (valueIs == ValueIs.arrayContains){
             _collectionSnapshot = await collRef
                 .where(field, arrayContains: compareValue)
                 .limit(limit)
                 .get();
           }
           /// IF array contains any
-          else if (valueIs == ValueIs.ArrayContainsAny){
+          else if (valueIs == ValueIs.arrayContainsAny){
             _collectionSnapshot = await collRef
                 .where(field, arrayContainsAny: compareValue)
                 .limit(limit)
@@ -408,7 +408,7 @@ enum ValueIs{
       ),
       addDocsIDs: addDocsIDs,
       addDocSnapshotToEachMap: addDocSnapshotToEachMap,
-      valueIs: ValueIs.ArrayContains,
+      valueIs: ValueIs.arrayContains,
       limit: limit,
     );
 
@@ -453,7 +453,7 @@ enum ValueIs{
       collName: FireColl.users,
       field: 'trigram',
       compareValue: name.trim(),
-      valueIs: ValueIs.ArrayContains,
+      valueIs: ValueIs.arrayContains,
     );
 
       List<UserModel> _usersModels = <UserModel>[];
@@ -524,7 +524,7 @@ enum ValueIs{
         input: bzName.trim(),
         numberOfCharacters: Standards.maxTrigramLength,
       ),
-      valueIs: ValueIs.ArrayContains,
+      valueIs: ValueIs.arrayContains,
     );
 
     List<BzModel> _bzz = <BzModel>[];
@@ -564,7 +564,7 @@ enum ValueIs{
           input: CountryModel.fixCountryName(cityName),
           numberOfCharacters: Standards.maxTrigramLength,
         ),
-        valueIs: ValueIs.ArrayContains,
+        valueIs: ValueIs.arrayContains,
       );
 
 

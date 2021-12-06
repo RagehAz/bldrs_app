@@ -81,7 +81,7 @@ import 'package:page_transition/page_transition.dart';
 
     /// A - by flyerID
     else if (flyerID != null){
-      await goToRoute(context, Routez.FlyerScreen, arguments: flyerID);
+      await goToRoute(context, Routez.flyerScreen, arguments: flyerID);
     }
 
     // /// A - nothing give
@@ -104,7 +104,7 @@ import 'package:page_transition/page_transition.dart';
     // );
 
     Navigator.popUntil(context,
-        ModalRoute.withName(Routez.UserChecker)
+        ModalRoute.withName(Routez.userChecker)
     );
 
   }
@@ -123,7 +123,7 @@ import 'package:page_transition/page_transition.dart';
   goBackToHomeScreen(BuildContext context){
 
     Navigator.popUntil(context,
-        ModalRoute.withName(Routez.Home)
+        ModalRoute.withName(Routez.home)
     );
 
   }

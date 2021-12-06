@@ -48,7 +48,7 @@ import 'package:image/image.dart' as img;
   ///     colorFilter: superDesaturation(blackAndWhite),
   ///     child: ,
   ColorFilter superDesaturation({@required bool isItBlackAndWhite}){
-    final Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.grey225 : Colorz.nothing;
+    final Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.grey255 : Colorz.nothing;
     return ColorFilter.mode(
         imageSaturationColor,
         BlendMode.saturation

@@ -34,8 +34,8 @@ class _KeywordsManagerState extends State<KeywordsManager> {
 
     return MainLayout(
       pageTitle: 'All Keywords',
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.PyramidsYellow,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.pyramidsYellow,
       layoutWidget: Container(
         width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2, // this dictates overall width
         // child: Scrollbar(

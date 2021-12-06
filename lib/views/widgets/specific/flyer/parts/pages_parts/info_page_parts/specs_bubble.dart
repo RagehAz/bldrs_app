@@ -46,7 +46,7 @@ class SpecsBubble extends StatelessWidget {
       bubbleColor: bubbleColor,
       margins: margins,
       corners: corners,
-      actionBtIcon: Iconz.Gears,
+      actionBtIcon: Iconz.gears,
       title: title,
       width: bubbleWidth,
       bubbleOnTap: passKeywordOnTap == true ? null : onTap,

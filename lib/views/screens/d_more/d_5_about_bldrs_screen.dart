@@ -19,11 +19,11 @@ class AboutBldrsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      pyramids: Iconz.PyramidsYellow,
-      appBarType: AppBarType.Basic,
+      pyramids: Iconz.pyramidsYellow,
+      appBarType: AppBarType.basic,
       // appBarBackButton: true,
       pageTitle: 'About Bldrs.net',
-      skyType: SkyType.Black,
+      skyType: SkyType.black,
       layoutWidget: Scroller(
         child: ListView(
           physics: const BouncingScrollPhysics(),
@@ -59,7 +59,7 @@ class AboutBldrsScreen extends StatelessWidget {
 
             const TileBubble(
               verse: 'Developers',
-              icon: Iconz.BxPropertiesOn,
+              icon: Iconz.bxPropertiesOn,
               iconSizeFactor: 1,
               secondLine: 'Real-Estate developers, they control the construction '
                   'development over plots & lands, then lease property contracts '
@@ -71,7 +71,7 @@ class AboutBldrsScreen extends StatelessWidget {
 
             const TileBubble(
               verse: 'Brokers',
-              icon: Iconz.BxPropertiesOn,
+              icon: Iconz.bxPropertiesOn,
               iconSizeFactor: 1,
               secondLine: 'Real-Estate Brokerage individuals or companies, they '
                   'consult, provide and assist you in your property purchasing '
@@ -83,7 +83,7 @@ class AboutBldrsScreen extends StatelessWidget {
 
             const TileBubble(
               verse: 'Designers',
-              icon: Iconz.BxDesignsOn,
+              icon: Iconz.bxDesignsOn,
               iconSizeFactor: 1,
               secondLine: 'Architects, Decorators, Landscapers, Engineers, '
                   'Planners and Designers of any urban construct you see in buildings'
@@ -95,7 +95,7 @@ class AboutBldrsScreen extends StatelessWidget {
 
             const TileBubble(
               verse: 'Contractors',
-              icon: Iconz.BxProjectsOn,
+              icon: Iconz.bxProjectsOn,
               iconSizeFactor: 1,
               secondLine: 'The Builders of properties, they contract owners in '
                   'specific trades to build, they manage construction progress and'
@@ -107,7 +107,7 @@ class AboutBldrsScreen extends StatelessWidget {
 
             const TileBubble(
               verse: 'Crafts-men',
-              icon: Iconz.BxCraftsOn,
+              icon: Iconz.bxCraftsOn,
               iconSizeFactor: 1,
               secondLine: 'Masons, Carpenters, Smiths, Glaziers, Technicians, '
                   'Artists, Artisans, Painters, Plasterers ... etc\n'
@@ -117,7 +117,7 @@ class AboutBldrsScreen extends StatelessWidget {
 
             const TileBubble(
               verse: 'Manufacturers',
-              icon: Iconz.BxProductsOn,
+              icon: Iconz.bxProductsOn,
               iconSizeFactor: 1,
               secondLine: 'Factories and Workshops that fabricates & manufactures '
                   'all construction products and equipment\n'
@@ -129,7 +129,7 @@ class AboutBldrsScreen extends StatelessWidget {
 
             const TileBubble(
               verse: 'Suppliers',
-              icon: Iconz.BxProductsOn,
+              icon: Iconz.bxProductsOn,
               iconSizeFactor: 1,
               secondLine: 'Those companies that import, supply, transport, sell '
                   'or rent construction products and equipment\n'

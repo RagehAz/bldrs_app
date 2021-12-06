@@ -35,8 +35,8 @@ class FlyerMakerScreen extends StatelessWidget {
     // BoxFit _currentPicFit = _superFlyer?.boxesFits?.length == 0 ? null : _superFlyer?.boxesFits[_superFlyer?.currentSlideIndex];
 
     return MainLayout(
-      pyramids: Iconz.DvBlankSVG,
-      appBarType: AppBarType.Basic,
+      pyramids: Iconz.dvBlankSVG,
+      appBarType: AppBarType.basic,
       appBarRowWidgets: const <Widget>[
 
         SlidesCounter(),

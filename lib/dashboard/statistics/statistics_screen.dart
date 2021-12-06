@@ -22,9 +22,9 @@ class GeneralStatistics extends StatelessWidget {
     final double _screenWidth = MediaQuery.of(context).size.width;
 
     return MainLayout(
-      pyramids: Iconz.PyramidsYellow,
-      appBarType: AppBarType.Basic,
-      skyType: SkyType.Black,
+      pyramids: Iconz.pyramidsYellow,
+      appBarType: AppBarType.basic,
+      skyType: SkyType.black,
       pageTitle: Wordz.allahoAkbar(context),
       appBarRowWidgets: const <Widget>[
 
@@ -79,7 +79,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: 'Users',
                   count: _numberOfUsers,
-                  icon: Iconz.NormalUser,
+                  icon: Iconz.normalUser,
                   iconSizeFactor: 0.95,
                 ),
 
@@ -87,7 +87,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: 'Countries',
                   count: _numberOfCountries,
-                  icon: Iconz.Earth,
+                  icon: Iconz.earth,
                   iconSizeFactor: 0.95,
                 ),
 
@@ -95,7 +95,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.businesses(context),
                   count: _numberOfBzz,
-                  icon: Iconz.Bz,
+                  icon: Iconz.bz,
                   iconSizeFactor: 0.95,
                 ),
 
@@ -103,7 +103,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.flyers(context),
                   count: _numberOfFlyers,
-                  icon: Iconz.Gallery,
+                  icon: Iconz.gallery,
                   iconSizeFactor: 0.8,
                 ),
 
@@ -111,7 +111,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: 'slides',//Wordz.slides,
                   count: _numberOfSlides,
-                  icon: Iconz.Flyer,
+                  icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
                 ),
 
@@ -137,7 +137,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: 'Realtors',
                   count: 0,
-                  icon: Iconz.BxPropertiesOn,
+                  icon: Iconz.bxPropertiesOn,
                   iconSizeFactor: 0.95,
                 ),
 
@@ -145,7 +145,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.propertyFlyer(context),
                   count: 0,
-                  icon: Iconz.Flyer,
+                  icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
                 ),
 
@@ -163,7 +163,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.designers(context),
                   count: 0,
-                  icon: Iconz.BxDesignsOn,
+                  icon: Iconz.bxDesignsOn,
                   iconSizeFactor: 0.95,
                 ),
 
@@ -171,7 +171,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.designFlyer(context),
                   count: 0,
-                  icon: Iconz.Flyer,
+                  icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
                 ),
 
@@ -189,7 +189,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.suppliers(context),
                   count: 0,
-                  icon: Iconz.BxEquipmentOn,
+                  icon: Iconz.bxEquipmentOn,
                   iconSizeFactor: 0.95,
                 ),
 
@@ -197,7 +197,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.productFlyer(context),
                   count: 0,
-                  icon: Iconz.Flyer,
+                  icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
                 ),
 
@@ -205,7 +205,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.equipmentFlyer(context),
                   count: 0,
-                  icon: Iconz.Flyer,
+                  icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
                 ),
 
@@ -223,7 +223,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.contractors(context),
                   count: 0,
-                  icon: Iconz.BxProjectsOn,
+                  icon: Iconz.bxProjectsOn,
                   iconSizeFactor: 0.95,
                 ),
 
@@ -231,7 +231,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.projectFlyer(context),
                   count: 0,
-                  icon: Iconz.Flyer,
+                  icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
                 ),
 
@@ -249,7 +249,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.craftsmen(context),
                   count: 0,
-                  icon: Iconz.BxCraftsOn,
+                  icon: Iconz.bxCraftsOn,
                   iconSizeFactor: 0.95,
                 ),
 
@@ -257,7 +257,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.craftFlyer(context),
                   count: 0,
-                  icon: Iconz.Flyer,
+                  icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
                 ),
 
@@ -284,7 +284,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.totalSaves(context), // Wordz.saves
                   count: 0,
-                  icon: Iconz.SaveOn,
+                  icon: Iconz.saveOn,
                   iconSizeFactor: 0.8,
                 ),
 
@@ -292,7 +292,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.views(context),
                   count: 0,
-                  icon: Iconz.Views,
+                  icon: Iconz.viewsIcon,
                   iconSizeFactor: 0.8,
                 ),
 
@@ -300,7 +300,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.totalShares(context), // Wordz.shares
                   count: 0,
-                  icon: Iconz.Share,
+                  icon: Iconz.share,
                   iconSizeFactor: 0.8,
                 ),
 
@@ -308,7 +308,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.followers(context),
                   count: 0,
-                  icon: Iconz.Follow,
+                  icon: Iconz.follow,
                   iconSizeFactor: 0.8,
                 ),
 
@@ -316,7 +316,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: Wordz.bldrsConnected(context),
                   count: 0,
-                  icon: Iconz.HandShake,
+                  icon: Iconz.handShake,
                   iconSizeFactor: 0.9,
                 ),
 
@@ -324,7 +324,7 @@ class GeneralStatistics extends StatelessWidget {
                   flyerBoxWidth: _screenWidth,
                   verse: 'Contact me clicks',
                   count: 0,
-                  icon: Iconz.ComPhone,
+                  icon: Iconz.comPhone,
                   iconSizeFactor: 0.8,
                 ),
 

@@ -48,11 +48,11 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   @override
   Widget build(BuildContext context) {
     return MainLayout(
-      pyramids: Iconz.DvBlankSVG,
+      pyramids: Iconz.dvBlankSVG,
       appBarRowWidgets: const <Widget>[],
       loading: _loading,
       pageTitle: 'Questions',
-      appBarType: AppBarType.Basic,
+      appBarType: AppBarType.basic,
       layoutWidget: Column(
         children: const <Widget>[
 

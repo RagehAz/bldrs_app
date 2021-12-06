@@ -7,7 +7,7 @@ abstract class ChainProperties {
 
   static const Chain chain = const Chain(
     id: 'properties',
-    icon: Iconz.BxPropertiesOff,
+    icon: Iconz.bxPropertiesOff,
     names: <Name>[
       Name(code: 'en', value: 'Properties'),
       Name(code: 'ar', value: '')

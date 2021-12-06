@@ -19,7 +19,7 @@ class SwiperLayoutScreen extends StatefulWidget {
 
   const SwiperLayoutScreen({
     @required this. swiperPages,
-    this.sky = SkyType.Night,
+    this.sky = SkyType.night,
     Key key,
   }) : super(key: key);
 
@@ -57,9 +57,9 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
 
     return MainLayout(
       skyType: widget.sky,
-      appBarType: AppBarType.Basic,
+      appBarType: AppBarType.basic,
       pageTitle: _title,
-      pyramids: Iconz.DvBlankSVG,
+      pyramids: Iconz.dvBlankSVG,
       // appBarBackButton: true,
       layoutWidget: Swiper(
         physics: const BouncingScrollPhysics(),

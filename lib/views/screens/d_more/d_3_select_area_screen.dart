@@ -34,11 +34,11 @@ class SelectAreaScreen extends StatelessWidget {
     );
 // -----------------------------------------------------------------------------
     return  ListLayout(
-      pyramids: Iconz.PyramidzYellow,
+      pyramids: Iconz.pyramidzYellow,
       pageTitle: _cityName,
       mapModels: _districtsMapModel,
       pageIconVerse: _cityName,
-      sky: SkyType.Black,
+      sky: SkyType.black,
       onItemTap: (String districtID) async {
         print('districtID is $districtID');
 

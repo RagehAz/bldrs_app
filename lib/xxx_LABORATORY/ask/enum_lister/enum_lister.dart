@@ -105,7 +105,7 @@ class EnumLister extends StatelessWidget {
                           height: 50,
                           width: 60,
                           corners: 10,
-                          icon: Iconz.XLarge,
+                          icon: Iconz.xLarge,
                           onTap: closeEnumLister,
                           // boxMargins: EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin),
                           iconSizeFactor: 0.4,

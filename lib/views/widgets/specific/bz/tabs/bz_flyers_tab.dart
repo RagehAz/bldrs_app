@@ -42,7 +42,7 @@ class BzFlyersTab extends StatelessWidget {
       TabModel(
         tabButton: TabButton(
           verse: BzModel.bzPagesTabsTitles[tabIndex],
-          icon: Iconz.FlyerGrid,
+          icon: Iconz.flyerGrid,
           isSelected: isSelected,
           onTap: () => onChangeTab(tabIndex),
           iconSizeFactor: 0.7,
@@ -72,7 +72,7 @@ class BzFlyersTab extends StatelessWidget {
         if (bzModel.flyersIDs != null)
           Bubble(
             title: 'Published Flyers',
-            actionBtIcon: Iconz.Clock,
+            actionBtIcon: Iconz.clock,
             actionBtFunction: () => _showOldFlyersOnTap(context, bzModel),
             columnChildren: <Widget>[
 

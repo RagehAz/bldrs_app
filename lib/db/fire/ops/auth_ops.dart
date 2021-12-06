@@ -627,7 +627,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
     // Nav.goToRoute(context, Routez.Starting);
 
     if (routeToUserChecker == true){
-    await Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+    await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
     }
 
   }

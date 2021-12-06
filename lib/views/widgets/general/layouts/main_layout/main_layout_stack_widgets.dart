@@ -67,7 +67,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             child: layoutWidget,
           ),
 
-        if(appBarType != AppBarType.Non)
+        if(appBarType != AppBarType.non)
           BldrsAppBar(
             key: const ValueKey<String>('appBar'),
             appBarType: appBarType,
@@ -83,7 +83,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             onSearchChanged: onSearchChanged,
           ),
 
-        if (pyramids != null && pyramids != Iconz.DvBlankSVG)
+        if (pyramids != null && pyramids != Iconz.dvBlankSVG)
           Pyramids(
             key: const ValueKey<String>('pyramids'),
             pyramidsIcon: pyramids,
@@ -102,8 +102,8 @@ class MainLayoutStackWidgets extends StatelessWidget {
             bottom: 0,
             left: 0,
             child: BackAndSearchButton(
-              backAndSearchAction: BackAndSearchAction.GoBack,
-              color: skyType == SkyType.Black ? Colorz.yellow50 : Colorz.white20,
+              backAndSearchAction: BackAndSearchAction.goBack,
+              color: skyType == SkyType.black ? Colorz.yellow50 : Colorz.white20,
             ),
           ),
 

@@ -130,7 +130,7 @@ class _ReviewBubbleState extends State<ReviewBubble> {
       margins: _bubbleMargins,
       corners: _bubbleCorners,
       title: 'Flyer Reviews',
-      leadingIcon: Iconz.BxDesignsOn,
+      leadingIcon: Iconz.bxDesignsOn,
       LeadingAndActionButtonsSizeFactor: 1,
       columnChildren: <Widget>[
 

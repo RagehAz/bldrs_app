@@ -128,8 +128,8 @@ class _StartingScreenState extends State<StartingScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      pyramids: Iconz.PyramidzYellow,
-      appBarType: AppBarType.Non,
+      pyramids: Iconz.pyramidzYellow,
+      appBarType: AppBarType.non,
       loading: _loading,
       // tappingRageh: (){
       //   print('current zone : ${_currentZone.cityID}');
@@ -157,10 +157,10 @@ class _StartingScreenState extends State<StartingScreen> {
               DeviceChecker.deviceIsIOS() ?
               MainButton(
                 buttonVerse: Wordz.continueApple(context),
-                buttonIcon: Iconz.ComApple,
+                buttonIcon: Iconz.comApple,
                 buttonColor: Colorz.black230,
                 buttonVerseShadow: false,
-                function: Routez.Home,
+                function: Routez.home,
 
               )
                   :
@@ -168,7 +168,7 @@ class _StartingScreenState extends State<StartingScreen> {
               DeviceChecker.deviceIsAndroid() ?
               MainButton(
                 buttonVerse: "Continue with Google",
-                buttonIcon: Iconz.ComGooglePlus,
+                buttonIcon: Iconz.comGooglePlus,
                 buttonColor: Colorz.googleRed,
                 buttonVerseShadow: false,
                 function: () => _tapContinueWith(context, AuthBy.google),
@@ -180,7 +180,7 @@ class _StartingScreenState extends State<StartingScreen> {
               /// --- CONTINUE WITH FACEBOOK
               MainButton(
                 buttonVerse: Wordz.continueFacebook(context),
-                buttonIcon: Iconz.ComFacebookWhite,
+                buttonIcon: Iconz.comFacebookWhite,
                 buttonColor: Colorz.facebook,
                 buttonVerseShadow: false,
                 function: () => _tapContinueWith(context, AuthBy.facebook),
@@ -189,7 +189,7 @@ class _StartingScreenState extends State<StartingScreen> {
               /// --- CONTINUE WITH EMAIL
               MainButton(
                 buttonVerse: Wordz.continueEmail(context),
-                buttonIcon: Iconz.ComEmail,
+                buttonIcon: Iconz.comEmail,
                 buttonColor: Colorz.white10,
                 buttonVerseShadow: false,
                 function: () => Nav.goToNewScreen(context, const AuthScreen()),

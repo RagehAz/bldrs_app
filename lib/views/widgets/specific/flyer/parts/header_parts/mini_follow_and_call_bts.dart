@@ -107,7 +107,7 @@ class FollowBT extends StatelessWidget {
     final double followBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
     // === === === === === === === === === === === === === === === === === ===
     /// --- FOLLOW ICON
-    const String followIcon = Iconz.Follow;
+    const String followIcon = Iconz.follow;
     final double followIconHeight = followBTHeight * 0.5;
     final double followIconWidth = followIconHeight;
     final String followText = Wordz.follow(context);
@@ -205,7 +205,7 @@ class CallBT extends StatelessWidget {
     final double _callBTHeight = flyerBoxWidth * Ratioz.xxCallBTHeight;
     final double _callBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
     /// call ICON
-    const String _callIcon = Iconz.ComPhone;
+    const String _callIcon = Iconz.comPhone;
     final double _callIconWidth = flyerBoxWidth * 0.05;
 // -----------------------------------------------------------------------------
     final BorderRadius _corners = Borderers.superFollowOrCallCorners(

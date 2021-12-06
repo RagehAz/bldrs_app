@@ -140,7 +140,7 @@ class DreamBox extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     final Color _imageSaturationColor =
-        blackAndWhite == true ? Colorz.grey225 : Colorz.nothing;
+        blackAndWhite == true ? Colorz.grey255 : Colorz.nothing;
 // -----------------------------------------------------------------------------
 //     double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
 // -----------------------------------------------------------------------------

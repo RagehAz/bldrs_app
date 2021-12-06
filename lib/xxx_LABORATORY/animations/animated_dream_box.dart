@@ -105,7 +105,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
     final double sizeFactor = widget.iconSizeFactor;
 
     final Color imageSaturationColor =
-    widget.blackAndWhite == true ? Colorz.grey225 : Colorz.nothing;
+    widget.blackAndWhite == true ? Colorz.grey255 : Colorz.nothing;
 
     final double verseIconSpacing = widget.verse != null ? boxHeight * 0.3 * widget.iconSizeFactor * widget.verseScaleFactor : 0;
 

@@ -28,9 +28,9 @@ class SlideFullScreen extends StatelessWidget {
 
     return MainLayout(
       pageTitle: 'Create flyers',
-      pyramids: Iconz.PyramidzYellow,
-      appBarType: AppBarType.Non,
-      skyType: SkyType.Black,
+      pyramids: Iconz.pyramidzYellow,
+      appBarType: AppBarType.non,
+      skyType: SkyType.black,
       appBarRowWidgets: const <Widget>[],
       layoutWidget:
 

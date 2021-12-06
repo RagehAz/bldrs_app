@@ -24,7 +24,7 @@ class BzTargetsTab extends StatelessWidget {
       TabModel(
         tabButton: TabButton(
           verse: BzModel.bzPagesTabsTitles[tabIndex],
-          icon: Iconz.Target,
+          icon: Iconz.target,
           isSelected: isSelected,
           onTap: () => onChangeTab(tabIndex),
           iconSizeFactor: 0.7,

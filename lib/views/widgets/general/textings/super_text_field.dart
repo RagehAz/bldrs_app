@@ -239,7 +239,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
       errorBorder: Borderers.superOutlineInputBorder(Colorz.red125, _labelCorner),
       border: Borderers.superOutlineInputBorder(Colorz.linkedIn, _labelCorner),
-      disabledBorder: Borderers.superOutlineInputBorder(Colorz.grey225, _labelCorner),
+      disabledBorder: Borderers.superOutlineInputBorder(Colorz.grey255, _labelCorner),
       counterText: '${widget.textController?.text?.length} / ${widget.maxLength}',
       counter: widget.counterIsOn ? null : const Offstage(),
       counterStyle: superTextStyle(Colorz.white200, 0.7),

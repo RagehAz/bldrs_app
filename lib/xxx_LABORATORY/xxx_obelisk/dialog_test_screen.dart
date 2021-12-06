@@ -31,8 +31,8 @@ class DialogTestScreen extends StatelessWidget {
 
 
     return MainLayout(
-      skyType: SkyType.Black,
-      pyramids: Iconz.DvBlankSVG,
+      skyType: SkyType.black,
+      pyramids: Iconz.dvBlankSVG,
       layoutWidget: GestureDetector(
         onTap: () async {
 
@@ -99,7 +99,7 @@ class DialogTestScreen extends StatelessWidget {
                       return
                         MainButton(
                           buttonVerse: 'Bzz dialog',
-                          buttonIcon: Iconz.Bz,
+                          buttonIcon: Iconz.bz,
                           function: () async {
 
                             /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
@@ -130,7 +130,7 @@ class DialogTestScreen extends StatelessWidget {
                       return
                         MainButton(
                           buttonVerse: 'flyers dialog',
-                          buttonIcon: Iconz.Flyer,
+                          buttonIcon: Iconz.flyer,
                           function: () async {
 
                             /// C - read and filter user bzz for which bzz he's the only author of to be deactivated

@@ -101,7 +101,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
             icon: const DreamBox(
               height: _stripHeight,
               width: _stripHeight,
-              icon: Iconz.ArrowDown,
+              icon: Iconz.arrowDown,
               iconSizeFactor: 0.2,
               bubble: false,
             ),

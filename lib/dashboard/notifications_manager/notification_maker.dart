@@ -104,7 +104,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
   }
 // -----------------------------------------------------------------------------
   NotiPicType _notiPicType = NotiPicType.bldrs;
-  String _notiPic = Iconz.BldrsNameEn;
+  String _notiPic = Iconz.bldrsNameEn;
   void _onBalloonTap(){
     print('on balloon tap');
   }
@@ -333,21 +333,21 @@ class _NotificationMakerState extends State<NotificationMaker> {
                               Row(
                                 children: <Widget>[
 
-                                  dashboardUserButton(
-                                      width: _dialogClearWidth - dashboardUserButton.height() ,
+                                  DashboardUserButton(
+                                      width: _dialogClearWidth - DashboardUserButton.height() ,
                                       userModel: _usersModels[index],
                                       index: index,
                                       onDeleteUser: null
                                   ),
 
                                   Container(
-                                    height: dashboardUserButton.height(),
-                                    width: dashboardUserButton.height(),
+                                    height: DashboardUserButton.height(),
+                                    width: DashboardUserButton.height(),
                                     alignment: Alignment.center,
                                     child: DreamBox(
                                       height: 50,
                                       width: 50,
-                                      icon: Iconz.Check,
+                                      icon: Iconz.check,
                                       iconSizeFactor: 0.5,
                                       iconColor: _userSelected == true ? Colorz.green255 : Colorz.white50,
                                       color: null,
@@ -545,7 +545,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
             padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
             child: SuperVerse(
               verse: '${Timers.stringOnDateMonthYear(context: context, time: DateTime.now())}', /// task : fix timestamp parsing
-              color: Colorz.grey225,
+              color: Colorz.grey255,
               italic: true,
               weight: VerseWeight.thin,
               size: 1,
@@ -701,7 +701,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
           TileBubble(
             verse: 'Send FCM',
             secondLine: 'This sends firebase cloud message to the receiver or to a group of receivers through a channel',
-            icon: Iconz.News,
+            icon: Iconz.news,
             iconSizeFactor: 0.5,
             iconBoxColor: Colorz.grey50,
             switchIsOn: _sendFCMIsOn,
@@ -712,7 +712,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
           TileBubble(
             verse: 'Reciever',
             secondLine: 'Choose who to send this notification to',
-            icon: Iconz.NormalUser,
+            icon: Iconz.normalUser,
             iconSizeFactor: 0.5,
             iconBoxColor: Colorz.grey50,
             btOnTap: _onTapReciever,
@@ -724,7 +724,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                 children: <Widget>[
 
                   if (_selectedUser != null)
-                  dashboardUserButton(
+                  DashboardUserButton(
                     width: TileBubble.childWidth(context),
                     index: 0,
                     userModel: _selectedUser,
@@ -735,7 +735,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                     DreamBox(
                       height: 40,
                       verse: 'Delete ${_selectedUser.name}',
-                      icon: Iconz.XSmall,
+                      icon: Iconz.xSmall,
                       iconSizeFactor: 0.5,
                       onTap: (){
                         setState(() {
@@ -762,7 +762,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
             child: Center(
               child: WideButton(
                 verse: 'Send Notification',
-                icon: Iconz.Share,
+                icon: Iconz.share,
                 onTap: _onSendNotification,
                 color: Colorz.yellow255,
                 isActive: _canSendNotification(sendToMySelf: false),
@@ -778,7 +778,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
               child: WideButton(
                 verse: 'Send To Myself',
                 verseColor: Colorz.black255,
-                icon: Iconz.Share,
+                icon: Iconz.share,
                 onTap: () => _onSendNotification(sendToMyself: true),
                 color: Colorz.yellow255,
                 isActive: _canSendNotification(sendToMySelf: true),

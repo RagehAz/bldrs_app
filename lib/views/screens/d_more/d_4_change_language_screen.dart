@@ -27,10 +27,10 @@ class SelectLanguageScreen extends StatelessWidget {
     final List<MapModel> _languageMaps = Lingo.getLingoNamesMapModels(_languagesModels);
 
     return ListLayout(
-      pyramids: Iconz.PyramidzYellow,
+      pyramids: Iconz.pyramidzYellow,
       pageTitle: Wordz.languageName(context),
       mapModels: _languageMaps,
-      sky: SkyType.Black,
+      sky: SkyType.black,
       onItemTap: (String value) => _tapLanguage(context, value),
     );
 

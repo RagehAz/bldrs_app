@@ -123,11 +123,11 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
     final double _screenWidth = Scale.superScreenWidth(context);
 
     return MainLayout(
-      pyramids: Iconz.PyramidzYellow,
-      appBarType: AppBarType.Basic,
+      pyramids: Iconz.pyramidzYellow,
+      appBarType: AppBarType.basic,
       pageTitle: 'Zones Manager',
       // appBarBackButton: true,
-      skyType: SkyType.Black,
+      skyType: SkyType.black,
       layoutWidget:
 
         Mapper.canLoopList(_countries) == false ?

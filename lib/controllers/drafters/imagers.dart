@@ -247,7 +247,7 @@ enum PicType{
   }) async {
 
     File _file;
-    final String _asset = ObjectChecker.objectIsSVG(localAsset) ? Iconz.BldrsAppIcon : localAsset;
+    final String _asset = ObjectChecker.objectIsSVG(localAsset) ? Iconz.bldrsAppIcon : localAsset;
 
     await tryAndCatch(
         context: context,
@@ -623,7 +623,7 @@ enum PicType{
     return BitmapDescriptor.fromBytes(bytes.buffer.asUint8List());
   }
 // ---------------------------------------------------
-  Future<BitmapDescriptor> getBitmapFromPNG({String pngPic = Iconz.FlyerPinPNG}) async {
+  Future<BitmapDescriptor> getBitmapFromPNG({String pngPic = Iconz.flyerPinPNG}) async {
     final BitmapDescriptor _marker = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty, pngPic);
     return _marker;
   }

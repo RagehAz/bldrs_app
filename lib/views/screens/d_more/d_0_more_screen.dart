@@ -42,11 +42,11 @@ class MoreScreen extends StatelessWidget {
     final String _currentFlag = Flag.getFlagIconByCountryID(_currentCountry.id);
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
+      appBarType: AppBarType.basic,
       // appBarBackButton: true,
-      skyType: SkyType.Black,
+      skyType: SkyType.black,
       pageTitle: 'Options',
-      pyramids: Iconz.PyramidzYellow,
+      pyramids: Iconz.pyramidzYellow,
       layoutWidget: MaxBounceNavigator(
         child: Scroller(
           child: ListView(
@@ -57,7 +57,7 @@ class MoreScreen extends StatelessWidget {
 
               TileBubble(
                 verse: Wordz.createBzAccount(context),
-                icon: Iconz.Bz,
+                icon: Iconz.bz,
                 iconSizeFactor: 0.9,
                 btOnTap: () => Nav.goToNewScreen(context, BzEditorScreen(firstTimer: true, userModel: userModel)),
               ),
@@ -66,7 +66,7 @@ class MoreScreen extends StatelessWidget {
 
               TileBubble(
                 verse: Wordz.inviteFriends(context),
-                icon: DeviceChecker.deviceIsIOS() ? Iconz.ComApple : DeviceChecker.deviceIsAndroid() ? Iconz.ComGooglePlay : Iconz.Share,
+                icon: DeviceChecker.deviceIsIOS() ? Iconz.comApple : DeviceChecker.deviceIsAndroid() ? Iconz.comGooglePlay : Iconz.share,
                 iconBoxColor: Colorz.black230,
                 btOnTap: () async {
                   await Launcher.shareLink(context, LinkModel.bldrsWebSiteLink);
@@ -75,7 +75,7 @@ class MoreScreen extends StatelessWidget {
 
               TileBubble(
                 verse: Wordz.inviteBusinesses(context),
-                icon: Iconz.Bz,
+                icon: Iconz.bz,
                 iconBoxColor: Colorz.black230,
               ),
 
@@ -98,7 +98,7 @@ class MoreScreen extends StatelessWidget {
 
               TileBubble(
                 verse: Wordz.changeLanguage(context),
-                icon: Iconz.Language,
+                icon: Iconz.language,
                 btOnTap: () => Nav.goToNewScreen(context, const SelectLanguageScreen()),
               ),
 
@@ -106,19 +106,19 @@ class MoreScreen extends StatelessWidget {
 
               TileBubble(
                 verse: '${Wordz.about(context)} ${Wordz.bldrsShortName(context)}',
-                icon: Iconz.PyramidSingleYellow,
+                icon: Iconz.pyramidSingleYellow,
                 iconSizeFactor: 0.8,
                 btOnTap: () => Nav.goToNewScreen(context, const AboutBldrsScreen()),
 
               ),
               TileBubble(
                 verse: Wordz.feedback(context),
-                icon: Iconz.UTSearching,
+                icon: Iconz.utSearching,
                 btOnTap: () => Nav.goToNewScreen(context, const FeedBack()),
               ),
               TileBubble(
                 verse: Wordz.termsRegulations(context),
-                icon: Iconz.Terms,
+                icon: Iconz.terms,
               ),
 
               const BubblesSeparator(),
@@ -137,26 +137,26 @@ class MoreScreen extends StatelessWidget {
 
               const TileBubble(
                 verse: 'Open App Tutorial',
-                icon: Iconz.Scholar,
+                icon: Iconz.scholar,
               ),
               TileBubble(
                 verse: Wordz.whatIsFlyer(context),
-                icon: Iconz.Flyer,
+                icon: Iconz.flyer,
               ),
               TileBubble(
                 verse: Wordz.whoAreBldrs(context),
-                icon: Iconz.Bz,
+                icon: Iconz.bz,
               ),
               TileBubble(
                 verse: Wordz.howItWorks(context),
-                icon: Iconz.Gears,
+                icon: Iconz.gears,
               ),
 
               const BubblesSeparator(),
 
               TileBubble(
                 verse: Wordz.signOut(context),
-                icon: Iconz.Exit,
+                icon: Iconz.exit,
                 btOnTap: () => FireAuthOps.signOut(context: context, routeToUserChecker: true),
               ),
 

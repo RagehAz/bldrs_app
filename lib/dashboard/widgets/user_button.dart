@@ -17,14 +17,14 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class dashboardUserButton extends StatelessWidget {
+class DashboardUserButton extends StatelessWidget {
   final double width;
   final UserModel userModel;
   final int index;
   final Function onDeleteUser;
 
 
-  const dashboardUserButton({
+  const DashboardUserButton({
     @required this.width,
     @required this.userModel,
     @required this.index,

@@ -91,11 +91,11 @@ class _FeedBackState extends State<FeedBack> {
   @override
   Widget build(BuildContext context) {
     return MainLayout(
-      pyramids: Iconz.PyramidsYellow,
-      appBarType: AppBarType.Basic,
+      pyramids: Iconz.pyramidsYellow,
+      appBarType: AppBarType.basic,
       // appBarBackButton: true,
       pageTitle: 'About Bldrs.net',
-      skyType: SkyType.Black,
+      skyType: SkyType.black,
       loading: _loading,
       layoutWidget: ListView(
         children: <Widget>[

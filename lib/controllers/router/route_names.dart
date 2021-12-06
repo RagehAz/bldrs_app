@@ -1,60 +1,60 @@
 abstract class Routez {
 
   /// xxx
-  static const String DynamicLinkTest = 'DynamicLinkTest';
+  static const String dynamicLinkTest = 'DynamicLinkTest';
 
 // -----------------------------------------------------------------------------
   /// s00
-  static const String UserChecker = 'UserChecker';
+  static const String userChecker = 'UserChecker';
 // -----------------------------------------------------------------------------
   /// s00
-  static const String Splash = 'SplashScreen';
+  static const String splash = 'SplashScreen';
 // -----------------------------------------------------------------------------
   /// s01
   /// (s02 signin page, s03 register page) are pages insides StartingScreen();
-  static const String Starting = 'StartingScreen';
+  static const String starting = 'StartingScreen';
 // -----------------------------------------------------------------------------
   /// s10
-  static const String Home = 'HomeScreen';
+  static const String home = 'HomeScreen';
 // -----------------------------------------------------------------------------
   /// s12
-  static const String SavedFlyers = 'SavedFlyersScreen';
+  static const String savedFlyers = 'SavedFlyersScreen';
 // -----------------------------------------------------------------------------
   /// s13
-  static const String News = 'NewsScreen';
+  static const String news = 'NewsScreen';
 // -----------------------------------------------------------------------------
   /// s14
-  static const String More = 'MoreScreen';
+  static const String more = 'MoreScreen';
 // -----------------------------------------------------------------------------
   /// s15
-  static const String Profile = 'UserProfileScreen';
+  static const String profile = 'UserProfileScreen';
 // -----------------------------------------------------------------------------
   /// s16
-  static const String ProfileEditor = 'ProfileEditorScreen';
+  static const String profileEditor = 'ProfileEditorScreen';
 // -----------------------------------------------------------------------------
   /// s20
-  static const String Search = 'SearchScreen';
+  static const String search = 'SearchScreen';
 // -----------------------------------------------------------------------------
   /// s40
-  static const String BzEditor = 'BzEditorScreen';
+  static const String bzEditor = 'BzEditorScreen';
 // -----------------------------------------------------------------------------
   /// s41
-  static const String MyBz = 'MyBzScreen';
+  static const String myBz = 'MyBzScreen';
 // -----------------------------------------------------------------------------
   /// s42
-  static const String EditBz = 'EditBzScreen';
+  static const String editBz = 'EditBzScreen';
 // -----------------------------------------------------------------------------
   /// s50
-  static const String FlyerEditor = 'FlyerEditorScreen';
+  static const String flyerEditor = 'FlyerEditorScreen';
 // -----------------------------------------------------------------------------
   /// s51
-  static const String FlyerScreen = 'FlyerFullScreen';
+  static const String flyerScreen = 'FlyerFullScreen';
 // -----------------------------------------------------------------------------
 
 // --- XXX GENERAL SCREENS
   /// xxx
-  static const String RagehDashBoard = 'RagehDashBoardScreen';
+  static const String ragehDashBoard = 'RagehDashBoardScreen';
   /// xxx
-  static const String Obelisk = 'ObeliskScreen';
+  static const String obelisk = 'ObeliskScreen';
 
 }

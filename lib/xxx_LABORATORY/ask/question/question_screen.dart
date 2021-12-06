@@ -19,8 +19,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
   @override
   Widget build(BuildContext context) {
     return MainLayout(
-      pyramids: Iconz.PyramidzYellow,
-      appBarType: AppBarType.Basic,
+      pyramids: Iconz.pyramidzYellow,
+      appBarType: AppBarType.basic,
       pageTitle: 'Ask a Question',
       // onBack: true,
       layoutWidget: ListView(

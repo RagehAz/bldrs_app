@@ -103,7 +103,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
         DreamBox(
           height: _buttonHeight,
           width: BottomDialog.dialogClearWidth(context),
-          icon: Iconz.XSmall,
+          icon: Iconz.xSmall,
           iconSizeFactor: 0.5,
           iconColor: Colorz.black230,
           verse: 'delete flyer',
@@ -118,7 +118,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
         DreamBox(
             height: _buttonHeight,
             width: BottomDialog.dialogClearWidth(context),
-            icon: Iconz.XSmall,
+            icon: Iconz.xSmall,
             iconSizeFactor: 0.5,
             iconColor: Colorz.red255,
             verse: 'Re-publish flyer',
@@ -133,7 +133,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
         DreamBox(
           height: _buttonHeight,
           width: BottomDialog.dialogClearWidth(context),
-          icon: Iconz.Gears,
+          icon: Iconz.gears,
           iconSizeFactor: 0.5,
           verse: 'Edit flyer',
           verseScaleFactor: 1.2,
@@ -193,9 +193,9 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     print(_ids);
 
     return MainLayout(
-      skyType: SkyType.Black,
-      pyramids: Iconz.PyramidzYellow,
-      appBarType: AppBarType.Basic,
+      skyType: SkyType.black,
+      pyramids: Iconz.pyramidzYellow,
+      appBarType: AppBarType.basic,
       // appBarBackButton: true,
       pageTitle: 'Old Flyers',
       loading: _loading,

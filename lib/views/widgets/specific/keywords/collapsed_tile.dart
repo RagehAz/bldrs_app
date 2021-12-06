@@ -60,7 +60,7 @@ class CollapsedTile extends StatelessWidget {
         height: _arrowBoxSize,
         width: _arrowBoxSize,
         bubble: false,
-        icon: arrowDown ? Iconz.ArrowDown : Iconz.ArrowUp,
+        icon: arrowDown ? Iconz.arrowDown : Iconz.arrowUp,
         iconSizeFactor: 0.2,
         iconColor: arrowColor ?? Colorz.white255,
       );

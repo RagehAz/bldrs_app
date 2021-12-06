@@ -18,7 +18,7 @@ class SecondNotiTestScreen extends StatelessWidget {
     // log(thing);
 
     return MainLayout(
-      pyramids: Iconz.PyramidsWhite,
+      pyramids: Iconz.pyramidsWhite,
       layoutWidget: Column(
         children: <Widget>[
 

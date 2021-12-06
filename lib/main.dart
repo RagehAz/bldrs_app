@@ -247,12 +247,12 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
                   return supportedLocales.first;
                 },
                 onGenerateRoute: Routerer.allRoutes,
-                initialRoute: Routez.UserChecker,
+                initialRoute: Routez.userChecker,
                 routes: <String, Widget Function(BuildContext)>{
-                  Routez.FlyerScreen: (BuildContext ctx) => const FlyerScreen(),
+                  Routez.flyerScreen: (BuildContext ctx) => const FlyerScreen(),
                   // Routez.Starting: (ctx) => StartingScreen(),
-                  Routez.UserChecker: (BuildContext ctx) => UserChecker(key: const ValueKey<String>('userChecker'),),
-                  Routez.Home: (BuildContext ctx) => HomeScreen(notiIsOn: _notiIsOn,),
+                  Routez.userChecker: (BuildContext ctx) => UserChecker(key: const ValueKey<String>('userChecker'),),
+                  Routez.home: (BuildContext ctx) => HomeScreen(notiIsOn: _notiIsOn,),
                   // Routez.InPyramids: (ctx) => InPyramidsScreen(),
                 },
               );

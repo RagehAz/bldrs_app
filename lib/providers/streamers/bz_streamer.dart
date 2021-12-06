@@ -6,7 +6,7 @@ import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-typedef bzModelWidgetBuilder = Widget Function(
+typedef BzModelWidgetBuilder = Widget Function(
     BuildContext context,
     BzModel bzModel,
     );
@@ -14,7 +14,7 @@ typedef bzModelWidgetBuilder = Widget Function(
 Widget bzModelStreamBuilder({
   String bzID,
   BuildContext context,
-  bzModelWidgetBuilder builder,
+  BzModelWidgetBuilder builder,
 }){
 
   return
@@ -45,7 +45,7 @@ Widget bzModelStreamBuilder({
 Widget bzModelBuilder({
   String bzID,
   BuildContext context,
-  bzModelWidgetBuilder builder,
+  BzModelWidgetBuilder builder,
 }){
 
   return FutureBuilder<Map<String, dynamic>>(

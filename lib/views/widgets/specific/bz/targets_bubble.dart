@@ -54,7 +54,7 @@ class TargetsBubble extends StatelessWidget {
 
     return Bubble(
       title: 'Targets',
-      leadingIcon: Iconz.Achievement,
+      leadingIcon: Iconz.achievement,
 
       columnChildren: <Widget>[
 
@@ -173,7 +173,7 @@ class TargetsBubble extends StatelessWidget {
                                         /// SLIDES
                                         DreamBox(
                                           height: _iconsHeight,
-                                          icon: Iconz.Flyer,
+                                          icon: Iconz.flyer,
                                           verse: '${_target.reward.slides} Slides',
                                           iconSizeFactor: 0.75,
                                           verseScaleFactor: 0.55,
@@ -184,7 +184,7 @@ class TargetsBubble extends StatelessWidget {
                                         /// ANKHS
                                         DreamBox(
                                           height: _iconsHeight,
-                                          icon: Iconz.Save,
+                                          icon: Iconz.save,
                                           verse: '${_target.reward.ankh} Ankhs',
                                           iconSizeFactor: 0.75,
                                           verseScaleFactor: 0.55,
@@ -226,7 +226,7 @@ class TargetsBubble extends StatelessWidget {
                               margin: 2,
                               weight: VerseWeight.thin,
                               italic: true,
-                              color: Colorz.blue225,
+                              color: Colorz.blue255,
                             );
 
                         }),

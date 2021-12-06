@@ -59,9 +59,9 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return MainLayout(
-      pyramids: Iconz.PyramidzYellow,
-      skyType: SkyType.Black,
-      appBarType: AppBarType.Non,
+      pyramids: Iconz.pyramidzYellow,
+      skyType: SkyType.black,
+      appBarType: AppBarType.non,
       layoutWidget: Stack(
         children: <Widget>[
 

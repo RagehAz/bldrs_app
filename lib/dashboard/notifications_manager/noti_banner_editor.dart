@@ -45,7 +45,7 @@ class NotiBannerEditor extends StatelessWidget {
               child: DreamBox(
                 height: Ratioz.appBarButtonSize,
                 width: Ratioz.appBarButtonSize,
-                icon: Iconz.XLarge,
+                icon: Iconz.xLarge,
                 iconSizeFactor: 0.5,
                 color: Colorz.black255,
                 margins: const EdgeInsets.all(Ratioz.appBarPadding),

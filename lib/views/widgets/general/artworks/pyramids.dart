@@ -65,7 +65,7 @@ static const int _fadeCycleDuration = 750;
 
           /// TASK : REMOVE THIS ON RELEASE
           onLongPress: () {
-            Navigator.pushNamed(context, Routez.Obelisk);
+            Navigator.pushNamed(context, Routez.obelisk);
           },
 
           // onTap: widget.pyramidsIcon == Iconz.PyramidsYellow ? () {

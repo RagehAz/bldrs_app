@@ -21,7 +21,7 @@ class Continents extends StatelessWidget {
           alignment: Alignment.center,
           children: <Widget>[
 
-            const Sky(skyType: SkyType.Black,),
+            const Sky(skyType: SkyType.black,),
 
             Container(
               width: screenWidth,
@@ -34,7 +34,7 @@ class Continents extends StatelessWidget {
             // ABMain(),
 
             const Pyramids(
-              pyramidsIcon: Iconz.PyramidzYellow,
+              pyramidsIcon: Iconz.pyramidzYellow,
               loading: true,
             ),
 

@@ -126,7 +126,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
   Widget build(BuildContext context) {
 
     return SwiperLayoutScreen(
-      sky: SkyType.Black,
+      sky: SkyType.black,
       swiperPages:
       Mapper.canLoopList(_allContinents) ?
       _generatePages()

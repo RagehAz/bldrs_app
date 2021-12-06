@@ -255,8 +255,8 @@ import 'package:sembast/utils/value_utils.dart';
   Map<String, dynamic> insertPairInMap({@required Map<String,dynamic> map, @required String key, @required dynamic value}){
     map.putIfAbsent(key, () => value);
 
-    Map<String, dynamic> _result = <String, dynamic>{};
-    _result.addAll(map);
+    Map<String, dynamic> _result = <String, dynamic>{}
+    ..addAll(map);
 
     return _result;
   }

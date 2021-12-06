@@ -44,7 +44,7 @@ class PublishButton extends StatelessWidget {
         verseColor: loading ? Colorz.white255 : Colorz.black230,
         verseScaleFactor: 0.9,
         color: loading ? Colorz.yellow125 : Colorz.yellow255,
-        icon: loading ? null : Iconz.AddFlyer,
+        icon: loading ? null : Iconz.addFlyer,
         bubble: !loading,
         iconSizeFactor: 0.6,
         onTap: onTap,

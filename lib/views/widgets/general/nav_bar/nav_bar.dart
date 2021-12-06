@@ -46,7 +46,7 @@ class NavBar extends StatelessWidget {
 
   NavBar({
     this.barType = _standardBarType,
-    this.sky = SkyType.Night,
+    this.sky = SkyType.night,
     // this.myBzz,
     Key key
 }) : super (key: key);
@@ -313,7 +313,7 @@ class NavBar extends StatelessWidget {
                 DreamBox(
                   height: _circleWidth,
                   width: _circleWidth,
-                  color: sky == SkyType.Black ? Colorz.yellow50 : Colorz.white20,
+                  color: sky == SkyType.black ? Colorz.yellow50 : Colorz.white20,
                   corners: _buttonCircleCorner,
                   margins: const EdgeInsets.all(Ratioz.appBarPadding),
                   icon: Iconizer.superBackIcon(context),
@@ -353,10 +353,10 @@ class NavBar extends StatelessWidget {
                         BarButton(
                           width: navBarButtonWidth,
                           text: 'Choices',
-                          icon: Iconz.SaveOn,
+                          icon: Iconz.saveOn,
                           iconSizeFactor: 0.7,
                           barType: barType,
-                          onTap: () => Nav.goToRoute(context, Routez.SavedFlyers),
+                          onTap: () => Nav.goToRoute(context, Routez.savedFlyers),
                         ),
 
 
@@ -366,7 +366,7 @@ class NavBar extends StatelessWidget {
                         BarButton(
                           width: navBarButtonWidth,
                           text: Wordz.more(context),
-                          icon: Iconz.More,
+                          icon: Iconz.more,
                           iconSizeFactor: 0.45,
                           barType: barType,
                           onTap: (){
@@ -406,7 +406,7 @@ class NavBar extends StatelessWidget {
                         BarButton(
                           width: navBarButtonWidth,
                           text: Wordz.news(context),
-                          icon: Iconz.News,
+                          icon: Iconz.news,
                           iconSizeFactor: 0.45,
                           barType: barType,
                           onTap: () {
@@ -420,7 +420,7 @@ class NavBar extends StatelessWidget {
                         BarButton(
                             width: navBarButtonWidth,
                             text: Wordz.profile(context),
-                            icon: Iconz.NormalUser,
+                            icon: Iconz.normalUser,
                             iconSizeFactor: 0.7,
                             barType: barType,
                             onTap: () => Nav.goToNewScreen(context, UserProfileScreen(userModel: _myUserModel,)),
