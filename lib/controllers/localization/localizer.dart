@@ -132,7 +132,7 @@ class Localizer{
 // -----------------------------------------------------------------------------
   static List<Locale> getSupportedLocales(){
 
-    List<Locale> _supportedLocales = <Locale>[
+    final List<Locale> _supportedLocales = <Locale>[
       const Locale('en', 'US'),
       const Locale('ar', 'EG'),
       const Locale('es', 'ES'),
@@ -147,7 +147,7 @@ class Localizer{
   }
 // -----------------------------------------------------------------------------
   static List<LocalizationsDelegate> getLocalizationDelegates(){
-    List<LocalizationsDelegate> _localizationDelegates = <LocalizationsDelegate>[
+    final List<LocalizationsDelegate> _localizationDelegates = <LocalizationsDelegate>[
       Localizer.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
@@ -162,7 +162,7 @@ class Localizer{
     String _jsonStringValues;
     String _output;
 
-    bool _result = await tryCatchAndReturn(
+    final bool _result = await tryCatchAndReturn(
       context: context,
       methodName: 'getCountryNameByLingo',
       functions: () async {
@@ -199,7 +199,7 @@ class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {
 
   @override
   Future<Localizer> load(Locale locale) async{
-    Localizer localization = new Localizer(locale);
+    final Localizer localization = new Localizer(locale);
     await localization.load();
     return localization;
   }

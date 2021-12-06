@@ -26,7 +26,7 @@ import 'package:provider/provider.dart';
 
     List<UserModel> _allUserModels = <UserModel>[];
 
-    List<dynamic> _ldbUsers = await LDBOps.readAllMaps(
+    final List<dynamic> _ldbUsers = await LDBOps.readAllMaps(
       docName: LDBDoc.users,
     );
 
@@ -43,7 +43,7 @@ import 'package:provider/provider.dart';
         fromJSON: false,
       );
 
-      for (UserModel user in _allUserModels){
+      for (final UserModel user in _allUserModels){
 
         await LDBOps.insertMap(
           docName: LDBDoc.users,
@@ -137,13 +137,13 @@ import 'package:provider/provider.dart';
 
     final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-    List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
+    final List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
 
-    List<CountryModel> _countries = <CountryModel>[];
+    final List<CountryModel> _countries = <CountryModel>[];
 
-    for (String id in _allCountriesIDs){
+    for (final String id in _allCountriesIDs){
 
-      CountryModel _country = await zoneProvider.fetchCountryByID(context: context, countryID: id);
+      final CountryModel _country = await zoneProvider.fetchCountryByID(context: context, countryID: id);
 
       if (_country != null){
         _countries.add(_country);
@@ -161,7 +161,7 @@ import 'package:provider/provider.dart';
 
     final List<Continent> _continents = <Continent>[];
 
-    for (CountryModel country in _allCountries){
+    for (final CountryModel country in _allCountries){
 
       /// add continent
       final bool _continentIsAddedAlready = Continent.continentsIncludeContinent(
@@ -207,7 +207,7 @@ import 'package:provider/provider.dart';
 
     }
 
-    Map<String, dynamic> _contMaps = Continent.cipherContinents(_continents);
+    final Map<String, dynamic> _contMaps = Continent.cipherContinents(_continents);
 
     await Fire.createNamedDoc(
       context: context,
@@ -246,7 +246,7 @@ import 'package:provider/provider.dart';
       orderBy: 'id',
     );
 
-    for (Map<String, dynamic> map in _maps){
+    for (final Map<String, dynamic> map in _maps){
 
       await Fire.updateDocField(
           context: context,
@@ -307,11 +307,11 @@ import 'package:provider/provider.dart';
 
     Map<String, dynamic> _keywordsMap = <String, dynamic>{};
 
-    List<KW> _allKeywords = KW.getKeywordsFromChain(chain);
+    final List<KW> _allKeywords = KW.getKeywordsFromChain(chain);
 
     // int numberOfKeyword = 0;
 
-    for (KW keyword in _allKeywords){
+    for (final KW keyword in _allKeywords){
 
       // numberOfKeyword++;
 

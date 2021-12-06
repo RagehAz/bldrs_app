@@ -22,7 +22,7 @@ class SelectKeywordsScreen extends StatefulWidget {
 }
 
 class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
-  List<KW> _selectedKeywords = <KW>[];
+  final List<KW> _selectedKeywords = <KW>[];
   // List<Chain> _chains;
   // CountryProvider _countryPro;
 // -----------------------------------------------------------------------------

@@ -280,7 +280,7 @@ import 'package:flutter/material.dart';
     /// to return maps
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    for (QueryDocumentSnapshot<Object> docSnapshot in _docsSnapshots){
+    for (final QueryDocumentSnapshot<Object> docSnapshot in _docsSnapshots){
 
       Map<String, dynamic> _map = docSnapshot.data();
 
@@ -810,7 +810,7 @@ import 'package:flutter/material.dart';
     //     functions: () async {
 
     // Remove field from the document
-    final Map<String, Object> updates = new Map<String, Object>();
+    final Map<String, Object> updates = <String, Object>{};
 
     updates.addAll(<String, dynamic>{
       field : FieldValue.delete(),
@@ -845,7 +845,7 @@ import 'package:flutter/material.dart';
         functions: () async {
 
           // Remove field from the document
-          final Map<String, Object> updates = new Map<String, Object>();
+          final Map<String, Object> updates = <String, Object>{};
 
           updates.addAll(<String, dynamic>{
             field : FieldValue.delete(),

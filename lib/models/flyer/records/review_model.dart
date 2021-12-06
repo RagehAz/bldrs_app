@@ -47,7 +47,7 @@ class ReviewModel {
 
     if (Mapper.canLoopList(maps)){
 
-      for (Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps){
         _reviews.add(decipherReview(
           map: map,
           fromJSON: fromJSON,

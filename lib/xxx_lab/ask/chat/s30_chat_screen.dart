@@ -36,7 +36,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final String _currentUserID = FireAuthOps.superUserID();
-  TextEditingController _msgController = new TextEditingController();
+  final TextEditingController _msgController = new TextEditingController();
   // List<MessageModel> _messages;
 
   bool _userSeen;

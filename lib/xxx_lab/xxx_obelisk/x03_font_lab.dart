@@ -27,7 +27,7 @@ class FontLab extends StatefulWidget {
 }
 
 class _FontLabState extends State<FontLab> {
-  TextEditingController _textController = new TextEditingController();
+  final TextEditingController _textController = TextEditingController();
 
 
   @override
@@ -38,8 +38,8 @@ class _FontLabState extends State<FontLab> {
 
   Widget _superVerse(int size){
 
-    String _pixelsAsString = '${SuperVerse.superVerseSizeValue(context, size, 1)}';
-    String _pixels = TextMod.removeTextAfterFirstSpecialCharacter(_pixelsAsString, '.');
+    final String _pixelsAsString = '${SuperVerse.superVerseSizeValue(context, size, 1)}';
+    final String _pixels = TextMod.removeTextAfterFirstSpecialCharacter(_pixelsAsString, '.');
 
     return
       SuperVerse(
@@ -109,14 +109,14 @@ class _FontLabState extends State<FontLab> {
                   _superVerse(8),
 
 
-                  // --- BEGINNING OF SCROLLABLE SCREEN
+                  /// --- BEGINNING OF SCROLLABLE SCREEN
                   Container(
                     height: Ratioz.pyramidsHeight * 2,
                     width: _screenWidth,
                   ),
 
-                  // --- FONT CHARACTERS TEST
-                  SuperVerse(
+                  /// --- FONT CHARACTERS TEST
+                  const SuperVerse(
                     verse: 'Text test\n'
                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ.\n'
                         'abcdefghijklmnopqrstuvwxyz\n'
@@ -135,14 +135,14 @@ class _FontLabState extends State<FontLab> {
                     maxLines: 100,
                 ),
 
-                  // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
+                  /// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                   Container(
                     width: _screenWidth,
                     height: _screenHeight * 0.02,
                     color: Colorz.black230,
                   ),
 
-                  // --- VERSE HEIGHT REVERSE ENGINEERING
+                  /// --- VERSE HEIGHT REVERSE ENGINEERING
                   Stack(
                     children: <Widget>[
                       // --- BACKGROUND REVERSE ENGINEERING BOX TO MEASURE FONT HEIGHT FACTOR
@@ -152,8 +152,8 @@ class _FontLabState extends State<FontLab> {
                         color: Colorz.white255,
                       ),
 
-                      Center(
-                        child: SuperVerse(
+                      const Center(
+                        child: const SuperVerse(
                           verse: '| أختبر أنا العبد لله هذا الفونط و إنه لشيء عظيمٌ جدا Ohh baby',
                           size: 4,
                           color: Colorz.green255,
@@ -164,14 +164,14 @@ class _FontLabState extends State<FontLab> {
                     ],
                   ),
 
-                  // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
+                  /// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                   Container(
                     height: 10,
                     width: _screenWidth,
                     color: Colorz.black230,
                   ),
 
-                  // --- FONT SIZE TEST
+                  /// --- FONT SIZE TEST
                   Column(
                     children: <Widget>[
                       SuperVerse(
@@ -223,16 +223,16 @@ class _FontLabState extends State<FontLab> {
                     ],
                   ),
 
-                  // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
+                  /// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                   Container(
                     height: 10,
                     width: _screenWidth,
                     color: Colorz.black230,
                   ),
 
-                  // --- PARAGRAPH TEST
+                  /// --- PARAGRAPH TEST
                   Column(
-                    children: <Widget>[
+                    children: const <Widget>[
                       SuperVerse(
                         verse: 'عنوان المقال',
                         size: 5,
@@ -257,9 +257,9 @@ class _FontLabState extends State<FontLab> {
                     color: Colorz.black230,
                   ),
 
-                  // --- FONT WEIGHT TEST
+                  /// --- FONT WEIGHT TEST
                   Column(
-                    children: <Widget>[
+                    children: const <Widget>[
                       SuperVerse(
                         verse: 'black : ABC | أبح | лгзб |πωσαχδ | ',
                         weight: VerseWeight.black,
@@ -292,9 +292,9 @@ class _FontLabState extends State<FontLab> {
                     color: Colorz.black230,
                   ),
 
-                  // --- SHADOW TEST
+                  /// --- SHADOW TEST
                   Column(
-                    children: <Widget>[
+                    children: const <Widget>[
 
                       SuperVerse(
                         verse: shadowTestVerse, shadow: true,
@@ -467,19 +467,19 @@ class _FontLabState extends State<FontLab> {
                   ),
 
 
-                  SuperVerse(
+                  const SuperVerse(
                     verse: 'SuperVerse.dart',
                     size: 5,
                   ),
 
-                  SuperVerse(
+                  const SuperVerse(
                     verse: 'SuperVerse Label',
                     labelColor: Colorz.yellow255,
                     color: Colorz.black80,
                     size: 6,
                   ),
 
-                  SuperVerse(
+                  const SuperVerse(
                     verse: 'SuperVerse paragraph \n This is a new Line,'
                         ' and continues to exceed screen width to '
                         'automatically wrap when maxLines is '
@@ -556,9 +556,8 @@ class _FontLabState extends State<FontLab> {
                         ),
                   ),
                   // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- NOTHING GOES BEYOND THIS FUCKING LINE
-                  // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- NOTHING GOES BEYOND THIS FUCKING LINE
-                  // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- NOTHING GOES BEYOND THIS FUCKING LINE
-                  // --- END OF SCROLLABLE SCREEN
+
+                  /// --- END OF SCROLLABLE SCREEN
                   Container(
                     height: Ratioz.pyramidsHeight * 3,
                     width: _screenWidth,
@@ -594,20 +593,20 @@ class _FontLabState extends State<FontLab> {
 
             Rageh(
               tappingRageh:
-                Wordz.activeLanguage(context) == Lingo.arabicLingo.code ?
-                    () async {
-                Locale temp = await Localizer.setLocale(Lingo.englishLingo.code);
+              Wordz.activeLanguage(context) == Lingo.arabicLingo.code ?
+                  () async {
+                final Locale temp = await Localizer.setLocale(Lingo.englishLingo.code);
                 BldrsApp.setLocale(context, temp);
               }
               :
                   () async {
-                Locale temp = await Localizer.setLocale(Lingo.arabicLingo.code);
+                final Locale temp = await Localizer.setLocale(Lingo.arabicLingo.code);
                 BldrsApp.setLocale(context, temp);
-              },
+                },
 
               doubleTappingRageh: (){
                 print(_screenHeight * 0.022 * 1.48);
-              },
+                },
             ),
 
           ],

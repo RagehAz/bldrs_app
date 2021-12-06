@@ -29,7 +29,7 @@ class MoreScreen extends StatelessWidget {
   // final AuthOps _authOps = AuthOps();
   final UserModel userModel;
 
-  MoreScreen({
+  const MoreScreen({
     @required this.userModel,
     Key key,
   }) : super(key: key);

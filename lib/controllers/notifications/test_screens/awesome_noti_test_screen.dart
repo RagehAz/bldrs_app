@@ -70,10 +70,10 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     super.didChangeDependencies();
     if (_isInit) {
       _triggerLoading().then((_) async {
-        bool _isAllowed = await _awesomeNotification.isNotificationAllowed();
+        final bool _isAllowed = await _awesomeNotification.isNotificationAllowed();
 
         if (_isAllowed == false) {
-          bool _result = await CenterDialog.showCenterDialog(
+          final bool _result = await CenterDialog.showCenterDialog(
             context: context,
             title: 'Allow notifications',
             body: 'To be able to know what is going on',
@@ -135,12 +135,12 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
       _awesomeNotification.actionStream.listen((ReceivedAction notification) async {
 
-        bool _isBasicChannel = notification.channelKey == NotiOps.getNotiChannelName(NotiChannel.basic);
-        bool _isIOS = DeviceChecker.deviceIsIOS();
+        final bool _isBasicChannel = notification.channelKey == NotiOps.getNotiChannelName(NotiChannel.basic);
+        final bool _isIOS = DeviceChecker.deviceIsIOS();
 
         if (_isBasicChannel && _isIOS){
 
-          int _x = await _awesomeNotification.getGlobalBadgeCounter();
+          final int _x = await _awesomeNotification.getGlobalBadgeCounter();
 
           await _awesomeNotification.setGlobalBadgeCounter(_x - 1);
 
@@ -201,7 +201,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   Future<void> _multiFlickerPyramids() async {
     await _flickerPyramids();
 
-    String _audio = Audioz.randomBldrsNameSoundPath();
+    final String _audio = Audioz.randomBldrsNameSoundPath();
     print(_audio);
 
   }

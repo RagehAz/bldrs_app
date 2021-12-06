@@ -32,7 +32,7 @@ class BzzManagerScreen extends StatefulWidget {
 }
 
 class _BzzManagerScreenState extends State<BzzManagerScreen> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   ZoneProvider _zoneProvider;
   // CountryModel _bzCountry;
   // CityModel _bzCity;
@@ -86,7 +86,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   }
 // -----------------------------------------------------------------------------
   QueryDocumentSnapshot<Object> _lastSnapshot;
-  List<BzModel> _bzzModels = <BzModel>[];
+  final List<BzModel> _bzzModels = <BzModel>[];
   Future<dynamic> _readMoreBzz() async {
 
     final List<dynamic> _bzzMaps = await Fire.readCollectionDocs(
@@ -133,7 +133,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     /// A - when field has value
     else {
 
-      for (BzModel tinyBz in _bzzModels){
+      for (final BzModel tinyBz in _bzzModels){
 
         final bool _matchFound = TextChecker.stringContainsSubString(
           caseSensitive: false,
@@ -141,7 +141,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
           subString: TextMod.lowerCase(val),
         );
 
-        final bool _alreadyInList = BzModel.BzzContainThisBz(
+        final bool _alreadyInList = BzModel.bzzContainThisBz(
           bzz: _searchedBzz,
           bzModel: tinyBz,
         ) == true;

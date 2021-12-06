@@ -336,7 +336,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
-            SuperVerse(
+            const SuperVerse(
               verse: 'Attach images to your Question',
               color: Colorz.white10,
               weight: VerseWeight.thin,

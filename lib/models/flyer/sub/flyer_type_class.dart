@@ -15,7 +15,7 @@ enum FlyerType {
 // -----------------------------------------------------------------------------
   FlyerType getFlyerTypeBySection({SectionClass.Section section}){
 
-    FlyerType _flyersTypes =
+    final FlyerType _flyersTypes =
     section == SectionClass.Section.properties ? FlyerType.property :
     section == SectionClass.Section.designs ? FlyerType.design :
     section == SectionClass.Section.projects ? FlyerType.project :

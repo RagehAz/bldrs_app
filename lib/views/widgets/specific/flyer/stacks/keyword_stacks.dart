@@ -14,7 +14,7 @@ class FlyerCoversStack extends StatelessWidget {
   final List<FlyerModel> flyersDataList;
   final String collectionTitle;
 
-  FlyerCoversStack({
+  const FlyerCoversStack({
     @required this.flyersDataList,
     @required this.collectionTitle,
     Key key,

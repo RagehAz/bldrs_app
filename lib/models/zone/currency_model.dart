@@ -52,7 +52,7 @@ class CurrencyModel {
 
     if (Mapper.canLoopList(currencies)){
 
-      for (CurrencyModel currency in currencies){
+      for (final CurrencyModel currency in currencies){
 
         _map = Mapper.insertPairInMap(
             map: _map,
@@ -89,12 +89,12 @@ class CurrencyModel {
 // -----------------------------------------------------------------------------
   static List<CurrencyModel> decipherCurrencies(Map<String, dynamic> map){
 
-    List<CurrencyModel> _currencies = <CurrencyModel>[];
+    final List<CurrencyModel> _currencies = <CurrencyModel>[];
 
-    List<String> _keys = map.keys.toList();
+    final List<String> _keys = map.keys.toList();
 
     if (Mapper.canLoopList(_keys)){
-      for (String key in _keys){
+      for (final String key in _keys){
         final CurrencyModel _currency = decipherCurrency(map[key]);
         _currencies.add(_currency);
       }
@@ -109,7 +109,7 @@ class CurrencyModel {
 
     if (Mapper.canLoopList(currencies) && currencyCode != null){
 
-      for (CurrencyModel currency in currencies){
+      for (final CurrencyModel currency in currencies){
 
         if (currency.code == currencyCode){
           _contains = true;

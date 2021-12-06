@@ -53,7 +53,7 @@ class BldrsApp extends StatefulWidget {
   }) : super(key: key);
 
   static void setLocale(BuildContext context, Locale locale) {
-    _BldrsAppState state = context.findAncestorStateOfType<_BldrsAppState>();
+    final _BldrsAppState state = context.findAncestorStateOfType<_BldrsAppState>();
     state._setLocale(locale);
   }
 
@@ -104,9 +104,9 @@ class _BldrsAppState extends State<BldrsApp> {
     super.didChangeDependencies();
   }
 // ---------------------------------------------------------------------------
-  ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null);
-  List<Locale> _supportedLocales = Localizer.getSupportedLocales();
-  List<LocalizationsDelegate> _localizationDelegates = Localizer.getLocalizationDelegates();
+  final ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null);
+  final List<Locale> _supportedLocales = Localizer.getSupportedLocales();
+  final List<LocalizationsDelegate> _localizationDelegates = Localizer.getLocalizationDelegates();
   void _setLocale(Locale locale) {
     // setState(() {
       _locale.value = locale;
@@ -139,7 +139,7 @@ class _BldrsAppState extends State<BldrsApp> {
 Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
   print('receiveAndActUponNoti : notiType : $notiType');
 
-  NotiModel _noti = await NotiOps.receiveAndActUponNoti(
+  final NotiModel _noti = await NotiOps.receiveAndActUponNoti(
     context: context,
     notiType: notiType,
     msgMap: msgMap,
@@ -168,7 +168,7 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
     else {
       /// Show error message if initialization failed
       if (_error) {
-        print("Error has occurred");
+        print('Error has occurred');
       }
       /// Show a loader until FlutterFire is initialized
       if (!_initialized) {
@@ -238,7 +238,7 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
                 supportedLocales: _supportedLocales,
                 localizationsDelegates: _localizationDelegates,
                 localeResolutionCallback: (Locale deviceLocale, Iterable<Locale> supportedLocales) {
-                  for (Locale locale in supportedLocales) {
+                  for (final Locale locale in supportedLocales) {
                     if (locale.languageCode == deviceLocale.languageCode &&
                         locale.countryCode == deviceLocale.countryCode) {
                       return deviceLocale;
@@ -251,7 +251,7 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
                 routes: <String, Widget Function(BuildContext)>{
                   Routez.flyerScreen: (BuildContext ctx) => const FlyerScreen(),
                   // Routez.Starting: (ctx) => StartingScreen(),
-                  Routez.userChecker: (BuildContext ctx) => UserChecker(key: const ValueKey<String>('userChecker'),),
+                  Routez.userChecker: (BuildContext ctx) => const UserChecker(key: const ValueKey<String>('userChecker'),),
                   Routez.home: (BuildContext ctx) => HomeScreen(notiIsOn: _notiIsOn,),
                   // Routez.InPyramids: (ctx) => InPyramidsScreen(),
                 },

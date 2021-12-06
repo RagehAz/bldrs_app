@@ -6,7 +6,7 @@ class ClipShadowPath extends StatelessWidget {
   final CustomClipper<Path> clipper;
   final Widget child;
 
-  ClipShadowPath({
+  const ClipShadowPath({
     @required this.shadow,
     @required this.clipper,
     @required this.child,

@@ -205,7 +205,10 @@ import 'package:flutter/material.dart';
     }
 
     else {
-      throw 'superBorder corners is invalid';
+
+      final Error _error = ArgumentError('superBorder corners is invalid', 'superBorder');
+
+      throw _error;
     }
 
     return _corner;

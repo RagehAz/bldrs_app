@@ -37,10 +37,10 @@ class BldrsChain extends StatelessWidget {
             if(Mapper.canLoopList(_allChains.sons))
             ...List<Widget>.generate(_allChains.sons.length, (int index){
 
-                  dynamic son = _allChains.sons[index];
+                  final dynamic _son = _allChains.sons[index];
 
                   return Inception(
-                    son: son,
+                    son: _son,
                     boxWidth: _boxWidth,
                     onKeywordTap: onKeywordTap,
                     selectedKeywordsIDs: selectedKeywordsIDs,
@@ -58,10 +58,10 @@ class BldrsChain extends StatelessWidget {
       //   itemExtent: Inception.buttonHeight + Ratioz.appBarMargin,
       //   itemBuilder: (BuildContext ctx, int index){
       //
-      //     dynamic son = _allChains.sons[index];
+      //     dynamic _son = _allChains.sons[index];
       //
       //     return Inception(
-      //       son: son,
+      //       _son: _son,
       //       level: 0,
       //       boxWidth: _boxWidth,
       //     );

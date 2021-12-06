@@ -91,7 +91,7 @@ class DynamicLinksApi {
 
         onError: (OnLinkErrorException error) async {
 
-          print(error.message.toString());
+          print(error.message);
 
           await CenterDialog.showCenterDialog(
             context: context,
@@ -117,11 +117,8 @@ class DynamicLinksApi {
 
     int _index = Numeric.stringToInt(indexString);
 
-    if (_index == null){
-      _index = 0;
-    }
-
-    return _index;
+    /// so return zero if _index was null
+    return _index ??= 0;
   }
 // -----------------------------------------------------------------------------
   Future<void> goToFlyerScreenByDynamicLink({BuildContext context, String link}) async {
@@ -190,8 +187,8 @@ class DynamicLinksApi {
       final bool _isRefer = _deepLink.pathSegments.contains('refer');
 
       if (_isRefer) {
-        String _code = _deepLink.queryParameters['code'];
-        print(_code.toString());
+        final String _code = _deepLink.queryParameters['code'];
+        print(_code);
         if (_code != null) {
 
           navigatorKey.currentState.pushNamed(Routez.dynamicLinkTest, arguments: _code);

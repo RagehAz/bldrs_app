@@ -21,7 +21,7 @@ class TabModel{
 
     final List<Widget> _widgets = <Widget>[];
 
-    for (TabModel tabModel in tabModels){
+    for (final TabModel tabModel in tabModels){
       _widgets.add(tabModel.page);
     }
 
@@ -32,7 +32,7 @@ class TabModel{
 
     final List<Widget> _widgets = <Widget>[];
 
-    for (TabModel tabModel in tabModels){
+    for (final TabModel tabModel in tabModels){
       _widgets.add(tabModel.tabButton);
     }
 

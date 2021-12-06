@@ -54,7 +54,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
         _title,
         _body,
         _notificationDetails,
-        payload: remoteMessage.data["route"],
+        payload: remoteMessage.data['route'],
       );
 
     } on Exception catch (e){

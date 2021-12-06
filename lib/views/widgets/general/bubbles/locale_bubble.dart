@@ -130,7 +130,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    List<MapModel> _countriesMapModels = CountryModel.getAllCountriesNamesMapModels(context);
+    final List<MapModel> _countriesMapModels = CountryModel.getAllCountriesNamesMapModels(context);
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -197,9 +197,9 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    List<DistrictModel> _selectedCityDistricts = _selectedCity.districts;
+    final List<DistrictModel> _selectedCityDistricts = _selectedCity.districts;
 
-    List<MapModel> _districtsMapModels = DistrictModel.getDistrictsNamesMapModels(
+    final List<MapModel> _districtsMapModels = DistrictModel.getDistrictsNamesMapModels(
       context: context,
       districts: _selectedCityDistricts,
     );
@@ -306,7 +306,7 @@ class LocaleButton extends StatelessWidget {
   final String icon;
   final Function onTap;
 
-  LocaleButton({
+  const LocaleButton({
     @required this.title,
     @required this.verse,
     @required this.onTap,

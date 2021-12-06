@@ -24,7 +24,7 @@ class ProvidersTestScreen extends StatefulWidget {
 
 class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 
-  ScrollController _ScrollController;
+  ScrollController _scrollController;
   UsersProvider _usersProvider;
   ZoneProvider _zoneProvider;
 // -----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _ScrollController = new ScrollController();
+    _scrollController = new ScrollController();
 
     _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -110,7 +110,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
         child: MaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
-            controller: _ScrollController,
+            controller: _scrollController,
             children: <Widget>[
 
               const Stratosphere(),
@@ -138,7 +138,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 
                     _triggerLoading();
 
-                    UserModel _userModelFromStream = await _myUserModelStream.first;
+                    final UserModel _userModelFromStream = await _myUserModelStream.first;
 
                     _userModelFromStream.printUserModel();
 

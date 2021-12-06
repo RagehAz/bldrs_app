@@ -374,7 +374,7 @@ enum ValueIs{
               .get();
 
 
-          List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
+          final List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
             querySnapshot: _collectionSnapshot,
             addDocsIDs: addDocsIDs,
             addDocSnapshotToEachMap: addDocSnapshotToEachMap,
@@ -398,7 +398,7 @@ enum ValueIs{
 }) async {
 
 
-    List<Map<String, dynamic>> _maps = await mapsByFieldValue(
+    final List<Map<String, dynamic>> _maps = await mapsByFieldValue(
       context: context,
       collName: FireColl.flyers,
       field: 'trigram',
@@ -613,7 +613,7 @@ enum ValueIs{
               .get();
 
 
-          List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
+          final List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
             querySnapshot: _collectionSnapshot,
             addDocsIDs: false,
             addDocSnapshotToEachMap: false,

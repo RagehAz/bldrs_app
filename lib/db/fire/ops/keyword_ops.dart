@@ -16,7 +16,7 @@ import 'package:flutter/cupertino.dart';
 
     final List<KW> _allKeywords = <KW>[];
 
-    for (String doc in _keywordsDocs){
+    for (final String doc in _keywordsDocs){
 
       final Map<String,  dynamic> _keywordsMap = await Fire. readDoc(
         context: context,

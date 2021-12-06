@@ -173,7 +173,7 @@ class Spec {
 
     if (Mapper.canLoopList(specs)){
 
-      for (Spec spec in specs){
+      for (final Spec spec in specs){
 
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -200,7 +200,7 @@ class Spec {
     final List<Spec> _specs = <Spec>[];
 
     if (specs != null){
-      for (Spec spec in specs){
+      for (final Spec spec in specs){
         _specs.add(spec.clone());
       }
     }
@@ -295,7 +295,7 @@ class Spec {
 
     if(Mapper.canLoopList(_keys)){
 
-      for (String key in _keys){
+      for (final String key in _keys){
 
         final Spec _spec = Spec(
             specsListID: key,
@@ -358,8 +358,8 @@ class Spec {
 // -----------------------------------------------------------------------------
   static bool specsListsAreTheSame(List<Spec> specsA, List<Spec> specsB){
 
-    Map<String, dynamic> specsAMap = cipherSpecs(specsA);
-    Map<String, dynamic> specsBMap = cipherSpecs(specsB);
+    final Map<String, dynamic> specsAMap = cipherSpecs(specsA);
+    final Map<String, dynamic> specsBMap = cipherSpecs(specsB);
 
     final bool _listsAreTheSame = Mapper.mapsAreTheSame(specsAMap, specsBMap);
 
@@ -386,7 +386,7 @@ class Spec {
 // -----------------------------------------------------------------------------
   static void printSpecs(List<Spec> specs){
     print('SPECS-PRINT -------------------------------------------------- START');
-    for (Spec spec in specs){
+    for (final Spec spec in specs){
       print('${spec.specsListID} : ${spec.value}');
     }
     print('SPECS-PRINT -------------------------------------------------- END');
@@ -473,11 +473,11 @@ class Spec {
 // -----------------------------------------------------------------------------
   /// This considers if the specList can or can't pick many spec of same list, then adds if absent and updates or ignores if exists accordingly
   static List<Spec> putSpecsInSpecs({@required List<Spec> parentSpecs, @required List<Spec> inputSpecs, @required bool canPickMany}){
-    List<Spec> _specs = parentSpecs;
+    final List<Spec> _specs = parentSpecs;
 
     if (Mapper.canLoopList(inputSpecs)){
 
-      for (Spec inputSpec in inputSpecs){
+      for (final Spec inputSpec in inputSpecs){
 
         /// A - CAN PICK MANY "of this list ID"
         if (canPickMany == true){
@@ -527,10 +527,8 @@ class Spec {
 
     }
 
-    /// CLEAN SPECS
-    _specs = Spec.cleanSpecs(_specs);
 
-    return _specs;
+    return Spec.cleanSpecs(_specs);
   }
 // -----------------------------------------------------------------------------
   static String getSpecNameFromSpecsLists({@required BuildContext context, @required Spec spec, @required List<SpecList> specsLists}){
@@ -565,7 +563,7 @@ class Spec {
 
     if (Mapper.canLoopList(specs)){
 
-      for (Spec spec in specs){
+      for (final Spec spec in specs){
 
         if (spec != null && spec.value != null && spec.value != 0 && spec.value != '' && spec.specsListID != null && spec.specsListID != ''){
           _output.add(spec);

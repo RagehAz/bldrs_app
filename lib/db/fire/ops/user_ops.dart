@@ -90,7 +90,7 @@ import 'package:flutter/cupertino.dart';
 
       /// TASK : this facebook / google image thing is not tested
       if (authBy == AuthBy.facebook || authBy == AuthBy.google ){
-        File _picFile = await Imagers.getFileFromURL(userModel.pic);
+        final File _picFile = await Imagers.getFileFromURL(userModel.pic);
         _userPicURL = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: _picFile,
@@ -482,7 +482,7 @@ import 'package:flutter/cupertino.dart';
         /// D - if user wants to continue
         else  {
 
-          List<FlyerModel> _bzFlyers = await FireFlyerOps.readBzzFlyers(
+          final List<FlyerModel> _bzFlyers = await FireFlyerOps.readBzzFlyers(
             context: context,
             bzzModels: _bzzToDeactivate,
           );
@@ -515,7 +515,7 @@ import 'package:flutter/cupertino.dart';
             );
 
             /// G - DEACTIVATE all deactivable bzz
-            for (BzModel bz in _bzzToDeactivate){
+            for (final BzModel bz in _bzzToDeactivate){
               await FireBzOps.deactivateBz(
                 context: context,
                 bzModel: bz,
@@ -703,7 +703,7 @@ import 'package:flutter/cupertino.dart';
             );
 
             /// G - DELETE all deactivable bzz : firestore/bzz/bzID
-            for (BzModel bz in _bzzToDeactivate){
+            for (final BzModel bz in _bzzToDeactivate){
               await FireBzOps.deleteBz(
                 context: context,
                 bzModel: bz,

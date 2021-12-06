@@ -6,12 +6,12 @@ import 'package:multi_image_picker2/multi_image_picker2.dart';
 // -----------------------------------------------------------------------------
 extension FileExtention on FileSystemEntity {
   String get fileNameWithExtension {
-    return this?.path?.split("/")?.last;
+    return this?.path?.split('/')?.last;
   }
 
 // -----------------------------------------------------------------------------
   String get fileExtension {
-    return this?.path?.split(".")?.last;
+    return this?.path?.split('.')?.last;
   }
 }
 // -----------------------------------------------------------------------------

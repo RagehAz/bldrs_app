@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // bool _isInit = true;
-  bool _isLoading = false;
+  final bool _isLoading = false;
   // List<TinyBz> _tinyBzz;
   // List<TinyBz> _myTinyBzz;
 // -----------------------------------------------------------------------------
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
         layoutWidget: _isLoading == true ?
         Center(child: Loading(loading: _isLoading,))
             :
-        HomeWall(),
+        const HomeWall(),
       ),
     );
   }

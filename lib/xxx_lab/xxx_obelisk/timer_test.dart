@@ -23,9 +23,9 @@ class TimerTest extends StatelessWidget {
 
   Map<String, dynamic> _times (BuildContext context){
 
-    DateTime _now = DateTime.now();
+    final DateTime _now = DateTime.now();
 
-    DateTime _ragehBD = Timers.createDate(year: 1987, month: 6, day: 10);
+    final DateTime _ragehBD = Timers.createDate(year: 1987, month: 6, day: 10);
 
     return
         <String, dynamic>{
@@ -117,7 +117,7 @@ class TimerTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<MapModel> _mapModels = MapModel.getModelsFromMap(_times(context));
+    final List<MapModel> _mapModels = MapModel.getModelsFromMap(_times(context));
 
     return MainLayout(
       pageTitle: 'Timers Test',
@@ -129,21 +129,21 @@ class TimerTest extends StatelessWidget {
         itemCount: _mapModels.length,
           itemBuilder: (BuildContext ctx, int index){
 
-          MapModel _pair = _mapModels[index];
+          final MapModel _pair = _mapModels[index];
 
-          bool _isDateFormat = TextChecker.stringContainsSubString(
+          final bool _isDateFormat = TextChecker.stringContainsSubString(
             caseSensitive: true,
             string: _pair.key,
             subString: 'dateFormat',
           );
 
-          bool _isTimersMethod = TextChecker.stringContainsSubString(
+          final bool _isTimersMethod = TextChecker.stringContainsSubString(
             caseSensitive: true,
             string: _pair.key,
             subString: 'Timers.',
           );
 
-          Color _color =
+          final Color _color =
           _isDateFormat ? Colorz.black255 :
           _isTimersMethod ? Colorz.green125 :
           Colorz.bloodTest;

@@ -74,6 +74,35 @@ linter:
     eol_at_end_of_file: true
     exhaustive_cases: true
     file_names: true
+    implementation_imports: true
+    join_return_with_assignment: true
+    leading_newlines_in_multiline_strings: true
+    library_names: true
+    missing_whitespace_between_adjacent_strings: true
+    no_leading_underscores_for_library_prefixes: true
+    no_leading_underscores_for_local_identifiers: true
+    no_runtimeType_toString: true
+    non_constant_identifier_names: true
+    noop_primitive_operations: true
+    null_closures: true
+    one_member_abstracts: true
+    only_throw_errors: true
+    overridden_fields: true
+    package_api_docs: true
+    package_prefixed_library_names: true
+    prefer_adjacent_string_concatenation: true
+    prefer_asserts_in_initializer_lists: true
+    prefer_asserts_with_message: true
+    prefer_collection_literals: true
+    prefer_conditional_assignment: true
+    prefer_const_constructors_in_immutables: true
+    prefer_contains: true
+    prefer_single_quotes: true
+    prefer_equal_for_default_values: true
+    prefer_final_fields: true
+    prefer_final_in_for_each: true
+    prefer_final_locals: true
+    prefer_final_parameters: true
 
     # Pending
     diagnostic_describe_all_properties: false
@@ -86,15 +115,27 @@ linter:
     # Experimental
     use_build_context_synchronously: false
     cast_nullable_to_non_nullable: false
+    no_default_cases: false
+    null_check_on_nullable_type_parameter: false
+
 
     # will come back to you later
     always_specify_types: false
     avoid_annotating_with_dynamic: false # incompatible with always_specify_types
     cascade_invocations: false
+    library_prefixes: false # FIRES 900 HINTS
 
     # defiantly false rules
     prefer_relative_imports: false
     avoid_types_on_closure_parameters: false # incompatible with always_specify_types
+    omit_local_variable_types: false # incompatible with always_specify_types
+    flutter_style_todos: false # fakes
+    lines_longer_than_80_chars: false # fires 7500 hints
+    library_private_types_in_public_api: false # enta 3abeet yabny ?
+    prefer_constructors_over_static_methods: false # BIG NO
+    prefer_double_quotes: false # incompatible with prefer_single_quotes
+    prefer_expression_function_bodies: false # not important & messes my organization
+
 
 analyzer:
   errors:

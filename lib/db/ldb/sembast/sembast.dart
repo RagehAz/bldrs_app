@@ -102,7 +102,7 @@ class Sembast {
 
     if (Mapper.canLoopList(inputs)){
 
-      for (Map<String, Object> map in inputs){
+      for (final Map<String, Object> map in inputs){
 
         await insert(primaryKey: primaryKey, map: map, docName: docName);
 
@@ -288,9 +288,9 @@ class Sembast {
     @required String primaryKey,
   }) async {
 
-    List<Map<String, Object>> _allMaps = await readAll(docName: docName);
+    final List<Map<String, Object>> _allMaps = await readAll(docName: docName);
 
-    for (Map<String, Object> map in _allMaps){
+    for (final Map<String, Object> map in _allMaps){
 
       final String _id = map[primaryKey];
 

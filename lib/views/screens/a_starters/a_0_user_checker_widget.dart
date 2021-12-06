@@ -21,7 +21,7 @@ import 'package:provider/provider.dart';
 /// and we get this value from database and to be controlled from dashboard
 class UserChecker extends StatefulWidget {
 
-  UserChecker({
+  const UserChecker({
     Key key
   }) : super (key: key);
 

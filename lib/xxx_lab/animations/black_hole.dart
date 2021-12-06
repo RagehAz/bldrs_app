@@ -16,7 +16,7 @@ class BlackHoleScreen extends StatefulWidget {
 
 class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderStateMixin{
   AnimationController _blackHoleController;
-  int _spinsDuration = 1;
+  final int _spinsDuration = 1;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
   }
 // ---------------------------------------------------------------------------
   Timer _timoor(){
-    Timer _timoor = Timer(Duration(seconds: _spinsDuration),
+    final Timer _timoor = Timer(Duration(seconds: _spinsDuration),
 
             (){
       if(mounted){
