@@ -58,7 +58,7 @@ class DataStrip extends StatelessWidget {
               alignment: Aligners.superCenterAlignment(context),
               child: SuperVerse(
                 labelColor: Colorz.nothing,
-                verse: dataKey.toString().toUpperCase(),
+                verse: dataKey.toUpperCase(),
                 size: 1,
                 weight: VerseWeight.black,
                 color: Colorz.white200,
@@ -68,7 +68,7 @@ class DataStrip extends StatelessWidget {
                   await BottomDialog.showBottomDialog(
                     context: context,
                     draggable: true,
-                    title: '${dataKey.toString()} : ${dataValue.toString()}',
+                    title: '${dataKey} : ${dataValue.toString()}',
                     height: 150,
                     child: Container(
                       width: BottomDialog.dialogClearWidth(context),

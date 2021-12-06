@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -61,7 +63,7 @@ Examples Using the US Locale:
  */
 
   /// "2019-07-19 8:40:23"
-  final DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+  final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
 // -----------------------------------------------------------------------------
   dynamic cipherTime({@required DateTime time, @required bool toJSON}){
     final dynamic _output = toJSON ? _cipherDateTimeIso8601(time) : time;
@@ -78,7 +80,7 @@ Examples Using the US Locale:
 
     if (Mapper.canLoopList(times)){
 
-      for (DateTime time in times){
+      for (final DateTime time in times){
         _times.add(cipherTime(
           time: time,
           toJSON: toJSON,
@@ -93,7 +95,7 @@ Examples Using the US Locale:
   List<DateTime> decipherTimes({@required List<dynamic> times, @required bool fromJSON}){
     final List<DateTime> _dateTimes = <DateTime>[];
 
-    for (dynamic time in times){
+    for (final dynamic time in times){
       _dateTimes.add(
           decipherTime(
             time: time,
@@ -147,7 +149,7 @@ Examples Using the US Locale:
     Timestamp _time;
 
     if (cipheredDateTimeIso8601 != null){
-      DateTime _dateTime = _decipherDateTimeIso8601(cipheredDateTimeIso8601);
+      final DateTime _dateTime = _decipherDateTimeIso8601(cipheredDateTimeIso8601);
       _time = Timestamp.fromDate(_dateTime);
     }
 
@@ -325,9 +327,9 @@ Examples Using the US Locale:
   }
 // -----------------------------------------------------------------------------
   String getString_hh_i_mm({BuildContext context, DateTime time}){
-    final String _hour = DateFormat("h").format(time);
+    final String _hour = DateFormat('h').format(time);
     final String _minute = '${(time).minute}';
-    final String _ampm = DateFormat("a").format(time);
+    final String _ampm = DateFormat('a').format(time);
     final String _timeString = '$_hour:$_minute $_ampm';
 
     return _timeString;

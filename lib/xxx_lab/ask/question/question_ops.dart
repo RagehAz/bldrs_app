@@ -62,7 +62,7 @@ class QuestionOps {
     if (Mapper.canLoopList(question?.pics)){
 
       /// A2 - create pics names
-      List<String> _picsNames = <String>[];
+      final List<String> _picsNames = <String>[];
       for (int i = 0; i < question.pics.length; i++){
         final File _file = question.pics[i];
         final String _name = TextMod.removeTextBeforeLastSpecialCharacter(_file.path, '.');
@@ -120,7 +120,6 @@ class QuestionOps {
   }
 // -----------------------------------------------------------------------------
   static Future<QuestionModel> updateQuestionOps({BuildContext context, QuestionModel originalQuestion, QuestionModel updatedQuestion}) async {
-    QuestionModel _question;
 
     final bool _questionIsUpdated = QuestionModel.questionIsUpdated(
       originalQuestion: originalQuestion,
@@ -137,9 +136,7 @@ class QuestionOps {
 
     }
 
-    _question = updatedQuestion;
-
-    return _question;
+    return updatedQuestion;
   }
 // -----------------------------------------------------------------------------
   static Future<void> deleteQuestionOps({BuildContext context, QuestionModel question}) async {

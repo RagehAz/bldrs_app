@@ -80,7 +80,7 @@ class CountryModel{
 
     if (Mapper.canLoopList(maps)){
 
-      for (Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps){
         _countries.add(decipherCountryMap(
           map: map,
           fromJSON: fromJSON,
@@ -99,67 +99,67 @@ class CountryModel{
     if (input != null){
       final String _countryNameTrimmed = TextMod.replaceAllCharactersWith(
         input: input.toLowerCase().trim(),
-        CharacterToReplace: ' ',
+        characterToReplace: ' ',
         replacement: '_',
       );
 
       final String _countryNameTrimmed2 = TextMod.replaceAllCharactersWith(
         input: _countryNameTrimmed,
-        CharacterToReplace: '-',
+        characterToReplace: '-',
         replacement: '_',
       );
 
       final String _countryNameTrimmed3 = TextMod.replaceAllCharactersWith(
         input: _countryNameTrimmed2,
-        CharacterToReplace: ',',
+        characterToReplace: ',',
         replacement: '',
       );
 
       final String _countryNameTrimmed4 = TextMod.replaceAllCharactersWith(
         input: _countryNameTrimmed3,
-        CharacterToReplace: '(',
+        characterToReplace: '(',
         replacement: '',
       );
 
       final String _countryNameTrimmed5 = TextMod.replaceAllCharactersWith(
         input: _countryNameTrimmed4,
-        CharacterToReplace: ')',
+        characterToReplace: ')',
         replacement: '',
       );
 
       final String _countryNameTrimmed6 = TextMod.replaceAllCharactersWith(
         input: _countryNameTrimmed5,
-        CharacterToReplace: '’',
+        characterToReplace: '’',
         replacement: '',
       );
 
       final String _countryNameTrimmed7 = TextMod.replaceAllCharactersWith(
         input: _countryNameTrimmed6,
-        CharacterToReplace: 'ô',
+        characterToReplace: 'ô',
         replacement: 'o',
       );
 
       final String _countryNameTrimmed8 = TextMod.replaceAllCharactersWith(
         input: _countryNameTrimmed7,
-        CharacterToReplace: '`',
+        characterToReplace: '`',
         replacement: '',
       );
 
       final String _countryNameTrimmed9 = TextMod.replaceAllCharactersWith(
         input: _countryNameTrimmed8,
-        CharacterToReplace: "\'",
+        characterToReplace: "\'",
         replacement: '',
       );
 
       final String _countryNameTrimmed10 = TextMod.replaceAllCharactersWith(
         input: _countryNameTrimmed9,
-        CharacterToReplace: '.',
+        characterToReplace: '.',
         replacement: '',
       );
 
       final String _countryNameTrimmed11 = TextMod.replaceAllCharactersWith(
         input: _countryNameTrimmed10,
-        CharacterToReplace: '/',
+        characterToReplace: '/',
         replacement: '',
       );
 
@@ -172,7 +172,7 @@ class CountryModel{
   static bool countriesIDsIncludeCountryID({@required List<String> countriesIDs, @required String countryID}){
     bool _includes = false;
 
-    for (String id in countriesIDs){
+    for (final String id in countriesIDs){
 
       if (id == countryID){
         _includes = true;
@@ -199,7 +199,7 @@ class CountryModel{
 
     final List<String> _countriesIDs = <String>[];
 
-    for (Region region in continent.regions){
+    for (final Region region in continent.regions){
       _countriesIDs.addAll(region.countriesIDs);
     }
 
@@ -209,7 +209,7 @@ class CountryModel{
   static List<String> getAllCountriesIDs(){
     final List<String> _ids = <String>[];
 
-    for (Flag flag in Flag.allFlags){
+    for (final Flag flag in Flag.allFlags){
       _ids.add(flag.countryID);
     }
 
@@ -222,7 +222,7 @@ class CountryModel{
 
     final List<String> _allCountriesIDs = getAllCountriesIDs();
 
-    for (String id in _allCountriesIDs){
+    for (final String id in _allCountriesIDs){
 
       final String _countryName = getTranslatedCountryNameByID(context: context, countryID: id);
 

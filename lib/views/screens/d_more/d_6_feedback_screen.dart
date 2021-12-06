@@ -102,7 +102,7 @@ class _FeedBackState extends State<FeedBack> {
 
           const Stratosphere(),
 
-          SuperVerse(
+          const SuperVerse(
             verse: 'Your opinion Matters !',
             margin: 10,
           ),
@@ -111,7 +111,7 @@ class _FeedBackState extends State<FeedBack> {
             child: Container(
               width: Scale.superScreenWidth(context) * 0.7,
               margin: const EdgeInsets.only(bottom: 10),
-              child: SuperVerse(
+              child: const SuperVerse(
                 verse: 'Tell us what you think about Bldrs.net, or what upgrades you might think of',
                 margin: 5,
                 maxLines: 3,

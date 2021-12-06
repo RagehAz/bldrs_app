@@ -562,7 +562,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     @required CountryModel bzCountry,
     @required CityModel bzCity,
   }){
-    SuperFlyer _superFlyer = SuperFlyer.createDraftSuperFlyerFromNothing(
+    final SuperFlyer _superFlyer = SuperFlyer.createDraftSuperFlyerFromNothing(
       context: context,
       bzModel: bzModel,
       onHorizontalSlideSwipe: (int i) => _onHorizontalSlideSwipe(i),
@@ -991,7 +991,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     final FlyerModel _flyerModel = FlyerModel.getFlyerModelFromSuperFlyer(_superFlyer);
 
-    FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
     /// add or remove tiny flyer in local saved flyersList
     await _flyersProvider.saveOrUnSaveFlyer(
@@ -1353,7 +1353,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     else {
 
-      ReviewModel _review = review != null ?
+      final ReviewModel _review = review != null ?
       review
           :
       ReviewModel(
@@ -2473,7 +2473,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     for (int i = 0; i<_superFlyer.mSlides.length; i++){
 
 
-      SlideModel _newSlide = SlideModel(
+      final SlideModel _newSlide = SlideModel(
         slideIndex: i,
         pic: _superFlyer.mSlides[i].picFile,
         headline: _superFlyer.mSlides[i].headlineController.text,

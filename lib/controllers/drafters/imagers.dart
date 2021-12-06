@@ -94,18 +94,18 @@ enum PicType{
         enableCamera: true,
         selectedAssets: images,
         cupertinoOptions: const CupertinoOptions(
-          takePhotoIcon: "Take photo",
-          doneButtonTitle: "Done",
+          takePhotoIcon: 'Take photo',
+          doneButtonTitle: 'Done',
         ),
         materialOptions: MaterialOptions(
-          actionBarColor: "#13244b",
+          actionBarColor: '#13244b',
           actionBarTitle: Wordz.choose(context),
-          allViewTitle: "All Photos",
+          allViewTitle: 'All Photos',
           useDetailsView: false,
-          selectCircleStrokeColor: "#ffc000",
+          selectCircleStrokeColor: '#ffc000',
           startInAllView: true,
           textOnNothingSelected: 'Nothing is Fucking Selected',
-          statusBarColor: "#000000", // the app status bar
+          statusBarColor: '#000000', // the app status bar
           lightStatusBar: false,
           // actionBarTitleColor: "#13244b", // page title color, White is Default
           autoCloseOnSelectionLimit: false,
@@ -254,7 +254,7 @@ enum PicType{
         methodName : 'getFileFromLocalRasterAsset',
         functions: () async {
           // print('0. removing [assets/] from input image path');
-          String _pathTrimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(_asset, 7);
+          final String _pathTrimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(_asset, 7);
           // print('1. starting getting image from assets');
           // final ByteData _byteData = await rootBundle.load('assets/$_pathTrimmed');
           // print('2. we got byteData and creating the File aho');
@@ -268,7 +268,7 @@ enum PicType{
           //
           // print('4. file is ${_file.path}');
 
-          Uint8List _uInt = await getUint8ListFromLocalRasterAsset(asset: _asset, width: width);
+          final Uint8List _uInt = await getUint8ListFromLocalRasterAsset(asset: _asset, width: width);
           _file = await getFileFromUint8List(uInt8List: _uInt, fileName: _fileName);
 
         }
@@ -281,14 +281,14 @@ enum PicType{
     @required Uint8List uInt8List,
     @required String fileName,
   }) async {
-    File _file = await getTempEmptyFile(fileName);
 
-    _file = await writeUint8ListOnFile(
-      uint8list: uInt8List,
-      file: _file,
-    );
+    final File _file = await getTempEmptyFile(fileName);
 
-    return _file;
+    return
+      await writeUint8ListOnFile(
+        uint8list: uInt8List,
+        file: _file,
+      );
   }
 // ---------------------------------------------------
   Future<File> getFileFromURL(String imageUrl) async {
@@ -311,9 +311,9 @@ enum PicType{
   }
 // ---------------------------------------------------
   Future<File> getFileFromPickerAsset(Asset asset) async {
-    ByteData _byteData = await asset.getThumbByteData(asset.originalWidth, asset.originalHeight, quality: 100);
+    final ByteData _byteData = await asset.getThumbByteData(asset.originalWidth, asset.originalHeight, quality: 100);
 
-    String _name = TextMod.removeTextAfterLastSpecialCharacter(asset.name, '.');
+    final String _name = TextMod.removeTextAfterLastSpecialCharacter(asset.name, '.');
 
     print('====================================================================================== asset name is : ${asset.runtimeType}');
 
@@ -321,17 +321,17 @@ enum PicType{
     await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
     await _tempFile.create(recursive: true);
 
-    File _file = _tempFile;
+    final File _file = _tempFile;
 
     return _file;
   }
 // ---------------------------------------------------
   Future<List<File>> getFilesFromPickerAssets(List<Asset> assets) async {
-    List<File> _files = <File>[];
+    final List<File> _files = <File>[];
 
     if (Mapper.canLoopList(assets)){
 
-      for (Asset asset in assets) {
+      for (final Asset asset in assets) {
 
         final File _file = await getFileFromPickerAsset(asset);
         _files.add(_file);
@@ -408,13 +408,12 @@ enum PicType{
 
 // ---------------------------------------------------
   Future<Asset> getPickerAssetFromURL(String url) async {
-    File _file = await getFileFromURL(url);
-    Asset _asset;
+    final File _file = await getFileFromURL(url);
 
-    ImageSize imageSize = await ImageSize.superImageSize(_file);
+    final ImageSize imageSize = await ImageSize.superImageSize(_file);
     //
     //
-    _asset = Asset(
+    final Asset _asset = Asset(
       // identifier
       _file.fileNameWithExtension,
       // _name
@@ -451,11 +450,11 @@ enum PicType{
   }
 // ---------------------------------------------------
   List<Asset> getOnlyAssetsFromDynamics(List<dynamic> inputs){
-    List<Asset> _assets = <Asset>[];
+    final List<Asset> _assets = <Asset>[];
 
     if (Mapper.canLoopList(inputs)){
 
-      for (dynamic x in inputs){
+      for (final dynamic x in inputs){
         _assets.add(getOnlyAssetFromDynamic(x));
       }
 
@@ -504,10 +503,10 @@ enum PicType{
   }
 // ---------------------------------------------------
   Future<List<Uint8List>> getUint8ListsFromFiles(List<File> files) async {
-    List<Uint8List> _screenShots = <Uint8List>[];
+    final List<Uint8List> _screenShots = <Uint8List>[];
 
     if (Mapper.canLoopList(files)){
-      for (File file in files){
+      for (final File file in files){
         final Uint8List _uInt = await getUint8ListFromFile(file);
         _screenShots.add(_uInt);
       }
@@ -564,7 +563,7 @@ enum PicType{
 
     File _file;
 
-    bool _isFile = ObjectChecker.objectIsFile(image);
+    final bool _isFile = ObjectChecker.objectIsFile(image);
     // bool _isString = ObjectChecker.objectIsString(image);
 
     if (_isFile == true){
@@ -602,24 +601,24 @@ enum PicType{
     @required String assetName,
   }) async {
     // Read SVG file as String
-    String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
+    final String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
     // Create DrawableRoot from SVG String
-    DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, null);
+    final DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, null);
 
     // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
-    MediaQueryData queryData = MediaQuery.of(context);
-    double devicePixelRatio = queryData.devicePixelRatio;
-    double width = 32 * devicePixelRatio; // where 32 is your SVG's original width
-    double height = 32 * devicePixelRatio; // same thing
+    final MediaQueryData queryData = MediaQuery.of(context);
+    final double devicePixelRatio = queryData.devicePixelRatio;
+    final double width = 32 * devicePixelRatio; // where 32 is your SVG's original width
+    final double height = 32 * devicePixelRatio; // same thing
 
     // Convert to ui.Picture
-    ui.Picture picture = svgDrawableRoot.toPicture(size: Size(width, height));
+    final ui.Picture picture = svgDrawableRoot.toPicture(size: Size(width, height));
 
     // Convert to ui.Image. toImage() takes width and height as parameters
     // you need to find the best size to suit your needs and take into account the
     // screen DPI
-    ui.Image image = await picture.toImage(width.toInt(), height.toInt());
-    ByteData bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    final ui.Image image = await picture.toImage(width.toInt(), height.toInt());
+    final ByteData bytes = await image.toByteData(format: ui.ImageByteFormat.png);
     return BitmapDescriptor.fromBytes(bytes.buffer.asUint8List());
   }
 // ---------------------------------------------------
@@ -633,7 +632,7 @@ enum PicType{
 
 // ---------------------------------------------------
   BoxFit concludeBoxFitOld(Asset asset){
-    BoxFit _fit = asset.isPortrait ? BoxFit.fitHeight : BoxFit.fitWidth;
+    final BoxFit _fit = asset.isPortrait ? BoxFit.fitHeight : BoxFit.fitWidth;
     return _fit;
   }
 // ---------------------------------------------------
@@ -672,7 +671,6 @@ enum PicType{
     @required Asset asset,
     @required double flyerBoxWidth,
   }){
-    BoxFit _boxFit;
 
     /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
     final double _originalImageWidth = asset.originalWidth.toDouble();
@@ -682,23 +680,22 @@ enum PicType{
     /// slide aspect ratio : 1 / 1.74 ~= 0.575
     final double _flyerZoneHeight = flyerBoxWidth * Ratioz.xxflyerZoneHeight;
 
-    _boxFit = concludeBoxFit(
+    return concludeBoxFit(
       picWidth: _originalImageWidth,
       picHeight: _originalImageHeight,
       viewWidth: flyerBoxWidth,
       viewHeight: _flyerZoneHeight,
     );
 
-    return _boxFit;
   }
 // ---------------------------------------------------
   List<BoxFit> concludeBoxesFitsForAssets({
     @required List<Asset> assets,
     @required double flyerBoxWidth,
   }){
-    List<BoxFit> _fits = <BoxFit>[];
+    final List<BoxFit> _fits = <BoxFit>[];
 
-    for (Asset asset in assets){
+    for (final Asset asset in assets){
 
       /// straigh forward solution,, bas ezzay,, I'm Rage7 and I can't just let it go keda,,
       // if(asset.isPortrait){

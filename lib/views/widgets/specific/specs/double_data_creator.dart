@@ -32,7 +32,7 @@ class DoubleDataCreator extends StatefulWidget {
 class _DoubleDataCreatorState extends State<DoubleDataCreator> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
-  ValueNotifier<double> _double = ValueNotifier<double>(null);
+  final ValueNotifier<double> _double = ValueNotifier<double>(null);
 // -----------------------------------------------------------------------------
   @override
   void initState() {

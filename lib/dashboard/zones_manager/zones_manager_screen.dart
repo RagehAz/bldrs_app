@@ -28,7 +28,7 @@ class ZonesManagerScreen extends StatefulWidget {
 
 class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
   List<CountryModel> _countries;
-  ScrollController _ScrollController;
+  ScrollController _scrollController;
   QueryDocumentSnapshot<Object> _lastSnap;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -58,7 +58,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _ScrollController = new ScrollController();
+    _scrollController = new ScrollController();
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -92,7 +92,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
       });
     }
 
-    List<Map<String, dynamic>> _maps = await Fire.readSubCollectionDocs(
+    final List<Map<String, dynamic>> _maps = await Fire.readSubCollectionDocs(
       context: context,
       addDocsIDs: false,
       collName: FireColl.zones,
@@ -105,9 +105,9 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
     );
 
 
-    List<CountryModel> _countriesModels = CountryModel.decipherCountriesMaps(maps: _maps, fromJSON: false);
+    final List<CountryModel> _countriesModels = CountryModel.decipherCountriesMaps(maps: _maps, fromJSON: false);
 
-    QueryDocumentSnapshot<Object> _snap = _maps[_maps.length - 1]['docSnapshot'];
+    final QueryDocumentSnapshot<Object> _snap = _maps[_maps.length - 1]['docSnapshot'];
 
     setState(() {
       _countries = _countriesModels;
@@ -138,7 +138,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
 
         ListView.builder(
           physics: const BouncingScrollPhysics(),
-          controller: _ScrollController,
+          controller: _scrollController,
           padding: const EdgeInsets.only(top: Ratioz.stratosphere),
           itemCount: _countries?.length,
           itemBuilder: (BuildContext context, int index){

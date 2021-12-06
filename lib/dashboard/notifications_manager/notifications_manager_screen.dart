@@ -19,7 +19,7 @@ class _NotificationsManagerState extends State<NotificationsManager> {
 
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
+  final bool _loading = false;
 //   Future <void> _triggerLoading({Function function}) async {
 //
 //     if(mounted){

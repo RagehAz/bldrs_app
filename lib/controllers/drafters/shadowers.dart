@@ -13,16 +13,23 @@ class CustomBoxShadow extends BoxShadow {
 
   @override
   Paint toPaint() {
+
     final Paint _result = Paint()
       ..color = color
       ..maskFilter = MaskFilter.blur(this.blurStyle, blurSigma);
-    assert(() {
+
+    assert(
+        (){
 
       if (debugDisableShadows){
         _result.maskFilter = null;
       }
-        return true;
-    }());
+      return true;
+
+        }(),
+
+    'debugDisableShadows must be false to show shadow'
+    );
 
     return _result;
   }

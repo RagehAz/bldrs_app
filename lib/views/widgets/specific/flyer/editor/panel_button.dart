@@ -31,7 +31,7 @@ class PanelButton extends StatelessWidget {
 
   static Widget panelDot({double panelButtonWidth}){
 
-    double _dotSize = panelButtonWidth * 0.15;
+    final double _dotSize = panelButtonWidth * 0.15;
 
     return
         DreamBox(

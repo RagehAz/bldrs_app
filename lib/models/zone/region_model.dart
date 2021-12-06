@@ -37,7 +37,7 @@ class Region{
 
     if (Mapper.canLoopList(regions)){
 
-      for (Region region in regions){
+      for (final Region region in regions){
 
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -60,7 +60,7 @@ class Region{
 
     if (Mapper.canLoopList(_keys)){
 
-      for (String key in _keys){
+      for (final String key in _keys){
 
         _regions.add(decipherRegion(map[key]));
 
@@ -75,7 +75,7 @@ class Region{
 
     bool _includes = false;
 
-    for (Region region in regions){
+    for (final Region region in regions){
 
       if (region.name == name){
         _includes = true;

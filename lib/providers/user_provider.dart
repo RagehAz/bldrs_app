@@ -13,7 +13,7 @@ class UsersProvider extends ChangeNotifier {
     UserModel _userModel;
 
     /// 1 - search in entire LDBs for this userModel
-    for (String doc in LDBDoc.userModelsDocs){
+    for (final String doc in LDBDoc.userModelsDocs){
 
       final Map<String, Object> _map = await LDBOps.searchFirstMap(
         docName: doc,
@@ -117,7 +117,7 @@ class UsersProvider extends ChangeNotifier {
     if (doc != null) {
 
       try {
-        Map<String, dynamic> _map = doc.data() as Map<String, dynamic>;
+        final Map<String, dynamic> _map = doc.data() as Map<String, dynamic>;
 
         _userModel = UserModel.decipherUserMap(map: _map, fromJSON: false);
 

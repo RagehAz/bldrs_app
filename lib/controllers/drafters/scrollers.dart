@@ -9,7 +9,7 @@ enum SlidingDirection{
 }
 // -----------------------------------------------------------------------------
   ScrollPhysics superScroller({@required bool trigger}){
-    ScrollPhysics scroller = trigger == true ?
+    final ScrollPhysics scroller = trigger == true ?
     const BouncingScrollPhysics()
         :
     const NeverScrollableScrollPhysics();

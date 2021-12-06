@@ -201,7 +201,7 @@ class BzModel with ChangeNotifier{
   static List<BzModel> decipherBzz({@required List<Map<String, dynamic>> maps,@required bool fromJSON}) {
     final List<BzModel> _bzList = <BzModel>[];
 
-    for (Map<String, dynamic> map in maps){
+    for (final Map<String, dynamic> map in maps){
       _bzList.add(decipherBz(
         map: map,
         fromJSON: fromJSON,
@@ -374,7 +374,7 @@ class BzModel with ChangeNotifier{
 
     if (_authors != null){
 
-      for (AuthorModel author in _authors){
+      for (final AuthorModel author in _authors){
         _bzTeamIDs.add(author.userID);
       }
 
@@ -402,7 +402,7 @@ class BzModel with ChangeNotifier{
 // -----------------------------------------------------------------------------
   void printBzModel({String methodName = 'printBzModel'}){
 
-    String _methodName = methodName ?? 'BZ';
+    final String _methodName = methodName ?? 'BZ';
 
     print('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
 
@@ -437,13 +437,13 @@ class BzModel with ChangeNotifier{
 // -----------------------------------------------------------------------------
   static const List<String> bzPagesTabsTitles = <String>['Flyers', 'About', 'Targets', 'Powers'];
 // -----------------------------------------------------------------------------
-  static bool BzzContainThisBz({List<BzModel> bzz, BzModel bzModel}){
+  static bool bzzContainThisBz({List<BzModel> bzz, BzModel bzModel}){
     bool _contains = false;
 
 
     if (Mapper.canLoopList(bzz) && bzModel != null){
 
-      for (BzModel bz in bzz){
+      for (final BzModel bz in bzz){
 
         if (bz.id == bzModel.id){
           _contains = true;
@@ -462,7 +462,7 @@ class BzModel with ChangeNotifier{
 
     if (Mapper.canLoopList(bzzModels)){
 
-        for (BzModel bz in bzzModels){
+        for (final BzModel bz in bzzModels){
           _ids.add(bz.id);
         }
 

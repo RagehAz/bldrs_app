@@ -22,7 +22,7 @@ class TestLab extends StatefulWidget {
 
 class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 
-  ScrollController _ScrollController;
+  ScrollController _scrollController;
   AnimationController _animationController;
 
 // -----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _ScrollController = new ScrollController();
+    _scrollController = new ScrollController();
 
     _animationController = AnimationController(
       duration: const Duration(seconds: 1),
@@ -91,7 +91,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
   }
 // -----------------------------------------------------------------------------
   /// VALUE NOTIFIER
-  ValueNotifier<int> _counter = ValueNotifier<int>(0);
+  final ValueNotifier<int> _counter = ValueNotifier<int>(0);
   void _incrementCounter(){
 
     _counter.value += 3;
@@ -122,7 +122,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
         child: MaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
-            controller: _ScrollController,
+            controller: _scrollController,
 
             children: <Widget>[
 

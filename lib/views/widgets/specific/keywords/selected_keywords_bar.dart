@@ -108,7 +108,7 @@ class SelectedKeywordsBar extends StatelessWidget {
                     // width: 10,
                     height: 10,
                     color: Colorz.yellow20,
-                    child: SuperVerse(
+                    child: const SuperVerse(
                       verse : '.....',
                     ),
                   )

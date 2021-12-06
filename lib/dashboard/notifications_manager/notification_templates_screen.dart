@@ -24,7 +24,7 @@ class NotificationTemplatesScreen extends StatefulWidget {
 }
 
 class _NotificationTemplatesScreenState extends State<NotificationTemplatesScreen> {
-  List<NotiModel> _notifications = <NotiModel>[];
+  final List<NotiModel> _notifications = <NotiModel>[];
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -132,8 +132,8 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
       layoutWidget:
 
       _notifications.length == 0 ?
-      Center(
-        child: SuperVerse(
+      const Center(
+        child: const SuperVerse(
           verse: 'No new Notifications',
           weight: VerseWeight.thin,
           italic: true,
@@ -185,7 +185,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
               // print('confirmDismiss : direction is : $direction');
 
               /// if needed to make the bubble un-dismissible set to false
-              bool _dismissible = true;
+              const bool _dismissible = true;
 
               return _dismissible;
             },

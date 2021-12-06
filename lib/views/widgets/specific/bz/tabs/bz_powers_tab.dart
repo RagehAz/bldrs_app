@@ -44,9 +44,9 @@ class BzPowersTab extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       children: <Widget>[
 
-        Bubble(
+        const Bubble(
           title: 'Get More Slides',
-          columnChildren: <Widget>[
+          columnChildren: const <Widget>[
             SuperVerse(
               verse: 'You have got 500 slides left',
             ),

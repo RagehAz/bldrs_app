@@ -60,7 +60,7 @@ class KeywordsBubble extends StatelessWidget {
                 keywords?.length,
                     (int index){
 
-                  KW _keyword = keywords[index];
+                  final KW _keyword = keywords[index];
 
                   return
 

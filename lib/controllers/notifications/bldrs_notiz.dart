@@ -87,10 +87,10 @@ import 'package:flutter/foundation.dart';
   const String notiStatus = 'done';
 
   const dynamic notiDefaultMap = <String, dynamic>{
-    "click_action": "FLUTTER_NOTIFICATION_CLICK",
-    "sound": notiSound,
-    "status": notiStatus,
-    "screen": "",
+    'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+    'sound': notiSound,
+    'status': notiStatus,
+    'screen': '',
   };
 
   const String bldrsSenderID = 'bldrs';
@@ -638,7 +638,7 @@ import 'package:flutter/foundation.dart';
   /// 17 - author Invitation reply
   NotiModel authorInvitationReply({@required UserModel userModel, @required bool invitationAccepted}){
 
-    String _reply = invitationAccepted == true ? 'accepted' : 'rejected';
+    final String _reply = invitationAccepted == true ? 'accepted' : 'rejected';
 
     return
       NotiModel(

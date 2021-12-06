@@ -83,10 +83,10 @@ class Inception extends StatelessWidget {
 
               ...List<Widget>.generate(_sons.length,
                       (int index) {
-                    dynamic son = _sons[index];
+                    final dynamic _son = _sons[index];
 
                     return Inception(
-                      son: son,
+                      son: _son,
                       level: level + 1,
                       boxWidth: _boxWidth,
                       selectedKeywordsIDs: selectedKeywordsIDs,

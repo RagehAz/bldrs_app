@@ -71,7 +71,7 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
 
         /// do Futures here
         final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-        List<CityModel> _fetchedCities = await _zoneProvider.fetchCitiesByIDs(
+        final List<CityModel> _fetchedCities = await _zoneProvider.fetchCitiesByIDs(
           context: context,
           citiesIDs: widget.country.citiesIDs,
         );

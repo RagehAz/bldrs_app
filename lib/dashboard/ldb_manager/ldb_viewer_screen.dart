@@ -91,8 +91,8 @@ class LDBViewerScreen extends StatefulWidget {
                         _values.length,
                             (int i){
 
-                          String _key = _keys[i];
-                          String _value = _values[i].toString();
+                          final String _key = _keys[i];
+                          final String _value = _values[i].toString();
 
                           return
                             ValueBox(

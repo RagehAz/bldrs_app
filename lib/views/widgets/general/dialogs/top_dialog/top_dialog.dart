@@ -181,7 +181,7 @@ class TopDialog extends StatelessWidget {
       maxWidth: _screenWidth,
       messageColor: Colorz.white255,
       messageSize: 20,
-      messageText: SuperVerse(
+      messageText: const SuperVerse(
         verse: 'Message text',
         size: 1,
       ),
@@ -199,7 +199,7 @@ class TopDialog extends StatelessWidget {
       showProgressIndicator: true,
       titleColor: Colorz.bloodTest,
       titleSize: 15,
-      titleText: SuperVerse(
+      titleText: const SuperVerse(
         verse: 'title text',
         size: 1,
       ),

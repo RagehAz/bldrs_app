@@ -38,7 +38,7 @@ class AuthorModel{
 
     if (Mapper.canLoopList(authors)){
 
-      for (AuthorModel author in authors){
+      for (final AuthorModel author in authors){
 
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -71,9 +71,9 @@ class AuthorModel{
 
     if (Mapper.canLoopList(_keys)){
 
-      for (String key in _keys){
+      for (final String key in _keys){
 
-        AuthorModel _author = decipherAuthor(maps[key]);
+        final AuthorModel _author = decipherAuthor(maps[key]);
         _authors.add(_author);
       }
 
@@ -87,13 +87,13 @@ class AuthorModel{
 
     final List<String> _authorFlyersIDs = <String>[];
 
-    for (FlyerModel flyerModel in bzFlyers){
+    for (final FlyerModel flyerModel in bzFlyers){
       if(flyerModel.authorID == _authorID){
         _authorFlyersIDs.add(flyerModel.id);
       }
     }
 
-    int _authorGalleryCount = _authorFlyersIDs.length;
+    final int _authorGalleryCount = _authorFlyersIDs.length;
 
     return _authorGalleryCount;
   }
@@ -217,7 +217,7 @@ class AuthorModel{
   static List<String> getAuthorsIDsFromAuthors(List<AuthorModel> authors){
     final List<String> _authorsIDs = <String>[];
 
-    for (AuthorModel author in authors){
+    for (final AuthorModel author in authors){
       _authorsIDs.add(author.userID);
     }
 
@@ -242,11 +242,11 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static List<AuthorModel> getAuthorsFromAuthorsByAuthorsIDs(List<AuthorModel> allAuthors, List<String> authorsIDs){
-    List<AuthorModel> _bzAuthors = <AuthorModel>[];
+    final List<AuthorModel> _bzAuthors = <AuthorModel>[];
 
     if (Mapper.canLoopList(allAuthors) && Mapper.canLoopList(authorsIDs)){
 
-      for (String id in authorsIDs){
+      for (final String id in authorsIDs){
 
         final AuthorModel _author = allAuthors.singleWhere((AuthorModel author) => author.userID == id, orElse: () => null);
 
@@ -262,11 +262,11 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static List<AuthorModel> combineAllBzzAuthors(List<BzModel> allBzz){
-    List<AuthorModel> _allAuthors = <AuthorModel>[];
+    final List<AuthorModel> _allAuthors = <AuthorModel>[];
 
     if (Mapper.canLoopList(allBzz)){
 
-      for (BzModel bz in allBzz){
+      for (final BzModel bz in allBzz){
 
         _allAuthors.addAll(bz.authors);
 
@@ -283,7 +283,7 @@ class AuthorModel{
 // -----------------------------------------------------------------------------
   void printAuthor({String methodName}){
 
-    String _methodName = methodName ?? 'AUTHOR';
+    final String _methodName = methodName ?? 'AUTHOR';
 
     print('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
 
@@ -299,7 +299,7 @@ class AuthorModel{
   }
 // -----------------------------------------------------------------------------
   static AuthorModel getMasterAuthorFromBzModel(BzModel bzModel){
-    AuthorModel _masterAuthor = bzModel.authors.firstWhere((AuthorModel author) => author.isMaster == true, orElse: () => null);
+    final AuthorModel _masterAuthor = bzModel.authors.firstWhere((AuthorModel author) => author.isMaster == true, orElse: () => null);
     return _masterAuthor;
   }
 // -----------------------------------------------------------------------------

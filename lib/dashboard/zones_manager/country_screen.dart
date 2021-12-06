@@ -1,7 +1,6 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
@@ -30,7 +29,7 @@ class CountryEditorScreen extends StatefulWidget {
 }
 
 class _CountryEditorScreenState extends State<CountryEditorScreen> {
-  String _countriesCollectionName = 'countries';
+  // static const String _countriesCollectionName = 'countries';
   // CollectionReference _countriesCollection;
   // final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
   String _name;
@@ -82,13 +81,14 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    await Fire.updateDocField(
-      context: context,
-      collName: _countriesCollectionName,
-      docName: widget.country.id,
-      field: _field,
-      input: _input,
-    );
+    /// TASK : update country field method
+    // await Fire.updateDocField(
+    //   context: context,
+    //   collName: FireColl.zones,
+    //   docName: widget.country.id,
+    //   field: _field,
+    //   input: _input,
+    // );
     _triggerLoading();
   }
 // ---------------------------------------------------------------------------

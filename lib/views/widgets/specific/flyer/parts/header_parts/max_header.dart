@@ -57,7 +57,7 @@ class MaxHeader extends StatelessWidget {
         final List<String> _bzTeamIDs = <String>[];
 
         if(Mapper.canLoopList(_bzAuthors)) {
-          for (AuthorModel author in _bzAuthors){
+          for (final AuthorModel author in _bzAuthors){
             _bzTeamIDs.add(author.userID);
           }
         }

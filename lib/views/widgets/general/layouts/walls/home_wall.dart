@@ -15,7 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeWall extends StatefulWidget {
-  HomeWall({Key key}) : super(key: key);
+  const HomeWall({
+    Key key
+  }) : super(key: key);
 
   @override
   _HomeWallState createState() => _HomeWallState();
@@ -54,7 +56,7 @@ class _HomeWallState extends State<HomeWall> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
-            Padding(
+            const Padding(
               padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
               child: SuperVerse(
                 verse: 'Promoted',

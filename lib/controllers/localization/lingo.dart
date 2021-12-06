@@ -41,7 +41,7 @@ class Lingo{
 
     if (Mapper.canLoopList(lingos)){
 
-      for (Lingo lingo in lingos){
+      for (final Lingo lingo in lingos){
         _lingosMapModels.add(
             MapModel(
               key: lingo.code,
@@ -92,7 +92,7 @@ class Lingo{
   static List<String> getAllLingoCodes(){
     final List<String> _codes = <String>[];
 
-    for (Lingo lingo in allLanguages){
+    for (final Lingo lingo in allLanguages){
       _codes.add(lingo.code);
     }
 

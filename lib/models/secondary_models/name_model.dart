@@ -43,7 +43,7 @@ class Name {
 
     if (Mapper.canLoopList(names)){
 
-      for (Name name in names){
+      for (final Name name in names){
         _namezMaps = Mapper.insertPairInMap(
           map: _namezMaps,
           key: name.code,
@@ -107,7 +107,7 @@ class Name {
 
     if (Mapper.canLoopList(names)) {
 
-      Name _foundName = names.singleWhere((Name name) => name.code == lingoCode, orElse: () => null);
+      final Name _foundName = names.singleWhere((Name name) => name.code == lingoCode, orElse: () => null);
 
       if (_foundName == null){
         _nameValue = names.singleWhere((Name name) => name.code == Lingo.englishCode)?.value;
@@ -137,7 +137,7 @@ class Name {
 
     if (Mapper.canLoopList(names)){
 
-      for (Name name in names){
+      for (final Name name in names){
 
         if (name.code == lingoCode){
           if (name.value != null){
@@ -195,7 +195,7 @@ class Name {
 
         bool _allCodeValuesAreTheSame = true;
 
-        for (String code in codes){
+        for (final String code in codes){
 
           final String firstName = getNameByLingoFromNames(names: firstNames, lingoCode: code);
           final String secondName = getNameByLingoFromNames(names: secondNames, lingoCode: code);
@@ -226,11 +226,11 @@ class Name {
 // -----------------------------------------------------------------------------
   static List<String> _getLingoCodesFromNames(List<Name> names){
 
-    List<String> _codes = <String>[];
+    final List<String> _codes = <String>[];
 
     if (Mapper.canLoopList(names)){
 
-      for (Name name in names){
+      for (final Name name in names){
         _codes.add(name.code);
       }
 
@@ -245,7 +245,7 @@ class Name {
 
     if (Mapper.canLoopList(names)){
 
-      for (Name name in names){
+      for (final Name name in names){
         print('code : [ ${name.code} ] : name : [ ${name.value} ] : trigramLength : ${name.trigram?.length}');
       }
 

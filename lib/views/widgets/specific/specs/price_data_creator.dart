@@ -42,7 +42,7 @@ class PriceDataCreator extends StatefulWidget {
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     final List<CurrencyModel> _allCurrencies = _zoneProvider.allCurrencies;
     final CurrencyModel _currentCurrency = _zoneProvider.currentCurrency;
-    final CurrencyModel _USDCurrency = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
+    final CurrencyModel _usdCurrency = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
   currencies: _allCurrencies,
   countryID: 'usa',
 );
@@ -68,9 +68,9 @@ class PriceDataCreator extends StatefulWidget {
 
             CurrencyButton(
               width: _clearWidth,
-              currency: _USDCurrency,
+              currency: _usdCurrency,
               countryID: 'USA',
-              onTap: () => onSelectCurrency(_USDCurrency),
+              onTap: () => onSelectCurrency(_usdCurrency),
             ),
 
             const BubblesSeparator(),
@@ -146,7 +146,7 @@ class PriceDataCreator extends StatefulWidget {
 class _PriceDataCreatorState extends State<PriceDataCreator> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
-  ValueNotifier<CurrencyModel> _currency = ValueNotifier<CurrencyModel>(null);
+  final ValueNotifier<CurrencyModel> _currency = ValueNotifier<CurrencyModel>(null);
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -194,7 +194,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
     final String _fractionsStrings = TextMod.removeTextBeforeFirstSpecialCharacter(_numberString, '.');
     final int _numberOfFractions = _fractionsStrings.length;
 
-    bool _invalidDigits = _numberOfFractions > _maxDigits;
+    final bool _invalidDigits = _numberOfFractions > _maxDigits;
 
     print('_numberOfFractions : $_numberOfFractions : _numberString : $_numberString : _fractionsStrings : $_fractionsStrings');
 

@@ -42,14 +42,14 @@ class SpecList{
       final List<String> _allListsIDsToDeactivate = <String>[];
 
       /// GET DEACTIVATED LISTS
-      for (SpecList list in sourceSpecsLists){
+      for (final SpecList list in sourceSpecsLists){
         final List<SpecDeactivator> _deactivators = list.deactivators;
 
         if (Mapper.canLoopList(_deactivators)){
 
-          for (SpecDeactivator deactivator in _deactivators){
+          for (final SpecDeactivator deactivator in _deactivators){
 
-            bool _isSelected = Spec.specsContainThisSpecValue(specs: selectedSpecs, value: deactivator.specValue);
+            final bool _isSelected = Spec.specsContainThisSpecValue(specs: selectedSpecs, value: deactivator.specValue);
 
             if (_isSelected == true){
               _allListsIDsToDeactivate.addAll(deactivator.specsListsIDsToDeactivate);
@@ -62,7 +62,7 @@ class SpecList{
       }
 
       /// REFINE
-      for (SpecList list in sourceSpecsLists){
+      for (final SpecList list in sourceSpecsLists){
 
         final bool _listShouldBeDeactivated = Mapper.stringsContainString(strings: _allListsIDsToDeactivate, string: list.id);
 
@@ -99,11 +99,11 @@ class SpecList{
 // -----------------------------------------------------------------------------
   static List<SpecList> getSpecsListsByGroupID({@required List<SpecList> specsLists, @required String groupID}){
 
-    List<SpecList> _specsLists = <SpecList>[];
+    final List<SpecList> _specsLists = <SpecList>[];
 
     if (Mapper.canLoopList(specsLists)){
 
-      for (SpecList list in specsLists){
+      for (final SpecList list in specsLists){
 
         if (list.groupID == groupID){
 
@@ -123,7 +123,7 @@ class SpecList{
 
     List<String> _groups = <String>[];
 
-    for (SpecList list in specsLists){
+    for (final SpecList list in specsLists){
 
       _groups = TextMod.addStringToListIfDoesNotContainIt(
         strings: _groups,

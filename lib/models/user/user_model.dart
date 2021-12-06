@@ -124,7 +124,7 @@ class UserModel {
 
     if (Mapper.canLoopList(maps)){
 
-      for (Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps){
 
         _users.add(decipherUserMap(map: map, fromJSON: fromJSON));
 
@@ -275,10 +275,10 @@ class UserModel {
     AuthBy authBy,
   }) async {
 
-    assert(!user.isAnonymous);
+    assert(!user.isAnonymous, 'user must not be anonymous');
     print('createInitialUserModelFromUser : !_user.isAnonymous : ${!user.isAnonymous}');
 
-    assert(await user.getIdToken() != null);
+    assert(await user.getIdToken() != null, 'user token must not be null');
     print('createInitialUserModelFromUser : _user.getIdToken() != null : ${user.getIdToken() != null}');
 
     final UserModel _userModel = UserModel(

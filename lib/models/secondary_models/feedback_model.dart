@@ -39,7 +39,7 @@ static List<FeedbackModel> decipherFeedbacks(List<Map<String, dynamic>> maps){
 
     if (Mapper.canLoopList(maps)){
 
-      for (Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps){
 
         _feedbacks.add(FeedbackModel.decipherFeedbackMap(map));
 

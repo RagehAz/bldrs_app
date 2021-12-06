@@ -44,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
   // FlyerType _currentFlyerType;
   // List<GlobalKey<BldrsExpansionTileState>> _expansionKeys = [];
 
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -181,7 +181,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
       final List<KW> _keywords = KW.decipherKeywordsLDBMaps(maps: _maps);
 
-      for (KW kw in _keywords){
+      for (final KW kw in _keywords){
 
         final List<FlyerModel> _flyersByKeyword = await _flyersProvider.fetchFlyersByCurrentZoneAndKeyword(
           context: context,
@@ -219,7 +219,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     if (Mapper.canLoopList(_bzz)){
 
-      for (BzModel bz in _bzz){
+      for (final BzModel bz in _bzz){
 
         final List<FlyerModel> _bzFlyers = await _flyersProvider.fetchFirstFlyersByBzModel(
           context: context,
@@ -246,21 +246,21 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<List<SearchResult>> _searchAuthors() async {
     final List<SearchResult> _results = <SearchResult>[];
 
-    List<UserModel> _users = await FireSearchOps.usersByNameAndIsAuthor(
+    final List<UserModel> _users = await FireSearchOps.usersByNameAndIsAuthor(
         context: context,
         name: _searchController.text,
     );
 
     if (Mapper.canLoopList(_users)){
 
-      for (UserModel user in _users){
+      for (final UserModel user in _users){
 
         /// task should get only bzz showing teams
         final List<BzModel> _bzz = await _bzzProvider.fetchUserBzz(context: context, userModel: user);
 
         if (Mapper.canLoopList(_bzz)){
 
-          for (BzModel bz in _bzz){
+          for (final BzModel bz in _bzz){
 
             /// task should get only flyers showing authors
             final List<FlyerModel> _bzFlyers = await _flyersProvider.fetchFirstFlyersByBzModel(
@@ -301,7 +301,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<List<SearchResult>> _searchFlyersByTitle() async {
     final List<SearchResult> _results = <SearchResult>[];
 
-    List<FlyerModel> _flyers = await FireSearchOps.flyersByZoneAndTitle(
+    final List<FlyerModel> _flyers = await FireSearchOps.flyersByZoneAndTitle(
       context: context,
       zone: _zoneProvider.currentZone,
       title: _searchController.text,

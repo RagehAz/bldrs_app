@@ -43,26 +43,26 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // --------------------
-  TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   File _currentPicFile;
   String _currentPicURL;
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _companyController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _companyController = TextEditingController();
   Gender _currentGender;
   ZoneModel _currentZone;
   // String _currentLanguageCode;
   GeoPoint _currentPosition;
   // --------------------
- TextEditingController _phoneController = TextEditingController();
- TextEditingController _emailController = TextEditingController();
- TextEditingController _websiteController = TextEditingController();
- TextEditingController _facebookController = TextEditingController();
- TextEditingController _linkedInController = TextEditingController();
- TextEditingController _youTubeController = TextEditingController();
- TextEditingController _instagramController = TextEditingController();
- TextEditingController _pinterestController = TextEditingController();
- TextEditingController _tiktokController = TextEditingController();
- TextEditingController _twitterController = TextEditingController();
+ final TextEditingController _phoneController = TextEditingController();
+ final TextEditingController _emailController = TextEditingController();
+ final TextEditingController _websiteController = TextEditingController();
+ final TextEditingController _facebookController = TextEditingController();
+ final TextEditingController _linkedInController = TextEditingController();
+ final TextEditingController _youTubeController = TextEditingController();
+ final TextEditingController _instagramController = TextEditingController();
+ final TextEditingController _pinterestController = TextEditingController();
+ final TextEditingController _tiktokController = TextEditingController();
+ final TextEditingController _twitterController = TextEditingController();
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;

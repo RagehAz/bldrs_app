@@ -13,7 +13,7 @@ class AnkhButton extends StatefulWidget {
   final bool ankhIsOn;
   final Function onAnkhTap;
 
-  AnkhButton({
+  const AnkhButton({
     @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
     @required this.listenToSwipe,

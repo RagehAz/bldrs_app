@@ -34,7 +34,7 @@ class IntegerDataCreator extends StatefulWidget {
 class _IntegerDataCreatorState extends State<IntegerDataCreator> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
-  ValueNotifier<int> _integer = ValueNotifier<int>(null);
+  final ValueNotifier<int> _integer = ValueNotifier<int>(null);
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -92,9 +92,8 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
   Future<void> _increment() async {
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    if (_integer.value == null){
-      _integer.value = 0;
-    }
+    /// give it a zero if the value is null
+    _integer.value ??= 0;
 
     _integer.value ++;
     controller.text = _integer.value.toString();

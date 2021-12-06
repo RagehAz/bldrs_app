@@ -76,11 +76,11 @@ import 'package:bldrs/models/bz/target/target_reward.dart';
     description: 'Contribute in Bldrs network growth, and take part in deciding in which direction by attentively selecting which of our Bldr contacts on your phone you see suitable to join the community',
     reward: communityGrowthReward,
     instructions: <String>[
-      "Verify your business account",
-      "Share your BLDR link to people you know who will benefit creating a business account on Bldrs.net",
-      "Tell them personally what you really think about Bldrs.net.",
-      "Wait until they create a new business account then your business account will get linked.",
-      "Wait the linked account to publish 30 slides and link with another business account.",
+      'Verify your business account',
+      'Share your BLDR link to people you know who will benefit creating a business account on Bldrs.net',
+      'Tell them personally what you really think about Bldrs.net.',
+      'Wait until they create a new business account then your business account will get linked.',
+      'Wait the linked account to publish 30 slides and link with another business account.',
       "At that point, Both your account and the linked account grow their accounts\' credits together",
     ],
 
@@ -213,9 +213,9 @@ import 'package:bldrs/models/bz/target/target_reward.dart';
   }
 // -----------------------------------------------------------------------------
   List<TargetModel> insertTargetsProgressIntoTargetsModels({List<TargetModel> allTargets, List<TargetProgress> targetsProgress}){
-    List<TargetModel> _targets = <TargetModel>[];
+    final List<TargetModel> _targets = <TargetModel>[];
 
-    for (TargetModel target in allTargets){
+    for (final TargetModel target in allTargets){
 
       final TargetProgress _progress = targetsProgress.singleWhere((TargetProgress prog) => prog.targetID == target.id, orElse: () => null);
 
