@@ -117,8 +117,9 @@ class _TestFormScreenState extends State<TestFormScreen> {
                     if (value.isEmpty){
                       return 'write something';
                     }
-                    else
+                    else {
                       return null;
+                    }
                   },
                   decoration: const InputDecoration(
                     labelText: 'Entry a',

@@ -44,7 +44,7 @@ class FieldsRow extends StatelessWidget {
             centered: false,
             italic: true,
             weight: VerseWeight.thin,
-            color: Colorz.blue225,
+            color: Colorz.blue255,
             shadow: true,
           ),
         ),

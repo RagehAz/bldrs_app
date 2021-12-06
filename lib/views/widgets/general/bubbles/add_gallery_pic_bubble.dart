@@ -88,7 +88,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                         DreamBox(
                           width: btWidth,
                           height: btWidth,
-                          icon: Iconz.PhoneGallery,
+                          icon: Iconz.phoneGallery,
                           iconSizeFactor: 0.6,
                           onTap: addBtFunction,
                         ),
@@ -97,7 +97,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                         DreamBox(
                           width: btWidth,
                           height: btWidth,
-                          icon: Iconz.XLarge,
+                          icon: Iconz.xLarge,
                           iconSizeFactor: 0.5,
                           onTap: deletePicFunction,
                         ),
@@ -143,7 +143,7 @@ class AddGalleryPicBubble extends StatelessWidget {
               DreamBox(
                 height: picWidth,
                 width: picWidth,
-                icon: Iconz.Plus,
+                icon: Iconz.plus,
                 iconSizeFactor: 0.4,
                 bubble: false,
                 opacity: 0.9,

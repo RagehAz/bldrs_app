@@ -149,7 +149,7 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
                 button(
                   context: context,
                   verse: 'xxx shares',
-                  icon: Iconz.Share,
+                  icon: Iconz.share,
                   onTap: () => _onSelectTab('shares'),
                   isSelected: _currentTab == 'shares',
                 ),
@@ -157,7 +157,7 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
                 button(
                   context: context,
                   verse: 'xxx views',
-                  icon: Iconz.Views,
+                  icon: Iconz.viewsIcon,
                   onTap: () => _onSelectTab('views'),
                   isSelected: _currentTab == 'views',
                 ),
@@ -165,7 +165,7 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
                 button(
                   context: context,
                   verse: 'xxx saves',
-                  icon: Iconz.Save,
+                  icon: Iconz.save,
                   onTap: () => _onSelectTab('saves'),
                   isSelected: _currentTab == 'saves',
                 ),

@@ -44,7 +44,7 @@ class ReviewUserLabel extends StatelessWidget {
         DreamBox(
           height: 30,
           width: 30,
-          icon: Iconz.More,
+          icon: Iconz.more,
           iconSizeFactor: 0.6,
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           color: Colorz.white10,

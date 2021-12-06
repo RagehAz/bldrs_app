@@ -144,16 +144,22 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    if (TextChecker.textControllerIsEmpty(_bzNameTextController))
+    if (TextChecker.textControllerIsEmpty(_bzNameTextController)){
       _bzNameTextController.dispose();
-    if (TextChecker.textControllerIsEmpty(_bzScopeTextController))
+    }
+    if (TextChecker.textControllerIsEmpty(_bzScopeTextController)){
       _bzScopeTextController.dispose();
-    if (TextChecker.textControllerIsEmpty(_bzAboutTextController))
+    }
+    if (TextChecker.textControllerIsEmpty(_bzAboutTextController)){
       _bzAboutTextController.dispose();
-    if (TextChecker.textControllerIsEmpty(_authorNameTextController))
+    }
+    if (TextChecker.textControllerIsEmpty(_authorNameTextController)){
       _authorNameTextController.dispose();
-    if (TextChecker.textControllerIsEmpty(_authorTitleTextController))
+    }
+    if (TextChecker.textControllerIsEmpty(_authorTitleTextController)){
       _authorTitleTextController.dispose();
+    }
+
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -208,7 +214,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 // -----------------------------------------------------------------------------
   void _selectASection(int index){
     setState(() {
-      _currentSection = SectionClass.SectionsList[index];
+      _currentSection = SectionClass.sectionsList[index];
       /// Task : FIX THIS SHIT
       _bzTypeInActivityList =
 
@@ -541,9 +547,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
     return MainLayout(
       loading: _loading,
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.PyramidzYellow,
-      skyType: SkyType.Black,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.pyramidzYellow,
+      skyType: SkyType.black,
       pageTitle: widget.firstTimer == true ? Wordz.createBzAccount(context) : 'Edit Business account info', // createBzAccount
       // appBarBackButton: true,
       layoutWidget: Stack(
@@ -691,8 +697,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 /// --- SHOW BZCARD
                 DreamBox(
                   height: 50,
-                  color: Colorz.blue225,
-                  icon: Iconz.Flyer,
+                  color: Colorz.blue255,
+                  icon: Iconz.flyer,
                   iconSizeFactor: 0.7,
                   verse: 'Show\nFlyer',
                   verseScaleFactor: 0.8,

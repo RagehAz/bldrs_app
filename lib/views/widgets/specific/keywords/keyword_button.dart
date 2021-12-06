@@ -55,7 +55,7 @@ class KeywordBarButton extends StatelessWidget {
                     DreamBox(
                       height: 15,
                       width: 15,
-                      icon: Iconz.XLarge,
+                      icon: Iconz.xLarge,
                       iconSizeFactor: 09,
                       bubble: false,
                       iconColor: Colorz.white200,

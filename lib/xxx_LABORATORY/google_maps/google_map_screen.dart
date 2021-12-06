@@ -152,9 +152,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
     return MainLayout(
       pageTitle: 'Select on Map',
-      appBarType: AppBarType.Basic,
+      appBarType: AppBarType.basic,
       loading: _loading,
-      pyramids: Iconz.DvBlankSVG,
+      pyramids: Iconz.dvBlankSVG,
       appBarRowWidgets: const <Widget>[],
       onBack: (){
 
@@ -163,7 +163,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
       },
       sectionButtonIsOn: false,
-      skyType: SkyType.Black,
+      skyType: SkyType.black,
       layoutWidget: Stack(
         children: <Widget>[
 
@@ -245,7 +245,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   const DreamBox(
                     width: _pinWidth,
                     height: _pinWidth,
-                    icon: Iconz.LocationPin,
+                    icon: Iconz.locationPin,
                     iconColor: Colorz.red230,
                     bubble: false,
                   ),
@@ -270,7 +270,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               width: _screenWidth * 0.6,
               height: 50,
               margins: Ratioz.appBarMargin,
-              icon: _countryModel == null ? Iconz.LocationPin : Flag.getFlagIconByCountryID(_countryModel.id),
+              icon: _countryModel == null ? Iconz.locationPin : Flag.getFlagIconByCountryID(_countryModel.id),
               // iconColor: Colorz.red230,
               iconSizeFactor: 0.7,
               verse: 'Confirm Location',

@@ -30,7 +30,7 @@ class ListLayout extends StatelessWidget {
     this.onItemTap,
     this.pageIcon,
     this.pageIconVerse,
-    this.sky = SkyType.Night,
+    this.sky = SkyType.night,
     Key key,
 }) : super(key: key);
 
@@ -45,7 +45,7 @@ class ListLayout extends StatelessWidget {
 // -----------------------------------------------------------------------------
     return MainLayout(
       skyType: sky,
-      appBarType: AppBarType.Basic,
+      appBarType: AppBarType.basic,
       pageTitle: pageTitle,
       pyramids: pyramids,
       // appBarBackButton: true,

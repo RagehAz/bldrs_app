@@ -70,10 +70,10 @@ class TabLayout extends StatelessWidget {
     final List<Widget> _pages = TabModel.getPageWidgetsFromTabModels(tabModels);
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
-      skyType: SkyType.Black,
+      appBarType: AppBarType.basic,
+      skyType: SkyType.black,
       pageTitle: pageTitle,
-      pyramids: Iconz.DvBlankSVG,
+      pyramids: Iconz.dvBlankSVG,
       onBack: selectionMode == false ?
       null
           :

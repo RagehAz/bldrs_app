@@ -862,7 +862,7 @@ import 'package:flutter/foundation.dart';
         notiPicType: NotiPicType.bldrs,
         timeStamp: DateTime.now(),
         body: 'Find thousands of businesses to help you find and build what you want to build',
-        attachment: Iconz.WelcomeToBldrsBanner_22x18,
+        attachment: Iconz.welcomeToBldrsBanner_22x18,
         attachmentType: NotiAttachmentType.banner,
 
         dismissed: false,

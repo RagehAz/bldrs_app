@@ -76,7 +76,7 @@ class TopDialog extends StatelessWidget {
       /// TITLE ----------------------------------------------
       titleText: Container(
         width: BldrsAppBar.width(context),
-        height: BldrsAppBar.height(context, AppBarType.Basic) - 5,
+        height: BldrsAppBar.height(context, AppBarType.basic) - 5,
         decoration: BoxDecoration(
           // color: Colorz.Black255,
           borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
@@ -207,7 +207,7 @@ class TopDialog extends StatelessWidget {
       icon: const DreamBox(
         width: 40,
         height: 40,
-        icon: Iconz.DvGouran,
+        icon: Iconz.dvGouran,
         color: Colorz.darkRed255,
         margins: EdgeInsets.zero,
 

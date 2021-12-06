@@ -32,13 +32,13 @@ class BzCreditsCounter extends StatelessWidget {
 
           CreditsRow(
             width: width,
-            icon: Iconz.Save,
+            icon: Iconz.save,
             value: ankhsCredit,
           ),
 
           CreditsRow(
             width: width,
-            icon: Iconz.Flyer,
+            icon: Iconz.flyer,
             value: slidesCredit,
           ),
 

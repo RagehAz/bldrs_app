@@ -364,7 +364,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 Widget notiStreamBuilder({
   BuildContext context,
-  notiModelsWidgetsBuilder builder,
+  NotiModelsWidgetsBuilder builder,
   String userID,
 }){
 
@@ -434,7 +434,7 @@ Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID)
 }
 // -----------------------------------------------------------------------------
 
-typedef notiModelsWidgetsBuilder = Widget Function(
+typedef NotiModelsWidgetsBuilder = Widget Function(
     BuildContext context,
     List<NotiModel> notiModels,
     );

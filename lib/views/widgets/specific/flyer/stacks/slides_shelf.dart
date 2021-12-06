@@ -156,7 +156,7 @@ class SlidesShelf extends StatelessWidget {
                                       DreamBox(
                                         height: _flyerZoneWidth * 0.5,
                                         width: _flyerZoneWidth * 0.5,
-                                        icon: Iconz.Plus,
+                                        icon: Iconz.plus,
 
                                         iconColor: Colorz.white20,
                                         bubble: false,//() => _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth),

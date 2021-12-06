@@ -87,20 +87,20 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
     double btCorner = btWidth * 0.2;
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.PyramidzYellow,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.pyramidzYellow,
       appBarRowWidgets: <Widget>[
 
         DreamBox(
           height: 40,
-          icon: Iconz.Play,
+          icon: Iconz.play,
           margins: const EdgeInsets.all(5),
           onTap: resizeBox,
         ),
 
         DreamBox(
           height: 40,
-          icon: Iconz.Pause,
+          icon: Iconz.pause,
           margins: const EdgeInsets.all(5),
           onTap: (){
             _controller.stop(canceled: false);
@@ -109,7 +109,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
 
         DreamBox(
           height: 40,
-          icon: Iconz.Stop,
+          icon: Iconz.stop,
           margins: const EdgeInsets.all(5),
           onTap: (){
             _controller.reset();
@@ -118,7 +118,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
 
         DreamBox(
           height: 40,
-          icon: Iconz.Clock,
+          icon: Iconz.clock,
           margins: const EdgeInsets.all(5),
           onTap: (){
             _controller.forward();
@@ -139,7 +139,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           InkWell(
             onTap: resizeBox,
             highlightColor: Colorz.yellow255,
-            splashColor: Colorz.blue225,
+            splashColor: Colorz.blue255,
 
             child: Center(
               child: RotationTransition(
@@ -164,7 +164,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                           duration: const Duration(seconds: 1),
                           child: DreamBox(
                             height: 50,
-                            icon: Iconz.ComYoutube,
+                            icon: Iconz.comYoutube,
                             onTap: (){
                               resizeBox();
                             },
@@ -188,7 +188,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
             child: DreamBox(
               width: 200,
               height: 200,
-              icon: Iconz.Clock,
+              icon: Iconz.clock,
               color: Colorz.yellow255,
               splashColor: Colorz.darkRed125,
               underLine: 'Ripple Effect\n Works Now',
@@ -212,7 +212,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
 
               child: DreamBox(
                 height: 100,
-                icon: Iconz.DvDonaldDuck,
+                icon: Iconz.dvDonaldDuck,
                 verse: 'ana ho',
                 onTap: (){
                   Navigator.push(context,
@@ -329,7 +329,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                   height: btWidth,
                   decoration: BoxDecoration(
                     color: Colorz.yellow80,
-                    image: const DecorationImage(image: const AssetImage(Iconz.DumAuthorPic), fit: BoxFit.fitHeight),
+                    image: const DecorationImage(image: const AssetImage(Iconz.dumAuthorPic), fit: BoxFit.fitHeight),
                     borderRadius: Borderers.superBorderOnly(context: context, enTopLeft: btCorner, enBottomLeft: btCorner, enBottomRight: btCorner, enTopRight: btCorner),
                   ),
                 ),
@@ -340,7 +340,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           AnimatedDreamBox(
             height: 100,
             width: 100,
-            icon: Iconz.DvGouran,
+            icon: Iconz.dvGouran,
             iconSizeFactor: 0.5,
             corners: 35,
             boxMargins: const EdgeInsets.all(20),
@@ -397,7 +397,7 @@ class HeroMax extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainLayout(
-      pyramids: Iconz.PyramidzYellow,
+      pyramids: Iconz.pyramidzYellow,
       layoutWidget: Center(
         child: Container(
           width: 400,
@@ -406,7 +406,7 @@ class HeroMax extends StatelessWidget {
             tag: 'unique tag aho',
             child: DreamBox(
               height: 150,
-              icon: Iconz.DvDonaldDuck,
+              icon: Iconz.dvDonaldDuck,
               verse: 'ana ho',
               verseMaxLines: 2,
               onTap: (){

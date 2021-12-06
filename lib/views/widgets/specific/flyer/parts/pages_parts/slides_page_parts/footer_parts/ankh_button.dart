@@ -40,7 +40,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
     super.initState();
 
     _ankhIsOn = widget.ankhIsOn;
-    _saveBTIcon = _ankhIsOn == true ? Iconz.SaveOn : Iconz.SaveOff;
+    _saveBTIcon = _ankhIsOn == true ? Iconz.saveOn : Iconz.saveOff;
 
     _ankhAniController = AnimationController(
       duration: Ratioz.durationFading200,
@@ -97,7 +97,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
 
       setState(() {
         _ankhIsOn = false;
-        _saveBTIcon = Iconz.SaveOff;
+        _saveBTIcon = Iconz.saveOff;
       });
       await _ankhAniController.reverse();
 
@@ -107,7 +107,7 @@ class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateM
 
       setState(() {
         _ankhIsOn = true;
-        _saveBTIcon = Iconz.SaveOn;
+        _saveBTIcon = Iconz.saveOn;
       });
       await _ankhAniController.forward();
 

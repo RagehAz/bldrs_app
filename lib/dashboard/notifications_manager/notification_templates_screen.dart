@@ -90,7 +90,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
     final double _screenWidth = Scale.superScreenWidth(context);
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
+      appBarType: AppBarType.basic,
       // tappingRageh: () async {
       //
       //   bool upload = await CenterDialog.showCenterDialog(
@@ -115,7 +115,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
           width: 40,
           height: 40,
           iconSizeFactor: 0.5,
-          icon: Iconz.Clock,
+          icon: Iconz.clock,
           color: Colorz.blue20,
           corners: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
@@ -127,8 +127,8 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
       ],
       loading: _loading,
       pageTitle: 'News & Notifications',
-      skyType: SkyType.Black,
-      pyramids: Iconz.PyramidzYellow,
+      skyType: SkyType.black,
+      pyramids: Iconz.pyramidzYellow,
       layoutWidget:
 
       _notifications.length == 0 ?

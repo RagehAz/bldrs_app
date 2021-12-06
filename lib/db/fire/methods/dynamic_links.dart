@@ -194,7 +194,7 @@ class DynamicLinksApi {
         print(_code.toString());
         if (_code != null) {
 
-          navigatorKey.currentState.pushNamed(Routez.DynamicLinkTest, arguments: _code);
+          navigatorKey.currentState.pushNamed(Routez.dynamicLinkTest, arguments: _code);
 
         }
       }

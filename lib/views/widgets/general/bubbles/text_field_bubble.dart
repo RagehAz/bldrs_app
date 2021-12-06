@@ -103,9 +103,9 @@ class TextFieldBubble extends StatelessWidget {
                       height: 35,
                       width: 35,
                       icon: leadingIcon,
-                      iconSizeFactor: leadingIcon == Iconz.ComWebsite ||
-                          leadingIcon == Iconz.ComEmail ||
-                          leadingIcon == Iconz.ComPhone ?
+                      iconSizeFactor: leadingIcon == Iconz.comWebsite ||
+                          leadingIcon == Iconz.comEmail ||
+                          leadingIcon == Iconz.comPhone ?
                       0.6 : 1,
                     ),
 
@@ -146,7 +146,7 @@ class TextFieldBubble extends StatelessWidget {
                       height: 35,
                       width: 35,
                       color: obscured? Colorz.nothing : Colorz.yellow200,
-                      icon: Iconz.Views,
+                      icon: Iconz.viewsIcon,
                       iconColor: obscured? Colorz.white20 : Colorz.black230,
                       iconSizeFactor: 0.7,
                       bubble: false,

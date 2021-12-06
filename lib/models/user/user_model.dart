@@ -186,7 +186,7 @@ class UserModel {
       case 'facebook':   return   AuthBy.facebook; break;
       case 'apple'   :   return   AuthBy.apple; break;
       case 'google'  :   return   AuthBy.google; break;
-      default : return   AuthBy.Unknown;
+      default : return   AuthBy.unknown;
     }
   }
 // -----------------------------------------------------------------------------
@@ -453,6 +453,6 @@ enum AuthBy {
   facebook,
   google,
   apple,
-  Unknown,
+  unknown,
 }
 // -----------------------------------------------------------------------------

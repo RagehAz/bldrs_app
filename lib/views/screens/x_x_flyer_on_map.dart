@@ -128,7 +128,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 // -----------------------------------------------------------------------------
   Future<void> missingFunction()async{
     print('missing function starts');
-    final Uint8List markerIcon = await getBytesFromAsset(Iconz.FlyerPinPNG, markerWidth);
+    final Uint8List markerIcon = await getBytesFromAsset(Iconz.flyerPinPNG, markerWidth);
     customMarker = BitmapDescriptor.fromBytes(markerIcon);
     print('missing function ends ${customMarker.toString()}');
   }
@@ -158,8 +158,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     final double _screenHeight = Scale.superScreenHeight(context);
 
     return MainLayout(
-      skyType: SkyType.Black,
-      pyramids: Iconz.DvBlankSVG,
+      skyType: SkyType.black,
+      pyramids: Iconz.dvBlankSVG,
       // tappingRageh: getUserLocation,
       layoutWidget:
       Stack(
@@ -233,7 +233,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 verseMaxLines: 2,
                 color: Colorz.black200,
                 bubble: false,
-                icon: Iconz.FingerTap,
+                icon: Iconz.fingerTap,
                 iconSizeFactor: 0.7,
               ),
             ),

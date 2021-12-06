@@ -100,12 +100,12 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
 // -----------------------------------------------------------------------------
 
     return  ListLayout(
-      pyramids: Iconz.PyramidzYellow,
+      pyramids: Iconz.pyramidzYellow,
       pageTitle: _countryName,
       mapModels: _citiesMapModels,
       pageIcon: _countryFlag,
       pageIconVerse: _countryName,
-      sky: SkyType.Black,
+      sky: SkyType.black,
       onItemTap: (String value) async {
 
         final String _cityID = value;

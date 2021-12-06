@@ -101,8 +101,8 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
     final CityModel _currentCity = _zoneProvider?.currentCity;
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.PyramidzYellow,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.pyramidzYellow,
       loading: _loading,
       appBarRowWidgets: const <Widget>[],
 

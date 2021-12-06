@@ -7,7 +7,7 @@ abstract class ChainCrafts {
 
   static const Chain chain = const Chain(
     id: 'crafts',
-    icon: Iconz.BxCraftsOff,
+    icon: Iconz.bxCraftsOff,
     names: <Name>[
       Name(code: 'en', value: 'Crafts'),
       Name(code: 'ar', value: '')

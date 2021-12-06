@@ -134,7 +134,7 @@ class TileBubble extends StatelessWidget {
                 activeColor: Colorz.yellow255,
                 activeTrackColor: Colorz.yellow80,
                 focusColor: Colorz.darkBlue,
-                inactiveThumbColor: Colorz.grey225,
+                inactiveThumbColor: Colorz.grey255,
                 inactiveTrackColor: Colorz.grey80,
                 value: switchIsOn,
                 onChanged: (bool val) => switching(val),
@@ -145,7 +145,7 @@ class TileBubble extends StatelessWidget {
               DreamBox(
                 height: 35,
                 width: 35,
-                icon: Iconz.More,
+                icon: Iconz.more,
                 iconSizeFactor: 0.6,
                 onTap: moreBtOnTap,
               ),

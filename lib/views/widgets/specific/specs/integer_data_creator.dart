@@ -193,7 +193,7 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
                   DreamBox(
                     width: _buttonSize,
                     height: _buttonSize,
-                    icon: Iconz.ArrowUp,
+                    icon: Iconz.arrowUp,
                     iconSizeFactor: 0.4,
                     onTap: _increment,
                   ),
@@ -206,7 +206,7 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
                   DreamBox(
                     width: _buttonSize,
                     height: _buttonSize,
-                    icon: Iconz.ArrowDown,
+                    icon: Iconz.arrowDown,
                     iconSizeFactor: 0.4,
                     onTap: _decrement,
                   ),

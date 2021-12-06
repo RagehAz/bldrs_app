@@ -318,8 +318,8 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     traceWidgetBuild(widgetName: 'SelectKeywordsScreen', varName: '_selectedKeywords.length', varValue: _selectedKeywords.length);
     return MainLayout(
       pageTitle: 'Select Flyer keywords',
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.DvBlankSVG,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.dvBlankSVG,
       onBack: () {
         Nav.goBack(context, argument: _selectedKeywords);
         // await null

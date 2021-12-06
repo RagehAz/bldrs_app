@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:bldrs/views/screens/c_search/c_0_search_screen.dart';
 
 enum BackAndSearchAction{
-  GoToSearchScreen,
-  GoBack,
-  ShowHistory,
+  goToSearchScreen,
+  goBack,
+  showHistory,
 }
 
 class BackAndSearchButton extends StatelessWidget {
@@ -33,15 +33,15 @@ class BackAndSearchButton extends StatelessWidget {
 
 // -----------------------------------------------------------------------------
     final String _icon =
-    backAndSearchAction == BackAndSearchAction.GoBack ? Iconizer.superBackIcon(context) :
-    backAndSearchAction == BackAndSearchAction.GoToSearchScreen ? Iconz.Search :
-    backAndSearchAction == BackAndSearchAction.ShowHistory ? Iconz.Clock :
+    backAndSearchAction == BackAndSearchAction.goBack ? Iconizer.superBackIcon(context) :
+    backAndSearchAction == BackAndSearchAction.goToSearchScreen ? Iconz.search :
+    backAndSearchAction == BackAndSearchAction.showHistory ? Iconz.clock :
     null;
 // -----------------------------------------------------------------------------
     final double _iconSizeFactor =
-    backAndSearchAction == BackAndSearchAction.GoBack ? 1 :
-    backAndSearchAction == BackAndSearchAction.GoToSearchScreen ? 0.5 :
-    backAndSearchAction == BackAndSearchAction.ShowHistory ? 0.5 :
+    backAndSearchAction == BackAndSearchAction.goBack ? 1 :
+    backAndSearchAction == BackAndSearchAction.goToSearchScreen ? 0.5 :
+    backAndSearchAction == BackAndSearchAction.showHistory ? 0.5 :
     1;
 // -----------------------------------------------------------------------------
     return DreamBox(
@@ -63,15 +63,15 @@ class BackAndSearchButton extends StatelessWidget {
 
         else {
 
-          if (backAndSearchAction == BackAndSearchAction.GoBack){
+          if (backAndSearchAction == BackAndSearchAction.goBack){
             Nav.goBack(context);
           }
 
-          else if(backAndSearchAction == BackAndSearchAction.GoToSearchScreen){
+          else if(backAndSearchAction == BackAndSearchAction.goToSearchScreen){
             Nav.goToNewScreen(context, const SearchScreen());
           }
 
-          else if(backAndSearchAction == BackAndSearchAction.ShowHistory){
+          else if(backAndSearchAction == BackAndSearchAction.showHistory){
             final String _result = await Nav.goToNewScreen(context, const SearchHistoryScreen());
             print('received back this result : $_result');
             passSearchHistory(_result);

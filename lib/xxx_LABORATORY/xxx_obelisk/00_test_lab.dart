@@ -113,8 +113,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.PyramidzYellow,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.pyramidzYellow,
       loading: _loading,
       appBarRowWidgets: const<Widget>[],
 
@@ -214,7 +214,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
               WideButton(
                   color: Colorz.bloodTest,
                   verse: 'DO SOMETHING',
-                  icon: Iconz.Share,
+                  icon: Iconz.share,
                   onTap: () async {
 
                     _triggerLoading();

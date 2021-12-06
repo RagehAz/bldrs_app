@@ -588,7 +588,7 @@ class _FontLabState extends State<FontLab> {
             ),
 
             const Pyramids(
-              pyramidsIcon: Iconz.PyramidsYellow,
+              pyramidsIcon: Iconz.pyramidsYellow,
               loading: true,
             ),
 

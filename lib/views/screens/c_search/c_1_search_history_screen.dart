@@ -18,10 +18,10 @@ class SearchHistoryScreen extends StatelessWidget {
     final List<String> _searchList = <String>['Interior', 'Architecture', 'sallab', 'grohe', 'hanafeya', 'tagamoo'];
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
+      appBarType: AppBarType.basic,
       pageTitle: 'Search History',
       // appBarBackButton: true,
-      pyramids: Iconz.DvBlankSVG,
+      pyramids: Iconz.dvBlankSVG,
       layoutWidget: ListView.builder(
           itemCount: _searchList.length,
           padding: const EdgeInsets.only(top: Ratioz.stratosphere),
@@ -31,7 +31,7 @@ class SearchHistoryScreen extends StatelessWidget {
 
             return TileBubble(
               verse: _searchWord,
-              icon: Iconz.DvBlankSVG,
+              icon: Iconz.dvBlankSVG,
               iconSizeFactor: 0.9,
               btOnTap: (){
                 Nav.goBack(context, argument: _searchWord);

@@ -104,7 +104,7 @@ class SlideCounters extends StatelessWidget {
                                     left: footerBTMargins * 0.25,
                                     right: footerBTMargins * 0.25,
                                   ),
-                                  child: WebsafeSvg.asset(Iconz.Share),
+                                  child: WebsafeSvg.asset(Iconz.share),
                                 ),
                                 SuperVerse(
                                   verse: Numeric.counterCaliber(context, shares),
@@ -130,7 +130,7 @@ class SlideCounters extends StatelessWidget {
                                       left: footerBTMargins * 0.5,
                                       right: footerBTMargins * 0.5,
                                     ),
-                                    child: WebsafeSvg.asset(Iconz.Views)),
+                                    child: WebsafeSvg.asset(Iconz.viewsIcon)),
                                 SuperVerse(
                                   verse: Numeric.counterCaliber(context, views),
                                   size: 1,
@@ -156,7 +156,7 @@ class SlideCounters extends StatelessWidget {
                                   //   right: footerBTMargins * 0,
                                   // ),
                                   child: WebsafeSvg.asset(
-                                    Iconz.Save,
+                                    Iconz.save,
                                   ),
                                 ),
                                 SuperVerse(

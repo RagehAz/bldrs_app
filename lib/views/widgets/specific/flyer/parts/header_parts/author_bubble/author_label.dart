@@ -225,7 +225,7 @@ class AuthorPic extends StatelessWidget {
                       DreamBox(
                         width: width * 0.35,
                         height: _authorImageHeight * 0.35,
-                        icon: Iconz.Plus,
+                        icon: Iconz.plus,
                         bubble: false,
                         onTap: () => _tapAddAuthor(context),
                       ),
