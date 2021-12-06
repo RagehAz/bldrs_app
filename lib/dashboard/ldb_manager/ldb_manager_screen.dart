@@ -119,7 +119,7 @@ class LDBViewersScreen extends StatelessWidget {
               WideButton(
                 verse: ldbDoc, // notifications prefs, my user model
                 onTap: () => goToLDBViewer(context, ldbDoc),
-                icon: Iconz.Info,
+                icon: Iconz.info,
               );
 
 

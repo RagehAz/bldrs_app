@@ -25,7 +25,7 @@ class DialogOfTargetAchievement extends StatelessWidget {
             weight: VerseWeight.thin,
             italic: true,
             size: 1,
-            color: Colorz.blue225,
+            color: Colorz.blue255,
             labelColor: Colorz.white10,
             onTap: () async {
 
@@ -53,7 +53,7 @@ class DialogOfTargetAchievement extends StatelessWidget {
           weight: VerseWeight.thin,
           italic: true,
           size: 1,
-          color: Colorz.blue225,
+          color: Colorz.blue255,
           labelColor: Colorz.white10,
           onTap: () async {
 

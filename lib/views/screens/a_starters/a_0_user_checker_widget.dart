@@ -106,7 +106,7 @@ class _UserCheckerState extends State<UserChecker> {
 
                 print('user has a completed userModel and was in home screen and came back to user checker, and this should not happen, at home page you can not go back to userChecker or loading screen man');
                 /// so we loop once more to user check
-                await Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+                await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
               }
 
               /// C - if userModel is not completed
@@ -156,7 +156,7 @@ class _UserCheckerState extends State<UserChecker> {
 
             print('just came back from starting screen : _result : $_result');
             /// and we loop again in userChecker
-            await Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+            await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
           }
 
         });
@@ -193,8 +193,8 @@ class _UserCheckerState extends State<UserChecker> {
         child: MainLayout(
           key: const ValueKey<String>('mainLayout'),
           loading: _loading,
-          pyramids: Iconz.PyramidzYellow,
-          appBarType: AppBarType.Non,
+          pyramids: Iconz.pyramidzYellow,
+          appBarType: AppBarType.non,
           layoutWidget: _logoIsShown  == true ? const Center(child: LogoSlogan(sizeFactor: 0.7)) : Container(),
 
         ),

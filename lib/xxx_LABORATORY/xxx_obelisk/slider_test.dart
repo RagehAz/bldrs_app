@@ -59,8 +59,8 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
   Widget build(BuildContext context) {
     return MainLayout(
       // appBarBackButton: true,
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.PyramidsGlass,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.pyramidsGlass,
       pageTitle: 'Slider test',
       layoutWidget: Center(
         child: ListView(
@@ -72,7 +72,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               title: 'Set Min value',
               keyboardTextInputType: TextInputType.number,
               textController: _minController,
-              actionBtIcon: Iconz.Plus,
+              actionBtIcon: Iconz.plus,
               actionBtFunction: (){
                 print('value is : ${_minController.text}');
 
@@ -89,7 +89,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               title: 'Set Max value',
               keyboardTextInputType: TextInputType.number,
               textController: _maxController,
-              actionBtIcon: Iconz.Plus,
+              actionBtIcon: Iconz.plus,
               actionBtFunction: (){
                 print('value is : ${_maxController.text}');
 
@@ -106,7 +106,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               title: 'Set divisions',
               keyboardTextInputType: TextInputType.number,
               textController: _divisionsController,
-              actionBtIcon: Iconz.Plus,
+              actionBtIcon: Iconz.plus,
               actionBtFunction: (){
                 print('value is : ${_divisionsController.text}');
 
@@ -146,7 +146,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
             SliderTheme(
               data: SliderTheme.of(context).copyWith(
                 activeTickMarkColor: Colorz.black230,
-                activeTrackColor: Colorz.blue225,
+                activeTrackColor: Colorz.blue255,
                 disabledActiveTickMarkColor: Colorz.green255,
                 disabledActiveTrackColor: Colorz.green125,
                 disabledInactiveTickMarkColor: Colorz.white255,

@@ -98,9 +98,9 @@ class _ChatScreenState extends State<ChatScreen> {
     final double _convBoxHeight = _screenHeight - _textFieldBoxHeight;
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
+      appBarType: AppBarType.basic,
       pageTitle: 'Chat Screen',
-      pyramids: Iconz.DvBlankSVG,
+      pyramids: Iconz.dvBlankSVG,
       appBarRowWidgets: const <Widget>[const BackButton(),],
       layoutWidget: chatStreamBuilder(
           context: context,

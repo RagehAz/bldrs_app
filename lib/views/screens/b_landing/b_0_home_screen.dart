@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onWillPop: () => Future<bool>.value(false),
       child: MainLayout(
         key: const ValueKey<String>('mainLayout'),
-        appBarType: AppBarType.Main,
+        appBarType: AppBarType.main,
         // tappingRageh: () async {
         //   await Nav.goToNewScreen(context, QuestionScreen());
         // },

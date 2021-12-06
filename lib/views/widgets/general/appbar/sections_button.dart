@@ -78,7 +78,7 @@ Widget build(BuildContext context) {
                       verse: _buttonTitle,
                       size: 0,
                       italic: true,
-                      color: Colorz.grey225,
+                      color: Colorz.grey255,
                       weight: VerseWeight.thin,
                       centered: false,
                     ),

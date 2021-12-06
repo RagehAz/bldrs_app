@@ -42,8 +42,9 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   void dispose() {
-    if (TextChecker.textControllerIsEmpty(_searchTextController))
+    if (TextChecker.textControllerIsEmpty(_searchTextController)){
       _searchTextController.dispose();
+    }
     super.dispose();
   }
 
@@ -83,7 +84,7 @@ class _SearchBarState extends State<SearchBar> {
             // color: Colorz.linkedIn,
             alignment: Alignment.topLeft,
             child: BackAndSearchButton(
-              backAndSearchAction: BackAndSearchAction.ShowHistory,
+              backAndSearchAction: BackAndSearchAction.showHistory,
               passSearchHistory: (String value){
                 print('value aho is $value');
                 setState(() {

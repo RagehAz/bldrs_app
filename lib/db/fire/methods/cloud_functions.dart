@@ -33,10 +33,10 @@ FieldValue ++
 
 
 
-  const String funcName_myFunction = 'myFunction';
+  const String funcNameMyFunction = 'myFunction';
   // String callable_toBlackHole = 'toBlackHole';
-  const String callable_randomNumber = 'randomNumber';
-  const String callable_sayHello = 'x_sayHello';
+  const String callableRandomNumber = 'randomNumber';
+  const String callableSayHello = 'x_sayHello';
 
   /// http trigger -> ( callable function - end point request )
   Future<dynamic> callFunction({@required BuildContext context, String cloudFunctionName, Map<String, dynamic> toDBMap}) async {

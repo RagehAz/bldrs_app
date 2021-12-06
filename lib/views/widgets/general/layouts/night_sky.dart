@@ -160,7 +160,7 @@ class Sky extends StatelessWidget {
   final SkyType skyType;
 
   const Sky({
-    this.skyType = SkyType.Night,
+    this.skyType = SkyType.night,
     Key key
   }) : super(key: key);
 
@@ -171,12 +171,12 @@ class Sky extends StatelessWidget {
     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
     final List<Color> _skyColors =
-    skyType == SkyType.Night ? <Color>[Colorz.skyLightBlue, Colorz.skyDarkBlue] :
-    skyType == SkyType.Black ? <Color>[Colorz.blackSemi230, Colorz.blackSemi230] :
+    skyType == SkyType.night ? <Color>[Colorz.skyLightBlue, Colorz.skyDarkBlue] :
+    skyType == SkyType.black ? <Color>[Colorz.blackSemi230, Colorz.blackSemi230] :
     <Color>[Colorz.skyDarkBlue, Colorz.skyDarkBlue];
 // -----------------------------------------------------------------------------
     final Gradient _skyGradient =
-    skyType == SkyType.Night || skyType == SkyType.Black ?
+    skyType == SkyType.night || skyType == SkyType.black ?
     RadialGradient(
         center: const Alignment(0.75, 1.25),
         radius: 1,
@@ -186,7 +186,7 @@ class Sky extends StatelessWidget {
         :
     null;
 // -----------------------------------------------------------------------------
-    final Color _plainColor = skyType == SkyType.Night || skyType == SkyType.Black ? null : Colorz.skyDarkBlue;
+    final Color _plainColor = skyType == SkyType.night || skyType == SkyType.black ? null : Colorz.skyDarkBlue;
 // -----------------------------------------------------------------------------
     return Container(
       key: key,
@@ -202,8 +202,8 @@ class Sky extends StatelessWidget {
 }
 // -----------------------------------------------------------------------------
 enum SkyType {
-  Night,
-  Black,
-  Non,
+  night,
+  black,
+  non,
 }
 // -----------------------------------------------------------------------------

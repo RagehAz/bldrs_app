@@ -16,8 +16,8 @@ class QuesScreen extends StatelessWidget {
     final QuestionsProvider questionsProvider = Provider.of<QuestionsProvider>(context);
 
     return MainLayout(
-      pyramids: Iconz.PyramidsGlass,
-      appBarType: AppBarType.Basic,
+      pyramids: Iconz.pyramidsGlass,
+      appBarType: AppBarType.basic,
       appBarRowWidgets: <Widget>[
         SuperVerse(
           verse: 'Questions list',

@@ -188,8 +188,8 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 // -----------------------------------------------------------------------------
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.PyramidzYellow,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.pyramidzYellow,
       loading: _loading,
       appBarRowWidgets: const <Widget>[],
 
@@ -244,7 +244,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
               WideButton(
                 verse: 'Get Current Location',
-                icon: _countryID == null ? Iconz.Share : Flag.getFlagIconByCountryID(_countryID),
+                icon: _countryID == null ? Iconz.share : Flag.getFlagIconByCountryID(_countryID),
                 onTap: () async {
 
                   print('LET THE GAMES BEGIN');
@@ -255,7 +255,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
               ),
               WideButton(
                 verse: 'Get Position from Map',
-                icon: _countryID == null ? Iconz.Share : Flag.getFlagIconByCountryID(_countryID),
+                icon: _countryID == null ? Iconz.share : Flag.getFlagIconByCountryID(_countryID),
                 onTap: () async {
 
                   print('LET THE GAMES BEGIN');

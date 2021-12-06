@@ -2,10 +2,10 @@
 // import 'package:audioplayers/audioplayers.dart';
 import 'dart:math';
 
-  const String _soundFile_name_nicole = 'res_name_nicole';
-  const String _soundFile_name_justina = 'res_name_justina';
-  const String _soundFile_name_emma = 'res_name_emma';
-  const String _soundFile_name_amy = 'res_name_amy';
+  const String _soundFileNameNicole = 'res_name_nicole';
+  const String _soundFileNameJustina = 'res_name_justina';
+  const String _soundFileNameEmma = 'res_name_emma';
+  const String _soundFileNameAmy = 'res_name_amy';
 // -----------------------------------------------------------------------------
   String getNotificationFilesPath(String fileNameWithoutExtension){
     return
@@ -15,10 +15,10 @@ import 'dart:math';
   String  randomBldrsNameSoundPath(){
 
     final List<String> _notiSounds = <String>[
-      _soundFile_name_nicole,
-      _soundFile_name_justina,
-      _soundFile_name_emma,
-      _soundFile_name_amy,
+      _soundFileNameNicole,
+      _soundFileNameJustina,
+      _soundFileNameEmma,
+      _soundFileNameAmy,
     ];
     
     final int _randomIndex = Random().nextInt(_notiSounds.length); // from 0 up to _notiSounds.length included

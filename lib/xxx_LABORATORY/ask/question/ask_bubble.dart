@@ -292,7 +292,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
               DreamBox(
                 height: _abButtonsHeight * 0.8,
                 width: _abButtonsHeight * 0.8,
-                icon: Iconz.Info,
+                icon: Iconz.info,
                 iconSizeFactor: 0.5,
                 onTap: widget.tappingAskInfo,
               ),
@@ -408,7 +408,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
               height: 40,
               // width: 40,
               margins: const EdgeInsets.only(top: 10),
-              icon: Iconz.PhoneGallery,
+              icon: Iconz.phoneGallery,
               verse: 'Add Image',
               iconSizeFactor: 0.6,
               onTap: (){

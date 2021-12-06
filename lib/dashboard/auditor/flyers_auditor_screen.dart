@@ -631,7 +631,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                     AuditorButton(
                         verse: 'Audit',
                         color: Colorz.red255,
-                        icon: Iconz.XSmall,
+                        icon: Iconz.xSmall,
                         onTap: _onAudit,
                     ),
 
@@ -639,7 +639,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                     AuditorButton(
                       verse: 'Verify',
                       color: Colorz.green255,
-                      icon: Iconz.Check,
+                      icon: Iconz.check,
                       onTap: _onVerify,
                     ),
                   ],

@@ -146,7 +146,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
                   width: Ratioz.appBarMargin,
                   bubble: false,
                   margins: Ratioz.appBarPadding,
-                  icon : _isMax ? Iconz.ArrowUp : Iconz.ArrowDown,
+                  icon : _isMax ? Iconz.arrowUp : Iconz.arrowDown,
                   // onTap: _onParagraphTap,
                 ),
               ),

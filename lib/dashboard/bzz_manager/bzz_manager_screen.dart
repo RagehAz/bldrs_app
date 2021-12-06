@@ -201,13 +201,13 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     const LoadingFullScreenLayer()
         :
       MainLayout(
-        pyramids: Iconz.PyramidsYellow,
-        appBarType: AppBarType.Search,
+        pyramids: Iconz.pyramidsYellow,
+        appBarType: AppBarType.search,
         pageTitle: '${_bzzModels.length} Bzz Manager',
         // appBarBackButton: true,
         loading: _loading,
         sectionButtonIsOn: false,
-        skyType: SkyType.Black,
+        skyType: SkyType.black,
         searchController: _searchController,
         onSearchSubmit: (String val) => _onSearchChanged(val),
         historyButtonIsOn: false,

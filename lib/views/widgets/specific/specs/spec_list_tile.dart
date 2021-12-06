@@ -161,7 +161,7 @@ class SpecListTile extends StatelessWidget {
                                   return
                                     DreamBox(
                                       height: 30,
-                                      icon: Iconz.XLarge,
+                                      icon: Iconz.xLarge,
                                       margins: const EdgeInsets.symmetric(vertical: 2.5),
                                       verse: _specName,
                                       verseWeight: VerseWeight.thin,

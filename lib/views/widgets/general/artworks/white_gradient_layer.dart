@@ -19,7 +19,7 @@ class GradientLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _gradient = isWhite == true ? Iconz.WhiteGradient : Iconz.BlackGradient;
+    final String _gradient = isWhite == true ? Iconz.whiteGradient : Iconz.blackGradient;
 
     return Container(
       width: width,

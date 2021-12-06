@@ -29,11 +29,11 @@ class AddAuthorScreen extends StatelessWidget {
 
 
     return MainLayout(
-      skyType: SkyType.Black,
+      skyType: SkyType.black,
       pageTitle: 'Add new Author',
-      pyramids: Iconz.PyramidzYellow,
+      pyramids: Iconz.pyramidzYellow,
       // appBarBackButton: true,
-      appBarType: AppBarType.Basic,
+      appBarType: AppBarType.basic,
       layoutWidget: ListView(
         children: <Widget>[
 
@@ -64,7 +64,7 @@ class AddAuthorScreen extends StatelessWidget {
                   margin: 10,
                   weight: VerseWeight.thin,
                   italic: true,
-                  color: Colorz.cyan225,
+                  color: Colorz.cyan255,
                 ),
 
                 Row(
@@ -74,7 +74,7 @@ class AddAuthorScreen extends StatelessWidget {
                     const DreamBox(
                       height: 50,
                       color: Colorz.yellow255,
-                      icon: Iconz.Share,
+                      icon: Iconz.share,
                       iconSizeFactor: 0.5,
                       iconColor: Colorz.black230,
                       verse: 'Share',
@@ -92,7 +92,7 @@ class AddAuthorScreen extends StatelessWidget {
           DreamBox(
             verse: 'Add Rageh as Author',
             height: 50,
-            icon: Iconz.DvRageh,
+            icon: Iconz.dvRageh,
             margins: const EdgeInsets.only(top: 30),
             verseScaleFactor: 0.7,
             onTap: () async {

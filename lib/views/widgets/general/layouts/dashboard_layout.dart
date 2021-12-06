@@ -33,8 +33,8 @@ class DashBoardLayout extends StatelessWidget {
 
     return MainLayout(
       // scaffoldKey: _globalKey,
-      pyramids: Iconz.DvBlankSVG,
-      appBarType: AppBarType.Basic,
+      pyramids: Iconz.dvBlankSVG,
+      appBarType: AppBarType.basic,
       pageTitle: pageTitle,
       loading: loading,
       appBarRowWidgets: <Widget>[

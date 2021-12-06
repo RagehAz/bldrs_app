@@ -16,7 +16,7 @@ class BldrsName extends StatelessWidget {
     return Container(
       width: size,
       height: size,
-      child: WebsafeSvg.asset(Iconz.BldrsNameEn),
+      child: WebsafeSvg.asset(Iconz.bldrsNameEn),
     );
   }
 }

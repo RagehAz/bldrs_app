@@ -134,7 +134,7 @@ class _UserBubbleState extends State<UserBubble> {
           child: DreamBox(
             height: _editProfileBtSize,
             width: _editProfileBtSize,
-            icon: Iconz.Gears,
+            icon: Iconz.gears,
             iconSizeFactor: 0.6,
             onTap: widget.editProfileBtOnTap,
           ),
@@ -186,7 +186,7 @@ class _UserBubbleState extends State<UserBubble> {
                 verse: '${Wordz.inn(context)} $_districtName, $_cityName, $_countryName',
                 weight: VerseWeight.thin,
                 italic: true,
-                color: Colorz.grey225,
+                color: Colorz.grey255,
                 margin: 5,
               ),
 
@@ -199,7 +199,7 @@ class _UserBubbleState extends State<UserBubble> {
           verse: Timers.monthYearStringer(context,widget.user?.createdAt),
           weight: VerseWeight.thin,
           italic: true,
-          color: Colorz.grey225,
+          color: Colorz.grey255,
           size: 1,
         ),
 

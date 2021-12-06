@@ -84,8 +84,8 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
 // ---------------------------------------------------------------------------
     return MainLayout(
-      pyramids: Iconz.PyramidsCrystal,
-      appBarType: AppBarType.Basic,
+      pyramids: Iconz.pyramidsCrystal,
+      appBarType: AppBarType.basic,
       appBarRowWidgets: <Widget>[
 
         /// IS SIGNED IN ?
@@ -94,7 +94,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           verse: _isSignedIn ? ' Signed in ' : ' Signed out ',
           color: _isSignedIn ? Colorz.green255 : Colorz.grey80,
           verseScaleFactor: 0.6,
-          verseColor: _isSignedIn ? Colorz.white255 : Colorz.darkGrey225,
+          verseColor: _isSignedIn ? Colorz.white255 : Colorz.darkGrey255,
           onTap: () => FireAuthOps.signOut(context: context, routeToUserChecker: true),
         ),
 
@@ -123,47 +123,47 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
             margin: 10,
           ),
 
-          const ObeliskButton('TEST LAB', Iconz.Flyer, TestLab()),
+          const ObeliskButton('TEST LAB', Iconz.flyer, TestLab()),
 
-          const ObeliskButton('Specs Selector', Iconz.Flyer, const SpecsListsPickersScreen(
+          const ObeliskButton('Specs Selector', Iconz.flyer, const SpecsListsPickersScreen(
             flyerType: FlyerTypeClass.FlyerType.design,
             selectedSpecs: const <Spec>[],
           )),
 
-          const ObeliskButton('Google map Test screen', Iconz.Flyer, LocationsTestScreen()),
+          const ObeliskButton('Google map Test screen', Iconz.flyer, LocationsTestScreen()),
 
-          const ObeliskButton('Expansion Tiles Test', Iconz.Flyer, ExpansionTilesTest()),
+          const ObeliskButton('Expansion Tiles Test', Iconz.flyer, ExpansionTilesTest()),
 
-          const ObeliskButton('Providers Test', Iconz.Terms, ProvidersTestScreen()),
+          const ObeliskButton('Providers Test', Iconz.terms, ProvidersTestScreen()),
 
-          const ObeliskButton('TimersTest', Iconz.Clock, TimerTest()),
+          const ObeliskButton('TimersTest', Iconz.clock, TimerTest()),
 
-          const ObeliskButton('Trigram Test', Iconz.More, TrigramTest()),
+          const ObeliskButton('Trigram Test', Iconz.more, TrigramTest()),
 
-          const ObeliskButton('Cloud Functions', Iconz.Gears, const CloudFunctionsTest()),
+          const ObeliskButton('Cloud Functions', Iconz.gears, const CloudFunctionsTest()),
 
-          const ObeliskButton('Sembast Screen', Iconz.DvGouran, SembastTestScreen()),
+          const ObeliskButton('Sembast Screen', Iconz.dvGouran, SembastTestScreen()),
 
-          const ObeliskButton('Notification test', Iconz.News, FCMTestScreen()),
+          const ObeliskButton('Notification test', Iconz.news, FCMTestScreen()),
 
-          const ObeliskButton('Awesome Notification test', Iconz.News, const AwesomeNotiTestScreen()),
+          const ObeliskButton('Awesome Notification test', Iconz.news, const AwesomeNotiTestScreen()),
 
 
           // ObeliskButton('HERO TEST', Iconz.DvDonaldDuck, HeroMinScreen()),
 
-          ObeliskButton('go to user checker', Iconz.Flyer, UserChecker()),
+          ObeliskButton('go to user checker', Iconz.flyer, UserChecker()),
 
-          const ObeliskButton('Slider Test Screen', Iconz.Flyer, SliderTestScreen()),
+          const ObeliskButton('Slider Test Screen', Iconz.flyer, SliderTestScreen()),
 
-          const ObeliskButton('Dialog Test', Iconz.More, DialogTestScreen(), color: Colorz.bloodTest),
+          const ObeliskButton('Dialog Test', Iconz.more, DialogTestScreen(), color: Colorz.bloodTest),
 
-          const ObeliskButton('10 - Font lab', Iconz.Language, FontLab()),
+          const ObeliskButton('10 - Font lab', Iconz.language, FontLab()),
 
           // ObeliskButton('12 - Swiper Layout', Iconz.Gallery, SwiperScreen()),
 
           // ObeliskButton('21 - Soundz', Iconz.News, SoundzScreen()),
 
-          const ObeliskButton('23 - Form', Iconz.Terms, TestFormScreen()),
+          const ObeliskButton('23 - Form', Iconz.terms, TestFormScreen()),
 
           // ObeliskButton('28 - Google Maps - Defined size Pin', Iconz.ComMap, GoogleMapScreen2()),
 
@@ -171,9 +171,9 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           // ObeliskButton('30 - Google Maps - text box canvas', Iconz.ComMap, GoogleMapScreen4()),
 
-          const ObeliskButton('36 - Animations Screen', Iconz.DvDonaldDuck, AnimationsScreen()),
+          const ObeliskButton('36 - Animations Screen', Iconz.dvDonaldDuck, AnimationsScreen()),
 
-          const ObeliskButton('BLACK HOLE', Iconz.DvBlackHole, BlackHoleScreen()),
+          const ObeliskButton('BLACK HOLE', Iconz.dvBlackHole, BlackHoleScreen()),
 
           /// --- BLDRS DEVELOPMENT SCROLLS --------------------------------
           Column(

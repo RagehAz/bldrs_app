@@ -39,7 +39,7 @@ class BzPgFields extends StatelessWidget {
                 verse: '${Wordz.scopeOfServices(context)}',
                 weight: VerseWeight.thin,
                 margin: 10,
-                color: Colorz.grey225,
+                color: Colorz.grey255,
                 maxLines: 2,
               ),
 

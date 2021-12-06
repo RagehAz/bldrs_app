@@ -70,8 +70,8 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
   Widget build(BuildContext context) {
     return MainLayout(
       pageTitle: 'Enter The Black-Hole',
-      pyramids: Iconz.PyramidzYellow,
-      appBarType: AppBarType.Basic,
+      pyramids: Iconz.pyramidzYellow,
+      appBarType: AppBarType.basic,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(
         child: RotationTransition(
@@ -79,7 +79,7 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
           child: DreamBox(
             height: 300.0,
             width: 300.0,
-            icon: Iconz.DvBlackHole,
+            icon: Iconz.dvBlackHole,
             iconSizeFactor: 0.95,
             margins: const EdgeInsets.symmetric(vertical: 25),
             corners: 150,

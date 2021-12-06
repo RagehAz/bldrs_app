@@ -4,7 +4,7 @@ import 'package:bldrs/models/bz/bz_model.dart';
 /// Section / group / keyword
 
 enum Section{
-  All,
+  all,
   properties,
   designs,
   projects,
@@ -14,7 +14,7 @@ enum Section{
 }
 // -----------------------------------------------------------------------------
 
-  const List<Section> SectionsList = const <Section>[
+  const List<Section> sectionsList = const <Section>[
     Section.properties,
     Section.designs,
     Section.projects,

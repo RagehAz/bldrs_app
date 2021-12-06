@@ -22,7 +22,7 @@ import 'package:flutter/material.dart';
       section == SectionClass.Section.products ? 'Products & Materials' : //Wordz.supplies(context) :
       section == SectionClass.Section.equipment ? 'Tools & Equipment' : //Wordz.supplies(context) :
 
-      section == SectionClass.Section.All ? 'All flyers' : //Wordz.supplies(context) :
+      section == SectionClass.Section.all ? 'All flyers' : //Wordz.supplies(context) :
 
       Wordz.bldrsShortName(context);
   }
@@ -44,7 +44,7 @@ import 'package:flutter/material.dart';
   }
 // -----------------------------------------------------------------------------
   List<String> sectionsListStrings (BuildContext context){
-    const List<SectionClass.Section> _sections = SectionClass.SectionsList;
+    const List<SectionClass.Section> _sections = SectionClass.sectionsList;
     final List<String> _sectionsStrings = <String>[];
     for(SectionClass.Section bs in _sections){
       _sectionsStrings.add(sectionStringer(context, bs));

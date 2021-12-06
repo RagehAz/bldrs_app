@@ -445,7 +445,7 @@ class FlyerModel with ChangeNotifier{
   static List<FlyerModel> filterFlyersBySection({List<FlyerModel> flyers, SectionClass.Section section}){
     List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
-    if (section == SectionClass.Section.All){
+    if (section == SectionClass.Section.all){
       _filteredFlyers = flyers;
     }
 

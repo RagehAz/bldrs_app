@@ -175,24 +175,24 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     // Duration _duration = Ratioz.duration150ms;
 
       setState(() {
-          _pyramids = Iconz.PyramidsWhite;
+          _pyramids = Iconz.pyramidsWhite;
       });
 
       await Future<void>.delayed(const Duration(milliseconds: 50), (){
         setState(() {
-        _pyramids = Iconz.PyramidsYellow;
+        _pyramids = Iconz.pyramidsYellow;
         });
       });
 
     await Future<void>.delayed(const Duration(milliseconds: 100), (){
       setState(() {
-        _pyramids = Iconz.PyramidsWhite;
+        _pyramids = Iconz.pyramidsWhite;
       });
     });
 
     await Future<void>.delayed(const Duration(milliseconds: 150), (){
       setState(() {
-        _pyramids = Iconz.PyramidsYellow;
+        _pyramids = Iconz.pyramidsYellow;
       });
     });
 
@@ -210,8 +210,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   Widget build(BuildContext context) {
     return MainLayout(
       scaffoldKey: _scaffoldKey,
-      appBarType: AppBarType.Basic,
-      pyramids: _pyramids == null ? Iconz.PyramidsYellow : _pyramids,
+      appBarType: AppBarType.basic,
+      pyramids: _pyramids == null ? Iconz.pyramidsYellow : _pyramids,
       loading: _loading,
       pageTitle: 'Awesome notification test',
 

@@ -121,8 +121,8 @@ class TimerTest extends StatelessWidget {
 
     return MainLayout(
       pageTitle: 'Timers Test',
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.DvBlankSVG,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.dvBlankSVG,
       layoutWidget: ListView.builder(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),

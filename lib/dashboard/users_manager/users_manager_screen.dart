@@ -126,9 +126,9 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     return MainLayout(
       loading: _loading,
       pageTitle: 'Users Manager',
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.DvBlankSVG,
-      skyType: SkyType.Black,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.dvBlankSVG,
+      skyType: SkyType.black,
       appBarRowWidgets: <Widget>[
 
         const Expander(),
@@ -158,7 +158,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
         itemBuilder: (BuildContext context, int index){
 
           return
-            dashboardUserButton(
+            DashboardUserButton(
               width: Scale.superScreenWidth(context) - 20,
               userModel: _usersModels[index],
               index: index,

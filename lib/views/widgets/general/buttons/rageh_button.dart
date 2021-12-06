@@ -37,7 +37,7 @@ class Rageh extends StatelessWidget {
                 width: 30,
                 height: 30,
                 corners: Ratioz.boxCorner8,
-                icon: Iconz.DvRageh,
+                icon: Iconz.dvRageh,
                 onTap: tappingRageh,
               ),
             ),

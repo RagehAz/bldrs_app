@@ -17,10 +17,13 @@ class CustomBoxShadow extends BoxShadow {
       ..color = color
       ..maskFilter = MaskFilter.blur(this.blurStyle, blurSigma);
     assert(() {
-      if (debugDisableShadows)
+
+      if (debugDisableShadows){
         _result.maskFilter = null;
-      return true;
+      }
+        return true;
     }());
+
     return _result;
   }
 }

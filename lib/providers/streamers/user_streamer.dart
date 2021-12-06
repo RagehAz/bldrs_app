@@ -15,14 +15,14 @@ import 'package:provider/provider.dart';
 ///         }
 ///      ) xxxxxxxxxxxxx ; or , xxxxxxxxxxxxx
 // -----------------------------------------------------------------------------
-typedef userModelWidgetBuilder = Widget Function(
+typedef UserModelWidgetBuilder = Widget Function(
     BuildContext context,
     UserModel userModel,
     );
 // -----------------------------------------------------------------------------
 Widget userStreamBuilder({
   BuildContext context,
-  userModelWidgetBuilder builder,
+  UserModelWidgetBuilder builder,
   bool listen,
 }){
 
@@ -48,7 +48,7 @@ Widget userStreamBuilder({
 Widget userModelBuilder({
   String userID,
   BuildContext context,
-  userModelWidgetBuilder builder,
+  UserModelWidgetBuilder builder,
 }){
 
   return FutureBuilder<Map<String, dynamic>>(

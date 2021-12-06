@@ -188,7 +188,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         print('successfully deleted user ops and got back to profile screen');
 
         /// go to user checker and remove all below screens
-        await Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+        await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
       }
 
       /// if it fails
@@ -196,7 +196,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         print('something went wrong');
 
         /// go to user checker and remove all below screens
-        await Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+        await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
       }
     }
   }
@@ -246,7 +246,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         _triggerLoading();
 
         /// go to user checker and remove all below screens
-        await Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
+        await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
 
       }
 
@@ -276,7 +276,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           DreamBox(
             height: _buttonHeight,
             width: BottomDialog.dialogClearWidth(context),
-            icon: Iconz.XSmall,
+            icon: Iconz.xSmall,
             iconSizeFactor: 0.5,
             iconColor: Colorz.red255,
             verse: 'Delete account',
@@ -292,7 +292,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           DreamBox(
               height: _buttonHeight,
               width: BottomDialog.dialogClearWidth(context),
-              icon: Iconz.XSmall,
+              icon: Iconz.xSmall,
               iconSizeFactor: 0.5,
               iconColor: Colorz.red255,
               verse: 'Deactivate account',
@@ -307,7 +307,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           DreamBox(
             height: _buttonHeight,
             width: BottomDialog.dialogClearWidth(context),
-            icon: Iconz.Gears,
+            icon: Iconz.gears,
             iconSizeFactor: 0.5,
             verse: 'Edit Account',
             verseScaleFactor: 1.2,
@@ -324,10 +324,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       // final _user = Provider.of<UserModel>(context);
 
       return MainLayout(
-        appBarType: AppBarType.Basic,
-        skyType: SkyType.Black,
+        appBarType: AppBarType.basic,
+        skyType: SkyType.black,
         // appBarBackButton: true,
-        pyramids: Iconz.PyramidzYellow,
+        pyramids: Iconz.pyramidzYellow,
         layoutWidget: MaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),

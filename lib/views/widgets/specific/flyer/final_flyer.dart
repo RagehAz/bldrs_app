@@ -973,7 +973,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       context: context,
       verse: _superFlyer.rec.ankhIsOn == true ? 'Flyer is unsaved' : 'Flyer saved',
       // secondLine: 'Allows users to follow your account',
-      color: _superFlyer.rec.ankhIsOn == true ? Colorz.grey225 : Colorz.yellow255,
+      color: _superFlyer.rec.ankhIsOn == true ? Colorz.grey255 : Colorz.yellow255,
     );
 
     setState(() {

@@ -92,7 +92,7 @@ class AddFlyerButton extends StatelessWidget {
               DreamBox(
                 height: flyerBoxWidth * 0.4,
                 width: flyerBoxWidth * 0.4,
-                icon: Iconz.Plus,
+                icon: Iconz.plus,
                 iconColor: Colorz.white200,
                 iconSizeFactor: 0.6,
                 bubble: false,

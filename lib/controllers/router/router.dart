@@ -18,12 +18,12 @@ import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
     /// s00
-      case Routez.UserChecker:
+      case Routez.userChecker:
         return Nav.fadeToScreen(UserChecker(), settings); break;
 // -----------------------------------------------------------------------------
     /// s01
     /// (s02 signin page, s03 register page) are pages insides StartingScreen();
-      case Routez.Starting:
+      case Routez.starting:
         return Nav.fadeToScreen(const StartingScreen(), settings); break;
 // -----------------------------------------------------------------------------
 //     /// s10
@@ -31,11 +31,11 @@ import 'package:flutter/material.dart';
 //         return Nav.fadeToScreen(HomeScreen(), settings); break;
 // -----------------------------------------------------------------------------
     /// s12
-      case Routez.SavedFlyers:
+      case Routez.savedFlyers:
         return Nav.slideToScreen(const SavedFlyersScreen(), settings); break;
 // -----------------------------------------------------------------------------
     /// s13
-      case Routez.News:
+      case Routez.news:
         return Nav.slideToScreen(const NotificationsScreen(), settings); break;
 // -----------------------------------------------------------------------------
 //     /// s14
@@ -51,7 +51,7 @@ import 'package:flutter/material.dart';
 //         return MaterialPageRoute(builder: (_) => EditProfileScreen(user: superUserID()));
 // -----------------------------------------------------------------------------
     /// s20
-      case Routez.Search:
+      case Routez.search:
         return Nav.fadeToScreen(const SearchScreen(), settings); break;
 // -----------------------------------------------------------------------------
 //     /// s40
@@ -71,13 +71,13 @@ import 'package:flutter/material.dart';
 //         return MaterialPageRoute(builder: (_) => FlyerEditorScreen());
 // -----------------------------------------------------------------------------
     ///  s51
-      case Routez.FlyerScreen:
+      case Routez.flyerScreen:
         return Nav.slideToScreen(const FlyerScreen(), settings); break;
 // -----------------------------------------------------------------------------
 
     // --- XXX GENERAL SCREENS
     ///  xxx
-      case Routez.Obelisk:
+      case Routez.obelisk:
         return Nav.slideToScreen(ObeliskScreen(), settings); break;
 
 // -----------------------------------------------------------------------------

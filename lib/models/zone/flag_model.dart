@@ -12,7 +12,7 @@ class Flag {
 // -----------------------------------------------------------------------------
   static String getFlagIconByCountryID(String countryID) {
 
-    String _flagIcon = Iconz.DvBlankSVG;
+    String _flagIcon = Iconz.dvBlankSVG;
 
     if (countryID != null){
       final Flag _flag = allFlags.singleWhere((Flag flag) => flag.countryID == countryID, orElse: () => null);

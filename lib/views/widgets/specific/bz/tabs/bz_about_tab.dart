@@ -29,7 +29,7 @@ class BzAboutTab extends StatelessWidget {
       TabModel(
         tabButton: TabButton(
           verse: BzModel.bzPagesTabsTitles[tabIndex],
-          icon: Iconz.Info,
+          icon: Iconz.info,
           iconSizeFactor: 0.7,
           isSelected: isSelected,
           onTap: () => onChangeTab(tabIndex),
@@ -70,43 +70,43 @@ class BzAboutTab extends StatelessWidget {
                 /// FOLLOWERS
                 StatsLine(
                   verse: '${bzModel.totalFollowers} ${Wordz.followers(context)}',
-                  icon: Iconz.Follow,
+                  icon: Iconz.follow,
                 ),
 
                 /// CALLS
                 StatsLine(
                   verse: '${bzModel.totalCalls} ${Wordz.callsReceived(context)}',
-                  icon: Iconz.ComPhone,
+                  icon: Iconz.comPhone,
                 ),
 
                 /// SLIDES & FLYERS
                 StatsLine(
                   verse: '${bzModel.totalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${bzModel.flyersIDs.length} ${Wordz.flyers(context)}',
-                  icon: Iconz.Gallery,
+                  icon: Iconz.gallery,
                 ),
 
                 /// SAVES
                 StatsLine(
                   verse: '${bzModel.totalSaves} ${Wordz.totalSaves(context)}',
-                  icon: Iconz.SaveOn,
+                  icon: Iconz.saveOn,
                 ),
 
                 /// VIEWS
                 StatsLine(
                   verse: '${bzModel.totalViews} ${Wordz.totalViews(context)}',
-                  icon: Iconz.Views,
+                  icon: Iconz.viewsIcon,
                 ),
 
                 /// SHARES
                 StatsLine(
                   verse: '${bzModel.totalShares} ${Wordz.totalShares(context)}',
-                  icon: Iconz.Share,
+                  icon: Iconz.share,
                 ),
 
                 /// BIRTH
                 StatsLine(
                   verse: '${Timers.monthYearStringer(context,bzModel.createdAt)}',
-                  icon: Iconz.Calendar,
+                  icon: Iconz.calendar,
                 ),
 
               ]

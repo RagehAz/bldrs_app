@@ -246,9 +246,9 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
 // -----------------------------------------------------------------------------
 
     return MainLayout(
-      skyType: SkyType.Black,
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.PyramidzYellow,
+      skyType: SkyType.black,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.pyramidzYellow,
       loading: _loading,
       pageTitle: 'Select Flyer Specifications',
       layoutWidget: Container(

@@ -6,14 +6,14 @@ import 'package:bldrs/xxx_LABORATORY/ask/chat/chat_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-typedef chatModelWidgetBuilder = Widget Function(
+typedef ChatModelWidgetBuilder = Widget Function(
     BuildContext context,
     ChatModel chatModel,
     );
 
 Widget chatStreamBuilder({
   BuildContext context,
-  chatModelWidgetBuilder builder,
+  ChatModelWidgetBuilder builder,
   String questionID,
   String bzID,
 }) {
