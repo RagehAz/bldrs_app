@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/db/fire/methods/storage.dart' as Storage;
+import 'package:bldrs/db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
@@ -13,7 +14,6 @@ import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/secondary_models/image_size.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 
 
 /// Should include all flyer firestore functions/operations

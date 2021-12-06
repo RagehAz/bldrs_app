@@ -1,8 +1,9 @@
 import 'dart:ui';
+
 import 'package:bldrs/controllers/drafters/colorizers.dart' as Colorizer;
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 
 void main(){
 

@@ -5,8 +5,8 @@ import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/db/ldb/ldb_ops.dart' as LDBOps;
-import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/chain/chain_crafts.dart';
 import 'package:bldrs/models/kw/chain/chain_designs.dart';
@@ -14,6 +14,7 @@ import 'package:bldrs/models/kw/chain/chain_equipment.dart';
 import 'package:bldrs/models/kw/chain/chain_products.dart';
 import 'package:bldrs/models/kw/chain/chain_properties.dart';
 import 'package:bldrs/models/kw/kw.dart';
+import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/providers/keywords_provider.dart';
 import 'package:bldrs/views/widgets/general/appbar/search_bar.dart';
@@ -24,7 +25,6 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/xxx_LABORATORY/zebala/section_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 
 class DrawerDialog extends StatefulWidget {
   final double width;
