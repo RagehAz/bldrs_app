@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/db/fire/ops/bz_ops.dart' as FireBzOps;
+import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
@@ -7,7 +8,6 @@ import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 
   // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 class BzzProvider extends ChangeNotifier {

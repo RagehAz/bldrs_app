@@ -5,16 +5,16 @@ import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
-import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
+import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 
 /// TASK : check this shit
