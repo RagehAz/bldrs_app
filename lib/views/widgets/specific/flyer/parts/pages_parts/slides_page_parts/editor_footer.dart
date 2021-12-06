@@ -172,4 +172,3 @@ class EditorFooter extends StatelessWidget {
     );
   }
 }
-

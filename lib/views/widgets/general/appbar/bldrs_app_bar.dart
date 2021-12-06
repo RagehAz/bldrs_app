@@ -341,6 +341,3 @@ class BldrsAppBar extends StatelessWidget {
     );
   }
 }
-
-
-

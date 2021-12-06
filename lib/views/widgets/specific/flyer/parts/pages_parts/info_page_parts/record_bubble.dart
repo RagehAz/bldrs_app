@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/views/widgets/general/buttons/PersonButton.dart';
+import 'package:bldrs/views/widgets/general/buttons/person_button.dart';
 import 'package:flutter/material.dart';
 
 class RecordBubble extends StatelessWidget {

@@ -44,5 +44,3 @@ class Continents extends StatelessWidget {
     );
   }
 }
-
-

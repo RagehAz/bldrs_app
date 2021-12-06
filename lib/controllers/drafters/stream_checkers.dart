@@ -54,7 +54,3 @@ import 'package:flutter/material.dart';
 
     return _isLoading;
   }
-
-
-
-

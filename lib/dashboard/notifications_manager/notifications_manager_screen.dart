@@ -73,4 +73,3 @@ class _NotificationsManagerState extends State<NotificationsManager> {
     );
   }
 }
-

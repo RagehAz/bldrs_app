@@ -2,7 +2,7 @@ import 'package:bldrs/controllers/drafters/stream_checkers.dart' as StreamChecke
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
-import 'package:bldrs/xxx_LABORATORY/ask/chat/chat_model.dart';
+import 'package:bldrs/xxx_lab/ask/chat/chat_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

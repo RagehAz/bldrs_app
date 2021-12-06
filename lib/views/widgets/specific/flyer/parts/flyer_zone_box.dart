@@ -4,7 +4,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/views/widgets/specific/flyer/editor/editorPanel.dart';
+import 'package:bldrs/views/widgets/specific/flyer/editor/editor_panel.dart';
 import 'package:flutter/material.dart';
 
 class FlyerBox extends StatelessWidget {
@@ -215,4 +215,3 @@ class FlyerBox extends StatelessWidget {
     );
   }
 }
-
