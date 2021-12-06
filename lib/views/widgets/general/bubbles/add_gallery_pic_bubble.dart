@@ -6,8 +6,8 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:flutter/material.dart';
 
 enum BubbleType{

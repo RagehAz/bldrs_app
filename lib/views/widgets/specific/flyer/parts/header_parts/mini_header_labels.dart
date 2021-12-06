@@ -1,9 +1,9 @@
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/mini_bz_label.dart';
-import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:flutter/material.dart';
 
 class HeaderLabels extends StatelessWidget {

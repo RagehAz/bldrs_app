@@ -66,6 +66,10 @@ linter:
     camel_case_types: true
     constant_identifier_names: true
     curly_braces_in_flow_control_structures: true
+    deprecated_consistency: true
+    directives_ordering: true
+    do_not_use_environment: true
+
 
     # Pending
     diagnostic_describe_all_properties: false

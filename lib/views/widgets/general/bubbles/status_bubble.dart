@@ -3,9 +3,9 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
+import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/user/status_buttons.dart';
 import 'package:bldrs/xxx_LABORATORY/property_search_criteria.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class StatusBubble extends StatelessWidget {

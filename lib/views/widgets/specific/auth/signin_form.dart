@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
@@ -6,13 +8,12 @@ import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/views/widgets/general/bubbles/text_field_bubble.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart' as Dialogz;
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart' show Expander;
-import 'package:email_validator/email_validator.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui';
 
 class SignInForm extends StatefulWidget {
   final Function switchSignIn;
