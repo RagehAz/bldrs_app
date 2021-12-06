@@ -103,7 +103,7 @@ class DashboardUserButton extends StatelessWidget {
                     corners: 5,
                   ),
 
-                  SuperVerse(verse: 'is admin or not ? ,, work this out please',),
+                  const SuperVerse(verse: 'is admin or not ? ,, work this out please',),
 
                   DataStrip(dataKey: 'userID', dataValue: userModel.id),
                   DataStrip(dataKey: 'authBy', dataValue: userModel.authBy),

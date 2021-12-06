@@ -48,7 +48,7 @@ class Strips extends StatelessWidget {
   final EdgeInsets margins;
   final Sliders.SwipeDirection swipeDirection;
 
-  Strips({
+  const Strips({
     @required this.flyerBoxWidth,
     @required this.numberOfStrips,
     @required this.swipeDirection,
@@ -177,7 +177,7 @@ class Strips extends StatelessWidget {
     int _numberOfWhiteStrips(){
       // -----------------------------------------o
       int _numberOfStrips;
-      Sliders.SwipeDirection _swipeDirection = swipeDirection;
+      final Sliders.SwipeDirection _swipeDirection = swipeDirection;
       // -----------------------------------------o
       /// A - at first slide
       if(slideIndex == 0){

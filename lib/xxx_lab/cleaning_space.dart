@@ -13,7 +13,7 @@ List<String> generateStringPermutations(String input){
     final int _inputLength = input.length;
 
     /// A - CREATE BASE LIST [0,0,0 ..., 0]
-    List<int> _currentList = [];
+    final List<int> _currentList = <int>[];
     for (int a = 0; a<_inputLength; a++){
       _currentList.add(0);
     }
@@ -73,7 +73,7 @@ List<List<int>> addIndexesToFinalListIfPossible(List<int> toAdd, List<List<int>>
 
   List<List<int>> _result;
 
-  bool _alreadyAdded = finalListContainsIndexes(toAdd, finalList);
+  final bool _alreadyAdded = finalListContainsIndexes(toAdd, finalList);
 
   if (_alreadyAdded == true){
     _result = finalList;
@@ -115,13 +115,13 @@ List<String> getStringsFromPermutationIndexesList({String source, List<List<int>
   final List<String> _strings = <String>[];
 
   // example of indexes = [0,1,2,0]
-  for (List<int> indexes in indexesList){
+  for (final List<int> indexes in indexesList){
 
     print('indexes : $indexes');
 
     String _string = '';
 
-    for (int i in indexes){
+    for (final int i in indexes){
       _string = _string + '${source[i]}';
     }
 
@@ -132,7 +132,7 @@ List<String> getStringsFromPermutationIndexesList({String source, List<List<int>
 }
 // -----------------------------------------------------------------------------
 List<String> getLetters(String input){
-  List<String> _letters = <String>[];
+  final List<String> _letters = <String>[];
 
   if (input != null && input != ''){
 

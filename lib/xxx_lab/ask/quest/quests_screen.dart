@@ -18,7 +18,7 @@ class QuesScreen extends StatelessWidget {
     return MainLayout(
       pyramids: Iconz.pyramidsGlass,
       appBarType: AppBarType.basic,
-      appBarRowWidgets: <Widget>[
+      appBarRowWidgets: const <Widget>[
         SuperVerse(
           verse: 'Questions list',
           labelColor: Colorz.white10,

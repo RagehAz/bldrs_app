@@ -224,7 +224,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     final List<String> _picturesURLs = <String>[];
 
-    for (SlideModel slide in slides) {
+    for (final SlideModel slide in slides) {
 
       final String _picURL = await createStoragePicAndGetURL(
         context: context,
@@ -421,7 +421,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     @required String picName,
   }) async {
 
-    dynamic _result = await tryCatchAndReturn(
+    final dynamic _result = await tryCatchAndReturn(
         context: context,
         methodName: 'deleteStoragePic',
         functions: () async {

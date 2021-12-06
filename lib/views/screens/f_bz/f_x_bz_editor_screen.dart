@@ -63,24 +63,24 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   List<bool> _bzFormInActivityList;
   BzForm _currentBzForm;
   // -------------------------
-  TextEditingController _bzNameTextController = TextEditingController();
+  final TextEditingController _bzNameTextController = TextEditingController();
   String _currentBzLogoURL;
   File _currentBzLogoFile;
-  TextEditingController _bzScopeTextController = TextEditingController();
+  final TextEditingController _bzScopeTextController = TextEditingController();
   String _currentBzCountry;
   String _currentBzCity;
   String _currentBzDistrict;
-  TextEditingController _bzAboutTextController = TextEditingController();
+  final TextEditingController _bzAboutTextController = TextEditingController();
   GeoPoint _currentBzPosition;
   List<ContactModel> _currentBzContacts;
   List<AuthorModel> _currentBzAuthors;
   bool _currentBzShowsTeam;
   // -------------------------
   AuthorModel _currentAuthor;
-  TextEditingController _authorNameTextController = TextEditingController();
+  final TextEditingController _authorNameTextController = TextEditingController();
   File _currentAuthorPicFile;
   String _currentAuthorPicURL;
-  TextEditingController _authorTitleTextController = TextEditingController();
+  final TextEditingController _authorTitleTextController = TextEditingController();
   List<ContactModel> _currentAuthorContacts;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK

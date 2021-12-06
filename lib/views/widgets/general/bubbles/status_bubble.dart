@@ -45,7 +45,7 @@ class StatusBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         /// HEADLINE QUESTION
-        SuperVerse(
+        const SuperVerse(
             verse: 'Let the Builders know',
             margin: 0,
             italic: true,
@@ -54,7 +54,7 @@ class StatusBubble extends StatelessWidget {
             maxLines: 2,
           ),
 
-        SuperVerse(
+        const SuperVerse(
             verse: 'What are you looking for ?',
             size: 3,
             shadow: true,
@@ -90,7 +90,7 @@ class StatusBubble extends StatelessWidget {
           height: 100,
           color: Colorz.yellow255,
           margin: const EdgeInsets.only(top: abPadding *  2),
-          child: SuperVerse(
+          child: const SuperVerse(
             verse: 'SELL SELL SELL FUCKERS !!',
           ),
         )

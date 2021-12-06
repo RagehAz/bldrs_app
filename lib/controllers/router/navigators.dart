@@ -35,7 +35,7 @@ import 'package:page_transition/page_transition.dart';
 
     final PageTransitionType _transition = transitionType == null ? PageTransitionType.bottomToTop : transitionType;
 
-    dynamic _result = await Navigator.push(context,
+    final dynamic _result = await Navigator.push(context,
       PageTransition<dynamic>(
           type: _transition,
           child: screen,

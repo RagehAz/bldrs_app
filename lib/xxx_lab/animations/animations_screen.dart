@@ -83,8 +83,8 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = Scale.superScreenWidth(context);
-    double btCorner = btWidth * 0.2;
+    final double screenWidth = Scale.superScreenWidth(context);
+    final double btCorner = btWidth * 0.2;
 
     return MainLayout(
       appBarType: AppBarType.basic,
@@ -363,7 +363,7 @@ class TweenTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = Scale.superScreenWidth(context);
+    final double screenWidth = Scale.superScreenWidth(context);
 
     return Container(
       width: screenWidth,
@@ -371,7 +371,7 @@ class TweenTest extends StatelessWidget {
       color: Colorz.bloodTest,
       alignment: Alignment.topCenter,
       child: TweenAnimationBuilder<double>(
-        child: SuperVerse(
+        child: const SuperVerse(
           verse: 'WTF is this',
           size: 4,
         ),

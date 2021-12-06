@@ -68,10 +68,10 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 // -----------------------------------------------------------------------------
   QueryDocumentSnapshot<Object> _lastSnapshot;
-  List<UserModel> _usersModels = <UserModel>[];
+  final List<UserModel> _usersModels = <UserModel>[];
   Future<void> _readMoreUsers() async {
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(

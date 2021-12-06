@@ -88,7 +88,7 @@ enum SwipeDirection{
   // await null;
 }
 // -----------------------------------------------------------------------------
-  SwipeDirection slidingDecision(int numberOfSlides, int currentSlide){
+SwipeDirection slidingDecision(int numberOfSlides, int currentSlide){
   final SwipeDirection _decision =
   numberOfSlides == 0 ? SwipeDirection.freeze :
   numberOfSlides == 1 ? SwipeDirection.freeze :
@@ -98,11 +98,20 @@ enum SwipeDirection{
   return _decision;
 }
 // -----------------------------------------------------------------------------
-  Future<void> slidingAction(PageController slidingController, int numberOfSlides, int currentSlide) async {
-  // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> before slidingAction');
-    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.next ? await slideToNext(slidingController, numberOfSlides, currentSlide) :
-    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.back ? await slideToBackFrom(slidingController, currentSlide) :
-    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.freeze ? await slideTo(controller: slidingController, toIndex: currentSlide)
+  Future<void> slidingAction(
+      PageController slidingController,
+      int numberOfSlides,
+      int currentSlide
+      ) async {
+  // print('i: $currentSlide || #: $numberOfSlides || -> before slidingAction');
+    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.next ?
+    await slideToNext(slidingController, numberOfSlides, currentSlide)
+        :
+    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.back ?
+    await slideToBackFrom(slidingController, currentSlide)
+        :
+    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.freeze ?
+    await slideTo(controller: slidingController, toIndex: currentSlide)
         :
     print('no sliding possible ');
     // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingAction');

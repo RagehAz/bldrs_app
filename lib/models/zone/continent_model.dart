@@ -42,7 +42,7 @@ class Continent{
 
     if (Mapper.canLoopList(continents)){
 
-      for (Continent continent in continents){
+      for (final Continent continent in continents){
 
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -64,7 +64,7 @@ class Continent{
 
     if (Mapper.canLoopList(_keys)){
 
-      for (String key in _keys){
+      for (final String key in _keys){
 
         final Continent _continent = decipherContinent(map[key]);
 
@@ -83,7 +83,7 @@ class Continent{
 
     bool _includes = false;
 
-    for (Continent continent in continents){
+    for (final Continent continent in continents){
 
       if (continent.name == name){
         _includes = true;
@@ -106,11 +106,11 @@ class Continent{
 
     Continent _cont;
 
-    for (Continent continent in continents){
+    for (final Continent continent in continents){
 
-      for (Region region in continent.regions){
+      for (final Region region in continent.regions){
 
-        for (String id in region.countriesIDs){
+        for (final String id in region.countriesIDs){
 
           if (id == countryID){
 

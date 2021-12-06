@@ -25,9 +25,9 @@ class DialogTestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     // List<TinyFlyer> _designFlyers = _prof.getTinyFlyersByFlyerType(FlyerType.Design);
-    List<FlyerModel> _flyers = _flyersProvider.savedFlyers;
+    final List<FlyerModel> _flyers = _flyersProvider.savedFlyers;
 
 
     return MainLayout(
@@ -36,10 +36,10 @@ class DialogTestScreen extends StatelessWidget {
       layoutWidget: GestureDetector(
         onTap: () async {
 
-          int _totalNumOfFlyers = _flyers.length;
-          int _numberOfBzz = 16;
+          final int _totalNumOfFlyers = _flyers.length;
+          const int _numberOfBzz = 16;
 
-          bool _result = await CenterDialog.showCenterDialog(
+          final bool _result = await CenterDialog.showCenterDialog(
             context: context,
             title: '',
             body: 'You Have $_totalNumOfFlyers flyers that will be deactivated that can not be retrieved',
@@ -71,7 +71,7 @@ class DialogTestScreen extends StatelessWidget {
                   ),
                 ),
 
-                SuperVerse(
+                const SuperVerse(
                   verse: 'Would you like to continue ?',
                   margin: 10,
                 ),
@@ -103,13 +103,13 @@ class DialogTestScreen extends StatelessWidget {
                           function: () async {
 
                             /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
-                            Map<String, dynamic> _userBzzMap = await FireBzOps.readAndFilterTeamlessBzzByUserModel(
+                            final Map<String, dynamic> _userBzzMap = await FireBzOps.readAndFilterTeamlessBzzByUserModel(
                               context: context,
                               userModel: userModel,
                             );
 
-                            List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
-                            List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
+                            final List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
+                            final List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
 
                             await Dialogz.bzzDeactivationDialog(
                               context: context,
@@ -134,15 +134,15 @@ class DialogTestScreen extends StatelessWidget {
                           function: () async {
 
                             /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
-                            Map<String, dynamic> _userBzzMap = await FireBzOps.readAndFilterTeamlessBzzByUserModel(
+                            final Map<String, dynamic> _userBzzMap = await FireBzOps.readAndFilterTeamlessBzzByUserModel(
                               context: context,
                               userModel: userModel,
                             );
 
-                            List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
+                            final List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
                             // List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
 
-                            List<FlyerModel> _bzzFlyers = await FireFlyerOps.readBzzFlyers(
+                            final List<FlyerModel> _bzzFlyers = await FireFlyerOps.readBzzFlyers(
                               context: context,
                               bzzModels: _bzzToDeactivate,
                             );

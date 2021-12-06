@@ -44,11 +44,11 @@ class BigMac{
 
     /// after this should recieve one big map of maps
 
-    List<BigMac> _bigMacs = <BigMac>[];
+    final List<BigMac> _bigMacs = <BigMac>[];
 
     if (Mapper.canLoopList(maps)){
 
-      for (Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps){
 
         _bigMacs.add(decipherBigMac(map));
 
@@ -65,7 +65,7 @@ class BigMac{
 
     if (Mapper.canLoopList(bigMacs)){
 
-      for (BigMac mac in bigMacs){
+      for (final BigMac mac in bigMacs){
 
         _bigMacsMap = Mapper.insertPairInMap(
           map: _bigMacsMap,
@@ -83,11 +83,11 @@ class BigMac{
 // -----------------------------------------------------------------------------
   static List<String> getCountriesIDsFromBigMacs(List<BigMac> bigMacs){
 
-    List<String> _countriesIDs = <String>[];
+    final List<String> _countriesIDs = <String>[];
 
     if (Mapper.canLoopList(bigMacs)){
 
-      for (BigMac bigMac in bigMacs){
+      for (final BigMac bigMac in bigMacs){
         _countriesIDs.add(bigMac.countryID);
       }
 
@@ -150,7 +150,7 @@ class BigMac{
   }
 // -----------------------------------------------------------------------------
   static List<BigMac> getBigMacsOrdered(){
-    List<BigMac> _macs = <BigMac>[];
+    final List<BigMac> _macs = <BigMac>[];
 
     // List<String> _orderedISO3s = [];
 
@@ -164,7 +164,7 @@ class BigMac{
   }
 // -----------------------------------------------------------------------------
   static List<BigMac> bigMacs(){
-    List<BigMac> _bigMacs = <BigMac>[
+    final List<BigMac> _bigMacs = <BigMac>[
       const BigMac(countryID: 'arg', localPrice: 320, currency: 'ARS', toDollarRate: 85.3736),
       const BigMac(countryID: 'aus', localPrice: 6.48, currency: 'AUD', toDollarRate: 1.29996750081248),
       const BigMac(countryID: 'aze', localPrice: 3.95, currency: 'AZN', toDollarRate: 1.699),

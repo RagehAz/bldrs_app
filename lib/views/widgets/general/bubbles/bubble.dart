@@ -20,7 +20,7 @@ class Bubble extends StatelessWidget {
   final Function actionBtFunction;
   final double width;
   final Function bubbleOnTap;
-  final double LeadingAndActionButtonsSizeFactor;
+  final double leadingAndActionButtonsSizeFactor;
   final String leadingIcon;
   final Color leadingIconColor;
   final dynamic margins;
@@ -38,7 +38,7 @@ class Bubble extends StatelessWidget {
     this.actionBtFunction,
     this.width,
     this.bubbleOnTap,
-    this.LeadingAndActionButtonsSizeFactor = 0.6,
+    this.leadingAndActionButtonsSizeFactor = 0.6,
     this.leadingIcon,
     this.leadingIconColor,
     this.margins,
@@ -172,7 +172,7 @@ class Bubble extends StatelessWidget {
                             // color: actionBtColor,
                             icon: leadingIcon,
                             iconColor: leadingIconColor,
-                            iconSizeFactor: LeadingAndActionButtonsSizeFactor,
+                            iconSizeFactor: leadingAndActionButtonsSizeFactor,
                             onTap: actionBtFunction,
                             bubble: false,
                           ),
@@ -203,7 +203,7 @@ class Bubble extends StatelessWidget {
                           corners: _actionBtCorner,
                           // color: actionBtColor,
                           icon: actionBtIcon,
-                          iconSizeFactor: LeadingAndActionButtonsSizeFactor,
+                          iconSizeFactor: leadingAndActionButtonsSizeFactor,
                           onTap: actionBtFunction,
                         ),
 

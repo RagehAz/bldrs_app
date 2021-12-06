@@ -34,7 +34,7 @@ class RecordBubble extends StatelessWidget {
       corners: _bubbleCorners,
       title: bubbleTitle,
       leadingIcon: bubbleIcon,
-      LeadingAndActionButtonsSizeFactor: 1,
+      leadingAndActionButtonsSizeFactor: 1,
       columnChildren: <Widget>[
 
         /// PEOPLE BOX

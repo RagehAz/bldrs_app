@@ -23,7 +23,7 @@ class SectionBubble extends StatelessWidget {
     return Bubble(
       title: title,
       // actionBtIcon: Iconz.BxPropertiesOn,
-      LeadingAndActionButtonsSizeFactor: 1,
+      leadingAndActionButtonsSizeFactor: 1,
       actionBtFunction: (){},
       width: bubbleWidth,
       // leadingIcon: icon,

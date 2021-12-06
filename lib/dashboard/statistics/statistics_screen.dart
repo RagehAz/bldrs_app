@@ -66,7 +66,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 const Stratosphere(),
 
-                SuperVerse(
+                const SuperVerse(
                   verse: 'General states :-',
                   italic: true,
                   shadow: true,
@@ -123,7 +123,7 @@ class GeneralStatistics extends StatelessWidget {
                   // margin: EdgeInsets.only(top: screenWidth * 0.05),
                 ),
 
-                SuperVerse(
+                const SuperVerse(
                   verse: 'Bz states :-',
                   size: 3,
                   italic: true,

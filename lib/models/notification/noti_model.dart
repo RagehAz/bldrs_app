@@ -133,7 +133,7 @@ class NotiModel{
 
     if (Mapper.canLoopList(maps)){
 
-      for (Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps){
 
         final NotiModel _notiModel = decipherNotiModel(
           map: map,
@@ -203,15 +203,15 @@ class NotiModel{
   void printNotiModel({String methodName}){
     print('$methodName : PRINTING NotiModel ---------------- START -- ');
 
-    print('id : ${id.toString()}');
-    print('name : ${name.toString()}');
+    print('id : ${id}');
+    print('name : ${name}');
     print('sudo : ${sudo.toString()}');
-    print('senderID : ${senderID.toString()}');
-    print('pic : ${pic.toString()}');
+    print('senderID : ${senderID}');
+    print('pic : ${pic}');
     print('notiPicType : ${notiPicType.toString()}');
-    print('title : ${title.toString()}');
+    print('title : ${title}');
     print('timeStamp : ${timeStamp.toString()}');
-    print('body : ${body.toString()}');
+    print('body : ${body}');
     print('attachment : ${attachment.toString()}');
     print('attachmentType : ${attachmentType.toString()}');
     print('dismissed : ${dismissed.toString()}');

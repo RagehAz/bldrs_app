@@ -32,7 +32,7 @@ class SuperVerse extends StatelessWidget {
   final bool redDot;
   final bool strikethrough;
 
-  SuperVerse({
+  const SuperVerse({
     this.verse = 'Bldrs.net will shock planet Earth isa',
     this.size = 2,
     this.color = Colorz.white255,

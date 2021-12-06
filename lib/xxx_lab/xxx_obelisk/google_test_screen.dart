@@ -36,7 +36,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
   // SuperFlyer _flyer;
   // bool _thing;
 
-  ScrollController _ScrollController;
+  ScrollController _scrollController;
 
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -66,7 +66,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _ScrollController = new ScrollController();
+    _scrollController = new ScrollController();
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -122,7 +122,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
         },
 
         onError: (String e){
-          print('ERROR IS : ${e.toString()}');
+          print('ERROR IS : $e');
       }
       );
 
@@ -197,7 +197,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
         child: MaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
-            controller: _ScrollController,
+            controller: _scrollController,
             children: <Widget>[
 
               const Stratosphere(),

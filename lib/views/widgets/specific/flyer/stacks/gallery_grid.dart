@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
@@ -42,9 +43,11 @@ class GalleryGrid extends StatelessWidget {
   bool _concludeUserIsAuthor(){
     final List<String> _authorsIDsList = <String>[];
 
-    if (bzAuthors != null){
 
-      for (AuthorModel author in bzAuthors){
+
+    if (Mapper.canLoopList(bzAuthors)){
+
+      for (final AuthorModel author in bzAuthors){
         _authorsIDsList.add(author.userID);
       }
 

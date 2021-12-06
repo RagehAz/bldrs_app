@@ -32,7 +32,7 @@ class MessageModel{
   static List<dynamic> cipherMessages({@required List<MessageModel> messages, @required bool toJSON}){
     final List<Map<String, dynamic>> _messagesMaps = <Map<String, dynamic>>[];
 
-    for (MessageModel msg in messages){
+    for (final MessageModel msg in messages){
       _messagesMaps.add(msg.toMap(toJSON: toJSON));
     }
 
@@ -50,7 +50,7 @@ class MessageModel{
   static List<MessageModel> decipherMessages({@required List<Map<String, dynamic>> msgsMaps, @required bool fromJSON}){
     final List<MessageModel> _postsModels = <MessageModel>[];
 
-    for (Map<String, dynamic> postMap in msgsMaps){
+    for (final Map<String, dynamic> postMap in msgsMaps){
       _postsModels.add(decipherMessage(msgMap: postMap, fromJSON: fromJSON));
     }
 

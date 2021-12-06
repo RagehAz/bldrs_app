@@ -93,9 +93,9 @@ class MutableSlide {
     final List<MutableSlide> _slides = <MutableSlide>[];
 
     if(slides != null){
-      for (SlideModel slide in slides){
+      for (final SlideModel slide in slides){
 
-        MutableSlide _mutableSlide = getViewMutableSlideFromSlideModel(slide);
+        final MutableSlide _mutableSlide = getViewMutableSlideFromSlideModel(slide);
 
         _slides.add(_mutableSlide);
       }
@@ -110,7 +110,7 @@ class MutableSlide {
     final List<MutableSlide> _slides = <MutableSlide>[];
 
     if(slides != null){
-      for (SlideModel slide in slides){
+      for (final SlideModel slide in slides){
 
         final MutableSlide _mutableSlide = await getDraftMutableSlideFromSlideModel(slide);
 
@@ -190,7 +190,7 @@ class MutableSlide {
   static void disposeMutableSlidesTextControllers(List<MutableSlide> mutableSlides){
 
     if(mutableSlides != null && mutableSlides.length != 0){
-      for (MutableSlide mSlide in mutableSlides){
+      for (final MutableSlide mSlide in mutableSlides){
         TextChecker.disposeControllerIfPossible(mSlide.headlineController);
         TextChecker.disposeControllerIfPossible(mSlide.descriptionController);
       }
@@ -201,7 +201,7 @@ class MutableSlide {
 static List<Asset> getAssetsFromMutableSlides(List<MutableSlide> mSlides){
     final List<Asset> _assets = <Asset>[];
 
-    for (MutableSlide mSlide in mSlides){
+    for (final MutableSlide mSlide in mSlides){
       if (mSlide.picAsset != null){
         _assets.add(mSlide.picAsset);
       }

@@ -58,7 +58,7 @@ class TargetsBubble extends StatelessWidget {
 
       columnChildren: <Widget>[
 
-        SuperVerse(
+        const SuperVerse(
           verse: 'Achieving the below targets will put you on track, and will give you an idea how to use Bldrs.net to acquire new customers and boost potential sales.',
           maxLines: 10,
           centered: false,

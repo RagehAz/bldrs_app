@@ -131,7 +131,7 @@ class _ReviewBubbleState extends State<ReviewBubble> {
       corners: _bubbleCorners,
       title: 'Flyer Reviews',
       leadingIcon: Iconz.bxDesignsOn,
-      LeadingAndActionButtonsSizeFactor: 1,
+      leadingAndActionButtonsSizeFactor: 1,
       columnChildren: <Widget>[
 
         ReviewCreator(

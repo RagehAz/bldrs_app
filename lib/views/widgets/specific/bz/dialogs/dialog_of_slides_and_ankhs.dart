@@ -16,7 +16,7 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
       title: 'Ankhs & Slides',
       body: 'Blah blah blah',
       child: Column(
-        children: <Widget>[
+        children: const <Widget>[
 
           SuperVerse(
             verse: 'Blo blo blo',
@@ -33,7 +33,7 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: const <Widget>[
 
         SuperVerse(
           verse: 'Blo blo blo',

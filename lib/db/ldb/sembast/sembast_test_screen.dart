@@ -79,7 +79,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _search() async {
 
-    List<Map<String, dynamic>> _result = await LDBOps.searchTrigram(searchValue: 'Cairo', docName: LDBDoc.cities, lingoCode: 'en');
+    final List<Map<String, dynamic>> _result = await LDBOps.searchTrigram(searchValue: 'Cairo', docName: LDBDoc.cities, lingoCode: 'en');
 
     Mapper.printMaps(_result);
 

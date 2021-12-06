@@ -91,7 +91,7 @@ void main(){
     ];
 
 
-    bool _result = Mapper.listOfMapsContainMap(
+    final bool _result = Mapper.listOfMapsContainMap(
       listOfMaps: _listOfMaps,
       map: _aMapNotInTheListByTwoFields,
     );
@@ -114,7 +114,7 @@ void main(){
     };
 
 
-    bool _result = Mapper.mapsAreTheSame(_aMapInTheList, _aMapInTheListCopy);
+    final bool _result = Mapper.mapsAreTheSame(_aMapInTheList, _aMapInTheListCopy);
 
     expect(_result, true);
 
@@ -134,7 +134,7 @@ void main(){
     };
 
 
-    bool _result = Mapper.mapsAreTheSame(_aMapInTheList, _aMapNotInTheListByOneField);
+    final bool _result = Mapper.mapsAreTheSame(_aMapInTheList, _aMapNotInTheListByOneField);
 
     expect(_result, false);
 
@@ -142,11 +142,11 @@ void main(){
 // -----------------------------------------------------------------------------
   test('Mapper.listsAreTheSame', (){
 
-    List<String> _list1 = <String>['1', '2', '3'];
-    List<String> _list2 = <String>['1', '2', '3'];
+    final List<String> _list1 = <String>['1', '2', '3'];
+    final List<String> _list2 = <String>['1', '2', '3'];
 
 
-    bool _result = Mapper.listsAreTheSame(list1: _list1, list2: _list2);
+    final bool _result = Mapper.listsAreTheSame(list1: _list1, list2: _list2);
 
     expect(_result, true);
 
@@ -154,11 +154,11 @@ void main(){
 // -----------------------------------------------------------------------------
   test('lists are not the same', (){
 
-    List<String> _list1 = <String>['1', '2', '3'];
-    List<String> _list2 = <String>['1', '2', '4'];
+    final List<String> _list1 = <String>['1', '2', '3'];
+    final List<String> _list2 = <String>['1', '2', '4'];
 
 
-    bool _result = Mapper.listsAreTheSame(list1: _list1, list2: _list2);
+    final bool _result = Mapper.listsAreTheSame(list1: _list1, list2: _list2);
 
     expect(_result, false);
 
@@ -236,15 +236,15 @@ void main(){
     ];
 
 
-    List<Map<String,dynamic>> _theList = _listOfMaps;
+    final List<Map<String,dynamic>> _theList = _listOfMaps;
 
-    int _indexOfTheMap = Mapper.indexOfMapByValueInListOfMaps(
+    final int _indexOfTheMap = Mapper.indexOfMapByValueInListOfMaps(
         listOfMaps: _theList,
         key: 'id',
         value: 'b'
     );
 
-    int _result = _indexOfTheMap;
+    final int _result = _indexOfTheMap;
 
     expect(_result, 1);
 
@@ -252,11 +252,11 @@ void main(){
 // -----------------------------------------------------------------------------
   test('get map from urlQuery', (){
 
-    String _urlQuery = 'country=eg&category=business&apiKey=65f7556ec76449fa7dc7c0069f040ca';
+    const String _urlQuery = 'country=eg&category=business&apiKey=65f7556ec76449fa7dc7c0069f040ca';
 
-    Map<String,dynamic> _map = Mapper.getMapFromURLQuery(urlQuery: _urlQuery);
+    final Map<String,dynamic> _map = Mapper.getMapFromURLQuery(urlQuery: _urlQuery);
 
-    Map<String, dynamic> _expected = <String, dynamic>{
+    final Map<String, dynamic> _expected = <String, dynamic>{
       'country':'eg',
       'category':'business',
       'apiKey':'65f7556ec76449fa7dc7c0069f040ca',
@@ -268,13 +268,13 @@ void main(){
 // -----------------------------------------------------------------------------
   test('sqlCipherStrings and sqlDecipherStrings', (){
 
-    List<String> strings = <String>['aa', 'bb', 'cc'];
+    final List<String> strings = <String>['aa', 'bb', 'cc'];
 
-    String string = TextMod.sqlCipherStrings(strings);
+    final String string = TextMod.sqlCipherStrings(strings);
 
-    List<String> _toListAgain = TextMod.sqlDecipherStrings(string);
+    final List<String> _toListAgain = TextMod.sqlDecipherStrings(string);
 
-    List<String> _expected = strings;
+    final List<String> _expected = strings;
 
     expect(_toListAgain, _expected);
 
@@ -282,13 +282,13 @@ void main(){
 // -----------------------------------------------------------------------------
   test('sqlCipherGeoPoint and sqlDecipherGeoPoint', (){
 
-    GeoPoint _point = const GeoPoint(12.3, 45.6);
+    const GeoPoint _point = const GeoPoint(12.3, 45.6);
 
-    String _string = Atlas.cipherGeoPoint(point: _point, toJSON: true);
+    final String _string = Atlas.cipherGeoPoint(point: _point, toJSON: true);
 
-    GeoPoint _pointAgain = Atlas.decipherGeoPoint(point: _string, fromJSON: true);
+    final GeoPoint _pointAgain = Atlas.decipherGeoPoint(point: _string, fromJSON: true);
 
-    dynamic _expected = const GeoPoint(12.3, 45.6);
+    const dynamic _expected = const GeoPoint(12.3, 45.6);
     expect(_pointAgain, _expected);
 
   });
@@ -341,7 +341,7 @@ void main(){
     const String _string =  '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.';
     const String _substring = '[firebase_auth/user-not-found]';
 
-    bool _mapContainsTheError = TextChecker.stringContainsSubString(
+    final bool _mapContainsTheError = TextChecker.stringContainsSubString(
       string: _string,
       subString: _substring,
       caseSensitive: true,
@@ -357,7 +357,7 @@ void main(){
 
     final dynamic _object = DateTime.now();
     final dynamic _object2 = Timers.cipherTime(time: _object, toJSON: false);
-    bool _isDateTime = ObjectChecker.objectIsDateTime(_object2);
+    final bool _isDateTime = ObjectChecker.objectIsDateTime(_object2);
 
     // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
 
@@ -391,16 +391,16 @@ void main(){
 
   });
 // -----------------------------------------------------------------------------
-  test("This is #VAR01 app text #VAR02.", () async {
+  test('This is #VAR01 app text #VAR02.', () async {
 
-    String _string = "This is #VAR01 app text #VAR02.";
+    const String _string = 'This is #VAR01 app text #VAR02.';
 
     Iterable<String> _allStringMatches(String text, RegExp regExp) =>
         regExp.allMatches(text).map((RegExpMatch m) => m.group(0));
 
-    dynamic _things = _allStringMatches(_string, RegExp(r'#VAR..'));
+    final dynamic _things = _allStringMatches(_string, RegExp(r'#VAR..'));
 
-    List<String> _expectation = <String>['#VAR01', '#VAR02'];
+    final List<String> _expectation = <String>['#VAR01', '#VAR02'];
 
     print('things are ${_things.toString()}');
 
@@ -411,7 +411,7 @@ void main(){
   });
 // -----------------------------------------------------------------------------
   /// and lets make a method test to check if life might give us lemons
-  test("Testing JSON Variables work around idea", () async {
+  test('Testing JSON Variables work around idea', () async {
 
     // String _rawString = "This is #VAR01 app text #VAR02.";
     //
@@ -424,7 +424,7 @@ void main(){
   });
 // -----------------------------------------------------------------------------
   /// and lets make a method test to check if this works
-  test("testing double from a string", () async {
+  test('testing double from a string', () async {
 
     // String _inputA = '34.55';
     // double _output = DoubleFromStringTest.getDoubleIfPossible(_inputA);
@@ -444,7 +444,7 @@ void main(){
 
   });
 // -----------------------------------------------------------------------------
-  test("remove All Characters After Number Of Characters", () async {
+  test('remove All Characters After Number Of Characters', () async {
 
     const String _input = '123456789abcdefg';
     const int _number = 7;
@@ -456,23 +456,23 @@ void main(){
 
   });
 // -----------------------------------------------------------------------------
-  test("power", () async {
+  test('power', () async {
 
     final int _output = Numeric.power(num: 5, power: 3);
     expect(_output, 125);
 
   });
 // -----------------------------------------------------------------------------
-  test("get Number Within Digits", () async {
+  test('get Number Within Digits', () async {
 
     final String _output = Numeric.getNumberWithinDigits(num: 957, digits: 4);
     expect(_output, '0957');
 
   });
 // -----------------------------------------------------------------------------
-  test("Specs are the same", () async {
+  test('Specs are the same', () async {
 
-    List<Spec> specsA = const <Spec>[
+    const List<Spec> specsA = const <Spec>[
 
       Spec(specsListID: 'x', value: 'x'),
       Spec(specsListID: 'y', value: 'y'),
@@ -480,7 +480,7 @@ void main(){
 
     ];
 
-    List<Spec> specsB = const <Spec>[
+    const List<Spec> specsB = const <Spec>[
 
       Spec(specsListID: 'x', value: 'x'),
       Spec(specsListID: 'y', value: 'y'),
@@ -496,9 +496,9 @@ void main(){
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
-  test("Specs are the same", () async {
+  test('Specs are the same', () async {
 
-    List<Spec> specsA = const <Spec>[
+    const List<Spec> specsA = const <Spec>[
 
       Spec(specsListID: 'x', value: 'x'),
       Spec(specsListID: 'y', value: 'y'),
@@ -514,9 +514,9 @@ void main(){
 
   });
 // -----------------------------------------------------------------------------
-  test("Object is list of specs", () async {
+  test('Object is list of specs', () async {
 
-    List<Spec> specsA = const <Spec>[
+    const List<Spec> specsA = const <Spec>[
 
       Spec(specsListID: 'x', value: 'x'),
       Spec(specsListID: 'y', value: 'y'),
@@ -524,7 +524,7 @@ void main(){
 
     ];
 
-    List<String> things = <String>['d', 'r'];
+    final List<String> things = <String>['d', 'r'];
 
     final bool isThingsSpecs = ObjectChecker.objectIsListOfSpecs(things);
     final bool isSpecs = ObjectChecker.objectIsListOfSpecs(specsA);
@@ -533,7 +533,7 @@ void main(){
     expect(isThingsSpecs, false);
   });
 // -----------------------------------------------------------------------------
-  test("getNumberOfFractions", () async {
+  test('getNumberOfFractions', () async {
 
     const double _number = 10.12553;
     final int _numberFractions = Numeric.getNumberOfFractions(number: _number);
@@ -541,18 +541,18 @@ void main(){
 
   });
 // -----------------------------------------------------------------------------
-  test("get Factorial", () async {
+  test('get Factorial', () async {
 
-    int input = 0;
-    int _factorial = getFactorial(input);
-    int _expected = 1;
+    const int input = 0;
+    final int _factorial = getFactorial(input);
+    const int _expected = 1;
 
     expect(_factorial, _expected);
 
-    int _numberOfPermutations = getNumberOfPermutations(number: 5, numberOfSelectedObjects: 3);
+    final int _numberOfPermutations = getNumberOfPermutations(number: 5, numberOfSelectedObjects: 3);
     expect(_numberOfPermutations, 60);
 
-    int _numberOfCombinations = getNumberOfCombinations(number: 5, numberOfSelectedObjects: 3);
+    final int _numberOfCombinations = getNumberOfCombinations(number: 5, numberOfSelectedObjects: 3);
     expect(_numberOfCombinations, 10);
 
 

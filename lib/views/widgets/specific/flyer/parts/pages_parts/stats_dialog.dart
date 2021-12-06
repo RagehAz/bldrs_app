@@ -33,9 +33,9 @@ class FlyerStatsDialog extends StatefulWidget {
 }
 
 class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
-  List<UserModel> _usersShares = UserModel.dummyUsers(numberOfUsers: 2);
-  List<UserModel> _usersViews = UserModel.dummyUsers(numberOfUsers: 5);
-  List<UserModel> _usersSaves = UserModel.dummyUsers(numberOfUsers: 4);
+  final List<UserModel> _usersShares = UserModel.dummyUsers(numberOfUsers: 2);
+  final List<UserModel> _usersViews = UserModel.dummyUsers(numberOfUsers: 5);
+  final List<UserModel> _usersSaves = UserModel.dummyUsers(numberOfUsers: 4);
   List<UserModel> _users;
   String _currentTab = 'views';
 
@@ -187,7 +187,7 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
                   itemCount: _users.length,
                   itemBuilder: (BuildContext ctx, int index){
 
-                    UserModel _userModel = _users[index];
+                    final UserModel _userModel = _users[index];
 
                     return
                         DreamBox(

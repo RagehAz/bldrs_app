@@ -17,22 +17,19 @@ import 'package:flutter/foundation.dart';
   }
 // -----------------------------------------------------------------------------
   List<String> sortAlphabetically(List<String> inputList){
-  List<String> _outputList = <String>[];
   inputList.sort();
-  _outputList = inputList;
-  return _outputList;
+  return inputList;
 }
 // -----------------------------------------------------------------------------
   List<String> sortAlphabetically2(List<String> inputList){
   // List<String> _outputList = <String>[];
 
-  inputList.sort((String a, String b) => a.toString().compareTo(b.toString()));
+  inputList.sort((String a, String b) => a.compareTo(b));
 
   return inputList;
 }
 // -----------------------------------------------------------------------------
   String firstCharacterAfterRemovingSpacesFromAString(String string){
-  String _output;
 
   final String _stringTrimmed = string.trim();
 
@@ -40,7 +37,7 @@ import 'package:flutter/foundation.dart';
 
   final String _firstCharacter = firstCharacterOfAString(_stringWithoutSpaces);
 
-  _output =
+  final String _output =
   _stringWithoutSpaces == null || _stringWithoutSpaces == '' || _stringWithoutSpaces == ' '? null :
   _firstCharacter == '' ? null : _firstCharacter;
 
@@ -58,7 +55,11 @@ import 'package:flutter/foundation.dart';
   String _stringTrimmed;
   if (numberOfCharacters > string.length){
     print('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
-    throw('can not remove ($numberOfCharacters) from the given string because');
+
+    final Error _error = ArgumentError('can not remove ($numberOfCharacters) from the given string because', 'removeNumberOfCharactersFromBeginningOfAString');
+
+    throw(_error);
+
   } else {
     _stringTrimmed = string.length >0 ? string?.substring(numberOfCharacters) : null;
   }
@@ -137,7 +138,7 @@ import 'package:flutter/foundation.dart';
 
 
   return
-    _output == null || _output == '' || _output == "" ? null : _output;
+    _output == null || _output == '' || _output == '' ? null : _output;
 
 }
 // -----------------------------------------------------------------------------
@@ -272,7 +273,7 @@ import 'package:flutter/foundation.dart';
   // Map<int, String> _result = list.asMap();
 
   // mirroring the map
-  Map<String, dynamic> _stringIndexMap = <String, dynamic>{};
+  final Map<String, dynamic> _stringIndexMap = <String, dynamic>{};
   int _index = 0;
   await Future.forEach(keywordsIDs, (String keywordID){
 
@@ -307,7 +308,7 @@ import 'package:flutter/foundation.dart';
 
     if (Mapper.canLoopList(strings)){
 
-      for (String string in strings){
+      for (final String string in strings){
 
         if (_output == null){
           _output = '$string';
@@ -333,9 +334,9 @@ import 'package:flutter/foundation.dart';
     return _strings;
   }
 // -----------------------------------------------------------------------------
-  String replaceAllCharactersWith({@required String CharacterToReplace, @required String replacement, @required String input}){
+  String replaceAllCharactersWith({@required String characterToReplace, @required String replacement, @required String input}){
 
-    final String _output = input.replaceAll(CharacterToReplace, replacement);
+    final String _output = input.replaceAll(characterToReplace, replacement);
 
     return _output;
   }

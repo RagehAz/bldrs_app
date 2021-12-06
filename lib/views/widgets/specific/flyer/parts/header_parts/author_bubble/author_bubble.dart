@@ -106,7 +106,7 @@ class AuthorBubble extends StatelessWidget {
             // color: Colorz.BloodTest,
             alignment: Aligners.superCenterAlignment(context),
             padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
-            child: SuperVerse(
+            child: const SuperVerse(
               verse: 'The Team',
               centered: false,
               weight: VerseWeight.thin,
@@ -130,7 +130,7 @@ class AuthorBubble extends StatelessWidget {
                     ...List<Widget>.generate(
                         bzAuthors.length,
                             (int authorIndex) {
-                          AuthorModel _author = bzAuthors[authorIndex];
+                          final AuthorModel _author = bzAuthors[authorIndex];
                           return
                             Row(
                               children: <Widget>[

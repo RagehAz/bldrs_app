@@ -78,7 +78,7 @@ class SlideModel {
 
     if (Mapper.canLoopList(slides)){
 
-      for (SlideModel slide in slides){
+      for (final SlideModel slide in slides){
 
         _slidesMap = Mapper.insertPairInMap(
           map: _slidesMap,
@@ -99,7 +99,7 @@ class SlideModel {
 
     if (Mapper.canLoopList(_keys)){
 
-      for (String key in _keys){
+      for (final String key in _keys){
 
         final Map<String, dynamic> _slideMap = maps[key];
         final SlideModel _slide = decipherSlide(_slideMap);
@@ -140,7 +140,7 @@ class SlideModel {
 
       print('XXX - STARTING TO PRINT ALL ${slides.length} SLIDES');
 
-      for (SlideModel slide in slides){
+      for (final SlideModel slide in slides){
 
         slide.printSlide();
 
@@ -154,7 +154,7 @@ class SlideModel {
   static List<SlideModel> cloneSlides(List<SlideModel> slides){
     final List<SlideModel> _newSlides = <SlideModel>[];
 
-    for (SlideModel slide in slides){
+    for (final SlideModel slide in slides){
       _newSlides.add(slide.clone());
     }
     return _newSlides;
@@ -234,7 +234,7 @@ class SlideModel {
   static Future<List<SlideModel>> replaceSlidesPicturesWithNewURLs(List<String> newPicturesURLs, List<SlideModel> inputSlides) async {
     final List<SlideModel> _outputSlides = <SlideModel>[];
 
-    for (SlideModel slide in inputSlides){
+    for (final SlideModel slide in inputSlides){
 
       final int i = slide.slideIndex;
 
@@ -262,7 +262,7 @@ class SlideModel {
 // -----------------------------------------------------------------------------
   static Future<Map<String, dynamic>> cipherSlidesCounters(List<SlideModel> slides) async {
 
-    Map<String, dynamic> _combinedMap = <String, dynamic>{};
+    final Map<String, dynamic> _combinedMap = <String, dynamic>{};
 
     await Future.forEach(slides, (SlideModel slide){
 
@@ -281,7 +281,7 @@ class SlideModel {
     final List<File> _files = <File>[];
 
     if (Mapper.canLoopList(slides)){
-      for (SlideModel slide in slides){
+      for (final SlideModel slide in slides){
 
         final File _file = await Imagers.getFileFromURL(slide.pic);
 
@@ -298,7 +298,7 @@ class SlideModel {
 
 
     if (Mapper.canLoopList(slides)){
-      for (SlideModel slide in slides){
+      for (final SlideModel slide in slides){
 
         final File _file = await Imagers.getFileFromURL(slide.pic);
         final ImageSize imageSize = await ImageSize.superImageSize(_file);
@@ -327,7 +327,7 @@ class SlideModel {
     final List<BoxFit> _boxFits = <BoxFit>[];
 
     if (Mapper.canLoopList(slides)){
-      for (SlideModel slide in slides){
+      for (final SlideModel slide in slides){
 
         final BoxFit _fit = slide.picFit;
 
@@ -379,11 +379,13 @@ class SlideModel {
 // -----------------------------------------------------------------------------
   static List<SlideModel> getSlidesFromMutableSlides(List<MutableSlide> mSlides){
     final List<SlideModel> _slides = <SlideModel>[];
-    if (mSlides != null && mSlides.length != 0){
-      for (MutableSlide mSlide in mSlides){
+
+    if (Mapper.canLoopList(mSlides)){
+      for (final MutableSlide mSlide in mSlides){
         _slides.add(getSlideFromMutableSlide(mSlide));
       }
     }
+
     return _slides;
   }
 // -----------------------------------------------------------------------------
@@ -392,7 +394,7 @@ class SlideModel {
 
     if(allSlides != null && flyerID != null && allSlides.length != 0){
 
-      for (SlideModel slide in allSlides){
+      for (final SlideModel slide in allSlides){
 
         if (slide.flyerID == flyerID){
           _foundSlides.add(slide);

@@ -174,7 +174,7 @@ import 'package:flutter/material.dart';
     final List<FlyerModel> _flyers = <FlyerModel>[];
 
     if (Mapper.canLoopList(bzModel?.flyersIDs)){
-      for (String id in bzModel.flyersIDs){
+      for (final String id in bzModel.flyersIDs){
 
         final FlyerModel _flyer = await readFlyerOps(
           context: context,
@@ -199,7 +199,7 @@ import 'package:flutter/material.dart';
     final List<FlyerModel> _allFlyers = <FlyerModel>[];
 
     if (Mapper.canLoopList(bzzModels)){
-      for (BzModel bz in bzzModels){
+      for (final BzModel bz in bzzModels){
 
         final List<FlyerModel> _bzFlyers = await FireFlyerOps.readBzFlyers(
           context: context,
@@ -280,7 +280,7 @@ import 'package:flutter/material.dart';
 
       /// A1 - loop each slide in updated slides to check which changed
       final List<SlideModel> _finalSlides = <SlideModel>[];
-      for (SlideModel slide in updatedFlyer.slides){
+      for (final SlideModel slide in updatedFlyer.slides){
 
         print('A1 - checking slide ${slide.slideIndex}');
 
@@ -355,7 +355,7 @@ import 'package:flutter/material.dart';
       }
 
       /// B2 - delete pictures from fireStorage/slidesPics/slideID : slide ID is "flyerID_index"
-      for (String slideID in _slidesIDsToBeDeleted){
+      for (final String slideID in _slidesIDsToBeDeleted){
         await Storage.deleteStoragePic(
           context: context,
           docName: StorageDoc.slides,
@@ -530,7 +530,7 @@ import 'package:flutter/material.dart';
         flyerID: flyerModel.id,
         numberOfSlides: flyerModel.slides.length,
       );
-      for (String id in _slidesIDs){
+      for (final String id in _slidesIDs){
 
         print('a - delete slideHighRes : $id from ${_slidesIDs.length} slides');
         await Storage.deleteStoragePic(

@@ -43,7 +43,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
   Widget build(BuildContext context) {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
-    List<BzModel> _userBzz = _bzzProvider.myBzz;
+    final List<BzModel> _userBzz = _bzzProvider.myBzz;
 
     print('the dude is : _userBzz : ${_userBzz.length} bzz');
 
@@ -256,7 +256,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
                   height: _textBoxHeight,
                   // color: Colorz.YellowLingerie,
                   alignment: Alignment.center,
-                  child: SuperVerse(
+                  child: const SuperVerse(
                     verse: 'Accounts',
                     maxLines: 2,
                     size: _textSize,

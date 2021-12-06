@@ -78,7 +78,7 @@ class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
       NotificationListener<ScrollUpdateNotification>(
         key: widget.notificationListenerKey,
         onNotification: (ScrollUpdateNotification details){
-          bool _canSlide = Scrollers.canSlide(
+          final bool _canSlide = Scrollers.canSlide(
             details: details,
             boxDistance: _boxDistance,
             numberOfBoxes: widget.numberOfScreens,

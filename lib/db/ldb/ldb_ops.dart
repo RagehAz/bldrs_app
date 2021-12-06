@@ -132,7 +132,7 @@ import 'package:flutter/foundation.dart';
     @required String lingoCode,
   }) async {
 
-    List<Map<String, dynamic>> _result = await Sembast.search(
+    final List<Map<String, dynamic>> _result = await Sembast.search(
       fieldToSortBy: getPrimaryKey(docName),
       searchField: 'names.$lingoCode.trigram',
       searchValue: CountryModel.fixCountryName(searchValue),

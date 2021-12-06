@@ -34,7 +34,7 @@ class FlyersProvider extends ChangeNotifier {
     FlyerModel _flyer;
 
     /// 1 - search in entire LDBs for this flyerModel
-    for (String doc in LDBDoc.flyerModelsDocs){
+    for (final String doc in LDBDoc.flyerModelsDocs){
 
       final Map<String, Object> _map = await LDBOps.searchFirstMap(
         docName: doc,
@@ -79,11 +79,11 @@ class FlyersProvider extends ChangeNotifier {
   }
 // -------------------------------------
   Future<List<FlyerModel>> fetchFlyersByIDs({@required BuildContext context, @required List<String> flyersIDs}) async {
-    List<FlyerModel> _flyers = <FlyerModel>[];
+    final List<FlyerModel> _flyers = <FlyerModel>[];
 
     if (Mapper.canLoopList(flyersIDs)){
 
-      for (String flyerID in flyersIDs){
+      for (final String flyerID in flyersIDs){
 
         final FlyerModel _flyer = await fetchFlyerByID(context: context, flyerID: flyerID);
 
@@ -323,7 +323,7 @@ class FlyersProvider extends ChangeNotifier {
     final ZoneModel _currentZone = _zoneProvider.currentZone;
 
     /// TASK : think this through.. can it be fetch instead of just search ? I don't think soooooo
-    List<FlyerModel> _flyers = await FireSearchOps.flyersByZoneAndKeyword(
+    final List<FlyerModel> _flyers = await FireSearchOps.flyersByZoneAndKeyword(
       context: context,
       zone: _currentZone,
       kw: kw,
@@ -344,14 +344,14 @@ class FlyersProvider extends ChangeNotifier {
 
     if (bz != null && Mapper.canLoopList(bz.flyersIDs) == true){
 
-      int _limit = bz.flyersIDs.length > limit ? limit : bz.flyersIDs.length;
+      final int _limit = bz.flyersIDs.length > limit ? limit : bz.flyersIDs.length;
 
       for (int i = 0; i < _limit; i++){
         _flyersIDs.add(bz.flyersIDs[i]);
       }
 
 
-      for (String flyerID in _flyersIDs){
+      for (final String flyerID in _flyersIDs){
 
         final FlyerModel _flyer = await fetchFlyerByID(context: context, flyerID: flyerID);
         _bzFlyers.add(_flyer);

@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class SliverFlyersGrid extends StatelessWidget {
   final List<FlyerModel> flyers;
 
-  SliverFlyersGrid({
+  const SliverFlyersGrid({
     @required this.flyers,
     Key key,
   }) : super(key: key);

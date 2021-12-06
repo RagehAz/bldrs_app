@@ -29,7 +29,7 @@ class FlyersAuditor extends StatefulWidget {
 
 class _FlyersAuditorState extends State<FlyersAuditor> {
   PageController _pageController;
-  List<FlyerModel> _flyers = <FlyerModel>[];
+  final List<FlyerModel> _flyers = <FlyerModel>[];
   FlyerModel _currentFlyer;
   int _currentPageIndex;
   Sliders.SwipeDirection _lastSwipeDirection;

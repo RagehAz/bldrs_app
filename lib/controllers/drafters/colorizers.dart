@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -69,7 +71,7 @@ import 'package:image/image.dart' as img;
 
     for (int y = 0; y < bitmap.height; y++) {
       for (int x = 0; x < bitmap.width; x++) {
-        int c = bitmap.getPixel(x, y);
+        final int c = bitmap.getPixel(x, y);
 
         pixelCount++;
         redBucket += img.getRed(c);

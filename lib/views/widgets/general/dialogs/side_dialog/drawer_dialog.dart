@@ -93,7 +93,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
       /// B.2 keeps searching
       else {
 
-        List<KW> _keywords = await _searchKeywords(text);
+        final List<KW> _keywords = await _searchKeywords(text);
 
         /// found results
         if (Mapper.canLoopList(_keywords)){
@@ -205,7 +205,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                       }),
 
                     if (_noResultFound == true)
-                      SuperVerse(
+                      const SuperVerse(
                         verse: 'No Keywords found',
 
                       ),
@@ -219,7 +219,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
 
-                    SuperVerse(
+                    const SuperVerse(
                       verse: 'SELECT A SECTION',
                       weight: VerseWeight.black,
                       italic: true,

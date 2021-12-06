@@ -46,7 +46,7 @@ class AddAuthorScreen extends StatelessWidget {
 
                 Container(
                   width: Bubble.clearWidth(context),
-                  child: SuperVerse(
+                  child: const SuperVerse(
                     verse: 'This Link is available for one time use only, '
                         'to allow its reciever to be redirected to '
                         'creating new author account for your Business page',
@@ -58,7 +58,7 @@ class AddAuthorScreen extends StatelessWidget {
                   ),
                 ),
 
-                SuperVerse(
+                const SuperVerse(
                   verse: 'Invitation link . com',
                   maxLines: 2,
                   margin: 10,

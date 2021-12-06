@@ -115,12 +115,12 @@ class KeywordsProvider extends ChangeNotifier{
 
     if (Mapper.canLoopList(ids)){
 
-      for (String id in ids){
+      for (final String id in ids){
 
-        final KW _Keyword = getKeywordByID(id);
+        final KW _keyword = getKeywordByID(id);
 
-        if (_Keyword != null){
-          _keywords.add(_Keyword);
+        if (_keyword != null){
+          _keywords.add(_keyword);
         }
       }
 
