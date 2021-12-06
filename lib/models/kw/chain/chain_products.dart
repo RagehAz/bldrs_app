@@ -1,7 +1,7 @@
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
+import 'package:bldrs/models/secondary_models/name_model.dart';
 
 abstract class ChainProducts {
 

@@ -1,9 +1,9 @@
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 
 class DreamWrapper extends StatelessWidget {
   final List<String> verses;

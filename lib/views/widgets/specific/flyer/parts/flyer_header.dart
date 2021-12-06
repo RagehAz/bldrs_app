@@ -1,11 +1,11 @@
 import 'package:bldrs/controllers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/controllers/drafters/tracers.dart' as Tracer;
+import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_pg_headline.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/header_shadow.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/max_header.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/mini_header_strip.dart';
-import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:flutter/material.dart';
 
 class FlyerHeader extends StatelessWidget {

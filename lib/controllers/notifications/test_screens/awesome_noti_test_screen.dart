@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/controllers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/controllers/notifications/audioz.dart' as Audioz;
 import 'package:bldrs/controllers/notifications/noti_ops.dart' as NotiOps;
@@ -10,7 +11,6 @@ import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 
 class AwesomeNotiTestScreen extends StatefulWidget {
   const AwesomeNotiTestScreen({Key key}) : super(key: key);

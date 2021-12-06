@@ -1,9 +1,9 @@
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/bz/bz_model.dart';
-import 'package:bldrs/views/widgets/specific/bz/targets_bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/tab_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';
+import 'package:bldrs/views/widgets/specific/bz/targets_bubble.dart';
 import 'package:flutter/material.dart';
 
 class BzTargetsTab extends StatelessWidget {
