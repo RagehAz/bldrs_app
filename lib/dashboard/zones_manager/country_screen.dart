@@ -104,10 +104,10 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     final String _countryName = Name.getNameByCurrentLingoFromNames(context, widget.country.names);
 
     return MainLayout(
-      skyType: SkyType.Black,
-      pyramids: Iconz.PyramidzYellow,
+      skyType: SkyType.black,
+      pyramids: Iconz.pyramidzYellow,
       loading: _loading,
-      appBarType: AppBarType.Scrollable,
+      appBarType: AppBarType.scrollable,
       appBarRowWidgets: <Widget>[
 
         DreamBox(
@@ -137,7 +137,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
           /// --- ISO3
           TileBubble(
              verse: "${_countryName}\'s ISO3 is : ( ${widget.country.id} )",
-             icon: Iconz.Info,
+             icon: Iconz.info,
            verseColor: Colorz.yellow255,
            iconBoxColor: Colorz.grey50,
          ),
@@ -151,7 +151,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             fieldIsRequired: true,
             fieldIsFormField: true,
             initialTextValue: _name,
-            actionBtIcon: Iconz.Check,
+            actionBtIcon: Iconz.check,
             actionBtFunction: () => _updateCountryFieldOnFirestore('name', _name),
           ),
 
@@ -162,7 +162,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             fieldIsRequired: true,
             fieldIsFormField: true,
             initialTextValue: _language,
-            actionBtIcon: Iconz.Check,
+            actionBtIcon: Iconz.check,
             actionBtFunction: () => _updateCountryFieldOnFirestore('language', _language),
           ),
 
@@ -173,7 +173,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             fieldIsRequired: true,
             fieldIsFormField: true,
             initialTextValue: _flag,
-            actionBtIcon: Iconz.Check,
+            actionBtIcon: Iconz.check,
             actionBtFunction: () => _updateCountryFieldOnFirestore('flag', _flag),
             leadingIcon: _flag,
           ),
@@ -187,7 +187,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             fieldIsRequired: true,
             fieldIsFormField: true,
             initialTextValue: _region,
-            actionBtIcon: Iconz.Check,
+            actionBtIcon: Iconz.check,
             actionBtFunction: () => _updateCountryFieldOnFirestore('region', _region),
           ),
 
@@ -198,7 +198,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             fieldIsRequired: true,
             fieldIsFormField: true,
             initialTextValue: _continent,
-            actionBtIcon: Iconz.Check,
+            actionBtIcon: Iconz.check,
             actionBtFunction: () => _updateCountryFieldOnFirestore('continent', _continent),
           ),
 

@@ -115,7 +115,7 @@ class SavedFlyersGrid extends StatelessWidget {
                           width: FlyerBox.bottomCornerValue(_flyerBoxWidth) * 2,
                           corners: FlyerBox.bottomCornerValue(_flyerBoxWidth),
                           color: Colorz.green255,
-                          icon: Iconz.Check,
+                          icon: Iconz.check,
                           iconSizeFactor: 0.4,
                           iconColor: Colorz.white255,
                         ),

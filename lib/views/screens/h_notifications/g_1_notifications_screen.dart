@@ -106,7 +106,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     final double _screenWidth = Scale.superScreenWidth(context);
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
+      appBarType: AppBarType.basic,
       appBarRowWidgets: <Widget>[
 
         const Expander(),
@@ -115,7 +115,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           width: 40,
           height: 40,
           iconSizeFactor: 0.5,
-          icon: Iconz.Clock,
+          icon: Iconz.clock,
           color: Colorz.blue20,
           corners: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
@@ -127,8 +127,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       ],
       loading: _loading,
       pageTitle: 'News And Notifications',
-      skyType: SkyType.Black,
-      pyramids: Iconz.PyramidzYellow,
+      skyType: SkyType.black,
+      pyramids: Iconz.pyramidzYellow,
       // tappingRageh: () async {
       //
       //   print('fuck fuck');

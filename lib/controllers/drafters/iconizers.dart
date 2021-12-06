@@ -19,94 +19,94 @@ import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
   String sectionIconOn (SectionClass.Section section){
     return
-      section == SectionClass.Section.properties ? Iconz.BxPropertiesOn :
+      section == SectionClass.Section.properties ? Iconz.bxPropertiesOn :
 
-      section == SectionClass.Section.designs ? Iconz.BxDesignsOn :
-      section == SectionClass.Section.projects ? Iconz.BxProjectsOn :
-      section == SectionClass.Section.crafts ? Iconz.BxCraftsOn :
+      section == SectionClass.Section.designs ? Iconz.bxDesignsOn :
+      section == SectionClass.Section.projects ? Iconz.bxProjectsOn :
+      section == SectionClass.Section.crafts ? Iconz.bxCraftsOn :
 
-      section == SectionClass.Section.products ? Iconz.BxProductsOn :
-      section == SectionClass.Section.equipment ? Iconz.BxEquipmentOn :
+      section == SectionClass.Section.products ? Iconz.bxProductsOn :
+      section == SectionClass.Section.equipment ? Iconz.bxEquipmentOn :
 
-      Iconz.Bz;
+      Iconz.bz;
   }
 // -----------------------------------------------------------------------------
   String sectionIconOff (SectionClass.Section section){
     return
-      section == SectionClass.Section.properties ? Iconz.BxPropertiesOff :
+      section == SectionClass.Section.properties ? Iconz.bxPropertiesOff :
 
-      section == SectionClass.Section.designs ? Iconz.BxDesignsOff :
-      section == SectionClass.Section.projects ? Iconz.BxProjectsOff :
-      section == SectionClass.Section.crafts ? Iconz.BxCraftsOff :
+      section == SectionClass.Section.designs ? Iconz.bxDesignsOff :
+      section == SectionClass.Section.projects ? Iconz.bxProjectsOff :
+      section == SectionClass.Section.crafts ? Iconz.bxCraftsOff :
 
-      section == SectionClass.Section.products ? Iconz.BxProductsOff :
-      section == SectionClass.Section.equipment ? Iconz.BxEquipmentOff :
+      section == SectionClass.Section.products ? Iconz.bxProductsOff :
+      section == SectionClass.Section.equipment ? Iconz.bxEquipmentOff :
 
-      section == SectionClass.Section.All ? Iconz.SavedFlyers :
+      section == SectionClass.Section.all ? Iconz.savedFlyers :
 
-      Iconz.Bz;
+      Iconz.bz;
   }
 // -----------------------------------------------------------------------------
   String superArrowENRight (BuildContext context){
     if (Wordz.textDirection(context) == 'ltr')
-    {return Iconz.ArrowRight;}
+    {return Iconz.arrowRight;}
     else
-    {return Iconz.ArrowLeft;}
+    {return Iconz.arrowLeft;}
   }
 // -----------------------------------------------------------------------------
   String superArrowENLeft (BuildContext context){
     if (Wordz.textDirection(context) == 'ltr')
-    {return Iconz.ArrowLeft;}
+    {return Iconz.arrowLeft;}
     else
-    {return Iconz.ArrowRight;}
+    {return Iconz.arrowRight;}
   }
 // -----------------------------------------------------------------------------
   String bzTypeIconOff (BzType bzType){
     final String icon =
-    bzType == BzType.developer ? Iconz.BxPropertiesOff :
-    bzType == BzType.broker ? Iconz.BxPropertiesOff :
-    bzType == BzType.manufacturer ? Iconz.BxProductsOff :
-    bzType == BzType.supplier ? Iconz.BxProductsOff :
-    bzType == BzType.designer ? Iconz.BxDesignsOff :
-    bzType == BzType.contractor ? Iconz.BxProjectsOff :
-    bzType == BzType.artisan ? Iconz.BxCraftsOff :
+    bzType == BzType.developer ? Iconz.bxPropertiesOff :
+    bzType == BzType.broker ? Iconz.bxPropertiesOff :
+    bzType == BzType.manufacturer ? Iconz.bxProductsOff :
+    bzType == BzType.supplier ? Iconz.bxProductsOff :
+    bzType == BzType.designer ? Iconz.bxDesignsOff :
+    bzType == BzType.contractor ? Iconz.bxProjectsOff :
+    bzType == BzType.artisan ? Iconz.bxCraftsOff :
     null;
     return icon;
   }
 // -----------------------------------------------------------------------------
   String bzTypeIconOn (BzType bzType){
     final String icon =
-    bzType == BzType.developer ? Iconz.BxPropertiesOn :
-    bzType == BzType.broker ? Iconz.BxPropertiesOn :
-    bzType == BzType.manufacturer ? Iconz.BxProductsOn :
-    bzType == BzType.supplier ? Iconz.BxProductsOn :
-    bzType == BzType.designer ? Iconz.BxDesignsOn :
-    bzType == BzType.contractor ? Iconz.BxProjectsOn :
-    bzType == BzType.artisan ? Iconz.BxCraftsOn :
+    bzType == BzType.developer ? Iconz.bxPropertiesOn :
+    bzType == BzType.broker ? Iconz.bxPropertiesOn :
+    bzType == BzType.manufacturer ? Iconz.bxProductsOn :
+    bzType == BzType.supplier ? Iconz.bxProductsOn :
+    bzType == BzType.designer ? Iconz.bxDesignsOn :
+    bzType == BzType.contractor ? Iconz.bxProjectsOn :
+    bzType == BzType.artisan ? Iconz.bxCraftsOn :
     null;
     return icon;
   }
 // -----------------------------------------------------------------------------
   String flyerTypeIconOn (FlyerTypeClass.FlyerType flyerType){
     final String icon =
-    flyerType == FlyerTypeClass.FlyerType.property ? Iconz.BxPropertiesOn :
-    flyerType == FlyerTypeClass.FlyerType.design ? Iconz.BxDesignsOn :
-    flyerType == FlyerTypeClass.FlyerType.project ? Iconz.BxProjectsOn :
-    flyerType == FlyerTypeClass.FlyerType.craft ? Iconz.BxCraftsOn :
-    flyerType == FlyerTypeClass.FlyerType.product ? Iconz.BxProductsOn :
-    flyerType == FlyerTypeClass.FlyerType.equipment ? Iconz.BxEquipmentOn :
+    flyerType == FlyerTypeClass.FlyerType.property ? Iconz.bxPropertiesOn :
+    flyerType == FlyerTypeClass.FlyerType.design ? Iconz.bxDesignsOn :
+    flyerType == FlyerTypeClass.FlyerType.project ? Iconz.bxProjectsOn :
+    flyerType == FlyerTypeClass.FlyerType.craft ? Iconz.bxCraftsOn :
+    flyerType == FlyerTypeClass.FlyerType.product ? Iconz.bxProductsOn :
+    flyerType == FlyerTypeClass.FlyerType.equipment ? Iconz.bxEquipmentOn :
     null;
     return icon;
   }
 // -----------------------------------------------------------------------------
   String flyerTypeIconOff (FlyerTypeClass.FlyerType flyerType){
     final String _icon =
-    flyerType == FlyerTypeClass.FlyerType.property ? Iconz.BxPropertiesOff :
-    flyerType == FlyerTypeClass.FlyerType.design ? Iconz.BxDesignsOff :
-    flyerType == FlyerTypeClass.FlyerType.project ? Iconz.BxProjectsOff :
-    flyerType == FlyerTypeClass.FlyerType.craft ? Iconz.BxCraftsOff :
-    flyerType == FlyerTypeClass.FlyerType.product ? Iconz.BxProductsOff :
-    flyerType == FlyerTypeClass.FlyerType.equipment ? Iconz.BxEquipmentOff :
+    flyerType == FlyerTypeClass.FlyerType.property ? Iconz.bxPropertiesOff :
+    flyerType == FlyerTypeClass.FlyerType.design ? Iconz.bxDesignsOff :
+    flyerType == FlyerTypeClass.FlyerType.project ? Iconz.bxProjectsOff :
+    flyerType == FlyerTypeClass.FlyerType.craft ? Iconz.bxCraftsOff :
+    flyerType == FlyerTypeClass.FlyerType.product ? Iconz.bxProductsOff :
+    flyerType == FlyerTypeClass.FlyerType.equipment ? Iconz.bxEquipmentOff :
     null;
     return _icon;
   }
@@ -156,25 +156,25 @@ import 'package:flutter/material.dart';
   }
 // -----------------------------------------------------------------------------
   String superBackIcon(BuildContext context){
-    return appIsLeftToRight(context) ? Iconz.Back : Iconz.BackArabic;
+    return appIsLeftToRight(context) ? Iconz.back : Iconz.backArabic;
   }
 // -----------------------------------------------------------------------------
   String superInverseBackIcon(BuildContext context){
-    return appIsLeftToRight(context) ? Iconz.BackArabic : Iconz.Back;
+    return appIsLeftToRight(context) ? Iconz.backArabic : Iconz.back;
   }
 // -----------------------------------------------------------------------------
   String superContactIcon(ContactType contactType){
     switch (contactType){
-      case ContactType.phone      :    return  Iconz.ComPhone;  break;
-      case ContactType.email      :    return  Iconz.ComEmail;  break;
-      case ContactType.website    :    return  Iconz.ComWebsite;  break;
-      case ContactType.facebook   :    return  Iconz.ComFacebook;  break;
-      case ContactType.linkedIn   :    return  Iconz.ComLinkedin;  break;
-      case ContactType.youtube    :    return  Iconz.ComYoutube;  break;
-      case ContactType.instagram  :    return  Iconz.ComInstagram;  break;
-      case ContactType.pinterest  :    return  Iconz.ComPinterest;  break;
-      case ContactType.tiktok     :    return  Iconz.ComTikTok;  break;
-      case ContactType.twitter    :    return  Iconz.ComTwitter; break;
+      case ContactType.phone      :    return  Iconz.comPhone;  break;
+      case ContactType.email      :    return  Iconz.comEmail;  break;
+      case ContactType.website    :    return  Iconz.comWebsite;  break;
+      case ContactType.facebook   :    return  Iconz.comFacebook;  break;
+      case ContactType.linkedIn   :    return  Iconz.comLinkedin;  break;
+      case ContactType.youtube    :    return  Iconz.comYoutube;  break;
+      case ContactType.instagram  :    return  Iconz.comInstagram;  break;
+      case ContactType.pinterest  :    return  Iconz.comPinterest;  break;
+      case ContactType.tiktok     :    return  Iconz.comTikTok;  break;
+      case ContactType.twitter    :    return  Iconz.comTwitter; break;
       default : return null;
     }
   }
@@ -182,12 +182,12 @@ import 'package:flutter/material.dart';
   bool iconIsContinent(String icon){
     bool _iconIsContinent;
 
-    if (icon == Iconz.ContAfrica ||
-        icon == Iconz.ContAsia ||
-        icon == Iconz.ContSouthAmerica ||
-        icon == Iconz.ContNorthAmerica ||
-        icon == Iconz.ContEurope ||
-        icon == Iconz.ContAustralia){
+    if (icon == Iconz.contAfrica ||
+        icon == Iconz.contAsia ||
+        icon == Iconz.contSouthAmerica ||
+        icon == Iconz.contNorthAmerica ||
+        icon == Iconz.contEurope ||
+        icon == Iconz.contAustralia){
       _iconIsContinent = true;
     }
 
@@ -203,12 +203,12 @@ import 'package:flutter/material.dart';
     final String _name = continent.name;
 
     switch (_name){
-      case 'Africa' : return Iconz.ContAfrica; break;
-      case 'Asia' : return Iconz.ContAsia; break;
-      case 'Oceania' : return Iconz.ContAustralia; break;
-      case 'Europe' : return Iconz.ContEurope; break;
-      case 'North America' : return Iconz.ContNorthAmerica; break;
-      case 'South America' : return Iconz.ContSouthAmerica; break;
+      case 'Africa' : return Iconz.contAfrica; break;
+      case 'Asia' : return Iconz.contAsia; break;
+      case 'Oceania' : return Iconz.contAustralia; break;
+      case 'Europe' : return Iconz.contEurope; break;
+      case 'North America' : return Iconz.contNorthAmerica; break;
+      case 'South America' : return Iconz.contSouthAmerica; break;
       default: return null;
     }
 
@@ -217,32 +217,32 @@ import 'package:flutter/material.dart';
   const List<Map<String, dynamic>> continentsMaps = const <Map<String, dynamic>>[
     <String, dynamic>{
       'name' : 'Africa',
-      'icon' : Iconz.ContAfrica,
+      'icon' : Iconz.contAfrica,
     },
     <String, dynamic>{
       'name' : 'Asia',
-      'icon' : Iconz.ContAsia,
+      'icon' : Iconz.contAsia,
     },
     <String, dynamic>{
       'name' : 'Oceania',
-      'icon' : Iconz.ContAustralia,
+      'icon' : Iconz.contAustralia,
     },
     <String, dynamic>{
       'name' : 'Europe',
-      'icon' : Iconz.ContEurope,
+      'icon' : Iconz.contEurope,
     },
     <String, dynamic>{
       'name' : 'North America',
-      'icon' : Iconz.ContNorthAmerica,
+      'icon' : Iconz.contNorthAmerica,
     },
     <String, dynamic>{
       'name' : 'South America',
-      'icon' : Iconz.ContSouthAmerica,
+      'icon' : Iconz.contSouthAmerica,
     },
   ];
 // -----------------------------------------------------------------------------
   String valueIsNotNull(dynamic value){
-    final String _icon = value == null ? Iconz.XSmall : Iconz.Check;
+    final String _icon = value == null ? Iconz.xSmall : Iconz.check;
     return _icon;
   }
 // -----------------------------------------------------------------------------

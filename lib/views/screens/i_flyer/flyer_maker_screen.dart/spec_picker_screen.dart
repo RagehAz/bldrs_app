@@ -220,11 +220,11 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
     final String _instructions = _getInstructions();
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
+      appBarType: AppBarType.basic,
       // appBarBackButton: true,
-      skyType: SkyType.Black,
+      skyType: SkyType.black,
       pageTitle: Name.getNameByCurrentLingoFromNames(context, widget.specList.names),
-      pyramids: Iconz.PyramidzYellow,
+      pyramids: Iconz.pyramidzYellow,
       onBack: _onBack,
       layoutWidget: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

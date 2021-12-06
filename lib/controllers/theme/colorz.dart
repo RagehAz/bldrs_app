@@ -2,27 +2,17 @@ import 'package:flutter/material.dart';
 
 abstract class Colorz {
 // -----------------------------------------------------------------------------
-  static const int _0 = 0;
-  static const int _10 = 10;
-  static const int _20 = 20;
-  static const int _30 = 30;
-  static const int _50 = 50;
-  static const int _80 = 80;
-  static const int _125 = 125;
-  static const int _200 = 200;
-  static const int _225 = 225;
-// -----------------------------------------------------------------------------
   static const Color bloodTest = Color.fromARGB(100, 255, 0, 0);
   static const Color nothing = Color.fromARGB(0, 255, 255, 255);
 // -----------------------------------------------------------------------------
-  static const Color black0 = Color.fromARGB(_0, 0, 0, 0);
-  static const Color black10 = Color.fromARGB(_10, 0, 0, 0);
-  static const Color black20 = Color.fromARGB(_20, 0, 0, 0 );
-  static const Color black50 = Color.fromARGB(_50, 0, 0, 0);
-  static const Color black80 = Color.fromARGB(_80, 0, 0, 0);
-  static const Color black125 = Color.fromARGB(_125, 0, 0, 0);
+  static const Color black0 = Color.fromARGB(0, 0, 0, 0);
+  static const Color black10 = Color.fromARGB(10, 0, 0, 0);
+  static const Color black20 = Color.fromARGB(20, 0, 0, 0 );
+  static const Color black50 = Color.fromARGB(50, 0, 0, 0);
+  static const Color black80 = Color.fromARGB(80, 0, 0, 0);
+  static const Color black125 = Color.fromARGB(125, 0, 0, 0);
   static const Color black150 = Color.fromARGB(150, 0, 0, 0);
-  static const Color black200 = Color.fromARGB(_200, 0, 0, 0);
+  static const Color black200 = Color.fromARGB(200, 0, 0, 0);
   static const Color black230 = Color.fromARGB(230, 0, 0, 0);
   static const Color black255 = Color.fromARGB(255, 0, 0, 0);
 // -----------------------------------------------------------------------------
@@ -31,15 +21,15 @@ abstract class Colorz {
   static const Color blackSemi230 = Color.fromARGB(230, 20, 20, 35);
   static const Color blackSemi255 = Color.fromARGB(255, 20, 20, 35);
 // -----------------------------------------------------------------------------
-  static const Color cyan10 = Color.fromARGB(_10, 201, 232, 239);
-  static const Color cyan50 = Color.fromARGB(_50, 201, 232, 239);
-  static const Color cyan225 = Color.fromARGB(_225, 201, 232, 239);
+  static const Color cyan10 = Color.fromARGB(10, 201, 232, 239);
+  static const Color cyan50 = Color.fromARGB(50, 201, 232, 239);
+  static const Color cyan255 = Color.fromARGB(255, 201, 232, 239);
 // -----------------------------------------------------------------------------
-  static const Color blue10 = Color.fromARGB(_10, 133, 203, 218);
-  static const Color blue20 = Color.fromARGB(_20, 133, 203, 218);
-  static const Color blue80 = Color.fromARGB(_80, 133, 203, 218);
-  static const Color blue125 = Color.fromARGB(_125, 133, 203, 218);
-  static const Color blue225 = Color.fromARGB(_225, 133, 203, 218);
+  static const Color blue10 = Color.fromARGB(10, 133, 203, 218);
+  static const Color blue20 = Color.fromARGB(20, 133, 203, 218);
+  static const Color blue80 = Color.fromARGB(80, 133, 203, 218);
+  static const Color blue125 = Color.fromARGB(125, 133, 203, 218);
+  static const Color blue255 = Color.fromARGB(255, 133, 203, 218);
 // -----------------------------------------------------------------------------
   static const Color darkBlue = Color.fromARGB(255, 20, 20, 80);
 // -----------------------------------------------------------------------------
@@ -47,53 +37,53 @@ abstract class Colorz {
 // -----------------------------------------------------------------------------
   static const Color skyLightBlue = Color.fromARGB(255, 0, 71, 123);
 // -----------------------------------------------------------------------------
-  static const Color yellow10 = Color.fromARGB(_10, 255, 192, 0);
-  static const Color yellow20 = Color.fromARGB(_20, 255, 192, 0);
-  static const Color yellow50 = Color.fromARGB(_50, 255, 192, 0);
-  static const Color yellow80 = Color.fromARGB(_80, 255, 192, 0);
-  static const Color yellow125 = Color.fromARGB(_125, 255, 192, 0);
-  static const Color yellow200 = Color.fromARGB(_200, 255, 192, 0);
+  static const Color yellow10 = Color.fromARGB(10, 255, 192, 0);
+  static const Color yellow20 = Color.fromARGB(20, 255, 192, 0);
+  static const Color yellow50 = Color.fromARGB(50, 255, 192, 0);
+  static const Color yellow80 = Color.fromARGB(80, 255, 192, 0);
+  static const Color yellow125 = Color.fromARGB(125, 255, 192, 0);
+  static const Color yellow200 = Color.fromARGB(200, 255, 192, 0);
   static const Color yellow255 = Color.fromARGB(255, 255, 192, 0); // #ffc000
 // -----------------------------------------------------------------------------
-  static const Color red50 = Color.fromARGB(_50, 233, 0, 0);
-  static const Color red125 = Color.fromARGB(_125, 233, 0, 0);
+  static const Color red50 = Color.fromARGB(50, 233, 0, 0);
+  static const Color red125 = Color.fromARGB(125, 233, 0, 0);
   static const Color red230 = Color.fromARGB(230, 233, 0, 0);
   static const Color red255 = Color.fromARGB(255, 233, 0, 0);
 // -----------------------------------------------------------------------------
-  static const Color darkRed125 = Color.fromARGB(_125, 97, 5, 5);
+  static const Color darkRed125 = Color.fromARGB(125, 97, 5, 5);
   static const Color darkRed230 = Color.fromARGB(230, 97, 5, 5);
   static const Color darkRed255 = Color.fromARGB(255, 97, 5, 5);
 // -----------------------------------------------------------------------------
-  static const Color green20 = Color.fromARGB(_20, 24, 157, 14);
-  static const Color green50 = Color.fromARGB(_50, 24, 157, 14);
-  static const Color green80 = Color.fromARGB(_80, 24, 157, 14);
-  static const Color green125 = Color.fromARGB(_125, 24, 157, 14);
+  static const Color green20 = Color.fromARGB(20, 24, 157, 14);
+  static const Color green50 = Color.fromARGB(50, 24, 157, 14);
+  static const Color green80 = Color.fromARGB(80, 24, 157, 14);
+  static const Color green125 = Color.fromARGB(125, 24, 157, 14);
   static const Color green230 = Color.fromARGB(230, 24, 157, 14);
   static const Color green255 = Color.fromARGB(255, 24, 157, 14);
 // -----------------------------------------------------------------------------
-  static const Color darkGreen225 = Color.fromARGB(_225, 10, 80, 20);
+  static const Color darkGreen255 = Color.fromARGB(255, 10, 80, 20);
 // -----------------------------------------------------------------------------
-  static const Color white10 = Color.fromARGB(_10, 255, 255, 255);
-  static const Color white20 = Color.fromARGB(_20, 255, 255, 255);
-  static const Color white30 = Color.fromARGB(_30, 255, 255, 255);
-  static const Color white50 = Color.fromARGB(_50, 255, 255, 255);
-  static const Color white80 = Color.fromARGB(_80, 255, 255, 255);
-  static const Color white125 = Color.fromARGB(_125, 255, 255, 255);
-  static const Color white200 = Color.fromARGB(_200, 255, 255, 255);
+  static const Color white10 = Color.fromARGB(10, 255, 255, 255);
+  static const Color white20 = Color.fromARGB(20, 255, 255, 255);
+  static const Color white30 = Color.fromARGB(30, 255, 255, 255);
+  static const Color white50 = Color.fromARGB(50, 255, 255, 255);
+  static const Color white80 = Color.fromARGB(80, 255, 255, 255);
+  static const Color white125 = Color.fromARGB(125, 255, 255, 255);
+  static const Color white200 = Color.fromARGB(200, 255, 255, 255);
   static const Color white230 = Color.fromARGB(230, 255, 255, 255);
   static const Color white255 = Color.fromARGB(255, 255, 255, 255);
 // -----------------------------------------------------------------------------
-  static const Color grey50 = Color.fromARGB(_50, 121, 121, 121);
-  static const Color grey80 = Color.fromARGB(_80, 121, 121, 121);
-  static const Color grey225 = Color.fromARGB(_225, 200, 200, 200);
+  static const Color grey50 = Color.fromARGB(50, 121, 121, 121);
+  static const Color grey80 = Color.fromARGB(80, 121, 121, 121);
+  static const Color grey255 = Color.fromARGB(255, 200, 200, 200);
 // -----------------------------------------------------------------------------
-  static const Color lightGrey225 = Color.fromARGB(_225, 220, 220, 220);
+  static const Color lightGrey255 = Color.fromARGB(255, 220, 220, 220);
 // -----------------------------------------------------------------------------
-  static const Color darkGrey225 = Color.fromARGB(_225, 180, 180, 180);
+  static const Color darkGrey255 = Color.fromARGB(255, 180, 180, 180);
 // -----------------------------------------------------------------------------
-  static const Color facebook = Color.fromARGB(_225, 59, 89, 152);
-  static const Color linkedIn = Color.fromARGB(_225, 0, 115, 176);
-  static const Color googleRed = Color.fromARGB(_225, 234, 67, 53);
+  static const Color facebook = Color.fromARGB(255, 59, 89, 152);
+  static const Color linkedIn = Color.fromARGB(255, 0, 115, 176);
+  static const Color googleRed = Color.fromARGB(255, 234, 67, 53);
 // -----------------------------------------------------------------------------
   static const Color appBarColor = white20;
   static const Color bzPageBGColor = Colorz.black80;
@@ -117,12 +107,12 @@ abstract class Colorz {
         blackSemi255,
         cyan10,
         cyan50,
-        cyan225,
+        cyan255,
         blue10,
         blue20,
         blue80,
         blue125,
-        blue225,
+        blue255,
         darkBlue,
         skyDarkBlue,
         skyLightBlue,
@@ -146,7 +136,7 @@ abstract class Colorz {
         green125,
         green230,
         green255,
-        darkGreen225,
+        darkGreen255,
         white10,
         white20,
         white30,
@@ -158,9 +148,9 @@ abstract class Colorz {
         white255 ,
         grey50 ,
         grey80 ,
-        grey225,
-        lightGrey225,
-        darkGrey225,
+        grey255,
+        lightGrey255,
+        darkGrey255,
         facebook,
         linkedIn,
         googleRed,

@@ -132,7 +132,7 @@ class InfoPage extends StatelessWidget {
               /// PUBLISH TIME
               StatsLine(
                 verse: 'Published ${Timers.getSuperTimeDifferenceString(from: PublishTime.getPublishTimeFromTimes(times: superFlyer.times, state: FlyerState.published), to: DateTime.now())}',
-                icon: Iconz.Calendar,
+                icon: Iconz.calendar,
                 bubbleWidth: _bubbleWidth,
               ),
 

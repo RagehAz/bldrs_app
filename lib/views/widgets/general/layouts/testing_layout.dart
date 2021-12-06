@@ -24,8 +24,8 @@ class TestingLayout extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.DvBlankSVG,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.dvBlankSVG,
       pageTitle: screenTitle,
       // scaffoldKey: scaffoldKey,
 

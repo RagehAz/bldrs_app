@@ -64,7 +64,7 @@ class LDBViewerScreen extends StatefulWidget {
                     DreamBox(
                       height: 37,
                       width: 37,
-                      icon: Iconz.Flyer,
+                      icon: Iconz.flyer,
                       iconSizeFactor: 0.7,
                       bubble: _bubbleIsOn,
                       onTap: (){

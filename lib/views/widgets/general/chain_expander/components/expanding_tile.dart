@@ -172,21 +172,31 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
 // -----------------------------------------------------------------------------
   void _setExpanded(bool isExpanded) {
     if (_isExpanded != isExpanded) {
+
       setState(() {
+
         _isExpanded = isExpanded;
-        if (_isExpanded)
+
+        if (_isExpanded){
           _controller.forward();
-        else
+        }
+
+        else {
           _controller.reverse().then<void>((dynamic value) {
             setState(() {
               // Rebuild without widget.children.
             });
           });
+
+        }
         PageStorage.of(context)?.writeState(context, _isExpanded);
+
       });
+
       if (widget.onTap != null) {
         widget.onTap(_isExpanded);
       }
+
     }
   }
 // -----------------------------------------------------------------------------
@@ -270,7 +280,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
                 child: DreamBox(
                   width: _bottomStripHeight,
                   height: _bottomStripHeight,
-                  icon: Iconz.ArrowUp,
+                  icon: Iconz.arrowUp,
                   iconSizeFactor: _bottomStripHeight * 0.5 / 100,
                   bubble: false,
                 ),

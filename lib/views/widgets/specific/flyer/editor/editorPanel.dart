@@ -103,7 +103,7 @@ class EditorPanel extends StatelessWidget {
           if(superFlyer.edit.editMode == true && superFlyer.edit.firstTimer == false)
             PanelButton(
               flyerBoxWidth: flyerBoxWidth,
-              icon:  Iconz.XSmall,
+              icon:  Iconz.xSmall,
               iconSizeFactor: 0.5,
               verse: 'Delete',
 
@@ -116,7 +116,7 @@ class EditorPanel extends StatelessWidget {
           if(superFlyer.edit.editMode == true)
           PanelButton(
             flyerBoxWidth: flyerBoxWidth,
-            icon:  Iconz.ArrowUp,
+            icon:  Iconz.arrowUp,
             iconSizeFactor: 0.5,
             verse: superFlyer.edit.firstTimer ? 'Publish' : 'Update',
             verseColor: superFlyer.edit.editMode ? Colorz.black255 : Colorz.white255,
@@ -129,7 +129,7 @@ class EditorPanel extends StatelessWidget {
           /// TRIGGER EDIT MODE
           PanelButton(
             flyerBoxWidth: flyerBoxWidth,
-            icon: superFlyer.edit.editMode == true ? Iconz.Gears : Iconz.Views,
+            icon: superFlyer.edit.editMode == true ? Iconz.gears : Iconz.viewsIcon,
             iconSizeFactor: 0.5,
             verse: superFlyer.edit.editMode == true ? 'Editing' : 'Viewing',
             verseColor: superFlyer.edit.editMode == true ? Colorz.black255 : Colorz.white255,

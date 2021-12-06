@@ -139,7 +139,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             _progress = 100;
           });
 
-          Nav.goToRoute(context, Routez.Home);
+          Nav.goToRoute(context, Routez.home);
 
           _triggerLoading();
         });
@@ -164,8 +164,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     return MainLayout(
       key: const ValueKey<String>('mainLayout'),
-      pyramids: Iconz.PyramidzYellow,
-      appBarType: AppBarType.Non,
+      pyramids: Iconz.pyramidzYellow,
+      appBarType: AppBarType.non,
       loading: _loading,
       layoutWidget: Column(
         mainAxisAlignment: MainAxisAlignment.center,

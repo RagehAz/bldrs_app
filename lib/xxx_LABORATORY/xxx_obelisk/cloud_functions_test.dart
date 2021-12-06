@@ -89,8 +89,8 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
 
 
     return MainLayout(
-      appBarType: AppBarType.Basic,
-      pyramids: Iconz.PyramidzYellow,
+      appBarType: AppBarType.basic,
+      pyramids: Iconz.pyramidzYellow,
       loading: _loading,
       appBarRowWidgets: <Widget>[
 

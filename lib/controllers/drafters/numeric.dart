@@ -28,8 +28,9 @@ import 'package:flutter/material.dart';
 
           _separatedNumberWithoutFractions.write(_digits[i]);
 
-          if (i < _maxDigitIndex && (_maxDigitIndex - i) % 3 == 0)
+          if (i < _maxDigitIndex && (_maxDigitIndex - i) % 3 == 0){
             _separatedNumberWithoutFractions.write("\'");
+          }
 
         }
 
@@ -57,8 +58,9 @@ import 'package:flutter/material.dart';
 
       _resultStringBuffer.write(_digits[i]);
 
-      if (i < maxDigitIndex && (maxDigitIndex - i) % 3 == 0)
+      if (i < maxDigitIndex && (maxDigitIndex - i) % 3 == 0){
         _resultStringBuffer.write("\'");
+      }
 
     }
     return _resultStringBuffer.toString();

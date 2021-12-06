@@ -53,7 +53,7 @@ class Chain {
 // -----------------------------------------------------------------------------
   static const Chain bldrsChain = const Chain(
     id: 'bldrs',
-    icon: Iconz.BldrsNameEn,
+    icon: Iconz.bldrsNameEn,
     names: <Name>[
       Name(code: 'en', value: 'Bldrs.net'),
       Name(code: 'ar', value: 'بلدرز.نت')

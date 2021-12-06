@@ -63,6 +63,9 @@ linter:
     avoid_void_async: true
     await_only_futures: true
     camel_case_extensions: true
+    camel_case_types: true
+    constant_identifier_names: true
+    curly_braces_in_flow_control_structures: true
 
     # Pending
     diagnostic_describe_all_properties: false
@@ -74,10 +77,12 @@ linter:
 
     # Experimental
     use_build_context_synchronously: false
+    cast_nullable_to_non_nullable: false
 
     # will come back to you later
     always_specify_types: false
     avoid_annotating_with_dynamic: false # incompatible with always_specify_types
+    cascade_invocations: false
 
     # defiantly false rules
     prefer_relative_imports: false

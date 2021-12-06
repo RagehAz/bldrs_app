@@ -40,7 +40,7 @@ class LogoSlogan extends StatelessWidget {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            child: WebsafeSvg.asset(Iconz.BldrsNameEn,
+            child: WebsafeSvg.asset(Iconz.bldrsNameEn,
                 fit: BoxFit.fitWidth),
           ),
         ),

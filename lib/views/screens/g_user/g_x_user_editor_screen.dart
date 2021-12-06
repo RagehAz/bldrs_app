@@ -134,32 +134,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    if (TextChecker.textControllerIsEmpty(_nameController))
+    if (TextChecker.textControllerIsEmpty(_nameController)){
       _nameController.dispose();
-    if (TextChecker.textControllerIsEmpty(_titleController))
+    }
+    if (TextChecker.textControllerIsEmpty(_titleController)){
       _titleController.dispose();
-    if (TextChecker.textControllerIsEmpty(_companyController))
+    }
+    if (TextChecker.textControllerIsEmpty(_companyController)){
       _companyController.dispose();
-    if (TextChecker.textControllerIsEmpty(_phoneController))
+    }
+    if (TextChecker.textControllerIsEmpty(_phoneController)){
       _phoneController.dispose();
-    if (TextChecker.textControllerIsEmpty(_emailController))
+    }
+    if (TextChecker.textControllerIsEmpty(_emailController)){
       _emailController.dispose();
-    if (TextChecker.textControllerIsEmpty(_websiteController))
+    }
+    if (TextChecker.textControllerIsEmpty(_websiteController)){
       _websiteController.dispose();
-    if (TextChecker.textControllerIsEmpty(_facebookController))
+    }
+    if (TextChecker.textControllerIsEmpty(_facebookController)){
       _facebookController.dispose();
-    if (TextChecker.textControllerIsEmpty(_linkedInController))
+    }
+    if (TextChecker.textControllerIsEmpty(_linkedInController)){
       _linkedInController.dispose();
-    if (TextChecker.textControllerIsEmpty(_youTubeController))
+    }
+    if (TextChecker.textControllerIsEmpty(_youTubeController)){
       _youTubeController.dispose();
-    if (TextChecker.textControllerIsEmpty(_instagramController))
+    }
+    if (TextChecker.textControllerIsEmpty(_instagramController)){
       _instagramController.dispose();
-    if (TextChecker.textControllerIsEmpty(_pinterestController))
+    }
+    if (TextChecker.textControllerIsEmpty(_pinterestController)){
       _pinterestController.dispose();
-    if (TextChecker.textControllerIsEmpty(_tiktokController))
+    }
+    if (TextChecker.textControllerIsEmpty(_tiktokController)){
       _tiktokController.dispose();
-    if (TextChecker.textControllerIsEmpty(_twitterController))
+    }
+    if (TextChecker.textControllerIsEmpty(_twitterController)){
       _twitterController.dispose();
+    }
+
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -405,11 +419,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      pyramids: Iconz.PyramidzYellow,
-      skyType: SkyType.Black,
+      pyramids: Iconz.pyramidzYellow,
+      skyType: SkyType.black,
       // appBarBackButton: true,
       loading: _loading,
-      appBarType: AppBarType.Basic,
+      appBarType: AppBarType.basic,
       pageTitle: widget.firstTimer == true ? 'Add your profile data' : Wordz.editProfile(context),
       // tappingRageh: () async {
       //
@@ -528,7 +542,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textController: _emailController,
               fieldIsFormField: true,
               title: Wordz.emailAddress(context),
-              leadingIcon: Iconz.ComEmail,
+              leadingIcon: Iconz.comEmail,
               keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: true,
               keyboardTextInputType: TextInputType.emailAddress,
@@ -539,7 +553,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textController: _phoneController,
               fieldIsFormField: true,
               title: Wordz.phone(context),
-              leadingIcon: Iconz.ComPhone,
+              leadingIcon: Iconz.comPhone,
               keyboardTextInputAction: TextInputAction.next,
               keyboardTextInputType: TextInputType.phone,
             ),
@@ -549,7 +563,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textController: _websiteController,
               fieldIsFormField: true,
               title: Wordz.website(context),
-              leadingIcon: Iconz.ComWebsite,
+              leadingIcon: Iconz.comWebsite,
               keyboardTextInputAction: TextInputAction.next,
             ),
 
@@ -558,7 +572,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textController: _facebookController,
               fieldIsFormField: true,
               title: Wordz.facebookLink(context),
-              leadingIcon: Iconz.ComFacebook,
+              leadingIcon: Iconz.comFacebook,
               keyboardTextInputAction: TextInputAction.next,
             ),
 
@@ -567,7 +581,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textController: _instagramController,
               fieldIsFormField: true,
               title: Wordz.instagramLink(context),
-              leadingIcon: Iconz.ComInstagram,
+              leadingIcon: Iconz.comInstagram,
               keyboardTextInputAction: TextInputAction.next,
             ),
 
@@ -576,7 +590,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textController: _linkedInController,
               fieldIsFormField: true,
               title: Wordz.linkedinLink(context),
-              leadingIcon: Iconz.ComLinkedin,
+              leadingIcon: Iconz.comLinkedin,
               keyboardTextInputAction: TextInputAction.next,
             ),
 
@@ -585,7 +599,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textController: _youTubeController,
               fieldIsFormField: true,
               title: Wordz.youtubeChannel(context),
-              leadingIcon: Iconz.ComYoutube,
+              leadingIcon: Iconz.comYoutube,
               keyboardTextInputAction: TextInputAction.next,
             ),
 
@@ -594,7 +608,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textController: _pinterestController,
               fieldIsFormField: true,
               title: Wordz.pinterestLink(context),
-              leadingIcon: Iconz.ComPinterest,
+              leadingIcon: Iconz.comPinterest,
               keyboardTextInputAction: TextInputAction.next,
             ),
 
@@ -603,7 +617,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textController: _tiktokController,
               fieldIsFormField: true,
               title: Wordz.tiktokLink(context),
-              leadingIcon: Iconz.ComTikTok,
+              leadingIcon: Iconz.comTikTok,
               keyboardTextInputAction: TextInputAction.next,
             ),
 
@@ -612,7 +626,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textController: _twitterController,
               fieldIsFormField: true,
               title: 'Twitter link',//Wordz.twitterLink(context),
-              leadingIcon: Iconz.ComTwitter,
+              leadingIcon: Iconz.comTwitter,
               keyboardTextInputAction: TextInputAction.done,
             ),
 

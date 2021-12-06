@@ -191,7 +191,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       DreamBox(
         height: DialogOfBzOptions.buttonHeight,
         width: BottomDialog.dialogClearWidth(context),
-        icon: Iconz.XSmall,
+        icon: Iconz.xSmall,
         iconSizeFactor: 0.5,
         iconColor: Colorz.red255,
         verse: 'Delete Business Account',
@@ -206,7 +206,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       DreamBox(
           height: DialogOfBzOptions.buttonHeight,
           width: BottomDialog.dialogClearWidth(context),
-          icon: Iconz.XSmall,
+          icon: Iconz.xSmall,
           iconSizeFactor: 0.5,
           iconColor: Colorz.red255,
           verse: 'Deactivate Business Account',
@@ -222,7 +222,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       DreamBox(
         height: DialogOfBzOptions.buttonHeight,
         width: BottomDialog.dialogClearWidth(context),
-        icon: Iconz.Gears,
+        icon: Iconz.gears,
         iconSizeFactor: 0.5,
         verse: 'Edit Business Account info',
         verseScaleFactor: 1.2,

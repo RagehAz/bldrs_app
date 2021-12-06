@@ -411,7 +411,7 @@ class SlideModel {
     return
         SlideModel(
             slideIndex: 0,
-            pic: Iconz.DumSlide1,
+            pic: Iconz.dumSlide1,
             headline: 'Headliner',
             description: 'Descriptor',
             sharesCount: 2540256,

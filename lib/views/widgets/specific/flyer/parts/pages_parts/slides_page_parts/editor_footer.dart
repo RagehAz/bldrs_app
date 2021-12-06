@@ -115,7 +115,7 @@ class EditorFooter extends StatelessWidget {
                 /// ADD IMAGES
                 FooterButton(
                   verse: 'Add',
-                  icon: Iconz.Plus,
+                  icon: Iconz.plus,
                   flyerBoxWidth: flyerBoxWidth,
                   onTap: onAddImages,
                   size: _fittingButtonSize,
@@ -125,7 +125,7 @@ class EditorFooter extends StatelessWidget {
                 /// DELETE SLIDE
                 FooterButton(
                   verse: 'Delete',
-                  icon: Iconz.XSmall,
+                  icon: Iconz.xSmall,
                   flyerBoxWidth: flyerBoxWidth,
                   onTap: onDeleteSlide,
                   size: _fittingButtonSize,
@@ -135,7 +135,7 @@ class EditorFooter extends StatelessWidget {
                 /// CROP IMAGE
                 FooterButton(
                   verse: 'Crop',
-                  icon: Iconz.BxDesignsOff,
+                  icon: Iconz.bxDesignsOff,
                   flyerBoxWidth: flyerBoxWidth,
                   onTap: onCropImage,
                   size: _fittingButtonSize,
@@ -145,7 +145,7 @@ class EditorFooter extends StatelessWidget {
                 /// RESET IMAGE
                 FooterButton(
                   verse: 'Reset',
-                  icon: Iconz.Clock,
+                  icon: Iconz.clock,
                   flyerBoxWidth: flyerBoxWidth,
                   onTap: onResetImage,
                   size: _fittingButtonSize,
@@ -155,7 +155,7 @@ class EditorFooter extends StatelessWidget {
                 /// FIT IMAGES
                 FooterButton(
                   verse: 'Fit',
-                  icon: currentPicFit == BoxFit.fitWidth ? Iconz.ArrowRight : currentPicFit == BoxFit.fitHeight ? Iconz.ArrowUp : Iconz.DashBoard,
+                  icon: currentPicFit == BoxFit.fitWidth ? Iconz.arrowRight : currentPicFit == BoxFit.fitHeight ? Iconz.arrowUp : Iconz.dashBoard,
                   flyerBoxWidth: flyerBoxWidth,
                   onTap: superFlyer.edit.onFitImage, //onFitImage,
                   size: _fittingButtonSize,

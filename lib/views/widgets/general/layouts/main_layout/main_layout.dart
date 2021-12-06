@@ -15,12 +15,12 @@ export 'package:bldrs/controllers/drafters/tracers.dart';
 export 'package:bldrs/views/widgets/general/appbar/app_bar_button.dart';
 // -----------------------------------------------------------------------------
 enum AppBarType{
-  Basic,
-  Scrollable,
-  Main,
-  Search,
-  Intro,
-  Non,
+  basic,
+  scrollable,
+  main,
+  search,
+  intro,
+  non,
 }
 // -----------------------------------------------------------------------------
 class Expander extends StatelessWidget {
@@ -59,7 +59,7 @@ class MainLayout extends StatelessWidget {
     this.pyramids,
     this.appBarType,
     this.pageTitle,
-    this.skyType = SkyType.Night,
+    this.skyType = SkyType.night,
     this.canRefreshFlyers = false,
     this.loading = false,
     this.onBack,
@@ -94,7 +94,7 @@ class MainLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final Color _backgroundColor = skyType == SkyType.Non || skyType == SkyType.Black? Colorz.blackSemi255 : Colorz.skyDarkBlue;
+    final Color _backgroundColor = skyType == SkyType.non || skyType == SkyType.black? Colorz.blackSemi255 : Colorz.skyDarkBlue;
 
     final Widget _mainLayoutStackWidgets = MainLayoutStackWidgets(
       key: const ValueKey<String>('mainStack'),
@@ -122,7 +122,7 @@ class MainLayout extends StatelessWidget {
         child: Stack(
           children: <Widget>[
 
-            if(skyType == SkyType.Non)
+            if(skyType == SkyType.non)
               Container(
                 key: const ValueKey<String>('noSkyBackground'),
                 width: Scale.superScreenWidth(context),

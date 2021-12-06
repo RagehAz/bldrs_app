@@ -170,7 +170,7 @@ class FlyerFooter extends StatelessWidget {
                 left: Aligners.leftPositionInLeftAlignmentEn(context, 0),
                 bottom: 0,
                 child: FooterButton(
-                  icon: Iconz.Share, /// TASK : let share icon point outwards the flyer pointing to outside the phone
+                  icon: Iconz.share, /// TASK : let share icon point outwards the flyer pointing to outside the phone
                   flyerBoxWidth: flyerBoxWidth,
                   onTap: onShareTap,
                   verse: _shareBTVerse,

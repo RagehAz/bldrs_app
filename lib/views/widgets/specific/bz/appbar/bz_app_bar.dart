@@ -83,7 +83,7 @@ class BzAppBar extends StatelessWidget {
         DreamBox(
           height: Ratioz.appBarButtonSize,
           width: Ratioz.appBarButtonSize,
-          icon: Iconz.More,
+          icon: Iconz.more,
           iconSizeFactor: 0.6,
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           bubble: false,

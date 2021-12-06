@@ -131,8 +131,10 @@ class CurrencyModel {
 
       final CurrencyModel _currencyFound = currencies.firstWhere((CurrencyModel curr) => Mapper.stringsContainString(strings: curr.countriesIDs, string: countryID), orElse: () => null);
 
-      if (_currencyFound != null)
+      if (_currencyFound != null){
         _currency = _currencyFound;
+      }
+
     }
 
     return _currency;

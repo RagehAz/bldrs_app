@@ -59,7 +59,7 @@ class SectionDialog extends StatelessWidget {
             /// REAL ESTATE
             SectionBubble(
                 title: 'RealEstate',
-                icon: Iconz.PyramidSingleYellow,
+                icon: Iconz.pyramidSingleYellow,
                 bubbleWidth: _buttonWidth,
                 buttons: <Widget>[
 
@@ -76,7 +76,7 @@ class SectionDialog extends StatelessWidget {
             /// Construction
             SectionBubble(
                 title: 'Construction',
-                icon: Iconz.PyramidSingleYellow,
+                icon: Iconz.pyramidSingleYellow,
                 bubbleWidth: _buttonWidth,
                 buttons: <Widget>[
 
@@ -104,7 +104,7 @@ class SectionDialog extends StatelessWidget {
             /// Construction
             SectionBubble(
               title: 'Supplies',
-              icon: Iconz.PyramidSingleYellow,
+              icon: Iconz.pyramidSingleYellow,
               bubbleWidth: _buttonWidth,
               buttons: <Widget>[
 

@@ -97,7 +97,7 @@ class CheckBox extends StatelessWidget {
                         width: checkBoxRadius * 1.25,
                         height: checkBoxRadius * 1.25,
                         child: WebsafeSvg.asset(
-                          Iconz.Check,
+                          Iconz.check,
                             color: iconColor,
                         ),
                       )

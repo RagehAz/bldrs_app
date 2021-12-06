@@ -83,7 +83,7 @@ class PriceDataCreator extends StatefulWidget {
               verseWeight: VerseWeight.thin,
               verseCentered: false,
               verseItalic: true,
-              icon: Iconz.Dollar,
+              icon: Iconz.dollar,
               iconSizeFactor: 0.6,
               color: Colorz.blackSemi255,
               bubble: false,

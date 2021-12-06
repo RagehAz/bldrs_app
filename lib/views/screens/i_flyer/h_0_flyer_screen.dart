@@ -29,7 +29,7 @@ class FlyerScreen extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  static const String routeName = Routez.FlyerScreen;
+  static const String routeName = Routez.flyerScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +46,8 @@ class FlyerScreen extends StatelessWidget {
     // final BzModel _bz = _pro.getBzByBzID(_flyer?.tinyBz?.bzID);
 
     return MainLayout(
-      appBarType: AppBarType.Non,
-      pyramids: Iconz.DvBlankSVG,
+      appBarType: AppBarType.non,
+      pyramids: Iconz.dvBlankSVG,
       layoutWidget: Center(
         child:
 

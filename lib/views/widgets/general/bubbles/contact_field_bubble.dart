@@ -132,9 +132,9 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                       height: 35,
                       width: 35,
                       icon: widget.leadingIcon,
-                      iconSizeFactor: widget.leadingIcon == Iconz.ComWebsite ||
-                          widget.leadingIcon == Iconz.ComEmail ||
-                          widget.leadingIcon == Iconz.ComPhone ?
+                      iconSizeFactor: widget.leadingIcon == Iconz.comWebsite ||
+                          widget.leadingIcon == Iconz.comEmail ||
+                          widget.leadingIcon == Iconz.comPhone ?
                       0.6 : 1,
                     ),
 
