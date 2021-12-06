@@ -85,4 +85,3 @@ class FlyerHeader extends StatelessWidget {
 
   }
 }
-

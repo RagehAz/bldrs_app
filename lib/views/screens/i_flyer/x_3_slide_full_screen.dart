@@ -61,7 +61,3 @@ class SlideFullScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-

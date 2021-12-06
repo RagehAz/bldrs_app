@@ -17,7 +17,7 @@ import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/screens/b_landing/b_0_home_screen.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
-import 'package:bldrs/xxx_LABORATORY/ask/question/questions_provider.dart';
+import 'package:bldrs/xxx_lab/ask/question/questions_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

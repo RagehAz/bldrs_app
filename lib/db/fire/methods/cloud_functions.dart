@@ -29,15 +29,12 @@ FieldValue ++
 // -----------------------------------------------------------------------------
 */
 
-
-
-
-
+//------------------------------------------------------------------------------
   const String funcNameMyFunction = 'myFunction';
   // String callable_toBlackHole = 'toBlackHole';
   const String callableRandomNumber = 'randomNumber';
   const String callableSayHello = 'x_sayHello';
-
+//------------------------------------------------------------------------------
   /// http trigger -> ( callable function - end point request )
   Future<dynamic> callFunction({@required BuildContext context, String cloudFunctionName, Map<String, dynamic> toDBMap}) async {
     final HttpsCallable _function = _getCallableFunction(funcName: cloudFunctionName);
@@ -89,7 +86,7 @@ FieldValue ++
     }
 
   }
-
+//------------------------------------------------------------------------------
   HttpsCallable _getCallableFunction({String funcName}){
     return
         FirebaseFunctions.instance.httpsCallable(
@@ -97,9 +94,9 @@ FieldValue ++
           options: HttpsCallableOptions(),
         );
   }
-
+//------------------------------------------------------------------------------
   Future<String> deleteFirebaseUser({String userID}) async {
     print('will delete user tomorrow isa, after 3eid');
     return 'rabena ysahhel';
   }
-
+//------------------------------------------------------------------------------

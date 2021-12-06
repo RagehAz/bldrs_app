@@ -49,4 +49,3 @@ import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
     }
   }
 // -----------------------------------------------------------------------------
-

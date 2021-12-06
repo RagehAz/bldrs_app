@@ -193,4 +193,3 @@ class FlyerFooter extends StatelessWidget {
     );
   }
 }
-

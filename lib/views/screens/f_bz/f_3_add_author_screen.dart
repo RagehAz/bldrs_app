@@ -155,5 +155,3 @@ class AddAuthorScreen extends StatelessWidget {
     );
   }
 }
-
-

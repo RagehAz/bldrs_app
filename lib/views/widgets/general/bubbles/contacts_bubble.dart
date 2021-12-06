@@ -108,5 +108,3 @@ class ContactsBubble extends StatelessWidget {
     );
   }
 }
-
-
