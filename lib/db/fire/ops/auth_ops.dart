@@ -173,7 +173,7 @@ import 'package:google_sign_in/google_sign_in.dart';
           {
 
             print('emailSignInOps returns error : $error');
-            _error = error.toString();
+            _error = error;
 
           }
 
@@ -232,7 +232,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
       },
       onError: (String error) async {
-        _error = error.toString();
+        _error = error;
       }
     );
 
@@ -356,7 +356,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
       onError: (String error) async {
 
-        _error =  error.toString();
+        _error =  error;
 
       }
 
@@ -498,7 +498,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
       onError: (String error) async {
 
-        _error =  error.toString();
+        _error =  error;
 
       }
     );

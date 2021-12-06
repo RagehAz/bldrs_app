@@ -41,7 +41,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
 
     const double _stripHeight = 50;
 
-    TextStyle _textStyle = SuperVerse.createStyle(
+    final TextStyle _textStyle = SuperVerse.createStyle(
         context: context,
         color: Colorz.red230,
         weight: VerseWeight.thin,
@@ -109,7 +109,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
             /// DROP DOWN
             menuMaxHeight: 500,
             itemHeight: _stripHeight,
-            hint: SuperVerse(verse: 'xx',),
+            hint: const SuperVerse(verse: 'xx',),
             dropdownColor: Colorz.white255,
             elevation: 30,
 

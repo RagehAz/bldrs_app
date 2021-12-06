@@ -79,7 +79,7 @@ import 'package:flutter/material.dart';
 
       /// FROM 1000 TO 99995
       else if(x >= 1000 && x < 99995){
-        _stringOfCalibratedNumber = '${(x / 1000).toStringAsFixed(1).toString()
+        _stringOfCalibratedNumber = '${(x / 1000).toStringAsFixed(1)
             .replaceAll(RegExp('0.0'), '0')
             .replaceAll(r'.0', '')}'
             ' ${Wordz.thousand(context)}';
@@ -93,7 +93,7 @@ import 'package:flutter/material.dart';
 
       /// FROM 999445 TO INFINITY
       else if (x >= 999445){
-        _stringOfCalibratedNumber = '${(x / 1000000).toStringAsFixed(1).toString().replaceAll(
+        _stringOfCalibratedNumber = '${(x / 1000000).toStringAsFixed(1).replaceAll(
             RegExp('0.0'), '0').replaceAll(r'.0', '')}'
             ' ${Wordz.million(context)}';
       }
@@ -158,11 +158,11 @@ import 'package:flutter/material.dart';
   }
 // -----------------------------------------------------------------------------
   List<int> getValuesFromKeys({@required List<ValueKey<int>> keys}) {
-    List<int> _values = <int>[];
+    final List<int> _values = <int>[];
 
     if (Mapper.canLoopList(keys)) {
 
-      for (ValueKey<int> key in keys){
+      for (final ValueKey<int> key in keys){
         _values.add(key.value);
       }
 
@@ -190,7 +190,7 @@ import 'package:flutter/material.dart';
   }
 // -----------------------------------------------------------------------------
   List<dynamic> createListWithDummyValue({@required int length, @required int value}){
-    List<dynamic> _dummies = <dynamic>[];
+    final List<dynamic> _dummies = <dynamic>[];
 
     for (int i = 0; i < length; i++){
       _dummies.add(value);
@@ -253,9 +253,9 @@ import 'package:flutter/material.dart';
   }
 // -----------------------------------------------------------------------------
   List<int> getRandomIndexes({@required int numberOfIndexes, @required int maxIndex}){
-    List<int> _indexes = <int>[];
+    final List<int> _indexes = <int>[];
     for (int i = 0; i < numberOfIndexes; i++) {
-      int _newIndex = createUniqueIndex(existingIndexes: _indexes, maxIndex: maxIndex);
+      final int _newIndex = createUniqueIndex(existingIndexes: _indexes, maxIndex: maxIndex);
       _indexes.add(_newIndex);
     }
     return _indexes;

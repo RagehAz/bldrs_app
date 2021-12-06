@@ -44,7 +44,7 @@ class NavBar extends StatelessWidget {
   final SkyType sky;
   // final List<BzModel> myBzz;
 
-  NavBar({
+  const NavBar({
     this.barType = _standardBarType,
     this.sky = SkyType.night,
     // this.myBzz,

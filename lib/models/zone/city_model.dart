@@ -51,7 +51,7 @@ class CityModel{
 
     if (Mapper.canLoopList(cities)){
 
-      for (CityModel city in cities){
+      for (final CityModel city in cities){
 
         _citiesMap = Mapper.insertPairInMap(
           map: _citiesMap,
@@ -93,7 +93,7 @@ class CityModel{
 
     if (Mapper.canLoopList(maps)){
 
-      for (Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps){
 
         _cities.add(decipherCityMap(map: map, fromJSON: fromJSON));
 
@@ -128,20 +128,19 @@ class CityModel{
 //   }
 // -----------------------------------------------------------------------------
   static List<String> getTranslatedCitiesNamesFromCities({@required BuildContext context, @required List<CityModel> cities}){
-    List<String> _citiesNames = <String>[];
+    final List<String> _citiesNames = <String>[];
 
     if (Mapper.canLoopList(cities)){
 
-      for (CityModel city in cities){
-        String _cityName = Name.getNameByCurrentLingoFromNames(context, city.names);
+      for (final CityModel city in cities){
+        final String _cityName = Name.getNameByCurrentLingoFromNames(context, city.names);
         _citiesNames.add(_cityName);
       }
 
     }
 
-    _citiesNames = TextMod.sortAlphabetically(_citiesNames);
 
-    return _citiesNames;
+    return TextMod.sortAlphabetically(_citiesNames);
   }
 // -----------------------------------------------------------------------------
   static KW getKeywordFromCity({@required BuildContext context,@required  CityModel city}){
@@ -163,7 +162,7 @@ class CityModel{
 
     if (Mapper.canLoopList(cities)){
 
-      for (CityModel city in cities){
+      for (final CityModel city in cities){
         final KW _cityKeyword = getKeywordFromCity(context: context, city: city);
         _keywords.add(_cityKeyword);
       }
@@ -196,7 +195,7 @@ class CityModel{
 
     if (Mapper.canLoopList(cities)){
 
-        for (CityModel city in cities){
+        for (final CityModel city in cities){
           _citiesMapModels.add(
               MapModel(
                   key: city.cityID,
@@ -236,7 +235,7 @@ class CityModel{
 
     if (Mapper.canLoopList(cities)){
 
-      for (CityModel city in cities){
+      for (final CityModel city in cities){
 
         _citiesIDs.add(city.cityID);
 

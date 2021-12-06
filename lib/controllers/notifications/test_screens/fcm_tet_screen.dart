@@ -67,14 +67,14 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
   }
 // -----------------------------------------------------------------------------
    Future<void> _saveDeviceTokenToUserDocInFireStore() async {
-    String _userID = FireAuthOps.superUserID();
+    final String _userID = FireAuthOps.superUserID();
     // User _firebaseUser = superFirebaseUser();
 
-    String _fcmToken = await _fcm.getToken();
+    final String _fcmToken = await _fcm.getToken();
 
     if (_fcmToken != null){
 
-      FCMToken _token = FCMToken(
+      final FCMToken _token = FCMToken(
           token: _fcmToken,
           createdAt: DateTime.now(),
           platform: Platform.operatingSystem,
@@ -161,7 +161,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
   @override
   Widget build(BuildContext context) {
 
-    double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
 
     return TestingLayout(
         screenTitle: 'Notifications',
@@ -238,14 +238,14 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
               _startCounter();
 
-              dynamic map = await CloudFunctionz.callFunction(
+              final dynamic map = await CloudFunctionz.callFunction(
                   context: context,
                   cloudFunctionName: 'sayHello'
               );
 
               _lapCounter();
 
-              print("The Map is Amazingly : $map");
+              print('The Map is Amazingly : $map');
 
               setState(() {
                 _received = 'received : ${map.toString()}';

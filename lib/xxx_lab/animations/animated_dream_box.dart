@@ -38,7 +38,7 @@ class AnimatedDreamBox extends StatefulWidget {
   final Color underLineLabelColor;
   final Duration duration;
 
-  AnimatedDreamBox({
+  const AnimatedDreamBox({
     @required this.height,
     this.width,
     this.icon,

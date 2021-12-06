@@ -95,7 +95,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     final double _pageHeight = _screenHeight - Ratioz.stratosphere;
 
-    for (Continent continent in _allContinents){
+    for (final Continent continent in _allContinents){
       final List<String> _countriesIDs = CountryModel.getCountriesIDsOfContinent(continent);
       final String _continentIcon = Iconizer.getContinentIcon(continent);
 

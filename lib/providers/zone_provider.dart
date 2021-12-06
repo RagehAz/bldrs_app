@@ -73,7 +73,7 @@ class ZoneProvider extends ChangeNotifier {
 
     if (Mapper.canLoopList(countriesIDs)){
 
-      for (String id in countriesIDs){
+      for (final String id in countriesIDs){
 
         final CountryModel _country = await fetchCountryByID(context: context, countryID: id);
 
@@ -150,7 +150,7 @@ class ZoneProvider extends ChangeNotifier {
 
       /// A - trial 1 : search by generated cityID
       if (countryID != null){
-        String _cityIDA = CityModel.createCityID(countryID: countryID, cityEnName: cityName);
+        final String _cityIDA = CityModel.createCityID(countryID: countryID, cityEnName: cityName);
         _city = await fetchCityByID(context: context, cityID: _cityIDA);
       }
 
@@ -160,7 +160,7 @@ class ZoneProvider extends ChangeNotifier {
         List<CityModel> _foundCities;
 
         /// B-1 - trial 2 search ldb
-        List<Map<String, dynamic>> _ldbCitiesMaps = await LDBOps.searchTrigram(
+        final List<Map<String, dynamic>> _ldbCitiesMaps = await LDBOps.searchTrigram(
           searchValue: cityName,
           docName: LDBDoc.cities,
           lingoCode: lingoCode,
@@ -196,7 +196,7 @@ class ZoneProvider extends ChangeNotifier {
           if (Mapper.canLoopList(_foundCities) == true){
 
             /// insert all cities in ldb
-            for (CityModel city in _foundCities){
+            for (final CityModel city in _foundCities){
               await LDBOps.insertMap(
                 input: city.toMap(toJSON: true),
                 docName: LDBDoc.cities,
@@ -221,7 +221,7 @@ class ZoneProvider extends ChangeNotifier {
           /// D-2 if multiple cities found
           else {
 
-            CityModel _selectedCity = await Dialogz.confirmCityDialog(
+            final CityModel _selectedCity = await Dialogz.confirmCityDialog(
               context: context,
               cities: _foundCities,
             );
@@ -247,7 +247,7 @@ class ZoneProvider extends ChangeNotifier {
 
     if (Mapper.canLoopList(citiesIDs)){
 
-      for (String id in citiesIDs){
+      for (final String id in citiesIDs){
 
         final CityModel _city = await fetchCityByID(context: context, cityID: id);
 
@@ -361,9 +361,9 @@ class ZoneProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   Future<List<CountryModel>> getContinentActivatedCountries(BuildContext context) async {
 
-    List<String> _countriesIDs = _currentContinent.activatedCountriesIDs;
+    final List<String> _countriesIDs = _currentContinent.activatedCountriesIDs;
 
-    List<CountryModel> _countries = await fetchCountriesByIDs(context: context, countriesIDs: _countriesIDs);
+    final List<CountryModel> _countries = await fetchCountriesByIDs(context: context, countriesIDs: _countriesIDs);
 
     return _countries;
   }

@@ -103,7 +103,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
             verseScaleFactor: 0.6,
             onTap: () async {
 
-              dynamic map = await CloudFunctionz.callFunction(
+              final dynamic map = await CloudFunctionz.callFunction(
                   context: context,
                   cloudFunctionName: 'n001_notifyUser',
                   toDBMap: <String, dynamic>{

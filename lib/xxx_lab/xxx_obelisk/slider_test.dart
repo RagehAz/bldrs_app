@@ -23,13 +23,13 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
   double _onChangeEnd;
   double _onChangeStart;
   double _semanticFormatterCallback;
-  TextEditingController _minController = new TextEditingController();
-  TextEditingController _maxController = new TextEditingController();
+  final TextEditingController _minController = new TextEditingController();
+  final TextEditingController _maxController = new TextEditingController();
   int _divisions;
-  TextEditingController _divisionsController = new TextEditingController();
+  final TextEditingController _divisionsController = new TextEditingController();
   RangeValues _rangeValues;
-  double _startRangeValue = 100000;
-  double _endRangeValue = 500000000;
+  final double _startRangeValue = 100000;
+  final double _endRangeValue = 500000000;
   // RangeLabels _rangeLabels;
   // String _stringLabel = 'start';
   // String _endLabel = 'end';
@@ -76,7 +76,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               actionBtFunction: (){
                 print('value is : ${_minController.text}');
 
-                int _value = Numeric.stringToInt(_minController.text);
+                final int _value = Numeric.stringToInt(_minController.text);
 
                 setState(() {
                   _minValue = _value.toDouble();
@@ -93,7 +93,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               actionBtFunction: (){
                 print('value is : ${_maxController.text}');
 
-                int _value = Numeric.stringToInt(_maxController.text);
+                final int _value = Numeric.stringToInt(_maxController.text);
 
                 setState(() {
                   _maxValue = _value.toDouble();
@@ -110,7 +110,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               actionBtFunction: (){
                 print('value is : ${_divisionsController.text}');
 
-                int _value = Numeric.stringToInt(_divisionsController.text);
+                final int _value = Numeric.stringToInt(_divisionsController.text);
 
                 setState(() {
                   _divisions = _value;

@@ -20,11 +20,11 @@ class PublishTime {
 // -----------------------------------------------------------------------------
   static List<PublishTime> cloneTimes (List<PublishTime> times){
 
-    List<PublishTime> _times = <PublishTime>[];
+    final List<PublishTime> _times = <PublishTime>[];
 
     if (Mapper.canLoopList(times)){
 
-      for (PublishTime time in times){
+      for (final PublishTime time in times){
 
         _times.add(time.clone());
 
@@ -66,7 +66,7 @@ class PublishTime {
 
     if (Mapper.canLoopList(times)){
 
-      for (PublishTime time in times){
+      for (final PublishTime time in times){
         _outPut = Mapper.insertPairInMap(
           map: _outPut,
           key: FlyerModel.cipherFlyerState(time.state),
@@ -82,7 +82,7 @@ class PublishTime {
 // -----------------------------------------------------------------------------
   static List<PublishTime> decipherPublishTimesFromMap({@required Map<String, dynamic> map, @required bool fromJSON}) {
 
-    List<PublishTime> _times = <PublishTime>[];
+    final List<PublishTime> _times = <PublishTime>[];
 
     if (map != null){
 

@@ -44,7 +44,7 @@ class SpecListTile extends StatelessWidget {
 //     final double _screenWidth = Scale.superScreenWidth(context);
 //     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    double _specTileHeight = height();
+    final double _specTileHeight = height();
     final double _specTileWidth = width(context);
     final BorderRadius _tileBorders = Borderers.superBorderAll(context, Ratioz.appBarCorner);
     final double _specNameBoxWidth = _specTileWidth - (2 * _specTileHeight);

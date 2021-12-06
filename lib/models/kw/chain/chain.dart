@@ -32,7 +32,7 @@ class Chain {
 
     if (Mapper.canLoopList(_filteredChain.sons) && Mapper.canLoopList(specList.range)){
 
-      for (KW kw in specList.specChain.sons){
+      for (final KW kw in specList.specChain.sons){
         final List<String> _strings = Mapper.getStringsFromDynamics(dynamics: specList.range);
         if (Mapper.stringsContainString(strings: _strings, string: kw.id)){
           _filteredSons.add(kw);

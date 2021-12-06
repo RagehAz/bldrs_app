@@ -24,7 +24,7 @@ class ContactModel{
 
     if (Mapper.canLoopList(contacts)){
 
-      for (ContactModel contact in contacts){
+      for (final ContactModel contact in contacts){
 
         if (contact.contact != null && contact.contact != ''){
 
@@ -52,7 +52,7 @@ class ContactModel{
 
       if (Mapper.canLoopList(_keys)){
 
-        for (String key in _keys){
+        for (final String key in _keys){
 
           final ContactModel _contact = ContactModel(contact: maps[key], contactType: decipherContactType(key));
           _contacts.add(_contact);
@@ -183,7 +183,7 @@ class ContactModel{
     // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
     final List<String> phones = <String>[];
 
-    for (ContactModel co in contacts){
+    for (final ContactModel co in contacts){
       if(co.contactType == ContactType.phone){
         phones.add(co.contact);
       }
@@ -246,7 +246,7 @@ class ContactModel{
     final List<String> values = <String>[];
 
     if (Mapper.canLoopList(contacts)){
-      for (ContactModel co in contacts){
+      for (final ContactModel co in contacts){
         values.add(co.contact);
       }
     }
@@ -258,7 +258,7 @@ class ContactModel{
     final List<String> icons = <String>[];
 
     if (Mapper.canLoopList(contacts)){
-      for (ContactModel co in contacts){
+      for (final ContactModel co in contacts){
         icons.add(Iconizer.superContactIcon(co.contactType));
       }
     }

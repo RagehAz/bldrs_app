@@ -72,9 +72,9 @@ import 'package:flutter/material.dart';
 
     String _errorReply;
 
-    for (Map<String, dynamic> map in _errors){
+    for (final Map<String, dynamic> map in _errors){
 
-      bool _mapContainsTheError = TextChecker.stringContainsSubString(
+      final bool _mapContainsTheError = TextChecker.stringContainsSubString(
         string: result,
         subString: map['error'],
         caseSensitive: true,
@@ -139,7 +139,7 @@ import 'package:flutter/material.dart';
                 title: 'Can not deactivate these businesses',
               ),
 
-            SuperVerse(
+            const SuperVerse(
               verse: 'Would you like to continue ?',
               margin: 10,
             ),
@@ -198,7 +198,7 @@ import 'package:flutter/material.dart';
             ),
           ),
 
-          SuperVerse(
+          const SuperVerse(
             verse: 'Would you like to continue ?',
             margin: 10,
           ),
@@ -224,7 +224,7 @@ import 'package:flutter/material.dart';
       buttonHeight: 50,
       buttons: <Widget>[
 
-        SuperVerse(
+        const SuperVerse(
           verse: 'Please confirm your city',
         ),
 

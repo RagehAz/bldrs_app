@@ -41,7 +41,7 @@ class ExpandingTile extends StatefulWidget {
     this.icon,
     this.iconSizeFactor = 1,
     this.onTap,
-    this.initiallyExpanded: false,
+    this.initiallyExpanded = false,
     this.initialColor = Colorz.white10,
     this.expansionColor,
     this.corners,

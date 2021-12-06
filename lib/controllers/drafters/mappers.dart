@@ -10,7 +10,7 @@ import 'package:sembast/utils/value_utils.dart';
   /// {'key' : 'firstValue' , 'key' : 'secondValue' },
   /// ]
   List<String> getFirstValuesFromMaps(List<Map<String, Object>> listOfMaps){
-    List<String> _listOfFirstValues = <String>[];
+    final List<String> _listOfFirstValues = <String>[];
 
     for (int x = 0; x<listOfMaps.length; x++){
       final String _firstValue = (listOfMaps[x].values.toList())[0];
@@ -26,7 +26,7 @@ import 'package:sembast/utils/value_utils.dart';
   /// {'key' : 'firstValue' , 'key' : 'secondValue' },
   /// ]
   List<String> getSecondValuesFromMaps(List<Map<String, Object>> listOfMaps){
-    List<String> _listOfValues = <String>[];
+    final List<String> _listOfValues = <String>[];
 
     for (int x = 0; x<listOfMaps.length; x++){
       final String _secondValue = (listOfMaps[x].values.toList())[1];
@@ -37,9 +37,9 @@ import 'package:sembast/utils/value_utils.dart';
   }
 // -----------------------------------------------------------------------------
   List<String> cloneListOfStrings(List<String> list){
-    List<dynamic> _newList = <dynamic>[];
+    final List<dynamic> _newList = <dynamic>[];
 
-    for (String x in list){
+    for (final String x in list){
       _newList.add(x);
     }
     return _newList;
@@ -68,11 +68,11 @@ import 'package:sembast/utils/value_utils.dart';
     @required bool addDocSnapshotToEachMap,
   }){
 
-    List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     if (canLoopList(queryDocumentSnapshots)){
 
-      for (QueryDocumentSnapshot<Object> docSnapshot in queryDocumentSnapshots){
+      for (final QueryDocumentSnapshot<Object> docSnapshot in queryDocumentSnapshots){
 
         final String _docID = docSnapshot.id;
 
@@ -109,7 +109,7 @@ import 'package:sembast/utils/value_utils.dart';
 
     bool _listOfMapContainsTheValue;
 
-    for (Map<String, dynamic> map in listOfMaps){
+    for (final Map<String, dynamic> map in listOfMaps){
 
       if (map[field] == value){
         _listOfMapContainsTheValue = true;
@@ -150,7 +150,7 @@ import 'package:sembast/utils/value_utils.dart';
 
     else {
 
-    for (Map<String, dynamic> _map in listOfMaps){
+    for (final Map<String, dynamic> _map in listOfMaps){
 
       if (mapsAreTheSame(_map, map)){
         _listOfMapContainsTheMap = true;
@@ -255,7 +255,7 @@ import 'package:sembast/utils/value_utils.dart';
   Map<String, dynamic> insertPairInMap({@required Map<String,dynamic> map, @required String key, @required dynamic value}){
     map.putIfAbsent(key, () => value);
 
-    Map<String, dynamic> _result = <String, dynamic>{}
+    final Map<String, dynamic> _result = <String, dynamic>{}
     ..addAll(map);
 
     return _result;
@@ -300,7 +300,7 @@ import 'package:sembast/utils/value_utils.dart';
       }
 
       /// add pairs to a map
-      for (String pair in _pairs){
+      for (final String pair in _pairs){
 
         final String _key = TextMod.removeTextAfterFirstSpecialCharacter(pair, '=');
         final String _value = TextMod.removeTextBeforeFirstSpecialCharacter(pair, '=');
@@ -325,7 +325,7 @@ import 'package:sembast/utils/value_utils.dart';
     final List<String> _strings = <String>[];
 
     if (canLoopList(dynamics)){
-      for (dynamic thing in dynamics){
+      for (final dynamic thing in dynamics){
 
         if (thing is String == true){
           _strings.add(thing);
@@ -402,7 +402,7 @@ import 'package:sembast/utils/value_utils.dart';
 
     if (canLoopList(maps)){
 
-      for (Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps){
         printMap(map);
       }
 
@@ -412,11 +412,11 @@ import 'package:sembast/utils/value_utils.dart';
 // -----------------------------------------------------------------------------
   List<Map<String, dynamic>> getMapsFromDynamics(List<dynamic> dynamics){
 
-    List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     if (canLoopList(dynamics)){
 
-      for (dynamic map in dynamics){
+      for (final dynamic map in dynamics){
 
         _maps.add(map);
 

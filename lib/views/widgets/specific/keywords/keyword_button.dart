@@ -115,7 +115,7 @@ class KeywordBarButton extends StatelessWidget {
 class AddKeywordsButton extends StatelessWidget {
   final Function onTap;
 
-  AddKeywordsButton({
+  const AddKeywordsButton({
     @required this.onTap,
     Key key,
   }) : super(key: key);
@@ -157,7 +157,7 @@ class AddKeywordsButton extends StatelessWidget {
 
                         /// 'Group' TITLE
                         // if (title != null)
-                        SuperVerse(
+                        const SuperVerse(
                           verse: 'Add ...',
                           size: 1,
                           italic: true,
@@ -170,7 +170,7 @@ class AddKeywordsButton extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
+                          children: const <Widget>[
 
                             SuperVerse(
                               verse: 'Keywords',

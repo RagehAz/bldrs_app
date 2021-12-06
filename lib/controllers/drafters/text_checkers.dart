@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as international;
 
   bool textIsEnglish (String val){
-    final RegExp exp = RegExp("[a-zA-Z]", multiLine: true, unicode: true);
+    final RegExp exp = RegExp('[a-zA-Z]', multiLine: true, unicode: true);
     bool textIsEnglish;
 
     /// if you want to check the last character input by user let the [characterNumber = val.length-1;]
-    int characterNumber = 0;
+    const int characterNumber = 0;
 
-    if(exp.hasMatch(val.substring(characterNumber)) && val.substring(characterNumber) != " "){
+    if(exp.hasMatch(val.substring(characterNumber)) && val.substring(characterNumber) != ' '){
       textIsEnglish = true;
     }
-    else if (!exp.hasMatch(val.substring(characterNumber)) && val.substring(characterNumber) != " ")
+    else if (!exp.hasMatch(val.substring(characterNumber)) && val.substring(characterNumber) != ' ')
     {
       textIsEnglish = false;
     }
@@ -58,7 +58,7 @@ import 'package:intl/intl.dart' as international;
 
     if(controllers != null){
 
-      for (TextEditingController controller in controllers){
+      for (final TextEditingController controller in controllers){
         disposeControllerIfPossible(controller);
       }
 
@@ -67,7 +67,7 @@ import 'package:intl/intl.dart' as international;
   }
 // -----------------------------------------------------------------------------
   List<TextEditingController> createEmptyTextControllers(int length){
-    List<TextEditingController> _controllers = <TextEditingController>[];
+    final List<TextEditingController> _controllers = <TextEditingController>[];
 
     for (int i = 0; i <= length; i++){
 
@@ -140,7 +140,7 @@ import 'package:intl/intl.dart' as international;
     // "[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufc3f]|[\ufe70-\ufefc]"
 
     /// This works for Arabic/Persian even numbers.
-    const String _reg = r"^[؀-ۿ]+$" ;
+    const String _reg = r'^[؀-ۿ]+$' ;
 
     final RegExp _exp = RegExp(_reg, multiLine: true);
     // bool isArabic;
@@ -165,7 +165,7 @@ import 'package:intl/intl.dart' as international;
 // -----------------------------------------------------------------------------
   bool textStartsInEnglish (String val){
 
-    const String _reg = r"[a-zA-Z]";
+    const String _reg = r'[a-zA-Z]';
     final RegExp _exp = RegExp(_reg, multiLine: true);
     final String _firstCharacter = TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
 

@@ -128,7 +128,7 @@ class FlyerModel with ChangeNotifier{
 
     if (Mapper.canLoopList(flyers)){
 
-      for (FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers){
 
         final Map<String, Object> _flyerMap = flyer.toMap(toJSON: toJSON);
 
@@ -146,7 +146,7 @@ class FlyerModel with ChangeNotifier{
 
     if (Mapper.canLoopList(maps)){
 
-      for (Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps){
         _flyersList.add(decipherFlyer(
           map: map,
           fromJSON: fromJSON,
@@ -233,7 +233,7 @@ class FlyerModel with ChangeNotifier{
     final List<String> _flyerIDs = <String>[];
 
     if (Mapper.canLoopList(flyers)){
-      for (FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers){
         _flyerIDs.add(flyer.id);
       }
     }
@@ -255,7 +255,7 @@ class FlyerModel with ChangeNotifier{
   static int getNumberOfFlyersFromBzzModels(List<BzModel> bzzModels){
     int _totalFlyers = 0;
 
-    for (BzModel bzModel in bzzModels){
+    for (final BzModel bzModel in bzzModels){
       _totalFlyers = _totalFlyers + (bzModel.flyersIDs.length);
     }
 
@@ -267,7 +267,7 @@ class FlyerModel with ChangeNotifier{
 
     if (flyer != null && Mapper.canLoopList(flyer.slides)){
 
-      for (SlideModel slide in flyer.slides){
+      for (final SlideModel slide in flyer.slides){
         _totalSaves = _totalSaves + slide.savesCount;
       }
 
@@ -280,7 +280,7 @@ class FlyerModel with ChangeNotifier{
 
     if (flyer != null && Mapper.canLoopList(flyer?.slides)){
 
-      for (SlideModel slide in flyer.slides){
+      for (final SlideModel slide in flyer.slides){
         _totalShares = _totalShares + slide.sharesCount;
       }
 
@@ -293,7 +293,7 @@ class FlyerModel with ChangeNotifier{
 
     if (flyer != null &&Mapper.canLoopList(flyer?.slides)){
 
-      for (SlideModel slide in flyer.slides){
+      for (final SlideModel slide in flyer.slides){
         _totalViews = _totalViews + slide.viewsCount;
       }
 
@@ -318,8 +318,8 @@ class FlyerModel with ChangeNotifier{
 
   if (flyerModel != null && Mapper.canLoopList(flyerModel.slides)){
 
-    for (SlideModel slide in flyerModel.slides){
-      TextEditingController _controller = new TextEditingController(text: slide.headline);
+    for (final SlideModel slide in flyerModel.slides){
+      final TextEditingController _controller = new TextEditingController(text: slide.headline);
       _controllers.add(_controller);
     }
 
@@ -333,8 +333,8 @@ class FlyerModel with ChangeNotifier{
 
     if (flyerModel != null && Mapper.canLoopList(flyerModel.slides)){
 
-      for (SlideModel slide in flyerModel.slides){
-        TextEditingController _controller = new TextEditingController(text: slide.description);
+      for (final SlideModel slide in flyerModel.slides){
+        final TextEditingController _controller = new TextEditingController(text: slide.description);
         _controllers.add(_controller);
       }
 
@@ -409,7 +409,7 @@ class FlyerModel with ChangeNotifier{
 
       if (flyerID != null && Mapper.canLoopList(flyers)){
 
-        for (FlyerModel flyer in flyers){
+        for (final FlyerModel flyer in flyers){
 
           if (flyer.id == flyerID){
             _hasTheID = true;
@@ -433,7 +433,7 @@ class FlyerModel with ChangeNotifier{
 
     if (Mapper.canLoopList(flyers)){
 
-      for (FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers){
         _flyerIDs.add(flyer.id);
       }
 
@@ -467,7 +467,7 @@ class FlyerModel with ChangeNotifier{
 
     if(Mapper.canLoopList(flyers)){
 
-      for (FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers){
         if (flyer.flyerType == flyerType){
           _filteredFlyers.add(flyer);
         }

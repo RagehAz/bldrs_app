@@ -15,7 +15,7 @@ class TrigramTest extends StatefulWidget {
 
 class _TrigramTestState extends State<TrigramTest> {
 
-  TextEditingController _controller = new TextEditingController();
+  final TextEditingController _controller = new TextEditingController();
 
   @override
   void initState() {
@@ -71,7 +71,7 @@ class _TrigramTestState extends State<TrigramTest> {
                 //   input: val,
                 // );
 
-                List<String> _trigram = generateStringPermutations(val);
+                final List<String> _trigram = generateStringPermutations(val);
 
                 setState(() {
                   _result = _trigram;
@@ -93,7 +93,7 @@ class _TrigramTestState extends State<TrigramTest> {
                   itemCount: _result.length,
                   padding: const EdgeInsets.all(5),
                   itemBuilder: (BuildContext ctx, int index){
-                    String _tri = _result[index];
+                    final String _tri = _result[index];
                     return
                       SuperVerse(
                         verse: '$index : $_tri',

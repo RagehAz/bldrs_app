@@ -22,7 +22,7 @@ class BzzProvider extends ChangeNotifier {
     BzModel _bz;
 
     /// 1 - search in entire LDBs for this bzModel
-    for (String doc in LDBDoc.bzModelsDocs){
+    for (final String doc in LDBDoc.bzModelsDocs){
 
       final Map<String, Object> _map = await LDBOps.searchFirstMap(
         docName: doc,
@@ -66,11 +66,11 @@ class BzzProvider extends ChangeNotifier {
 // -------------------------------------
   Future<List<BzModel>> fetchBzzModels({@required BuildContext context, @required List<String> bzzIDs}) async {
 
-    List<BzModel> _bzz = <BzModel>[];
+    final List<BzModel> _bzz = <BzModel>[];
 
     if (Mapper.canLoopList(bzzIDs)){
 
-      for (String bzID in bzzIDs){
+      for (final String bzID in bzzIDs){
 
         final BzModel _bz = await fetchBzModel(context: context, bzID: bzID);
 
@@ -107,7 +107,7 @@ class BzzProvider extends ChangeNotifier {
     if (Mapper.canLoopList(_sponsorsBzzIDs)){
 
       /// 2 - fetch bzz
-      List<BzModel> _bzzSponsors = await fetchBzzModels(context: context, bzzIDs: _sponsorsBzzIDs);
+      final List<BzModel> _bzzSponsors = await fetchBzzModels(context: context, bzzIDs: _sponsorsBzzIDs);
 
 
       _sponsors = _bzzSponsors;
@@ -133,7 +133,7 @@ class BzzProvider extends ChangeNotifier {
     if (Mapper.canLoopList(_userBzzIDs)){
 
       /// 2 - fetch bzz
-      List<BzModel> _bzz = await fetchBzzModels(context: context, bzzIDs: _userBzzIDs);
+      final List<BzModel> _bzz = await fetchBzzModels(context: context, bzzIDs: _userBzzIDs);
 
 
       _myBzz = _bzz;
@@ -151,7 +151,7 @@ class BzzProvider extends ChangeNotifier {
 
       if (Mapper.canLoopList(userModel.myBzzIDs)){
 
-        for (String id in userModel.myBzzIDs){
+        for (final String id in userModel.myBzzIDs){
 
           final BzModel _bz = await fetchBzModel(context: context, bzID: id);
 

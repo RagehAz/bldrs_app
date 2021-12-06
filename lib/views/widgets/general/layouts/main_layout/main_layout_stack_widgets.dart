@@ -92,7 +92,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
 
         /// NAV BAR
         if (pyramids == null)
-          NavBar(
+          const NavBar(
             key: const ValueKey<String>('navBar'),
           ),
 

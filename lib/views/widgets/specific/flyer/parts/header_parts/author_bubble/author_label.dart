@@ -229,7 +229,7 @@ class AuthorPic extends StatelessWidget {
                         bubble: false,
                         onTap: () => _tapAddAuthor(context),
                       ),
-                      SuperVerse(
+                      const SuperVerse(
                         verse: 'Add new Author',
                         size: 0,
                         maxLines: 2,

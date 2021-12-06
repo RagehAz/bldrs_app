@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main(){
 
-  List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
+  final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
     <String, dynamic>{
       'id' : 'a',
       'name' : 'Ahmad',
@@ -31,7 +31,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test('correct input id = a', (){
 
-    bool _result = Mapper.listOfMapsContainValue(
+    final bool _result = Mapper.listOfMapsContainValue(
       listOfMaps: _listOfMaps,
       field: 'id',
       value: 'a',
@@ -42,7 +42,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test('in-correct input id = c', (){
 
-    bool _result = Mapper.listOfMapsContainValue(
+    final bool _result = Mapper.listOfMapsContainValue(
       listOfMaps: _listOfMaps,
       field: 'id',
       value: 'c',
@@ -53,7 +53,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test('in-correct input id = null', (){
 
-    bool _result = Mapper.listOfMapsContainValue(
+    final bool _result = Mapper.listOfMapsContainValue(
       listOfMaps: _listOfMaps,
       field: 'id',
       value: null,
@@ -64,7 +64,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test('in-correct field = koko, input = toto', (){
 
-    bool _result = Mapper.listOfMapsContainValue(
+    final bool _result = Mapper.listOfMapsContainValue(
       listOfMaps: _listOfMaps,
       field: 'koko',
       value: 'toto',
@@ -74,14 +74,14 @@ void main(){
   });
 // -----------------------------------------------------------------------------
 
-  List<int> _numbers = <int>[0,1,2,3,4,5,6,7,8];
+  final List<int> _numbers = <int>[0,1,2,3,4,5,6,7,8];
 
   test('createUniqueIntFrom', (){
 
     bool _allLoopsAreGood;
 
     for (int i = 0; i <= 1000; i++){
-      int _uniqueVal = Numeric.createUniqueIndex(existingIndexes: _numbers);
+      final int _uniqueVal = Numeric.createUniqueIndex(existingIndexes: _numbers);
 
       if (_numbers.contains(_uniqueVal)){
         _allLoopsAreGood = false;
@@ -101,13 +101,13 @@ void main(){
 // -----------------------------------------------------------------------------
   test('cipher and decipher color', (){
 
-    Color _color = const Color.fromARGB(76, 54, 32, 10);
+    const Color _color = const Color.fromARGB(76, 54, 32, 10);
 
-    String _ciphered = Colorizer.cipherColor(_color);
-    String _expectedString = '76*54*32*10'; // works
+    final String _ciphered = Colorizer.cipherColor(_color);
+    const String _expectedString = '76*54*32*10'; // works
 
-    Color _deciphered = Colorizer.decipherColor(_ciphered);
-    String _decipheredToString = Colorizer.cipherColor(_deciphered);
+    final Color _deciphered = Colorizer.decipherColor(_ciphered);
+    final String _decipheredToString = Colorizer.cipherColor(_deciphered);
 
     /// ALPHA
     // String _a = TextMod.trimTextAfterFirstSpecialCharacter(_ciphered, '*');

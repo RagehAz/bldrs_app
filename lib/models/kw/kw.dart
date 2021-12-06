@@ -42,7 +42,7 @@ class KW {
 
     if (Mapper.canLoopList(keywords)){
 
-      for (KW kw in keywords){
+      for (final KW kw in keywords){
 
         _map = Mapper.insertPairInMap(
             map: _map,
@@ -63,7 +63,7 @@ class KW {
 
     if (Mapper.canLoopList(keywords)){
 
-      for (KW kw in keywords){
+      for (final KW kw in keywords){
 
         final Map<String, dynamic> _map = kw.toMap(toJSON: true);
         maps.add(_map);
@@ -82,7 +82,7 @@ class KW {
 
       if (Mapper.canLoopList(_keys)){
 
-        for (String key in _keys){
+        for (final String key in _keys){
 
           final KW _kw = decipherKeyword(map: map[key], fromJSON: false);
 
@@ -103,7 +103,7 @@ class KW {
 
     if (Mapper.canLoopList(maps)){
 
-      for (Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps){
 
         final KW _kw = decipherKeyword(map: map, fromJSON: true);
         _keywords.add(_kw);
@@ -126,7 +126,7 @@ class KW {
 
 // -----------------------------------------------------------------------------
   static String getKeywordArabicName(KW keyword){
-    List<Name> _names = keyword.names;
+    final List<Name> _names = keyword.names;
 
     final Name _arabicName = _names.firstWhere((Name name) => name.code == Lingo.arabicLingo.code, orElse: () => null);
     final String _name = _arabicName == null ? null : _arabicName.value;
@@ -138,7 +138,7 @@ class KW {
     final List<String> _ids = <String>[];
 
     if (Mapper.canLoopList(keywords)){
-      for (KW keyword in keywords){
+      for (final KW keyword in keywords){
 
         _ids.add(keyword.id);
       }
@@ -188,25 +188,25 @@ class KW {
 
     const Chain _bldrsChain = Chain.bldrsChain;
 
-    List<KW> _kws = getKeywordsFromChain(_bldrsChain);
+    final List<KW> _kws = getKeywordsFromChain(_bldrsChain);
 
     return _kws;
   }
 // -----------------------------------------------------------------------------
   static List<KW> getKeywordsFromChain(Chain chain){
 
-    List<KW> _keywords = <KW>[];
+    final List<KW> _keywords = <KW>[];
 
     if (chain != null){
 
       if (Mapper.canLoopList(chain.sons)){
 
-        for (dynamic son in chain.sons){
+        for (final dynamic son in chain.sons){
 
           if (son.runtimeType == Chain){
 
             final Chain _chain = son;
-            List<KW> _kws = getKeywordsFromChain(_chain);
+            final List<KW> _kws = getKeywordsFromChain(_chain);
             _keywords.addAll(_kws);
           }
 
@@ -251,7 +251,7 @@ class KW {
 
     if (Mapper.canLoopList(specs)){
 
-      for (Spec spec in specs){
+      for (final Spec spec in specs){
         // final SpecList _specList = SpecList.getSpecListFromSpecsListsByID(specsLists: specsLists, specListID: specListID)
         final dynamic _keywordID = spec.value;
 

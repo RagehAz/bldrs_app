@@ -189,7 +189,7 @@ import 'package:flutter/material.dart';
 
     final List<BzModel> _bzzToDeactivate = <BzModel>[];
     final List<BzModel> _bzzToKeep = <BzModel>[];
-    for (String id in userModel.myBzzIDs){
+    for (final String id in userModel.myBzzIDs){
 
       final BzModel _bz = await FireBzOps.readBz(
         context: context,
@@ -345,7 +345,7 @@ import 'package:flutter/material.dart';
     final List<String> _flyersIDs = bzModel.flyersIDs;
 
     if (_flyersIDs.length > 0){
-      for (String id in _flyersIDs){
+      for (final String id in _flyersIDs){
         await FireFlyerOps.deactivateFlyerOps(
           context: context,
           bzModel: bzModel,
@@ -358,7 +358,7 @@ import 'package:flutter/material.dart';
     /// 3 - delete bzID from myBzzIDs for each author
     final List<AuthorModel> _authors = bzModel.authors;
     final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(_authors);
-    for (String id in _authorsIDs){
+    for (final String id in _authorsIDs){
 
       final UserModel _user = await UserFireOps.readUser(context: context, userID: id);
 
@@ -408,7 +408,7 @@ import 'package:flutter/material.dart';
     // final List<String> _flyersIDs = bzModel.flyersIDs;
     if(Mapper.canLoopList(bzModel.flyersIDs)){
 
-      for (String id in bzModel.flyersIDs){
+      for (final String id in bzModel.flyersIDs){
 
         print('a - getting flyer : $id');
         final FlyerModel _flyerModel = await FireFlyerOps.readFlyerOps(
@@ -430,7 +430,7 @@ import 'package:flutter/material.dart';
 
     print("3 - delete bzID : ${bzModel.id} in all author\'s myBzIDs lists");
     final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(bzModel.authors);
-    for (String authorID in _authorsIDs){
+    for (final String authorID in _authorsIDs){
 
       print('a - get user model');
       final UserModel _user = await UserFireOps.readUser(
@@ -494,7 +494,7 @@ import 'package:flutter/material.dart';
     );
 
     print('11 - delete all authors pictures');
-    for (String id in _authorsIDs){
+    for (final String id in _authorsIDs){
 
       final String _authorPicName = AuthorModel.generateAuthorPicID(
           authorID: id,

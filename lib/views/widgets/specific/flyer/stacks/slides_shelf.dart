@@ -168,7 +168,7 @@ class SlidesShelf extends StatelessWidget {
 
                                       Container(
                                         width: _flyerZoneWidth * 0.95,
-                                        child: SuperVerse(
+                                        child: const SuperVerse(
                                           verse: 'Add Photos',
                                           color: Colorz.white20,
                                           maxLines: 2,

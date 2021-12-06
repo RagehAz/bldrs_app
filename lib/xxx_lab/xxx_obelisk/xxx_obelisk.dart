@@ -37,7 +37,7 @@ import 'package:flutter/material.dart';
 class ObeliskScreen extends StatefulWidget {
   final PageController controller;
 
-  ObeliskScreen({
+  const ObeliskScreen({
     this.controller,
     Key key,
   }) : super(key: key);
@@ -65,7 +65,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
   bool _isSignedInCheck(){
     bool _isSignedIn;
 
-    User _firebaseUser = FireAuthOps.superFirebaseUser();
+    final User _firebaseUser = FireAuthOps.superFirebaseUser();
 
     if (_firebaseUser == null){
       _isSignedIn = false;
@@ -80,7 +80,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
   @override
   Widget build(BuildContext context) {
 
-    User _firebaseUser = FireAuthOps.superFirebaseUser();
+    final User _firebaseUser = FireAuthOps.superFirebaseUser();
 
 // ---------------------------------------------------------------------------
     return MainLayout(
@@ -113,7 +113,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           const Stratosphere(),
 
-          SuperVerse(
+          const SuperVerse(
             verse: 'Dear Lord\nPlease Bless this project to be in good use for humanity',
             size: 1,
             italic: true,
@@ -151,7 +151,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           // ObeliskButton('HERO TEST', Iconz.DvDonaldDuck, HeroMinScreen()),
 
-          ObeliskButton('go to user checker', Iconz.flyer, UserChecker()),
+          const ObeliskButton('go to user checker', Iconz.flyer, UserChecker()),
 
           const ObeliskButton('Slider Test Screen', Iconz.flyer, SliderTestScreen()),
 

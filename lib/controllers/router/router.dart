@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
     /// s00
       case Routez.userChecker:
-        return Nav.fadeToScreen(UserChecker(), settings); break;
+        return Nav.fadeToScreen(const UserChecker(), settings); break;
 // -----------------------------------------------------------------------------
     /// s01
     /// (s02 signin page, s03 register page) are pages insides StartingScreen();
@@ -78,10 +78,10 @@ import 'package:flutter/material.dart';
     // --- XXX GENERAL SCREENS
     ///  xxx
       case Routez.obelisk:
-        return Nav.slideToScreen(ObeliskScreen(), settings); break;
+        return Nav.slideToScreen(const ObeliskScreen(), settings); break;
 
 // -----------------------------------------------------------------------------
 
     }
-    return Nav.fadeToScreen(UserChecker(), settings);
+    return Nav.fadeToScreen(const UserChecker(), settings);
   }

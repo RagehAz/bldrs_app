@@ -118,7 +118,7 @@ class _StartingScreenState extends State<StartingScreen> {
       final UserModel _userModel = _authResult['userModel'];
       print('_tapGoogleContinue : _userModel : $_userModel');
 
-      Nav.replaceScreen(context, UserChecker());
+      Nav.replaceScreen(context, const UserChecker());
 
     }
 
@@ -167,7 +167,7 @@ class _StartingScreenState extends State<StartingScreen> {
               /// CONTINUE WITH GOOGLE
               DeviceChecker.deviceIsAndroid() ?
               MainButton(
-                buttonVerse: "Continue with Google",
+                buttonVerse: 'Continue with Google',
                 buttonIcon: Iconz.comGooglePlus,
                 buttonColor: Colorz.googleRed,
                 buttonVerseShadow: false,

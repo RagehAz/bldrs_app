@@ -51,9 +51,9 @@ class NotificationMaker extends StatefulWidget {
 }
 
 class _NotificationMakerState extends State<NotificationMaker> {
-  TextEditingController _titleController = new TextEditingController();
-  TextEditingController _bodyController = new TextEditingController();
-  TextEditingController _userNameController = new TextEditingController();
+  final TextEditingController _titleController = new TextEditingController();
+  final TextEditingController _bodyController = new TextEditingController();
+  final TextEditingController _userNameController = new TextEditingController();
   UserModel _selectedUser;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -104,8 +104,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  NotiPicType _notiPicType = NotiPicType.bldrs;
-  String _notiPic = Iconz.bldrsNameEn;
+  final NotiPicType _notiPicType = NotiPicType.bldrs;
+  final String _notiPic = Iconz.bldrsNameEn;
   void _onBalloonTap(){
     print('on balloon tap');
   }
@@ -169,7 +169,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _attachGalleryPicture() async {
-    File _pic = await Imagers.takeGalleryPicture(picType: Imagers.PicType.slideHighRes);
+    final File _pic = await Imagers.takeGalleryPicture(picType: Imagers.PicType.slideHighRes);
 
     print('pic is : $_pic');
 
@@ -311,7 +311,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                           itemCount: _usersModels.length,
                           itemBuilder: (BuildContext ctx, int index){
 
-                          bool _userSelected = _selectedUser == _usersModels[index];
+                          final bool _userSelected = _selectedUser == _usersModels[index];
 
                             return
 
@@ -320,7 +320,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                               Container(
                                 width: _dialogClearWidth,
                                 height: 70,
-                                child: SuperVerse(
+                                child: const SuperVerse(
                                   verse: 'No match found',
                                   size: 1,
                                   weight: VerseWeight.thin,
@@ -668,7 +668,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                                 ...List<Widget>.generate(_attachment.length,
                                         (int index){
 
-                                      double _width = (_bodyWidth - ((_attachment.length + 1) * Ratioz.appBarMargin) ) / (_attachment.length);
+                                      final double _width = (_bodyWidth - ((_attachment.length + 1) * Ratioz.appBarMargin) ) / (_attachment.length);
 
                                       return
                                         DreamBox(

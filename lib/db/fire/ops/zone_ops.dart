@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:async';
 import 'dart:convert';
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
@@ -89,7 +91,7 @@ import 'package:provider/provider.dart';
 
     final CountryModel _country = await readCountryOps(context: context, countryID: countryID);
 
-    List<CityModel> _cities = <CityModel>[];
+    final List<CityModel> _cities = <CityModel>[];
 
     if (_country != null){
 
@@ -97,7 +99,7 @@ import 'package:provider/provider.dart';
 
       if (Mapper.canLoopList(_citiesIDs)){
 
-        for (String id in _citiesIDs){
+        for (final String id in _citiesIDs){
 
           final CityModel _city = await readCityOps(context: context, cityID: id);
 
@@ -132,7 +134,7 @@ import 'package:provider/provider.dart';
         methodName: 'get Country by IP',
         functions: () async {
 
-          http.Response _response = await http.get(_uri);
+          final http.Response _response = await http.get(_uri);
 
           if (_response.statusCode == 200){
 
@@ -150,7 +152,7 @@ import 'package:provider/provider.dart';
                 _countryID = CountryIso.getCountryIDByIso(_countryISO);
 
                 if (_countryID != null){
-                  CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _countryID);
+                  final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _countryID);
                   CityModel _city;
                   if (_cityName != null){
                     _city = await _zoneProvider.fetchCityByName(context: context, countryID: _countryID, cityName: _cityName, lingoCode: 'en');
@@ -192,7 +194,7 @@ import 'package:provider/provider.dart';
         methodName: 'get Country by IP',
         functions: () async {
 
-          http.Response _response = await http.get(_uri);
+          final http.Response _response = await http.get(_uri);
 
           if (_response.statusCode == 200){
 
@@ -215,8 +217,8 @@ import 'package:provider/provider.dart';
                 _countryID = CountryIso.getCountryIDByIso(_countryISO);
 
                 if (_countryID != null){
-                  CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _countryID);
-                  CityModel _city = await _zoneProvider.fetchCityByName(context: context, countryID: _countryID, cityName: _cityName, lingoCode: 'en');
+                  final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _countryID);
+                  final CityModel _city = await _zoneProvider.fetchCityByName(context: context, countryID: _countryID, cityName: _cityName, lingoCode: 'en');
 
                   if (_city != null){
                     _cityID = CityModel.createCityID(countryID: _country.id, cityEnName: Name.getNameByLingoFromNames(names: _city.names, lingoCode: 'en'));
@@ -353,7 +355,7 @@ import 'package:provider/provider.dart';
       docName: FireDoc.zones_currencies,
     );
 
-    List<CurrencyModel> _currencies = CurrencyModel.decipherCurrencies(_map);
+    final List<CurrencyModel> _currencies = CurrencyModel.decipherCurrencies(_map);
 
     return _currencies;
   }

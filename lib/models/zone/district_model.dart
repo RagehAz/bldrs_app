@@ -41,7 +41,7 @@ class DistrictModel{
   static Map<String,dynamic> cipherDistricts(List<DistrictModel> districts){
     Map<String, dynamic> _districtsMap = <String, dynamic>{};
 
-    for (DistrictModel district in districts){
+    for (final DistrictModel district in districts){
 
       _districtsMap = Mapper.insertPairInMap(
         map: _districtsMap,
@@ -91,7 +91,7 @@ class DistrictModel{
 
     if (Mapper.canLoopList(districts)){
 
-      for (DistrictModel district in districts){
+      for (final DistrictModel district in districts){
         _districtsMapModels.add(
             MapModel(
                 key: district.districtID,

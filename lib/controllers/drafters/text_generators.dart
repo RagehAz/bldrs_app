@@ -46,7 +46,7 @@ import 'package:flutter/material.dart';
   List<String> sectionsListStrings (BuildContext context){
     const List<SectionClass.Section> _sections = SectionClass.sectionsList;
     final List<String> _sectionsStrings = <String>[];
-    for(SectionClass.Section bs in _sections){
+    for(final SectionClass.Section bs in _sections){
       _sectionsStrings.add(sectionStringer(context, bs));
     }
     return _sectionsStrings;
@@ -55,7 +55,7 @@ import 'package:flutter/material.dart';
   List<String> bzTypesStrings (BuildContext context){
     final List<String> _bzTypesStrings = <String>[];
 
-    for(BzType bt in BzModel.bzTypesList){
+    for(final BzType bt in BzModel.bzTypesList){
       _bzTypesStrings.add(bzTypeSingleStringer(context, bt));
     }
     return _bzTypesStrings;
@@ -125,7 +125,7 @@ import 'package:flutter/material.dart';
   List<String> bzFormStrings (BuildContext context){
     final List<String> _bzFormStrings = <String>[];
 
-    for(BzForm bt in BzModel.bzFormsList){
+    for(final BzForm bt in BzModel.bzFormsList){
       _bzFormStrings.add(bzFormStringer(context, bt));
     }
     return _bzFormStrings;
@@ -188,11 +188,11 @@ import 'package:flutter/material.dart';
     final String _askHint =
     bzType == BzType.developer ? "I\'m Looking for a property directly from the developer ..." :
     bzType == BzType.broker ? "I\'m Looking for a property from brokers and re-sellers ..." :
-    bzType == BzType.manufacturer ? "I want to Manufacture or get big quantities ..." :
+    bzType == BzType.manufacturer ? 'I want to Manufacture or get big quantities ...' :
     bzType == BzType.supplier ? "I\'m searching for a product ..." :
-    bzType == BzType.designer ? "I need consultation from a designer ..." :
+    bzType == BzType.designer ? 'I need consultation from a designer ...' :
     bzType == BzType.contractor ? "I\'m Looking for a contractor to build a project ..." :
-    bzType == BzType.artisan ? "I want a craftsman to fix or build something ..." :
+    bzType == BzType.artisan ? 'I want a craftsman to fix or build something ...' :
     Wordz.askHint(context);
     return _askHint;
   }
@@ -229,7 +229,7 @@ import 'package:flutter/material.dart';
       /// 3 - split characters into a list
       final List<String> _characters = _withoutSpaces.split('');
       final int _charactersLength = _characters.length;
-      int _maxTrigramLength = maxTrigramLength ?? _charactersLength;
+      final int _maxTrigramLength = maxTrigramLength ?? _charactersLength;
 
       /// 4 - loop through trigram length 3 -> 4 -> 5 -> ... -> _charactersLength
       for (int trigramLength = 3; trigramLength <= _maxTrigramLength; trigramLength++){
@@ -243,7 +243,7 @@ import 'package:flutter/material.dart';
 
           /// 6 - combine
           for (int c = 0; c < trigramLength;c++){
-            String _char = _characters[i + c];
+            final String _char = _characters[i + c];
             _combined = '$_combined$_char';
           }
 

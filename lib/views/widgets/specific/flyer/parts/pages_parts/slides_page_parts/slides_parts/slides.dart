@@ -21,7 +21,7 @@ class Slides extends StatelessWidget {
 // -----------------------------------------------------------------------------
   void _onSingleSlideTap(BuildContext context){
 
-    bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 
     if (Keyboarders.keyboardIsOn(context)){
       Keyboarders.closeKeyboard(context);

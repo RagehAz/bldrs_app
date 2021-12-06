@@ -143,9 +143,9 @@ class PropertySearchCriteria extends StatelessWidget {
                     Align(
                       alignment: defaultAlignment,
                       child:
-                      Padding(
+                      const Padding(
                         padding: const EdgeInsets.symmetric(horizontal: _pageMargin, vertical: _pageMargin * 0.5),
-                        child: SuperVerse(
+                        child: const SuperVerse(
                           verse: 'Select your default property search criteria !',
                           centered: false,
                           italic: true,

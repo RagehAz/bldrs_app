@@ -64,7 +64,7 @@ class ReviewCreator extends StatelessWidget {
 
                   /// REVIEW TEXT
                   if (_reviewControllerHasValue == false)
-                  SuperVerse(
+                  const SuperVerse(
                     verse: 'Add your review on this flyer ...',
                     size: 1,
                     centered: false,

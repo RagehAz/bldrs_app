@@ -78,6 +78,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
         _triggerLoading();
       // });
     }
+    _isInit = false;
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
