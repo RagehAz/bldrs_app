@@ -730,4 +730,3 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     );
   }
 }
-

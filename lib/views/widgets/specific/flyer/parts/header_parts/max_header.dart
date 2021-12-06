@@ -195,4 +195,3 @@ class MaxHeader extends StatelessWidget {
     );
   }
 }
-

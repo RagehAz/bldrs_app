@@ -376,5 +376,3 @@ class DreamBox extends StatelessWidget {
     );
   }
 }
-
-
