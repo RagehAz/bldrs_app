@@ -271,4 +271,3 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     );
   }
 }
-

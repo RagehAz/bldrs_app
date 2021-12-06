@@ -246,4 +246,3 @@ class AuthorPic extends StatelessWidget {
       );
   }
 }
-

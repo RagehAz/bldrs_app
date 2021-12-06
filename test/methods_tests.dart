@@ -9,10 +9,9 @@ import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
-import 'package:bldrs/xxx_LABORATORY/CLEANING_SPACE.dart';
+import 'package:bldrs/xxx_lab/cleaning_space.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 
 void main(){
 
