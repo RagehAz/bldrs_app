@@ -241,7 +241,7 @@ import 'package:flutter/material.dart';
                     icon: Flag.getFlagIconByCountryID(_foundCity.countryID),
                     onTap: (){
 
-                      print('city selected aho ${_foundCityName}');
+                      print('city selected aho $_foundCityName');
 
                       _city = _foundCity;
                       Nav.goBack(context);

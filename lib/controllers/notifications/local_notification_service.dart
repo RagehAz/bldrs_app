@@ -22,7 +22,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
           print('initializing localNotificationService : route is : $route');
 
-          Nav.goToNewScreen(context, const AwesomeNotiTestScreen());
+          await Nav.goToNewScreen(context, const AwesomeNotiTestScreen());
         }
 
       }

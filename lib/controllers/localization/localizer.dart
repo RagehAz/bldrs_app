@@ -168,7 +168,7 @@ class Localizer{
       methodName: 'getCountryNameByLingo',
       functions: () async {
 
-        _jsonStringValues = await rootBundle.loadString('assets/languages/${lingoCode}.json');
+        _jsonStringValues = await rootBundle.loadString('assets/languages/$lingoCode.json');
 
         },
       onError: (String error){},

@@ -139,7 +139,7 @@ class InfoPage extends StatelessWidget {
 
               /// ZONE
               StatsLine(
-                verse: 'Targeting : ${_cityName} , ${_countryName}',
+                verse: 'Targeting : $_cityName , $_countryName',
                 icon: Flag.getFlagIconByCountryID(superFlyer.zone.countryID),
                 bubbleWidth: _bubbleWidth,
               ),
@@ -179,7 +179,7 @@ class InfoPage extends StatelessWidget {
             columnChildren: <Widget>[
 
               StatsLine(
-                verse: 'Targeting : ${_cityName} , ${_countryName}',
+                verse: 'Targeting : $_cityName , $_countryName',
                 icon: Flag.getFlagIconByCountryID(superFlyer.zone.countryID),
                 bubbleWidth: _bubbleWidth,
               ),
@@ -319,7 +319,7 @@ class _NeedToSaveScrollPositionState extends State<NeedToSaveScrollPosition> wit
 
     Tracer.traceWidgetBuild(widgetName: 'NeedToSaveScrollPosition', varName: 'scrollController.position', varValue: _offsetPixels);
     return NotificationListener<ScrollNotification>(
-      key: ValueKey<String>('${_flyerID} scroll_listener'),
+      key: ValueKey<String>('$_flyerID scroll_listener'),
       onNotification: (ScrollNotification pos) {
           final double _offset = pos.metrics.pixels;
 

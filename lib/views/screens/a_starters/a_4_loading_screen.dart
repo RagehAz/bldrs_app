@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
@@ -132,16 +134,17 @@ class _LoadingScreenState extends State<LoadingScreen> {
           _increaseProgressTo(99);
 
 
-          _generalProvider.changeSection(context, _generalProvider.currentSection);
+          await _generalProvider.changeSection(context, _generalProvider.currentSection);
 
           setState(() {
             // _canContinue = true;
             _progress = 100;
           });
 
-          Nav.goToRoute(context, Routez.home);
+          await Nav.goToRoute(context, Routez.home);
 
-          _triggerLoading();
+          unawaited(_triggerLoading());
+
         });
 
 

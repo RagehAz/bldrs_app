@@ -76,7 +76,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
       _triggerLoading(function: (){}).then((_) async {
         /// ---------------------------------------------------------0
 
-        _readMoreBzz();
+        await _readMoreBzz();
 
         /// ---------------------------------------------------------0
       });

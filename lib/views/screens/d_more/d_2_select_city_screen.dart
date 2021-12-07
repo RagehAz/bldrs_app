@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
@@ -78,11 +80,14 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
           citiesIDs: widget.country.citiesIDs,
         );
 
-        _triggerLoading(
-            function: (){
-              _cities = _fetchedCities;
-            }
+        unawaited(
+            _triggerLoading(
+                function: (){
+                  _cities = _fetchedCities;
+                }
+            )
         );
+
       });
 
 

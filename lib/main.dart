@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/notifications/local_notification_service.dart' as LocalNotificationService;
 import 'package:bldrs/controllers/notifications/noti_ops.dart' as NotiOps;
@@ -116,7 +118,7 @@ class _BldrsAppState extends State<BldrsApp> {
   bool _initialized = false;
   bool _error = false;
   Future<void> _initializeFlutterFire() async {
-    _triggerLoading();
+    unawaited(_triggerLoading());
     try {
       /// Wait for Firebase to initialize and set `_initialized` state to true
       await Firebase.initializeApp();
@@ -131,7 +133,9 @@ class _BldrsAppState extends State<BldrsApp> {
         _error = true;
       });
     }
-    _triggerLoading();
+
+    unawaited(_triggerLoading());
+
   }
 // ---------------------------------------------------------------------------
 //   NotiModel _noti;

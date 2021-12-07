@@ -242,10 +242,12 @@ class TargetsBubble extends StatelessWidget {
                           color: Colorz.yellow255,
                           verseColor: Colorz.black255,
                           onTap: () async {
-                            _onClaimTap(
+
+                            await _onClaimTap(
                               context: context,
                               target: _target,
                             );
+
                             },
                         ),
 

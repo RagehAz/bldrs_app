@@ -91,7 +91,7 @@ enum SlidingDirection{
   Future<void> scrollTo({ScrollController controller, double offset}) async {
 
     // if (controller.positions.isEmpty == true){
-      controller.animateTo(
+      await controller.animateTo(
         offset,
         curve: Curves.easeInOutCirc,
         duration: Ratioz.durationSliding400,

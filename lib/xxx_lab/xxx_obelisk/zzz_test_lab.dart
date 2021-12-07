@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
@@ -70,12 +71,14 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
       _triggerLoading().then((_) async{
 
         /// do Futures here
-        ///
-        _triggerLoading(
-            function: (){
-              /// set new values here
-            }
+        unawaited(
+            _triggerLoading(
+                function: (){
+                  /// set new values here
+                }
+                )
         );
+
       });
 
 
@@ -139,7 +142,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
                         DreamBox(
                           height: 50,
                           width: 300,
-                          verse: 'increment by 3 : ${value}',
+                          verse: 'increment by 3 : $value',
                           verseScaleFactor: 0.6,
                           verseWeight: VerseWeight.black,
                           onTap: _incrementCounter,
@@ -157,7 +160,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
                     DreamBox(
                       height: 50,
                       width: 300,
-                      verse: 'name is : ${_name}',
+                      verse: 'name is : $_name',
                       verseScaleFactor: 0.6,
                       verseWeight: VerseWeight.black,
                       onTap: uiProvider.changeName,
@@ -175,7 +178,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
                     DreamBox(
                       height: 50,
                       width: 300,
-                      verse: 'increment by 1 : ${value}',
+                      verse: 'increment by 1 : $value',
                       verseScaleFactor: 0.6,
                       verseWeight: VerseWeight.black,
                       onTap: _uiProvider.incrementCounter,
@@ -217,7 +220,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
                   icon: Iconz.share,
                   onTap: () async {
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                     const dynamic shit = 2;
 
@@ -228,7 +231,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
 
                     log(_border.toString());
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                   }
               ),

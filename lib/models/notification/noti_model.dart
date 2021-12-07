@@ -204,15 +204,15 @@ class NotiModel{
   void printNotiModel({String methodName}){
     print('$methodName : PRINTING NotiModel ---------------- START -- ');
 
-    print('id : ${id}');
-    print('name : ${name}');
+    print('id : $id');
+    print('name : $name');
     print('sudo : ${sudo.toString()}');
-    print('senderID : ${senderID}');
-    print('pic : ${pic}');
+    print('senderID : $senderID');
+    print('pic : $pic');
     print('notiPicType : ${notiPicType.toString()}');
-    print('title : ${title}');
+    print('title : $title');
     print('timeStamp : ${timeStamp.toString()}');
-    print('body : ${body}');
+    print('body : $body');
     print('attachment : ${attachment.toString()}');
     print('attachmentType : ${attachmentType.toString()}');
     print('dismissed : ${dismissed.toString()}');

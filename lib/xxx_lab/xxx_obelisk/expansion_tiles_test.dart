@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
@@ -60,11 +62,12 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
 
         /// do Futures here
 
-        _triggerLoading(
+        unawaited(_triggerLoading(
             function: (){
               /// set new values here
             }
-        );
+        ));
+
       });
 
 

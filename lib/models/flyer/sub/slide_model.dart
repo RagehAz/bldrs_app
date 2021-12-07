@@ -131,7 +131,7 @@ class SlideModel {
   static void printSlides(List<SlideModel> slides){
     if (Mapper.canLoopList(slides)){
 
-      print('slides can not be printed : slides are : ${slides}');
+      print('slides can not be printed : slides are : $slides');
 
     }
 
@@ -429,16 +429,16 @@ class SlideModel {
     print('SLIDE-PRINT --------------------------------------------------START');
 
     // print('SLIDE-PRINT : flyerID : ${flyerID}');
-    print('SLIDE-PRINT : slideIndex : ${slideIndex}');
-    print('SLIDE-PRINT : pic : ${pic}');
-    print('SLIDE-PRINT : headline : ${headline}');
-    print('SLIDE-PRINT : description : ${description}');
-    print('SLIDE-PRINT : sharesCount : ${sharesCount}');
-    print('SLIDE-PRINT : viewsCount : ${viewsCount}');
-    print('SLIDE-PRINT : savesCount : ${savesCount}');
-    print('SLIDE-PRINT : picFit : ${picFit}');
-    print('SLIDE-PRINT : imageSize : ${imageSize}');
-    print('SLIDE-PRINT : midColor : ${midColor}');
+    print('SLIDE-PRINT : slideIndex : $slideIndex');
+    print('SLIDE-PRINT : pic : $pic');
+    print('SLIDE-PRINT : headline : $headline');
+    print('SLIDE-PRINT : description : $description');
+    print('SLIDE-PRINT : sharesCount : $sharesCount');
+    print('SLIDE-PRINT : viewsCount : $viewsCount');
+    print('SLIDE-PRINT : savesCount : $savesCount');
+    print('SLIDE-PRINT : picFit : $picFit');
+    print('SLIDE-PRINT : imageSize : $imageSize');
+    print('SLIDE-PRINT : midColor : $midColor');
 
     print('SLIDE-PRINT --------------------------------------------------END');
 

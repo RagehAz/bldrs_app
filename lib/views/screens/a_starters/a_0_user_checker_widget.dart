@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/tracers.dart' as Tracer;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/router/route_names.dart';
@@ -97,7 +99,7 @@ class _UserCheckerState extends State<UserChecker> {
 
               /// C - if userModel is completed
               if (_missingFields.isEmpty) {
-                _triggerLoading();
+                unawaited(_triggerLoading());
 
                 /// XX - userModel is completed : go to LoadingScreen()
                 print('userModel is completed : go to LoadingScreen()');
@@ -111,7 +113,7 @@ class _UserCheckerState extends State<UserChecker> {
 
               /// C - if userModel is not completed
               else {
-                _triggerLoading();
+                unawaited(_triggerLoading());
 
                 /// pop a dialog
                 await CenterDialog.showCenterDialog(
@@ -134,7 +136,8 @@ class _UserCheckerState extends State<UserChecker> {
 
             /// B - if user has no userModel
             else {
-            _triggerLoading();
+
+            unawaited(_triggerLoading());
 
             /// route to complete profile missing data
             await Nav.goToNewScreen(context, EditProfileScreen(
@@ -149,7 +152,7 @@ class _UserCheckerState extends State<UserChecker> {
 
           /// A - if user is not signed in
           else {
-            _triggerLoading();
+            unawaited(_triggerLoading());
 
             /// route to sign in
             final dynamic _result = await Nav.goToNewScreen(context, const StartingScreen(), transitionType: PageTransitionType.fade);

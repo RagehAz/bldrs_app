@@ -23,7 +23,7 @@ class UsersProvider extends ChangeNotifier {
       );
 
       if (_map != null && _map != <String, dynamic>{}){
-        print('fetchUserModelByID : UserModel found in local db : ${doc}');
+        print('fetchUserModelByID : UserModel found in local db : $doc');
         _userModel = UserModel.decipherUserMap(map: _map, fromJSON: true);
         break;
       }

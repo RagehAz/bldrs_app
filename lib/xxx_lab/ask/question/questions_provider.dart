@@ -12,9 +12,10 @@ class QuestionsProvider with ChangeNotifier {
 // ----------------------------------------------------------------------------
   CollectionReference<Object> questionsFirebase =
       FirebaseFirestore.instance.collection('questions');
-  getQuestionsList() => _questions;
 // ----------------------------------------------------------------------------
-  fetchQuestions() async {
+  List<Quest>getQuestionsList() => _questions;
+// ----------------------------------------------------------------------------
+  Future<void> fetchQuestions() async {
     _questions.clear();
 
     final QuerySnapshot<Object> _snapshot = await questionsFirebase.get();
@@ -27,7 +28,7 @@ class QuestionsProvider with ChangeNotifier {
     notifyListeners();
   }
 // ----------------------------------------------------------------------------
-  add(String question) {
+  void add(String question) {
     questionsFirebase
         .add(<String, dynamic>{'body': question, 'userID': 'xxxxxxxxxxxxxxxxx'})
         .then((DocumentReference<Object> value) => print('Question Added to Database.'))

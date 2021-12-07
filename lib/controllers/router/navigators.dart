@@ -97,7 +97,7 @@ import 'package:page_transition/page_transition.dart';
     // await null;
   }
 // -----------------------------------------------------------------------------
-  goBackToUserChecker(BuildContext context){
+  void goBackToUserChecker(BuildContext context){
 
     // var _navResult = Navigator.popUntil(context,
     //     ModalRoute.withName(Routez.UserChecker)
@@ -109,7 +109,7 @@ import 'package:page_transition/page_transition.dart';
 
   }
 // -----------------------------------------------------------------------------
-  goBackUntil(BuildContext context, String routez){
+  void goBackUntil(BuildContext context, String routez){
 
     // var _navResult = Navigator.popUntil(context,
     //     ModalRoute.withName(Routez.UserChecker)
@@ -120,7 +120,7 @@ import 'package:page_transition/page_transition.dart';
 
   }
 // -----------------------------------------------------------------------------
-  goBackToHomeScreen(BuildContext context){
+  void goBackToHomeScreen(BuildContext context){
 
     Navigator.popUntil(context,
         ModalRoute.withName(Routez.home)

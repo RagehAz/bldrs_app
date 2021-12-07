@@ -222,7 +222,7 @@ import 'package:flutter/material.dart';
 
           await _subDocRef.set(input);
 
-          print('createNamedSubDoc : CREATED ${collName}/${docName}/${subCollName}/${subDocName}/');
+          print('createNamedSubDoc : CREATED $collName/$docName/$subCollName/$subDocName/');
 
         }
     );
@@ -356,7 +356,7 @@ import 'package:flutter/material.dart';
 
     dynamic _map;
 
-    tryAndCatch(
+    await tryAndCatch(
         context: context,
         methodName: 'readDocField',
         functions: () async {

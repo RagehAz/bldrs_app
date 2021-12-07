@@ -48,7 +48,7 @@ class PricingScreen extends StatelessWidget {
                 final String _countryCurrency = '1 \$ = $_toDollarRate $_currency';
                 final String _localBigMacPrice = 'BigMac = $_localPrice $_currency';
                 final double _roundedMacPriceUSD = Numeric.roundFractions(BigMac.getBigMacDollarPriceByISO3(_iso3), 2);
-                final String _localMacPriceInUSD = '= ${_roundedMacPriceUSD} \$ * ${Numeric.roundFractions(BigMac.bigMacsCountToBuyProAccount(), 2)} macs';
+                final String _localMacPriceInUSD = '= $_roundedMacPriceUSD \$ * ${Numeric.roundFractions(BigMac.bigMacsCountToBuyProAccount(), 2)} macs';
 
                 final double _proAccountPriceInLocalCurrency = BigMac.proAccountPriceInLocalCurrencyByISO3(_iso3);
                 final double _proPriceRounded = Numeric.roundFractions(_proAccountPriceInLocalCurrency, 2);

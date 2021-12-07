@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
@@ -77,12 +79,14 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
       _triggerLoading().then((_) async{
 
         /// do Futures here
-
-        _triggerLoading(
-          function: (){
-            /// set new values here
-          }
+        unawaited(
+            _triggerLoading(
+                function: (){
+                  /// set new values here
+                }
+                )
         );
+
       });
 
 
@@ -94,7 +98,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
   GeoPoint _point;
   Future<void> _getCurrentUserLocation() async {
 
-    _triggerLoading();
+    unawaited(_triggerLoading());
 
     await tryAndCatch(
         context: context,
@@ -105,7 +109,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
           final Position _position = await ZoneOps.getGeoLocatorCurrentPosition();
 
-          print('got position = ${_position}');
+          print('got position = $_position');
 
           final GeoPoint _geoPoint = GeoPoint(_position?.latitude, _position?.longitude);
 
@@ -126,13 +130,13 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
       }
       );
 
-    _triggerLoading();
+    unawaited(_triggerLoading());
 
   }
 // -------------------------------------------------
   Future<void> _getPositionFromMap() async {
 
-    _triggerLoading();
+    unawaited(_triggerLoading());
 
     final GeoPoint _pickedPoint = await Nav.goToNewScreen(
         context,
@@ -150,7 +154,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
       await _getCountryData(geoPoint: _point);
     }
 
-    _triggerLoading();
+    unawaited(_triggerLoading());
 
   }
 // -----------------------------------------------------------------------------

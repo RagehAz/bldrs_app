@@ -40,8 +40,8 @@ class CurrencyModel {
   void printCurrency(){
 
     print('CURRENCY PRINT ----------------------------------------- START ');
-    print('code : ${code} : symbol : ${symbol} : nativeSymbol : ${nativeSymbol} : digits : ${digits}');
-    print('countries : ${countriesIDs}');
+    print('code : $code : symbol : $symbol : nativeSymbol : $nativeSymbol : digits : $digits');
+    print('countries : $countriesIDs');
     Name.printNames(names);
     print('CURRENCY PRINT ----------------------------------------- END ');
 

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
@@ -375,9 +376,13 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
 
         /// X - REBUILD
-        _triggerLoading(function: (){
-          _superFlyer = _builtSuperFlyer;
-        });
+        unawaited(
+            _triggerLoading(
+                function: (){
+                  _superFlyer = _builtSuperFlyer;
+                }
+                )
+        );
 
       });
 
@@ -771,7 +776,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _goToFlyerEditor({BuildContext context, bool firstTimer}) async {
 
-    print('going to flyer editor for flyerID ${_superFlyer.flyerID} as firstTimer is ${firstTimer}');
+    print('going to flyer editor for flyerID ${_superFlyer.flyerID} as firstTimer is $firstTimer');
 
     await Future<void>.delayed(Ratioz.durationFading200, () async {
 
@@ -963,17 +968,19 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   /// RECORD METHODS
 
   void _onViewSlide(int slideIndex){
-    print('viewing slide : ${slideIndex} : from flyer : ${_superFlyer.flyerID}');
+    print('viewing slide : $slideIndex : from flyer : ${_superFlyer.flyerID}');
   }
 // -----------------------------------------------------o
   Future<void> _onAnkhTap() async {
     print('tapping Ankh');
 
-    TopDialog.showTopDialog(
-      context: context,
-      verse: _superFlyer.rec.ankhIsOn == true ? 'Flyer is unsaved' : 'Flyer saved',
-      // secondLine: 'Allows users to follow your account',
-      color: _superFlyer.rec.ankhIsOn == true ? Colorz.grey255 : Colorz.yellow255,
+    unawaited(
+        TopDialog.showTopDialog(
+          context: context,
+          verse: _superFlyer.rec.ankhIsOn == true ? 'Flyer is unsaved' : 'Flyer saved',
+          // secondLine: 'Allows users to follow your account',
+          color: _superFlyer.rec.ankhIsOn == true ? Colorz.grey255 : Colorz.yellow255,
+        )
     );
 
     setState(() {
@@ -1442,8 +1449,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       FocusScope.of(context).unfocus();
 
-      _triggerLoading();
-
+      unawaited(_triggerLoading());
 
       /// A - if max slides reached
       if(FlyerMethod.maxSlidesReached(superFlyer: _superFlyer) == true){
@@ -1823,7 +1829,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     if(_superFlyer.mSlides.isNotEmpty){
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       final File croppedFile = await Imagers.cropImage(
           context: context,
@@ -1836,7 +1842,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         });
       }
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
     }
 
@@ -2354,7 +2360,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future<void> _onPublishFlyer() async {
     print('publishing flyer');
 
-    _triggerLoading();
+    unawaited(_triggerLoading());
 
     await _slideBackToSlidesPage();
 
@@ -2395,7 +2401,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     //   print('_uploaded flyer is null,, very weird');
     // }
 
-    _triggerLoading();
+    unawaited(_triggerLoading());
 
     await CenterDialog.showCenterDialog(
       context: context,
@@ -2654,7 +2660,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onDeleteFlyer() async {
     // Nav.goBack(context);
-    _triggerLoading();
+    unawaited(_triggerLoading());
 
     /// Task : this should be bool dialog instead
     final bool _dialogResult = await CenterDialog.showCenterDialog(
@@ -2680,7 +2686,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       // FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
       // _prof.removeTinyFlyerFromLocalList(tinyFlyer.flyerID);
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// re-route back
       Nav.goBack(context, argument: true);
@@ -2688,7 +2694,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     }
 
     else {
-      _triggerLoading();
+      unawaited(_triggerLoading());
     }
 
   }
