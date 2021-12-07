@@ -48,7 +48,7 @@ class DialogTestScreen extends StatelessWidget {
             child: Column(
               children: <Widget>[
 
-                Container(
+                SizedBox(
                   height: Scale.superScreenHeight(context) * 0.6,
                   child: ListView.builder(
                     itemCount: _numberOfBzz,

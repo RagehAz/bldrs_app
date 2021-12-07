@@ -66,7 +66,7 @@ class SpecListTile extends StatelessWidget {
             children: <Widget>[
 
               /// SPECS LIST ROW
-              Container(
+              SizedBox(
                 width: _specTileWidth,
                 child: Row(
                   children: <Widget>[
@@ -82,14 +82,14 @@ class SpecListTile extends StatelessWidget {
 
                     /// - LIST NAME
                     Expanded(
-                      child: Container(
+                      child: SizedBox(
                         height: _specTileHeight,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
 
-                            Container(
+                            SizedBox(
                               width: _specNameBoxWidth,
                               child: SuperVerse(
                                 verse: Name.getNameByCurrentLingoFromNames(context, specList.names),
@@ -127,13 +127,13 @@ class SpecListTile extends StatelessWidget {
 
               /// SELECTED SPECS ROW
               if (selectedSpecs.isNotEmpty)
-                Container(
+                SizedBox(
                   width: _specTileWidth,
                   child: Row(
                     children: <Widget>[
 
                       /// FAKE SPACE UNDER ICON
-                      Container(
+                      SizedBox(
                         width: _specTileHeight,
                         height: 10,
                       ),

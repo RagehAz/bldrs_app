@@ -152,8 +152,9 @@ class FlyerFooter extends StatelessWidget {
     /// FLYER FOOTER
     return Align(
       alignment: Alignment.bottomCenter,
-      // --- FLYER FOOTER BOX
-      child: Container(
+
+      /// --- FLYER FOOTER BOX
+      child: SizedBox(
         width: flyerBoxWidth,
         height: _flyerFooterHeight,
         child: Stack(
@@ -190,6 +191,7 @@ class FlyerFooter extends StatelessWidget {
           ],
         ),
       ),
+
     );
   }
 }

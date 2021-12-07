@@ -181,7 +181,7 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
             ),
 
             /// INCREMENTER BUTTONS
-            Container(
+            SizedBox(
               width: _buttonsBoxWidth,
               height: _fieldHeight,
               // color: Colorz.bloodTest,

@@ -164,7 +164,7 @@ import 'package:flutter/foundation.dart';
     );
 
     if (_verseContainsChar == true){
-      _result = verse == null ? null : verse.substring(0, verse.indexOf(specialCharacter));
+      _result = verse?.substring(0, verse.indexOf(specialCharacter));
     }
 
     else {
@@ -185,7 +185,7 @@ import 'package:flutter/foundation.dart';
     );
 
     if (_verseContainsChar == true){
-      final int _position = verse == null ? null : verse.indexOf(specialCharacter);
+      final int _position = verse?.indexOf(specialCharacter);
        _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
     }
 
@@ -207,7 +207,7 @@ import 'package:flutter/foundation.dart';
     );
 
     if (_verseContainsChar == true){
-      _result = verse == null ? null : verse.substring(0, verse.lastIndexOf(specialCharacter));
+      _result = verse?.substring(0, verse.lastIndexOf(specialCharacter));
     }
 
     else {
@@ -228,7 +228,7 @@ import 'package:flutter/foundation.dart';
     );
 
     if (_verseContainsChar == true){
-      final int _position = verse == null ? null : verse.lastIndexOf(specialCharacter);
+      final int _position = verse?.lastIndexOf(specialCharacter);
       _result = verse == null ? null : (_position != -1)? verse.substring(_position+1, verse.length): verse;
     }
 

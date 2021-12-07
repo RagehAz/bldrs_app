@@ -53,7 +53,7 @@ class PersonButton extends StatelessWidget {
           ),
 
           /// USER FIRST NAME
-          Container(
+          SizedBox(
             width: _nameWidth,
             height: _nameHeight,
             // margin: EdgeInsets.symmetric(horizontal: _nameWidth * 0.2),

@@ -75,7 +75,7 @@ class FloatingLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: Scale.superScreenWidth(context),
       height: DashBoardLayout.clearScreenHeight(context),
       child: child,

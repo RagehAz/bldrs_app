@@ -166,7 +166,7 @@ class _UserBubbleState extends State<UserBubble> {
         ),
 
         /// USER LOCALE
-        Container(
+        SizedBox(
           height: 35,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

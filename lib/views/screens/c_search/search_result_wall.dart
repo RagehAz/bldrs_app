@@ -32,7 +32,7 @@ class SearchResultWall extends StatelessWidget {
     // const double _bzButtonMargin = Ratioz.appBarPadding;
     // final double _clearDialogWidth = BottomDialog.dialogClearWidth(context);
 
-    return Container(
+    return SizedBox(
       width: _screenWidth,
       height: _screenHeight,
       child: ListView.builder(

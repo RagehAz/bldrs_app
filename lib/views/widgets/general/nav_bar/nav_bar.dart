@@ -218,7 +218,7 @@ class NavBar extends StatelessWidget {
 
           return true;
           },
-        child: Container(
+        child: SizedBox(
           height: _bzzButtonsZoneHeight,
           child: Scroller(
             child: ListView.builder(
@@ -302,7 +302,7 @@ class NavBar extends StatelessWidget {
       Positioned(
         key: key,
         bottom: _bottomOffset,
-        child: Container(
+        child: SizedBox(
           width: _screenWidth,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

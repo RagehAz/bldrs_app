@@ -74,7 +74,7 @@ class CreditsRow extends StatelessWidget {
           // color: Colorz.BloodTest,
         ),
 
-        Container(
+        SizedBox(
           width: width * 0.65,
           height: Ratioz.appBarButtonSize * 0.4,
           child: SuperVerse(

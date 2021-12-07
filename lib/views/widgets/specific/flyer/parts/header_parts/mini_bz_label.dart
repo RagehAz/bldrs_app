@@ -42,7 +42,7 @@ class BzLabel extends StatelessWidget {
     final int _maxLines = superFlyer.flyerShowsAuthor == true ? 1 : 2;
 // -----------------------------------------------------------------------------
 
-    return Container(
+    return SizedBox(
       height: _businessDataHeight,
       width: _businessDataWidth,
       child: Column(

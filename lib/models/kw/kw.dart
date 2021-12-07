@@ -129,7 +129,7 @@ class KW {
     final List<Name> _names = keyword.names;
 
     final Name _arabicName = _names.firstWhere((Name name) => name.code == Lingo.arabicLingo.code, orElse: () => null);
-    final String _name = _arabicName == null ? null : _arabicName.value;
+    final String _name = _arabicName?.value;
 
     return _name;
   }

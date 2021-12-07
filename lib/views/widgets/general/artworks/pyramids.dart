@@ -54,7 +54,7 @@ static const int _fadeCycleDuration = 750;
       key: widget.key,
       bottom: 0,
       right: 0,
-      child: Container(
+      child: SizedBox(
         width: Ratioz.pyramidsWidth,
         height: Ratioz.pyramidsHeight,
         // padding: const EdgeInsets.all(0),
