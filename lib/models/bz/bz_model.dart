@@ -336,7 +336,7 @@ class BzModel with ChangeNotifier{
     }
   }
 // -----------------------------------------------------------------------------
-  static const List<BzState> bzStatesList = const <BzState>[
+  static const List<BzState> bzStatesList = <BzState>[
     BzState.online,
     BzState.offline,
     BzState.deactivated,
@@ -344,18 +344,18 @@ class BzModel with ChangeNotifier{
     BzState.banned,
   ];
 // -----------------------------------------------------------------------------
-  static const List<BzForm> bzFormsList = const <BzForm>[
+  static const List<BzForm> bzFormsList = <BzForm>[
     BzForm.individual,
     BzForm.company,
   ];
 // -----------------------------------------------------------------------------
-  static const List<BzAccountType> bzAccountTypesList = const <BzAccountType>[
+  static const List<BzAccountType> bzAccountTypesList = <BzAccountType>[
     BzAccountType.normal,
     BzAccountType.premium,
     BzAccountType.sphinx,
   ];
 // -----------------------------------------------------------------------------
-  static const List<BzType> bzTypesList = const <BzType>[
+  static const List<BzType> bzTypesList = <BzType>[
     BzType.developer,
     BzType.broker,
 

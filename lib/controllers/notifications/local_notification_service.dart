@@ -10,7 +10,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
   Future<void> initialize(BuildContext context) async {
 
-    const InitializationSettings initializationSettings = const InitializationSettings(
+    const InitializationSettings initializationSettings = InitializationSettings(
       android: AndroidInitializationSettings(_flatBldrsNotiIcon),
     );
 
@@ -38,7 +38,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
       final int _id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       final String _title = remoteMessage.notification.title;
       final String _body = remoteMessage.notification.body;
-      const NotificationDetails _notificationDetails = const NotificationDetails(
+      const NotificationDetails _notificationDetails = NotificationDetails(
         android: AndroidNotificationDetails(
           'bldrs',
           'bldrs channel',

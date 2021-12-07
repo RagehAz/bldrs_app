@@ -84,7 +84,7 @@ class PropertySearchCriteria extends StatelessWidget {
           color: Colorz.white10,
           borderRadius: BorderRadius.circular(corners),
           boxShadow: const <BoxShadow>[
-            const Shadowz.CustomBoxShadow(
+            Shadowz.CustomBoxShadow(
                 color: _bubble == true ? Colorz.black200 : Colorz.nothing,
                 blurRadius: _boxHeight * 0.15,
                 blurStyle: BlurStyle.outer
@@ -145,8 +145,8 @@ class PropertySearchCriteria extends StatelessWidget {
                       alignment: defaultAlignment,
                       child:
                       const Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: _pageMargin, vertical: _pageMargin * 0.5),
-                        child: const SuperVerse(
+                        padding: EdgeInsets.symmetric(horizontal: _pageMargin, vertical: _pageMargin * 0.5),
+                        child: SuperVerse(
                           verse: 'Select your default property search criteria !',
                           centered: false,
                           italic: true,

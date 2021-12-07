@@ -35,8 +35,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
               /// INSTRUCTIONS
               const Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
-                child: const SuperVerse(
+                padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
+                child: SuperVerse(
                   verse: 'Ask the Builders in your city.',
                 ),
               ),

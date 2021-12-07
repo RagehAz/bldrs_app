@@ -12,7 +12,7 @@ import 'package:flutter/rendering.dart';
 import 'package:image/image.dart' as img;
 
   Gradient superSlideGradient(){
-    const Gradient slideGradient = const LinearGradient(
+    const Gradient slideGradient = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: <Color>[Colorz.black200, Colorz.black0],
@@ -31,7 +31,7 @@ import 'package:image/image.dart' as img;
   }
 // -----------------------------------------------------------------------------
   Gradient superFollowBTGradient(){
-    const Gradient followBTGradient = const LinearGradient(
+    const Gradient followBTGradient = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: <Color>[Colorz.white50, Colorz.nothing],

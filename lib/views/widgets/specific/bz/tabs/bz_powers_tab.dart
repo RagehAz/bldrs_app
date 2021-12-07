@@ -47,7 +47,7 @@ class BzPowersTab extends StatelessWidget {
 
         const Bubble(
           title: 'Get More Slides',
-          columnChildren: const <Widget>[
+          columnChildren: <Widget>[
             SuperVerse(
               verse: 'You have got 500 slides left',
             ),
@@ -58,42 +58,42 @@ class BzPowersTab extends StatelessWidget {
 
         const Bubble(
           title: 'Get More Ankhs',
-          columnChildren: const <Widget>[],
+          columnChildren: <Widget>[],
         ),
 
         const BubblesSeparator(),
 
         const Bubble(
           title: 'Get Premium Account',
-          columnChildren: const <Widget>[],
+          columnChildren: <Widget>[],
         ),
 
         const BubblesSeparator(),
 
         const Bubble(
           title: 'Get Super Account',
-          columnChildren: const <Widget>[],
+          columnChildren: <Widget>[],
         ),
 
         const BubblesSeparator(),
 
         const Bubble(
           title: 'Boost a flyer',
-          columnChildren: const <Widget>[],
+          columnChildren: <Widget>[],
         ),
 
         const BubblesSeparator(),
 
         const Bubble(
           title: 'Create an Advertisement',
-          columnChildren: const <Widget>[],
+          columnChildren: <Widget>[],
         ),
 
         const BubblesSeparator(),
 
         const Bubble(
           title: 'Sponsor Bldrs.net in your city',
-          columnChildren: const <Widget>[],
+          columnChildren: <Widget>[],
         ),
 
         const BubblesSeparator(),

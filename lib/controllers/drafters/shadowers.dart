@@ -54,7 +54,7 @@ List<BoxShadow> superFollowBtShadow(double btHeight){
   return null;
 }
 // -----------------------------------------------------------------------------
-  const BoxShadow basicOuterShadow = const CustomBoxShadow(
+  const BoxShadow basicOuterShadow = CustomBoxShadow(
       color: Colorz.black200,
       blurRadius: 10,
       blurStyle: BlurStyle.outer

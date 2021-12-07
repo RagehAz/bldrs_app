@@ -153,7 +153,7 @@ class _FontLabState extends State<FontLab> {
                       ),
 
                       const Center(
-                        child: const SuperVerse(
+                        child: SuperVerse(
                           verse: '| أختبر أنا العبد لله هذا الفونط و إنه لشيء عظيمٌ جدا Ohh baby',
                           size: 4,
                           color: Colorz.green255,

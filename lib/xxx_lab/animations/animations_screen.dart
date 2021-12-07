@@ -329,7 +329,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                   height: btWidth,
                   decoration: BoxDecoration(
                     color: Colorz.yellow80,
-                    image: const DecorationImage(image: const AssetImage(Iconz.dumAuthorPic), fit: BoxFit.fitHeight),
+                    image: const DecorationImage(image: AssetImage(Iconz.dumAuthorPic), fit: BoxFit.fitHeight),
                     borderRadius: Borderers.superBorderOnly(context: context, enTopLeft: btCorner, enBottomLeft: btCorner, enBottomRight: btCorner, enTopRight: btCorner),
                   ),
                 ),

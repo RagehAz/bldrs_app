@@ -101,7 +101,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test('cipher and decipher color', (){
 
-    const Color _color = const Color.fromARGB(76, 54, 32, 10);
+    const Color _color = Color.fromARGB(76, 54, 32, 10);
 
     final String _ciphered = Colorizer.cipherColor(_color);
     const String _expectedString = '76*54*32*10'; // works

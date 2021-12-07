@@ -532,7 +532,7 @@ enum PicType{
   final ui.PictureRecorder _pictureRecorder = ui.PictureRecorder();
   final Canvas _canvas = Canvas(_pictureRecorder);
   final Paint _paint = Paint()..color = Colors.transparent;
-  const Radius _radius = const Radius.circular(20);
+  const Radius _radius = Radius.circular(20);
 
   _canvas.drawRRect(
       RRect.fromRectAndCorners(

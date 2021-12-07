@@ -66,28 +66,28 @@ class Lingo{
     ];
 // -----------------------------------------------------------------------------
   static const String englishCode = 'en';
-  static const Lingo englishLingo = const Lingo(code: englishCode, name: 'English');
+  static const Lingo englishLingo = Lingo(code: englishCode, name: 'English');
 
   static const String arabicCode = 'ar';
-  static const Lingo arabicLingo = const Lingo(code: arabicCode, name: 'عربي');
+  static const Lingo arabicLingo = Lingo(code: arabicCode, name: 'عربي');
 
   static const String spanishCode = 'es';
-  static const Lingo spanishLingo = const Lingo(code: spanishCode, name: 'Español');
+  static const Lingo spanishLingo = Lingo(code: spanishCode, name: 'Español');
 
   static const String frenchCode = 'fr';
-  static const Lingo frenchLingo = const Lingo(code: frenchCode, name: 'Française');
+  static const Lingo frenchLingo = Lingo(code: frenchCode, name: 'Française');
 
   // static const String russianCode = 'ru';
-  // static const Lingo russianLingo = const Lingo(code: russianCode, name: 'русский');
+  // static const Lingo russianLingo = Lingo(code: russianCode, name: 'русский');
 
   static const String chineseCode = 'zh';
-  static const Lingo chineseLingo = const Lingo(code: chineseCode, name: '中文');
+  static const Lingo chineseLingo = Lingo(code: chineseCode, name: '中文');
 
   static const String germanCode = 'de';
-  static const Lingo germanLingo = const Lingo(code: germanCode, name: 'Deutsche');
+  static const Lingo germanLingo = Lingo(code: germanCode, name: 'Deutsche');
 
   static const String italianCode = 'it';
-  static const Lingo italianLingo = const Lingo(code: italianCode, name: 'Italiano');
+  static const Lingo italianLingo = Lingo(code: italianCode, name: 'Italiano');
 // -----------------------------------------------------------------------------
   static List<String> getAllLingoCodes(){
     final List<String> _codes = <String>[];

@@ -5,7 +5,7 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
 
 abstract class ChainProducts {
 
-  static const Chain chain = const Chain(
+  static const Chain chain = Chain(
     id: 'products',
     icon: Iconz.bxProductsOff,
     names: <Name>[
@@ -15,24 +15,24 @@ abstract class ChainProducts {
     sons: <Chain>[
       // -----------------------------------------------
       /// Appliances
-      const Chain(
+      Chain(
         id: 'group_prd_appliances',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Appliances'),
           Name(code: 'ar', value: 'أجهزة كهربائية')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Waste Disposal Appliances
-          const Chain(
+          Chain(
             id: 'sub_prd_app_wasteDisposal',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Waste Disposal Appliances'),
               Name(code: 'ar', value: 'أجهزة تخلص من النفايات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_app_waste_compactor',
                 names: <Name>[
@@ -51,14 +51,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Snacks Appliances
-          const Chain(
+          Chain(
             id: 'sub_prd_app_snacks',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Snacks Appliances'),
               Name(code: 'ar', value: 'أجهزة تحضير وجبات خفيفة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_app_snack_icecream',
                 names: <Name>[
@@ -105,14 +105,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Refrigeration
-          const Chain(
+          Chain(
             id: 'sub_prd_app_refrigeration',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Refrigeration'),
               Name(code: 'ar', value: 'مبردات و ثلاجات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_app_ref_fridge',
                 names: <Name>[
@@ -145,14 +145,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Outdoor Cooking
-          const Chain(
+          Chain(
             id: 'sub_prd_app_outdoorCooking',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Outdoor Cooking'),
               Name(code: 'ar', value: 'أجهزة طبخ خارجي')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_app_outcook_grill',
                 names: <Name>[
@@ -185,14 +185,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Media Appliances
-          const Chain(
+          Chain(
             id: 'sub_prd_app_media',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Media Appliances'),
               Name(code: 'ar', value: 'أجهزة ميديا')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_app_media_tv',
                 names: <Name>[
@@ -211,14 +211,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Indoor Cooking
-          const Chain(
+          Chain(
             id: 'sub_prd_app_indoorCooking',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Indoor Cooking'),
               Name(code: 'ar', value: 'أجهزة طبخ داخلي')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_app_incook_microwave',
                 names: <Name>[
@@ -293,14 +293,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// HouseKeeping Appliances
-          const Chain(
+          Chain(
             id: 'sub_prd_app_housekeeping',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'HouseKeeping Appliances'),
               Name(code: 'ar', value: 'أجهزة غسيل و نظافة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_app_hk_washingMachine',
                 names: <Name>[
@@ -361,14 +361,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Food Processors
-          const Chain(
+          Chain(
             id: 'sub_prd_app_foodProcessors',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Food Processors'),
               Name(code: 'ar', value: 'محضرات طعام')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_app_pro_slowCooker',
                 names: <Name>[
@@ -415,14 +415,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Drinks Appliances
-          const Chain(
+          Chain(
             id: 'sub_prd_app_drinks',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Drinks Appliances'),
               Name(code: 'ar', value: 'أجهزة تحضير مشروبات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_app_drink_coffeeMaker',
                 names: <Name>[
@@ -469,14 +469,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Bathroom Appliances
-          const Chain(
+          Chain(
             id: 'sub_prd_app_bathroom',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Bathroom Appliances'),
               Name(code: 'ar', value: 'أجهزة حمام كهربائية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_app_bath_handDryer',
                 names: <Name>[
@@ -497,24 +497,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Doors & Windows
-      const Chain(
+      Chain(
         id: 'group_prd_doors',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Doors & Windows'),
           Name(code: 'ar', value: 'أبواب و شبابيك')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Windows
-          const Chain(
+          Chain(
             id: 'sub_prd_door_windows',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Windows'),
               Name(code: 'ar', value: 'شبابيك')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_doors_win_glassPanel',
                 names: <Name>[
@@ -533,14 +533,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Shutters
-          const Chain(
+          Chain(
             id: 'sub_prd_doors_shutters',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Shutters'),
               Name(code: 'ar', value: 'شيش حصيرة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_doors_shutters_metal',
                 names: <Name>[
@@ -559,14 +559,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Hardware
-          const Chain(
+          Chain(
             id: 'sub_prd_door_hardware',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Hardware'),
               Name(code: 'ar', value: 'اكسسوارات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_doors_hardware_hinges',
                 names: <Name>[
@@ -676,14 +676,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Doors
-          const Chain(
+          Chain(
             id: 'sub_prd_door_doors',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Doors'),
               Name(code: 'ar', value: 'أبواب')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_doors_doors_front',
                 names: <Name>[
@@ -760,24 +760,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Electricity
-      const Chain(
+      Chain(
         id: 'group_prd_electricity',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Electricity'),
           Name(code: 'ar', value: 'كهرباء')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Power Storage
-          const Chain(
+          Chain(
             id: 'sub_prd_elec_powerStorage',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Power Storage'),
               Name(code: 'ar', value: 'تخزين كهرباء')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_elec_storage_rechargeable',
                 names: <Name>[
@@ -810,14 +810,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Electricity Organizers
-          const Chain(
+          Chain(
             id: 'sub_prd_elec_organization',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Electricity Organizers'),
               Name(code: 'ar', value: 'منسقات كهربائية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_elec_org_load',
                 names: <Name>[
@@ -850,14 +850,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Electricity Instruments
-          const Chain(
+          Chain(
             id: 'sub_prd_elec_instruments',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Electricity Instruments'),
               Name(code: 'ar', value: 'أجهزة كهربائية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_elec_instr_factor',
                 names: <Name>[
@@ -940,14 +940,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Electricity Generators
-          const Chain(
+          Chain(
             id: 'sub_prd_elec_generators',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Electricity Generators'),
               Name(code: 'ar', value: 'مولدات كهرباء')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_elec_gen_solar',
                 names: <Name>[
@@ -1008,14 +1008,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Electrical Switches
-          const Chain(
+          Chain(
             id: 'sub_prd_elec_switches',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Electrical Switches'),
               Name(code: 'ar', value: 'مفاتيح كهربائية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_elec_switches_outlet',
                 names: <Name>[
@@ -1063,14 +1063,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Electrical Motors
-          const Chain(
+          Chain(
             id: 'sub_prd_elec_motors',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Electrical Motors'),
               Name(code: 'ar', value: 'مواتير كهربائية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_elec_motor_ac',
                 names: <Name>[
@@ -1110,14 +1110,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Electrical Connectors
-          const Chain(
+          Chain(
             id: 'sub_prd_elec_connectors',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Electrical Connectors'),
               Name(code: 'ar', value: 'وصلات كهربائية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_elec_connectors_alligator',
                 names: <Name>[
@@ -1164,14 +1164,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Cables & Wires
-          const Chain(
+          Chain(
             id: 'sub_prd_elec_cables',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Cables & Wires'),
               Name(code: 'ar', value: 'كابلات أسلاك')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_elec_cables_wire',
                 names: <Name>[
@@ -1192,24 +1192,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Fire Fighting
-      const Chain(
+      Chain(
         id: 'group_prd_fireFighting',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Fire Fighting'),
           Name(code: 'ar', value: 'مقاومة حريق')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Pumps & Controllers
-          const Chain(
+          Chain(
             id: 'sub_prd_fire_pumpsCont',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Pumps & Controllers'),
               Name(code: 'ar', value: 'مضخات و متحكمات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_fireFighting_pump_pump',
                 names: <Name>[
@@ -1249,14 +1249,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Fire Fighting Equipment
-          const Chain(
+          Chain(
             id: 'sub_prd_fire_equip',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fire Fighting Equipment'),
               Name(code: 'ar', value: 'معدات مكافحة حريق')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_fireFighting_equip_hydrant',
                 names: <Name>[
@@ -1303,14 +1303,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Fire Fighting Cloth
-          const Chain(
+          Chain(
             id: 'sub_prd_fire_clothes',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fire Fighting Cloth'),
               Name(code: 'ar', value: 'ملابس مكافحة حريق')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_fireFighting_equip_suit',
                 names: <Name>[
@@ -1357,14 +1357,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Fire Detectors
-          const Chain(
+          Chain(
             id: 'sub_prd_fire_detectors',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fire Detectors'),
               Name(code: 'ar', value: 'كاشفات حريق')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_fireFighting_detectors_alarm',
                 names: <Name>[
@@ -1388,24 +1388,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Floors & ٍSkirting
-      const Chain(
+      Chain(
         id: 'group_prd_floors',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Floors & ٍSkirting'),
           Name(code: 'ar', value: 'أرضيات و وزر')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Skirting
-          const Chain(
+          Chain(
             id: 'sub_prd_floors_skirting',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Skirting'),
               Name(code: 'ar', value: 'وزر')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_floors_skirting_skirting',
                 names: <Name>[
@@ -1417,14 +1417,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Floor Tiles
-          const Chain(
+          Chain(
             id: 'sub_prd_floors_tiles',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Floor Tiles'),
               Name(code: 'ar', value: 'بلاط أرضيات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_floors_tiles_ceramic',
                 names: <Name>[
@@ -1527,14 +1527,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Floor Planks
-          const Chain(
+          Chain(
             id: 'sub_prd_floors_planks',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Floor Planks'),
               Name(code: 'ar', value: 'ألواح أرضيات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_floors_planks_bamboo',
                 names: <Name>[
@@ -1574,14 +1574,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Floor Paving
-          const Chain(
+          Chain(
             id: 'sub_prd_floors_paving',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Floor Paving'),
               Name(code: 'ar', value: 'تمهيد أرضيات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_floors_paving_screed',
                 names: <Name>[
@@ -1607,14 +1607,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Floor Covering
-          const Chain(
+          Chain(
             id: 'sub_prd_floors_covering',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Floor Covering'),
               Name(code: 'ar', value: 'تغطيات أرضيات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_floors_covering_vinyl',
                 names: <Name>[
@@ -1649,24 +1649,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Furniture
-      const Chain(
+      Chain(
         id: 'group_prd_furniture',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Furniture'),
           Name(code: 'ar', value: 'أثاث و مفروشات')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Waste Disposal
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_wasteDisposal',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Waste Disposal'),
               Name(code: 'ar', value: 'تخلص من النفايات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_waste_small',
                 names: <Name>[
@@ -1692,14 +1692,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Vanity Tops
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_tops',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Vanity Tops'),
               Name(code: 'ar', value: 'أسطح وحدات حمام و مطبخ')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_tops_bathVanity',
                 names: <Name>[
@@ -1718,14 +1718,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Tables
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_tables',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Tables'),
               Name(code: 'ar', value: 'طاولات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_tables_dining',
                 names: <Name>[
@@ -1779,14 +1779,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Seating Benches
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_seatingBench',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Seating Benches'),
               Name(code: 'ar', value: 'مجالس')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_bench_shower',
                 names: <Name>[
@@ -1819,14 +1819,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Planting
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_planting',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Planting'),
               Name(code: 'ar', value: 'زراعة منزلية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_planting_stand',
                 names: <Name>[
@@ -1859,14 +1859,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Outdoor Tables
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_outTables',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Outdoor Tables'),
               Name(code: 'ar', value: 'طاولات خارجية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_outTable_coffee',
                 names: <Name>[
@@ -1899,14 +1899,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Outdoor Seating
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_outSeating',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Outdoor Seating'),
               Name(code: 'ar', value: 'مقاعد خارجية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_outSeat_lounge',
                 names: <Name>[
@@ -1995,14 +1995,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Organizers
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_organizers',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Organizers'),
               Name(code: 'ar', value: 'منظمات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_org_shelf',
                 names: <Name>[
@@ -2028,14 +2028,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Office Furniture
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_office',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Office Furniture'),
               Name(code: 'ar', value: 'أثاث مكاتب')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_office_desk',
                 names: <Name>[
@@ -2075,14 +2075,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Living Storage
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_livingStorage',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Living Storage'),
               Name(code: 'ar', value: 'خزائن غرفة معيشة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_living_blanket',
                 names: <Name>[
@@ -2143,14 +2143,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Laundry
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_laundry',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Laundry'),
               Name(code: 'ar', value: 'تجهيزات مغسلة ملابس')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_laundry_dryingRack',
                 names: <Name>[
@@ -2176,14 +2176,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Kitchen Storage
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_kitchenStorage',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Kitchen Storage'),
               Name(code: 'ar', value: 'خزائن مطبخ')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_kitStore_cabinet',
                 names: <Name>[
@@ -2237,14 +2237,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Kitchen Accessories
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_Kitchen Accessories',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Kitchen Accessories'),
               Name(code: 'ar', value: 'اكسسوارات مطبخ')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_kitaccess_rack',
                 names: <Name>[
@@ -2284,14 +2284,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Kids Furniture
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_kids',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Kids Furniture'),
               Name(code: 'ar', value: 'أثاث أطفال')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_kids_set',
                 names: <Name>[
@@ -2380,14 +2380,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Furniture Parts
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_parts',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Furniture Parts'),
               Name(code: 'ar', value: 'أجزاء أثاث')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_parts_tableLeg',
                 names: <Name>[
@@ -2406,14 +2406,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Furniture Accessories
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_accessories',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Furniture Accessories'),
               Name(code: 'ar', value: 'اكسسوارات أثاث')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_access_mirror',
                 names: <Name>[
@@ -2467,14 +2467,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Dressing Storage
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_dressingStorage',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Dressing Storage'),
               Name(code: 'ar', value: 'خزائن ملابس')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_dressStore_wardrobe',
                 names: <Name>[
@@ -2521,14 +2521,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Dining Storage
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_diningStorage',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Dining Storage'),
               Name(code: 'ar', value: 'خزائن غرفة طعام')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_dinStore_china',
                 names: <Name>[
@@ -2547,14 +2547,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Cushions & Pillows
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_cushions',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Cushions & Pillows'),
               Name(code: 'ar', value: 'وسائد و مساند')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_cush_pillow',
                 names: <Name>[
@@ -2629,14 +2629,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Couches
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_couch',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Couches'),
               Name(code: 'ar', value: 'أرائك و كنب')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_couch_chaise',
                 names: <Name>[
@@ -2690,14 +2690,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Complete Sets
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_sets',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Complete Sets'),
               Name(code: 'ar', value: 'أطقم متكااملة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_sets_dining',
                 names: <Name>[
@@ -2772,14 +2772,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Chairs
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_chairs',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Chairs'),
               Name(code: 'ar', value: 'كراسي')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_chair_bar',
                 names: <Name>[
@@ -2889,14 +2889,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Carpets & Rugs
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_carpetsRugs',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Carpets & Rugs'),
               Name(code: 'ar', value: 'سجاد')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_carpet_bathMat',
                 names: <Name>[
@@ -2957,14 +2957,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Cabinet Hardware
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_cabinetHardware',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Cabinet Hardware'),
               Name(code: 'ar', value: 'اكسسوارات كابينات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_cabhard_pull',
                 names: <Name>[
@@ -2997,14 +2997,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Boxes
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_boxes',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Boxes'),
               Name(code: 'ar', value: 'صناديق ')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_boxes_bin',
                 names: <Name>[
@@ -3037,14 +3037,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Blinds & Curtains
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_blindsCurtains',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Blinds & Curtains'),
               Name(code: 'ar', value: 'ستائر')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_curtain_shower',
                 names: <Name>[
@@ -3112,14 +3112,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Beds & Headboards
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_beds',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Beds & Headboards'),
               Name(code: 'ar', value: 'سرائر و ظهور سرائر')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_beds_bed',
                 names: <Name>[
@@ -3222,14 +3222,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Bathroom Storage
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_bathStorage',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Bathroom Storage'),
               Name(code: 'ar', value: 'خزائن حمام')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_bathStore_medicine',
                 names: <Name>[
@@ -3269,14 +3269,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Bathroom Hardware
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_bathHardware',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Bathroom Hardware'),
               Name(code: 'ar', value: 'اكسسوارات حمامات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_bathHard_towelBar',
                 names: <Name>[
@@ -3344,14 +3344,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Artworks
-          const Chain(
+          Chain(
             id: 'sub_prd_furn_artworks',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Artworks'),
               Name(code: 'ar', value: 'أعمال فنية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_furn_art_painting',
                 names: <Name>[
@@ -3428,24 +3428,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Heating Ventilation Air Conditioning
-      const Chain(
+      Chain(
         id: 'group_prd_hvac',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Heating Ventilation Air Conditioning'),
           Name(code: 'ar', value: 'تدفئة تهوية تكييف')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Ventilation
-          const Chain(
+          Chain(
             id: 'sub_prd_hvac_ventilation',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Ventilation'),
               Name(code: 'ar', value: 'تهوية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_hvac_vent_fan',
                 names: <Name>[
@@ -3478,14 +3478,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Heating
-          const Chain(
+          Chain(
             id: 'sub_prd_hvac_heating',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Heating'),
               Name(code: 'ar', value: 'تدفئة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_hvac_heating_electric',
                 names: <Name>[
@@ -3511,14 +3511,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Fireplaces
-          const Chain(
+          Chain(
             id: 'sub_prd_hvac_fireplaces',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fireplaces'),
               Name(code: 'ar', value: 'مواقد نار')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_fireplace_fire_mantle',
                 names: <Name>[
@@ -3565,14 +3565,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Fireplace Equipment
-          const Chain(
+          Chain(
             id: 'sub_prd_hvac_fireplaceEquip',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fireplace Equipment'),
               Name(code: 'ar', value: 'أدوات مواقد نار')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_fireplace_equip_tools',
                 names: <Name>[
@@ -3605,14 +3605,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Air Conditioning
-          const Chain(
+          Chain(
             id: 'sub_prd_hvac_ac',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Air Conditioning'),
               Name(code: 'ar', value: 'تكييف هواء')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_hvac_ac_chiller',
                 names: <Name>[
@@ -3661,24 +3661,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Planting & Landscape
-      const Chain(
+      Chain(
         id: 'group_prd_landscape',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Planting & Landscape'),
           Name(code: 'ar', value: 'زراعات و لاندسكيب')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Pots & Vases
-          const Chain(
+          Chain(
             id: 'sub_prd_scape_potsVases',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Pots & Vases'),
               Name(code: 'ar', value: 'أواني و مزهريات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_landscape_pots_vase',
                 names: <Name>[
@@ -3711,14 +3711,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Live Plants
-          const Chain(
+          Chain(
             id: 'sub_prd_scape_livePlants',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Live Plants'),
               Name(code: 'ar', value: 'نباتات حية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_landscape_live_tree',
                 names: <Name>[
@@ -3744,14 +3744,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Hardscape
-          const Chain(
+          Chain(
             id: 'sub_prd_scape_hardscape',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Hardscape'),
               Name(code: 'ar', value: 'هاردسكيب')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_landscape_hardscape_trellis',
                 names: <Name>[
@@ -3770,14 +3770,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Fountains & Ponds
-          const Chain(
+          Chain(
             id: 'sub_prd_scape_fountainsPonds',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fountains & Ponds'),
               Name(code: 'ar', value: 'نوافير و برك')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_landscape_fountain_indoor',
                 names: <Name>[
@@ -3796,14 +3796,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Birds fixtures
-          const Chain(
+          Chain(
             id: 'sub_prd_scape_birds',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Birds fixtures'),
               Name(code: 'ar', value: 'تجهيزات عصافير')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_landscape_birds_feeder',
                 names: <Name>[
@@ -3829,14 +3829,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Artificial plants
-          const Chain(
+          Chain(
             id: 'sub_prd_scape_artificial',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Artificial plants'),
               Name(code: 'ar', value: 'نباتات صناعية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_landscape_artificial_tree',
                 names: <Name>[
@@ -3864,24 +3864,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Lighting
-      const Chain(
+      Chain(
         id: 'group_prd_lighting',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Lighting'),
           Name(code: 'ar', value: 'إضاءة')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Wall Lighting
-          const Chain(
+          Chain(
             id: 'sub_prd_light_wall',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Wall Lighting'),
               Name(code: 'ar', value: 'إضاءة حائطية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_lighting_wall_applique',
                 names: <Name>[
@@ -3914,14 +3914,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Outdoor Lighting
-          const Chain(
+          Chain(
             id: 'sub_prd_light_outdoor',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Outdoor Lighting'),
               Name(code: 'ar', value: 'إضاءة خارجية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_lighting_outdoor_wall',
                 names: <Name>[
@@ -4024,14 +4024,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Lighting Accessories
-          const Chain(
+          Chain(
             id: 'sub_prd_light_access',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Lighting Accessories'),
               Name(code: 'ar', value: 'اكسسوارات إضاءة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_lighting_accessories_shade',
                 names: <Name>[
@@ -4073,14 +4073,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Light bulbs
-          const Chain(
+          Chain(
             id: 'sub_prd_light_bulbs',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Light bulbs'),
               Name(code: 'ar', value: 'لمبات إضاءة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_lighting_bulbs_fluorescent',
                 names: <Name>[
@@ -4127,14 +4127,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Lamps
-          const Chain(
+          Chain(
             id: 'sub_prd_light_lamps',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Lamps'),
               Name(code: 'ar', value: 'مصابيح')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_lighting_lamp_table',
                 names: <Name>[
@@ -4188,14 +4188,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Ceiling Lighting
-          const Chain(
+          Chain(
             id: 'sub_prd_light_ceiling',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Ceiling Lighting'),
               Name(code: 'ar', value: 'إضاءة أسقف')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_lighting_ceiling_chandelier',
                 names: <Name>[
@@ -4272,24 +4272,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Construction Materials
-      const Chain(
+      Chain(
         id: 'group_prd_materials',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Construction Materials'),
           Name(code: 'ar', value: 'مواد بناء')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Wood Coats
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_woodCoats',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Wood Coats'),
               Name(code: 'ar', value: 'دهانات خشب')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_woodPaint_lacquer',
                 names: <Name>[
@@ -4329,14 +4329,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Water Proofing
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_waterProofing',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Water Proofing'),
               Name(code: 'ar', value: 'عوازل رطوبة و مياه')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_waterProof_rubber',
                 names: <Name>[
@@ -4392,14 +4392,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Synthetic Heat Insulation
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_heatSynth',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Synthetic Heat Insulation'),
               Name(code: 'ar', value: 'عوازل حرارية مصنوعة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_heatSynth_reflective',
                 names: <Name>[
@@ -4460,14 +4460,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Stones
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_stones',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Stones'),
               Name(code: 'ar', value: 'حجر')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_stone_marble',
                 names: <Name>[
@@ -4514,14 +4514,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Steel
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_steel',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Steel'),
               Name(code: 'ar', value: 'حديد مسلح')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_steel_rebar',
                 names: <Name>[
@@ -4540,14 +4540,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Solid Wood
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_solidWood',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Solid Wood'),
               Name(code: 'ar', value: 'أخشاب طبيعية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_wood_oak',
                 names: <Name>[
@@ -4650,14 +4650,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Sand & Rubble
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_sandRubble',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Sand & Rubble'),
               Name(code: 'ar', value: 'رمل و زلط')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_sand_sand',
                 names: <Name>[
@@ -4669,14 +4669,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Paints
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_paints',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Paints'),
               Name(code: 'ar', value: 'دهانات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_paint_cement',
                 names: <Name>[
@@ -4730,14 +4730,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Mineral Heat Insulation
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_heatIMin',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Mineral Heat Insulation'),
               Name(code: 'ar', value: 'عوازل حرارية من ألياف معدنية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_heatmin_vermiculite',
                 names: <Name>[
@@ -4793,14 +4793,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Metals
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_metals',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Metals'),
               Name(code: 'ar', value: 'معادن')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_metal_iron',
                 names: <Name>[
@@ -4868,14 +4868,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Manufactured Wood
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_manuWood',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Manufactured Wood'),
               Name(code: 'ar', value: 'أخشاب مصنعة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_manWood_mdf',
                 names: <Name>[
@@ -4931,14 +4931,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Gypsum
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_gypsum',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Gypsum'),
               Name(code: 'ar', value: 'جبس')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_gypsum_board',
                 names: <Name>[
@@ -4957,14 +4957,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Glass
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_glass',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Glass'),
               Name(code: 'ar', value: 'زجاج')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_glass_float',
                 names: <Name>[
@@ -5025,14 +5025,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Fabrics
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_fabrics',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Fabrics'),
               Name(code: 'ar', value: 'أنسجة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_fabric_wool',
                 names: <Name>[
@@ -5121,14 +5121,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Cement
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_cement',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Cement'),
               Name(code: 'ar', value: 'أسمنت')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_cement_white',
                 names: <Name>[
@@ -5154,14 +5154,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Bricks
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_bricks',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Bricks'),
               Name(code: 'ar', value: 'طوب')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_brick_cement',
                 names: <Name>[
@@ -5187,14 +5187,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Acrylic
-          const Chain(
+          Chain(
             id: 'sub_prd_mat_acrylic',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Acrylic'),
               Name(code: 'ar', value: 'أكريليك')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_mat_acrylic_tinted',
                 names: <Name>[
@@ -5222,24 +5222,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Plumbing & Sanitary ware
-      const Chain(
+      Chain(
         id: 'group_prd_plumbing',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Plumbing & Sanitary ware'),
           Name(code: 'ar', value: 'سباكة و أدوات صحية')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Water Treatment
-          const Chain(
+          Chain(
             id: 'sub_prd_plumb_treatment',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Water Treatment'),
               Name(code: 'ar', value: 'معالجة مياه')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_plumbing_treatment_filter',
                 names: <Name>[
@@ -5272,14 +5272,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Tub Sanitary ware
-          const Chain(
+          Chain(
             id: 'sub_prd_plumb_tub',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Tub Sanitary ware'),
               Name(code: 'ar', value: 'أدوات بانيو صحية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_plumbing_tub_bathTubs',
                 names: <Name>[
@@ -5298,14 +5298,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Toilet Sanitary ware
-          const Chain(
+          Chain(
             id: 'sub_prd_plumb_toilet',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Toilet Sanitary ware'),
               Name(code: 'ar', value: 'أدوات مراحيض صحية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_plumbing_toilet_floorDrain',
                 names: <Name>[
@@ -5352,14 +5352,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Shower Sanitary ware
-          const Chain(
+          Chain(
             id: 'sub_prd_plumb_shower',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Shower Sanitary ware'),
               Name(code: 'ar', value: 'أدوات استحمام صحية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_plumbing_shower_head',
                 names: <Name>[
@@ -5406,14 +5406,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Sanitary ware
-          const Chain(
+          Chain(
             id: 'sub_prd_plumb_sanitary',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Sanitary ware'),
               Name(code: 'ar', value: 'أدوات صحية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_plumbing_sanitary_drain',
                 names: <Name>[
@@ -5432,14 +5432,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Kitchen Sanitary ware
-          const Chain(
+          Chain(
             id: 'sub_prd_plumb_kitchen',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Kitchen Sanitary ware'),
               Name(code: 'ar', value: 'أدوات مطبخ صحية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_plumbing_kitchen_rinser',
                 names: <Name>[
@@ -5493,14 +5493,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Handwash Sanitary ware
-          const Chain(
+          Chain(
             id: 'sub_prd_plumb_handwash',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Handwash Sanitary ware'),
               Name(code: 'ar', value: 'أدوات غسيل أيدي صحية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_plumbing_handwash_washBasins',
                 names: <Name>[
@@ -5533,14 +5533,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Connections
-          const Chain(
+          Chain(
             id: 'sub_prd_plumb_connections',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Connections'),
               Name(code: 'ar', value: 'وصلات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_plumbing_connections_pipes',
                 names: <Name>[
@@ -5568,24 +5568,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Pools & Spa
-      const Chain(
+      Chain(
         id: 'group_prd_poolSpa',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Pools & Spa'),
           Name(code: 'ar', value: 'حمامات سباحة و حمامات صحية')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Swimming Pools
-          const Chain(
+          Chain(
             id: 'sub_prd_pool_pools',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Swimming Pools'),
               Name(code: 'ar', value: 'حمامات سباحة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_poolSpa_pools_fiberglass',
                 names: <Name>[
@@ -5611,14 +5611,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Spa
-          const Chain(
+          Chain(
             id: 'sub_prd_pool_spa',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Spa'),
               Name(code: 'ar', value: 'حمامات صحية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_poolSpa_spa_sauna',
                 names: <Name>[
@@ -5651,14 +5651,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Pools Equipment
-          const Chain(
+          Chain(
             id: 'sub_prd_pool_equipment',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Pools Equipment'),
               Name(code: 'ar', value: 'عدات حمامات سباحة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_poolSpa_equip_cleaning',
                 names: <Name>[
@@ -5684,14 +5684,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Pool Accessories
-          const Chain(
+          Chain(
             id: 'sub_prd_pool_accessories',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Pool Accessories'),
               Name(code: 'ar', value: 'اكسسوارات حمامات سباحة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_poolSpa_access_handrail',
                 names: <Name>[
@@ -5726,24 +5726,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Roofing
-      const Chain(
+      Chain(
         id: 'group_prd_roofing',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Roofing'),
           Name(code: 'ar', value: 'أسطح')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Roof Drainage
-          const Chain(
+          Chain(
             id: 'sub_prd_roof_drainage',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Roof Drainage'),
               Name(code: 'ar', value: 'صرف أسطح')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_roof_drainage_gutter',
                 names: <Name>[
@@ -5755,14 +5755,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Roof Cladding
-          const Chain(
+          Chain(
             id: 'sub_prd_roof_cladding',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Roof Cladding'),
               Name(code: 'ar', value: 'تجاليد أسطح')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_roof_cladding_brick',
                 names: <Name>[
@@ -5790,24 +5790,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Safety
-      const Chain(
+      Chain(
         id: 'group_prd_safety',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Safety'),
           Name(code: 'ar', value: 'أمن و سلامة')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Safety Equipment
-          const Chain(
+          Chain(
             id: 'sub_prd_safety_equip',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Safety Equipment'),
               Name(code: 'ar', value: 'معدات سلامة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_safety_equip_gasDetector',
                 names: <Name>[
@@ -5833,14 +5833,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Safety Clothes
-          const Chain(
+          Chain(
             id: 'sub_prd_safety_clothes',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Safety Clothes'),
               Name(code: 'ar', value: 'ملابس أمن و سلامة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_safety_clothes_coverall',
                 names: <Name>[
@@ -5901,14 +5901,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Floor Protection
-          const Chain(
+          Chain(
             id: 'sub_prd_safety_floorProtection',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Floor Protection'),
               Name(code: 'ar', value: 'حماية أرضيات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_safety_floorProtection_cardboard',
                 names: <Name>[
@@ -5929,24 +5929,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Security
-      const Chain(
+      Chain(
         id: 'group_prd_security',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Security'),
           Name(code: 'ar', value: 'الحماية و الأمان')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Surveillance Systems
-          const Chain(
+          Chain(
             id: 'sub_prd_security_surveillance',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Surveillance Systems'),
               Name(code: 'ar', value: 'أنظمة مراقبة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_security_surv_camera',
                 names: <Name>[
@@ -5972,14 +5972,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Security Safes
-          const Chain(
+          Chain(
             id: 'sub_prd_security_safes',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Security Safes'),
               Name(code: 'ar', value: 'خزائن أمان')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_security_safes_wall',
                 names: <Name>[
@@ -6019,14 +6019,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Road Control
-          const Chain(
+          Chain(
             id: 'sub_prd_security_roadControl',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Road Control'),
               Name(code: 'ar', value: 'تحكم في الطرق')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_security_road_bollard',
                 names: <Name>[
@@ -6052,14 +6052,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Accessibility Systems
-          const Chain(
+          Chain(
             id: 'sub_prd_security_accessibility',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Accessibility Systems'),
               Name(code: 'ar', value: 'أنظمة دخول')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_security_access_accessControl',
                 names: <Name>[
@@ -6094,24 +6094,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Smart home
-      const Chain(
+      Chain(
         id: 'group_prd_smartHome',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Smart home'),
           Name(code: 'ar', value: 'تجهيزات المنازل الذكية')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Automation Systems
-          const Chain(
+          Chain(
             id: 'sub_prd_smart_automation',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Automation Systems'),
               Name(code: 'ar', value: 'أنظمة أوتوماتية')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_smart_auto_center',
                 names: <Name>[
@@ -6130,14 +6130,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Audio Systems
-          const Chain(
+          Chain(
             id: 'sub_prd_smart_audio',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Audio Systems'),
               Name(code: 'ar', value: 'أنظمة صوت')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_smart_audio_system',
                 names: <Name>[
@@ -6179,24 +6179,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Stairs
-      const Chain(
+      Chain(
         id: 'group_prd_stairs',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Stairs'),
           Name(code: 'ar', value: 'سلالم')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Handrails
-          const Chain(
+          Chain(
             id: 'sub_prd_stairs_handrails',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Handrails'),
               Name(code: 'ar', value: 'درابزين سلالم')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_stairs_handrails_wood',
                 names: <Name>[
@@ -6224,24 +6224,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Light Structures
-      const Chain(
+      Chain(
         id: 'group_prd_structure',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Light Structures'),
           Name(code: 'ar', value: 'هياكل و منشآت خفيفة')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Shades
-          const Chain(
+          Chain(
             id: 'sub_prd_struc_shades',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Shades'),
               Name(code: 'ar', value: 'مظلات')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_structure_shades_pergola',
                 names: <Name>[
@@ -6295,14 +6295,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Light Structures
-          const Chain(
+          Chain(
             id: 'sub_prd_struc_light',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Light Structures'),
               Name(code: 'ar', value: 'منشآت خفيفة')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_structure_light_arbor',
                 names: <Name>[
@@ -6360,24 +6360,24 @@ abstract class ChainProducts {
       ),
       // -----------------------------------------------
       /// Walls & Room Partitions
-      const Chain(
+      Chain(
         id: 'group_prd_walls',
         icon: 'id',
         names: <Name>[
           Name(code: 'en', value: 'Walls & Room Partitions'),
           Name(code: 'ar', value: 'حوائط و فواصل غرف')
         ],
-        sons: const <Chain>[
+        sons: <Chain>[
           // ----------------------------------
           /// Wall Cladding
-          const Chain(
+          Chain(
             id: 'sub_prd_walls_cladding',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Wall Cladding'),
               Name(code: 'ar', value: 'تبليط و تجلاليد حوائط')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_walls_cladding_mosaic',
                 names: <Name>[
@@ -6445,14 +6445,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Room Partitions
-          const Chain(
+          Chain(
             id: 'sub_prd_walls_partitions',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Room Partitions'),
               Name(code: 'ar', value: 'فواصل غرف')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_walls_partitions_screens',
                 names: <Name>[
@@ -6478,14 +6478,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Moldings & Millwork
-          const Chain(
+          Chain(
             id: 'sub_prd_walls_moldings',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Moldings & Millwork'),
               Name(code: 'ar', value: 'قوالب و عواميد')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_walls_molding_rail',
                 names: <Name>[
@@ -6525,14 +6525,14 @@ abstract class ChainProducts {
           ),
           // ----------------------------------
           /// Ceiling Cladding
-          const Chain(
+          Chain(
             id: 'sub_prd_walls_ceiling',
             icon: null,
             names: <Name>[
               Name(code: 'en', value: 'Ceiling Cladding'),
               Name(code: 'ar', value: 'تجاليد أسقف')
             ],
-            sons: const <KW>[
+            sons: <KW>[
               KW(
                 id: 'prd_walls_ceiling_tiles',
                 names: <Name>[

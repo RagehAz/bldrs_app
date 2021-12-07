@@ -97,7 +97,7 @@ class BottomDialog extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static const double dialogMarginValue = Ratioz.appBarMargin + Ratioz.appBarPadding;
 // -----------------------------------------------------------------------------
-  static const EdgeInsets dialogMargins = const EdgeInsets.symmetric(horizontal: dialogMarginValue);
+  static const EdgeInsets dialogMargins = EdgeInsets.symmetric(horizontal: dialogMarginValue);
 // -----------------------------------------------------------------------------
   static double dialogClearWidth(BuildContext context){
     final double _dialogClearWidth = Scale.superScreenWidth(context) - (dialogMarginValue * 2);

@@ -42,9 +42,9 @@ class BzTargetsTab extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       children: const <Widget>[
 
-        const TargetsBubble(),
+        TargetsBubble(),
 
-        const PyramidsHorizon(),
+        PyramidsHorizon(),
 
       ],
     );

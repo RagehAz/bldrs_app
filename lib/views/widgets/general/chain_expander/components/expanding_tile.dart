@@ -115,7 +115,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
   BorderRadiusTween _borderRadius;
   Animation<double> _arrowTurns;
   bool _isExpanded = false;
-  static const Duration _kExpand = const Duration(milliseconds: 200);
+  static const Duration _kExpand = Duration(milliseconds: 200);
 // -----------------------------------------------------------------------------
   @override
   void initState() {

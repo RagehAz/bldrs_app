@@ -282,13 +282,13 @@ void main(){
 // -----------------------------------------------------------------------------
   test('sqlCipherGeoPoint and sqlDecipherGeoPoint', (){
 
-    const GeoPoint _point = const GeoPoint(12.3, 45.6);
+    const GeoPoint _point = GeoPoint(12.3, 45.6);
 
     final String _string = Atlas.cipherGeoPoint(point: _point, toJSON: true);
 
     final GeoPoint _pointAgain = Atlas.decipherGeoPoint(point: _string, fromJSON: true);
 
-    const dynamic _expected = const GeoPoint(12.3, 45.6);
+    const dynamic _expected = GeoPoint(12.3, 45.6);
     expect(_pointAgain, _expected);
 
   });
@@ -472,7 +472,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test('Specs are the same', () async {
 
-    const List<Spec> specsA = const <Spec>[
+    const List<Spec> specsA = <Spec>[
 
       Spec(specsListID: 'x', value: 'x'),
       Spec(specsListID: 'y', value: 'y'),
@@ -480,7 +480,7 @@ void main(){
 
     ];
 
-    const List<Spec> specsB = const <Spec>[
+    const List<Spec> specsB = <Spec>[
 
       Spec(specsListID: 'x', value: 'x'),
       Spec(specsListID: 'y', value: 'y'),
@@ -498,8 +498,7 @@ void main(){
 // -----------------------------------------------------------------------------
   test('Specs are the same', () async {
 
-    const List<Spec> specsA = const <Spec>[
-
+    const List<Spec> specsA = <Spec>[
       Spec(specsListID: 'x', value: 'x'),
       Spec(specsListID: 'y', value: 'y'),
       Spec(specsListID: 'z', value: 'z'),
@@ -516,12 +515,10 @@ void main(){
 // -----------------------------------------------------------------------------
   test('Object is list of specs', () async {
 
-    const List<Spec> specsA = const <Spec>[
-
+    const List<Spec> specsA = <Spec>[
       Spec(specsListID: 'x', value: 'x'),
       Spec(specsListID: 'y', value: 'y'),
       Spec(specsListID: 'z', value: 'z'),
-
     ];
 
     final List<String> things = <String>['d', 'r'];

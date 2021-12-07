@@ -22,7 +22,7 @@ class HomeWall extends StatefulWidget {
   @override
   _HomeWallState createState() => _HomeWallState();
 
-  static const Widget spacer = const SizedBox(height: Ratioz.appBarMargin, width: Ratioz.appBarMargin,);
+  static const Widget spacer = SizedBox(height: Ratioz.appBarMargin, width: Ratioz.appBarMargin,);
 
 }
 
@@ -57,7 +57,7 @@ class _HomeWallState extends State<HomeWall> {
           children: <Widget>[
 
             const Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+              padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
               child: SuperVerse(
                 verse: 'Promoted',
                 size: 1,

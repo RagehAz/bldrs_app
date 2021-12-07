@@ -60,7 +60,7 @@ class FieldsRow extends StatelessWidget {
                   color: Colorz.white10,
                   borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
                   boxShadow: const <BoxShadow>[
-                    const Shadowz.CustomBoxShadow(
+                    Shadowz.CustomBoxShadow(
                         color: Colorz.black200,
                         blurRadius: _boxHeight * 0.15,
                         blurStyle: BlurStyle.outer

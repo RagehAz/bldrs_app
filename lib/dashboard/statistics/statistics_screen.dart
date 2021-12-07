@@ -28,11 +28,11 @@ class GeneralStatistics extends StatelessWidget {
       pageTitle: Wordz.allahoAkbar(context),
       appBarRowWidgets: const <Widget>[
 
-        const Expander(),
+        Expander(),
 
-        const Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-          child: const BldrsName(
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+          child: BldrsName(
               size: 40,
           ),
         ),

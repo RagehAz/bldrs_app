@@ -126,9 +126,9 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           const ObeliskButton('TEST LAB', Iconz.flyer, TestLab()),
 
-          const ObeliskButton('Specs Selector', Iconz.flyer, const SpecsListsPickersScreen(
+          const ObeliskButton('Specs Selector', Iconz.flyer, SpecsListsPickersScreen(
             flyerType: FlyerTypeClass.FlyerType.design,
-            selectedSpecs: const <Spec>[],
+            selectedSpecs: <Spec>[],
           )),
 
           const ObeliskButton('Google map Test screen', Iconz.flyer, LocationsTestScreen()),
@@ -141,13 +141,13 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           const ObeliskButton('Trigram Test', Iconz.more, TrigramTest()),
 
-          const ObeliskButton('Cloud Functions', Iconz.gears, const CloudFunctionsTest()),
+          const ObeliskButton('Cloud Functions', Iconz.gears, CloudFunctionsTest()),
 
           const ObeliskButton('Sembast Screen', Iconz.dvGouran, SembastTestScreen()),
 
           const ObeliskButton('Notification test', Iconz.news, FCMTestScreen()),
 
-          const ObeliskButton('Awesome Notification test', Iconz.news, const AwesomeNotiTestScreen()),
+          const ObeliskButton('Awesome Notification test', Iconz.news, AwesomeNotiTestScreen()),
 
 
           // ObeliskButton('HERO TEST', Iconz.DvDonaldDuck, HeroMinScreen()),

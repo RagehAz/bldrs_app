@@ -133,7 +133,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
 
       _notifications.isEmpty ?
       const Center(
-        child: const SuperVerse(
+        child: SuperVerse(
           verse: 'No new Notifications',
           weight: VerseWeight.thin,
           italic: true,
