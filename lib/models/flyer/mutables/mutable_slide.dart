@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
@@ -189,7 +190,7 @@ class MutableSlide {
 // -----------------------------------------------------------------------------
   static void disposeMutableSlidesTextControllers(List<MutableSlide> mutableSlides){
 
-    if(mutableSlides != null && mutableSlides.length != 0){
+    if(Mapper.canLoopList(mutableSlides)){
       for (final MutableSlide mSlide in mutableSlides){
         TextChecker.disposeControllerIfPossible(mSlide.headlineController);
         TextChecker.disposeControllerIfPossible(mSlide.descriptionController);

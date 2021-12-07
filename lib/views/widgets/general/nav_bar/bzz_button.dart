@@ -84,10 +84,10 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
               ),
 
               /// --- BZZ LOGOS
-              if (_userBzz.length == 0)
+              if (_userBzz.isEmpty)
               Container(width: _circleWidth, height: _circleWidth,),
 
-              if (_userBzz.length > 0)
+              if (_userBzz.isNotEmpty)
                 Container(
                     width: _circleWidth,
                     height: _circleWidth,

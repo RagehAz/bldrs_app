@@ -344,7 +344,7 @@ import 'package:flutter/material.dart';
     /// 1 - perform deactivate flyer ops for all flyers
     final List<String> _flyersIDs = bzModel.flyersIDs;
 
-    if (_flyersIDs.length > 0){
+    if (_flyersIDs.isNotEmpty){
       for (final String id in _flyersIDs){
         await FireFlyerOps.deactivateFlyerOps(
           context: context,

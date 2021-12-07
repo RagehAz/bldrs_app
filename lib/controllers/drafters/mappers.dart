@@ -135,7 +135,7 @@ import 'package:sembast/utils/value_utils.dart';
     // ---------------------------------
     bool _inputsAreInvalid;
 
-    if (listOfMaps == null || listOfMaps.length == 0 || map == null){
+    if (listOfMaps == null || listOfMaps.isEmpty || map == null){
       _inputsAreInvalid = true;
     }
     else {
@@ -377,7 +377,7 @@ import 'package:sembast/utils/value_utils.dart';
 
     bool _canLoop = false;
 
-    if (list != null && list.length > 0){
+    if (list != null && list.isNotEmpty){
       _canLoop = true;
     }
     return _canLoop;

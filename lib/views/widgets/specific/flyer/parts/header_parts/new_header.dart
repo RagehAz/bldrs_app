@@ -190,7 +190,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
     //--------------------------------o
     _backgroundColorTween
       ..begin = _tinyMode == true ? Colorz.nothing :  Colorz.blackSemi230
-      ..end = widget.superFlyer.mSlides == null || widget.superFlyer.mSlides.length == 0 ?
+      ..end = widget.superFlyer.mSlides == null || widget.superFlyer.mSlides.isEmpty ?
       Colorz.blackSemi230 : widget.superFlyer.mSlides[widget.superFlyer.currentSlideIndex].midColor;
 
     _headerCornerTween

@@ -40,7 +40,9 @@ class SavedFlyersGrid extends StatelessWidget {
     );
 
     return
-      flyers.length == 0 ? Container() :
+      flyers.isEmpty ?
+      Container()
+          :
       Scroller(
         child: GridView.builder(
           itemCount: flyers.length,

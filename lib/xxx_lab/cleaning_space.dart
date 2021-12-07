@@ -89,7 +89,7 @@ bool finalListContainsIndexes(List<int> toAdd, List<List<int>> finalList){
 
   bool _contains = false;
 
-  if (finalList != null && finalList.length != 0){
+  if (Mapper.canLoopList(finalList)){
 
     for (int i =0; i<finalList.length; i++){
 
@@ -122,7 +122,7 @@ List<String> getStringsFromPermutationIndexesList({String source, List<List<int>
     String _string = '';
 
     for (final int i in indexes){
-      _string = _string + '${source[i]}';
+      _string = '$_string${source[i]}';
     }
 
     _strings.add(_string);

@@ -33,7 +33,7 @@ class SelectedKeywordsBar extends StatelessWidget {
     const double _selectedKeywordsZoneHeight = 80;
 
     final String _screenTitle =
-    selectedKeywords.length == 0 ? 'Select keywords' :
+    selectedKeywords.isEmpty ? 'Select keywords' :
     selectedKeywords.length == 1 ? '1 Selected keyword' :
     '${selectedKeywords.length} Selected keywords';
 
@@ -71,7 +71,9 @@ class SelectedKeywordsBar extends StatelessWidget {
             height: (_selectedKeywordsZoneHeight * 0.7),
 
             child:
-            selectedKeywords.length == 0 ? Container() :
+            selectedKeywords.isEmpty ?
+            Container()
+                :
             ScrollablePositionedList.builder(
               physics: const AlwaysScrollableScrollPhysics(),
               itemScrollController: scrollController,

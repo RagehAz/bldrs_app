@@ -190,7 +190,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   Future<void> _onRemoveFlyerFromStack(FlyerModel flyerModel) async {
 
     /// A - if flyers are empty
-    if (_flyers.length == 0 || _canDelete == false){
+    if (_flyers.isEmpty || _canDelete == false){
 
       await CenterDialog.showCenterDialog(
         context: context,
@@ -403,7 +403,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   void _statelessTriggerPageVisibility(int index) {
 
     if (index != null){
-      if(index >= 0 && _flyers.length != 0){
+      if(index >= 0 && _flyers.isNotEmpty){
         print('_superFlyer.mSlides[index].isVisible was ${_pagesOpacities[0]} for index : $index');
 
 
@@ -482,7 +482,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     final List<double> _opacities = <double>[];
 
     for (int i = 1; i <= numberOfPages; i++){
-      _opacities.add(1.0);
+      _opacities.add(1);
     }
 
     return _opacities;

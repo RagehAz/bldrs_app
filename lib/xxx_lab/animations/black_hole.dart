@@ -75,10 +75,10 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(
         child: RotationTransition(
-          turns: Tween<double>(begin: 0.0, end: 2.0).animate(_blackHoleController),
+          turns: Tween<double>(begin: 0, end: 2).animate(_blackHoleController),
           child: DreamBox(
-            height: 300.0,
-            width: 300.0,
+            height: 300,
+            width: 300,
             icon: Iconz.dvBlackHole,
             iconSizeFactor: 0.95,
             margins: const EdgeInsets.symmetric(vertical: 25),

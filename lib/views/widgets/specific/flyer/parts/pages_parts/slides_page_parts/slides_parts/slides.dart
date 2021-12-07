@@ -74,7 +74,9 @@ class Slides extends StatelessWidget {
             superFlyer.mSlides[i].headline ;
             // ------------------------------------------------------o
             return
-              superFlyer.mSlides.length == 0 ? Container() :
+              superFlyer.mSlides.isEmpty ?
+              Container()
+                  :
               AnimatedOpacity(
                 // key: ObjectKey('${superFlyer.key.value}${i}'),
                 opacity: superFlyer.mSlides[i].opacity,

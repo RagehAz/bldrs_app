@@ -1470,7 +1470,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         );
 
         /// B4 - if did not pick new assets
-        if(_phoneAssets.length == 0){
+        if(_phoneAssets.isEmpty){
           // will do nothing
           print('no new picks');
         }
@@ -1774,7 +1774,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   void _statelessTriggerSlideVisibility(int index) {
 
     if (index != null){
-      if(index >= 0 && _superFlyer.mSlides.length != 0){
+      if(index >= 0 && _superFlyer.mSlides.isNotEmpty){
         print('_superFlyer.mSlides[index].isVisible was ${_superFlyer.mSlides[index].opacity} for index : $index');
 
 
@@ -2310,7 +2310,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     bool _inputsAreValid;
 
     /// when no pictures picked
-    if (_superFlyer.mSlides == null || _superFlyer.mSlides.length == 0){
+    if (_superFlyer.mSlides == null || _superFlyer.mSlides.isEmpty){
       await CenterDialog.showCenterDialog(
         context: context,
         // title: 'No '
@@ -2330,7 +2330,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     }
 
     /// when no keywords selected
-    else if (_superFlyer.keywords.length == 0){
+    else if (_superFlyer.keywords.isEmpty){
       /// TASK : add these keywords condition in flyer publish validator
       // await
       _inputsAreValid = true;
