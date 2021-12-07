@@ -44,11 +44,10 @@ class SuperImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final BoxFit _boxFit = fit == null ? BoxFit.cover : fit;
+    final BoxFit _boxFit = fit ?? BoxFit.cover;
     // int _width = fit == BoxFit.fitWidth ? width : null;
     // int _height = fit == BoxFit.fitHeight ? height : null;
     // Asset _asset = ObjectChecker.objectIsAsset(pic) == true ? pic : null;
-    final Color _iconColor = iconColor == null ? null : iconColor;
 
     return
       pic == null ? null :
@@ -59,7 +58,7 @@ class SuperImage extends StatelessWidget {
         Image.asset(pic, fit: _boxFit)
             :
         ObjectChecker.objectIsSVG(pic)?
-        WebsafeSvg.asset(pic, fit: _boxFit,color: _iconColor)
+        WebsafeSvg.asset(pic, fit: _boxFit, color: iconColor)
             :
         /// max user NetworkImage(userPic), to try it later
         ObjectChecker.objectIsURL(pic)?

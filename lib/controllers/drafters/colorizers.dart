@@ -122,7 +122,7 @@ import 'package:image/image.dart' as img;
 // -----------------------------------------------------------------------------
   String cipherColor(Color color){
 
-    final Color _color = color == null ? Colorz.nothing : color;
+    final Color _color = color ?? Colorz.nothing;
 
       final int _alpha = _color.alpha;
       final int _r = _color.red;

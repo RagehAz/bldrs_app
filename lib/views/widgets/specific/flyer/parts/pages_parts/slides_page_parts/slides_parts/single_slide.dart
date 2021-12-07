@@ -125,8 +125,7 @@ class SingleSlide extends StatelessWidget {
     //   imageSize: imageSize,
     // );
 // -----------------------------------------------------------------------------
-    final String _titleVerse = headline != null ? headline :
-        titleController != null ? titleController.text : null;
+    final String _titleVerse = headline ?? titleController?.text;
 // -----------------------------------------------------------------------------
     final DecorationImage _slidePic =
     picture == null || ObjectChecker.objectIsURL(picture) == true || ObjectChecker.objectIsFile(picture) == true ?

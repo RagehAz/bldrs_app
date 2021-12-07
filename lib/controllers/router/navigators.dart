@@ -33,7 +33,7 @@ import 'package:page_transition/page_transition.dart';
 // -----------------------------------------------------------------------------
   Future<dynamic> goToNewScreen (BuildContext context, Widget screen, {PageTransitionType transitionType}) async {
 
-    final PageTransitionType _transition = transitionType == null ? PageTransitionType.bottomToTop : transitionType;
+    final PageTransitionType _transition = transitionType ?? PageTransitionType.bottomToTop;
 
     final dynamic _result = await Navigator.push(context,
       PageTransition<dynamic>(

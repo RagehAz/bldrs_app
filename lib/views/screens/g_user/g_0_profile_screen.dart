@@ -351,8 +351,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               StatusBubble(
                 status: _status,
                 switchUserStatus: (UserStatus type) => _switchUserStatus(type),
-                userStatus: _currentUserStatus == null ? widget.userModel
-                    ?.status : _currentUserStatus,
+                userStatus: _currentUserStatus ?? widget.userModel?.status,
                 currentUserStatus: _currentUserStatus,
                 // openEnumLister: widget.openEnumLister,
               ),

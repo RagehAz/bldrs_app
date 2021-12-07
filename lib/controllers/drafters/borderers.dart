@@ -228,7 +228,7 @@ import 'package:flutter/material.dart';
       _topLeftCorner = corners.toDouble();
     }
 
-    return _topLeftCorner == null ? 0 : _topLeftCorner;
+    return _topLeftCorner ?? 0;
   }
 // -----------------------------------------------------------------------------
   BorderRadius getCornersAsBorderRadius(BuildContext context, dynamic corners){

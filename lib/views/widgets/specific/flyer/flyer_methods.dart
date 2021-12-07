@@ -227,7 +227,7 @@ enum FlyerSourceType {
   }
 // -----------------------------------------------------------------------------
   int unNullIndexIfNull(int slideIndex){
-    return slideIndex == null ? 0 : slideIndex;
+    return slideIndex ?? 0;
   }
 // -----------------------------------------------------------------------------
   bool maxSlidesReached({SuperFlyer superFlyer}){

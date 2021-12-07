@@ -76,15 +76,13 @@ class StatusBubble extends StatelessWidget {
         ),
 
         /// IF USER IS SEARCHING FOR PROPERTIES
-        currentUserStatus == UserStatus.searching ?
+        if (currentUserStatus == UserStatus.searching)
         PropertySearchCriteria(
           openEnumLister: openEnumLister,
-        )
-
-            :
+        ),
 
         /// IF USER WANT TO SELL OR RENT HIS PROPERTY
-        currentUserStatus == UserStatus.selling ?
+        if (currentUserStatus == UserStatus.selling)
         Container(
           width: screenWidth - (abPadding * 4),
           height: 100,
@@ -93,24 +91,18 @@ class StatusBubble extends StatelessWidget {
           child: const SuperVerse(
             verse: 'SELL SELL SELL FUCKERS !!',
           ),
-        )
-
-            :
+        ),
 
         /// IF USER IS IN CONSTRUCTION
-        currentUserStatus == UserStatus.finishing ||
-        currentUserStatus == UserStatus.planning||
-        currentUserStatus == UserStatus.building ?
+        if (currentUserStatus == UserStatus.finishing ||
+            currentUserStatus == UserStatus.planning||
+            currentUserStatus == UserStatus.building)
         StatusButtons(
           status: status,
           stateIndex: 1,
           switchUserStatus: switchUserStatus,
           currentUserStatus: currentUserStatus,
-        )
-
-            :
-
-        Container(),
+        ),
 
       ],
     );

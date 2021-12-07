@@ -592,7 +592,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
               /// --- ADD LOGO
               AddGalleryPicBubble(
-                pic: _currentBzLogoFile == null ? _currentBzLogoURL : _currentBzLogoFile,
+                pic: _currentBzLogoFile ?? _currentBzLogoURL,
                 addBtFunction: _takeBzLogo,
                 deletePicFunction: () => setState(() {_currentBzLogoFile = null;}),
                 title: Wordz.businessLogo(context),

@@ -45,8 +45,7 @@ class FlagBox extends StatelessWidget {
             children: <Widget>[
 
               /// FLAG
-              flag == '' || flag == 'Black'?
-              Container() :
+              if (flag != null && flag != '' && flag != 'Black')
               WebsafeSvg.asset(flag, width: size),
 
               ///  BUTTON GRADIENT

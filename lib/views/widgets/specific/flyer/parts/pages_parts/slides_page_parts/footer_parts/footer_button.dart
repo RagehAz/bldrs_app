@@ -35,7 +35,7 @@ class FooterButton extends StatelessWidget {
 
     final double _footerBTMargins = size != null ? 0 : FlyerFooter.buttonMargin(context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: isOn);
     final double _saveBTRadius = size != null ? size/2 : FlyerFooter.buttonRadius(context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: isOn);
-    final double _buttonSize = size != null ? size : FlyerFooter.buttonSize(context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: isOn);
+    final double _buttonSize = size ?? FlyerFooter.buttonSize(context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: isOn);
     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 
     return Container(

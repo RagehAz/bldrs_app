@@ -84,170 +84,138 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
               ),
 
               /// --- BZZ LOGOS
-              _userBzz.length == 0 ? Container(width: _circleWidth, height: _circleWidth,) :
-              Container(
-                width: _circleWidth,
-                height: _circleWidth,
-                alignment: Alignment.center,
-                child:
+              if (_userBzz.length == 0)
+              Container(width: _circleWidth, height: _circleWidth,),
 
-                _userBzz.length == 1 ?
-                DreamBox(
-                  width: _circleWidth,
-                  height: _circleWidth,
-                  icon: _userBzz[0].logo,
-                  corners: _buttonCircleCorner,
-                  onTap: onTap,
-                )
-
-                    :
-
-                _userBzz.length == 2 ?
-                Stack(
-                  children: <Widget>[
-
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      child: BzLogo(
-                        width: _circleWidth * 0.7,
-                        image: _userBzz[0].logo,
-                        shadowIsOn: _shadowIsOn,
-                        onTap: onTap,
-                      ),
-                    ),
-
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: BzLogo(
-                        width: _circleWidth * 0.7,
-                        image: _userBzz[1].logo,
-                        shadowIsOn: _shadowIsOn,
-                        onTap: onTap,
-                      ),
-                    ),
-
-                  ],
-                )
-
-                    :
-
-                _userBzz.length == 3 ?
+              if (_userBzz.length > 0)
                 Container(
-                  width: _circleWidth,
-                  height: _circleWidth,
-                  // color: Colorz.Grey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                    width: _circleWidth,
+                    height: _circleWidth,
+                    alignment: Alignment.center,
+                    child:
 
-                      Row(
+                    _userBzz.length == 1 ?
+                    DreamBox(
+                      width: _circleWidth,
+                      height: _circleWidth,
+                      icon: _userBzz[0].logo,
+                      corners: _buttonCircleCorner,
+                      onTap: onTap,
+                    )
+                        :
+                    _userBzz.length == 2 ?
+                    Stack(
+                      children: <Widget>[
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          child: BzLogo(
+                            width: _circleWidth * 0.7,
+                            image: _userBzz[0].logo,
+                            shadowIsOn: _shadowIsOn,
+                            onTap: onTap,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: BzLogo(
+                            width: _circleWidth * 0.7,
+                            image: _userBzz[1].logo,
+                            shadowIsOn: _shadowIsOn,
+                            onTap: onTap,
+                          ),
+                        ),
+                      ],
+                    )
+                        :
+                    _userBzz.length == 3 ?
+                    Container(
+                      width: _circleWidth,
+                      height: _circleWidth,
+                      // color: Colorz.Grey,
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-
-                          _nanoBzLogo(context, _userBzz[0]),
-
-                          _nanoBzLogo(context, _userBzz[1]),
-
-                        ],
-                      ),
-
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-
-                          _nanoBzLogo(context, _userBzz[2]),
-
-                          Container(
-                            width: _circleWidth * 0.47,
-                            height: _circleWidth * 0.47,
-                            color: Colorz.nothing,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              _nanoBzLogo(context, _userBzz[0]),
+                              _nanoBzLogo(context, _userBzz[1]),
+                            ],
                           ),
-
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              _nanoBzLogo(context, _userBzz[2]),
+                              Container(
+                                width: _circleWidth * 0.47,
+                                height: _circleWidth * 0.47,
+                                color: Colorz.nothing,
+                              ),
+                            ],
+                          ),
                         ],
                       ),
-
-                    ],
-                  ),
-                )
-                    :
-                _userBzz.length == 4 ?
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-
-                    Row(
+                    )
+                        :
+                    _userBzz.length == 4 ?
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-
-                        _nanoBzLogo(context, _userBzz[0]),
-
-                        _nanoBzLogo(context, _userBzz[1]),
-
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            _nanoBzLogo(context, _userBzz[0]),
+                            _nanoBzLogo(context, _userBzz[1]),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            _nanoBzLogo(context, _userBzz[2]),
+                            _nanoBzLogo(context, _userBzz[3]),
+                          ],
+                        ),
                       ],
-                    ),
-
-                    Row(
+                    )
+                        :
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-
-                        _nanoBzLogo(context, _userBzz[2]),
-
-                        _nanoBzLogo(context, _userBzz[3]),
-
-                      ],
-                    ),
-
-                  ],
-                )
-                    :
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-
-                        _nanoBzLogo(context, _userBzz[0]),
-
-                        _nanoBzLogo(context, _userBzz[1]),
-
-                      ],
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-
-                        _nanoBzLogo(context, _userBzz[2]),
-
-                        DreamBox(
-                          height: _circleWidth * 0.47,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            _nanoBzLogo(context, _userBzz[0]),
+                            _nanoBzLogo(context, _userBzz[1]),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            _nanoBzLogo(context, _userBzz[2]),
+                            DreamBox(
+                              height: _circleWidth * 0.47,
                           width: _circleWidth * 0.47,
                           verse: '+${(_userBzz.length - 3)}',
                           verseWeight: VerseWeight.thin,
-                          verseScaleFactor: 0.35,
-                          bubble: false,
-                          onTap: onTap,
+                              verseScaleFactor: 0.35,
+                              bubble: false,
+                              onTap: onTap,
+                            ),
+                          ],
                         ),
-
                       ],
-                    ),
-
-                  ],
-                )
-
-              ),
+                    )
+                ),
 
               /// --- BUTTON TEXT
               if (barType == BarType.maxWithText || barType == BarType.minWithText)
