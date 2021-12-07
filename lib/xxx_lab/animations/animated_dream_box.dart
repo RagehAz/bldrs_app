@@ -144,7 +144,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
         Opacity(
           opacity: widget.inActiveMode == true ? 0.5 : widget.opacity,
           child: Padding(
-            padding: widget.boxMargins ?? const EdgeInsets.all(0),
+            padding: widget.boxMargins ?? EdgeInsets.zero,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
