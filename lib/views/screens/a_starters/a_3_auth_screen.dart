@@ -73,15 +73,15 @@ class _AuthScreenState extends State<AuthScreen> {
 
               // Stratosphere(heightFactor: 0.5,),
 
-              signingIn == true ?
+              if (signingIn == true)
               SignInForm(
                 switchSignIn: _switchSignIn,
                 email: _email,
                 password: _password,
                 fieldOnTap: (double keyboardHeight) => moveScreen(keyboardHeight),
-              )
-                  :
-              // REGISTER NEW ACCOUNT
+              ),
+
+              if (signingIn == false)
               RegisterForm(
                 switchSignIn: _switchSignIn,
                 email: _email,

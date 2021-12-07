@@ -76,7 +76,7 @@ class CenterDialog extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static double dialogHeight({BuildContext context, double heightOverride}){
     final double _screenHeight = Scale.superScreenHeight(context);
-    final double _height = heightOverride == null ? _screenHeight * 0.4 : heightOverride;
+    final double _height = heightOverride ?? _screenHeight * 0.4;
     return _height;
   }
 // -----------------------------------------------------------------------------

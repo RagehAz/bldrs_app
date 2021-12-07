@@ -49,7 +49,7 @@ Widget build(BuildContext context) {
 
   return Builder(
     builder: (BuildContext context) => GestureDetector(
-      onTap: onTap == null ? () => _changeSection(context) : onTap,
+      onTap: onTap ?? () => _changeSection(context),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

@@ -1353,10 +1353,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     else {
 
-      final ReviewModel _review = review != null ?
-      review
-          :
-      ReviewModel(
+      final ReviewModel _review =
+          review ??
+          ReviewModel(
         body: _superFlyer.rec.reviewController.text,
         userID: FireAuthOps.superUserID(),
         time: DateTime.now(),

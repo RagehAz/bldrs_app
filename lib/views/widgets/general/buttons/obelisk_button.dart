@@ -22,7 +22,7 @@ class ObeliskButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final Color _color = color == null ? Colorz.black125 : color;
+    final Color _color = color ?? Colorz.black125;
 
     return MainButton(
       buttonVerse: title,

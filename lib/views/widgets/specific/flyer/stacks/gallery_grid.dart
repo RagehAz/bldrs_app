@@ -95,7 +95,7 @@ class GalleryGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final List<FlyerModel> _gridFlyers = galleryFlyers == null ? <FlyerModel>[] : galleryFlyers;//pro.getAllFlyers;
+    final List<FlyerModel> _gridFlyers = galleryFlyers ?? <FlyerModel>[];
     final bool _viewerIsAuthor = _concludeUserIsAuthor();
 // -----------------------------------------------------------------------------
     final int _flyersLength = addButtonIsOn == true ? _gridFlyers.length + 1 : _gridFlyers.length;

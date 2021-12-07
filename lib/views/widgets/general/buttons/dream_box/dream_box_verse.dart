@@ -1,14 +1,13 @@
 import 'dart:io';
+
 import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
-import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/loading/loading.dart';
+import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box_icon.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:websafe_svg/websafe_svg.dart';
 
 class DreamBoxIconVerseSecondLine extends StatelessWidget {
   final String verse;
@@ -143,12 +142,9 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // ---------------------------------------------------------
-    final TextDirection _textDirection = textDirection == null ?
-    superTextDirection(context)
-        :
-    textDirection;
+    final TextDirection _textDirection = textDirection ?? superTextDirection(context);
 // ---------------------------------------------------------
-    final double _svgGraphicWidth = height * iconSizeFactor;
+//     final double _svgGraphicWidth = height * iconSizeFactor;
     final double _jpgGraphicWidth = height * iconSizeFactor;
 // ---------------------------------------------------------
     final double _graphicWidth = DreamBox.graphicWidth(
@@ -219,140 +215,25 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                     alignment: Alignment.center,
                     children: <Widget>[
 
-                      loading == true ?
-                      Container(
-                        width: _jpgGraphicWidth,
-                        height: _jpgGraphicWidth,
-                        child: Loading(loading: loading,),
-                      )
-                          :
-                      iconFile != null ?
-                      Container(
-                        width: _jpgGraphicWidth,
-                        height: _jpgGraphicWidth,
-                        margin: EdgeInsets.all(iconMargin),
-                        decoration: BoxDecoration(
-                            borderRadius: iconCorners,
-                            boxShadow: <BoxShadow>[
-                              Shadowz.CustomBoxShadow(
-                                  color: bubble == true ? Colorz.black200 : Colorz.nothing,
-                                  offset: new Offset(0, _jpgGraphicWidth * -0.019 ),
-                                  blurRadius: _jpgGraphicWidth * 0.2,
-                                  blurStyle: BlurStyle.outer),
-                            ]
-                        ),
-                        child: ClipRRect(
-                          borderRadius: iconCorners,
-                          child: ColorFiltered(
-                            colorFilter: ColorFilter.mode(
-                                imageSaturationColor,
-                                BlendMode.saturation),
-                            child: Container(
-                              width: _jpgGraphicWidth,
-                              height: _jpgGraphicWidth,
-                              decoration: BoxDecoration(
-                                borderRadius: iconCorners,
-                                image: DecorationImage(image: FileImage(iconFile), fit: BoxFit.cover),
-                              ),
-                            ),
-                          ),),
-                      )
-                          :
-                      icon == null || icon == '' ?
-                      Container()
-                          :
-                      ObjectChecker.objectIsSVG(icon) ?
-                      Padding(
-                        padding: EdgeInsets.all(iconMargin),
-                        child: WebsafeSvg.asset(icon, color: iconColor, height: _svgGraphicWidth, fit: BoxFit.cover),
-                      )
-                          :
-                      ObjectChecker.objectIsJPGorPNG(icon) ?
-                      Container(
-                        width: _jpgGraphicWidth,
-                        height: _jpgGraphicWidth,
-                        margin: EdgeInsets.all(iconMargin),
-                        decoration: BoxDecoration(
-                            borderRadius: iconCorners,
-                            boxShadow: <BoxShadow>[
-                              Shadowz.CustomBoxShadow(
-                                  color: bubble == true ? Colorz.black200 : Colorz.nothing,
-                                  offset: new Offset(0,
-                                      _jpgGraphicWidth * -0.019 ),
-                                  blurRadius:
-                                  _jpgGraphicWidth * 0.2,
-                                  blurStyle: BlurStyle.outer),
-                            ]
-                        ),
-                        child: ClipRRect(
-                          borderRadius: iconCorners,
-                          child: ColorFiltered(
-                            colorFilter: ColorFilter.mode(
-                                imageSaturationColor,
-                                BlendMode.saturation),
-                            child: Container(
-                              width:
-                              _jpgGraphicWidth,
-                              height:
-                              _jpgGraphicWidth,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(image: AssetImage(icon), fit: BoxFit.cover),
-                              ),
-                              child: Image.asset(
-                                icon,
-                                errorBuilder: (BuildContext ctx, Object error, StackTrace stackTrace){
-
-                                  print('error of image is : ${error}');
-
-                                  return  Container();
-                                },
-                              ),
-                            ),
-                          ),),
-                      )
-                          :
-                      ObjectChecker.objectIsURL(icon) ? /// WORK WITH FILE
-                      Container(
-                        width:
-                        _jpgGraphicWidth,
-                        height:
-                        _jpgGraphicWidth,
-                        margin: EdgeInsets.all(iconMargin),
-                        decoration: BoxDecoration(
-                            borderRadius: iconCorners,
-                            boxShadow: <BoxShadow>[
-                              Shadowz.CustomBoxShadow(
-                                  color: bubble == true ? Colorz.black200 : Colorz.nothing,
-                                  offset: new Offset(0,
-                                      _jpgGraphicWidth * -0.019 ),
-                                  blurRadius:
-                                  _jpgGraphicWidth * 0.2,
-                                  blurStyle: BlurStyle.outer),
-                            ]
-                        ),
-                        child: ClipRRect(
-                          borderRadius: iconCorners,
-                          child: ColorFiltered(
-                            colorFilter: ColorFilter.mode(
-                                imageSaturationColor,
-                                BlendMode.saturation),
-                            child: Container(
-                              width:
-                              _jpgGraphicWidth,
-                              height:
-                              _jpgGraphicWidth,
-                              decoration: BoxDecoration(
-                                borderRadius: iconCorners,
-                                image: DecorationImage(image: NetworkImage(icon), fit: BoxFit.cover),
-                              ),
-                            ),
-                          ),),
-                      )
-                          :
-                      Container(),
+                      DreamBoxIcon(
+                        verse: verse,
+                        textDirection: textDirection,
+                        icon: icon,
+                        loading: loading,
+                        height: height,
+                        width: width,
+                        iconCorners: iconCorners,
+                        iconFile: iconFile,
+                        iconMargin: iconMargin,
+                        imageSaturationColor: imageSaturationColor,
+                        bubble: bubble,
+                        iconColor: iconColor,
+                        iconSizeFactor: iconSizeFactor,
+                        verseWeight: verseWeight,
+                      ),
 
                       /// --- BUTTON BLACK LAYER IF GREYED OUT
-                      blackAndWhite == true && icon != null && ObjectChecker.fileExtensionOf(icon) != 'svg'?
+                      if (blackAndWhite == true && icon != null && ObjectChecker.fileExtensionOf(icon) != 'svg')
                       Container(
                         height:
                         _jpgGraphicWidth,
@@ -367,13 +248,13 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                               colors: <Color>[Colorz.black80, Colorz.black125],
                               stops: <double>[0.5, 1]),
                         ),
-                      ) : Container(),
+                      ),
 
                     ],
                   ),
                 ),
 
-                // /// --- THE UnderLine foorprint
+                // /// --- THE UnderLine foortrint
                 // if (underLine != null)
                 // Container(
                 //   width: width,

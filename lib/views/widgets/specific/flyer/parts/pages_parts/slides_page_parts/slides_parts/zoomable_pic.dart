@@ -109,7 +109,9 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
         // onInteractionUpdate: (ScaleUpdateDetails scaleUpdateDetails){
         //   print('scaleUpdateDetails : $scaleUpdateDetails');
         //   },
-        child: widget.child == null ? Container() : widget.child,
+
+        child: widget.child ?? Container(),
+
       ),
     );
   }

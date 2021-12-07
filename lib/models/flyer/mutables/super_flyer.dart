@@ -304,7 +304,7 @@ class SuperFlyer{
     @required CityModel flyerCity,
   }){
 
-    final int _initialPage = initialPage == null ? 0 : initialPage;
+    final int _initialPage = initialPage ?? 0;
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);

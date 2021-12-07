@@ -142,7 +142,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
         Opacity(
           opacity: widget.inActiveMode == true ? 0.5 : widget.opacity,
           child: Padding(
-            padding: widget.boxMargins == null ? const EdgeInsets.all(0) : widget.boxMargins,
+            padding: widget.boxMargins ?? const EdgeInsets.all(0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -172,7 +172,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                       alignment: Alignment.center,
                       children: <Widget>[
 
-                        widget.dreamChild == null ? Container() :
+                        if (widget.dreamChild != null)
                         AnimatedContainer(
                           duration: widget.duration,
                           curve: Curves.easeInOutQuint,
@@ -193,7 +193,8 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                             Stack(
                               alignment: Alignment.center,
                               children: <Widget>[
-                                widget.iconFile != null ?
+
+                                if (widget.iconFile != null)
                                 AnimatedContainer(
                                   duration: widget.duration,
                                   curve: Curves.easeInOutQuint,
@@ -226,19 +227,22 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                         ),
                                       ),
                                     ),),
-                                ) :
-                                widget.icon == null || widget.icon == '' ?
-                                Container()
-                                    :
-                                ObjectChecker.fileExtensionOf(widget.icon) == 'svg' ?
+                                ),
+
+                                if (widget.icon == null || widget.icon == '')
+                                Container(),
+
+                                if (ObjectChecker.fileExtensionOf(widget.icon) == 'svg')
                                 Padding(
                                   padding: EdgeInsets.all(iconMargin),
                                   child: ClipRRect(
                                       borderRadius: BorderRadius.all(Radius.circular(iconCorners)),
                                       child: WebsafeSvg.asset(widget.icon, color: _iconColor, height: svgGraphicWidth, fit: BoxFit.cover)),
-                                )
-                                    :
-                                ObjectChecker.fileExtensionOf(widget.icon) == 'jpg' || ObjectChecker.fileExtensionOf(widget.icon) == 'jpeg' || ObjectChecker.fileExtensionOf(widget.icon) == 'png' ?
+                                ),
+
+                                if (ObjectChecker.fileExtensionOf(widget.icon) == 'jpg' ||
+                                    ObjectChecker.fileExtensionOf(widget.icon) == 'jpeg' ||
+                                    ObjectChecker.fileExtensionOf(widget.icon) == 'png')
                                 AnimatedContainer(
                                   duration: widget.duration,
                                   curve: Curves.easeInOutQuint,
@@ -271,11 +275,10 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                         ),
                                       ),
                                     ),),
-                                ) :
-                                Container(),
+                                ),
 
                                 /// --- BUTTON BLACK LAYER IF GREYED OUT
-                                widget.blackAndWhite == true && widget.icon != null && ObjectChecker.fileExtensionOf(widget.icon) != 'svg'?
+                                if (widget.blackAndWhite == true && widget.icon != null && ObjectChecker.fileExtensionOf(widget.icon) != 'svg')
                                 AnimatedContainer(
                                   duration: widget.duration,
                                   curve: Curves.easeInOutQuint,
@@ -290,7 +293,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                         colors: <Color>[Colorz.black80, Colorz.black125],
                                         stops: <double>[0.5, 1]),
                                   ),
-                                ) : Container(),
+                                ),
 
                               ],
                             ),
@@ -302,7 +305,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                             ),
 
                             /// VERSE
-                            widget.verse == null ? Container() :
+                            if (widget.verse != null)
                             AnimatedContainer(
                               duration: widget.duration,
                               curve: Curves.easeInOutQuint,
@@ -313,6 +316,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: widget.icon == null ? CrossAxisAlignment.center : CrossAxisAlignment.start,
                                 children: <Widget>[
+
                                   SuperVerse(
                                     verse: widget.verse,
                                     size: verseSize,
@@ -325,7 +329,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                     italic: widget.verseItalic,
                                   ),
 
-                                  widget.secondLine == null ? Container() :
+                                  if (widget.secondLine != null)
                                   SuperVerse(
                                     verse: widget.secondLine,
                                     weight: VerseWeight.regular,
@@ -334,6 +338,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                     shadow: true,
                                     centered: false,
                                   ),
+
                                 ],
                               ),
                             ),
@@ -347,7 +352,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                         ),
 
                         /// --- BOX HIGHLIGHT
-                        widget.bubble == false ? Container() :
+                        if (widget.bubble != false)
                         AnimatedContainer(
                           duration: widget.duration,
                           curve: Curves.easeInOutQuint,
@@ -367,7 +372,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                         ),
 
                         /// --- BOX GRADIENT
-                        widget.bubble == false ? Container() :
+                       if (widget.bubble != false)
                         AnimatedContainer(
                           duration: widget.duration,
                           curve: Curves.easeInOutQuint,
@@ -440,7 +445,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                 ),
 
                 /// --- THE UNDERLINE
-                widget.underLine == null ? Container() :
+                if (widget.underLine != null)
                 SuperVerse(
                   verse: widget.underLine,
                   color: widget.underLineColor,

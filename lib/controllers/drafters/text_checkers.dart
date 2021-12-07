@@ -220,3 +220,4 @@ import 'package:intl/intl.dart' as international;
 
     return _lingoCode;
   }
+// -----------------------------------------------------------------------------
