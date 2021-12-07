@@ -160,24 +160,23 @@ linter:
     avoid_type_to_string: true
     avoid_empty_else: true
     avoid_print: true
+    avoid_types_as_parameter_names: true
 
-
-    # Pending
-    diagnostic_describe_all_properties: false
-    avoid_types_as_parameter_names: false
+    # HONESTLY : I don't know how to fix these
     avoid_dynamic_calls: false
+    always_specify_types: false
+    unnecessary_raw_strings: false # raw strings, afraid to mess with reg ex
 
     # will come back to you later
-    always_specify_types: false
     avoid_annotating_with_dynamic: false # incompatible with always_specify_types
-    cascade_invocations: false
-    library_prefixes: false # FIRES 900 HINTS
-    unnecessary_raw_strings: false # raw strings, afraid to mess with reg ex
     use_string_buffers: false # mesh ader delwa2ty
     use_setters_to_change_properties: false # mesh fahem
     void_checks: false # need tests
 
-    # FALSE RULES : defiantly false rules
+    # JUST BEFORE RELEASE
+    diagnostic_describe_all_properties: false
+
+    # ----- FALSE RULES : defiantly false rules
     prefer_relative_imports: false
     avoid_types_on_closure_parameters: false # incompatible with always_specify_types
     omit_local_variable_types: false # incompatible with always_specify_types
@@ -194,8 +193,10 @@ linter:
     unnecessary_final: false # incompatible with prefer_final_locals, prefer_final_parameters
     unnecessary_lambdas: false # I like to see what is being passed through method refs
     sort_pub_dependencies: false # fakes
+    cascade_invocations: false # fakes
+    library_prefixes: false # fakes
 
-    # FALSE RULES : Experimental
+    # ----- FALSE RULES : Experimental
     use_build_context_synchronously: false
     cast_nullable_to_non_nullable: false
     no_default_cases: false

@@ -7,6 +7,7 @@ import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,18 @@ class FlyersGrid extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _FlyersGridState createState() => _FlyersGridState();
+  /// --------------------------------------------------------------------------
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(EnumProperty<Axis>('scrollDirection', scrollDirection));
+    properties.add(DiagnosticsProperty<bool>('scrollable', scrollable));
+    properties.add(DoubleProperty('gridZoneWidth', gridZoneWidth));
+    properties.add(IntProperty('numberOfColumns', numberOfColumns));
+    properties.add(IterableProperty<FlyerModel>('flyers', flyers));
+    properties.add(DiagnosticsProperty<bool>('stratosphere', stratosphere));
+  }
+  /// --------------------------------------------------------------------------
 }
 
 class _FlyersGridState extends State<FlyersGrid> {
@@ -147,5 +160,10 @@ class _FlyersGridState extends State<FlyersGrid> {
           ),
 
     );
+  }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IterableProperty<FlyerModel>('flyers', flyers));
   }
 }

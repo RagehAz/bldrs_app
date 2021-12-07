@@ -9,6 +9,7 @@ import 'package:bldrs/db/ldb/sembast/sembast.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SembastTestScreen extends StatefulWidget {
@@ -174,4 +175,12 @@ class SmallFuckingButton extends StatelessWidget {
     );
 
   }
+  /// --------------------------------------------------------------------------
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('verse', verse));
+    properties.add(DiagnosticsProperty<Function>('onTap', onTap));
+  }
+  /// --------------------------------------------------------------------------
 }
