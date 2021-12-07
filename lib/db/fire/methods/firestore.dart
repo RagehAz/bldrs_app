@@ -260,7 +260,7 @@ import 'package:flutter/material.dart';
     bool addDocsIDs = false,
   }) async {
 
-    final QueryDocumentSnapshot<Object> _startAfter = startAfter ?? null;
+    final QueryDocumentSnapshot<Object> _startAfter = startAfter;
 
     QuerySnapshot<Object> _collectionSnapshot;
 
@@ -453,7 +453,7 @@ import 'package:flutter/material.dart';
 
           QuerySnapshot<Object> _collectionSnapshot;
 
-          final QueryDocumentSnapshot<Object> _startAfter = startAfter ?? null;
+          final QueryDocumentSnapshot<Object> _startAfter = startAfter;
 
           if(_startAfter == null){
             _collectionSnapshot = await _subCollection.orderBy(orderBy).limit(limit).get();
@@ -534,7 +534,7 @@ import 'package:flutter/material.dart';
     if (field != null && compareValue != null){
       _snapshots = _collection
           .orderBy(orderBy, descending: descending)
-          .where('$field', isEqualTo: compareValue)
+          .where(field, isEqualTo: compareValue)
           .limit(10)
           .snapshots();
     }

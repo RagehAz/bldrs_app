@@ -15,7 +15,7 @@ class PropertyUse extends StatelessWidget {
 
     ///  ROW OF BUTTONS
     const double buttonSpacing = Ratioz.appBarMargin*2;
-    final double buttonsZoneWidth = (screenWidth - (Ratioz.appBarMargin * 12));
+    final double buttonsZoneWidth = screenWidth - (Ratioz.appBarMargin * 12);
 
     const int numberOfButtons = 2;
     final double rowButtonWidth = (buttonsZoneWidth - (numberOfButtons * buttonSpacing) - buttonSpacing) / numberOfButtons;

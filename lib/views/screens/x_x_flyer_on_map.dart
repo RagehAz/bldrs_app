@@ -58,7 +58,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   @override
   void initState(){
     super.initState();
-    location = new Location();
+    location = Location();
     getUserLocation();
     confirmButtonIsActive = true;
   }
@@ -72,7 +72,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     currentLocation = await location.getLocation();
     print('get location function finished aho and processing remaining functions');
     if (currentLocation == null) {
-      print("Counldn\'t get current User Location");
+      print("Counldn't get current User Location");
       return;
     }
     _initialCameraPosition = CameraPosition(

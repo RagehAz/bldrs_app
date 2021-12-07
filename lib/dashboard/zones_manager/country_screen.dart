@@ -141,7 +141,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           /// --- ISO3
           TileBubble(
-             verse: "$_countryName\'s ISO3 is : ( ${widget.country.id} )",
+             verse: "$_countryName's ISO3 is : ( ${widget.country.id} )",
              icon: Iconz.info,
            verseColor: Colorz.yellow255,
            iconBoxColor: Colorz.grey50,

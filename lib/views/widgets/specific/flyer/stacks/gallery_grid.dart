@@ -164,7 +164,7 @@ class GalleryGrid extends StatelessWidget {
                         flyerModel: _gridFlyers[index],
                         goesToEditor: true,
                         bzModel: bz,
-                        flyerKey: ValueKey<String>('${_gridFlyers[index].id}'),
+                        flyerKey: ValueKey<String>(_gridFlyers[index].id),
                         // initialSlideIndex: _gridFlyers[index].slideIndex,
                         onSwipeFlyer: (Sliders.SwipeDirection direction){
                           // print('Direction is ${direction}');

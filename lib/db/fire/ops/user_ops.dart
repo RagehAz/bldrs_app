@@ -230,7 +230,7 @@ import 'package:flutter/cupertino.dart';
 
     if (_userMap != null){
 
-      print("readUserOps : _userMap _userMap[\'userID\'] is : ${_userMap['id']}");
+      print("readUserOps : _userMap _userMap['userID'] is : ${_userMap['id']}");
       // print('lng : ${Wordz.languageCode(context)}');
 
       _user = _userMap == null ? null : UserModel.decipherUserMap(

@@ -38,7 +38,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
     super.initState();
     _title = Mapper.canLoopList(widget.swiperPages) ? widget.swiperPages[0]['title'] : '...';
 
-    _swiperController = new SwiperController();
+    _swiperController = SwiperController();
   }
 // -----------------------------------------------------------------------------
   @override

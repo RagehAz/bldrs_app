@@ -41,7 +41,7 @@ class CurrencyButton extends StatelessWidget {
 
           DreamBox(
             height: height,
-            width: width - (height),
+            width: width - height,
             color: Colorz.blackSemi255,
             icon: Flag.getFlagIconByCountryID(countryID.toLowerCase()),
             verse: currency.symbol,

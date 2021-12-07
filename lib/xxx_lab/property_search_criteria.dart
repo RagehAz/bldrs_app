@@ -110,7 +110,7 @@ class PropertySearchCriteria extends StatelessWidget {
                         boxShadow: <BoxShadow>[
                           Shadowz.CustomBoxShadow(
                               color: Colorz.white50,
-                              offset: new Offset(0, _boxWidth * -0.01),
+                              offset: Offset(0, _boxWidth * -0.01),
                               blurRadius: _boxHeight * 0.2),
                         ]
                     ),

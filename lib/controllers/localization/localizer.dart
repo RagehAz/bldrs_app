@@ -75,7 +75,7 @@ class Localizer{
         input: code,
       );
 
-      print("changed local language and firestore.user[\'language\']  updated to $code");
+      print("changed local language and firestore.user['language']  updated to $code");
     }
 
   }
@@ -200,7 +200,7 @@ class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {
 
   @override
   Future<Localizer> load(Locale locale) async{
-    final Localizer localization = new Localizer(locale);
+    final Localizer localization = Localizer(locale);
     await localization.load();
     return localization;
   }

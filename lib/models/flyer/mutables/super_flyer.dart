@@ -349,7 +349,7 @@ class SuperFlyer{
             followIsOn: _bzzProvider.checkFollow(context: context, bzID: flyerModel.bzID),
             onEditReview: onEditReview,
             onSubmitReview: onSubmitReview,
-            reviewController: new TextEditingController(),
+            reviewController: TextEditingController(),
             onShowReviewOptions: onShowReviewOptions,
 
         ),
@@ -548,7 +548,7 @@ class SuperFlyer{
         loading: false,
 
         /// editor data
-        infoController: new TextEditingController(),
+        infoController: TextEditingController(),
         screenShots: <Uint8List>[],
 
         /// slides settings
@@ -565,7 +565,7 @@ class SuperFlyer{
         flyerID: SuperFlyer.draftID,
         authorID: FireAuthOps.superUserID(),
         title: null,
-        titleController: new TextEditingController(),
+        titleController: TextEditingController(),
 
         /// flyer data
         flyerType: FlyerTypeClass.concludeFlyerType(bzModel.bzType),
@@ -717,7 +717,7 @@ class SuperFlyer{
         loading: false,
 
         /// editor data
-        infoController: new TextEditingController(text: flyerModel.info),
+        infoController: TextEditingController(text: flyerModel.info),
         // screenShots: await Imagers.getScreenShotsFromFiles(_assetsFiles),
 
         /// slides settings
@@ -734,7 +734,7 @@ class SuperFlyer{
         flyerID: flyerModel.id,
         authorID: FireAuthOps.superUserID(),
         title: flyerModel.title,
-        titleController: new TextEditingController(text: flyerModel.title),
+        titleController: TextEditingController(text: flyerModel.title),
 
         /// flyer data
         flyerType: flyerModel.flyerType,

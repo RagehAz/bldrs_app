@@ -377,7 +377,7 @@ class TweenTest extends StatelessWidget {
           return Opacity(
             opacity: _val,
             child: Padding(
-              padding: EdgeInsets.only(top: (_val * 100)),
+              padding: EdgeInsets.only(top: _val * 100),
               child: child,
             ),
           );

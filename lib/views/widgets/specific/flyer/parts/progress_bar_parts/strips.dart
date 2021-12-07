@@ -105,7 +105,7 @@ class Strips extends StatelessWidget {
   static double oneStripLength({double flyerBoxWidth, int numberOfStrips}){
     final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
     final int _numberOfStrips = numberOfStrips ?? 0;
-    final double _oneStripLength = (_stripsTotalLength / _numberOfStrips);
+    final double _oneStripLength = _stripsTotalLength / _numberOfStrips;
     return _oneStripLength;
   }
 // -----------------------------------------------------------------------------

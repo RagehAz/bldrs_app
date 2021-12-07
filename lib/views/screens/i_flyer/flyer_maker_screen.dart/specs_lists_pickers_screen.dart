@@ -76,7 +76,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _scrollController = new ScrollController();
+    _scrollController = ScrollController();
 
     // _animationController = AnimationController(
     //   duration: const Duration(seconds: 1),

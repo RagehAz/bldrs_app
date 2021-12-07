@@ -29,7 +29,7 @@ import 'package:flutter/material.dart';
           _separatedNumberWithoutFractions.write(_digits[i]);
 
           if (i < _maxDigitIndex && (_maxDigitIndex - i) % 3 == 0){
-            _separatedNumberWithoutFractions.write("\'");
+            _separatedNumberWithoutFractions.write("'");
           }
 
         }
@@ -59,7 +59,7 @@ import 'package:flutter/material.dart';
       _resultStringBuffer.write(_digits[i]);
 
       if (i < maxDigitIndex && (maxDigitIndex - i) % 3 == 0){
-        _resultStringBuffer.write("\'");
+        _resultStringBuffer.write("'");
       }
 
     }
@@ -99,7 +99,7 @@ import 'package:flutter/material.dart';
       }
 
       else {
-        _stringOfCalibratedNumber = '${x.toStringAsFixed(0)}';
+        _stringOfCalibratedNumber = x.toStringAsFixed(0);
       }
 
     }
@@ -136,12 +136,12 @@ import 'package:flutter/material.dart';
   }
 // -----------------------------------------------------------------------------
   int createRandomIndex({int listLength}){
-    final Random _random = new Random();
+    final Random _random = Random();
     return _random.nextInt(listLength);
   }
 // -----------------------------------------------------------------------------
   int createUniqueIndex({@required List<int> existingIndexes, int maxIndex = 999999}) {
-    final Random _random = new Random();
+    final Random _random = Random();
 
     /// from 0 up to 999'999 included
     int _randomNumber = _random.nextInt(maxIndex+1);

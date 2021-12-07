@@ -4,8 +4,8 @@ class PlanningTalkingBalloon extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final Path path = Path();
-    final double _x = (size.width / 50);
-    final double _y = (size.height / 50);
+    final double _x = size.width / 50;
+    final double _y = size.height / 50;
     path.lineTo(0 * _x,50 * _y);
     path.cubicTo(5.55 * _x,47.5 * _y,11.82 * _x,47.11 * _y,17.64 * _x,48.9 * _y,);
     path.cubicTo(36.03 * _x,54.57 * _y,53.67 * _x,38.21 * _y,49.38 * _x,19.48 * _y,);

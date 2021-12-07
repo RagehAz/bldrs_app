@@ -151,7 +151,7 @@ class TopFlyersStack extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
-              itemExtent: (flyerWidth + gridSpacing),
+              itemExtent: flyerWidth + gridSpacing,
 
               children: <Widget>[
                 for (int index = 0; index < gridLoopLength; index++)

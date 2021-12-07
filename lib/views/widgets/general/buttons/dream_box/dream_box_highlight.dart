@@ -27,7 +27,7 @@ class DreamBoxHighlight extends StatelessWidget {
           boxShadow: <BoxShadow>[
             Shadowz.CustomBoxShadow(
                 color: Colorz.white50,
-                offset: new Offset(0, height * -0.33),
+                offset: Offset(0, height * -0.33),
                 blurRadius: height * 0.2
             ),
           ]
