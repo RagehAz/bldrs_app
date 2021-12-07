@@ -44,7 +44,7 @@ class DreamBoxUnderLine extends StatelessWidget {
         children: <Widget>[
 
           /// ICON footprint
-          Container(
+          SizedBox(
             width: width,
             height: _underLineTopMargin,
             // color: Colorz.BloodTest,

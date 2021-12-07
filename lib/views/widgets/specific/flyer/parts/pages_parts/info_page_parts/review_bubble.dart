@@ -151,7 +151,7 @@ class _ReviewBubbleState extends State<ReviewBubble> {
         ),
 
         /// bottom spaced
-        Container(
+        SizedBox(
           width: _bubbleWidth,
           height: _cornerBig - Ratioz.appBarMargin,
         ),
@@ -184,7 +184,7 @@ class ReviewsStreamBubbles extends StatelessWidget {
 
     final int _length = reviews?.length ?? 0;
 
-    return Container(
+    return SizedBox(
       width: bubbleWidth,
       child: Column(
 

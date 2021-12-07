@@ -155,7 +155,7 @@ class Bubble extends StatelessWidget {
 
                       /// --- ACTION BUTTON
                       if(centered == true && actionBtIcon !=null)
-                          Container(
+                          SizedBox(
                             height: _actionBtSize,
                             width: _actionBtSize,
                           ),

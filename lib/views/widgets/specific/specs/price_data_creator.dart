@@ -52,7 +52,7 @@ class PriceDataCreator extends StatefulWidget {
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
-      child: Container(
+      child: SizedBox(
         width: _clearWidth,
         height: BottomDialog.dialogClearHeight(context: context, draggable: true),
         child: Column(
@@ -92,7 +92,7 @@ class PriceDataCreator extends StatefulWidget {
                 await BottomDialog.showBottomDialog(
                   context: context,
                   draggable: true,
-                  child: Container(
+                  child: SizedBox(
                     width: _clearWidth,
                     height: BottomDialog.dialogClearHeight(context: context, draggable: true),
                     child: MaxBounceNavigator(

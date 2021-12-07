@@ -204,7 +204,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
 
           const TweenTest(),
 
-          Container(
+          SizedBox(
             width: 300,
             height: 300,
             child: Hero(
@@ -399,7 +399,7 @@ class HeroMax extends StatelessWidget {
     return MainLayout(
       pyramids: Iconz.pyramidzYellow,
       layoutWidget: Center(
-        child: Container(
+        child: SizedBox(
           width: 400,
           height: 300,
           child: Hero(

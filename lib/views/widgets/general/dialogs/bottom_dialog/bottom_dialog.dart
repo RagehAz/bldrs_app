@@ -189,7 +189,7 @@ class BottomDialog extends StatelessWidget {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext bCtx){
-          return Container(
+          return SizedBox(
             height: _height,
             width: Scale.superScreenWidth(context),
             child: Scaffold(
@@ -252,7 +252,7 @@ class BottomDialog extends StatelessWidget {
       elevation: 20,
       isScrollControlled: true,
       context: context,
-      builder: (BuildContext context) => Container(
+      builder: (BuildContext context) => SizedBox(
         height: _height,
         width: Scale.superScreenWidth(context),
         child: Scaffold(
@@ -337,7 +337,7 @@ class BottomDialog extends StatelessWidget {
         context: context,
         draggable: true,
         height: _overridingDialogHeight,
-        child: Container(
+        child: SizedBox(
           width: _clearWidth,
           height: _clearHeight,
           // color: Colorz.BloodTest,
@@ -433,7 +433,7 @@ class BottomDialog extends StatelessWidget {
           ),
 
           /// --- DIALOG CONTENTS
-          Container(
+          SizedBox(
             width: _dialogWidth,
             height: _dialogHeight,
             child: Column(

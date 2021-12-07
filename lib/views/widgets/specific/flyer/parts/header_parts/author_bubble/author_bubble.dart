@@ -115,7 +115,7 @@ class AuthorBubble extends StatelessWidget {
           ),
 
           /// AUTHORS ROW
-          Container(
+          SizedBox(
             width: flyerBoxWidth - (2 * Ratioz.appBarMargin),
             height: flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth,
             child: ListView(

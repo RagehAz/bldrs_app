@@ -23,7 +23,7 @@ class Continents extends StatelessWidget {
 
             const Sky(skyType: SkyType.black,),
 
-            Container(
+            SizedBox(
               width: screenWidth,
               height: screenHeight,
               child: Column(

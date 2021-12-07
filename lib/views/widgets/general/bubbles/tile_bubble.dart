@@ -128,7 +128,7 @@ class TileBubble extends StatelessWidget {
             const Expander(),
 
             if (switchIsOn != null)
-            Container(
+            SizedBox(
               width: _switchButtonWidth,
               height: 35,
               child: Switch(
@@ -155,7 +155,7 @@ class TileBubble extends StatelessWidget {
         ),
 
         if (child != null)
-        Container(
+        SizedBox(
           width: Bubble.bubbleWidth(context: context, stretchy: false),
           // height: 200,
           // padding: const EdgeInsets.symmetric(horizontal: 5),

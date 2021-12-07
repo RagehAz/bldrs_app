@@ -235,7 +235,7 @@ class BldrsAppBar extends StatelessWidget {
               ),
 
               /// APP BAR CONTENTS
-              Container(
+              SizedBox(
                 width: _abWidth,
                 height: _abHeight,
                 // color: Colorz.BabyBlueSmoke,

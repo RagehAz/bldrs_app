@@ -82,7 +82,7 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
               color: _buttonColor,
             ),
 
-            Container(
+            SizedBox(
               width: Scale.getUniformRowItemWidth(context, 3),
               height: 50,
               // decoration: BoxDecoration(
@@ -102,7 +102,7 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
                     bubble: false,
                   ),
 
-                  Container(
+                  SizedBox(
                     height: 20,
                     child: SuperVerse(
                       verse: verse,
@@ -129,7 +129,7 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
     const double _tabsHeight = 50;
     final double _bodyHeight =  _clearHeight - _tabsHeight;
 
-    return Container(
+    return SizedBox(
       width: _clearWidth,
       height: _clearHeight,
       // color: Colorz.Yellow80,
@@ -138,7 +138,7 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
         children: <Widget>[
 
           /// TABS
-          Container(
+          SizedBox(
             width: _clearWidth,
             height: 50,
             // color: Colorz.Blue125,
@@ -175,7 +175,7 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
           ),
 
           /// TINY USERS
-          Container(
+          SizedBox(
             width: _clearWidth,
             height: _bodyHeight,
             // color: Colorz.BloodTest,

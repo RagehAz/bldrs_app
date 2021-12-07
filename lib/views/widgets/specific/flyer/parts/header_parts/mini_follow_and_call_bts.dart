@@ -48,7 +48,7 @@ class FollowAndCallBTs extends StatelessWidget {
 // -----------------------------------------------------------------------------
     return
       superFlyer.nav.bzPageIsOn == true ? Container () :
-      Container(
+      SizedBox(
         height: followGalleryHeight,
         width: followGalleryWidth,
         child: Column(
@@ -161,7 +161,7 @@ class FollowBT extends StatelessWidget {
                 children: <Widget>[
 
                   /// FOLLOW ICON
-                  Container(
+                  SizedBox(
                     height: followIconHeight,
                     width: followIconWidth,
                     child: WebsafeSvg.asset(followIcon, color: followOn == true ? Colorz.black230 : Colorz.white255),

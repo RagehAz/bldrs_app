@@ -104,7 +104,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
 
                   const Stratosphere(),
 
-                  Container(
+                  SizedBox(
                     width: _screenWidth,
                     height: _pageHeight,
                     child: widget.swiperPages[index]['widget'],

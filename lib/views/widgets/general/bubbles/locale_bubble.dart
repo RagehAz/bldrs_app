@@ -328,7 +328,7 @@ class LocaleButton extends StatelessWidget {
         children: <Widget>[
 
           /// TITLE
-          Container(
+          SizedBox(
             width: _buttonWidth,
             child: SuperVerse(
               verse: title,

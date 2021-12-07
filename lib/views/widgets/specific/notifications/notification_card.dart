@@ -78,7 +78,7 @@ class NotificationCard extends StatelessWidget {
                 ),
 
                 /// NOTIFICATION CONTENT
-                Container(
+                SizedBox(
                   width: _bodyWidth,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +137,7 @@ class NotificationCard extends StatelessWidget {
 
                       /// BUTTONS
                       if(notiModel.attachmentType == NotiAttachmentType.buttons && notiModel.attachment is List<String>)
-                        Container(
+                        SizedBox(
                           width: _bodyWidth,
                           height: 70,
                           child: Row(

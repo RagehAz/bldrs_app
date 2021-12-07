@@ -164,7 +164,7 @@ class DashboardUserButton extends StatelessWidget {
                       }
                   ),
 
-                  Container(
+                  SizedBox(
                       width: _clearDialogWidth,
                       height: 100,
                       child: Row(
