@@ -417,9 +417,7 @@ import 'package:sembast/utils/value_utils.dart';
     if (canLoopList(dynamics)){
 
       for (final dynamic map in dynamics){
-
         _maps.add(map);
-
       }
 
     }

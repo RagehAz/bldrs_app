@@ -44,16 +44,14 @@ class BzLogo extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final double logoZeroCorner = tinyMode == true || zeroCornerIsOn == false ? logoRoundCorners : 0;
 // -----------------------------------------------------------------------------
-    final BorderRadius bzLogoCorners = corners == null ?
-    Borderers.superBorderOnly(
-        context: context,
-        enTopLeft: logoRoundCorners,
-        enBottomLeft: logoRoundCorners,
-        enBottomRight: logoZeroCorner,
-        enTopRight: logoRoundCorners)
-    :
-    corners
-    ;
+    final BorderRadius bzLogoCorners =
+        corners ??
+            Borderers.superBorderOnly(
+                context: context,
+                enTopLeft: logoRoundCorners,
+                enBottomLeft: logoRoundCorners,
+                enBottomRight: logoZeroCorner,
+                enTopRight: logoRoundCorners);
 // -----------------------------------------------------------------------------
 
 

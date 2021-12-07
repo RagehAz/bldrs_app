@@ -41,7 +41,7 @@ FieldValue ++
 
     try {
 
-      final Map<String, dynamic> _arguments = toDBMap == null ? <String, dynamic>{} : toDBMap;
+      final Map<String, dynamic> _arguments = toDBMap ?? <String, dynamic>{};
 
       final HttpsCallableResult _result = await _function.call(_arguments);
 

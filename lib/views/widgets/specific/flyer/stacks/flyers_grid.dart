@@ -43,7 +43,7 @@ class _FlyersGridState extends State<FlyersGrid> {
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
     // savedFlyers = await pro.getSavedFlyers;
-    flyers = widget.flyers == null ? _flyersProvider.savedFlyers : widget.flyers;
+    flyers = widget.flyers ?? _flyersProvider.savedFlyers;
   }
 // -----------------------------------------------------------------------------
 //   @override

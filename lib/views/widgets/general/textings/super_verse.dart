@@ -127,7 +127,7 @@ class SuperVerse extends StatelessWidget {
       const Color _boxColor = Colorz.nothing;
       final String _verseFont = superVerseFont(context, weight);
       final FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
-      final double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
+      final double _scalingFactor = scaleFactor ?? 1;
       final double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
       final double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
       final double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
@@ -401,7 +401,7 @@ class SuperVerse extends StatelessWidget {
 
     // const Color _boxColor = Colorz.Nothing;
     // const double verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
-    final double _scalingFactor = scaleFactor == null ? 1: scaleFactor;
+    final double _scalingFactor = scaleFactor ?? 1;
     /// takes values from 0 to 8 in the entire app
     final double verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
     /// --- AVAILABLE FONT WEIGHTS -----------------------------------------------
@@ -422,7 +422,7 @@ class SuperVerse extends StatelessWidget {
     /// --- ITALIC -----------------------------------------------
     // FontStyle verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
     /// --- VERSE BOX MARGIN -----------------------------------------------
-    final double _margin = margin == null ? 0 : margin;
+    final double _margin = margin ?? 0;
     /// --- LABEL -----------------------------------------------
     final double _labelCornerValues = superVerseLabelCornerValue(context, size);
     final double _labelCorner = labelColor == null ? 0 : _labelCornerValues;

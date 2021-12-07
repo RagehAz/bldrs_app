@@ -58,7 +58,7 @@ class CheckBox extends StatelessWidget {
                 alignment: Alignment.center,
                 children: <Widget>[
 
-                  // --- CHECKBOX OVAL HIGHLIGHT
+                  /// --- CHECKBOX OVAL HIGHLIGHT
                   Container(
                     width: 2 * checkBoxRadius * btOvalSizeFactor,
                     height: 1.4 * checkBoxRadius* btOvalSizeFactor,
@@ -76,7 +76,7 @@ class CheckBox extends StatelessWidget {
                     ),
                   ),
 
-                  // --- CHECKBOX GRADIENT
+                  /// --- CHECKBOX GRADIENT
                   Container(
                     width: checkBoxRadius * 2,
                     height: checkBoxRadius * 2,
@@ -92,7 +92,7 @@ class CheckBox extends StatelessWidget {
                     ),
                   ),
 
-                  checkBoxIsOn == false ? Container() :
+                  if (checkBoxIsOn != false)
                   Container(
                         width: checkBoxRadius * 1.25,
                         height: checkBoxRadius * 1.25,

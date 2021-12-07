@@ -121,3 +121,30 @@ TextDirection superTextDirectionSwitcher(String val){
   return _textDirection;
 }
 // -----------------------------------------------------------------------------
+TextDirection concludeTextDirection({
+  @required BuildContext context,
+  @required TextDirection definedDirection,
+  @required TextDirection detectedDirection,
+
+}){
+
+  TextDirection _concludedTextDirection;
+
+  /// when definedDirection is already defined, it overrides all
+  if (definedDirection != null){
+    _concludedTextDirection = definedDirection;
+  }
+  /// when it is not defined outside, and detectedDirection hadn't changed yet we
+  /// use default superTextDirection that detects current app language
+  else if (detectedDirection == null){
+    _concludedTextDirection = superTextDirection(context);
+  }
+  /// so otherwise we use detectedDirection that auto detects current input
+  /// language
+  else {
+    _concludedTextDirection = detectedDirection;
+  }
+
+  return _concludedTextDirection;
+}
+// -----------------------------------------------------------------------------

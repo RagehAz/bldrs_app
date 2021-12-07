@@ -205,7 +205,7 @@ class DreamBox extends StatelessWidget {
       colorOverride: iconColor,
     );
 // -----------------------------------------------------------------------------
-    final TextDirection _textDirection = textDirection == null ? superTextDirection(context) : textDirection;
+    final TextDirection _textDirection = textDirection ?? superTextDirection(context);
 // -----------------------------------------------------------------------------
     final EdgeInsets _boxMargins = Scale.superMargins(margins : margins);
 // -----------------------------------------------------------------------------

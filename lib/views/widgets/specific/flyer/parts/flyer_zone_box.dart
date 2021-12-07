@@ -202,7 +202,7 @@ class FlyerBox extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: Stack(
                     alignment: Alignment.topCenter,
-                    children: stackWidgets == null ? <Widget>[] : stackWidgets,
+                    children: stackWidgets ?? <Widget>[],
                   ),
                 ),
 
