@@ -679,15 +679,6 @@ class AuditorButton extends StatelessWidget {
   final Function onTap;
   /// --------------------------------------------------------------------------
   @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<String>('verse', verse));
-    properties.add(DiagnosticsProperty<Color>('color', color));
-    properties.add(DiagnosticsProperty<String>('icon', icon));
-    properties.add(DiagnosticsProperty<Function>('onTap', onTap));
-  }
-
-  @override
   Widget build(BuildContext context) {
 
     const int _numberOfItems = 2;
@@ -705,4 +696,14 @@ class AuditorButton extends StatelessWidget {
       color: color,
     );
   }
+  /// --------------------------------------------------------------------------
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<String>('verse', verse));
+    properties.add(DiagnosticsProperty<Color>('color', color));
+    properties.add(DiagnosticsProperty<String>('icon', icon));
+    properties.add(DiagnosticsProperty<Function>('onTap', onTap));
+  }
+  /// --------------------------------------------------------------------------
 }

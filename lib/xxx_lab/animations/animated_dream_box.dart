@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -74,6 +75,12 @@ class AnimatedDreamBox extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _AnimatedDreamBoxState createState() => _AnimatedDreamBoxState();
+  /// --------------------------------------------------------------------------
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<bool>('inActiveMode', inActiveMode));
+  }
 /// --------------------------------------------------------------------------
 }
 
