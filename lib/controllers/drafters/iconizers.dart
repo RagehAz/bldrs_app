@@ -214,7 +214,7 @@ import 'package:flutter/material.dart';
 
   }
 // -----------------------------------------------------------------------------
-  const List<Map<String, dynamic>> continentsMaps = const <Map<String, dynamic>>[
+  const List<Map<String, dynamic>> continentsMaps = <Map<String, dynamic>>[
     <String, dynamic>{
       'name' : 'Africa',
       'icon' : Iconz.contAfrica,

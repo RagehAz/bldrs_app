@@ -75,8 +75,8 @@ class MainLayout extends StatelessWidget {
   final bool historyButtonIsOn;
   final ValueChanged<String> onSearchChanged;
   /// --------------------------------------------------------------------------
-  static const Widget spacer5 = const SizedBox(width: 5, height: 5,);
-  static const Widget spacer10 = const SizedBox(width: 10, height: 10,);
+  static const Widget spacer5 = SizedBox(width: 5, height: 5,);
+  static const Widget spacer10 = SizedBox(width: 10, height: 10,);
 // -----------------------------------------------------------------------------
   Future<void> _refresh(BuildContext context) async {
 

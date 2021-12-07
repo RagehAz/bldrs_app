@@ -49,6 +49,6 @@ class LoadingFullScreenLayer extends StatelessWidget {
     return SizedBox(
         width: Scale.superScreenWidth(context),
         height: Scale.superScreenWidth(context),
-        child: const Center(child: const Loading(loading: true,)));
+        child: const Center(child: Loading(loading: true,)));
   }
 }

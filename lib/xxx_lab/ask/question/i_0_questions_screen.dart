@@ -56,7 +56,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       layoutWidget: Column(
         children: const <Widget>[
 
-          const Stratosphere(),
+          Stratosphere(),
 
         ],
       ),

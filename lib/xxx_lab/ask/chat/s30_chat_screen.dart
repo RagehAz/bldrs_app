@@ -103,7 +103,7 @@ class _ChatScreenState extends State<ChatScreen> {
       appBarType: AppBarType.basic,
       pageTitle: 'Chat Screen',
       pyramids: Iconz.dvBlankSVG,
-      appBarRowWidgets: const <Widget>[const BackButton(),],
+      appBarRowWidgets: const <Widget>[BackButton(),],
       layoutWidget: chatStreamBuilder(
           context: context,
           questionID: widget.question.questionID,

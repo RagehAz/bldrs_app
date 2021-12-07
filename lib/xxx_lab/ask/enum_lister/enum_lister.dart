@@ -53,16 +53,16 @@ class EnumLister extends StatelessWidget {
             margin: const EdgeInsets.only(left: Ratioz.appBarMargin * 2),
             decoration: const BoxDecoration(
                 // color: Colorz.BlackSmoke,
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(Ratioz.appBarButtonCorner),
                   topRight: Radius.circular(Ratioz.appBarButtonCorner),
                 ),
                 boxShadow: <BoxShadow>[
-                  const Shadowz.CustomBoxShadow(
+                  Shadowz.CustomBoxShadow(
                       color: Colorz.black230,
                       blurRadius: 30,
                       blurStyle: BlurStyle.outer),
-                  const Shadowz.CustomBoxShadow(
+                  Shadowz.CustomBoxShadow(
                       color: Colorz.black230,
                       blurRadius: 30,
                       blurStyle: BlurStyle.outer),
@@ -77,8 +77,8 @@ class EnumLister extends StatelessWidget {
                   width: listWidth,
                   height: listHeight,
                   borders: const BorderRadius.only(
-                    topLeft: const Radius.circular(Ratioz.appBarButtonCorner),
-                    topRight: const Radius.circular(Ratioz.appBarButtonCorner),
+                    topLeft: Radius.circular(Ratioz.appBarButtonCorner),
+                    topRight: Radius.circular(Ratioz.appBarButtonCorner),
                   ),
                 ),
 
@@ -129,7 +129,7 @@ class EnumLister extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
                         decoration: const BoxDecoration(
-                          gradient: const LinearGradient(
+                          gradient: LinearGradient(
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter,
                             colors: <Color>[Colorz.black200, Colorz.black0],

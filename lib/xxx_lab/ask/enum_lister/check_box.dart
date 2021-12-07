@@ -32,12 +32,12 @@ class CheckBox extends StatelessWidget {
         color: Colorz.white20,
         shape: BoxShape.circle,
           boxShadow: <BoxShadow>[
-            const Shadowz.CustomBoxShadow(
+            Shadowz.CustomBoxShadow(
                 color: Colorz.black230,
                 blurRadius: 10,
                 blurStyle: BlurStyle.outer
             ),
-            const Shadowz.CustomBoxShadow(
+            Shadowz.CustomBoxShadow(
                 color: Colorz.white20,
                 blurRadius: 10,
                 blurStyle: BlurStyle.outer
@@ -48,7 +48,7 @@ class CheckBox extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: ClipRRect(
-          borderRadius: const BorderRadius.all(const Radius.circular(checkBoxRadius)),
+          borderRadius: const BorderRadius.all(Radius.circular(checkBoxRadius)),
           child: Padding(
             padding: const EdgeInsets.all(2),
             child: CircleAvatar(
@@ -63,7 +63,7 @@ class CheckBox extends StatelessWidget {
                     width: 2 * checkBoxRadius * btOvalSizeFactor,
                     height: 1.4 * checkBoxRadius* btOvalSizeFactor,
                     decoration: const BoxDecoration(
-                      borderRadius: const BorderRadius.all(
+                      borderRadius: BorderRadius.all(
                           Radius.elliptical(checkBoxRadius * btOvalSizeFactor, checkBoxRadius * 0.7 * btOvalSizeFactor)),
                         color: Colorz.nothing,
                         boxShadow: <BoxShadow>[
@@ -82,7 +82,7 @@ class CheckBox extends StatelessWidget {
                     height: checkBoxRadius * 2,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      gradient: const LinearGradient(
+                      gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: <Color>[Colorz.nothing, Colorz.black50],

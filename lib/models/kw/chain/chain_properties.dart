@@ -5,7 +5,7 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
 
 abstract class ChainProperties {
 
-  static const Chain chain = const Chain(
+  static const Chain chain = Chain(
     id: 'properties',
     icon: Iconz.bxPropertiesOff,
     names: <Name>[
@@ -15,14 +15,14 @@ abstract class ChainProperties {
     sons: <Chain>[
       // -----------------------------------------------
       /// Industrial
-      const Chain(
+      Chain(
         id: 'ppt_lic_industrial',
         icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Industrial'),
           Name(code: 'ar', value: 'صناعي')
         ],
-        sons: const <KW>[
+        sons: <KW>[
           KW(
             id: 'pt_factory',
             names: <Name>[
@@ -34,14 +34,14 @@ abstract class ChainProperties {
       ),
       // -----------------------------------------------
       /// Educational
-      const Chain(
+      Chain(
         id: 'ppt_lic_educational',
         icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Educational'),
           Name(code: 'ar', value: 'تعليمي')
         ],
-        sons: const <KW>[
+        sons: <KW>[
           KW(
             id: 'pt_school',
             names: <Name>[
@@ -53,14 +53,14 @@ abstract class ChainProperties {
       ),
       // -----------------------------------------------
       /// Hotel
-      const Chain(
+      Chain(
         id: 'ppt_lic_hotel',
         icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Hotel'),
           Name(code: 'ar', value: 'فندقي')
         ],
-        sons: const <KW>[
+        sons: <KW>[
           KW(
             id: 'pt_hotel',
             names: <Name>[
@@ -72,14 +72,14 @@ abstract class ChainProperties {
       ),
       // -----------------------------------------------
       /// Entertainment
-      const Chain(
+      Chain(
         id: 'ppt_lic_entertainment',
         icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Entertainment'),
           Name(code: 'ar', value: 'ترفيهي')
         ],
-        sons: const <KW>[
+        sons: <KW>[
           KW(
             id: 'pt_gallery',
             names: <Name>[
@@ -98,14 +98,14 @@ abstract class ChainProperties {
       ),
       // -----------------------------------------------
       /// Medical
-      const Chain(
+      Chain(
         id: 'ppt_lic_medical',
         icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Medical'),
           Name(code: 'ar', value: 'طبي')
         ],
-        sons: const <KW>[
+        sons: <KW>[
           KW(
             id: 'pt_clinic',
             names: <Name>[
@@ -124,14 +124,14 @@ abstract class ChainProperties {
       ),
       // -----------------------------------------------
       /// Sports
-      const Chain(
+      Chain(
         id: 'ppt_lic_sports',
         icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Sports'),
           Name(code: 'ar', value: 'رياضي')
         ],
-        sons: const <KW>[
+        sons: <KW>[
           KW(
             id: 'pt_football',
             names: <Name>[
@@ -164,14 +164,14 @@ abstract class ChainProperties {
       ),
       // -----------------------------------------------
       /// Residential
-      const Chain(
+      Chain(
         id: 'ppt_lic_residential',
         icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Residential'),
           Name(code: 'ar', value: 'سكني')
         ],
-        sons: const <KW>[
+        sons: <KW>[
           KW(
             id: 'pt_apartment',
             names: <Name>[
@@ -281,14 +281,14 @@ abstract class ChainProperties {
       ),
       // -----------------------------------------------
       /// Retail
-      const Chain(
+      Chain(
         id: 'ppt_lic_retail',
         icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Retail'),
           Name(code: 'ar', value: 'تجاري')
         ],
-        sons: const <KW>[
+        sons: <KW>[
           KW(
             id: 'pt_store',
             names: <Name>[
@@ -349,14 +349,14 @@ abstract class ChainProperties {
       ),
       // -----------------------------------------------
       /// Administration
-      const Chain(
+      Chain(
         id: 'ppt_lic_administration',
         icon: null,
         names: <Name>[
           Name(code: 'en', value: 'Administration'),
           Name(code: 'ar', value: 'إداري')
         ],
-        sons: const <KW>[
+        sons: <KW>[
           KW(
             id: 'pt_office',
             names: <Name>[

@@ -2,40 +2,40 @@ import 'package:bldrs/models/bz/target/target_model.dart';
 import 'package:bldrs/models/bz/target/target_progress.dart';
 import 'package:bldrs/models/bz/target/target_reward.dart';
 
-  const TargetReward startupReward = const TargetReward(targetID: 'startup', ankh: 1, slides: 10);
-  const TargetReward completeAccountReward = const TargetReward(targetID: 'completeAccount', ankh: 1, slides: 14);
-  const TargetReward verifyAccountReward = const TargetReward(targetID: 'verifyAccount', ankh: 5, slides: 38);
-  const TargetReward perfectFlyerReward = const TargetReward(targetID: 'perfectFlyer', ankh: 2, slides: 6);
-  const TargetReward threeFlyersAWeekReward = const TargetReward(targetID: 'threeFlyerAWeek', ankh: 5, slides: 75);
-  const TargetReward aFlyerADayReward = const TargetReward(targetID: 'aFlyerADay', ankh: 3, slides: 38);
-  const TargetReward communityGrowthReward = const TargetReward(targetID: 'communityGrowth', ankh: 100, slides: 62);
-  const TargetReward payItBackReward = const TargetReward(targetID: 'payItBack', ankh: 50, slides: 50);
-  const TargetReward makeARhythmReward = const TargetReward(targetID: 'makeARhythm', ankh: 1, slides: 2);
-  const TargetReward tenPotentialCustomersReward = const TargetReward(targetID: 'tenPotentialCustomers', ankh: 2, slides: 10);
-  const TargetReward richGalleryReward = const TargetReward(targetID: 'richGallery', ankh: 75, slides: 100);
-  const TargetReward callToActionReward = const TargetReward(targetID: 'callToAction', ankh: 5, slides: 20);
-  const TargetReward shareWorthyReward = const TargetReward(targetID: 'shareWorthy', ankh: 5, slides: 100);
-  const TargetReward diversityReward = const TargetReward(targetID: 'diversity', ankh: 5, slides: 100);
-  const TargetReward publisherReward = const TargetReward(targetID: 'publisher', ankh: 50, slides: 100);
-  const TargetReward influencerReward = const TargetReward(targetID: 'influencer', ankh: 1, slides: 10);
-  const TargetReward masterBldrReward = const TargetReward(targetID: 'masterBldr', ankh: 10, slides: 50);
+  const TargetReward startupReward = TargetReward(targetID: 'startup', ankh: 1, slides: 10);
+  const TargetReward completeAccountReward = TargetReward(targetID: 'completeAccount', ankh: 1, slides: 14);
+  const TargetReward verifyAccountReward = TargetReward(targetID: 'verifyAccount', ankh: 5, slides: 38);
+  const TargetReward perfectFlyerReward = TargetReward(targetID: 'perfectFlyer', ankh: 2, slides: 6);
+  const TargetReward threeFlyersAWeekReward = TargetReward(targetID: 'threeFlyerAWeek', ankh: 5, slides: 75);
+  const TargetReward aFlyerADayReward = TargetReward(targetID: 'aFlyerADay', ankh: 3, slides: 38);
+  const TargetReward communityGrowthReward = TargetReward(targetID: 'communityGrowth', ankh: 100, slides: 62);
+  const TargetReward payItBackReward = TargetReward(targetID: 'payItBack', ankh: 50, slides: 50);
+  const TargetReward makeARhythmReward = TargetReward(targetID: 'makeARhythm', ankh: 1, slides: 2);
+  const TargetReward tenPotentialCustomersReward = TargetReward(targetID: 'tenPotentialCustomers', ankh: 2, slides: 10);
+  const TargetReward richGalleryReward = TargetReward(targetID: 'richGallery', ankh: 75, slides: 100);
+  const TargetReward callToActionReward = TargetReward(targetID: 'callToAction', ankh: 5, slides: 20);
+  const TargetReward shareWorthyReward = TargetReward(targetID: 'shareWorthy', ankh: 5, slides: 100);
+  const TargetReward diversityReward = TargetReward(targetID: 'diversity', ankh: 5, slides: 100);
+  const TargetReward publisherReward = TargetReward(targetID: 'publisher', ankh: 50, slides: 100);
+  const TargetReward influencerReward = TargetReward(targetID: 'influencer', ankh: 1, slides: 10);
+  const TargetReward masterBldrReward = TargetReward(targetID: 'masterBldr', ankh: 10, slides: 50);
 
 // -----------------------------------------------------------------------------
-  const TargetModel startup = const TargetModel(
+  const TargetModel startup = TargetModel(
     id: 'startup',
     name: 'Start-up',
     description: 'Sign up a new business account.',
     reward: startupReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel completeAccount = const TargetModel(
+  const TargetModel completeAccount = TargetModel(
     id: 'completeAccount',
     name: 'Complete Account data',
     description: 'Some fields in your account have been left empty.',
     reward: completeAccountReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel verifyAccount = const TargetModel(
+  const TargetModel verifyAccount = TargetModel(
     id: 'verifyAccount',
     name: 'Verify your account',
     description: 'Upload pictures for the following requirements, the verification request will be processed within several days.',
@@ -49,28 +49,28 @@ import 'package:bldrs/models/bz/target/target_reward.dart';
     reward: verifyAccountReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel perfectFlyer = const TargetModel(
+  const TargetModel perfectFlyer = TargetModel(
     id: 'perfectFlyer',
     name: 'Perfect flyer',
     description: 'Create and publish a flyer that consists of exactly 3 slides',
     reward: perfectFlyerReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel threeFlyersAWeek = const TargetModel(
+  const TargetModel threeFlyersAWeek = TargetModel(
     id: 'threeFlyersAWeek',
     name: 'Three Flyers a week',
     description: 'Publish three flyers a week for consecutive 4 weeks in a row',
     reward: threeFlyersAWeekReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel aFlyerADay = const TargetModel(
+  const TargetModel aFlyerADay = TargetModel(
     id: 'aFlyerADay',
     name: 'A Flyer a Day',
     description: 'Publish one flyer each day for seven consecutive days',
     reward: aFlyerADayReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel communityGrowth = const TargetModel(
+  const TargetModel communityGrowth = TargetModel(
     id: 'communityGrowth',
     name: 'Community Growth',
     description: 'Contribute in Bldrs network growth, and take part in deciding in which direction by attentively selecting which of our Bldr contacts on your phone you see suitable to join the community',
@@ -86,7 +86,7 @@ import 'package:bldrs/models/bz/target/target_reward.dart';
 
   );
 // -----------------------------------------------------------------------------
-  const TargetModel payItBack = const TargetModel(
+  const TargetModel payItBack = TargetModel(
     id: 'payItBack',
     name: 'Pay it back',
     description: "You have joined Bldrs.net through a link sent to you from another business account, in such case, your account\'s growth impacts theirs as well",
@@ -100,7 +100,7 @@ import 'package:bldrs/models/bz/target/target_reward.dart';
     ],
   );
 // -----------------------------------------------------------------------------
-  const TargetModel makeARhythm = const TargetModel(
+  const TargetModel makeARhythm = TargetModel(
     id: 'makeARhythm',
     name: 'Make a rhythm',
     description: 'Share at-least one of your own flyers once each day for ',
@@ -111,56 +111,56 @@ import 'package:bldrs/models/bz/target/target_reward.dart';
     reward: makeARhythmReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel tenPotentialCustomers = const TargetModel(
+  const TargetModel tenPotentialCustomers = TargetModel(
     id: 'tenPotentialCustomers',
     name: 'Ten Potential customers',
     description: 'Get total flyer saves to 10 saves',
     reward: tenPotentialCustomersReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel richGallery = const TargetModel(
+  const TargetModel richGallery = TargetModel(
     id: 'richGallery',
     name: 'Rich Gallery',
     description: 'Publish 30 flyers',
     reward: richGalleryReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel callToAction = const TargetModel(
+  const TargetModel callToAction = TargetModel(
     id: 'callToAction',
     name: 'Call to Action',
     description: 'Receive 10 phone calls',
     reward: callToActionReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel shareWorthy = const TargetModel(
+  const TargetModel shareWorthy = TargetModel(
     id: 'shareWorthy',
     name: 'Share worthy',
     description: 'get total 10 flyers shares',
     reward: shareWorthyReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel diversity = const TargetModel(
+  const TargetModel diversity = TargetModel(
     id: 'diversity',
     name: 'Diversity',
     description: 'Use 20 different keywords in your flyers',
     reward: diversityReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel publisher = const TargetModel(
+  const TargetModel publisher = TargetModel(
     id: 'publisher',
     name: 'Publisher',
     description: 'Achieve "Three flyers a week" target for 3 consecutive months',
     reward: publisherReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel influencer = const TargetModel(
+  const TargetModel influencer = TargetModel(
     id: 'influencer',
     name: 'Influencer',
     description: 'Get 10 Followers',
     reward: influencerReward,
   );
 // -----------------------------------------------------------------------------
-  const TargetModel masterBldr = const TargetModel(
+  const TargetModel masterBldr = TargetModel(
     id: 'masterBldr',
     name: 'Master Bldr',
     description: 'Use 100 Ankhs to boost your business account',
@@ -192,23 +192,23 @@ import 'package:bldrs/models/bz/target/target_reward.dart';
   List<TargetProgress> dummyTargetsProgress(){
     return
         const <TargetProgress>[
-          const TargetProgress(targetID: 'startup', objective: 1, current: 1),
-          const TargetProgress(targetID: 'completeAccount', objective: 12, current: 12),
-          const TargetProgress(targetID: 'verifyAccount', objective: 1, current: 0),
-          const TargetProgress(targetID: 'perfectFlyer', objective: 1, current: 1),
-          const TargetProgress(targetID: 'threeFlyersAWeek', objective: 3, current: 3),
-          const TargetProgress(targetID: 'aFlyerADay', objective: 4, current: 7),
-          const TargetProgress(targetID: 'communityGrowth', objective: 5, current: 2),
-          const TargetProgress(targetID: 'payItBack', objective: 5, current: 2),
-          const TargetProgress(targetID: 'makeARhythm', objective: 0, current: 1),
-          const TargetProgress(targetID: 'tenPotentialCustomers', objective: 10, current: 9),
-          const TargetProgress(targetID: 'richGallery', objective: 30, current: 24),
-          const TargetProgress(targetID: 'callToAction', objective: 10, current: 4),
-          const TargetProgress(targetID: 'shareWorthy', objective: 10, current: 3),
-          const TargetProgress(targetID: 'diversity', objective: 20, current: 12),
-          const TargetProgress(targetID: 'publisher', objective: 3, current: 0),
-          const TargetProgress(targetID: 'influencer', objective: 10, current: 8),
-          const TargetProgress(targetID: 'masterBldr', objective: 1, current: 0),
+          TargetProgress(targetID: 'startup', objective: 1, current: 1),
+          TargetProgress(targetID: 'completeAccount', objective: 12, current: 12),
+          TargetProgress(targetID: 'verifyAccount', objective: 1, current: 0),
+          TargetProgress(targetID: 'perfectFlyer', objective: 1, current: 1),
+          TargetProgress(targetID: 'threeFlyersAWeek', objective: 3, current: 3),
+          TargetProgress(targetID: 'aFlyerADay', objective: 4, current: 7),
+          TargetProgress(targetID: 'communityGrowth', objective: 5, current: 2),
+          TargetProgress(targetID: 'payItBack', objective: 5, current: 2),
+          TargetProgress(targetID: 'makeARhythm', objective: 0, current: 1),
+          TargetProgress(targetID: 'tenPotentialCustomers', objective: 10, current: 9),
+          TargetProgress(targetID: 'richGallery', objective: 30, current: 24),
+          TargetProgress(targetID: 'callToAction', objective: 10, current: 4),
+          TargetProgress(targetID: 'shareWorthy', objective: 10, current: 3),
+          TargetProgress(targetID: 'diversity', objective: 20, current: 12),
+          TargetProgress(targetID: 'publisher', objective: 3, current: 0),
+          TargetProgress(targetID: 'influencer', objective: 10, current: 8),
+          TargetProgress(targetID: 'masterBldr', objective: 1, current: 0),
         ];
   }
 // -----------------------------------------------------------------------------

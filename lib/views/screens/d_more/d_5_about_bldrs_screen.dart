@@ -29,11 +29,11 @@ class AboutBldrsScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: const <Widget>[
 
-            const Stratosphere(),
+            Stratosphere(),
 
-            const LogoSlogan(sizeFactor: 0.87,),
+            LogoSlogan(sizeFactor: 0.87,),
 
-            const ParagraphBubble(
+            ParagraphBubble(
               maxLines: 1000,
                 title: 'Bldrs.net',
                 paragraph: 'Is the Network of builders\n'
@@ -41,15 +41,15 @@ class AboutBldrsScreen extends StatelessWidget {
                     'Real-estate, Construction & Supplies.\n'
             ),
 
-            const ParagraphBubble(
+            ParagraphBubble(
               paragraph: 'So whenever you need to connect with a professional '
                   'or a company in a specific field or trade to aid you in '
                   'building you projects, you have all Businesses here for you',
             ),
 
-            const BubblesSeparator(),
+            BubblesSeparator(),
 
-            const ParagraphBubble(
+            ParagraphBubble(
               title: 'Bldrs.net Business types',
               centered: true,
               maxLines: 100,
@@ -57,7 +57,7 @@ class AboutBldrsScreen extends StatelessWidget {
               paragraph: '',
             ),
 
-            const TileBubble(
+            TileBubble(
               verse: 'Developers',
               icon: Iconz.bxPropertiesOn,
               iconSizeFactor: 1,
@@ -69,7 +69,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'its creator, then these are the companies to contact',
             ),
 
-            const TileBubble(
+            TileBubble(
               verse: 'Brokers',
               icon: Iconz.bxPropertiesOn,
               iconSizeFactor: 1,
@@ -81,7 +81,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'property deals, these are the ones to contact',
             ),
 
-            const TileBubble(
+            TileBubble(
               verse: 'Designers',
               icon: Iconz.bxDesignsOn,
               iconSizeFactor: 1,
@@ -93,7 +93,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'construction, you must contact these people',
             ),
 
-            const TileBubble(
+            TileBubble(
               verse: 'Contractors',
               icon: Iconz.bxProjectsOn,
               iconSizeFactor: 1,
@@ -105,7 +105,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'they build it for you',
             ),
 
-            const TileBubble(
+            TileBubble(
               verse: 'Crafts-men',
               icon: Iconz.bxCraftsOn,
               iconSizeFactor: 1,
@@ -115,7 +115,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'in Short... The Work-force and the actual builders of all constructs',
             ),
 
-            const TileBubble(
+            TileBubble(
               verse: 'Manufacturers',
               icon: Iconz.bxProductsOn,
               iconSizeFactor: 1,
@@ -127,7 +127,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'to contact',
             ),
 
-            const TileBubble(
+            TileBubble(
               verse: 'Suppliers',
               icon: Iconz.bxProductsOn,
               iconSizeFactor: 1,
@@ -143,9 +143,9 @@ class AboutBldrsScreen extends StatelessWidget {
                   'to contact',
             ),
 
-            const BubblesSeparator(),
+            BubblesSeparator(),
 
-            const PyramidsHorizon(),
+            PyramidsHorizon(),
 
           ],
         ),
