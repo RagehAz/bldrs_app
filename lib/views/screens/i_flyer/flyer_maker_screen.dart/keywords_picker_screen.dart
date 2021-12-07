@@ -329,7 +329,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
       layoutWidget: Column(
         children: const <Widget>[
 
-          const Stratosphere(),
+          Stratosphere(),
 
           // /// selected keywords zone
           // SelectedKeywordsBar(

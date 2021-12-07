@@ -62,7 +62,7 @@ import 'package:page_transition/page_transition.dart';
               tag: flyerID, // galleryCoFlyers[index].flyer.flyerID,
               child: const Material(
                 type: MaterialType.transparency,
-                child: const FlyerScreen(
+                child: FlyerScreen(
                   // flyerID: flyerID, // galleryCoFlyers[index].flyer.flyerID,
                 ),
               ),

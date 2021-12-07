@@ -66,7 +66,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
       layoutWidget: Swiper(
         physics: const BouncingScrollPhysics(),
         pagination: const SwiperPagination(
-          builder: const DotSwiperPaginationBuilder(
+          builder: DotSwiperPaginationBuilder(
             color: Colorz.white255,
             activeColor: Colorz.yellow255,
             activeSize: 8,
@@ -74,7 +74,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
             space: 2,
           ),
           alignment: Alignment.topCenter,
-          margin: const EdgeInsets.only(top: 54, right: Ratioz.appBarMargin * 2, left: Ratioz.appBarMargin * 2),
+          margin: EdgeInsets.only(top: 54, right: Ratioz.appBarMargin * 2, left: Ratioz.appBarMargin * 2),
         ),
         itemWidth: _screenWidth, // in-effective
         itemHeight: _pageHeight, // in-effective

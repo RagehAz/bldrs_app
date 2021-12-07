@@ -48,7 +48,7 @@ class TargetsBubble extends StatelessWidget {
     final double _progressBoxWidth = _bubbleClearWidth / 2 - 30;
     const double _barHeight = 12;
     const double _iconsHeight = 15;
-    const EdgeInsets _barMargin = const EdgeInsets.only(top: 9);
+    const EdgeInsets _barMargin = EdgeInsets.only(top: 9);
 
     final List<TargetModel> _allTargets = getAllTargets();
 

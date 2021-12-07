@@ -243,7 +243,7 @@ class FlyerModel with ChangeNotifier{
     return _flyerIDs;
   }
 // -----------------------------------------------------------------------------
-  static const List<FlyerState> flyerStatesList = const <FlyerState>[
+  static const List<FlyerState> flyerStatesList = <FlyerState>[
     FlyerState.published,
     FlyerState.draft,
     FlyerState.deleted,

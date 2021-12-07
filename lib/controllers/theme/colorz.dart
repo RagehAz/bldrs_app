@@ -88,7 +88,7 @@ abstract class Colorz {
   static const Color appBarColor = white20;
   static const Color bzPageBGColor = Colorz.black80;
 // -------------------------------------------------------------------------
-  static const List<Color> allColorz = const <Color>[
+  static const List<Color> allColorz = <Color>[
         bloodTest,
         nothing,
         black0,
