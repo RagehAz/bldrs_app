@@ -145,6 +145,13 @@ linter:
     unnecessary_string_interpolations: true
     unnecessary_this: true
     use_decorated_box: true
+    use_full_hex_values_for_flutter_colors: true
+    use_function_type_syntax_for_parameters: true
+    use_if_null_to_convert_nulls_to_bools: true
+    use_is_even_rather_than_modulo: true
+    use_named_constants: true
+    use_raw_strings: true
+
 
     # Pending
     diagnostic_describe_all_properties: false

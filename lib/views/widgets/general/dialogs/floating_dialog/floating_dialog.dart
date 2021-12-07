@@ -83,7 +83,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
               // border: Borderers.superOutlineInputBorder(Colorz.red255, 10),
 
               floatingLabelStyle: _textStyle,
-              contentPadding: const EdgeInsets.all(0),
+              contentPadding: EdgeInsets.zero,
               filled: true, /// removes bottom line
               enabled: false, /// removes bottom line
 

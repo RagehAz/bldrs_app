@@ -113,12 +113,10 @@ class CenterDialog extends StatelessWidget {
       child: AlertDialog(
         backgroundColor: Colorz.nothing,
         // shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
-        contentPadding: const EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         elevation: 10,
 
-        insetPadding: const EdgeInsets.symmetric(
-
-        ),
+        insetPadding: EdgeInsets.zero,
 
         content: Builder(
           builder: (BuildContext context){
