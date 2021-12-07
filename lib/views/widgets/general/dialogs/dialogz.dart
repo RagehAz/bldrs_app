@@ -121,7 +121,7 @@ import 'package:flutter/material.dart';
         child: ListView(
           children: <Widget>[
 
-            if (bzzToDeactivate.length != 0)
+            if (bzzToDeactivate.isNotEmpty)
               BzzBubble(
                 bzzModels: bzzToDeactivate,
                 onTap: (String value){print(value);},
@@ -130,7 +130,7 @@ import 'package:flutter/material.dart';
                 title: 'These Accounts will be deactivated',
               ),
 
-            if (bzzToKeep.length != 0)
+            if (bzzToKeep.isNotEmpty)
               BzzBubble(
                 bzzModels: bzzToKeep,
                 onTap: (String value){print(value);},

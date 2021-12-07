@@ -131,7 +131,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
       pyramids: Iconz.pyramidzYellow,
       layoutWidget:
 
-      _notifications.length == 0 ?
+      _notifications.isEmpty ?
       const Center(
         child: const SuperVerse(
           verse: 'No new Notifications',

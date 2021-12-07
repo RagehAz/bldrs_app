@@ -126,7 +126,7 @@ class SpecListTile extends StatelessWidget {
               ),
 
               /// SELECTED SPECS ROW
-              if (selectedSpecs.length != 0)
+              if (selectedSpecs.isNotEmpty)
                 Container(
                   width: _specTileWidth,
                   child: Row(

@@ -71,7 +71,7 @@ class BzGrid extends StatelessWidget {
             children: <Widget>[
 
               /// --- GRID FOOTPRINTS
-              if (_bzz.length == 0)
+              if (_bzz.isEmpty)
                 GridView(
                   physics: _physics,
                   scrollDirection: _scrollDirection,
@@ -115,7 +115,7 @@ class BzGrid extends StatelessWidget {
                 ),
 
               /// --- REAL GRID
-              if (_bzz.length != 0)
+              if (_bzz.isNotEmpty)
                 GridView(
                   physics: _physics,
                   scrollDirection: _scrollDirection,

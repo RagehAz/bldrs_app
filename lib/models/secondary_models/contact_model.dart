@@ -189,7 +189,7 @@ class ContactModel{
       }
     }
 
-    return phones.length == 0 ? null : phones[0];
+    return phones.isEmpty ? null : phones[0];
   }
 // -----------------------------------------------------------------------------
   static void addContactIfPossibleToANewContactsList(

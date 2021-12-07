@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/kw.dart';
@@ -52,7 +53,7 @@ class KeywordsBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         /// STRINGS
-        if(keywords != null && keywords?.length != 0)
+        if(Mapper.canLoopList(keywords))
         Wrap(
           children: <Widget>[
 
@@ -79,7 +80,7 @@ class KeywordsBubble extends StatelessWidget {
           ],
         ),
 
-        if(keywords != null && keywords.length == 0 && addButtonIsOn == true)
+        if(keywords != null && keywords.isEmpty && addButtonIsOn == true)
           AddKeywordsButton(
             onTap: passKeywordOnTap == true ? null : onTap,
           ),

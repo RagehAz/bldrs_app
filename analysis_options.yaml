@@ -107,6 +107,12 @@ linter:
     prefer_generic_function_type_aliases: true
     prefer_if_elements_to_conditional_expressions: true
     prefer_if_null_operators: true
+    prefer_initializing_formals: true
+    prefer_inlined_adds: true
+    prefer_int_literals: true
+    prefer_interpolation_to_compose_strings: true
+    prefer_is_empty: true
+
 
     # Pending
     diagnostic_describe_all_properties: false

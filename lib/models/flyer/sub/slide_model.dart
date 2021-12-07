@@ -130,7 +130,7 @@ class SlideModel {
 // -------------------------
 // -------------------------
   static void printSlides(List<SlideModel> slides){
-    if (slides == null || slides.length == 0){
+    if (Mapper.canLoopList(slides)){
 
       print('slides can not be printed : slides are : ${slides}');
 
@@ -392,7 +392,7 @@ class SlideModel {
   static List<SlideModel> getSlidesFromSlidesByFlyerID(List<SlideModel> allSlides, String flyerID){
     final List<SlideModel> _foundSlides = <SlideModel>[];
 
-    if(allSlides != null && flyerID != null && allSlides.length != 0){
+    if(allSlides != null && flyerID != null && allSlides.isNotEmpty){
 
       for (final SlideModel slide in allSlides){
 
