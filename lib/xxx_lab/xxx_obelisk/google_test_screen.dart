@@ -68,7 +68,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _scrollController = new ScrollController();
+    _scrollController = ScrollController();
     super.initState();
   }
 // -----------------------------------------------------------------------------

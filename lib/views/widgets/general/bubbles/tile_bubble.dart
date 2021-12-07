@@ -49,7 +49,7 @@ class TileBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double iconWidth = (iconSizeFactor * iconBoxWidth);
+    final double iconWidth = iconSizeFactor * iconBoxWidth;
     final double iconBoxPadding = iconBoxWidth - iconWidth;
 
     final double _switchButtonWidth = switchIsOn == null && moreBtOnTap == null ? 0 : 50;

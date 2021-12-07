@@ -80,7 +80,7 @@ class CreditsRow extends StatelessWidget {
           width: width * 0.65,
           height: Ratioz.appBarButtonSize * 0.4,
           child: SuperVerse(
-            verse: '$value',
+            verse: value,
             size: 1,
             italic: true,
             centered: false,

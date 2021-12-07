@@ -160,9 +160,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     print('dispose---> final flyer : start');
     MutableSlide.disposeMutableSlidesTextControllers(_superFlyer.mSlides);
     TextChecker.disposeControllerIfPossible(_superFlyer.infoController);
-    Animators.disposeControllerIfPossible(_superFlyer.nav.verticalController);
-    Animators.disposeControllerIfPossible(_superFlyer.nav.horizontalController);
-    Animators.disposeControllerIfPossible(_superFlyer.nav.infoScrollController);
+    Animators.disposePageControllerIfPossible(_superFlyer.nav.verticalController);
+    Animators.disposePageControllerIfPossible(_superFlyer.nav.horizontalController);
+    Animators.disposeScrollControllerIfPossible(_superFlyer.nav.infoScrollController);
 
     // FocusScope.of(context).dispose(); // error fash5
     print('dispose---> final flyer : end');
@@ -783,7 +783,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       // FlyerModel _flyer = firstTimer == true ? null : widget.flyerModel;
 
       final dynamic _result = await Nav.goToNewScreen(context,
-          new FlyerMakerScreen(
+          FlyerMakerScreen(
             firstTimer: firstTimer,
             bzModel: _bzModel,
             flyerModel: firstTimer == true ? null : widget.flyerModel,
@@ -1017,7 +1017,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       await TopDialog.showTopDialog(
         context: context,
         verse: 'Share button',
-        secondLine: "Allows users to share this flyer\'s link to other apps",
+        secondLine: "Allows users to share this flyer's link to other apps",
 
       );
     }
@@ -1141,7 +1141,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       await TopDialog.showTopDialog(
         context: context,
         verse: 'Flyer stats',
-        secondLine: "These count the flyer\'s counts of shares, views & saves",
+        secondLine: "These count the flyer's counts of shares, views & saves",
       );
     }
 
@@ -1526,8 +1526,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                 picFit: Imagers.concludeBoxFitForAsset(asset: _newAsset, flyerBoxWidth: widget.flyerBoxWidth),
                 midColor: await Colorizer.getAverageColor(_newFile),
                 headline: null,
-                headlineController: new TextEditingController(),
-                descriptionController: new TextEditingController(),
+                headlineController: TextEditingController(),
+                descriptionController: TextEditingController(),
                 viewsCount: 0,
                 sharesCount: 0,
                 savesCount: 0,

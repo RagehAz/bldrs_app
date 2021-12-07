@@ -87,7 +87,7 @@ class ExpandingTile extends StatefulWidget {
     ( ( collapsedTileHeight + buttonVerticalPadding ) * _totalNumberOfButtons)
         +
         /// subGroups titles boxes heights
-        (titleBoxHeight)
+        titleBoxHeight
         +
         /// bottom padding
         0;
@@ -101,7 +101,7 @@ class ExpandingTile extends StatefulWidget {
   }
 // -----------------------------------------------------------------------------
   @override
-  ExpandingTileState createState() => new ExpandingTileState();
+  ExpandingTileState createState() => ExpandingTileState();
 }
 
 class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderStateMixin {
@@ -120,15 +120,15 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
   @override
   void initState() {
     super.initState();
-    _controller = new AnimationController(duration: _kExpand, vsync: this);
+    _controller = AnimationController(duration: _kExpand, vsync: this);
     // _easeOutAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeOut);
-    _easeInAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeIn);
-    _borderColor = new ColorTween();
-    _headlineColorTween = new ColorTween();
-    _tileColorTween = new ColorTween();
-    _subtitleLabelColorTween = new ColorTween();
-    _arrowTurns = new Tween<double>(begin: 0, end: 0.5).animate(_easeInAnimation);
-    _borderRadius = new BorderRadiusTween();
+    _easeInAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _borderColor = ColorTween();
+    _headlineColorTween = ColorTween();
+    _tileColorTween = ColorTween();
+    _subtitleLabelColorTween = ColorTween();
+    _arrowTurns = Tween<double>(begin: 0, end: 0.5).animate(_easeInAnimation);
+    _borderRadius = BorderRadiusTween();
     _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
 
     if (_isExpanded){
@@ -224,7 +224,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
       width: widget.width,
       alignment: Alignment.topCenter,
       margin: widget.margin,
-      child: new AnimatedBuilder(
+      child: AnimatedBuilder(
         animation: _controller.view,
         builder: (BuildContext context, Widget child){
 

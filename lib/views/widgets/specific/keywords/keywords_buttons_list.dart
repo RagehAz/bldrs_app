@@ -49,7 +49,7 @@ class KeywordsButtonsList extends StatelessWidget {
               width: buttonWidth - (Ratioz.appBarMargin * 2),
               icon: _icon,
               verse: _keywordName,
-              secondLine: '$_keywordNameArabic',
+              secondLine: _keywordNameArabic,
               verseScaleFactor: 0.7,
               verseCentered: false,
               bubble: false,

@@ -56,7 +56,7 @@ class Slides extends StatelessWidget {
         controller: superFlyer.nav.horizontalController,
         physics: const BouncingScrollPhysics(),
         clipBehavior: Clip.antiAlias,
-        restorationId: '${superFlyer.key.value}',
+        restorationId: superFlyer.key.value,
         onPageChanged: superFlyer.nav.listenToSwipe ? (int i) => superFlyer.nav.onHorizontalSlideSwipe(i) : (int i) => Sliders.zombie(i),
         children: <Widget>[
 

@@ -109,7 +109,7 @@ enum PicType{
           lightStatusBar: false,
           // actionBarTitleColor: "#13244b", // page title color, White is Default
           autoCloseOnSelectionLimit: false,
-          selectionLimitReachedText: "Can\'t add more Images !",
+          selectionLimitReachedText: "Can't add more Images !",
           // unknown impact
           // backButtonDrawable: 'wtf is this backButtonDrawable',
           // okButtonDrawable: 'dunno okButtonDrawable',
@@ -294,13 +294,13 @@ enum PicType{
 // ---------------------------------------------------
   Future<File> getFileFromURL(String imageUrl) async {
     /// generate random number.
-    final Random _rng = new Random();
+    final Random _rng = Random();
     /// get temporary directory of device.
     final Directory _tempDir = await getTemporaryDirectory();
     /// get temporary path from temporary directory.
     final String _tempPath = _tempDir.path;
     /// create a new file in temporary path with random file name.
-    final File _file = new File('$_tempPath${(_rng.nextInt(100)).toString()}.png');
+    final File _file = File('$_tempPath${(_rng.nextInt(100)).toString()}.png');
     /// call http.get method and pass imageUrl into it to get response.
     final Uri _imageUri = Uri.parse(imageUrl);
     final http.Response _response = await http.get(_imageUri);
@@ -480,11 +480,9 @@ enum PicType{
 // ---------------------------------------------------
   Future<ui.Image> getUiImageFromIntList(List<int> img) async {
 
-    final Completer<ui.Image> completer = new Completer<ui.Image>();
+    final Completer<ui.Image> completer = Completer<ui.Image>();
 
-    ui.decodeImageFromList(img, (ui.Image img) {
-      return completer.complete(img);
-    });
+    ui.decodeImageFromList(img, completer.complete);
 
     return completer.future;
   }
@@ -546,7 +544,7 @@ enum PicType{
   );
 
   final ByteData _detail = await rootBundle.load(urlAsset);
-  final ui.Image _imaged = await getUiImageFromIntList(new Uint8List.view(_detail.buffer));
+  final ui.Image _imaged = await getUiImageFromIntList(Uint8List.view(_detail.buffer));
 
   _canvas.drawImage(_imaged, const Offset(0, 0), Paint());
 

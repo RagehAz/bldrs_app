@@ -27,7 +27,7 @@ class GoldenScroll extends StatelessWidget {
         margin: const EdgeInsets.all(5),
         padding: EdgeInsets.all(flyerTagTextPaddingValue),
         decoration: BoxDecoration(
-          borderRadius: new BorderRadius.only(
+          borderRadius: BorderRadius.only(
             topLeft: Radius.circular(flyerTagsCornerValue),
             topRight: Radius.circular(flyerTagsCornerValue),
             bottomLeft: Radius.circular(flyerTagsCornerValue),

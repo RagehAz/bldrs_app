@@ -57,7 +57,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _scrollController = new ScrollController();
+    _scrollController = ScrollController();
 
     _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);

@@ -117,7 +117,7 @@ class MainButton extends StatelessWidget {
                     boxShadow: <BoxShadow>[
                       Shadowz.CustomBoxShadow(
                           color: Colorz.white50,
-                          offset: new Offset(0, _buttonHeight * -0.23),
+                          offset: Offset(0, _buttonHeight * -0.23),
                           blurRadius: _buttonHeight * 0.18
                       ),
                     ]
@@ -168,7 +168,7 @@ class MainButton extends StatelessWidget {
 
                       /// --- OLD BUTTON ICON
                       Flexible(
-                        child: new Container(
+                        child: Container(
                           // color: Colorz.BloodTest,
                           width: _buttonZoneHeight * 0.4,
                           height: _buttonZoneHeight * 0.4,
@@ -192,7 +192,7 @@ class MainButton extends StatelessWidget {
                       /// BUTTON VERSE
                       Expanded(
                         flex: 4,
-                        child: new Padding(
+                        child: Padding(
                           padding: EdgeInsets.symmetric(horizontal : _buttonZonePaddings),
                           child: SuperVerse(
                             verse: buttonVerse,

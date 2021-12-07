@@ -40,7 +40,7 @@ class ValueBox extends StatelessWidget {
             ),
 
             SuperVerse(
-              verse: '${value.toString()}',
+              verse: value.toString(),
               size: 1,
             ),
 

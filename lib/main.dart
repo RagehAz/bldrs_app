@@ -99,7 +99,7 @@ class _BldrsAppState extends State<BldrsApp> {
     Localizer.getLocale().then((Locale locale) {
 
       // setState(() {
-        this._locale.value = locale;
+        _locale.value = locale;
       // });
 
     });

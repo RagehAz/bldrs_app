@@ -51,9 +51,9 @@ class NotificationMaker extends StatefulWidget {
 }
 
 class _NotificationMakerState extends State<NotificationMaker> {
-  final TextEditingController _titleController = new TextEditingController();
-  final TextEditingController _bodyController = new TextEditingController();
-  final TextEditingController _userNameController = new TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _bodyController = TextEditingController();
+  final TextEditingController _userNameController = TextEditingController();
   UserModel _selectedUser;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -545,7 +545,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
             child: SuperVerse(
-              verse: '${Timers.stringOnDateMonthYear(context: context, time: DateTime.now())}', /// task : fix timestamp parsing
+              verse: Timers.stringOnDateMonthYear(context: context, time: DateTime.now()), /// task : fix timestamp parsing
               color: Colorz.grey255,
               italic: true,
               weight: VerseWeight.thin,

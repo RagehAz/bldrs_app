@@ -44,9 +44,15 @@ import 'package:flutter/material.dart';
 //     return _visibilityList;
 //   }
 // -----------------------------------------------------------------------------
-  void disposeControllerIfPossible(PageController controller) {
+  void disposePageControllerIfPossible(PageController controller) {
     if (controller != null) {
       controller.dispose();
     }
   }
+// -----------------------------------------------------------------------------
+void disposeScrollControllerIfPossible(ScrollController controller) {
+  if (controller != null) {
+    controller.dispose();
+  }
+}
 // -----------------------------------------------------------------------------

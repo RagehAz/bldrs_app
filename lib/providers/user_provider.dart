@@ -125,7 +125,7 @@ class UsersProvider extends ChangeNotifier {
       on Exception catch (error) {
         print(
             '_userModelFromSnapshot error is : $error');
-        throw (error);
+        throw error;
       }
     }
 
