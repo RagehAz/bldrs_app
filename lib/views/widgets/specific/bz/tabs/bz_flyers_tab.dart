@@ -82,7 +82,7 @@ class BzFlyersTab extends StatelessWidget {
                 galleryBoxWidth: Bubble.clearWidth(context),
                 superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
                   bzModel: bzModel,
-                  onHeaderTap: () => print('on header tap in f 0 my bz Screen'),
+                  onHeaderTap: () => blog('on header tap in f 0 my bz Screen'),
                   bzCity: bzCity,
                   bzCountry: bzCountry,
                 ),

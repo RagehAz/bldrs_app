@@ -73,7 +73,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 //     }
 //
 //     _loading == true?
-//     print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+//     blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
 //   }
 // -----------------------------------------------------------------------------
   @override
@@ -97,7 +97,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   // ----------------------------------------------------------------------
   void textListener(){
 
-    // print('ask body text controller value is : ${_askBodyController.text}');
+    // blog('ask body text controller value is : ${_askBodyController.text}');
 
     final String _text = _bodyController.text;
 
@@ -131,9 +131,9 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   }
   // ----------------------------------------------------------------------
   void submitQuestion() {
-    // print(_askBody);
+    // blog(_askBody);
     // _askBodyController.clear();
-    // print('Your Question is Submitted');
+    // blog('Your Question is Submitted');
   }
 // ---------------------------------------------------------------------------
   Future<void> _onAsk() async {
@@ -250,7 +250,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                 balloonWidth: _abButtonsHeight,
                 loading: false,
                 onTap: () {
-                  print('this person should ask a fucking question');
+                  blog('this person should ask a fucking question');
                 },
               ),
 
@@ -385,7 +385,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                           zeroCornerIsOn: false,
                           onTap: (){
                             // TASK : tap ask picture to go full screen
-                            print('SHOULD GO FULL SCREEN AND BACK : ${pic.path}');
+                            blog('SHOULD GO FULL SCREEN AND BACK : ${pic.path}');
                             // for now it will delete image
                             _deletePic(pic);
                           }

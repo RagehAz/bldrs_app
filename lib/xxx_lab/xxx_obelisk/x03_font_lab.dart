@@ -605,7 +605,7 @@ class _FontLabState extends State<FontLab> {
                 },
 
               doubleTappingRageh: (){
-                print(_screenHeight * 0.022 * 1.48);
+                blog(_screenHeight * 0.022 * 1.48);
                 },
             ),
 

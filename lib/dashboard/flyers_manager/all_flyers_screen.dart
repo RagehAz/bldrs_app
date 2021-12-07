@@ -38,7 +38,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -47,7 +47,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
     if (_isInit) {
       _triggerLoading().then((_) async {
 
-        print('starting things');
+        blog('starting things');
 
         final List<dynamic> _maps = await Fire.readCollectionDocs(
           collName: FireColl.flyers,
@@ -55,9 +55,9 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
           limit: 5,
         );
 
-        print('we got ${_maps.length} maps');
+        blog('we got ${_maps.length} maps');
         final List<FlyerModel> _flyersFromMaps = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
-        print('we got ${_flyersFromMaps.length} flyers');
+        blog('we got ${_flyersFromMaps.length} flyers');
 
         setState(() {
           _flyers = _flyersFromMaps;
@@ -106,8 +106,8 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
       // FlyerStack(
       //   flyerSizeFactor: 0.8,
       //   title: 'All Flyers on Database',
-      //   onScrollEnd: (){print('on Scroll end here');},
-      //   flyerOnTap: (flyerID) => print('flyerID is : $flyerID'),
+      //   onScrollEnd: (){blog('on Scroll end here');},
+      //   flyerOnTap: (flyerID) => blog('flyerID is : $flyerID'),
       //   flyersType: null,
       //   tinyFlyers: _tinyFlyers,
       //   titleIcon: null,

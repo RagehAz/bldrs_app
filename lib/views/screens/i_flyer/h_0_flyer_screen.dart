@@ -40,7 +40,7 @@ class FlyerScreen extends StatelessWidget {
     /// so assign flyerModel.id if passed argument is null
     _flyerID ??= flyerID ?? flyerModel?.id;
 
-    print('_flyerID is $_flyerID');
+    blog('_flyerID is $_flyerID');
     // final FlyersProvider _pro = Provider.of<FlyersProvider>(context, listen: false);
     // final TinyFlyer _tinyFlyer = tinyFlyer == null ? _pro.getTinyFlyerByFlyerID(_flyerID) : tinyFlyer;
     // final BzModel _bz = _pro.getBzByBzID(_flyer?.tinyBz?.bzID);
@@ -91,7 +91,7 @@ class FlyerScreen extends StatelessWidget {
           initialSlideIndex: initialSlideIndex ?? 0,
           flyerKey: PageStorageKey<String>(_flyerID),
           onSwipeFlyer: (Sliders.SwipeDirection direction){
-            // print('Direction is $direction');
+            // blog('Direction is $direction');
           },
         ),
 

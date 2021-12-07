@@ -11,6 +11,7 @@ import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/drafters/tracers.dart' as Tracer;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -129,7 +130,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   FlyersProvider _flyersProvider;
@@ -148,7 +149,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     /// get current bzModel when this flyer goes to editor
 
     _bzModel = widget.bzModel;
-    // print('FINAL FINAL initialized _bzModel as : ${_bzModel.bzID} as bzName : ${_bzModel.bzName}');
+    // blog('FINAL FINAL initialized _bzModel as : ${_bzModel.bzID} as bzName : ${_bzModel.bzName}');
 
     /// initialize initial superFlyer before fetching the actual superFlyer
     _superFlyer = _initializeSuperFlyer();
@@ -157,7 +158,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    print('dispose---> final flyer : start');
+    blog('dispose---> final flyer : start');
     MutableSlide.disposeMutableSlidesTextControllers(_superFlyer.mSlides);
     TextChecker.disposeControllerIfPossible(_superFlyer.infoController);
     Animators.disposePageControllerIfPossible(_superFlyer.nav.verticalController);
@@ -165,7 +166,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     Animators.disposeScrollControllerIfPossible(_superFlyer.nav.infoScrollController);
 
     // FocusScope.of(context).dispose(); // error fash5
-    print('dispose---> final flyer : end');
+    blog('dispose---> final flyer : end');
     super.dispose();
   }
 
@@ -669,7 +670,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future <void> _openTinyFlyer() async {
 
     final FlyerModel _flyer = FlyerModel.getFlyerModelFromSuperFlyer(_superFlyer);
-    print('opening tiny flyer : ${_flyer.id} while THE FUCKING widget.goesToEditor IS : ${widget.goesToEditor}');
+    blog('opening tiny flyer : ${_flyer.id} while THE FUCKING widget.goesToEditor IS : ${widget.goesToEditor}');
 
     await _bzzProvider.setActiveBz(_superFlyer.bz);
 
@@ -710,10 +711,10 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     //           )
     //       ));
     //   if (_rebuild == true){
-    //     print('we should rebuild');
+    //     blog('we should rebuild');
     //     setState(() { });
     //   } else if (_rebuild == false){
-    //     print('do not rebuild');
+    //     blog('do not rebuild');
     //   } else {
     //     print ('rebuild is null');
     //   }
@@ -721,22 +722,22 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // },
 
 
-    print('WWWWWWWWWWWWWTTTTTTTTTTTFFFFFFFFFFF');
+    blog('WWWWWWWWWWWWWTTTTTTTTTTTFFFFFFFFFFF');
   }
 // -----------------------------------------------------o
   void _onFlyerZoneTap(){
 
-    print('aho');
+    blog('aho');
 
     final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
-    print('Final flyer zone tapped : ${_superFlyer.flyerID} : micro mode is $_tinyMode');
+    blog('Final flyer zone tapped : ${_superFlyer.flyerID} : micro mode is $_tinyMode');
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
     if (_tinyMode == true){
 
-      print('tapping tiny flyer aho');
+      blog('tapping tiny flyer aho');
       _openTinyFlyer();
 
     }
@@ -744,11 +745,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   void _onFlyerZoneLongPress(){
-    print('Final flyer zone long pressed');
+    blog('Final flyer zone long pressed');
   }
 // -----------------------------------------------------o
   void _onHeaderTap(bool isExpanded){
-    print('_onHeaderTap : bzPageIsOn was : ${_superFlyer.nav.bzPageIsOn}');
+    blog('_onHeaderTap : bzPageIsOn was : ${_superFlyer.nav.bzPageIsOn}');
       // _superFlyer.nav.bzPageIsOn = !_superFlyer.nav.bzPageIsOn;
 
     if(_superFlyer.verticalIndex == 0){
@@ -771,12 +772,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     }
 
-    print('_onHeaderTap : bzPageIsOn is : ${_superFlyer.nav.bzPageIsOn}');
+    blog('_onHeaderTap : bzPageIsOn is : ${_superFlyer.nav.bzPageIsOn}');
   }
 // -----------------------------------------------------o
   Future<void> _goToFlyerEditor({BuildContext context, bool firstTimer}) async {
 
-    print('going to flyer editor for flyerID ${_superFlyer.flyerID} as firstTimer is $firstTimer');
+    blog('going to flyer editor for flyerID ${_superFlyer.flyerID} as firstTimer is $firstTimer');
 
     await Future<void>.delayed(Ratioz.durationFading200, () async {
 
@@ -791,11 +792,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       );
 
       if (_result.runtimeType == FlyerModel){
-        print('_goToFlyerEditor : adding published flyer model to bzPage screen gallery');
+        blog('_goToFlyerEditor : adding published flyer model to bzPage screen gallery');
         _updateTinyFlyerInLocalBzTinyFlyers(_result);
       }
       else {
-        print('_goToFlyerEditor : did not publish the new draft flyer');
+        blog('_goToFlyerEditor : did not publish the new draft flyer');
       }
 
     });
@@ -805,16 +806,16 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   /// SLIDING METHODS
 
   void _onHorizontalSlideSwipe (int newIndex){
-    // print('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
+    // blog('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
     final Sliders.SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _superFlyer.currentSlideIndex,);
 
     /// A - if Keyboard is active
     if (Keyboarders.keyboardIsOn(context) == true){
-      print('KEYBOARD IS ACTIVE');
+      blog('KEYBOARD IS ACTIVE');
 
       /// B - when direction is going next
       if (_direction == Sliders.SwipeDirection.next){
-        print('going next');
+        blog('going next');
         FocusScope.of(context).nextFocus();
         setState(() {
           _superFlyer.nav.swipeDirection = _direction;
@@ -824,7 +825,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       /// B - when direction is going back
       else if (_direction == Sliders.SwipeDirection.back){
-        print('going back');
+        blog('going back');
         FocusScope.of(context).previousFocus();
         setState(() {
           _superFlyer.nav.swipeDirection = _direction;
@@ -834,7 +835,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       /// B = when direction is freezing
       else {
-        print('going no where');
+        blog('going no where');
         setState(() {
           _superFlyer.nav.swipeDirection = _direction;
           _superFlyer.currentSlideIndex = newIndex;
@@ -844,7 +845,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// A - if keyboard is not active
     else {
-      // print('KEYBOARD IS NOT ACTIVE');
+      // blog('KEYBOARD IS NOT ACTIVE');
       setState(() {
         _superFlyer.nav.swipeDirection = _direction;
         _superFlyer.currentSlideIndex = newIndex;
@@ -856,31 +857,31 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   void _onSlideRightTap(){
-    print('_onSlideRightTap');
+    blog('_onSlideRightTap');
   }
 // -----------------------------------------------------o
   void _onSlideLeftTap(){
-    print('_onSlideLeftTap');
+    blog('_onSlideLeftTap');
   }
 // -----------------------------------------------------o
   void _onVerticalPageSwipe(int verticalIndex){
-    print('verticalIndex was : ${_superFlyer.verticalIndex}');
+    blog('verticalIndex was : ${_superFlyer.verticalIndex}');
     setState(() {
       _superFlyer.verticalIndex = verticalIndex;
       _statelessTriggerProgressOpacity(verticalIndex: verticalIndex);
     });
-    print('verticalIndex is : ${_superFlyer.verticalIndex}');
+    blog('verticalIndex is : ${_superFlyer.verticalIndex}');
 
   }
 // -----------------------------------------------------o
   Future<void> _slideBackToSlidesPage() async {
-  print('_slideBackToSlidesPage : sliding from info page to slides page aho by tap');
+  blog('_slideBackToSlidesPage : sliding from info page to slides page aho by tap');
   await Sliders.slideToBackFrom(_superFlyer.nav.verticalController, 1);
 }
 // -----------------------------------------------------o
   void _statelessTriggerProgressOpacity({int verticalIndex}){
 
-    print('triggering progress bar opacity');
+    blog('triggering progress bar opacity');
 
     if (verticalIndex == null){
 
@@ -910,7 +911,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
 //   Future<void> _triggerKeywordsView() async {
 //
-//     print('_triggerKeywordsView : _verticalIndex : ${_superFlyer.verticalIndex}');
+//     blog('_triggerKeywordsView : _verticalIndex : ${_superFlyer.verticalIndex}');
 //
 //
 //     /// open keywords
@@ -949,7 +950,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     _prefs.setDouble(_prefName, offset);
 
 
-    // print('X-X-X : offset is $offset : for _prefName : $_prefName');
+    // blog('X-X-X : offset is $offset : for _prefName : $_prefName');
   }
 // -----------------------------------------------------o
   double getInfoScrollOffset(){
@@ -959,7 +960,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     final String _prefName = '${_superFlyer?.flyerID}_info_scroll_pos';
     final double _offset = _prefs?.getDouble(_prefName) ?? 0;
 
-    // print('O-O-O : offset is $_offset : for _prefName : $_prefName');
+    // blog('O-O-O : offset is $_offset : for _prefName : $_prefName');
 
     return _offset;
   }
@@ -968,11 +969,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   /// RECORD METHODS
 
   void _onViewSlide(int slideIndex){
-    print('viewing slide : $slideIndex : from flyer : ${_superFlyer.flyerID}');
+    blog('viewing slide : $slideIndex : from flyer : ${_superFlyer.flyerID}');
   }
 // -----------------------------------------------------o
   Future<void> _onAnkhTap() async {
-    print('tapping Ankh');
+    blog('tapping Ankh');
 
     unawaited(
         TopDialog.showTopDialog(
@@ -1006,12 +1007,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       inputFlyer: _flyerModel,
     );
 
-    print('ankh is ${_superFlyer.rec.ankhIsOn}');
+    blog('ankh is ${_superFlyer.rec.ankhIsOn}');
 
   }
 // -----------------------------------------------------o
   Future<void> _onShareTap() async {
-    print('Sharing flyer');
+    blog('Sharing flyer');
 
     if(widget.inEditor == true){
       await TopDialog.showTopDialog(
@@ -1057,7 +1058,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   Future <void> _onFollowTap() async {
-    // print('Following bz : followIsOn was ${_superFlyer.rec.followIsOn} & headline for slide ${_superFlyer.currentSlideIndex} is : ${_superFlyer.mSlides[_superFlyer.currentSlideIndex].headline}');
+    // blog('Following bz : followIsOn was ${_superFlyer.rec.followIsOn} & headline for slide ${_superFlyer.currentSlideIndex} is : ${_superFlyer.mSlides[_superFlyer.currentSlideIndex].headline}');
 
     if(widget.inEditor == true){
       await TopDialog.showTopDialog(
@@ -1089,7 +1090,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   Future<void> _onCallTap() async {
-    print('Call Bz');
+    blog('Call Bz');
 
     if(widget.inEditor == true){
       await TopDialog.showTopDialog(
@@ -1108,7 +1109,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
       /// alert user there is no contact to call
       if (_contact == null){
-        print('no contact here');
+        blog('no contact here');
       }
 
       /// or launch call and start call bz ops
@@ -1135,7 +1136,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onCountersTap() async {
 
-    print('tapping slide counter');
+    blog('tapping slide counter');
 
     if(_superFlyer.edit.firstTimer == true){
       await TopDialog.showTopDialog(
@@ -1209,11 +1210,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
                             final bool _reviewControllerHasValue = TextChecker.textControllerIsEmpty(_superFlyer.rec.reviewController) == false;
 
-                            print('_existingReview : $_existingReview');
-                            print('_reviewControllerHasValue : $_reviewControllerHasValue');
-                            print('_superFlyer.rec.reviewController.text : ${_superFlyer.rec.reviewController.text}');
-                            // print('val : $val');
-                            print('_canUploadReview : $_canUploadReview');
+                            blog('_existingReview : $_existingReview');
+                            blog('_reviewControllerHasValue : $_reviewControllerHasValue');
+                            blog('_superFlyer.rec.reviewController.text : ${_superFlyer.rec.reviewController.text}');
+                            // blog('val : $val');
+                            blog('_canUploadReview : $_canUploadReview');
 
                             if (_reviewControllerHasValue == true){
                               if (_superFlyer.rec.reviewController.text != _existingReview){
@@ -1231,7 +1232,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
                           },
                           onSubmitted: (String val){
-                            print('val is : $val');
+                            blog('val is : $val');
                           },
                           keyboardTextInputType: TextInputType.multiline,
                           keyboardTextInputAction: TextInputAction.newline,
@@ -1348,7 +1349,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   Future<void> _onSubmitReview({ReviewModel review}) async {
 
-    print('review text is : ${review.body}');
+    blog('review text is : ${review.body}');
 
     if (TextChecker.textControllerIsEmpty(_superFlyer.rec.reviewController) == true){
       await NavDialog.showNavDialog(
@@ -1431,7 +1432,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   void _onShowAuthorTap(){
 
-    print('triggering showing author : as _superFlyer is : ${_superFlyer.flyerID} \n and superFlyer.flyerShowsAuthor is : ${_superFlyer.flyerShowsAuthor}');
+    blog('triggering showing author : as _superFlyer is : ${_superFlyer.flyerID} \n and superFlyer.flyerShowsAuthor is : ${_superFlyer.flyerShowsAuthor}');
 
     setState(() {
       _superFlyer.flyerShowsAuthor = !_superFlyer.flyerShowsAuthor;
@@ -1478,12 +1479,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         /// B4 - if did not pick new assets
         if(_phoneAssets.isEmpty){
           // will do nothing
-          print('no new picks');
+          blog('no new picks');
         }
 
         /// B4 - if picked new assets
         else {
-          print('picked new picks');
+          blog('picked new picks');
 
           /// C1 - declare private existing and new mutable slides
           final List<MutableSlide> _tempMutableSlides = _superFlyer.mSlides;
@@ -1567,7 +1568,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// A - if slides are empty
     if (_superFlyer.numberOfSlides == 0 || _superFlyer.edit.canDelete == false){
-      print('FinalFlyer : _onDeleteSlide : Can not delete slide : ${_superFlyer.currentSlideIndex}');
+      blog('FinalFlyer : _onDeleteSlide : Can not delete slide : ${_superFlyer.currentSlideIndex}');
     }
 
 
@@ -1598,12 +1599,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   Future<void> _deleteFirstSlide() async {
-    print('DELETING STARTS AT (FIRST) index : ${_superFlyer.currentSlideIndex}, numberOfSlides : ${_superFlyer.numberOfSlides} ------------------------------------');
+    blog('DELETING STARTS AT (FIRST) index : ${_superFlyer.currentSlideIndex}, numberOfSlides : ${_superFlyer.numberOfSlides} ------------------------------------');
 
     /// 1 - if only one slide remaining
     if(_superFlyer.numberOfSlides == 1){
 
-      print('_draft.visibilities : ${_superFlyer.mSlides[_superFlyer.currentSlideIndex].toString()}, _draft.numberOfSlides : $_superFlyer.numberOfSlides');
+      blog('_draft.visibilities : ${_superFlyer.mSlides[_superFlyer.currentSlideIndex].toString()}, _draft.numberOfSlides : $_superFlyer.numberOfSlides');
 
       /// A - decrease progress bar and trigger visibility
       setState(() {
@@ -1651,7 +1652,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           // /// F - snap to index 0
           // await Sliders.snapTo(_pageController, 0);
           //
-          // print('now i can swipe again');
+          // blog('now i can swipe again');
           //
           // /// G - trigger progress bar listener (onPageChangedIsOn)
           setState(() {
@@ -1714,7 +1715,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             Sliders.snapTo(_superFlyer.nav.horizontalController, 0);
             // await null;
 
-            print('now i can swipe again');
+            blog('now i can swipe again');
 
             /// G - trigger progress bar listener (onPageChangedIsOn)
             setState(() {
@@ -1729,11 +1730,11 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     }
 
-    print('DELETING ENDS AT (FIRST) : index : ${_superFlyer.currentSlideIndex}, numberOfSlides : ${_superFlyer.numberOfSlides} ------------------------------------');
+    blog('DELETING ENDS AT (FIRST) : index : ${_superFlyer.currentSlideIndex}, numberOfSlides : ${_superFlyer.numberOfSlides} ------------------------------------');
   }
 // -----------------------------------------------------o
   Future<void> _deleteMiddleOrLastSlide() async {
-    print('XXXXX ----- DELETING STARTS AT (MIDDLE) index : ${_superFlyer.currentSlideIndex}, numberOfSlides : ${_superFlyer.numberOfSlides}');
+    blog('XXXXX ----- DELETING STARTS AT (MIDDLE) index : ${_superFlyer.currentSlideIndex}, numberOfSlides : ${_superFlyer.numberOfSlides}');
 
     final int _originalIndex = _superFlyer.currentSlideIndex;
 
@@ -1746,16 +1747,16 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       _statelessTriggerSlideVisibility(_originalIndex);
     });
 
-    // print('XXX after first rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
+    // blog('XXX after first rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
 
     /// B - wait fading to start sliding
     await Future<void>.delayed(Ratioz.durationFading210, () async {
 
-      // print('_currentIndex before slide : $_draft.currentSlideIndex');
+      // blog('_currentIndex before slide : $_draft.currentSlideIndex');
 
       /// C - slide
       await  Sliders.slideToBackFrom(_superFlyer.nav.horizontalController, _originalIndex);
-      // print('_currentIndex after slide : $_draft.currentSlideIndex');
+      // blog('_currentIndex after slide : $_draft.currentSlideIndex');
 
       /// E - wait for sliding to end
       await Future<void>.delayed(Ratioz.durationFading210, () async {
@@ -1766,22 +1767,22 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           _superFlyer.nav.listenToSwipe = true;
         });
 
-        // print('XXX after second rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
+        // blog('XXX after second rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
 
       });
 
-      // print('XXX after third LAST rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
+      // blog('XXX after third LAST rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
 
     });
 
-    print('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : ${_superFlyer.currentSlideIndex}, numberOfSlides : ${_superFlyer.numberOfSlides}');
+    blog('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : ${_superFlyer.currentSlideIndex}, numberOfSlides : ${_superFlyer.numberOfSlides}');
   }
 // -----------------------------------------------------o
   void _statelessTriggerSlideVisibility(int index) {
 
     if (index != null){
       if(index >= 0 && _superFlyer.mSlides.isNotEmpty){
-        print('_superFlyer.mSlides[index].isVisible was ${_superFlyer.mSlides[index].opacity} for index : $index');
+        blog('_superFlyer.mSlides[index].isVisible was ${_superFlyer.mSlides[index].opacity} for index : $index');
 
 
         if(_superFlyer.mSlides[index].opacity == 1){
@@ -1791,10 +1792,10 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           _superFlyer.mSlides[index].opacity = 1;
         }
 
-        print('_superFlyer.mSlides[index].isVisible is ${_superFlyer.mSlides[index].opacity} for index : $index');
+        blog('_superFlyer.mSlides[index].isVisible is ${_superFlyer.mSlides[index].opacity} for index : $index');
       }
       else {
-        print('can not trigger visibility for index : $index');
+        blog('can not trigger visibility for index : $index');
       }
     }
 
@@ -1802,7 +1803,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   void _statelessSlideDelete(int index) {
 
-    print('before stateless delete index was $index, _draft.numberOfSlides was : ${_superFlyer.numberOfSlides}');
+    blog('before stateless delete index was $index, _draft.numberOfSlides was : ${_superFlyer.numberOfSlides}');
     // if(ObjectChecker.listCanBeUsed(_superFlyer.assetsFiles) == true){_superFlyer.assetsFiles.removeAt(index);}
     // if(ObjectChecker.listCanBeUsed(_superFlyer.assetsFiles) == true){_superFlyer.mutableSlides.removeAt(index);}
 
@@ -1822,7 +1823,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     _superFlyer.numberOfSlides = _superFlyer.mSlides.length;
     // _superFlyer.screenShots.removeAt(index);
 
-    print('after stateless delete index is $index, _draft.numberOfSlides is : ${_superFlyer.numberOfSlides}');
+    blog('after stateless delete index is $index, _draft.numberOfSlides is : ${_superFlyer.numberOfSlides}');
   }
 // -----------------------------------------------------o
   Future<void> _onCropImage() async {
@@ -1869,19 +1870,19 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     final int _i = _superFlyer.currentSlideIndex;
     final BoxFit _currentPicFit = _superFlyer.mSlides[_i].picFit;
 
-    print('tapping on fit image : ${_superFlyer.mSlides.length} mSlides and _currentPicFit was : $_currentPicFit');
+    blog('tapping on fit image : ${_superFlyer.mSlides.length} mSlides and _currentPicFit was : $_currentPicFit');
 
     if(_superFlyer.mSlides.isNotEmpty){
 
       if(_currentPicFit == BoxFit.fitWidth) {
-        print('trying to get fit width to fit height');
+        blog('trying to get fit width to fit height');
         setState(() {
           _superFlyer.mSlides[_i].picFit = BoxFit.fitHeight;
         });
       }
 
       else if (_currentPicFit == BoxFit.fitHeight){
-        print('trying to get fit height to fit width');
+        blog('trying to get fit height to fit width');
         setState(() {
           _superFlyer.mSlides[_i].picFit = BoxFit.fitWidth;
         });
@@ -1895,7 +1896,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     }
 
-    print('tapping on fit image : ${_superFlyer.mSlides.length} mSlides and _currentPicFit is : $_currentPicFit');
+    blog('tapping on fit image : ${_superFlyer.mSlides.length} mSlides and _currentPicFit is : $_currentPicFit');
 
   }
 // -----------------------------------------------------o
@@ -2080,7 +2081,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
               inputWeight: VerseWeight.thin,
 
               onSubmitted: (String val){
-                print('val is : $val');
+                blog('val is : $val');
               },
               keyboardTextInputType: TextInputType.multiline,
               keyboardTextInputAction: TextInputAction.newline,
@@ -2171,7 +2172,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     //                                   onKeywordTap: (Keyword selectedKeyword){
     //                                     if (_superFlyer.keywords.contains(selectedKeyword)){
     //                                       setDialogState(() {
-    //                                         print('a77a');
+    //                                         blog('a77a');
     //                                         _superFlyer.keywords.remove(selectedKeyword);
     //                                       });
     //                                     }
@@ -2247,7 +2248,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 //       }
 //       _showMapPreview(selectedLocation.latitude, selectedLocation.longitude);
 //       _newLocationSlide();
-//       print("${selectedLocation.latitude},${selectedLocation.longitude}");
+//       blog("${selectedLocation.latitude},${selectedLocation.longitude}");
 //     }
 //   }
 // -----------------------------------------------------o
@@ -2300,7 +2301,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 // -----------------------------------------------------o
   void _updateTinyFlyerInLocalBzTinyFlyers(FlyerModel flyerModel){
     // _prof.update(modifiedTinyFlyer);
-    print(' should update tiny flyer in current bz tiny flyers shof enta ezay');
+    blog(' should update tiny flyer in current bz tiny flyers shof enta ezay');
   }
 
   // void _onReorderSlides(){
@@ -2358,7 +2359,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   Future<void> _onPublishFlyer() async {
-    print('publishing flyer');
+    blog('publishing flyer');
 
     unawaited(_triggerLoading());
 
@@ -2368,14 +2369,14 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     /// A - when creating new flyer
     if (_superFlyer.edit.firstTimer == true){
-      print('first timer');
+      blog('first timer');
 
       _uploadedFlyer = await _createNewFlyer();
     }
 
     /// A - when creating updated flyer
     else {
-      print('updating the flyer not first timer');
+      blog('updating the flyer not first timer');
 
       _uploadedFlyer = await _updateExistingFlyer(_originalFlyer);
     }
@@ -2398,7 +2399,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     // /// B - if uploaded flyer is null
     // else {
-    //   print('_uploaded flyer is null,, very weird');
+    //   blog('_uploaded flyer is null,, very weird');
     // }
 
     unawaited(_triggerLoading());
@@ -2442,7 +2443,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 //
 //     }
 //
-//     print('slides are $_slides');
+//     blog('slides are $_slides');
 //
 //     return _slides;
 //   }
@@ -2600,12 +2601,12 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     } else {
 
-      print('A- Managing slides');
+      blog('A- Managing slides');
 
       /// create slides models
       final List<SlideModel> _updatedSlides = await _createSlidesFromCurrentSuperFlyer();
 
-      print('B- Modifying flyer');
+      blog('B- Modifying flyer');
 
       ///create updated FlyerModel
       final FlyerModel _tempUpdatedFlyerModel = FlyerModel(
@@ -2634,7 +2635,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         // specs: _draft.specs,
       );
 
-      print('C- Uploading to cloud');
+      blog('C- Uploading to cloud');
 
       /// start create flyer ops
       _uploadedFlyerModel = await FireFlyerOps.updateFlyerOps(
@@ -2644,7 +2645,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         bzModel : _superFlyer.bz,
       );
 
-      print('D- Uploading to cloud');
+      blog('D- Uploading to cloud');
 
 
       await CenterDialog.showCenterDialog(
@@ -2670,7 +2671,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       boolDialog: true,
     );
 
-    print(_dialogResult);
+    blog(_dialogResult);
 
     if (_dialogResult == true){
 
@@ -2714,7 +2715,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     /// if user stop
     if (_dialogResult == false) {
 
-      print('cancelled unpublishing flyer');
+      blog('cancelled unpublishing flyer');
 
     }
 
@@ -2741,7 +2742,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   }
 // -----------------------------------------------------o
   Future<void> _onRepublishFlyer() async {
-    print('this is here to republish the flyer');
+    blog('this is here to republish the flyer');
   }
 // -----------------------------------------------------o
 //   void _slideFlyerOptions(BuildContext context, FlyerModel flyerModel){
@@ -2788,7 +2789,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 //     //           boolDialog: true,
 //     //         );
 //     //
-//     //         print(_dialogResult);
+//     //         blog(_dialogResult);
 //     //
 //     //         /// start delete flyer ops
 //     //         await FlyerOps().deleteFlyerOps(
@@ -2886,7 +2887,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
     // _superFlyer.isDraft == true ? BzModel.getBzModelFromSuperFlyer(_superFlyer) :
     // null;
 
-    // print('widget.goesToFlyer is : ${widget.goesToEditor} for ${_superFlyer.flyerID}');
+    // blog('widget.goesToFlyer is : ${widget.goesToEditor} for ${_superFlyer.flyerID}');
 
     Tracer.traceWidgetBuild(number: 1, widgetName: 'FinalFlyer', varName: 'flyerID', varValue: _superFlyer.flyerID, tracerIsOn: false);
     // Tracer.traceWidgetBuild(number: 2, widgetName: 'FinalFlyer', varName: 'numberOfSlides', varValue: _superFlyer.numberOfSlides);

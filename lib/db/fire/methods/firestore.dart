@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -159,7 +160,7 @@ import 'package:flutter/material.dart';
 
           await _docRef.set(input);
 
-          print('createNamedDoc : ${_docRef.id}');
+          blog('createNamedDoc : ${_docRef.id}');
         }
     );
 
@@ -222,7 +223,7 @@ import 'package:flutter/material.dart';
 
           await _subDocRef.set(input);
 
-          print('createNamedSubDoc : CREATED $collName/$docName/$subCollName/$subDocName/');
+          blog('createNamedSubDoc : CREATED $collName/$docName/$subCollName/$subDocName/');
 
         }
     );
@@ -314,12 +315,12 @@ import 'package:flutter/material.dart';
     @required String docName
   }) async {
 
-    print('readDoc() : starting to read doc : firestore/$collName/$docName');
-    // print('lng : ${Wordz.languageCode(context)}');
+    blog('readDoc() : starting to read doc : firestore/$collName/$docName');
+    // blog('lng : ${Wordz.languageCode(context)}');
 
     Map<String, dynamic> _map; //QueryDocumentSnapshot
 
-    // print('readDoc() : _map starts as : $_map');
+    // blog('readDoc() : _map starts as : $_map');
 
     final dynamic _result = await tryCatchAndReturn(
       context: context,
@@ -330,17 +331,17 @@ import 'package:flutter/material.dart';
             collName: collName,
             docName: docName
         );
-        // print('readDoc() : _docRef : $_docRef');
+        // blog('readDoc() : _docRef : $_docRef');
 
         _map = await _getMapByDocRef(_docRef);
-        // print('readDoc() : _map : $_map');
+        // blog('readDoc() : _map : $_map');
 
       },
     );
 
-    // print('readDoc() : _result : $_result');
-    // print('readDoc() : _map : $_map');
-    // print('lng : ${Wordz.languageCode(context)}');
+    // blog('readDoc() : _result : $_result');
+    // blog('readDoc() : _map : $_map');
+    // blog('lng : ${Wordz.languageCode(context)}');
 
     return
       _result.runtimeType == String ? null : _map;
@@ -629,7 +630,7 @@ import 'package:flutter/material.dart';
 
           await _doc.update(<String, dynamic>{field : input});
 
-          print('Updated doc : $docName : field : [$field] : to : ${input.toString()}');
+          blog('Updated doc : $docName : field : [$field] : to : ${input.toString()}');
 
         }
     );

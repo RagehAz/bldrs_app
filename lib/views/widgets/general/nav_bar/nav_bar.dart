@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -244,7 +245,7 @@ class NavBar extends StatelessWidget {
                     verseScaleFactor: 0.7,
                     verseCentered: false,
                     onTap: () async {
-                      print(_bzModel.id);
+                      blog(_bzModel.id);
 
                       final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
                       final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
@@ -372,7 +373,7 @@ class NavBar extends StatelessWidget {
                           iconSizeFactor: 0.45,
                           barType: barType,
                           onTap: (){
-                            print('fish');
+                            blog('fish');
                             Nav.goToNewScreen(context, MoreScreen(userModel: _myUserModel));
                           },
                         ),
@@ -387,7 +388,7 @@ class NavBar extends StatelessWidget {
                             barType: barType,
                             // bzzIDs: _userBzzIDs,
                             onTap: (){
-                              print('fish');
+                              blog('fish');
 
                               if (_userBzzIDs.length == 1){
                                 Nav.goToNewScreen(context, MyBzScreen(

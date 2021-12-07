@@ -47,7 +47,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -118,7 +118,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
                   }
               );
 
-                print('done : map is : $map');
+                blog('done : map is : $map');
 
             }
         ),

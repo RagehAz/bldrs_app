@@ -52,7 +52,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -150,7 +150,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _deleteFlyerOnTap(FlyerModel flyerModel) async {
-    print ('deleting flyer : ${flyerModel.id}');
+    blog('deleting flyer : ${flyerModel.id}');
 
     /// close bottom sheet
     Nav.goBack(context);
@@ -179,11 +179,11 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
   }
 // -----------------------------------------------------------------------------
   void _republishFlyerOnTap(FlyerModel flyerModel){
-    print('re-publishing flyer : ${flyerModel.id}');
+    blog('re-publishing flyer : ${flyerModel.id}');
   }
 // -----------------------------------------------------------------------------
   void _editFlyerOnTap(FlyerModel flyerModel){
-    print('Editing flyer : ${flyerModel.id}');
+    blog('Editing flyer : ${flyerModel.id}');
   }
 // -----------------------------------------------------------------------------
 
@@ -193,7 +193,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     // FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
     // List<TinyFlyer> _tinyFlyers = _prof.getSavedTinyFlyers;
     final List<String> _ids = FlyerModel.getFlyersIDsFromFlyers(_allFlyers);
-    print(_ids);
+    blog(_ids);
 
     return MainLayout(
       skyType: SkyType.black,

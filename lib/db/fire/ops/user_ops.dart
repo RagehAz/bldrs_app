@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
@@ -161,12 +162,12 @@ import 'package:flutter/cupertino.dart';
       context: context,
       userID: user.uid,
     );
-    // print('lng : ${Wordz.languageCode(context)}');
+    // blog('lng : ${Wordz.languageCode(context)}');
 
     /// Ex - if new user (userModel == null)
     if (_existingUserModel == null) {
 
-      // print('lng : ${Wordz.languageCode(context)}');
+      // blog('lng : ${Wordz.languageCode(context)}');
 
       /// E1 - create initial user model
       final UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
@@ -175,7 +176,7 @@ import 'package:flutter/cupertino.dart';
         zone: zone,
         authBy: authBy,
       );
-      print('googleSignInOps : _initialUserModel : $_initialUserModel');
+      blog('googleSignInOps : _initialUserModel : $_initialUserModel');
 
       /// E2 - create user ops
       final UserModel _finalUserModel = await UserFireOps.createUser(
@@ -184,7 +185,7 @@ import 'package:flutter/cupertino.dart';
         authBy: authBy,
       );
 
-      print('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
+      blog('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
 
       /// E3 - return new userModel inside userModel-firstTimer map
       return
@@ -220,7 +221,7 @@ import 'package:flutter/cupertino.dart';
 
     UserModel _user;
 
-    print('readUserOps : Start reading user $userID,');
+    blog('readUserOps : Start reading user $userID,');
 
     final Map<String, dynamic> _userMap = await Fire.readDoc(
       context: context,
@@ -230,8 +231,8 @@ import 'package:flutter/cupertino.dart';
 
     if (_userMap != null){
 
-      print("readUserOps : _userMap _userMap['userID'] is : ${_userMap['id']}");
-      // print('lng : ${Wordz.languageCode(context)}');
+      blog("readUserOps : _userMap _userMap['userID'] is : ${_userMap['id']}");
+      // blog('lng : ${Wordz.languageCode(context)}');
 
       _user = _userMap == null ? null : UserModel.decipherUserMap(
         map: _userMap,
@@ -240,8 +241,8 @@ import 'package:flutter/cupertino.dart';
 
     }
 
-    // print('_userModel is : $_user');
-    // print('lng : ${Wordz.languageCode(context)}');
+    // blog('_userModel is : $_user');
+    // blog('lng : ${Wordz.languageCode(context)}');
 
     return _user;
   }
@@ -432,7 +433,7 @@ import 'package:flutter/cupertino.dart';
     if (_result == false){
 
       // do nothing
-      print('no Do not deactivate ');
+      blog('no Do not deactivate ');
 
       return 'stop';
     }
@@ -440,7 +441,7 @@ import 'package:flutter/cupertino.dart';
     /// A - if user continues
     else {
 
-      print('starting deactivateUserOps()');
+      blog('starting deactivateUserOps()');
 
       /// B - only if user is author
       if (UserModel.userIsAuthor(userModel) == true){
@@ -477,7 +478,7 @@ import 'package:flutter/cupertino.dart';
         /// D - if user wants to stop
         if (_bzzReviewResult == false) {
           // do nothing
-          print('no Do not deactivate ');
+          blog('no Do not deactivate ');
           return 'stop';
 
         }
@@ -500,7 +501,7 @@ import 'package:flutter/cupertino.dart';
           /// F - if user wants to stop
           if (_flyersReviewResult == false){
 
-            print('no Do not deactivate ');
+            blog('no Do not deactivate ');
             return 'stop';
 
           }
@@ -625,7 +626,7 @@ import 'package:flutter/cupertino.dart';
     /// A - if user stops
     if (_result == false){
 
-      print('A - user stops delete user ops ');
+      blog('A - user stops delete user ops ');
       return 'stop';
 
     }
@@ -633,7 +634,7 @@ import 'package:flutter/cupertino.dart';
     /// A - if user continues
     else {
 
-      print('A - starting superDeleteUserOps()');
+      blog('A - starting superDeleteUserOps()');
 
       /// B - if user is author
       if (UserModel.userIsAuthor(userModel) == true){
@@ -670,7 +671,7 @@ import 'package:flutter/cupertino.dart';
         /// D - if user wants to stop
         if (_bzzReviewResult == false) {
           // do nothing
-          print('D - user stops delete user ops ');
+          blog('D - user stops delete user ops ');
           return 'stop';
         }
 
@@ -692,7 +693,7 @@ import 'package:flutter/cupertino.dart';
           /// F - if user wants to stop
           if (_flyersReviewResult == false){
 
-            print('F - user stops delete user ops ');
+            blog('F - user stops delete user ops ');
             return 'stop';
 
           }
@@ -718,11 +719,11 @@ import 'package:flutter/cupertino.dart';
                 bzModel: bz,
               );
 
-              print('G - DELETED : from ${userModel.id} : bz :  ${bz.id} successfully');
+              blog('G - DELETED : from ${userModel.id} : bz :  ${bz.id} successfully');
             }
 
             /// I - DELETE user image : storage/usersPics/userID
-            print('I - deleting user pic');
+            blog('I - deleting user pic');
             await Storage.deleteStoragePic(
               context: context,
               docName: StorageDoc.users,
@@ -730,7 +731,7 @@ import 'package:flutter/cupertino.dart';
             );
 
             /// J - DELETE user doc : firestore/users/userID
-            print('J - deleting user doc');
+            blog('J - deleting user doc');
             await Fire.deleteDoc(
               context: context,
               collName: FireColl.users,
@@ -738,7 +739,7 @@ import 'package:flutter/cupertino.dart';
             );
 
             /// L - DELETE firebase user : auth/userID
-            print('L - deleting firebase user');
+            blog('L - deleting firebase user');
             /// TASK : NEED TO MANAGE IF THIS FAILS
             await FireAuthOps.deleteFirebaseUser(
                 context: context,
@@ -746,7 +747,7 @@ import 'package:flutter/cupertino.dart';
             );
 
             /// K - SIGN OUT
-            print('K - user is signing out');
+            blog('K - user is signing out');
             await FireAuthOps.signOut(context: context, routeToUserChecker: false);
 
             /// CLOSE WAITING DIALOG
@@ -777,7 +778,7 @@ import 'package:flutter/cupertino.dart';
         );
 
         /// I - DELETE user image : storage/usersPics/userID
-        print('I - deleting user pic');
+        blog('I - deleting user pic');
         await Storage.deleteStoragePic(
           context: context,
           docName: StorageDoc.users,
@@ -785,7 +786,7 @@ import 'package:flutter/cupertino.dart';
         );
 
         /// J - DELETE user doc : firestore/users/userID
-        print('J - deleting user doc');
+        blog('J - deleting user doc');
         await Fire.deleteDoc(
           context: context,
           collName: FireColl.users,
@@ -793,7 +794,7 @@ import 'package:flutter/cupertino.dart';
         );
 
         /// L - DELETE firebase user : auth/userID
-        print('L - deleting firebase user');
+        blog('L - deleting firebase user');
         /// TASK : NEED TO MANAGE IF THIS FAILS
         await FireAuthOps.deleteFirebaseUser(
             context : context,
@@ -801,7 +802,7 @@ import 'package:flutter/cupertino.dart';
         );
 
         /// K - SIGN OUT
-        print('K - user is signing out');
+        blog('K - user is signing out');
         await FireAuthOps.signOut(
             context: context,
             routeToUserChecker: false

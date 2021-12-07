@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/secondary_models/map_model.dart';
@@ -59,7 +60,7 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override

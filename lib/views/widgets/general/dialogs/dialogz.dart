@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
@@ -68,7 +69,7 @@ import 'package:flutter/material.dart';
       },
     ];
 
-    // print('authErrorDialog result : $result');
+    // blog('authErrorDialog result : $result');
 
     String _errorReply;
 
@@ -94,7 +95,7 @@ import 'package:flutter/material.dart';
     // [firebase_auth/user-not-found]
     // [firebase_auth/user-not-found]
 
-    print('_errorReply : $_errorReply');
+    blog('_errorReply : $_errorReply');
 
     await CenterDialog.showCenterDialog(
       context: context,
@@ -124,7 +125,7 @@ import 'package:flutter/material.dart';
             if (bzzToDeactivate.isNotEmpty)
               BzzBubble(
                 bzzModels: bzzToDeactivate,
-                onTap: (String value){print(value);},
+                onTap: (String value){blog(value);},
                 numberOfColumns: 6,
                 numberOfRows: 1,
                 title: 'These Accounts will be deactivated',
@@ -133,7 +134,7 @@ import 'package:flutter/material.dart';
             if (bzzToKeep.isNotEmpty)
               BzzBubble(
                 bzzModels: bzzToKeep,
-                onTap: (String value){print(value);},
+                onTap: (String value){blog(value);},
                 numberOfColumns: 6,
                 numberOfRows: 1,
                 title: 'Can not deactivate these businesses',
@@ -188,7 +189,7 @@ import 'package:flutter/material.dart';
                     numberOfRows: 1,
                     bubbleWidth: CenterDialog.dialogWidth(context: context) - (Ratioz.appBarMargin * 4),
                     onTap: (String value){
-                      print(value);
+                      blog(value);
                     },
                   );
               },
@@ -241,7 +242,7 @@ import 'package:flutter/material.dart';
                     icon: Flag.getFlagIconByCountryID(_foundCity.countryID),
                     onTap: (){
 
-                      print('city selected aho $_foundCityName');
+                      blog('city selected aho $_foundCityName');
 
                       _city = _foundCity;
                       Nav.goBack(context);

@@ -104,7 +104,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -549,7 +549,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     // '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' :
     // '${Wordz.about(context)} ${_bzNameTextController.text}';
 
-    print('bzZone is : countryID : $_currentBzCountry : cityID : $_currentBzCity : districtID : $_currentBzDistrict');
+    blog('bzZone is : countryID : $_currentBzCountry : cityID : $_currentBzCity : districtID : $_currentBzDistrict');
 
     return MainLayout(
       loading: _loading,

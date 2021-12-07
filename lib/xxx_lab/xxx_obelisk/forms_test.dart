@@ -75,10 +75,10 @@ class _TestFormScreenState extends State<TestFormScreen> {
     }
 
     _form.currentState.save();
-    print(_editedProduct.a);
-    print(_editedProduct.b);
-    print(_editedProduct.c);
-    print(_editedProduct.d);
+    blog(_editedProduct.a);
+    blog(_editedProduct.b);
+    blog(_editedProduct.c);
+    blog(_editedProduct.d);
 
   }
 
@@ -100,7 +100,7 @@ class _TestFormScreenState extends State<TestFormScreen> {
           verseScaleFactor: 0.5,
           onTap: (){
             _saveForm();
-            print('save shit');
+            blog('save shit');
           },
         ),
       ],

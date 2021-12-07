@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
@@ -74,12 +75,12 @@ class BackAndSearchButton extends StatelessWidget {
 
           else if(backAndSearchAction == BackAndSearchAction.showHistory){
             final String _result = await Nav.goToNewScreen(context, const SearchHistoryScreen());
-            print('received back this result : $_result');
+            blog('received back this result : $_result');
             passSearchHistory(_result);
           }
 
           else {
-            print('nothing to do');
+            blog('nothing to do');
           }
 
         }

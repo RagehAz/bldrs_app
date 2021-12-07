@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
@@ -66,19 +67,19 @@ class _GalleryState extends State<Gallery> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
   void initState(){
     super.initState();
 
-    print('starting gallery init');
+    blog('starting gallery init');
     _bzModel = widget.superFlyer.bz;
 
     _flyers = <FlyerModel>[];
 
-    print('flyersIDs are ${_bzModel.flyersIDs}');
+    blog('flyersIDs are ${_bzModel.flyersIDs}');
 
     _bzTeamIDs = BzModel.getBzTeamIDs(_bzModel);
     setFlyersVisibility();
@@ -103,7 +104,7 @@ class _GalleryState extends State<Gallery> {
         final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _bzModel.zone.countryID);
         final CityModel _city = await _zoneProvider.fetchCityByID(context: context, cityID: _bzModel.zone.cityID);
 
-        print('active bz flyers are : $_flyersFromProvider');
+        blog('active bz flyers are : $_flyersFromProvider');
 
         setState(() {
           _flyers = _flyersFromProvider;
@@ -162,14 +163,14 @@ class _GalleryState extends State<Gallery> {
     // TASK : of the tasks
     // _prof.updateTinyFlyerInLocalBzTinyFlyers(tinyFlyer);
 
-    print('starting _addPublishedFlyerToGallery white tiny flyers were ${_flyers.length} flyers WHILE flyer visibilities were ${_flyersVisibilities.length} visibilities');
+    blog('starting _addPublishedFlyerToGallery white tiny flyers were ${_flyers.length} flyers WHILE flyer visibilities were ${_flyersVisibilities.length} visibilities');
 
-    print('tiny flyer is ${flyerModel.id}');
+    blog('tiny flyer is ${flyerModel.id}');
 
       _flyers.add(flyerModel);
-    print('_tinyFlyers are now  ${_flyers.length} flyers');
+    blog('_tinyFlyers are now  ${_flyers.length} flyers');
       _flyersVisibilities.add(true);
-    print('_flyersVisibilities are now  ${_flyersVisibilities.length} visibilities');
+    blog('_flyersVisibilities are now  ${_flyersVisibilities.length} visibilities');
 
       _onAuthorLabelTap(flyerModel.authorID);
 

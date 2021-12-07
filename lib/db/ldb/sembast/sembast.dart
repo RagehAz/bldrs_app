@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -220,14 +221,14 @@ class Sembast {
       // ],
     );
 
-    // print('_finder is : $_finder');
+    // blog('_finder is : $_finder');
 
     final RecordSnapshot<int, Map<String, Object>> _recordSnapshot = await _doc.findFirst(
       _db,
       finder: _finder,
     );
 
-    // print('_recordSnapshot : $_recordSnapshot');
+    // blog('_recordSnapshot : $_recordSnapshot');
 
 
     final Map<String, Object> _map = _recordSnapshot?.value;
@@ -297,7 +298,7 @@ class Sembast {
 
       await delete(searchPrimaryKey: primaryKey, searchPrimaryValue: _id, docName: docName);
 
-      print('Sembast : deleteAll : $docName : _id : $_id');
+      blog('Sembast : deleteAll : $docName : _id : $_id');
 
     }
 // -----------------------------------------------------------------------------

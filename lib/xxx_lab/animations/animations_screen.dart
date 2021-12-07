@@ -49,7 +49,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
   }
 // -----------------------------------------------------------------------------
   void resizeBox(){
-    print('tapped aho');
+    blog('tapped aho');
     setState(() {
       width = width == 100 ? Scale.superScreenWidth(context) : 100;
       height = height == 100 ? Scale.superScreenHeight(context) : 100;
@@ -194,7 +194,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               underLine: 'Ripple Effect\n Works Now',
               underLineColor: Colorz.black230,
               onTap: (){
-                print('ripple effect works now');
+                blog('ripple effect works now');
                 Navigator.push(context,
                 MaterialPageRoute<HeroMax>(builder: (BuildContext context) => const HeroMax())
                 );
@@ -237,12 +237,12 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                   });});
 
                 });
-                print('onTap');
+                blog('onTap');
                 },
-              // onTapCancel: (){print('onTapCancel');},
-              // onDoubleTap: (){print('onDoubleTap');},
-              // onDoubleTapCancel: (){print('onDoubleTapCancel');},
-              // onHorizontalDragCancel: (){print('onHorizontalDragCancel');},
+              // onTapCancel: (){blog('onTapCancel');},
+              // onDoubleTap: (){blog('onDoubleTap');},
+              // onDoubleTapCancel: (){blog('onDoubleTapCancel');},
+              // onHorizontalDragCancel: (){blog('onHorizontalDragCancel');},
               onTapDown: (TapDownDetails details){
                 // _btController.forward();
                 setState(() {
@@ -263,13 +263,13 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                 });
               },
               // onLongPress: (){
-              //   print('onLongPress');
+              //   blog('onLongPress');
               //   setState(() {
               //     btWidth = 80;
               //   });
               //   },
               // onLongPressUp: (){
-              //   print('onLongPressUp');
+              //   blog('onLongPressUp');
               //   setState(() {
               //     btWidth = 105;
               //     Future.delayed(Duration(milliseconds: btDuration), (){
@@ -279,13 +279,13 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               //     });
               //   });
               //   },
-              // onPanCancel: (){print('onPanCancel');},
-              // onSecondaryLongPress: (){print('onSecondaryLongPress');},
-              // onSecondaryLongPressUp: (){print('onSecondaryLongPressUp');},
-              // onSecondaryTap: (){print('onSecondaryTap');},
-              // onSecondaryTapCancel: (){print('onSecondaryTapCancel');},
-              // onTertiaryTapCancel: (){print('onTertiaryTapCancel');},
-              // onVerticalDragCancel: (){print('onVerticalDragCancel');},
+              // onPanCancel: (){blog('onPanCancel');},
+              // onSecondaryLongPress: (){blog('onSecondaryLongPress');},
+              // onSecondaryLongPressUp: (){blog('onSecondaryLongPressUp');},
+              // onSecondaryTap: (){blog('onSecondaryTap');},
+              // onSecondaryTapCancel: (){blog('onSecondaryTapCancel');},
+              // onTertiaryTapCancel: (){blog('onTertiaryTapCancel');},
+              // onVerticalDragCancel: (){blog('onVerticalDragCancel');},
               // onForcePressStart: (){},
               // onForcePressUpdate: (){},
               // onHorizontalDragEnd: (){},

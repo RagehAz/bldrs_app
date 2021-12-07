@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/db/ldb/sembast/sembast.dart';
 import 'package:bldrs/models/zone/country_model.dart';
@@ -50,7 +51,7 @@ import 'package:flutter/foundation.dart';
       primaryKey: primaryKey,
     );
 
-    print('LDBOps inserted in $docName');
+    blog('LDBOps inserted in $docName');
   }
 // ---------------------------------------------------
   Future<void> insertMaps({
@@ -96,7 +97,7 @@ import 'package:flutter/foundation.dart';
       searchValue: searchValue,
     );
 
-    // print('LDBOps.searchMap in ${docName} : ${searchField} : ${searchValue} : _result has value ? : ${_result != null}');
+    // blog('LDBOps.searchMap in ${docName} : ${searchField} : ${searchValue} : _result has value ? : ${_result != null}');
 
     final Map<String, Object> _fixedMap = _result; //_decipherSembastMapToFirebaseMap(_result);
 
@@ -118,7 +119,7 @@ import 'package:flutter/foundation.dart';
       searchValue: searchValue,
     );
 
-    // print('searchMaps : _result : $_result');
+    // blog('searchMaps : _result : $_result');
 
     final List<Map<String, Object>> _fixedMaps = _result; //_decipherSembastMapsToFirebaseMaps(_result);
 
@@ -207,7 +208,7 @@ import 'package:flutter/foundation.dart';
 //       final bool _objectIsDateTime = ObjectChecker.objectIsDateTime(_value);
 //       final bool _objectIsGeoPoint = ObjectChecker.objectIsGeoPoint(_value);
 //
-//       print('_cipherFirebaseMapToSembastMap : _key : $_key : _value ${_value} : _objectIsDateTime : $_objectIsDateTime : _objectIsGeoPoint : $_objectIsGeoPoint');
+//       blog('_cipherFirebaseMapToSembastMap : _key : $_key : _value ${_value} : _objectIsDateTime : $_objectIsDateTime : _objectIsGeoPoint : $_objectIsGeoPoint');
 //
 //       if (_objectIsDateTime == true){
 //

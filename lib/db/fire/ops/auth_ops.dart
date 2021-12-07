@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
@@ -45,7 +46,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
     }
 
-    print('_userIsSignedIn() = $_userIsSignedIn');
+    blog('_userIsSignedIn() = $_userIsSignedIn');
 
     return _userIsSignedIn;
   }
@@ -81,7 +82,7 @@ import 'package:google_sign_in/google_sign_in.dart';
     @required String userID,
   }) async {
 
-    print('deleting firebase user');
+    blog('deleting firebase user');
     // String _error;
 
     final bool _result = await tryCatchAndReturn(
@@ -116,7 +117,7 @@ import 'package:google_sign_in/google_sign_in.dart';
   //
   //     AuthCredential credentials = EmailAuthProvider.credential(email: email, password: password);
   //
-  //     print(user);
+  //     blog(user);
   //
   //     UserCredential result = await user.reauthenticateWithCredential(credentials);
   //
@@ -126,7 +127,7 @@ import 'package:google_sign_in/google_sign_in.dart';
   //
   //   } catch (error) {
   //
-  //     print(error.toString());
+  //     blog(error.toString());
   //
   //     await superDialog(
   //       context: context,
@@ -166,13 +167,13 @@ import 'package:google_sign_in/google_sign_in.dart';
           final FirebaseAuth _auth = FirebaseAuth?.instance;
 
           _userCredential = await _auth.signInWithEmailAndPassword(email: email.trim(), password: password);
-          print('_userCredential : $_userCredential');
+          blog('_userCredential : $_userCredential');
         },
         onError: (String error) async {
 
           {
 
-            print('emailSignInOps returns error : $error');
+            blog('emailSignInOps returns error : $error');
             _error = error;
 
           }
@@ -180,8 +181,8 @@ import 'package:google_sign_in/google_sign_in.dart';
         }
         );
 
-    print('_signInResult : $_signInResult');
-    print('_userCredential : $_userCredential');
+    blog('_signInResult : $_signInResult');
+    blog('_userCredential : $_userCredential');
 
     /// if sign in results user credentials and not an error string, get user id and read user ops
     if (_signInResult == true){
@@ -189,14 +190,14 @@ import 'package:google_sign_in/google_sign_in.dart';
       /// get user ID
       final User _user = _userCredential.user;
       final String _userID = _user.uid;
-      print('x2 - emailSignInOps userID : $_userID');
+      blog('x2 - emailSignInOps userID : $_userID');
 
       /// read user ops
       final UserModel _userModel = await UserFireOps.readUser(
           context: context,
           userID: _userID
       );
-      print('x2 - emailSignInOps _userModel : $_userModel');
+      blog('x2 - emailSignInOps _userModel : $_userModel');
 
 
       return _userModel;
@@ -236,8 +237,8 @@ import 'package:google_sign_in/google_sign_in.dart';
       }
     );
 
-    print('_registerResult : $_registerResult');
-    print('_user : $_user');
+    blog('_registerResult : $_registerResult');
+    blog('_user : $_user');
 
     if (_registerResult == true){
 
@@ -323,33 +324,33 @@ import 'package:google_sign_in/google_sign_in.dart';
         methodName: 'facebookSignInOps',
         functions: () async {
 
-          // print('1 language: ${Wordz.languageCode(context)},');
+          // blog('1 language: ${Wordz.languageCode(context)},');
 
 
           /// B - get [accessToken]
           final LoginResult _loginResult = await FacebookAuth.instance.login();
           final AccessToken _accessToken =_loginResult.accessToken;
-          print('facebookSignInOps : _accessToken : $_accessToken');
+          blog('facebookSignInOps : _accessToken : $_accessToken');
 
             if(_accessToken != null){
 
               /// C - Create [credential] from the [access token]
               final FacebookAuthCredential _credential = FacebookAuthProvider.credential(_accessToken.token,);
-              print('facebookSignInOps : _credential : $_credential');
+              blog('facebookSignInOps : _credential : $_credential');
 
               /// D - get [user credential] by [credential]
               final UserCredential _userCredential = await _auth.signInWithCredential(_credential);
-              print('facebookSignInOps : _userCredential : $_userCredential');
+              blog('facebookSignInOps : _userCredential : $_userCredential');
 
               /// E - get firebase [user] from [user credential]
               _user = _userCredential.user;
-              print('facebookSignInOps : _user : $_user');
+              blog('facebookSignInOps : _user : $_user');
 
             }
 
             /// B - [accessToken] is null
             else {
-              print('Facebook Access token is null');
+              blog('Facebook Access token is null');
             }
 
         },
@@ -362,7 +363,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
     );
 
-    print('facebookSignInOps : _signInResult : $_signInResult');
+    blog('facebookSignInOps : _signInResult : $_signInResult');
     // ==============================================================
 
     /// X2 - process firebase user to return UserModel
@@ -376,7 +377,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
     /// xx - return firebase user : if auth succeeds
     else {
-      // print('2 language: ${Wordz.languageCode(context)},');
+      // blog('2 language: ${Wordz.languageCode(context)},');
 
       /// E - get Or Create UserModel From User
       final Map<String, dynamic> _userModelMap = await UserFireOps.getOrCreateUserModelFromUser(
@@ -439,11 +440,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 
           final FirebaseAuth _auth = FirebaseAuth?.instance;
 
-          print('1 language: ${Wordz.languageCode(context)},');
+          blog('1 language: ${Wordz.languageCode(context)},');
 
           /// A - if on web
           if (kIsWeb){
-            print('googleSignInOps : kIsWeb : $kIsWeb');
+            blog('googleSignInOps : kIsWeb : $kIsWeb');
 
             /// B - get [auth provider]
             final GoogleAuthProvider authProvider = GoogleAuthProvider();
@@ -453,7 +454,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
             /// D - get [firebase user] from [user credential]
             _user = _userCredential.user;
-            print('googleSignInOps : _user : $_user');
+            blog('googleSignInOps : _user : $_user');
 
           }
 
@@ -465,13 +466,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 
             /// B - get [google sign in account]
             final GoogleSignInAccount _googleAccount = await _googleSignIn.signIn();
-            print('googleSignInOps : _googleAccount : $_googleAccount');
+            blog('googleSignInOps : _googleAccount : $_googleAccount');
 
             if(_googleAccount != null){
 
               /// B - get [google sign in auth] from [google sign in account]
               final GoogleSignInAuthentication _googleAuth = await _googleAccount.authentication;
-              print('googleSignInOps : _googleAuth : $_googleAuth');
+              blog('googleSignInOps : _googleAuth : $_googleAuth');
 
               /// B - get [auth credential] from [google sign in auth]
               // TASK : signInMethod: google.com, can be found here
@@ -480,15 +481,15 @@ import 'package:google_sign_in/google_sign_in.dart';
                 accessToken: _googleAuth.accessToken,
                 idToken: _googleAuth.idToken,
               );
-              print('googleSignInOps : _authCredential : $_authCredential');
+              blog('googleSignInOps : _authCredential : $_authCredential');
 
               /// C - get [user credential] from [auth credential]
               final UserCredential _userCredential = await _auth.signInWithCredential(_authCredential);
-              print('googleSignInOps : _authResult : $_userCredential');
+              blog('googleSignInOps : _authResult : $_userCredential');
 
               /// D - get firebase user from user credential
               _user = _userCredential.user;
-              print('googleSignInOps : _user : $_user');
+              blog('googleSignInOps : _user : $_user');
 
             }
 
@@ -503,7 +504,7 @@ import 'package:google_sign_in/google_sign_in.dart';
       }
     );
 
-    print('facebookSignInOps : _signInResult : $_signInResult');
+    blog('facebookSignInOps : _signInResult : $_signInResult');
 
     // ==============================================================
 
@@ -518,7 +519,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
     /// xx - return firebase user : if auth succeeds
     else {
-      print('2 language: ${Wordz.languageCode(context)},');
+      blog('2 language: ${Wordz.languageCode(context)},');
 
       /// E - get Or Create UserModel From User
       final Map<String, dynamic> _userModelMap = await UserFireOps.getOrCreateUserModelFromUser(
@@ -535,12 +536,12 @@ import 'package:google_sign_in/google_sign_in.dart';
       //   context: context,
       //   userID: _user.uid,
       // );
-      // // print('lng : ${Wordz.languageCode(context)}');
+      // // blog('lng : ${Wordz.languageCode(context)}');
       //
       // /// Ex - if new user (userModel == null)
       // if (_existingUserModel == null) {
       //
-      //   // print('lng : ${Wordz.languageCode(context)}');
+      //   // blog('lng : ${Wordz.languageCode(context)}');
       //
       //   /// E1 - create initial user model
       //   UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
@@ -549,14 +550,14 @@ import 'package:google_sign_in/google_sign_in.dart';
       //     zone: currentZone,
       //     authBy: AuthBy.google,
       //   );
-      //   print('googleSignInOps : _initialUserModel : $_initialUserModel');
+      //   blog('googleSignInOps : _initialUserModel : $_initialUserModel');
       //
       //   /// E2 - create user ops
       //   UserModel _finalUserModel = await UserOps().createUserOps(
       //     context: context,
       //     userModel: _initialUserModel,
       //   );
-      //   print('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
+      //   blog('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
       //
       //   /// E3 - return new userModel inside userModel-firstTimer map
       //   return
@@ -588,7 +589,7 @@ import 'package:google_sign_in/google_sign_in.dart';
     bool _isSignedIn = true;
 
     final GoogleSignIn googleSignIn = GoogleSignIn();
-    print('googleSignOutOps : currentUser was : ${googleSignIn.currentUser}');
+    blog('googleSignOutOps : currentUser was : ${googleSignIn.currentUser}');
 
     await tryAndCatch(
       context: context,
@@ -611,7 +612,7 @@ import 'package:google_sign_in/google_sign_in.dart';
       }
     );
 
-    print('googleSignOutOps : currentUser is : ${googleSignIn.currentUser}');
+    blog('googleSignOutOps : currentUser is : ${googleSignIn.currentUser}');
 
     return _isSignedIn;
   }
@@ -621,7 +622,7 @@ import 'package:google_sign_in/google_sign_in.dart';
     @required bool routeToUserChecker,
   }) async {
 
-    print('Signing out');
+    blog('Signing out');
     await googleSignOutOps(context);
     await emailSignOutOps(context);
     // Nav.goToRoute(context, Routez.Starting);
@@ -689,7 +690,7 @@ old shit
   //
   //   final User user = _auth.currentUser;
   //
-  //   // print(user.providerData);
+  //   // blog(user.providerData);
   //
   //   return user.providerData;
   //
@@ -697,7 +698,7 @@ old shit
   //   //   // do something
   //   // }
   //   // else {
-  //   //   print(user.providerData);
+  //   //   blog(user.providerData);
   //   // }
   //
   // }
@@ -755,8 +756,8 @@ old shit
 //     // -------------------------
 //   } on FacebookAuthException catch (error) {
 //     // handle the FacebookAuthException
-//     print("Facebook Authentication Error");
-//     print(error.message);
+//     blog("Facebook Authentication Error");
+//     blog(error.message);
 //
 //     await superDialog(
 //       context: context,
@@ -767,8 +768,8 @@ old shit
 //
 //   } on FirebaseAuthException catch (error) {
 //     // handle the FirebaseAuthException
-//     print("Firebase Authentication Error");
-//     print(error.message);
+//     blog("Firebase Authentication Error");
+//     blog(error.message);
 //
 //     await superDialog(
 //       context: context,

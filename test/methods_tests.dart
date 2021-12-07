@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecke
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
@@ -300,10 +301,10 @@ void main(){
     final List<PublishTime> _times = <PublishTime>[timeA, timeB];
 
 
-    print('2 : _times[0].timeStamp : ${_times[0].time}');
-    print('3 : _times[0].state : ${_times[0].state}');
-    print('4 : _times[1].timeStamp : ${_times[1].time}');
-    print('5 : _times[1].state : ${_times[1].state}');
+    blog('2 : _times[0].timeStamp : ${_times[0].time}');
+    blog('3 : _times[0].state : ${_times[0].state}');
+    blog('4 : _times[1].timeStamp : ${_times[1].time}');
+    blog('5 : _times[1].state : ${_times[1].state}');
 
 
 
@@ -329,8 +330,8 @@ void main(){
 
     // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
 
-    print('pic is : $_pic');
-    print('_base64 : $_base64');
+    blog('pic is : $_pic');
+    blog('_base64 : $_base64');
 
     expect(_base64IsBase64, false);
 
@@ -402,7 +403,7 @@ void main(){
 
     final List<String> _expectation = <String>['#VAR01', '#VAR02'];
 
-    print('things are ${_things.toString()}');
+    blog('things are ${_things.toString()}');
 
     // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
 

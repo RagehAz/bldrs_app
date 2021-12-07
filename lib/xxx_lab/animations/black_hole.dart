@@ -54,7 +54,7 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
   }
 // ---------------------------------------------------------------------------
   void _enterTheBlackHole(){
-    print('ezayak el awwal');
+    blog('ezayak el awwal');
 
     if(mounted){
       _blackHoleController.forward();

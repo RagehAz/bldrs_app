@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 
 /// THIS METHOD GENERATES ALL PERMUTATIONS OF A STRING
@@ -29,7 +30,7 @@ List<String> generateStringPermutations(String input){
         /// then add it to final list
         _finalList = addIndexesToFinalListIfPossible(_currentList, _finalList);
 
-        print('the current list : $_currentList');
+        blog('the current list : $_currentList');
       }
 
     }
@@ -49,14 +50,14 @@ List<String> generateStringPermutations(String input){
     //       _permutationIndexes.add(x);
     //     }
     //
-    //     print('_permutationIndexes : $_permutationIndexes');
+    //     blog('_permutationIndexes : $_permutationIndexes');
     //
     //     _finalList.add(_permutationIndexes);
     //   }
     //
     // }
 
-    print('current list : $_currentList');
+    blog('current list : $_currentList');
 
   }
 
@@ -117,7 +118,7 @@ List<String> getStringsFromPermutationIndexesList({String source, List<List<int>
   // example of indexes = [0,1,2,0]
   for (final List<int> indexes in indexesList){
 
-    print('indexes : $indexes');
+    blog('indexes : $indexes');
 
     String _string = '';
 

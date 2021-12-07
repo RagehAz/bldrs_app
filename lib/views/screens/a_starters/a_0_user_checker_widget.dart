@@ -57,7 +57,7 @@ class _UserCheckerState extends State<UserChecker> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -69,7 +69,7 @@ class _UserCheckerState extends State<UserChecker> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      print('userChecker 1 : trigger loading');
+      blog('userChecker 1 : trigger loading');
       _triggerLoading();
 
       /// A - if user is signed in
@@ -77,7 +77,7 @@ class _UserCheckerState extends State<UserChecker> {
         _showLogo().
         then((_) async {
 
-          print('User is signed in : ${FireAuthOps.userIsSignedIn()}');
+          blog('User is signed in : ${FireAuthOps.userIsSignedIn()}');
           if (FireAuthOps.userIsSignedIn() == true) {
 
             final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
@@ -95,18 +95,18 @@ class _UserCheckerState extends State<UserChecker> {
 
               /// check if user model is properly completed
               final List<String> _missingFields = UserModel.missingFields(_userModel);
-              print(' _missingFields : $_missingFields');
+              blog(' _missingFields : $_missingFields');
 
               /// C - if userModel is completed
               if (_missingFields.isEmpty) {
                 unawaited(_triggerLoading());
 
                 /// XX - userModel is completed : go to LoadingScreen()
-                print('userModel is completed : go to LoadingScreen()');
+                blog('userModel is completed : go to LoadingScreen()');
                 // var _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
                 await Nav.goToNewScreen(context, const LoadingScreen(), transitionType: PageTransitionType.fade);
 
-                print('user has a completed userModel and was in home screen and came back to user checker, and this should not happen, at home page you can not go back to userChecker or loading screen man');
+                blog('user has a completed userModel and was in home screen and came back to user checker, and this should not happen, at home page you can not go back to userChecker or loading screen man');
                 /// so we loop once more to user check
                 await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
               }
@@ -127,7 +127,7 @@ class _UserCheckerState extends State<UserChecker> {
                   user: _userModel,),);
 
                 /// after returning from edit profile, we go to LoadingScreen()
-                print('user has completed profile and good to go to LoadingScreen()');
+                blog('user has completed profile and good to go to LoadingScreen()');
                 // var _result = await Nav.goToNewScreen(context, LoadingScreen(), transitionType: PageTransitionType.fade);
                 await Nav.goToNewScreen(context, const LoadingScreen(), transitionType: PageTransitionType.fade);
 
@@ -145,7 +145,7 @@ class _UserCheckerState extends State<UserChecker> {
 
             /// after returning from creating profile, we go to LoadingScreen()
             final dynamic _result = await Nav.goToNewScreen(context, const LoadingScreen(), transitionType: PageTransitionType.fade);
-            print('user has created profile and good to go to LoadingScreen() : _result : $_result');
+            blog('user has created profile and good to go to LoadingScreen() : _result : $_result');
           }
 
       }
@@ -157,7 +157,7 @@ class _UserCheckerState extends State<UserChecker> {
             /// route to sign in
             final dynamic _result = await Nav.goToNewScreen(context, const StartingScreen(), transitionType: PageTransitionType.fade);
 
-            print('just came back from starting screen : _result : $_result');
+            blog('just came back from starting screen : _result : $_result');
             /// and we loop again in userChecker
             await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
           }

@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 import 'package:bldrs/db/fire/ops/search_ops.dart' as FireSearchOps;
 import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
@@ -44,7 +45,7 @@ class FlyersProvider extends ChangeNotifier {
       );
 
       if (_map != null && _map != <String, dynamic>{}){
-        print('fetchFlyerByID : flyer found in local db : $doc');
+        blog('fetchFlyerByID : flyer found in local db : $doc');
         _flyer = FlyerModel.decipherFlyer(map: _map, fromJSON: true);
         break;
       }
@@ -53,7 +54,7 @@ class FlyersProvider extends ChangeNotifier {
 
     /// 2 - if not found, search firebase
     if (_flyer == null){
-      print('fetchFlyerByID : flyer NOT found in local db');
+      blog('fetchFlyerByID : flyer NOT found in local db');
 
       /// 2.1 read firebase flyer ops
       _flyer = await FireFlyerOps.readFlyerOps(
@@ -63,7 +64,7 @@ class FlyersProvider extends ChangeNotifier {
 
       /// 2.2 if found on firebase, store in ldb sessionFlyers
       if (_flyer != null){
-        print('fetchFlyerByID : flyer found in firestore db');
+        blog('fetchFlyerByID : flyer found in firestore db');
 
         await LDBOps.insertMap(
           input: _flyer.toMap(toJSON: true),
@@ -247,7 +248,7 @@ class FlyersProvider extends ChangeNotifier {
 
           final FlyerTypeClass.FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
 
-          // print('_flyerType is : ${_flyerType.toString()}');
+          // blog('_flyerType is : ${_flyerType.toString()}');
 
           /// READ data from cloud Firestore flyers collection
 
@@ -259,12 +260,12 @@ class FlyersProvider extends ChangeNotifier {
           );
 
 
-          // print('${(TinyFlyer.cipherTinyFlyers(_foundFlyers)).toString()}');
+          // blog('${(TinyFlyer.cipherTinyFlyers(_foundFlyers)).toString()}');
 
           _wallFlyers = _foundFlyers;
 
           notifyListeners();
-          // print('_loadedTinyBzz :::: --------------- $_loadedTinyBzz');
+          // blog('_loadedTinyBzz :::: --------------- $_loadedTinyBzz');
 
         }
     );

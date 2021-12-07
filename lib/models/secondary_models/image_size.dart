@@ -6,6 +6,7 @@ import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
@@ -60,13 +61,13 @@ class ImageSize{
     if(image != null){
       // -----------------------------------------------------------o
       final bool _isURL = ObjectChecker.objectIsURL(image) == true;
-      // print('_isURL : $_isURL');
+      // blog('_isURL : $_isURL');
       final bool _isAsset = ObjectChecker.objectIsAsset(image) == true;
-      // print('_isAsset : $_isAsset');
+      // blog('_isAsset : $_isAsset');
       final bool _isFile = ObjectChecker.objectIsFile(image) == true;
-      // print('_isFile : $_isFile');
+      // blog('_isFile : $_isFile');
       final bool _isUints = ObjectChecker.objectIsUint8List(image) == true;
-      // print('_isUints : $_isUints');
+      // blog('_isUints : $_isUints');
       // -----------------------------------------------------------o
       ui.Image _decodedImage;
       Uint8List _uInt8List;
@@ -87,11 +88,11 @@ class ImageSize{
       }
       // --------------------------o
       else if(_isFile){
-        // print('_isFile staring aho : $_isFile');
+        // blog('_isFile staring aho : $_isFile');
         _uInt8List = await image.readAsBytesSync();
-        // print('_uInt8List : $_uInt8List');
+        // blog('_uInt8List : $_uInt8List');
         _decodedImage = await Imagers.getUiImageFromUint8List(_uInt8List);
-        // print('_decodedImage : $_decodedImage');
+        // blog('_decodedImage : $_decodedImage');
       }
       // --------------------------o
       else if (_isUints == true) {
@@ -111,11 +112,11 @@ class ImageSize{
   }
 // -----------------------------------------------------------------------------
   void printSize({String methodName}){
-    print('START - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- START ---');
+    blog('START - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- START ---');
 
-    print('image size: W [ $width ] x H [ $height ]');
+    blog('image size: W [ $width ] x H [ $height ]');
 
-    print('END - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- END ---');
+    blog('END - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- END ---');
   }
 // -----------------------------------------------------------------------------
   static int cipherBoxFit(BoxFit boxFit){

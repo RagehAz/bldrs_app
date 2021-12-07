@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sembast/utils/value_utils.dart';
@@ -281,7 +282,7 @@ import 'package:sembast/utils/value_utils.dart';
       /// holds temp trimmed url in here while trimming loops
       String _trimmedURL = urlQuery;
 
-      print('_trimmedURL : $_trimmedURL');
+      blog('_trimmedURL : $_trimmedURL');
 
       /// trim urlQuery into string pairs
       for (int i = 0; i < _numberOfAnds; i++){
@@ -313,8 +314,8 @@ import 'package:sembast/utils/value_utils.dart';
 
     /// if counts are no good
     else {
-      print('getMapFromURLQuery : _countsOfPairsAreGood : $_countsOfPairsAreGood');
-      print('getMapFromURLQuery : something is wrong in this : urlQuery : $urlQuery');
+      blog('getMapFromURLQuery : _countsOfPairsAreGood : $_countsOfPairsAreGood');
+      blog('getMapFromURLQuery : something is wrong in this : urlQuery : $urlQuery');
     }
 
 
@@ -354,10 +355,10 @@ import 'package:sembast/utils/value_utils.dart';
 
     on Exception catch(e){
 
-      print('error is : $e');
-      print('map is : $map');
-      print('fieldKey is : $fieldKey');
-      print('inputValue : $inputValue');
+      blog('error is : $e');
+      blog('map is : $map');
+      blog('fieldKey is : $fieldKey');
+      blog('inputValue : $inputValue');
 
     }
 
@@ -385,16 +386,16 @@ import 'package:sembast/utils/value_utils.dart';
 // -----------------------------------------------------------------------------
   void printMap(Map<String, dynamic> map){
 
-    print('MAP-PRINT --------------------------------------------------START');
+    blog('MAP-PRINT --------------------------------------------------START');
 
     final List<String> _keys = map.keys.toList();
     final List<dynamic> _values = map.values.toList();
 
     for (int i = 0; i <_keys.length; i++){
-      print('MAP-PRINT : ${_keys[i]} : ${_values[i]}');
+      blog('MAP-PRINT : ${_keys[i]} : ${_values[i]}');
     }
 
-    print('MAP-PRINT --------------------------------------------------END');
+    blog('MAP-PRINT --------------------------------------------------END');
 
   }
 // -----------------------------------------------------------------------------

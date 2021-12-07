@@ -127,11 +127,11 @@ class TopDialog extends StatelessWidget {
 
       /// INTERACTIONS ----------------------------------------------
       onTap: (Flushbar<dynamic> flushbar){
-        print('on tap : flushbar : $flushbar');
+        blog('on tap : flushbar : $flushbar');
       },
 
       onStatusChanged: (FlushbarStatus status){
-        print('status is : $status');
+        blog('status is : $status');
       },
 
       /// UNKNOWN ----------------------------------------------
@@ -187,7 +187,7 @@ class TopDialog extends StatelessWidget {
         size: 1,
       ),
       onStatusChanged: (FlushbarStatus status){
-        print('status is : $status');
+        blog('status is : $status');
       },
       positionOffset: 0,
       progressIndicatorBackgroundColor: Colorz.cyan50,

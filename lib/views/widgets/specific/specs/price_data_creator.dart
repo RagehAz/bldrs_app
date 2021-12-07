@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
@@ -197,19 +198,19 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 
     final bool _invalidDigits = _numberOfFractions > _maxDigits;
 
-    print('_numberOfFractions : $_numberOfFractions : _numberString : $_numberString : _fractionsStrings : $_fractionsStrings');
+    blog('_numberOfFractions : $_numberOfFractions : _numberString : $_numberString : _fractionsStrings : $_fractionsStrings');
 
     if (_invalidDigits == true){
 
       final String _error = 'Can not add more than $_maxDigits fractions';
 
-      print(_error);
+      blog(_error);
 
       return _error;
 
     } else {
 
-      print('tamam');
+      blog('tamam');
 
       return null;
 

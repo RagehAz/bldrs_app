@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/models/bz/author_model.dart';
@@ -111,7 +112,7 @@ class GalleryGrid extends StatelessWidget {
     );
 // -----------------------------------------------------------------------------
 
-    print('the fucking flyers hena are : $galleryFlyers');
+    blog('the fucking flyers hena are : $galleryFlyers');
 
     return
       SizedBox(
@@ -167,7 +168,7 @@ class GalleryGrid extends StatelessWidget {
                         flyerKey: ValueKey<String>(_gridFlyers[index].id),
                         // initialSlideIndex: _gridFlyers[index].slideIndex,
                         onSwipeFlyer: (Sliders.SwipeDirection direction){
-                          // print('Direction is ${direction}');
+                          // blog('Direction is ${direction}');
                         },
                       ),
 

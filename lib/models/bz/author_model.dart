@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
@@ -201,7 +202,7 @@ class AuthorModel{
   static List<String> replaceAuthorIDInAuthorsIDsList({@required List<AuthorModel> originalAuthors, @required AuthorModel oldAuthor, @required AuthorModel newAuthor}){
     List<String> _modifiedAuthorsIDsList;
     final List<String> _originalAuthorsIDs = getAuthorsIDsFromAuthors(originalAuthors);
-    print('getAuthorsIDsFromAuthors : _originalAuthorsIDs : $_originalAuthorsIDs');
+    blog('getAuthorsIDsFromAuthors : _originalAuthorsIDs : $_originalAuthorsIDs');
     final int _indexOfOldAuthor = getAuthorIndexByAuthorID(originalAuthors, oldAuthor.userID);
 
     if (_indexOfOldAuthor != -1){
@@ -286,16 +287,16 @@ class AuthorModel{
 
     final String _methodName = methodName ?? 'AUTHOR';
 
-    print('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
+    blog('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
 
-    print('userID : $userID');
-    print('name : $name');
-    print('pic : $pic');
-    print('title : $title');
-    print('isMaster : $isMaster');
-    print('contacts : $contacts');
+    blog('userID : $userID');
+    blog('name : $name');
+    blog('pic : $pic');
+    blog('title : $title');
+    blog('isMaster : $isMaster');
+    blog('contacts : $contacts');
 
-    print('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
+    blog('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
 
   }
 // -----------------------------------------------------------------------------

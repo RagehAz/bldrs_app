@@ -47,7 +47,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   AwesomeNotifications _awesomeNotification;
@@ -108,22 +108,22 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   }
 // -----------------------------------------------------------------------------
 //   Future<void> _firebasePushHandler(RemoteMessage message){
-//     print('_firebasePushHandler : message : $message');
+//     blog('_firebasePushHandler : message : $message');
 //
 //     _awesomeNotification.createNotificationFromJsonData(message.data);
 //   }
 // -----------------------------------------------------------------------------
   Future<void> _notiStream(BuildContext context) async {
 
-    print('starting notiStream');
-    print('_awesomeNotification.isNotificationAllowed() : ${await _awesomeNotification.isNotificationAllowed()}');
+    blog('starting notiStream');
+    blog('_awesomeNotification.isNotificationAllowed() : ${await _awesomeNotification.isNotificationAllowed()}');
 
     if (_awesomeNotification.isNotificationAllowed() != null) {
 
 
       _awesomeNotification.createdStream.listen((ReceivedNotification notification) async {
 
-        print('the FUCKING notification is aho 5ara :  Channel : ${notification.channelKey} : id : ${notification.id}');
+        blog('the FUCKING notification is aho 5ara :  Channel : ${notification.channelKey} : id : ${notification.id}');
 
         await _flickerPyramids();
 
@@ -159,7 +159,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
     }
 
-    print('ended notiStream');
+    blog('ended notiStream');
 
   }
 // -----------------------------------------------------------------------------
@@ -204,7 +204,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     await _flickerPyramids();
 
     final String _audio = Audioz.randomBldrsNameSoundPath();
-    print(_audio);
+    blog(_audio);
 
   }
 // -----------------------------------------------------------------------------

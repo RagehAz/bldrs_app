@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/db/fire/methods/storage.dart' as Storage;
@@ -47,7 +48,7 @@ import 'package:flutter/material.dart';
     @required BzModel bzModel,
   }) async {
 
-    print('1- staring create flyer ops');
+    blog('1- staring create flyer ops');
 
     /// create empty firestore flyer document to get back _flyerID
     final DocumentReference<Object> _docRef = await Fire.createDoc(
@@ -58,7 +59,7 @@ import 'package:flutter/material.dart';
 
     final String _flyerID = _docRef.id;
 
-    print('2- flyer doc ID created : $_flyerID');
+    blog('2- flyer doc ID created : $_flyerID');
 
     /// save slide pictures on fireStorage and get back their URLs
     final List<String> _picturesURLs = await Storage.createStorageSlidePicsAndGetURLs(
@@ -68,12 +69,12 @@ import 'package:flutter/material.dart';
       authorID: inputFlyerModel.authorID,
     );
 
-    print('3- _picturesURLs created index 0 is : ${_picturesURLs[0]}');
+    blog('3- _picturesURLs created index 0 is : ${_picturesURLs[0]}');
 
     /// update slides with URLs
     final List<SlideModel> _updatedSlides = await SlideModel.replaceSlidesPicturesWithNewURLs(_picturesURLs, inputFlyerModel.slides);
 
-    print('4- slides updated with URLs');
+    blog('4- slides updated with URLs');
 
     /// update FlyerModel with newSlides & flyerURL
     final FlyerModel _finalFlyerModel = FlyerModel(
@@ -105,7 +106,7 @@ import 'package:flutter/material.dart';
 
     );
 
-    print('5- flyer model updated with flyerID, flyerURL & updates slides pic URLs');
+    blog('5- flyer model updated with flyerID, flyerURL & updates slides pic URLs');
 
     /// replace empty flyer document with the new refactored one _finalFlyerModel
     await Fire.updateDoc(
@@ -116,7 +117,7 @@ import 'package:flutter/material.dart';
     );
 
 
-    print('7- Tiny flyer model added to tinyFlyers/$_flyerID');
+    blog('7- Tiny flyer model added to tinyFlyers/$_flyerID');
 
 
     /// add flyer counters sub collection and document in flyer store
@@ -129,7 +130,7 @@ import 'package:flutter/material.dart';
     input: await SlideModel.cipherSlidesCounters(_updatedSlides),
   );
 
-  print('9- flyer counters added');
+  blog('9- flyer counters added');
 
   /// add flyerID to bz document in 'flyersIDs' field
     final List<String> _bzFlyersIDs = bzModel.flyersIDs;
@@ -142,7 +143,7 @@ import 'package:flutter/material.dart';
       input: _bzFlyersIDs,
     );
 
-    print('10- tiny flyer added to bzID in bzz/${_finalFlyerModel.bzID}');
+    blog('10- tiny flyer added to bzID in bzz/${_finalFlyerModel.bzID}');
 
     return _finalFlyerModel;
   }
@@ -271,23 +272,23 @@ import 'package:flutter/material.dart';
 
     FlyerModel _finalFlyer = updatedFlyer;
 
-    print('besm allah');
+    blog('besm allah');
 
     /// A - if slides changed
     if(SlideModel.allSlidesPicsAreTheSame(finalFlyer: updatedFlyer, originalFlyer: originalFlyer) == false){
 
-      print('A -  slides are not the same');
+      blog('A -  slides are not the same');
 
       /// A1 - loop each slide in updated slides to check which changed
       final List<SlideModel> _finalSlides = <SlideModel>[];
       for (final SlideModel slide in updatedFlyer.slides){
 
-        print('A1 - checking slide ${slide.slideIndex}');
+        blog('A1 - checking slide ${slide.slideIndex}');
 
         /// x1 - if slide pic changed
         if (ObjectChecker.objectIsFile(slide.pic) == true){
 
-          print('x1 - slide ${slide.slideIndex} is FILE');
+          blog('x1 - slide ${slide.slideIndex} is FILE');
 
           /// a - upload File to fireStorage/slidesPics/slideID and get URL
           final String _newPicURL = await Storage.createStoragePicAndGetURL(
@@ -300,7 +301,7 @@ import 'package:flutter/material.dart';
 
           final ImageSize _imageSize = await ImageSize.superImageSize(slide.pic);
 
-          print('a - slide ${slide.slideIndex} got this URL : $_newPicURL');
+          blog('a - slide ${slide.slideIndex} got this URL : $_newPicURL');
 
           /// b - recreate SlideModel with new pic URL
           final SlideModel _updatedSlide = SlideModel(
@@ -320,7 +321,7 @@ import 'package:flutter/material.dart';
           /// c - add the updated slide into finalSlides
           _finalSlides.add(_updatedSlide);
 
-          print('c - slide ${slide.slideIndex} added to the _finalSlides');
+          blog('c - slide ${slide.slideIndex} added to the _finalSlides');
 
         }
 
@@ -330,11 +331,11 @@ import 'package:flutter/material.dart';
           /// c - add the slide into finalSlides
           _finalSlides.add(slide);
 
-          print('c - slide ${slide.slideIndex} is URL');
+          blog('c - slide ${slide.slideIndex} is URL');
 
         }
 
-        print('A1 - all slides checked');
+        blog('A1 - all slides checked');
 
       }
 
@@ -365,7 +366,7 @@ import 'package:flutter/material.dart';
 
     }
 
-    print('B - all slides Got URLs and deleted slides have been overridden or deleted');
+    blog('B - all slides Got URLs and deleted slides have been overridden or deleted');
 
     /// C - update flyer doc in fireStore/flyers/flyerID
     await Fire.updateDoc(
@@ -375,7 +376,7 @@ import 'package:flutter/material.dart';
       input: _finalFlyer.toMap(toJSON: false),
     );
 
-    print('C - flyer updated on fireStore in fireStore/flyers/${_finalFlyer.id}');
+    blog('C - flyer updated on fireStore in fireStore/flyers/${_finalFlyer.id}');
 
     /// D - if keywords changed, update flyerKeys doc in : fireStore/flyersKeys/flyerID
     // if (Mapper.listsAreTheSame(list1: _finalFlyer.keywordsIDs, list2: originalFlyer.keywordsIDs) == false){
@@ -386,12 +387,12 @@ import 'package:flutter/material.dart';
     //       input: await TextMod.getKeywordsMap(_finalFlyer.keywordsIDs)
     //   );
     //
-    //   print('D - flyer keywords updated on FireStore');
+    //   blog('D - flyer keywords updated on FireStore');
     //
     // }
 
 
-    print('F - finished uploading flyer');
+    blog('F - finished uploading flyer');
 
     return _finalFlyer;
   }
@@ -469,7 +470,7 @@ import 'package:flutter/material.dart';
     if (flyerModel != null && flyerModel.id != null && bzModel != null){
 
       /// A1 - get flyers IDs of this bzModel
-      print('A1 - get flyers IDs of this bzModel');
+      blog('A1 - get flyers IDs of this bzModel');
       final List<String> _bzFlyersIDs = bzModel.flyersIDs;
 
       /// A2 - update fireStore/bzz/bzID['flyersIDs']
@@ -488,7 +489,7 @@ import 'package:flutter/material.dart';
 
 
       /// D - delete fireStore/flyers/flyerID/views/(all sub docs)
-      print('D - delete flyer views sub docs');
+      blog('D - delete flyer views sub docs');
       await Fire.deleteAllSubDocs(
         context: context,
         collName: FireColl.flyers,
@@ -497,7 +498,7 @@ import 'package:flutter/material.dart';
       );
 
       /// E - delete fireStore/flyers/flyerID/shares/(all sub docs)
-      print('E - delete shares sub docs');
+      blog('E - delete shares sub docs');
       await Fire.deleteAllSubDocs(
         context: context,
         collName: FireColl.flyers,
@@ -506,7 +507,7 @@ import 'package:flutter/material.dart';
       );
 
       /// F - delete fireStore/flyers/flyerID/saves/(all sub docs)
-      print('F - delete saves sub docs');
+      blog('F - delete saves sub docs');
       await Fire.deleteAllSubDocs(
         context: context,
         collName: FireColl.flyers,
@@ -515,7 +516,7 @@ import 'package:flutter/material.dart';
       );
 
       /// G - delete fireStore/flyers/flyerID/counters/counters
-      print('G - delete counters sub doc');
+      blog('G - delete counters sub doc');
       await Fire.deleteSubDoc(
         context: context,
         collName: FireColl.flyers,
@@ -525,14 +526,14 @@ import 'package:flutter/material.dart';
       );
 
       /// H - delete fireStorage/slidesPics/slideID for all flyer slides
-      print('H - delete flyer slide pics');
+      blog('H - delete flyer slide pics');
       final List<String> _slidesIDs = SlideModel.generateSlidesIDs(
         flyerID: flyerModel.id,
         numberOfSlides: flyerModel.slides.length,
       );
       for (final String id in _slidesIDs){
 
-        print('a - delete slideHighRes : $id from ${_slidesIDs.length} slides');
+        blog('a - delete slideHighRes : $id from ${_slidesIDs.length} slides');
         await Storage.deleteStoragePic(
           context: context,
           picName: id,
@@ -542,14 +543,14 @@ import 'package:flutter/material.dart';
       }
 
       /// I - delete firestore/flyers/flyerID
-      print('I - delete flyer doc');
+      blog('I - delete flyer doc');
       await Fire.deleteDoc(
         context: context,
         collName: FireColl.flyers,
         docName: flyerModel.id,
       );
 
-      print('DELETE FLYER OPS ENDED for ${flyerModel.id} ---------------------------');
+      blog('DELETE FLYER OPS ENDED for ${flyerModel.id} ---------------------------');
 
 
     }

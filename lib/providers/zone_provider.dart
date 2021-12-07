@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/ops/search_ops.dart' as FireSearchOps;
 import 'package:bldrs/db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
@@ -36,13 +37,13 @@ class ZoneProvider extends ChangeNotifier {
       searchValue: countryID,
     );
     if (_map != null && _map != <String, Object>{}){
-      print('fetchCountryByID : country found in local db : ${LDBDoc.countries}');
+      blog('fetchCountryByID : country found in local db : ${LDBDoc.countries}');
       _countryModel = CountryModel.decipherCountryMap(map: _map, fromJSON: true);
     }
 
     /// 2 - if not found, search firebase
     if (_countryModel == null){
-      print('fetchCountryByID : country NOT found in local db');
+      blog('fetchCountryByID : country NOT found in local db');
 
       /// 2.1 read firebase country ops
       _countryModel = await ZoneOps.readCountryOps(
@@ -52,7 +53,7 @@ class ZoneProvider extends ChangeNotifier {
 
       /// 2.2 if found on firebase, store in ldb sessionCountries
       if (_countryModel != null){
-        print('fetchCountryByID : country found in firestore db');
+        blog('fetchCountryByID : country found in firestore db');
 
         await LDBOps.insertMap(
           input: _countryModel.toMap(toJSON: true),
@@ -104,13 +105,13 @@ class ZoneProvider extends ChangeNotifier {
         searchValue: cityID,
       );
       if (_map != null && _map != <String, dynamic>{}){
-        print('fetchCityByID : City found in local db : ${LDBDoc.cities}');
+        blog('fetchCityByID : City found in local db : ${LDBDoc.cities}');
         _cityModel = CityModel.decipherCityMap(map: _map, fromJSON: true);
       }
 
       /// 2 - if not found, search firebase
       if (_cityModel == null){
-        print('fetchCityByID : City NOT found in local db');
+        blog('fetchCityByID : City NOT found in local db');
 
         /// 2.1 read firebase country ops
         _cityModel = await ZoneOps.readCityOps(
@@ -120,7 +121,7 @@ class ZoneProvider extends ChangeNotifier {
 
         /// 2.2 if found on firebase, store in ldb sessionCountries
         if (_cityModel != null){
-          print('fetchCityByID : city found in firestore db');
+          blog('fetchCityByID : city found in firestore db');
 
           await LDBOps.insertMap(
             input: _cityModel.toMap(toJSON: true),
@@ -211,7 +212,7 @@ class ZoneProvider extends ChangeNotifier {
         /// D - if firebase or LDB found any cities
         if (Mapper.canLoopList(_foundCities) == true){
 
-          print('aho fetchCityByName : _foundCities.length = ${_foundCities.length}');
+          blog('aho fetchCityByName : _foundCities.length = ${_foundCities.length}');
 
           /// D-1 if only one city found
           if (_foundCities.length == 1){
@@ -274,13 +275,13 @@ class ZoneProvider extends ChangeNotifier {
     );
 
     if (Mapper.canLoopList(_maps)){
-      print('fetchCountryByID : country found in local db : ${LDBDoc.continents}');
+      blog('fetchCountryByID : country found in local db : ${LDBDoc.continents}');
       _continents = Continent.decipherContinents(_maps[0]);
     }
 
     /// 2 - if not found, search firebase
     if (_continents == null){
-      print('fetchCountryByID : country NOT found in local db');
+      blog('fetchCountryByID : country NOT found in local db');
 
       /// 2.1 read firebase country ops
       _continents = await ZoneOps.readContinentsOps(
@@ -289,7 +290,7 @@ class ZoneProvider extends ChangeNotifier {
 
       /// 2.2 if found on firebase, store in ldb sessionCountries
       if (_continents != null){
-        print('fetchCountryByID : country found in firestore db');
+        blog('fetchCountryByID : country found in firestore db');
 
         await LDBOps.insertMap(
           input: Continent.cipherContinents(_continents),
@@ -315,20 +316,20 @@ class ZoneProvider extends ChangeNotifier {
     );
 
     if (Mapper.canLoopList(_maps)){
-      print('fetchCurrencies : currencies found in local db : ${LDBDoc.currencies}');
+      blog('fetchCurrencies : currencies found in local db : ${LDBDoc.currencies}');
       _currencies = CurrencyModel.decipherCurrencies(_maps[0]);
     }
 
     /// 2 - if not found, search firebase
     if (_currencies == null){
-      print('fetchCurrencies : currencies NOT found in local db');
+      blog('fetchCurrencies : currencies NOT found in local db');
 
       /// 2.1 read firebase country ops
       _currencies = await ZoneOps.readCurrencies(context,);
 
       /// 2.2 if found on firebase, store in ldb LDBDoc.currencies
       if (_currencies != null){
-        print('fetchCurrencies : adding currencies from firestore to LDB');
+        blog('fetchCurrencies : adding currencies from firestore to LDB');
 
         await LDBOps.insertMap(
           input: CurrencyModel.cipherCurrencies(_currencies),
@@ -432,13 +433,13 @@ class ZoneProvider extends ChangeNotifier {
 
       final List<Placemark> _marks = await ZoneOps.getAddressFromPosition(geoPoint: geoPoint);
 
-      print('_getCountryData : got place marks : ${_marks.length}');
+      blog('_getCountryData : got place marks : ${_marks.length}');
 
       if (Mapper.canLoopList(_marks)){
 
         final Placemark _mark = _marks[0];
 
-        print('mark is : $_mark');
+        blog('mark is : $_mark');
 
         final String _countryIso = _mark.isoCountryCode;
         final String _countryID = CountryIso.getCountryIDByIso(_countryIso);

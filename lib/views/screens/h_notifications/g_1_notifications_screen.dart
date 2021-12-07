@@ -43,7 +43,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -64,7 +64,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
         // _notiModelsAho[0].printNotiModel(methodName: 'kos omak');
         //
-        // print('ahooooooooooooooooooooooooooooooooooo : the noti fucking models are here aho : ${_notiModelsAho.toString()}');
+        // blog('ahooooooooooooooooooooooooooooooooooo : the noti fucking models are here aho : ${_notiModelsAho.toString()}');
 
         /// ---------------------------------------------------------0
       });
@@ -79,7 +79,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _dismissNotification({String id, int notiModelsLength}) async {
 
-    print('removing noti with id : $id ---------------------------------------------------------------------------------xxxxx ');
+    blog('removing noti with id : $id ---------------------------------------------------------------------------------xxxxx ');
 
     await Fire.updateSubDocField(
       context: context,
@@ -92,7 +92,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     );
 
     if (notiModelsLength == 1){
-      print('this was the last notification and is gone khalas --------------------------------------------------------------------------------- oooooo ');
+      blog('this was the last notification and is gone khalas --------------------------------------------------------------------------------- oooooo ');
     }
 
     // setState(() {
@@ -120,7 +120,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           corners: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           onTap: (){
-            print('to dismissed notifications');
+            blog('to dismissed notifications');
             },
         ),
 
@@ -131,7 +131,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       pyramids: Iconz.pyramidzYellow,
       // tappingRageh: () async {
       //
-      //   print('fuck fuck');
+      //   blog('fuck fuck');
       //
       //   final UserModel _rageh = await UserFireOps.readUser(
       //     context: context,
@@ -148,7 +148,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       //     input: _tri,
       //   );
       //
-      //   print('finished');
+      //   blog('finished');
       //
       //   },
 
@@ -171,7 +171,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           userID: FireAuthOps.superUserID(),
           builder: (BuildContext ctx, List<NotiModel> notiModels){
 
-            print('the shit is : notiModels : $notiModels');
+            blog('the shit is : notiModels : $notiModels');
 
             return
 
@@ -189,7 +189,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
                   return Dismissible(
                     // onResize: (){
-                    // print('resizing');
+                    // blog('resizing');
                     // },
                     // background: Container(
                     //   alignment: Aligners.superCenterAlignment(context),
@@ -217,7 +217,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     movementDuration: const Duration(milliseconds: 250),
                     resizeDuration: const Duration(milliseconds: 250),
                     confirmDismiss: (DismissDirection direction) async {
-                      // print('confirmDismiss : direction is : $direction');
+                      // blog('confirmDismiss : direction is : $direction');
 
                       /// if needed to make the bubble un-dismissible set to false
                       const bool _dismissible = true;

@@ -55,7 +55,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -146,7 +146,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
           bzModel: tinyBz,
         ) == true;
 
-        // print('_alreadyInList : ${tinyBz.bzID} : $_alreadyInList');
+        // blog('_alreadyInList : ${tinyBz.bzID} : $_alreadyInList');
 
         if (_alreadyInList == true){
 

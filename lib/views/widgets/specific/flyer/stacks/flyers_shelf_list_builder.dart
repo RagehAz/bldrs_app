@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
@@ -37,14 +38,14 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
 // -----------------------------------------------------------------------------
   void listenToScrolling(){
     if(_controller.position.atEdge){
-      print('at edge');
+      blog('at edge');
       final bool isTop = _controller.position.pixels == 0;
-      print('isTOp is : $isTop');
+      blog('isTOp is : $isTop');
 
       if(isTop){
-        print('we reached the scroll start');
+        blog('we reached the scroll start');
       } else {
-        print('we reached the scroll end');
+        blog('we reached the scroll end');
         if (widget.onScrollEnd != null){
           widget.onScrollEnd();
         }
@@ -92,7 +93,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
       // cacheExtent: screenHeight*5,
       itemBuilder: (BuildContext context, int _x) {
 
-        // print('_flyers[_x].flyerID = ${_flyers[_x].flyerID}');
+        // blog('_flyers[_x].flyerID = ${_flyers[_x].flyerID}');
 
         // SuperFlyer _superFlyer = SuperFlyer.createViewSuperFlyerFromTinyFlyer(
         //     context: context,
@@ -165,7 +166,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
                 flyerBoxWidth: _flyerBoxWidth,
                 flyerModel: _flyers[_x],
                 onSwipeFlyer: (Sliders.SwipeDirection direction){
-                  // print('Direction is ${direction}');
+                  // blog('Direction is ${direction}');
                 },
               ),
             ),
