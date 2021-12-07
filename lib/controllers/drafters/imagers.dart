@@ -299,7 +299,7 @@ enum PicType{
     /// get temporary path from temporary directory.
     final String _tempPath = _tempDir.path;
     /// create a new file in temporary path with random file name.
-    final File _file = new File('$_tempPath'+ (_rng.nextInt(100)).toString() +'.png');
+    final File _file = new File('$_tempPath${(_rng.nextInt(100)).toString()}.png');
     /// call http.get method and pass imageUrl into it to get response.
     final Uri _imageUri = Uri.parse(imageUrl);
     final http.Response _response = await http.get(_imageUri);
@@ -531,11 +531,11 @@ enum PicType{
   final ui.PictureRecorder _pictureRecorder = ui.PictureRecorder();
   final Canvas _canvas = Canvas(_pictureRecorder);
   final Paint _paint = Paint()..color = Colors.transparent;
-  const Radius _radius = const Radius.circular(20.0);
+  const Radius _radius = const Radius.circular(20);
 
   _canvas.drawRRect(
       RRect.fromRectAndCorners(
-        Rect.fromLTWH(0.0, 0.0, width.toDouble(), height.toDouble()),
+        Rect.fromLTWH(0, 0, width.toDouble(), height.toDouble()),
         topLeft: _radius,
         topRight: _radius,
         bottomLeft: _radius,

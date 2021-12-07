@@ -96,7 +96,7 @@ class ListLayout extends StatelessWidget {
                             child: DreamBox(
                               height: 40,
                               width: Bubble.clearWidth(context) - 10,
-                              icon: icons == null || icons.length == 0 ? null : icons[index],
+                              icon: icons == null || icons.isEmpty ? null : icons[index],
                               iconSizeFactor: 0.8,
                               verse: mapModels[index].value,
                               bubble: false,

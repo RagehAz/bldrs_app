@@ -552,7 +552,7 @@ enum ValueIs{
 
     List<CityModel> _cities = <CityModel>[];
 
-    if (cityName != null && cityName.length != 0){
+    if (cityName != null && cityName.isNotEmpty){
 
       final List<Map<String, dynamic>> _result = await subCollectionMapsByFieldValue(
         context: context,

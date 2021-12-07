@@ -240,7 +240,7 @@ enum FlyerSourceType {
     BoxFit _fit;
 
     if (superFlyer.mSlides != null){
-      if(superFlyer.mSlides.length != 0){
+      if(superFlyer.mSlides.isNotEmpty){
         if(superFlyer.currentSlideIndex != null){
           _fit = superFlyer.mSlides[superFlyer.currentSlideIndex].picFit;
         }

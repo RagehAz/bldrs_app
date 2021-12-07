@@ -213,7 +213,7 @@ class TargetsBubble extends StatelessWidget {
                   ),
 
                       /// INSTRUCTIONS
-                      if (_target.instructions != null && _target.instructions.length > 0 && _targetReached == false)
+                      if (_target.instructions != null && _target.instructions.isNotEmpty && _targetReached == false)
                         ... List<Widget>.generate(_target.instructions.length, (int index){
 
                           return

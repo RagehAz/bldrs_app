@@ -175,7 +175,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
             return
 
-              notiModels == null || notiModels.length == 0 ?
+              notiModels == null || notiModels.isEmpty ?
               Container()
                   :
               ListView.builder(

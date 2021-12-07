@@ -419,7 +419,7 @@ class Spec {
 
       final List<Spec> _specs = specs.where((Spec spec) => spec.value == value).toList();
 
-      if (_specs.length > 0){
+      if (_specs.isNotEmpty){
         _contains = true;
       }
 

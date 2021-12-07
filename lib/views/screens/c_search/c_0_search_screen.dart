@@ -141,7 +141,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     final List<SearchResult> _all = <SearchResult>[..._keywordsResults, ..._bzzResults, ..._authorsResults, ..._flyersResults];
 
-    if (_all.length > 0){
+    if (_all.isNotEmpty){
 
       setState(() {
         _allResults = _all;
@@ -188,7 +188,7 @@ class _SearchScreenState extends State<SearchScreen> {
           kw: kw,
         );
 
-        if (_flyersByKeyword.length > 0){
+        if (_flyersByKeyword.isNotEmpty){
           _results.add(
               SearchResult(
                 title: Name.getNameByCurrentLingoFromNames(context, kw.names),
@@ -307,7 +307,7 @@ class _SearchScreenState extends State<SearchScreen> {
       title: _searchController.text,
     );
 
-    if (_flyers.length > 0){
+    if (_flyers.isNotEmpty){
       _results.add(
           SearchResult(
             title: 'Matching titles',
@@ -355,7 +355,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
         print('search value changed to ${val}');
 
-        if (val.length == 0){
+        if (val.isEmpty){
           setState(() {
             _allResults = <SearchResult>[];
           });

@@ -112,7 +112,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     final String val = TextMod.removeSpacesFromAString(value);
 
     final bool _searchValueIsEmpty =  val == '';
-    final bool _searchResultIsEmpty = _searchedBzz.length == 0;
+    final bool _searchResultIsEmpty = _searchedBzz.isEmpty;
 
     /// A - when field has NO value
     if (_searchValueIsEmpty){
@@ -193,7 +193,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
     final double _clearDialogWidth = BottomDialog.dialogClearWidth(context);
 
-    final List<BzModel> _bzz = _searchedBzz.length == 0 ? _bzzModels : _searchedBzz;
+    final List<BzModel> _bzz = _searchedBzz.isEmpty ? _bzzModels : _searchedBzz;
 
     return
 

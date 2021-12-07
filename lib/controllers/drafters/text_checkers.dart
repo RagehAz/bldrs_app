@@ -23,7 +23,7 @@ import 'package:intl/intl.dart' as international;
     bool _controllerIsEmpty;
 
     if (
-    controller == null || controller.text == '' || controller.text.length == 0 ||
+    controller == null || controller.text == '' || controller.text.isEmpty ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) == '' ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) == null
     ){
@@ -107,7 +107,7 @@ import 'package:intl/intl.dart' as international;
     bool _controllerIsEmpty;
 
     if (
-    val == null || val == '' || val.length == 0 ||
+    val == null || val == '' || val.isEmpty ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(val) == '' ||
         TextMod.firstCharacterAfterRemovingSpacesFromAString(val) == null
     ){

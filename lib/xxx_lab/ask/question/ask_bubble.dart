@@ -99,10 +99,10 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
     final String _text = _bodyController.text;
 
-    if (_text.length == 1 || _text.length == 0){
+    if (_text.length == 1 || _text.isEmpty){
 
       bool _inactiveMode = false;
-      if (_text.length > 0){
+      if (_text.isNotEmpty){
         _inactiveMode = false;
       }
       else {
@@ -348,7 +348,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
               children: <Widget>[
 
                 /// GRID FOOTPRINTS
-                if (_questionPics.length == 0)
+                if (_questionPics.isEmpty)
                   GridView(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -369,7 +369,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
 
                 /// ASK PICS GRID
-                if (_questionPics.length != 0)
+                if (_questionPics.isNotEmpty)
                   GridView(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,

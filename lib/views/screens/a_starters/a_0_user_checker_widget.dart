@@ -96,7 +96,7 @@ class _UserCheckerState extends State<UserChecker> {
               print(' _missingFields : $_missingFields');
 
               /// C - if userModel is completed
-              if (_missingFields.length == 0) {
+              if (_missingFields.isEmpty) {
                 _triggerLoading();
 
                 /// XX - userModel is completed : go to LoadingScreen()
