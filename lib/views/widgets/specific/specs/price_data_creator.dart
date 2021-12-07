@@ -201,7 +201,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 
     if (_invalidDigits == true){
 
-      final String _error = 'Can not add more than ${_maxDigits} fractions';
+      final String _error = 'Can not add more than $_maxDigits fractions';
 
       print(_error);
 

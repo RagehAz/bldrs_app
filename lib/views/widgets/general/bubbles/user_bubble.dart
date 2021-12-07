@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
@@ -86,12 +88,15 @@ class _UserBubbleState extends State<UserBubble> {
         final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _userZone.countryID);
         final CityModel _city = await _zoneProvider.fetchCityByID(context: context, cityID: _userZone.cityID);
 
-        _triggerLoading(
-            function: (){
-              _userCountry = _country;
-              _userCity = _city;
-            }
+        unawaited(
+            _triggerLoading(
+                function: (){
+                  _userCountry = _country;
+                  _userCity = _city;
+                }
+            )
         );
+
       });
 
 

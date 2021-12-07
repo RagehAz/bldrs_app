@@ -249,7 +249,7 @@ class CityModel{
   static String createCityID({@required String countryID, @required String cityEnName}){
 
     final String _fixedCityEnName = CountryModel.fixCountryName(cityEnName);
-    final String _cityID = '${countryID}_${_fixedCityEnName}';
+    final String _cityID = '${countryID}_$_fixedCityEnName';
 
     return _cityID;
   }

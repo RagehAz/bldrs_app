@@ -438,7 +438,7 @@ class ZoneProvider extends ChangeNotifier {
 
         final Placemark _mark = _marks[0];
 
-        print('mark is : ${_mark}');
+        print('mark is : $_mark');
 
         final String _countryIso = _mark.isoCountryCode;
         final String _countryID = CountryIso.getCountryIDByIso(_countryIso);

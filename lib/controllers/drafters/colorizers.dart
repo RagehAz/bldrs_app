@@ -129,7 +129,7 @@ import 'package:image/image.dart' as img;
       final int _g = _color.green;
       final int _b = _color.blue;
 
-    final String _string = '${_alpha}*${_r}*${_g}*${_b}';
+    final String _string = '$_alpha*$_r*$_g*$_b';
     return _string;
   }
 // -----------------------------------------------------------------------------

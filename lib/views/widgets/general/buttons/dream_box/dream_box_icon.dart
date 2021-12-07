@@ -142,7 +142,7 @@ class DreamBoxIcon extends StatelessWidget {
                   icon,
                   errorBuilder: (BuildContext ctx, Object error, StackTrace stackTrace){
 
-                    print('error of image is : ${error}');
+                    print('error of image is : $error');
 
                     return  Container();
                   },
@@ -195,7 +195,7 @@ class DreamBoxIcon extends StatelessWidget {
 
                 errorBuilder: (BuildContext ctx, Object error, StackTrace stackTrace){
 
-                  print('error of image is : ${error}');
+                  print('error of image is : $error');
 
                   return  Container();
                 },

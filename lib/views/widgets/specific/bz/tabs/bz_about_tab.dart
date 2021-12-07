@@ -20,7 +20,7 @@ class BzAboutTab extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   /// --------------------------------------------------------------------------
-  static aboutTabModel({
+  static TabModel aboutTabModel({
     @required Function onChangeTab,
     @required BzModel bzModel,
     @required bool isSelected,

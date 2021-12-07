@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
@@ -65,11 +67,11 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 
         final List<Continent> _continents = await _zoneProvider.fetchContinents(context: context);
 
-        _triggerLoading(
+        unawaited(_triggerLoading(
             function: (){
               _allContinents = _continents;
             }
-        );
+        ));
 
       });
 

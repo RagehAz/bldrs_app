@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
@@ -70,12 +72,14 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
       _triggerLoading().then((_) async{
 
         /// do Futures here
-
-        _triggerLoading(
-            function: (){
-              /// set new values here
-            }
+        unawaited(
+            _triggerLoading(
+                function: (){
+                  /// set new values here
+                }
+            )
         );
+
       });
 
 
@@ -121,11 +125,11 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
                   icon: Iconizer.valueIsNotNull(_myUserModel),
                   onTap: () async {
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                     _myUserModel.printUserModel();
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                   }
               ),
@@ -136,13 +140,13 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
                   icon: Iconizer.valueIsNotNull(_myUserModelStream),
                   onTap: () async {
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                     final UserModel _userModelFromStream = await _myUserModelStream.first;
 
                     _userModelFromStream.printUserModel();
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                   }
               ),
@@ -153,11 +157,11 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
                   icon: Iconizer.valueIsNotNull(_currentZone),
                   onTap: () async {
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                     _currentZone.printZone();
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                   }
               ),
@@ -168,11 +172,11 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
                   icon: Iconizer.valueIsNotNull(_currentContinent),
                   onTap: () async {
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                     _currentContinent.printContinent();
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                   }
               ),
@@ -183,11 +187,11 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
                   icon: Iconizer.valueIsNotNull(_currentCountry),
                   onTap: () async {
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                     _currentCountry.printCountry();
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                   }
               ),
@@ -198,11 +202,11 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
                   icon: Iconizer.valueIsNotNull(_currentCity),
                   onTap: () async {
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                     _currentCity.printCity();
 
-                    _triggerLoading();
+                    unawaited(_triggerLoading());
 
                   }
               ),

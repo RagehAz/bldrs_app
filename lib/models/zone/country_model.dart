@@ -241,19 +241,19 @@ class CountryModel{
 // -----------------------------------------------------------------------------
   void printCountry({String methodName = 'PRINTING COUNTRY'}){
 
-    print('${methodName} ------------------------------------------- START');
+    print('$methodName ------------------------------------------- START');
 
-    print('id : ${id}');
-    print('region : ${region}');
-    print('continent : ${continent}');
-    print('isActivated : ${isActivated}');
-    print('isGlobal : ${isGlobal}');
-    print('citiesIDs : ${citiesIDs}');
-    print('language : ${language}');
-    print('names : ${names}');
+    print('id : $id');
+    print('region : $region');
+    print('continent : $continent');
+    print('isActivated : $isActivated');
+    print('isGlobal : $isGlobal');
+    print('citiesIDs : $citiesIDs');
+    print('language : $language');
+    print('names : $names');
 
 
-    print('${methodName} ------------------------------------------- END');
+    print('$methodName ------------------------------------------- END');
 
   }
 // -----------------------------------------------------------------------------

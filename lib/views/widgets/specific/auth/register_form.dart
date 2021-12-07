@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
@@ -143,7 +145,7 @@ class _RegisterFormState extends State<RegisterForm> {
     /// proceed with register if fields are valid
     if(_allFieldsAreValid() == true){
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// start register ops
       final dynamic _result = await FireAuthOps.emailRegisterOps(
@@ -157,17 +159,17 @@ class _RegisterFormState extends State<RegisterForm> {
       print('_registerOnTap() _result.runtimeType : ${_result.runtimeType} : $_result');
       if(_result.runtimeType == String){
 
-        _triggerLoading();
+        unawaited(_triggerLoading());
 
         /// pop error dialog
         await Dialogz.authErrorDialog(context: context, result: _result);
 
       } else {
 
-        _triggerLoading();
+        unawaited(_triggerLoading());
 
         /// route to edit profile screen to complete profile data
-        Nav.goToNewScreen(context, EditProfileScreen(user: _result, firstTimer: true,),);
+        await Nav.goToNewScreen(context, EditProfileScreen(user: _result, firstTimer: true,),);
 
       }
 

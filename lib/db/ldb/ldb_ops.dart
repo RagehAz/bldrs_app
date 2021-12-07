@@ -50,7 +50,7 @@ import 'package:flutter/foundation.dart';
       primaryKey: primaryKey,
     );
 
-    print('LDBOps inserted in ${docName}');
+    print('LDBOps inserted in $docName');
   }
 // ---------------------------------------------------
   Future<void> insertMaps({

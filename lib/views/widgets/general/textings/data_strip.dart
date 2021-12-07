@@ -69,7 +69,7 @@ class DataStrip extends StatelessWidget {
                   await BottomDialog.showBottomDialog(
                     context: context,
                     draggable: true,
-                    title: '${dataKey} : ${dataValue.toString()}',
+                    title: '$dataKey : ${dataValue.toString()}',
                     height: 150,
                     child: SizedBox(
                       width: BottomDialog.dialogClearWidth(context),

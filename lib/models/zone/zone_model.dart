@@ -118,9 +118,9 @@ class ZoneModel{
 
     print('$methodName ------------------------------- START');
 
-    print('countryID : ${countryID}');
-    print('cityID : ${cityID}');
-    print('districtID : ${districtID}');
+    print('countryID : $countryID');
+    print('cityID : $cityID');
+    print('districtID : $districtID');
 
     print('$methodName ------------------------------- END');
   }

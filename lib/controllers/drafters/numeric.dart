@@ -212,7 +212,7 @@ import 'package:flutter/material.dart';
     return _fraction;
   }
 // -----------------------------------------------------------------------------
-  removeFractions({@required double number}){
+  double removeFractions({@required double number}){
     final double _fractions = getFractions(number: number);
     return number - _fractions;
   }
@@ -241,9 +241,9 @@ import 'package:flutter/material.dart';
   int getNumberOfFractions({@required double number}){
     final double _numberFraction = getFractions(number: number, fractionDigits: 100);
     final String _numberFractionsString = TextMod.removeTextBeforeFirstSpecialCharacter(_numberFraction.toString(), '.');
-    print('getNumberOfFractions : _numberFractionsString : ${_numberFractionsString}');
+    print('getNumberOfFractions : _numberFractionsString : $_numberFractionsString');
     final int _numberFractions = _numberFractionsString.trim().length;
-    print('_numberFractions : ${_numberFractions}');
+    print('_numberFractions : $_numberFractions');
     return _numberFractions;
   }
 // -----------------------------------------------------------------------------
@@ -301,7 +301,7 @@ import 'package:flutter/material.dart';
       for (int i = 1; i <= digits; i++){
 
         if (_numAsText.length < digits){
-          _numAsText = '0${_numAsText}';
+          _numAsText = '0$_numAsText';
         }
         else {
           break;

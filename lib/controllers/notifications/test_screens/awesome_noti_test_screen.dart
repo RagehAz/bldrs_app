@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/controllers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/controllers/notifications/audioz.dart' as Audioz;
@@ -90,7 +92,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
         await _notiStream(context);
 
-        _triggerLoading();
+        unawaited(_triggerLoading());
 
       });
 
