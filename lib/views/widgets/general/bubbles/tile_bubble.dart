@@ -77,14 +77,14 @@ class TileBubble extends StatelessWidget {
               // iconColor: Colorz.Green255,
               iconSizeFactor: iconSizeFactor,
               color: iconBoxColor,
-              margins: const EdgeInsets.symmetric(),
+              margins: EdgeInsets.zero,
               bubble: iconIsBubble,
 
             ),
 
             if (icon is String == false)
             Padding(
-              padding: const EdgeInsets.symmetric(),
+              padding: EdgeInsets.zero,
               child: Container(
                 width: iconBoxWidth,
                 height: iconBoxWidth,

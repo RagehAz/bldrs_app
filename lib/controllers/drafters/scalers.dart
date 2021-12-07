@@ -45,7 +45,7 @@ import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
   EdgeInsets superMargins({dynamic margins}){
     final EdgeInsets _boxMargins =
-    margins == null || margins == 0 ? const EdgeInsets.all(0)
+    margins == null || margins == 0 ? EdgeInsets.zero
         :
     margins.runtimeType == double ? EdgeInsets.all(margins)
         :
