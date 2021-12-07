@@ -162,7 +162,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                       boxShadow: <BoxShadow>[
                         Shadowz.CustomBoxShadow(
                             color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
-                            offset: new Offset(0, boxHeight * -0.019 * 0 ),
+                            offset: Offset(0, boxHeight * -0.019 * 0 ),
                             blurRadius: boxHeight * 0.15,
                             blurStyle: BlurStyle.outer
                         ),
@@ -208,9 +208,10 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                       boxShadow: <BoxShadow>[
                                         Shadowz.CustomBoxShadow(
                                             color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
-                                            offset: new Offset(0, jpgGraphicWidth * -0.019 ),
+                                            offset: Offset(0, jpgGraphicWidth * -0.019 ),
                                             blurRadius: jpgGraphicWidth * 0.2,
-                                            blurStyle: BlurStyle.outer),
+                                            blurStyle: BlurStyle.outer
+                                        ),
                                       ]
                                   ),
                                   child: ClipRRect(
@@ -256,7 +257,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                       boxShadow: <BoxShadow>[
                                         Shadowz.CustomBoxShadow(
                                             color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
-                                            offset: new Offset(0, jpgGraphicWidth * -0.019 ),
+                                            offset: Offset(0, jpgGraphicWidth * -0.019 ),
                                             blurRadius: jpgGraphicWidth * 0.2,
                                             blurStyle: BlurStyle.outer),
                                       ]
@@ -367,7 +368,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                               boxShadow: <BoxShadow>[
                                 Shadowz.CustomBoxShadow(
                                     color: Colorz.white50,
-                                    offset: new Offset(0, boxHeight * -0.33),
+                                    offset: Offset(0, boxHeight * -0.33),
                                     blurRadius: boxHeight * 0.2,
                                 ),
                               ]),

@@ -81,7 +81,7 @@ import 'package:bldrs/models/bz/target/target_reward.dart';
       'Tell them personally what you really think about Bldrs.net.',
       'Wait until they create a new business account then your business account will get linked.',
       'Wait the linked account to publish 30 slides and link with another business account.',
-      "At that point, Both your account and the linked account grow their accounts\' credits together",
+      "At that point, Both your account and the linked account grow their accounts' credits together",
     ],
 
   );
@@ -89,14 +89,14 @@ import 'package:bldrs/models/bz/target/target_reward.dart';
   const TargetModel payItBack = TargetModel(
     id: 'payItBack',
     name: 'Pay it back',
-    description: "You have joined Bldrs.net through a link sent to you from another business account, in such case, your account\'s growth impacts theirs as well",
+    description: "You have joined Bldrs.net through a link sent to you from another business account, in such case, your account's growth impacts theirs as well",
     reward: payItBackReward,
     instructions: <String>[
       'Verify your business account',
       'Publish 30 slides',
       'Share your BLDR link below to another person who will open a business account on Bldrs.net',
       'Wait until they create a new business account then your business account will get linked.',
-      "At that point, Both your account and the one sent you the invitation grow their accounts\' credits together",
+      "At that point, Both your account and the one sent you the invitation grow their accounts' credits together",
     ],
   );
 // -----------------------------------------------------------------------------

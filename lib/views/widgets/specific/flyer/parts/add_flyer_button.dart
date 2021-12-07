@@ -37,7 +37,7 @@ class AddFlyerButton extends StatelessWidget {
 
     await Future<void>.delayed(Ratioz.durationFading200, () async {
       final dynamic _result = await Nav.goToNewScreen(context,
-          new FlyerMakerScreen(
+          FlyerMakerScreen(
             firstTimer: true,
             bzModel: bzModel,
             flyerModel: null,

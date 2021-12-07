@@ -60,7 +60,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _scrollController = new ScrollController();
+    _scrollController = ScrollController();
     super.initState();
   }
 // -----------------------------------------------------------------------------

@@ -76,7 +76,7 @@ import 'package:page_transition/page_transition.dart';
 
     /// A - by tinyFlyer
     if (flyer != null){
-      await goToNewScreen(context, new FlyerScreen(flyerModel: flyer, flyerID: flyerID,));
+      await goToNewScreen(context, FlyerScreen(flyerModel: flyer, flyerID: flyerID,));
     }
 
     /// A - by flyerID

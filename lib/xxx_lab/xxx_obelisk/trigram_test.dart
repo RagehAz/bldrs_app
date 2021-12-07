@@ -15,7 +15,7 @@ class TrigramTest extends StatefulWidget {
 
 class _TrigramTestState extends State<TrigramTest> {
 
-  final TextEditingController _controller = new TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {

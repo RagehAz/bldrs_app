@@ -43,7 +43,7 @@ class BzGrid extends StatelessWidget {
     final double _logoHeight = _logoWidth;
     final double _gridZoneHeight = _gridSpacing + (numberOfRows * (_logoHeight * 1.25 + _gridSpacing));
 
-    final double _verticalAspectRatio = _logoWidth / ((_logoWidth * 1.25) + (_gridSpacing));
+    final double _verticalAspectRatio = _logoWidth / ((_logoWidth * 1.25) + _gridSpacing);
 
     final SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
       crossAxisSpacing: _gridSpacing,

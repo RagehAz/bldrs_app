@@ -34,7 +34,7 @@ class StatusButtons extends StatelessWidget {
 
     final int _numberOfButtons = (status[stateIndex]['buttons'] as List<Map<String, Object>>).length;
     const double _buttonSpacing = _abPadding;
-    final double _buttonsZoneWidth = (_screenWidth-(_pageMargin*3));
+    final double _buttonsZoneWidth = _screenWidth-(_pageMargin*3);
     final double _propertyStatusBtWidth = (_buttonsZoneWidth - (_numberOfButtons*_buttonSpacing) - _buttonSpacing)/_numberOfButtons;
 
     final double _propertyStatusBtHeight = _screenHeight * 0.12;

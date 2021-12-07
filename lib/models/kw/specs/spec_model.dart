@@ -534,7 +534,7 @@ class Spec {
   static String getSpecNameFromSpecsLists({@required BuildContext context, @required Spec spec, @required List<SpecList> specsLists}){
 
     final String _specsListID = spec.specsListID;
-    String _name = '${spec.value.toString()}';
+    String _name = spec.value.toString();
 
     final SpecList _specList = specsLists.singleWhere((SpecList list) => list.id == _specsListID, orElse: () => null);
 

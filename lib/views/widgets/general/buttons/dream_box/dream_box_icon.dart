@@ -72,7 +72,7 @@ class DreamBoxIcon extends StatelessWidget {
             boxShadow: <BoxShadow>[
               Shadowz.CustomBoxShadow(
                   color: bubble == true ? Colorz.black200 : Colorz.nothing,
-                  offset: new Offset(0, _jpgGraphicWidth * -0.019 ),
+                  offset: Offset(0, _jpgGraphicWidth * -0.019 ),
                   blurRadius: _jpgGraphicWidth * 0.2,
                   blurStyle: BlurStyle.outer),
             ]
@@ -117,11 +117,10 @@ class DreamBoxIcon extends StatelessWidget {
               boxShadow: <BoxShadow>[
                 Shadowz.CustomBoxShadow(
                     color: bubble == true ? Colorz.black200 : Colorz.nothing,
-                    offset: new Offset(0,
-                        _jpgGraphicWidth * -0.019 ),
-                    blurRadius:
-                    _jpgGraphicWidth * 0.2,
-                    blurStyle: BlurStyle.outer),
+                    offset: Offset(0, _jpgGraphicWidth * -0.019 ),
+                    blurRadius: _jpgGraphicWidth * 0.2,
+                    blurStyle: BlurStyle.outer
+                ),
               ]
           ),
           child: ClipRRect(
@@ -162,11 +161,10 @@ class DreamBoxIcon extends StatelessWidget {
             boxShadow: <BoxShadow>[
               Shadowz.CustomBoxShadow(
                   color: bubble == true ? Colorz.black200 : Colorz.nothing,
-                  offset: new Offset(0,
-                      _jpgGraphicWidth * -0.019 ),
-                  blurRadius:
-                  _jpgGraphicWidth * 0.2,
-                  blurStyle: BlurStyle.outer),
+                  offset: Offset(0, _jpgGraphicWidth * -0.019 ),
+                  blurRadius: _jpgGraphicWidth * 0.2,
+                  blurStyle: BlurStyle.outer
+              ),
             ]
         ),
         child: ClipRRect(

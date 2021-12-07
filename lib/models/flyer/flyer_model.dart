@@ -161,7 +161,7 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   FlyerModel clone(){
-    return new FlyerModel(
+    return FlyerModel(
       id: id,
       title: title,
       trigram: Mapper.cloneListOfStrings(trigram),
@@ -321,7 +321,7 @@ class FlyerModel with ChangeNotifier{
   if (flyerModel != null && Mapper.canLoopList(flyerModel.slides)){
 
     for (final SlideModel slide in flyerModel.slides){
-      final TextEditingController _controller = new TextEditingController(text: slide.headline);
+      final TextEditingController _controller = TextEditingController(text: slide.headline);
       _controllers.add(_controller);
     }
 
@@ -336,7 +336,7 @@ class FlyerModel with ChangeNotifier{
     if (flyerModel != null && Mapper.canLoopList(flyerModel.slides)){
 
       for (final SlideModel slide in flyerModel.slides){
-        final TextEditingController _controller = new TextEditingController(text: slide.description);
+        final TextEditingController _controller = TextEditingController(text: slide.description);
         _controllers.add(_controller);
       }
 

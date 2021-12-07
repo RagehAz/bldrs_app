@@ -27,7 +27,7 @@ class SlidesCounter extends StatelessWidget {
           context: context,
           boolDialog: true,
           title: 'No Slides left',
-          body: "You don\'t have any more slides to add\nWould you wish to get more slides ?",
+          body: "You don't have any more slides to add\nWould you wish to get more slides ?",
         );
 
         if(_result == false){

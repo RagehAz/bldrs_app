@@ -106,7 +106,7 @@ class BzAboutTab extends StatelessWidget {
 
                 /// BIRTH
                 StatsLine(
-                  verse: '${Timers.monthYearStringer(context,bzModel.createdAt)}',
+                  verse: Timers.monthYearStringer(context,bzModel.createdAt),
                   icon: Iconz.calendar,
                 ),
 

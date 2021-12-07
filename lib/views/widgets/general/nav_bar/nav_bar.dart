@@ -72,7 +72,7 @@ class NavBar extends StatelessWidget {
 
     final double _boxHeight =
     barType == BarType.maxWithText || barType == BarType.minWithText ?
-    _circleWidth + ( navbarPaddings * 2) + (_textBoxHeight)
+    _circleWidth + ( navbarPaddings * 2) + _textBoxHeight
         :
     _circleWidth + ( navbarPaddings * 2);
 
@@ -176,7 +176,7 @@ class NavBar extends StatelessWidget {
   }
 
   double _myBzzListSlideHeight(BuildContext context, List<BzModel> myBzz){
-    final double _wantedHeight = (Scale.superScreenWidth(context) * 0.3 * myBzz.length);
+    final double _wantedHeight = Scale.superScreenWidth(context) * 0.3 * myBzz.length;
     final double _maxHeight = Scale.superScreenHeight(context) * 0.5;
     double _finalHeight;
     if(_wantedHeight >= _maxHeight){
@@ -244,7 +244,7 @@ class NavBar extends StatelessWidget {
                     verseScaleFactor: 0.7,
                     verseCentered: false,
                     onTap: () async {
-                      print('${_bzModel.id}');
+                      print(_bzModel.id);
 
                       final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
                       final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);

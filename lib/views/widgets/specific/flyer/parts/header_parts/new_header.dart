@@ -56,13 +56,13 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
     // widget.superFlyer.flyerTinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(widget.superFlyer.bz.bzAuthors[0]);
 
     _verticalController = ScrollController();
-    _controller = new AnimationController(duration: Ratioz.durationFading200, vsync: this);
+    _controller = AnimationController(duration: Ratioz.durationFading200, vsync: this);
 
 
-    _backgroundColorTween = new ColorTween();
-    _animation = new CurvedAnimation(parent: _controller, curve: Curves.easeIn);
-    _headerCornerTween = new BorderRadiusTween();
-    _logoCornersTween = new BorderRadiusTween();
+    _backgroundColorTween = ColorTween();
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _headerCornerTween = BorderRadiusTween();
+    _logoCornersTween = BorderRadiusTween();
     _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
 
     if (_isExpanded){
@@ -173,7 +173,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
 
     const double _followCallScaleEnd = 1.5;
     final double _followCallPaddingEnd = FollowAndCallBTs.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) * _followCallScaleEnd;
-    final double _followCallBoxWidthEnd = (FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5);
+    final double _followCallBoxWidthEnd = FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
     final double _logoSizeBegin = FlyerBox.logoWidth(
         bzPageIsOn: false,
         flyerBoxWidth: widget.flyerBoxWidth

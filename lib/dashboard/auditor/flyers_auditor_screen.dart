@@ -62,7 +62,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   @override
   void initState() {
     super.initState();
-    _pageController = new PageController();
+    _pageController = PageController();
   }
 // -----------------------------------------------------------------------------
   @override

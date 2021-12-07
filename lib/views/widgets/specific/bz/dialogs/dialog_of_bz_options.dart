@@ -166,12 +166,12 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _editBzOnTap(BzModel bzModel) async {
-    final dynamic _result = await Navigator.push(context, new MaterialPageRoute<BzEditorScreen>(
+    final dynamic _result = await Navigator.push(context, MaterialPageRoute<BzEditorScreen>(
       // maintainState: ,
       // settings: ,
         fullscreenDialog: true,
         builder: (BuildContext context){
-          return new BzEditorScreen(
+          return BzEditorScreen(
             userModel: widget.userModel,
             bzModel: bzModel,
           );

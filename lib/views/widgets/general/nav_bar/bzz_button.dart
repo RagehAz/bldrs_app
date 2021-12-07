@@ -206,7 +206,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
                             DreamBox(
                               height: _circleWidth * 0.47,
                           width: _circleWidth * 0.47,
-                          verse: '+${(_userBzz.length - 3)}',
+                          verse: '+${_userBzz.length - 3}',
                           verseWeight: VerseWeight.thin,
                               verseScaleFactor: 0.35,
                               bubble: false,

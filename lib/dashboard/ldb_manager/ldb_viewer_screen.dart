@@ -49,7 +49,7 @@ class LDBViewerScreen extends StatefulWidget {
             final List<Object> _values = _map.values.toList();
 
 
-            final String _primaryValue = _map['$_primaryKey'];
+            final String _primaryValue = _map[_primaryKey];
             // int _idInt = Numberers.stringToInt(_id);
 
             return
@@ -241,7 +241,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
             // color: Colorz.Green125,
             primaryKey: LDBOps.getPrimaryKey(widget.ldbDocName),
             maps: _maps,
-            onRowTap: (String id) => _onRowTap(id),
+            onRowTap: _onRowTap,
           ),
 
         const PyramidsHorizon(),

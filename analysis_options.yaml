@@ -134,7 +134,17 @@ linter:
     unnecessary_await_in_return: true
     unnecessary_brace_in_string_interps: true
     unnecessary_const: true
-
+    unnecessary_constructor_name: true
+    unnecessary_getters_setters: true
+    unnecessary_new: true
+    unnecessary_null_aware_assignments: true
+    unnecessary_null_in_if_null_operators: true
+    unnecessary_overrides: true
+    unnecessary_parenthesis: true
+    unnecessary_string_escapes: true
+    unnecessary_string_interpolations: true
+    unnecessary_this: true
+    use_decorated_box: true
 
     # Pending
     diagnostic_describe_all_properties: false
@@ -149,13 +159,14 @@ linter:
     cast_nullable_to_non_nullable: false
     no_default_cases: false
     null_check_on_nullable_type_parameter: false
-
+    unnecessary_null_checks: false
 
     # will come back to you later
     always_specify_types: false
     avoid_annotating_with_dynamic: false # incompatible with always_specify_types
     cascade_invocations: false
     library_prefixes: false # FIRES 900 HINTS
+    unnecessary_raw_strings: false # raw strings, afraid to mess with reg ex
 
     # defiantly false rules
     prefer_relative_imports: false
@@ -171,7 +182,8 @@ linter:
     prefer_foreach: false # incompatible with avoid_function_literals_in_foreach_calls yahbal
     prefer_mixin: false # fakes
     public_member_api_docs: false # fires ~4000 hints
-
+    unnecessary_final: false # incompatible with prefer_final_locals, prefer_final_parameters
+    unnecessary_lambdas: false # I like to see what is being passed through method refs
 
 analyzer:
   errors:

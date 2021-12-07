@@ -53,7 +53,7 @@ class _FeedBackState extends State<FeedBack> {
   @override
   void initState() {
     super.initState();
-    _feedbackController = new TextEditingController();
+    _feedbackController = TextEditingController();
   }
 // -----------------------------------------------------------------------------
   @override

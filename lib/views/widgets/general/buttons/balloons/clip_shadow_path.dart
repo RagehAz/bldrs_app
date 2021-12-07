@@ -19,11 +19,11 @@ class ClipShadowPath extends StatelessWidget {
     return CustomPaint(
       key: UniqueKey(),
       painter: _ClipShadowPainter(
-        clipper: this.clipper,
-        shadow: this.shadow,
+        clipper: clipper,
+        shadow: shadow,
       ),
       child: ClipPath(
-          clipper: this.clipper,
+          clipper: clipper,
           child: child,
       ),
     );
