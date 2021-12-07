@@ -41,7 +41,7 @@ class NavDialog extends StatelessWidget {
         // width: _isBig == true ? _screenWidth : null,
 
         // margin: _isBig == true ? EdgeInsets.all(0) : null,
-        padding: const EdgeInsets.only(),
+        padding: EdgeInsets.zero,
         // onVisible: () {
         //   print('is visible now');
         // },

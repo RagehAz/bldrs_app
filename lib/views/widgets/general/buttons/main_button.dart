@@ -94,7 +94,7 @@ class MainButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(_buttonCorner),
             )),
             foregroundColor: MaterialStateProperty.all(Colorz.grey80),
-            padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+            padding: MaterialStateProperty.all(EdgeInsets.zero),
             animationDuration: Ratioz.durationFading200,
             // splashFactory: ElevatedButton.styleFrom(
             //   splashFactory: NoSplash.splashFactory,

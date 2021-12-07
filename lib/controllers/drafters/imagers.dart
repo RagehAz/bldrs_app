@@ -546,7 +546,7 @@ enum PicType{
   final ByteData _detail = await rootBundle.load(urlAsset);
   final ui.Image _imaged = await getUiImageFromIntList(Uint8List.view(_detail.buffer));
 
-  _canvas.drawImage(_imaged, const Offset(0, 0), Paint());
+  _canvas.drawImage(_imaged, Offset.zero, Paint());
 
   final ui.Image _img = await _pictureRecorder.endRecording().toImage(width, height);
   final ByteData _data = await _img.toByteData(format: ui.ImageByteFormat.png);

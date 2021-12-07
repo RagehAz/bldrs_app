@@ -240,7 +240,7 @@ class _SignInFormState extends State<SignInForm> {
                 verse: 'Create',
                 secondLine: 'New Account',
                 color: Colorz.white20,
-                margins: const EdgeInsets.all(0),
+                margins: EdgeInsets.zero,
                 onTap: () => widget.switchSignIn(_emailController.text, _passwordController.text),
               ),
 

@@ -47,7 +47,7 @@ class TopDialog extends StatelessWidget {
       /// SIZING ----------------------------------------------
       maxWidth: _screenWidth,
       borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
-      padding: const EdgeInsets.all(0),
+      padding: EdgeInsets.zero,
       margin: const EdgeInsets.all(Ratioz.appBarMargin),
 
       /// COLORING ----------------------------------------------
