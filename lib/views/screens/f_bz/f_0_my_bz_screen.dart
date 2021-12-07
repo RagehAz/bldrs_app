@@ -16,18 +16,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MyBzScreen extends StatefulWidget {
-  final BzModel bzModel;
-  final UserModel userModel;
-
+  /// --------------------------------------------------------------------------
   const MyBzScreen({
     @required this.bzModel,
     @required this.userModel,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final BzModel bzModel;
+  final UserModel userModel;
+  /// --------------------------------------------------------------------------
   @override
   _MyBzScreenState createState() => _MyBzScreenState();
-
+  /// --------------------------------------------------------------------------
 }
 
 class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateMixin {

@@ -3,13 +3,7 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart
 import 'package:flutter/material.dart';
 
 class TestingLayout extends StatelessWidget {
-  final List<Widget> listViewWidgets;
-  final String screenTitle;
-  final String appbarButtonVerse;
-  final Function appbarButtonOnTap;
-  // final Key scaffoldKey;
-  final bool scrollable;
-
+  /// --------------------------------------------------------------------------
   const TestingLayout({
     @required this.listViewWidgets,
     @required this.screenTitle,
@@ -19,7 +13,14 @@ class TestingLayout extends StatelessWidget {
     // this.scaffoldKey,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<Widget> listViewWidgets;
+  final String screenTitle;
+  final String appbarButtonVerse;
+  final Function appbarButtonOnTap;
+  // final Key scaffoldKey;
+  final bool scrollable;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

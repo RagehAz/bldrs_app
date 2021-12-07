@@ -23,16 +23,18 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 // -------------------------------------------
 class GoogleMapScreen extends StatefulWidget {
-  final GeoPoint geoPoint;
-  final bool isSelecting;
-
+  /// --------------------------------------------------------------------------
   const GoogleMapScreen({Key key,
     this.geoPoint,
     this.isSelecting = false,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final GeoPoint geoPoint;
+  final bool isSelecting;
+  /// --------------------------------------------------------------------------
   @override
   _GoogleMapScreenState createState() => _GoogleMapScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {

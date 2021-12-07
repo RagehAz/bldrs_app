@@ -5,17 +5,18 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 // -----------------------------------------------------------------------------
 class Loading extends StatelessWidget {
-  final double size;
-  final Function onTap;
-  final bool loading;
-
+  /// --------------------------------------------------------------------------
   const Loading({
     @required this.loading,
     this.size = 50,
     this.onTap,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double size;
+  final Function onTap;
+  final bool loading;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

@@ -17,13 +17,14 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class AddAuthorScreen extends StatelessWidget {
-  final BzModel tinyBz;
-
+  /// --------------------------------------------------------------------------
   const AddAuthorScreen({
     @required this.tinyBz,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final BzModel tinyBz;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

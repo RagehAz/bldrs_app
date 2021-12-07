@@ -15,11 +15,7 @@ enum BackAndSearchAction{
 }
 
 class BackAndSearchButton extends StatelessWidget {
-  final Function onTap;
-  final Color color;
-  final BackAndSearchAction backAndSearchAction;
-  final Function passSearchHistory;
-
+  /// --------------------------------------------------------------------------
   const BackAndSearchButton({
     @required this.backAndSearchAction,
     this.onTap,
@@ -27,7 +23,12 @@ class BackAndSearchButton extends StatelessWidget {
     this.passSearchHistory,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final Function onTap;
+  final Color color;
+  final BackAndSearchAction backAndSearchAction;
+  final Function passSearchHistory;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

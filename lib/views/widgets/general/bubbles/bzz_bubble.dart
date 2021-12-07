@@ -9,14 +9,7 @@ import 'package:bldrs/views/widgets/specific/bz/bz_grid.dart';
 import 'package:flutter/material.dart';
 
 class BzzBubble extends StatelessWidget {
-  final List<BzModel> bzzModels;
-  final String title;
-  final int numberOfColumns;
-  final int numberOfRows;
-  final Axis scrollDirection;
-  final ValueChanged<String> onTap;
-  final double corners;
-
+  /// --------------------------------------------------------------------------
   const BzzBubble({
     @required this.bzzModels,
     this.title  = 'Businesses',
@@ -27,7 +20,15 @@ class BzzBubble extends StatelessWidget {
     this.corners,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<BzModel> bzzModels;
+  final String title;
+  final int numberOfColumns;
+  final int numberOfRows;
+  final Axis scrollDirection;
+  final ValueChanged<String> onTap;
+  final double corners;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Bubble(

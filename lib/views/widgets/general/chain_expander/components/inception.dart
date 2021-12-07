@@ -13,12 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Inception extends StatelessWidget {
-  final dynamic son;
-  final int level;
-  final double boxWidth;
-  final ValueChanged<KW> onKeywordTap;
-  final List<String> selectedKeywordsIDs;
-
+  /// --------------------------------------------------------------------------
   const Inception({
     @required this.son,
     this.level = 0,
@@ -27,9 +22,14 @@ class Inception extends StatelessWidget {
     this.selectedKeywordsIDs,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final dynamic son;
+  final int level;
+  final double boxWidth;
+  final ValueChanged<KW> onKeywordTap;
+  final List<String> selectedKeywordsIDs;
   static const double buttonHeight = 60;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

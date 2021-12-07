@@ -4,14 +4,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class ContactModel{
-  final String contact;
-  final ContactType contactType;
-
+  /// --------------------------------------------------------------------------
   const ContactModel({
     @required this.contact,
     @required this.contactType,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String contact;
+  final ContactType contactType;
+  /// --------------------------------------------------------------------------
   Map<String, Object> toMap(){
     return <String, Object>{
       'contact' : contact,

@@ -8,18 +8,18 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class NavDialog extends StatelessWidget {
-  final String firstLine;
-  final String secondLine;
-  final Color color;
-
+  /// --------------------------------------------------------------------------
   const NavDialog({
     @required this.firstLine,
     @required this.secondLine,
     this.color = Colorz.darkRed255,
     Key key,
 }) : super(key: key);
-  
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String firstLine;
+  final String secondLine;
+  final Color color;
+  /// --------------------------------------------------------------------------
   static Future<void> showNavDialog({
     @required BuildContext context,
     @required String firstLine,

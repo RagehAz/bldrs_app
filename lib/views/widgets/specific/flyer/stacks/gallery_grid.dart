@@ -12,19 +12,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/add_flyer_button.dart';
 import 'package:flutter/material.dart';
 
 class GalleryGrid extends StatelessWidget {
-
-  final double gridZoneWidth;
-  final List<FlyerModel> galleryFlyers;
-  final List<bool> flyersVisibilities;
-  final String bzID;
-  final List<AuthorModel> bzAuthors;
-  final BzModel bz;
-  final CountryModel bzCountry;
-  final CityModel bzCity;
-  final bool addButtonIsOn;
-  // final Function flyerOnTap;
-  final Function addPublishedFlyerToGallery;
-
+  /// --------------------------------------------------------------------------
   const GalleryGrid({
     @required this.gridZoneWidth,
     @required this.flyersVisibilities,
@@ -39,7 +27,19 @@ class GalleryGrid extends StatelessWidget {
     // @required this.flyerOnTap,
     Key key,
 }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double gridZoneWidth;
+  final List<FlyerModel> galleryFlyers;
+  final List<bool> flyersVisibilities;
+  final String bzID;
+  final List<AuthorModel> bzAuthors;
+  final BzModel bz;
+  final CountryModel bzCountry;
+  final CityModel bzCity;
+  final bool addButtonIsOn;
+  // final Function flyerOnTap;
+  final Function addPublishedFlyerToGallery;
+  /// --------------------------------------------------------------------------
   bool _concludeUserIsAuthor(){
     final List<String> _authorsIDsList = <String>[];
 

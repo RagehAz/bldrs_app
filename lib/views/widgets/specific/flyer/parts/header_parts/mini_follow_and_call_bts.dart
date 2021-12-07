@@ -14,15 +14,16 @@ import 'package:flutter/painting.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class FollowAndCallBTs extends StatelessWidget {
-  final SuperFlyer superFlyer;
-  final double flyerBoxWidth;
-
+  /// --------------------------------------------------------------------------
   const FollowAndCallBTs({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final double flyerBoxWidth;
+  /// --------------------------------------------------------------------------
   static double getPaddings({double flyerBoxWidth}){
     return flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
   }
@@ -82,11 +83,7 @@ class FollowAndCallBTs extends StatelessWidget {
 }
 
 class FollowBT extends StatelessWidget {
-  final double flyerBoxWidth;
-  final Function onFollowTap;
-  final Function tappingUnfollow;
-  final bool followOn;
-
+  /// --------------------------------------------------------------------------
   const FollowBT({
     @required this.flyerBoxWidth,
     @required this.onFollowTap,
@@ -94,7 +91,12 @@ class FollowBT extends StatelessWidget {
     @required this.followOn,
     Key key,
   }) : super(key: key);
-  // x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final Function onFollowTap;
+  final Function tappingUnfollow;
+  final bool followOn;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === ===
@@ -186,15 +188,16 @@ class FollowBT extends StatelessWidget {
 }
 
 class CallBT extends StatelessWidget {
-  final double flyerBoxWidth;
-  final Function onCallTap;
-
+  /// --------------------------------------------------------------------------
   const CallBT({
     @required this.onCallTap,
     @required this.flyerBoxWidth,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final Function onCallTap;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------

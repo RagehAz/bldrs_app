@@ -40,16 +40,18 @@ enum BarType{
 }
 
 class NavBar extends StatelessWidget {
-  final BarType barType;
-  final SkyType sky;
-  // final List<BzModel> myBzz;
-
+  /// --------------------------------------------------------------------------
   const NavBar({
     this.barType = _standardBarType,
     this.sky = SkyType.night,
     // this.myBzz,
     Key key
 }) : super (key: key);
+  /// --------------------------------------------------------------------------
+  final BarType barType;
+  final SkyType sky;
+  // final List<BzModel> myBzz;
+  /// --------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
   /// --- MAIN CONTROLS
   static const double _circleWidth = Ratioz.appBarButtonSize;

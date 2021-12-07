@@ -11,15 +11,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/author_bub
 import 'package:flutter/material.dart';
 
 class AuthorBubble extends StatelessWidget {
-  final double flyerBoxWidth;
-  final bool addAuthorButtonIsOn;
-  final List<AuthorModel> bzAuthors;
-  final bool showFlyers;
-  final BzModel bzModel;
-  final ValueChanged<String> onAuthorLabelTap;
-  final String selectedAuthorID;
-  final List<FlyerModel> bzFlyers;
-
+  /// --------------------------------------------------------------------------
   const AuthorBubble({
     @required this.flyerBoxWidth,
     @required this.addAuthorButtonIsOn,
@@ -31,7 +23,16 @@ class AuthorBubble extends StatelessWidget {
     @required this.bzFlyers,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final bool addAuthorButtonIsOn;
+  final List<AuthorModel> bzAuthors;
+  final bool showFlyers;
+  final BzModel bzModel;
+  final ValueChanged<String> onAuthorLabelTap;
+  final String selectedAuthorID;
+  final List<FlyerModel> bzFlyers;
+  /// --------------------------------------------------------------------------
   static double bubbleWidth(double flyerBoxWidth){
     return flyerBoxWidth - (2 * Ratioz.appBarMargin);
   }

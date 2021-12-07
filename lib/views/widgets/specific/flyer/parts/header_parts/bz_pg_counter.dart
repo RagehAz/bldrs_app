@@ -6,13 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class BzPgCounter extends StatelessWidget {
-  final double flyerBoxWidth;
-  final bool bzPageIsOn;
-  final int count;
-  final String verse;
-  final String icon;
-  final double iconSizeFactor;
-
+  /// --------------------------------------------------------------------------
   const BzPgCounter({
     @required this.flyerBoxWidth,
     @required this.count,
@@ -22,7 +16,14 @@ class BzPgCounter extends StatelessWidget {
     this.iconSizeFactor = 1,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final bool bzPageIsOn;
+  final int count;
+  final String verse;
+  final String icon;
+  final double iconSizeFactor;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

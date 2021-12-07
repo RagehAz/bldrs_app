@@ -371,10 +371,6 @@ class TweenTest extends StatelessWidget {
       color: Colorz.bloodTest,
       alignment: Alignment.topCenter,
       child: TweenAnimationBuilder<double>(
-        child: const SuperVerse(
-          verse: 'WTF is this',
-          size: 4,
-        ),
         tween: Tween<double>(begin: 0, end: 1),
         duration: const Duration(seconds: 5),
         builder: (BuildContext context, double _val, Widget child){
@@ -386,6 +382,10 @@ class TweenTest extends StatelessWidget {
             ),
           );
         },
+        child: const SuperVerse(
+          verse: 'WTF is this',
+          size: 4,
+        ),
       ),
     );
   }

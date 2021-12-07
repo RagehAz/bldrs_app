@@ -2,17 +2,18 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class DreamBoxGradient extends StatelessWidget {
-  final double width;
-  final double height;
-  final BorderRadius corners;
-
+  /// --------------------------------------------------------------------------
   const DreamBoxGradient({
     @required this.width,
     @required this.height,
     @required this.corners,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  final double height;
+  final BorderRadius corners;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Container(

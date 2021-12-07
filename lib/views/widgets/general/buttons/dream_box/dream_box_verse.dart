@@ -10,37 +10,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class DreamBoxIconVerseSecondLine extends StatelessWidget {
-  final String verse;
-  final TextDirection textDirection;
-  final String icon;
-  final bool loading;
-  final String underLine;
-  final double width;
-  final double height;
-  final BorderRadius iconCorners;
-  final File iconFile;
-  final double iconMargin;
-  final Color imageSaturationColor;
-  final bool bubble;
-  final bool blackAndWhite;
-  final Color iconColor;
-  final double iconSizeFactor;
-  final double verseScaleFactor;
-  final bool verseCentered;
-  final String secondLine;
-  final int verseSize;
-  final VerseWeight verseWeight;
-  final bool inActiveMode;
-  final Color verseColor;
-  final bool verseShadow;
-  final int verseMaxLines;
-  final bool verseItalic;
-  final bool redDot;
-  final double secondLineScaleFactor;
-  final Color secondLineColor;
-  final bool centered;
-
-
+  /// --------------------------------------------------------------------------
   const DreamBoxIconVerseSecondLine({
     @required this.verse,
     @required this.textDirection,
@@ -73,7 +43,37 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required this.centered,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String verse;
+  final TextDirection textDirection;
+  final String icon;
+  final bool loading;
+  final String underLine;
+  final double width;
+  final double height;
+  final BorderRadius iconCorners;
+  final File iconFile;
+  final double iconMargin;
+  final Color imageSaturationColor;
+  final bool bubble;
+  final bool blackAndWhite;
+  final Color iconColor;
+  final double iconSizeFactor;
+  final double verseScaleFactor;
+  final bool verseCentered;
+  final String secondLine;
+  final int verseSize;
+  final VerseWeight verseWeight;
+  final bool inActiveMode;
+  final Color verseColor;
+  final bool verseShadow;
+  final int verseMaxLines;
+  final bool verseItalic;
+  final bool redDot;
+  final double secondLineScaleFactor;
+  final Color secondLineColor;
+  final bool centered;
+/// ----------------------------------------------------------------------------
   static CrossAxisAlignment versesCrossAlignment({String icon, TextDirection textDirection, String secondLine, bool verseCentered}){
     final CrossAxisAlignment _versesCrossAlignment =
     icon == null && textDirection == null && secondLine == null ? CrossAxisAlignment.center

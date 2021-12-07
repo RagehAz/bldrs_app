@@ -2,16 +2,17 @@ import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/foundation.dart';
 
 class Region{
-  final String continent;
-  final String name;
-  final List<String> countriesIDs;
-
+  /// --------------------------------------------------------------------------
   const Region({
     @required this.continent,
     @required this.name,
     @required this.countriesIDs,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String continent;
+  final String name;
+  final List<String> countriesIDs;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
 
     return <String, dynamic>{

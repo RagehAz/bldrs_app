@@ -17,15 +17,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SelectCityScreen extends StatefulWidget {
-  final CountryModel country;
-
+  /// --------------------------------------------------------------------------
   const SelectCityScreen({
     this.country,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final CountryModel country;
+  /// --------------------------------------------------------------------------
   @override
   State<SelectCityScreen> createState() => _SelectCityScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _SelectCityScreenState extends State<SelectCityScreen> {

@@ -27,17 +27,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  final UserModel user;
-  final bool firstTimer;
-
+  /// --------------------------------------------------------------------------
   const EditProfileScreen({
     @required this.user,
     this.firstTimer = false,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final UserModel user;
+  final bool firstTimer;
+  /// --------------------------------------------------------------------------
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {

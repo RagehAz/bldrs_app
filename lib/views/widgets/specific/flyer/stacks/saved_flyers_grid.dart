@@ -15,11 +15,7 @@ import 'package:bldrs/views/widgets/specific/flyer/stacks/sliver_flyers_grid.dar
 import 'package:flutter/material.dart';
 
 class SavedFlyersGrid extends StatelessWidget {
-  final List<FlyerModel> flyers;
-  final List<FlyerModel> selectedFlyers;
-  final bool selectionMode;
-  final Function onSelectFlyer;
-
+  /// --------------------------------------------------------------------------
   const SavedFlyersGrid({
     @required this.flyers,
     @required this.selectedFlyers,
@@ -27,7 +23,12 @@ class SavedFlyersGrid extends StatelessWidget {
     @required this.onSelectFlyer,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<FlyerModel> flyers;
+  final List<FlyerModel> selectedFlyers;
+  final bool selectionMode;
+  final Function onSelectFlyer;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

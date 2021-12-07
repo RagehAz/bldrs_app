@@ -9,12 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class SelectedKeywordsBar extends StatelessWidget {
-  final List<KW> selectedKeywords;
-  final ItemScrollController scrollController;
-  final ItemPositionsListener itemPositionListener;
-  final KW highlightedKeyword;
-  final Function removeKeyword;
-
+  /// --------------------------------------------------------------------------
   const SelectedKeywordsBar({
     @required this.selectedKeywords,
     @required this.scrollController,
@@ -23,7 +18,13 @@ class SelectedKeywordsBar extends StatelessWidget {
     @required this.removeKeyword,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<KW> selectedKeywords;
+  final ItemScrollController scrollController;
+  final ItemPositionsListener itemPositionListener;
+  final KW highlightedKeyword;
+  final Function removeKeyword;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

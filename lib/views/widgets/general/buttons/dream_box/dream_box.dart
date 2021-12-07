@@ -15,47 +15,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class DreamBox extends StatelessWidget {
-  final String icon;
-  final File iconFile;
-  /// works as a verseSizeFactor as well
-  final double iconSizeFactor;
-  final Color color;
-  final double width;
-  final double height;
-  final dynamic corners;
-  final Color iconColor;
-  final String verse;
-  final Color verseColor;
-  final VerseWeight verseWeight;
-  final double verseScaleFactor;
-  final bool verseShadow;
-  final bool verseItalic;
-  final int verseMaxLines;
-  final Function onTap;
-  final dynamic margins;
-  final bool blackAndWhite;
-  final bool iconRounded;
-  final bool bubble;
-  final String secondLine;
-  final bool verseCentered;
-  final Widget subChild;
-  final Alignment childAlignment;
-  final double opacity;
-  final bool inActiveMode;
-  final String underLine;
-  final Color splashColor;
-  final Color underLineColor;
-  final bool underLineShadowIsOn;
-  final Function onTapDown;
-  final Function onTapUp;
-  final Function onTapCancel;
-  final TextDirection textDirection;
-  final double blur;
-  final Color secondLineColor;
-  final bool redDot;
-  final double secondLineScaleFactor;
-  final bool loading;
-
+  /// --------------------------------------------------------------------------
   const DreamBox({
     @required this.height,
     this.width,
@@ -98,7 +58,48 @@ class DreamBox extends StatelessWidget {
     this.loading = false,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String icon;
+  final File iconFile;
+  /// works as a verseSizeFactor as well
+  final double iconSizeFactor;
+  final Color color;
+  final double width;
+  final double height;
+  final dynamic corners;
+  final Color iconColor;
+  final String verse;
+  final Color verseColor;
+  final VerseWeight verseWeight;
+  final double verseScaleFactor;
+  final bool verseShadow;
+  final bool verseItalic;
+  final int verseMaxLines;
+  final Function onTap;
+  final dynamic margins;
+  final bool blackAndWhite;
+  final bool iconRounded;
+  final bool bubble;
+  final String secondLine;
+  final bool verseCentered;
+  final Widget subChild;
+  final Alignment childAlignment;
+  final double opacity;
+  final bool inActiveMode;
+  final String underLine;
+  final Color splashColor;
+  final Color underLineColor;
+  final bool underLineShadowIsOn;
+  final Function onTapDown;
+  final Function onTapUp;
+  final Function onTapCancel;
+  final TextDirection textDirection;
+  final double blur;
+  final Color secondLineColor;
+  final bool redDot;
+  final double secondLineScaleFactor;
+  final bool loading;
+  /// --------------------------------------------------------------------------
   static Color getIconColor({bool blackAndWhite = false, bool inActiveMode = false, Color colorOverride}){
 
     final Color _iconColor =

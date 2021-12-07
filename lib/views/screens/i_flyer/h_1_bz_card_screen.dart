@@ -11,17 +11,19 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 
 class BzCardScreen extends StatefulWidget {
-  final String bzID;
-  final double flyerBoxWidth;
-
+  /// --------------------------------------------------------------------------
   const BzCardScreen({
     @required this.bzID,
     @required this.flyerBoxWidth,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String bzID;
+  final double flyerBoxWidth;
+  /// --------------------------------------------------------------------------
   @override
   _BzCardScreenState createState() => _BzCardScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _BzCardScreenState extends State<BzCardScreen> {

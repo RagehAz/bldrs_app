@@ -2,28 +2,7 @@ import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 import 'package:flutter/material.dart';
 
 class FlyerNavigator {
-  /// animation controller
-  final PageController horizontalController; // FlyerNavigation
-  final PageController verticalController; // FlyerNavigation
-  final ScrollController infoScrollController; // FlyerNavigation
-  /// animation functions
-  final Function onHorizontalSlideSwipe; // FlyerNavigation
-  final Function onVerticalPageSwipe; // FlyerNavigation
-  final Function onVerticalPageBack; // FlyerNavigation
-  final Function onHeaderTap; // FlyerNavigation
-  final Function onSlideRightTap; // FlyerNavigation
-  final Function onSlideLeftTap; // FlyerNavigation
-  final Function onSwipeFlyer; // FlyerNavigation
-  final Function onTinyFlyerTap; // FlyerNavigation
-  /// animation parameters
-  double progressBarOpacity; // FlyerNavigation
-  Sliders.SwipeDirection swipeDirection; // FlyerNavigation
-  bool bzPageIsOn; // FlyerNavigation
-  bool listenToSwipe; // FlyerNavigation
-
-  final Function onSaveInfoScrollOffset;
-  final Function getInfoScrollOffset;
-
+  /// --------------------------------------------------------------------------
   FlyerNavigator({
     /// animation controller
     @required this.horizontalController,
@@ -49,5 +28,27 @@ class FlyerNavigator {
     @required this.listenToSwipe,
 
   });
+  /// --------------------------------------------------------------------------
+  /// animation controller
+  final PageController horizontalController; // FlyerNavigation
+  final PageController verticalController; // FlyerNavigation
+  final ScrollController infoScrollController; // FlyerNavigation
+  /// animation functions
+  final Function onHorizontalSlideSwipe; // FlyerNavigation
+  final Function onVerticalPageSwipe; // FlyerNavigation
+  final Function onVerticalPageBack; // FlyerNavigation
+  final Function onHeaderTap; // FlyerNavigation
+  final Function onSlideRightTap; // FlyerNavigation
+  final Function onSlideLeftTap; // FlyerNavigation
+  final Function onSwipeFlyer; // FlyerNavigation
+  final Function onTinyFlyerTap; // FlyerNavigation
+  /// animation parameters
+  double progressBarOpacity; // FlyerNavigation
+  Sliders.SwipeDirection swipeDirection; // FlyerNavigation
+  bool bzPageIsOn; // FlyerNavigation
+  bool listenToSwipe; // FlyerNavigation
 
+  final Function onSaveInfoScrollOffset;
+  final Function getInfoScrollOffset;
+/// --------------------------------------------------------------------------
 }

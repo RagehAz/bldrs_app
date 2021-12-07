@@ -6,19 +6,21 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart
 import 'package:flutter/material.dart';
 
 class SelectKeywordsScreen extends StatefulWidget {
-  final List<KW> selectedKeywords;
-  final FlyerTypeClass.FlyerType flyerType;
-  // final Function onKeywordTap;
-
+  /// --------------------------------------------------------------------------
   const SelectKeywordsScreen({
     @required this.selectedKeywords,
     @required this.flyerType,
     // @required this.onKeywordTap,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<KW> selectedKeywords;
+  final FlyerTypeClass.FlyerType flyerType;
+  // final Function onKeywordTap;
+  /// --------------------------------------------------------------------------
   @override
   _SelectKeywordsScreenState createState() => _SelectKeywordsScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {

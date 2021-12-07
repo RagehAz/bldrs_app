@@ -4,13 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyModel {
-  final String code;
-  final List<Name> names;
-  final List<String> countriesIDs;
-  final String symbol;
-  final String nativeSymbol;
-  final int digits;
-
+  /// --------------------------------------------------------------------------
   CurrencyModel({
     @required this.code,
     @required this.names,
@@ -19,7 +13,14 @@ class CurrencyModel {
     @required this.nativeSymbol,
     @required this.digits,
 });
-
+  /// --------------------------------------------------------------------------
+  final String code;
+  final List<Name> names;
+  final List<String> countriesIDs;
+  final String symbol;
+  final String nativeSymbol;
+  final int digits;
+  /// --------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
 

@@ -5,17 +5,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/progress_bar_parts/stri
 import 'package:flutter/material.dart';
 
 class ProgressBar extends StatelessWidget {
-  final int numberOfSlides;
-  final int numberOfStrips;
-  final int index;
-  // final Duration duration;
-  final double opacity;
-  final double flyerBoxWidth;
-  // final DraftFlyerModel draft;
-  final bool loading;
-  final Sliders.SwipeDirection swipeDirection;
-  final EdgeInsets margins;
-
+  /// --------------------------------------------------------------------------
   const ProgressBar({
     @required this.numberOfSlides,
     @required this.numberOfStrips,
@@ -29,7 +19,18 @@ class ProgressBar extends StatelessWidget {
     // @required this.draft,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final int numberOfSlides;
+  final int numberOfStrips;
+  final int index;
+  // final Duration duration;
+  final double opacity;
+  final double flyerBoxWidth;
+  // final DraftFlyerModel draft;
+  final bool loading;
+  final Sliders.SwipeDirection swipeDirection;
+  final EdgeInsets margins;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

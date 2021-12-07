@@ -27,19 +27,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DrawerDialog extends StatefulWidget {
-  final double width;
-
+  /// --------------------------------------------------------------------------
   const DrawerDialog({
     this.width = 350,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  /// --------------------------------------------------------------------------
   static const double drawerEdgeDragWidth = 15;
   static const bool drawerEnableOpenDragGesture = true;
   static const Color drawerScrimColor = Colorz.black125;
-
+  /// --------------------------------------------------------------------------
   @override
   State<DrawerDialog> createState() => _DrawerDialogState();
+  /// --------------------------------------------------------------------------
 }
 
 class _DrawerDialogState extends State<DrawerDialog> {

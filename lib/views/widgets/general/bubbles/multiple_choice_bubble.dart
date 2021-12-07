@@ -5,12 +5,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class MultipleChoiceBubble extends StatelessWidget {
-  final String title;
-  final List<String> buttonsList;
-  final Function tappingAButton;
-  final String chosenButton;
-  final List<bool> buttonsInActivityList;
-
+  /// --------------------------------------------------------------------------
   const MultipleChoiceBubble({
     @required this.title,
     @required this.buttonsList,
@@ -19,7 +14,13 @@ class MultipleChoiceBubble extends StatelessWidget {
     this.buttonsInActivityList,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String title;
+  final List<String> buttonsList;
+  final Function tappingAButton;
+  final String chosenButton;
+  final List<bool> buttonsInActivityList;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Bubble(

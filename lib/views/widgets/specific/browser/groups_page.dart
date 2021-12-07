@@ -4,17 +4,18 @@ import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:flutter/material.dart';
 
 class GroupsPage extends StatelessWidget {
-  final List<String> groups;
-  final Function onTap;
-  final String selectedGroup;
-
+  /// --------------------------------------------------------------------------
   const GroupsPage({
     @required this.groups,
     @required this.onTap,
     @required this.selectedGroup,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<String> groups;
+  final Function onTap;
+  final String selectedGroup;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

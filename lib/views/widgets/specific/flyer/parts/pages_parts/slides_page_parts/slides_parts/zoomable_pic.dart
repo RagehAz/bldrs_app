@@ -4,12 +4,7 @@ import 'package:flutter/material.dart';
 
 /// TASK : try InteractiveViewer() in slides to zoom and pan
 class ZoomablePicture extends StatefulWidget {
-  final Widget child;
-  final bool isOn;
-  final bool autoShrink;
-  final bool isFullScreen;
-  final Function onTap;
-
+  /// --------------------------------------------------------------------------
   const ZoomablePicture({
     @required this.child,
     @required this.isOn,
@@ -18,9 +13,16 @@ class ZoomablePicture extends StatefulWidget {
     this.isFullScreen = false,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final Widget child;
+  final bool isOn;
+  final bool autoShrink;
+  final bool isFullScreen;
+  final Function onTap;
+  /// --------------------------------------------------------------------------
   @override
   _ZoomablePictureState createState() => _ZoomablePictureState();
+/// --------------------------------------------------------------------------
 }
 
 class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderStateMixin{

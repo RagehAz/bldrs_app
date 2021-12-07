@@ -13,17 +13,19 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/info_page_p
 import 'package:flutter/material.dart';
 
 class ReviewBubble extends StatefulWidget {
-  final double flyerBoxWidth;
-  final SuperFlyer superFlyer;
-
+  /// --------------------------------------------------------------------------
   const ReviewBubble({
     @required this.flyerBoxWidth,
     @required this.superFlyer,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final SuperFlyer superFlyer;
+  /// --------------------------------------------------------------------------
   @override
   _ReviewBubbleState createState() => _ReviewBubbleState();
+  /// --------------------------------------------------------------------------
 }
 
 class _ReviewBubbleState extends State<ReviewBubble> {
@@ -164,12 +166,7 @@ class _ReviewBubbleState extends State<ReviewBubble> {
 }
 
 class ReviewsStreamBubbles extends StatelessWidget {
-  final SuperFlyer superFlyer;
-  final double bubbleWidth;
-  final double cardCorners;
-  final UserModel userModel;
-  final List<ReviewModel> reviews;
-
+  /// --------------------------------------------------------------------------
   const ReviewsStreamBubbles({
     @required  this.superFlyer,
     @required this.bubbleWidth,
@@ -178,7 +175,13 @@ class ReviewsStreamBubbles extends StatelessWidget {
     @required this.reviews,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final double bubbleWidth;
+  final double cardCorners;
+  final UserModel userModel;
+  final List<ReviewModel> reviews;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

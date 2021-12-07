@@ -8,11 +8,7 @@ import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:flutter/material.dart';
 
 class DashBoardLayout extends StatelessWidget {
-  final List<Widget> listWidgets;
-  final String pageTitle;
-  final bool loading;
-  final Function onBldrsTap;
-
+  /// --------------------------------------------------------------------------
   const DashBoardLayout({
     @required this.listWidgets,
     this.pageTitle,
@@ -20,7 +16,12 @@ class DashBoardLayout extends StatelessWidget {
     this.onBldrsTap,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final List<Widget> listWidgets;
+  final String pageTitle;
+  final bool loading;
+  final Function onBldrsTap;
+  /// --------------------------------------------------------------------------
   static double clearScreenHeight(BuildContext context){
     return
       Scale.superScreenHeight(context) - Ratioz.stratosphere - ( 2 * Ratioz.appBarMargin);
@@ -66,13 +67,14 @@ class DashBoardLayout extends StatelessWidget {
 }
 
 class FloatingLayout extends StatelessWidget {
-  final Widget child;
-
+  /// --------------------------------------------------------------------------
   const FloatingLayout({
     @required this.child,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final Widget child;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return SizedBox(

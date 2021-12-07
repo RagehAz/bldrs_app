@@ -9,17 +9,7 @@ import 'package:bldrs/views/widgets/general/textings/text_lines_analyzer.dart';
 import 'package:flutter/material.dart';
 
 class ParagraphBubble extends StatefulWidget {
-  final String title;
-  final String paragraph;
-  final int maxLines;
-  final bool centered;
-  final String actionBtIcon;
-  final double bubbleWidth;
-  final dynamic margins;
-  final dynamic corners;
-  final bool editMode;
-  final Function onParagraphTap;
-
+  /// --------------------------------------------------------------------------
   const ParagraphBubble({
     @required this.paragraph,
     this.title,
@@ -33,9 +23,21 @@ class ParagraphBubble extends StatefulWidget {
     this.onParagraphTap,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String title;
+  final String paragraph;
+  final int maxLines;
+  final bool centered;
+  final String actionBtIcon;
+  final double bubbleWidth;
+  final dynamic margins;
+  final dynamic corners;
+  final bool editMode;
+  final Function onParagraphTap;
+  /// --------------------------------------------------------------------------
   @override
   _ParagraphBubbleState createState() => _ParagraphBubbleState();
+  /// --------------------------------------------------------------------------
 }
 
 class _ParagraphBubbleState extends State<ParagraphBubble> {

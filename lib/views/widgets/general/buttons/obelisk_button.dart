@@ -4,12 +4,7 @@ import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
 import 'package:flutter/material.dart';
 
 class ObeliskButton extends StatelessWidget {
-
-  final String title;
-  final String icon;
-  final Widget screen;
-  final Color color;
-
+  /// --------------------------------------------------------------------------
   const ObeliskButton(
       this.title,
       this.icon,
@@ -18,7 +13,12 @@ class ObeliskButton extends StatelessWidget {
         this.color = Colorz.black125,
         Key key,
       }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String title;
+  final String icon;
+  final Widget screen;
+  final Color color;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

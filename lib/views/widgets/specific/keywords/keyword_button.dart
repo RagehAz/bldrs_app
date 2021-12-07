@@ -7,11 +7,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class KeywordBarButton extends StatelessWidget {
-  final KW keyword;
-  final bool xIsOn;
-  final Function onTap;
-  final Color color;
-
+  /// --------------------------------------------------------------------------
   const KeywordBarButton({
     @required this.keyword,
     @required this.xIsOn,
@@ -19,7 +15,12 @@ class KeywordBarButton extends StatelessWidget {
     this.color = Colorz.blue80,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final KW keyword;
+  final bool xIsOn;
+  final Function onTap;
+  final Color color;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -113,13 +114,14 @@ class KeywordBarButton extends StatelessWidget {
 }
 
 class AddKeywordsButton extends StatelessWidget {
-  final Function onTap;
-
+  /// --------------------------------------------------------------------------
   const AddKeywordsButton({
     @required this.onTap,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final Function onTap;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

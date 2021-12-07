@@ -15,12 +15,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 
 class AddFlyerButton extends StatelessWidget {
-  final double flyerBoxWidth;
-  final BzModel bzModel;
-  final CountryModel bzCountry;
-  final CityModel bzCity;
-  final Function addPublishedFlyerToGallery;
-
+  /// --------------------------------------------------------------------------
   const AddFlyerButton({
     @required this.flyerBoxWidth,
     @required this.bzModel,
@@ -29,8 +24,13 @@ class AddFlyerButton extends StatelessWidget {
     @required this.addPublishedFlyerToGallery,
     Key key,
   }) : super(key: key);
-
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final BzModel bzModel;
+  final CountryModel bzCountry;
+  final CityModel bzCity;
+  final Function addPublishedFlyerToGallery;
+  /// --------------------------------------------------------------------------
   Future<void> _goToFlyerEditor(BuildContext context) async {
 
     print('going to create new flyer keda');

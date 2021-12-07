@@ -6,13 +6,7 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class AuthorModel{
-  final String userID;
-  final String name;
-  final dynamic pic;
-  final String title;
-  bool isMaster;
-  final List<ContactModel> contacts;
-
+  /// --------------------------------------------------------------------------
   AuthorModel({
     this.userID,
     this.name,
@@ -21,7 +15,14 @@ class AuthorModel{
     this.isMaster,
     this.contacts,
 });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String userID;
+  final String name;
+  final dynamic pic;
+  final String title;
+  bool isMaster;
+  final List<ContactModel> contacts;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return <String, dynamic>{
       'userID' : userID,

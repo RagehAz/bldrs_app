@@ -11,13 +11,14 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class BzPowersTab extends StatelessWidget {
-  final BzModel bzModel;
-
+  /// --------------------------------------------------------------------------
   const BzPowersTab({
     @required this.bzModel,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final BzModel bzModel;
+  /// --------------------------------------------------------------------------
   static TabModel powersTabModel({
     @required Function onChangeTab,
     @required BzModel bzModel,

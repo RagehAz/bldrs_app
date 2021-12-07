@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 /// --- TAWAKAL 3ALA ALLAH ---
 
 // ‎ ‎ ‎ ‎
-class Lingo{
   /// lang codes tiers
   /// A:-
   /// AR:Arabic, ES:Spanish, FR:French, ZH:Chinese, DE:German, IT:Italian,
@@ -27,15 +26,16 @@ class Lingo{
   /// UK:Ukrainian, PL:Polish, NL:Dutch, MS:Malay, PA:Punjabi,
   /// E:-
   /// TL:Tagalog, TE:Telugu, MR:Marathi, KO:Korean,
-
-  final String code;
-  final String name;
-
+class Lingo{
+  /// --------------------------------------------------------------------------
   const Lingo ({
     @required this.code,
     @required this.name,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String code;
+  final String name;
+  /// --------------------------------------------------------------------------
   static List<MapModel> getLingoNamesMapModels(List<Lingo> lingos){
     final List<MapModel> _lingosMapModels = <MapModel>[];
 

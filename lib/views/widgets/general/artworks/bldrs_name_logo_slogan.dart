@@ -6,17 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class LogoSlogan extends StatelessWidget {
-  final double sizeFactor;
-  final bool showTagLine;
-  final bool showSlogan;
-
+  /// --------------------------------------------------------------------------
   const LogoSlogan({
     this.sizeFactor = 1,
     this.showTagLine = false,
     this.showSlogan = false,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double sizeFactor;
+  final bool showTagLine;
+  final bool showSlogan;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

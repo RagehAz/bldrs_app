@@ -15,23 +15,7 @@ enum VerseWeight {
 
 /// TASK : need to study Text_theme.dart class and text sizes
 class SuperVerse extends StatelessWidget {
-  final String verse;
-  final int size;
-  final Color color;
-  final VerseWeight weight;
-  final bool italic;
-  final bool shadow;
-  final bool centered;
-  final double scaleFactor;
-  final int maxLines;
-  final double margin;
-  // final bool softWrap;
-  final Color labelColor;
-  final Function onTap;
-  final bool leadingDot;
-  final bool redDot;
-  final bool strikethrough;
-
+  /// --------------------------------------------------------------------------
   const SuperVerse({
     this.verse = 'Bldrs.net will shock planet Earth isa',
     this.size = 2,
@@ -51,7 +35,24 @@ class SuperVerse extends StatelessWidget {
     this.strikethrough = false,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String verse;
+  final int size;
+  final Color color;
+  final VerseWeight weight;
+  final bool italic;
+  final bool shadow;
+  final bool centered;
+  final double scaleFactor;
+  final int maxLines;
+  final double margin;
+  // final bool softWrap;
+  final Color labelColor;
+  final Function onTap;
+  final bool leadingDot;
+  final bool redDot;
+  final bool strikethrough;
+  /// --------------------------------------------------------------------------
   static Widget dotVerse({String verse}){
     return
       SuperVerse(
@@ -69,7 +70,7 @@ class SuperVerse extends StatelessWidget {
 //     return
 //         SuperVerse();
 //   }
-
+// -----------------------------------------------------------------------------
   static Widget priceVerse({BuildContext context, Color color, double price, double scaleFactor, String currency, bool strikethrough = false}){
     return
       Row(
@@ -99,7 +100,6 @@ class SuperVerse extends StatelessWidget {
         ],
       );
   }
-
 // -----------------------------------------------------------------------------
   Widget _dot(double _dotSize, Color _color){
     return Container(
@@ -167,7 +167,6 @@ class SuperVerse extends StatelessWidget {
         );
 
     }
-
 // -----------------------------------------------------------------------------
 //   static Size getSize({String verse, TextStyle style, int maxLines, bool centered = true}) {
 //

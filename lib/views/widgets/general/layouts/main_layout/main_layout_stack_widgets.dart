@@ -11,22 +11,7 @@ import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class MainLayoutStackWidgets extends StatelessWidget {
-  final Alignment alignment;
-  final SkyType skyType;
-  final Widget layoutWidget;
-  final AppBarType appBarType;
-  final List<Widget> appBarRowWidgets;
-  final String pageTitle;
-  final Function onBack;
-  final bool loading;
-  final ScrollController appBarScrollController;
-  final bool sectionButtonIsOn;
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final bool historyButtonIsOn;
-  final ValueChanged<String> onSearchChanged;
-  final String pyramids;
-
+  /// --------------------------------------------------------------------------
   const MainLayoutStackWidgets({
     @required this.alignment,
     @required this.skyType,
@@ -45,7 +30,23 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.pyramids,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final Alignment alignment;
+  final SkyType skyType;
+  final Widget layoutWidget;
+  final AppBarType appBarType;
+  final List<Widget> appBarRowWidgets;
+  final String pageTitle;
+  final Function onBack;
+  final bool loading;
+  final ScrollController appBarScrollController;
+  final bool sectionButtonIsOn;
+  final TextEditingController searchController;
+  final ValueChanged<String> onSearchSubmit;
+  final bool historyButtonIsOn;
+  final ValueChanged<String> onSearchChanged;
+  final String pyramids;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return  Stack(

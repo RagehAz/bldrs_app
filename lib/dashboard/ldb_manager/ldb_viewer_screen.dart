@@ -13,14 +13,14 @@ import 'package:bldrs/views/widgets/general/textings/value_box.dart';
 import 'package:flutter/material.dart';
 
 class LDBViewerScreen extends StatefulWidget {
-  final String ldbDocName;
-
-
+  /// --------------------------------------------------------------------------
   const LDBViewerScreen({
     @required this.ldbDocName,
     Key key,
 }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String ldbDocName;
+  /// --------------------------------------------------------------------------
   static List<Widget> rows({
     @required BuildContext context,
     @required List<Map<String, Object>>maps,
@@ -110,9 +110,10 @@ class LDBViewerScreen extends StatefulWidget {
 
           });
   }
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   @override
   State<LDBViewerScreen> createState() => _LDBViewerScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _LDBViewerScreenState extends State<LDBViewerScreen> {

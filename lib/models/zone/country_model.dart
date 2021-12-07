@@ -11,6 +11,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CountryModel{
+  /// --------------------------------------------------------------------------
+  const CountryModel({
+    @required this.id,
+    @required this.region,
+    @required this.continent,
+    @required this.isActivated,
+    @required this.isGlobal,
+    @required this.citiesIDs,
+    @required this.language,
+    @required this.names,
+    @required this.currency,
+  });
+  /// --------------------------------------------------------------------------
   final String id;
   final String region;
   final String continent;
@@ -23,19 +36,7 @@ class CountryModel{
   final String language;
   final List<Name> names;
   final String currency;
-
-  const CountryModel({
-    @required this.id,
-    @required this.region,
-    @required this.continent,
-    @required this.isActivated,
-    @required this.isGlobal,
-    @required this.citiesIDs,
-    @required this.language,
-    @required this.names,
-    @required this.currency,
-  });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
 
     return <String, dynamic>{
@@ -271,12 +272,13 @@ class CountryModel{
 }
 // -----------------------------------------------------------------------------
 class AmericanState extends CountryModel {
-  final String state;
-  final List<CityModel> cities;
-
+  /// --------------------------------------------------------------------------
   AmericanState({
     @required this.state,
     @required this.cities,
 });
-
+  /// --------------------------------------------------------------------------
+  final String state;
+  final List<CityModel> cities;
+  /// --------------------------------------------------------------------------
 }

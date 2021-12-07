@@ -5,13 +5,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class StatsLine extends StatelessWidget {
-  final String icon;
-  final double iconSizeFactor;
-  final double verseScaleFactor;
-  final String verse;
-  final Function onTap;
-  final double bubbleWidth;
-
+  /// --------------------------------------------------------------------------
   const StatsLine({
     @required this.icon,
     @required this.verse,
@@ -21,8 +15,14 @@ class StatsLine extends StatelessWidget {
     this.bubbleWidth,
     Key key,
   }) : super(key: key);
-
-
+  /// --------------------------------------------------------------------------
+  final String icon;
+  final double iconSizeFactor;
+  final double verseScaleFactor;
+  final String verse;
+  final Function onTap;
+  final double bubbleWidth;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

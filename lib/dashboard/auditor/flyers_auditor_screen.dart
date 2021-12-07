@@ -658,19 +658,20 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 }
 
 class AuditorButton extends StatelessWidget {
-  final String verse;
-  final Color color;
-  final String icon;
-  final Function onTap;
-
+  /// --------------------------------------------------------------------------
   const AuditorButton({
     @required this.verse,
     @required this.onTap,
     @required this.color,
     @required this.icon,
     Key key,
-}) : super(key: key);
-
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final String verse;
+  final Color color;
+  final String icon;
+  final Function onTap;
+  /// --------------------------------------------------------------------------
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);

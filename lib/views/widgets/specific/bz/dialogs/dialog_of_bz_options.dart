@@ -14,22 +14,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DialogOfBzOptions extends StatefulWidget {
-  final BzModel bzModel;
-  final UserModel userModel;
-
+  /// --------------------------------------------------------------------------
   const DialogOfBzOptions({
     @required this.bzModel,
     @required this.userModel,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final BzModel bzModel;
+  final UserModel userModel;
+  /// --------------------------------------------------------------------------
   static const double buttonHeight = 50;
   static const int numberOfButtons = 3;
   static const double spacing = 5;
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   @override
   State<DialogOfBzOptions> createState() => _DialogOfBzOptionsState();
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   static Future<void> show({BuildContext context, BzModel bzModel, UserModel userModel}) async {
 
     const double _spacing = DialogOfBzOptions.buttonHeight * 0.1;
@@ -46,7 +47,7 @@ class DialogOfBzOptions extends StatefulWidget {
     );
 
   }
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {

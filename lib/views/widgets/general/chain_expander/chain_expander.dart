@@ -7,17 +7,7 @@ import 'package:bldrs/views/widgets/general/chain_expander/components/expanding_
 import 'package:flutter/material.dart';
 
 class ChainExpander extends StatelessWidget {
-  final Chain chain;
-  final bool inActiveMode;
-  final double width;
-  final ValueChanged<bool> onTap;
-  final String icon;
-  final String firstHeadline;
-  final String secondHeadline;
-  final Color initialColor;
-  final Color expansionColor;
-  final EdgeInsets margin;
-
+  /// --------------------------------------------------------------------------
   const ChainExpander({
     @required this.chain,
     @required this.width,
@@ -31,7 +21,18 @@ class ChainExpander extends StatelessWidget {
     this.expansionColor = Colorz.white20,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final Chain chain;
+  final bool inActiveMode;
+  final double width;
+  final ValueChanged<bool> onTap;
+  final String icon;
+  final String firstHeadline;
+  final String secondHeadline;
+  final Color initialColor;
+  final Color expansionColor;
+  final EdgeInsets margin;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

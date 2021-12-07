@@ -11,15 +11,16 @@ List<int> otherFlyers = <int>[0,1,2,3,4,5,6,7,8,9,];
     /// this flyers Collection is used in main layouts
     /// Grid of flyers are put in the bubble and showing one main flyer as a cover
 class FlyerCoversStack extends StatelessWidget {
-  final List<FlyerModel> flyersDataList;
-  final String collectionTitle;
-
+  /// --------------------------------------------------------------------------
   const FlyerCoversStack({
     @required this.flyersDataList,
     @required this.collectionTitle,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<FlyerModel> flyersDataList;
+  final String collectionTitle;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -108,17 +109,18 @@ class FlyerCoversStack extends StatelessWidget {
 }
 
 class TopFlyersStack extends StatelessWidget {
-  final List<FlyerModel> flyersDataList;
-  final String collectionTitle;
-  final int numberOfFlyers;
-
+  /// --------------------------------------------------------------------------
   const TopFlyersStack({
     @required this.flyersDataList,
     @required this.collectionTitle,
     this.numberOfFlyers = 3,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<FlyerModel> flyersDataList;
+  final String collectionTitle;
+  final int numberOfFlyers;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

@@ -11,17 +11,18 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class ContactsBubble extends StatelessWidget {
-  final List<ContactModel> contacts;
-  final bool stretchy;
-  final Function onTap;
-
+  /// --------------------------------------------------------------------------
   const ContactsBubble({
     @required this.contacts,
     this.stretchy = false,
     this.onTap,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<ContactModel> contacts;
+  final bool stretchy;
+  final Function onTap;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

@@ -4,12 +4,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class BzPgVerse extends StatelessWidget {
-  final double flyerBoxWidth;
-  final bool bzPageIsOn;
-  final String verse;
-  final int size;
-  final int maxLines;
-
+  /// --------------------------------------------------------------------------
   const BzPgVerse({
     @required this.flyerBoxWidth,
     @required this.verse,
@@ -18,7 +13,13 @@ class BzPgVerse extends StatelessWidget {
     this.maxLines = 1,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final bool bzPageIsOn;
+  final String verse;
+  final int size;
+  final int maxLines;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     const dynamic bzPageBGColor = Colorz.black80;
@@ -48,11 +49,7 @@ class BzPgVerse extends StatelessWidget {
 }
 
 class BzAboutVerse extends StatefulWidget {
-  final double flyerBoxWidth;
-  final bool bzPageIsOn;
-  final String verse;
-  final String bzName;
-
+  /// --------------------------------------------------------------------------
   const BzAboutVerse({
     @required this.flyerBoxWidth,
     @required this.verse,
@@ -60,9 +57,15 @@ class BzAboutVerse extends StatefulWidget {
     this.bzPageIsOn = true,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final bool bzPageIsOn;
+  final String verse;
+  final String bzName;
+  /// --------------------------------------------------------------------------
   @override
   _BzAboutVerseState createState() => _BzAboutVerseState();
+/// --------------------------------------------------------------------------
 }
 
 class _BzAboutVerseState extends State<BzAboutVerse> {

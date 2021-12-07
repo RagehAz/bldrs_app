@@ -4,15 +4,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class DreamBoxUnderLine extends StatelessWidget {
-  final double width;
-  final double height;
-  final String underLine;
-  final String icon;
-  final Color underLineColor;
-  final int verseSize;
-  final double scaleFactor;
-  final bool underLineShadowIsOn;
-
+  /// --------------------------------------------------------------------------
   const DreamBoxUnderLine({
     @required this.width,
     @required this.height,
@@ -24,7 +16,16 @@ class DreamBoxUnderLine extends StatelessWidget {
     @required this.underLineShadowIsOn,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  final double height;
+  final String underLine;
+  final String icon;
+  final Color underLineColor;
+  final int verseSize;
+  final double scaleFactor;
+  final bool underLineShadowIsOn;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

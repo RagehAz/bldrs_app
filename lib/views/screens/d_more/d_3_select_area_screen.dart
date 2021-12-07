@@ -14,13 +14,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SelectAreaScreen extends StatelessWidget {
-  final CityModel city;
-
+  /// --------------------------------------------------------------------------
   const SelectAreaScreen({
     @required this.city,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final CityModel city;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);

@@ -8,18 +8,7 @@ import 'package:bldrs/views/widgets/general/textings/data_strip.dart';
 import 'package:flutter/material.dart';
 
 class SpecsBubble extends StatelessWidget {
-  final String title;
-  final List<Spec> specs;
-  final int verseSize;
-  final Function onTap;
-  final Color bubbleColor;
-  final List<dynamic> selectedWords;
-  final double bubbleWidth;
-  final dynamic margins;
-  final dynamic corners;
-  final bool passKeywordOnTap;
-  final bool addButtonIsOn;
-
+  /// --------------------------------------------------------------------------
   const SpecsBubble({
     @required this.title,
     @required this.specs,
@@ -34,7 +23,19 @@ class SpecsBubble extends StatelessWidget {
     this.passKeywordOnTap = false,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String title;
+  final List<Spec> specs;
+  final int verseSize;
+  final Function onTap;
+  final Color bubbleColor;
+  final List<dynamic> selectedWords;
+  final double bubbleWidth;
+  final dynamic margins;
+  final dynamic corners;
+  final bool passKeywordOnTap;
+  final bool addButtonIsOn;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

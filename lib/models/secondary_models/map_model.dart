@@ -3,14 +3,15 @@
 import 'package:flutter/foundation.dart';
 
 class MapModel{
-  final String key;
-  final dynamic value;
-
+  /// --------------------------------------------------------------------------
   MapModel({
     @required this.key,
     @required this.value,
 });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String key;
+  final dynamic value;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return
       <String, dynamic>{

@@ -16,11 +16,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/gallery.da
 import 'package:flutter/material.dart';
 
 class BzFlyersTab extends StatelessWidget {
-  final BzModel bzModel;
-  final List<FlyerModel> flyers;
-  final CountryModel bzCountry;
-  final CityModel bzCity;
-
+  /// --------------------------------------------------------------------------
   const BzFlyersTab({
     @required this.bzModel,
     @required this.flyers,
@@ -28,7 +24,12 @@ class BzFlyersTab extends StatelessWidget {
     @required this.bzCity,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final BzModel bzModel;
+  final List<FlyerModel> flyers;
+  final CountryModel bzCountry;
+  final CityModel bzCity;
+  /// --------------------------------------------------------------------------
   static TabModel flyersTabModel({
     @required Function onChangeTab,
     @required BzModel bzModel,
