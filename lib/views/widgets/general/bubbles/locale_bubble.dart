@@ -345,7 +345,7 @@ class LocaleButton extends StatelessWidget {
             // width: _buttonWidth,
             verseScaleFactor: 0.8,
             iconSizeFactor: 0.8,
-            icon: icon == null ? null : icon,
+            icon: icon ?? null,
             bubble: false,
             verse: verse == null ? '' : '$verse    ',
             verseMaxLines: 2,

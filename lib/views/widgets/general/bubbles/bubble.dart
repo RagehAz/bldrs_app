@@ -106,11 +106,12 @@ class Bubble extends StatelessWidget {
     final double _actionBtSize = SuperVerse.superVerseRealHeight(context, _titleVerseSize, 1, null);
     final double _actionBtCorner = _actionBtSize * 0.4;
 
-    final double _bubbleWidth = width != null ? width :
-    bubbleWidth(
-      context: context,
-      stretchy: stretchy,
-    );
+    final double _bubbleWidth =
+        width ??
+            bubbleWidth(
+              context: context,
+              stretchy: stretchy,
+            );
 
 // -----------------------------------------------------------------------------
     final double _titleWidth = stretchy == true ? null : _bubbleWidth - _actionBtSize * 2;

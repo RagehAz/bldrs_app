@@ -141,10 +141,9 @@ class MainButton extends StatelessWidget {
               ),
 
               /// BUTTON COMPONENTS
-              buttonIcon == ''
-                  ?
-                  /// --- WHEN BUTTON DOES NOT HAVE AN ICON
-                  Row(
+              if (buttonIcon == '')
+                /// --- WHEN BUTTON DOES NOT HAVE AN ICON
+                Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         /// --- ONLY THE BUTTON VERSE HERE
@@ -158,56 +157,57 @@ class MainButton extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )
-                  :
-                  /// --- WHEN BUTTON HAS AN ICON
-                  Padding(
-                    padding: EdgeInsets.only(left: _buttonZonePaddings, right: _buttonZonePaddings),
-                    child: Row(
-                        children: <Widget>[
+                    ),
 
-                          /// --- OLD BUTTON ICON
-                          Flexible(
-                            child: new Container(
-                              // color: Colorz.BloodTest,
-                              width: _buttonZoneHeight * 0.4,
-                              height: _buttonZoneHeight * 0.4,
-                              alignment: Alignment.center,
-                              margin: EdgeInsets.all(_buttonZoneHeight * 0.1),
-                              // padding: EdgeInsets.all(_buttonHeight * 0),
-                              child:
-                                  buttonIcon.runtimeType != String ? buttonIcon :
-                                  ObjectChecker.fileExtensionOf(buttonIcon) == 'jpg' || ObjectChecker.fileExtensionOf(buttonIcon) == 'jpeg' || ObjectChecker.fileExtensionOf(buttonIcon) == 'png' ?
-                                  Container(
-                                    width: _buttonZoneHeight * 0.4,
-                                    height: _buttonZoneHeight * 0.4,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(image: AssetImage(buttonIcon), fit: BoxFit.cover, ),
-                                    ),
-                                  ) :
-                              WebsafeSvg.asset(buttonIcon, fit: BoxFit.fill, color: iconColor),
+              if (buttonIcon != '')
+                /// --- WHEN BUTTON HAS AN ICON
+                Padding(
+                  padding: EdgeInsets.only(left: _buttonZonePaddings, right: _buttonZonePaddings),
+                  child: Row(
+                    children: <Widget>[
+
+                      /// --- OLD BUTTON ICON
+                      Flexible(
+                        child: new Container(
+                          // color: Colorz.BloodTest,
+                          width: _buttonZoneHeight * 0.4,
+                          height: _buttonZoneHeight * 0.4,
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.all(_buttonZoneHeight * 0.1),
+                          // padding: EdgeInsets.all(_buttonHeight * 0),
+                          child:
+                          buttonIcon.runtimeType != String ? buttonIcon :
+                          ObjectChecker.fileExtensionOf(buttonIcon) == 'jpg' || ObjectChecker.fileExtensionOf(buttonIcon) == 'jpeg' || ObjectChecker.fileExtensionOf(buttonIcon) == 'png' ?
+                          Container(
+                            width: _buttonZoneHeight * 0.4,
+                            height: _buttonZoneHeight * 0.4,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(image: AssetImage(buttonIcon), fit: BoxFit.cover, ),
                             ),
-                          ),
-
-                          /// BUTTON VERSE
-                          Expanded(
-                            flex: 4,
-                            child: new Padding(
-                              padding: EdgeInsets.symmetric(horizontal : _buttonZonePaddings),
-                              child: SuperVerse(
-                                verse: buttonVerse,
-                                color: verseColor,
-                                weight: verseWeight,
-                                centered: false,
-                                shadow: buttonVerseShadow,
-                                maxLines: 2,
-
-                              ),
-                            ),
-                          ),
-                        ],
+                          ) :
+                          WebsafeSvg.asset(buttonIcon, fit: BoxFit.fill, color: iconColor),
+                        ),
                       ),
-                  )
+
+                      /// BUTTON VERSE
+                      Expanded(
+                        flex: 4,
+                        child: new Padding(
+                          padding: EdgeInsets.symmetric(horizontal : _buttonZonePaddings),
+                          child: SuperVerse(
+                            verse: buttonVerse,
+                            color: verseColor,
+                            weight: verseWeight,
+                            centered: false,
+                            shadow: buttonVerseShadow,
+                            maxLines: 2,
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                )
             ],
           ),
         ),

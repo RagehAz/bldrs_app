@@ -102,7 +102,11 @@ linter:
     prefer_final_fields: true
     prefer_final_in_for_each: true
     prefer_final_locals: true
-    prefer_final_parameters: true
+    prefer_for_elements_to_map_fromIterable: true
+    prefer_function_declarations_over_variables: true
+    prefer_generic_function_type_aliases: true
+    prefer_if_elements_to_conditional_expressions: true
+    prefer_if_null_operators: true
 
     # Pending
     diagnostic_describe_all_properties: false
@@ -135,7 +139,8 @@ linter:
     prefer_constructors_over_static_methods: false # BIG NO
     prefer_double_quotes: false # incompatible with prefer_single_quotes
     prefer_expression_function_bodies: false # not important & messes my organization
-
+    prefer_final_parameters: false # fires ~5000 hints
+    prefer_foreach: false # incompatible with avoid_function_literals_in_foreach_calls yahbal
 
 analyzer:
   errors:

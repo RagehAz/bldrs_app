@@ -103,7 +103,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                 ),
 
                 /// ACTION BUTTON
-                widget.actionBtIcon == null ? Container() :
+                if (widget.actionBtIcon != null)
                 DreamBox(
                   height: actionBtSize,
                   width: actionBtSize,
@@ -127,7 +127,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                   textDirection: TextDirection.ltr,
                   children: <Widget>[
 
-                    widget.leadingIcon == null ? Container() :
+                    if (widget.leadingIcon != null)
                     DreamBox(
                       height: 35,
                       width: 35,
@@ -138,7 +138,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                       0.6 : 1,
                     ),
 
-                    widget.leadingIcon == null ? Container() :
+                    if (widget.leadingIcon != null)
                     Container(
                       width: 5,
                     ),
@@ -189,7 +189,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
             ),
 
             /// BUBBLE COMMENTS
-            widget.comments == null ? Container() :
+            if (widget.comments != null)
             SuperVerse(
               verse: widget.comments,
               italic: true,

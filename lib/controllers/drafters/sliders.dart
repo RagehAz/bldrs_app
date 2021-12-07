@@ -47,7 +47,7 @@ enum SwipeDirection{
 // -----------------------------------------------------------------------------
   Future<void> slideToBackFrom(PageController slidingController, int currentSlide, {Curve curve}) async {
 
-    final Curve _curve = curve == null ? Curves.easeInOutCirc : curve;
+    final Curve _curve = curve ?? Curves.easeInOutCirc;
 
   if (currentSlide == 0){
     print('can not slide back');

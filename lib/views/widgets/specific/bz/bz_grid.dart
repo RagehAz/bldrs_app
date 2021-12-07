@@ -30,7 +30,7 @@ class BzGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final List<BzModel> _bzz = bzzModels == null ? <BzModel>[] : bzzModels;
+    final List<BzModel> _bzz = bzzModels ?? <BzModel>[];
 
     const List<Color> _boxesColors = <Color>[Colorz.white30, Colorz.white20, Colorz.white10];
 
@@ -52,11 +52,11 @@ class BzGrid extends StatelessWidget {
       maxCrossAxisExtent: scrollDirection == Axis.vertical ? _logoWidth : _logoWidth * 1.25,
     );
 
-    final double _zoneCorners = corners == null ? (_logoWidth * Ratioz.bzLogoCorner) + _gridSpacing : corners;
+    final double _zoneCorners = corners ?? (_logoWidth * Ratioz.bzLogoCorner) + _gridSpacing;
 
     final EdgeInsets _gridPadding = EdgeInsets.only(top: _gridSpacing, left: _gridSpacing, right: _gridSpacing);
 
-    final Axis _scrollDirection = scrollDirection == null ? Axis.vertical : scrollDirection;
+    final Axis _scrollDirection = scrollDirection ?? Axis.vertical;
     final ScrollPhysics _physics = scrollDirection == null ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics();
 
     return

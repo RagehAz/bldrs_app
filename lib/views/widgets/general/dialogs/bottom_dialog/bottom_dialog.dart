@@ -108,7 +108,7 @@ class BottomDialog extends StatelessWidget {
     double _dialogHeight;
     final double _screenHeight = Scale.superScreenHeight(context);
 
-    final double _ratioOfScreenHeight = ratioOfScreenHeight == null ? 0.5 : ratioOfScreenHeight;
+    final double _ratioOfScreenHeight = ratioOfScreenHeight ?? 0.5;
 
     if (overridingDialogHeight == null){
       _dialogHeight =  _screenHeight * _ratioOfScreenHeight;
@@ -149,8 +149,7 @@ class BottomDialog extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double dialogClearCornerValue({double corner}){
-    final double _corner = corner == null ? Ratioz.appBarCorner : corner ;
-    return _corner;
+    return corner ?? Ratioz.appBarCorner;
   }
 // -----------------------------------------------------------------------------
   static BorderRadius dialogClearCorners(BuildContext context){

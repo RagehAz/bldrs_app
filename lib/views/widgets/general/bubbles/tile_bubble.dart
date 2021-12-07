@@ -69,7 +69,7 @@ class TileBubble extends StatelessWidget {
           children: <Widget>[
 
             /// --- LEADING ICON
-            icon.runtimeType == String ?
+            if (icon is String)
             DreamBox(
               width: iconBoxWidth,
               height: iconBoxWidth,
@@ -80,8 +80,9 @@ class TileBubble extends StatelessWidget {
               margins: const EdgeInsets.symmetric(),
               bubble: iconIsBubble,
 
-            )
-                :
+            ),
+
+            if (icon is String == false)
             Padding(
               padding: const EdgeInsets.symmetric(),
               child: Container(

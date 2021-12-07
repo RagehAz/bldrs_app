@@ -68,7 +68,7 @@ class Strips extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static EdgeInsets boxMargins({EdgeInsets margins, double flyerBoxWidth}){
-    final EdgeInsets _boxMargins = margins == null ? EdgeInsets.only(top: flyerBoxWidth * 0.27) : margins;
+    final EdgeInsets _boxMargins = margins ?? EdgeInsets.only(top: flyerBoxWidth * 0.27);
     return _boxMargins;
   }
 // -----------------------------------------------------------------------------
@@ -102,7 +102,7 @@ class Strips extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static double oneStripLength({double flyerBoxWidth, int numberOfStrips}){
     final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
-    final int _numberOfStrips = numberOfStrips == null ? 0 : numberOfStrips;
+    final int _numberOfStrips = numberOfStrips ?? 0;
     final double _oneStripLength = (_stripsTotalLength / _numberOfStrips);
     return _oneStripLength;
   }

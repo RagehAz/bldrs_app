@@ -211,7 +211,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     return MainLayout(
       scaffoldKey: _scaffoldKey,
       appBarType: AppBarType.basic,
-      pyramids: _pyramids == null ? Iconz.pyramidsYellow : _pyramids,
+      pyramids: _pyramids ?? Iconz.pyramidsYellow,
       loading: _loading,
       pageTitle: 'Awesome notification test',
 

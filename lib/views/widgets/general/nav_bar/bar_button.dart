@@ -32,7 +32,7 @@ class BarButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const double _circleWidth = 40;
-    final double _buttonCircleCorner = corners == null ? _circleWidth * 0.5 : corners;
+    final double _buttonCircleCorner = corners ?? _circleWidth * 0.5;
     const double _paddings = Ratioz.appBarPadding * 1.5;
 
     const double _textScaleFactor = 0.95;
@@ -65,7 +65,7 @@ class BarButton extends StatelessWidget {
                 height: _paddings,
               ),
 
-              clipperWidget == null ?
+              if (clipperWidget == null)
               DreamBox(
                 width: _circleWidth,
                 height: _circleWidth,
@@ -73,8 +73,9 @@ class BarButton extends StatelessWidget {
                 iconSizeFactor: iconSizeFactor,
                 corners: _buttonCircleCorner,
                 onTap: onTap,
-              )
-                  :
+              ),
+
+              if (clipperWidget != null)
               Container(
                 width: _circleWidth,
                   height: _circleWidth,

@@ -421,7 +421,7 @@ class ZoneProvider extends ChangeNotifier {
 
     final String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(context, _currentCityModel?.names);
 
-    return _nameInCurrentLanguage == null ? cityID : _nameInCurrentLanguage;
+    return _nameInCurrentLanguage ?? cityID;
   }
 // -----------------------------------------------------------------------------
   Future<ZoneModel> getZoneModelByGeoPoint({@required BuildContext context, @required GeoPoint geoPoint}) async {

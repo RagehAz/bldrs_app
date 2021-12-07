@@ -27,7 +27,7 @@ class NavDialog extends StatelessWidget {
     Color color = Colorz.black255,
   }) async {
 
-    final Color _color = color == null ? Colorz.darkRed255 : color;
+    final Color _color = color ?? Colorz.darkRed255;
 
     // double _screenWidth = Scale.superScreenWidth(context);
 

@@ -159,9 +159,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     /// --- LABEL CORNERS -----------------------------------------------
     final double _labelCornerValues = SuperVerse.superVerseLabelCornerValue(context, _size);
-    final double _labelCorner = widget.labelColor == Colorz.nothing ? 0 :
-    widget.corners == null ? _labelCornerValues :
-    widget.corners;
+    final double _labelCorner =
+    widget.labelColor == Colorz.nothing ? 0
+        :
+    widget.corners ?? _labelCornerValues;
     /// --- LABEL PADDINGS -----------------------------------------------
     final double _sidePaddingValues = SuperVerse.superVerseSidePaddingValues(context, _size);
 // -----------------------------------------------------------------------------
@@ -210,17 +211,11 @@ class _SuperTextFieldState extends State<SuperTextField> {
       );
     }
 // -----------------------------------------------------------------------------
-    final TextDirection _concludedTextDirection =
-    /// when widget.textDirection is already defined, it overrides all
-    widget.textDirection != null ? widget.textDirection :
-    /// when it is not defined outside, and _textDirection hadn't changed yet we
-    /// use default superTextDirection that detects current app language
-    widget.textDirection == null && _textDirection == null? superTextDirection(context) :
-    /// so otherwise we use _textDirection that auto detects current input
-    /// language
-    // textIsEnglish(widget.textController.text) == true ? TextDirection.ltr :
-    // textIsEnglish(widget.textController.text) == false ? TextDirection.rtl :
-    _textDirection;
+    final TextDirection _concludedTextDirection = concludeTextDirection(
+      context: context,
+      definedDirection: widget.textDirection,
+      detectedDirection: _textDirection,
+    );
 // -----------------------------------------------------------------------------
     final InputDecoration _inputDecoration =
 

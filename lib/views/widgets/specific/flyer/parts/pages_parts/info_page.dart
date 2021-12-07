@@ -75,7 +75,7 @@ class InfoPage extends StatelessWidget {
 
     final BorderRadius _keywordsBubbleCorners = Borderers.superBorderAll(context, flyerBoxWidth * Ratioz.xxflyerTopCorners);
 
-    final FlyerTypeClass.FlyerType _flyerType = superFlyer.flyerType == null ? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType) : superFlyer.flyerType;
+    final FlyerTypeClass.FlyerType _flyerType = superFlyer.flyerType ?? FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType);
 
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
     final CountryModel _currentCountry = _zoneProvider.currentCountry;

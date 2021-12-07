@@ -154,7 +154,7 @@ class _StartingScreenState extends State<StartingScreen> {
               const SizedBox(height: Ratioz.appBarMargin,),
 
               /// --- CONTINUE WITH APPLE
-              DeviceChecker.deviceIsIOS() ?
+              if (DeviceChecker.deviceIsIOS() == true)
               MainButton(
                 buttonVerse: Wordz.continueApple(context),
                 buttonIcon: Iconz.comApple,
@@ -162,20 +162,17 @@ class _StartingScreenState extends State<StartingScreen> {
                 buttonVerseShadow: false,
                 function: Routez.home,
 
-              )
-                  :
+              ),
+
               /// CONTINUE WITH GOOGLE
-              DeviceChecker.deviceIsAndroid() ?
+              if (DeviceChecker.deviceIsAndroid() == true)
               MainButton(
                 buttonVerse: 'Continue with Google',
                 buttonIcon: Iconz.comGooglePlus,
                 buttonColor: Colorz.googleRed,
                 buttonVerseShadow: false,
                 function: () => _tapContinueWith(context, AuthBy.google),
-              )
-                  :
-              Container(),
-
+              ),
 
               /// --- CONTINUE WITH FACEBOOK
               MainButton(
