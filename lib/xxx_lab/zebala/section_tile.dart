@@ -115,7 +115,7 @@ class SectionTile extends StatelessWidget {
         firstHeadline: TextGen.sectionStringer(context, section),
         secondHeadline: TextGen.sectionDescriptionStringer(context, section),
         inActiveMode: inActiveMode,
-        key: PageStorageKey<String>('${section.toString()}'),
+        key: PageStorageKey<String>(section.toString()),
       );
 
   }

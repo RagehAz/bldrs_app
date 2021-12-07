@@ -178,20 +178,20 @@ import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
   String functionStringer(Function function) {
     final String _functionNameAsAString = function.toString();
-    final int _s = _functionNameAsAString.indexOf("\'");
-    final int _e = _functionNameAsAString.lastIndexOf("\'");
+    final int _s = _functionNameAsAString.indexOf("'");
+    final int _e = _functionNameAsAString.lastIndexOf("'");
     // print('functionNameAsAString : ${functionNameAsAString.substring(s + 1, e)}');
     return _functionNameAsAString.substring(_s+1, _e);  // return functionNameAsAString;
   }
 // -----------------------------------------------------------------------------
   String askHinter (BuildContext context, BzType bzType){
     final String _askHint =
-    bzType == BzType.developer ? "I\'m Looking for a property directly from the developer ..." :
-    bzType == BzType.broker ? "I\'m Looking for a property from brokers and re-sellers ..." :
+    bzType == BzType.developer ? "I'm Looking for a property directly from the developer ..." :
+    bzType == BzType.broker ? "I'm Looking for a property from brokers and re-sellers ..." :
     bzType == BzType.manufacturer ? 'I want to Manufacture or get big quantities ...' :
-    bzType == BzType.supplier ? "I\'m searching for a product ..." :
+    bzType == BzType.supplier ? "I'm searching for a product ..." :
     bzType == BzType.designer ? 'I need consultation from a designer ...' :
-    bzType == BzType.contractor ? "I\'m Looking for a contractor to build a project ..." :
+    bzType == BzType.contractor ? "I'm Looking for a contractor to build a project ..." :
     bzType == BzType.artisan ? 'I want a craftsman to fix or build something ...' :
     Wordz.askHint(context);
     return _askHint;

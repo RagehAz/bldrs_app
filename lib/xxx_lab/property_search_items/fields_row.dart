@@ -26,7 +26,7 @@ class FieldsRow extends StatelessWidget {
 
     /// - ROW OF BUTTONS
     const double _buttonSpacing = Ratioz.appBarMargin * 2;
-    final double _buttonsZoneWidth = (_screenWidth - (Ratioz.appBarMargin * 12));
+    final double _buttonsZoneWidth = _screenWidth - (Ratioz.appBarMargin * 12);
 
     // int numberOfButtons = 2;
     // double rowButtonWidth = (_buttonsZoneWidth - (numberOfButtons * _buttonSpacing) - _buttonSpacing) / numberOfButtons;

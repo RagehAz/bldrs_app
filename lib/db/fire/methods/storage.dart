@@ -30,7 +30,7 @@ import 'package:flutter/material.dart';
     final Reference _ref = FirebaseStorage.instance
         .ref()
         .child(docName)
-        .child('$picName.$fileExtension') ?? null;
+        .child('$picName.$fileExtension');
 
     return _ref;
   }
@@ -466,7 +466,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
         await CenterDialog.showCenterDialog(
           context: context,
           title: 'Can not delete image',
-          body: '${_result.toString()}',
+          body: _result.toString(),
         );
       }
 

@@ -211,7 +211,7 @@ class ZoneProvider extends ChangeNotifier {
         /// D - if firebase or LDB found any cities
         if (Mapper.canLoopList(_foundCities) == true){
 
-          print('aho fetchCityByName : _foundCities.length\ = ${_foundCities.length}');
+          print('aho fetchCityByName : _foundCities.length = ${_foundCities.length}');
 
           /// D-1 if only one city found
           if (_foundCities.length == 1){

@@ -79,8 +79,8 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   @override
   void initState() {
     super.initState();
-    _bodyController = new TextEditingController();
-    _titleController = new TextEditingController();
+    _bodyController = TextEditingController();
+    _titleController = TextEditingController();
     _bodyController.addListener(textListener);
 
     _questionPics = <File>[];
@@ -201,7 +201,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
     const UserStatus _userStatus = UserStatus.planning;
     const double _abPadding = Ratioz.appBarPadding;
     const double _abHeight = Ratioz.appBarSmallHeight;
-    const double _abButtonsHeight = _abHeight - (_abPadding);
+    const double _abButtonsHeight = _abHeight - _abPadding;
 
     final String askHint = TextGen.askHinter(context, widget.bzType);
 

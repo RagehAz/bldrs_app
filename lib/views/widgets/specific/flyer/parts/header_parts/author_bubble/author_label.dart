@@ -52,7 +52,7 @@ class AuthorLabel extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final double _authorDataHeight =
     // flyerShowsAuthor == true ?
-    (flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth)
+    flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth
     //     :
     // (flyerBoxWidth * ((Ratioz.xxflyerHeaderHeight* 0.3)-(2*Ratioz.xxflyerHeaderMainPadding)) )
     ;

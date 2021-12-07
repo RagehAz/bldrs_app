@@ -136,7 +136,7 @@ class CollapsedTile extends StatelessWidget {
                   ),
 
                   /// Arrow
-                  new RotationTransition(
+                  RotationTransition(
                     turns: arrowTurns,
                     child: arrow(collapsedHeight: collapsedHeight, arrowColor: arrowColor),
                   ),
@@ -148,7 +148,7 @@ class CollapsedTile extends StatelessWidget {
 
           /// EXPANDABLE ZONE
           ClipRRect(
-            child: new Align(
+            child: Align(
               heightFactor: expandableHeightFactorAnimationValue,
               child: child,
             ),

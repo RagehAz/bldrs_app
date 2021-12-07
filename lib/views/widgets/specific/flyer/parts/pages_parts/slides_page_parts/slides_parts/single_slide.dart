@@ -269,7 +269,7 @@ class SingleSlide extends StatelessWidget {
                   width: flyerBoxWidth,
                   // height: flyerBoxWidth * 0.15,
                   fieldColor: Colorz.black80,
-                  margin: EdgeInsets.only(top: (flyerBoxWidth * 0.3), left: 5, right: 5),
+                  margin: EdgeInsets.only(top: flyerBoxWidth * 0.3, left: 5, right: 5),
                   maxLines: 4,
                   counterIsOn: false,
                   inputSize: 3,

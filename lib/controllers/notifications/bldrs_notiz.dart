@@ -1014,7 +1014,7 @@ import 'package:flutter/foundation.dart';
 
       ///   o - to USER-OR-AUTHOR
       bldrsFeedbackReply(
-        reply: "This is bldrs replying over the user\'s feedback",
+        reply: "This is bldrs replying over the user's feedback",
       ),
       // ------------------------------
       ///

@@ -69,7 +69,7 @@ class SelectedKeywordsBar extends StatelessWidget {
           /// Selected keywords
           SizedBox(
             width: _screenWidth,
-            height: (_selectedKeywordsZoneHeight * 0.7),
+            height: _selectedKeywordsZoneHeight * 0.7,
 
             child:
             selectedKeywords.isEmpty ?

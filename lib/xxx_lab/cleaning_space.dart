@@ -170,7 +170,7 @@ int getNumberOfPermutations({
 
 
   final int _numerator = getFactorial(number);
-  final int _denominator = getFactorial((number - _selected));
+  final int _denominator = getFactorial(number - _selected);
 
   final double _numberOfPermutations = _numerator/_denominator;
 
@@ -186,7 +186,7 @@ int getNumberOfCombinations({
 
 
   final int _numerator = getFactorial(number);
-  final int _denominator = (getFactorial((number - _selected)) * getFactorial(_selected));
+  final int _denominator = getFactorial(number - _selected) * getFactorial(_selected);
 
   final double _numberOfPermutations = _numerator/_denominator;
 

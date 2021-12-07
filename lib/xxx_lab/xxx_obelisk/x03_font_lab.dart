@@ -63,7 +63,7 @@ class _FontLabState extends State<FontLab> {
     const int fontSize6 = 6;
     const int fontSize7 = 7;
     const int fontSize8 = 8;
-    final String testVerse = '${Wordz.bldrsFullName(context)}';
+    final String testVerse = Wordz.bldrsFullName(context);
 
     const VerseWeight weightTest = VerseWeight.thin;
 
@@ -121,7 +121,7 @@ class _FontLabState extends State<FontLab> {
                         'ABCDEFGHIJKLMNOPQRSTUVWXYZ.\n'
                         'abcdefghijklmnopqrstuvwxyz\n'
                         '1234567890\n'
-                        '`~!@#\$%^&*()-_=+[]{}|\';\":/?><,\n'
+                        '`~!@#\$%^&*()-_=+[]{}|\';":/?><,\n'
                         'اختبار الخطوط\n'
                         'أإاآؤئيئءلألإ ببب تتت ثثث ججج ححح خخخ د ذ ر ز سسس ششش صصص ضضض ططط ظظظ ععع غغغ ففف ققق ككك للل ممم ننن ههه و ييي\n'
                         '1234567890\n'
@@ -241,7 +241,7 @@ class _FontLabState extends State<FontLab> {
                       SuperVerse(
                         verse: 'Lo más correcto es jugar y divertirse\n'
                             'The most correct is playing and having fun\n'
-                            "Le plus correct est de jouer et de s\'amuser\n"
+                            "Le plus correct est de jouer et de s'amuser\n"
                             'Најправилно е играње и забава\n'
                             'Το πιο σωστό είναι το παιχνίδι και η διασκέδαση\n'
                             'الراجح يلعب و يلهو',

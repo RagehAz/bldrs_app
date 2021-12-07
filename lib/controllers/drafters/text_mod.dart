@@ -58,7 +58,7 @@ import 'package:flutter/foundation.dart';
 
     final Error _error = ArgumentError('can not remove ($numberOfCharacters) from the given string because', 'removeNumberOfCharactersFromBeginningOfAString');
 
-    throw(_error);
+    throw _error;
 
   } else {
     _stringTrimmed = string.isNotEmpty ? string?.substring(numberOfCharacters) : null;
@@ -311,7 +311,7 @@ import 'package:flutter/foundation.dart';
       for (final String string in strings){
 
         if (_output == null){
-          _output = '$string';
+          _output = string;
         }
         else {
           _output = '${_output}__$string';

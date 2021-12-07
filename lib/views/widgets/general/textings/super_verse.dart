@@ -79,7 +79,7 @@ class SuperVerse extends StatelessWidget {
         children: <Widget>[
 
           SuperVerse(
-            verse: '${Numeric.separateKilos(number: price, fractions: 3)}',
+            verse: Numeric.separateKilos(number: price, fractions: 3),
             color: color,
             weight: VerseWeight.black,
             size: 6,
@@ -89,7 +89,7 @@ class SuperVerse extends StatelessWidget {
           ),
 
           SuperVerse(
-            verse: '$currency',
+            verse: currency,
             color: color,
             italic: true,
             size: 3,

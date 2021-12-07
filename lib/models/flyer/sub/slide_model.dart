@@ -303,11 +303,11 @@ class SlideModel {
         final ImageSize imageSize = await ImageSize.superImageSize(_file);
 
 
-        final Asset _asset = new Asset(
+        final Asset _asset = Asset(
           // identifier
           '${slide.slideIndex}',
           // _name
-          '${slide.pic.toString()}',
+          slide.pic.toString(),
           // _originalWidth
           imageSize.width.toInt(),
           // _originalHeight

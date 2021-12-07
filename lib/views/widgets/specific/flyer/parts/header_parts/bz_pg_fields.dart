@@ -37,7 +37,7 @@ class BzPgFields extends StatelessWidget {
             children: <Widget>[
 
               SuperVerse(
-                verse: '${Wordz.scopeOfServices(context)}',
+                verse: Wordz.scopeOfServices(context),
                 weight: VerseWeight.thin,
                 margin: 10,
                 color: Colorz.grey255,

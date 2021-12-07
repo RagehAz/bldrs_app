@@ -59,7 +59,7 @@ class BzAppBar extends StatelessWidget {
           height: Ratioz.appBarButtonSize,
           width: _appBarBzButtonWidth,
           icon: bzModel.logo,
-          verse: '${bzModel.name}',
+          verse: bzModel.name,
           verseCentered: false,
           bubble: false,
           verseScaleFactor: 0.65,

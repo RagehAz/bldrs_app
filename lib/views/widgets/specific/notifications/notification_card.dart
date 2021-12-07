@@ -94,7 +94,7 @@ class NotificationCard extends StatelessWidget {
 
                       /// TIME STAMP
                       SuperVerse(
-                        verse: '${Timers.getSuperTimeDifferenceString(from: notiModel.timeStamp, to: DateTime.now())}',
+                        verse: Timers.getSuperTimeDifferenceString(from: notiModel.timeStamp, to: DateTime.now()),
                         color: Colorz.grey255,
                         italic: true,
                         weight: VerseWeight.thin,

@@ -100,7 +100,7 @@ class _FlyersGridState extends State<FlyersGrid> {
         // (numOfGridRows(flyersCount) * (gridFlyerHeight + gridSpacing)) + gridSpacing + gridBottomSpacing;
     // double flyerMainMargins = screenWidth - gridZoneWidth;
 // -----------------------------------------------------------------------------
-    final double _flyerSizeFactor = (((widget.gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount))/screenWidth;
+    final double _flyerSizeFactor = ((widget.gridZoneWidth - (gridSpacing*(gridColumnsCount+1)))/gridColumnsCount)/screenWidth;
 // -----------------------------------------------------------------------------
     final EdgeInsets _gridPadding = widget.stratosphere == true ?
     EdgeInsets.only(right: gridSpacing, left: gridSpacing, bottom: gridSpacing + Ratioz.horizon * 5, top: gridSpacing + Ratioz.stratosphere)

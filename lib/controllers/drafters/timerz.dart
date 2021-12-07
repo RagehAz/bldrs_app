@@ -169,7 +169,7 @@ Examples Using the US Locale:
     final int _millisecond = millisecond ?? _localTime.millisecond;
     final int _microsecond = microsecond ?? _localTime.microsecond;
 
-    final DateTime _output = new DateTime(_year, _month, _day, _hour, _minute, _second, _millisecond, _microsecond);
+    final DateTime _output = DateTime(_year, _month, _day, _hour, _minute, _second, _millisecond, _microsecond);
 
     return _output;
   }
@@ -221,19 +221,19 @@ Examples Using the US Locale:
     // print('from is : $from');
     // print('to is : $to');
 
-    return (to.difference(from).inSeconds);
+    return to.difference(from).inSeconds;
   }
 // -----------------------------------------------------------------------------
   int getTimeDifferenceInMinutes({DateTime from, DateTime to}){
-    return (to.difference(from).inMinutes);
+    return to.difference(from).inMinutes;
   }
 // -----------------------------------------------------------------------------
   int getTimeDifferenceInHours({DateTime from, DateTime to}){
-    return (to.difference(from).inHours);
+    return to.difference(from).inHours;
   }
 // -----------------------------------------------------------------------------
   int getTimeDifferenceInDays({DateTime from, DateTime to}){
-    return (to.difference(from).inDays);
+    return to.difference(from).inDays;
   }
 // -----------------------------------------------------------------------------
   int getTimeDifferenceInWeeks({DateTime from, DateTime to}){
@@ -303,32 +303,32 @@ Examples Using the US Locale:
   }
 // -----------------------------------------------------------------------------
   String stringOnDateMonthYear({BuildContext context, DateTime time}){
-    final String _day = '${(time).day}';
-    final String _monthString = getMonthNameByInt(context, (time).month);
-    final String _year = '${(time).year}';
+    final String _day = '${time.day}';
+    final String _monthString = getMonthNameByInt(context, time.month);
+    final String _year = '${time.year}';
     final String _timeString = 'on $_day $_monthString $_year';
 
     return _timeString;
   }
 // -----------------------------------------------------------------------------
   String getString_dd_month_yyyy({BuildContext context, DateTime time}){
-    final String _day = '${(time).day}';
-    final String _monthString = getMonthNameByInt(context, (time).month);
-    final String _year = '${(time).year}';
+    final String _day = '${time.day}';
+    final String _monthString = getMonthNameByInt(context, time.month);
+    final String _year = '${time.year}';
     final String _timeString = '$_day $_monthString $_year';
     return _timeString;
   }
 // -----------------------------------------------------------------------------
   String getString_dd_I_mm_I_yyyy({BuildContext context, DateTime time}){
-    final String _day = '${(time).day}';
-    final String _year = '${(time).year}';
-    final String _timeString = '$_day / ${(time).month} / $_year';
+    final String _day = '${time.day}';
+    final String _year = '${time.year}';
+    final String _timeString = '$_day / ${time.month} / $_year';
     return _timeString;
   }
 // -----------------------------------------------------------------------------
   String getString_hh_i_mm({BuildContext context, DateTime time}){
     final String _hour = DateFormat('h').format(time);
-    final String _minute = '${(time).minute}';
+    final String _minute = '${time.minute}';
     final String _ampm = DateFormat('a').format(time);
     final String _timeString = '$_hour:$_minute $_ampm';
 
@@ -337,12 +337,12 @@ Examples Using the US Locale:
 // -----------------------------------------------------------------------------
   String monthYearStringer(BuildContext context, DateTime time){
     return
-      '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${getMonthNameByInt(context, (time).month)} ${(time).year}';
+      '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${getMonthNameByInt(context, time.month)} ${time.year}';
   }
 // -----------------------------------------------------------------------------
   String dayMonthYearStringer(BuildContext context, DateTime time){
     return
-      '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${(time).day} ${getMonthNameByInt(context, (time).month)} ${(time).year}';
+      '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${time.day} ${getMonthNameByInt(context, time.month)} ${time.year}';
   }
 // -----------------------------------------------------------------------------
   String hourMinuteSecondStringer(DateTime time){
@@ -365,7 +365,7 @@ Examples Using the US Locale:
     for (int i = 0; i<times.length; i++){
 
       final String _indexString = '${indexes[i]} : ';
-      final String _timeStampString =  '${hourMinuteSecondStringer(times[i])}';
+      final String _timeStampString =  hourMinuteSecondStringer(times[i]);
 
       _output = '${_output+_indexString+_timeStampString}\n';
     }

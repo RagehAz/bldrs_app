@@ -4,8 +4,8 @@ class FinishingBalloon extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final Path path1 = Path();
-    final double _x = (size.width / 50);
-    final double _y = (size.height / 50);
+    final double _x = size.width / 50;
+    final double _y = size.height / 50;
 
     path1.lineTo(50 * _x,25 * _y);
     path1.cubicTo(50 * _x,44.25 * _y,29.17 * _x,56.27 * _y,12.5 * _x,46.65 * _y,);
@@ -28,7 +28,7 @@ class FinishingBalloon extends CustomClipper<Path> {
     path3.cubicTo(1.98 * _x,48.75 * _y,3.43 * _x,46.8 * _y,4.07 * _x,44.56 * _y,);
     path3.cubicTo(4.07 * _x,44.56 * _y,4.07 * _x,44.56 * _y,4.07 * _x,44.56 * _y,);
 
-    return Path.combine(PathOperation.union,(Path.combine(PathOperation.union, path1, path2,)),path3);
+    return Path.combine(PathOperation.union,Path.combine(PathOperation.union, path1, path2,),path3);
   }
 
   @override

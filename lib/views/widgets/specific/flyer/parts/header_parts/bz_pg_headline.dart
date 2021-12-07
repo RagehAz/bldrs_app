@@ -28,7 +28,7 @@ class BzPageHeadline extends StatelessWidget {
     return
       bzPageIsOn == false ? Container() :
       Container(
-        height: (flyerBoxWidth * 0.3),
+        height: flyerBoxWidth * 0.3,
         width: flyerBoxWidth,
         color: Colorz.nothing,
         child: Column(

@@ -41,7 +41,7 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
   @override
   void initState() {
 
-    controller.text = widget.initialValue?.toString() ?? null;
+    controller.text = widget.initialValue?.toString();
 
     super.initState();
   }
@@ -123,7 +123,7 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
 
     const double _buttonSize = _buttonsBoxWidth - 25;
 
-    final String _hintText = '${Name.getNameByCurrentLingoFromNames(context, widget.specList.names)}';
+    final String _hintText = Name.getNameByCurrentLingoFromNames(context, widget.specList.names);
 
     return Container(
       width: _screenWidth,
