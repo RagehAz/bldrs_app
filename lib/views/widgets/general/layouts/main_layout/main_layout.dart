@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
@@ -141,7 +142,7 @@ class MainLayout extends StatelessWidget {
               drawerScrimColor: DrawerDialog.drawerScrimColor,
               onDrawerChanged: (bool thing){
 
-                print('drawer changed and thing is :$thing');
+                blog('drawer changed and thing is :$thing');
 
               },
 

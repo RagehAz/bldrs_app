@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
@@ -88,7 +89,7 @@ class _SearchBarState extends State<SearchBar> {
             child: BackAndSearchButton(
               backAndSearchAction: BackAndSearchAction.showHistory,
               passSearchHistory: (String value){
-                print('value aho is $value');
+                blog('value aho is $value');
                 setState(() {
                   _searchTextController.text = value;
                 });
@@ -128,7 +129,7 @@ class _SearchBarState extends State<SearchBar> {
             inputColor: Colorz.yellow255,
             inputWeight: VerseWeight.thin,
             onSaved: (String val){
-              print('on saved');
+              blog('on saved');
             },
             onSubmitted: (String val){
               widget.onSearchSubmit(val);

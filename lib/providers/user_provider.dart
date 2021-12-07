@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
@@ -23,7 +24,7 @@ class UsersProvider extends ChangeNotifier {
       );
 
       if (_map != null && _map != <String, dynamic>{}){
-        print('fetchUserModelByID : UserModel found in local db : $doc');
+        blog('fetchUserModelByID : UserModel found in local db : $doc');
         _userModel = UserModel.decipherUserMap(map: _map, fromJSON: true);
         break;
       }
@@ -32,7 +33,7 @@ class UsersProvider extends ChangeNotifier {
 
     /// 2 - if not found, search firebase
     if (_userModel == null){
-      print('fetchUserModelByID : UserModel NOT found in local db');
+      blog('fetchUserModelByID : UserModel NOT found in local db');
 
       /// 2.1 read firebase UserOps
       _userModel = await UserFireOps.readUser(
@@ -42,7 +43,7 @@ class UsersProvider extends ChangeNotifier {
 
       /// 2.2 if found on firebase, store in ldb sessionUsers
       if (_userModel != null){
-        print('fetchUserModelByID : UserModel found in firestore db');
+        blog('fetchUserModelByID : UserModel found in firestore db');
 
         await LDBOps.insertMap(
           input: _userModel.toMap(toJSON: true),
@@ -123,7 +124,7 @@ class UsersProvider extends ChangeNotifier {
 
       }
       on Exception catch (error) {
-        print('_userModelFromSnapshot error is : $error');
+        blog('_userModelFromSnapshot error is : $error');
         rethrow;
       }
     }

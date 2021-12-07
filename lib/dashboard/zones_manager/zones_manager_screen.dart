@@ -55,7 +55,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override

@@ -74,7 +74,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -107,7 +107,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
   final NotiPicType _notiPicType = NotiPicType.bldrs;
   final String _notiPic = Iconz.bldrsNameEn;
   void _onBalloonTap(){
-    print('on balloon tap');
+    blog('on balloon tap');
   }
 // -----------------------------------------------------------------------------
   dynamic _attachment;
@@ -115,7 +115,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
   double _bannerHeight = 0;
 // -----------------------------------------------------------------------------
   Future<void> _onAddAttachment() async {
-    print('choosing attachment');
+    blog('choosing attachment');
 
     final List<NotiAttachmentType> _attachmentTypesList = NotiModel.notiAttachmentTypesList();
 
@@ -163,7 +163,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
     }
 
     else {
-      print('attachment type is ${attachmentType.toString()}');
+      blog('attachment type is ${attachmentType.toString()}');
     }
 
   }
@@ -171,11 +171,11 @@ class _NotificationMakerState extends State<NotificationMaker> {
   Future<void> _attachGalleryPicture() async {
     final File _pic = await Imagers.takeGalleryPicture(picType: Imagers.PicType.slideHighRes);
 
-    print('pic is : $_pic');
+    blog('pic is : $_pic');
 
     final ImageSize _picSize = await ImageSize.superImageSize(_pic);
 
-    print('_picSize is : W ${_picSize.width} x H ${_picSize.height}');
+    blog('_picSize is : W ${_picSize.width} x H ${_picSize.height}');
 
     final double _picViewHeight = ImageSize.concludeHeightByGraphicSizes(
       width: NotificationCard.bodyWidth(context),
@@ -226,7 +226,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 // -----------------------------------------------------------------------------
   bool _sendFCMIsOn = false;
   void _onSwitchSendFCM(bool val){
-    print('send fcm val is : $val');
+    blog('send fcm val is : $val');
     setState(() {
       _sendFCMIsOn = val;
     });
@@ -276,7 +276,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                       fieldIsFormField: true,
                       keyboardTextInputAction: TextInputAction.search,
                       onSubmitted: (String val) async {
-                        print('submitted : val : $val');
+                        blog('submitted : val : $val');
 
                         final List<UserModel> _resultUsers = await FireSearchOps.usersByUserName(
                           context: context,
@@ -284,10 +284,10 @@ class _NotificationMakerState extends State<NotificationMaker> {
                         );
 
                         if (_resultUsers == <UserModel>[]){
-                          print('result is null, no result found');
+                          blog('result is null, no result found');
                         }
                         else {
-                          print('_result found : ${_resultUsers.length} matches');
+                          blog('_result found : ${_resultUsers.length} matches');
 
 
                           setDialogState(() {

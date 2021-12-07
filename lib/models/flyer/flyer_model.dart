@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
@@ -383,27 +384,27 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   void printFlyer(){
-    print('FLYER-PRINT --------------------------------------------------START');
+    blog('FLYER-PRINT --------------------------------------------------START');
 
-    print('id : $id');
-    print('title : $title');
-    print('trigram : $trigram');
-    print('flyerType : $flyerType');
-    print('flyerState : $flyerState');
-    print('keywordsIDs : $keywordsIDs');
-    print('showsAuthor : $showsAuthor');
-    print('zone : $zone');
-    print('authorID : $authorID');
-    print('bzID : $bzID');
-    print('position : $position');
-    print('slides : $slides');
-    print('isBanned : $isBanned');
-    print('specs : $specs');
-    print('info : $info');
-    print('times : $times');
-    print('priceTagIsOn : $priceTagIsOn');
+    blog('id : $id');
+    blog('title : $title');
+    blog('trigram : $trigram');
+    blog('flyerType : $flyerType');
+    blog('flyerState : $flyerState');
+    blog('keywordsIDs : $keywordsIDs');
+    blog('showsAuthor : $showsAuthor');
+    blog('zone : $zone');
+    blog('authorID : $authorID');
+    blog('bzID : $bzID');
+    blog('position : $position');
+    blog('slides : $slides');
+    blog('isBanned : $isBanned');
+    blog('specs : $specs');
+    blog('info : $info');
+    blog('times : $times');
+    blog('priceTagIsOn : $priceTagIsOn');
 
-    print('FLYER-PRINT --------------------------------------------------END');
+    blog('FLYER-PRINT --------------------------------------------------END');
   }
 // -----------------------------------------------------------------------------
   static bool flyersContainThisID({String flyerID, List<FlyerModel> flyers}){

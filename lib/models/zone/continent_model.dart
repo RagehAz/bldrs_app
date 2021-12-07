@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/zone/region_model.dart';
 import 'package:flutter/material.dart';
 
@@ -142,14 +143,14 @@ class Continent{
 // -----------------------------------------------------------------------------
   void printContinent({String methodName = 'CONTINENT - PRINT'}){
 
-    print('$methodName ------------------------------- START');
+    blog('$methodName ------------------------------- START');
 
-    print('name : $name');
-    print('regions : $regions');
-    print('activatedCountriesIDs : $activatedCountriesIDs');
-    print('globalCountriesIDs : $globalCountriesIDs');
+    blog('name : $name');
+    blog('regions : $regions');
+    blog('activatedCountriesIDs : $activatedCountriesIDs');
+    blog('globalCountriesIDs : $globalCountriesIDs');
 
-    print('$methodName ------------------------------- END');
+    blog('$methodName ------------------------------- END');
 
   }
 // -----------------------------------------------------------------------------

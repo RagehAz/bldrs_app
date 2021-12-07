@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -110,7 +111,7 @@ Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
     orderBy: 'time',
   );
 
-  // print('getFlyerReviewsStream : _reviewsStream : $_reviewsStream');
+  // blog('getFlyerReviewsStream : _reviewsStream : $_reviewsStream');
   //
   final Stream<List<ReviewModel>> _reviews = _reviewsStream.map(
           (QuerySnapshot<Object> qShot) => qShot.docs.map((QueryDocumentSnapshot<Object> doc) => ReviewModel(
@@ -122,7 +123,7 @@ Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
           ).toList()
   );
   //
-  // print('getFlyerReviewsStream : _reviews : ${_reviews.length}');
+  // blog('getFlyerReviewsStream : _reviews : ${_reviews.length}');
 
   return _reviews;
 }
@@ -145,7 +146,7 @@ Widget reviewsStreamBuilder({
       stream: getFlyerReviewsStream(flyerID),
       builder: (BuildContext context, AsyncSnapshot<List<ReviewModel>> snapshot){
 
-        print('reviewsStreamBuilder : snapshot is : $snapshot');
+        blog('reviewsStreamBuilder : snapshot is : $snapshot');
 
         if(StreamChecker.connectionIsLoading(snapshot) == true){
           return const Loading(loading: true,);

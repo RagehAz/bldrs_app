@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/dashboard/ldb_manager/ldb_viewer_screen.dart';
@@ -95,7 +96,7 @@ class LDBViewersScreen extends StatelessWidget {
       pageTitle: 'LDB viewers',
       onBldrsTap: () async {
 
-        print('starting the thing');
+        blog('starting the thing');
 
         final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
         final FlyerModel _flyer = await _prof.fetchFlyerByID(

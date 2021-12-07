@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -38,7 +39,7 @@ class FollowingBzzBubble extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemOnTap: (String bzID) async {
 
-            print('bzID = $bzID');
+            blog('bzID = $bzID');
 
             if (onBzTap == null){
               await Nav.goToNewScreen(context, BzCardScreen(bzID: bzID, flyerBoxWidth: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,));

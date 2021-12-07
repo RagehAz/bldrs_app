@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
@@ -75,7 +76,7 @@ class Localizer{
         input: code,
       );
 
-      print("changed local language and firestore.user['language']  updated to $code");
+      blog("changed local language and firestore.user['language']  updated to $code");
     }
 
   }

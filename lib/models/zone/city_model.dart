@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/secondary_models/map_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
@@ -175,18 +176,18 @@ class CityModel{
 // -----------------------------------------------------------------------------
   void printCity(){
 
-    print('CITY - PRINT --------------------------------------- START');
+    blog('CITY - PRINT --------------------------------------- START');
 
-    print('countryID : $countryID');
-    print('cityID : $cityID');
-    print('districts : $districts');
-    print('population : $population');
-    print('isActivated : $isActivated');
-    print('isPublic : $isPublic');
-    print('names : $names');
-    print('position : $position');
+    blog('countryID : $countryID');
+    blog('cityID : $cityID');
+    blog('districts : $districts');
+    blog('population : $population');
+    blog('isActivated : $isActivated');
+    blog('isPublic : $isPublic');
+    blog('names : $names');
+    blog('position : $position');
 
-    print('CITY - PRINT --------------------------------------- END');
+    blog('CITY - PRINT --------------------------------------- END');
 
   }
 // -----------------------------------------------------------------------------

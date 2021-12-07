@@ -158,13 +158,14 @@ linter:
     package_names: true
     secure_pubspec_urls: true
     avoid_type_to_string: true
+    avoid_empty_else: true
+    avoid_print: true
+
 
     # Pending
     diagnostic_describe_all_properties: false
     avoid_types_as_parameter_names: false
     avoid_dynamic_calls: false
-    avoid_empty_else: false
-    avoid_print: false
 
     # will come back to you later
     always_specify_types: false

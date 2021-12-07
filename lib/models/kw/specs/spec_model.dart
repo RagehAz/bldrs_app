@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/specs/data_creator.dart';
 import 'package:bldrs/models/kw/specs/raw_specs.dart' as RawSpecs;
@@ -364,7 +365,7 @@ class Spec {
     final bool _listsAreTheSame = Mapper.mapsAreTheSame(specsAMap, specsBMap);
 
 
-    print('specsListsAreTheSame : _listsAreTheSame : $_listsAreTheSame');
+    blog('specsListsAreTheSame : _listsAreTheSame : $_listsAreTheSame');
 
     return _listsAreTheSame;
   }
@@ -381,15 +382,15 @@ class Spec {
   }
 // -----------------------------------------------------------------------------
   void printSpec(){
-    print('spec is : $specsListID : ${value.toString()}');
+    blog('spec is : $specsListID : ${value.toString()}');
   }
 // -----------------------------------------------------------------------------
   static void printSpecs(List<Spec> specs){
-    print('SPECS-PRINT -------------------------------------------------- START');
+    blog('SPECS-PRINT -------------------------------------------------- START');
     for (final Spec spec in specs){
-      print('${spec.specsListID} : ${spec.value}');
+      blog('${spec.specsListID} : ${spec.value}');
     }
-    print('SPECS-PRINT -------------------------------------------------- END');
+    blog('SPECS-PRINT -------------------------------------------------- END');
   }
 // -----------------------------------------------------------------------------
   static bool specsContainThisSpec({@required List<Spec> specs, @required Spec spec}) {

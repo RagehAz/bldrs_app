@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:flutter/foundation.dart';
@@ -55,7 +56,7 @@ class Name {
 // -----------------------------------------------------------------------------
   static Name decipherName(Map<String, dynamic> map) {
 
-    // print('decipherName : map : $map : map[\'code\'] : ${map['code']} : map[\'value\'] : ${map['value']}');
+    // blog('decipherName : map : $map : map[\'code\'] : ${map['code']} : map[\'value\'] : ${map['value']}');
 
     return Name(
       code: map['code'],
@@ -121,12 +122,12 @@ class Name {
 // -----------------------------------------------------------------------------
   void printName(){
 
-    print('NAME ------------------------------------- START');
+    blog('NAME ------------------------------------- START');
 
-    print('code : $code');
-    print('value : $value');
+    blog('code : $code');
+    blog('value : $value');
 
-    print('NAME ------------------------------------- END');
+    blog('NAME ------------------------------------- END');
   }
 // -----------------------------------------------------------------------------
   static bool namesIncludesValueForThisLanguage({@required List<Name> names, @required String lingoCode}){
@@ -238,17 +239,17 @@ class Name {
 // -----------------------------------------------------------------------------
   static void printNames(List<Name> names){
 
-    // print('PRINTING NAME --------------------------------------- START');
+    // blog('PRINTING NAME --------------------------------------- START');
 
     if (Mapper.canLoopList(names)){
 
       for (final Name name in names){
-        print('code : [ ${name.code} ] : name : [ ${name.value} ] : trigramLength : ${name.trigram?.length}');
+        blog('code : [ ${name.code} ] : name : [ ${name.value} ] : trigramLength : ${name.trigram?.length}');
       }
 
     }
 
-    // print('PRINTING NAME --------------------------------------- END');
+    // blog('PRINTING NAME --------------------------------------- END');
 
   }
 // -----------------------------------------------------------------------------

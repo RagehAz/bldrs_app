@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/db/fire/methods/storage.dart' as Storage;
@@ -89,7 +90,7 @@ class QuestionOps {
       input: _question.toMap(),
     );
 
-    print('createQuestionOps : _questionDocRef : $_questionDocRef');
+    blog('createQuestionOps : _questionDocRef : $_questionDocRef');
 
     /// D - update user questionsIDs list adding this new questionID
     final List<String> _updatedQuestionsIDs = <String> []; //TASK :QUESTION OPS WTF WHY IS THIS EMPTY

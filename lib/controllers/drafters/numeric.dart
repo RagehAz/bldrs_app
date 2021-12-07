@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -120,7 +121,7 @@ import 'package:flutter/material.dart';
   double stringToDouble(String string){
     double _value;
 
-    // print('stringToDouble : string : $string');
+    // blog('stringToDouble : string : $string');
 
     if (string != null && string != ''){
       _value = double.parse(string);
@@ -146,7 +147,7 @@ import 'package:flutter/material.dart';
     /// from 0 up to 999'999 included
     int _randomNumber = _random.nextInt(maxIndex+1);
 
-    // print('random number is : $_randomNumber');
+    // blog('random number is : $_randomNumber');
 
     if (Mapper.canLoopList(existingIndexes)){
       if (existingIndexes.contains(_randomNumber)){
@@ -241,9 +242,9 @@ import 'package:flutter/material.dart';
   int getNumberOfFractions({@required double number}){
     final double _numberFraction = getFractions(number: number, fractionDigits: 100);
     final String _numberFractionsString = TextMod.removeTextBeforeFirstSpecialCharacter(_numberFraction.toString(), '.');
-    print('getNumberOfFractions : _numberFractionsString : $_numberFractionsString');
+    blog('getNumberOfFractions : _numberFractionsString : $_numberFractionsString');
     final int _numberFractions = _numberFractionsString.trim().length;
-    print('_numberFractions : $_numberFractions');
+    blog('_numberFractions : $_numberFractions');
     return _numberFractions;
   }
 // -----------------------------------------------------------------------------

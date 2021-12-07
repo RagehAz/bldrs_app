@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
@@ -33,7 +34,7 @@ class AddFlyerButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   Future<void> _goToFlyerEditor(BuildContext context) async {
 
-    print('going to create new flyer keda');
+    blog('going to create new flyer keda');
 
     await Future<void>.delayed(Ratioz.durationFading200, () async {
       final dynamic _result = await Nav.goToNewScreen(context,
@@ -46,11 +47,11 @@ class AddFlyerButton extends StatelessWidget {
       );
 
       if (_result.runtimeType == FlyerModel){
-        print('_goToFlyerEditor : adding published flyer model to bzPage screen gallery');
+        blog('_goToFlyerEditor : adding published flyer model to bzPage screen gallery');
         addPublishedFlyerToGallery(_result);
       }
       else {
-        print('_goToFlyerEditor : did not publish the new draft flyer');
+        blog('_goToFlyerEditor : did not publish the new draft flyer');
       }
 
     });

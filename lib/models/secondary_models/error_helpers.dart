@@ -1,4 +1,5 @@
 // -----------------------------------------------------------------------------
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ Future<void> tryAndCatch({
   }
   on Exception catch (error){
 
-    print('$methodName : tryAndCatch ERROR : $error');
+    blog('$methodName : tryAndCatch ERROR : $error');
 
     if (onError != null){
 
@@ -63,7 +64,7 @@ Future<bool> tryCatchAndReturn({
 
   on Exception catch (error){
 
-    print('$methodName : tryAndCatch ERROR : $error');
+    blog('$methodName : tryAndCatch ERROR : $error');
 
     if (onError != null){
       onError(error.toString());

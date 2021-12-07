@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/dashboard/exotic_methods.dart' as RagehMethods;
 import 'package:bldrs/db/fire/ops/keyword_ops.dart' as FireKeywordOps;
 import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
@@ -140,7 +141,7 @@ class KeywordsProvider extends ChangeNotifier{
           /// WHEN SON IS KEYWORD ID "never happens"
           if (son.runtimeType == String){
             _icon = 'assets/keywords/$son.jpg';
-            print('HEY : Im  a son, and im a keyword ID $son');
+            blog('HEY : Im  a son, and im a keyword ID $son');
           }
           /// WHEN SON IS A KEYWORD
           else if (son.runtimeType == KW){

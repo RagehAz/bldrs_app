@@ -35,7 +35,7 @@ class ReviewUserLabel extends StatelessWidget {
           secondLine: tinyUser?.title,
           iconRounded: false,
           bubble: false,
-          onTap: () => print('aho'),
+          onTap: () => blog('aho'),
         ),
 
         const Expander(),

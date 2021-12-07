@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/standards.dart' as Standards;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
@@ -283,7 +284,7 @@ enum ValueIs{
                 .where(fieldB, isEqualTo: valueB)
                 .get();
 
-            print('is not equal to null aho');
+            blog('is not equal to null aho');
 
           _maps = Mapper.getMapsFromQuerySnapshot(
             querySnapshot: _collectionSnapshot,
@@ -322,7 +323,7 @@ enum ValueIs{
             final String _flyerType = FlyerTypeClass.cipherFlyerType(flyerType);
             final ZoneModel _zone = zone;
 
-            print('searching flyers of type : $_flyerType : in $_zone');
+            blog('searching flyers of type : $_flyerType : in $_zone');
 
             final QuerySnapshot<Object> _collectionSnapshot = await _flyersCollection
                 .where('flyerType', isEqualTo: _flyerType)
@@ -364,7 +365,7 @@ enum ValueIs{
 
           final ZoneModel _zone = zone;
 
-          print('searching flyers of keyword : ${kw.id} : in ${_zone.countryID} - ${_zone.cityID}');
+          blog('searching flyers of keyword : ${kw.id} : in ${_zone.countryID} - ${_zone.cityID}');
 
           final QuerySnapshot<Object> _collectionSnapshot = await _flyersCollection
               .where('zone.countryID', isEqualTo: _zone.countryID)

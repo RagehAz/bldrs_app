@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/notifications_manager/noti_banner_editor.dart';
@@ -31,7 +32,7 @@ class NotificationCard extends StatelessWidget {
 // -----------------------------------------------------------------------------
   void _onBubbleTap(){
 
-    print('_onBubbleTap : noti id is : ${notiModel.id} : ${notiModel.timeStamp} : dif : ${Timers.getTimeDifferenceInSeconds(from: notiModel.timeStamp, to: DateTime.now())}');
+    blog('_onBubbleTap : noti id is : ${notiModel.id} : ${notiModel.timeStamp} : dif : ${Timers.getTimeDifferenceInSeconds(from: notiModel.timeStamp, to: DateTime.now())}');
 
 
     }
@@ -47,7 +48,7 @@ class NotificationCard extends StatelessWidget {
       _accepted = false;
     }
 
-    print('_onButtonTap : _accepted : $_accepted');
+    blog('_onButtonTap : _accepted : $_accepted');
   }
 // -----------------------------------------------------------------------------
   @override

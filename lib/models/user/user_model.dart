@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/models/secondary_models/contact_model.dart';
@@ -277,10 +278,10 @@ class UserModel {
   }) async {
 
     assert(!user.isAnonymous, 'user must not be anonymous');
-    print('createInitialUserModelFromUser : !_user.isAnonymous : ${!user.isAnonymous}');
+    blog('createInitialUserModelFromUser : !_user.isAnonymous : ${!user.isAnonymous}');
 
     assert(await user.getIdToken() != null, 'user token must not be null');
-    print('createInitialUserModelFromUser : _user.getIdToken() != null : ${user.getIdToken() != null}');
+    blog('createInitialUserModelFromUser : _user.getIdToken() != null : ${user.getIdToken() != null}');
 
     final UserModel _userModel = UserModel(
       id: user.uid,
@@ -345,26 +346,26 @@ class UserModel {
 // -----------------------------------------------------------------------------
   void printUserModel({String methodName = 'PRINTING USER MODEL'}){
 
-    print('$methodName : ---------------- START -- ');
+    blog('$methodName : ---------------- START -- ');
 
-    print('id : $id');
-    print('authBy : $authBy');
-    print('createdAt : $createdAt');
-    print('userStatus : $status');
-    print('name : $name');
-    print('pic : $pic');
-    print('title : $title');
-    print('company : $company');
-    print('gender : $gender');
-    print('zone : $zone');
-    print('language : $language');
-    print('position : $position');
-    print('contacts : $contacts');
-    print('myBzzIDs : $myBzzIDs');
-    print('emailIsVerified : $emailIsVerified');
-    print('fcmToken : ${fcmToken?.createdAt}');
+    blog('id : $id');
+    blog('authBy : $authBy');
+    blog('createdAt : $createdAt');
+    blog('userStatus : $status');
+    blog('name : $name');
+    blog('pic : $pic');
+    blog('title : $title');
+    blog('company : $company');
+    blog('gender : $gender');
+    blog('zone : $zone');
+    blog('language : $language');
+    blog('position : $position');
+    blog('contacts : $contacts');
+    blog('myBzzIDs : $myBzzIDs');
+    blog('emailIsVerified : $emailIsVerified');
+    blog('fcmToken : ${fcmToken?.createdAt}');
 
-    print('$methodName : ---------------- END -- ');
+    blog('$methodName : ---------------- END -- ');
 
   }
 // -----------------------------------------------------------------------------

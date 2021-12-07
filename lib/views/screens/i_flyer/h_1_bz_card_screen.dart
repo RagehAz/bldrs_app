@@ -59,7 +59,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -108,7 +108,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('building bz : ${widget.bzID}');
+    blog('building bz : ${widget.bzID}');
 
     // FlyersProvider pro = Provider.of<FlyersProvider>(context, listen: false);
     // final bz = pro.getBzByBzID(widget.bzID);
@@ -120,7 +120,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
 
     final SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
       bzModel: _bzModel,
-      onHeaderTap: (){print('onHeader tap in h 1 bz card screen');},
+      onHeaderTap: (){blog('onHeader tap in h 1 bz card screen');},
       bzCountry: _bzCountry,
       bzCity: _bzCity,
     );
@@ -134,7 +134,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
       //   value: bz,
       //   child: FlyerZone(
       //     flyerSizeFactor: flyerSizeFactor,
-      //     tappingFlyerZone: (){print('fuck you');},
+      //     tappingFlyerZone: (){blog('fuck you');},
       //     stackWidgets: <Widget>[
       //
       //       Header(
@@ -148,7 +148,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
       //         tappingFollow: () async {
       //           // await bz.toggleFollow();
       //           // setState(() {});
-      //           // print('rebuilding widget with new followIsOn value : ${bz.followIsOn}');
+      //           // blog('rebuilding widget with new followIsOn value : ${bz.followIsOn}');
       //         },
       //         tappingUnfollow: null, // Task : delete unfollow function and combine all following operations in one method
       //       ),
@@ -160,7 +160,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
       layoutWidget: FlyerBox(
         flyerBoxWidth: _flyerBoxWidth,
         superFlyer: _superFlyer,
-        onFlyerZoneTap: (){print('tapping flyer zone in h 1 bz card screen ');},
+        onFlyerZoneTap: (){blog('tapping flyer zone in h 1 bz card screen ');},
         stackWidgets: <Widget>[
 
           FlyerHeader(

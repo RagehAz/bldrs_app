@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/dashboard/ldb_manager/ldb_viewer_screen.dart';
 import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
@@ -45,7 +46,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -105,7 +106,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
     return TestingLayout(
       screenTitle: 'Sembast test',
       appbarButtonVerse: 'thing',
-      appbarButtonOnTap: (){print('fuck');},
+      appbarButtonOnTap: (){blog('fuck');},
       listViewWidgets: <Widget>[
 
         /// LDB Buttons

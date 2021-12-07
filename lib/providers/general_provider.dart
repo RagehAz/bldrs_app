@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
@@ -38,7 +39,7 @@ class GeneralProvider extends ChangeNotifier {
   }
 // -------------------------------------
   Future<void> changeSection(BuildContext context, SectionClass.Section section) async {
-    print('Changing section to $section');
+    blog('Changing section to $section');
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     await _flyersProvider.getsetWallFlyersBySection(context: context, section: section);

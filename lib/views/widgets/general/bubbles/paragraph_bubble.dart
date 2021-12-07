@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -62,7 +63,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
       // widget.onParagraphTap();
 
       if (_maxLines == widget.maxLines){
-        print('expanding maxLines');
+        blog('expanding maxLines');
         setState(() {
           _isMax = true;
           _maxLines = 1000;
@@ -70,7 +71,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
       }
 
       else {
-        print('contracting maxLines');
+        blog('contracting maxLines');
         setState(() {
           _isMax = false;
           _maxLines = widget.maxLines;
@@ -96,7 +97,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
   @override
   Widget build(BuildContext context) {
 
-    print('B---> ParagraphBubble : edit mode : ${widget.editMode}');
+    blog('B---> ParagraphBubble : edit mode : ${widget.editMode}');
 
     // bool _infoExceededMaxLines = superFlyer.i
 

@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/text_directionerz.dart';
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/kw.dart';
@@ -101,8 +102,8 @@ class SelectedKeywordsBar extends StatelessWidget {
                 //     :
                 // false;
 
-                print('_keywords.length : ${selectedKeywords.length}');
-                print('index : $index');
+                blog('_keywords.length : ${selectedKeywords.length}');
+                blog('index : $index');
 
                 return
 

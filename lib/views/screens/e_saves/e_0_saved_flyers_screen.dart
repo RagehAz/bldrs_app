@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
@@ -89,7 +90,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
               isSelected: _sectionsList[_currentTabIndex] == _sectionsList[i],
               onTap: (){
 
-                print('tapping on ${_sectionsList[i]}');
+                blog('tapping on ${_sectionsList[i]}');
                 _onSetSection(i);
 
               },
@@ -125,7 +126,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
 // -----------------------------------------------------------------------------
   void _onSelectFlyer(FlyerModel flyer){
 
-    print('selecting flyer : ${flyer.id}');
+    blog('selecting flyer : ${flyer.id}');
 
     final bool _alreadySelected = FlyerModel.flyersContainThisID(
       flyers: _selectedFlyers,

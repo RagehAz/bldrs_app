@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -61,13 +62,13 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    print('1 - we got temp bzModel');
+    blog('1 - we got temp bzModel');
 
     _bzModel = widget.bzModel;
     // _showOldFlyers = false;

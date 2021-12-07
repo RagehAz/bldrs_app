@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/standards.dart' as Standards;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -70,7 +71,7 @@ enum FlyerSourceType {
 
       /// B - EDITOR + TINY MODE
       if(_tinyMode == true){
-        print('no flyer mode assigned for flyers in editor while in tinyMode');
+        blog('no flyer mode assigned for flyers in editor while in tinyMode');
       }
 
       /// B - EDITOR + BIG MODE
@@ -171,9 +172,9 @@ enum FlyerSourceType {
 
     }
 
-    // print('FlyerMethod.flyerModeSelector : _tinyMode : $_tinyMode');
-    // print('FlyerMethod.flyerModeSelector : _editMode : $_editMode');
-    // print('FlyerMethod.flyerModeSelector : _flyerMode : $_flyerMode');
+    // blog('FlyerMethod.flyerModeSelector : _tinyMode : $_tinyMode');
+    // blog('FlyerMethod.flyerModeSelector : _editMode : $_editMode');
+    // blog('FlyerMethod.flyerModeSelector : _flyerMode : $_flyerMode');
 
     return _flyerMode;
   }
@@ -201,7 +202,7 @@ enum FlyerSourceType {
     //   _flyerSource = null;
     // }
 
-    // print('FlyerMethod.selectFlyerSource : _flyerSource : $_flyerSource');
+    // blog('FlyerMethod.selectFlyerSource : _flyerSource : $_flyerSource');
 
     return _flyerSource;
   }

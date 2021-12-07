@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 
 class ZoneModel{
   /// --------------------------------------------------------------------------
@@ -116,13 +117,13 @@ class ZoneModel{
 // -----------------------------------------------------------------------------
   void printZone({String methodName = 'ZONE - PRINT'}){
 
-    print('$methodName ------------------------------- START');
+    blog('$methodName ------------------------------- START');
 
-    print('countryID : $countryID');
-    print('cityID : $cityID');
-    print('districtID : $districtID');
+    blog('countryID : $countryID');
+    blog('cityID : $cityID');
+    blog('districtID : $districtID');
 
-    print('$methodName ------------------------------- END');
+    blog('$methodName ------------------------------- END');
   }
 // -----------------------------------------------------------------------------
   bool isNotEmpty(){
