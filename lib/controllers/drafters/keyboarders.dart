@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/services.dart';
   /// TO MINIMIZE KEYBOARD WHEN TAPPING OUTSIDE
   void minimizeKeyboardOnTapOutSide (BuildContext context){
 // FocusScope.of(context).requestFocus(FocusNode());
-// print('x minimizeKeyboardOnTapOutSide() unfocused keyboard');
+// blog('x minimizeKeyboardOnTapOutSide() unfocused keyboard');
   // // ANOTHER SOLUTION
   final FocusScopeNode currentFocus = FocusScope.of(context);
   if(!currentFocus.hasPrimaryFocus){
@@ -85,7 +86,7 @@ import 'package:flutter/services.dart';
       secondLine: copy,
     );
 
-    print('copied to clipboard : $copy');
+    blog('copied to clipboard : $copy');
 
   }
 // -----------------------------------------------------------------------------

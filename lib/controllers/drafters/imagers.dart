@@ -9,6 +9,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -253,20 +254,20 @@ enum PicType{
         context: context,
         methodName : 'getFileFromLocalRasterAsset',
         functions: () async {
-          // print('0. removing [assets/] from input image path');
+          // blog('0. removing [assets/] from input image path');
           final String _pathTrimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(_asset, 7);
-          // print('1. starting getting image from assets');
+          // blog('1. starting getting image from assets');
           // final ByteData _byteData = await rootBundle.load('assets/$_pathTrimmed');
-          // print('2. we got byteData and creating the File aho');
+          // blog('2. we got byteData and creating the File aho');
           final String _fileName = TextMod.getFileNameFromAsset(_pathTrimmed);
           // final File _tempFile = await getEmptyFile(_fileNae);
-          // print('3. we created the FILE and will overwrite image data as bytes');
+          // blog('3. we created the FILE and will overwrite image data as bytes');
           // final File _finalFile = await writeBytesOnFile(file: _tempFile, byteData: _byteData);
           // _tempFile.delete(recursive: true);
           //
           // _file = _finalFile;
           //
-          // print('4. file is ${_file.path}');
+          // blog('4. file is ${_file.path}');
 
           final Uint8List _uInt = await getUint8ListFromLocalRasterAsset(asset: _asset, width: width);
           _file = await getFileFromUint8List(uInt8List: _uInt, fileName: _fileName);
@@ -316,7 +317,7 @@ enum PicType{
 
     final String _name = TextMod.removeTextAfterLastSpecialCharacter(asset.name, '.');
 
-    print('====================================================================================== asset name is : ${asset.runtimeType}');
+    blog('====================================================================================== asset name is : ${asset.runtimeType}');
 
     final File _tempFile = File('${(await getTemporaryDirectory()).path}/$_name');
     await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
@@ -429,7 +430,7 @@ enum PicType{
     //   //
     //   // String _name = TextMod.trimTextAfterLastSpecialCharacter(asset.name, '.');
     //   //
-    //   // print('====================================================================================== asset name is : ${asset.runtimeType}');
+    //   // blog('====================================================================================== asset name is : ${asset.runtimeType}');
     //   //
     //   // final _tempFile = File('${(await getTemporaryDirectory()).path}/${_name}');
     //   // await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
@@ -823,10 +824,10 @@ enum PicType{
       }
 
     // File _file = pic;
-      // print('A - pic : ${_file?.fileNameWithExtension?.toString()}');
-      // print('B - ratio : $_fittedImageRatio = W:$_fittedImageWidth / H:$_fittedImageHeight');
-      // print('C - Fit : $boxFit');
-      // print('C - blur : $_blurIsOn');
+      // blog('A - pic : ${_file?.fileNameWithExtension?.toString()}');
+      // blog('B - ratio : $_fittedImageRatio = W:$_fittedImageWidth / H:$_fittedImageHeight');
+      // blog('C - Fit : $boxFit');
+      // blog('C - blur : $_blurIsOn');
 
     }
 

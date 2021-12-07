@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -404,7 +405,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                               splashColor: widget.splashColor,
                               onTap: widget.inActiveMode == true ? (){} :
                               (){
-                                print('boxWidth: $boxWidth, widget.width: ${widget.width}');
+                                blog('boxWidth: $boxWidth, widget.width: ${widget.width}');
                                 widget.boxFunction();
                                 // setState(() {
                                 //   boxWidth = widget.width * 0.8;
@@ -414,10 +415,10 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                 //     boxHeight = widget.width;
                                 //   });});
                                 // });
-                                print('boxWidth: $boxWidth, widget.width: ${widget.width}');
+                                blog('boxWidth: $boxWidth, widget.width: ${widget.width}');
                               },
                               onTapDown: (TapDownDetails details){
-                                print('boxWidth: $boxWidth, widget.width: ${widget.width}');
+                                blog('boxWidth: $boxWidth, widget.width: ${widget.width}');
                                 // setState(() {
                                 //   boxWidth = widget.width * 0.85;
                                 //   Future.delayed(widget.duration, (){setState(() {
@@ -425,10 +426,10 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                 //     boxHeight = widget.width * 0.9;
                                 //   });});
                                 // });
-                                print('boxWidth: $boxWidth, widget.width: ${widget.width}');
+                                blog('boxWidth: $boxWidth, widget.width: ${widget.width}');
                               },
                               onTapCancel: (){
-                                print('boxWidth: $boxWidth, widget.width: ${widget.width}');
+                                blog('boxWidth: $boxWidth, widget.width: ${widget.width}');
                                 setState(() {
                                   boxWidth = widget.width * 1.05;
                                   Future<void>.delayed(widget.duration, (){setState(() {
@@ -436,7 +437,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                     boxHeight = widget.width;
                                   });});
                                 });
-                                print('boxWidth: $boxWidth, widget.width: ${widget.width}');
+                                blog('boxWidth: $boxWidth, widget.width: ${widget.width}');
                               },
                             ),
                           ),

@@ -41,7 +41,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -106,7 +106,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     final String _result = await CloudFunctionz.deleteFirebaseUser(userID: userModel.id);
 
     if (_result == 'stop'){
-      print('operation stopped');
+      blog('operation stopped');
     }
 
     else if (_result == 'deleted'){

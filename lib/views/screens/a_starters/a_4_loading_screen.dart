@@ -55,7 +55,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   void _increaseProgressTo(double percent){
@@ -98,7 +98,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
         final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 
-        print('x - fetching sponsors');
+        blog('x - fetching sponsors');
         _triggerLoading().then((_) async {
 
           await _generalProvider.getsetAppState(context);
@@ -113,7 +113,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           await _keywordsProvider.getsetAllKeywords(context);
 
-          print('x - fetching UserBzz');
+          blog('x - fetching UserBzz');
           await _bzzProvider.fetchMyBzz(context);
           _increaseProgressTo(80);
 
@@ -150,7 +150,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
       } else {
 
-        print('estanna m3ana shwaya');
+        blog('estanna m3ana shwaya');
 
       }
 
@@ -163,7 +163,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('-------------- Starting Loading screen --------------');
+    blog('-------------- Starting Loading screen --------------');
 
     return MainLayout(
       key: const ValueKey<String>('mainLayout'),

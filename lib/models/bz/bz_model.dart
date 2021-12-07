@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
@@ -394,7 +395,7 @@ class BzModel with ChangeNotifier{
       fromJSON: false,
     );
 
-    print(' map the bz Model is $_bzModel');
+    blog(' map the bz Model is $_bzModel');
 
     return _bzModel;
   }
@@ -403,34 +404,34 @@ class BzModel with ChangeNotifier{
 
     final String _methodName = methodName ?? 'BZ';
 
-    print('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
+    blog('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
 
-    print('id : $id');
-    print('bzType : $bzType');
-    print('bzForm : $bzForm');
-    print('createdAt : $createdAt');
-    print('accountType : $accountType');
-    print('mame : $name');
-    print('logo : $logo');
-    print('scope : $scope');
-    print('zone : $zone');
-    print('about : $about');
-    print('position : $position');
-    print('contacts : $contacts');
-    print('authors : $authors');
-    print('showsTeam : $showsTeam');
-    print('isVerified : $isVerified');
-    print('bzState : $bzState');
-    print('totalFollowers : $totalFollowers');
-    print('totalSaves : $totalSaves');
-    print('totalShares : $totalShares');
-    print('totalSlides : $totalSlides');
-    print('totalViews : $totalViews');
-    print('totalCalls : $totalCalls');
-    print('flyersIDs : $flyersIDs');
-    print('totalFlyers : $totalFlyers');
+    blog('id : $id');
+    blog('bzType : $bzType');
+    blog('bzForm : $bzForm');
+    blog('createdAt : $createdAt');
+    blog('accountType : $accountType');
+    blog('mame : $name');
+    blog('logo : $logo');
+    blog('scope : $scope');
+    blog('zone : $zone');
+    blog('about : $about');
+    blog('position : $position');
+    blog('contacts : $contacts');
+    blog('authors : $authors');
+    blog('showsTeam : $showsTeam');
+    blog('isVerified : $isVerified');
+    blog('bzState : $bzState');
+    blog('totalFollowers : $totalFollowers');
+    blog('totalSaves : $totalSaves');
+    blog('totalShares : $totalShares');
+    blog('totalSlides : $totalSlides');
+    blog('totalViews : $totalViews');
+    blog('totalCalls : $totalCalls');
+    blog('flyersIDs : $flyersIDs');
+    blog('totalFlyers : $totalFlyers');
 
-    print('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
+    blog('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
 
   }
 // -----------------------------------------------------------------------------

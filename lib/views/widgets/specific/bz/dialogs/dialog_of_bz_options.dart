@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
@@ -72,7 +73,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   Future<void> _deleteBzOnTap(BzModel bzModel) async {
@@ -87,11 +88,11 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       boolDialog: true,
     );
 
-    print(_dialogResult);
+    blog(_dialogResult);
 
     /// if user chooses to stop ops
     if (_dialogResult == false){
-      print('user cancelled ops');
+      blog('user cancelled ops');
     }
 
     /// if user chose to continue ops
@@ -132,11 +133,11 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       boolDialog: true,
     );
 
-    print(_dialogResult);
+    blog(_dialogResult);
 
     /// if user chooses to cancel ops
     if (_dialogResult == false) {
-      print('user cancelled ops');
+      blog('user cancelled ops');
     }
 
     /// if user chooses to continue ops
@@ -182,7 +183,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       setState(() {});
     }
 
-    print(_result);
+    blog(_result);
   }
 // -----------------------------------------------------------------------------
   List<Widget> createButtons({@required BuildContext context,@required  BzModel bzModel,@required  UserModel userModel}){

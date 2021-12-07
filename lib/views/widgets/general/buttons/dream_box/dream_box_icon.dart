@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -141,7 +142,7 @@ class DreamBoxIcon extends StatelessWidget {
                   icon,
                   errorBuilder: (BuildContext ctx, Object error, StackTrace stackTrace){
 
-                    print('error of image is : $error');
+                    blog('error of image is : $error');
 
                     return  Container();
                   },
@@ -185,7 +186,7 @@ class DreamBoxIcon extends StatelessWidget {
                 /// TASK : CREATE IMAGE LOADING BUILDER
                 // loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress){
                 //
-                //   print('loadingProgress : $loadingProgress');
+                //   blog('loadingProgress : $loadingProgress');
                 //
                 //   return
                 //       const Loading(loading: true,);
@@ -193,7 +194,7 @@ class DreamBoxIcon extends StatelessWidget {
 
                 errorBuilder: (BuildContext ctx, Object error, StackTrace stackTrace){
 
-                  print('error of image is : $error');
+                  blog('error of image is : $error');
 
                   return  Container();
                 },

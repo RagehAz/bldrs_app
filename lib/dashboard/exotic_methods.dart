@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
@@ -203,7 +204,7 @@ import 'package:provider/provider.dart';
         _continents[_continentIndex].regions[_regionIndex].countriesIDs.add(country.id);
       }
 
-      print('XXXXXXXXXXXXXXXXXXXXXXX ---> done with ${country.names[0].value}');
+      blog('XXXXXXXXXXXXXXXXXXXXXXX ---> done with ${country.names[0].value}');
 
     }
 
@@ -258,13 +259,13 @@ import 'package:provider/provider.dart';
 
     }
 
-    print('Tamam with : ${_maps.length} flyers updated their [$field] field');
+    blog('Tamam with : ${_maps.length} flyers updated their [$field] field');
 
   }
 // -----------------------------------------------------------------------------
   Future<void> changeFieldName({@required BuildContext context,}) async {
 
-      print('LET THE GAMES BEGIN');
+      blog('LET THE GAMES BEGIN');
 
     //   final List<CountryModel> _allModels = await ExoticMethods.fetchAllCountryModels(context: context);
     //   final String collName = FireColl.zones;
@@ -321,7 +322,7 @@ import 'package:provider/provider.dart';
           value: keyword.toMap(toJSON: false),
       );
 
-      print('added keywordID : ${keyword.id}');
+      blog('added keywordID : ${keyword.id}');
 
     }
 

@@ -106,13 +106,13 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
   }
 // -----------------------------------------------------------------------------
   void receiveAndActUponNoti({dynamic msgMap, NotiType notiType}){
-    print('receiveAndActUponNoti : notiType : $notiType');
+    blog('receiveAndActUponNoti : notiType : $notiType');
 
     NotiModel _noti;
 
     tryAndCatch(
       context: context,
-      onError: (String error) => print(error),
+      onError: (String error) => blog(error),
       methodName: 'receiveAndActUponNoti',
       functions: (){
         _noti = NotiModel.decipherNotiModel(
@@ -167,7 +167,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
         screenTitle: 'Notifications',
         appbarButtonVerse: 'button',
         appbarButtonOnTap: (){
-          print('wtf');
+          blog('wtf');
         },
         listViewWidgets: <Widget>[
 
@@ -177,7 +177,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
             height: 50,
             verse: 'recieve noti ops',
             onTap: (){
-              print('operating noti');
+              blog('operating noti');
 
               receiveAndActUponNoti();
 
@@ -203,7 +203,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
               });
 
               await _fcm.setAutoInitEnabled(false);
-              print('the thing is : ');
+              blog('the thing is : ');
 
             },
           ),
@@ -245,7 +245,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
               _lapCounter();
 
-              print('The Map is Amazingly : $map');
+              blog('The Map is Amazingly : $map');
 
               setState(() {
                 _received = 'received : ${map.toString()}';

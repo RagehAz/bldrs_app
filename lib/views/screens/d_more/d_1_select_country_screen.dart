@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/zone/continent_model.dart';
@@ -49,7 +50,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -82,7 +83,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onCountryTap({@required String countryID}) async {
 
-    print('countryID is : $countryID');
+    blog('countryID is : $countryID');
 
     final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: countryID);
 

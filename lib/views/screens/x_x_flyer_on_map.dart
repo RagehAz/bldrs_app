@@ -68,11 +68,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       isLoading = true;
     });
     await initialize();
-    print('trying to get user location aho');
+    blog('trying to get user location aho');
     currentLocation = await location.getLocation();
-    print('get location function finished aho and processing remaining functions');
+    blog('get location function finished aho and processing remaining functions');
     if (currentLocation == null) {
-      print("Counldn't get current User Location");
+      blog("Counldn't get current User Location");
       return;
     }
     _initialCameraPosition = CameraPosition(
@@ -80,13 +80,13 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         zoom: 10
     );
 
-    print('_initialCameraPosition is $_initialCameraPosition');
+    blog('_initialCameraPosition is $_initialCameraPosition');
 
     setState(() {
       isLoading = false;
     });
 
-    print('CurrentLocation: $currentLocation');
+    blog('CurrentLocation: $currentLocation');
     await missingFunction();
   }
 // -----------------------------------------------------------------------------
@@ -106,7 +106,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         return;
       }
     }
-    print('location permission is $_permissionGranted');
+    blog('location permission is $_permissionGranted');
   }
 // -----------------------------------------------------------------------------
   void _onMapCreated(GoogleMapController controller) {
@@ -118,7 +118,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       _pickedLocation = position;
       confirmButtonIsActive = true;
     });
-    print('The fucking position is $position');
+    blog('The fucking position is $position');
   }
 // -----------------------------------------------------------------------------
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
@@ -129,10 +129,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> missingFunction()async{
-    print('missing function starts');
+    blog('missing function starts');
     final Uint8List markerIcon = await getBytesFromAsset(Iconz.flyerPinPNG, markerWidth);
     customMarker = BitmapDescriptor.fromBytes(markerIcon);
-    print('missing function ends ${customMarker.toString()}');
+    blog('missing function ends ${customMarker.toString()}');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -147,7 +147,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         // infoWindow: InfoWindow(
         //   title: 'title',
         //   snippet: 'snippet',
-        //   onTap: (){print('pin taps aho');},
+        //   onTap: (){blog('pin taps aho');},
         //   // anchor: const Offset(0,0),
         // ),
 
@@ -180,7 +180,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               mapToolbarEnabled: false,
               initialCameraPosition: _initialCameraPosition,
               onMapCreated: _onMapCreated,
-              //(GoogleMapController googleMapController){setState(() {print('map has been created');});},
+              //(GoogleMapController googleMapController){setState(() {blog('map has been created');});},
               markers: theMarkers,
               onTap: widget.isSelecting ? _selectLocation : null,
 
@@ -212,7 +212,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           //     //       // bearing: ,
           //     //       // tilt: ,
           //     //     ),
-          //     //     onMapCreated: (GoogleMapController googleMapController){setState(() {print('map has been created');});},
+          //     //     onMapCreated: (GoogleMapController googleMapController){setState(() {blog('map has been created');});},
           //     //     markers: theMarkers,
           //     //     onTap: widget.isSelecting ? _selectLocation : null,
           //     //   ),
@@ -261,7 +261,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   :
                   (){
                 Navigator.of(context).pop(_pickedLocation);
-                print('a77a ba2a');
+                blog('a77a ba2a');
               },
             ),
           ),

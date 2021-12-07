@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -31,8 +32,8 @@ class DreamWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    print(verses);
-    print(icons);
+    blog(verses);
+    blog(icons);
 
     final int _listLength =
         verses == null && icons == null ? 0 :

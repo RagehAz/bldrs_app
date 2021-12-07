@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -51,8 +52,8 @@ class SearchResultWall extends StatelessWidget {
               FlyersShelf(
                 title: _bz.name,
                 titleIcon: _bz.logo,
-                flyerOnTap: (){print('flyer tapped');},
-                onScrollEnd: (){print('scroll ended');},
+                flyerOnTap: (){blog('flyer tapped');},
+                onScrollEnd: (){blog('scroll ended');},
                 // flyersType: FlyerTypeClass.concludePossibleFlyerTypesForBz(bzType: _bz.bzType)[0],
                 flyers: <FlyerModel>[FlyerModel.dummyFlyer()],
               );

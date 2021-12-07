@@ -65,7 +65,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -99,7 +99,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 // -----------------------------------------------------------------------------
 //   String _previewImage;
 //   void _showPreview(double lat, double lng){
-//     print('show Preview, Lat: $lat, lng: $lng');
+//     blog('show Preview, Lat: $lat, lng: $lng');
 //     final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(lat, lng);
 //     setState(() {
 //       _previewImage = staticMapImageUrl;
@@ -110,14 +110,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
     final GeoPoint _point = GeoPoint(latLng.latitude, latLng.longitude);
 
-    print('LatLng : lat : ${latLng.latitude} : lng : ${latLng.longitude}');
-    print('GeoPoint : lat : ${_point.latitude} : lng : ${_point.longitude}');
+    blog('LatLng : lat : ${latLng.latitude} : lng : ${latLng.longitude}');
+    blog('GeoPoint : lat : ${_point.latitude} : lng : ${_point.longitude}');
 
     setState(() {
       _geoPoint = _point;
     });
 
-    print('_selectLocation :  $latLng');
+    blog('_selectLocation :  $latLng');
   }
 // -----------------------------------------------------------------------------
 //   BitmapDescriptor _mapMarker;
@@ -198,10 +198,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
             /// METHODS
             onCameraIdle: (){
-              print('Camera is idle');
+              blog('Camera is idle');
             },
             onCameraMove: (CameraPosition cameraPosition) async {
-              print('cameraPosition : $cameraPosition');
+              blog('cameraPosition : $cameraPosition');
               final double _lat = cameraPosition.target.latitude;
               final double _lng = cameraPosition.target.longitude;
 
@@ -219,10 +219,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               // }
             },
             onCameraMoveStarted: (){
-              print('Camera move started');
+              blog('Camera move started');
             },
             onLongPress: (LatLng latLng){
-              print('long tap is tapped on : LAT : ${latLng.latitude} : LNG : ${latLng.longitude}');
+              blog('long tap is tapped on : LAT : ${latLng.latitude} : LNG : ${latLng.longitude}');
             },
             onMapCreated: (GoogleMapController googleMapController){
               googleMapController = _googleMapController;
@@ -232,7 +232,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                  _selectLocation(latLng: latLng);
               }
               else {
-                print('on tap is tapped on : LAT : ${latLng.latitude} : LNG : ${latLng.longitude}');
+                blog('on tap is tapped on : LAT : ${latLng.latitude} : LNG : ${latLng.longitude}');
               }
             },
           ),

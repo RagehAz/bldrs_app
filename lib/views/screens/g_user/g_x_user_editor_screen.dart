@@ -85,7 +85,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -188,11 +188,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (_canPickImage == true){
       _canPickImage = false;
 
-      print('getting the pic');
+      blog('getting the pic');
 
       final File _imageFile = await Imagers.takeGalleryPicture(picType: Imagers.PicType.userPic);
 
-      print('we got the pic in : ${_imageFile.path}');
+      blog('we got the pic in : ${_imageFile.path}');
 
       if (_imageFile == null){
 

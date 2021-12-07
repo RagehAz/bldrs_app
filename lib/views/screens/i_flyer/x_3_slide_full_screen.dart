@@ -22,7 +22,7 @@ class SlideFullScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    print('Building full screen with width : ${imageSize.width} : height : ${imageSize.height} ');
+    blog('Building full screen with width : ${imageSize.width} : height : ${imageSize.height} ');
 
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);

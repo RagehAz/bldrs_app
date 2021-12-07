@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
@@ -70,7 +71,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -159,7 +160,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
           });
 
           widget.changeCountry(countryID);
-          print('_currentCountryID : $_selectedCountry');
+          blog('_currentCountryID : $_selectedCountry');
 
           _closeBottomSheet();
         },
@@ -194,7 +195,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
           });
 
           widget.changeCity(cityID);
-          print('_currentProvince : ${_selectedZone.cityID }');
+          blog('_currentProvince : ${_selectedZone.cityID }');
           _closeBottomSheet();
         },
       ),
@@ -226,7 +227,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
           });
 
           widget.changeDistrict(districtID);
-          print('_current districtID : $districtID');
+          blog('_current districtID : $districtID');
 
           _closeBottomSheet();
         },

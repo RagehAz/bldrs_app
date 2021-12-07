@@ -85,7 +85,7 @@ class _OldAskScreenState extends State<OldAskScreen> {
 
                   QuestionBubble(
                     tappingAskInfo: () {
-                      print('Ask info is tapped aho');
+                      blog('Ask info is tapped aho');
                     },
                   ),
 

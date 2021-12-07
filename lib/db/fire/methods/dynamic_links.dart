@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/router/route_names.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -49,7 +50,7 @@ class DynamicLinksApi {
     /// if short link
     if (isShortURL) {
       final ShortDynamicLink shortLink = await _parameters.buildShortLink();
-      print(shortLink.toString());
+      blog(shortLink.toString());
       _url = shortLink.shortUrl;
 
     }
@@ -91,7 +92,7 @@ class DynamicLinksApi {
 
         onError: (OnLinkErrorException error) async {
 
-          print(error.message);
+          blog(error.message);
 
           await CenterDialog.showCenterDialog(
             context: context,
@@ -175,7 +176,7 @@ class DynamicLinksApi {
 
     final Uri _dynamicUrl = _shortLink.shortUrl;
 
-    print(_dynamicUrl);
+    blog(_dynamicUrl);
     return _dynamicUrl.toString();
   }
 // -----------------------------------------------------------------------------
@@ -188,7 +189,7 @@ class DynamicLinksApi {
 
       if (_isRefer) {
         final String _code = _deepLink.queryParameters['code'];
-        print(_code);
+        blog(_code);
         if (_code != null) {
 
           navigatorKey.currentState.pushNamed(Routez.dynamicLinkTest, arguments: _code);

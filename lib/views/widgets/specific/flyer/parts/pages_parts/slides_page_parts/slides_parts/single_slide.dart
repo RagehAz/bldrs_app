@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/drafters/colorizers.dart' as Colorizer;
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -63,19 +64,19 @@ class SingleSlide extends StatelessWidget {
   void _onBehindSlideImageTap(BuildContext context, bool tinyMode){
 
     if (tinyMode == true){
-    print('tapping slide behind image while tinyMode is $tinyMode');
+    blog('tapping slide behind image while tinyMode is $tinyMode');
     superFlyer.nav.onTinyFlyerTap();
     }
 
     else {
-      print('tapping slide behind image while tinyMode is $tinyMode');
+      blog('tapping slide behind image while tinyMode is $tinyMode');
 
     }
 
   }
 // -----------------------------------------------------------------------------
   void _onSingleSlideTapCancel(BuildContext context){
-      print('tap cancel single slide');
+      blog('tap cancel single slide');
 
       if (Keyboarders.keyboardIsOn(context)){
         Keyboarders.minimizeKeyboardOnTapOutSide(context);
@@ -103,7 +104,7 @@ class SingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // print('single slide title is : $title and controller is : ${titleController?.text}');
+    // blog('single slide title is : $title and controller is : ${titleController?.text}');
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
@@ -258,7 +259,7 @@ class SingleSlide extends StatelessWidget {
                   verseSize: _slideTitleSize,
                   verseColor: Colorz.white255,
                   tappingVerse: () {
-                    print('Flyer Title clicked');
+                    blog('Flyer Title clicked');
                     },
                 ),
 

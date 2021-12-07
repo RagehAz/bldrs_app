@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
@@ -52,7 +53,7 @@ class BarButton extends StatelessWidget {
       GestureDetector(
         onTap: (){
           onTap();
-          print('tapped');
+          blog('tapped');
         },
         child: Container(
           height: _buttonHeight,

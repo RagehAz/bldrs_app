@@ -63,7 +63,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -220,7 +220,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             switching: (bool val){
               setState(() {_isActivated = val;});
               _updateCountryFieldOnFirestore('isActivated', _isActivated);
-              print(val);
+              blog(val);
             },
           ),
 
@@ -235,7 +235,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             switching: (bool val){
               setState(() {_isGlobal = val;});
               _updateCountryFieldOnFirestore('isGlobal', _isGlobal);
-              print(val);
+              blog(val);
             },
           ),
 
@@ -244,7 +244,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
           KeywordsBubble(
             title: '${_citiesNames.length} Provinces',
             keywords: CityModel.getKeywordsFromCities(context: context, cities: _cities),
-            onTap: () {print('bubble tapped');},
+            onTap: () {blog('bubble tapped');},
             onKeywordTap: (KW kw){kw.printKeyword();},
             selectedWords: const <dynamic>[],
             addButtonIsOn: false,

@@ -70,7 +70,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   KeywordsProvider _keywordsProvider;
@@ -212,7 +212,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     final List<SearchResult> _results = <SearchResult>[];
 
-    print('_onSearchBzz : _searchController.text : ${_searchController.text}');
+    blog('_onSearchBzz : _searchController.text : ${_searchController.text}');
 
     final List<BzModel> _bzz = await FireSearchOps.bzzByBzName(
       context: context,
@@ -355,7 +355,7 @@ class _SearchScreenState extends State<SearchScreen> {
       onSearchSubmit: (String value) => _onSearchSubmit(),
       onSearchChanged: (String val){
 
-        print('search value changed to $val');
+        blog('search value changed to $val');
 
         if (val.isEmpty){
           setState(() {
@@ -389,8 +389,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     FlyersShelf(
                       title: _result.title,
                       titleIcon: _result.icon,
-                      flyerOnTap: (){print('flyer tapped');},
-                      onScrollEnd: (){print('scroll ended');},
+                      flyerOnTap: (){blog('flyer tapped');},
+                      onScrollEnd: (){blog('scroll ended');},
                       flyers: _result.flyers,
                     );
 

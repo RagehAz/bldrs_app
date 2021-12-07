@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -470,7 +471,7 @@ class SuperFlyer{
 
   }){
 
-    print('CREATING draft super flyer from nothing for bz  : ${bzModel.name} : id : ${bzModel.id}');
+    blog('CREATING draft super flyer from nothing for bz  : ${bzModel.name} : id : ${bzModel.id}');
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
@@ -642,7 +643,7 @@ class SuperFlyer{
 
   }) async {
 
-    print('CREATING draft super flyer from FLYER : ${flyerModel.id} for bz  : ${bzModel.name} : id : ${bzModel.id}');
+    blog('CREATING draft super flyer from FLYER : ${flyerModel.id} for bz  : ${bzModel.name} : id : ${bzModel.id}');
 
     final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 

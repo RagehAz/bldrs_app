@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/stream_checkers.dart' as StreamChecker;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -27,7 +28,7 @@ Widget bzModelStreamBuilder({
         } else {
           final BzModel bzModel = snapshot.data;
 
-          print('xx bzModel in  stream is : $bzModel');
+          blog('xx bzModel in  stream is : $bzModel');
 
           bzModel.printBzModel();
 

@@ -5,6 +5,7 @@ import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -131,13 +132,13 @@ class SlideModel {
   static void printSlides(List<SlideModel> slides){
     if (Mapper.canLoopList(slides)){
 
-      print('slides can not be printed : slides are : $slides');
+      blog('slides can not be printed : slides are : $slides');
 
     }
 
     else {
 
-      print('XXX - STARTING TO PRINT ALL ${slides.length} SLIDES');
+      blog('XXX - STARTING TO PRINT ALL ${slides.length} SLIDES');
 
       for (final SlideModel slide in slides){
 
@@ -145,7 +146,7 @@ class SlideModel {
 
       }
 
-      print('XXX - ENDED PRINTING ALL ${slides.length} SLIDES');
+      blog('XXX - ENDED PRINTING ALL ${slides.length} SLIDES');
 
     }
   }
@@ -175,8 +176,8 @@ class SlideModel {
   static bool allSlidesPicsAreTheSame({FlyerModel finalFlyer, FlyerModel originalFlyer}){
     bool _allSlidesPicsAreTheSame;
 
-    // print('finalFlyer.slides.length = ${finalFlyer.slides.length}');
-    // print('originalFlyer.slides.length = ${originalFlyer.slides.length}');
+    // blog('finalFlyer.slides.length = ${finalFlyer.slides.length}');
+    // blog('originalFlyer.slides.length = ${originalFlyer.slides.length}');
 
     if (finalFlyer.slides.length == originalFlyer.slides.length){
 
@@ -254,7 +255,7 @@ class SlideModel {
 
     }
 
-    print('slides are $_outputSlides');
+    blog('slides are $_outputSlides');
 
     return _outputSlides;
   }
@@ -426,21 +427,21 @@ class SlideModel {
 // -----------------------------------------------------------------------------
   void printSlide(){
 
-    print('SLIDE-PRINT --------------------------------------------------START');
+    blog('SLIDE-PRINT --------------------------------------------------START');
 
-    // print('SLIDE-PRINT : flyerID : ${flyerID}');
-    print('SLIDE-PRINT : slideIndex : $slideIndex');
-    print('SLIDE-PRINT : pic : $pic');
-    print('SLIDE-PRINT : headline : $headline');
-    print('SLIDE-PRINT : description : $description');
-    print('SLIDE-PRINT : sharesCount : $sharesCount');
-    print('SLIDE-PRINT : viewsCount : $viewsCount');
-    print('SLIDE-PRINT : savesCount : $savesCount');
-    print('SLIDE-PRINT : picFit : $picFit');
-    print('SLIDE-PRINT : imageSize : $imageSize');
-    print('SLIDE-PRINT : midColor : $midColor');
+    // blog('SLIDE-PRINT : flyerID : ${flyerID}');
+    blog('SLIDE-PRINT : slideIndex : $slideIndex');
+    blog('SLIDE-PRINT : pic : $pic');
+    blog('SLIDE-PRINT : headline : $headline');
+    blog('SLIDE-PRINT : description : $description');
+    blog('SLIDE-PRINT : sharesCount : $sharesCount');
+    blog('SLIDE-PRINT : viewsCount : $viewsCount');
+    blog('SLIDE-PRINT : savesCount : $savesCount');
+    blog('SLIDE-PRINT : picFit : $picFit');
+    blog('SLIDE-PRINT : imageSize : $imageSize');
+    blog('SLIDE-PRINT : midColor : $midColor');
 
-    print('SLIDE-PRINT --------------------------------------------------END');
+    blog('SLIDE-PRINT --------------------------------------------------END');
 
   }
 // -----------------------------------------------------------------------------

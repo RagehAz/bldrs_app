@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
@@ -75,7 +76,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
             value: widget.list[0],
 
             /// STRIP
-            onTap: (){print('ganzabeel');},
+            onTap: (){blog('ganzabeel');},
 
             /// STRIP STYLING
             isDense: false,
@@ -118,7 +119,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
             items: widget.list.map((String item){
               return DropdownMenuItem<String>(
                 value: item,
-                onTap: (){print(item);},
+                onTap: (){blog(item);},
                 child: SuperVerse(
                   color: Colorz.black230,
                   verse: item,

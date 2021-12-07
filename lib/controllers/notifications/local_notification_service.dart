@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/notifications/test_screens/awesome_noti_test_screen.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -20,7 +21,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
         if (route != null){
 
-          print('initializing localNotificationService : route is : $route');
+          blog('initializing localNotificationService : route is : $route');
 
           await Nav.goToNewScreen(context, const AwesomeNotiTestScreen());
         }
@@ -58,7 +59,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
       );
 
     } on Exception catch (e){
-      print ('display : notification error caught : $e');
+      blog('display : notification error caught : $e');
     }
 
   }

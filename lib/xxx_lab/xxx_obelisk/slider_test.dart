@@ -74,7 +74,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               textController: _minController,
               actionBtIcon: Iconz.plus,
               actionBtFunction: (){
-                print('value is : ${_minController.text}');
+                blog('value is : ${_minController.text}');
 
                 final int _value = Numeric.stringToInt(_minController.text);
 
@@ -91,7 +91,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               textController: _maxController,
               actionBtIcon: Iconz.plus,
               actionBtFunction: (){
-                print('value is : ${_maxController.text}');
+                blog('value is : ${_maxController.text}');
 
                 final int _value = Numeric.stringToInt(_maxController.text);
 
@@ -108,7 +108,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               textController: _divisionsController,
               actionBtIcon: Iconz.plus,
               actionBtFunction: (){
-                print('value is : ${_divisionsController.text}');
+                blog('value is : ${_divisionsController.text}');
 
                 final int _value = Numeric.stringToInt(_divisionsController.text);
 
@@ -221,7 +221,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
             //   textController: _maxController,
             //   actionBtIcon: Iconz.Plus,
             //   actionBtFunction: (){
-            //     print('value is : ${_maxController.text}');
+            //     blog('value is : ${_maxController.text}');
             //
             //     int _value = stringToInt(_maxController.text);
             //
@@ -238,7 +238,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
             //   textController: _divisionsController,
             //   actionBtIcon: Iconz.Plus,
             //   actionBtFunction: (){
-            //     print('value is : ${_divisionsController.text}');
+            //     blog('value is : ${_divisionsController.text}');
             //
             //     int _value = stringToInt(_divisionsController.text);
             //

@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -39,11 +40,11 @@ class CurrencyModel {
 // -----------------------------------------------------------------------------
   void printCurrency(){
 
-    print('CURRENCY PRINT ----------------------------------------- START ');
-    print('code : $code : symbol : $symbol : nativeSymbol : $nativeSymbol : digits : $digits');
-    print('countries : $countriesIDs');
+    blog('CURRENCY PRINT ----------------------------------------- START ');
+    blog('code : $code : symbol : $symbol : nativeSymbol : $nativeSymbol : digits : $digits');
+    blog('countries : $countriesIDs');
     Name.printNames(names);
-    print('CURRENCY PRINT ----------------------------------------- END ');
+    blog('CURRENCY PRINT ----------------------------------------- END ');
 
   }
 // -----------------------------------------------------------------------------

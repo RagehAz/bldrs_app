@@ -61,7 +61,7 @@ class DialogTestScreen extends StatelessWidget {
                           title: 'flyers',
                           numberOfRows: 1,
                           onTap: (String flyerID){
-                            print(flyerID);
+                            blog(flyerID);
                           },
                         );
                     },
@@ -80,7 +80,7 @@ class DialogTestScreen extends StatelessWidget {
             ),
           );
 
-          print('Result is $_result');
+          blog('Result is $_result');
 
         },
         child: Container(

@@ -62,7 +62,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
               /// ASK BUBBLE
               QuestionBubble(
-                tappingAskInfo: () {print('Ask info is tapped aho');},
+                tappingAskInfo: () {blog('Ask info is tapped aho');},
               ),
 
             ],

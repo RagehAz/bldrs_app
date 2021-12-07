@@ -56,7 +56,7 @@ class _StartingScreenState extends State<StartingScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -70,7 +70,7 @@ class _StartingScreenState extends State<StartingScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _tapContinueWith(BuildContext context, AuthBy authBy) async {
 
-    print('starting _tapGoogleContinue method');
+    blog('starting _tapGoogleContinue method');
 
     unawaited(_triggerLoading());
 
@@ -99,7 +99,7 @@ class _StartingScreenState extends State<StartingScreen> {
     }
 
     /// if auth returns error string we show dialog
-    print('_tapGoogleContinue : googleSignInOps_result : $_authResult');
+    blog('_tapGoogleContinue : googleSignInOps_result : $_authResult');
     if(_authResult.runtimeType == String || _authResult == null){
 
       unawaited(_triggerLoading());
@@ -118,7 +118,7 @@ class _StartingScreenState extends State<StartingScreen> {
 
       /// so sign in succeeded returning a userModel
       final UserModel _userModel = _authResult['userModel'];
-      print('_tapGoogleContinue : _userModel : $_userModel');
+      blog('_tapGoogleContinue : _userModel : $_userModel');
 
       await Nav.replaceScreen(context, const UserChecker());
 
@@ -134,9 +134,9 @@ class _StartingScreenState extends State<StartingScreen> {
       appBarType: AppBarType.non,
       loading: _loading,
       // tappingRageh: (){
-      //   print('current zone : ${_currentZone.cityID}');
-      //   print('Wordz.languageCode(context) : ${Wordz.languageCode(context)}');
-      //   // print('isa');
+      //   blog('current zone : ${_currentZone.cityID}');
+      //   blog('Wordz.languageCode(context) : ${Wordz.languageCode(context)}');
+      //   // blog('isa');
       // },
       layoutWidget: Stack(
         children: <Widget>[

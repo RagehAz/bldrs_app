@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -179,7 +180,7 @@ class PropertySearchCriteria extends StatelessWidget {
 
                     /// --- PROPERTY LOCATION
                     FieldsRow(
-                      openList: (){print('Locale bitch');},
+                      openList: (){blog('Locale bitch');},
                       title: 'Location of property',
                       fields: const <String>['Heliopolis', 'Cairo', 'Egypt'],
                     ),
@@ -194,7 +195,7 @@ class PropertySearchCriteria extends StatelessWidget {
                       iconSizeFactor: 0.5,
                       verse: 'Add more details',
                       verseColor: Colorz.blue255,
-                      onTap: (){print('3afreet enta');},
+                      onTap: (){blog('3afreet enta');},
 
                     ),
 

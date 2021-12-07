@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -167,7 +168,7 @@ extension FileExtention on FileSystemEntity {
       _objectIsDoubleInString = true;
     }
 
-    print('objectIsDoubleInString : _double is : $_double');
+    blog('objectIsDoubleInString : _double is : $_double');
 
     return _objectIsDoubleInString;
 

@@ -1,6 +1,7 @@
 
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 
   List<String> addStringToListIfDoesNotContainIt({List<String> strings, String stringToAdd}){
@@ -41,7 +42,7 @@ import 'package:flutter/foundation.dart';
   _stringWithoutSpaces == null || _stringWithoutSpaces == '' || _stringWithoutSpaces == ' '? null :
   _firstCharacter == '' ? null : _firstCharacter;
 
-  // print('string($string) - _stringTrimmed($_stringTrimmed) - _stringWithoutSpaces($_stringWithoutSpaces) - _firstCharacter($_firstCharacter) - _output($_output)');
+  // blog('string($string) - _stringTrimmed($_stringTrimmed) - _stringWithoutSpaces($_stringWithoutSpaces) - _firstCharacter($_firstCharacter) - _output($_output)');
   return
     _output;
 }
@@ -54,7 +55,7 @@ import 'package:flutter/foundation.dart';
   String removeNumberOfCharactersFromBeginningOfAString(String string, int numberOfCharacters){
   String _stringTrimmed;
   if (numberOfCharacters > string.length){
-    print('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
+    blog('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
 
     final Error _error = ArgumentError('can not remove ($numberOfCharacters) from the given string because', 'removeNumberOfCharactersFromBeginningOfAString');
 
@@ -69,11 +70,11 @@ import 'package:flutter/foundation.dart';
   String removeNumberOfCharactersFromEndOfAString(String string, int numberOfCharacters){
     String _stringTrimmed;
     // if (numberOfCharacters > string.length){
-    //   print('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
+    //   blog('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
     //   throw('can not remove ($numberOfCharacters) from the given string because');
     // } else {}
 
-    print('string length ${string.trim().length} and : numberOfCharacters : $numberOfCharacters');
+    blog('string length ${string.trim().length} and : numberOfCharacters : $numberOfCharacters');
 
     if (string != null && string.trim().isNotEmpty){
 
@@ -384,8 +385,8 @@ String decoded = stringToBase64.decode(encoded);          // username:password
 //   double getDoubleIfPossible(dynamic input){
 //     double _output;
 //
-//     print('starting : getDoubleIfPossible : input : ${input}');
-//     print('starting : getDoubleIfPossible : input.runtimeType : ${input.runtimeType}');
+//     blog('starting : getDoubleIfPossible : input : ${input}');
+//     blog('starting : getDoubleIfPossible : input.runtimeType : ${input.runtimeType}');
 //
 //     /// some safety layer first
 //     if (input != null){
@@ -445,7 +446,7 @@ String decoded = stringToBase64.decode(encoded);          // username:password
 //       _objectIsDoubleInString = true;
 //     }
 //
-//     print('objectIsDoubleInString : _double is : $_double');
+//     blog('objectIsDoubleInString : _double is : $_double');
 //
 //     return _objectIsDoubleInString;
 //
