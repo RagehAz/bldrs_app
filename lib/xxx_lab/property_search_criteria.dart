@@ -9,11 +9,7 @@ import 'package:bldrs/xxx_lab/property_search_items/fields_row.dart';
 import 'package:flutter/material.dart';
 
 class PropertySearchCriteria extends StatelessWidget {
-  final Function openEnumLister;
-  // final Map<String, Object> currentPropertyUse;
-  // final Map<String, Object> currentPropertyType;
-  // final Map<String, Object> currentPropertyContract;
-
+  /// --------------------------------------------------------------------------
   const PropertySearchCriteria({
     @required this.openEnumLister,
     // @required this.currentPropertyUse,
@@ -21,7 +17,12 @@ class PropertySearchCriteria extends StatelessWidget {
     // @required this.currentPropertyContract,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final Function openEnumLister;
+  // final Map<String, Object> currentPropertyUse;
+  // final Map<String, Object> currentPropertyType;
+  // final Map<String, Object> currentPropertyContract;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

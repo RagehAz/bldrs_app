@@ -10,12 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BzzButton extends StatelessWidget {
-  final BarType barType;
-  final Function onTap;
-  final double width;
-  final double circleWidth;
-  // final List<dynamic> bzzIDs;
-
+  /// --------------------------------------------------------------------------
   const BzzButton({
     @required this.width,
     @required this.circleWidth,
@@ -24,7 +19,13 @@ class BzzButton extends StatelessWidget {
     // @required this.bzzIDs,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final BarType barType;
+  final Function onTap;
+  final double width;
+  final double circleWidth;
+  // final List<dynamic> bzzIDs;
+  /// --------------------------------------------------------------------------
 Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
   return SizedBox(
     height: circleWidth * 0.47,

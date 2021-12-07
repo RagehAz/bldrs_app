@@ -20,17 +20,19 @@ import 'package:bldrs/views/widgets/specific/specs/spec_list_tile.dart';
 import 'package:flutter/material.dart';
 
 class SpecsListsPickersScreen extends StatefulWidget {
-  final FlyerTypeClass.FlyerType flyerType;
-  final List<Spec> selectedSpecs;
-
+  /// --------------------------------------------------------------------------
   const SpecsListsPickersScreen({
     @required this.flyerType,
     @required this.selectedSpecs,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final FlyerTypeClass.FlyerType flyerType;
+  final List<Spec> selectedSpecs;
+  /// --------------------------------------------------------------------------
   @override
   _SpecsListsPickersScreenState createState() => _SpecsListsPickersScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with SingleTickerProviderStateMixin{

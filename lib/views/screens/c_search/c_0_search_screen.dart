@@ -515,19 +515,19 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 class SearchResult {
-  final String title;
-  // final SearchSource source;
-  final String icon;
-  final List<FlyerModel> flyers;
-
+  /// --------------------------------------------------------------------------
   const SearchResult({
     @required this.title,
     // @required this.source,
     @required this.icon,
     @required this.flyers,
-});
-
-
+  });
+  /// --------------------------------------------------------------------------
+  final String title;
+  // final SearchSource source;
+  final String icon;
+  final List<FlyerModel> flyers;
+/// --------------------------------------------------------------------------
 }
 
 enum SearchSource{

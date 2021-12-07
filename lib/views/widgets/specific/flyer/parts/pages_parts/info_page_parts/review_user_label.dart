@@ -8,18 +8,18 @@ import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart
 import 'package:flutter/material.dart';
 
 class ReviewUserLabel extends StatelessWidget {
-  final UserModel tinyUser;
-  final bool hasEditButton;
-  final Function onReviewOptions;
-
+  /// --------------------------------------------------------------------------
   const ReviewUserLabel({
     @required this.tinyUser,
     @required this.hasEditButton,
     @required this.onReviewOptions,
     Key key,
   }) : super(key: key);
-
-
+  /// --------------------------------------------------------------------------
+  final UserModel tinyUser;
+  final bool hasEditButton;
+  final Function onReviewOptions;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Row(

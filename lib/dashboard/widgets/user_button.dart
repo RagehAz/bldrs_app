@@ -18,12 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DashboardUserButton extends StatelessWidget {
-  final double width;
-  final UserModel userModel;
-  final int index;
-  final Function onDeleteUser;
-
-
+  /// --------------------------------------------------------------------------
   const DashboardUserButton({
     @required this.width,
     @required this.userModel,
@@ -31,7 +26,12 @@ class DashboardUserButton extends StatelessWidget {
     @required this.onDeleteUser,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double width;
+  final UserModel userModel;
+  final int index;
+  final Function onDeleteUser;
+  /// --------------------------------------------------------------------------
   static double height(){
     return 60;
   }

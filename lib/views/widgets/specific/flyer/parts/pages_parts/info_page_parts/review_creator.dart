@@ -13,12 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ReviewCreator extends StatelessWidget {
-  final double width;
-  final double corners;
-  final UserModel userModel;
-  final SuperFlyer superFlyer;
-  final Function reloadReviews;
-
+  /// --------------------------------------------------------------------------
   const ReviewCreator({
     @required this.width,
     @required this.corners,
@@ -27,7 +22,13 @@ class ReviewCreator extends StatelessWidget {
     @required this.reloadReviews,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  final double corners;
+  final UserModel userModel;
+  final SuperFlyer superFlyer;
+  final Function reloadReviews;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

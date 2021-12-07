@@ -20,24 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class SingleSlide extends StatelessWidget {
-  final double flyerBoxWidth;
-  final dynamic picture;
-  final String headline;
-  final int shares;
-  final int views;
-  final int saves;
-  final int slideIndex;
-  final BoxFit boxFit;
-  final TextEditingController titleController;
-  final ValueChanged<String> textFieldOnChanged;
-  final ValueChanged<String> onTextFieldSubmitted;
-  final Color slideColor;
-  final String flyerID;
-  final ImageSize imageSize;
-  final bool autoFocus;
-  final Function onTap;
-  final SuperFlyer superFlyer;
-
+  /// --------------------------------------------------------------------------
   const SingleSlide({
     @required this.flyerBoxWidth,
     @required this.superFlyer,
@@ -58,7 +41,25 @@ class SingleSlide extends StatelessWidget {
     this.autoFocus,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final dynamic picture;
+  final String headline;
+  final int shares;
+  final int views;
+  final int saves;
+  final int slideIndex;
+  final BoxFit boxFit;
+  final TextEditingController titleController;
+  final ValueChanged<String> textFieldOnChanged;
+  final ValueChanged<String> onTextFieldSubmitted;
+  final Color slideColor;
+  final String flyerID;
+  final ImageSize imageSize;
+  final bool autoFocus;
+  final Function onTap;
+  final SuperFlyer superFlyer;
+  /// --------------------------------------------------------------------------
   void _onBehindSlideImageTap(BuildContext context, bool tinyMode){
 
     if (tinyMode == true){

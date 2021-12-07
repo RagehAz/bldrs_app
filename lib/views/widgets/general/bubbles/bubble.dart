@@ -9,23 +9,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class Bubble extends StatelessWidget {
-  final List<Widget> columnChildren;
-  final bool centered;
-  final Color bubbleColor;
-  final bool stretchy;
-  final String title;
-  final Color titleColor;
-  final bool redDot;
-  final String actionBtIcon;
-  final Function actionBtFunction;
-  final double width;
-  final Function bubbleOnTap;
-  final double leadingAndActionButtonsSizeFactor;
-  final String leadingIcon;
-  final Color leadingIconColor;
-  final dynamic margins;
-  final dynamic corners;
-
+  /// --------------------------------------------------------------------------
   const Bubble({
     @required this.columnChildren,
     this.centered = false,
@@ -45,7 +29,24 @@ class Bubble extends StatelessWidget {
     this.corners,
     Key key,
 }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final List<Widget> columnChildren;
+  final bool centered;
+  final Color bubbleColor;
+  final bool stretchy;
+  final String title;
+  final Color titleColor;
+  final bool redDot;
+  final String actionBtIcon;
+  final Function actionBtFunction;
+  final double width;
+  final Function bubbleOnTap;
+  final double leadingAndActionButtonsSizeFactor;
+  final String leadingIcon;
+  final Color leadingIconColor;
+  final dynamic margins;
+  final dynamic corners;
+  /// --------------------------------------------------------------------------
   static double clearWidth(BuildContext context){
     final double _bubbleWidth = defaultWidth(context);
     const double _bubblePaddings = Ratioz.appBarMargin * 2;

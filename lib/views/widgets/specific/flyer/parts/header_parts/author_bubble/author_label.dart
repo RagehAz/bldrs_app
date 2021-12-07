@@ -15,14 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class AuthorLabel extends StatelessWidget {
-  final double flyerBoxWidth;
-  final String authorID;
-  final BzModel bzModel;
-  final bool showLabel;
-  final int authorGalleryCount;
-  final bool labelIsOn;
-  final ValueChanged<String> onTap;
-
+  /// --------------------------------------------------------------------------
   const AuthorLabel({
     @required this.flyerBoxWidth,
     @required this.authorID,
@@ -33,7 +26,15 @@ class AuthorLabel extends StatelessWidget {
     this.labelIsOn = false,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final String authorID;
+  final BzModel bzModel;
+  final bool showLabel;
+  final int authorGalleryCount;
+  final bool labelIsOn;
+  final ValueChanged<String> onTap;
+  /// --------------------------------------------------------------------------
 // tappingAuthorLabel (){
 //     setState(() {
 //       labelIsOn == true ? labelIsOn = false : labelIsOn = true;
@@ -152,18 +153,18 @@ class AuthorLabel extends StatelessWidget {
 }
 
 class AuthorPic extends StatelessWidget {
-  final bool isAddAuthorButton;
-
-  final double width;
-  final dynamic authorPic;
-
+  /// --------------------------------------------------------------------------
   const AuthorPic({
     this.isAddAuthorButton = false,
     this.width,
     this.authorPic,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final bool isAddAuthorButton;
+  final double width;
+  final dynamic authorPic;
+  /// --------------------------------------------------------------------------
   void _tapAddAuthor(BuildContext context){
 
     print('should go to add new author screen');

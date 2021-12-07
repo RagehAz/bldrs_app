@@ -4,16 +4,16 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class GoldenScroll extends StatelessWidget {
-
-  final String scrollScript;
-  final String scrollTitle;
-
+  /// --------------------------------------------------------------------------
   const GoldenScroll({
     @required this.scrollScript,
     @required this.scrollTitle,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String scrollScript;
+  final String scrollTitle;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

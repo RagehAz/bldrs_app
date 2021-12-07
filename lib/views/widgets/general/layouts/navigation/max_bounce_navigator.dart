@@ -7,13 +7,7 @@ import 'package:flutter/rendering.dart';
 // -----------------------------------------------------------------------------
 /// GoHomeOnMaxBounce
 class MaxBounceNavigator extends StatefulWidget {
-  final double boxDistance;
-  final int numberOfScreens;
-  final Widget child;
-  final Function onNavigate;
-  final Key notificationListenerKey;
-  final Axis axis;
-
+  /// --------------------------------------------------------------------------
   const MaxBounceNavigator({
     @required this.child,
     this.boxDistance,
@@ -23,9 +17,17 @@ class MaxBounceNavigator extends StatefulWidget {
     this.axis = Axis.vertical,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double boxDistance;
+  final int numberOfScreens;
+  final Widget child;
+  final Function onNavigate;
+  final Key notificationListenerKey;
+  final Axis axis;
+  /// --------------------------------------------------------------------------
   @override
   _MaxBounceNavigatorState createState() => _MaxBounceNavigatorState();
+/// --------------------------------------------------------------------------
 }
 
 class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {

@@ -9,13 +9,7 @@ import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf_list_buil
 import 'package:flutter/material.dart';
 
 class FlyersShelf extends StatelessWidget {
-  final String title;
-  final List<FlyerModel> flyers;
-  final String titleIcon;
-  final Function flyerOnTap;
-  final Function onScrollEnd;
-  final double flyerSizeFactor;
-
+  /// --------------------------------------------------------------------------
   const FlyersShelf({
     this.title,
     this.flyers,
@@ -25,7 +19,14 @@ class FlyersShelf extends StatelessWidget {
     this.flyerSizeFactor = 0.3,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String title;
+  final List<FlyerModel> flyers;
+  final String titleIcon;
+  final Function flyerOnTap;
+  final Function onScrollEnd;
+  final double flyerSizeFactor;
+  /// --------------------------------------------------------------------------
   static const double spacing = Ratioz.appBarMargin;
   static const double titleIconWidth = Ratioz.appBarButtonSize;
   static const double titleIconCorner = Ratioz.appBarButtonCorner;

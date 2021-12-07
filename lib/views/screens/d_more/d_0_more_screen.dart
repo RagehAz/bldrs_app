@@ -26,14 +26,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MoreScreen extends StatelessWidget {
-  // final AuthOps _authOps = AuthOps();
-  final UserModel userModel;
-
+  /// --------------------------------------------------------------------------
   const MoreScreen({
     @required this.userModel,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  // final AuthOps _authOps = AuthOps();
+  final UserModel userModel;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

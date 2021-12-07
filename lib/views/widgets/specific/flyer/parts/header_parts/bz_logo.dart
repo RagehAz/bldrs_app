@@ -7,17 +7,7 @@ import 'package:bldrs/views/widgets/general/images/super_image.dart';
 import 'package:flutter/material.dart';
 
 class BzLogo extends StatelessWidget {
-  final double width;
-  final dynamic image;
-  final bool tinyMode;
-  final BorderRadius corners;
-  final bool bzPageIsOn;
-  final bool zeroCornerIsOn;
-  final EdgeInsets margins;
-  final Function onTap;
-  final bool blackAndWhite;
-  final bool shadowIsOn;
-
+  /// --------------------------------------------------------------------------
   const BzLogo({
     @required this.width,
     this.image,
@@ -31,12 +21,22 @@ class BzLogo extends StatelessWidget {
     this.shadowIsOn = false,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  final dynamic image;
+  final bool tinyMode;
+  final BorderRadius corners;
+  final bool bzPageIsOn;
+  final bool zeroCornerIsOn;
+  final EdgeInsets margins;
+  final Function onTap;
+  final bool blackAndWhite;
+  final bool shadowIsOn;
+  /// --------------------------------------------------------------------------
   static double cornersValue(double logoWidth){
     return  logoWidth * Ratioz.bzLogoCorner;
   }
-
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------

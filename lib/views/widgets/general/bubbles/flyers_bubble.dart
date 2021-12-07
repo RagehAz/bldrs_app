@@ -5,15 +5,7 @@ import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:flutter/material.dart';
 
 class FlyersBubble extends StatelessWidget {
-  final List<FlyerModel> flyers;
-  final double flyerSizeFactor;
-  final String title;
-  final int numberOfColumns;
-  final int numberOfRows;
-  final Axis scrollDirection;
-  final ValueChanged<String> onTap;
-  final double bubbleWidth;
-
+  /// --------------------------------------------------------------------------
   const FlyersBubble({
     @required this.flyers,
     this.title  = 'Flyers',
@@ -25,7 +17,16 @@ class FlyersBubble extends StatelessWidget {
     this.bubbleWidth,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<FlyerModel> flyers;
+  final double flyerSizeFactor;
+  final String title;
+  final int numberOfColumns;
+  final int numberOfRows;
+  final Axis scrollDirection;
+  final ValueChanged<String> onTap;
+  final double bubbleWidth;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

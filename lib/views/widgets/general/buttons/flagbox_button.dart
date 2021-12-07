@@ -5,20 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class FlagBox extends StatelessWidget {
-
-  final String flag;
-  final Function onTap;
-  final double size;
-
+  /// --------------------------------------------------------------------------
   const FlagBox({
     @required this.flag,
     this.onTap,
     this.size = 35,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String flag;
+  final Function onTap;
+  final double size;
   static const double corner = Ratioz.boxCorner12;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

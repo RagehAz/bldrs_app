@@ -4,11 +4,7 @@ import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:flutter/material.dart';
 
 class AppBarButton extends StatelessWidget {
-  final String verse;
-  final Color verseColor;
-  final Color buttonColor;
-  final Function onTap;
-
+  /// --------------------------------------------------------------------------
   const AppBarButton({
     @required this.verse,
     this.verseColor = Colorz.white255,
@@ -16,7 +12,12 @@ class AppBarButton extends StatelessWidget {
     this.onTap,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String verse;
+  final Color verseColor;
+  final Color buttonColor;
+  final Function onTap;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

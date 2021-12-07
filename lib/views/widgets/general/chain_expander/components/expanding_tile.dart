@@ -8,32 +8,11 @@ import 'package:bldrs/views/widgets/specific/keywords/collapsed_tile.dart';
 import 'package:flutter/material.dart';
 
 class ExpandingTile extends StatefulWidget {
-  final double width;
-  final double collapsedHeight;
-  final double maxHeight;
-
-  final bool scrollable;
-
-  final String icon;
-  final double iconSizeFactor;
-  final ValueChanged<bool> onTap;
-  final bool initiallyExpanded;
-
-  final String firstHeadline;
-  final String secondHeadline;
-
-  final Color initialColor;
-  final Color expansionColor;
-  final double corners;
-  final Widget child;
-  final bool inActiveMode;
-  final EdgeInsets margin;
-
+  /// --------------------------------------------------------------------------
   const ExpandingTile({
     @required this.firstHeadline,
     @required this.secondHeadline,
     @required this.child,
-
     this.width,
     this.collapsedHeight,
     this.maxHeight,
@@ -49,17 +28,33 @@ class ExpandingTile extends StatefulWidget {
     this.margin,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  final double collapsedHeight;
+  final double maxHeight;
+  final bool scrollable;
+  final String icon;
+  final double iconSizeFactor;
+  final ValueChanged<bool> onTap;
+  final bool initiallyExpanded;
+  final String firstHeadline;
+  final String secondHeadline;
+  final Color initialColor;
+  final Color expansionColor;
+  final double corners;
+  final Widget child;
+  final bool inActiveMode;
+  final EdgeInsets margin;
+  /// --------------------------------------------------------------------------
   static const double collapsedTileHeight = 50;
   static const double buttonVerticalPadding = Ratioz.appBarPadding;
   static const double titleBoxHeight = 25;
   static const double arrowBoxSize = collapsedTileHeight;
-
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
   static const double cornersValue = Ratioz.appBarCorner;
   static const Color collapsedColor = Colorz.white10;
   static const Color expandedColor = Colorz.white30;
-
+// -----------------------------------------------------------------------------
   static BorderRadius borders(BuildContext context){
     return Borderers.superBorderAll(context, cornersValue);
   }
@@ -254,8 +249,8 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
               arrowTurns: _arrowTurns,
               toggleExpansion: toggle,
               expandableHeightFactorAnimationValue: _easeInAnimation.value,
-              child: child,
               iconCorners: ExpandingTile.cornersValue,
+              child: child,
             );
 
         },

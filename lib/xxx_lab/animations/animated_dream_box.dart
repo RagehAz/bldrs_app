@@ -8,36 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class AnimatedDreamBox extends StatefulWidget {
-  final String icon;
-  final File iconFile;
-  /// works as a verseSizeFactor as well
-  final double iconSizeFactor;
-  final Color color;
-  final double width;
-  final double height;
-  final double corners;
-  final Color iconColor;
-  final String verse;
-  final Color verseColor;
-  final VerseWeight verseWeight;
-  final double verseScaleFactor;
-  final bool verseItalic;
-  final int verseMaxLines;
-  final Function boxFunction;
-  final EdgeInsets boxMargins;
-  final bool blackAndWhite;
-  final bool iconRounded;
-  final bool bubble;
-  final String secondLine;
-  final Widget dreamChild;
-  final double opacity;
-  final bool inActiveMode;
-  final String underLine;
-  final Color splashColor;
-  final Color underLineColor;
-  final Color underLineLabelColor;
-  final Duration duration;
-
+  /// --------------------------------------------------------------------------
   const AnimatedDreamBox({
     @required this.height,
     this.width,
@@ -69,9 +40,40 @@ class AnimatedDreamBox extends StatefulWidget {
     this.duration = Ratioz.duration150ms,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String icon;
+  final File iconFile;
+  /// works as a verseSizeFactor as well
+  final double iconSizeFactor;
+  final Color color;
+  final double width;
+  final double height;
+  final double corners;
+  final Color iconColor;
+  final String verse;
+  final Color verseColor;
+  final VerseWeight verseWeight;
+  final double verseScaleFactor;
+  final bool verseItalic;
+  final int verseMaxLines;
+  final Function boxFunction;
+  final EdgeInsets boxMargins;
+  final bool blackAndWhite;
+  final bool iconRounded;
+  final bool bubble;
+  final String secondLine;
+  final Widget dreamChild;
+  final double opacity;
+  final bool inActiveMode;
+  final String underLine;
+  final Color splashColor;
+  final Color underLineColor;
+  final Color underLineLabelColor;
+  final Duration duration;
+  /// --------------------------------------------------------------------------
   @override
   _AnimatedDreamBoxState createState() => _AnimatedDreamBoxState();
+/// --------------------------------------------------------------------------
 }
 
 class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {

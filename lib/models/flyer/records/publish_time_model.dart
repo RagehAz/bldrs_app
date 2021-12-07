@@ -4,14 +4,15 @@ import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:flutter/material.dart';
 
 class PublishTime {
-  final FlyerState state;
-  final DateTime time;
-
+  /// --------------------------------------------------------------------------
   const PublishTime({
     @required this.state,
     @required this.time,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final FlyerState state;
+  final DateTime time;
+  /// --------------------------------------------------------------------------
   PublishTime clone(){
     final PublishTime _time = PublishTime(state: state, time: time);
 

@@ -9,17 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class KeywordsButtonsList extends StatelessWidget {
-  final double buttonWidth;
-  final List<KW> keywords;
-  final Function onKeywordTap;
-
+  /// --------------------------------------------------------------------------
   const KeywordsButtonsList({
     @required this.buttonWidth,
     @required this.keywords,
     @required this.onKeywordTap,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double buttonWidth;
+  final List<KW> keywords;
+  final Function onKeywordTap;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

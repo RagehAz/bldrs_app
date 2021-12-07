@@ -3,15 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class QuestionsProvider with ChangeNotifier {
+  /// --------------------------------------------------------------------------
+  QuestionsProvider() {
+    fetchQuestions();
+  }
+  /// --------------------------------------------------------------------------
   final List<Quest> _questions = <Quest>[];
 // ----------------------------------------------------------------------------
   CollectionReference<Object> questionsFirebase =
       FirebaseFirestore.instance.collection('questions');
-// ----------------------------------------------------------------------------
-  QuestionsProvider() {
-    fetchQuestions();
-  }
-// ----------------------------------------------------------------------------
   getQuestionsList() => _questions;
 // ----------------------------------------------------------------------------
   fetchQuestions() async {
@@ -36,4 +36,5 @@ class QuestionsProvider with ChangeNotifier {
     fetchQuestions();
     notifyListeners();
   }
+// ----------------------------------------------------------------------------
 }

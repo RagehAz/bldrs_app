@@ -3,30 +3,31 @@ import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:flutter/foundation.dart';
 
 class MessageModel{
-  final String ownerID;
-  final String body;
-  final DateTime time;
-
+  /// --------------------------------------------------------------------------
   const MessageModel({
     @required this.ownerID,
     @required this.body,
     @required this.time,
   });
-// -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap({@required bool toJSON}){
-    return <String, dynamic>{
-      'ownerID' : ownerID,
-      'body' : body,
-      'time' : Timers.cipherTime(time: time, toJSON: toJSON),
-    };
-  }
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   factory MessageModel.fromMap({@required dynamic map, @required bool fromJSON}) {
     return MessageModel(
       body: map['body'],
       ownerID: map['ownerID'],
       time: Timers.decipherTime(time: map['time'], fromJSON: fromJSON),
     );
+  }
+  /// --------------------------------------------------------------------------
+  final String ownerID;
+  final String body;
+  final DateTime time;
+  /// --------------------------------------------------------------------------
+  Map<String, dynamic> toMap({@required bool toJSON}){
+    return <String, dynamic>{
+      'ownerID' : ownerID,
+      'body' : body,
+      'time' : Timers.cipherTime(time: time, toJSON: toJSON),
+    };
   }
 // -----------------------------------------------------------------------------
   static List<dynamic> cipherMessages({@required List<MessageModel> messages, @required bool toJSON}){

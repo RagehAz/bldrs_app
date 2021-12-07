@@ -9,23 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 // -----------------------------------------------------------------------------
 class MutableSlide {
-  int slideIndex;
-  String picURL;
-  Asset picAsset;
-  File picFile;
-  BoxFit picFit;
-  ImageSize picSize;
-  String headline;
-  TextEditingController headlineController;
-  String description;
-  TextEditingController descriptionController;
-  int sharesCount;
-  int viewsCount;
-  int savesCount;
-  ImageSize imageSize;
-  Color midColor;
-  double opacity;
-
+  /// --------------------------------------------------------------------------
   MutableSlide({
     @required this.picAsset,
     @required this.picFile,
@@ -43,7 +27,24 @@ class MutableSlide {
     this.savesCount,
     this.picFit, /// TASK : update all methods below to include this boxfit parameter
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  int slideIndex;
+  String picURL;
+  Asset picAsset;
+  File picFile;
+  BoxFit picFit;
+  ImageSize picSize;
+  String headline;
+  TextEditingController headlineController;
+  String description;
+  TextEditingController descriptionController;
+  int sharesCount;
+  int viewsCount;
+  int savesCount;
+  ImageSize imageSize;
+  Color midColor;
+  double opacity;
+  /// --------------------------------------------------------------------------
   static MutableSlide getViewMutableSlideFromSlideModel(SlideModel slide) {
     // --------------------------------------------------------o
     return

@@ -3,15 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class ChatModel{
-  final String bzID;
-  List<MessageModel> messages;
-  final String authorID1;
-  final String authorID2;
-  final String ownerID;
-  bool ownerSeen;
-  bool author1Seen;
-  bool author2Seen;
-
+  /// --------------------------------------------------------------------------
   ChatModel({
     this.bzID,
     this.messages,
@@ -22,7 +14,16 @@ class ChatModel{
     this.author1Seen,
     this.author2Seen,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String bzID;
+  List<MessageModel> messages;
+  final String authorID1;
+  final String authorID2;
+  final String ownerID;
+  bool ownerSeen;
+  bool author1Seen;
+  bool author2Seen;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
     return <String, dynamic>{
       'bzID' : bzID,

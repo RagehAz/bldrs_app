@@ -3,18 +3,19 @@ import 'package:bldrs/models/zone/region_model.dart';
 import 'package:flutter/material.dart';
 
 class Continent{
-  final String name;
-  final List<Region> regions;
-  final List<String> activatedCountriesIDs;
-  final List<String> globalCountriesIDs;
-
+  /// --------------------------------------------------------------------------
   const Continent({
     @required this.name,
     @required this.regions,
     @required this.activatedCountriesIDs,
     @required this.globalCountriesIDs,
-});
-
+  });
+  /// --------------------------------------------------------------------------
+  final String name;
+  final List<Region> regions;
+  final List<String> activatedCountriesIDs;
+  final List<String> globalCountriesIDs;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return <String, dynamic>{
       'name' : name,

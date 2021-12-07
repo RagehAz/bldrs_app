@@ -4,13 +4,7 @@ import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:flutter/material.dart';
 
 class TabButton extends StatelessWidget {
-  final bool isSelected;
-  final String icon;
-  final double iconSizeFactor;
-  final String verse;
-  final Function onTap;
-  final bool triggerIconColor;
-
+  /// --------------------------------------------------------------------------
   const TabButton({
     @required this.isSelected,
     @required this.icon,
@@ -20,7 +14,14 @@ class TabButton extends StatelessWidget {
     this.triggerIconColor = true,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final bool isSelected;
+  final String icon;
+  final double iconSizeFactor;
+  final String verse;
+  final Function onTap;
+  final bool triggerIconColor;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

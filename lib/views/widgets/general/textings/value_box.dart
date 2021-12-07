@@ -4,17 +4,18 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class ValueBox extends StatelessWidget {
-  final String dataKey;
-  final dynamic value;
-  final Color color;
-
+  /// --------------------------------------------------------------------------
   const ValueBox({
     @required this.dataKey,
     @required this.value,
     this.color = Colorz.bloodTest,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String dataKey;
+  final dynamic value;
+  final Color color;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

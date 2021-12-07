@@ -4,17 +4,18 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class DreamBoxHighlight extends StatelessWidget {
-  final double width;
-  final double height;
-  final dynamic corners;
-
+  /// --------------------------------------------------------------------------
   const DreamBoxHighlight({
     @required this.width,
     @required this.height,
     @required this.corners,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  final double height;
+  final dynamic corners;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Container(

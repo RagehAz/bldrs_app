@@ -4,17 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class Pyramids extends StatefulWidget {
-  final String pyramidsIcon;
-  final bool loading;
-
+  /// --------------------------------------------------------------------------
   const Pyramids({
     @required this.pyramidsIcon,
     @required this.loading,
     Key key,
   }) : super (key : key);
-
+  /// --------------------------------------------------------------------------
+  final String pyramidsIcon;
+  final bool loading;
+  /// --------------------------------------------------------------------------
   @override
   _PyramidsState createState() => _PyramidsState();
+  /// --------------------------------------------------------------------------
 }
 
 class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {

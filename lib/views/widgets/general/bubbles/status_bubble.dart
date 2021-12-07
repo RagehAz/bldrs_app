@@ -9,13 +9,7 @@ import 'package:bldrs/xxx_lab/property_search_criteria.dart';
 import 'package:flutter/material.dart';
 
 class StatusBubble extends StatelessWidget {
-
-  final List<Map<String, Object>> status;
-  final UserStatus userStatus;
-  final Function switchUserStatus;
-  final UserStatus currentUserStatus;
-  final Function openEnumLister;
-
+  /// --------------------------------------------------------------------------
   const StatusBubble({
     @required this.status,
     @required this.userStatus,
@@ -24,7 +18,13 @@ class StatusBubble extends StatelessWidget {
     this.openEnumLister,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<Map<String, Object>> status;
+  final UserStatus userStatus;
+  final Function switchUserStatus;
+  final UserStatus currentUserStatus;
+  final Function openEnumLister;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

@@ -4,17 +4,19 @@ import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
 import 'package:flutter/material.dart';
 
 class TempClass{
-  final String a;
-  final double b;
-  final String c;
-  final String d;
-
+  /// --------------------------------------------------------------------------
   TempClass({
     @required this.a,
     @required this.b,
     @required this.c,
     @required this.d,
 });
+  /// --------------------------------------------------------------------------
+  final String a;
+  final double b;
+  final String c;
+  final String d;
+  /// --------------------------------------------------------------------------
 }
 
 class TestFormScreen extends StatefulWidget {

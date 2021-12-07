@@ -5,15 +5,16 @@ import 'package:bldrs/views/widgets/general/images/super_image.dart';
 import 'package:flutter/material.dart';
 
 class BldrsWelcomeBanner extends StatelessWidget {
-  final double width;
-  final double corners;
-
+  /// --------------------------------------------------------------------------
   const BldrsWelcomeBanner({
     @required this.width,
     this.corners = 0,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  final double corners;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

@@ -13,18 +13,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class BldrsAppBar extends StatelessWidget {
-  final AppBarType appBarType;
-  final Function onBack;
-  final String pageTitle;
-  final List<Widget> appBarRowWidgets;
-  final bool loading;
-  final ScrollController appBarScrollController;
-  final bool sectionButtonIsOn;
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final bool historyButtonIsOn;
-  final ValueChanged<String> onSearchChanged;
-
+  /// --------------------------------------------------------------------------
   const BldrsAppBar({
     this.appBarType,
     this.onBack,
@@ -39,7 +28,19 @@ class BldrsAppBar extends StatelessWidget {
     this.onSearchChanged,
     Key key
   }) : super (key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final AppBarType appBarType;
+  final Function onBack;
+  final String pageTitle;
+  final List<Widget> appBarRowWidgets;
+  final bool loading;
+  final ScrollController appBarScrollController;
+  final bool sectionButtonIsOn;
+  final TextEditingController searchController;
+  final ValueChanged<String> onSearchSubmit;
+  final bool historyButtonIsOn;
+  final ValueChanged<String> onSearchChanged;
+  /// --------------------------------------------------------------------------
   static double width(BuildContext context, {double boxWidth}){
 
     final double _boxWidth = boxWidth ?? Scale.superScreenWidth(context);

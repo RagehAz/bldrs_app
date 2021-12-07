@@ -7,12 +7,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page
 import 'package:flutter/material.dart';
 
 class AnkhButton extends StatefulWidget {
-  final double flyerBoxWidth;
-  final bool bzPageIsOn;
-  final bool listenToSwipe;
-  final bool ankhIsOn;
-  final Function onAnkhTap;
-
+  /// --------------------------------------------------------------------------
   const AnkhButton({
     @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
@@ -21,9 +16,16 @@ class AnkhButton extends StatefulWidget {
     @required this.onAnkhTap,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final bool bzPageIsOn;
+  final bool listenToSwipe;
+  final bool ankhIsOn;
+  final Function onAnkhTap;
+  /// --------------------------------------------------------------------------
   @override
   _AnkhButtonState createState() => _AnkhButtonState();
+  /// --------------------------------------------------------------------------
 }
 
 class _AnkhButtonState extends State<AnkhButton> with SingleTickerProviderStateMixin{

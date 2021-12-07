@@ -12,11 +12,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 
 class EditorPanel extends StatelessWidget {
-  final SuperFlyer superFlyer;
-  final BzModel bzModel;
-  final double flyerBoxWidth;
-  final double panelWidth;
-
+  /// --------------------------------------------------------------------------
   const EditorPanel({
     @required this.superFlyer,
     @required this.bzModel,
@@ -24,7 +20,12 @@ class EditorPanel extends StatelessWidget {
     @required this.panelWidth,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final BzModel bzModel;
+  final double flyerBoxWidth;
+  final double panelWidth;
+  /// --------------------------------------------------------------------------
   bool _authorButtonIsBlackAndWhite(){
     bool _isBlackAndWhite;
 

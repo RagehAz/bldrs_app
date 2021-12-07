@@ -3,11 +3,7 @@ import 'package:bldrs/views/widgets/general/images/super_image.dart';
 import 'package:flutter/material.dart';
 
 class GradientLayer extends StatelessWidget {
-  final double width;
-  final double height;
-  final bool isWhite;
-  final Color color;
-
+  /// --------------------------------------------------------------------------
   const GradientLayer({
     @required this.width,
     @required this.height,
@@ -15,7 +11,12 @@ class GradientLayer extends StatelessWidget {
     this.color,
     Key key,
 }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  final double height;
+  final bool isWhite;
+  final Color color;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

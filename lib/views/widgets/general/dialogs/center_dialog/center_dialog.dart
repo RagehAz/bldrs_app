@@ -9,13 +9,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class CenterDialog extends StatelessWidget {
-  final dynamic body;
-  final String title;
-  final bool boolDialog;
-  final double height;
-  final Widget child;
-  final String confirmButtonText;
-
+  /// --------------------------------------------------------------------------
   const CenterDialog({
     @required this.body,
     @required this.title,
@@ -25,7 +19,14 @@ class CenterDialog extends StatelessWidget {
     this.child,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final dynamic body;
+  final String title;
+  final bool boolDialog;
+  final double height;
+  final Widget child;
+  final String confirmButtonText;
+  /// --------------------------------------------------------------------------
   static Future<bool> showCenterDialog({
     @required BuildContext context,
     dynamic body,

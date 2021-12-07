@@ -16,11 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SectionTile extends StatelessWidget {
-  final double bubbleWidth;
-  final SectionClass.Section section;
-  final bool inActiveMode;
-  final Chain chain;
-
+  /// --------------------------------------------------------------------------
   const SectionTile({
     @required this.bubbleWidth,
     @required this.section,
@@ -28,7 +24,12 @@ class SectionTile extends StatelessWidget {
     @required this.chain,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double bubbleWidth;
+  final SectionClass.Section section;
+  final bool inActiveMode;
+  final Chain chain;
+  /// --------------------------------------------------------------------------
   String _sectionIcon({@required SectionClass.Section section, @required bool inActiveMode}){
     String _icon;
 

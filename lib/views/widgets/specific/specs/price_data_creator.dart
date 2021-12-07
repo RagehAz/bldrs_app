@@ -20,11 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PriceDataCreator extends StatefulWidget {
-  final ValueChanged<CurrencyModel> onCurrencyChanged;
-  final ValueChanged<String> onValueChanged;
-  final double initialPriceValue;
-  final Function onSubmitted;
-
+  /// --------------------------------------------------------------------------
   const PriceDataCreator({
     @required this.onCurrencyChanged,
     @required this.onValueChanged,
@@ -32,7 +28,12 @@ class PriceDataCreator extends StatefulWidget {
     @required this.onSubmitted,
     Key key
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final ValueChanged<CurrencyModel> onCurrencyChanged;
+  final ValueChanged<String> onValueChanged;
+  final double initialPriceValue;
+  final Function onSubmitted;
+  /// --------------------------------------------------------------------------
   static Future<void> showCurrencyDialog({
     @required BuildContext context,
     @required ValueChanged<CurrencyModel> onSelectCurrency,

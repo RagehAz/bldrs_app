@@ -30,15 +30,16 @@ import 'package:provider/provider.dart';
 final PageStorageBucket appBucket = PageStorageBucket();
 
 class InfoPage extends StatelessWidget {
-  final SuperFlyer superFlyer;
-  final double flyerBoxWidth;
-
+  /// --------------------------------------------------------------------------
   const InfoPage({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final double flyerBoxWidth;
+  /// --------------------------------------------------------------------------
   bool _flyerInfoExistsCheck(String flyerInfoParagraph){
     bool _exists;
 
@@ -277,21 +278,22 @@ class InfoPage extends StatelessWidget {
 
 }
 
-
 class NeedToSaveScrollPosition extends StatefulWidget {
-  final SuperFlyer superFlyer;
-  final double flyerZoneHeight;
-  final List<Widget> children;
-
+  /// --------------------------------------------------------------------------
   const NeedToSaveScrollPosition({
     @required this.superFlyer,
     @required this.flyerZoneHeight,
     @required this.children,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final double flyerZoneHeight;
+  final List<Widget> children;
+  /// --------------------------------------------------------------------------
   @override
   _NeedToSaveScrollPositionState createState() => _NeedToSaveScrollPositionState();
+  /// --------------------------------------------------------------------------
 }
 
 class _NeedToSaveScrollPositionState extends State<NeedToSaveScrollPosition> with AutomaticKeepAliveClientMixin<NeedToSaveScrollPosition>{

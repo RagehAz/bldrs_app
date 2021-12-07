@@ -1,14 +1,15 @@
 import 'package:flutter/foundation.dart';
 
 class LinkModel{
-  final String url;
-  final String description;
-
+  /// --------------------------------------------------------------------------
   const LinkModel({
     @required this.url,
     @required this.description,
   });
-
+  /// --------------------------------------------------------------------------
+  final String url;
+  final String description;
+  /// --------------------------------------------------------------------------
   Map<String, Object> toMap(){
     return <String, Object>{
       'url' : url,

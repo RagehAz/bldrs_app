@@ -20,11 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class UserBubble extends StatefulWidget {
-  final UserModel user;
-  final ValueChanged<UserStatus> switchUserType;
-  final Function editProfileBtOnTap;
-  final bool loading;
-
+  /// --------------------------------------------------------------------------
   const UserBubble({
     @required this.user,
     @required this.switchUserType,
@@ -32,9 +28,15 @@ class UserBubble extends StatefulWidget {
     @required this.loading,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final UserModel user;
+  final ValueChanged<UserStatus> switchUserType;
+  final Function editProfileBtOnTap;
+  final bool loading;
+  /// --------------------------------------------------------------------------
   @override
   State<UserBubble> createState() => _UserBubbleState();
+/// --------------------------------------------------------------------------
 }
 
 class _UserBubbleState extends State<UserBubble> {

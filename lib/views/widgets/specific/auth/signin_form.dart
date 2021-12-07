@@ -16,12 +16,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class SignInForm extends StatefulWidget {
-  final Function switchSignIn;
-  final String email;
-  final String password;
-  final Function fieldOnTap;
-
-
+  /// --------------------------------------------------------------------------
   const SignInForm({
     @required this.switchSignIn,
     @required this.email,
@@ -29,9 +24,15 @@ class SignInForm extends StatefulWidget {
     @required this.fieldOnTap,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final Function switchSignIn;
+  final String email;
+  final String password;
+  final Function fieldOnTap;
+  /// --------------------------------------------------------------------------
   @override
   _SignInFormState createState() => _SignInFormState();
+  /// --------------------------------------------------------------------------
 }
 
 class _SignInFormState extends State<SignInForm> {

@@ -2,18 +2,19 @@ import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/material.dart';
 
 class BigMac{
-  final String countryID;
-  final double localPrice;
-  final String currency;
-  final double toDollarRate;
-
+  /// --------------------------------------------------------------------------
   const BigMac({
     @required this.countryID,
     @required this.localPrice,
     @required this.currency,
     @required this.toDollarRate,
 });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String countryID;
+  final double localPrice;
+  final String currency;
+  final double toDollarRate;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return <String, dynamic>{
       'countryID' : countryID,
