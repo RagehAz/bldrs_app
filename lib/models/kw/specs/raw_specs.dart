@@ -10,11 +10,11 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
 
   // -------------------------------------------------------------------------
   /// STYLE ANATOMY
-  const Chain style = const Chain(
+  const Chain style = Chain(
     id: 'style',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Design Style'), Name(code: 'ar', value: 'الطراز التصميمي')],
-    sons: const <KW>[
+    sons: <KW>[
       KW(id: 'arch_style_arabian', names: <Name>[Name(code: 'en', value: 'Arabian'), Name(code: 'ar', value: 'عربي')],),
       KW(id: 'arch_style_andalusian', names: <Name>[Name(code: 'en', value: 'Andalusian'), Name(code: 'ar', value: 'أندلسي')],),
       KW(id: 'arch_style_asian', names: <Name>[Name(code: 'en', value: 'Asian'), Name(code: 'ar', value: 'آسيوي')],),
@@ -49,11 +49,11 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       KW(id: 'arch_style_vintage', names: <Name>[Name(code: 'en', value: 'Vintage'), Name(code: 'ar', value: 'عتيق')],),
     ],
   );
-  const Chain color = const Chain(
+  const Chain color = Chain(
     id: 'color',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Color'), Name(code: 'ar', value: 'اللون')],
-    sons: const<KW>[
+    sons: <KW>[
       KW(id: 'red', names: <Name>[Name(code: 'en', value: 'Red'), Name(code: 'ar', value: 'أحمر')],),
       KW(id: 'orange', names: <Name>[Name(code: 'en', value: 'Orange'), Name(code: 'ar', value: 'برتقالي')],),
       KW(id: 'yellow', names: <Name>[Name(code: 'en', value: 'Yellow'), Name(code: 'ar', value: 'أصفر')],),
@@ -68,38 +68,38 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
   );
   // -------------------------------------------------------------------------
   /// PRICING ANATOMY
-  const Chain contractType = const Chain(
+  const Chain contractType = Chain(
     id: 'contractType',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Contract Type'), Name(code: 'ar', value: 'نوع التعاقد')],
-    sons: const <KW>[
+    sons: <KW>[
       KW(id: newSaleID, names: <Name>[Name(code: 'en', value: 'New Sale'), Name(code: 'ar', value: 'للبيع جديد')],), // if you change ID revise specs_picker_screen
       KW(id: resaleID, names: <Name>[Name(code: 'en', value: 'Resale'), Name(code: 'ar', value: 'لإعادة البيع')],), // if you change ID revise specs_picker_screen
       KW(id: rentID, names: <Name>[Name(code: 'en', value: 'Rent'), Name(code: 'ar', value: 'للإيجار')],), // if you change ID revise specs_picker_screen
     ],
   );
-  const Chain paymentMethod = const Chain(
+  const Chain paymentMethod = Chain(
     id: 'paymentMethod',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Payment Method'), Name(code: 'ar', value: 'طريقة السداد')],
-    sons: const <KW>[
+    sons: <KW>[
       KW(id: 'payment_cash', names: <Name>[Name(code: 'en', value: 'Cash'), Name(code: 'ar', value: 'دفعة واحدة')],),
       KW(id: 'payment_installments', names: <Name>[Name(code: 'en', value: 'Installments'), Name(code: 'ar', value: 'على دفعات')],),
     ],
   );
-  const Chain price = const Chain(
+  const Chain price = Chain(
     id: 'price',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'price'), Name(code: 'ar', value: 'السعر')],
     sons: DataCreator.price,
   );
-  const Chain currency = const Chain(
+  const Chain currency = Chain(
     id: 'currency',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Currency'), Name(code: 'ar', value: 'العملة')],
     sons: DataCreator.currency,
   );
-  const Chain unitPriceInterval = const Chain(
+  const Chain unitPriceInterval = Chain(
     id: 'unitPriceInterval',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Standard interval'), Name(code: 'ar', value: 'مقياس الفترة')],
@@ -111,19 +111,19 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       KW(id: 'perYear', names: <Name>[Name(code: 'en', value: 'per year'), Name(code: 'ar', value: 'في السنة')],),
     ],
   );
-  const Chain numberOfInstallments = const Chain(
+  const Chain numberOfInstallments = Chain(
     id: 'numberOfInstallments',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Number of Installments'), Name(code: 'ar', value: 'عدد الدفعات')],
     sons: DataCreator.integerIncrementer,
   );
-  const Chain installmentsDuration = const Chain(
+  const Chain installmentsDuration = Chain(
     id: 'installmentsDuration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Installments duration'), Name(code: 'ar', value: 'مدة الدفعات')],
     sons: DataCreator.integerIncrementer,
   );
-  const Chain installmentsDurationUnit = const Chain(
+  const Chain installmentsDurationUnit = Chain(
     id: 'installmentsDurationUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Installments duration unit'), Name(code: 'ar', value: 'مقياس مدة الدفعات')],
@@ -136,13 +136,13 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
   );
   // -------------------------------------------------------------------------
   /// TIME ANATOMY
-  const Chain duration = const Chain(
+  const Chain duration = Chain(
     id: 'duration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Duration'), Name(code: 'ar', value: 'الزمن')],
     sons: DataCreator.integerIncrementer,
   );
-  const Chain durationUnit = const Chain(
+  const Chain durationUnit = Chain(
     id: 'durationUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Duration unit'), Name(code: 'ar', value: 'مقياس الزمن')],
@@ -157,13 +157,13 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
   );
   // -------------------------------------------------------------------------
   /// AREAL ANATOMY
-  const Chain propertyArea = const Chain(
+  const Chain propertyArea = Chain(
     id: 'propertyArea',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Area'), Name(code: 'ar', value: 'مساحة العقار')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain propertyAreaUnit = const Chain(
+  const Chain propertyAreaUnit = Chain(
     id: 'propertyAreaUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Area Unit'), Name(code: 'ar', value: 'وحدة قياس مساحة العقار')],
@@ -172,13 +172,13 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       KW(id: 'square_feet', names: <Name>[Name(code: 'en', value: 'ft²'), Name(code: 'ar', value: 'قدم²')],),
     ],
   );
-  const Chain lotArea = const Chain(
+  const Chain lotArea = Chain(
     id: 'plotArea',
     names: <Name>[Name(code: 'en', value: 'Lot Area'), Name(code: 'ar', value: 'مساحة قطعة الأرض')],
     icon: null,
     sons: DataCreator.doubleCreator,
   );
-  const Chain lotAreaUnit = const Chain(
+  const Chain lotAreaUnit = Chain(
     id: 'lotAreaUnit',
     names: <Name>[Name(code: 'en', value: 'Lot Area Unit'), Name(code: 'ar', value: 'وحدة قياس مساحة أرض العقار')],
     icon: null,
@@ -193,11 +193,11 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
   );
   // -------------------------------------------------------------------------
   /// PROPERTY GENERAL ANATOMY
-  const Chain propertyForm = const Chain(
+  const Chain propertyForm = Chain(
     id: 'propertyForm',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Form'), Name(code: 'ar', value: 'هيئة العقار')],
-    sons: const <KW>[
+    sons: <KW>[
       KW(id: 'pf_fullFloor', names: <Name>[Name(code: 'en', value: 'Full floor'), Name(code: 'ar', value: 'دور كامل')],),
       KW(id: 'pf_halfFloor', names: <Name>[Name(code: 'en', value: 'Half floor'), Name(code: 'ar', value: 'نصف دور')],),
       KW(id: 'pf_partFloor', names: <Name>[Name(code: 'en', value: 'Part of floor'), Name(code: 'ar', value: 'جزء من دور')],),
@@ -206,11 +206,11 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       KW(id: 'pf_mobile', names: <Name>[Name(code: 'en', value: 'Mobile'), Name(code: 'ar', value: 'منشأ متنقل')],),
     ],
   );
-  const Chain propertyLicense = const Chain(
+  const Chain propertyLicense = Chain(
     id: 'propertyLicense',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property License'), Name(code: 'ar', value: 'رخصة العقار')],
-    sons: const <KW>[
+    sons: <KW>[
       KW(id: 'ppt_lic_residential', names: <Name>[Name(code: 'en', value: 'Residential'), Name(code: 'ar', value: 'سكني')],),
       KW(id: 'ppt_lic_administration', names: <Name>[Name(code: 'en', value: 'Administration'), Name(code: 'ar', value: 'إداري')],),
       KW(id: 'ppt_lic_educational', names: <Name>[Name(code: 'en', value: 'Educational'), Name(code: 'ar', value: 'تعليمي')],),
@@ -225,18 +225,18 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
   );
   // -------------------------------------------------------------------------
   /// PROPERTY SPATIAL ANATOMY
-  const Chain propertySpaces = const Chain(
+  const Chain propertySpaces = Chain(
     id: 'group_space_type',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Space Type'), Name(code: 'ar', value: 'نوع الفراغ')],
-    sons: const <Chain>[
+    sons: <Chain>[
       // ----------------------------------
       /// Administration
-      const Chain(
+      Chain(
         id: 'ppt_lic_administration',
         icon: null,
         names: <Name>[Name(code: 'en', value: 'Administration'), Name(code: 'ar', value: 'إداري')],
-        sons: const <KW>[
+        sons: <KW>[
           KW(id: 'pt_office', names: <Name>[Name(code: 'en', value: 'Office'), Name(code: 'ar', value: 'مكتب إداري')],),
           KW(id: 'space_office', names: <Name>[Name(code: 'en', value: 'Office'), Name(code: 'ar', value: 'مكتب')],),
           KW(id: 'space_kitchenette', names: <Name>[Name(code: 'en', value: 'Office Kitchenette'), Name(code: 'ar', value: 'أوفيس / مطبخ صغير')],),
@@ -247,22 +247,22 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       ),
       // ----------------------------------
       /// Educational
-      const Chain(
+      Chain(
         id: 'ppt_lic_educational',
         icon: null,
         names: <Name>[Name(code: 'en', value: 'Educational'), Name(code: 'ar', value: 'تعليمي')],
-        sons: const <KW>[
+        sons: <KW>[
           KW(id: 'space_lectureRoom', names: <Name>[Name(code: 'en', value: 'Lecture room'), Name(code: 'ar', value: 'غرفة محاضرات')],),
           KW(id: 'space_library', names: <Name>[Name(code: 'en', value: 'Library'), Name(code: 'ar', value: 'مكتبة')],),
         ],
       ),
       // ----------------------------------
       /// Entertainment
-      const Chain(
+      Chain(
         id: 'ppt_lic_entertainment',
         icon: null,
         names: <Name>[Name(code: 'en', value: 'Entertainment'), Name(code: 'ar', value: 'ترفيهي')],
-        sons: const <KW>[
+        sons: <KW>[
           KW(id: 'space_theatre', names: <Name>[Name(code: 'en', value: 'Theatre'), Name(code: 'ar', value: 'مسرح')],),
           KW(id: 'space_concertHall', names: <Name>[Name(code: 'en', value: 'Concert hall'), Name(code: 'ar', value: 'قاعة موسيقية')],),
           KW(id: 'space_homeCinema', names: <Name>[Name(code: 'en', value: 'Home Cinema'), Name(code: 'ar', value: 'مسرح منزلي')],),
@@ -270,21 +270,21 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       ),
       // ----------------------------------
       /// Medical
-      const Chain(
+      Chain(
         id: 'ppt_lic_medical',
         icon: null,
         names: <Name>[Name(code: 'en', value: 'Medical'), Name(code: 'ar', value: 'طبي')],
-        sons: const <KW>[
+        sons: <KW>[
           KW(id: 'space_spa', names: <Name>[Name(code: 'en', value: 'Spa'), Name(code: 'ar', value: 'منتجع صحي')],),
         ],
       ),
       // ----------------------------------
       /// Residential
-      const Chain(
+      Chain(
         id: 'ppt_lic_residential',
         icon: null,
         names: <Name>[Name(code: 'en', value: 'Residential'), Name(code: 'ar', value: 'سكني')],
-        sons: const <KW>[
+        sons: <KW>[
           KW(id: 'space_lobby', names: <Name>[Name(code: 'en', value: 'Lobby'), Name(code: 'ar', value: 'ردهة')],),
           KW(id: 'space_living', names: <Name>[Name(code: 'en', value: 'Living room'), Name(code: 'ar', value: 'غرفة معيشة')],),
           KW(id: 'space_bedroom', names: <Name>[Name(code: 'en', value: 'Bedroom'), Name(code: 'ar', value: 'غرفة نوم')],),
@@ -310,21 +310,21 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       ),
       // ----------------------------------
       /// Retail
-      const Chain(
+      Chain(
         id: 'ppt_lic_retail',
         icon: null,
         names: <Name>[Name(code: 'en', value: 'Retail'), Name(code: 'ar', value: 'تجاري')],
-        sons: const <KW>[
+        sons: <KW>[
           KW(id: 'space_store', names: <Name>[Name(code: 'en', value: 'Store / Shop'), Name(code: 'ar', value: 'محل / متجر')],),
         ],
       ),
       // ----------------------------------
       /// Sports
-      const Chain(
+      Chain(
         id: 'ppt_lic_sports',
         icon: null,
         names: <Name>[Name(code: 'en', value: 'Sports'), Name(code: 'ar', value: 'رياضي')],
-        sons: const <KW>[
+        sons: <KW>[
           KW(id: 'space_gymnasium', names: <Name>[Name(code: 'en', value: 'Gymnasium'), Name(code: 'ar', value: 'جيمنازيوم')],),
           KW(id: 'space_sportsCourt', names: <Name>[Name(code: 'en', value: 'Sports court'), Name(code: 'ar', value: 'ملعب رياضي')],),
           KW(id: 'space_sportStadium', names: <Name>[Name(code: 'en', value: 'Stadium'), Name(code: 'ar', value: 'استاد رياضي')],),
@@ -332,11 +332,11 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       ),
       // ----------------------------------
       /// Utilities
-      const Chain(
+      Chain(
         id: 'ppt_lic_utilities',
         icon: null,
         names: <Name>[Name(code: 'en', value: 'Utilities'), Name(code: 'ar', value: 'خدمات')],
-        sons: const <KW>[
+        sons: <KW>[
           KW(id: 'pFeature_elevator', names: <Name>[Name(code: 'en', value: 'Elevator'), Name(code: 'ar', value: 'مصعد')],),
           KW(id: 'space_electricityRoom', names: <Name>[Name(code: 'en', value: 'Electricity rooms'), Name(code: 'ar', value: 'غرفة كهرباء')],),
           KW(id: 'space_plumbingRoom', names: <Name>[Name(code: 'en', value: 'Plumbing rooms'), Name(code: 'ar', value: 'غرفة صحي و صرف')],),
@@ -345,25 +345,25 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       ),
     ],
   );
-  const Chain propertyFloorNumber = const Chain(
+  const Chain propertyFloorNumber = Chain(
     id: 'propertyFloorNumber',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Floor Number'), Name(code: 'ar', value: 'رقم دور العقار')],
     sons: DataCreator.integerIncrementer,
   );
-  const Chain propertyDedicatedParkingLotsCount = const Chain(
+  const Chain propertyDedicatedParkingLotsCount = Chain(
     id: 'propertyDedicatedParkingSpaces',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Number of property dedicated parking lots'), Name(code: 'ar', value: 'عدد مواقف السيارات المخصصة للعقار')],
     sons: DataCreator.integerIncrementer,
   );
-  const Chain propertyNumberOfBedrooms = const Chain(
+  const Chain propertyNumberOfBedrooms = Chain(
     id: 'propertyNumberOfBedrooms',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Number of Bedrooms'), Name(code: 'ar', value: 'عدد غرف نوم العقار')],
     sons: DataCreator.integerIncrementer,
   );
-  const Chain propertyNumberOfBathrooms = const Chain(
+  const Chain propertyNumberOfBathrooms = Chain(
     id: 'propertyNumberOfBathrooms',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Number of bathrooms'), Name(code: 'ar', value: 'عدد حمامات العقار')],
@@ -371,11 +371,11 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
   );
   // -------------------------------------------------------------------------
   /// PROPERTY FEATURES ANATOMY
-  const Chain propertyView = const Chain(
+  const Chain propertyView = Chain(
     id: 'propertyView',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property View'), Name(code: 'ar', value: 'المنظر المطل عليه  العقار')],
-    sons: const <KW>[
+    sons: <KW>[
       KW(id: 'view_golf', names: <Name>[Name(code: 'en', value: 'Golf course view'), Name(code: 'ar', value: 'مضمار جولف')],),
       KW(id: 'view_hill', names: <Name>[Name(code: 'en', value: 'Hill or Mountain view'), Name(code: 'ar', value: 'تل أو جبل')],),
       KW(id: 'view_ocean', names: <Name>[Name(code: 'en', value: 'Ocean view'), Name(code: 'ar', value: 'محيط')],),
@@ -391,11 +391,11 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       KW(id: 'view_pool', names: <Name>[Name(code: 'en', value: 'Pool view'), Name(code: 'ar', value: 'حمام سباحة')],),
     ],
   );
-  const Chain propertyIndoorFeatures = const Chain(
+  const Chain propertyIndoorFeatures = Chain(
     id: 'sub_ppt_feat_indoor',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Property Indoor Features'), Name(code: 'ar', value: 'خواص العقار الداخلية')],
-    sons: const <KW>[
+    sons: <KW>[
       KW(id: 'pFeature_disabilityFeatures', names: <Name>[Name(code: 'en', value: 'Disability features'), Name(code: 'ar', value: 'خواص معتبرة للإعاقة و المقعدين')],),
       KW(id: 'pFeature_fireplace', names: <Name>[Name(code: 'en', value: 'Fireplace'), Name(code: 'ar', value: 'مدفأة حطب')],),
       KW(id: 'pFeature_energyEfficient', names: <Name>[Name(code: 'en', value: 'Energy efficient'), Name(code: 'ar', value: 'موفر للطاقة')],),
@@ -410,11 +410,11 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       KW(id: 'pFeature_tv', names: <Name>[Name(code: 'en', value: 'Satellite / Cable TV'), Name(code: 'ar', value: 'قمر صناعي / تلفزيون مركزي')],),
     ],
   );
-  const Chain propertyFinishingLevel = const Chain(
+  const Chain propertyFinishingLevel = Chain(
     id: 'sub_ppt_feat_finishing',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Finishing level'), Name(code: 'ar', value: 'مستوى التشطيب')],
-    sons: const <KW>[
+    sons: <KW>[
       KW(id: 'finish_coreAndShell', names: <Name>[Name(code: 'en', value: 'Core and shell'), Name(code: 'ar', value: 'خرسانات و حوائط خارجية')],),
       KW(id: 'finish_withoutFinishing', names: <Name>[Name(code: 'en', value: 'Without finishing'), Name(code: 'ar', value: 'غير متشطب')],),
       KW(id: 'finish_semiFinished', names: <Name>[Name(code: 'en', value: 'Semi finished'), Name(code: 'ar', value: 'نصف تشطيب')],),
@@ -425,25 +425,25 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
   );
   // -------------------------------------------------------------------------
   /// BUILDING FEATURES ANATOMY
-  const Chain buildingNumberOfFloors = const Chain(
+  const Chain buildingNumberOfFloors = Chain(
     id: 'buildingNumberOfFloors',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Building number of floors'), Name(code: 'ar', value: 'عدد أدوار المبنى')],
     sons: DataCreator.integerIncrementer, // TASK : define range 0 - g163
   );
-  const Chain buildingAgeInYears = const Chain(
+  const Chain buildingAgeInYears = Chain(
     id: 'buildingAge',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Building Age'), Name(code: 'ar', value: 'عمر المنشأ')],
     sons: DataCreator.integerIncrementer,
   );
-  const Chain buildingTotalParkingLotsCount = const Chain(
+  const Chain buildingTotalParkingLotsCount = Chain(
     id: 'buildingTotalParkingLotsCount',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Total Building parking lots count'), Name(code: 'ar', value: 'مجموع عدد مواقف السيارات للمبنى')],
     sons: DataCreator.integerIncrementer,
   );
-  const Chain buildingTotalUnitsCount = const Chain(
+  const Chain buildingTotalUnitsCount = Chain(
     id: 'buildingTotalPropertiesCount',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Total Building units count'), Name(code: 'ar', value: 'مجموع عدد وحدات المبنى')],
@@ -451,20 +451,20 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
   );
   // -------------------------------------------------------------------------
   /// COMMUNITY FEATURES ANATOMY
-  const Chain inACompound = const Chain(
+  const Chain inACompound = Chain(
     id: 'sub_ppt_feat_compound',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'In a Compound'), Name(code: 'ar', value: 'في مجمع سكني')],
-    sons: const <KW>[
+    sons: <KW>[
       KW(id: 'in_compound', names: <Name>[Name(code: 'en', value: 'In a compound'), Name(code: 'ar', value: 'في مجمع سكني')],),
       KW(id: 'not_in_compound', names: <Name>[Name(code: 'en', value: 'Not in a compound'), Name(code: 'ar', value: 'ليست في مجمع سكني')],),
     ],
   );
-  const Chain amenities = const Chain(
+  const Chain amenities = Chain(
     id: 'sub_ppt_feat_amenities',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Amenities'), Name(code: 'ar', value: 'منشآت خدمية ملحقة')],
-    sons: const <KW>[
+    sons: <KW>[
       KW(id: 'am_laundry', names: <Name>[Name(code: 'en', value: 'Laundry'), Name(code: 'ar', value: 'مغسلة')],),
       KW(id: 'am_swimmingPool', names: <Name>[Name(code: 'en', value: 'Swimming pool'), Name(code: 'ar', value: 'حمام سباحة')],),
       KW(id: 'am_kidsPool', names: <Name>[Name(code: 'en', value: 'Kids pool'), Name(code: 'ar', value: 'حمام سباحة أطفال')],),
@@ -482,11 +482,11 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       KW(id: 'am_lobby', names: <Name>[Name(code: 'en', value: 'Building lobby'), Name(code: 'ar', value: 'ردهة مدخل للمبنى')],),
     ],
   );
-  const Chain communityServices = const Chain(
+  const Chain communityServices = Chain(
     id: 'sub_ppt_feat_services',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Community Services'), Name(code: 'ar', value: 'خدمات المجتمع')],
-    sons: const <KW>[
+    sons: <KW>[
       KW(id: 'pService_houseKeeping', names: <Name>[Name(code: 'en', value: 'Housekeeping'), Name(code: 'ar', value: 'خدمة تنظيف منزلي')],),
       KW(id: 'pService_laundryService', names: <Name>[Name(code: 'en', value: 'LaundryService'), Name(code: 'ar', value: 'خدمة غسيل ملابس')],),
       KW(id: 'pService_concierge', names: <Name>[Name(code: 'en', value: 'Concierge'), Name(code: 'ar', value: 'خدمة استقبال')],),
@@ -514,7 +514,7 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
     names: const <Name>[Name(code: 'en', value: 'Project construction activities'), Name(code: 'ar', value: 'بنود تنفيذ المشروع')],
     sons: ChainCrafts.chain.sons,
   );
-  const Chain constructionActivityMeasurementMethod = const Chain(
+  const Chain constructionActivityMeasurementMethod = Chain(
     id: 'constructionActivityMeasurementMethod',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Measurement unit'), Name(code: 'ar', value: 'أسلوب القياس')],
@@ -529,43 +529,43 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
   );
   // -------------------------------------------------------------------------
   /// SIZING ANATOMY
-  const Chain width = const Chain(
+  const Chain width = Chain(
     id: 'width',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Width'), Name(code: 'ar', value: 'العرض')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain length = const Chain(
+  const Chain length = Chain(
     id: 'length',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Length'), Name(code: 'ar', value: 'الطول')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain height = const Chain(
+  const Chain height = Chain(
     id: 'height',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Height'), Name(code: 'ar', value: 'الارتفاع')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain thickness = const Chain(
+  const Chain thickness = Chain(
     id: 'thickness',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Thickness'), Name(code: 'ar', value: 'السمك')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain diameter = const Chain(
+  const Chain diameter = Chain(
     id: 'diameter',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Diameter'), Name(code: 'ar', value: 'القطر')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain radius = const Chain(
+  const Chain radius = Chain(
     id: 'radius',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Radius'), Name(code: 'ar', value: 'نصف القطر')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain linearMeasurementUnit = const Chain(
+  const Chain linearMeasurementUnit = Chain(
     id: 'linearMeasureUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Linear measurement unit'), Name(code: 'ar', value: 'وحدة القياس الطولي')],
@@ -581,13 +581,13 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       KW(id: 'mile', names: <Name>[Name(code: 'en', value: 'mile'), Name(code: 'ar', value: 'ميل')],),
     ],
   );
-  const Chain footPrint = const Chain(
+  const Chain footPrint = Chain(
     id: 'footPrint',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Footprint'), Name(code: 'ar', value: 'مساحة الأرضية')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain areaMeasureUnit = const Chain(
+  const Chain areaMeasureUnit = Chain(
     id: 'areaMeasureUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Area measurement unit'), Name(code: 'ar', value: 'وحدة القياس المساحة')],
@@ -601,13 +601,13 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
 
     ],
   );
-  const Chain volume = const Chain(
+  const Chain volume = Chain(
     id: 'volume',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Volume'), Name(code: 'ar', value: 'الحجم')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain volumeMeasurementUnit = const Chain(
+  const Chain volumeMeasurementUnit = Chain(
     id: 'volumeMeasurementUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Volume measurement unit'), Name(code: 'ar', value: 'وحدة قياس الحجم')],
@@ -622,13 +622,13 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       KW(id: 'cubic_feet', names: <Name>[Name(code: 'en', value: 'feet³'), Name(code: 'ar', value: 'قدم مكعب')],),
      ],
   );
-  const Chain weight = const Chain(
+  const Chain weight = Chain(
     id: 'weight',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Weight'), Name(code: 'ar', value: 'الوزن')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain weightMeasurementUnit = const Chain(
+  const Chain weightMeasurementUnit = Chain(
     id: 'weightMeasurementUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Weight measurement unit'), Name(code: 'ar', value: 'وحدة قياس الوزن')],
@@ -640,13 +640,13 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
       KW(id: 'kilogram', names: <Name>[Name(code: 'en', value: 'kg'), Name(code: 'ar', value: 'كج')],),
     ],
   );
-  const Chain count = const Chain(
+  const Chain count = Chain(
     id: 'count',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Count'), Name(code: 'ar', value: 'العدد')],
     sons: DataCreator.integerIncrementer,
   );
-  const Chain size = const Chain (
+  const Chain size = Chain (
     id: 'size',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Size'), Name(code: 'ar', value: 'المقاس')],
@@ -664,19 +664,19 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
   );
   // ------------------------------------------
   /// ELECTRICAL ANATOMY
-  const Chain wattage = const Chain(
+  const Chain wattage = Chain(
     id: 'wattage',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Watt'), Name(code: 'ar', value: 'وات')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain voltage = const Chain(
+  const Chain voltage = Chain(
     id: 'voltage',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'volt'), Name(code: 'ar', value: 'فولت')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain ampere = const Chain(
+  const Chain ampere = Chain(
     id: 'ampere',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'amps'), Name(code: 'ar', value: 'أمبير')],
@@ -684,25 +684,25 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
   );
   // ------------------------------------------
   /// LOGISTICS ANATOMY
-  const Chain inStock = const Chain(
+  const Chain inStock = Chain(
     id: 'inStock',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'In Stock'), Name(code: 'ar', value: 'متوفر في المخزون')],
     sons: DataCreator.boolSwitch,
   );
-  const Chain deliveryAvailable = const Chain(
+  const Chain deliveryAvailable = Chain(
     id: 'deliveryAvailable',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Available delivery'), Name(code: 'ar', value: 'التوصيل متوفر')],
     sons: DataCreator.boolSwitch,
   );
-  const Chain deliveryDuration = const Chain(
+  const Chain deliveryDuration = Chain(
     id: 'deliveryMinDuration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Delivery duration'), Name(code: 'ar', value: 'فترة التوصيل')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain deliveryDurationUnit = const Chain(
+  const Chain deliveryDurationUnit = Chain(
     id: 'deliveryDurationUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Delivery duration unit'), Name(code: 'ar', value: 'مقياس فترة التوصيل')],
@@ -715,19 +715,19 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
   );
   // ------------------------------------------
   /// PRODUCT INFO
-  const Chain madeIn = const Chain(
+  const Chain madeIn = Chain(
     id: 'madeIn',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Made in'), Name(code: 'ar', value: 'صنع في')],
     sons: null, // getCountriesAsKeywords()
   );
-  const Chain warrantyDuration = const Chain(
+  const Chain warrantyDuration = Chain(
     id: 'insuranceDuration',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Warranty duration'), Name(code: 'ar', value: 'مدة الضمان')],
     sons: DataCreator.doubleCreator,
   );
-  const Chain warrantyDurationUnit = const Chain(
+  const Chain warrantyDurationUnit = Chain(
     id: 'warrantyDurationUnit',
     icon: null,
     names: <Name>[Name(code: 'en', value: 'Warranty duration unit'), Name(code: 'ar', value: 'وحدة قياس مدة الضمان')],

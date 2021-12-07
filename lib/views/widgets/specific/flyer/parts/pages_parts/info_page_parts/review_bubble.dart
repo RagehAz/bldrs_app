@@ -110,7 +110,7 @@ class _ReviewBubbleState extends State<ReviewBubble> {
   Widget build(BuildContext context) {
 
     final double _bubbleWidth = widget.flyerBoxWidth - (Ratioz.appBarPadding * 2);
-    const EdgeInsets _bubbleMargins = const EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
+    const EdgeInsets _bubbleMargins = EdgeInsets.only(top: Ratioz.appBarPadding, left: Ratioz.appBarPadding, right: Ratioz.appBarPadding);
     // double _peopleBubbleBoxHeight = widget.flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
 
     final double _cornerSmall = widget.flyerBoxWidth * Ratioz.xxflyerTopCorners;

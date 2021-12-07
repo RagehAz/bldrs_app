@@ -212,7 +212,7 @@ class UserModel {
       _userIsAuthor;
   }
 // -----------------------------------------------------------------------------
-  static const List<UserStatus> userTypesList = const <UserStatus>[
+  static const List<UserStatus> userTypesList = <UserStatus>[
     UserStatus.normal,
     UserStatus.searching,
     UserStatus.finishing,

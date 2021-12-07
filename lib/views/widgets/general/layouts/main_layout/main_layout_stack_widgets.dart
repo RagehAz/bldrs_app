@@ -94,7 +94,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
         /// NAV BAR
         if (pyramids == null)
           const NavBar(
-            key: const ValueKey<String>('navBar'),
+            key: ValueKey<String>('navBar'),
           ),
 
         if (pyramids != null && DeviceChecker.deviceIsIOS() == true)

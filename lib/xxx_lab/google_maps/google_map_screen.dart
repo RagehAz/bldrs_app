@@ -249,7 +249,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 children: const <Widget>[
 
                   /// pin square on top
-                  const DreamBox(
+                  DreamBox(
                     width: _pinWidth,
                     height: _pinWidth,
                     icon: Iconz.locationPin,

@@ -14,7 +14,7 @@ enum Section{
 }
 // -----------------------------------------------------------------------------
 
-  const List<Section> sectionsList = const <Section>[
+  const List<Section> sectionsList = <Section>[
     Section.properties,
     Section.designs,
     Section.projects,

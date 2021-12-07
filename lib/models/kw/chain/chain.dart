@@ -51,7 +51,7 @@ class Chain {
     return _filteredChain;
   }
 // -----------------------------------------------------------------------------
-  static const Chain bldrsChain = const Chain(
+  static const Chain bldrsChain = Chain(
     id: 'bldrs',
     icon: Iconz.bldrsNameEn,
     names: <Name>[

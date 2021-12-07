@@ -220,7 +220,7 @@ class BldrsAppBar extends StatelessWidget {
           margin: const EdgeInsets.all(Ratioz.appBarMargin),
           decoration: const BoxDecoration(
             color: Colorz.black230,
-            borderRadius: const BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
+            borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
             boxShadow: Shadowz.appBarShadow,
           ),
 

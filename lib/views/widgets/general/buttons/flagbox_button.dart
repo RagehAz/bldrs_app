@@ -38,7 +38,7 @@ class FlagBox extends StatelessWidget {
             ]),
         child: ClipRRect(
           borderRadius:
-          const BorderRadius.all(const Radius.circular(corner)),
+          const BorderRadius.all(Radius.circular(corner)),
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[

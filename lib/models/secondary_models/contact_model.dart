@@ -267,8 +267,7 @@ class ContactModel{
     return icons;
   }
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-  static const List<ContactType> contactTypesList = const <ContactType>[
+  static const List<ContactType> contactTypesList = <ContactType>[
     ContactType.phone,
     ContactType.email,
     ContactType.website,

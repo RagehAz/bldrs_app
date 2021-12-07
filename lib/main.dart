@@ -255,7 +255,7 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
                 routes: <String, Widget Function(BuildContext)>{
                   Routez.flyerScreen: (BuildContext ctx) => const FlyerScreen(),
                   // Routez.Starting: (ctx) => StartingScreen(),
-                  Routez.userChecker: (BuildContext ctx) => const UserChecker(key: const ValueKey<String>('userChecker'),),
+                  Routez.userChecker: (BuildContext ctx) => const UserChecker(key: ValueKey<String>('userChecker'),),
                   Routez.home: (BuildContext ctx) => HomeScreen(notiIsOn: _notiIsOn,),
                   // Routez.InPyramids: (ctx) => InPyramidsScreen(),
                 },

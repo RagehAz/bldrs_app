@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 // -----------------------------------------------------------------------------
   Future<List<KW>> readKeywordsOps({@required BuildContext context}) async {
 
-    const List<String> _keywordsDocs = const <String>[
+    const List<String> _keywordsDocs = <String>[
       FireDoc.keys_propertiesKeywords,
       FireDoc.keys_designsKeywords,
       FireDoc.keys_craftsKeywords,

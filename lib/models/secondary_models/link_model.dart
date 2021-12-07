@@ -18,17 +18,17 @@ class LinkModel{
   }
 
 // -----------------------------------------------------------------------------
-  static const LinkModel bldrsWebSiteLink = const LinkModel(
+  static const LinkModel bldrsWebSiteLink = LinkModel(
     url: 'www.bldrs.net',
     description: 'Download Bldrs.net App',
   );
 // -----------------------------------------------------------------------------
-  static const LinkModel bldrsAppStoreLink = const LinkModel(
+  static const LinkModel bldrsAppStoreLink = LinkModel(
     url: 'www.google.com', // temp
     description: 'Download Bldrs.net App',
   );
 // -----------------------------------------------------------------------------
-  static const LinkModel bldrsPlayStoreLink = const LinkModel(
+  static const LinkModel bldrsPlayStoreLink = LinkModel(
     url: 'www.google.com', // temp
     description: 'Download Bldrs.net App',
   );

@@ -17,15 +17,15 @@
   const String continents = 'continents';
   const String currencies = 'currencies';
 
-  const List<String> bzModelsDocs = const <String>[
+  const List<String> bzModelsDocs = <String>[
     bzz,
   ];
 
-  const List<String> flyerModelsDocs = const <String>[
+  const List<String> flyerModelsDocs = <String>[
     flyers,
   ];
 
-  const List<String> userModelsDocs = const <String>[
+  const List<String> userModelsDocs = <String>[
     users,
   ];
 

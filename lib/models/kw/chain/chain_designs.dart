@@ -5,7 +5,7 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
 
 abstract class ChainDesigns {
 
-  static const Chain chain = const Chain(
+  static const Chain chain = Chain(
     id: 'designs',
     icon: Iconz.bxDesignsOff,
     names: <Name>[Name(code: 'en', value: 'Designs'), Name(code: 'ar', value: '')],
