@@ -58,7 +58,7 @@ class PricingScreen extends StatelessWidget {
                 final String _proPrice$ = '$_proPriceDollarRounded \$';
 
                 return
-                  Container(
+                  SizedBox(
                     width: 100,
                     height: 50,
                     child: Row(

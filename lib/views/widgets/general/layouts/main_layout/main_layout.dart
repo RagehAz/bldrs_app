@@ -255,7 +255,7 @@ class PyramidsHorizon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
+    return SizedBox(
       width: Scale.superScreenWidth(context),
       height: Ratioz.horizon * heightFactor,
     );
@@ -286,7 +286,7 @@ class Stratosphere extends StatelessWidget {
 
     final double _height = bigAppBar == true ? bigAppBarStratosphere : smallAppBarStratosphere;
 
-    return Container(
+    return SizedBox(
       width: Scale.superScreenWidth(context),
       height: _height * heightFactor,
     );

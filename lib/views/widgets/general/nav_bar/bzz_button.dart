@@ -26,7 +26,7 @@ class BzzButton extends StatelessWidget {
   }) : super(key: key);
 
 Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
-  return Container(
+  return SizedBox(
     height: circleWidth * 0.47,
     width: circleWidth * 0.47,
     child: DreamBox(
@@ -85,7 +85,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
 
               /// --- BZZ LOGOS
               if (_userBzz.isEmpty)
-              Container(width: _circleWidth, height: _circleWidth,),
+              SizedBox(width: _circleWidth, height: _circleWidth,),
 
               if (_userBzz.isNotEmpty)
                 Container(
@@ -130,7 +130,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
                     )
                         :
                     _userBzz.length == 3 ?
-                    Container(
+                    SizedBox(
                       width: _circleWidth,
                       height: _circleWidth,
                       // color: Colorz.Grey,

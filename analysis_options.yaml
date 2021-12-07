@@ -112,6 +112,17 @@ linter:
     prefer_int_literals: true
     prefer_interpolation_to_compose_strings: true
     prefer_is_empty: true
+    prefer_is_not_empty: true
+    prefer_is_not_operator: true
+    prefer_iterable_whereType: true
+    prefer_null_aware_method_calls: true
+    prefer_null_aware_operators: true
+    prefer_spread_collections: true
+    prefer_typing_uninitialized_variables: true
+    provide_deprecation_message: true
+    recursive_getters: true
+    sized_box_for_whitespace: true
+    sized_box_shrink_expand: true
 
 
     # Pending
@@ -147,6 +158,9 @@ linter:
     prefer_expression_function_bodies: false # not important & messes my organization
     prefer_final_parameters: false # fires ~5000 hints
     prefer_foreach: false # incompatible with avoid_function_literals_in_foreach_calls yahbal
+    prefer_mixin: false # fakes
+    public_member_api_docs: false # fires ~4000 hints
+
 
 analyzer:
   errors:

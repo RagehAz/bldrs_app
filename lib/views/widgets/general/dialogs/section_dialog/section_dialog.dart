@@ -48,7 +48,7 @@ class SectionDialog extends StatelessWidget {
 
     return MaxBounceNavigator(
       boxDistance: BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7),
-      child: Container(
+      child: SizedBox(
         width: BottomDialog.dialogClearWidth(context),
         // height: _dialogHeight,
         // color: Colorz.BloodTest,

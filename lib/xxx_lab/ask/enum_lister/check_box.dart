@@ -93,7 +93,7 @@ class CheckBox extends StatelessWidget {
                   ),
 
                   if (checkBoxIsOn != false)
-                  Container(
+                    SizedBox(
                         width: checkBoxRadius * 1.25,
                         height: checkBoxRadius * 1.25,
                         child: WebsafeSvg.asset(

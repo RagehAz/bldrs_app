@@ -328,8 +328,8 @@ class GeneralStatistics extends StatelessWidget {
                   iconSizeFactor: 0.8,
                 ),
 
-                // --- THE END
-                Container(
+                /// --- THE END
+                SizedBox(
                   width: _screenWidth,
                   height: _screenWidth * 0.5,
                 ),

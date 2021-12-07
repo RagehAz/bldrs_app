@@ -235,11 +235,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             width: _screenWidth,
             height: _screenHeight,
             alignment: Alignment.center,
-            child: Container(
+            child: SizedBox(
               width: _pinWidth,
               height: _pinWidth * 2,
               child: Column(
-                children: <Widget>[
+                children: const <Widget>[
 
                   /// pin square on top
                   const DreamBox(
@@ -251,7 +251,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   ),
 
                   /// fake balancing bottom square
-                  Container(
+                  SizedBox(
                     width: _pinWidth,
                     height: _pinWidth,
                   ),

@@ -21,7 +21,7 @@ class GradientLayer extends StatelessWidget {
 
     final String _gradient = isWhite == true ? Iconz.whiteGradient : Iconz.blackGradient;
 
-    return Container(
+    return SizedBox(
       width: width,
       height: height,
       // color: Colorz.BloodTest,

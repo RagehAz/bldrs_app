@@ -266,7 +266,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
         Column(
           children: <Widget>[
 
-            Container(
+            SizedBox(
               width: widget.width,
               child: widget.child,
             ),

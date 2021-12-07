@@ -108,7 +108,7 @@ class _FlyersGridState extends State<FlyersGrid> {
     EdgeInsets.all(gridSpacing);
 // -----------------------------------------------------------------------------
     return
-      Container(
+      SizedBox(
           width: widget.gridZoneWidth,
           height: gridHeight,
           child:

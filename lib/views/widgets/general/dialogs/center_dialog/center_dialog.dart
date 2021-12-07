@@ -176,7 +176,7 @@ class CenterDialog extends StatelessWidget {
                               ),
 
                               /// BODY
-                              Container(
+                              SizedBox(
                                 width: _dialogWidth,
                                 // height: _bodyZoneHeight,
                                 child: SuperVerse(
@@ -188,7 +188,7 @@ class CenterDialog extends StatelessWidget {
 
                               /// child
                               if (child != null)
-                                Container(
+                                SizedBox(
                                     width: _dialogWidth,
                                     // height: _childZoneHeight,
                                     child: child
@@ -201,7 +201,7 @@ class CenterDialog extends StatelessWidget {
 
                         /// BUTTONS
                         if (boolDialog != null)
-                          Container(
+                          SizedBox(
                             width: _dialogWidth,
                             height: _buttonZoneHeight,
                             // color: Colorz.BloodTest,

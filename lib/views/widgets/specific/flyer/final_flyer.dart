@@ -1184,7 +1184,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
                     children: <Widget>[
 
                       /// REVIEW TEXT FIELD
-                      Container(
+                      SizedBox(
                         width: _dialogClearWidth,
                         child: SuperTextField(
                           autofocus: true,
@@ -1304,7 +1304,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       height: _dialogHeight,
       draggable: true,
       title: 'Review options',
-      child: Container(
+      child: SizedBox(
         width: _dialogClearWidth,
         height: _dialogClearHeight,
         child: Row(
@@ -2058,7 +2058,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         children: <Widget>[
 
           /// TEXT FIELD
-          Container(
+          SizedBox(
             width: _dialogClearWidth,
             child: SuperTextField(
               // autofocus: autoFocus,

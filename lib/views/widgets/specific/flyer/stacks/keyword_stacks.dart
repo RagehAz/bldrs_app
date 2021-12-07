@@ -50,7 +50,7 @@ class FlyerCoversStack extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
-            Container(
+            SizedBox(
               width: coverFlyerWidth,
               height: coverFlyerHeight,
               child: FinalFlyer(
@@ -63,7 +63,7 @@ class FlyerCoversStack extends StatelessWidget {
             ),
 
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: gridWidth,
                 height: gridHeight,
                 child: Center(
@@ -81,7 +81,7 @@ class FlyerCoversStack extends StatelessWidget {
                     children: <Widget>[
                       for (int index = 1; index < gridLoopLength; index++)
 
-                          Container(
+                          SizedBox(
                               width: otherFlyersWidth,
                               height: otherFlyersHeight,
                               child: FinalFlyer(

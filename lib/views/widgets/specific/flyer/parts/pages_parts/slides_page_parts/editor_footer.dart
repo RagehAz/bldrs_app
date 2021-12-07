@@ -97,7 +97,7 @@ class EditorFooter extends StatelessWidget {
       alignment: Alignment.bottomCenter,
 
       /// --- FLYER FOOTER BOX
-      child: Container(
+      child: SizedBox(
         width: flyerBoxWidth,
         height: FlyerFooter.boxHeight(context: context, flyerBoxWidth: flyerBoxWidth),
         child: Stack(

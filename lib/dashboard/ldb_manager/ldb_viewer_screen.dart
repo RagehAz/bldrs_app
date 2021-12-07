@@ -53,7 +53,7 @@ class LDBViewerScreen extends StatefulWidget {
             // int _idInt = Numberers.stringToInt(_id);
 
             return
-              Container(
+              SizedBox(
                 width: _screenWidth,
                 height: 42,
                 child: ListView(

@@ -368,7 +368,7 @@ class _SearchScreenState extends State<SearchScreen> {
           /// SEARCH RESULT
           MaxBounceNavigator(
             boxDistance: _screenHeight,
-            child: Container(
+            child: SizedBox(
               width: _screenWidth,
               height: _screenHeight,
               // color: Colorz.BlackPlastic,

@@ -235,7 +235,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
       columnChildren: <Widget>[
 
         /// USER LABEL
-        Container(
+        SizedBox(
           height: _abButtonsHeight * 1.2,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -253,7 +253,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
               ),
 
               /// SPACER
-              Container(
+              const SizedBox(
                 width: Ratioz.appBarMargin,
                 height: _abButtonsHeight,
               ),

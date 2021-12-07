@@ -152,7 +152,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
     const Chain _productsChain = ChainProducts.chain;
     const Chain _equipmentChain = ChainEquipment.chain;
 
-    return Container(
+    return SizedBox(
       width: _drawerWidth,
       child: Drawer(
         key: const ValueKey<String>('drawer'),
@@ -167,7 +167,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
             children: <Widget>[
 
               /// SEARCH BAR
-              Container(
+              SizedBox(
                 width: _drawerWidth,
                 height: 80,
                 child: SearchBar(

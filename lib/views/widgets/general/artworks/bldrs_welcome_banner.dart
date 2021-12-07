@@ -23,7 +23,7 @@ class BldrsWelcomeBanner extends StatelessWidget {
       graphicHeight: 18,
     );
 
-    return Container(
+    return SizedBox(
       width: width,
       height: _welcomeBannerHeight,
       child: ClipRRect(

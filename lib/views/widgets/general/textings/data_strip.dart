@@ -70,7 +70,7 @@ class DataStrip extends StatelessWidget {
                     draggable: true,
                     title: '${dataKey} : ${dataValue.toString()}',
                     height: 150,
-                    child: Container(
+                    child: SizedBox(
                       width: BottomDialog.dialogClearWidth(context),
                       height: BottomDialog.dialogClearHeight(
                         draggable: true,

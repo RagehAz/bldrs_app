@@ -65,19 +65,19 @@ class AddGalleryPicBubble extends StatelessWidget {
                 children: <Widget>[
 
                   /// FAKE LEFT FOOTPRINT TO CENTER THE ROW IN THE MIDDLE O BUBBLE
-                  Container(
+                  const SizedBox(
                     width: btZoneWidth,
                     height: picWidth,
                   ),
 
                   /// FAKE FOOTPRINT UNDER PIC
-                  Container(
+                  const SizedBox(
                     width: picWidth*1.1,
                     height: picWidth,
                   ),
 
                   /// GALLERY & DELETE BUTTONS
-                  Container(
+                  SizedBox(
                     width: btZoneWidth,
                     height: picWidth,
                     child: Column(

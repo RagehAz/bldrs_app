@@ -114,7 +114,7 @@ class GalleryGrid extends StatelessWidget {
     print('the fucking flyers hena are : ${galleryFlyers}');
 
     return
-      Container(
+      SizedBox(
           width: gridZoneWidth,
           height: _gridHeight,
           child:

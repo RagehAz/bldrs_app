@@ -34,7 +34,7 @@ class SectionBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         /// Section buttons
-        Container(
+        SizedBox(
           width: bubbleWidth,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

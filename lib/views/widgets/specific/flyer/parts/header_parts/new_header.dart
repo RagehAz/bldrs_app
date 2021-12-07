@@ -304,7 +304,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
 
                               /// HEADER LEFT SPACER
                               Center(
-                                child: Container(
+                                child: SizedBox(
                                   width: _headerLeftSpacerTween.value,
                                   height: _logoSizeBegin * _logoSizeRatioTween.value,
                                   // color: Colorz.BloodTest,
@@ -330,7 +330,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
 
                               /// LOGO TO HEADER LABELS SPACER
                               Center(
-                                child: Container(
+                                child: SizedBox(
                                   width: _logoToHeaderLabelsSpacerWidthTween.value,
                                   height: _logoSizeBegin * _logoSizeRatioTween.value,
                                 ),
@@ -338,7 +338,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
 
                               /// HEADER LABELS
                               Center(
-                                child: Container(
+                                child: SizedBox(
                                   width: _headerLabelsWidthTween.value,
                                   height: _logoSizeBegin * _logoSizeRatioTween.value,
                                   child: ListView(
@@ -371,7 +371,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
 
                               /// HEADER RIGHT SPACER
                               Center(
-                                child: Container(
+                                child: SizedBox(
                                   width: _headerRightSpacerTween.value,
                                   height: _logoSizeBegin * _logoSizeRatioTween.value,
                                   // color: Colorz.BloodTest,
@@ -400,7 +400,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                             duration: Ratioz.durationSliding400,
                             curve: Curves.easeIn,
                             opacity: _maxHeaderOpacity,
-                            child: Container(
+                            child: SizedBox(
                               width: widget.flyerBoxWidth,
                               // height: 400,
                               // color: Colorz.Yellow200,
