@@ -565,7 +565,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
             children: <Widget>[
 
               /// PROGRESS BAR
-              Container(
+              SizedBox(
                 width: _screenWidth,
                 height: _progressBarHeight,
                 // color: Colorz.BloodTest,

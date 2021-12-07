@@ -36,7 +36,7 @@ class ProgressBar extends StatelessWidget {
 
     // print('B---> ProgressBar : numberOfSlides : ${numberOfSlides}');
 
-    return Container(
+    return SizedBox(
       width: flyerBoxWidth,
       child: AnimatedOpacity(
         duration: Ratioz.durationFading200,

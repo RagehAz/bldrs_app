@@ -70,7 +70,7 @@ class ListLayout extends StatelessWidget {
 
           const SizedBox(height: 10,),
 
-          Container(
+          SizedBox(
             width: _screenWidth,
             height: _bubbleHeight,
             // color: Colorz.YellowAir,
@@ -79,7 +79,7 @@ class ListLayout extends StatelessWidget {
               centered: true,
               columnChildren: <Widget>[
 
-                Container(
+                SizedBox(
                   width: Bubble.clearWidth(context),
                   height: _bubbleHeight - (Ratioz.appBarMargin * 5),
                   // color: Colorz.BloodTest,

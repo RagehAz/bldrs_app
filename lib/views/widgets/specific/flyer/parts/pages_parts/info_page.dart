@@ -105,7 +105,7 @@ class InfoPage extends StatelessWidget {
 
         /// HEADER FOOTPRINT ZONE
         // if (_editMode == false)
-          Container(
+          SizedBox(
             key: const ValueKey<String>('info_page_top_space'),
             width: flyerBoxWidth,
             height: _headerHeight,
@@ -265,7 +265,7 @@ class InfoPage extends StatelessWidget {
           superFlyer: superFlyer,
         ),
 
-        Container(
+        SizedBox(
           width: flyerBoxWidth,
           height: Ratioz.appBarPadding,
         ),

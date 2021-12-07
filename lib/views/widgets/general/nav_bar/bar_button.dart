@@ -76,7 +76,7 @@ class BarButton extends StatelessWidget {
               ),
 
               if (clipperWidget != null)
-              Container(
+              SizedBox(
                 width: _circleWidth,
                   height: _circleWidth,
                   child: clipperWidget

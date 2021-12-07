@@ -78,7 +78,7 @@ class BzGrid extends StatelessWidget {
                   padding: _gridPadding,
                   gridDelegate: _gridDelegate,
                   children: _boxesColors.map(
-                        (Color color) => Container(
+                        (Color color) => SizedBox(
                           width: _logoWidth,
                           height: _logoWidth * 1.25,
                           // color: Colorz.Yellow50,
@@ -97,7 +97,7 @@ class BzGrid extends StatelessWidget {
                               ),
 
                               /// BZ NAME FOOTPRINT
-                              Container(
+                              SizedBox(
                                 width: _logoWidth,
                                 height: _logoWidth * 0.25,
                                 child: SuperVerse(
@@ -138,7 +138,7 @@ class BzGrid extends StatelessWidget {
                               ),
 
                               /// BZ NAME
-                              Container(
+                              SizedBox(
                                 width: _logoWidth,
                                 height: _logoWidth * 0.25,
                                 // color: Colorz.BloodTest,

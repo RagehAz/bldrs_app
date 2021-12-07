@@ -25,7 +25,7 @@ class BldrsChain extends StatelessWidget {
     final double _boxWidth = boxWidth ?? Scale.superScreenWidth(context);
     final Chain _allChains = chain ?? Chain.bldrsChain;
 
-    return Container(
+    return SizedBox(
       width: _boxWidth,
       // height: _allChains.sons.length * Inception.buttonHeight,
       child:

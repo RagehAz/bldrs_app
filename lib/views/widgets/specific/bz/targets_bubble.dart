@@ -96,7 +96,7 @@ class TargetsBubble extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           /// TITLE
-                          Container(
+                          SizedBox(
                             width: _titleBoxWidth,
                             height: _titleBoxHeight,
                             // color: Colorz.BloodTest,
@@ -164,7 +164,7 @@ class TargetsBubble extends StatelessWidget {
                                 /// ICONS
                                 Align(
                                   alignment: Alignment.topCenter,
-                                  child: Container(
+                                  child: SizedBox(
                                     width: _progressBoxWidth,
                                     height: _iconsHeight,
                                     // color: Colorz.Black255,

@@ -55,7 +55,7 @@ class DreamBoxIcon extends StatelessWidget {
 
 
     if (loading == true){
-      return Container(
+      return SizedBox(
         width: _jpgGraphicWidth,
         height: _jpgGraphicWidth,
         child: Loading(loading: loading,),
@@ -130,7 +130,7 @@ class DreamBoxIcon extends StatelessWidget {
               colorFilter: ColorFilter.mode(
                   imageSaturationColor,
                   BlendMode.saturation),
-              child: Container(
+              child: SizedBox(
                 width:
                 _jpgGraphicWidth,
                 height:
@@ -175,7 +175,7 @@ class DreamBoxIcon extends StatelessWidget {
             colorFilter: ColorFilter.mode(
                 imageSaturationColor,
                 BlendMode.saturation),
-            child: Container(
+            child: SizedBox(
               width: _jpgGraphicWidth,
               height: _jpgGraphicWidth,
               // decoration: BoxDecoration(

@@ -37,7 +37,7 @@ class LogoSlogan extends StatelessWidget {
           width: _logoWidth,
           height: _logoHeight,
           margin: EdgeInsets.all(_logoWidth * 0.025),
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: WebsafeSvg.asset(Iconz.bldrsNameEn,
@@ -46,7 +46,7 @@ class LogoSlogan extends StatelessWidget {
         ),
 
         if (showSlogan == true)
-          Container(
+          SizedBox(
             width: _logoWidth,
             child: SuperVerse(
               verse: _slogan.toUpperCase(),
@@ -63,7 +63,7 @@ class LogoSlogan extends StatelessWidget {
 
         /// TAG LINE
         if (showTagLine == true)
-          Container(
+          SizedBox(
             width: _logoWidth,
             // height: _logoHeight * 0.7,
             child:

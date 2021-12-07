@@ -263,7 +263,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                 children: <Widget>[
 
                   /// USER NAME TEXT FIELD
-                  Container(
+                  SizedBox(
                     width: _dialogClearWidth,
                     height: _textFieldHeight,
                     child: SuperTextField(
@@ -301,7 +301,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                     ),
                   ),
 
-                  Container(
+                  SizedBox(
                     width: _dialogClearWidth,
                     height: _dialogClearHeight - _textFieldHeight,
                     child: MaxBounceNavigator(
@@ -317,7 +317,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
                               _usersModels == <UserModel>[] ?
 
-                              Container(
+                              SizedBox(
                                 width: _dialogClearWidth,
                                 height: 70,
                                 child: const SuperVerse(
@@ -582,7 +582,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                   ),
 
                   /// NOTIFICATION CONTENT
-                  Container(
+                  SizedBox(
                     width: _bodyWidth,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -658,7 +658,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
                         /// BUTTONS
                         if(_attachment != null && _attachmentType == NotiAttachmentType.buttons && _attachment is List<String>)
-                          Container(
+                          SizedBox(
                             width: _bodyWidth,
                             height: 70,
                             child: Row(
@@ -717,7 +717,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
             iconSizeFactor: 0.5,
             iconBoxColor: Colorz.grey50,
             btOnTap: _onTapReciever,
-            child: Container(
+            child: SizedBox(
               width: Bubble.clearWidth(context),
               // height: 50,
               child: Column(
@@ -757,7 +757,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
           ),
 
           /// SEND BUTTON
-          Container(
+          SizedBox(
             width: _screenWidth,
             // height: 150,
             child: Center(
@@ -772,7 +772,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
           ),
 
           /// SEND TO MYSELF
-          Container(
+          SizedBox(
             width: _screenWidth,
             // height: 150,
             child: Center(

@@ -116,7 +116,7 @@ import 'package:flutter/material.dart';
       body: 'All Business accounts will be deactivated except those shared with other authors',
       boolDialog: true,
       height: Scale.superScreenHeight(context) * 0.8,
-      child: Container(
+      child: SizedBox(
         height: Scale.superScreenHeight(context) * 0.45,
         child: ListView(
           children: <Widget>[
@@ -171,7 +171,7 @@ import 'package:flutter/material.dart';
       child: Column(
         children: <Widget>[
 
-          Container(
+          SizedBox(
             // width: superBubbleClearWidth(context),
             height: Scale.superScreenHeight(context) * 0.6,
             child: ListView.builder(

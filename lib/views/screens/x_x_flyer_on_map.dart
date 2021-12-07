@@ -166,7 +166,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         alignment: Alignment.center,
         children: <Widget>[
 
-          Container(
+          SizedBox(
             width: _screenWidth,
             height: _screenHeight,
             child: isLoading ?

@@ -143,7 +143,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                       width: 5,
                     ),
 
-                    Container(
+                    SizedBox(
                       width: fieldWidth,
                       child: SuperTextField(
                         fieldIsFormField: widget.fieldIsFormField,

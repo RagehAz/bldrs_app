@@ -44,7 +44,7 @@ class AddAuthorScreen extends StatelessWidget {
               width: Bubble.defaultWidth(context),
               columnChildren: <Widget>[
 
-                Container(
+                SizedBox(
                   width: Bubble.clearWidth(context),
                   child: const SuperVerse(
                     verse: 'This Link is available for one time use only, '

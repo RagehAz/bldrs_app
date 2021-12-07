@@ -251,7 +251,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
       pyramids: Iconz.pyramidzYellow,
       loading: _loading,
       pageTitle: 'Select Flyer Specifications',
-      layoutWidget: Container(
+      layoutWidget: SizedBox(
         width: _screenWidth,
         height: _screenHeight,
         child: MaxBounceNavigator(
@@ -272,7 +272,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
 
                   return
 
-                      Container(
+                      SizedBox(
                         width: _screenHeight,
                         // height: 80 + (_listsOfThisGroup.length * (SpecListTile.height() + 5)),
                         child: Column(
@@ -298,7 +298,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
                             ),
 
                             /// GROUP SPECS LISTS
-                            Container(
+                            SizedBox(
                               width: _screenHeight,
                               // height: (_listsOfThisGroup.length * (SpecListTile.height() + 5)),
 

@@ -133,7 +133,7 @@ class Balloona extends StatelessWidget {
 
     final CustomClipper _clipper = Iconizer.userBalloon(userStatus);
 
-    return Container(
+    return SizedBox(
       width: balloonWidth,
       height: balloonWidth,
       // color: Colorz.BloodTest,

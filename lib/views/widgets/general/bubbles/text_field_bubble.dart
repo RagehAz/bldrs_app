@@ -114,7 +114,7 @@ class TextFieldBubble extends StatelessWidget {
                     const SizedBox(width: 5,),
 
                     /// TEXT FIELD
-                    Container(
+                    SizedBox(
                       width: fieldWidth,
                       child: SuperTextField(
                         onTap: fieldOnTap,

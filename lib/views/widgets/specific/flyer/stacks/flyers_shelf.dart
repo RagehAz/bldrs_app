@@ -96,7 +96,7 @@ class FlyersShelf extends StatelessWidget {
                       if (titleIcon != null)
                         const SizedBox(width: Ratioz.appBarMargin,),
 
-                      Container(
+                      SizedBox(
                         width: _screenWidth - (Ratioz.appBarMargin * 5) - _titleIconWidthWithMargin,
                         child: SuperVerse(
                           verse: title,
@@ -120,7 +120,7 @@ class FlyersShelf extends StatelessWidget {
               ),
 
             /// --- COLLECTION FLYER'S ZONE
-            Container(
+            SizedBox(
               width: _screenWidth,
               height: _flyerZoneHeight,
               // color: Colorz.WhiteAir,

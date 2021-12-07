@@ -35,7 +35,7 @@ class _FlyerTypeSelectorState extends State<FlyerTypeSelector> {
     final double _buttonWidth = (_dialogClearWidth - ((_numberOfButtons + 1) * _spacing) ) / _numberOfButtons;
 
 
-    return Container(
+    return SizedBox(
       width: _dialogClearWidth,
       height: _dialogClearHeight,
       child: Row(

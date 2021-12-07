@@ -49,7 +49,7 @@ class SlidesShelf extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
 
     return
-      Container(
+      SizedBox(
         width: _screenWidth,
         height: _stackZoneHeight + _titleZoneHeight,
         // color: Colorz.BloodTest,
@@ -118,7 +118,7 @@ class SlidesShelf extends StatelessWidget {
                           ),
 
                           /// IMAGE
-                          Container(
+                          SizedBox(
                               width: _flyerZoneWidth,
                               height: _flyerZoneHeight,
                               // decoration: _flyerDecoration,
@@ -128,7 +128,7 @@ class SlidesShelf extends StatelessWidget {
                               /// IMAGE
                               GestureDetector(
                                 onTap: () => onImageTap(index),
-                                child: Container(
+                                child: SizedBox(
                                   width: _flyerZoneWidth,
                                   height: _flyerZoneHeight,
                                   child: ClipRRect(
@@ -166,7 +166,7 @@ class SlidesShelf extends StatelessWidget {
                                         height: _flyerZoneWidth * 0.05,
                                       ),
 
-                                      Container(
+                                      SizedBox(
                                         width: _flyerZoneWidth * 0.95,
                                         child: const SuperVerse(
                                           verse: 'Add Photos',

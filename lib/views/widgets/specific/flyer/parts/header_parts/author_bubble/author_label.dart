@@ -216,7 +216,7 @@ class AuthorPic extends StatelessWidget {
               isAddAuthorButton == true ?
               GestureDetector(
                 onTap: () => _tapAddAuthor(context),
-                child: Container(
+                child: SizedBox(
                   width: width,
                   height: _authorImageHeight,
                   child: Column(

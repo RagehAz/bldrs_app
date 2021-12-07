@@ -253,7 +253,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                         title: _bzName,
                         draggable: true,
                         height: _dialogHeight,
-                        child: Container(
+                        child: SizedBox(
                           width: _clearDialogWidth,
                           height: BottomDialog.dialogClearHeight(draggable: true, titleIsOn: true, context: context, overridingDialogHeight: _dialogHeight),
                           // color: Colorz.BloodTest,
@@ -262,7 +262,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                               physics: const BouncingScrollPhysics(),
                               children: <Widget>[
 
-                                Container(
+                                SizedBox(
                                   width: _clearDialogWidth,
                                   height: FlyerBox.headerStripHeight(bzPageIsOn: false, flyerBoxWidth: _clearDialogWidth),
                                   child: Column(

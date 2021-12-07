@@ -14,6 +14,7 @@ import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
+
 class FlyerModel with ChangeNotifier{
   final String id;
   final String title;

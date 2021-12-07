@@ -30,7 +30,7 @@ class HeaderLabels extends StatelessWidget {
 // -----------------------------------------------------------------------------
     return
       _tinyMode == true ? Container() :
-      Container(
+      SizedBox(
           width: labelsWidth,
           height: labelsHeight,
           // color: Colorz.Bl,

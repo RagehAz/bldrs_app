@@ -39,7 +39,7 @@ class ZonesPage extends StatelessWidget {
     final double _bubbleZoneHeight = _pageHeight - _continentIconHeight - _verseHeight;
 
     return SafeArea(
-      child: Container(
+      child: SizedBox(
         width: _screenWidth,
         height: _pageHeight,
         // color: Colorz.BloodTest,
@@ -52,7 +52,7 @@ class ZonesPage extends StatelessWidget {
               icon: continentIcon,
             ),
 
-            Container(
+            SizedBox(
               height: _verseHeight,
               child: SuperVerse(
                 verse: title,
@@ -60,7 +60,7 @@ class ZonesPage extends StatelessWidget {
               ),
             ),
 
-            Container(
+            SizedBox(
               width: _screenWidth,
               height: _bubbleZoneHeight,
               // color: Colorz.Black255,
@@ -69,7 +69,7 @@ class ZonesPage extends StatelessWidget {
                 centered: true,
                 columnChildren: <Widget>[
 
-                  Container(
+                  SizedBox(
                     width: Bubble.clearWidth(context),
                     height: _screenHeight - Ratioz.stratosphere - _continentIconHeight - _verseHeight - (2 * Ratioz.appBarMargin) - 50,
                     // color: Colorz.BloodTest,

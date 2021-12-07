@@ -110,7 +110,7 @@ class _FontLabState extends State<FontLab> {
 
 
                   /// --- BEGINNING OF SCROLLABLE SCREEN
-                  Container(
+                  SizedBox(
                     height: Ratioz.pyramidsHeight * 2,
                     width: _screenWidth,
                   ),
@@ -558,7 +558,7 @@ class _FontLabState extends State<FontLab> {
                   // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- NOTHING GOES BEYOND THIS FUCKING LINE
 
                   /// --- END OF SCROLLABLE SCREEN
-                  Container(
+                  SizedBox(
                     height: Ratioz.pyramidsHeight * 3,
                     width: _screenWidth,
                   ),
