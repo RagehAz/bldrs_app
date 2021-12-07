@@ -143,7 +143,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
 
             child: Center(
               child: RotationTransition(
-                turns: Tween<double>(begin: 0.0, end: 1.0).animate(_controller),
+                turns: Tween<double>(begin: 0, end: 1).animate(_controller),
 
                 child: AnimatedOpacity(
                   opacity: condition() == true ? 1 : 0.2,

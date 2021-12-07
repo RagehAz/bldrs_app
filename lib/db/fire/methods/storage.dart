@@ -30,7 +30,7 @@ import 'package:flutter/material.dart';
     final Reference _ref = FirebaseStorage.instance
         .ref()
         .child(docName)
-        .child(picName + '.${fileExtension}') ?? null;
+        .child('$picName.${fileExtension}') ?? null;
 
     return _ref;
   }

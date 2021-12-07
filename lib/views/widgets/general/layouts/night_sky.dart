@@ -181,7 +181,7 @@ class Sky extends StatelessWidget {
         center: const Alignment(0.75, 1.25),
         radius: 1,
         colors: _skyColors,
-        stops: const <double>[0.0, 0.65]
+        stops: const <double>[0, 0.65]
     )
         :
     null;

@@ -132,7 +132,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
     _headlineColorTween = new ColorTween();
     _tileColorTween = new ColorTween();
     _subtitleLabelColorTween = new ColorTween();
-    _arrowTurns = new Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
+    _arrowTurns = new Tween<double>(begin: 0, end: 0.5).animate(_easeInAnimation);
     _borderRadius = new BorderRadiusTween();
     _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
 

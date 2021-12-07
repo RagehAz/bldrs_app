@@ -42,7 +42,7 @@ class InfoPage extends StatelessWidget {
   bool _flyerInfoExistsCheck(String flyerInfoParagraph){
     bool _exists;
 
-    if (flyerInfoParagraph == null || flyerInfoParagraph.length == 0){
+    if (flyerInfoParagraph == null || flyerInfoParagraph.isEmpty){
       _exists = false;
     }
     else {
@@ -90,8 +90,8 @@ class InfoPage extends StatelessWidget {
     final bool _editMode = superFlyer.edit.editMode == true;
 
     final String _flyerInfoParagraph =
-    _editMode == true && superFlyer.infoController.text.length == 0 ? '...' :
-    _editMode == true && superFlyer.infoController.text.length > 0 ? superFlyer.infoController.text :
+    _editMode == true && superFlyer.infoController.text.isEmpty ? '...' :
+    _editMode == true && superFlyer.infoController.text.isNotEmpty ? superFlyer.infoController.text :
     _editMode == false ? superFlyer.flyerInfo : superFlyer.flyerInfo;
 
     final bool _flyerInfoExists = _flyerInfoExistsCheck(_flyerInfoParagraph);

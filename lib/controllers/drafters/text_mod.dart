@@ -47,7 +47,7 @@ import 'package:flutter/foundation.dart';
 }
 // -----------------------------------------------------------------------------
   String removeFirstCharacterFromAString(String string){
-    final String stringWithoutFirstCharacter = string.length >0 ? string?.substring(1) : null;
+    final String stringWithoutFirstCharacter = string.isNotEmpty ? string?.substring(1) : null;
   return stringWithoutFirstCharacter;
 }
 // -----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ import 'package:flutter/foundation.dart';
     throw(_error);
 
   } else {
-    _stringTrimmed = string.length >0 ? string?.substring(numberOfCharacters) : null;
+    _stringTrimmed = string.isNotEmpty ? string?.substring(numberOfCharacters) : null;
   }
   return _stringTrimmed;
 }
@@ -75,7 +75,7 @@ import 'package:flutter/foundation.dart';
 
     print('string length ${string.trim().length} and : numberOfCharacters : $numberOfCharacters');
 
-    if (string != null && string.trim().length != 0){
+    if (string != null && string.trim().isNotEmpty){
 
       if (string.trim().length == numberOfCharacters){
         _stringTrimmed = '';
@@ -133,7 +133,7 @@ import 'package:flutter/foundation.dart';
 }
 // -----------------------------------------------------------------------------
   String firstCharacterOfAString(String string){
-    final String _output = string == null || string.length == 0 || string == '' || string == ' '? null :
+    final String _output = string == null || string.isEmpty || string == '' || string == ' '? null :
   string?.substring(0,1);
 
 
@@ -345,7 +345,7 @@ import 'package:flutter/foundation.dart';
 
     String _output = input;
 
-    if (input != null && numberOfCharacters !=null && input.length > 0 && numberOfCharacters > 0 && input.length > numberOfCharacters){
+    if (input != null && numberOfCharacters != null && input.isNotEmpty && numberOfCharacters > 0 && input.length > numberOfCharacters){
 
       _output = input.substring(0, numberOfCharacters);
 

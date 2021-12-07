@@ -51,7 +51,7 @@ class _ChatScreenState extends State<ChatScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _sendMessage({String body, List<MessageModel> existingMsgs}) async {
 
-    if (body != null && body.length != 0){
+    if (body != null && body.isNotEmpty){
 
       Keyboarders.closeKeyboard(context);
 

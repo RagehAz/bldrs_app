@@ -96,7 +96,7 @@ class BigMac{
     return _countriesIDs;
   }
 // -----------------------------------------------------------------------------
-  static const double proAccountPriceEGY = 3000.00; // 5 peacocks
+  static const double proAccountPriceEGY = 3000; // 5 peacocks
 // -----------------------------------------------------------------------------
   static double proAccountPriceInLocalCurrencyByISO3(String iso3){
     final double _bigMacsCountToBuyProAccount = bigMacsCountToBuyProAccount();
