@@ -10,6 +10,7 @@ import 'package:bldrs/views/widgets/general/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/value_box.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class LDBViewerScreen extends StatefulWidget {
@@ -113,6 +114,12 @@ class LDBViewerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<LDBViewerScreen> createState() => _LDBViewerScreenState();
+  /// --------------------------------------------------------------------------
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('ldbDocName', ldbDocName));
+  }
   /// --------------------------------------------------------------------------
 }
 

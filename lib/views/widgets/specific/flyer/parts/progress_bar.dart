@@ -68,6 +68,7 @@ class ProgressBar extends StatelessWidget {
             )
 
             :
+
         Strips.canBuildStrips(numberOfStrips) == true?
         Strips(
           flyerBoxWidth: flyerBoxWidth,
@@ -77,7 +78,7 @@ class ProgressBar extends StatelessWidget {
           margins: margins,
         )
 
-              :
+            :
 
         Container(),
       ),

@@ -20,6 +20,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/general/textings/the_golden_scroll.dart';
 import 'package:bldrs/xxx_lab/animations/animations_screen.dart';
 import 'package:bldrs/xxx_lab/animations/black_hole.dart';
+import 'package:bldrs/xxx_lab/new_layout.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/expansion_tiles_test.dart';
@@ -123,6 +124,8 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
             maxLines: 5,
             margin: 10,
           ),
+
+          const ObeliskButton('NEW LAYOUT', Iconz.star, NewLayout()),
 
           const ObeliskButton('TEST LAB', Iconz.flyer, TestLab()),
 
