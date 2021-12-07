@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
@@ -445,12 +446,14 @@ import 'package:flutter/cupertino.dart';
       if (UserModel.userIsAuthor(userModel) == true){
 
         /// WAITING DIALOG
-        CenterDialog.showCenterDialog(
-          context: context,
-          title: '',
-          boolDialog: null,
-          body: 'Waiting',
-          child: const Loading(loading: true,),
+        unawaited(
+            CenterDialog.showCenterDialog(
+              context: context,
+              title: '',
+              boolDialog: null,
+              body: 'Waiting',
+              child: const Loading(loading: true,),
+            )
         );
 
         /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
@@ -506,12 +509,14 @@ import 'package:flutter/cupertino.dart';
           else {
 
             /// SHOW WAITING DIALOG
-            CenterDialog.showCenterDialog(
-              context: context,
-              title: '',
-              boolDialog: null,
-              body: 'Waiting',
-              child: const Loading(loading: true,),
+            unawaited(
+                CenterDialog.showCenterDialog(
+                  context: context,
+                  title: '',
+                  boolDialog: null,
+                  body: 'Waiting',
+                  child: const Loading(loading: true,),
+                )
             );
 
             /// G - DEACTIVATE all deactivable bzz
@@ -562,7 +567,7 @@ import 'package:flutter/cupertino.dart';
         );
 
 
-        CenterDialog.showCenterDialog(context: context, title: '', body: 'Done',);
+        await CenterDialog.showCenterDialog(context: context, title: '', body: 'Done',);
 
         /// J - SIGN OUT
         await FireAuthOps.signOut(context: context, routeToUserChecker: false);
@@ -634,12 +639,14 @@ import 'package:flutter/cupertino.dart';
       if (UserModel.userIsAuthor(userModel) == true){
 
         /// WAITING DIALOG
-        CenterDialog.showCenterDialog(
-          context: context,
-          title: '',
-          boolDialog: null,
-          body: 'Waiting',
-          child: const Loading(loading: true,),
+        unawaited(
+            CenterDialog.showCenterDialog(
+              context: context,
+              title: '',
+              boolDialog: null,
+              body: 'Waiting',
+              child: const Loading(loading: true,),
+            )
         );
 
         /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
@@ -694,12 +701,14 @@ import 'package:flutter/cupertino.dart';
           else {
 
             /// SHOW WAITING DIALOG
-            CenterDialog.showCenterDialog(
-              context: context,
-              title: '',
-              boolDialog: null,
-              body: 'Waiting',
-              child: const Loading(loading: true,),
+            unawaited(
+                CenterDialog.showCenterDialog(
+                  context: context,
+                  title: '',
+                  boolDialog: null,
+                  body: 'Waiting',
+                  child: const Loading(loading: true,),
+                )
             );
 
             /// G - DELETE all deactivable bzz : firestore/bzz/bzID
@@ -757,14 +766,15 @@ import 'package:flutter/cupertino.dart';
       else {
 
         /// SHOW WAITING DIALOG
-        CenterDialog.showCenterDialog(
-          context: context,
-          title: '',
-          boolDialog: null,
-          body: 'Waiting',
-          child: const Loading(loading: true,),
+        unawaited(
+            CenterDialog.showCenterDialog(
+              context: context,
+              title: '',
+              boolDialog: null,
+              body: 'Waiting',
+              child: const Loading(loading: true,),
+            )
         );
-
 
         /// I - DELETE user image : storage/usersPics/userID
         print('I - deleting user pic');

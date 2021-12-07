@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/animators.dart' as Animators;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
@@ -77,7 +79,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       _triggerLoading(function: (){}).then((_) async {
         /// ---------------------------------------------------------0
 
-        _readMoreFlyers();
+        await _readMoreFlyers();
 
         /// ---------------------------------------------------------0
       });
@@ -157,15 +159,18 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
       await _onRemoveFlyerFromStack(_currentFlyer);
 
-      TopDialog.showTopDialog(
-          context: context,
-          verse: 'Done',
-          secondLine: 'flyer ${_currentFlyer.id} got verified',
-          color: Colorz.green255,
-          onTap: (){
-            print('a77aaa ');
-          }
+      unawaited(
+          TopDialog.showTopDialog(
+              context: context,
+              verse: 'Done',
+              secondLine: 'flyer ${_currentFlyer.id} got verified',
+              color: Colorz.green255,
+              onTap: (){
+                print('a77aaa ');
+              }
+          )
       );
+
 
     }
 
@@ -228,7 +233,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   }
 // -----------------------------------------------------o
   Future<void> _deleteFirstPage() async {
-    print('DELETING STARTS AT (FIRST) index : ${_currentPageIndex}, numberOfSlides : ${_flyers.length} ------------------------------------');
+    print('DELETING STARTS AT (FIRST) index : $_currentPageIndex, numberOfSlides : ${_flyers.length} ------------------------------------');
 
     /// 1 - if only one slide remaining
     if(_flyers.length == 1){
@@ -358,7 +363,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   }
 // -----------------------------------------------------o
   Future<void> _deleteMiddleOrLastSlide() async {
-    print('XXXXX ----- DELETING STARTS AT (MIDDLE) index : ${_currentPageIndex}, numberOfSlides : ${_flyers.length}');
+    print('XXXXX ----- DELETING STARTS AT (MIDDLE) index : $_currentPageIndex, numberOfSlides : ${_flyers.length}');
 
     final int _originalIndex = _currentPageIndex;
 
@@ -397,7 +402,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
     });
 
-    print('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : ${_currentPageIndex}, numberOfSlides : ${_flyers.length}');
+    print('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : $_currentPageIndex, numberOfSlides : ${_flyers.length}');
   }
 // -----------------------------------------------------o
   void _statelessTriggerPageVisibility(int index) {

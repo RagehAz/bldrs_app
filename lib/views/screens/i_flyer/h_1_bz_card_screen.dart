@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -83,15 +85,18 @@ class _BzCardScreenState extends State<BzCardScreen> {
 
         }
 
-        _triggerLoading(
-            function: (){
+        unawaited(
+            _triggerLoading(
+                function: (){
 
-              _bzModel = _bz;
-              _bzCountry = _country;
-              _bzCity = _city;
+                  _bzModel = _bz;
+                  _bzCountry = _country;
+                  _bzCity = _city;
 
-            }
+                }
+            )
         );
+
       });
 
 

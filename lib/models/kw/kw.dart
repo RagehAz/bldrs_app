@@ -119,10 +119,10 @@ class KW {
 
     print('$methodName ------------------------------- START');
 
-    print('id : ${id}');
-    print('names : ${names}');
+    print('id : $id');
+    print('names : $names');
 
-    print('${methodName} ------------------------------- END');
+    print('$methodName ------------------------------- END');
   }
 
 // -----------------------------------------------------------------------------

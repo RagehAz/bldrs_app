@@ -364,7 +364,7 @@ class Spec {
     final bool _listsAreTheSame = Mapper.mapsAreTheSame(specsAMap, specsBMap);
 
 
-    print('specsListsAreTheSame : _listsAreTheSame : ${_listsAreTheSame}');
+    print('specsListsAreTheSame : _listsAreTheSame : $_listsAreTheSame');
 
     return _listsAreTheSame;
   }
@@ -381,7 +381,7 @@ class Spec {
   }
 // -----------------------------------------------------------------------------
   void printSpec(){
-    print('spec is : ${specsListID} : ${value.toString()}');
+    print('spec is : $specsListID : ${value.toString()}');
   }
 // -----------------------------------------------------------------------------
   static void printSpecs(List<Spec> specs){

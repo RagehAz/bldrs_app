@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
@@ -69,13 +71,15 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
       _triggerLoading().then((_) async{
 
 
-        _readMoreCountries();
+        await _readMoreCountries();
 
-        _triggerLoading(
-            function: (){
-              /// set new values here
-            }
+        unawaited(
+            _triggerLoading(
+                function: (){
+                  /// set new values here
+                })
         );
+
       });
 
 

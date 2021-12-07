@@ -306,7 +306,7 @@ Examples Using the US Locale:
     final String _day = '${(time).day}';
     final String _monthString = getMonthNameByInt(context, (time).month);
     final String _year = '${(time).year}';
-    final String _timeString = 'on ${_day} ${_monthString} ${_year}';
+    final String _timeString = 'on $_day $_monthString $_year';
 
     return _timeString;
   }
@@ -315,14 +315,14 @@ Examples Using the US Locale:
     final String _day = '${(time).day}';
     final String _monthString = getMonthNameByInt(context, (time).month);
     final String _year = '${(time).year}';
-    final String _timeString = '${_day} ${_monthString} ${_year}';
+    final String _timeString = '$_day $_monthString $_year';
     return _timeString;
   }
 // -----------------------------------------------------------------------------
   String getString_dd_I_mm_I_yyyy({BuildContext context, DateTime time}){
     final String _day = '${(time).day}';
     final String _year = '${(time).year}';
-    final String _timeString = '${_day} / ${(time).month} / ${_year}';
+    final String _timeString = '$_day / ${(time).month} / $_year';
     return _timeString;
   }
 // -----------------------------------------------------------------------------

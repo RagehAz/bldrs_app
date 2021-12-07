@@ -264,7 +264,7 @@ class SingleSlide extends StatelessWidget {
 
               if (superFlyer.edit.editMode == true)
                 SuperTextField(
-                  key: ValueKey<String>('slide${slideIndex}'),
+                  key: ValueKey<String>('slide$slideIndex'),
                   hintText: 'T i t l e',
                   width: flyerBoxWidth,
                   // height: flyerBoxWidth * 0.15,

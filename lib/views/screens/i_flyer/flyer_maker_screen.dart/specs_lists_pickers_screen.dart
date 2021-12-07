@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
@@ -98,11 +100,14 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
         /// do Futures here
 
 
-        _triggerLoading(
-            function: (){
-              /// set new values here
-            }
+        unawaited(
+            _triggerLoading(
+                function: (){
+                  /// set new values here
+                }
+            )
         );
+
       });
 
 

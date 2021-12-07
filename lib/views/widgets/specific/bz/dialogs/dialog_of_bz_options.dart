@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
@@ -95,7 +97,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
     /// if user chose to continue ops
     else {
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// start delete bz ops
       await FireBzOps.deleteBz(
@@ -108,9 +110,9 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       // _prof.removeTinyBzFromLocalList(bzModel.bzID);
 
       /// remove tinyBz from local userTinyBzz
-      _bzzProvider.removeBzFromMyBzz(bzID: bzModel.id);
+      await _bzzProvider.removeBzFromMyBzz(bzID: bzModel.id);
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// re-route back
       Nav.goBack(context, argument: true);
@@ -140,7 +142,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
     /// if user chooses to continue ops
     else {
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// start deactivate bz ops
       await FireBzOps.deactivateBz(
@@ -153,7 +155,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
 
       await _bzzProvider.removeBzFromMyBzz(bzID: bzModel.id);
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// re-route back
       Nav.goBack(context, argument: true);

@@ -65,7 +65,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
 // ---------------------------
   Future<void> _onSearchChanged(String text) async {
 
-    print('drawer receives text : ${text} : Length ${text.length}: _isSearching : ${_isSearching}');
+    print('drawer receives text : $text : Length ${text.length}: _isSearching : $_isSearching');
 
     /// A - not searching
     if (_isSearching == false){
@@ -118,7 +118,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
   }
 // ---------------------------
   Future<void> _onSearchSubmit(String text) async {
-    _searchKeywords(text);
+    await _searchKeywords(text);
   }
 // -----------------------------------------------------------------------------
   List<KW> _foundKeywords = <KW>[];

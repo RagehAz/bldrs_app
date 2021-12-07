@@ -206,7 +206,7 @@ import 'package:provider/provider.dart';
 
               final String _countryISO = _countryData['location']['country']['code'];
 
-              print('country iso is : ${_countryISO}');
+              print('country iso is : $_countryISO');
 
               const String _cityName = null;
 
@@ -317,11 +317,14 @@ import 'package:provider/provider.dart';
 
     /// When we reach here, permissions are granted and we can
     /// continue accessing the position of the device.
-    return await Geolocator.getCurrentPosition(
+
+    final Position _result = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.medium,
       // forceAndroidLocationManager: true,
       // timeLimit: Duration(seconds: Standards.maxLocationFetchSeconds)
     );
+
+    return _result;
   }
 // ---------------------------------------------------
   Future<List<Placemark>> getAddressFromPosition({@required GeoPoint geoPoint}) async {

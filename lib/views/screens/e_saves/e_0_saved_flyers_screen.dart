@@ -47,7 +47,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
      _tabController = TabController(vsync: this, length: _sectionsList.length);
 
      _tabController.addListener(() async {
-       _onSetSection(_tabController.index);
+       await _onSetSection(_tabController.index);
      });
 
      _tabController.animation

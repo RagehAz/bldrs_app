@@ -33,7 +33,7 @@ class Sembast {
     if (_dbOpenCompleter == null){
       _dbOpenCompleter = Completer();
 
-      _openDatabase();
+      await _openDatabase();
     }
 
     return _dbOpenCompleter.future;
@@ -58,7 +58,8 @@ class Sembast {
   /// Future<Database> get _db async => await AppDatabase.instance.database;
 // ---------------------------------------------------
   static Future<Database> _getDB() async {
-    return await Sembast.instance.database;
+    final Database _result = await Sembast.instance.database;
+    return _result;
   }
 // ---------------------------------------------------
   static StoreRef<int, Map<String, Object>> _getStore({@required String docName}) {
@@ -296,7 +297,7 @@ class Sembast {
 
       await delete(searchPrimaryKey: primaryKey, searchPrimaryValue: _id, docName: docName);
 
-      print('Sembast : deleteAll : $docName : _id : ${_id}');
+      print('Sembast : deleteAll : $docName : _id : $_id');
 
     }
 // -----------------------------------------------------------------------------

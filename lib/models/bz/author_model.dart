@@ -288,12 +288,12 @@ class AuthorModel{
 
     print('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
 
-    print('userID : ${userID}');
-    print('name : ${name}');
-    print('pic : ${pic}');
-    print('title : ${title}');
-    print('isMaster : ${isMaster}');
-    print('contacts : ${contacts}');
+    print('userID : $userID');
+    print('name : $name');
+    print('pic : $pic');
+    print('title : $title');
+    print('isMaster : $isMaster');
+    print('contacts : $contacts');
 
     print('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
 

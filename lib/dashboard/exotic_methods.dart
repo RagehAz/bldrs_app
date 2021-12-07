@@ -258,7 +258,7 @@ import 'package:provider/provider.dart';
 
     }
 
-    print('Tamam with : ${_maps.length} flyers updated their [${field}] field');
+    print('Tamam with : ${_maps.length} flyers updated their [$field] field');
 
   }
 // -----------------------------------------------------------------------------

@@ -225,7 +225,7 @@ enum PicType{
   Future<File> getEmptyFile(String fileName) async {
     final Directory _appDocDir = await getApplicationDocumentsDirectory();
     final String _appDocPath = _appDocDir.path;
-    final String _filePath = '${_appDocPath}/${fileName}';
+    final String _filePath = '$_appDocPath/$fileName';
     final File _file = File(_filePath);
     return _file;
   }
@@ -234,7 +234,7 @@ enum PicType{
   Future<File> getTempEmptyFile(String fileName) async {
     final Directory _tempDir = await getTemporaryDirectory();
     final String _tempPath = _tempDir.path;
-    final String _tempFilePath = '${_tempPath}/${fileName}';
+    final String _tempFilePath = '$_tempPath/$fileName';
     final File _tempFile = File(_tempFilePath);
     return _tempFile;
   }
@@ -284,11 +284,12 @@ enum PicType{
 
     final File _file = await getTempEmptyFile(fileName);
 
-    return
-      await writeUint8ListOnFile(
-        uint8list: uInt8List,
-        file: _file,
-      );
+    final File _result = await writeUint8ListOnFile(
+      uint8list: uInt8List,
+      file: _file,
+    );
+
+    return _result;
   }
 // ---------------------------------------------------
   Future<File> getFileFromURL(String imageUrl) async {
@@ -317,7 +318,7 @@ enum PicType{
 
     print('====================================================================================== asset name is : ${asset.runtimeType}');
 
-    final File _tempFile = File('${(await getTemporaryDirectory()).path}/${_name}');
+    final File _tempFile = File('${(await getTemporaryDirectory()).path}/$_name');
     await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
     await _tempFile.create(recursive: true);
 

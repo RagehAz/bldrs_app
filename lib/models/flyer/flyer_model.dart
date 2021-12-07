@@ -385,23 +385,23 @@ class FlyerModel with ChangeNotifier{
   void printFlyer(){
     print('FLYER-PRINT --------------------------------------------------START');
 
-    print('id : ${id}');
-    print('title : ${title}');
-    print('trigram : ${trigram}');
-    print('flyerType : ${flyerType}');
-    print('flyerState : ${flyerState}');
-    print('keywordsIDs : ${keywordsIDs}');
-    print('showsAuthor : ${showsAuthor}');
-    print('zone : ${zone}');
-    print('authorID : ${authorID}');
-    print('bzID : ${bzID}');
-    print('position : ${position}');
-    print('slides : ${slides}');
-    print('isBanned : ${isBanned}');
-    print('specs : ${specs}');
-    print('info : ${info}');
-    print('times : ${times}');
-    print('priceTagIsOn : ${priceTagIsOn}');
+    print('id : $id');
+    print('title : $title');
+    print('trigram : $trigram');
+    print('flyerType : $flyerType');
+    print('flyerState : $flyerState');
+    print('keywordsIDs : $keywordsIDs');
+    print('showsAuthor : $showsAuthor');
+    print('zone : $zone');
+    print('authorID : $authorID');
+    print('bzID : $bzID');
+    print('position : $position');
+    print('slides : $slides');
+    print('isBanned : $isBanned');
+    print('specs : $specs');
+    print('info : $info');
+    print('times : $times');
+    print('priceTagIsOn : $priceTagIsOn');
 
     print('FLYER-PRINT --------------------------------------------------END');
   }

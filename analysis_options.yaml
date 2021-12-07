@@ -127,6 +127,14 @@ linter:
     sort_child_properties_last: true
     sort_constructors_first: true
     sort_unnamed_constructors_first: true
+    tighten_type_of_initializing_formals: true
+    type_annotate_public_apis: true
+    type_init_formals: true
+    unawaited_futures: true
+    unnecessary_await_in_return: true
+    unnecessary_brace_in_string_interps: true
+    unnecessary_const: true
+
 
     # Pending
     diagnostic_describe_all_properties: false

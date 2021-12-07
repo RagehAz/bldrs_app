@@ -58,7 +58,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
       _triggerLoading(function: (){}).then((_) async {
         /// ---------------------------------------------------------0
 
-        _readMoreUsers();
+        await _readMoreUsers();
 
         /// ---------------------------------------------------------0
       });

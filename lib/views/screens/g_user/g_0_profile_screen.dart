@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
@@ -100,7 +102,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           }
         }
 
-        _triggerLoading();
+        unawaited(_triggerLoading());
 
       });
 
@@ -170,7 +172,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
     /// and if user wants to continue ops
     else {
-      _triggerLoading();
+
+      unawaited(_triggerLoading());
 
       /// start delete bz ops
       final dynamic _result = await UserFireOps.deleteUser(
@@ -178,7 +181,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         userModel: userModel,
       );
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// if user stopped ops
       if (_result == 'stop') {
@@ -226,7 +229,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     /// if user wants to continue
     else {
 
-      _triggerLoading();
+      unawaited (_triggerLoading());
 
       /// start deactivate user ops
       final dynamic _result = await UserFireOps.deactivateUser(
@@ -245,7 +248,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
       else if (_result == 'deactivated') {
 
-        _triggerLoading();
+        unawaited(_triggerLoading());
 
         /// go to user checker and remove all below screens
         await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
@@ -262,7 +265,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   }
 // -----------------------------------------------------------------------------
     Future<void> _editUserOnTap(UserModel userModel) async {
-      Nav.goToNewScreen(context, EditProfileScreen(user: userModel,));
+      await Nav.goToNewScreen(context, EditProfileScreen(user: userModel,));
     }
 // -----------------------------------------------------------------------------
     Future<void> _slideUserOptions(BuildContext context, UserModel userModel) async {
