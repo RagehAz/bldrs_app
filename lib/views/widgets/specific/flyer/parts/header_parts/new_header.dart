@@ -12,20 +12,21 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/mini_heade
 import 'package:flutter/material.dart';
 
 class NewHeader extends StatefulWidget {
-  final SuperFlyer superFlyer;
-  final double flyerBoxWidth;
-  final bool initiallyExpanded;
-
-
+  /// --------------------------------------------------------------------------
   const NewHeader({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
     this.initiallyExpanded = false,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final double flyerBoxWidth;
+  final bool initiallyExpanded;
+  /// --------------------------------------------------------------------------
   @override
   _NewHeaderState createState() => _NewHeaderState();
+  /// --------------------------------------------------------------------------
 }
 
 class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMixin  {

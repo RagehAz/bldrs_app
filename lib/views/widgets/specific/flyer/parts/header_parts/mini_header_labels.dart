@@ -7,19 +7,20 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/mini_bz_la
 import 'package:flutter/material.dart';
 
 class HeaderLabels extends StatelessWidget {
-  final SuperFlyer superFlyer;
-  final double flyerBoxWidth;
-
+  /// --------------------------------------------------------------------------
   const HeaderLabels({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final double flyerBoxWidth;
+  /// --------------------------------------------------------------------------
   static double getHeaderLabelWidth(double flyerBoxWidth){
     return flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
   }
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------

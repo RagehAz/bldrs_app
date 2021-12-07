@@ -6,11 +6,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class DreamList extends StatelessWidget {
-  final int itemCount;
-  final Function itemBuilder;
-  final double itemHeight;
-  final double itemZoneHeight;
-
+  /// --------------------------------------------------------------------------
   const DreamList({
     @required this.itemCount,
     @required this.itemBuilder,
@@ -18,8 +14,12 @@ class DreamList extends StatelessWidget {
     this.itemZoneHeight = 60,
     Key key,
   }) : super(key: key);
-
-
+  /// --------------------------------------------------------------------------
+  final int itemCount;
+  final Function itemBuilder;
+  final double itemHeight;
+  final double itemZoneHeight;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -67,12 +67,7 @@ Widget dreamListBuilder  (BuildContext c, int x, String info,String icon ,String
 }
 
 class DreamTile extends StatelessWidget {
-  final int index;
-  final String info;
-  final String icon;
-  final String verse;
-  final String secondLine;
-
+  /// --------------------------------------------------------------------------
   const DreamTile({
     this.index,
     this.info,
@@ -81,7 +76,13 @@ class DreamTile extends StatelessWidget {
     this.secondLine,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final int index;
+  final String info;
+  final String icon;
+  final String verse;
+  final String secondLine;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

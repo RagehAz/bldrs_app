@@ -6,20 +6,7 @@ import 'package:bldrs/models/kw/kw.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class QuestionModel {
-  final String questionID;
-  final String ownerID;
-  final FlyerTypeClass.FlyerType questionType;
-  final DateTime time;
-  final List<KW> keywords;
-  final List<dynamic> pics;
-  final String body;
-  final String title;
-  int totalViews;
-  int totalChats;
-  bool userSeenAll;
-  bool questionIsOpen;
-  final bool userDeletedQuestion;
-
+  /// --------------------------------------------------------------------------
   QuestionModel({
     @required this.questionID,
     @required this.ownerID,
@@ -35,7 +22,21 @@ class QuestionModel {
     @required this.questionIsOpen,
     @required this.userDeletedQuestion,
 });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String questionID;
+  final String ownerID;
+  final FlyerTypeClass.FlyerType questionType;
+  final DateTime time;
+  final List<KW> keywords;
+  final List<dynamic> pics;
+  final String body;
+  final String title;
+  int totalViews;
+  int totalChats;
+  bool userSeenAll;
+  bool questionIsOpen;
+  final bool userDeletedQuestion;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({bool toJSON = false}){
     return <String, dynamic>{
     'questionID' : questionID,

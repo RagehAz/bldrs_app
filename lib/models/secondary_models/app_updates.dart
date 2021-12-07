@@ -2,6 +2,21 @@ import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/material.dart';
 
 class AppState {
+  /// --------------------------------------------------------------------------
+  AppState({
+    @required this.appUpdateRequired,
+    @required this.wordzUpdateRequired,
+    @required this.languageUpdateRequired,
+    @required this.termsUpdateRequired,
+    @required this.aboutBldrsUpdateRequired,
+    @required this.notificationsUpdateRequired,
+    @required this.sponsors,
+    @required this.sectionsUpdateRequired,
+    @required this.keywordsUpdateRequired,
+    @required this.numberOfKeywords,
+    @required this.zonesUpdateRequired,
+});
+  /// --------------------------------------------------------------------------
   /// app update
   final bool appUpdateRequired;
 
@@ -26,21 +41,7 @@ class AppState {
 
   /// zones
   final bool zonesUpdateRequired;
-
-  AppState({
-    @required this.appUpdateRequired,
-    @required this.wordzUpdateRequired,
-    @required this.languageUpdateRequired,
-    @required this.termsUpdateRequired,
-    @required this.aboutBldrsUpdateRequired,
-    @required this.notificationsUpdateRequired,
-    @required this.sponsors,
-    @required this.sectionsUpdateRequired,
-    @required this.keywordsUpdateRequired,
-    @required this.numberOfKeywords,
-    @required this.zonesUpdateRequired,
-});
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return
       <String, dynamic>{

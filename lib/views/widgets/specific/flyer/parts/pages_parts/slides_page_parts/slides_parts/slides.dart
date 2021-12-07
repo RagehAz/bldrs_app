@@ -10,15 +10,16 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page
 import 'package:flutter/material.dart';
 
 class Slides extends StatelessWidget {
-  final SuperFlyer superFlyer;
-  final double flyerBoxWidth;
-
+  /// --------------------------------------------------------------------------
   const Slides({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final double flyerBoxWidth;
+  /// --------------------------------------------------------------------------
   void _onSingleSlideTap(BuildContext context){
 
     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);

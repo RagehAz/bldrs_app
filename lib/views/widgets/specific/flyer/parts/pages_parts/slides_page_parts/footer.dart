@@ -9,13 +9,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page
 import 'package:flutter/material.dart';
 
 class FlyerFooter extends StatelessWidget {
-  final double flyerBoxWidth;
-  final int shares;
-  final int views;
-  final int saves;
-  final Function onShareTap;
-  final Function onCountersTap;
-
+  /// --------------------------------------------------------------------------
   const FlyerFooter({
     @required this.flyerBoxWidth,
     @required this.shares,
@@ -25,7 +19,14 @@ class FlyerFooter extends StatelessWidget {
     @required this.onCountersTap,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final int shares;
+  final int views;
+  final int saves;
+  final Function onShareTap;
+  final Function onCountersTap;
+  /// --------------------------------------------------------------------------
   static double boxCorners(double flyerBoxWidth){
     return flyerBoxWidth * Ratioz.xxflyerBottomCorners;
   }

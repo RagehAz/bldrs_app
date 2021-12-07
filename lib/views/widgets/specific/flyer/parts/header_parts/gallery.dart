@@ -17,12 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Gallery extends StatefulWidget {
-  final SuperFlyer superFlyer;
-  final double galleryBoxWidth;
-  final bool showFlyers; // why ?
-  final bool addAuthorButtonIsOn;
-  // final List<TinyFlyer> tinyFlyers;
-
+  /// --------------------------------------------------------------------------
   const Gallery({
     @required this.superFlyer,
     @required this.galleryBoxWidth,
@@ -31,9 +26,16 @@ class Gallery extends StatefulWidget {
     // @required this.tinyFlyers,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final double galleryBoxWidth;
+  final bool showFlyers; // why ?
+  final bool addAuthorButtonIsOn;
+  // final List<TinyFlyer> tinyFlyers;
+  /// --------------------------------------------------------------------------
   @override
   _GalleryState createState() => _GalleryState();
+  /// --------------------------------------------------------------------------
 }
 
 class _GalleryState extends State<Gallery> {

@@ -10,12 +10,7 @@ import 'package:bldrs/xxx_lab/ask/enum_lister/enum_lister_tile.dart';
 import 'package:flutter/material.dart';
 
 class EnumLister extends StatelessWidget {
-  final String listTitle;
-  final List<String> stringsList;
-  final Function triggerTile;
-  final List<bool> triggersList;
-  final Function closeEnumLister;
-
+  /// --------------------------------------------------------------------------
   const EnumLister({
     @required this.listTitle,
     @required this.stringsList,
@@ -24,7 +19,13 @@ class EnumLister extends StatelessWidget {
     @required this.closeEnumLister,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String listTitle;
+  final List<String> stringsList;
+  final Function triggerTile;
+  final List<bool> triggersList;
+  final Function closeEnumLister;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;

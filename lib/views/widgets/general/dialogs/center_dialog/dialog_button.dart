@@ -5,12 +5,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class DialogButton extends StatelessWidget {
-  final String verse;
-  final Color verseColor;
-  final double width;
-  final Color color;
-  final Function onTap;
-
+  /// --------------------------------------------------------------------------
   const DialogButton({
     @required this.verse,
     this.verseColor = Colorz.white255,
@@ -19,9 +14,14 @@ class DialogButton extends StatelessWidget {
     this.onTap,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String verse;
+  final Color verseColor;
+  final double width;
+  final Color color;
+  final Function onTap;
   static const double height = 50;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return DreamBox(

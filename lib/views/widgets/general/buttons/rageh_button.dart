@@ -5,15 +5,16 @@ import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:flutter/material.dart';
 
 class Rageh extends StatelessWidget {
-  final Function tappingRageh;
-  final Function doubleTappingRageh;
-
+  /// --------------------------------------------------------------------------
   const Rageh({
     @required this.tappingRageh,
     @required this.doubleTappingRageh,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final Function tappingRageh;
+  final Function doubleTappingRageh;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

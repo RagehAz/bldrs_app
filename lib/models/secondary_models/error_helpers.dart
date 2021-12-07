@@ -3,10 +3,11 @@ import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.
 import 'package:flutter/material.dart';
 
 class HttpException implements Exception{
-  final String message;
-
+  /// --------------------------------------------------------------------------
   HttpException(this.message);
-
+  /// --------------------------------------------------------------------------
+  final String message;
+  /// --------------------------------------------------------------------------
   @override
   String toString(){
     return message;

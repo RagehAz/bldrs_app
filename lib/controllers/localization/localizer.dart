@@ -31,11 +31,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// check this https://pub.dev/packages/localize_and_translate
 
 class Localizer{
+  /// --------------------------------------------------------------------------
+  Localizer(this.locale);
+  /// --------------------------------------------------------------------------
   final Locale locale;
   Map<String, String> _localizedValues;
-
-  Localizer(this.locale);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   static Localizer of(BuildContext context) {
     return Localizations.of<Localizer>(context, Localizer);
   }

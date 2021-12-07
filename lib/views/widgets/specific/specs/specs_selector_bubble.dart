@@ -11,11 +11,7 @@ import 'package:bldrs/views/widgets/general/chain_expander/components/bldrs_chai
 import 'package:flutter/material.dart';
 
 class SpecSelectorBubble extends StatelessWidget {
-  final SpecList specList;
-  final List<Spec> selectedSpecs;
-  final ValueChanged<KW> onSpecTap;
-  final double bubbleHeight;
-
+  /// --------------------------------------------------------------------------
   const SpecSelectorBubble({
     @required this.specList,
     @required this.selectedSpecs,
@@ -23,7 +19,12 @@ class SpecSelectorBubble extends StatelessWidget {
     @required this.bubbleHeight,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final SpecList specList;
+  final List<Spec> selectedSpecs;
+  final ValueChanged<KW> onSpecTap;
+  final double bubbleHeight;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

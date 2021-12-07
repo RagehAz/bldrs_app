@@ -10,22 +10,7 @@ import 'package:websafe_svg/websafe_svg.dart';
 
 
 class DreamBoxIcon extends StatelessWidget {
-  final String verse;
-  final TextDirection textDirection;
-  final String icon;
-  final bool loading;
-  final double width;
-  final double height;
-  final BorderRadius iconCorners;
-  final File iconFile;
-  final double iconMargin;
-  final Color imageSaturationColor;
-  final bool bubble;
-  final Color iconColor;
-  final double iconSizeFactor;
-  final VerseWeight verseWeight;
-
-
+  /// --------------------------------------------------------------------------
   const DreamBoxIcon({
     @required this.verse,
     @required this.textDirection,
@@ -44,7 +29,22 @@ class DreamBoxIcon extends StatelessWidget {
 
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String verse;
+  final TextDirection textDirection;
+  final String icon;
+  final bool loading;
+  final double width;
+  final double height;
+  final BorderRadius iconCorners;
+  final File iconFile;
+  final double iconMargin;
+  final Color imageSaturationColor;
+  final bool bubble;
+  final Color iconColor;
+  final double iconSizeFactor;
+  final VerseWeight verseWeight;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

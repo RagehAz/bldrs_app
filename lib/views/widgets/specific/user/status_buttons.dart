@@ -6,11 +6,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class StatusButtons extends StatelessWidget {
-  final List<Map<String, Object>> status;
-  final Function switchUserStatus;
-  final int stateIndex;
-  final UserStatus currentUserStatus;
-
+  /// --------------------------------------------------------------------------
   const StatusButtons({
     @required this.status,
     @required this.switchUserStatus,
@@ -18,8 +14,12 @@ class StatusButtons extends StatelessWidget {
     @required this.currentUserStatus,
     Key key,
   }) : super(key: key);
-
-
+  /// --------------------------------------------------------------------------
+  final List<Map<String, Object>> status;
+  final Function switchUserStatus;
+  final int stateIndex;
+  final UserStatus currentUserStatus;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

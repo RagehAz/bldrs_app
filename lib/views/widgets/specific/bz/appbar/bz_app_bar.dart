@@ -14,11 +14,7 @@ import 'package:bldrs/views/widgets/specific/bz/dialogs/dialog_of_bz_options.dar
 import 'package:flutter/material.dart';
 
 class BzAppBar extends StatelessWidget {
-  final BzModel bzModel;
-  final UserModel userModel;
-  final CountryModel countryModel;
-  final CityModel cityModel;
-
+  /// --------------------------------------------------------------------------
   const BzAppBar({
     @required this.bzModel,
     @required this.userModel,
@@ -26,7 +22,12 @@ class BzAppBar extends StatelessWidget {
     @required this.cityModel,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final BzModel bzModel;
+  final UserModel userModel;
+  final CountryModel countryModel;
+  final CityModel cityModel;
+  /// --------------------------------------------------------------------------
   Future<void> _slideBzOptions(BuildContext context, BzModel bzModel) async {
 
     await DialogOfBzOptions.show(

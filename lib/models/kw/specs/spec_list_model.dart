@@ -9,6 +9,18 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:flutter/foundation.dart';
 
 class SpecList{
+  /// --------------------------------------------------------------------------
+  SpecList({
+    @required this.id,
+    @required this.groupID,
+    @required this.names,
+    @required this.canPickMany,
+    @required this.isRequired,
+    @required this.range,
+    @required this.specChain,
+    this.deactivators,
+  });
+  /// --------------------------------------------------------------------------
   final String id;
   final List<Name> names;
   final String groupID;
@@ -22,18 +34,7 @@ class SpecList{
   /// if <int>[1, 5] then only this range is selectable
   final List<dynamic> range;
   final Chain specChain;
-
-  SpecList({
-    @required this.id,
-    @required this.groupID,
-    @required this.names,
-    @required this.canPickMany,
-    @required this.isRequired,
-    @required this.range,
-    @required this.specChain,
-    this.deactivators,
-  });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   static List<SpecList> generateRefinedSpecsLists({@required List<SpecList> sourceSpecsLists, @required List<Spec> selectedSpecs}){
     final List<SpecList> _lists = <SpecList>[];
 
@@ -703,14 +704,13 @@ class SpecList{
 }
 
 class SpecDeactivator{
-  /// when this specValue is selected
-  final String specValue;
-  /// all lists with these listsIDs get deactivated
-  final List<String> specsListsIDsToDeactivate;
-
+  /// --------------------------------------------------------------------------
   SpecDeactivator({
     @required this.specValue,
     @required this.specsListsIDsToDeactivate,
 });
-
+  /// --------------------------------------------------------------------------
+  final String specValue; /// when this specValue is selected
+  final List<String> specsListsIDsToDeactivate; /// all lists with these listsIDs get deactivated
+  /// --------------------------------------------------------------------------
 }

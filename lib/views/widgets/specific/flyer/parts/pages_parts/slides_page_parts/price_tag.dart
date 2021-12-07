@@ -13,15 +13,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PriceTag extends StatelessWidget {
-  final double flyerBoxWidth;
-  final SuperFlyer superFlyer;
-
+  /// --------------------------------------------------------------------------
   const PriceTag({
     @required this.flyerBoxWidth,
     @required this.superFlyer,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final SuperFlyer superFlyer;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

@@ -6,20 +6,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Name {
-  /// language code
-  final String code;
-
-  /// name in this language
-  final String value;
-
-  final List<String> trigram;
-
+  /// --------------------------------------------------------------------------
   const Name({
     @required this.code,
     @required this.value,
     this.trigram,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String code; /// language code
+  final String value; /// name in this language
+  final List<String> trigram;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({bool addTrigram = true}) {
 
     Map<String, dynamic> _map = <String, dynamic>{

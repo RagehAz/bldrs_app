@@ -4,13 +4,14 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class PrintStrip extends StatelessWidget {
-  final String verse;
-
+  /// --------------------------------------------------------------------------
   const PrintStrip({
     @required this.verse,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String verse;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Positioned(

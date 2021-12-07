@@ -6,39 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SuperTextField extends StatefulWidget {
-  final TextInputType keyboardTextInputType;
-  final Color inputColor;
-  final int maxLines;
-  final int minLines;
-  final int inputSize;
-  final VerseWeight inputWeight;
-  final EdgeInsets margin;
-  final bool italic;
-  final Color labelColor;
-  final bool inputShadow;
-  final bool centered;
-  final String hintText;
-  final int maxLength;
-  final bool obscured;
-  final bool counterIsOn;
-  final double width;
-  final double height;
-  final ValueChanged<String> onChanged;
-  final TextEditingController textController;
-  final Color fieldColor;
-  final Color hintColor;
-  final TextInputAction keyboardTextInputAction;
-  final ValueChanged<String> onSaved;
-  final bool fieldIsFormField;
-  final String initialValue;
-  final ValueChanged<String> validator;
-  final TextDirection textDirection;
-  final Function onTap;
-  final double corners;
-  final ValueChanged<String> onSubmitted;
-  final bool autofocus;
-  final Function onMaxLinesReached;
-
+  /// --------------------------------------------------------------------------
   const SuperTextField({
     @required this.textController,
     this.keyboardTextInputType = TextInputType.text,
@@ -74,9 +42,43 @@ class SuperTextField extends StatefulWidget {
     this.onMaxLinesReached,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final TextInputType keyboardTextInputType;
+  final Color inputColor;
+  final int maxLines;
+  final int minLines;
+  final int inputSize;
+  final VerseWeight inputWeight;
+  final EdgeInsets margin;
+  final bool italic;
+  final Color labelColor;
+  final bool inputShadow;
+  final bool centered;
+  final String hintText;
+  final int maxLength;
+  final bool obscured;
+  final bool counterIsOn;
+  final double width;
+  final double height;
+  final ValueChanged<String> onChanged;
+  final TextEditingController textController;
+  final Color fieldColor;
+  final Color hintColor;
+  final TextInputAction keyboardTextInputAction;
+  final ValueChanged<String> onSaved;
+  final bool fieldIsFormField;
+  final String initialValue;
+  final ValueChanged<String> validator;
+  final TextDirection textDirection;
+  final Function onTap;
+  final double corners;
+  final ValueChanged<String> onSubmitted;
+  final bool autofocus;
+  final Function onMaxLinesReached;
+  /// --------------------------------------------------------------------------
   @override
   _SuperTextFieldState createState() => _SuperTextFieldState();
+  /// --------------------------------------------------------------------------
 }
 
 class _SuperTextFieldState extends State<SuperTextField> {

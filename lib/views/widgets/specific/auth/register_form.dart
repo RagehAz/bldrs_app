@@ -16,13 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RegisterForm extends StatefulWidget {
-  final Function switchSignIn;
-  final String email;
-  final String password;
-  // final Function emailTextOnChanged;
-  // final Function passwordTextOnChanged;
-
-
+  /// --------------------------------------------------------------------------
   const RegisterForm({
     @required this.switchSignIn,
     @required this.email,
@@ -31,9 +25,16 @@ class RegisterForm extends StatefulWidget {
     // @required this.passwordTextOnChanged,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final Function switchSignIn;
+  final String email;
+  final String password;
+  // final Function emailTextOnChanged;
+  // final Function passwordTextOnChanged;
+  /// --------------------------------------------------------------------------
   @override
   _RegisterFormState createState() => _RegisterFormState();
+  /// --------------------------------------------------------------------------
 }
 
 class _RegisterFormState extends State<RegisterForm> {

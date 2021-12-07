@@ -6,14 +6,15 @@ import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class KW {
-  final String id;
-  final List<Name> names;
-
+  /// --------------------------------------------------------------------------
   const KW({
     @required this.id,
     @required this.names,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String id;
+  final List<Name> names;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
 
     return <String, dynamic>{

@@ -9,22 +9,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class SwiperLayoutScreen extends StatefulWidget {
+  /// --------------------------------------------------------------------------
+  const SwiperLayoutScreen({
+    @required this. swiperPages,
+    this.sky = SkyType.night,
+    Key key,
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final SkyType sky;
   /// this receives a map like this
   /// {
   /// 'title' : 'page title here',
   /// 'widget' : pageWidgetInsideFullScreenContainer
   /// }
   final List<Map<String, dynamic>> swiperPages;
-  final SkyType sky;
-
-  const SwiperLayoutScreen({
-    @required this. swiperPages,
-    this.sky = SkyType.night,
-    Key key,
-  }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   _SwiperLayoutScreenState createState() => _SwiperLayoutScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {

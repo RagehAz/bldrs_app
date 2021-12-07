@@ -15,17 +15,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SectionDialogButton extends StatelessWidget {
-  final double dialogHeight;
-  final SectionClass.Section section;
-  final bool inActiveMode;
-
+  /// --------------------------------------------------------------------------
   const SectionDialogButton({
     @required this.dialogHeight,
     @required this.section,
     @required this.inActiveMode,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double dialogHeight;
+  final SectionClass.Section section;
+  final bool inActiveMode;
+  /// --------------------------------------------------------------------------
   String _sectionIcon({SectionClass.Section section, bool inActiveMode}){
     String _icon;
 

@@ -7,6 +7,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class DistrictModel{
+  /// --------------------------------------------------------------------------
+  const DistrictModel({
+    this.countryID,
+    this.cityID,
+    this.districtID,
+    this.names,
+    this.isActivated,
+    this.isPublic,
+  });
+  /// --------------------------------------------------------------------------
   final String countryID;
   final String cityID;
   final String districtID;
@@ -16,17 +26,7 @@ class DistrictModel{
   /// automatic switch when flyers reach 'city publishing-target ~ 1000 flyers'
   /// then all flyers will be visible to users not only between bzz
   final bool isPublic;
-
-
-  const DistrictModel({
-    this.countryID,
-    this.cityID,
-    this.districtID,
-    this.names,
-    this.isActivated,
-    this.isPublic,
-  });
-
+  /// --------------------------------------------------------------------------
   Map<String, Object> toMap(){
     return <String, Object>{
       'countryID' : countryID,

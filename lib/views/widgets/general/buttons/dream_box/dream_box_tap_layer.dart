@@ -2,15 +2,7 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class DreamBoxTapLayer extends StatelessWidget {
-  final double width;
-  final double height;
-  final Color splashColor;
-  final Function onTap;
-  final Function onTapUp;
-  final Function onTapDown;
-  final Function onTapCancel;
-  final bool inActiveMode;
-
+  /// --------------------------------------------------------------------------
   const DreamBoxTapLayer({
     @required this.width,
     @required this.height,
@@ -22,7 +14,16 @@ class DreamBoxTapLayer extends StatelessWidget {
     @required this.inActiveMode,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  final double height;
+  final Color splashColor;
+  final Function onTap;
+  final Function onTapUp;
+  final Function onTapDown;
+  final Function onTapCancel;
+  final bool inActiveMode;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return SizedBox(

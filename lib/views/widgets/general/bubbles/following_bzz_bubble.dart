@@ -10,15 +10,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FollowingBzzBubble extends StatelessWidget {
-  final List<BzModel> bzzModels;
-  final Function onBzTap;
-
+  /// --------------------------------------------------------------------------
   const FollowingBzzBubble({
     @required this.bzzModels,
     this.onBzTap,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<BzModel> bzzModels;
+  final Function onBzTap;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

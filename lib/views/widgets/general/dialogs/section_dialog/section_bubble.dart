@@ -5,11 +5,7 @@ import 'package:bldrs/views/widgets/general/chain_expander/components/expanding_
 import 'package:flutter/material.dart';
 
 class SectionBubble extends StatelessWidget {
-  final String title;
-  final double bubbleWidth;
-  final String icon;
-  final List<Widget> buttons;
-
+  /// --------------------------------------------------------------------------
   const SectionBubble({
     @required this.title,
     @required this.bubbleWidth,
@@ -17,7 +13,12 @@ class SectionBubble extends StatelessWidget {
     @required this.buttons,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String title;
+  final double bubbleWidth;
+  final String icon;
+  final List<Widget> buttons;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Bubble(

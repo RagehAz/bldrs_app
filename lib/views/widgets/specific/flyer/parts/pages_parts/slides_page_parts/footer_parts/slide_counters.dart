@@ -8,12 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class SlideCounters extends StatelessWidget {
-  final double flyerBoxWidth;
-  final int shares;
-  final int views;
-  final int saves;
-  final Function onCountersTap;
-
+  /// --------------------------------------------------------------------------
   const SlideCounters({
     @required this.flyerBoxWidth,
     @required this.onCountersTap,
@@ -22,7 +17,13 @@ class SlideCounters extends StatelessWidget {
     this.saves = 0,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final int shares;
+  final int views;
+  final int saves;
+  final Function onCountersTap;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------

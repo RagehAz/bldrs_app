@@ -64,16 +64,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FinalFlyer extends StatefulWidget {
-  final double flyerBoxWidth;
-  final FlyerModel flyerModel;
-  final int initialSlideIndex;
-  final Function onSwipeFlyer;
-  final bool goesToEditor;
-  final bool inEditor; // vs inView
-  final BzModel bzModel;
-  final String flyerID;
-  final Key flyerKey;
-
+  /// --------------------------------------------------------------------------
   const FinalFlyer({
     @required this.flyerBoxWidth,
     @required this.onSwipeFlyer,
@@ -90,11 +81,20 @@ class FinalFlyer extends StatefulWidget {
   // assert(isDraft != null),
   // assert(child != null),
   // super(key: key);
-
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final FlyerModel flyerModel;
+  final int initialSlideIndex;
+  final Function onSwipeFlyer;
+  final bool goesToEditor;
+  final bool inEditor; // vs inView
+  final BzModel bzModel;
+  final String flyerID;
+  final Key flyerKey;
+  /// --------------------------------------------------------------------------
   @override
   _FinalFlyerState createState() => _FinalFlyerState();
-
+  /// --------------------------------------------------------------------------
 }
 
 class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMixin<FinalFlyer>{

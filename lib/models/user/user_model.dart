@@ -13,29 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class UserModel {
-  final String id;
-  final AuthBy authBy;
-  final DateTime createdAt;
-  final UserStatus status;
-  // -------------------------
-  final String name;
-  final List<String> trigram;
-  final dynamic pic;
-  final String title;
-  final String company;
-  final Gender gender; // should be both gender and name tittle Mr, Mrs, Ms, Dr, Eng, Arch, ...
-  final ZoneModel zone;
-  final String language;
-  final GeoPoint position;
-  final List<ContactModel> contacts;
-  // -------------------------
-  final List<String> myBzzIDs;
-  final bool emailIsVerified;
-  final bool isAdmin;
-  final FCMToken fcmToken;
-  final List<String> savedFlyersIDs;
-  final List<String> followedBzzIDs;
-// ###############################
+  /// --------------------------------------------------------------------------
   const UserModel({
     @required this.id,
     @required this.authBy,
@@ -60,7 +38,30 @@ class UserModel {
     @required this.savedFlyersIDs,
     @required this.followedBzzIDs,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String id;
+  final AuthBy authBy;
+  final DateTime createdAt;
+  final UserStatus status;
+  // -------------------------
+  final String name;
+  final List<String> trigram;
+  final dynamic pic;
+  final String title;
+  final String company;
+  final Gender gender; // should be both gender and name tittle Mr, Mrs, Ms, Dr, Eng, Arch, ...
+  final ZoneModel zone;
+  final String language;
+  final GeoPoint position;
+  final List<ContactModel> contacts;
+  // -------------------------
+  final List<String> myBzzIDs;
+  final bool emailIsVerified;
+  final bool isAdmin;
+  final FCMToken fcmToken;
+  final List<String> savedFlyersIDs;
+  final List<String> followedBzzIDs;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
 
     return <String, dynamic>{

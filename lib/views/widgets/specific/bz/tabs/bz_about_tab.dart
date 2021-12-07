@@ -12,13 +12,14 @@ import 'package:bldrs/views/widgets/general/layouts/tab_layout.dart';
 import 'package:flutter/material.dart';
 
 class BzAboutTab extends StatelessWidget {
-  final BzModel bzModel;
-
+  /// --------------------------------------------------------------------------
   const BzAboutTab({
     @required this.bzModel,
     Key key,
   }) :   super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final BzModel bzModel;
+  /// --------------------------------------------------------------------------
   static aboutTabModel({
     @required Function onChangeTab,
     @required BzModel bzModel,

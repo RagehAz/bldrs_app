@@ -26,15 +26,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  final UserModel userModel;
-
+  /// --------------------------------------------------------------------------
   const UserProfileScreen({
     @required this.userModel,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final UserModel userModel;
+  /// --------------------------------------------------------------------------
   @override
   _UserProfileScreenState createState() => _UserProfileScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {

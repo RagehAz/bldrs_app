@@ -35,24 +35,7 @@ class Expander extends StatelessWidget {
 // -----------------------------------------------------------------------------
 
 class MainLayout extends StatelessWidget {
-  final List<Widget> appBarRowWidgets;
-  final Widget layoutWidget;
-  final String pyramids;
-  final AppBarType appBarType;
-  final String pageTitle;
-  final SkyType skyType;
-  final bool canRefreshFlyers;
-  final bool loading;
-  final Function onBack;
-  final Key scaffoldKey;
-  // final List<TinyBz> myTinyBzz;
-  final ScrollController appBarScrollController;
-  final bool sectionButtonIsOn;
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final bool historyButtonIsOn;
-  final ValueChanged<String> onSearchChanged;
-
+  /// --------------------------------------------------------------------------
   const MainLayout({
     this.appBarRowWidgets,
     this.layoutWidget,
@@ -73,10 +56,27 @@ class MainLayout extends StatelessWidget {
     this.onSearchChanged,
     Key key
 }) : super (key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<Widget> appBarRowWidgets;
+  final Widget layoutWidget;
+  final String pyramids;
+  final AppBarType appBarType;
+  final String pageTitle;
+  final SkyType skyType;
+  final bool canRefreshFlyers;
+  final bool loading;
+  final Function onBack;
+  final Key scaffoldKey;
+  // final List<TinyBz> myTinyBzz;
+  final ScrollController appBarScrollController;
+  final bool sectionButtonIsOn;
+  final TextEditingController searchController;
+  final ValueChanged<String> onSearchSubmit;
+  final bool historyButtonIsOn;
+  final ValueChanged<String> onSearchChanged;
+  /// --------------------------------------------------------------------------
   static const Widget spacer5 = const SizedBox(width: 5, height: 5,);
   static const Widget spacer10 = const SizedBox(width: 10, height: 10,);
-
 // -----------------------------------------------------------------------------
   Future<void> _refresh(BuildContext context) async {
 
@@ -245,13 +245,14 @@ class MainLayout extends StatelessWidget {
 // -----------------------------------------------------------------------------
 /// --- THE HORIZON IS BOTTOM PADDING THAT RESPECTS PYRAMIDS HEIGHT
 class PyramidsHorizon extends StatelessWidget {
-  final double heightFactor;
-
+  /// --------------------------------------------------------------------------
   const PyramidsHorizon({
     this.heightFactor = 1,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double heightFactor;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -264,23 +265,22 @@ class PyramidsHorizon extends StatelessWidget {
 // -----------------------------------------------------------------------------
 /// --- STRATOSPHERE IS UPPER SCREEN PADDING THAT RESPECTS APPBAR HEIGHT
 class Stratosphere extends StatelessWidget {
-  final double heightFactor;
-  final bool bigAppBar;
-
+  /// --------------------------------------------------------------------------
   const Stratosphere({
     this.heightFactor = 1,
     this.bigAppBar = false,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double heightFactor;
+  final bool bigAppBar;
+  /// --------------------------------------------------------------------------
   static const EdgeInsets stratosphereInsets = EdgeInsets.only(top: Ratioz.stratosphere);
   static const EdgeInsets stratosphereSandwich = EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.stratosphere);
-
   static const double _margins = Ratioz.appBarMargin * 2;
   static const double bigAppBarStratosphere = Ratioz.appBarBigHeight + _margins;
   static const double smallAppBarStratosphere = Ratioz.appBarSmallHeight + _margins;
-
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

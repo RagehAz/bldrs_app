@@ -8,17 +8,18 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/progress_bar_parts/stri
 import 'package:flutter/material.dart';
 
 class ProgressBox extends StatelessWidget {
-  final double flyerBoxWidth;
-  final List<Widget> strips;
-  final EdgeInsets margins;
-
+  /// --------------------------------------------------------------------------
   const ProgressBox({
     @required this.flyerBoxWidth,
     @required this.strips,
     @required this.margins,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final List<Widget> strips;
+  final EdgeInsets margins;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return  Align(
@@ -41,13 +42,7 @@ class ProgressBox extends StatelessWidget {
 
 
 class Strips extends StatelessWidget {
-  final double flyerBoxWidth;
-  final bool barIsOn;
-  final int numberOfStrips;
-  final int slideIndex;
-  final EdgeInsets margins;
-  final Sliders.SwipeDirection swipeDirection;
-
+  /// --------------------------------------------------------------------------
   const Strips({
     @required this.flyerBoxWidth,
     @required this.numberOfStrips,
@@ -57,7 +52,14 @@ class Strips extends StatelessWidget {
     this.margins,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final bool barIsOn;
+  final int numberOfStrips;
+  final int slideIndex;
+  final EdgeInsets margins;
+  final Sliders.SwipeDirection swipeDirection;
+  /// --------------------------------------------------------------------------
   static double boxWidth(double flyerBoxWidth){
     return flyerBoxWidth;
   }

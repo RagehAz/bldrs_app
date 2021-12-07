@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class CheckBox extends StatelessWidget {
-  final Function onTap;
-  final bool checkBoxIsOn;
-
+  /// --------------------------------------------------------------------------
   const CheckBox({
     @required this.checkBoxIsOn,
     this.onTap,
     Key key,
   }) : super(key: key);
-
-
+  /// --------------------------------------------------------------------------
+  final Function onTap;
+  final bool checkBoxIsOn;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

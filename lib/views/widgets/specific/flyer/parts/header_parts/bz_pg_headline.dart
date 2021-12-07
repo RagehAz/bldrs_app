@@ -7,12 +7,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class BzPageHeadline extends StatelessWidget {
-  final double flyerBoxWidth;
-  final bool bzPageIsOn;
-  final BzModel bzModel;
-  final CountryModel country;
-  final CityModel city;
-
+  /// --------------------------------------------------------------------------
   const BzPageHeadline({
     @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
@@ -21,7 +16,13 @@ class BzPageHeadline extends StatelessWidget {
     @required this.city,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final bool bzPageIsOn;
+  final BzModel bzModel;
+  final CountryModel country;
+  final CityModel city;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return

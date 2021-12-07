@@ -12,12 +12,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 
 class SlidesShelf extends StatelessWidget {
-  final String title;
-  final List<dynamic> pics;
-  final Function onImageTap;
-  final Function onAddButtonOnTap;
-  final double shelfHeight;
-
+  /// --------------------------------------------------------------------------
   const SlidesShelf({
     @required this.title,
     @required this.pics,
@@ -26,7 +21,13 @@ class SlidesShelf extends StatelessWidget {
     @required this.shelfHeight,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String title;
+  final List<dynamic> pics;
+  final Function onImageTap;
+  final Function onAddButtonOnTap;
+  final double shelfHeight;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

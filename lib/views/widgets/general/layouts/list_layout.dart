@@ -13,15 +13,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class ListLayout extends StatelessWidget {
-  final String pageTitle;
-  final String pyramids;
-  final List<MapModel> mapModels;
-  final List<String> icons;
-  final ValueChanged<String> onItemTap;
-  final String pageIcon;
-  final String pageIconVerse;
-  final SkyType sky;
-
+  /// --------------------------------------------------------------------------
   const ListLayout({
     this.pageTitle,
     this.pyramids,
@@ -33,7 +25,16 @@ class ListLayout extends StatelessWidget {
     this.sky = SkyType.night,
     Key key,
 }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String pageTitle;
+  final String pyramids;
+  final List<MapModel> mapModels;
+  final List<String> icons;
+  final ValueChanged<String> onItemTap;
+  final String pageIcon;
+  final String pageIconVerse;
+  final SkyType sky;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------

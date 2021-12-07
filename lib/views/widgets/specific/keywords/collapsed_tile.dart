@@ -8,22 +8,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class CollapsedTile extends StatelessWidget {
-  final Function toggleExpansion;
-  final double tileWidth;
-  final double collapsedHeight;
-  final String icon;
-  final Widget child;
-  final String firstHeadline;
-  final String secondHeadline;
-  final Animation<double> arrowTurns;
-  final Color arrowColor;
-  final double expandableHeightFactorAnimationValue;
-  final Color tileColor;
-  final double corners;
-  final double iconCorners;
-  final bool marginIsOn;
-  final double iconSizeFactor;
-
+  /// --------------------------------------------------------------------------
   const CollapsedTile({
     @required this.toggleExpansion,
     @required this.tileWidth,
@@ -42,15 +27,29 @@ class CollapsedTile extends StatelessWidget {
     this.iconSizeFactor = 1,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final Function toggleExpansion;
+  final double tileWidth;
+  final double collapsedHeight;
+  final String icon;
+  final Widget child;
+  final String firstHeadline;
+  final String secondHeadline;
+  final Animation<double> arrowTurns;
+  final Color arrowColor;
+  final double expandableHeightFactorAnimationValue;
+  final Color tileColor;
+  final double corners;
+  final double iconCorners;
+  final bool marginIsOn;
+  final double iconSizeFactor;
+  /// --------------------------------------------------------------------------
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
   static const double arrowBoxSize = ExpandingTile.arrowBoxSize;
   static const double cornersValue = Ratioz.appBarCorner;
   static const Color collapsedColor = Colorz.white10;
   static const Color expandedColor = Colorz.blue80;
-
-
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   static Widget arrow({double collapsedHeight, Color arrowColor, bool arrowDown = true}){
 
     final double _arrowBoxSize = collapsedHeight ?? collapsedGroupHeight;

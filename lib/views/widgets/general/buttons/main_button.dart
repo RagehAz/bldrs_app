@@ -8,6 +8,22 @@ import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class MainButton extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const MainButton({
+    @required this.buttonVerse,
+    @required this.buttonIcon,
+    @required this.function,
+    this.buttonColor = Colorz.white50,
+    this.splashColor = Colorz.yellow255,
+    this.buttonVerseShadow = true,
+    this.stretched = false,
+    this.iconSizeFactor = 0.75,
+    this.verseColor = Colorz.white255,
+    this.verseWeight = VerseWeight.bold,
+    this.iconColor,
+    Key key,
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
   final String buttonVerse;
   final dynamic buttonIcon;
   final Color buttonColor;
@@ -19,23 +35,7 @@ class MainButton extends StatelessWidget {
   final Color verseColor;
   final VerseWeight verseWeight;
   final Color iconColor;
-
-  const MainButton({
-    @required this.buttonVerse,
-    @required this.buttonIcon,
-    @required this.function,
-    this.buttonColor = Colorz.white50,
-    this.splashColor = Colorz.yellow255,
-    this.buttonVerseShadow = true,
-    this.stretched = false,
-
-    this.iconSizeFactor = 0.75,
-    this.verseColor = Colorz.white255,
-    this.verseWeight = VerseWeight.bold,
-    this.iconColor,
-    Key key,
-  }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

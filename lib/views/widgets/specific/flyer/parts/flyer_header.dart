@@ -9,15 +9,16 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/mini_heade
 import 'package:flutter/material.dart';
 
 class FlyerHeader extends StatelessWidget {
-  final SuperFlyer superFlyer;
-  final double flyerBoxWidth;
-
+  /// --------------------------------------------------------------------------
   const FlyerHeader({
     @required this.flyerBoxWidth,
     this.superFlyer,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final double flyerBoxWidth;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------

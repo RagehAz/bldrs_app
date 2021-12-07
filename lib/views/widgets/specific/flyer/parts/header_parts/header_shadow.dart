@@ -4,15 +4,16 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class HeaderShadow extends StatelessWidget {
-  final double flyerBoxWidth;
-  final bool bzPageIsOn;
-
+  /// --------------------------------------------------------------------------
   const HeaderShadow({
     @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
     Key key,
 }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final bool bzPageIsOn;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

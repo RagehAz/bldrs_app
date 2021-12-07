@@ -6,15 +6,7 @@ import 'package:flutter/material.dart';
 
 
 class BarButton extends StatelessWidget {
-  final String text;
-  final String icon;
-  final double iconSizeFactor;
-  final Widget clipperWidget;
-  final BarType barType;
-  final Function onTap;
-  final double width;
-  final double corners;
-
+  /// --------------------------------------------------------------------------
   const BarButton({
     @required this.text,
     @required this.width,
@@ -26,8 +18,16 @@ class BarButton extends StatelessWidget {
     this.corners,
     Key key,
   }) : super(key: key);
-
-
+  /// --------------------------------------------------------------------------
+  final String text;
+  final String icon;
+  final double iconSizeFactor;
+  final Widget clipperWidget;
+  final BarType barType;
+  final Function onTap;
+  final double width;
+  final double corners;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

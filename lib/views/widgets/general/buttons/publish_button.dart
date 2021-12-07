@@ -5,18 +5,18 @@ import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:flutter/material.dart';
 
 class PublishButton extends StatelessWidget {
-  final bool firstTimer;
-  final bool loading;
-  final Function onTap;
-
+  /// --------------------------------------------------------------------------
   const PublishButton({
     @required this.firstTimer,
     @required this.loading,
     this.onTap,
     Key key,
   }) : super(key: key);
-
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final bool firstTimer;
+  final bool loading;
+  final Function onTap;
+  /// --------------------------------------------------------------------------
   String _verse(){
     String _verse;
 

@@ -9,13 +9,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/info_page_p
 import 'package:flutter/material.dart';
 
 class ReviewCard extends StatelessWidget {
-  final double width;
-  final double corners;
-  final ReviewModel review;
-  final UserModel userModel;
-  final String flyerID;
-  final Function onShowReviewOptions;
-
+  /// --------------------------------------------------------------------------
   const ReviewCard({
     @required this.width,
     @required this.corners,
@@ -25,7 +19,14 @@ class ReviewCard extends StatelessWidget {
     @required this.onShowReviewOptions,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  final double corners;
+  final ReviewModel review;
+  final UserModel userModel;
+  final String flyerID;
+  final Function onShowReviewOptions;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

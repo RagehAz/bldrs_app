@@ -35,16 +35,17 @@ import 'package:flutter/material.dart';
 
 // ---------------------------------------------------------------------------
 class ObeliskScreen extends StatefulWidget {
-  final PageController controller;
-
+  /// --------------------------------------------------------------------------
   const ObeliskScreen({
     this.controller,
     Key key,
   }) : super(key: key);
-
-
+  /// --------------------------------------------------------------------------
+  final PageController controller;
+  /// --------------------------------------------------------------------------
   @override
   _ObeliskScreenState createState() => _ObeliskScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _ObeliskScreenState extends State<ObeliskScreen>{

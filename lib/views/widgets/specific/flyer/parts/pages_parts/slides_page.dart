@@ -8,15 +8,16 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page
 import 'package:flutter/material.dart';
 
 class SlidesPage extends StatelessWidget {
-  final SuperFlyer superFlyer;
-  final double flyerBoxWidth;
-
+  /// --------------------------------------------------------------------------
   const SlidesPage({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final double flyerBoxWidth;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

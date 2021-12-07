@@ -9,20 +9,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class TileBubble extends StatelessWidget {
-  final String verse;
-  final dynamic icon;
-  final Color iconBoxColor;
-  final double iconSizeFactor;
-  final Color verseColor;
-  final Function btOnTap;
-  final String secondLine;
-  final bool switchIsOn;
-  final ValueChanged<bool> switching;
-  final bool iconIsBubble;
-  final bool insideDialog;
-  final Function moreBtOnTap;
-  final Widget child;
-
+  /// --------------------------------------------------------------------------
   const TileBubble({
     @required this.verse,
     @required this.icon,
@@ -39,9 +26,22 @@ class TileBubble extends StatelessWidget {
     this.child,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String verse;
+  final dynamic icon;
+  final Color iconBoxColor;
+  final double iconSizeFactor;
+  final Color verseColor;
+  final Function btOnTap;
+  final String secondLine;
+  final bool switchIsOn;
+  final ValueChanged<bool> switching;
+  final bool iconIsBubble;
+  final bool insideDialog;
+  final Function moreBtOnTap;
+  final Widget child;
   static const double iconBoxWidth = 30;
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   static double childWidth(BuildContext context){
     return Bubble.bubbleWidth(context: context, stretchy: false) - iconBoxWidth;
   }

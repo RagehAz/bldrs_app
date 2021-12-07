@@ -144,15 +144,16 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 }
 
 class SmallFuckingButton extends StatelessWidget {
-  final String verse;
-  final Function onTap;
-
+  /// --------------------------------------------------------------------------
   const SmallFuckingButton({
     @required this.verse,
     @required this.onTap,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String verse;
+  final Function onTap;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

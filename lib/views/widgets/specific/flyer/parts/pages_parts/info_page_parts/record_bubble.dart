@@ -6,11 +6,7 @@ import 'package:bldrs/views/widgets/general/buttons/person_button.dart';
 import 'package:flutter/material.dart';
 
 class RecordBubble extends StatelessWidget {
-  final double flyerBoxWidth;
-  final String bubbleTitle;
-  final String bubbleIcon;
-  final List<UserModel> users;
-
+  /// --------------------------------------------------------------------------
   const RecordBubble({
     @required this.flyerBoxWidth,
     @required this.bubbleTitle,
@@ -18,7 +14,12 @@ class RecordBubble extends StatelessWidget {
     @required this.users,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final String bubbleTitle;
+  final String bubbleIcon;
+  final List<UserModel> users;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

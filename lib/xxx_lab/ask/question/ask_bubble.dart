@@ -28,17 +28,19 @@ import 'package:bldrs/xxx_lab/ask/question/question_ops.dart';
 import 'package:flutter/material.dart';
 
 class QuestionBubble extends StatefulWidget {
-  final BzType bzType;
-  final Function tappingAskInfo;
-
+  /// --------------------------------------------------------------------------
   const QuestionBubble({
     @required this.tappingAskInfo,
     this.bzType,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final BzType bzType;
+  final Function tappingAskInfo;
+  /// --------------------------------------------------------------------------
   @override
   _QuestionBubbleState createState() => _QuestionBubbleState();
+/// --------------------------------------------------------------------------
 }
 
 class _QuestionBubbleState extends State<QuestionBubble> {

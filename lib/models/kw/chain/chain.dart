@@ -10,21 +10,21 @@ import 'package:bldrs/models/kw/specs/spec_list_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:flutter/foundation.dart';
 
-class Chain {
-  final String id;
-  final String icon;
-  final List<Name> names;
-  final dynamic sons;
-
   /// can be KWs or sub-Chains
-
+class Chain {
+  /// --------------------------------------------------------------------------
   const Chain({
     @required this.id,
     @required this.icon,
     @required this.names,
     @required this.sons,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String id;
+  final String icon;
+  final List<Name> names;
+  final dynamic sons;
+  /// --------------------------------------------------------------------------
   static Chain filterSpecListChainRange(SpecList specList){
 
     final List<KW> _filteredSons = <KW>[];

@@ -18,12 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LocaleBubble extends StatefulWidget {
-  final ValueChanged<String> changeCountry;
-  final ValueChanged<String> changeCity;
-  final ValueChanged<String> changeDistrict;
-  final ZoneModel currentZone;
-  final String title;
-
+  /// --------------------------------------------------------------------------
   const LocaleBubble({
     @required this.changeCountry,
     @required this.changeCity,
@@ -32,9 +27,16 @@ class LocaleBubble extends StatefulWidget {
     this.title = 'Preferred Location',
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final ValueChanged<String> changeCountry;
+  final ValueChanged<String> changeCity;
+  final ValueChanged<String> changeDistrict;
+  final ZoneModel currentZone;
+  final String title;
+  /// --------------------------------------------------------------------------
   @override
   _LocaleBubbleState createState() => _LocaleBubbleState();
+  /// --------------------------------------------------------------------------
 }
 
 class _LocaleBubbleState extends State<LocaleBubble> {
@@ -301,11 +303,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 }
 
 class LocaleButton extends StatelessWidget {
-  final String title;
-  final String verse;
-  final String icon;
-  final Function onTap;
-
+  /// --------------------------------------------------------------------------
   const LocaleButton({
     @required this.title,
     @required this.verse,
@@ -313,7 +311,12 @@ class LocaleButton extends StatelessWidget {
     this.icon,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String title;
+  final String verse;
+  final String icon;
+  final Function onTap;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

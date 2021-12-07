@@ -17,15 +17,17 @@ import 'package:bldrs/views/widgets/specific/keywords/keywords_bubble.dart';
 import 'package:flutter/material.dart';
 
 class CountryEditorScreen extends StatefulWidget {
-  final CountryModel country;
-
+  /// --------------------------------------------------------------------------
   const CountryEditorScreen({
     @required this.country,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final CountryModel country;
+  /// --------------------------------------------------------------------------
   @override
   _CountryEditorScreenState createState() => _CountryEditorScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _CountryEditorScreenState extends State<CountryEditorScreen> {

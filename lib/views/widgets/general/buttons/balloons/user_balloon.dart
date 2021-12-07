@@ -11,16 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class UserBalloon extends StatelessWidget {
-  final UserStatus balloonType;
-  final UserModel userModel;
-  final double balloonWidth;
-  final bool blackAndWhite;
-  final Function onTap;
-  final bool loading;
-  final Color balloonColor;
-  final Widget child;
-  final bool shadowIsOn;
-
+  /// --------------------------------------------------------------------------
   const UserBalloon({
     @required this.userModel,
     @required this.balloonWidth,
@@ -33,13 +24,22 @@ class UserBalloon extends StatelessWidget {
     this.shadowIsOn = true,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final UserStatus balloonType;
+  final UserModel userModel;
+  final double balloonWidth;
+  final bool blackAndWhite;
+  final Function onTap;
+  final bool loading;
+  final Color balloonColor;
+  final Widget child;
+  final bool shadowIsOn;
+  /// --------------------------------------------------------------------------
   // Color _bubbleDarkness(){
   //   return
   //     blackAndWhite == false ? Colorz.BlackSmoke :  Colorz.BlackNothing;
   // }
-
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -53,10 +53,10 @@ class UserBalloon extends StatelessWidget {
           userStatus: balloonType,
           pic: userModel?.pic,
           shadowIsOn: shadowIsOn,
-          child: child,
           loading: loading,
           balloonColor: balloonColor,
-          blackAndWhite: blackAndWhite
+          blackAndWhite: blackAndWhite,
+          child: child
       );
 
     // balloonColor == null ?
@@ -105,16 +105,7 @@ class UserBalloon extends StatelessWidget {
 }
 
 class Balloona extends StatelessWidget {
-  final double balloonWidth;
-  final Function onTap;
-  final dynamic pic;
-  final UserStatus userStatus;
-  final bool shadowIsOn;
-  final Widget child;
-  final bool loading;
-  final Color balloonColor;
-  final bool blackAndWhite;
-
+  /// --------------------------------------------------------------------------
   const Balloona({
     @required this.balloonWidth,
     @required this.pic,
@@ -127,7 +118,17 @@ class Balloona extends StatelessWidget {
     this.userStatus = UserStatus.normal,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double balloonWidth;
+  final Function onTap;
+  final dynamic pic;
+  final UserStatus userStatus;
+  final bool shadowIsOn;
+  final Widget child;
+  final bool loading;
+  final Color balloonColor;
+  final bool blackAndWhite;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -147,11 +148,11 @@ class Balloona extends StatelessWidget {
             shadow: Shadowz.basicOuterShadow,
             child: BalloonComponents(
               pic: pic,
-              child: child,
               loading: loading,
               balloonColor: balloonColor,
               balloonWidth: balloonWidth,
               blackAndWhite: blackAndWhite,
+              child: child,
             ),
           )
 
@@ -175,13 +176,7 @@ class Balloona extends StatelessWidget {
 }
 
 class BalloonComponents extends StatelessWidget {
-  final double balloonWidth;
-  final Color balloonColor;
-  final bool blackAndWhite;
-  final bool loading;
-  final dynamic pic;
-  final Widget child;
-
+  /// --------------------------------------------------------------------------
   const BalloonComponents({
     @required this.balloonWidth,
     @required this.blackAndWhite,
@@ -191,7 +186,14 @@ class BalloonComponents extends StatelessWidget {
     this.loading = false,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double balloonWidth;
+  final Color balloonColor;
+  final bool blackAndWhite;
+  final bool loading;
+  final dynamic pic;
+  final Widget child;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

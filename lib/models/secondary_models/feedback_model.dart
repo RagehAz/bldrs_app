@@ -3,18 +3,19 @@ import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class FeedbackModel{
-  final String id;
-  final String userID;
-  final DateTime timeStamp;
-  final String feedback;
-
+  /// --------------------------------------------------------------------------
   const FeedbackModel({
     @required this.userID,
     @required this.timeStamp,
     @required this.feedback,
     this.id,
 });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String id;
+  final String userID;
+  final DateTime timeStamp;
+  final String feedback;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return <String,dynamic>{
       'id' : id,

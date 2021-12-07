@@ -3,12 +3,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/progress_bar_parts/stri
 import 'package:flutter/material.dart';
 
 class Strip extends StatelessWidget {
-  final double flyerBoxWidth;
-  final double stripWidth;
-  final int numberOfSlides;
-  final EdgeInsets margins;
-  final bool isWhite;
-
+  /// --------------------------------------------------------------------------
   const Strip({
     @required this.flyerBoxWidth,
     @required this.stripWidth,
@@ -17,7 +12,13 @@ class Strip extends StatelessWidget {
     this.margins,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final double stripWidth;
+  final int numberOfSlides;
+  final EdgeInsets margins;
+  final bool isWhite;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;

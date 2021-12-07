@@ -6,17 +6,18 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class BzCreditsCounter extends StatelessWidget {
-  final double width;
-  final String slidesCredit;
-  final String ankhsCredit;
-
+  /// --------------------------------------------------------------------------
   const BzCreditsCounter({
     @required this.width,
     @required this.slidesCredit,
     @required this.ankhsCredit,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  final String slidesCredit;
+  final String ankhsCredit;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,17 +50,18 @@ class BzCreditsCounter extends StatelessWidget {
 }
 
 class CreditsRow extends StatelessWidget {
-  final String icon;
-  final String value;
-  final double width;
-
+  /// --------------------------------------------------------------------------
   const CreditsRow({
     @required this.icon,
     @required this.value,
     @required this.width,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String icon;
+  final String value;
+  final double width;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Row(

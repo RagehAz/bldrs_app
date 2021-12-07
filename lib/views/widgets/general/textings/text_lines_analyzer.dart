@@ -2,12 +2,7 @@ import 'package:bldrs/controllers/drafters/text_directionerz.dart';
 import 'package:flutter/material.dart';
 
 class TextLinesAnalyzer extends StatelessWidget {
-  final String text;
-  final TextStyle textStyle;
-  final int maxLines;
-  final Widget childIfExceededMaxLines;
-  final Widget childIfWithinMaxLines;
-
+  /// --------------------------------------------------------------------------
   const TextLinesAnalyzer({
     @required this.text,
     @required this.textStyle,
@@ -16,7 +11,13 @@ class TextLinesAnalyzer extends StatelessWidget {
     @required this.childIfWithinMaxLines,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String text;
+  final TextStyle textStyle;
+  final int maxLines;
+  final Widget childIfExceededMaxLines;
+  final Widget childIfWithinMaxLines;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

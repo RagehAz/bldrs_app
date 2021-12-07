@@ -5,17 +5,18 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class ChatBubble extends StatelessWidget {
-  final String verse;
-  final bool isMyVerse;
-  final String userID;
-
+  /// --------------------------------------------------------------------------
   const ChatBubble({
     @required this.verse,
     @required this.isMyVerse,
     @required this.userID,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String verse;
+  final bool isMyVerse;
+  final String userID;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

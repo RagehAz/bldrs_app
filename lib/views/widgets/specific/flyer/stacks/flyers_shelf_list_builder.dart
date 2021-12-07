@@ -7,21 +7,23 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 
 class FlyersShelfListBuilder extends StatefulWidget {
-  final List<FlyerModel> flyers;
-  final double flyerSizeFactor;
-  final Function flyerOnTap;
-  final Function onScrollEnd;
-
+  /// --------------------------------------------------------------------------
   const FlyersShelfListBuilder({
     @required this.flyers,
     @required this.flyerSizeFactor,
     @required this.flyerOnTap,
     this.onScrollEnd,
     Key key,
-}) : super(key: key);
-
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final List<FlyerModel> flyers;
+  final double flyerSizeFactor;
+  final Function flyerOnTap;
+  final Function onScrollEnd;
+  /// --------------------------------------------------------------------------
   @override
   _FlyersShelfListBuilderState createState() => _FlyersShelfListBuilderState();
+  /// --------------------------------------------------------------------------
 }
 
 class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {

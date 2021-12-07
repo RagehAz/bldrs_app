@@ -7,16 +7,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page
 import 'package:flutter/material.dart';
 
 class FooterButton extends StatelessWidget {
-  final String icon;
-  final double flyerBoxWidth;
-  final Function onTap;
-  final String verse;
-  final double size;
-  final bool inActiveMode;
-
-  /// needed for ankh button value
-  final bool isOn;
-
+  /// --------------------------------------------------------------------------
   const FooterButton({
     @required this.icon,
     @required this.flyerBoxWidth,
@@ -25,11 +16,19 @@ class FooterButton extends StatelessWidget {
     /// initializing size value overrides all values and suppresses margins
     this.size,
     this.inActiveMode = false,
-
     this.isOn = false,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String icon;
+  final double flyerBoxWidth;
+  final Function onTap;
+  final String verse;
+  final double size;
+  final bool inActiveMode;
+  /// needed for ankh button value
+  final bool isOn;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
