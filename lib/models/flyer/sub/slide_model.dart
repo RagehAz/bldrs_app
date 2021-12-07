@@ -14,19 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 class SlideModel {
-  final int slideIndex;
-  final dynamic pic;
-  final String headline;
-  final String description;
-  int sharesCount;
-  int viewsCount;
-  int savesCount;
-  BoxFit picFit;
-  ImageSize imageSize;
-  Color midColor;
-
-  final String flyerID; /// only used in sql ops
-
+  /// --------------------------------------------------------------------------
   SlideModel({
     @required this.description,
     @required this.picFit, /// TASK : update all methods below to include this boxfit parameter
@@ -38,10 +26,21 @@ class SlideModel {
     this.sharesCount,
     this.viewsCount,
     this.savesCount,
-
     this.flyerID, /// only used in sql ops
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final int slideIndex;
+  final dynamic pic;
+  final String headline;
+  final String description;
+  int sharesCount;
+  int viewsCount;
+  int savesCount;
+  BoxFit picFit;
+  ImageSize imageSize;
+  Color midColor;
+  final String flyerID; /// only used in sql ops
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'slideIndex': slideIndex,

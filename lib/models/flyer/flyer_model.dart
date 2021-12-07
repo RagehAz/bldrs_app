@@ -16,29 +16,7 @@ import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
 class FlyerModel with ChangeNotifier{
-  final String id;
-  final String title;
-  final List<String> trigram;
-  // -------------------------
-  final FlyerTypeClass.FlyerType flyerType;
-  final FlyerState flyerState;
-  final List<String> keywordsIDs;
-  final bool showsAuthor;
-  final ZoneModel zone;
-  // -------------------------
-  final String authorID;
-  final String bzID;
-  // -------------------------
-  final GeoPoint position;
-  // -------------------------
-  final List<SlideModel> slides; // TASK : only 10 max slides per flyer
-  // -------------------------
-  final bool isBanned;
-  final List<Spec> specs;
-  final String info;
-  final List<PublishTime> times;
-  final bool priceTagIsOn;
-
+  /// --------------------------------------------------------------------------
   FlyerModel({
     @required this.id,
     @required this.title,
@@ -64,7 +42,30 @@ class FlyerModel with ChangeNotifier{
     this.flyerState = FlyerState.draft,
     this.showsAuthor = false,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String id;
+  final String title;
+  final List<String> trigram;
+  // -------------------------
+  final FlyerTypeClass.FlyerType flyerType;
+  final FlyerState flyerState;
+  final List<String> keywordsIDs;
+  final bool showsAuthor;
+  final ZoneModel zone;
+  // -------------------------
+  final String authorID;
+  final String bzID;
+  // -------------------------
+  final GeoPoint position;
+  // -------------------------
+  final List<SlideModel> slides; // TASK : only 10 max slides per flyer
+  // -------------------------
+  final bool isBanned;
+  final List<Spec> specs;
+  final String info;
+  final List<PublishTime> times;
+  final bool priceTagIsOn;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
     return <String, dynamic>{
       'id' : id,

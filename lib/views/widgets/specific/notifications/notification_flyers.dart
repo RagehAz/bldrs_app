@@ -7,18 +7,18 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:flutter/material.dart';
 
 class NotificationFlyers extends StatelessWidget {
-  final double bodyWidth;
-  final dynamic flyers;
-  final Function onFlyerTap;
-
-
+  /// --------------------------------------------------------------------------
   const NotificationFlyers({
     @required this.bodyWidth,
     @required this.flyers,
     this.onFlyerTap,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double bodyWidth;
+  final dynamic flyers;
+  final Function onFlyerTap;
+  /// --------------------------------------------------------------------------
   bool _absorbFlyerTap(){
     bool _absorb;
 

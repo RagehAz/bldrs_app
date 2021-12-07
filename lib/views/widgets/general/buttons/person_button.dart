@@ -6,12 +6,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class PersonButton extends StatelessWidget {
-  final double totalHeight;
-  final String image;
-  final String name;
-  final String id;
-  final ValueChanged<String> onTap;
-
+  /// --------------------------------------------------------------------------
   const PersonButton({
     @required this.totalHeight,
     @required this.image,
@@ -20,7 +15,13 @@ class PersonButton extends StatelessWidget {
     @required this.onTap,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double totalHeight;
+  final String image;
+  final String name;
+  final String id;
+  final ValueChanged<String> onTap;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

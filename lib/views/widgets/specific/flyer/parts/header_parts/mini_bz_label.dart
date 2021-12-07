@@ -8,15 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class BzLabel extends StatelessWidget {
-  final SuperFlyer superFlyer;
-  final double flyerBoxWidth;
-
+  /// --------------------------------------------------------------------------
   const BzLabel({
     @required this.flyerBoxWidth,
     this.superFlyer,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final double flyerBoxWidth;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

@@ -6,15 +6,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class DreamWrapper extends StatelessWidget {
-  final List<String> verses;
-  final List<String> icons;
-  final double spacing;
-  final double buttonHeight;
-  final Function onTap;
-  final EdgeInsets margins;
-  final double boxWidth;
-  final double boxHeight;
-
+  /// --------------------------------------------------------------------------
   const DreamWrapper({
     this.verses,
     this.icons,
@@ -26,7 +18,16 @@ class DreamWrapper extends StatelessWidget {
     this.boxHeight,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<String> verses;
+  final List<String> icons;
+  final double spacing;
+  final double buttonHeight;
+  final Function onTap;
+  final EdgeInsets margins;
+  final double boxWidth;
+  final double boxHeight;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

@@ -13,15 +13,17 @@ import 'package:provider/provider.dart';
 /// TASK : if flyer is deleted from database, its ID will still remain in user's saved flyers
 /// then we need to handle this situation
 class SavedFlyersScreen extends StatefulWidget {
-  final bool selectionMode;
-
+  /// --------------------------------------------------------------------------
   const SavedFlyersScreen({
     this.selectionMode = false,
     Key key,
 }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final bool selectionMode;
+  /// --------------------------------------------------------------------------
   @override
   _SavedFlyersScreenState createState() => _SavedFlyersScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTickerProviderStateMixin {

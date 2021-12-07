@@ -9,15 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SectionsButton extends StatelessWidget {
-  final Function onTap;
-  final Color color;
-
+  /// --------------------------------------------------------------------------
   const SectionsButton({
     this.onTap,
     this.color = Colorz.white10,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final Function onTap;
+  final Color color;
+  /// --------------------------------------------------------------------------
   void _changeSection(BuildContext context) {
 
   // final double _dialogHeight = Scale.superScreenHeight(context) * 0.95;

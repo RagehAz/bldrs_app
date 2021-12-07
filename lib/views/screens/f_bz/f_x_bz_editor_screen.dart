@@ -32,19 +32,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BzEditorScreen extends StatefulWidget {
-  final bool firstTimer;
-  final UserModel userModel;
-  final BzModel bzModel;
-
+  /// --------------------------------------------------------------------------
   const BzEditorScreen({
     @required this.userModel,
     this.firstTimer = false,
     this.bzModel,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final bool firstTimer;
+  final UserModel userModel;
+  final BzModel bzModel;
+  /// --------------------------------------------------------------------------
   @override
   _BzEditorScreenState createState() => _BzEditorScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStateMixin{

@@ -5,18 +5,18 @@ import 'package:bldrs/xxx_lab/ask/enum_lister/check_box.dart';
 import 'package:flutter/material.dart';
 
 class EnumListerTile extends StatelessWidget {
-
-  final String verse;
-  final Function onTap;
-  final bool tileIsOn;
-
+  /// --------------------------------------------------------------------------
   const EnumListerTile({
     @required this.verse,
     @required this.onTap,
     @required this.tileIsOn,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String verse;
+  final Function onTap;
+  final bool tileIsOn;
+  /// --------------------------------------------------------------------------
   bool _shadow(){
     bool _shadowIsOn;
     if (tileIsOn == true){

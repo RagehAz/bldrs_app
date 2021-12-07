@@ -24,13 +24,7 @@ enum CityState{
 }
 
 class NotiSudo{
-  final NotiSubject subject;
-  final String eventTrigger;
-  final String scheduledTiming;
-  final String ifStatement;
-  final CityState cityState;
-  final NotiRecieverType reciever;
-
+  /// --------------------------------------------------------------------------
   const NotiSudo({
     @required this.subject,
     @required this.eventTrigger,
@@ -39,7 +33,14 @@ class NotiSudo{
     @required this.cityState,
     @required this.reciever,
 });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final NotiSubject subject;
+  final String eventTrigger;
+  final String scheduledTiming;
+  final String ifStatement;
+  final CityState cityState;
+  final NotiRecieverType reciever;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return <String, dynamic>{
     'subject' : cipherNotiSubject(subject),

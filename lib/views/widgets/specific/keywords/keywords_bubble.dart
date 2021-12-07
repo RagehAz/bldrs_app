@@ -7,19 +7,7 @@ import 'package:bldrs/views/widgets/specific/keywords/keyword_button.dart';
 import 'package:flutter/material.dart';
 
 class KeywordsBubble extends StatelessWidget {
-  final String title;
-  final List<KW> keywords;
-  final int verseSize;
-  final Function onTap;
-  final ValueChanged<KW> onKeywordTap;
-  final Color bubbleColor;
-  final List<dynamic> selectedWords;
-  final double bubbleWidth;
-  final dynamic margins;
-  final dynamic corners;
-  final bool passKeywordOnTap;
-  final bool addButtonIsOn;
-
+  /// --------------------------------------------------------------------------
   const KeywordsBubble({
     @required this.title,
     @required this.keywords,
@@ -35,7 +23,20 @@ class KeywordsBubble extends StatelessWidget {
     this.passKeywordOnTap = false,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String title;
+  final List<KW> keywords;
+  final int verseSize;
+  final Function onTap;
+  final ValueChanged<KW> onKeywordTap;
+  final Color bubbleColor;
+  final List<dynamic> selectedWords;
+  final double bubbleWidth;
+  final dynamic margins;
+  final dynamic corners;
+  final bool passKeywordOnTap;
+  final bool addButtonIsOn;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

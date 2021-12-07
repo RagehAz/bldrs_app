@@ -5,17 +5,18 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class FieldsRow extends StatelessWidget {
-  final Function openList;
-  final List<String> fields;
-  final String title;
-
+  /// --------------------------------------------------------------------------
   const FieldsRow({
     @required this.openList,
     @required this.fields,
     @required this.title,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final Function openList;
+  final List<String> fields;
+  final String title;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

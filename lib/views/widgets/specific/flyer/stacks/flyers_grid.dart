@@ -11,14 +11,7 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class FlyersGrid extends StatefulWidget {
-
-  final double gridZoneWidth;
-  final int numberOfColumns;
-  final List<FlyerModel> flyers;
-  final bool scrollable;
-  final bool stratosphere;
-  final Axis scrollDirection;
-
+  /// --------------------------------------------------------------------------
   const FlyersGrid({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
@@ -28,7 +21,14 @@ class FlyersGrid extends StatefulWidget {
     this.scrollDirection = Axis.vertical,
     Key key,
 }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double gridZoneWidth;
+  final int numberOfColumns;
+  final List<FlyerModel> flyers;
+  final bool scrollable;
+  final bool stratosphere;
+  final Axis scrollDirection;
+  /// --------------------------------------------------------------------------
   @override
   _FlyersGridState createState() => _FlyersGridState();
 }

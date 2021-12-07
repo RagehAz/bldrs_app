@@ -2,12 +2,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class SlideHeadline extends StatelessWidget {
-  final double flyerBoxWidth;
-  final String verse;
-  final dynamic verseColor;
-  final int verseSize;
-  final Function tappingVerse;
-
+  /// --------------------------------------------------------------------------
   const SlideHeadline({
     @required this.flyerBoxWidth,
     @required this.verse,
@@ -16,7 +11,13 @@ class SlideHeadline extends StatelessWidget {
     @required this.tappingVerse,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final String verse;
+  final dynamic verseColor;
+  final int verseSize;
+  final Function tappingVerse;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

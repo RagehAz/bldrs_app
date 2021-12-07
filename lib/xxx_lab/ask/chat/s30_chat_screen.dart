@@ -17,11 +17,7 @@ import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
-  final QuestionModel question;
-  final String bzID;
-  final String author1ID;
-  final String author2ID;
-
+  /// --------------------------------------------------------------------------
   const ChatScreen({
     @required this.question,
     @required this.bzID,
@@ -29,9 +25,15 @@ class ChatScreen extends StatefulWidget {
     @required this.author2ID,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final QuestionModel question;
+  final String bzID;
+  final String author1ID;
+  final String author2ID;
+  /// --------------------------------------------------------------------------
   @override
   _ChatScreenState createState() => _ChatScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _ChatScreenState extends State<ChatScreen> {

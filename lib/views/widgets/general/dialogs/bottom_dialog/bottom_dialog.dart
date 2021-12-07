@@ -32,11 +32,7 @@ enum BottomDialogType {
 // -----------------------------------------------------------------------------
 /// TASK: should check draggable scrollable sheet
 class BottomDialog extends StatelessWidget {
-  final double height;
-  final bool draggable;
-  final Widget child;
-  final String title;
-
+  /// --------------------------------------------------------------------------
   const BottomDialog({
     this.height,
     this.draggable = true,
@@ -44,8 +40,12 @@ class BottomDialog extends StatelessWidget {
     this.title,
     Key key,
 }) : super(key: key);
-
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double height;
+  final bool draggable;
+  final Widget child;
+  final String title;
+  /// --------------------------------------------------------------------------
   /// one side value only
   static double draggerMarginValue({@required bool draggable}){
     final double _draggerHeight = draggerHeight(draggable: draggable);

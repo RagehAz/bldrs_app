@@ -32,23 +32,7 @@ enum NotiPicType {
 }
 
 class NotiModel{
-  final String id;
-  final String name;
-  final NotiSudo sudo; /// sudo description for /// event trigger : /// scheduled timing : /// if statement /// cityState :
-
-  final String senderID;
-  final String pic;
-  final NotiPicType notiPicType;
-  final String title; /// max 30 char
-  final DateTime timeStamp; // NEVER CHANGE THIS VAR NAME -> OR CREATE NEW FIREBASE QUERY INDEX
-  final String body; /// max 80 char
-  final dynamic attachment;
-  final NotiAttachmentType attachmentType;
-
-  final bool dismissed; // NEVER CHANGE THIS VAR NAME -> OR CREATE NEW FIREBASE QUERY INDEX
-  final bool sendFCM;
-  final dynamic metaData; /// of type : InternalLinkedHashMap<dynamic, dynamic>
-
+  /// --------------------------------------------------------------------------
   const NotiModel({
     @required this.id,
     @required this.name,
@@ -67,7 +51,24 @@ class NotiModel{
     @required this.sendFCM,
     @required this.metaData,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String id;
+  final String name;
+  final NotiSudo sudo; /// sudo description for /// event trigger : /// scheduled timing : /// if statement /// cityState :
+
+  final String senderID;
+  final String pic;
+  final NotiPicType notiPicType;
+  final String title; /// max 30 char
+  final DateTime timeStamp; // NEVER CHANGE THIS VAR NAME -> OR CREATE NEW FIREBASE QUERY INDEX
+  final String body; /// max 80 char
+  final dynamic attachment;
+  final NotiAttachmentType attachmentType;
+
+  final bool dismissed; // NEVER CHANGE THIS VAR NAME -> OR CREATE NEW FIREBASE QUERY INDEX
+  final bool sendFCM;
+  final dynamic metaData; /// of type : InternalLinkedHashMap<dynamic, dynamic>
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
     return
       <String, dynamic>{

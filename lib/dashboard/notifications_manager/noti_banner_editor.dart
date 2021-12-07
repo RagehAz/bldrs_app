@@ -9,11 +9,7 @@ import 'package:bldrs/views/widgets/specific/notifications/notification_card.dar
 import 'package:flutter/material.dart';
 
 class NotiBannerEditor extends StatelessWidget {
-  final double width;
-  final double height;
-  final dynamic attachment;
-  final Function onDelete;
-
+  /// --------------------------------------------------------------------------
   const NotiBannerEditor({
     @required this.width,
     @required this.height,
@@ -21,7 +17,12 @@ class NotiBannerEditor extends StatelessWidget {
     @required this.onDelete,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  final double height;
+  final dynamic attachment;
+  final Function onDelete;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return SizedBox(

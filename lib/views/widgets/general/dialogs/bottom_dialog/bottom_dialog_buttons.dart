@@ -8,13 +8,7 @@ import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.
 import 'package:flutter/material.dart';
 
 class BottomDialogButtons extends StatelessWidget {
-  final List<MapModel> mapsModels;
-  final Alignment alignment;
-  final ValueChanged<String> buttonTap;
-  final BottomDialogType bottomDialogType;
-  final double dialogHeight;
-  final double buttonHeight;
-
+  /// --------------------------------------------------------------------------
   const BottomDialogButtons({
     @required this.mapsModels,
     @required this.alignment,
@@ -24,7 +18,14 @@ class BottomDialogButtons extends StatelessWidget {
     this.buttonHeight = 35,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<MapModel> mapsModels;
+  final Alignment alignment;
+  final ValueChanged<String> buttonTap;
+  final BottomDialogType bottomDialogType;
+  final double dialogHeight;
+  final double buttonHeight;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

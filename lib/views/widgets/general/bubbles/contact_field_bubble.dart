@@ -11,27 +11,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 
 class ContactFieldBubble extends StatefulWidget {
-  final String title;
-  final String hintText;
-  final TextEditingController textController;
-  final Function textOnChanged;
-  final bool fieldIsFormField;
-  final Function onSaved;
-  final TextInputAction keyboardTextInputAction;
-  final String initialTextValue;
-  final Function validator;
-  final String comments;
-  final bool fieldIsRequired;
-  final bool loading;
-  final String actionBtIcon;
-  final Color actionBtColor;
-  final Function actionBtFunction;
-  final Function horusOnTapDown;
-  final Function horusOnTapUp;
-  final Function horusOnTapCancel;
-  final String leadingIcon;
-  final TextInputType keyboardTextInputType;
-
+  /// --------------------------------------------------------------------------
   const ContactFieldBubble({
     @required this.title,
     this.hintText = '...',
@@ -55,9 +35,31 @@ class ContactFieldBubble extends StatefulWidget {
     this.keyboardTextInputType = TextInputType.url,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String title;
+  final String hintText;
+  final TextEditingController textController;
+  final Function textOnChanged;
+  final bool fieldIsFormField;
+  final Function onSaved;
+  final TextInputAction keyboardTextInputAction;
+  final String initialTextValue;
+  final Function validator;
+  final String comments;
+  final bool fieldIsRequired;
+  final bool loading;
+  final String actionBtIcon;
+  final Color actionBtColor;
+  final Function actionBtFunction;
+  final Function horusOnTapDown;
+  final Function horusOnTapUp;
+  final Function horusOnTapCancel;
+  final String leadingIcon;
+  final TextInputType keyboardTextInputType;
+  /// --------------------------------------------------------------------------
   @override
   _ContactFieldBubbleState createState() => _ContactFieldBubbleState();
+  /// --------------------------------------------------------------------------
 }
 
 class _ContactFieldBubbleState extends State<ContactFieldBubble> {

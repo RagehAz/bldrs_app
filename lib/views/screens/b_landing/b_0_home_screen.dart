@@ -6,15 +6,17 @@ import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  final bool notiIsOn;
-
+  /// --------------------------------------------------------------------------
   const HomeScreen({
     @required this.notiIsOn,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final bool notiIsOn;
+  /// --------------------------------------------------------------------------
   @override
   _HomeScreenState createState() => _HomeScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _HomeScreenState extends State<HomeScreen> {

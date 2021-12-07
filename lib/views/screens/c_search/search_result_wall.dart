@@ -8,11 +8,7 @@ import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:flutter/material.dart';
 
 class SearchResultWall extends StatelessWidget {
-  final List<KW> keywords;
-  final List<BzModel> bzz;
-  final List<AuthorModel> authors;
-  final List<FlyerModel> flyers;
-
+  /// --------------------------------------------------------------------------
   const SearchResultWall({
     @required this.keywords,
     @required this.bzz,
@@ -20,7 +16,12 @@ class SearchResultWall extends StatelessWidget {
     @required this.flyers,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<KW> keywords;
+  final List<BzModel> bzz;
+  final List<AuthorModel> authors;
+  final List<FlyerModel> flyers;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

@@ -7,15 +7,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.da
 import 'package:flutter/material.dart';
 
 class BzGrid extends StatelessWidget {
-
-  final double gridZoneWidth;
-  final int numberOfColumns;
-  final List<BzModel> bzzModels;
-  final ValueChanged<String> itemOnTap;
-  final Axis scrollDirection;
-  final int numberOfRows;
-  final double corners;
-
+  /// --------------------------------------------------------------------------
   const BzGrid({
     @required this.gridZoneWidth,
     @required this.bzzModels,
@@ -26,7 +18,15 @@ class BzGrid extends StatelessWidget {
     this.corners,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double gridZoneWidth;
+  final int numberOfColumns;
+  final List<BzModel> bzzModels;
+  final ValueChanged<String> itemOnTap;
+  final Axis scrollDirection;
+  final int numberOfRows;
+  final double corners;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

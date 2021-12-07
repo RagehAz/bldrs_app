@@ -21,19 +21,21 @@ import 'package:bldrs/views/widgets/specific/specs/specs_selector_bubble.dart';
 import 'package:flutter/material.dart';
 
 class SpecPickerScreen extends StatefulWidget {
-  final SpecList specList;
-  final List<Spec> allSelectedSpecs;
-
+  /// --------------------------------------------------------------------------
   const SpecPickerScreen({
     @required this.specList,
     @required this.allSelectedSpecs,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final SpecList specList;
+  final List<Spec> allSelectedSpecs;
+  /// --------------------------------------------------------------------------
   static const double instructionBoxHeight = 50;
-
+  /// --------------------------------------------------------------------------
   @override
   State<SpecPickerScreen> createState() => _SpecPickerScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _SpecPickerScreenState extends State<SpecPickerScreen> {

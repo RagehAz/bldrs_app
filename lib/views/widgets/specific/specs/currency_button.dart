@@ -9,12 +9,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyButton extends StatelessWidget {
-  final double width;
-  final double height;
-  final CurrencyModel currency;
-  final String countryID;
-  final Function onTap;
-
+  /// --------------------------------------------------------------------------
   const CurrencyButton({
     @required this.width,
     @required this.currency,
@@ -23,7 +18,13 @@ class CurrencyButton extends StatelessWidget {
     this.height = 60,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double width;
+  final double height;
+  final CurrencyModel currency;
+  final String countryID;
+  final Function onTap;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Container(

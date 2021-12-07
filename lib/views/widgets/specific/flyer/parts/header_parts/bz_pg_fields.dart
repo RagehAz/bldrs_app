@@ -4,17 +4,18 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class BzPgFields extends StatelessWidget {
-  final double flyerBoxWidth;
-  final bool bzPageIsOn;
-  final String bzScope;
-
+  /// --------------------------------------------------------------------------
   const BzPgFields({
     @required this.bzPageIsOn,
     @required this.flyerBoxWidth,
     @required this.bzScope,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final bool bzPageIsOn;
+  final String bzScope;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

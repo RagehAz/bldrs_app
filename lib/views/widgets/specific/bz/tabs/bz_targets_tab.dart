@@ -7,13 +7,14 @@ import 'package:bldrs/views/widgets/specific/bz/targets_bubble.dart';
 import 'package:flutter/material.dart';
 
 class BzTargetsTab extends StatelessWidget {
-  final BzModel bzModel;
-
+  /// --------------------------------------------------------------------------
   const BzTargetsTab({
     @required this.bzModel,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final BzModel bzModel;
+  /// --------------------------------------------------------------------------
   static TabModel targetsTabModel({
     @required Function onChangeTab,
     @required BzModel bzModel,

@@ -9,14 +9,15 @@ import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class TabModel{
-  final Widget tabButton;
-  final Widget page;
-
+  /// --------------------------------------------------------------------------
   const TabModel({
     @required this.tabButton,
     @required this.page,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final Widget tabButton;
+  final Widget page;
+  /// --------------------------------------------------------------------------
   static List<Widget> getPageWidgetsFromTabModels(List<TabModel> tabModels){
 
     final List<Widget> _widgets = <Widget>[];
@@ -43,14 +44,7 @@ class TabModel{
 }
 
 class TabLayout extends StatelessWidget {
-  final List<TabModel> tabModels;
-  final String pageTitle;
-  final TabController tabController;
-  final int currentIndex;
-  final bool selectionMode;
-  final List<dynamic> selectedItems;
-  final List<Widget> appBarRowWidgets;
-
+  /// --------------------------------------------------------------------------
   const TabLayout({
     @required this.tabModels,
     @required this.tabController,
@@ -61,7 +55,15 @@ class TabLayout extends StatelessWidget {
     this.appBarRowWidgets,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final List<TabModel> tabModels;
+  final String pageTitle;
+  final TabController tabController;
+  final int currentIndex;
+  final bool selectionMode;
+  final List<dynamic> selectedItems;
+  final List<Widget> appBarRowWidgets;
+  /// --------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {

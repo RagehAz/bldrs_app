@@ -28,60 +28,6 @@ import 'package:provider/provider.dart';
 /// all fields are valid
 
 class SuperFlyer{
-
-  final FlyerNavigator nav;
-  final FlyerRecorder rec;
-  final FlyerEditor edit;
-  List<MutableSlide> mSlides; // MutableSlide
-  BzModel bz;
-
-  /// animation parameters
-  bool loading; // ??
-
-  /// editor data
-  List<Uint8List> screenShots; // --?
-
-  TextEditingController infoController;
-
-  /// slides settings
-  int numberOfSlides; // MutableFlyer -- ?
-  int numberOfStrips; // MutableFlyer -- ?
-
-  /// current slide settings
-  final int initialSlideIndex; // MutableFlyer -- ?
-  int currentSlideIndex; // MutableFlyer -- ?
-  int verticalIndex; // MutableFlyer -- ?
-
-  /// flyer identifiers
-  final ValueKey<String> key; // MutableFlyer -- ?
-  final String flyerID; // MutableFlyer -- ?
-  String authorID; // tinyAuthor
-  String title;
-  TextEditingController titleController;
-
-  /// flyer data
-  FlyerTypeClass.FlyerType flyerType; // MutableFlyer -- ?
-  FlyerState flyerState; // MutableFlyer -- ?
-  bool flyerShowsAuthor; // MutableFlyer -- ?
-
-  /// flyer tags
-  String flyerInfo; // MutableFlyer -- ?
-  List<Spec> specs; // MutableFlyer -- ?
-  List<KW> keywords; // MutableFlyer -- ?
-
-  /// flyer location
-  ZoneModel zone; // MutableFlyer -- ?
-  GeoPoint position; // MutableFlyer -- ?
-
-  /// publishing times
-  List<PublishTime> times; // MutableFlyer -- ?
-  bool priceTagIsOn;
-  CountryModel bzCountry;
-  CityModel bzCity;
-  CountryModel flyerCountry;
-  CityModel flyerCity;
-
-
   /// --------------------------------------------------------------------------
   SuperFlyer({
 
@@ -146,7 +92,59 @@ class SuperFlyer{
     this.screenShots,
 
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final FlyerNavigator nav;
+  final FlyerRecorder rec;
+  final FlyerEditor edit;
+  List<MutableSlide> mSlides; // MutableSlide
+  BzModel bz;
+
+  /// animation parameters
+  bool loading; // ??
+
+  /// editor data
+  List<Uint8List> screenShots; // --?
+
+  TextEditingController infoController;
+
+  /// slides settings
+  int numberOfSlides; // MutableFlyer -- ?
+  int numberOfStrips; // MutableFlyer -- ?
+
+  /// current slide settings
+  final int initialSlideIndex; // MutableFlyer -- ?
+  int currentSlideIndex; // MutableFlyer -- ?
+  int verticalIndex; // MutableFlyer -- ?
+
+  /// flyer identifiers
+  final ValueKey<String> key; // MutableFlyer -- ?
+  final String flyerID; // MutableFlyer -- ?
+  String authorID; // tinyAuthor
+  String title;
+  TextEditingController titleController;
+
+  /// flyer data
+  FlyerTypeClass.FlyerType flyerType; // MutableFlyer -- ?
+  FlyerState flyerState; // MutableFlyer -- ?
+  bool flyerShowsAuthor; // MutableFlyer -- ?
+
+  /// flyer tags
+  String flyerInfo; // MutableFlyer -- ?
+  List<Spec> specs; // MutableFlyer -- ?
+  List<KW> keywords; // MutableFlyer -- ?
+
+  /// flyer location
+  ZoneModel zone; // MutableFlyer -- ?
+  GeoPoint position; // MutableFlyer -- ?
+
+  /// publishing times
+  List<PublishTime> times; // MutableFlyer -- ?
+  bool priceTagIsOn;
+  CountryModel bzCountry;
+  CityModel bzCity;
+  CountryModel flyerCountry;
+  CityModel flyerCity;
+  /// --------------------------------------------------------------------------
   static const String draftID = 'draft';
   static const String emptyFlyerBzOnlyFlyerID = 'bzOnly';
 // -----------------------------------------------------------------------------

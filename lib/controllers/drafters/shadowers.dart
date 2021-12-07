@@ -2,15 +2,16 @@ import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class CustomBoxShadow extends BoxShadow {
-  final BlurStyle blurStyle;
-
+  /// --------------------------------------------------------------------------
   const CustomBoxShadow({
     Color color = const Color(0xFF000000),
     Offset offset = Offset.zero,
     double blurRadius = 0.0,
     this.blurStyle = BlurStyle.normal,
   }) : super(color: color, offset: offset, blurRadius: blurRadius);
-
+  /// --------------------------------------------------------------------------
+  final BlurStyle blurStyle;
+  /// --------------------------------------------------------------------------
   @override
   Paint toPaint() {
 

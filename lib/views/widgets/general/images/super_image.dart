@@ -7,13 +7,7 @@ import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class SuperImage extends StatelessWidget {
-  final dynamic pic;
-  final double width;
-  final double height;
-  final BoxFit fit;
-  final double scale;
-  final Color  iconColor;
-
+  /// --------------------------------------------------------------------------
   const SuperImage(
       this.pic,
       {
@@ -24,8 +18,14 @@ class SuperImage extends StatelessWidget {
         this.iconColor,
         Key key,
       }) : super(key: key);
-
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final dynamic pic;
+  final double width;
+  final double height;
+  final BoxFit fit;
+  final double scale;
+  final Color  iconColor;
+  /// --------------------------------------------------------------------------
   static DecorationImage decorationImage({@required String picture, BoxFit boxFit}){
     DecorationImage _image;
 

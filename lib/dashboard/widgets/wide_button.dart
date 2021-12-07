@@ -5,13 +5,7 @@ import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:flutter/material.dart';
 
 class WideButton extends StatelessWidget {
-  final String icon;
-  final Function onTap;
-  final String verse;
-  final bool isActive;
-  final Color color;
-  final Color verseColor;
-
+  /// --------------------------------------------------------------------------
   const WideButton({
     @required this.verse,
     this.onTap,
@@ -21,7 +15,14 @@ class WideButton extends StatelessWidget {
     this.verseColor = Colorz.white255,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String icon;
+  final Function onTap;
+  final String verse;
+  final bool isActive;
+  final Color color;
+  final Color verseColor;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

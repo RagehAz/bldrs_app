@@ -16,15 +16,17 @@ import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_grid.dart';
 import 'package:flutter/material.dart';
 
 class DeactivatedFlyerScreen extends StatefulWidget {
-  final BzModel bz;
-
+  /// --------------------------------------------------------------------------
   const DeactivatedFlyerScreen({
     @required this.bz,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final BzModel bz;
+  /// --------------------------------------------------------------------------
   @override
   _DeactivatedFlyerScreenState createState() => _DeactivatedFlyerScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {

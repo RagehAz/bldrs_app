@@ -18,12 +18,7 @@ enum BubbleType{
 }
 
 class AddGalleryPicBubble extends StatelessWidget {
-  final Function addBtFunction;
-  final dynamic pic;
-  final Function deletePicFunction;
-  final String title;
-  final BubbleType bubbleType;
-
+  /// --------------------------------------------------------------------------
   const AddGalleryPicBubble({
     @required this.addBtFunction,
     @required this.pic,
@@ -32,7 +27,13 @@ class AddGalleryPicBubble extends StatelessWidget {
     this.bubbleType = BubbleType.none,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final Function addBtFunction;
+  final dynamic pic;
+  final Function deletePicFunction;
+  final String title;
+  final BubbleType bubbleType;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class BldrsName extends StatelessWidget {
-  final double size;
-
+  /// --------------------------------------------------------------------------
   const BldrsName({
     @required this.size,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final double size;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -22,15 +23,16 @@ class BldrsName extends StatelessWidget {
 }
 
 class BldrsButton extends StatelessWidget {
-  final Function onTap;
-  // final double size;
-
+  /// --------------------------------------------------------------------------
   const BldrsButton({
     this.onTap,
     // this.size = 40,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final Function onTap;
+  // final double size;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

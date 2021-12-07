@@ -15,15 +15,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ZoneButton extends StatelessWidget {
-  final Function onTap;
-  final bool isOn;
-
+  /// --------------------------------------------------------------------------
   const ZoneButton({
     this.onTap,
     this.isOn = false,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final Function onTap;
+  final bool isOn;
+  /// --------------------------------------------------------------------------
   Future<void> _zoneButtonOnTap(BuildContext context) async {
 
     await Nav.goToNewScreen(context,

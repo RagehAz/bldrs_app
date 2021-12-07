@@ -11,13 +11,14 @@ import 'package:bldrs/views/widgets/specific/notifications/notification_flyers.d
 import 'package:flutter/material.dart';
 
 class NotificationCard extends StatelessWidget {
-  final NotiModel notiModel;
-
+  /// --------------------------------------------------------------------------
   const NotificationCard({
     @required this.notiModel,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final NotiModel notiModel;
+  /// --------------------------------------------------------------------------
   static double bubbleWidth(BuildContext context){
     return Bubble.defaultWidth(context);
   }

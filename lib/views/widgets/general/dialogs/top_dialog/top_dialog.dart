@@ -12,17 +12,18 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class TopDialog extends StatelessWidget {
-  final String verse;
-  final Function onTap;
-  // final int duration;
-
+  /// --------------------------------------------------------------------------
   const TopDialog({
     @required this.verse,
     @required this.onTap,
     // @required this.duration,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String verse;
+  final Function onTap;
+  // final int duration;
+  /// --------------------------------------------------------------------------
   static Future<void> showTopDialog({
     @required BuildContext context,
     @required String verse,

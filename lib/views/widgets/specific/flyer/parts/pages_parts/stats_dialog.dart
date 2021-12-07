@@ -11,16 +11,17 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class FlyerStatsDialog extends StatefulWidget {
-  final String flyerID;
-
+  /// --------------------------------------------------------------------------
   const FlyerStatsDialog({
     @required this.flyerID,
     Key key,
 }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String flyerID;
+  /// --------------------------------------------------------------------------
   @override
   State<FlyerStatsDialog> createState() => _FlyerStatsDialogState();
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   static Future<void> show({@required BuildContext context, @required String flyerID}) async {
     await BottomDialog.showBottomDialog(
       context: context,
@@ -29,7 +30,7 @@ class FlyerStatsDialog extends StatefulWidget {
       child: FlyerStatsDialog(flyerID: flyerID,),
     );
   }
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _FlyerStatsDialogState extends State<FlyerStatsDialog> {

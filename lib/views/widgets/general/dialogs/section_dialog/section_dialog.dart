@@ -10,14 +10,14 @@ import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_naviga
 import 'package:flutter/material.dart';
 
 class SectionDialog extends StatelessWidget {
-  final double dialogHeight;
-
+  /// --------------------------------------------------------------------------
   const SectionDialog({
     @required this.dialogHeight,
     Key key,
   }) : super(key: key);
-
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double dialogHeight;
+  /// --------------------------------------------------------------------------
   static Future<void> slideDialog({BuildContext context, double dialogHeight}) async {
     await BottomDialog.showBottomDialog(
       context: context,

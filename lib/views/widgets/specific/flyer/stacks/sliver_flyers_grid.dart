@@ -7,13 +7,14 @@ import 'package:bldrs/views/widgets/specific/flyer/stacks/gallery_grid.dart';
 import 'package:flutter/material.dart';
 
 class SliverFlyersGrid extends StatelessWidget {
-  final List<FlyerModel> flyers;
-
+  /// --------------------------------------------------------------------------
   const SliverFlyersGrid({
     @required this.flyers,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final List<FlyerModel> flyers;
+  /// --------------------------------------------------------------------------
   static const double spacing = Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
   static double calculateFlyerBoxWidth({BuildContext context, int flyersLength}){

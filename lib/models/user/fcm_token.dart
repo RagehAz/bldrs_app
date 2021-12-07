@@ -2,16 +2,17 @@ import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
 class FCMToken {
-  final String token;
-  final DateTime createdAt;
-  final String platform;
-
+  /// --------------------------------------------------------------------------
   const FCMToken({
     @required this.token,
     @required this.createdAt,
     @required this.platform,
 });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String token;
+  final DateTime createdAt;
+  final String platform;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
 
     return

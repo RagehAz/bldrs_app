@@ -9,15 +9,16 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page
 import 'package:flutter/material.dart';
 
 class SlideFullScreen extends StatelessWidget {
-  final dynamic image;
-  final ImageSize imageSize;
-
+  /// --------------------------------------------------------------------------
   const SlideFullScreen({
     @required this.image,
     @required this.imageSize,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final dynamic image;
+  final ImageSize imageSize;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

@@ -1,21 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FlyerRecorder{
-  /// record functions
-  final Function onViewSlide; // FlyerRecord
-  final Function onAnkhTap; // FlyerRecord
-  final Function onShareTap; // FlyerRecord
-  final Function onFollowTap; // FlyerRecord
-  final Function onCallTap; // FlyerRecord
-  final Function onCountersTap;
-  final Function onEditReview;
-  final Function onSubmitReview;
-  /// user based bool triggers
-  bool ankhIsOn; // FlyerRecord
-  bool followIsOn; // FlyerRecord
-  TextEditingController reviewController;
-  final Function onShowReviewOptions;
-
+  /// --------------------------------------------------------------------------
   FlyerRecorder({
     @required this.onViewSlide,
     @required this.onAnkhTap,
@@ -30,5 +16,20 @@ class FlyerRecorder{
     @required this.onSubmitReview,
     @required this.onShowReviewOptions,
   });
-
+  /// --------------------------------------------------------------------------
+  /// record functions
+  final Function onViewSlide; // FlyerRecord
+  final Function onAnkhTap; // FlyerRecord
+  final Function onShareTap; // FlyerRecord
+  final Function onFollowTap; // FlyerRecord
+  final Function onCallTap; // FlyerRecord
+  final Function onCountersTap;
+  final Function onEditReview;
+  final Function onSubmitReview;
+  /// user based bool triggers
+  bool ankhIsOn; // FlyerRecord
+  bool followIsOn; // FlyerRecord
+  TextEditingController reviewController;
+  final Function onShowReviewOptions;
+/// --------------------------------------------------------------------------
 }

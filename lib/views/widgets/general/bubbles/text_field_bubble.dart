@@ -9,32 +9,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldBubble extends StatelessWidget {
-  final String title;
-  final String hintText;
-  final bool counterIsOn;
-  final int maxLines;
-  final int maxLength;
-  final TextEditingController textController;
-  final TextInputType keyboardTextInputType;
-  final ValueChanged<String> textOnChanged;
-  final bool obscured;
-  final bool fieldIsFormField;
-  final Function onSaved;
-  final TextInputAction keyboardTextInputAction;
-  final String initialTextValue;
-  final ValueChanged<String> validator;
-  final String comments;
-  final bool fieldIsRequired;
-  final bool loading;
-  final String actionBtIcon;
-  final Function actionBtFunction;
-  final Function horusOnTap;
-  final String leadingIcon;
-  final Function pasteFunction;
-  final TextDirection textDirection;
-  final Color bubbleColor;
-  final Function fieldOnTap;
-
+  /// --------------------------------------------------------------------------
   const TextFieldBubble({
     @required this.title,
     this.hintText = '...',
@@ -63,7 +38,33 @@ class TextFieldBubble extends StatelessWidget {
     this.fieldOnTap,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String title;
+  final String hintText;
+  final bool counterIsOn;
+  final int maxLines;
+  final int maxLength;
+  final TextEditingController textController;
+  final TextInputType keyboardTextInputType;
+  final ValueChanged<String> textOnChanged;
+  final bool obscured;
+  final bool fieldIsFormField;
+  final Function onSaved;
+  final TextInputAction keyboardTextInputAction;
+  final String initialTextValue;
+  final ValueChanged<String> validator;
+  final String comments;
+  final bool fieldIsRequired;
+  final bool loading;
+  final String actionBtIcon;
+  final Function actionBtFunction;
+  final Function horusOnTap;
+  final String leadingIcon;
+  final Function pasteFunction;
+  final TextDirection textDirection;
+  final Color bubbleColor;
+  final Function fieldOnTap;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

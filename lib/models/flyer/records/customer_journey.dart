@@ -24,15 +24,7 @@ enum Activity {
 /// shall store customer journey map in firebase
 /// db : records / logs / {activity} / {recordID}
 class Record {
-
-  final String userID; // docName
-  final String bzID; // subDocName
-  final String flyerID;
-  final Activity activity;
-  final DateTime timeStamp;
-  final int slideIndex;
-  final double duration;
-
+  /// --------------------------------------------------------------------------
   const Record({
     @required this.userID,
     @required this.bzID,
@@ -42,7 +34,15 @@ class Record {
     @required this.slideIndex,
     @required this.duration,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String userID; // docName
+  final String bzID; // subDocName
+  final String flyerID;
+  final Activity activity;
+  final DateTime timeStamp;
+  final int slideIndex;
+  final double duration;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> cipher({@required bool toJSON}){
 
     return

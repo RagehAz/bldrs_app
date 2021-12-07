@@ -16,12 +16,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/gallery.da
 import 'package:flutter/material.dart';
 
 class MaxHeader extends StatelessWidget {
-  final double flyerBoxWidth;
-  final bool bzPageIsOn;
-  final BzModel bzModel;
-  final SuperFlyer superFlyer;
-
-
+  /// --------------------------------------------------------------------------
   const MaxHeader({
     @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
@@ -29,6 +24,12 @@ class MaxHeader extends StatelessWidget {
     @required this.superFlyer,
     Key key,
   }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final bool bzPageIsOn;
+  final BzModel bzModel;
+  final SuperFlyer superFlyer;
+  /// --------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 //   Future<void> _openGalleryFlyer (BuildContext context, String flyerID) async {
 //

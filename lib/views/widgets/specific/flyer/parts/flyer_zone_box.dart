@@ -8,14 +8,7 @@ import 'package:bldrs/views/widgets/specific/flyer/editor/editor_panel.dart';
 import 'package:flutter/material.dart';
 
 class FlyerBox extends StatelessWidget {
-  final SuperFlyer superFlyer;
-  final double flyerBoxWidth;
-  final Function onFlyerZoneTap;
-  final List<Widget> stackWidgets;
-  final Function onFlyerZoneLongPress;
-  final BzModel editorBzModel;
-  final bool editorMode;
-
+  /// --------------------------------------------------------------------------
   const FlyerBox({
     @required this.superFlyer,
     @required this.flyerBoxWidth, // NEVER DELETE THIS
@@ -26,7 +19,15 @@ class FlyerBox extends StatelessWidget {
     this.editorMode = false,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final double flyerBoxWidth;
+  final Function onFlyerZoneTap;
+  final List<Widget> stackWidgets;
+  final Function onFlyerZoneLongPress;
+  final BzModel editorBzModel;
+  final bool editorMode;
+  /// --------------------------------------------------------------------------
   static double width (BuildContext context, double flyerSizeFactor){
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _flyerBoxWidth = _screenWidth * flyerSizeFactor;

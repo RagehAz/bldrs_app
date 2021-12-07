@@ -78,16 +78,17 @@ class EmojiTestScreen extends StatelessWidget {
 }
 
 class EmojiModel{
-  final String name;
-  final String code;
-  final String emoji;
-
+  /// --------------------------------------------------------------------------
   const EmojiModel({
     @required this.name,
     @required this.code,
     @required this.emoji,
   });
-
+  /// --------------------------------------------------------------------------
+  final String name;
+  final String code;
+  final String emoji;
+  /// --------------------------------------------------------------------------
   static List<EmojiModel> allEmojis(){
     return const <EmojiModel>[
       const EmojiModel(name: 'smile_grinning_face', code: '\ u{1f600}', emoji: Emojis.smile_grinning_face),

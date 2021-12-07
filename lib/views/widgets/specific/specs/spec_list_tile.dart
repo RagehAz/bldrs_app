@@ -12,12 +12,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class SpecListTile extends StatelessWidget {
-  final Function onTap;
-  final SpecList specList;
-  final List<SpecList> sourceSpecsLists;
-  final List<Spec> selectedSpecs;
-  final Function onDeleteSpec;
-
+  /// --------------------------------------------------------------------------
   const SpecListTile({
     @required this.onTap,
     @required this.specList,
@@ -26,8 +21,13 @@ class SpecListTile extends StatelessWidget {
     @required this.onDeleteSpec,
     Key key
   }) : super(key: key);
-
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final Function onTap;
+  final SpecList specList;
+  final List<SpecList> sourceSpecsLists;
+  final List<Spec> selectedSpecs;
+  final Function onDeleteSpec;
+  /// --------------------------------------------------------------------------
   static double height(){
     return 70;
   }

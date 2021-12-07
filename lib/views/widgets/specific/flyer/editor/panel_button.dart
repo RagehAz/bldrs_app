@@ -4,17 +4,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page
 import 'package:flutter/material.dart';
 
 class PanelButton extends StatelessWidget {
-  // final double size;
-  final String icon;
-  final String verse;
-  final Color verseColor;
-  final Function onTap;
-  final double iconSizeFactor;
-  final bool blackAndWhite;
-  final bool isAuthorButton;
-  final double flyerBoxWidth;
-  final Color color;
-
+  /// --------------------------------------------------------------------------
   const PanelButton({
     @required this.onTap,
     @required this.flyerBoxWidth,
@@ -28,7 +18,18 @@ class PanelButton extends StatelessWidget {
     this.color = Colorz.white80,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  // final double size;
+  final String icon;
+  final String verse;
+  final Color verseColor;
+  final Function onTap;
+  final double iconSizeFactor;
+  final bool blackAndWhite;
+  final bool isAuthorButton;
+  final double flyerBoxWidth;
+  final Color color;
+  /// --------------------------------------------------------------------------
   static Widget panelDot({double panelButtonWidth}){
 
     final double _dotSize = panelButtonWidth * 0.15;

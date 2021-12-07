@@ -53,40 +53,7 @@ enum BzState {
 }
 // -----------------------------------------------------------------------------
 class BzModel with ChangeNotifier{
-  final String id;
-  // -------------------------
-  final BzType bzType;
-  final BzForm bzForm;
-  final DateTime createdAt;
-  final BzAccountType accountType;
-  // -------------------------
-  final String name;
-  final List<String> trigram;
-  final dynamic logo;
-  final String scope;
-
-  final ZoneModel zone;
-  final String about;
-  final GeoPoint position;
-  final List<ContactModel> contacts;
-  final List<AuthorModel> authors;
-  final bool showsTeam;
-  // -------------------------
-  final bool isVerified;
-
-  final BzState bzState;
-  // -------------------------
-  int totalFollowers;
-  int totalSaves;
-  int totalShares;
-  int totalSlides;
-  int totalViews;
-  int totalCalls;
-  int totalFlyers;
-  // -------------------------
-  final List<String> flyersIDs;
-
-// ###############################
+  /// --------------------------------------------------------------------------
   BzModel({
     @required this.id,
     // -------------------------
@@ -119,7 +86,40 @@ class BzModel with ChangeNotifier{
     @required this.flyersIDs,
     @required this.totalFlyers,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String id;
+  // -------------------------
+  final BzType bzType;
+  final BzForm bzForm;
+  final DateTime createdAt;
+  final BzAccountType accountType;
+  // -------------------------
+  final String name;
+  final List<String> trigram;
+  final dynamic logo;
+  final String scope;
+
+  final ZoneModel zone;
+  final String about;
+  final GeoPoint position;
+  final List<ContactModel> contacts;
+  final List<AuthorModel> authors;
+  final bool showsTeam;
+  // -------------------------
+  final bool isVerified;
+
+  final BzState bzState;
+  // -------------------------
+  int totalFollowers;
+  int totalSaves;
+  int totalShares;
+  int totalSlides;
+  int totalViews;
+  int totalCalls;
+  int totalFlyers;
+  // -------------------------
+  final List<String> flyersIDs;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
 
     return <String, dynamic>{
@@ -272,7 +272,6 @@ class BzModel with ChangeNotifier{
     );
   }
 // -----------------------------------------------------------------------------
-
   static BzType decipherBzType (String x){
     switch (x){
       case 'developer'    :   return  BzType.developer;     break; // 1
@@ -505,7 +504,7 @@ class BzModel with ChangeNotifier{
       );
 
   }
-
+// -----------------------------------------------------------------------------
 }
 
 /*

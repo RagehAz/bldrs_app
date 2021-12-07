@@ -7,14 +7,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class FloatingDialog extends StatefulWidget {
-  final String title;
-  final List<String> list;
-  final bool fieldIsRequired;
-  final String actionBtIcon;
-  final Color actionBtColor;
-  final Function actionBtFunction;
-
-
+  /// --------------------------------------------------------------------------
   const FloatingDialog({
     @required this.title,
     @required this.list,
@@ -24,9 +17,17 @@ class FloatingDialog extends StatefulWidget {
     this.actionBtFunction,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String title;
+  final List<String> list;
+  final bool fieldIsRequired;
+  final String actionBtIcon;
+  final Color actionBtColor;
+  final Function actionBtFunction;
+  /// --------------------------------------------------------------------------
   @override
   _FloatingDialogState createState() => _FloatingDialogState();
+  /// --------------------------------------------------------------------------
 }
 
 class _FloatingDialogState extends State<FloatingDialog> {

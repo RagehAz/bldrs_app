@@ -134,15 +134,15 @@ enum SpecType {
 
 /// specs are used only to describe and filter flyers or keywords
 class Spec {
-  /// specID is the specList's id value, and the key of firebase map
-  final String specsListID;
-  final dynamic value; // string, int, double, List<String>, List<double>, list<dynamic>
-
+  /// --------------------------------------------------------------------------
   const Spec({
     @required this.specsListID,
     @required this.value,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  /// specID is the specList's id value, and the key of firebase map
+  final String specsListID;
+  final dynamic value; // string, int, double, List<String>, List<double>, list<dynamic>
   Map<String, dynamic> toMap() {
     /// shall be saved like this inside flyerModel
     /// specs : {
@@ -167,7 +167,7 @@ class Spec {
       specsListID : value,
     };
   }
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   static Map<String, dynamic> cipherSpecs(List<Spec> specs){
     Map<String, dynamic> _map = <String, dynamic>{};
 

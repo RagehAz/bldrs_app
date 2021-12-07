@@ -18,17 +18,18 @@ import 'package:flutter/material.dart';
 // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
 
 class FlyerScreen extends StatelessWidget {
-  final FlyerModel flyerModel;
-  final int initialSlideIndex;
-  final String flyerID;
-
+  /// --------------------------------------------------------------------------
   const FlyerScreen({
     this.flyerModel,
     this.initialSlideIndex,
     this.flyerID,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final FlyerModel flyerModel;
+  final int initialSlideIndex;
+  final String flyerID;
+  /// --------------------------------------------------------------------------
   static const String routeName = Routez.flyerScreen;
 
   @override

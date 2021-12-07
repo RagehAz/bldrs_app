@@ -11,12 +11,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class DataStrip extends StatelessWidget {
-  final String dataKey;
-  final dynamic dataValue;
-  final double width;
-  final Color valueBoxColor;
-  final bool isPercent;
-
+  /// --------------------------------------------------------------------------
   const DataStrip({
     @required this.dataKey,
     @required this.dataValue,
@@ -25,7 +20,13 @@ class DataStrip extends StatelessWidget {
     this.isPercent = false,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String dataKey;
+  final dynamic dataValue;
+  final double width;
+  final Color valueBoxColor;
+  final bool isPercent;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

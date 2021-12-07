@@ -8,17 +8,18 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/header_parts/bz_logo.da
 import 'package:flutter/material.dart';
 
 class NotificationSenderBalloon extends StatelessWidget {
-  final NotiPicType sender;
-  final String pic;
-
+  /// --------------------------------------------------------------------------
   const NotificationSenderBalloon({
     @required this.sender,
     @required this.pic,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final NotiPicType sender;
+  final String pic;
+  /// --------------------------------------------------------------------------
   static const double balloonWidth = 40;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

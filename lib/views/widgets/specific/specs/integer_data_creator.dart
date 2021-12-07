@@ -14,11 +14,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class IntegerDataCreator extends StatefulWidget {
-  final ValueChanged<int> onIntegerChanged;
-  final int initialValue;
-  final Function onSubmitted;
-  final SpecList specList;
-
+  /// --------------------------------------------------------------------------
   const IntegerDataCreator({
     @required this.onIntegerChanged,
     @required this.initialValue,
@@ -26,9 +22,15 @@ class IntegerDataCreator extends StatefulWidget {
     @required this.specList,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final ValueChanged<int> onIntegerChanged;
+  final int initialValue;
+  final Function onSubmitted;
+  final SpecList specList;
+  /// --------------------------------------------------------------------------
   @override
   State<IntegerDataCreator> createState() => _IntegerDataCreatorState();
+  /// --------------------------------------------------------------------------
 }
 
 class _IntegerDataCreatorState extends State<IntegerDataCreator> {

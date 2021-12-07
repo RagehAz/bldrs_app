@@ -2,14 +2,15 @@ import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:flutter/foundation.dart';
 
 class Flag {
-  final String countryID;
-  final String icon;
-
+  /// --------------------------------------------------------------------------
   const Flag({
     @required this.countryID,
     @required this.icon,
-});
-// -----------------------------------------------------------------------------
+  });
+  /// --------------------------------------------------------------------------
+  final String countryID;
+  final String icon;
+  /// --------------------------------------------------------------------------
   static String getFlagIconByCountryID(String countryID) {
 
     String _flagIcon = Iconz.dvBlankSVG;
@@ -533,14 +534,15 @@ class Flag {
 }
 
 class CountryIso{
-  final String countryID;
-  final String iso;
-
+  /// --------------------------------------------------------------------------
   const CountryIso({
     @required this.countryID,
     @required this.iso,
 });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String countryID;
+  final String iso;
+  /// --------------------------------------------------------------------------
   static String getCountryIDByIso(String iso){
     final CountryIso _countryIso = _allCountriesIsoCodes.firstWhere((CountryIso countryIso) => countryIso.iso == iso?.toLowerCase());
 
@@ -551,7 +553,6 @@ class CountryIso{
       return _countryIso.countryID;
     }
   }
-
 // -----------------------------------------------------------------------------
   static const List<CountryIso> _allCountriesIsoCodes = const <CountryIso>[
     const CountryIso(countryID: 'afg', iso: 'af',),

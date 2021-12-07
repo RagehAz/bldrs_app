@@ -6,16 +6,7 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page
 import 'package:flutter/material.dart';
 
 class EditorFooter extends StatelessWidget {
-  final double flyerBoxWidth;
-  final Function onAddImages;
-  final Function onDeleteSlide;
-  final Function onCropImage;
-  final Function onResetImage;
-  final Function onFitImage;
-  final BoxFit currentPicFit;
-  final int numberOfSlides;
-  final SuperFlyer superFlyer;
-
+  /// --------------------------------------------------------------------------
   const EditorFooter({
     @required this.flyerBoxWidth,
     @required this.onAddImages,
@@ -28,7 +19,17 @@ class EditorFooter extends StatelessWidget {
     @required this.superFlyer,
     Key key,
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final Function onAddImages;
+  final Function onDeleteSlide;
+  final Function onCropImage;
+  final Function onResetImage;
+  final Function onFitImage;
+  final BoxFit currentPicFit;
+  final int numberOfSlides;
+  final SuperFlyer superFlyer;
+  /// --------------------------------------------------------------------------
   bool _flyerHasNoSlidesCheck(){
     bool _hasNoSlides;
 

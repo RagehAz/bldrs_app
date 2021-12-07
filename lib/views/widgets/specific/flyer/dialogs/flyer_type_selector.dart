@@ -8,17 +8,19 @@ import 'package:bldrs/views/widgets/general/dialogs/bottom_dialog/bottom_dialog.
 import 'package:flutter/material.dart';
 
 class FlyerTypeSelector extends StatefulWidget {
-  final SuperFlyer superFlyer;
-  final Function onChangeFlyerType;
-
+  /// --------------------------------------------------------------------------
   const FlyerTypeSelector({
     @required this.superFlyer,
     @required this.onChangeFlyerType,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final SuperFlyer superFlyer;
+  final Function onChangeFlyerType;
+  /// --------------------------------------------------------------------------
   @override
   _FlyerTypeSelectorState createState() => _FlyerTypeSelectorState();
+  /// --------------------------------------------------------------------------
 }
 
 class _FlyerTypeSelectorState extends State<FlyerTypeSelector> {

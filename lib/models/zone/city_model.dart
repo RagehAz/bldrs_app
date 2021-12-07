@@ -10,16 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CityModel{
-  final String countryID;
-  String cityID;
-  final List<DistrictModel> districts;
-  final int population;
-  final bool isActivated;
-  final bool isPublic;
-  final List<Name> names;
-  final GeoPoint position;
-  final String state; // only for USA
-
+  /// --------------------------------------------------------------------------
   CityModel({
     this.countryID,
     this.cityID,
@@ -31,7 +22,17 @@ class CityModel{
     this.position,
     this.state,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final String countryID;
+  String cityID;
+  final List<DistrictModel> districts;
+  final int population;
+  final bool isActivated;
+  final bool isPublic;
+  final List<Name> names;
+  final GeoPoint position;
+  final String state; // only for USA
+  /// --------------------------------------------------------------------------
   Map<String, Object> toMap({@required bool toJSON}){
     return <String, Object>{
       'countryID' : countryID,

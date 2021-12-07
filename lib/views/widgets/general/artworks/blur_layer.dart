@@ -5,13 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class BlurLayer extends StatelessWidget {
-  final BorderRadius borders;
-  final double blur;
-  final double width;
-  final double height;
-  final Color color;
-  final bool blurIsOn;
-
+  /// --------------------------------------------------------------------------
   const BlurLayer({
     this.borders,
     this.blur = Ratioz.blur1,
@@ -21,7 +15,14 @@ class BlurLayer extends StatelessWidget {
     this.blurIsOn = false,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final BorderRadius borders;
+  final double blur;
+  final double width;
+  final double height;
+  final Color color;
+  final bool blurIsOn;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

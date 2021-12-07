@@ -12,14 +12,15 @@ import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 /// TASK : may combine this with some methods from Imagers
 class ImageSize{
-  final double width;
-  final double height;
-
+  /// --------------------------------------------------------------------------
   ImageSize({
     @required this.width,
     @required this.height,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  final double width;
+  final double height;
+  /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap(){
     return
       <String, dynamic>{

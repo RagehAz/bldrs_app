@@ -9,13 +9,7 @@ import 'package:flutter/material.dart';
 
 
 class SearchBar extends StatefulWidget {
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final ValueChanged<String> onSearchChanged;
-  final bool historyButtonIsOn;
-  final double boxWidth;
-  final String hintText;
-
+  /// --------------------------------------------------------------------------
   const SearchBar({
     @required this.onSearchSubmit,
     @required this.historyButtonIsOn,
@@ -25,9 +19,17 @@ class SearchBar extends StatefulWidget {
     this.hintText,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final TextEditingController searchController;
+  final ValueChanged<String> onSearchSubmit;
+  final ValueChanged<String> onSearchChanged;
+  final bool historyButtonIsOn;
+  final double boxWidth;
+  final String hintText;
+  /// --------------------------------------------------------------------------
   @override
   _SearchBarState createState() => _SearchBarState();
+  /// --------------------------------------------------------------------------
 }
 
 class _SearchBarState extends State<SearchBar> {

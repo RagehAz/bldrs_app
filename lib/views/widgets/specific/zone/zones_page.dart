@@ -11,12 +11,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class ZonesPage extends StatelessWidget {
-  final String title;
-  final String continentIcon;
-  final List<String> countriesIDs;
-  final ValueChanged<String> buttonTap;
-  final double pageHeight;
-
+  /// --------------------------------------------------------------------------
   const ZonesPage({
     @required this.title,
     @required this.continentIcon,
@@ -25,7 +20,13 @@ class ZonesPage extends StatelessWidget {
     @required this.pageHeight,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final String title;
+  final String continentIcon;
+  final List<String> countriesIDs;
+  final ValueChanged<String> buttonTap;
+  final double pageHeight;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------

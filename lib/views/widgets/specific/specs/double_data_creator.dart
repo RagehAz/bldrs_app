@@ -12,11 +12,7 @@ import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class DoubleDataCreator extends StatefulWidget {
-  final ValueChanged<double> onDoubleChanged;
-  final double initialValue;
-  final Function onSubmitted;
-  final SpecList specList;
-
+  /// --------------------------------------------------------------------------
   const DoubleDataCreator({
     @required this.onDoubleChanged,
     @required this.initialValue,
@@ -24,9 +20,15 @@ class DoubleDataCreator extends StatefulWidget {
     @required this.specList,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  final ValueChanged<double> onDoubleChanged;
+  final double initialValue;
+  final Function onSubmitted;
+  final SpecList specList;
+  /// --------------------------------------------------------------------------
   @override
   State<DoubleDataCreator> createState() => _DoubleDataCreatorState();
+  /// --------------------------------------------------------------------------
 }
 
 class _DoubleDataCreatorState extends State<DoubleDataCreator> {
