@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
@@ -80,11 +82,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
         // final BitmapDescriptor _marker = await Imagers.getCustomMapMarkerFromSVG(context: context, assetName: Iconz.FlyerPin);
 
-        _triggerLoading(
-            function: (){
-              // _mapMarker = _marker;
-            }
+        unawaited(
+            _triggerLoading(
+                function: (){
+                  // _mapMarker = _marker;
+                }
+            )
         );
+
       });
 
     }
@@ -196,7 +201,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               print('Camera is idle');
             },
             onCameraMove: (CameraPosition cameraPosition) async {
-              print('cameraPosition : ${cameraPosition}');
+              print('cameraPosition : $cameraPosition');
               final double _lat = cameraPosition.target.latitude;
               final double _lng = cameraPosition.target.longitude;
 

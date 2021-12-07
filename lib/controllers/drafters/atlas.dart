@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
       if (toJSON == true){
         final String lat = '${point.latitude}';
         final String lng = '${point.longitude}';
-        _output = '${lat}_${lng}';
+        _output = '${lat}_$lng';
       }
 
       else {

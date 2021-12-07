@@ -63,7 +63,7 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
     });
 
     _zoomAnimationController.reset();
-    _zoomAnimationController.forward();
+    await _zoomAnimationController.forward();
   }
 // -----------------------------------------------------------------------------
   Future<void> _onDoubleTap() async {
@@ -77,7 +77,7 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
       onTap: () async {
 
         if(widget.isFullScreen == true){
-          _resetZoom();
+          await _resetZoom();
         }
 
         else {
@@ -85,7 +85,13 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
         }
 
         },
-      onDoubleTap: widget.isFullScreen ? () async {_onDoubleTap();} : null,
+      onDoubleTap:
+      widget.isFullScreen ?
+          () async {
+        await _onDoubleTap();
+      }
+      :
+      null,
       child: InteractiveViewer(
         key: widget.key,
         transformationController: _transformationController,

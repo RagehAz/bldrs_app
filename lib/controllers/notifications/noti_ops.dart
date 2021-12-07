@@ -28,7 +28,7 @@ import 'package:flutter/material.dart';
 
     final AwesomeNotifications _awesomeNotification = AwesomeNotifications();
 
-    _awesomeNotification.initialize(
+    await _awesomeNotification.initialize(
       _flatBldrsNotiIcon,
       <NotificationChannel>[
         basicNotificationChannel(),
@@ -58,7 +58,7 @@ import 'package:flutter/material.dart';
 
     final FirebaseMessaging _fbm = FirebaseMessaging.instance;
 
-    _fbm.requestPermission(
+    await _fbm.requestPermission(
       criticalAlert: true,
       carPlay: true,
       announcement: true,
@@ -66,7 +66,6 @@ import 'package:flutter/material.dart';
       provisional: true,
       badge: true,
       alert: true,
-
     );
 
     /// when app running in foreground
@@ -98,7 +97,7 @@ import 'package:flutter/material.dart';
 
 
     // fbm.getToken();
-    _fbm.subscribeToTopic('flyers');
+    await _fbm.subscribeToTopic('flyers');
 
 
 }
@@ -324,7 +323,7 @@ import 'package:flutter/material.dart';
 
   }
 // -----------------------------------------------------------------------------
-  printRemoteMessage({String methodName, RemoteMessage remoteMessage}){
+  void printRemoteMessage({String methodName, RemoteMessage remoteMessage}){
 
     final RemoteNotification remoteNotification = remoteMessage.notification;
     final String category = remoteMessage.category;
@@ -414,7 +413,7 @@ Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID)
         compareValue: false,
       );
 
-      print('getNotiModelsStream : _querySnapshots : ${_querySnapshots}');
+      print('getNotiModelsStream : _querySnapshots : $_querySnapshots');
 
       _notiModelsStream = _querySnapshots.map(
               (QuerySnapshot<Object> qShot) => qShot.docs.map((QueryDocumentSnapshot<Object> doc) =>
@@ -425,7 +424,7 @@ Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID)
           ).toList()
       );
 
-      print('getNotiModelsStream : _notiModelsStream : ${_notiModelsStream}');
+      print('getNotiModelsStream : _notiModelsStream : $_notiModelsStream');
 
     }
   );

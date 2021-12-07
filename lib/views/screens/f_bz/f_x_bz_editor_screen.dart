@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
@@ -346,7 +347,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
     } else {
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// create new master AuthorModel
       final AuthorModel _firstMasterAuthor = AuthorModel(
@@ -408,7 +409,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       /// add the final _bzModel to _userBzz
       _bzzProvider.addBzToUserBzz(_bzModel);
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       await CenterDialog.showCenterDialog(
         context: context,
@@ -435,7 +436,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
     } else {
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// create modified authorModel
       final AuthorModel _newAuthor = AuthorModel(
@@ -506,7 +507,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       /// update _bzModel in local list of _userTinyBz
       await _bzzProvider.updateBzInUserBzz(_finalBzModel);
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       await CenterDialog.showCenterDialog(
         context: context,
@@ -531,7 +532,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       _continueOps = true;
       if (_continueOps == true){
-        widget.firstTimer ? _createNewBz() : _updateExistingBz();
+        widget.firstTimer ?
+        await _createNewBz()
+            :
+        await _updateExistingBz();
       }
 
   }

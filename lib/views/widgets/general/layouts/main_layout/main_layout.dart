@@ -141,7 +141,7 @@ class MainLayout extends StatelessWidget {
               drawerScrimColor: DrawerDialog.drawerScrimColor,
               onDrawerChanged: (bool thing){
 
-                print('drawer changed and thing is :${thing}');
+                print('drawer changed and thing is :$thing');
 
               },
 

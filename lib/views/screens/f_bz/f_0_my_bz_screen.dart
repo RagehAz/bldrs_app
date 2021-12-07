@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
@@ -77,7 +79,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
     _tabController = TabController(vsync: this, length: BzModel.bzPagesTabsTitles.length);
 
     _tabController.addListener(() async {
-      _onChangeTab(_tabController.index);
+      await _onChangeTab(_tabController.index);
     });
 
     _tabController.animation
@@ -104,8 +106,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
         final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: widget.bzModel.zone.countryID);
         final CityModel _city = await _zoneProvider.fetchCityByID(context: context, cityID: widget.bzModel.zone.cityID);
 
-
-        _triggerLoading(
+        unawaited(_triggerLoading(
             function: (){
               _bzCountry = _country;
               _bzCity = _city;
@@ -113,7 +114,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
               // _bubblesOpacity = 1;
               _tabModels = createBzTabModels();
             }
-        );
+        ));
 
       });
 

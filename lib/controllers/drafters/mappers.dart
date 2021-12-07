@@ -355,7 +355,7 @@ import 'package:sembast/utils/value_utils.dart';
     on Exception catch(e){
 
       print('error is : $e');
-      print('map is : ${map}');
+      print('map is : $map');
       print('fieldKey is : $fieldKey');
       print('inputValue : $inputValue');
 

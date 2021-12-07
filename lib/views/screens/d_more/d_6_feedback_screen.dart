@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
@@ -62,7 +64,7 @@ class _FeedBackState extends State<FeedBack> {
 // -----------------------------------------------------------------------------
   Future<void> _uploadFeedBack() async {
 
-    _triggerLoading();
+    unawaited(_triggerLoading());
 
     /// upload text to firebase
     await Fire.createDoc(
@@ -76,7 +78,7 @@ class _FeedBackState extends State<FeedBack> {
       ).toMap(),
     );
 
-    _triggerLoading();
+    unawaited(_triggerLoading());
 
     await CenterDialog.showCenterDialog(
       context: context,

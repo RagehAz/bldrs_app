@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -62,10 +64,12 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
 
         /// do Futures here
 
-        _triggerLoading(
-            function: (){
-              /// set new values here
-            }
+        unawaited(
+            _triggerLoading(
+                function: (){
+                  /// set new values here
+                }
+            )
         );
       });
 

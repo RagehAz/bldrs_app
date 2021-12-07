@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -93,12 +95,16 @@ class _LocaleBubbleState extends State<LocaleBubble> {
           final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _selectedZone.countryID);
           final CityModel _city = await _zoneProvider.fetchCityByID(context: context, cityID: _selectedZone.cityID);
 
-          _triggerLoading(
-              function: (){
-                _selectedCountry = _country;
-                _selectedCity = _city;
-              }
+
+          unawaited(
+              _triggerLoading(
+                  function: (){
+                    _selectedCountry = _country;
+                    _selectedCity = _city;
+                  }
+              )
           );
+
         });
 
 

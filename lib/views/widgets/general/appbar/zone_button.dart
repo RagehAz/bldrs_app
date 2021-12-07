@@ -65,9 +65,9 @@ class ZoneButton extends StatelessWidget {
         ' '
         :
     _currentZone?.districtID == null ?
-    '${_countryName}'
+    '$_countryName'
         :
-    '${_countryAndCityNames}'
+    '$_countryAndCityNames'
     ;
 
     final String _secondRow =
@@ -75,9 +75,9 @@ class ZoneButton extends StatelessWidget {
     ' '
         :
     _currentZone?.districtID == null ?
-    '${_cityName}'
+    '$_cityName'
         :
-    '${_districtName}'
+    '$_districtName'
     ;
 
     const double _flagHorizontalMargins = 2;

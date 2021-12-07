@@ -144,10 +144,10 @@ class Continent{
 
     print('$methodName ------------------------------- START');
 
-    print('name : ${name}');
-    print('regions : ${regions}');
-    print('activatedCountriesIDs : ${activatedCountriesIDs}');
-    print('globalCountriesIDs : ${globalCountriesIDs}');
+    print('name : $name');
+    print('regions : $regions');
+    print('activatedCountriesIDs : $activatedCountriesIDs');
+    print('globalCountriesIDs : $globalCountriesIDs');
 
     print('$methodName ------------------------------- END');
 

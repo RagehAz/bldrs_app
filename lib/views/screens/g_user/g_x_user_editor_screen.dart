@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
@@ -119,10 +120,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           final ZoneModel _zone = await ZoneOps.superGetZone(context);
 
 
-          _triggerLoading(
-              function: (){
-                _currentZone = _zone;
-              }
+          unawaited(
+              _triggerLoading(
+                  function: (){
+                    _currentZone = _zone;
+                  }
+                  )
           );
 
         });
@@ -284,7 +287,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     _continueOps = true;
     if (_continueOps == true){
-      widget.firstTimer ? _createNewUser() : _updateExistingUser();
+      widget.firstTimer ? await _createNewUser() : await _updateExistingUser();
     }
   }
 // -----------------------------------------------------------------------------
@@ -302,7 +305,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     } else {
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// create new UserModel
       final UserModel _newUserModel = UserModel(
@@ -338,7 +341,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           authBy: widget.user.authBy,
       );
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       await CenterDialog.showCenterDialog(
         context: context,
@@ -367,7 +370,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     } else {
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// create new updated user model
       final UserModel _updatedModel = UserModel(
@@ -404,7 +407,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         updatedUserModel: _updatedModel,
       );
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       await CenterDialog.showCenterDialog(
         context: context,

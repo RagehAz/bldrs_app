@@ -198,7 +198,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
 
     if (_result == true){
       await LDBOps.deleteAllMaps(docName: widget.ldbDocName);
-      _readSembast();
+      await _readSembast();
     }
 
     else {

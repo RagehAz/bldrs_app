@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
+import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 //   PageTransitionType superHorizontalTransition(BuildContext context){
 //     return
@@ -43,7 +44,7 @@ import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
 //     return _visibilityList;
 //   }
 // -----------------------------------------------------------------------------
-  void disposeControllerIfPossible(controller) {
+  void disposeControllerIfPossible(PageController controller) {
     if (controller != null) {
       controller.dispose();
     }

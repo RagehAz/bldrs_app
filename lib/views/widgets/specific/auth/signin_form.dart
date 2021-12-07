@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
@@ -109,7 +110,7 @@ class _SignInFormState extends State<SignInForm> {
     /// proceed with sign in if fields are valid
     if(_allFieldsAreValid() == true){
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// start sign in ops
       final dynamic _result = await FireAuthOps.emailSignInOps(
@@ -122,7 +123,7 @@ class _SignInFormState extends State<SignInForm> {
       print('_signInOnTap() _result.runtimeType : ${_result.runtimeType} : $_result');
       if(_result.runtimeType == String){
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// pop error dialog
       await Dialogz.authErrorDialog(context: context, result: _result);

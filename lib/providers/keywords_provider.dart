@@ -140,7 +140,7 @@ class KeywordsProvider extends ChangeNotifier{
           /// WHEN SON IS KEYWORD ID "never happens"
           if (son.runtimeType == String){
             _icon = 'assets/keywords/$son.jpg';
-            print('HEY : Im  a son, and im a keyword ID ${son}');
+            print('HEY : Im  a son, and im a keyword ID $son');
           }
           /// WHEN SON IS A KEYWORD
           else if (son.runtimeType == KW){

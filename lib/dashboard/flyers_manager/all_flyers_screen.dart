@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
@@ -62,10 +64,14 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
         });
 
         /// X - REBUILD
-        _triggerLoading(
-          // oldValue: _tinyFlyers,
-          // newValue: _flyersFromMaps,
-        );
+        unawaited(
+            _triggerLoading(
+                function: (){
+                  // oldValue: _tinyFlyers,
+                  // newValue: _flyersFromMaps,
+                }
+                ));
+
 
       });
 

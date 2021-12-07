@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/router/route_names.dart';
@@ -70,7 +72,7 @@ class _StartingScreenState extends State<StartingScreen> {
 
     print('starting _tapGoogleContinue method');
 
-    _triggerLoading();
+    unawaited(_triggerLoading());
 
     /// start auth to return String error or return Map<String,dynamic>
     ///  {
@@ -100,7 +102,7 @@ class _StartingScreenState extends State<StartingScreen> {
     print('_tapGoogleContinue : googleSignInOps_result : $_authResult');
     if(_authResult.runtimeType == String || _authResult == null){
 
-      _triggerLoading();
+      unawaited(_triggerLoading());
 
       /// pop error dialog
       await Dialogz.authErrorDialog(context: context, result: _authResult);
@@ -118,7 +120,7 @@ class _StartingScreenState extends State<StartingScreen> {
       final UserModel _userModel = _authResult['userModel'];
       print('_tapGoogleContinue : _userModel : $_userModel');
 
-      Nav.replaceScreen(context, const UserChecker());
+      await Nav.replaceScreen(context, const UserChecker());
 
     }
 

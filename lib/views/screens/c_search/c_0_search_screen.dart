@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
@@ -132,7 +134,7 @@ class _SearchScreenState extends State<SearchScreen> {
   /// TAMAM
   Future<void> _onSearchSubmit() async {
 
-    _triggerLoading();
+    unawaited(_triggerLoading());
 
     final List<SearchResult> _keywordsResults = await _searchKeywords();
     final List<SearchResult> _bzzResults = await _searchBzz();
@@ -163,7 +165,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     }
 
-    _triggerLoading();
+    unawaited(_triggerLoading());
   }
 // -------------------------------------------------------
   /// TAMAM
@@ -353,7 +355,7 @@ class _SearchScreenState extends State<SearchScreen> {
       onSearchSubmit: (String value) => _onSearchSubmit(),
       onSearchChanged: (String val){
 
-        print('search value changed to ${val}');
+        print('search value changed to $val');
 
         if (val.isEmpty){
           setState(() {
