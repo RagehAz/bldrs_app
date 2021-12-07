@@ -198,7 +198,7 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
               ),
               const GoldenScroll(
                 scrollTitle: 'To change terminal Directory',
-                scrollScript: 'cd H:\\bldrs\\bldrs',
+                scrollScript: r'cd H:\bldrs\bldrs',
               ),
               const GoldenScroll(
                 scrollTitle: 'Git repo URL',

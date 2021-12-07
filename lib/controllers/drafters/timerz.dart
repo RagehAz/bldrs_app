@@ -354,7 +354,9 @@ Examples Using the US Locale:
     String _output = '';
 
     for (int i = 0; i<times.length; i++){
-      _output = '${_output+hourMinuteSecondStringer(times[i])}\n';
+      final String _string = hourMinuteSecondStringer(times[i]);
+
+      _output = '$_output$_string\n';
     }
     return _output;
   }
