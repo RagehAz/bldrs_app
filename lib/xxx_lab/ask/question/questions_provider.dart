@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/xxx_lab/ask/quest/quest_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +32,9 @@ class QuestionsProvider with ChangeNotifier {
   void add(String question) {
     questionsFirebase
         .add(<String, dynamic>{'body': question, 'userID': 'xxxxxxxxxxxxxxxxx'})
-        .then((DocumentReference<Object> value) => print('Question Added to Database.'))
+        .then((DocumentReference<Object> value) => blog('Question Added to Database.'))
         .catchError(
-            (Object error) => print('Failed to add Question to DataBase: $error'));
+            (Object error) => blog('Failed to add Question to DataBase: $error'));
     fetchQuestions();
     notifyListeners();
   }

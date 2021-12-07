@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/flyer/sub/slide_model.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
@@ -25,7 +26,7 @@ import 'package:flutter/material.dart';
     String fileExtension = 'jpg',
   }) {
 
-    print('getting fire storage reference');
+    blog('getting fire storage reference');
 
     final Reference _ref = FirebaseStorage.instance
         .ref()
@@ -90,7 +91,7 @@ import 'package:flutter/material.dart';
 
     // final TaskSnapshot _snapshot = await _uploadTask.whenComplete((){
     //
-    //   print('upload completed');
+    //   blog('upload completed');
     //
     // });
 
@@ -184,11 +185,11 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
             picName: picName,
           );
 
-          print('X1 - getting storage ref : $_ref');
+          blog('X1 - getting storage ref : $_ref');
 
           final ImageSize imageSize = await ImageSize.superImageSize(inputFile);
 
-          print('X2 - image size is ${imageSize.height} * ${imageSize.width}');
+          blog('X2 - image size is ${imageSize.height} * ${imageSize.width}');
 
           final SettableMetadata metaData = SettableMetadata(
               customMetadata: <String, String>{
@@ -198,18 +199,18 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
               }
           );
 
-          print('X3 - meta data assigned');
+          blog('X3 - meta data assigned');
 
           await _ref.putFile(
             inputFile,
             metaData,
           );
 
-          print('X4 - File has been uploaded $inputFile');
+          blog('X4 - File has been uploaded $inputFile');
 
           _imageURL = await _ref.getDownloadURL();
 
-          print('X5 - _imageURL is downloaded  $_imageURL');
+          blog('X5 - _imageURL is downloaded  $_imageURL');
         }
     );
     return _imageURL;
@@ -285,7 +286,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
         localAsset: asset,
     );
 
-    print('uploading $fileName pic to fireStorage in folder of $docName');
+    blog('uploading $fileName pic to fireStorage in folder of $docName');
 
     _url = await createStoragePicAndGetURL(
       context: context,
@@ -295,7 +296,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       ownerID: ownerID,
     );
 
-    print('uploaded pic : $_url');
+    blog('uploaded pic : $_url');
 
     return _url;
   }
@@ -434,13 +435,13 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
           final FullMetadata _metaData = await _picRef?.getMetadata();
 
-          print('_metaData ------------------------- : $_metaData');
+          blog('_metaData ------------------------- : $_metaData');
 
           await _picRef?.delete();
         }
     );
 
-    print('checking delete result : $_result');
+    blog('checking delete result : $_result');
 
     /// if result is an error, pop a dialog
     if (_result.runtimeType == String){
@@ -458,7 +459,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
         //   boolDialog: false,
         // );
 
-        print('there is no image to delete');
+        blog('there is no image to delete');
 
       }
 
@@ -482,7 +483,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       //   boolDialog: false,
       // );
 
-      print('picture has been deleted');
+      blog('picture has been deleted');
 
     }
 

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
@@ -66,7 +67,7 @@ class _RegisterFormState extends State<RegisterForm> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -128,7 +129,7 @@ class _RegisterFormState extends State<RegisterForm> {
 // -----------------------------------------------------------------------------
   bool _allFieldsAreValid(){
     final bool _areValid = _formKey.currentState.validate();
-    print('_allFieldsAreValid() = $_areValid');
+    blog('_allFieldsAreValid() = $_areValid');
     return _areValid;
   }
 // -----------------------------------------------------------------------------
@@ -156,7 +157,7 @@ class _RegisterFormState extends State<RegisterForm> {
       );
 
       /// pop dialog if sign in fails otherwise check user required field then route
-      print('_registerOnTap() _result.runtimeType : ${_result.runtimeType} : $_result');
+      blog('_registerOnTap() _result.runtimeType : ${_result.runtimeType} : $_result');
       if(_result.runtimeType == String){
 
         unawaited(_triggerLoading());

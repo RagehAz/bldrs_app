@@ -63,7 +63,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -105,28 +105,28 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
         methodName: 'get location thing',
         functions: () async {
 
-          print('getting location aho');
+          blog('getting location aho');
 
           final Position _position = await ZoneOps.getGeoLocatorCurrentPosition();
 
-          print('got position = $_position');
+          blog('got position = $_position');
 
           final GeoPoint _geoPoint = GeoPoint(_position?.latitude, _position?.longitude);
 
-          print('made geo point aho $_geoPoint');
+          blog('made geo point aho $_geoPoint');
 
           setState(() {
             _point = _geoPoint;
           });
 
-          print('getting place marks');
+          blog('getting place marks');
 
           await _getCountryData(geoPoint: _geoPoint);
 
         },
 
         onError: (String e){
-          print('ERROR IS : $e');
+          blog('ERROR IS : $e');
       }
       );
 
@@ -209,7 +209,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
               Container(
                 color: Colorz.white10,
                 child: SearchBar(
-                    // onSearchChanged: (String val) async {print(val);},
+                    // onSearchChanged: (String val) async {blog(val);},
                     onSearchSubmit: (String val) async {
 
                       final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -251,7 +251,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                 icon: _countryID == null ? Iconz.share : Flag.getFlagIconByCountryID(_countryID),
                 onTap: () async {
 
-                  print('LET THE GAMES BEGIN');
+                  blog('LET THE GAMES BEGIN');
 
                   await _getCurrentUserLocation();
 
@@ -262,7 +262,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                 icon: _countryID == null ? Iconz.share : Flag.getFlagIconByCountryID(_countryID),
                 onTap: () async {
 
-                  print('LET THE GAMES BEGIN');
+                  blog('LET THE GAMES BEGIN');
 
                   await _getPositionFromMap();
 

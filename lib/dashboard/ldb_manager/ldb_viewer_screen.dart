@@ -140,7 +140,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -183,7 +183,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
   Future<void> _onRowTap(String id) async {
 
 
-    print('Bldrs local data base : _bldbName : ${widget.ldbDocName} : row id : $id');
+    blog('Bldrs local data base : _bldbName : ${widget.ldbDocName} : row id : $id');
 
   }
 // -----------------------------------------------------------------------------

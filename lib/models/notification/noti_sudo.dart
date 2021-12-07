@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
 enum NotiSubject{
@@ -132,16 +133,16 @@ class NotiSudo{
 // -----------------------------------------------------------------------------
   void printSudo({@required String methodName}){
 
-    print('$methodName : PRINTING NOTI SUDO ---------------- START -- ');
+    blog('$methodName : PRINTING NOTI SUDO ---------------- START -- ');
 
-    print('subject : $subject');
-    print('eventTrigger : $eventTrigger');
-    print('scheduledTiming : $scheduledTiming');
-    print('ifStatement : $ifStatement');
-    print('cityState : $cityState');
-    print('reciever : $reciever');
+    blog('subject : $subject');
+    blog('eventTrigger : $eventTrigger');
+    blog('scheduledTiming : $scheduledTiming');
+    blog('ifStatement : $ifStatement');
+    blog('cityState : $cityState');
+    blog('reciever : $reciever');
 
-    print('$methodName : PRINTING NOTI SUDO ---------------- END -- ');
+    blog('$methodName : PRINTING NOTI SUDO ---------------- END -- ');
 
   }
 // -----------------------------------------------------------------------------

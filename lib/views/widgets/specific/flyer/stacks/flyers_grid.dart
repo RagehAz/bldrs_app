@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -129,7 +130,7 @@ class _FlyersGridState extends State<FlyersGrid> {
               itemCount: flyers.length,
               itemBuilder: (BuildContext ctx, int index){
 
-              print('FlyersGrid : flyerID : ${flyers[index].id} : midColor : ${flyers[index].slides[0].midColor}');
+              blog('FlyersGrid : flyerID : ${flyers[index].id} : midColor : ${flyers[index].slides[0].midColor}');
 
               return
 
@@ -137,7 +138,7 @@ class _FlyersGridState extends State<FlyersGrid> {
                   flyerBoxWidth: FlyerBox.width(context, _flyerSizeFactor),
                   flyerModel: flyers[index],
                   onSwipeFlyer: (Sliders.SwipeDirection direction){
-                    // print('Direction is ${direction}');
+                    // blog('Direction is ${direction}');
                   },
                 );
 

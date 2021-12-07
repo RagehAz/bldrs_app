@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/secondary_models/map_model.dart';
@@ -41,7 +42,7 @@ class SelectAreaScreen extends StatelessWidget {
       pageIconVerse: _cityName,
       sky: SkyType.black,
       onItemTap: (String districtID) async {
-        print('districtID is $districtID');
+        blog('districtID is $districtID');
 
         final ZoneModel _zone = ZoneModel(
           countryID: city.countryID,

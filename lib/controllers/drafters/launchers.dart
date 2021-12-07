@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/secondary_models/link_model.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
@@ -11,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
     if (await canLaunch(link)) {
       await launch(link);
     }else{
-      print('Can Not launch link');
+      blog('Can Not launch link');
     }
   }
 // -----------------------------------------------------------------------------
@@ -19,7 +20,7 @@ import 'package:url_launcher/url_launcher.dart';
     if (await canLaunch(link)) {
       await launch(link);
     }else{
-      print('cant call');
+      blog('cant call');
     }
   }
 // -----------------------------------------------------------------------------

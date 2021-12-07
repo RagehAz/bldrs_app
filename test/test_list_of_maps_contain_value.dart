@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bldrs/controllers/drafters/colorizers.dart' as Colorizer;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main(){
@@ -127,21 +128,21 @@ void main(){
     // String _b = TextMod.trimTextBeforeFirstSpecialCharacter(_gX_b, '*');
     // int _blue = Numberers.stringToInt(_b);
     //
-    // print('_a       : $_a         : type : ${_a.runtimeType}');
-    // print('_alpha   : $_alpha     : type : ${_alpha.runtimeType}');
-    // print('_rX_gX_b : $_rX_gX_b   : type : ${_rX_gX_b.runtimeType}');
-    // print('_r       : $_r         : type : ${_r.runtimeType}');
-    // print('_red     : $_red       : type : ${_red.runtimeType}');
-    // print('_gX_b    : $_gX_b      : type : ${_gX_b.runtimeType}');
-    // print('_g       : $_g         : type : ${_g.runtimeType}');
-    // print('_green   : $_green     : type : ${_green.runtimeType}');
-    // print('_b       : $_b         : type : ${_b.runtimeType}');
-    // print('_blue    : $_blue      : type : ${_blue.runtimeType}');
+    // blog('_a       : $_a         : type : ${_a.runtimeType}');
+    // blog('_alpha   : $_alpha     : type : ${_alpha.runtimeType}');
+    // blog('_rX_gX_b : $_rX_gX_b   : type : ${_rX_gX_b.runtimeType}');
+    // blog('_r       : $_r         : type : ${_r.runtimeType}');
+    // blog('_red     : $_red       : type : ${_red.runtimeType}');
+    // blog('_gX_b    : $_gX_b      : type : ${_gX_b.runtimeType}');
+    // blog('_g       : $_g         : type : ${_g.runtimeType}');
+    // blog('_green   : $_green     : type : ${_green.runtimeType}');
+    // blog('_b       : $_b         : type : ${_b.runtimeType}');
+    // blog('_blue    : $_blue      : type : ${_blue.runtimeType}');
 
-    print('_expectedString : $_expectedString');
-    print('_decipheredToString : $_decipheredToString');
-    print('_color.toString() : ${_color.toString()}');
-    print('_deciphered.toString() : ${_deciphered.toString()}');
+    blog('_expectedString : $_expectedString');
+    blog('_decipheredToString : $_decipheredToString');
+    blog('_color.toString() : ${_color.toString()}');
+    blog('_deciphered.toString() : ${_deciphered.toString()}');
 
     expect(_expectedString, _decipheredToString);
 

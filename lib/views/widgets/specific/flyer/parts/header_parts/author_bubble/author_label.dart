@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -167,7 +168,7 @@ class AuthorPic extends StatelessWidget {
   /// --------------------------------------------------------------------------
   void _tapAddAuthor(BuildContext context){
 
-    print('should go to add new author screen');
+    blog('should go to add new author screen');
 
     // Nav.goToNewScreen(context, AddAuthorScreen(tinyBz: tinyBz));
   }

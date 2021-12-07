@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -31,11 +32,11 @@ class SlidesCounter extends StatelessWidget {
         );
 
         if(_result == false){
-          print('No');
+          blog('No');
         }
 
         else {
-          print('yes');
+          blog('yes');
         }
 
       },

@@ -9,6 +9,7 @@ import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/models/secondary_models/error_helpers.dart';
+import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -46,7 +47,7 @@ import 'package:flutter/material.dart';
 
     if (initialRemoteMessage != null){
 
-      printRemoteMessage(
+      blogRemoteMessage(
         methodName: 'initializeNoti',
         remoteMessage: initialRemoteMessage,
       );
@@ -79,7 +80,7 @@ import 'package:flutter/material.dart';
     /// when launching the app
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage event) {
 
-      printRemoteMessage(
+      blogRemoteMessage(
         methodName: 'initializeNoti',
         remoteMessage: event,
       );
@@ -103,13 +104,13 @@ import 'package:flutter/material.dart';
 }
 // -----------------------------------------------------------------------------
   Future<NotiModel> receiveAndActUponNoti({BuildContext context, dynamic msgMap, NotiType notiType}) async {
-    print('receiveAndActUponNoti : notiType : $notiType');
+    blog('receiveAndActUponNoti : notiType : $notiType');
 
     NotiModel _noti;
 
     await tryAndCatch(
       context: context,
-      onError: (String error) => print(error),
+      onError: (String error) => blog(error),
       methodName: 'receiveAndActUponNoti',
       functions: (){
         _noti = NotiModel.decipherNotiModel(
@@ -127,16 +128,16 @@ import 'package:flutter/material.dart';
 // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   Future<void> fcmPushHandler(RemoteMessage message) async {
 
-    print('Handling a background message ${message.messageId}');
+    blog('Handling a background message ${message.messageId}');
 
-    printRemoteMessage(
+    blogRemoteMessage(
       methodName: 'fcmPushHandler',
       remoteMessage: message,
     );
 
     final bool _thing = await AwesomeNotifications().createNotificationFromJsonData(message.data);
 
-    print ('thing is : $_thing');
+    blog ('thing is : $_thing');
 
     // if (!kIsWeb) {
     //   channel = const AndroidNotificationChannel(
@@ -323,7 +324,7 @@ import 'package:flutter/material.dart';
 
   }
 // -----------------------------------------------------------------------------
-  void printRemoteMessage({String methodName, RemoteMessage remoteMessage}){
+  void blogRemoteMessage({String methodName, RemoteMessage remoteMessage}){
 
     final RemoteNotification remoteNotification = remoteMessage.notification;
     final String category = remoteMessage.category;
@@ -339,24 +340,24 @@ import 'package:flutter/material.dart';
     final int ttl = remoteMessage.ttl;
     final Map<String, dynamic> data = remoteMessage.data;
 
-    print('PRINTING REMOTE MESSAGE ATTRIBUTES ------------- START -');
+    blog('blogING REMOTE MESSAGE ATTRIBUTES ------------- START -');
 
-    print('1 - METHOD NAMED : $methodName');
-    print('2 - remoteNotification : $remoteNotification');
-    print('3 - category : $category');
-    print('4 - collapseKey : $collapseKey');
-    print('5 - contentAvailable : $contentAvailable');
-    print('6 - from : $from');
-    print('7 - messageId : $messageId');
-    print('8 - messageType : $messageType');
-    print('9 - mutableContent : $mutableContent');
-    print('10 - senderId : $senderId');
-    print('11 - sentTime : $sentTime');
-    print('12 - threadId : $threadId');
-    print('13 - ttl : $ttl');
-    print('14 - data : $data');
+    blog('1 - METHOD NAMED : $methodName');
+    blog('2 - remoteNotification : $remoteNotification');
+    blog('3 - category : $category');
+    blog('4 - collapseKey : $collapseKey');
+    blog('5 - contentAvailable : $contentAvailable');
+    blog('6 - from : $from');
+    blog('7 - messageId : $messageId');
+    blog('8 - messageType : $messageType');
+    blog('9 - mutableContent : $mutableContent');
+    blog('10 - senderId : $senderId');
+    blog('11 - sentTime : $sentTime');
+    blog('12 - threadId : $threadId');
+    blog('13 - ttl : $ttl');
+    blog('14 - data : $data');
 
-    print('PRINTING REMOTE MESSAGE ATTRIBUTES ------------- END -');
+    blog('blogING REMOTE MESSAGE ATTRIBUTES ------------- END -');
 
   }
 // -----------------------------------------------------------------------------
@@ -376,14 +377,14 @@ Widget notiStreamBuilder({
       builder: (BuildContext ctx, AsyncSnapshot<List<NotiModel>> snapshot){
         if(StreamChecker.connectionIsLoading(snapshot) == true){
 
-          print('the shit is looooooooooooooooooooooooading');
+          blog('the shit is looooooooooooooooooooooooading');
 
           return const LoadingFullScreenLayer();
         } else {
 
           final List<NotiModel> notiModels = snapshot.data;
 
-          print('the shit is getting reaaaaaaaaaaaaaaaaaaaaaaal');
+          blog('the shit is getting reaaaaaaaaaaaaaaaaaaaaaaal');
 
           return
             builder(ctx, notiModels);
@@ -413,7 +414,7 @@ Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID)
         compareValue: false,
       );
 
-      print('getNotiModelsStream : _querySnapshots : $_querySnapshots');
+      blog('getNotiModelsStream : _querySnapshots : $_querySnapshots');
 
       _notiModelsStream = _querySnapshots.map(
               (QuerySnapshot<Object> qShot) => qShot.docs.map((QueryDocumentSnapshot<Object> doc) =>
@@ -424,7 +425,7 @@ Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID)
           ).toList()
       );
 
-      print('getNotiModelsStream : _notiModelsStream : $_notiModelsStream');
+      blog('getNotiModelsStream : _notiModelsStream : $_notiModelsStream');
 
     }
   );

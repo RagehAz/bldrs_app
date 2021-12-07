@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,7 @@ FieldValue ++
 
     on Exception catch (e) {
 
-      print('THE ERROR IS : xxxxx[${e.toString()}]xxxxx');
+      blog('THE ERROR IS : xxxxx[${e.toString()}]xxxxx');
 
       final bool _unauthenticated = TextChecker.stringContainsSubString(
         string: e.toString(),
@@ -59,7 +60,7 @@ FieldValue ++
         multiLine: true,
       );
 
-      print('unauthenticated IS $_unauthenticated');
+      blog('unauthenticated IS $_unauthenticated');
 
 
       if (_unauthenticated == true){
@@ -96,7 +97,7 @@ FieldValue ++
   }
 //------------------------------------------------------------------------------
   Future<String> deleteFirebaseUser({String userID}) async {
-    print('will delete user tomorrow isa, after 3eid');
+    blog('will delete user tomorrow isa, after 3eid');
     return 'rabena ysahhel';
   }
 //------------------------------------------------------------------------------

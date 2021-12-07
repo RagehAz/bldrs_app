@@ -55,7 +55,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onSpecTap(BuildContext context, KW kw) async {
 
-    print('received kw : ${kw.id}');
+    blog('received kw : ${kw.id}');
 
     // spec.printSpec();
 
@@ -159,7 +159,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 // -----------------------------------------------------------------------------
   void _onAddInteger(int integer){
 
-    print('received integer : $integer');
+    blog('received integer : $integer');
     final Spec _integerSpec = Spec(specsListID: widget.specList.id, value: integer);
 
     final List<Spec> _updatedList = Spec.putSpecsInSpecs(
@@ -174,7 +174,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 // -----------------------------------------------------------------------------
   void _onAddDouble(double num){
 
-    print('received double : $num');
+    blog('received double : $num');
     final Spec _doubleSpec = Spec(specsListID: widget.specList.id, value: num);
 
     final List<Spec> _updatedList = Spec.putSpecsInSpecs(

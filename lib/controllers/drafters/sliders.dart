@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ enum SwipeDirection{
   Future<int> slideToNextAndGetNewIndex(PageController slidingController, int numberOfSlides, int currentSlide) async {
 
     if (currentSlide+1 == numberOfSlides){
-      print('Can not slide forward');
+      blog('Can not slide forward');
       return currentSlide;
     }
 
@@ -28,7 +29,7 @@ enum SwipeDirection{
   /// will slide back and return decreased index
   Future<int> slideToBackAndGetNewIndex(PageController slidingController, int currentSlide) async {
   if (currentSlide == 0){
-    print('can not slide back');
+    blog('can not slide back');
     return currentSlide;
   } else {
     await slidingController.animateToPage(currentSlide - 1,
@@ -50,7 +51,7 @@ enum SwipeDirection{
     final Curve _curve = curve ?? Curves.easeInOutCirc;
 
   if (currentSlide == 0){
-    print('can not slide back');
+    blog('can not slide back');
   } else {
     await slidingController.animateToPage(currentSlide - 1,
         duration: Ratioz.durationSliding400,
@@ -64,7 +65,7 @@ enum SwipeDirection{
 //   Future<void> snapToBack(PageController slidingController, int currentSlide) async {
 //
 //   if (currentSlide == 0){
-//     print('can not slide back');
+//     blog('can not slide back');
 //   }
 //
 //   else {
@@ -103,7 +104,7 @@ SwipeDirection slidingDecision(int numberOfSlides, int currentSlide){
       int numberOfSlides,
       int currentSlide
       ) async {
-  // print('i: $currentSlide || #: $numberOfSlides || -> before slidingAction');
+  // blog('i: $currentSlide || #: $numberOfSlides || -> before slidingAction');
     slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.next ?
     await slideToNext(slidingController, numberOfSlides, currentSlide)
         :
@@ -113,10 +114,10 @@ SwipeDirection slidingDecision(int numberOfSlides, int currentSlide){
     slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.freeze ?
     await slideTo(controller: slidingController, toIndex: currentSlide)
         :
-    print('no sliding possible ');
-    // print('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingAction');
+    blog('no sliding possible ');
+    // blog('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingAction');
 }
 // -----------------------------------------------------------------------------
   void zombie (int slideIndex){
-  print('i wont slide');
+  blog('i wont slide');
 }

@@ -41,7 +41,7 @@ class _HomeWallState extends State<HomeWall> {
       BzzBubble(
         bzzModels: _userBzz,
         numberOfRows: 1,
-        onTap: (String value){print(value);},
+        onTap: (String value){blog(value);},
         title: '${TextGen.bldrsTypePageTitle(context, BzType.designer)} in Province',
       ),
 
@@ -75,7 +75,7 @@ class _HomeWallState extends State<HomeWall> {
               children: <Widget>[
 
                 //         // Ask(
-                //         //   tappingAskInfo: () {print('Ask info is tapped aho');},
+                //         //   tappingAskInfo: () {blog('Ask info is tapped aho');},
                 //         // ),
 
                 FlyerBox(

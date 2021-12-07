@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
@@ -33,7 +34,7 @@ class Slides extends StatelessWidget {
     }
 
     else {
-      print(' tapping slides new while tinyMode is false baby');
+      blog(' tapping slides new while tinyMode is false baby');
     }
 
   }
@@ -102,7 +103,7 @@ class Slides extends StatelessWidget {
                       saves: superFlyer.mSlides[i].savesCount,
                       shares: superFlyer.mSlides[i].sharesCount,
                       textFieldOnChanged: (String text){
-                        print('text is : $text');
+                        blog('text is : $text');
                       },
                       onTap: () => _onSingleSlideTap(context),
                     ),
@@ -124,7 +125,7 @@ class Slides extends StatelessWidget {
                     //     /// --- back tap area
                     //     GestureDetector(
                     //       onTap: () async {
-                    //         print('widget.currentSlideIndex was : ${widget.superFlyer.currentSlideIndex}');
+                    //         blog('widget.currentSlideIndex was : ${widget.superFlyer.currentSlideIndex}');
                     //         int _newIndex = await Sliders.slideToBackAndGetNewIndex(_slidingController, widget.superFlyer.currentSlideIndex);
                     //
                     //         /// if its first slide swipe to last flyer
@@ -134,7 +135,7 @@ class Slides extends StatelessWidget {
                     //         /// if its a middle or last slide, slide to the new index
                     //         else {
                     //           widget.superFlyer.onHorizontalSlideSwipe(_newIndex);
-                    //           print('widget.currentSlideIndex after sliding is : $_newIndex');
+                    //           blog('widget.currentSlideIndex after sliding is : $_newIndex');
                     //         }
                     //
                     //       },
@@ -149,7 +150,7 @@ class Slides extends StatelessWidget {
                     //     // /// --- front tap area
                     //     // GestureDetector(
                     //     //   onTap: () async {
-                    //     //     print('widget.currentSlideIndex was : ${widget.currentSlideIndex}');
+                    //     //     blog('widget.currentSlideIndex was : ${widget.currentSlideIndex}');
                     //     //     int _newIndex = await Sliders.slideToNextAndGetNewIndex(_slidingController, _slidesLength, widget.currentSlideIndex);
                     //     //
                     //     //     /// if its last slide swipe to next flyer
@@ -159,7 +160,7 @@ class Slides extends StatelessWidget {
                     //     //     /// if its a middle or last slide, slide to the new index
                     //     //     else {
                     //     //       widget.sliding(_newIndex);
-                    //     //       print('widget.currentSlideIndex after sliding is : $_newIndex');
+                    //     //       blog('widget.currentSlideIndex after sliding is : $_newIndex');
                     //     //     }
                     //     //   },
                     //     //   child: Container(

@@ -71,7 +71,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -163,11 +163,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       boolDialog: true,
     );
 
-    print(_dialogResult);
+    blog(_dialogResult);
 
     /// if user wants cancel ops
     if (_dialogResult == false) {
-      print('user : ${userModel.id} cancelled ops');
+      blog('user : ${userModel.id} cancelled ops');
     }
 
     /// and if user wants to continue ops
@@ -185,12 +185,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
       /// if user stopped ops
       if (_result == 'stop') {
-        print('user cancelled ops');
+        blog('user cancelled ops');
       }
 
       /// is delete ops succeeds
       else if (_result == 'deleted') {
-        print('successfully deleted user ops and got back to profile screen');
+        blog('successfully deleted user ops and got back to profile screen');
 
         /// go to user checker and remove all below screens
         await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
@@ -198,7 +198,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
       /// if it fails
       else {
-        print('something went wrong');
+        blog('something went wrong');
 
         /// go to user checker and remove all below screens
         await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
@@ -219,11 +219,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       boolDialog: true,
     );
 
-    print(_dialogResult);
+    blog(_dialogResult);
 
     /// if user wants to stop
     if (_dialogResult == false) {
-      print('user cancelled the operation');
+      blog('user cancelled the operation');
     }
 
     /// if user wants to continue
@@ -240,7 +240,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       /// if user stopped operations
       if (_result == 'stop') {
 
-        print('user cancelled ops');
+        blog('user cancelled ops');
 
       }
 
@@ -258,7 +258,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       /// if something went wrong
       else {
 
-        print('something went wrong');
+        blog('something went wrong');
 
       }
     }

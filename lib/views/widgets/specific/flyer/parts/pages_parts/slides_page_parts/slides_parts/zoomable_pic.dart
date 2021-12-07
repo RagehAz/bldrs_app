@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
     );
     _transformationController.addListener(() {
       if(_transformationController.value.getMaxScaleOnAxis() > 1.5){
-        print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX its bigger than 1.5 now');
+        blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX its bigger than 1.5 now');
       }
     });
   }
@@ -112,10 +113,10 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
 
         },
         // onInteractionStart: (ScaleStartDetails scaleStartDetails){
-        //   print('scaleStartDetails : $scaleStartDetails');
+        //   blog('scaleStartDetails : $scaleStartDetails');
         //   },
         // onInteractionUpdate: (ScaleUpdateDetails scaleUpdateDetails){
-        //   print('scaleUpdateDetails : $scaleUpdateDetails');
+        //   blog('scaleUpdateDetails : $scaleUpdateDetails');
         //   },
 
         child: widget.child ?? Container(),

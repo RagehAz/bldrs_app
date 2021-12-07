@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/models/secondary_models/map_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
@@ -241,19 +242,18 @@ class CountryModel{
 // -----------------------------------------------------------------------------
   void printCountry({String methodName = 'PRINTING COUNTRY'}){
 
-    print('$methodName ------------------------------------------- START');
+    blog('$methodName ------------------------------------------- START');
 
-    print('id : $id');
-    print('region : $region');
-    print('continent : $continent');
-    print('isActivated : $isActivated');
-    print('isGlobal : $isGlobal');
-    print('citiesIDs : $citiesIDs');
-    print('language : $language');
-    print('names : $names');
+    blog('id : $id');
+    blog('region : $region');
+    blog('continent : $continent');
+    blog('isActivated : $isActivated');
+    blog('isGlobal : $isGlobal');
+    blog('citiesIDs : $citiesIDs');
+    blog('language : $language');
+    blog('names : $names');
 
-
-    print('$methodName ------------------------------------------- END');
+    blog('$methodName ------------------------------------------- END');
 
   }
 // -----------------------------------------------------------------------------

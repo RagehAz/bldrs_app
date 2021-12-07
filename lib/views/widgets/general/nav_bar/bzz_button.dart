@@ -1,3 +1,4 @@
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
@@ -46,7 +47,7 @@ Widget _nanoBzLogo(BuildContext context, BzModel bzModel){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
     final List<BzModel> _userBzz = _bzzProvider.myBzz;
 
-    print('the dude is : _userBzz : ${_userBzz.length} bzz');
+    blog('the dude is : _userBzz : ${_userBzz.length} bzz');
 
     final double _circleWidth = circleWidth;
     final double _buttonCircleCorner = _circleWidth * 0.5;

@@ -71,7 +71,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -124,7 +124,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
 // -----------------------------------------------------------------------------
   Future<void> _onSpecsListTap(SpecList specList) async {
 
-    print('fi eh ${specList.specChain.sons}');
+    blog('fi eh ${specList.specChain.sons}');
 
     if (specList.specChain.sons.runtimeType != DataCreator){
       await _goToSpecPickerScreen(specList);
@@ -139,12 +139,12 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
     }
 
     else if (specList.specChain.sons == DataCreator.integerIncrementer){
-      print('aho');
+      blog('aho');
       await _goToSpecPickerScreen(specList);
     }
 
     else if (specList.specChain.sons == DataCreator.doubleCreator){
-      print('aho');
+      blog('aho');
       await _goToSpecPickerScreen(specList);
     }
 
@@ -223,7 +223,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
       /// C - WHEN SOMETHING GOES WRONG
       else {
 
-        print('RED ALERT : result : ${specPickerResult.toString()}');
+        blog('RED ALERT : result : ${specPickerResult.toString()}');
 
       }
       // ------------------------------------

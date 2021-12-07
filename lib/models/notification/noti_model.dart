@@ -1,5 +1,6 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/models/notification/noti_sudo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -122,7 +123,7 @@ class NotiModel{
       );
     }
 
-    print('the damn damn damn noti boy is : $_noti');
+    blog('the damn damn damn noti boy is : $_noti');
 
     _noti.printNotiModel(methodName: 'bitchhh');
 
@@ -202,24 +203,24 @@ class NotiModel{
   }
 // -----------------------------------------------------------------------------
   void printNotiModel({String methodName}){
-    print('$methodName : PRINTING NotiModel ---------------- START -- ');
+    blog('$methodName : PRINTING NotiModel ---------------- START -- ');
 
-    print('id : $id');
-    print('name : $name');
-    print('sudo : ${sudo.toString()}');
-    print('senderID : $senderID');
-    print('pic : $pic');
-    print('notiPicType : ${notiPicType.toString()}');
-    print('title : $title');
-    print('timeStamp : ${timeStamp.toString()}');
-    print('body : $body');
-    print('attachment : ${attachment.toString()}');
-    print('attachmentType : ${attachmentType.toString()}');
-    print('dismissed : ${dismissed.toString()}');
-    print('sendFCM : ${sendFCM.toString()}');
-    print('metaData : ${metaData.toString()}');
+    blog('id : $id');
+    blog('name : $name');
+    blog('sudo : ${sudo.toString()}');
+    blog('senderID : $senderID');
+    blog('pic : $pic');
+    blog('notiPicType : ${notiPicType.toString()}');
+    blog('title : $title');
+    blog('timeStamp : ${timeStamp.toString()}');
+    blog('body : $body');
+    blog('attachment : ${attachment.toString()}');
+    blog('attachmentType : ${attachmentType.toString()}');
+    blog('dismissed : ${dismissed.toString()}');
+    blog('sendFCM : ${sendFCM.toString()}');
+    blog('metaData : ${metaData.toString()}');
 
-    print('$methodName : PRINTING NotiModel ---------------- END -- ');
+    blog('$methodName : PRINTING NotiModel ---------------- END -- ');
   }
 // -----------------------------------------------------------------------------
   static List<NotiModel> getNotiModelsFromSnapshot(DocumentSnapshot<Object> doc){

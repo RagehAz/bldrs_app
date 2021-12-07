@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
@@ -131,7 +132,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
   }
 // -----------------------------------------------------------------------------
   void _statelessFadeMaxHeader(){
-    print('_maxHeaderOpacity = $_maxHeaderOpacity');
+    blog('_maxHeaderOpacity = $_maxHeaderOpacity');
 
     Future<void>.delayed(Ratioz.durationFading200, (){
       if (_maxHeaderOpacity == 1){

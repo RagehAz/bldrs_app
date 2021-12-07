@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/ops/bz_ops.dart' as FireBzOps;
 import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/db/ldb/ldb_ops.dart' as LDBOps;
@@ -252,7 +253,7 @@ class BzzProvider extends ChangeNotifier {
     } else {
       _isFollowing = true;
     }
-    // print('_isFollowing = $_isFollowing');
+    // blog('_isFollowing = $_isFollowing');
 
     return _isFollowing;
   }
@@ -265,7 +266,7 @@ class BzzProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   Future<void> setActiveBz(BzModel bzModel) async {
-    print('setting active bz to ${bzModel.id}');
+    blog('setting active bz to ${bzModel.id}');
     _myActiveBz = bzModel;
     notifyListeners();
   }
@@ -283,11 +284,11 @@ class BzzProvider extends ChangeNotifier {
 
   // Future<void> toggleFollow() async {
   //   final oldStatus = followIsOn;
-  //   print('oldStatus is : $oldStatus');
+  //   blog('oldStatus is : $oldStatus');
   //   _setFollowValue(!followIsOn);
-  //   print('new followIsOn is : $followIsOn');
+  //   blog('new followIsOn is : $followIsOn');
   //   final url = 'https://bldrsnet.firebaseio.com/bzz/$bzID.json';
-  //   print('url is : $url');
+  //   blog('url is : $url');
   //   try {
   //     final response = await http.patch(url,
   //         body: json.encode({
@@ -295,14 +296,14 @@ class BzzProvider extends ChangeNotifier {
   //         }));
   //     if (response.statusCode >= 400){
   //       _setFollowValue(oldStatus);
-  //       print('response.statusCode is : ${response.body}');
+  //       blog('response.statusCode is : ${response.body}');
   //     } else {
-  //     print('followIsOn changed on server to : $followIsOn');
+  //     blog('followIsOn changed on server to : $followIsOn');
   //     // add the id in user's firebase document in  followedBzzIDs
   //     }
   //   } catch (error){
   //     _setFollowValue(oldStatus);
-  //     print('error is : $error');
+  //     blog('error is : $error');
   //
   //   }
   // }

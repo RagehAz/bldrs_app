@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/standards.dart' as Standards;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
@@ -166,11 +167,11 @@ import 'package:provider/provider.dart';
 
             }
 
-            print('response body is : ${_response.body}');
+            blog('response body is : ${_response.body}');
           }
 
           else {
-            print('response is : ${_response.body}');
+            blog('response is : ${_response.body}');
           }
 
         }
@@ -206,7 +207,7 @@ import 'package:provider/provider.dart';
 
               final String _countryISO = _countryData['location']['country']['code'];
 
-              print('country iso is : $_countryISO');
+              blog('country iso is : $_countryISO');
 
               const String _cityName = null;
 
@@ -230,11 +231,11 @@ import 'package:provider/provider.dart';
 
             }
 
-            print('response body is : ${_response.body}');
+            blog('response body is : ${_response.body}');
           }
 
           else {
-            print('nothing found : ${_response.body}');
+            blog('nothing found : ${_response.body}');
           }
 
         }
@@ -265,17 +266,17 @@ import 'package:provider/provider.dart';
     /// trial 1
     ZoneModel _zone = await _getZoneByIP_ipApi(context: context);
 
-    print('superGetZone : trial 1 : _getZoneByIP_ipApi : zone is : countryID : ${_zone.countryID} : cityID : ${_zone.cityID}');
+    blog('superGetZone : trial 1 : _getZoneByIP_ipApi : zone is : countryID : ${_zone.countryID} : cityID : ${_zone.cityID}');
 
     if (_zone == null){
       _zone = await _getZoneByIP_ipRegistry(context: context);
-      print('superGetZone : trial 2 : _getZoneByIP_ipRegistry : zone is : countryID : ${_zone.countryID} : cityID : ${_zone.cityID}');
+      blog('superGetZone : trial 2 : _getZoneByIP_ipRegistry : zone is : countryID : ${_zone.countryID} : cityID : ${_zone.cityID}');
     }
 
 
     if (_zone == null){
       _zone = await _getZoneByGeoLocator(context: context);
-      print('superGetZone : trial 3 : _getZoneByGeoLocator : zone is : countryID : ${_zone.countryID} : cityID : ${_zone.cityID}');
+      blog('superGetZone : trial 3 : _getZoneByGeoLocator : zone is : countryID : ${_zone.countryID} : cityID : ${_zone.cityID}');
     }
 
     return _zone;
@@ -331,15 +332,15 @@ import 'package:provider/provider.dart';
 
     List<Placemark> _placeMarks = <Placemark>[];
 
-    print('getAddressFromPosition :starting getAddressFromPosition');
+    blog('getAddressFromPosition :starting getAddressFromPosition');
 
     if (geoPoint != null){
       _placeMarks = await placemarkFromCoordinates(geoPoint.latitude, geoPoint.longitude);
-      print('getAddressFromPosition :found placemarks aho $_placeMarks');
+      blog('getAddressFromPosition :found placemarks aho $_placeMarks');
     }
 
     else {
-      print('getAddressFromPosition : could not get this position placeMarks');
+      blog('getAddressFromPosition : could not get this position placeMarks');
     }
 
 

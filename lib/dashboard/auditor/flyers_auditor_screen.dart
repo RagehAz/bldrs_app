@@ -4,6 +4,7 @@ import 'package:bldrs/controllers/drafters/animators.dart' as Animators;
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -56,7 +57,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -145,7 +146,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _onVerify() async {
-    print('currentFlyer : ${_currentFlyer.slides.length} slides');
+    blog('currentFlyer : ${_currentFlyer.slides.length} slides');
 
     if (_currentFlyer.flyerState != FlyerState.verified){
 
@@ -166,7 +167,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
               secondLine: 'flyer ${_currentFlyer.id} got verified',
               color: Colorz.green255,
               onTap: (){
-                print('a77aaa ');
+                blog('a77aaa ');
               }
           )
       );
@@ -233,12 +234,12 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   }
 // -----------------------------------------------------o
   Future<void> _deleteFirstPage() async {
-    print('DELETING STARTS AT (FIRST) index : $_currentPageIndex, numberOfSlides : ${_flyers.length} ------------------------------------');
+    blog('DELETING STARTS AT (FIRST) index : $_currentPageIndex, numberOfSlides : ${_flyers.length} ------------------------------------');
 
     /// 1 - if only one slide remaining
     if(_flyers.length == 1){
 
-      // print('_draft.visibilities : ${_superFlyer.mSlides[_currentPageIndex].toString()}, _draft.numberOfSlides : $_flyers.length');
+      // blog('_draft.visibilities : ${_superFlyer.mSlides[_currentPageIndex].toString()}, _draft.numberOfSlides : $_flyers.length');
 
       /// A - decrease progress bar and trigger visibility
       setState(() {
@@ -285,7 +286,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
           // /// F - snap to index 0
           // await Sliders.snapTo(_pageController, 0);
           //
-          // print('now i can swipe again');
+          // blog('now i can swipe again');
           //
           // /// G - trigger progress bar listener (onPageChangedIsOn)
           setState(() {
@@ -345,7 +346,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
              Sliders.snapTo(_pageController, 0);
              // await null;
 
-            print('now i can swipe again');
+            blog('now i can swipe again');
 
             /// G - trigger progress bar listener (onPageChangedIsOn)
             setState(() {
@@ -359,11 +360,11 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
     }
 
-    // print('DELETING ENDS AT (FIRST) : index : ${_currentPageIndex}, numberOfSlides : ${_flyers.length} ------------------------------------');
+    // blog('DELETING ENDS AT (FIRST) : index : ${_currentPageIndex}, numberOfSlides : ${_flyers.length} ------------------------------------');
   }
 // -----------------------------------------------------o
   Future<void> _deleteMiddleOrLastSlide() async {
-    print('XXXXX ----- DELETING STARTS AT (MIDDLE) index : $_currentPageIndex, numberOfSlides : ${_flyers.length}');
+    blog('XXXXX ----- DELETING STARTS AT (MIDDLE) index : $_currentPageIndex, numberOfSlides : ${_flyers.length}');
 
     final int _originalIndex = _currentPageIndex;
 
@@ -375,16 +376,16 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       _statelessTriggerPageVisibility(_originalIndex);
     });
 
-    // print('XXX after first rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
+    // blog('XXX after first rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
 
     /// B - wait fading to start sliding
     await Future<void>.delayed(Ratioz.durationFading210, () async {
 
-      // print('_currentIndex before slide : $_draft.currentSlideIndex');
+      // blog('_currentIndex before slide : $_draft.currentSlideIndex');
 
       /// C - slide
       await  Sliders.slideToBackFrom(_pageController, _originalIndex);
-      // print('_currentIndex after slide : $_draft.currentSlideIndex');
+      // blog('_currentIndex after slide : $_draft.currentSlideIndex');
 
       /// E - wait for sliding to end
       await Future<void>.delayed(Ratioz.durationFading210, () async {
@@ -394,22 +395,22 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
           _statelessFlyerRemove(_originalIndex);
         });
 
-        // print('XXX after second rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
+        // blog('XXX after second rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
 
       });
 
-      // print('XXX after third LAST rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
+      // blog('XXX after third LAST rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
 
     });
 
-    print('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : $_currentPageIndex, numberOfSlides : ${_flyers.length}');
+    blog('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : $_currentPageIndex, numberOfSlides : ${_flyers.length}');
   }
 // -----------------------------------------------------o
   void _statelessTriggerPageVisibility(int index) {
 
     if (index != null){
       if(index >= 0 && _flyers.isNotEmpty){
-        print('_superFlyer.mSlides[index].isVisible was ${_pagesOpacities[0]} for index : $index');
+        blog('_superFlyer.mSlides[index].isVisible was ${_pagesOpacities[0]} for index : $index');
 
 
         if(_pagesOpacities[0] == 1){
@@ -419,10 +420,10 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
           _pagesOpacities[0] = 1;
         }
 
-        print('_superFlyer.mSlides[index].isVisible is ${_pagesOpacities[0]} for index : $index');
+        blog('_superFlyer.mSlides[index].isVisible is ${_pagesOpacities[0]} for index : $index');
       }
       else {
-        print('can not trigger visibility for index : $index');
+        blog('can not trigger visibility for index : $index');
       }
     }
 
@@ -430,7 +431,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 // -----------------------------------------------------o
   void _statelessTriggerProgressOpacity({int verticalIndex}){
 
-    print('triggering progress bar opacity');
+    blog('triggering progress bar opacity');
 
     if (verticalIndex == null){
 
@@ -460,7 +461,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 // -----------------------------------------------------o
   void _statelessFlyerRemove(int index) {
 
-    print('before stateless delete index was $index, _draft.numberOfSlides was : ${_flyers.length}');
+    blog('before stateless delete index was $index, _draft.numberOfSlides was : ${_flyers.length}');
     // if(ObjectChecker.listCanBeUsed(_superFlyer.assetsFiles) == true){_superFlyer.assetsFiles.removeAt(index);}
     // if(ObjectChecker.listCanBeUsed(_superFlyer.assetsFiles) == true){_superFlyer.mutableSlides.removeAt(index);}
 
@@ -480,7 +481,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     _flyers.length = _flyers.length;
     // _superFlyer.screenShots.removeAt(index);
 
-    print('after stateless delete index is $index, _draft.numberOfSlides is : ${_flyers.length}');
+    blog('after stateless delete index is $index, _draft.numberOfSlides is : ${_flyers.length}');
   }
 // -----------------------------------------------------o
   List<double> _createPagesOpacities(int numberOfPages){
@@ -494,16 +495,16 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   }
 // -----------------------------------------------------o
   void _onPageChange (int newIndex){
-    // print('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
+    // blog('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
     final Sliders.SwipeDirection _direction = Animators.getSwipeDirection(newIndex: newIndex, oldIndex: _currentPageIndex,);
 
     // /// A - if Keyboard is active
     // if (Keyboarders.keyboardIsOn(context) == true){
-    //   print('KEYBOARD IS ACTIVE');
+    //   blog('KEYBOARD IS ACTIVE');
     //
     //   /// B - when direction is going next
     //   if (_direction == SwipeDirection.next){
-    //     print('going next');
+    //     blog('going next');
     //     FocusScope.of(context).nextFocus();
     //     setState(() {
     //       _superFlyer.nav.swipeDirection = _direction;
@@ -513,7 +514,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     //
     //   /// B - when direction is going back
     //   else if (_direction == SwipeDirection.back){
-    //     print('going back');
+    //     blog('going back');
     //     FocusScope.of(context).previousFocus();
     //     setState(() {
     //       _superFlyer.nav.swipeDirection = _direction;
@@ -523,7 +524,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     //
     //   /// B = when direction is freezing
     //   else {
-    //     print('going no where');
+    //     blog('going no where');
     //     setState(() {
     //       _superFlyer.nav.swipeDirection = _direction;
     //       _superFlyer.currentSlideIndex = newIndex;
@@ -533,7 +534,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
     // /// A - if keyboard is not active
     // else {
-      // print('KEYBOARD IS NOT ACTIVE');
+      // blog('KEYBOARD IS NOT ACTIVE');
       setState(() {
         _lastSwipeDirection = _direction;
         _currentPageIndex = newIndex;
@@ -559,7 +560,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       pageTitle: 'Flyers Auditor',
       onBldrsTap: (){
 
-        print('aho');
+        blog('aho');
 
       },
       listWidgets: <Widget>[

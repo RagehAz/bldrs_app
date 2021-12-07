@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -63,7 +64,7 @@ class _SignInFormState extends State<SignInForm> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -94,7 +95,7 @@ class _SignInFormState extends State<SignInForm> {
 // -----------------------------------------------------------------------------
   bool _allFieldsAreValid(){
     final bool _areValid = _formKey.currentState.validate();
-    print('_allFieldsAreValid() = $_areValid');
+    blog('_allFieldsAreValid() = $_areValid');
     return _areValid;
   }
 // -----------------------------------------------------------------------------
@@ -120,7 +121,7 @@ class _SignInFormState extends State<SignInForm> {
       );
 
       /// pop dialog if sign in fails otherwise check user required field then route
-      print('_signInOnTap() _result.runtimeType : ${_result.runtimeType} : $_result');
+      blog('_signInOnTap() _result.runtimeType : ${_result.runtimeType} : $_result');
       if(_result.runtimeType == String){
 
       unawaited(_triggerLoading());
@@ -212,7 +213,7 @@ class _SignInFormState extends State<SignInForm> {
             keyboardTextInputType: TextInputType.visiblePassword,
             keyboardTextInputAction: TextInputAction.done,
             title: Wordz.password(context),
-            onSaved: (){print('onSaved');},
+            onSaved: (){blog('onSaved');},
             obscured: _passwordObscured,
             horusOnTap: _horusOnTap,
             validator: (String val){

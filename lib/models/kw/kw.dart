@@ -1,4 +1,5 @@
 import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/localization/lingo.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
@@ -117,12 +118,12 @@ class KW {
 // -----------------------------------------------------------------------------
   void printKeyword({String methodName = 'PRINTING KEYWORD'}){
 
-    print('$methodName ------------------------------- START');
+    blog('$methodName ------------------------------- START');
 
-    print('id : $id');
-    print('names : $names');
+    blog('id : $id');
+    blog('names : $names');
 
-    print('$methodName ------------------------------- END');
+    blog('$methodName ------------------------------- END');
   }
 
 // -----------------------------------------------------------------------------

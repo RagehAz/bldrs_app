@@ -44,7 +44,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -77,7 +77,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
 // -----------------------------------------------------------------------------
   void _dismissNotification(String id){
 
-    print('removing noti with id : $id');
+    blog('removing noti with id : $id');
 
     setState(() {
       _notifications.removeWhere((NotiModel notiModel) => notiModel.id == id,);
@@ -101,7 +101,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
       //   );
       //
       //   if (upload == true){
-      //     print('uploading aho');
+      //     blog('uploading aho');
       //
       //
       //   }
@@ -120,7 +120,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
           corners: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner),
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           onTap: (){
-            print('to dismissed notifications');
+            blog('to dismissed notifications');
           },
         ),
 
@@ -154,7 +154,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
 
           return Dismissible(
             // onResize: (){
-            // print('resizing');
+            // blog('resizing');
             // },
             // background: Container(
             //   alignment: Aligners.superCenterAlignment(context),
@@ -182,7 +182,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
             movementDuration: const Duration(milliseconds: 250),
             resizeDuration: const Duration(milliseconds: 250),
             confirmDismiss: (DismissDirection direction) async {
-              // print('confirmDismiss : direction is : $direction');
+              // blog('confirmDismiss : direction is : $direction');
 
               /// if needed to make the bubble un-dismissible set to false
               const bool _dismissible = true;
@@ -191,7 +191,7 @@ class _NotificationTemplatesScreenState extends State<NotificationTemplatesScree
             },
             onDismissed: (DismissDirection direction){
               _dismissNotification(_notiModel.id);
-              // print('onDismissed : direction is : $direction');
+              // blog('onDismissed : direction is : $direction');
             },
             child: Container(
               width: _screenWidth,

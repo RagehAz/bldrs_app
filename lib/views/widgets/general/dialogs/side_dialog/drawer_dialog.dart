@@ -65,7 +65,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
 // ---------------------------
   Future<void> _onSearchChanged(String text) async {
 
-    print('drawer receives text : $text : Length ${text.length}: _isSearching : $_isSearching');
+    blog('drawer receives text : $text : Length ${text.length}: _isSearching : $_isSearching');
 
     /// A - not searching
     if (_isSearching == false){

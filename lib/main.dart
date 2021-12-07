@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/localization/localizer.dart';
 import 'package:bldrs/controllers/notifications/local_notification_service.dart' as LocalNotificationService;
 import 'package:bldrs/controllers/notifications/noti_ops.dart' as NotiOps;
@@ -83,7 +84,7 @@ class _BldrsAppState extends State<BldrsApp> {
     }
 
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -128,7 +129,7 @@ class _BldrsAppState extends State<BldrsApp> {
     }
     on Exception catch (e) {
       /// Set `_error` state to true if Firebase initialization fails
-      print(e);
+      blog(e);
       setState(() {
         _error = true;
       });
@@ -141,7 +142,7 @@ class _BldrsAppState extends State<BldrsApp> {
 //   NotiModel _noti;
   bool _notiIsOn = false;
 Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
-  print('receiveAndActUponNoti : notiType : $notiType');
+  blog('receiveAndActUponNoti : notiType : $notiType');
 
   final NotiModel _noti = await NotiOps.receiveAndActUponNoti(
     context: context,
@@ -162,7 +163,7 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
 @override
   Widget build(BuildContext context) {
 
-    print('building Bldrs with _locale : $_locale');
+    blog('building Bldrs with _locale : $_locale');
 
     if (_locale == null) {
       return Center(
@@ -172,11 +173,11 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
     else {
       /// Show error message if initialization failed
       if (_error) {
-        print('Error has occurred');
+        blog('Error has occurred');
       }
       /// Show a loader until FlutterFire is initialized
       if (!_initialized) {
-        print("Firebase Couldn't be initialized");
+        blog("Firebase Couldn't be initialized");
       }
 
       return MultiProvider(
