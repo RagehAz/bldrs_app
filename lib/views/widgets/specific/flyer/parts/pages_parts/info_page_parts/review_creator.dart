@@ -9,7 +9,6 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/info_page_parts/review_user_label.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ReviewCreator extends StatelessWidget {

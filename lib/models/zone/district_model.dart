@@ -3,7 +3,6 @@ import 'package:bldrs/models/secondary_models/map_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class DistrictModel{

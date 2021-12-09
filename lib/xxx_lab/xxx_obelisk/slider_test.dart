@@ -5,7 +5,6 @@ import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SliderTestScreen extends StatefulWidget {

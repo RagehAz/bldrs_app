@@ -8,7 +8,6 @@ import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/continent_model.dart';
 import 'package:bldrs/models/zone/flag_model.dart';
 import 'package:bldrs/models/zone/region_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CountryModel{
