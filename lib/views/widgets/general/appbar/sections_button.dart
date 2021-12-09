@@ -2,7 +2,9 @@ import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
+import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
@@ -36,17 +38,19 @@ Widget build(BuildContext context) {
 
   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
   final SectionClass.Section _currentSection = _generalProvider.currentSection;
+  final KW _currentKeyword = _generalProvider.currentKeyword;
 
 
   const double _corners = Ratioz.boxCorner12;
 
-  final String _buttonTitle = Wordz.section(context) ;
+  final String _sectionName = TextGen.sectionStringer(context, _currentSection);
+  final String _titleVerse = _currentKeyword == null ? Wordz.section(context) : _sectionName;
 
+  final String _sectionVerse = _currentKeyword == null ? TextGen.sectionStringer(context, _currentSection) : Name.getNameByCurrentLingoFromNames(context, _currentKeyword.names);
   // double _btThirdsOfScreenWidth = (_screenWidth - (6*_abPadding))/3;
 
   // double _buttonWidth = _sectionsAreExpanded == true ? _btThirdsOfScreenWidth : null;
 
-  final String _sectionName = TextGen.sectionStringer(context, _currentSection);
 
   return Builder(
     builder: (BuildContext context) => GestureDetector(
@@ -76,7 +80,7 @@ Widget build(BuildContext context) {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: SuperVerse(
-                      verse: _buttonTitle,
+                      verse: _titleVerse,
                       size: 0,
                       italic: true,
                       color: Colorz.grey255,
@@ -97,7 +101,7 @@ Widget build(BuildContext context) {
                       children: <Widget>[
 
                         SuperVerse(
-                          verse: _sectionName,
+                          verse: _sectionVerse,
                           size: 1,
                           centered: false,
                         ),

@@ -36,18 +36,34 @@ class BldrsChain extends StatelessWidget {
           children: <Widget>[
 
             if(Mapper.canLoopList(_allChains.sons))
-            ...List<Widget>.generate(_allChains.sons.length, (int index){
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: _allChains.sons.length,
+                  itemBuilder: (_, index){
+                    final dynamic _son = _allChains.sons[index];
+                    return Inception(
+                      son: _son,
+                      boxWidth: _boxWidth,
+                      onKeywordTap: onKeywordTap,
+                      selectedKeywordsIDs: selectedKeywordsIDs,
+                    );
+                  }
+                  ),
 
-                  final dynamic _son = _allChains.sons[index];
-
-                  return Inception(
-                    son: _son,
-                    boxWidth: _boxWidth,
-                    onKeywordTap: onKeywordTap,
-                    selectedKeywordsIDs: selectedKeywordsIDs,
-                  );
-
-            }),
+            //   if(Mapper.canLoopList(_allChains.sons))
+            // ...List<Widget>.generate(_allChains.sons.length, (int index){
+            //
+            //       final dynamic _son = _allChains.sons[index];
+            //
+            //       return Inception(
+            //         son: _son,
+            //         boxWidth: _boxWidth,
+            //         onKeywordTap: onKeywordTap,
+            //         selectedKeywordsIDs: selectedKeywordsIDs,
+            //       );
+            //
+            // }),
 
           ],
         ),

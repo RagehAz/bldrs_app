@@ -281,6 +281,10 @@ class BldrsAppBar extends StatelessWidget {
                             ),
                           ),
 
+                        const SizedBox(
+                          width: Ratioz.appBarPadding,
+                        ),
+
                         /// Section Button
                         if (_sectionButtonIsOn == true)
                           const SectionsButton(),

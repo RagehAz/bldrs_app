@@ -229,7 +229,11 @@ class FlyersProvider extends ChangeNotifier {
     return <FlyerModel>[..._wallFlyers];
   }
 // -------------------------------------
-  Future<void> getsetWallFlyersBySection({@required BuildContext context, @required SectionClass.Section section}) async {
+  Future<void> getsetWallFlyersBySectionAndKeyword({
+    @required BuildContext context,
+    @required SectionClass.Section section,
+    @required KW kw,
+  }) async {
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
     final ZoneModel _currentZone = _zoneProvider.currentZone;
     //
@@ -239,6 +243,8 @@ class FlyersProvider extends ChangeNotifier {
     // // );
     //
     //
+
+    blog('flyers provider getsetWallFlyersBySectionAndKeyword received ${kw.id} aho and will search by it now');
 
     /// TASK : test this later before launch
     await tryAndCatch(
