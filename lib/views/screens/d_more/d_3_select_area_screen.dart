@@ -54,9 +54,10 @@ class SelectAreaScreen extends StatelessWidget {
 
         await _zoneProvider.getsetCurrentZoneAndCountryAndCity(context: context, zone: _zone);
 
-        await _flyersProvider.getsetWallFlyersBySection(
-            context: context,
-            section: _generalProvider.currentSection
+        await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
+          context: context,
+          section: _generalProvider.currentSection,
+          kw: _generalProvider.currentKeyword,
         );
 
         Nav.goBackToHomeScreen(context);

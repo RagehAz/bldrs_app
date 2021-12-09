@@ -1,6 +1,7 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/controllers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
@@ -79,7 +80,14 @@ class SectionDialogButton extends StatelessWidget {
 
     /// A - if section is active
     else {
-      await _generalProvider.changeSection(context, section);
+
+      blog('the weird _onSectionTap function is firing here,, dunno what to do,, im lost here');
+
+      await _generalProvider.changeSection(
+        context: context,
+        section: section,
+        kw: null,
+      );
 
       /// B - close dialog
       Nav.goBack(context);
