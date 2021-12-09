@@ -18,6 +18,7 @@ class SearchBar extends StatefulWidget {
     this.onSearchChanged,
     this.boxWidth,
     this.hintText,
+    this.height,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,6 +28,7 @@ class SearchBar extends StatefulWidget {
   final bool historyButtonIsOn;
   final double boxWidth;
   final String hintText;
+  final double height;
   /// --------------------------------------------------------------------------
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -66,8 +68,8 @@ class _SearchBarState extends State<SearchBar> {
 
     return Container(
       width: _appBarClearWidth,
-      height: Ratioz.appBarButtonSize + Ratioz.appBarPadding,
-      // color: Colorz.BloodTest,
+      height: widget.height ?? Ratioz.appBarButtonSize + Ratioz.appBarPadding,
+      // color: Colorz.bloodTest,
       alignment: Alignment.center,//Aligners.superTopAlignment(context),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +109,7 @@ class _SearchBarState extends State<SearchBar> {
           SuperTextField(
             fieldIsFormField: true,
             width: _textFieldWidth,
-            height: Ratioz.appBarButtonSize * 0.5,
+            // height: Ratioz.appBarButtonSize * 0.5 * 2,
             textController: _searchTextController,
             labelColor: Colorz.yellow255,
             italic: true,
@@ -115,6 +117,7 @@ class _SearchBarState extends State<SearchBar> {
             counterIsOn: false,
             corners: Ratioz.appBarButtonCorner,
             onTap: (){},
+            autofocus: false,
             onChanged: (String val){
 
               if (widget.onSearchChanged != null){
