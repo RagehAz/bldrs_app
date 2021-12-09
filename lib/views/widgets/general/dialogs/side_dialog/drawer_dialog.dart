@@ -29,7 +29,7 @@ import 'package:provider/provider.dart';
 class DrawerDialog extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const DrawerDialog({
-    this.width = 350,
+    this.width,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -142,7 +142,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
   @override
   Widget build(BuildContext context) {
 
-    final double _drawerWidth = widget.width;
+    final double _drawerWidth = widget.width ?? Scale.superScreenWidth(context) * 0.9;
     final double _drawerHeight = Scale.superScreenHeight(context);
 
     final double _bubbleWidth = _drawerWidth - (Ratioz.appBarMargin * 2);
@@ -169,10 +169,12 @@ class _DrawerDialogState extends State<DrawerDialog> {
             children: <Widget>[
 
               /// SEARCH BAR
-              SizedBox(
+              Container(
                 width: _drawerWidth,
-                height: 80,
+                height: Ratioz.appBarButtonSize,
+                margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin + Ratioz.appBarPadding),
                 child: SearchBar(
+                  height: Ratioz.appBarButtonSize,
                   onSearchSubmit: (String val) => _onSearchSubmit(val),
                   historyButtonIsOn: false,
                   onSearchChanged: (String val) => _onSearchChanged(val),

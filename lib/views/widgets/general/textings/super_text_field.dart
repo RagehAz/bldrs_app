@@ -110,15 +110,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
   }
 // -----------------------------------------------------------------------------
   bool _autoFocusCheck(){
-    bool _isOn;
-
-    if (widget.autofocus == null){
-      _isOn = false;
-    }
-    else {
-      _isOn = true;
-    }
-
+    final bool _isOn = widget.autofocus ?? false;
     return _isOn;
   }
 // -----------------------------------------------------------------------------
