@@ -8,7 +8,6 @@ import 'package:bldrs/views/widgets/general/buttons/balloons/clip_shadow_path.da
 import 'package:bldrs/views/widgets/general/images/super_image.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class UserBalloon extends StatelessWidget {
   /// --------------------------------------------------------------------------

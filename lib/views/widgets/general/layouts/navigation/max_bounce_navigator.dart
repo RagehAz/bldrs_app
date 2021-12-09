@@ -2,7 +2,6 @@ import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 // -----------------------------------------------------------------------------
 /// GoHomeOnMaxBounce

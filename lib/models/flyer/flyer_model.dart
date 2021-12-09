@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/controllers/drafters/tracers.dart';
+import 'package:bldrs/db/fire/ops/auth_ops.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/models/flyer/records/publish_time_model.dart';
@@ -486,7 +487,7 @@ class FlyerModel with ChangeNotifier{
       id : '2fDlDyF01sw8GEYPJ9GN',
       title: 'Dummy Flyer',
       trigram: TextGen.createTrigram(input: 'Dummy Flyer'),
-      authorID: 'Svj0ln7UtoMtHKfZiPhzTSPejr52',
+      authorID: superUserID(),
       flyerType : FlyerTypeClass.FlyerType.property,
       flyerState : FlyerState.published,
       keywordsIDs : <String>[],
