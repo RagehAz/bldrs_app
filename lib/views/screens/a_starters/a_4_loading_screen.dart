@@ -127,14 +127,19 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           /// TASK : wallahi mana 3aref hane3mel eh hena
           final SectionClass.Section _currentSection = _generalProvider.currentSection;
-          await _flyersProvider.getsetWallFlyersBySection(
-              context: context,
-              section: _currentSection,
+          await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
+            context: context,
+            section: _currentSection,
+            kw: null,
           );
           _increaseProgressTo(99);
 
 
-          await _generalProvider.changeSection(context, _generalProvider.currentSection);
+          await _generalProvider.changeSection(
+            context: context,
+            section: _generalProvider.currentSection,
+            kw: null,
+          );
 
           setState(() {
             // _canContinue = true;

@@ -72,6 +72,7 @@ class Inception extends StatelessWidget {
       return
 
         ExpandingTile(
+          key: PageStorageKey<String>(_chain.id),
           icon: _keywordsProvider.getIcon(son: son, context: context),
           width: _buttonWidth,
           collapsedHeight: _buttonHeight,
@@ -81,8 +82,12 @@ class Inception extends StatelessWidget {
           child: Column(
             children: <Widget>[
 
-              ...List<Widget>.generate(_sons.length,
-                      (int index) {
+              ListView.builder(
+                  itemCount: _sons.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (_, index){
+
                     final dynamic _son = _sons[index];
 
                     return Inception(
@@ -92,8 +97,23 @@ class Inception extends StatelessWidget {
                       selectedKeywordsIDs: selectedKeywordsIDs,
                       onKeywordTap: onKeywordTap,
                     );
+
                   }
-              ),
+                  ),
+
+              // ...List<Widget>.generate(_sons.length,
+              //         (int index) {
+              //       final dynamic _son = _sons[index];
+              //
+              //       return Inception(
+              //         son: _son,
+              //         level: level + 1,
+              //         boxWidth: _boxWidth,
+              //         selectedKeywordsIDs: selectedKeywordsIDs,
+              //         onKeywordTap: onKeywordTap,
+              //       );
+              //     }
+              // ),
             ],
 
           ),

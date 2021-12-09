@@ -117,7 +117,6 @@ class _SearchBarState extends State<SearchBar> {
             counterIsOn: false,
             corners: Ratioz.appBarButtonCorner,
             onTap: (){},
-            autofocus: false,
             onChanged: (String val){
 
               if (widget.onSearchChanged != null){

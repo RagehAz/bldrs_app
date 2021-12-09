@@ -3,6 +3,7 @@ import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/general_provider.dart';
@@ -84,10 +85,14 @@ class MainLayout extends StatelessWidget {
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
     final SectionClass.Section _currentSection = _generalProvider.currentSection;
-    await _flyersProvider.getsetWallFlyersBySection(
-        context: context,
-        section: _currentSection
+    final KW _currentKeyword = _generalProvider.currentKeyword;
+
+    await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
+      context: context,
+      section: _currentSection,
+      kw: _currentKeyword,
     );
+
   }
 // -----------------------------------------------------------------------------
   // final static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

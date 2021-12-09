@@ -143,7 +143,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
   Widget build(BuildContext context) {
 
     final double _drawerWidth = widget.width ?? Scale.superScreenWidth(context) * 0.9;
-    final double _drawerHeight = Scale.superScreenHeight(context);
+    final double _drawerHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     final double _bubbleWidth = _drawerWidth - (Ratioz.appBarMargin * 2);
     // final double _tileWidth = _bubbleWidth - (Ratioz.appBarMargin * 2);
@@ -164,8 +164,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
           height: _drawerHeight,
           color: Colorz.black255,
           alignment: Aligners.superTopAlignment(context),
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
+          child: Column(
             children: <Widget>[
 
               /// SEARCH BAR
@@ -183,128 +182,147 @@ class _DrawerDialogState extends State<DrawerDialog> {
                 ),
               ),
 
-              if (_isSearching == true)
-                Column(
-                  children: <Widget>[
+              Expanded(
+                child: SizedBox(
+                  width: _drawerWidth,
+                  // height: _drawerHeight - Ratioz.appBarButtonSize - ((Ratioz.appBarMargin + Ratioz.appBarPadding) * 2),
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    children: <Widget>[
 
-                    if (Mapper.canLoopList(_foundKeywords))
-                      ...List<Widget>.generate(_foundKeywords.length, (int index){
+                      if (_isSearching == true)
+                        Column(
+                          children: <Widget>[
 
-                        final KW _keyword = _foundKeywords[index];
+                            if (Mapper.canLoopList(_foundKeywords))
+                            ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: _foundKeywords.length,
+                                itemBuilder: (_, index){
 
-                        return
-                          DreamBox(
-                            height: 60,
-                            width: _bubbleWidth,
-                            color: Colorz.white20,
-                            verse: Name.getNameByCurrentLingoFromNames(context, _keyword.names),
-                            // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
-                            icon: _keywordsProvider.getIcon(context: context, son: _keyword),
-                            margins: const EdgeInsets.only(top: Ratioz.appBarPadding),
-                            verseScaleFactor: 0.7,
-                            verseCentered: false,
-                            onTap: () async {},
-                          );
+                                  final KW _keyword = _foundKeywords[index];
 
-                      }),
+                                  return
+                                    DreamBox(
+                                      height: 60,
+                                      width: _bubbleWidth,
+                                      color: Colorz.white20,
+                                      verse: Name.getNameByCurrentLingoFromNames(context, _keyword.names),
+                                      // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
+                                      icon: _keywordsProvider.getIcon(context: context, son: _keyword),
+                                      margins: const EdgeInsets.only(top: Ratioz.appBarPadding),
+                                      verseScaleFactor: 0.7,
+                                      verseCentered: false,
+                                      onTap: () async {},
+                                    );
 
-                    if (_noResultFound == true)
-                      const SuperVerse(
-                        verse: 'No Keywords found',
+                                }
+                            ),
 
-                      ),
+                            if (_noResultFound == true)
+                              const SuperVerse(
+                                verse: 'No Keywords found',
+
+                              ),
 
 
-                  ],
-                ),
-
-                if (_isSearching == false)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-
-                    const SuperVerse(
-                      verse: 'SELECT A SECTION',
-                      weight: VerseWeight.black,
-                      italic: true,
-                      centered: false,
-                      size: 3,
-                      margin: Ratioz.appBarMargin,
-                    ),
-
-                    /// REAL ESTATE
-                    SectionBubble(
-                        title: 'RealEstate',
-                        icon: Iconz.pyramidSingleYellow,
-                        bubbleWidth: _bubbleWidth,
-                        buttons: <Widget>[
-
-                          SectionTile(
-                            bubbleWidth: _bubbleWidth,
-                            inActiveMode: false,
-                            section: SectionClass.Section.properties,
-                            chain: _propertiesChain,
-                          ),
-
-                        ]
-                    ),
-
-                    /// Construction
-                    SectionBubble(
-                        title: 'Construction',
-                        icon: Iconz.pyramidSingleYellow,
-                        bubbleWidth: _bubbleWidth,
-                        buttons: <Widget>[
-
-                          SectionTile(
-                            bubbleWidth: _bubbleWidth,
-                            inActiveMode: false,
-                            section: SectionClass.Section.designs,
-                            chain: _designsChain,
-                          ),
-
-                          MainLayout.spacer10,
-
-                          SectionTile(
-                            bubbleWidth: _bubbleWidth,
-                            inActiveMode: false,
-                            section: SectionClass.Section.crafts,
-                            chain: _craftsChain,
-                          ),
-
-                        ]
-                    ),
-
-                    /// Supplies
-                    SectionBubble(
-                      title: 'Supplies',
-                      icon: Iconz.pyramidSingleYellow,
-                      bubbleWidth: _bubbleWidth,
-                      buttons: <Widget>[
-
-                        SectionTile(
-                          bubbleWidth: _bubbleWidth,
-                          inActiveMode: false,
-                          section: SectionClass.Section.products,
-                          chain: _productsChain,
+                          ],
                         ),
 
-                        MainLayout.spacer10,
+                      if (_isSearching == false)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
 
-                        SectionTile(
-                          bubbleWidth: _bubbleWidth,
-                          inActiveMode: false,
-                          section: SectionClass.Section.equipment,
-                          chain: _equipmentChain,
+                            const SuperVerse(
+                              verse: 'SELECT A SECTION',
+                              weight: VerseWeight.black,
+                              italic: true,
+                              centered: false,
+                              size: 3,
+                              margin: Ratioz.appBarMargin,
+                            ),
+
+                            /// REAL ESTATE
+                            SectionBubble(
+                                title: 'RealEstate',
+                                icon: Iconz.pyramidSingleYellow,
+                                bubbleWidth: _bubbleWidth,
+                                buttons: <Widget>[
+
+                                  SectionTile(
+                                    bubbleWidth: _bubbleWidth,
+                                    inActiveMode: false,
+                                    section: SectionClass.Section.properties,
+                                    chain: _propertiesChain,
+                                  ),
+
+                                ]
+                            ),
+
+                            /// Construction
+                            SectionBubble(
+                                title: 'Construction',
+                                icon: Iconz.pyramidSingleYellow,
+                                bubbleWidth: _bubbleWidth,
+                                buttons: <Widget>[
+
+                                  SectionTile(
+                                    bubbleWidth: _bubbleWidth,
+                                    inActiveMode: false,
+                                    section: SectionClass.Section.designs,
+                                    chain: _designsChain,
+                                  ),
+
+                                  MainLayout.spacer10,
+
+                                  SectionTile(
+                                    bubbleWidth: _bubbleWidth,
+                                    inActiveMode: false,
+                                    section: SectionClass.Section.crafts,
+                                    chain: _craftsChain,
+                                  ),
+
+                                ]
+                            ),
+
+                            /// Supplies
+                            SectionBubble(
+                              title: 'Supplies',
+                              icon: Iconz.pyramidSingleYellow,
+                              bubbleWidth: _bubbleWidth,
+                              buttons: <Widget>[
+
+                                SectionTile(
+                                  bubbleWidth: _bubbleWidth,
+                                  inActiveMode: false,
+                                  section: SectionClass.Section.products,
+                                  chain: _productsChain,
+                                ),
+
+                                MainLayout.spacer10,
+
+                                SectionTile(
+                                  bubbleWidth: _bubbleWidth,
+                                  inActiveMode: false,
+                                  section: SectionClass.Section.equipment,
+                                  chain: _equipmentChain,
+                                ),
+
+                              ],
+                            ),
+
+                          ],
                         ),
 
-                      ],
-                    ),
+                      const PyramidsHorizon(heightFactor: 4,),
 
-                  ],
+                    ],
+                  ),
                 ),
-
-              const PyramidsHorizon(heightFactor: 0.5,),
+              ),
 
             ],
           ),

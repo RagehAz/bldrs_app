@@ -1,11 +1,11 @@
 import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/controllers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/controllers/router/navigators.dart' as Nav;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/secondary_models/link_model.dart';
 import 'package:bldrs/providers/general_provider.dart';
@@ -44,16 +44,13 @@ class SectionTile extends StatelessWidget {
     return _icon;
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onSectionTap(BuildContext context, bool isExpanded) async {
-
-    blog('_onSectionTap : isExpanded : $isExpanded');
-
-    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-    final String _currentCityID = _zoneProvider.currentZone.cityID;
+  Future<void> _onKeywordTap(BuildContext context, KW kw) async {
 
     /// A - if section is not active * if user is author or not
     if(inActiveMode == true){
+
+      final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
+      final String _currentCityID = _zoneProvider.currentZone.cityID;
 
       await CenterDialog.showCenterDialog(
         context: context,
@@ -86,13 +83,19 @@ class SectionTile extends StatelessWidget {
 
     /// A - if section is active
     else {
-      await _generalProvider.changeSection(context, section);
 
-      // /// B - close dialog
-      // Nav.goBack(context);
+      final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+
+      await _generalProvider.changeSection(
+        context: context,
+        section: section,
+        kw: kw,
+      );
+
+      /// B - close dialog
+      Nav.goBack(context);
 
     }
-
 
   }
 // -----------------------------------------------------------------------------
@@ -109,14 +112,15 @@ class SectionTile extends StatelessWidget {
 
     return
       ChainExpander(
+        key: PageStorageKey<String>(section.toString()),
         chain: chain,
         width: _tileWidth,
-        onTap: (bool isExpanded) => _onSectionTap(context, isExpanded),
+        // onTap: (bool isExpanded) => _onKeywordTap(context, isExpanded),
         icon: _sectionIcon(section: section, inActiveMode: inActiveMode),
         firstHeadline: TextGen.sectionStringer(context, section),
         secondHeadline: TextGen.sectionDescriptionStringer(context, section),
         inActiveMode: inActiveMode,
-        key: PageStorageKey<String>(section.toString()),
+        onKeywordTap: (KW kw) => _onKeywordTap(context, kw),
       );
 
   }
