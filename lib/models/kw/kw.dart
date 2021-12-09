@@ -121,7 +121,7 @@ class KW {
     blog('$methodName ------------------------------- START');
 
     blog('id : $id');
-    blog('names : $names');
+    Name.printNames(names);
 
     blog('$methodName ------------------------------- END');
   }

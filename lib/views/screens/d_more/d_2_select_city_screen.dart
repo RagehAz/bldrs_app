@@ -147,9 +147,11 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
 
            final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
            final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-           await _flyersProvider.getsetWallFlyersBySection(
-               context: context,
-               section: _generalProvider.currentSection
+
+           await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
+             context: context,
+             section: _generalProvider.currentSection,
+             kw: _generalProvider.currentKeyword,
            );
 
            Nav.goBackToHomeScreen(context);

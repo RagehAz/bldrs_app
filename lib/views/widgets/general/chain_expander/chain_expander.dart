@@ -2,6 +2,7 @@ import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/theme/colorz.dart';
 import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
+import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/views/widgets/general/chain_expander/components/bldrs_chains.dart';
 import 'package:bldrs/views/widgets/general/chain_expander/components/expanding_tile.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class ChainExpander extends StatelessWidget {
   const ChainExpander({
     @required this.chain,
     @required this.width,
-    @required this.onTap,
+    // @required this.onTap,
     @required this.icon,
     @required this.firstHeadline,
     @required this.secondHeadline,
@@ -19,19 +20,21 @@ class ChainExpander extends StatelessWidget {
     this.margin,
     this.initialColor = Colorz.black50,
     this.expansionColor = Colorz.white20,
+    this.onKeywordTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Chain chain;
   final bool inActiveMode;
   final double width;
-  final ValueChanged<bool> onTap;
+  // final ValueChanged<bool> onTap;
   final String icon;
   final String firstHeadline;
   final String secondHeadline;
   final Color initialColor;
   final Color expansionColor;
   final EdgeInsets margin;
+  final ValueChanged<KW> onKeywordTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,7 @@ class ChainExpander extends StatelessWidget {
         key: key,
         width: width,
         margin: margin,
-        onTap: (bool isExpanded) => onTap(isExpanded),
+        // onTap: (bool isExpanded) => onTap(isExpanded),
         inActiveMode: inActiveMode,
         // maxHeight: 150,
         icon: icon,
@@ -65,6 +68,7 @@ class ChainExpander extends StatelessWidget {
           child: BldrsChain(
             chain: chain,
             boxWidth: width,
+            onKeywordTap: (KW kw) => onKeywordTap(kw),
           ),
 
           // child: ListView.builder(
