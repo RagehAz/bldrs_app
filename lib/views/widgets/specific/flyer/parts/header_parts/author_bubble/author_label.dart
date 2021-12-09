@@ -13,7 +13,6 @@ import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/images/super_image.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 
 class AuthorLabel extends StatelessWidget {
   /// --------------------------------------------------------------------------

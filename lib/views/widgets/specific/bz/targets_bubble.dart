@@ -9,6 +9,7 @@ import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/views/widgets/specific/bz/dialogs/dialog_of_target_achievement.dart';
+import 'package:bldrs/views/widgets/specific/bz/target_bubble.dart';
 import 'package:flutter/material.dart';
 
 class TargetsBubble extends StatelessWidget {
@@ -42,14 +43,6 @@ class TargetsBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _bubbleClearWidth = Bubble.clearWidth(context);
-    final double _titleBoxWidth = _bubbleClearWidth / 2 + 20;
-    const double _titleBoxHeight = 30;
-    final double _progressBoxWidth = _bubbleClearWidth / 2 - 30;
-    const double _barHeight = 12;
-    const double _iconsHeight = 15;
-    const EdgeInsets _barMargin = EdgeInsets.only(top: 9);
-
     final List<TargetModel> _allTargets = getAllTargets();
 
     return Bubble(
@@ -67,195 +60,22 @@ class TargetsBubble extends StatelessWidget {
           weight: VerseWeight.thin,
         ),
 
-        ...List<Widget>.generate(
-            _allTargets.length,
-                (int index) {
+        ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+            itemCount: _allTargets.length,
+            shrinkWrap: true,
+            itemBuilder: (ctx, index){
 
               final TargetModel _target = _allTargets[index];
-              final TargetProgress _progress = _target.progress;//_allProgress.singleWhere((prog) => prog.targetID == _target.id, orElse: () => null);
-
-              final bool _targetReached = _progress.current == _progress.objective;
 
               return
+                TargetBubble(
+                  target: _target,
+                  onClaimTap: () => _onClaimTap(context: context, target: _target),
+                );
 
-                Container(
-                  width: _bubbleClearWidth,
-                  decoration: BoxDecoration(
-                    color: Colorz.white10,
-                    borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue),
-                  ),
-                  margin: const EdgeInsets.only(bottom: 5),
-                  padding: const EdgeInsets.all(5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-
-                      /// TITLE AND PROGRESS
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          /// TITLE
-                          SizedBox(
-                            width: _titleBoxWidth,
-                            height: _titleBoxHeight,
-                            // color: Colorz.BloodTest,
-                            child: SuperVerse(
-                              verse: _target.name,
-                              centered: false,
-                              margin: 5,
-                              color: Colorz.yellow255,
-                            ),
-                          ),
-                          /// PROGRESS
-                          Container(
-                            width: _progressBoxWidth,
-                            height: _titleBoxHeight,
-                            alignment: Alignment.center,
-                            // color: Colorz.BloodTest,
-                            child: Stack(
-                              children: <Widget>[
-
-                                /// bar
-                                Align(
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: <Widget>[
-                                      /// BASE BAR
-                                      Container(
-                                        width: _progressBoxWidth,
-                                        height: _barHeight,
-                                        margin: _barMargin,
-                                        decoration: BoxDecoration(
-                                          color: Colorz.white20,
-                                          borderRadius: Borderers.superBorderAll(context, 3),
-                                        ),
-                                      ),
-                                      /// PROGRESS BAR
-                                      Align(
-                                        alignment: Aligners.superCenterAlignment(context),
-                                        child: Container(
-                                          width: _progressBoxWidth * (_progress.current/_progress.objective),
-                                          height: _barHeight,
-                                          margin: _barMargin,
-                                          decoration: BoxDecoration(
-                                            color: Colorz.yellow255,
-                                            borderRadius: Borderers.superBorderAll(context, 3),
-                                          ),
-                                        ),
-                                      ),
-                                      /// PROGRESS TEXT
-                                      Container(
-                                        width: _progressBoxWidth,
-                                        height: _barHeight,
-                                        margin: const EdgeInsets.only(top: 9, left: 3, right: 3),
-                                        child: SuperVerse(
-                                          verse: '${_progress?.current}/${_progress?.objective}',
-                                          size: 1,
-                                          scaleFactor: 0.8,
-                                          color: Colorz.black255,
-                                          centered: false,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-                                /// ICONS
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: SizedBox(
-                                    width: _progressBoxWidth,
-                                    height: _iconsHeight,
-                                    // color: Colorz.Black255,
-                                    child: Row(
-                                      children: <Widget>[
-                                        /// SLIDES
-                                        DreamBox(
-                                          height: _iconsHeight,
-                                          icon: Iconz.flyer,
-                                          verse: '${_target.reward.slides} Slides',
-                                          iconSizeFactor: 0.75,
-                                          verseScaleFactor: 0.55,
-                                          verseWeight: VerseWeight.thin,
-                                          verseItalic: true,
-                                          bubble: false,
-                                        ),
-                                        /// ANKHS
-                                        DreamBox(
-                                          height: _iconsHeight,
-                                          icon: Iconz.save,
-                                          verse: '${_target.reward.ankh} Ankhs',
-                                          iconSizeFactor: 0.75,
-                                          verseScaleFactor: 0.55,
-                                          verseWeight: VerseWeight.thin,
-                                          verseItalic: true,
-                                          bubble: false,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-
-                              ],
-                            ),
-                          ),
-                        ],
-                  ),
-
-                      /// DESCRIPTION
-                      SuperVerse(
-                    verse: _target.description,
-                    centered: false,
-                    weight: VerseWeight.thin,
-                    maxLines: 10,
-                    margin: 5,
-                  ),
-
-                      /// INSTRUCTIONS
-                      if (_target.instructions != null && _target.instructions.isNotEmpty && _targetReached == false)
-                        ... List<Widget>.generate(_target.instructions.length, (int index){
-
-                          return
-                            SuperVerse(
-                              verse: _target.instructions[index],
-                              leadingDot: true,
-                              size: 1,
-                              centered: false,
-                              maxLines: 5,
-                              margin: 2,
-                              weight: VerseWeight.thin,
-                              italic: true,
-                              color: Colorz.blue255,
-                            );
-
-                        }),
-
-                      /// CLAIM BUTTON
-                      if (_targetReached == true)
-                        DreamBox(
-                          width: _bubbleClearWidth - 10,
-                          height: 70,
-                          verse: 'CLAIM',
-                          verseWeight: VerseWeight.black,
-                          verseItalic: true,
-                          color: Colorz.yellow255,
-                          verseColor: Colorz.black255,
-                          onTap: () async {
-
-                            await _onClaimTap(
-                              context: context,
-                              target: _target,
-                            );
-
-                            },
-                        ),
-
-                ],
-              ),
-            );
-
-        }),
+            }
+        ),
 
       ],
     );

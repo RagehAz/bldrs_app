@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/controllers/drafters/colorizers.dart' as Colorizer;
@@ -18,7 +17,6 @@ import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/slide_headline.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/zoomable_pic.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 
 class SingleSlide extends StatelessWidget {
   /// --------------------------------------------------------------------------
