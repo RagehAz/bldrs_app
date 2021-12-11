@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 

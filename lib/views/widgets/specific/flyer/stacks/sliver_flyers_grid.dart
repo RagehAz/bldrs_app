@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/helpers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/gallery_grid.dart';

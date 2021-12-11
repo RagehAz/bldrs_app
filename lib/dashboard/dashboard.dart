@@ -1,5 +1,3 @@
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/dashboard/auditor/flyers_auditor_screen.dart';
 import 'package:bldrs/dashboard/bzz_manager/bzz_manager_screen.dart';
 import 'package:bldrs/dashboard/flyers_manager/all_flyers_screen.dart';
@@ -12,6 +10,8 @@ import 'package:bldrs/dashboard/ui_manager/ui_manager_screen.dart';
 import 'package:bldrs/dashboard/users_manager/users_manager_screen.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
 import 'package:bldrs/dashboard/zones_manager/zones_manager_screen.dart';
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';

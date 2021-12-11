@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/helpers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 

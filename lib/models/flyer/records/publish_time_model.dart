@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:flutter/material.dart';
 

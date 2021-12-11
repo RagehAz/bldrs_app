@@ -1,10 +1,10 @@
-import 'package:bldrs/controllers/drafters/stream_checkers.dart' as StreamChecker;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/helpers/drafters/stream_checkers.dart' as StreamChecker;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/theme/ratioz.dart';
+import 'package:bldrs/helpers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';

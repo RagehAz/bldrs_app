@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
-import 'package:bldrs/controllers/router/route_names.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/router/route_names.dart';
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/user/user_model.dart';

@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';

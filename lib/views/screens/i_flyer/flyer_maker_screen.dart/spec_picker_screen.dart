@@ -1,10 +1,10 @@
-import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/helpers/drafters/numeric.dart' as Numeric;
+import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/specs/data_creator.dart';
 import 'package:bldrs/models/kw/specs/spec_list_model.dart';

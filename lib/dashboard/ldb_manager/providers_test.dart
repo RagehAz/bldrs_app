@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
+import 'package:bldrs/helpers/drafters/iconizers.dart' as Iconizer;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/continent_model.dart';

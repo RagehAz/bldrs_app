@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/helpers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/xxx_lab/ask/chat/chat_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

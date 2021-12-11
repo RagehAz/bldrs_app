@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/ratioz.dart';
+import 'package:bldrs/helpers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/models/secondary_models/map_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/country_model.dart';

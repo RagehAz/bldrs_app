@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
-import 'package:bldrs/controllers/drafters/text_directionerz.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/helpers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/helpers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box_icon.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';

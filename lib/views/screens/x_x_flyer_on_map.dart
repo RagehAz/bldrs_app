@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';

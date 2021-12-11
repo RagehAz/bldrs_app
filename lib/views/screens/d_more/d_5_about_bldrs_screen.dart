@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/views/widgets/general/bubbles/paragraph_bubble.dart';

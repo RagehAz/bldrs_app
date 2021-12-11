@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/tab_button.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';

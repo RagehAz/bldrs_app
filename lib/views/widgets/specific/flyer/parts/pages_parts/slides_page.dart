@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/tracers.dart' as Tracer;
+import 'package:bldrs/helpers/drafters/tracers.dart' as Tracer;
 import 'package:bldrs/models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/flyer_methods.dart' as FlyerMethod;
 import 'package:bldrs/views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/editor_footer.dart';

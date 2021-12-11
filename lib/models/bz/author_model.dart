@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/tracers.dart';
+import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/helpers/drafters/tracers.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';

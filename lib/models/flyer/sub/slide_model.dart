@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:bldrs/controllers/drafters/colorizers.dart' as Colorizer;
-import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/drafters/colorizers.dart' as Colorizer;
+import 'package:bldrs/helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/helpers/drafters/numeric.dart' as Numeric;
+import 'package:bldrs/helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/models/secondary_models/image_size.dart';

@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';

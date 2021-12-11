@@ -1,8 +1,8 @@
-import 'package:bldrs/controllers/drafters/colorizers.dart' as Colorizer;
-import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/controllers/drafters/shadowers.dart' as Shadowz;
-import 'package:bldrs/controllers/drafters/shadowers.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/helpers/drafters/colorizers.dart' as Colorizer;
+import 'package:bldrs/helpers/drafters/iconizers.dart' as Iconizer;
+import 'package:bldrs/helpers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/helpers/drafters/shadowers.dart';
+import 'package:bldrs/helpers/theme/colorz.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/views/widgets/general/buttons/balloons/clip_shadow_path.dart';
 import 'package:bldrs/views/widgets/general/images/super_image.dart';

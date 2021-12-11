@@ -1,9 +1,9 @@
-import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/controllers/theme/standards.dart' as Standards;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/helpers/theme/standards.dart' as Standards;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
