@@ -78,10 +78,11 @@ class ListLayout extends StatelessWidget {
             child: Bubble(
               // title: 'Countries',
               centered: true,
+              width: Bubble.clearWidth(context),
               columnChildren: <Widget>[
 
                 SizedBox(
-                  width: Bubble.clearWidth(context),
+                  width: Bubble.clearWidth(context) - 10,
                   height: _bubbleHeight - (Ratioz.appBarMargin * 5),
                   // color: Colorz.BloodTest,
                   child: MaxBounceNavigator(
@@ -101,7 +102,7 @@ class ListLayout extends StatelessWidget {
                               iconSizeFactor: 0.8,
                               verse: mapModels[index].value,
                               bubble: false,
-                              margins: const EdgeInsets.all(5),
+                              margins: const EdgeInsets.symmetric(vertical: 5),
                               verseScaleFactor: 0.8,
                               color: Colorz.white10,
                               // textDirection: superTextDirection(context),

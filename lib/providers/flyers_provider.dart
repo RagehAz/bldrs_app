@@ -244,7 +244,7 @@ class FlyersProvider extends ChangeNotifier {
     //
     //
 
-    blog('flyers provider getsetWallFlyersBySectionAndKeyword received ${kw.id} aho and will search by it now');
+    blog('flyers provider getsetWallFlyersBySectionAndKeyword received ${kw?.id} aho and will search by it now');
 
     /// TASK : test this later before launch
     await tryAndCatch(

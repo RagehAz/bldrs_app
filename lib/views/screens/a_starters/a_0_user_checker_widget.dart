@@ -132,6 +132,7 @@ class _UserCheckerState extends State<UserChecker> {
                 await Nav.goToNewScreen(context, const LoadingScreen(), transitionType: PageTransitionType.fade);
 
               }
+
             }
 
             /// B - if user has no userModel
@@ -146,6 +147,7 @@ class _UserCheckerState extends State<UserChecker> {
             /// after returning from creating profile, we go to LoadingScreen()
             final dynamic _result = await Nav.goToNewScreen(context, const LoadingScreen(), transitionType: PageTransitionType.fade);
             blog('user has created profile and good to go to LoadingScreen() : _result : $_result');
+
           }
 
       }
@@ -158,8 +160,10 @@ class _UserCheckerState extends State<UserChecker> {
             final dynamic _result = await Nav.goToNewScreen(context, const StartingScreen(), transitionType: PageTransitionType.fade);
 
             blog('just came back from starting screen : _result : $_result');
+
             /// and we loop again in userChecker
             await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
+
           }
 
         });

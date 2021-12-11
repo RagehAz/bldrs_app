@@ -79,22 +79,27 @@ class TargetBubble extends StatelessWidget {
 
           /// INSTRUCTIONS
           if (target.instructions != null && target.instructions.isNotEmpty && _targetReached == false)
-            ... List<Widget>.generate(target.instructions.length, (int index){
+            ListView.builder(
+              itemCount: target.instructions.length,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (_, index){
 
-              return
-                SuperVerse(
-                  verse: target.instructions[index],
-                  leadingDot: true,
-                  size: 1,
-                  centered: false,
-                  maxLines: 5,
-                  margin: 2,
-                  weight: VerseWeight.thin,
-                  italic: true,
-                  color: Colorz.blue255,
-                );
+                  return
+                    SuperVerse(
+                    verse: target.instructions[index],
+                    leadingDot: true,
+                    size: 1,
+                    centered: false,
+                    maxLines: 5,
+                    margin: 2,
+                    weight: VerseWeight.thin,
+                    italic: true,
+                    color: Colorz.blue255,
+                  );
 
-            }),
+                }
+            ),
 
           /// CLAIM BUTTON
           if (_targetReached == true)

@@ -52,7 +52,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
         final List<dynamic> _maps = await Fire.readCollectionDocs(
           collName: FireColl.flyers,
           orderBy: 'id',
-          limit: 5,
+          limit: 20,
         );
 
         blog('we got ${_maps.length} maps');
