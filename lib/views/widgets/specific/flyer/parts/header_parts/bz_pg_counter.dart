@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/drafters/numeric.dart' as Numeric;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';

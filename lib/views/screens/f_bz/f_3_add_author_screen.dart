@@ -1,10 +1,10 @@
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
 import 'package:bldrs/db/fire/ops/bz_ops.dart' as FireBzOps;
 import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/user/user_model.dart';

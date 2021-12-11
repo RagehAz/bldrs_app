@@ -1,9 +1,9 @@
-import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/controllers/drafters/launchers.dart' as Launcher;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/helpers/drafters/iconizers.dart' as Iconizer;
+import 'package:bldrs/helpers/drafters/launchers.dart' as Launcher;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/theme/ratioz.dart';
+import 'package:bldrs/helpers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';

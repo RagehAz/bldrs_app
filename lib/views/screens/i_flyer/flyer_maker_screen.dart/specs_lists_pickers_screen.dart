@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:bldrs/controllers/drafters/object_checkers.dart' as ObjectChecker;
-import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/kw/specs/data_creator.dart';
 import 'package:bldrs/models/kw/specs/spec_list_model.dart';

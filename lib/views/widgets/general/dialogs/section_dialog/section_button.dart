@@ -1,10 +1,10 @@
-import 'package:bldrs/controllers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/controllers/drafters/launchers.dart' as Launcher;
-import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/drafters/iconizers.dart' as Iconizer;
+import 'package:bldrs/helpers/drafters/launchers.dart' as Launcher;
+import 'package:bldrs/helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/secondary_models/link_model.dart';
 import 'package:bldrs/providers/general_provider.dart';

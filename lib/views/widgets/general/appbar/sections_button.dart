@@ -1,7 +1,7 @@
-import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/ratioz.dart';
+import 'package:bldrs/helpers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/models/secondary_models/name_model.dart';

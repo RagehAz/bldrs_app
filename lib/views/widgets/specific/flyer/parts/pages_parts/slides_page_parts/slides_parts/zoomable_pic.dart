@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 /// TASK : try InteractiveViewer() in slides to zoom and pan

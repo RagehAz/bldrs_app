@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/colorz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/specific/flyer/stacks/flyers_shelf.dart';

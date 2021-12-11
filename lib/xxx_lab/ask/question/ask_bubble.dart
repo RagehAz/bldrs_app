@@ -1,15 +1,15 @@
 import 'dart:io';
 
-import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
-import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/controllers/theme/ratioz.dart';
-import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/helpers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/theme/ratioz.dart';
+import 'package:bldrs/helpers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/kw/kw.dart';

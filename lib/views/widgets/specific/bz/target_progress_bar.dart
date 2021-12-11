@@ -1,7 +1,7 @@
-import 'package:bldrs/controllers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/bz/target/target_model.dart';
 import 'package:bldrs/models/bz/target/target_progress.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';

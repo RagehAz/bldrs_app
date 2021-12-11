@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class DreamBoxGradient extends StatelessWidget {

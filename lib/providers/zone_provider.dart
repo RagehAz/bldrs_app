@@ -1,10 +1,10 @@
-import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
-import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/db/fire/ops/search_ops.dart' as FireSearchOps;
 import 'package:bldrs/db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/db/ldb/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/helpers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/helpers/drafters/tracers.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';
 import 'package:bldrs/models/zone/continent_model.dart';

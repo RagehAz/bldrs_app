@@ -1,7 +1,7 @@
-import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/screens/i_flyer/h_1_bz_card_screen.dart';

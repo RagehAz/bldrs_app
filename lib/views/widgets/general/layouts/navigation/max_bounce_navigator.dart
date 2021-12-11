@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/drafters/scrollers.dart' as Scrollers;
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/helpers/drafters/scrollers.dart' as Scrollers;
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------

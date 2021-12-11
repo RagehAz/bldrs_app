@@ -1,7 +1,7 @@
-import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
-import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/views/widgets/general/buttons/back_anb_search_button.dart';
 import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';

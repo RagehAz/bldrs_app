@@ -1,9 +1,9 @@
-import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/tracers.dart';
 import 'package:bldrs/dashboard/exotic_methods.dart' as RagehMethods;
 import 'package:bldrs/db/fire/ops/keyword_ops.dart' as FireKeywordOps;
 import 'package:bldrs/db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/db/ldb/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/helpers/drafters/tracers.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/secondary_models/app_updates.dart';

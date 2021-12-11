@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
-import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/controllers/drafters/tracers.dart';
+import 'package:bldrs/helpers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/helpers/drafters/tracers.dart';
 
 class ZoneModel{
   /// --------------------------------------------------------------------------

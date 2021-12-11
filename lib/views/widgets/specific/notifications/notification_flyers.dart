@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
-import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/helpers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/helpers/theme/colorz.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';

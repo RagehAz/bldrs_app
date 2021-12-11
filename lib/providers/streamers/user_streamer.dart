@@ -1,11 +1,12 @@
-import 'package:bldrs/controllers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/helpers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 /// IMPLEMENTATION
 /// userStreamBuilder(
 ///         context: context,

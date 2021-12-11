@@ -1,8 +1,8 @@
-import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
-import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
 import 'package:bldrs/dashboard/notifications_manager/noti_banner_editor.dart';
+import 'package:bldrs/helpers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/models/notification/noti_model.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';

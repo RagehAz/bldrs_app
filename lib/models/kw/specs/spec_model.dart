@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/tracers.dart';
+import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/helpers/drafters/tracers.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/specs/data_creator.dart';
 import 'package:bldrs/models/kw/specs/raw_specs.dart' as RawSpecs;

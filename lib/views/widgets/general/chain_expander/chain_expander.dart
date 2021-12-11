@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/views/widgets/general/chain_expander/components/bldrs_chains.dart';

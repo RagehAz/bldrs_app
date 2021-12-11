@@ -1,6 +1,6 @@
-import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/controllers/localization/lingo.dart';
+import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/helpers/localization/lingo.dart';
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/specs/spec_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';

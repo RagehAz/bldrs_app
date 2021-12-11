@@ -1,9 +1,9 @@
-import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/helpers/drafters/numeric.dart' as Numeric;
+import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/specs/spec_list_model.dart';
 import 'package:bldrs/models/secondary_models/name_model.dart';
 import 'package:bldrs/views/widgets/general/appbar/bldrs_app_bar.dart';

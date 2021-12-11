@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/specific/flyer/parts/flyer_zone_box.dart';

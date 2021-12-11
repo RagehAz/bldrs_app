@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:bldrs/controllers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/controllers/drafters/text_checkers.dart' as TextChecker;
-import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/db/fire/ops/bz_ops.dart' as FireBzOps;
+import 'package:bldrs/helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/helpers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/models/bz/author_model.dart';
 import 'package:bldrs/models/bz/bz_model.dart';
 import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
