@@ -1,15 +1,17 @@
 import 'dart:async';
-import 'dart:developer';
 
-import 'package:bldrs/controllers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
+import 'package:bldrs/db/fire/methods/firestore.dart';
+import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/providers/ui_provider.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -216,20 +218,39 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
               /// DO SOMETHING
               WideButton(
                   color: Colorz.bloodTest,
-                  verse: 'DO SOMETHING',
+                  verse: 'get maps',
                   icon: Iconz.share,
                   onTap: () async {
 
                     unawaited(_triggerLoading());
 
-                    const dynamic shit = 2;
 
-                    final BorderRadius _border = Borderers.superBorder(
-                      context: context,
-                      corners: shit,
+                    // final List<Map<String, dynamic>> _maps = await mapsByTwoValuesEqualTo(
+                    //     context: context,
+                    //     collRef: getCollectionRef(FireColl.bzz),
+                    //     fieldA: 'id',
+                    //     valueA: 'mn3',
+                    //     fieldB: 'flyersIDs.0',
+                    //     valueB: 'f013',
+                    // );
+
+                    QuerySnapshot<Object> _collectionSnapshot;
+
+                    _collectionSnapshot = await getCollectionRef(FireColl.bzz)
+                        .where('id', isEqualTo: 'mn3')
+                        .where('flyersIDs', isEqualTo: 'f013')
+                        .get();
+
+                    blog('is not equal to null aho');
+
+                    final List<Map<String, dynamic>> _maps = Mapper.getMapsFromQuerySnapshot(
+                      querySnapshot: _collectionSnapshot,
+                      addDocsIDs: false,
+                      addDocSnapshotToEachMap: false,
                     );
 
-                    log(_border.toString());
+
+                    Mapper.printMaps(_maps);
 
                     unawaited(_triggerLoading());
 

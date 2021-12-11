@@ -1,9 +1,9 @@
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/dashboard/ui_manager/emoji_test_screen.dart';
 import 'package:bldrs/dashboard/ui_manager/icons_viewer_screen.dart';
 import 'package:bldrs/dashboard/ui_manager/screens_manager_screen.dart';
 import 'package:bldrs/dashboard/widgets/wide_button.dart';
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 

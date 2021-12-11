@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/drafters/timerz.dart' as Timers;
-import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/helpers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/helpers/theme/colorz.dart';
 import 'package:bldrs/models/secondary_models/contact_model.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/city_model.dart';

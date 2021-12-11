@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/helpers/drafters/sliders.dart' as Sliders;
 import 'package:flutter/material.dart';
 
 class FlyerNavigator {

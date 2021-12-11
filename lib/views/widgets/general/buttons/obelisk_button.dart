@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
-import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
 import 'package:flutter/material.dart';
 

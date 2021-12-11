@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/colorz.dart';
 import 'package:bldrs/views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';

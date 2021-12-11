@@ -1,8 +1,8 @@
-import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/controllers/localization/lingo.dart';
-import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/helpers/localization/lingo.dart';
+import 'package:bldrs/helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class Name {
