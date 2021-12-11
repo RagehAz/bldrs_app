@@ -67,6 +67,7 @@ class ZonesPage extends StatelessWidget {
               // color: Colorz.Black255,
               child:Bubble(
                 // title: 'Countries',
+                width: Bubble.clearWidth(context),
                 centered: true,
                 columnChildren: <Widget>[
 
@@ -86,13 +87,13 @@ class ZonesPage extends StatelessWidget {
                             Align(
                               alignment: Aligners.superCenterAlignment(context),
                               child: DreamBox(
-                                height: 35,
+                                height: 50,
                                 width: Bubble.clearWidth(context) - 10,
                                 icon: Flag.getFlagIconByCountryID(_id),
                                 iconSizeFactor: 0.8,
                                 verse: CountryModel.getTranslatedCountryNameByID(context: context, countryID: _id),
                                 bubble: false,
-                                margins: const EdgeInsets.all(5),
+                                margins: const EdgeInsets.symmetric(vertical: 5),
                                 verseScaleFactor: 0.8,
                                 color: Colorz.white10,
                                 // textDirection: superTextDirection(context),

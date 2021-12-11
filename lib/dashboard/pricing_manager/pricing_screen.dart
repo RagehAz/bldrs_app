@@ -31,11 +31,14 @@ class PricingScreen extends StatelessWidget {
 
     return DashBoardLayout(
         pageTitle: 'Prices',
+
         listWidgets: <Widget>[
 
-          ...List<Widget>.generate(
-              _macs.length,
-                  (int index){
+          ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: _macs.length,
+              shrinkWrap: true,
+              itemBuilder: (_, index){
 
                 final BigMac _mac = _macs[index];
                 final String _iso3 = _mac.countryID;
@@ -61,7 +64,10 @@ class PricingScreen extends StatelessWidget {
                   SizedBox(
                     width: 100,
                     height: 50,
-                    child: Row(
+                    child: ListView(
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
                       children: <Widget>[
 
                         /// COUNTRY
@@ -105,8 +111,83 @@ class PricingScreen extends StatelessWidget {
                     ),
                   );
 
-                  }
+              }
           ),
+
+          // ...List<Widget>.generate(
+          //     _macs.length,
+          //         (int index){
+          //
+          //       final BigMac _mac = _macs[index];
+          //       final String _iso3 = _mac.countryID;
+          //       final String _currency = _macs[index].currency;
+          //       final double _toDollarRate = Numeric.roundFractions(_mac.toDollarRate, 2);
+          //       final double _localPrice = Numeric.roundFractions(_mac.localPrice, 2);
+          //
+          //       final String _flag = Flag.getFlagIconByCountryID(_iso3);
+          //       final String _countryName = '${index + 1} - ${Localizer.translate(context, _iso3)}';
+          //       final String _countryCurrency = '1 \$ = $_toDollarRate $_currency';
+          //       final String _localBigMacPrice = 'BigMac = $_localPrice $_currency';
+          //       final double _roundedMacPriceUSD = Numeric.roundFractions(BigMac.getBigMacDollarPriceByISO3(_iso3), 2);
+          //       final String _localMacPriceInUSD = '= $_roundedMacPriceUSD \$ * ${Numeric.roundFractions(BigMac.bigMacsCountToBuyProAccount(), 2)} macs';
+          //
+          //       final double _proAccountPriceInLocalCurrency = BigMac.proAccountPriceInLocalCurrencyByISO3(_iso3);
+          //       final double _proPriceRounded = Numeric.roundFractions(_proAccountPriceInLocalCurrency, 2);
+          //       final String _proPrice = '$_proPriceRounded $_currency';
+          //       final double _proPriceDollar = BigMac.localPriceToDollar(localPrice: _proAccountPriceInLocalCurrency, toDollarRate: _toDollarRate);
+          //       final double _proPriceDollarRounded = Numeric.roundFractions(_proPriceDollar, 2);
+          //       final String _proPrice$ = '$_proPriceDollarRounded \$';
+          //
+          //       return
+          //         SizedBox(
+          //           width: 100,
+          //           height: 50,
+          //           child: Row(
+          //             children: <Widget>[
+          //
+          //               /// COUNTRY
+          //               DreamBox(
+          //                 height: 40,
+          //                 width: 140,
+          //                 icon: _flag,
+          //                 margins: const EdgeInsets.all(Ratioz.appBarPadding),
+          //                 verse: _countryName,
+          //                 verseScaleFactor: 0.5,
+          //                 verseCentered: false,
+          //                 secondLine: _countryCurrency,
+          //                 secondLineScaleFactor: 0.8,
+          //
+          //               ),
+          //
+          //               /// BIG MAC
+          //               DreamBox(
+          //                 height: 40,
+          //                 width: 150,
+          //                 verse: _localBigMacPrice,
+          //                 verseScaleFactor: 0.5,
+          //                 verseCentered: false,
+          //                 secondLine: _localMacPriceInUSD,
+          //                 secondLineScaleFactor: 0.9,
+          //               ),
+          //
+          //               DreamBox(
+          //                 height: 40,
+          //                 width: 100,
+          //                 color: Colorz.black255,
+          //                 margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          //                 verse: _proPrice,
+          //                 verseScaleFactor: 0.6,
+          //                 secondLine: _proPrice$,
+          //                 secondLineScaleFactor: 0.9,
+          //                 secondLineColor: Colorz.yellow255,
+          //               ),
+          //
+          //             ],
+          //           ),
+          //         );
+          //
+          //         }
+          // ),
 
         ],
     );
