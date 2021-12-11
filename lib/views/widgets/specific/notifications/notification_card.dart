@@ -25,7 +25,7 @@ class NotificationCard extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double bodyWidth(BuildContext context){
-    return Bubble.defaultWidth(context) - NotificationSenderBalloon.balloonWidth - (Ratioz.appBarMargin * 3);
+    return Bubble.defaultWidth(context) - NotificationSenderBalloon.balloonWidth - (Ratioz.appBarMargin * 4);
   }
 // -----------------------------------------------------------------------------
   static const double bannerCorners = Bubble.cornersValue - Ratioz.appBarMargin;
@@ -59,6 +59,7 @@ class NotificationCard extends StatelessWidget {
 
     return Bubble(
           centered: true,
+          // width: _bodyWidth,
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin, vertical: Ratioz.appBarPadding),
           bubbleOnTap: _notiHasButtons ? null : _onBubbleTap,
           columnChildren: <Widget>[

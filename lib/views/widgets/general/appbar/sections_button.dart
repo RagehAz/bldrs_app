@@ -40,7 +40,6 @@ Widget build(BuildContext context) {
   final SectionClass.Section _currentSection = _generalProvider.currentSection;
   final KW _currentKeyword = _generalProvider.currentKeyword;
 
-
   const double _corners = Ratioz.boxCorner12;
 
   final String _sectionName = TextGen.sectionStringer(context, _currentSection);

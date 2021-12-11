@@ -50,6 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
+
   Future <void> _triggerLoading({Function function}) async {
 
     if(mounted){
@@ -346,7 +347,6 @@ class _SearchScreenState extends State<SearchScreen> {
     // double _filtersZoneWidth = (_browserScrollZoneWidth - _buttonPadding) / 2 ;
     // List<Keyword> _currentFilterKeywords = _generateFilterKeywords(_groupsBySection);
 
-
     return MainLayout(
       appBarType: AppBarType.search,
       // appBarBackButton: true,
@@ -379,7 +379,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 shrinkWrap: true,
                 itemCount: _allResults.length,
                 padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2),
-
                 itemBuilder: (BuildContext ctx, int index){
 
                   final SearchResult _result = _allResults[index];
