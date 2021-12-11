@@ -1,9 +1,9 @@
-import 'package:bldrs/controllers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/controllers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
-import 'package:bldrs/controllers/router/route_names.dart';
+import 'package:bldrs/helpers/drafters/numeric.dart' as Numeric;
+import 'package:bldrs/helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/router/route_names.dart';
 import 'package:bldrs/models/flyer/flyer_model.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/views/widgets/general/dialogs/center_dialog/center_dialog.dart';

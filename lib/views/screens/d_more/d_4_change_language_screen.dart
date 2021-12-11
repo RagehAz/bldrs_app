@@ -1,7 +1,7 @@
-import 'package:bldrs/controllers/localization/lingo.dart';
-import 'package:bldrs/controllers/localization/localizer.dart';
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/controllers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/helpers/localization/lingo.dart';
+import 'package:bldrs/helpers/localization/localizer.dart';
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/models/secondary_models/map_model.dart';
 import 'package:bldrs/views/widgets/general/layouts/list_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';

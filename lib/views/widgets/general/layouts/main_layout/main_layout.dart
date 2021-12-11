@@ -1,8 +1,8 @@
-import 'package:bldrs/controllers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/drafters/tracers.dart';
-import 'package:bldrs/controllers/theme/colorz.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/helpers/theme/colorz.dart';
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:bldrs/models/kw/kw.dart';
 import 'package:bldrs/models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/providers/flyers_provider.dart';
@@ -13,7 +13,7 @@ import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-export 'package:bldrs/controllers/drafters/tracers.dart';
+export 'package:bldrs/helpers/drafters/tracers.dart';
 export 'package:bldrs/views/widgets/general/appbar/app_bar_button.dart';
 // -----------------------------------------------------------------------------
 enum AppBarType{

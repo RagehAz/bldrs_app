@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/drafters/text_directionerz.dart';
+import 'package:bldrs/helpers/drafters/text_directionerz.dart';
 import 'package:flutter/material.dart';
 
 class TextLinesAnalyzer extends StatelessWidget {

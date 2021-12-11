@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/controllers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/models/kw/chain/chain.dart';
 import 'package:bldrs/models/kw/chain/chain_designs.dart';

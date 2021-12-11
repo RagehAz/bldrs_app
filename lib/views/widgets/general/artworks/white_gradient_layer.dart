@@ -1,4 +1,4 @@
-import 'package:bldrs/controllers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/views/widgets/general/images/super_image.dart';
 import 'package:flutter/material.dart';
 

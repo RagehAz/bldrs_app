@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/router/route_names.dart';
-import 'package:bldrs/controllers/theme/ratioz.dart';
+import 'package:bldrs/helpers/router/route_names.dart';
+import 'package:bldrs/helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 

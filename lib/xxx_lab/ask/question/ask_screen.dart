@@ -1,5 +1,5 @@
-import 'package:bldrs/controllers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/controllers/router/navigators.dart' as Nav;
+import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/xxx_lab/ask/enum_lister/enum_lister.dart';
@@ -7,7 +7,6 @@ import 'package:bldrs/xxx_lab/ask/quest/quests_screen.dart';
 import 'package:bldrs/xxx_lab/ask/question/ask_bubble.dart';
 import 'package:flutter/material.dart';
 
-/// WE STOPPPEDDDDD HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEREEEE, GOOD NIGHT
 const Map<String, Object> bzTypesMap = <String, dynamic>{
   'Title' : 'Business Types',
   'Strings' : <String>[
