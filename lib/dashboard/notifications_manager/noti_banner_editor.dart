@@ -31,13 +31,18 @@ class NotiBannerEditor extends StatelessWidget {
       child: ClipRRect(
         borderRadius: Borderers.superBorderAll(context, NotificationCard.bannerCorners),
         child: Stack(
+          alignment: Alignment.center,
           children: <Widget>[
 
-            SuperImage(
-              attachment,
-              fit: BoxFit.fitWidth,
+            SizedBox(
               width: width,
               height: height,
+              child: SuperImage(
+                attachment,
+                fit: BoxFit.cover,
+                width: width,
+                height: height,
+              ),
             ),
 
             if (onDelete != null)

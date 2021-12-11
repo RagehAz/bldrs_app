@@ -43,6 +43,54 @@ All Business Entities can have a `BusinessForm` of ( `Company` or `Individual en
 
 -----------------------------------------------------------------------------------
 
+# APP MODULES
+
+**x - AUTH**
+
+**x - BROWSING FLYERS**
+* keyword selector
+* zone selector
+* flyers view
+* bzz view
+
+**x - SEARCHING FLYERS AND BZZ**
+* search results
+* search history
+
+**x - BZ PAGES**
+* gallery
+* about
+* targets
+* powers
+* bz profile editor
+* flyer editor
+* authors editor
+
+**x - NOTIFICATIONS**
+
+**x - USER PROFILE**
+* profile editor
+* state editor
+* following
+
+**X - REFERRALS**
+
+**x - DASH-BOARD**
+* pricing page
+  * big mc price index
+  * packages' prices per country
+  * all flyers viewer
+    * flyers auditor
+  * statistics
+  * all users viewer
+  * zones manager
+  * all bzz viewer
+  * notifications creator
+  * keywords manager
+  * 
+
+-----------------------------------------------------------------------------------
+
 # Design Philosophy
 
 **The Legacy of our Ancestors**

@@ -47,6 +47,7 @@ class DashBoardLayout extends StatelessWidget {
       ],
       layoutWidget: MaxBounceNavigator(
         child: Scroller(
+          controller: _controller,
           child: ListView(
             physics: const BouncingScrollPhysics(),
             controller: _controller,
