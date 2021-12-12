@@ -7,17 +7,17 @@ class CustomBoxShadow extends BoxShadow {
     Color color = const Color(0xFF000000),
     Offset offset = Offset.zero,
     double blurRadius = 0.0,
-    this.blurStyle = BlurStyle.normal,
+    this.style = BlurStyle.normal,
   }) : super(color: color, offset: offset, blurRadius: blurRadius);
   /// --------------------------------------------------------------------------
-  final BlurStyle blurStyle;
+  final BlurStyle style;
   /// --------------------------------------------------------------------------
   @override
   Paint toPaint() {
 
     final Paint _result = Paint()
       ..color = color
-      ..maskFilter = MaskFilter.blur(blurStyle, blurSigma);
+      ..maskFilter = MaskFilter.blur(style, blurSigma);
 
     assert(
         (){
@@ -57,7 +57,7 @@ List<BoxShadow> superFollowBtShadow(double btHeight){
   const BoxShadow basicOuterShadow = CustomBoxShadow(
       color: Colorz.black200,
       blurRadius: 10,
-      blurStyle: BlurStyle.outer
+      style: BlurStyle.outer
   );
 
   const List<BoxShadow> appBarShadow = <BoxShadow>[
@@ -69,7 +69,7 @@ List<BoxShadow> superFollowBtShadow(double btHeight){
       CustomBoxShadow(
           color: Colorz.black230,
           blurRadius: flyerBoxWidth * 0.055,
-          blurStyle: BlurStyle.outer
+          style: BlurStyle.outer
       ),
     ];
 
@@ -81,7 +81,7 @@ List<BoxShadow> superFollowBtShadow(double btHeight){
       CustomBoxShadow(
         color: Colorz.black200,
         blurRadius: flyerBoxWidth * 0.1,
-        blurStyle: BlurStyle.outer
+        style: BlurStyle.outer
       ),
     ];
     return _shadows;

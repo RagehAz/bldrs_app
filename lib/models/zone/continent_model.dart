@@ -62,15 +62,20 @@ class Continent{
   static List<Continent> decipherContinents(Map<String, dynamic> map){
 
     final List<Continent> _continents = <Continent>[];
-    final List<String> _keys = map.keys.toList();
 
-    if (Mapper.canLoopList(_keys)){
+    if (map != null){
 
-      for (final String key in _keys){
+      final List<String> _keys = map.keys.toList();
 
-        final Continent _continent = decipherContinent(map[key]);
+      if (Mapper.canLoopList(_keys)){
 
-        _continents.add(_continent);
+        for (final String key in _keys){
+
+          final Continent _continent = decipherContinent(map[key]);
+
+          _continents.add(_continent);
+
+        }
 
       }
 

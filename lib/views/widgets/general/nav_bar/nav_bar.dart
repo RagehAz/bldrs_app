@@ -1,3 +1,4 @@
+import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/helpers/drafters/iconizers.dart' as Iconizer;
@@ -32,6 +33,7 @@ import 'package:bldrs/views/widgets/general/nav_bar/bzz_button.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 
 enum BarType{
   min,
@@ -116,7 +118,20 @@ class NavBar extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static int navBarNumberOfButtons(UserModel userModel) {
-    final int _numberOfButtons = UserModel.userIsAuthor(userModel) ? 5 : 4;
+    int _numberOfButtons;
+
+    if (FireAuthOps.userIsSignedIn() == false){
+      _numberOfButtons = 2;
+    }
+
+    else if (UserModel.userIsAuthor(userModel)){
+      _numberOfButtons = 5;
+    }
+    else {
+      _numberOfButtons = 3;
+    }
+
+
     return _numberOfButtons;
   }
 // -----------------------------------------------------------------------------
@@ -353,7 +368,8 @@ class NavBar extends StatelessWidget {
                         _halfSpacer,
 
                         /// SAVED FLYERS
-                        BarButton(
+                        if (FireAuthOps.userIsSignedIn() == true)
+                          BarButton(
                           width: navBarButtonWidth,
                           text: 'Choices',
                           icon: Iconz.saveOn,
@@ -361,7 +377,6 @@ class NavBar extends StatelessWidget {
                           barType: barType,
                           onTap: () => Nav.goToRoute(context, Routez.savedFlyers),
                         ),
-
 
                         _spacer,
 
@@ -406,7 +421,8 @@ class NavBar extends StatelessWidget {
                         _spacer,
 
                         /// NEWS
-                        BarButton(
+                        if (FireAuthOps.userIsSignedIn() == true)
+                          BarButton(
                           width: navBarButtonWidth,
                           text: Wordz.news(context),
                           icon: Iconz.news,
@@ -420,6 +436,7 @@ class NavBar extends StatelessWidget {
                         _spacer,
 
                         /// PROFILE
+                        if (FireAuthOps.userIsSignedIn() == true)
                         BarButton(
                             width: navBarButtonWidth,
                             text: Wordz.profile(context),
@@ -433,6 +450,18 @@ class NavBar extends StatelessWidget {
                               userModel: _myUserModel,
                             )
                         ),
+
+                        if (FireAuthOps.userIsSignedIn() == false)
+                          BarButton(
+                            width: navBarButtonWidth,
+                            text: 'Sign',
+                            icon: Iconz.normalUser,
+                            iconSizeFactor: 0.45,
+                            barType: barType,
+                            onTap: () {
+                              Nav.goToNewScreen(context, const NotificationsScreen());
+                            },
+                          ),
 
                         _halfSpacer,
 

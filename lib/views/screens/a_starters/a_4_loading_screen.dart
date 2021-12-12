@@ -67,13 +67,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-    // works
-    // Provider.of<FlyersProvider>(context,listen: false).fetchAndSetBzz();
-
-    // hack around
-    // Future.delayed(Duration.zero).then((_){
-    //   Provider.of<FlyersProvider>(context,listen: true).fetchAndSetBzz();
-    // });
 
   }
 // -----------------------------------------------------------------------------
@@ -114,7 +107,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           await _keywordsProvider.getsetAllKeywords(context);
 
           blog('x - fetching UserBzz');
-          await _bzzProvider.fetchMyBzz(context);
+          await _bzzProvider.getSetMyBzz(context);
           _increaseProgressTo(80);
 
           // TASK : should get only first 10 saved tiny flyers,, and continue paginating when entering the savedFlyers screen

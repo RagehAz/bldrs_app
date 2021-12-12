@@ -62,12 +62,12 @@ class SlideCounters extends StatelessWidget {
                       Shadowz.CustomBoxShadow(
                           color: Colorz.black50,
                           blurRadius: footerBTMargins * 0.7,
-                          blurStyle: BlurStyle.outer
+                          style: BlurStyle.outer
                       ),
                       Shadowz.CustomBoxShadow(
                           color: Colorz.white20,
                           blurRadius: footerBTMargins * 0.7,
-                          blurStyle: BlurStyle.outer
+                          style: BlurStyle.outer
                       ),
 
                     ]
