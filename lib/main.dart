@@ -1,25 +1,28 @@
 import 'dart:async';
 
+import 'package:bldrs/db/fire/methods/dynamic_links.dart';
 import 'package:bldrs/db/fire/ops/user_ops.dart' as UserFireOps;
+import 'package:bldrs/helpers/drafters/mappers.dart';
 import 'package:bldrs/helpers/drafters/tracers.dart';
 import 'package:bldrs/helpers/localization/localizer.dart';
 import 'package:bldrs/helpers/notifications/local_notification_service.dart' as LocalNotificationService;
 import 'package:bldrs/helpers/notifications/noti_ops.dart' as NotiOps;
 import 'package:bldrs/helpers/router/route_names.dart';
 import 'package:bldrs/helpers/router/router.dart' as Routerer;
-import 'package:bldrs/models/notification/noti_model.dart';
+import 'package:bldrs/models/secondary_models/error_helpers.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/keywords_provider.dart';
+import 'package:bldrs/providers/noti_provider.dart';
 import 'package:bldrs/providers/ui_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
 import 'package:bldrs/providers/zone_provider.dart';
+import 'package:bldrs/views/screens/a_starters/a_0_logo_screen.dart';
 import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/screens/b_landing/b_0_home_screen.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
-import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:bldrs/xxx_lab/ask/question/questions_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -49,16 +52,16 @@ Future<void> main() async {
 }
 
 class BldrsApp extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const BldrsApp({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   static void setLocale(BuildContext context, Locale locale) {
     final _BldrsAppState state = context.findAncestorStateOfType<_BldrsAppState>();
     state._setLocale(locale);
   }
-
+  /// --------------------------------------------------------------------------
   @override
   _BldrsAppState createState() => _BldrsAppState();
 }
@@ -66,97 +69,100 @@ class BldrsApp extends StatefulWidget {
 class _BldrsAppState extends State<BldrsApp> {
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future <void> _triggerLoading({Function function}) async {
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
+// -----------------------------------
+  Future<void> _triggerLoading() async {
 
-    if (function == null){
-      setState(() {
-        _loading = !_loading;
-      });
+    _loading.value = !_loading.value;
+
+    if(_loading.value == true){
+      blog('LOADING --------------------------------------');
+    } else {
+      blog('LOADING COMPLETE -----------------------------');
     }
 
-    else {
-      setState(() {
-        _loading = !_loading;
-        function();
-      });
-    }
-
-    _loading == true?
-    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _initializeFlutterFire();
-    LocalNotificationService.initialize(context);
-    NotiOps.initializeNoti();
+
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
   @override
   void didChangeDependencies() {
-    Localizer.getLocale().then((Locale locale) {
 
-      // setState(() {
-        _locale.value = locale;
-      // });
+    if (_isInit) {
 
-    });
+      _triggerLoading().then((_) async {
+
+        /// LOCALE
+        await _initializeLocale();
+
+        /// FIREBASE
+        await _initializeFlutterFire();
+
+        /// NOTIFICATIONS
+        await LocalNotificationService.initialize(context);
+        await NotiOps.initializeNoti();
+
+        /// DYNAMIC LINKS
+        await DynamicLinksApi().initializeDynamicLinks(context);
+
+        /// END
+        await _triggerLoading();
+
+      });
+
+    }
+
+    _isInit = false;
     super.didChangeDependencies();
   }
-// ---------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+  Locale _localeResolutionCallback(Locale deviceLocale, Iterable<Locale> supportedLocales){
+    return Localizer.localeResolutionCallback(
+        deviceLocale: deviceLocale,
+        supportedLocales: supportedLocales
+    );
+  }
+// -----------------------------------------------------------------------------
   final ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null);
-  final List<Locale> _supportedLocales = Localizer.getSupportedLocales();
-  final List<LocalizationsDelegate> _localizationDelegates = Localizer.getLocalizationDelegates();
-  void _setLocale(Locale locale) {
-    // setState(() {
+// -----------------------------------
+  Future<void> _initializeLocale() async {
+    final Locale _gotLocale = await Localizer.getLocaleFromSharedPref();
+    _setLocale(_gotLocale);
+  }
+// -----------------------------------
+  void _setLocale(Locale locale){
       _locale.value = locale;
-    // });
   }
-// ---------------------------------------------------------------------------
-  bool _initialized = false;
-  bool _error = false;
+// -----------------------------------------------------------------------------
+  final ValueNotifier<String> _fireError = ValueNotifier(null);
+// -----------------------------------
   Future<void> _initializeFlutterFire() async {
-    unawaited(_triggerLoading());
-    try {
-      /// Wait for Firebase to initialize and set `_initialized` state to true
-      await Firebase.initializeApp();
-      setState(() {
-        _initialized = true;
-      });
-    }
-    on Exception catch (e) {
-      /// Set `_error` state to true if Firebase initialization fails
-      blog(e);
-      setState(() {
-        _error = true;
-      });
-    }
 
-    unawaited(_triggerLoading());
+    await tryAndCatch(
+        context: context,
+        functions: () async {
+
+          final FirebaseApp _firebaseApp = await Firebase.initializeApp();
+
+          blog('_firebaseApp.name : ${_firebaseApp.name}');
+          blog('_firebaseApp.isAutomaticDataCollectionEnabled : ${_firebaseApp.isAutomaticDataCollectionEnabled}');
+          blog('_firebaseApp.options :-');
+          printMap(_firebaseApp.options.asMap);
+
+        },
+
+      onError: (String error){
+        _fireError.value = error;
+      }
+
+    );
 
   }
-// ---------------------------------------------------------------------------
-//   NotiModel _noti;
-  bool _notiIsOn = false;
-Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
-  blog('receiveAndActUponNoti : notiType : $notiType');
-
-  final NotiModel _noti = await NotiOps.receiveAndActUponNoti(
-    context: context,
-    notiType: notiType,
-    msgMap: msgMap,
-  );
-
-  if (_noti != null){
-    setState(() {
-      // _noti = noti;
-      _notiIsOn = true;
-    });
-  }
-
-}
 // -----------------------------------------------------------------------------
 
 @override
@@ -164,20 +170,30 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
 
     blog('building Bldrs with _locale : $_locale');
 
-    if (_locale == null) {
-      return Center(
-        child: Loading(loading: _loading,),
+    if (_locale == null || _fireError.value != null) {
+      return ValueListenableBuilder<bool>(
+        valueListenable: _loading,
+        builder: (_, bool loading, Widget child){
+
+          return
+            ValueListenableBuilder<String>(
+                valueListenable: _fireError,
+                builder: (_, String error, Widget child){
+
+                  return
+                    LogoScreen(
+                      loading: loading,
+                      error: error,
+                    );
+
+                }
+            );
+
+        }
       );
     }
+
     else {
-      /// Show error message if initialization failed
-      if (_error) {
-        blog('Error has occurred');
-      }
-      /// Show a loader until FlutterFire is initialized
-      if (!_initialized) {
-        blog("Firebase Couldn't be initialized");
-      }
 
       return MultiProvider(
         providers: <SingleChildWidget>[
@@ -193,6 +209,10 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
 
           ChangeNotifierProvider<GeneralProvider>(
             create: (BuildContext ctx) => GeneralProvider(),
+          ),
+
+          ChangeNotifierProvider<NotiProvider>(
+            create: (BuildContext ctx) => NotiProvider(),
           ),
 
           ChangeNotifierProvider<UsersProvider>(
@@ -226,39 +246,37 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
 
             return
               MaterialApp(
+                /// DEBUG
                 debugShowCheckedModeBanner: false,
                 // debugShowMaterialGrid: false,
                 // showPerformanceOverlay: false,
                 // checkerboardRasterCacheImages: false,
 
+                /// THEME
                 title: 'Bldrs.net',
-
                 // theme:
                 // ThemeData(
                 //   primarySwatch: MaterialColor(),
                 //   accentColor: Colorz.BlackBlack,
                 // ),
+
+                /// LOCALE
                 locale: _locale.value,
-                supportedLocales: _supportedLocales,
-                localizationsDelegates: _localizationDelegates,
-                localeResolutionCallback: (Locale deviceLocale, Iterable<Locale> supportedLocales) {
-                  for (final Locale locale in supportedLocales) {
-                    if (locale.languageCode == deviceLocale.languageCode &&
-                        locale.countryCode == deviceLocale.countryCode) {
-                      return deviceLocale;
-                    }
-                  }
-                  return supportedLocales.first;
-                },
+                supportedLocales: Localizer.getSupportedLocales(),
+                localizationsDelegates: Localizer.getLocalizationDelegates(),
+                localeResolutionCallback: _localeResolutionCallback,
+
+                /// ROUTES
                 onGenerateRoute: Routerer.allRoutes,
-                initialRoute: Routez.userChecker,
+                initialRoute: Routez.home,
                 routes: <String, Widget Function(BuildContext)>{
                   Routez.flyerScreen: (BuildContext ctx) => const FlyerScreen(),
                   // Routez.Starting: (ctx) => StartingScreen(),
                   Routez.userChecker: (BuildContext ctx) => const UserChecker(key: ValueKey<String>('userChecker'),),
-                  Routez.home: (BuildContext ctx) => HomeScreen(notiIsOn: _notiIsOn,),
+                  Routez.home: (BuildContext ctx) => const HomeScreen(),
                   // Routez.InPyramids: (ctx) => InPyramidsScreen(),
                 },
+
               );
 
           },

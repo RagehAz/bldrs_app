@@ -172,7 +172,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                             color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
                             offset: Offset(0, boxHeight * -0.019 * 0 ),
                             blurRadius: boxHeight * 0.15,
-                            blurStyle: BlurStyle.outer
+                            style: BlurStyle.outer
                         ),
                       ]
                   ),
@@ -218,7 +218,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                             color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
                                             offset: Offset(0, jpgGraphicWidth * -0.019 ),
                                             blurRadius: jpgGraphicWidth * 0.2,
-                                            blurStyle: BlurStyle.outer
+                                            style: BlurStyle.outer
                                         ),
                                       ]
                                   ),
@@ -267,7 +267,7 @@ class _AnimatedDreamBoxState extends State<AnimatedDreamBox> {
                                             color: widget.bubble == true ? Colorz.black200 : Colorz.nothing,
                                             offset: Offset(0, jpgGraphicWidth * -0.019 ),
                                             blurRadius: jpgGraphicWidth * 0.2,
-                                            blurStyle: BlurStyle.outer),
+                                            style: BlurStyle.outer),
                                       ]
                                   ),
                                   child: ClipRRect(

@@ -15,15 +15,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeWall extends StatefulWidget {
+  /// --------------------------------------------------------------------------
   const HomeWall({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   _HomeWallState createState() => _HomeWallState();
-
+  /// --------------------------------------------------------------------------
   static const Widget spacer = SizedBox(height: Ratioz.appBarMargin, width: Ratioz.appBarMargin,);
-
+/// --------------------------------------------------------------------------
 }
 
 class _HomeWallState extends State<HomeWall> {
