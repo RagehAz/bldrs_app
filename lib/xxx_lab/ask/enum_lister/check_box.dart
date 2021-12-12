@@ -35,12 +35,12 @@ class CheckBox extends StatelessWidget {
             Shadowz.CustomBoxShadow(
                 color: Colorz.black230,
                 blurRadius: 10,
-                blurStyle: BlurStyle.outer
+                style: BlurStyle.outer
             ),
             Shadowz.CustomBoxShadow(
                 color: Colorz.white20,
                 blurRadius: 10,
-                blurStyle: BlurStyle.outer
+                style: BlurStyle.outer
             ),
           ]
       ),

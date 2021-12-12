@@ -491,7 +491,7 @@ class ZoneProvider extends ChangeNotifier {
 
     final CurrencyModel _currencyByCountryID = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
       currencies: _currencies,
-      countryID: _currentCountryModel.id,
+      countryID: _currentCountryModel?.id,
     );
 
     _allCurrencies = _currencies;

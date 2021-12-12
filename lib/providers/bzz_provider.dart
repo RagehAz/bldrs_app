@@ -125,11 +125,11 @@ class BzzProvider extends ChangeNotifier {
     return <BzModel>[..._myBzz];
   }
 // -------------------------------------
-  Future<void> fetchMyBzz(BuildContext context) async {
+  Future<void> getSetMyBzz(BuildContext context) async {
 
     /// 1 - get userBzzIDs from userModel
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    final List<String> _userBzzIDs = _usersProvider.myUserModel.myBzzIDs;
+    final List<String> _userBzzIDs = _usersProvider.myUserModel?.myBzzIDs;
 
     if (Mapper.canLoopList(_userBzzIDs)){
 
@@ -246,7 +246,7 @@ class BzzProvider extends ChangeNotifier {
     final UserModel _myUserModel = _usersProvider.myUserModel;
 
 
-    final String _id = _myUserModel.followedBzzIDs?.firstWhere((String id) => id == bzID, orElse: () => null);
+    final String _id = _myUserModel?.followedBzzIDs?.firstWhere((String id) => id == bzID, orElse: () => null);
 
     if(_id == null){
       _isFollowing = false;

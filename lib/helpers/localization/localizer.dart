@@ -91,10 +91,10 @@ class Localizer{
     final SharedPreferences _prefs = await SharedPreferences.getInstance();
     await _prefs.setString('languageCode', languageCode);
 
-    return _locale(languageCode);
+    return _concludeLocaleByLingoCode(languageCode);
   }
 // -----------------------------------------------------------------------------
-  static Locale _locale(String lingoCode){
+  static Locale _concludeLocaleByLingoCode(String lingoCode){
     Locale _temp;
     switch(lingoCode){
       case Lingo.englishCode:     _temp = Locale(lingoCode, 'US'); break;
@@ -110,10 +110,10 @@ class Localizer{
     return _temp;
   }
 // -----------------------------------------------------------------------------
-  static Future<Locale> getLocale() async {
+  static Future<Locale> getLocaleFromSharedPref() async {
     final SharedPreferences _prefs = await SharedPreferences.getInstance();
     final String _languageCode = _prefs.getString('languageCode') ?? Lingo.englishLingo.code;
-    return _locale(_languageCode);
+    return _concludeLocaleByLingoCode(_languageCode);
 //  await _prefs.setString(Language_Code, languageCode);
   }
 // -----------------------------------------------------------------------------
@@ -186,7 +186,22 @@ class Localizer{
 
     return _output;
   }
+// -----------------------------------------------------------------------------
+  static Locale localeResolutionCallback({@required Locale deviceLocale, @required Iterable<Locale> supportedLocales}) {
 
+    for (final Locale locale in supportedLocales) {
+      if (
+          locale.languageCode == deviceLocale.languageCode
+          &&
+          locale.countryCode == deviceLocale.countryCode
+      ) {
+        return deviceLocale;
+      }
+    }
+
+    return supportedLocales.first;
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {

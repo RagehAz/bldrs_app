@@ -75,7 +75,7 @@ class DreamBoxIcon extends StatelessWidget {
                   color: bubble == true ? Colorz.black200 : Colorz.nothing,
                   offset: Offset(0, _jpgGraphicWidth * -0.019 ),
                   blurRadius: _jpgGraphicWidth * 0.2,
-                  blurStyle: BlurStyle.outer),
+                  style: BlurStyle.outer),
             ]
         ),
         child: ClipRRect(
@@ -120,7 +120,7 @@ class DreamBoxIcon extends StatelessWidget {
                     color: bubble == true ? Colorz.black200 : Colorz.nothing,
                     offset: Offset(0, _jpgGraphicWidth * -0.019 ),
                     blurRadius: _jpgGraphicWidth * 0.2,
-                    blurStyle: BlurStyle.outer
+                    style: BlurStyle.outer
                 ),
               ]
           ),
@@ -164,7 +164,7 @@ class DreamBoxIcon extends StatelessWidget {
                   color: bubble == true ? Colorz.black200 : Colorz.nothing,
                   offset: Offset(0, _jpgGraphicWidth * -0.019 ),
                   blurRadius: _jpgGraphicWidth * 0.2,
-                  blurStyle: BlurStyle.outer
+                  style: BlurStyle.outer
               ),
             ]
         ),

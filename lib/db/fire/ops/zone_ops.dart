@@ -158,7 +158,7 @@ import 'package:provider/provider.dart';
                   CityModel _city;
                   if (_cityName != null){
                     _city = await _zoneProvider.fetchCityByName(context: context, countryID: _countryID, cityName: _cityName, lingoCode: 'en');
-                    _cityID = CityModel.createCityID(countryID: _country.id, cityEnName: Name.getNameByLingoFromNames(names: _city.names, lingoCode: 'en'));
+                    _cityID = CityModel.createCityID(countryID: _country?.id, cityEnName: Name.getNameByLingoFromNames(names: _city?.names, lingoCode: 'en'));
                   }
 
 
@@ -269,13 +269,13 @@ import 'package:provider/provider.dart';
 
     blog('superGetZone : trial 1 : _getZoneByIP_ipApi : zone is : countryID : ${_zone.countryID} : cityID : ${_zone.cityID}');
 
-    if (_zone == null){
+    if (_zone == null || (_zone?.countryID == null && _zone?.cityID == null)){
       _zone = await _getZoneByIP_ipRegistry(context: context);
       blog('superGetZone : trial 2 : _getZoneByIP_ipRegistry : zone is : countryID : ${_zone.countryID} : cityID : ${_zone.cityID}');
     }
 
 
-    if (_zone == null){
+    if (_zone == null || (_zone?.countryID == null && _zone?.cityID == null)){
       _zone = await _getZoneByGeoLocator(context: context);
       blog('superGetZone : trial 3 : _getZoneByGeoLocator : zone is : countryID : ${_zone.countryID} : cityID : ${_zone.cityID}');
     }

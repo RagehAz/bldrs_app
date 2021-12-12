@@ -20,29 +20,26 @@ Future<void> tryAndCatch({
   @required Function functions,
   String methodName,
   ValueChanged<String> onError,
+  bool showErrorDialog = false,
 }) async {
 
   try{
     await functions();
   }
-  on Exception catch (error){
 
+  on Exception catch (error) {
     blog('$methodName : tryAndCatch ERROR : $error');
 
     if (onError != null){
-
       onError(error.toString());
-      // await null;
-
     }
-    else {
 
+    if (showErrorDialog == true){
       await CenterDialog.showCenterDialog(
         context: context,
         body: error,
         title: 'Something Went Wrong !',
       );
-
     }
 
     // throw(error);
