@@ -88,7 +88,7 @@ class PropertySearchCriteria extends StatelessWidget {
             Shadowz.CustomBoxShadow(
                 color: _bubble == true ? Colorz.black200 : Colorz.nothing,
                 blurRadius: _boxHeight * 0.15,
-                blurStyle: BlurStyle.outer
+                style: BlurStyle.outer
             ),
           ]
       ),

@@ -1,18 +1,18 @@
-import 'package:bldrs/db/fire/methods/dynamic_links.dart';
-import 'package:bldrs/helpers/drafters/tracers.dart' as Tracer;
+import 'dart:async';
+
+import 'package:bldrs/controllers/b_0_home_controller.dart';
+import 'package:bldrs/providers/ui_provider.dart';
 import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/views/widgets/general/layouts/walls/home_wall.dart';
 import 'package:bldrs/views/widgets/general/loading/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const HomeScreen({
-    @required this.notiIsOn,
     Key key,
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final bool notiIsOn;
   /// --------------------------------------------------------------------------
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -20,73 +20,60 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // bool _isInit = true;
-  final bool _isLoading = false;
-  // List<TinyBz> _tinyBzz;
-  // List<TinyBz> _myTinyBzz;
 // -----------------------------------------------------------------------------
+  UiProvider _uiProvider;
   @override
   void initState() {
     super.initState();
-    // works
-    // Provider.of<FlyersProvider>(context,listen: false).fetchAndSetBzz();
-
-    // hack around
-    // Future.delayed(Duration.zero).then((_){
-    //   Provider.of<FlyersProvider>(context,listen: true).fetchAndSetBzz();
-    // });
-
-    DynamicLinksApi().initializeDynamicLinks(context);
+    _uiProvider = Provider.of<UiProvider>(context, listen: false);
   }
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
 
-  // /// this method of fetching provided data allows listening true or false,
-  // /// both working one  & the one with delay above in initState does not allow listening,
-  // /// i will go with didChangeDependencies as init supposedly works only at start
-  // @override
-  // void didChangeDependencies() {
-  //   if (_isInit) {
-  //     _triggerLoading();
-  //
-  //     FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
-  //
-  //     _prof.fetchAndSetTinyBzzAndTinyFlyers(context)
-  //         .then((_) async {
-  //
-  //           List<TinyBz> _myTinyBzzList = await _prof.getUserTinyBzz(context);
-  //
-  //           setState(() {
-  //             _tinyBzz = _prof.getAllTinyBzz;
-  //             _myTinyBzz = _myTinyBzzList;
-  //           });
-  //
-  //       _triggerLoading();
-  //     });
-  //   }
-  //   _isInit = false;
-  //   super.didChangeDependencies();
-  // }
+      _uiProvider.triggerLoading().then((_) async {
+
+            await controlHomeScreen(context);
+
+            await _uiProvider.triggerLoading();
+
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 // -----------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
 
-    // FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
-    // List<TinyBz> _tinyBzz = _prof.getAllTinyBzz;
-    // List<TinyBz> _userTinyBzz = _prof.getUserTinyBzz;
-
-    Tracer.traceScreenBuild(screenName: 'HomeScreen');
+    // Tracer.traceScreenBuild(screenName: 'HomeScreen');
     return WillPopScope(
       onWillPop: () => Future<bool>.value(false),
       child: MainLayout(
         key: const ValueKey<String>('mainLayout'),
         appBarType: AppBarType.main,
-        // tappingRageh: () async {
-        //   await Nav.goToNewScreen(context, QuestionScreen());
-        // },
-        layoutWidget: _isLoading == true ?
-        Center(child: Loading(loading: _isLoading,))
-            :
-        const HomeWall(),
+        layoutWidget: Selector<UiProvider, bool>(
+          selector: (_, UiProvider uiProvider) => uiProvider.loading,
+          builder: (_, bool loading, Widget child){
+
+            if (loading == true){
+              return
+                const Loading(loading: true,);
+            }
+
+            else {
+
+              return
+                const HomeWall();
+
+            }
+
+            },
+        ),
+
       ),
     );
   }

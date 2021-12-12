@@ -1,29 +1,27 @@
+import 'package:bldrs/helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 class UiProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
-  /// test
-  int _counter = 0;
+  /// --- LOADING
+  bool _loading = false;
+// -------------------------------------
+  bool get loading => _loading;
+// -------------------------------------
+  Future<void> triggerLoading() async {
+    /// trigger loading method should remain Future as it starts controllers of
+    /// each screen like triggerLoading.then(()=>methods)
+    /// in didChangeDependencies override
 
-  int get theCounter => _counter;
+    _loading = !_loading;
 
-  void incrementCounter(){
-    _counter++;
-    notifyListeners();
-  }
-// -----------------------------------------------------------------------------
-  String _name = 'Rageh';
-
-  String get name => _name;
-
-  void changeName(){
-    if (_name == 'Rageh'){
-      _name = 'GIGZ';
+    if(_loading == true){
+      blog('LOADING --------------------------------------');
+    } else {
+      blog('LOADING COMPLETE -----------------------------');
     }
-    else {
-      _name = 'Rageh';
-    }
+
     notifyListeners();
   }
 // -----------------------------------------------------------------------------

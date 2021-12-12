@@ -71,7 +71,7 @@ class MainButton extends StatelessWidget {
               Shadowz.CustomBoxShadow(
                   color: Colorz.black230,
                   blurRadius: _buttonZoneHeight * 0.09,
-                  blurStyle: BlurStyle.outer),
+                  style: BlurStyle.outer),
             ]
         ),
         child: ElevatedButton(

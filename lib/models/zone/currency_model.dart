@@ -93,13 +93,17 @@ class CurrencyModel {
 
     final List<CurrencyModel> _currencies = <CurrencyModel>[];
 
-    final List<String> _keys = map.keys.toList();
+    if (map != null){
 
-    if (Mapper.canLoopList(_keys)){
-      for (final String key in _keys){
-        final CurrencyModel _currency = decipherCurrency(map[key]);
-        _currencies.add(_currency);
+      final List<String> _keys = map.keys.toList();
+
+      if (Mapper.canLoopList(_keys)){
+        for (final String key in _keys){
+          final CurrencyModel _currency = decipherCurrency(map[key]);
+          _currencies.add(_currency);
+        }
       }
+
     }
 
     return _currencies;

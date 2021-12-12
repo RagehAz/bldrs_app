@@ -73,16 +73,22 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
       /// A1 - CAN PICK MANY
       if (widget.specList.canPickMany == true){
-        // setState(() {
-          _selectedSpecs.value.removeAt(_specIndex);
-        // });
+
+        final List<Spec> _specs = [..._selectedSpecs.value];
+        _specs.removeAt(_specIndex);
+        _selectedSpecs.value = _specs;
+
+        // _selectedSpecs.value.removeAt(_specIndex);
       }
 
       /// A2 - CAN NOT PICK MANY
       else {
-        // setState(() {
-          _selectedSpecs.value.removeAt(_specIndex);
-        // });
+        final List<Spec> _specs = [..._selectedSpecs.value];
+        _specs.removeAt(_specIndex);
+        _selectedSpecs.value = _specs;
+
+        // _selectedSpecs.value.removeAt(_specIndex);
+
       }
 
     }
@@ -92,9 +98,12 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
       /// B1 - WHEN CAN PICK MANY
       if (widget.specList.canPickMany == true){
-        // setState(() {
-          _selectedSpecs.value.add(_spec);
-        // });
+
+        final List<Spec> _specs = [..._selectedSpecs.value, _spec];
+        _selectedSpecs.value = _specs;
+
+        // _selectedSpecs.value .add(_spec);
+
       }
 
       /// B2 - WHEN CAN NOT PICK MANY
@@ -104,17 +113,25 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
             /// C1 - WHEN NO SPEC OF THIS KIND IS SELECTED
             if (_specIndex == -1){
-              // setState(() {
-                _selectedSpecs.value.add(_spec);
-              // });
+
+              final List<Spec> _specs = [..._selectedSpecs.value, _spec];
+              _selectedSpecs.value = _specs;
+
+                // _selectedSpecs.value.add(_spec);
+
             }
 
             /// C2 - WHEN A SPEC OF THIS KIND ALREADY EXISTS TO BE REPLACED
             else {
-              // setState(() {
-                _selectedSpecs.value.removeAt(_specIndex);
-                _selectedSpecs.value.add(_spec);
-              // });
+
+              final List<Spec> _specs = [..._selectedSpecs.value];
+              _specs.removeAt(_specIndex);
+              _specs.add(_spec);
+              _selectedSpecs.value = _specs;
+
+                // _selectedSpecs.value.removeAt(_specIndex);
+                // _selectedSpecs.value.add(_spec);
+
             }
 
       }
@@ -122,7 +139,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
     }
     // ----------------------------------------------------------
 
-    _selectedSpecs.notifyListeners();
+    // _selectedSpecs.notifyListeners();
 
   }
 // -----------------------------------------------------------------------------

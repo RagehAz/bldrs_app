@@ -63,6 +63,14 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
       vsync: this,
     );
 
+    // works
+    // Provider.of<FlyersProvider>(context,listen: false).fetchAndSetBzz();
+
+    // hack around
+    // Future.delayed(Duration.zero).then((_){
+    //   Provider.of<FlyersProvider>(context,listen: true).fetchAndSetBzz();
+    // });
+
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -115,7 +123,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
     // double _gWidth = _screenWidth * 0.4;
     // double _gHeight = _screenWidth * 0.6;
 
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
+    // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
 
     return MainLayout(
       appBarType: AppBarType.basic,
@@ -157,37 +165,37 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin{
               /// AVOID SET STATE : WAY # 2
               Consumer<UiProvider>(
                 builder: (BuildContext ctx, UiProvider uiProvider, Widget child){
-                  final String _name = uiProvider.name;
+                  final bool _loading = uiProvider.loading;
                   return
                     DreamBox(
                       height: 50,
                       width: 300,
-                      verse: 'name is : $_name',
+                      verse: '_loading is : $_loading',
                       verseScaleFactor: 0.6,
                       verseWeight: VerseWeight.black,
-                      onTap: uiProvider.changeName,
+                      onTap: uiProvider.triggerLoading,
                     );
 
                 },
               ),
 
-              /// AVOID SET STATE : WAY # 3
-              Selector<UiProvider, int>(
-                selector: (_, UiProvider uiProvider) => uiProvider.theCounter,
-                builder: (BuildContext ctx, int value, Widget child){
-
-                  return
-                    DreamBox(
-                      height: 50,
-                      width: 300,
-                      verse: 'increment by 1 : $value',
-                      verseScaleFactor: 0.6,
-                      verseWeight: VerseWeight.black,
-                      onTap: _uiProvider.incrementCounter,
-                    );
-
-                },
-              ),
+              // /// AVOID SET STATE : WAY # 3
+              // Selector<UiProvider, int>(
+              //   selector: (_, UiProvider uiProvider) => uiProvider.theCounter,
+              //   builder: (BuildContext ctx, int value, Widget child){
+              //
+              //     return
+              //       DreamBox(
+              //         height: 50,
+              //         width: 300,
+              //         verse: 'increment by 1 : $value',
+              //         verseScaleFactor: 0.6,
+              //         verseWeight: VerseWeight.black,
+              //         onTap: _uiProvider.incrementCounter,
+              //       );
+              //
+              //   },
+              // ),
 
               /// Builder child pattern
               AnimatedBuilder(

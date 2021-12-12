@@ -60,11 +60,11 @@ class EnumLister extends StatelessWidget {
                   Shadowz.CustomBoxShadow(
                       color: Colorz.black230,
                       blurRadius: 30,
-                      blurStyle: BlurStyle.outer),
+                      style: BlurStyle.outer),
                   Shadowz.CustomBoxShadow(
                       color: Colorz.black230,
                       blurRadius: 30,
-                      blurStyle: BlurStyle.outer),
+                      style: BlurStyle.outer),
                 ]
             ),
 
