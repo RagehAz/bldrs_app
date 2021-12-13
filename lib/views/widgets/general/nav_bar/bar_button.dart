@@ -1,5 +1,7 @@
+import 'package:bldrs/helpers/drafters/aligners.dart';
 import 'package:bldrs/helpers/drafters/tracers.dart';
 import 'package:bldrs/helpers/theme/ratioz.dart';
+import 'package:bldrs/views/widgets/general/buttons/button_noti_counter.dart';
 import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
@@ -17,6 +19,8 @@ class BarButton extends StatelessWidget {
     this.barType = BarType.maxWithText,
     this.onTap,
     this.corners,
+    this.notiDotIsOn = false,
+    this.notiCount,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,6 +32,8 @@ class BarButton extends StatelessWidget {
   final Function onTap;
   final double width;
   final double corners;
+  final bool notiDotIsOn;
+  final int notiCount;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -59,44 +65,59 @@ class BarButton extends StatelessWidget {
           height: _buttonHeight,
           width: _buttonWidth,
           padding: const EdgeInsets.symmetric(horizontal: _paddings * 0.25),
-          child: Column(
+          child: Stack(
+            alignment: superInverseTopAlignment(context),
             children: <Widget>[
 
-              const SizedBox(
-                height: _paddings,
+              /// BUTTON
+              Column(
+                children: <Widget>[
+
+                  const SizedBox(
+                    height: _paddings,
+                  ),
+
+                  if (clipperWidget == null)
+                    DreamBox(
+                      width: _circleWidth,
+                      height: _circleWidth,
+                      icon: icon,
+                      iconSizeFactor: iconSizeFactor,
+                      corners: _buttonCircleCorner,
+                      onTap: onTap,
+                    ),
+
+                  if (clipperWidget != null)
+                    SizedBox(
+                        width: _circleWidth,
+                        height: _circleWidth,
+                        child: clipperWidget
+                    ),
+
+                  if (barType == BarType.maxWithText || barType == BarType.minWithText)
+                    Container(
+                      width: _buttonWidth,
+                      height: _textBoxHeight,
+                      // color: Colorz.YellowLingerie,
+                      alignment: Alignment.center,
+                      child: SuperVerse(
+                        verse: text,
+                        maxLines: 2,
+                        size: _textSize,
+                        weight: VerseWeight.thin,
+                        shadow: true,
+                        scaleFactor: _textScaleFactor,
+                      ),
+                    ),
+
+                ],
               ),
 
-              if (clipperWidget == null)
-              DreamBox(
-                width: _circleWidth,
-                height: _circleWidth,
-                icon: icon,
-                iconSizeFactor: iconSizeFactor,
-                corners: _buttonCircleCorner,
-                onTap: onTap,
-              ),
-
-              if (clipperWidget != null)
-              SizedBox(
-                width: _circleWidth,
-                  height: _circleWidth,
-                  child: clipperWidget
-              ),
-
-              if (barType == BarType.maxWithText || barType == BarType.minWithText)
-              Container(
-                width: _buttonWidth,
-                height: _textBoxHeight,
-                // color: Colorz.YellowLingerie,
-                alignment: Alignment.center,
-                child: SuperVerse(
-                  verse: text,
-                  maxLines: 2,
-                  size: _textSize,
-                  weight: VerseWeight.thin,
-                  shadow: true,
-                  scaleFactor: _textScaleFactor,
-                ),
+              /// RED DOT
+              if (notiDotIsOn == true)
+              ButtonNotiCounter(
+                buttonWidth: _buttonWidth,
+                count: notiCount,
               ),
 
             ],

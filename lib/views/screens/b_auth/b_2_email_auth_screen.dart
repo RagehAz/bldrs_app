@@ -5,17 +5,18 @@ import 'package:bldrs/views/widgets/specific/auth/register_form.dart';
 import 'package:bldrs/views/widgets/specific/auth/signin_form.dart';
 import 'package:flutter/material.dart';
 
-class AuthScreen extends StatefulWidget {
-
-  const AuthScreen({
+class EmailAuthScreen extends StatefulWidget {
+  /// --------------------------------------------------------------------------
+  const EmailAuthScreen({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
-  _AuthScreenState createState() => _AuthScreenState();
+  _EmailAuthScreenState createState() => _EmailAuthScreenState();
+  /// --------------------------------------------------------------------------
 }
 
-class _AuthScreenState extends State<AuthScreen> {
+class _EmailAuthScreenState extends State<EmailAuthScreen> {
   bool signingIn = true;
   String _email = '';
   String _password = '';
