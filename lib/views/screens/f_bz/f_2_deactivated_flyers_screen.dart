@@ -191,7 +191,6 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
   Widget build(BuildContext context) {
 
     // FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: true);
-    // List<TinyFlyer> _tinyFlyers = _prof.getSavedTinyFlyers;
     final List<String> _ids = FlyerModel.getFlyersIDsFromFlyers(_allFlyers);
     blog(_ids);
 

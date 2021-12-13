@@ -18,6 +18,7 @@ import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
 import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
+import 'package:bldrs/views/screens/b_auth/b_1_auth_screen.dart';
 import 'package:bldrs/views/screens/d_more/d_0_more_screen.dart';
 import 'package:bldrs/views/screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/views/screens/g_user/g_0_profile_screen.dart';
@@ -190,7 +191,7 @@ class NavBar extends StatelessWidget {
     barType == BarType.max || barType == BarType.maxWithText ? 0 : 0;
     return _bottomOffset;
   }
-
+// -----------------------------------------------------------------------------
   double _myBzzListSlideHeight(BuildContext context, List<BzModel> myBzz){
     final double _wantedHeight = Scale.superScreenWidth(context) * 0.3 * myBzz.length;
     final double _maxHeight = Scale.superScreenHeight(context) * 0.5;
@@ -423,15 +424,15 @@ class NavBar extends StatelessWidget {
                         /// NEWS
                         if (FireAuthOps.userIsSignedIn() == true)
                           BarButton(
-                          width: navBarButtonWidth,
-                          text: Wordz.news(context),
-                          icon: Iconz.news,
-                          iconSizeFactor: 0.45,
-                          barType: barType,
-                          onTap: () {
-                            Nav.goToNewScreen(context, const NotificationsScreen());
-                          },
-                        ),
+                            width: navBarButtonWidth,
+                            text: Wordz.news(context),
+                            icon: Iconz.news,
+                            iconSizeFactor: 0.45,
+                            barType: barType,
+                            onTap: () {
+                              Nav.goToNewScreen(context, const NotificationsScreen());
+                              },
+                          ),
 
                         _spacer,
 
@@ -458,8 +459,9 @@ class NavBar extends StatelessWidget {
                             icon: Iconz.normalUser,
                             iconSizeFactor: 0.45,
                             barType: barType,
+                            notiDotIsOn: true,
                             onTap: () {
-                              Nav.goToNewScreen(context, const NotificationsScreen());
+                              Nav.goToNewScreen(context, const AuthScreen());
                             },
                           ),
 
