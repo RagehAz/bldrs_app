@@ -1,8 +1,8 @@
-import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/views/widgets/general/layouts/testing_layout.dart';
-import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/testing_layout.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_text_field.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/xxx_lab/cleaning_space.dart';
 import 'package:flutter/material.dart';
 
@@ -14,12 +14,10 @@ class TrigramTest extends StatefulWidget {
 }
 
 class _TrigramTestState extends State<TrigramTest> {
-
   final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -40,79 +38,70 @@ class _TrigramTestState extends State<TrigramTest> {
 
   @override
   Widget build(BuildContext context) {
-
     final double _screenWidth = Scale.superScreenWidth(context);
 
     return TestingLayout(
-        screenTitle: 'Trigram Test',
-        appbarButtonVerse: null,
-        appbarButtonOnTap: null,
-        listViewWidgets: <Widget>[
-
-          /// TEXT FIELD
-          Container(
+      screenTitle: 'Trigram Test',
+      appbarButtonVerse: null,
+      appbarButtonOnTap: null,
+      listViewWidgets: <Widget>[
+        /// TEXT FIELD
+        Container(
+          width: 400,
+          height: 70,
+          alignment: Alignment.center,
+          color: Colorz.blue80,
+          child: SuperTextField(
             width: 400,
             height: 70,
-            alignment: Alignment.center,
-            color: Colorz.blue80,
-            child: SuperTextField(
-              width: 400,
-              height: 70,
-              textController: _controller,
-              hintText: 'user name ...',
-              keyboardTextInputType: TextInputType.multiline,
-              maxLength: 20,
-              maxLines: 1,
-              fieldIsFormField: true,
-              keyboardTextInputAction: TextInputAction.search,
-              onChanged: (String val){
+            textController: _controller,
+            hintText: 'user name ...',
+            keyboardTextInputType: TextInputType.multiline,
+            maxLength: 20,
+            maxLines: 1,
+            fieldIsFormField: true,
+            keyboardTextInputAction: TextInputAction.search,
+            onChanged: (String val) {
+              // List<String> _trigram = TextGen.createTrigram(
+              //   input: val,
+              // );
 
-                // List<String> _trigram = TextGen.createTrigram(
-                //   input: val,
-                // );
+              final List<String> _trigram = generateStringPermutations(val);
 
-                final List<String> _trigram = generateStringPermutations(val);
-
-                setState(() {
-                  _result = _trigram;
-                });
-
-              },
-            ),
+              setState(() {
+                _result = _trigram;
+              });
+            },
           ),
+        ),
 
-          /// TRIGRAMS
-          Container(
-            width: _screenWidth,
-            height: 220,
-            color: Colorz.bloodTest,
-            child: Center(
-
-              child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: _result.length,
-                  padding: const EdgeInsets.all(5),
-                  itemBuilder: (BuildContext ctx, int index){
-                    final String _tri = _result[index];
-                    return
-                      SuperVerse(
-                        verse: '$index : $_tri',
-                        color: Colorz.black255,
-                        centered: false,
-                      );
-
-                  }
-              ),
-            ),
+        /// TRIGRAMS
+        Container(
+          width: _screenWidth,
+          height: 220,
+          color: Colorz.bloodTest,
+          child: Center(
+            child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: _result.length,
+                padding: const EdgeInsets.all(5),
+                itemBuilder: (BuildContext ctx, int index) {
+                  final String _tri = _result[index];
+                  return SuperVerse(
+                    verse: '$index : $_tri',
+                    color: Colorz.black255,
+                    centered: false,
+                  );
+                }),
           ),
+        ),
 
-          /// NUMBER OF TRIGRAMS
-          SuperVerse(
-            verse: 'tirgram has : ${_result.length} entries',
-            labelColor: Colorz.blue125,
-            margin: 10,
-          ),
-
+        /// NUMBER OF TRIGRAMS
+        SuperVerse(
+          verse: 'tirgram has : ${_result.length} entries',
+          labelColor: Colorz.blue125,
+          margin: 10,
+        ),
       ],
     );
   }

@@ -1,10 +1,9 @@
-import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/helpers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/xxx_lab/ask/question/ask_bubble.dart';
 import 'package:flutter/material.dart';
-
 
 class QuestionScreen extends StatefulWidget {
   const QuestionScreen({Key key}) : super(key: key);
@@ -14,7 +13,6 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -24,18 +22,15 @@ class _QuestionScreenState extends State<QuestionScreen> {
       pageTitle: 'Ask a Question',
       // onBack: true,
       layoutWidget: ListView(
-
         children: <Widget>[
-
           const Stratosphere(),
-
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-
               /// INSTRUCTIONS
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
+                padding:
+                    EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
                 child: SuperVerse(
                   verse: 'Ask the Builders in your city.',
                 ),
@@ -62,12 +57,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
               /// ASK BUBBLE
               QuestionBubble(
-                tappingAskInfo: () {blog('Ask info is tapped aho');},
+                tappingAskInfo: () {
+                  blog('Ask info is tapped aho');
+                },
               ),
-
             ],
           ),
-
         ],
       ),
     );

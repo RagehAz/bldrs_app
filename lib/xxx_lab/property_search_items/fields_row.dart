@@ -1,7 +1,7 @@
-import 'package:bldrs/helpers/drafters/shadowers.dart' as Shadowz;
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/helpers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class FieldsRow extends StatelessWidget {
@@ -12,14 +12,15 @@ class FieldsRow extends StatelessWidget {
     @required this.title,
     Key key,
   }) : super(key: key);
+
   /// --------------------------------------------------------------------------
   final Function openList;
   final List<String> fields;
   final String title;
+
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
     final double _screenWidth = MediaQuery.of(context).size.width;
 
     const double _boxHeight = 35;
@@ -35,10 +36,10 @@ class FieldsRow extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-
         /// --- FIELDS TITLE
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: _buttonSpacing * 2, vertical: _buttonSpacing * 0.5),
+          padding: const EdgeInsets.symmetric(
+              horizontal: _buttonSpacing * 2, vertical: _buttonSpacing * 0.5),
           child: SuperVerse(
             verse: title,
             margin: 0,
@@ -63,34 +64,25 @@ class FieldsRow extends StatelessWidget {
                     Shadowz.CustomBoxShadow(
                         color: Colorz.black200,
                         blurRadius: _boxHeight * 0.15,
-                        style: BlurStyle.outer
-                    ),
-                  ]
-              ),
+                        style: BlurStyle.outer),
+                  ]),
               child: Padding(
                 padding: const EdgeInsets.all(_buttonSpacing),
                 child: Wrap(
                     alignment: WrapAlignment.center,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     runAlignment: WrapAlignment.center,
-                    children:
-                    List<Widget>.generate(
-                        fields.length,
-                            (int index) {
-                          return
-                            SuperVerse(
-                              verse: fields[index],
-                              labelColor: Colorz.white50,
-                              margin: _boxHeight * 0 ,
-                            );
-                        }
-                  )
-                ),
+                    children: List<Widget>.generate(fields.length, (int index) {
+                      return SuperVerse(
+                        verse: fields[index],
+                        labelColor: Colorz.white50,
+                        margin: _boxHeight * 0,
+                      );
+                    })),
               ),
             ),
           ),
         ),
-
       ],
     );
   }

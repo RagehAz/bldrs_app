@@ -1,57 +1,53 @@
 import 'dart:async';
 
-import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/models/flyer/flyer_model.dart';
-import 'package:bldrs/models/kw/chain/chain.dart';
-import 'package:bldrs/models/kw/chain/chain_properties.dart';
-import 'package:bldrs/models/kw/kw.dart';
-import 'package:bldrs/providers/keywords_provider.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/views/widgets/specific/flyer/final_flyer.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/kw/chain/chain.dart';
+import 'package:bldrs/a_models/kw/chain/chain_properties.dart';
+import 'package:bldrs/a_models/kw/kw.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
+import 'package:bldrs/d_providers/keywords_provider.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class NewLayout extends StatefulWidget {
   const NewLayout({Key key}) : super(key: key);
 
-
   @override
   _NewLayoutState createState() => _NewLayoutState();
 }
 
-class _NewLayoutState extends State<NewLayout> with SingleTickerProviderStateMixin{
-
+class _NewLayoutState extends State<NewLayout>
+    with SingleTickerProviderStateMixin {
   // ScrollController _scrollController;
   AnimationController _animationController;
 
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  Future <void> _triggerLoading({Function function}) async {
-
-    if(mounted){
-
-      if (function == null){
+  Future<void> _triggerLoading({Function function}) async {
+    if (mounted) {
+      if (function == null) {
         setState(() {
           _loading = !_loading;
         });
-      }
-
-      else {
+      } else {
         setState(() {
           _loading = !_loading;
           function();
         });
       }
-
     }
 
-    _loading == true?
-    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
+    _loading == true
+        ? blog('LOADING--------------------------------------')
+        : blog('LOADING COMPLETE--------------------------------------');
   }
+
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -64,29 +60,23 @@ class _NewLayoutState extends State<NewLayout> with SingleTickerProviderStateMix
 
     super.initState();
   }
+
 // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _triggerLoading().then((_) async{
-
+      _triggerLoading().then((_) async {
         /// do Futures here
-        unawaited(
-            _triggerLoading(
-                function: (){
-                  /// set new values here
-                }
-            )
-        );
-
+        unawaited(_triggerLoading(function: () {
+          /// set new values here
+        }));
       });
-
-
     }
     _isInit = false;
     super.didChangeDependencies();
   }
+
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
@@ -105,18 +95,17 @@ class _NewLayoutState extends State<NewLayout> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight =
+        Scale.superScreenHeightWithoutSafeArea(context);
 // -----------------------------------------------------------------------------
 
     const double _barHeight = 80;
-    final double _bodyHeight =
-        _screenHeight
-            // - Ratioz.stratosphere
-            - _barHeight
-    ;
+    final double _bodyHeight = _screenHeight
+        // - Ratioz.stratosphere
+        -
+        _barHeight;
 
     // double _gWidth = _screenWidth * 0.4;
     // double _gHeight = _screenWidth * 0.6;
@@ -125,21 +114,20 @@ class _NewLayoutState extends State<NewLayout> with SingleTickerProviderStateMix
 
     const Chain _chain = ChainProperties.chain;
 
-    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+    final KeywordsProvider _keywordsProvider =
+        Provider.of<KeywordsProvider>(context, listen: false);
 
     return MainLayout(
       appBarType: AppBarType.non,
       pyramids: Iconz.dvBlankSVG,
       loading: _loading,
-      appBarRowWidgets: const<Widget>[],
-
+      appBarRowWidgets: const <Widget>[],
       layoutWidget: Container(
         width: _screenWidth,
         height: _screenHeight,
         color: Colorz.bloodTest,
         child: Column(
           children: <Widget>[
-
             // /// STRATOSPHERE
             // Container(
             //   width: _screenWidth,
@@ -154,7 +142,7 @@ class _NewLayoutState extends State<NewLayout> with SingleTickerProviderStateMix
               child: FinalFlyer(
                 flyerBoxWidth: _screenWidth,
                 flyerModel: FlyerModel.dummyFlyer(),
-                onSwipeFlyer: (){},
+                onSwipeFlyer: () {},
               ),
             ),
 
@@ -168,29 +156,21 @@ class _NewLayoutState extends State<NewLayout> with SingleTickerProviderStateMix
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
                   itemExtent: _barHeight,
-                  itemBuilder: (ctx, index){
-
+                  itemBuilder: (ctx, index) {
                     final KW _keyword = _chain.sons[index];
 
-
-                    return
-                        DreamBox(
-                          height: _barHeight - 10,
-                          width: _barHeight - 10,
-                          icon: _keywordsProvider.getIcon(son: _keyword, context: context),
-                          margins: 5,
-                        );
-
-                  }
-              ),
+                    return DreamBox(
+                      height: _barHeight - 10,
+                      width: _barHeight - 10,
+                      icon: _keywordsProvider.getIcon(
+                          son: _keyword, context: context),
+                      margins: 5,
+                    );
+                  }),
             ),
-
           ],
         ),
-
       ),
     );
   }
-
-
 }

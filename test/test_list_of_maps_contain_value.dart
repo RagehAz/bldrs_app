@@ -1,107 +1,91 @@
 import 'dart:ui';
 
-import 'package:bldrs/helpers/drafters/colorizers.dart' as Colorizer;
-import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/helpers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-void main(){
-
+void main() {
   final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
     <String, dynamic>{
-      'id' : 'a',
-      'name' : 'Ahmad',
+      'id': 'a',
+      'name': 'Ahmad',
     },
     <String, dynamic>{
-      'id' : 'b',
-      'name' : 'meshmesh',
+      'id': 'b',
+      'name': 'meshmesh',
     },
   ];
 
-  test('test : list of maps contains', (){
-
+  test('test : list of maps contains', () {
     // setup
 
     // run
 
     // verify
-
   });
 
 // -----------------------------------------------------------------------------
-  test('correct input id = a', (){
-
+  test('correct input id = a', () {
     final bool _result = Mapper.listOfMapsContainValue(
       listOfMaps: _listOfMaps,
       field: 'id',
       value: 'a',
     );
     expect(_result, true);
-
   });
 // -----------------------------------------------------------------------------
-  test('in-correct input id = c', (){
-
+  test('in-correct input id = c', () {
     final bool _result = Mapper.listOfMapsContainValue(
       listOfMaps: _listOfMaps,
       field: 'id',
       value: 'c',
     );
     expect(_result, false);
-
   });
 // -----------------------------------------------------------------------------
-  test('in-correct input id = null', (){
-
+  test('in-correct input id = null', () {
     final bool _result = Mapper.listOfMapsContainValue(
       listOfMaps: _listOfMaps,
       field: 'id',
       value: null,
     );
     expect(_result, false);
-
   });
 // -----------------------------------------------------------------------------
-  test('in-correct field = koko, input = toto', (){
-
+  test('in-correct field = koko, input = toto', () {
     final bool _result = Mapper.listOfMapsContainValue(
       listOfMaps: _listOfMaps,
       field: 'koko',
       value: 'toto',
     );
     expect(_result, false);
-
   });
 // -----------------------------------------------------------------------------
 
-  final List<int> _numbers = <int>[0,1,2,3,4,5,6,7,8];
+  final List<int> _numbers = <int>[0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-  test('createUniqueIntFrom', (){
-
+  test('createUniqueIntFrom', () {
     bool _allLoopsAreGood;
 
-    for (int i = 0; i <= 1000; i++){
-      final int _uniqueVal = Numeric.createUniqueIndex(existingIndexes: _numbers);
+    for (int i = 0; i <= 1000; i++) {
+      final int _uniqueVal =
+          Numeric.createUniqueIndex(existingIndexes: _numbers);
 
-      if (_numbers.contains(_uniqueVal)){
+      if (_numbers.contains(_uniqueVal)) {
         _allLoopsAreGood = false;
         break;
+      } else {
+        _numbers.add(_uniqueVal);
+        _allLoopsAreGood = true;
       }
-
-      else{
-      _numbers.add(_uniqueVal);
-      _allLoopsAreGood = true;
-      }
-
     }
 
     expect(_allLoopsAreGood, true);
-
   });
 // -----------------------------------------------------------------------------
-  test('cipher and decipher color', (){
-
+  test('cipher and decipher color', () {
     const Color _color = Color.fromARGB(76, 54, 32, 10);
 
     final String _ciphered = Colorizer.cipherColor(_color);
@@ -145,7 +129,5 @@ void main(){
     blog('_deciphered.toString() : ${_deciphered.toString()}');
 
     expect(_expectedString, _decipheredToString);
-
   });
-
 }

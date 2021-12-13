@@ -1,5 +1,5 @@
-import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class QuestionsScreen extends StatefulWidget {
@@ -10,7 +10,6 @@ class QuestionsScreen extends StatefulWidget {
 }
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
-
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   final bool _loading = false;
@@ -36,12 +35,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   @override
   void initState() {
     super.initState();
-    // TODO: implement initState
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
   }
 
@@ -55,9 +52,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       appBarType: AppBarType.basic,
       layoutWidget: Column(
         children: const <Widget>[
-
           Stratosphere(),
-
         ],
       ),
     );
