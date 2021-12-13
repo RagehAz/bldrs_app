@@ -11,8 +11,8 @@ import 'package:bldrs/helpers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/zone_provider.dart';
-import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
-import 'package:bldrs/views/screens/a_starters/a_3_auth_screen.dart';
+import 'package:bldrs/views/screens/b_auth/b_2_email_auth_screen.dart';
+import 'package:bldrs/views/screens/zebala/a_0_user_checker_widget.dart';
 import 'package:bldrs/views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/views/widgets/general/buttons/main_button.dart';
 import 'package:bldrs/views/widgets/general/dialogs/dialogz.dart' as Dialogz;
@@ -21,19 +21,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
-class StartingScreen extends StatefulWidget {
-
-  const StartingScreen({
+class AuthScreen extends StatefulWidget {
+  /// --------------------------------------------------------------------------
+  const AuthScreen({
     Key key
   }) : super(key: key);
-
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   @override
-  _StartingScreenState createState() => _StartingScreenState();
+  _AuthScreenState createState() => _AuthScreenState();
+  /// --------------------------------------------------------------------------
 }
 
-class _StartingScreenState extends State<StartingScreen> {
-/// TASK : should fetch user current location automatically and suggest them here
+class _AuthScreenState extends State<AuthScreen> {
+
 //   final Zone currentZone = Zone(countryID: '', cityID: '', districtID: '');
   ZoneProvider _zoneProvider;
   ZoneModel _currentZone;
@@ -191,7 +191,7 @@ class _StartingScreenState extends State<StartingScreen> {
                 buttonIcon: Iconz.comEmail,
                 buttonColor: Colorz.white10,
                 buttonVerseShadow: false,
-                function: () => Nav.goToNewScreen(context, const AuthScreen()),
+                function: () => Nav.goToNewScreen(context, const EmailAuthScreen()),
               ),
 
             ],

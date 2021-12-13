@@ -1,4 +1,21 @@
 // typedef ValuesChanged<T, E> = void Function(T value, E valueTwo);
+
+/*
+seif Questions
+
+- stage prototype
+- when did i start what exactly ?
+- app URLs
+- mesh 3arf a valuate el company,, dont know exactly how much I want
+
+- brother and sister in shares,, and the team details
+
+- do I need to be incorporated ?
+
+
+*/
+
+
 /*
 added keywordID : pt_factory
 added keywordID : pt_school

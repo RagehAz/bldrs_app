@@ -1,11 +1,11 @@
 import 'package:bldrs/helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/helpers/router/route_names.dart';
-import 'package:bldrs/views/screens/a_starters/a_0_user_checker_widget.dart';
-import 'package:bldrs/views/screens/a_starters/a_2_starting_screen.dart';
+import 'package:bldrs/views/screens/b_auth/b_1_auth_screen.dart';
 import 'package:bldrs/views/screens/c_search/c_0_search_screen.dart';
 import 'package:bldrs/views/screens/e_saves/e_0_saved_flyers_screen.dart';
 import 'package:bldrs/views/screens/h_notifications/g_1_notifications_screen.dart';
 import 'package:bldrs/views/screens/i_flyer/h_0_flyer_screen.dart';
+import 'package:bldrs/views/screens/zebala/a_0_user_checker_widget.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/xxx_obelisk.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +24,7 @@ import 'package:flutter/material.dart';
     /// s01
     /// (s02 signin page, s03 register page) are pages insides StartingScreen();
       case Routez.starting:
-        return Nav.fadeToScreen(const StartingScreen(), settings); break;
+        return Nav.fadeToScreen(const AuthScreen(), settings); break;
 // -----------------------------------------------------------------------------
 //     /// s10
 //       case Routez.Home:
