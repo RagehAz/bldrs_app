@@ -1,7 +1,7 @@
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_lab/ask/quest/quests_list.dart';
 import 'package:bldrs/xxx_lab/ask/question/questions_provider.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +12,8 @@ class QuesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final QuestionsProvider questionsProvider = Provider.of<QuestionsProvider>(context);
+    final QuestionsProvider questionsProvider =
+        Provider.of<QuestionsProvider>(context);
 
     return MainLayout(
       pyramids: Iconz.pyramidsGlass,
@@ -25,9 +25,7 @@ class QuesScreen extends StatelessWidget {
           margin: 5,
           size: 4,
         ),
-
       ],
-
       layoutWidget: QuestList(questions: questionsProvider.getQuestionsList()),
     );
   }

@@ -1,5 +1,5 @@
-import 'package:bldrs/db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/xxx_lab/ask/chat/chat_model.dart';
 import 'package:flutter/material.dart';
 
@@ -21,59 +21,66 @@ import 'package:flutter/material.dart';
 //         );
 //   }
 // -----------------------------------------------------------------------------
-  /// create
-  Future<void> createChatOps({@required BuildContext context, @required ChatModel chatModel, @required String questionID}) async {
+/// create
+Future<void> createChatOps(
+    {@required BuildContext context,
+    @required ChatModel chatModel,
+    @required String questionID}) async {
+  await Fire.createSubDoc(
+    context: context,
+    collName: FireColl.questions,
+    docName: questionID,
+    subCollName: chatModel.bzID,
+    input: chatModel.toMap(toJSON: false),
+  );
+}
 
-    await Fire.createSubDoc(
-      context: context,
-      collName: FireColl.questions,
-      docName: questionID,
-      subCollName: chatModel.bzID,
-      input: chatModel.toMap(toJSON: false),
-    );
-
-  }
 // -----------------------------------------------------------------------------
-  /// read
-  Future<ChatModel> readChatOps({@required BuildContext context, @required String bzID, @required String questionID}) async {
+/// read
+Future<ChatModel> readChatOps(
+    {@required BuildContext context,
+    @required String bzID,
+    @required String questionID}) async {
+  final dynamic _chatMap = await Fire.readSubDoc(
+    context: context,
+    collName: FireColl.questions,
+    docName: questionID,
+    subCollName: FireSubColl.questions_question_chats,
+    subDocName: bzID,
+  );
 
-    final dynamic _chatMap = await Fire.readSubDoc(
-      context: context,
-      collName: FireColl.questions,
-      docName: questionID,
-      subCollName: FireSubColl.questions_question_chats,
-      subDocName: bzID,
-    );
+  final ChatModel _chat =
+      ChatModel.decipherChatMap(map: _chatMap, fromJSON: false);
 
-    final ChatModel _chat = ChatModel.decipherChatMap(map: _chatMap, fromJSON: false);
+  return _chat;
+}
 
-    return _chat;
-  }
 // -----------------------------------------------------------------------------
-  /// edit
-  Future<void> updateChatOps({@required BuildContext context, @required ChatModel updatedChat, @required String questionID}) async {
+/// edit
+Future<void> updateChatOps(
+    {@required BuildContext context,
+    @required ChatModel updatedChat,
+    @required String questionID}) async {
+  await Fire.updateSubDoc(
+    context: context,
+    collName: FireColl.questions,
+    docName: questionID,
+    subCollName: FireSubColl.questions_question_chats,
+    subDocName: updatedChat.bzID,
+    input: updatedChat.toMap(toJSON: false),
+  );
+}
 
-    await Fire.updateSubDoc(
-      context: context,
-      collName: FireColl.questions,
-      docName: questionID,
-      subCollName: FireSubColl.questions_question_chats,
-      subDocName: updatedChat.bzID,
-      input: updatedChat.toMap(toJSON: false),
-    );
-
-  }
 // -----------------------------------------------------------------------------
-  /// delete
-  Future<void> deleteChatOps({BuildContext context, String bzID, String questionID}) async {
-
-    await Fire.deleteSubDoc(
-      context: context,
-      collName: FireColl.questions,
-      docName: questionID,
-      subCollName: FireSubColl.questions_question_chats,
-      subDocName: bzID,
-    );
-
-  }
+/// delete
+Future<void> deleteChatOps(
+    {BuildContext context, String bzID, String questionID}) async {
+  await Fire.deleteSubDoc(
+    context: context,
+    collName: FireColl.questions,
+    docName: questionID,
+    subCollName: FireSubColl.questions_question_chats,
+    subDocName: bzID,
+  );
+}
 // -----------------------------------------------------------------------------

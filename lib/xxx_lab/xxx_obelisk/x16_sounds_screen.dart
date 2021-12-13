@@ -2,8 +2,8 @@
 // // import 'package:audioplayers/audioplayers.dart';
 // import 'package:bldrs/view_brains/theme/iconz.dart';
 // import 'package:bldrs/view_brains/theme/soundz.dart';
-// import 'package:bldrs/views/widgets/buttons/dream_box.dart';
-// import 'package:bldrs/views/widgets/layouts/main_layout.dart';
+// import 'package:bldrs/b_views/widgets/buttons/dream_box.dart';
+// import 'package:bldrs/b_views/widgets/layouts/main_layout.dart';
 // import 'package:flutter/material.dart';
 //
 // typedef void OnError(Exception exception);

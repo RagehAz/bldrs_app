@@ -1,23 +1,24 @@
-import 'package:bldrs/dashboard/dashboard.dart';
-import 'package:bldrs/dashboard/ldb_manager/providers_test.dart';
-import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/db/ldb/sembast/sembast_test_screen.dart';
-import 'package:bldrs/helpers/notifications/test_screens/awesome_noti_test_screen.dart';
-import 'package:bldrs/helpers/notifications/test_screens/fcm_tet_screen.dart';
-import 'package:bldrs/helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/helpers/theme/ratioz.dart';
-import 'package:bldrs/models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
-import 'package:bldrs/models/kw/specs/spec_model.dart';
-import 'package:bldrs/views/screens/i_flyer/flyer_maker_screen.dart/specs_lists_pickers_screen.dart';
-import 'package:bldrs/views/screens/zebala/a_0_user_checker_widget.dart';
-import 'package:bldrs/views/widgets/general/artworks/bldrs_name.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/buttons/obelisk_button.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
-import 'package:bldrs/views/widgets/general/textings/the_golden_scroll.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart'
+    as FlyerTypeClass;
+import 'package:bldrs/a_models/kw/specs/spec_model.dart';
+import 'package:bldrs/b_views/screens/i_flyer/flyer_maker_screen.dart/specs_lists_pickers_screen.dart';
+import 'package:bldrs/b_views/screens/zebala/a_0_user_checker_widget.dart';
+import 'package:bldrs/b_views/widgets/general/artworks/bldrs_name.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/obelisk_button.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/widgets/general/textings/the_golden_scroll.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/ldb/sembast/sembast_test_screen.dart';
+import 'package:bldrs/f_helpers/notifications/test_screens/awesome_noti_test_screen.dart';
+import 'package:bldrs/f_helpers/notifications/test_screens/fcm_tet_screen.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/xxx_dashboard/dashboard.dart';
+import 'package:bldrs/xxx_dashboard/ldb_manager/providers_test.dart';
 import 'package:bldrs/xxx_lab/animations/animations_screen.dart';
 import 'package:bldrs/xxx_lab/animations/black_hole.dart';
 import 'package:bldrs/xxx_lab/new_layout.dart';
@@ -41,15 +42,18 @@ class ObeliskScreen extends StatefulWidget {
     this.controller,
     Key key,
   }) : super(key: key);
+
   /// --------------------------------------------------------------------------
   final PageController controller;
+
   /// --------------------------------------------------------------------------
   @override
   _ObeliskScreenState createState() => _ObeliskScreenState();
+
   /// --------------------------------------------------------------------------
 }
 
-class _ObeliskScreenState extends State<ObeliskScreen>{
+class _ObeliskScreenState extends State<ObeliskScreen> {
   bool _isSignedIn;
 // -----------------------------------------------------------------------------
   @override
@@ -58,30 +62,31 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
     _isSignedIn = _isSignedInCheck();
   }
+
 // ---------------------------------------------------------------------------
   @override
   void dispose() {
     super.dispose();
   }
+
 // ---------------------------------------------------------------------------
-  bool _isSignedInCheck(){
+  bool _isSignedInCheck() {
     bool _isSignedIn;
 
     final User _firebaseUser = FireAuthOps.superFirebaseUser();
 
-    if (_firebaseUser == null){
+    if (_firebaseUser == null) {
       _isSignedIn = false;
-    }
-    else {
+    } else {
       _isSignedIn = true;
     }
 
     return _isSignedIn;
   }
+
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
     final User _firebaseUser = FireAuthOps.superFirebaseUser();
 
 // ---------------------------------------------------------------------------
@@ -89,7 +94,6 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
       pyramids: Iconz.pyramidsCrystal,
       appBarType: AppBarType.basic,
       appBarRowWidgets: <Widget>[
-
         /// IS SIGNED IN ?
         DreamBox(
           height: Ratioz.appBarButtonSize,
@@ -97,26 +101,23 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
           color: _isSignedIn ? Colorz.green255 : Colorz.grey80,
           verseScaleFactor: 0.6,
           verseColor: _isSignedIn ? Colorz.white255 : Colorz.darkGrey255,
-          onTap: () => FireAuthOps.signOut(context: context, routeToUserChecker: true),
+          onTap: () =>
+              FireAuthOps.signOut(context: context, routeToUserChecker: true),
         ),
 
         /// SPACER
         const Expander(),
 
-        BldrsButton(
-          onTap: () => Nav.goToNewScreen(context, const DashBoard())
-        ),
-
+        BldrsButton(onTap: () => Nav.goToNewScreen(context, const DashBoard())),
       ],
-
       layoutWidget: ListView(
         physics: const BouncingScrollPhysics(),
         children: <Widget>[
-
           const Stratosphere(),
 
           const SuperVerse(
-            verse: 'Dear Lord\nPlease Bless this project to be in good use for humanity',
+            verse:
+                'Dear Lord\nPlease Bless this project to be in good use for humanity',
             size: 1,
             italic: true,
             weight: VerseWeight.thin,
@@ -129,37 +130,47 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           const ObeliskButton('TEST LAB', Iconz.flyer, TestLab()),
 
-          const ObeliskButton('Specs Selector', Iconz.flyer, SpecsListsPickersScreen(
-            flyerType: FlyerTypeClass.FlyerType.design,
-            selectedSpecs: <Spec>[],
-          )),
+          const ObeliskButton(
+              'Specs Selector',
+              Iconz.flyer,
+              SpecsListsPickersScreen(
+                flyerType: FlyerTypeClass.FlyerType.design,
+                selectedSpecs: <Spec>[],
+              )),
 
-          const ObeliskButton('Google map Test screen', Iconz.flyer, LocationsTestScreen()),
+          const ObeliskButton(
+              'Google map Test screen', Iconz.flyer, LocationsTestScreen()),
 
-          const ObeliskButton('Expansion Tiles Test', Iconz.flyer, ExpansionTilesTest()),
+          const ObeliskButton(
+              'Expansion Tiles Test', Iconz.flyer, ExpansionTilesTest()),
 
-          const ObeliskButton('Providers Test', Iconz.terms, ProvidersTestScreen()),
+          const ObeliskButton(
+              'Providers Test', Iconz.terms, ProvidersTestScreen()),
 
           const ObeliskButton('TimersTest', Iconz.clock, TimerTest()),
 
           const ObeliskButton('Trigram Test', Iconz.more, TrigramTest()),
 
-          const ObeliskButton('Cloud Functions', Iconz.gears, CloudFunctionsTest()),
+          const ObeliskButton(
+              'Cloud Functions', Iconz.gears, CloudFunctionsTest()),
 
-          const ObeliskButton('Sembast Screen', Iconz.dvGouran, SembastTestScreen()),
+          const ObeliskButton(
+              'Sembast Screen', Iconz.dvGouran, SembastTestScreen()),
 
           const ObeliskButton('Notification test', Iconz.news, FCMTestScreen()),
 
-          const ObeliskButton('Awesome Notification test', Iconz.news, AwesomeNotiTestScreen()),
-
+          const ObeliskButton(
+              'Awesome Notification test', Iconz.news, AwesomeNotiTestScreen()),
 
           // ObeliskButton('HERO TEST', Iconz.DvDonaldDuck, HeroMinScreen()),
 
           const ObeliskButton('go to user checker', Iconz.flyer, UserChecker()),
 
-          const ObeliskButton('Slider Test Screen', Iconz.flyer, SliderTestScreen()),
+          const ObeliskButton(
+              'Slider Test Screen', Iconz.flyer, SliderTestScreen()),
 
-          const ObeliskButton('Dialog Test', Iconz.more, DialogTestScreen(), color: Colorz.bloodTest),
+          const ObeliskButton('Dialog Test', Iconz.more, DialogTestScreen(),
+              color: Colorz.bloodTest),
 
           const ObeliskButton('10 - Font lab', Iconz.language, FontLab()),
 
@@ -175,9 +186,11 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
 
           // ObeliskButton('30 - Google Maps - text box canvas', Iconz.ComMap, GoogleMapScreen4()),
 
-          const ObeliskButton('36 - Animations Screen', Iconz.dvDonaldDuck, AnimationsScreen()),
+          const ObeliskButton(
+              '36 - Animations Screen', Iconz.dvDonaldDuck, AnimationsScreen()),
 
-          const ObeliskButton('BLACK HOLE', Iconz.dvBlackHole, BlackHoleScreen()),
+          const ObeliskButton(
+              'BLACK HOLE', Iconz.dvBlackHole, BlackHoleScreen()),
 
           /// --- BLDRS DEVELOPMENT SCROLLS --------------------------------
           Column(
@@ -209,17 +222,15 @@ class _ObeliskScreenState extends State<ObeliskScreen>{
                     'git remote add origin https://github.com/RagehAz/bldrs.net \n'
                     'git push -u origin master',
               ),
-
               GoldenScroll(
-                  scrollTitle: 'my ID',
-                  scrollScript: '${_firebaseUser?.displayName} : ${_firebaseUser?.uid}',
+                scrollTitle: 'my ID',
+                scrollScript:
+                    '${_firebaseUser?.displayName} : ${_firebaseUser?.uid}',
               ),
-
             ],
           ),
 
           const PyramidsHorizon(),
-
         ],
       ),
     );

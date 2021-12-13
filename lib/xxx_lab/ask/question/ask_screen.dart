@@ -1,15 +1,15 @@
-import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/xxx_lab/ask/enum_lister/enum_lister.dart';
 import 'package:bldrs/xxx_lab/ask/quest/quests_screen.dart';
 import 'package:bldrs/xxx_lab/ask/question/ask_bubble.dart';
 import 'package:flutter/material.dart';
 
 const Map<String, Object> bzTypesMap = <String, dynamic>{
-  'Title' : 'Business Types',
-  'Strings' : <String>[
+  'Title': 'Business Types',
+  'Strings': <String>[
     'developers',
     'brokers',
     'designers',
@@ -18,7 +18,7 @@ const Map<String, Object> bzTypesMap = <String, dynamic>{
     'manufacturers',
     'suppliers',
   ],
-  'Triggers' : <bool>[false, false, false, false, false, false, false],
+  'Triggers': <bool>[false, false, false, false, false, false, false],
 };
 
 class OldAskScreen extends StatefulWidget {
@@ -29,14 +29,13 @@ class OldAskScreen extends StatefulWidget {
 }
 
 class _OldAskScreenState extends State<OldAskScreen> {
-
   bool enumListerIsOn = false;
 
   String enumListTitle = '';
   List<String> enumListerStrings = <String>[''];
   List<bool> enumListerTriggers = <bool>[false];
 
-  void _openEnumLister(Map<String,Object> passedMap){
+  void _openEnumLister(Map<String, Object> passedMap) {
     setState(() {
       enumListTitle = passedMap['Title'];
       enumListerStrings = passedMap['Strings'];
@@ -45,7 +44,7 @@ class _OldAskScreenState extends State<OldAskScreen> {
     });
   }
 
-  void _closeEnumLister(){
+  void _closeEnumLister() {
     setState(() {
       enumListerIsOn = false;
     });
@@ -53,72 +52,56 @@ class _OldAskScreenState extends State<OldAskScreen> {
 
   void _triggerTile(int index) {
     setState(() {
-
       // List<bool>  updatedTriggersList = listData['Triggers'];
-      enumListerTriggers[index] == false ?
-      enumListerTriggers[index] = true :
-      enumListerTriggers[index] = false;
+      enumListerTriggers[index] == false
+          ? enumListerTriggers[index] = true
+          : enumListerTriggers[index] = false;
 
       // listData['Triggers'] = updatedTriggersList;
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return MainLayout(
-
       layoutWidget: Stack(
-
         children: <Widget>[
-
           CustomScrollView(
             slivers: <Widget>[
-
               SliverList(
                 // key: ,
                 delegate: SliverChildListDelegate(<Widget>[
-
                   const Stratosphere(),
-
                   QuestionBubble(
                     tappingAskInfo: () {
                       blog('Ask info is tapped aho');
                     },
                   ),
-
                   DreamBox(
                     height: 80,
                     width: 200,
                     verse: 'tap me',
                     onTap: () => _openEnumLister(bzTypesMap),
                   ),
-
                   DreamBox(
                     height: 80,
                     width: Scale.superScreenWidth(context),
                     verse: 'Go to Questions Screen',
                     onTap: () => Nav.goToNewScreen(context, const QuesScreen()),
                   ),
-
                   const PyramidsHorizon(),
-
                 ]),
               ),
-
             ],
           ),
-
           if (enumListerIsOn == true)
-          EnumLister(
-            listTitle: enumListTitle,
-            stringsList: enumListerStrings,//listData['Strings'],
-            triggersList: enumListerTriggers,//listData['Triggers'],
-            triggerTile: _triggerTile,
-            closeEnumLister: _closeEnumLister,
-          ),
-
+            EnumLister(
+              listTitle: enumListTitle,
+              stringsList: enumListerStrings, //listData['Strings'],
+              triggersList: enumListerTriggers, //listData['Triggers'],
+              triggerTile: _triggerTile,
+              closeEnumLister: _closeEnumLister,
+            ),
         ],
       ),
     );
