@@ -1,20 +1,20 @@
 import 'dart:async';
 
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class BlackHoleScreen extends StatefulWidget {
   const BlackHoleScreen({Key key}) : super(key: key);
 
-
   @override
   _BlackHoleScreenState createState() => _BlackHoleScreenState();
 }
 
-class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderStateMixin{
+class _BlackHoleScreenState extends State<BlackHoleScreen>
+    with TickerProviderStateMixin {
   AnimationController _blackHoleController;
   final int _spinsDuration = 1;
 // -----------------------------------------------------------------------------
@@ -22,11 +22,9 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
   void initState() {
     super.initState();
     _blackHoleController = AnimationController(
-        duration: Duration(seconds: _spinsDuration),
-        vsync: this
-    );
-
+        duration: Duration(seconds: _spinsDuration), vsync: this);
   }
+
 // ---------------------------------------------------------------------------
   @override
   void dispose() {
@@ -35,36 +33,34 @@ class _BlackHoleScreenState extends State<BlackHoleScreen> with TickerProviderSt
     _blackHoleController.dispose();
     super.dispose();
   }
-// ---------------------------------------------------------------------------
-  Timer _timoor(){
-    final Timer _timoor = Timer(Duration(seconds: _spinsDuration),
 
-            (){
-      if(mounted){
+// ---------------------------------------------------------------------------
+  Timer _timoor() {
+    final Timer _timoor = Timer(Duration(seconds: _spinsDuration), () {
+      if (mounted) {
         _blackHoleController.reset();
       }
 
-      if(mounted){
+      if (mounted) {
         _enterTheBlackHole();
       }
-
-    }
-    );
+    });
     return _timoor;
   }
+
 // ---------------------------------------------------------------------------
-  void _enterTheBlackHole(){
+  void _enterTheBlackHole() {
     blog('ezayak el awwal');
 
-    if(mounted){
+    if (mounted) {
       _blackHoleController.forward();
     }
 
-    if(mounted){
+    if (mounted) {
       _timoor();
     }
-
   }
+
 // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

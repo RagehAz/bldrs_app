@@ -1,20 +1,19 @@
 import 'dart:async';
 
-import 'package:bldrs/helpers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/helpers/theme/ratioz.dart';
-import 'package:bldrs/models/zone/country_model.dart';
-import 'package:bldrs/models/zone/flag_model.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/zone/flag_model.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 
 // Google Cloud Platform
 // Bldrs
@@ -25,16 +24,20 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 // -------------------------------------------
 class GoogleMapScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const GoogleMapScreen({Key key,
+  const GoogleMapScreen({
+    Key key,
     this.geoPoint,
     this.isSelecting = false,
   }) : super(key: key);
+
   /// --------------------------------------------------------------------------
   final GeoPoint geoPoint;
   final bool isSelecting;
+
   /// --------------------------------------------------------------------------
   @override
   _GoogleMapScreenState createState() => _GoogleMapScreenState();
+
   /// --------------------------------------------------------------------------
 }
 
@@ -44,57 +47,50 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
-  Future <void> _triggerLoading({Function function}) async {
-
-    if(mounted){
-
-      if (function == null){
+  Future<void> _triggerLoading({Function function}) async {
+    if (mounted) {
+      if (function == null) {
         setState(() {
           _loading = !_loading;
         });
-      }
-
-      else {
+      } else {
         setState(() {
           _loading = !_loading;
           function();
         });
       }
-
     }
 
-    _loading == true?
-    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
+    _loading == true
+        ? blog('LOADING--------------------------------------')
+        : blog('LOADING COMPLETE--------------------------------------');
   }
+
 // -----------------------------------------------------------------------------
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _geoPoint = const GeoPoint(30.0778, 31.2852);//widget.geoPoint ?? Atlas.dummyPosition();
+    _geoPoint = const GeoPoint(
+        30.0778, 31.2852); //widget.geoPoint ?? Atlas.dummyPosition();
   }
+
 // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _triggerLoading().then((_) async{
-
+      _triggerLoading().then((_) async {
         // final BitmapDescriptor _marker = await Imagers.getCustomMapMarkerFromSVG(context: context, assetName: Iconz.FlyerPin);
 
-        unawaited(
-            _triggerLoading(
-                function: (){
-                  // _mapMarker = _marker;
-                }
-            )
-        );
-
+        unawaited(_triggerLoading(function: () {
+          // _mapMarker = _marker;
+        }));
       });
-
     }
     _isInit = false;
     super.didChangeDependencies();
   }
+
 // -----------------------------------------------------------------------------
 //   String _previewImage;
 //   void _showPreview(double lat, double lng){
@@ -105,8 +101,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 //     });
 //   }
 // -----------------------------------------------------------------------------
-  void _selectLocation({@required LatLng latLng}){
-
+  void _selectLocation({@required LatLng latLng}) {
     final GeoPoint _point = GeoPoint(latLng.latitude, latLng.longitude);
 
     blog('LatLng : lat : ${latLng.latitude} : lng : ${latLng.longitude}');
@@ -118,6 +113,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
     blog('_selectLocation :  $latLng');
   }
+
 // -----------------------------------------------------------------------------
 //   BitmapDescriptor _mapMarker;
 //   Set<Marker> _getMarkers(){
@@ -145,7 +141,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   GoogleMapController _googleMapController;
   @override
   Widget build(BuildContext context) {
-
     // Set<Marker> theMarkers = _getMarkers();
 
     final double _screenWidth = Scale.superScreenWidth(context);
@@ -162,17 +157,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       loading: _loading,
       pyramids: Iconz.dvBlankSVG,
       appBarRowWidgets: const <Widget>[],
-      onBack: (){
-
+      onBack: () {
         Nav.goBack(context, argument: _geoPoint);
         // await null;
-
       },
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       layoutWidget: Stack(
         children: <Widget>[
-
           /// MAP
           GoogleMap(
             key: const PageStorageKey<String>('google_map'),
@@ -187,16 +179,17 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
             /// IN-EFFECTIVE
             myLocationEnabled: true,
-            initialCameraPosition:
-            CameraPosition(
-              target: _geoPoint == null ? null : LatLng(_geoPoint?.latitude, _geoPoint?.longitude),
+            initialCameraPosition: CameraPosition(
+              target: _geoPoint == null
+                  ? null
+                  : LatLng(_geoPoint?.latitude, _geoPoint?.longitude),
               zoom: 5,
               // bearing: ,
               // tilt: ,
             ),
 
             /// METHODS
-            onCameraIdle: (){
+            onCameraIdle: () {
               blog('Camera is idle');
             },
             onCameraMove: (CameraPosition cameraPosition) async {
@@ -205,7 +198,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               final double _lng = cameraPosition.target.longitude;
 
               setState(() {
-              _geoPoint = GeoPoint(_lat, _lng);
+                _geoPoint = GeoPoint(_lat, _lng);
               });
 
               // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -217,21 +210,22 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               //   });
               // }
             },
-            onCameraMoveStarted: (){
+            onCameraMoveStarted: () {
               blog('Camera move started');
             },
-            onLongPress: (LatLng latLng){
-              blog('long tap is tapped on : LAT : ${latLng.latitude} : LNG : ${latLng.longitude}');
+            onLongPress: (LatLng latLng) {
+              blog(
+                  'long tap is tapped on : LAT : ${latLng.latitude} : LNG : ${latLng.longitude}');
             },
-            onMapCreated: (GoogleMapController googleMapController){
+            onMapCreated: (GoogleMapController googleMapController) {
               googleMapController = _googleMapController;
-              },
-            onTap: (LatLng latLng){
-              if (widget.isSelecting == true){
-                 _selectLocation(latLng: latLng);
-              }
-              else {
-                blog('on tap is tapped on : LAT : ${latLng.latitude} : LNG : ${latLng.longitude}');
+            },
+            onTap: (LatLng latLng) {
+              if (widget.isSelecting == true) {
+                _selectLocation(latLng: latLng);
+              } else {
+                blog(
+                    'on tap is tapped on : LAT : ${latLng.latitude} : LNG : ${latLng.longitude}');
               }
             },
           ),
@@ -246,7 +240,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               height: _pinWidth * 2,
               child: Column(
                 children: const <Widget>[
-
                   /// pin square on top
                   DreamBox(
                     width: _pinWidth,
@@ -261,7 +254,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     width: _pinWidth,
                     height: _pinWidth,
                   ),
-
                 ],
               ),
             ),
@@ -276,23 +268,22 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               width: _screenWidth * 0.6,
               height: 50,
               margins: Ratioz.appBarMargin,
-              icon: _countryModel == null ? Iconz.locationPin : Flag.getFlagIconByCountryID(_countryModel.id),
+              icon: _countryModel == null
+                  ? Iconz.locationPin
+                  : Flag.getFlagIconByCountryID(_countryModel.id),
               // iconColor: Colorz.red230,
               iconSizeFactor: 0.7,
               verse: 'Confirm Location',
               verseCentered: false,
-              secondLine: 'lat ${Numeric.roundFractions(_geoPoint.latitude, 2)}, Lng ${Numeric.roundFractions(_geoPoint.longitude, 2)}',
+              secondLine:
+                  'lat ${Numeric.roundFractions(_geoPoint.latitude, 2)}, Lng ${Numeric.roundFractions(_geoPoint.longitude, 2)}',
               color: Colorz.black230,
-              onTap: (){
-
+              onTap: () {
                 Nav.goBack(context, argument: _geoPoint);
                 // await null;
-
               },
             ),
           ),
-
-
         ],
       ),
     );

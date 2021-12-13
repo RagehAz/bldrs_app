@@ -1,6 +1,6 @@
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/helpers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/xxx_lab/ask/enum_lister/check_box.dart';
 import 'package:flutter/material.dart';
 
@@ -12,27 +12,27 @@ class EnumListerTile extends StatelessWidget {
     @required this.tileIsOn,
     Key key,
   }) : super(key: key);
+
   /// --------------------------------------------------------------------------
   final String verse;
   final Function onTap;
   final bool tileIsOn;
+
   /// --------------------------------------------------------------------------
-  bool _shadow(){
+  bool _shadow() {
     bool _shadowIsOn;
-    if (tileIsOn == true){
+    if (tileIsOn == true) {
       _shadowIsOn = false;
-    }
-    else {
+    } else {
       _shadowIsOn = true;
     }
 
     return _shadowIsOn;
   }
+
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -43,12 +43,9 @@ class EnumListerTile extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-
             CheckBox(
                 // onTap: (){},
-                checkBoxIsOn: tileIsOn
-            ),
-
+                checkBoxIsOn: tileIsOn),
             SuperVerse(
               verse: verse,
               size: 3,

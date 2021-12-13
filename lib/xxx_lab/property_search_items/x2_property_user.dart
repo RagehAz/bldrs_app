@@ -1,7 +1,7 @@
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/helpers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class PropertyUse extends StatelessWidget {
@@ -9,22 +9,21 @@ class PropertyUse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final double screenWidth = MediaQuery.of(context).size.width;
 
-
     ///  ROW OF BUTTONS
-    const double buttonSpacing = Ratioz.appBarMargin*2;
+    const double buttonSpacing = Ratioz.appBarMargin * 2;
     final double buttonsZoneWidth = screenWidth - (Ratioz.appBarMargin * 12);
 
     const int numberOfButtons = 2;
-    final double rowButtonWidth = (buttonsZoneWidth - (numberOfButtons * buttonSpacing) - buttonSpacing) / numberOfButtons;
+    final double rowButtonWidth =
+        (buttonsZoneWidth - (numberOfButtons * buttonSpacing) - buttonSpacing) /
+            numberOfButtons;
     const double rowButtonHeight = 40;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-
         const SuperVerse(
           verse: 'Property Use',
           margin: Ratioz.appBarMargin * 2,
@@ -32,11 +31,9 @@ class PropertyUse extends StatelessWidget {
           italic: true,
           weight: VerseWeight.thin,
         ),
-
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-
             DreamBox(
               width: rowButtonWidth,
               height: rowButtonHeight,
@@ -45,8 +42,6 @@ class PropertyUse extends StatelessWidget {
               verseScaleFactor: 0.8,
               color: Colorz.blue80,
             ),
-
-
           ],
         ),
       ],

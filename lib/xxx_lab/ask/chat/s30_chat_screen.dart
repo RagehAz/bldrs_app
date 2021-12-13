@@ -1,15 +1,15 @@
-import 'package:bldrs/db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/helpers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/helpers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/providers/streamers/questions_streamer.dart';
-import 'package:bldrs/views/widgets/general/bubbles/chat_bubble.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
+import 'package:bldrs/b_views/widgets/general/bubbles/chat_bubble.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_text_field.dart';
+import 'package:bldrs/d_providers/streamers/questions_streamer.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_lab/ask/chat/chat_model.dart';
 import 'package:bldrs/xxx_lab/ask/chat/chat_ops.dart' as ChatOps;
 import 'package:bldrs/xxx_lab/ask/chat/message_model.dart';
@@ -25,14 +25,17 @@ class ChatScreen extends StatefulWidget {
     @required this.author2ID,
     Key key,
   }) : super(key: key);
+
   /// --------------------------------------------------------------------------
   final QuestionModel question;
   final String bzID;
   final String author1ID;
   final String author2ID;
+
   /// --------------------------------------------------------------------------
   @override
   _ChatScreenState createState() => _ChatScreenState();
+
   /// --------------------------------------------------------------------------
 }
 
@@ -48,13 +51,12 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-
   }
+
 // -----------------------------------------------------------------------------
-  Future<void> _sendMessage({String body, List<MessageModel> existingMsgs}) async {
-
-    if (body != null && body.isNotEmpty){
-
+  Future<void> _sendMessage(
+      {String body, List<MessageModel> existingMsgs}) async {
+    if (body != null && body.isNotEmpty) {
       Keyboarders.closeKeyboard(context);
 
       final List<MessageModel> _newMessages = MessageModel.addToMessages(
@@ -80,12 +82,9 @@ class _ChatScreenState extends State<ChatScreen> {
       );
 
       _msgController.clear();
-
     }
-
   }
 // -----------------------------------------------------------------------------
-
 
   @override
   Widget build(BuildContext context) {
@@ -103,19 +102,18 @@ class _ChatScreenState extends State<ChatScreen> {
       appBarType: AppBarType.basic,
       pageTitle: 'Chat Screen',
       pyramids: Iconz.dvBlankSVG,
-      appBarRowWidgets: const <Widget>[BackButton(),],
+      appBarRowWidgets: const <Widget>[
+        BackButton(),
+      ],
       layoutWidget: chatStreamBuilder(
           context: context,
           questionID: widget.question.questionID,
           bzID: widget.bzID,
-          builder: (BuildContext xxx, ChatModel chatModel){
-            return
-
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-
-                  if (Mapper.canLoopList(chatModel.messages))
+          builder: (BuildContext xxx, ChatModel chatModel) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                if (Mapper.canLoopList(chatModel.messages))
                   Container(
                     width: _screenWidth,
                     height: _screenHeight - _convBoxHeight,
@@ -123,64 +121,59 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount: chatModel.messages.length,
-                      itemBuilder: (BuildContext xyz, int index){
-
+                      itemBuilder: (BuildContext xyz, int index) {
                         final MessageModel _msg = chatModel.messages[index];
                         final bool _isMyVerse = _currentUserID == _msg.ownerID;
 
-                        return
-
-                          ChatBubble(
-                            verse: chatModel.messages[index].body,
-                            isMyVerse: _isMyVerse,
-                            userID: _currentUserID,
-                            // key: ValueKey(conversation[index].documentID), // secret code here
-                          );
-
+                        return ChatBubble(
+                          verse: chatModel.messages[index].body,
+                          isMyVerse: _isMyVerse,
+                          userID: _currentUserID,
+                          // key: ValueKey(conversation[index].documentID), // secret code here
+                        );
                       },
                     ),
                   ),
 
-                  /// TEXT FIELD
-                  Container(
-                    width: _screenWidth,
-                    height: _textFieldBoxHeight,
-                    color: Colorz.bloodTest,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-
-                        SuperTextField(
-                          height: 40,
-                          width: Scale.superScreenWidth(context) - 80,
-                          labelColor: Colorz.white20,
-                          counterIsOn: false,
-                          keyboardTextInputAction: TextInputAction.send,
-                          // onChanged: (value) {
-                          //   setState(() {
-                          //     _enteredMessage = value;
-                          //   });
-                          // },
-                          margin: const EdgeInsets.all(10),
-                          maxLines: 10,
-                          textController: _msgController,
-                          onSaved: (String val) => _sendMessage(body: _msgController.text.trim(), existingMsgs: chatModel.messages),
-                        ),
-
-                        DreamBox(
-                          height: 50,
-                          icon: Iconizer.superArrowENRight(context),
-                          onTap: () => _sendMessage(body: _msgController.text.trim(), existingMsgs: chatModel.messages),
-                        ),
-
-                      ],
-                    ),
+                /// TEXT FIELD
+                Container(
+                  width: _screenWidth,
+                  height: _textFieldBoxHeight,
+                  color: Colorz.bloodTest,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SuperTextField(
+                        height: 40,
+                        width: Scale.superScreenWidth(context) - 80,
+                        labelColor: Colorz.white20,
+                        counterIsOn: false,
+                        keyboardTextInputAction: TextInputAction.send,
+                        // onChanged: (value) {
+                        //   setState(() {
+                        //     _enteredMessage = value;
+                        //   });
+                        // },
+                        margin: const EdgeInsets.all(10),
+                        maxLines: 10,
+                        textController: _msgController,
+                        onSaved: (String val) => _sendMessage(
+                            body: _msgController.text.trim(),
+                            existingMsgs: chatModel.messages),
+                      ),
+                      DreamBox(
+                        height: 50,
+                        icon: Iconizer.superArrowENRight(context),
+                        onTap: () => _sendMessage(
+                            body: _msgController.text.trim(),
+                            existingMsgs: chatModel.messages),
+                      ),
+                    ],
                   ),
-
-                ],
-              );
-          }
-      ),
+                ),
+              ],
+            );
+          }),
     );
   }
 }

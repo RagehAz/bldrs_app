@@ -1,11 +1,11 @@
-import 'package:bldrs/helpers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/helpers/theme/ratioz.dart';
-import 'package:bldrs/views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/xxx_lab/animations/animated_dream_box.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,8 @@ class AnimationsScreen extends StatefulWidget {
   _AnimationsScreenState createState() => _AnimationsScreenState();
 }
 
-class _AnimationsScreenState extends State<AnimationsScreen> with TickerProviderStateMixin {
+class _AnimationsScreenState extends State<AnimationsScreen>
+    with TickerProviderStateMixin {
   double width;
   double height;
   AnimationController _controller;
@@ -30,44 +31,40 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
     width = 100;
     height = 100;
     btWidth = 100;
-    _controller = AnimationController(
-      duration: const Duration(seconds: 2),
-      vsync: this
-    );
+    _controller =
+        AnimationController(duration: const Duration(seconds: 2), vsync: this);
     _btController = AnimationController(
       duration: Duration(milliseconds: btDuration),
       vsync: this,
-
       lowerBound: -0.5,
       upperBound: 0.5,
-
     )..addListener(() {
-      setState(() {
-
+        setState(() {});
       });
-    });
   }
+
 // -----------------------------------------------------------------------------
-  void resizeBox(){
+  void resizeBox() {
     blog('tapped aho');
     setState(() {
       width = width == 100 ? Scale.superScreenWidth(context) : 100;
       height = height == 100 ? Scale.superScreenHeight(context) : 100;
     });
   }
+
 // -----------------------------------------------------------------------------
-  bool condition(){
+  bool condition() {
     bool _condition;
 
-    if (width > 100){
+    if (width > 100) {
       _condition = true;
-    }
-    else {
+    } else {
       _condition = false;
     }
 
     return _condition;
   }
+
 // -----------------------------------------------------------------------------
   // void animateBT(){
   //   setState(() {
@@ -82,7 +79,6 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
     final double screenWidth = Scale.superScreenWidth(context);
     final double btCorner = btWidth * 0.2;
 
@@ -90,61 +86,52 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
       appBarType: AppBarType.basic,
       pyramids: Iconz.pyramidzYellow,
       appBarRowWidgets: <Widget>[
-
         DreamBox(
           height: 40,
           icon: Iconz.play,
           margins: const EdgeInsets.all(5),
           onTap: resizeBox,
         ),
-
         DreamBox(
           height: 40,
           icon: Iconz.pause,
           margins: const EdgeInsets.all(5),
-          onTap: (){
+          onTap: () {
             _controller.stop(canceled: false);
           },
         ),
-
         DreamBox(
           height: 40,
           icon: Iconz.stop,
           margins: const EdgeInsets.all(5),
-          onTap: (){
+          onTap: () {
             _controller.reset();
           },
         ),
-
         DreamBox(
           height: 40,
           icon: Iconz.clock,
           margins: const EdgeInsets.all(5),
-          onTap: (){
+          onTap: () {
             _controller.forward();
           },
         ),
-
-
       ],
       layoutWidget: ListView(
         children: <Widget>[
-
           // width > 200 ? Container() :
           // ScaleTransition(
           //   scale: Tween(begin: 1.0, end: 0.0).animate(_controller),
           //     child: const Stratosphere()
           // ),
-          
+
           InkWell(
             onTap: resizeBox,
             highlightColor: Colorz.yellow255,
             splashColor: Colorz.blue255,
-
             child: Center(
               child: RotationTransition(
                 turns: Tween<double>(begin: 0, end: 1).animate(_controller),
-
                 child: AnimatedOpacity(
                   opacity: condition() == true ? 1 : 0.2,
                   duration: const Duration(seconds: 1),
@@ -153,19 +140,22 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                     curve: Curves.easeInOutCirc,
                     width: width,
                     height: height,
-                    margin: EdgeInsets.only(top: condition() == true ? 0 : Ratioz.stratosphere),
-                    color: condition() == true ? Colorz.red255 : Colorz.yellow255,
+                    margin: EdgeInsets.only(
+                        top: condition() == true ? 0 : Ratioz.stratosphere),
+                    color:
+                        condition() == true ? Colorz.red255 : Colorz.yellow255,
                     child: Stack(
                       alignment: Alignment.center,
                       children: <Widget>[
-
                         AnimatedPositioned(
-                          left: condition() == true ? (Scale.superScreenWidth(context) * 0.5) : 0,
+                          left: condition() == true
+                              ? (Scale.superScreenWidth(context) * 0.5)
+                              : 0,
                           duration: const Duration(seconds: 1),
                           child: DreamBox(
                             height: 50,
                             icon: Iconz.comYoutube,
-                            onTap: (){
+                            onTap: () {
                               resizeBox();
                             },
                           ),
@@ -179,7 +169,7 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
           ),
 
           const Stratosphere(),
-          
+
           Container(
             width: screenWidth,
             height: screenWidth,
@@ -193,12 +183,13 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
               splashColor: Colorz.darkRed125,
               underLine: 'Ripple Effect\n Works Now',
               underLineColor: Colorz.black230,
-              onTap: (){
+              onTap: () {
                 blog('ripple effect works now');
-                Navigator.push(context,
-                MaterialPageRoute<HeroMax>(builder: (BuildContext context) => const HeroMax())
-                );
-                },
+                Navigator.push(
+                    context,
+                    MaterialPageRoute<HeroMax>(
+                        builder: (BuildContext context) => const HeroMax()));
+              },
             ),
           ),
 
@@ -209,15 +200,15 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
             height: 300,
             child: Hero(
               tag: 'unique tag aho',
-
               child: DreamBox(
                 height: 100,
                 icon: Iconz.dvDonaldDuck,
                 verse: 'ana ho',
-                onTap: (){
-                  Navigator.push(context,
-                      MaterialPageRoute<HeroMax>(builder: (BuildContext context) => const HeroMax())
-                  );
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute<HeroMax>(
+                          builder: (BuildContext context) => const HeroMax()));
                 },
               ),
             ),
@@ -229,37 +220,41 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
             color: Colorz.blue80,
             alignment: Alignment.center,
             child: GestureDetector(
-              onTap: (){
+              onTap: () {
                 setState(() {
                   btWidth = 80;
-                  Future<void>.delayed(Duration(milliseconds: btDuration), (){setState(() {
-                    btWidth = 100;
-                  });});
-
+                  Future<void>.delayed(Duration(milliseconds: btDuration), () {
+                    setState(() {
+                      btWidth = 100;
+                    });
+                  });
                 });
                 blog('onTap');
-                },
+              },
               // onTapCancel: (){blog('onTapCancel');},
               // onDoubleTap: (){blog('onDoubleTap');},
               // onDoubleTapCancel: (){blog('onDoubleTapCancel');},
               // onHorizontalDragCancel: (){blog('onHorizontalDragCancel');},
-              onTapDown: (TapDownDetails details){
+              onTapDown: (TapDownDetails details) {
                 // _btController.forward();
                 setState(() {
                   btWidth = 85;
-                  Future<void>.delayed(Duration(milliseconds: btDuration), (){setState(() {
-                    btWidth = 90;
-                  });});
+                  Future<void>.delayed(Duration(milliseconds: btDuration), () {
+                    setState(() {
+                      btWidth = 90;
+                    });
+                  });
                 });
               },
-              onTapUp: (TapUpDetails details){
+              onTapUp: (TapUpDetails details) {
                 // _btController.reverse();
                 setState(() {
                   btWidth = 105;
-                  Future<void>.delayed(Duration(milliseconds: btDuration), (){setState(() {
-                    btWidth = 100;
-                  });});
-
+                  Future<void>.delayed(Duration(milliseconds: btDuration), () {
+                    setState(() {
+                      btWidth = 100;
+                    });
+                  });
                 });
               },
               // onLongPress: (){
@@ -321,7 +316,6 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
 
               child: Transform.scale(
                 scale: 1 - _btController.value,
-
                 child: AnimatedContainer(
                   duration: Duration(milliseconds: btDuration),
                   curve: Curves.easeInOutQuint, // easeInOutBack was good
@@ -329,8 +323,15 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
                   height: btWidth,
                   decoration: BoxDecoration(
                     color: Colorz.yellow80,
-                    image: const DecorationImage(image: AssetImage(Iconz.dumAuthorPic), fit: BoxFit.fitHeight),
-                    borderRadius: Borderers.superBorderOnly(context: context, enTopLeft: btCorner, enBottomLeft: btCorner, enBottomRight: btCorner, enTopRight: btCorner),
+                    image: const DecorationImage(
+                        image: AssetImage(Iconz.dumAuthorPic),
+                        fit: BoxFit.fitHeight),
+                    borderRadius: Borderers.superBorderOnly(
+                        context: context,
+                        enTopLeft: btCorner,
+                        enBottomLeft: btCorner,
+                        enBottomRight: btCorner,
+                        enTopRight: btCorner),
                   ),
                 ),
               ),
@@ -344,11 +345,10 @@ class _AnimationsScreenState extends State<AnimationsScreen> with TickerProvider
             iconSizeFactor: 0.5,
             corners: 35,
             boxMargins: const EdgeInsets.all(20),
-            boxFunction: (){},
-            ),
+            boxFunction: () {},
+          ),
 
           const PyramidsHorizon(),
-
         ],
       ),
     );
@@ -362,7 +362,6 @@ class TweenTest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final double screenWidth = Scale.superScreenWidth(context);
 
     return Container(
@@ -373,7 +372,7 @@ class TweenTest extends StatelessWidget {
       child: TweenAnimationBuilder<double>(
         tween: Tween<double>(begin: 0, end: 1),
         duration: const Duration(seconds: 5),
-        builder: (BuildContext context, double _val, Widget child){
+        builder: (BuildContext context, double _val, Widget child) {
           return Opacity(
             opacity: _val,
             child: Padding(
@@ -409,7 +408,7 @@ class HeroMax extends StatelessWidget {
               icon: Iconz.dvDonaldDuck,
               verse: 'ana ho',
               verseMaxLines: 2,
-              onTap: (){
+              onTap: () {
                 // Navigator.push(context,
                 //     MaterialPageRoute(builder: (context) => AnimationsScreen());
                 // );
@@ -421,4 +420,4 @@ class HeroMax extends StatelessWidget {
       ),
     );
   }
-  }
+}

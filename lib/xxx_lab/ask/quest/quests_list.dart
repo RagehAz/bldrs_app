@@ -1,6 +1,7 @@
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart' show Stratosphere;
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart'
+    show Stratosphere;
+import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/xxx_lab/ask/quest/quest_model.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class QuestList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: Stratosphere.stratosphereSandwich,
+        padding: Stratosphere.stratosphereSandwich,
         itemCount: questions.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
@@ -24,7 +25,6 @@ class QuestList extends StatelessWidget {
               margin: 5,
               centered: false,
               color: Colorz.yellow255,
-
             ),
           );
         });

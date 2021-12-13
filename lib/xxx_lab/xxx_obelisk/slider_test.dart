@@ -1,15 +1,14 @@
-import 'package:bldrs/helpers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/views/widgets/general/bubbles/text_field_bubble.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/widgets/general/bubbles/text_field_bubble.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class SliderTestScreen extends StatefulWidget {
   const SliderTestScreen({Key key}) : super(key: key);
-
 
   @override
   _SliderTestScreenState createState() => _SliderTestScreenState();
@@ -42,17 +41,18 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
     _rangeValues = RangeValues(_startRangeValue, _endRangeValue);
     // _rangeLabels = RangeLabels(_stringLabel, _endLabel);
   }
+
 // -----------------------------------------------------------------------------
-  Widget _button(String verse){
-    return
-      SuperVerse(
-        verse: verse,
-        labelColor: Colorz.white20,
-        weight: VerseWeight.thin,
-        italic: true,
-        maxLines: 3,
-      );
+  Widget _button(String verse) {
+    return SuperVerse(
+      verse: verse,
+      labelColor: Colorz.white20,
+      weight: VerseWeight.thin,
+      italic: true,
+      maxLines: 3,
+    );
   }
+
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,6 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
       layoutWidget: Center(
         child: ListView(
           children: <Widget>[
-
             const Stratosphere(),
 
             TextFieldBubble(
@@ -72,7 +71,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               keyboardTextInputType: TextInputType.number,
               textController: _minController,
               actionBtIcon: Iconz.plus,
-              actionBtFunction: (){
+              actionBtFunction: () {
                 blog('value is : ${_minController.text}');
 
                 final int _value = Numeric.stringToInt(_minController.text);
@@ -80,7 +79,6 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
                 setState(() {
                   _minValue = _value.toDouble();
                 });
-
               },
             ),
 
@@ -89,7 +87,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               keyboardTextInputType: TextInputType.number,
               textController: _maxController,
               actionBtIcon: Iconz.plus,
-              actionBtFunction: (){
+              actionBtFunction: () {
                 blog('value is : ${_maxController.text}');
 
                 final int _value = Numeric.stringToInt(_maxController.text);
@@ -97,7 +95,6 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
                 setState(() {
                   _maxValue = _value.toDouble();
                 });
-
               },
             ),
 
@@ -106,15 +103,15 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               keyboardTextInputType: TextInputType.number,
               textController: _divisionsController,
               actionBtIcon: Iconz.plus,
-              actionBtFunction: (){
+              actionBtFunction: () {
                 blog('value is : ${_divisionsController.text}');
 
-                final int _value = Numeric.stringToInt(_divisionsController.text);
+                final int _value =
+                    Numeric.stringToInt(_divisionsController.text);
 
                 setState(() {
                   _divisions = _value;
                 });
-
               },
             ),
 
@@ -124,7 +121,8 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
 
             _button('_onChangeStart value : $_onChangeStart'),
 
-            _button('_semanticFormatterCallback value : $_semanticFormatterCallback'),
+            _button(
+                '_semanticFormatterCallback value : $_semanticFormatterCallback'),
 
             Container(
               width: Scale.superScreenWidth(context),
@@ -132,15 +130,11 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
                   _button('min\n$_minValue'),
-
                   _button('max\n$_maxValue'),
-
                 ],
               ),
             ),
-
 
             SliderTheme(
               data: SliderTheme.of(context).copyWith(
@@ -195,24 +189,23 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
                 //
                 //   return 'the semantic formatter call back value is : $value';
                 // },
-                onChangeEnd: (double value){
+                onChangeEnd: (double value) {
                   setState(() {
-                  _onChangeEnd = value;
+                    _onChangeEnd = value;
                   });
                 },
-                onChangeStart: (double value){
+                onChangeStart: (double value) {
                   setState(() {
                     _onChangeStart = value;
                   });
                 },
-                onChanged: (double value){
+                onChanged: (double value) {
                   setState(() {
                     _theValue = value;
                   });
                 },
               ),
             ),
-
 
             // TextFieldBubble(
             //   title: 'Set _rangeValues.start value',
@@ -248,23 +241,25 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
             //   },
             // ),
 
+            _button(
+                '_rangeValues : ${_rangeValues?.start?.toInt()} : ${_rangeValues?.end?.toInt()}'),
 
-            _button('_rangeValues : ${_rangeValues?.start?.toInt()} : ${_rangeValues?.end?.toInt()}'),
+            _button(
+                '_onChangeRangeStart value : ${_onChangeRangeStart?.start?.toInt()} to ${_onChangeRangeStart?.end?.toInt()}'),
 
-            _button('_onChangeRangeStart value : ${_onChangeRangeStart?.start?.toInt()} to ${_onChangeRangeStart?.end?.toInt()}'),
-
-            _button('_onChangeRangeEnd value : ${_onChangeRangeEnd?.start?.toInt()} to ${_onChangeRangeEnd?.end?.toInt()}'),
+            _button(
+                '_onChangeRangeEnd value : ${_onChangeRangeEnd?.start?.toInt()} to ${_onChangeRangeEnd?.end?.toInt()}'),
 
             RangeSlider(
               values: _rangeValues,
               activeColor: Colorz.yellow255,
-              labels: RangeLabels('${_onChangeRangeStart?.start?.toInt()}', '${_onChangeRangeStart?.end?.toInt()}'),
+              labels: RangeLabels('${_onChangeRangeStart?.start?.toInt()}',
+                  '${_onChangeRangeStart?.end?.toInt()}'),
               divisions: _divisions == 0 ? null : _divisions,
               inactiveColor: Colorz.bloodTest,
               max: _maxValue,
               min: _minValue,
-              semanticFormatterCallback: (double value){
-
+              semanticFormatterCallback: (double value) {
                 // if(_isInit == true){
                 //   setState(() {
                 _semanticFormatterCallback = value;
@@ -273,17 +268,17 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
 
                 return 'the semantic formatter call back value is : $value';
               },
-              onChangeEnd: (RangeValues values){
+              onChangeEnd: (RangeValues values) {
                 setState(() {
                   _onChangeRangeEnd = values;
                 });
               },
-              onChangeStart: (RangeValues rangeValue){
+              onChangeStart: (RangeValues rangeValue) {
                 setState(() {
                   _onChangeRangeStart = rangeValue;
                 });
               },
-              onChanged: (RangeValues rangeValue){
+              onChanged: (RangeValues rangeValue) {
                 setState(() {
                   _rangeValues = rangeValue;
                 });
@@ -291,7 +286,6 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
             ),
 
             const PyramidsHorizon(),
-
           ],
         ),
       ),

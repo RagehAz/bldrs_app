@@ -1,21 +1,21 @@
-import 'package:bldrs/helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/helpers/drafters/text_directionerz.dart';
-import 'package:bldrs/helpers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/helpers/localization/lingo.dart';
-import 'package:bldrs/helpers/localization/localizer.dart';
-import 'package:bldrs/helpers/theme/colorz.dart';
-import 'package:bldrs/helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/helpers/theme/ratioz.dart';
-import 'package:bldrs/helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/b_views/widgets/general/artworks/pyramids.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/rageh_button.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_text_field.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/widgets/general/textings/the_golden_scroll.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/localization/lingo.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/main.dart';
-import 'package:bldrs/views/widgets/general/artworks/pyramids.dart';
-import 'package:bldrs/views/widgets/general/buttons/rageh_button.dart';
-import 'package:bldrs/views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/views/widgets/general/layouts/navigation/scroller.dart';
-import 'package:bldrs/views/widgets/general/layouts/night_sky.dart';
-import 'package:bldrs/views/widgets/general/textings/super_text_field.dart';
-import 'package:bldrs/views/widgets/general/textings/super_verse.dart';
-import 'package:bldrs/views/widgets/general/textings/the_golden_scroll.dart';
 import 'package:flutter/material.dart';
 
 class FontLab extends StatefulWidget {
@@ -28,29 +28,27 @@ class FontLab extends StatefulWidget {
 class _FontLabState extends State<FontLab> {
   final TextEditingController _textController = TextEditingController();
 
-
   @override
   void dispose() {
     _textController.dispose();
     super.dispose();
   }
 
-  Widget _superVerse(int size){
+  Widget _superVerse(int size) {
+    final String _pixelsAsString =
+        '${SuperVerse.superVerseSizeValue(context, size, 1)}';
+    final String _pixels =
+        TextMod.removeTextAfterFirstSpecialCharacter(_pixelsAsString, '.');
 
-    final String _pixelsAsString = '${SuperVerse.superVerseSizeValue(context, size, 1)}';
-    final String _pixels = TextMod.removeTextAfterFirstSpecialCharacter(_pixelsAsString, '.');
-
-    return
-      SuperVerse(
-        verse: 'size $size : $_pixels pixels',
-        size: size,
-        labelColor: Colorz.bloodTest,
-      );
+    return SuperVerse(
+      verse: 'size $size : $_pixels pixels',
+      size: size,
+      labelColor: Colorz.bloodTest,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-
     final double _screenHeight = Scale.superScreenHeight(context);
     final double _screenWidth = Scale.superScreenWidth(context);
     // ---
@@ -72,7 +70,17 @@ class _FontLabState extends State<FontLab> {
     // const bool italiany = false;
     // const bool centeredOn = true;
 
-    final List<String> fields = <String>['Architecture', 'abcd', 'Interior', 'Landscape', '1', 'test', '3abbas ebn fernas', 'thing', 'wtf'];
+    final List<String> fields = <String>[
+      'Architecture',
+      'abcd',
+      'Interior',
+      'Landscape',
+      '1',
+      'test',
+      '3abbas ebn fernas',
+      'thing',
+      'wtf'
+    ];
 
     // TextStyle _style = SuperVerse.createStyle(
     //   context: context,
@@ -87,14 +95,10 @@ class _FontLabState extends State<FontLab> {
       child: Scaffold(
         body: Stack(
           children: <Widget>[
-
             const Sky(),
-
             Scroller(
               child: ListView(
-
                 children: <Widget>[
-
                   const Stratosphere(),
 
                   _superVerse(0),
@@ -106,7 +110,6 @@ class _FontLabState extends State<FontLab> {
                   _superVerse(6),
                   _superVerse(7),
                   _superVerse(8),
-
 
                   /// --- BEGINNING OF SCROLLABLE SCREEN
                   SizedBox(
@@ -132,7 +135,7 @@ class _FontLabState extends State<FontLab> {
                     weight: weightTest,
                     centered: false,
                     maxLines: 100,
-                ),
+                  ),
 
                   /// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                   Container(
@@ -147,13 +150,16 @@ class _FontLabState extends State<FontLab> {
                       // --- BACKGROUND REVERSE ENGINEERING BOX TO MEASURE FONT HEIGHT FACTOR
                       Container(
                         width: _screenWidth,
-                        height: _screenHeight * 0.034 * 1.42, // 0.034 is ratio of fontSize 4
+                        height: _screenHeight *
+                            0.034 *
+                            1.42, // 0.034 is ratio of fontSize 4
                         color: Colorz.white255,
                       ),
 
                       const Center(
                         child: SuperVerse(
-                          verse: '| أختبر أنا العبد لله هذا الفونط و إنه لشيء عظيمٌ جدا Ohh baby',
+                          verse:
+                              '| أختبر أنا العبد لله هذا الفونط و إنه لشيء عظيمٌ جدا Ohh baby',
                           size: 4,
                           color: Colorz.green255,
                           shadow: true,
@@ -178,42 +184,35 @@ class _FontLabState extends State<FontLab> {
                         size: fontSize1,
                         weight: VerseWeight.regular,
                       ),
-
                       SuperVerse(
                         verse: '$fontSize2 Micro Text test\n$testVerse',
                         weight: VerseWeight.regular,
                       ),
-
                       SuperVerse(
                         verse: '$fontSize3 Mini Text test\n$testVerse',
                         size: fontSize3,
                         weight: weightTest,
                       ),
-
                       SuperVerse(
                         verse: '$fontSize4 Medium Text test\n$testVerse',
                         size: fontSize4,
                         weight: weightTest,
                       ),
-
                       SuperVerse(
                         verse: '$fontSize5 Macro Text test\n$testVerse',
                         size: fontSize5,
                         weight: weightTest,
                       ),
-
                       SuperVerse(
                         verse: '$fontSize6 Big Text test\n$testVerse',
                         size: fontSize6,
                         weight: weightTest,
                       ),
-
                       SuperVerse(
                         verse: '$fontSize7 Massive Text test\n$testVerse',
                         size: fontSize7,
                         weight: weightTest,
                       ),
-
                       SuperVerse(
                         verse: '$fontSize8 Gigantic Text test\n$testVerse',
                         size: fontSize8,
@@ -236,7 +235,6 @@ class _FontLabState extends State<FontLab> {
                         verse: 'عنوان المقال',
                         size: 5,
                       ),
-
                       SuperVerse(
                         verse: 'Lo más correcto es jugar y divertirse\n'
                             'The most correct is playing and having fun\n'
@@ -264,18 +262,15 @@ class _FontLabState extends State<FontLab> {
                         weight: VerseWeight.black,
                         size: 4,
                       ),
-
                       SuperVerse(
                         verse: 'bold : ABC | أبح | лгзб |πωσαχδ | ',
                         size: 4,
                       ),
-
                       SuperVerse(
                         verse: 'regular : ABC | أبح | лгзб |πωσαχδ | ',
                         weight: VerseWeight.regular,
                         size: 4,
                       ),
-
                       SuperVerse(
                         verse: 'thin : ABC | أبح | лгзб |πωσαχδ | ',
                         weight: VerseWeight.thin,
@@ -294,157 +289,216 @@ class _FontLabState extends State<FontLab> {
                   /// --- SHADOW TEST
                   Column(
                     children: const <Widget>[
-
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.thin, size: 1,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.thin,
+                        size: 1,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
+                        verse: shadowTestVerse,
+                        shadow: true,
                         weight: VerseWeight.thin,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.thin, size: 3,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.thin,
+                        size: 3,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.thin, size: 4,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.thin,
+                        size: 4,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.thin, size: 5,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.thin,
+                        size: 5,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.thin, size: 6,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.thin,
+                        size: 6,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.thin, size: 7,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.thin,
+                        size: 7,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.thin, size: 8,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.thin,
+                        size: 8,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.regular, size: 1,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.regular,
+                        size: 1,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
+                        verse: shadowTestVerse,
+                        shadow: true,
                         weight: VerseWeight.regular,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.regular, size: 3,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.regular,
+                        size: 3,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.regular, size: 4,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.regular,
+                        size: 4,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.regular, size: 5,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.regular,
+                        size: 5,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.regular, size: 6,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.regular,
+                        size: 6,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.regular, size: 7,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.regular,
+                        size: 7,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.regular, size: 8,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.regular,
+                        size: 8,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true, size: 1,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        size: 1,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
+                        verse: shadowTestVerse,
+                        shadow: true,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true, size: 3,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        size: 3,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true, size: 4,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        size: 4,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true, size: 5,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        size: 5,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true, size: 6,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        size: 6,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true, size: 7,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        size: 7,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true, size: 8,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        size: 8,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.black, size: 1,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.black,
+                        size: 1,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
+                        verse: shadowTestVerse,
+                        shadow: true,
                         weight: VerseWeight.black,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.black, size: 3,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.black,
+                        size: 3,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.black, size: 4,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.black,
+                        size: 4,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.black, size: 5,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.black,
+                        size: 5,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.black, size: 6,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.black,
+                        size: 6,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.black, size: 7,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.black,
+                        size: 7,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                       SuperVerse(
-                        verse: shadowTestVerse, shadow: true,
-                        weight: VerseWeight.black, size: 8,
+                        verse: shadowTestVerse,
+                        shadow: true,
+                        weight: VerseWeight.black,
+                        size: 8,
                       ),
                       // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
                     ],
@@ -457,14 +511,12 @@ class _FontLabState extends State<FontLab> {
                     color: Colorz.black230,
                   ),
 
-
                   // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
                   Container(
                     height: 10,
                     width: _screenWidth,
                     color: Colorz.black230,
                   ),
-
 
                   const SuperVerse(
                     verse: 'SuperVerse.dart',
@@ -489,8 +541,7 @@ class _FontLabState extends State<FontLab> {
                     labelColor: Colorz.white20,
                     shadow: true,
                     italic: true,
-                    weight:  VerseWeight.black,
-
+                    weight: VerseWeight.black,
                   ),
 
                   const GoldenScroll(
@@ -509,23 +560,18 @@ class _FontLabState extends State<FontLab> {
                   Center(
                     child: Wrap(
                         children:
-                        List<Widget>.generate(
-                            fields.length,
-                                (int index) {
-                              return
-                                Chip(
-                                  label:
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Text(fields[index]),
-                                    ],
-                                  ),
-                                );
-                            })
+                            List<Widget>.generate(fields.length, (int index) {
+                      return Chip(
+                        label: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text(fields[index]),
+                          ],
                         ),
+                      );
+                    })),
                   ),
 
                   // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- SEPARATOR
@@ -539,20 +585,16 @@ class _FontLabState extends State<FontLab> {
                   Center(
                     child: Wrap(
                         children:
-                        List<Widget>.generate(
-                            fields.length,
-                                (int index) {
-                              return
-                                SuperVerse(
-                                  verse: fields[index],
-                                  size: 3,
-                                  shadow: true,
-                                  labelColor: Colorz.yellow255,
-                                  color: Colorz.black230,
-                                  margin: 0,
-                                );
-                            })
-                        ),
+                            List<Widget>.generate(fields.length, (int index) {
+                      return SuperVerse(
+                        verse: fields[index],
+                        size: 3,
+                        shadow: true,
+                        labelColor: Colorz.yellow255,
+                        color: Colorz.black230,
+                        margin: 0,
+                      );
+                    })),
                   ),
                   // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- NOTHING GOES BEYOND THIS FUCKING LINE
 
@@ -575,39 +617,35 @@ class _FontLabState extends State<FontLab> {
                       textController: _textController,
                       keyboardTextInputAction: TextInputAction.newline,
                       keyboardTextInputType: TextInputType.multiline,
-                      textDirection: superTextDirectionSwitcher(_textController?.text),
+                      textDirection:
+                          superTextDirectionSwitcher(_textController?.text),
                       // onChanged: (val){},
                     ),
                   ),
-
                 ],
-
               ),
             ),
-
             const Pyramids(
               pyramidsIcon: Iconz.pyramidsYellow,
               loading: true,
             ),
-
             Rageh(
-              tappingRageh:
-              Wordz.activeLanguage(context) == Lingo.arabicLingo.code ?
-                  () async {
-                final Locale temp = await Localizer.setLocale(Lingo.englishLingo.code);
-                BldrsApp.setLocale(context, temp);
-              }
-              :
-                  () async {
-                final Locale temp = await Localizer.setLocale(Lingo.arabicLingo.code);
-                BldrsApp.setLocale(context, temp);
-                },
-
-              doubleTappingRageh: (){
+              tappingRageh: Wordz.activeLanguage(context) ==
+                      Lingo.arabicLingo.code
+                  ? () async {
+                      final Locale temp =
+                          await Localizer.setLocale(Lingo.englishLingo.code);
+                      BldrsApp.setLocale(context, temp);
+                    }
+                  : () async {
+                      final Locale temp =
+                          await Localizer.setLocale(Lingo.arabicLingo.code);
+                      BldrsApp.setLocale(context, temp);
+                    },
+              doubleTappingRageh: () {
                 blog(_screenHeight * 0.022 * 1.48);
-                },
+              },
             ),
-
           ],
         ),
       ),
