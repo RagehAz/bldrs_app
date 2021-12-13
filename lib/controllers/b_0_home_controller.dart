@@ -4,7 +4,6 @@ import 'package:bldrs/models/secondary_models/app_updates.dart';
 import 'package:bldrs/models/user/user_model.dart';
 import 'package:bldrs/models/zone/zone_model.dart';
 import 'package:bldrs/providers/bzz_provider.dart';
-import 'package:bldrs/providers/flyers_provider.dart';
 import 'package:bldrs/providers/general_provider.dart';
 import 'package:bldrs/providers/keywords_provider.dart';
 import 'package:bldrs/providers/user_provider.dart';
