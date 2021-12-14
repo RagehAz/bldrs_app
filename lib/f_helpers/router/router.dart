@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/screens/a_starters/a_0_logo_screen.dart';
 import 'package:bldrs/b_views/screens/b_auth/b_1_auth_screen.dart';
 import 'package:bldrs/b_views/screens/c_search/c_0_search_screen.dart';
 import 'package:bldrs/b_views/screens/e_saves/e_0_saved_flyers_screen.dart';
@@ -17,8 +18,8 @@ Route<dynamic> allRoutes(RouteSettings settings) {
 
 // -----------------------------------------------------------------------------
     /// s00
-    case Routez.userChecker:
-      return Nav.fadeToScreen(const UserChecker(), settings);
+    case Routez.logoScreen:
+      return Nav.fadeToScreen(const LogoScreen(), settings);
       break;
 // -----------------------------------------------------------------------------
     /// s01

@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/screens/b_auth/b_1_auth_screen.dart';
-import 'package:bldrs/b_views/screens/d_more/d_0_more_screen.dart';
+import 'package:bldrs/b_views/screens/d_0_more_screen.dart';
 import 'package:bldrs/b_views/screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/b_views/screens/g_user/g_0_profile_screen.dart';
 import 'package:bldrs/b_views/screens/h_notifications/g_1_notifications_screen.dart';

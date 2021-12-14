@@ -136,7 +136,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
                   onTap: () async {
                     unawaited(_triggerLoading());
 
-                    _currentZone.printZone();
+                    _currentZone.blogZone();
 
                     unawaited(_triggerLoading());
                   }),
