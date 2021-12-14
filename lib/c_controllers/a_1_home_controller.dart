@@ -12,7 +12,6 @@ import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 // -----------------------------------------------------------------------------
 Future<void> controlHomeScreen(BuildContext context) async {
   /// A - SHOW AD FLYER
@@ -93,3 +92,4 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
   }
 
 }
+// -----------------------------------------------------------------------------
