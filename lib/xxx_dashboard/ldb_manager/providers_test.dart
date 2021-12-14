@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
@@ -7,6 +8,7 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
@@ -27,6 +29,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
   ScrollController _scrollController;
   UsersProvider _usersProvider;
   ZoneProvider _zoneProvider;
+  FlyersProvider _flyersProvider;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -48,7 +51,6 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
         ? blog('LOADING--------------------------------------')
         : blog('LOADING COMPLETE--------------------------------------');
   }
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -56,6 +58,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 
     _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
     super.initState();
   }
@@ -85,12 +88,12 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 // -----------------------------------------------------------------------------
 
     final UserModel _myUserModel = _usersProvider?.myUserModel;
-    final Stream<UserModel> _myUserModelStream =
-        _usersProvider?.myUserModelStream;
+    final Stream<UserModel> _myUserModelStream = _usersProvider?.myUserModelStream;
     final ZoneModel _currentZone = _zoneProvider?.currentZone;
     final Continent _currentContinent = _zoneProvider?.currentContinent;
     final CountryModel _currentCountry = _zoneProvider?.currentCountry;
     final CityModel _currentCity = _zoneProvider?.currentCity;
+    final List<FlyerModel> _promotedFlyers = _flyersProvider?.promotedFlyers;
 
     return MainLayout(
       appBarType: AppBarType.basic,
@@ -170,6 +173,17 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
                     unawaited(_triggerLoading());
 
                     _currentCity.printCity();
+
+                    unawaited(_triggerLoading());
+                  }),
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print _promotedFlyers',
+                  icon: Iconizer.valueIsNotNull(_promotedFlyers),
+                  onTap: () async {
+                    unawaited(_triggerLoading());
+
+                    FlyerModel.blogFlyers(_promotedFlyers);
 
                     unawaited(_triggerLoading());
                   }),
