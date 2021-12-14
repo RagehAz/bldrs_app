@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/screens/a_starters/a_0_logo_screen.dart';
 import 'package:bldrs/b_views/screens/a_starters/a_1_home_screen.dart';
 import 'package:bldrs/b_views/screens/i_flyer/h_0_flyer_screen.dart';
-import 'package:bldrs/b_views/screens/zebala/a_0_user_checker_widget.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
@@ -19,8 +18,7 @@ import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/notifications/local_notification_service.dart'
-    as LocalNotificationService;
+import 'package:bldrs/f_helpers/notifications/local_notification_service.dart' as LocalNotificationService;
 import 'package:bldrs/f_helpers/notifications/noti_ops.dart' as NotiOps;
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/router/router.dart' as Routerer;
@@ -93,6 +91,7 @@ class _BldrsAppState extends State<BldrsApp> {
   void didChangeDependencies() {
     if (_isInit) {
       _triggerLoading().then((_) async {
+
         /// LOCALE
         await _initializeLocale();
 
@@ -167,21 +166,21 @@ class _BldrsAppState extends State<BldrsApp> {
             return ValueListenableBuilder<String>(
                 valueListenable: _fireError,
                 builder: (_, String error, Widget child) {
-                  return LogoScreen(
-                    loading: loading,
-                    error: error,
+                  return const LogoScreen(
+                    // loading: loading,
+                    // error: error,
                   );
                 });
           });
     } else {
       return MultiProvider(
         providers: <SingleChildWidget>[
+          ChangeNotifierProvider<UiProvider>(
+            create: (BuildContext ctx) => UiProvider(),
+          ),
           StreamProvider<UserModel>.value(
             value: UserFireOps.streamInitialUser(),
             initialData: UserModel.initializeUserModelStreamFromUser(),
-          ),
-          ChangeNotifierProvider<UiProvider>(
-            create: (BuildContext ctx) => UiProvider(),
           ),
           ChangeNotifierProvider<GeneralProvider>(
             create: (BuildContext ctx) => GeneralProvider(),
@@ -234,15 +233,17 @@ class _BldrsAppState extends State<BldrsApp> {
 
               /// ROUTES
               onGenerateRoute: Routerer.allRoutes,
-              initialRoute: Routez.home,
+              initialRoute: Routez.logoScreen,
               routes: <String, Widget Function(BuildContext)>{
+
+                /// STARTERS
+                Routez.logoScreen: (BuildContext ctx) => const LogoScreen(key: ValueKey<String>('LogoScreen'),),
+                Routez.home: (BuildContext ctx) => const HomeScreen(),
+
                 Routez.flyerScreen: (BuildContext ctx) => const FlyerScreen(),
                 // Routez.Starting: (ctx) => StartingScreen(),
-                Routez.userChecker: (BuildContext ctx) => const UserChecker(
-                      key: ValueKey<String>('userChecker'),
-                    ),
-                Routez.home: (BuildContext ctx) => const HomeScreen(),
                 // Routez.InPyramids: (ctx) => InPyramidsScreen(),
+
               },
             );
           },

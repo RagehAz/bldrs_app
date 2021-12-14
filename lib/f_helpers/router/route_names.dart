@@ -1,21 +1,16 @@
 abstract class Routez {
-
-  /// xxx
-  static const String dynamicLinkTest = 'DynamicLinkTest';
-
 // -----------------------------------------------------------------------------
-  /// s00
-  static const String userChecker = 'UserChecker';
-// -----------------------------------------------------------------------------
-  /// s00
-  static const String splash = 'SplashScreen';
+  /// a_starters
+// ---------------------------------------------
+  /// a_0
+  static const String logoScreen = 'LogoScreen';
+// ---------------------------------------------
+  /// a_1
+  static const String home = 'HomeScreen';
 // -----------------------------------------------------------------------------
   /// s01
   /// (s02 signin page, s03 register page) are pages insides StartingScreen();
   static const String starting = 'StartingScreen';
-// -----------------------------------------------------------------------------
-  /// s10
-  static const String home = 'HomeScreen';
 // -----------------------------------------------------------------------------
   /// s12
   static const String savedFlyers = 'SavedFlyersScreen';
@@ -56,5 +51,7 @@ abstract class Routez {
   static const String ragehDashBoard = 'RagehDashBoardScreen';
   /// xxx
   static const String obelisk = 'ObeliskScreen';
+  /// xxx
+  static const String dynamicLinkTest = 'DynamicLinkTest';
 
 }

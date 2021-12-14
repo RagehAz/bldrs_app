@@ -569,7 +569,7 @@ Future<void> signOut({
   // Nav.goToRoute(context, Routez.Starting);
 
   if (routeToUserChecker == true) {
-    await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
+    await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);
   }
 }
 // -----------------------------------------------------------------------------

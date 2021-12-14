@@ -21,18 +21,19 @@ class CityModel {
     this.isPublic,
     this.names,
     this.position,
+    this.promotedFlyersIDs,
     this.state,
   });
-
   /// --------------------------------------------------------------------------
   final String countryID;
-  String cityID;
+  final String cityID;
   final List<DistrictModel> districts;
   final int population;
   final bool isActivated;
   final bool isPublic;
   final List<Name> names;
   final GeoPoint position;
+  final List<String> promotedFlyersIDs;
   final String state; // only for USA
   /// --------------------------------------------------------------------------
   Map<String, Object> toMap({@required bool toJSON}) {
@@ -44,13 +45,15 @@ class CityModel {
       'isActivated': isActivated,
       'isPublic': isPublic,
       'names': Name.cipherNames(names: names),
+      'promotedFlyersIDs': promotedFlyersIDs,
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON)
     };
   }
-
 // -----------------------------------------------------------------------------
-  static Map<String, dynamic> cipherCities(
-      {@required List<CityModel> cities, @required bool toJSON}) {
+  static Map<String, dynamic> cipherCities({
+    @required List<CityModel> cities,
+    @required bool toJSON,
+  }) {
     Map<String, dynamic> _citiesMap = <String, dynamic>{};
 
     if (Mapper.canLoopList(cities)) {
@@ -65,10 +68,11 @@ class CityModel {
 
     return _citiesMap;
   }
-
 // -----------------------------------------------------------------------------
-  static CityModel decipherCityMap(
-      {@required Map<String, dynamic> map, @required bool fromJSON}) {
+  static CityModel decipherCityMap({
+    @required Map<String, dynamic> map,
+    @required bool fromJSON,
+  }) {
     CityModel _city;
 
     if (map != null) {
@@ -80,17 +84,18 @@ class CityModel {
         isActivated: map['isActivated'],
         isPublic: map['isPublic'],
         names: Name.decipherNames(map['names']),
-        position:
-            Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
+        promotedFlyersIDs: Mapper.getStringsFromDynamics(dynamics: map['promotedFlyersIDs']),
+        position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
       );
     }
 
     return _city;
   }
-
 // -----------------------------------------------------------------------------
-  static List<CityModel> decipherCitiesMaps(
-      {@required List<Map<String, dynamic>> maps, @required bool fromJSON}) {
+  static List<CityModel> decipherCitiesMaps({
+    @required List<Map<String, dynamic>> maps,
+    @required bool fromJSON
+  }) {
     final List<CityModel> _cities = <CityModel>[];
 
     if (Mapper.canLoopList(maps)) {
@@ -126,8 +131,10 @@ class CityModel {
 //     return _cities;
 //   }
 // -----------------------------------------------------------------------------
-  static List<String> getTranslatedCitiesNamesFromCities(
-      {@required BuildContext context, @required List<CityModel> cities}) {
+  static List<String> getTranslatedCitiesNamesFromCities({
+    @required BuildContext context,
+    @required List<CityModel> cities
+  }) {
     final List<String> _citiesNames = <String>[];
 
     if (Mapper.canLoopList(cities)) {
@@ -140,10 +147,11 @@ class CityModel {
 
     return TextMod.sortAlphabetically(_citiesNames);
   }
-
 // -----------------------------------------------------------------------------
-  static KW getKeywordFromCity(
-      {@required BuildContext context, @required CityModel city}) {
+  static KW getKeywordFromCity({
+    @required BuildContext context,
+    @required CityModel city
+  }) {
     // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
     // String _name = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, city.name);
@@ -155,10 +163,11 @@ class CityModel {
 
     return _keyword;
   }
-
 // -----------------------------------------------------------------------------
-  static List<KW> getKeywordsFromCities(
-      {@required BuildContext context, @required List<CityModel> cities}) {
+  static List<KW> getKeywordsFromCities({
+    @required BuildContext context,
+    @required List<CityModel> cities
+  }) {
     final List<KW> _keywords = <KW>[];
 
     if (Mapper.canLoopList(cities)) {
@@ -171,7 +180,6 @@ class CityModel {
 
     return _keywords;
   }
-
 // -----------------------------------------------------------------------------
   void printCity() {
     blog('CITY - PRINT --------------------------------------- START');
@@ -184,13 +192,15 @@ class CityModel {
     blog('isPublic : $isPublic');
     blog('names : $names');
     blog('position : $position');
+    blog('promotedFlyersIDs : ${promotedFlyersIDs.toString()}');
 
     blog('CITY - PRINT --------------------------------------- END');
   }
-
 // -----------------------------------------------------------------------------
-  static List<MapModel> getCitiesNamesMapModels(
-      {@required BuildContext context, @required List<CityModel> cities}) {
+  static List<MapModel> getCitiesNamesMapModels({
+    @required BuildContext context,
+    @required List<CityModel> cities
+  }) {
     final List<MapModel> _citiesMapModels = <MapModel>[];
 
     if (Mapper.canLoopList(cities)) {
@@ -203,10 +213,11 @@ class CityModel {
 
     return _citiesMapModels;
   }
-
 // -----------------------------------------------------------------------------
-  static CityModel getCityFromCities(
-      {@required List<CityModel> cities, @required String cityID}) {
+  static CityModel getCityFromCities({
+    @required List<CityModel> cities,
+    @required String cityID
+  }) {
     CityModel _city;
     if (Mapper.canLoopList(cities)) {
       _city = cities.firstWhere((CityModel city) => city.cityID == cityID,
@@ -214,10 +225,11 @@ class CityModel {
     }
     return _city;
   }
-
 // -----------------------------------------------------------------------------
-  static String getTranslatedCityNameFromCity(
-      {@required BuildContext context, @required CityModel city}) {
+  static String getTranslatedCityNameFromCity({
+    @required BuildContext context,
+    @required CityModel city
+  }) {
     String _cityName = '...';
 
     if (city != null) {
@@ -226,10 +238,8 @@ class CityModel {
 
     return _cityName;
   }
-
 // -----------------------------------------------------------------------------
-  static List<String> getCitiesIDsFromCities(
-      {@required List<CityModel> cities}) {
+  static List<String> getCitiesIDsFromCities({@required List<CityModel> cities}) {
     final List<String> _citiesIDs = <String>[];
 
     if (Mapper.canLoopList(cities)) {
@@ -239,14 +249,20 @@ class CityModel {
     }
     return _citiesIDs;
   }
-
 // -----------------------------------------------------------------------------
-  static String createCityID(
-      {@required String countryID, @required String cityEnName}) {
+  static String createCityID({
+    @required String countryID,
+    @required String cityEnName,
+  }) {
     final String _fixedCityEnName = CountryModel.fixCountryName(cityEnName);
     final String _cityID = '${countryID}_$_fixedCityEnName';
 
     return _cityID;
+  }
+// -----------------------------------------------------------------------------
+  static String getCityNameWithCurrentLingoIfPossible(BuildContext context, CityModel cityModel) {
+    final String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(context, cityModel?.names);
+    return _nameInCurrentLanguage ?? cityModel?.cityID;
   }
 // -----------------------------------------------------------------------------
 }
