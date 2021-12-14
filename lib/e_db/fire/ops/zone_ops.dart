@@ -46,8 +46,7 @@ Future<List<Continent>> readContinentsOps(
 /// COUNTRY
 
 // ---------------------------------------------------
-Future<CountryModel> readCountryOps(
-    {@required BuildContext context, @required String countryID}) async {
+Future<CountryModel> readCountryOps({@required BuildContext context, @required String countryID}) async {
   final Map<String, dynamic> _map = await Fire.readSubDoc(
     context: context,
     collName: FireColl.zones,
@@ -56,8 +55,7 @@ Future<CountryModel> readCountryOps(
     subDocName: countryID,
   );
 
-  final CountryModel _countryModel =
-      CountryModel.decipherCountryMap(map: _map, fromJSON: false);
+  final CountryModel _countryModel = CountryModel.decipherCountryMap(map: _map, fromJSON: false);
 
   return _countryModel;
 }
@@ -323,8 +321,7 @@ Future<Position> getGeoLocatorCurrentPosition() async {
 }
 
 // ---------------------------------------------------
-Future<List<Placemark>> getAddressFromPosition(
-    {@required GeoPoint geoPoint}) async {
+Future<List<Placemark>> getAddressFromPosition({@required GeoPoint geoPoint}) async {
   List<Placemark> _placeMarks = <Placemark>[];
 
   blog('getAddressFromPosition :starting getAddressFromPosition');
@@ -355,73 +352,5 @@ Future<List<CurrencyModel>> readCurrencies(BuildContext context) async {
       CurrencyModel.decipherCurrencies(_map);
 
   return _currencies;
-}
-// -----------------------------------------------------------------------------
-
-/// PROMOTION
-
-// ---------------------------------------------------
-Future<void> promoteFlyerInCity({
-  @required BuildContext context,
-  @required CityModel cityModel,
-  @required String flyerID,
-}) async {
-
-  final Error _error = ArgumentError('promoteFlyerInCity : COULD NOT PROMOTE FLYER [${flyerID ?? '-'} IN CITY [${cityModel?.cityID ?? '-'}]');
-
-  if (cityModel != null && flyerID != null){
-
-    final List<String> _promotedFlyers = [...cityModel.promotedFlyersIDs, flyerID];
-
-    await tryAndCatch(
-        context: context,
-        functions: () async {
-
-          await Fire.updateSubDocField(
-            context: context,
-            collName: FireColl.zones,
-            docName: FireDoc.zones_cities,
-            subCollName: FireSubColl.zones_cities_cities,
-            subDocName: cityModel.cityID,
-            field: 'promotedFlyersIDs',
-            input: _promotedFlyers,
-          );
-
-          },
-        onError: (String error){
-          throw _error;
-        }
-        );
-
-  }
-
-  else {
-    throw _error;
-  }
-
-}
-// ---------------------------------------------------
-Future<void> demoteFlyerInCity({
-  @required BuildContext context,
-  @required CityModel cityModel,
-  @required String flyerID,
-}) async {
-
-  if (cityModel != null && flyerID != null){
-
-    cityModel.promotedFlyersIDs.remove(flyerID);
-
-    await Fire.updateSubDocField(
-      context: context,
-      collName: FireColl.zones,
-      docName: FireDoc.zones_cities,
-      subCollName: FireSubColl.zones_cities_cities,
-      subDocName: cityModel.cityID,
-      field: 'promotedFlyersIDs',
-      input: cityModel.promotedFlyersIDs,
-    );
-
-  }
-
 }
 // -----------------------------------------------------------------------------
