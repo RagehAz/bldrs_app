@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
@@ -236,8 +237,7 @@ class BottomDialog extends StatelessWidget {
     @required double buttonHeight,
   }) async {
     final double _spacing = buttonHeight * 0.1;
-    final double _height =
-        (buttonHeight * buttons.length) + (_spacing * buttons.length) + 30;
+    final double _height = (buttonHeight * buttons.length) + (_spacing * buttons.length) + 30;
 
     await showBottomDialog(
       context: context,
@@ -332,11 +332,12 @@ class BottomDialog extends StatelessWidget {
   }
 
 // -----------------------------------------------------------------------------
-  static Widget wideButton(
-      {@required BuildContext context,
-      @required String verse,
-      Function onTap,
-      String icon}) {
+  static Widget wideButton({
+    @required BuildContext context,
+    @required String verse,
+    Function onTap,
+    String icon,
+  }) {
     return DreamBox(
       height: 40,
       width: dialogClearWidth(context),
@@ -344,6 +345,8 @@ class BottomDialog extends StatelessWidget {
       verseWeight: VerseWeight.black,
       verseItalic: true,
       icon: icon,
+      iconSizeFactor: 0.7,
+      verseCentered: objectIsNull(icon),
       onTap: onTap,
     );
   }

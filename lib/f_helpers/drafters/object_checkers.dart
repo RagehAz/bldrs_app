@@ -206,3 +206,16 @@ bool objectIsListOfSpecs(dynamic object) {
   return _objectsListIsSpecs;
 }
 // -----------------------------------------------------------------------------
+bool objectIsNull(dynamic object){
+  bool _isNull;
+
+  if (object == null){
+    _isNull = true;
+  }
+  else {
+    _isNull = false;
+  }
+
+  return _isNull;
+}
+// -----------------------------------------------------------------------------

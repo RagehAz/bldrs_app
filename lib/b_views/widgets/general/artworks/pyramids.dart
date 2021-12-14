@@ -45,6 +45,7 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
     if (widget.loading == true) {
       _controller.repeat(reverse: true);
     } else {
