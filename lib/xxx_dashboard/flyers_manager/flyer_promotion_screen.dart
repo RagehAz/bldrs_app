@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -12,8 +13,9 @@ import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/c_controllers/d_zoning_controller.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerOps;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -76,13 +78,24 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
     else {
 
-      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-      final CityModel _cityModel = await _zoneProvider.fetchCityByID(context: context, cityID: _zone.cityID);
+      // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+      // final CityModel _cityModel = await _zoneProvider.fetchCityByID(context: context, cityID: _zone.cityID);
 
-      await ZoneOps.promoteFlyerInCity(
-        context: context,
-        cityModel: _cityModel,
+      final DateTime _now = DateTime.now();
+
+      final FlyerPromotion _flyerPromotion = FlyerPromotion(
         flyerID: widget.flyer.id,
+        cityID: _zone.cityID,
+        from: _now,
+        to: Timers.createDateTimeAfterNumberOfDays(
+          days: 11,
+        ),
+        districtsIDs: <String>[],
+      );
+
+      await FlyerOps.promoteFlyerInCity(
+        context: context,
+        flyerPromotion: _flyerPromotion,
       );
 
       await TopDialog.showTopDialog(

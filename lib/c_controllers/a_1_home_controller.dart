@@ -1,7 +1,5 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
@@ -9,7 +7,6 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
@@ -22,7 +19,7 @@ Future<void> controlHomeScreen(BuildContext context) async {
   /// D - ZONES
   await _initializeUserZone(context);
 
-  /// E - PROMOTED
+  /// E - PROMOTED FLYERS
   await _initializePromotedFlyers(context);
 
   /// F - SPONSORS
@@ -49,11 +46,15 @@ Future<void> _initializeUserZone(BuildContext context) async {
 
   final UserModel _myUserModel = _userProvider.myUserModel;
 
+  /// WHEN USER IS AUTHENTICATED
   if (_myUserModel != null && ZoneModel.zoneHasAllIDs(_myUserModel.zone)) {
     await zoneProvider.getsetCurrentZoneAndCountryAndCity(context: context, zone: _myUserModel.zone);
     await zoneProvider.getsetUserCountryAndCity(context: context, zone: _myUserModel.zone);
     await zoneProvider.getsetContinentByCountryID(context: context, countryID: _myUserModel.zone.countryID);
-  } else {
+  }
+
+  /// WHEN USER IS ANONYMOUS
+  else {
     final ZoneModel _zoneByIP = await superGetZone(context);
 
     await zoneProvider.getsetCurrentZoneAndCountryAndCity(context: context, zone: _zoneByIP);
@@ -63,8 +64,7 @@ Future<void> _initializeUserZone(BuildContext context) async {
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializeSponsors(BuildContext context) async {
-  final BzzProvider _bzzProvider =
-  Provider.of<BzzProvider>(context, listen: false);
+  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
   await _bzzProvider.fetchSponsors(context);
 }
 // -----------------------------------------------------------------------------
@@ -80,16 +80,8 @@ Future<void> _initializeUserBzz(BuildContext context) async {
 // -----------------------------------------------------------------------------
 Future<void> _initializePromotedFlyers(BuildContext context) async {
 
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final CityModel _currentCity = _zoneProvider.currentCity;
-
-  blog('xxxxxxxxxxxxxxxxxxxxxx ------------------->>> ${_currentCity.promotedFlyersIDs.toString()}');
-  _currentCity.printCity();
-
-  if (canLoopList(_currentCity?.promotedFlyersIDs)){
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    await _flyersProvider.getSetPromotedFlyers(context);
-  }
+  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+  await _flyersProvider.getSetPromotedFlyers(context);
 
 }
 // -----------------------------------------------------------------------------

@@ -1,8 +1,10 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/records/review_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
@@ -540,4 +542,66 @@ Future<void> deleteFlyerOps({
         'DELETE FLYER OPS ENDED for ${flyerModel.id} ---------------------------');
   }
 }
+// -----------------------------------------------------------------------------
+
+/// PROMOTION
+
+// ---------------------------------------------------
+Future<void> promoteFlyerInCity({
+  @required BuildContext context,
+  @required FlyerPromotion flyerPromotion,
+}) async {
+
+  final Error _error = ArgumentError('promoteFlyerInCity : COULD NOT PROMOTE FLYER [${flyerPromotion?.flyerID ?? '-'} IN CITY [${flyerPromotion?.cityID ?? '-'}]');
+
+  if (flyerPromotion != null){
+
+    await tryAndCatch(
+        context: context,
+        functions: () async {
+
+          await Fire.createNamedDoc(
+              context: context,
+              collName: FireColl.flyersPromotions,
+              docName: flyerPromotion.flyerID,
+              input: flyerPromotion.toMap(),
+          );
+
+        },
+        onError: (String error){
+          throw _error;
+        }
+    );
+
+  }
+
+  else {
+    throw _error;
+  }
+
+}
+// ---------------------------------------------------
+// Future<void> demoteFlyerInCity({
+//   @required BuildContext context,
+//   @required CityModel cityModel,
+//   @required String flyerID,
+// }) async {
+//
+//   if (cityModel != null && flyerID != null){
+//
+//     cityModel.promotedFlyersIDs.remove(flyerID);
+//
+//     await Fire.updateSubDocField(
+//       context: context,
+//       collName: FireColl.zones,
+//       docName: FireDoc.zones_cities,
+//       subCollName: FireSubColl.zones_cities_cities,
+//       subDocName: cityModel.cityID,
+//       field: 'promotedFlyersIDs',
+//       input: cityModel.promotedFlyersIDs,
+//     );
+//
+//   }
+//
+// }
 // -----------------------------------------------------------------------------

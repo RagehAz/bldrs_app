@@ -8,13 +8,9 @@ import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart';
-import 'package:bldrs/e_db/fire/methods/paths.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/widgets/wide_button.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -202,37 +198,14 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
               /// DO SOMETHING
               WideButton(
                   color: Colorz.bloodTest,
-                  verse: 'get maps',
+                  verse: 'DELETE THE TEST',
                   icon: Iconz.share,
                   onTap: () async {
                     unawaited(_triggerLoading());
 
-                    // final List<Map<String, dynamic>> _maps = await mapsByTwoValuesEqualTo(
-                    //     context: context,
-                    //     collRef: getCollectionRef(FireColl.bzz),
-                    //     fieldA: 'id',
-                    //     valueA: 'mn3',
-                    //     fieldB: 'flyersIDs.0',
-                    //     valueB: 'f013',
-                    // );
 
-                    QuerySnapshot<Object> _collectionSnapshot;
+                    // blog('XXXXXX - DELETED FIREBASE FILE  IN [$_diffSave] SECONDS');
 
-                    _collectionSnapshot = await getCollectionRef(FireColl.bzz)
-                        .where('id', isEqualTo: 'mn3')
-                        .where('flyersIDs', isEqualTo: 'f013')
-                        .get();
-
-                    blog('is not equal to null aho');
-
-                    final List<Map<String, dynamic>> _maps =
-                        Mapper.getMapsFromQuerySnapshot(
-                      querySnapshot: _collectionSnapshot,
-                      addDocsIDs: false,
-                      addDocSnapshotToEachMap: false,
-                    );
-
-                    Mapper.printMaps(_maps);
 
                     unawaited(_triggerLoading());
                   }),

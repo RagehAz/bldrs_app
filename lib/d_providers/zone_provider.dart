@@ -6,8 +6,8 @@ import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/dialogz.dart' as Dialogz;
-import 'package:bldrs/e_db/fire/ops/search_ops.dart' as FireSearchOps;
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
+import 'package:bldrs/e_db/fire/search/zone_search.dart' as Search;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -186,7 +186,7 @@ class ZoneProvider extends ChangeNotifier {
 
           /// C-1 - trial 3 if countryID is not available
           if (countryID == null){
-            _foundCities = await FireSearchOps.citiesByCityName(
+            _foundCities = await Search.citiesByCityName(
               context: context,
               cityName: cityName,
               lingoCode: lingoCode,
@@ -195,7 +195,7 @@ class ZoneProvider extends ChangeNotifier {
 
           /// C-1 - trial 3 if countryID is available
           else {
-            _foundCities = await FireSearchOps.citiesByCityNameAndCountryID(
+            _foundCities = await Search.citiesByCityNameAndCountryID(
               context: context,
               cityName: cityName,
               countryID: countryID,
