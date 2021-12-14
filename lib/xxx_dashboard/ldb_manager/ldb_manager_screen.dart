@@ -106,7 +106,7 @@ class LDBViewersScreen extends StatelessWidget {
           flyerID: 'f002',
         );
 
-        _flyer.printFlyer();
+        _flyer.blogFlyer();
       },
       listWidgets: <Widget>[
         ...List<Widget>.generate(LDBDoc.allDocs.length, (int index) {
