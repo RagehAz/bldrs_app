@@ -8,13 +8,19 @@ class ZoneModel {
     this.countryID,
     this.cityID,
     this.districtID,
-  });
 
+    this.countryName,
+    this.cityName,
+    this.districtName,
+  });
   /// --------------------------------------------------------------------------
   String countryID;
   String cityID;
   String districtID;
 
+  String countryName;
+  String cityName;
+  String districtName;
   /// --------------------------------------------------------------------------
   ZoneModel clone() {
     return ZoneModel(
@@ -50,7 +56,6 @@ class ZoneModel {
 
     return _zone;
   }
-
 // -----------------------------------------------------------------------------
   static bool zonesAreTheSame(ZoneModel finalZone, ZoneModel originalZone) {
     bool _zonesAreTheSame = true;
@@ -128,7 +133,7 @@ class ZoneModel {
   }
 
 // -----------------------------------------------------------------------------
-  void printZone({String methodName = 'ZONE - PRINT'}) {
+  void blogZone({String methodName = 'ZONE - PRINT'}) {
     blog('$methodName ------------------------------- START');
 
     blog('countryID : $countryID');

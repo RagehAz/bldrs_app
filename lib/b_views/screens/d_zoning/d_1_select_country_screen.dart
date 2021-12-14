@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/b_views/screens/d_more/d_2_select_city_screen.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/screens/d_zoning/d_2_select_city_screen.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/swiper_layout_screen.dart';
 import 'package:bldrs/b_views/widgets/specific/zone/zones_page.dart';
@@ -20,10 +21,19 @@ import 'package:provider/provider.dart';
 /// but will put a sketch because i already did while thinking this through
 
 class SelectCountryScreen extends StatefulWidget {
-  const SelectCountryScreen({Key key}) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  const SelectCountryScreen({
+    this.selectCountryIDOnly = false,
+    this.selectCountryAndDistrictOnly = false,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final bool selectCountryIDOnly;
+  final bool selectCountryAndDistrictOnly;
+  /// --------------------------------------------------------------------------
   @override
   _SelectCountryScreenState createState() => _SelectCountryScreenState();
+  /// --------------------------------------------------------------------------
 }
 
 class _SelectCountryScreenState extends State<SelectCountryScreen> {
@@ -77,10 +87,47 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
   Future<void> _onCountryTap({@required String countryID}) async {
     blog('countryID is : $countryID');
 
-    final CountryModel _country = await _zoneProvider.fetchCountryByID(
-        context: context, countryID: countryID);
 
-    await Nav.goToNewScreen(context, SelectCityScreen(country: _country));
+    if (widget.selectCountryIDOnly){
+
+      final ZoneModel _zone = ZoneModel(
+        countryID: countryID,
+      );
+
+      Nav.goBack(context, argument: _zone);
+
+    }
+    else {
+
+      if (widget.selectCountryAndDistrictOnly) {
+
+        final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: countryID);
+        final String _cityID = await Nav.goToNewScreen(context, SelectCityScreen(
+          country: _country,
+          selectCountryAndDistrictOnly: widget.selectCountryAndDistrictOnly,
+        ));
+
+        if (_cityID != null){
+
+          final ZoneModel _zone = ZoneModel(
+            countryID: countryID,
+            cityID: _cityID,
+          );
+
+          Nav.goBack(context, argument: _zone);
+
+        }
+
+      }
+
+      else {
+
+        final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: countryID);
+        await Nav.goToNewScreen(context, SelectCityScreen(country: _country));
+      }
+
+    }
+
   }
 
 // -----------------------------------------------------------------------------
@@ -88,13 +135,11 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
   List<Map<String, dynamic>> _generatePages() {
     final List<Map<String, dynamic>> _pages = <Map<String, dynamic>>[];
 
-    final double _screenHeight =
-        Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     final double _pageHeight = _screenHeight - Ratioz.stratosphere;
 
     for (final Continent continent in _allContinents) {
-      final List<String> _countriesIDs =
-          CountryModel.getCountriesIDsOfContinent(continent);
+      final List<String> _countriesIDs = CountryModel.getCountriesIDsOfContinent(continent);
       final String _continentIcon = Iconizer.getContinentIcon(continent);
 
       _pages.add(
@@ -120,6 +165,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return SwiperLayoutScreen(
       sky: SkyType.black,
       swiperPages: Mapper.canLoopList(_allContinents)
@@ -129,4 +175,5 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
             ],
     );
   }
+
 }

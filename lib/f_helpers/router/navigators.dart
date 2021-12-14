@@ -112,7 +112,7 @@ void goBackToUserChecker(BuildContext context) {
   //     ModalRoute.withName(Routez.UserChecker)
   // );
 
-  Navigator.popUntil(context, ModalRoute.withName(Routez.userChecker));
+  Navigator.popUntil(context, ModalRoute.withName(Routez.logoScreen));
 }
 
 // -----------------------------------------------------------------------------

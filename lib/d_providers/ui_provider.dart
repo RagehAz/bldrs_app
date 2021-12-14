@@ -9,7 +9,7 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   bool get loading => _loading;
 // -------------------------------------
-  Future<void> triggerLoading() async {
+  void triggerLoading({bool setLoadingTo}) {
     /// trigger loading method should remain Future as it starts controllers of
     /// each screen like triggerLoading.then(()=>methods)
     /// in didChangeDependencies override
@@ -24,5 +24,17 @@ class UiProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+// -----------------------------------------------------------------------------
+  void startController(Function controllerMethod) {
+
+    _start().then((_) async {
+
+      await controllerMethod();
+
+    });
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _start() async {}
 // -----------------------------------------------------------------------------
 }

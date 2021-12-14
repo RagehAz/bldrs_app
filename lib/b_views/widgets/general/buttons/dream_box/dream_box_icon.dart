@@ -61,19 +61,23 @@ class DreamBoxIcon extends StatelessWidget {
           loading: loading,
         ),
       );
-    } else if (iconFile != null) {
+    }
+
+    else if (iconFile != null) {
       return Container(
         width: _jpgGraphicWidth,
         height: _jpgGraphicWidth,
         margin: EdgeInsets.all(iconMargin),
-        decoration:
-            BoxDecoration(borderRadius: iconCorners, boxShadow: <BoxShadow>[
-          Shadowz.CustomBoxShadow(
-              color: bubble == true ? Colorz.black200 : Colorz.nothing,
-              offset: Offset(0, _jpgGraphicWidth * -0.019),
-              blurRadius: _jpgGraphicWidth * 0.2,
-              style: BlurStyle.outer),
-        ]),
+        decoration: BoxDecoration(
+            borderRadius: iconCorners,
+            boxShadow: <BoxShadow>[
+              Shadowz.CustomBoxShadow(
+                  color: bubble == true ? Colorz.black200 : Colorz.nothing,
+                  offset: Offset(0, _jpgGraphicWidth * -0.019),
+                  blurRadius: _jpgGraphicWidth * 0.2,
+                  style: BlurStyle.outer),
+            ]
+        ),
         child: ClipRRect(
           borderRadius: iconCorners,
           child: ColorFiltered(
@@ -91,22 +95,29 @@ class DreamBoxIcon extends StatelessWidget {
           ),
         ),
       );
-    } else if (icon == null || icon == '') {
+    }
+
+    else if (icon == null || icon == '') {
       return Container();
-    } else if (ObjectChecker.objectIsSVG(icon)) {
+    }
+
+    else if (ObjectChecker.objectIsSVG(icon)) {
       return Padding(
         padding: EdgeInsets.all(iconMargin),
         child: WebsafeSvg.asset(icon,
             color: iconColor, height: _svgGraphicWidth, fit: BoxFit.cover),
       );
-    } else if (ObjectChecker.objectIsJPGorPNG(icon)) {
+    }
+
+    else if (ObjectChecker.objectIsJPGorPNG(icon)) {
       return Container(
         width: _jpgGraphicWidth,
         height: _jpgGraphicWidth,
         margin: EdgeInsets.all(iconMargin),
-        decoration:
-            BoxDecoration(borderRadius: iconCorners, boxShadow: <BoxShadow>[
-          Shadowz.CustomBoxShadow(
+        decoration: BoxDecoration(
+            borderRadius: iconCorners,
+            boxShadow: <BoxShadow>[
+              Shadowz.CustomBoxShadow(
               color: bubble == true ? Colorz.black200 : Colorz.nothing,
               offset: Offset(0, _jpgGraphicWidth * -0.019),
               blurRadius: _jpgGraphicWidth * 0.2,
@@ -136,7 +147,9 @@ class DreamBoxIcon extends StatelessWidget {
           ),
         ),
       );
-    } else if (ObjectChecker.objectIsURL(icon)) {
+    }
+
+    else if (ObjectChecker.objectIsURL(icon)) {
       return Container(
         width: _jpgGraphicWidth,
         height: _jpgGraphicWidth,
@@ -183,7 +196,9 @@ class DreamBoxIcon extends StatelessWidget {
           ),
         ),
       );
-    } else {
+    }
+
+    else {
       return Container();
     }
   }

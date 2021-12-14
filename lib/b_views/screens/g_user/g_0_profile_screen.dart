@@ -193,7 +193,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         blog('successfully deleted user ops and got back to profile screen');
 
         /// go to user checker and remove all below screens
-        await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
+        await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);
       }
 
       /// if it fails
@@ -201,7 +201,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         blog('something went wrong');
 
         /// go to user checker and remove all below screens
-        await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
+        await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);
       }
     }
   }
@@ -247,7 +247,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         unawaited(_triggerLoading());
 
         /// go to user checker and remove all below screens
-        await Nav.pushNamedAndRemoveAllBelow(context, Routez.userChecker);
+        await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);
       }
 
       /// if something went wrong
