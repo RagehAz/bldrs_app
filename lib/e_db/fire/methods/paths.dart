@@ -9,6 +9,7 @@ abstract class FireColl{
   static const String bzz = 'bzz';
 
   static const String flyers = 'flyers';
+  static const String flyersPromotions = 'flyersPromotions';
 
   static const String feedbacks = 'feedbacks';
   static const String admin = 'admin';

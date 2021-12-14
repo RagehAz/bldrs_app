@@ -23,7 +23,7 @@ import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/methods/storage.dart' as Storage;
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/e_db/fire/ops/search_ops.dart' as FireSearchOps;
+import 'package:bldrs/e_db/fire/search/user_search.dart' as UserSearch;
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
@@ -33,8 +33,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
-import 'package:bldrs/f_helpers/notifications/bldrs_notiz.dart'
-    as BldrsNotiModelz;
+import 'package:bldrs/f_helpers/notifications/bldrs_notiz.dart' as BldrsNotiModelz;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -270,7 +269,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                     blog('submitted : val : $val');
 
                     final List<UserModel> _resultUsers =
-                        await FireSearchOps.usersByUserName(
+                        await UserSearch.usersByUserName(
                       context: context,
                       name: val,
                     );

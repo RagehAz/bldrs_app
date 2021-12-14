@@ -21,7 +21,6 @@ class CityModel {
     this.isPublic,
     this.names,
     this.position,
-    this.promotedFlyersIDs,
     this.state,
   });
   /// --------------------------------------------------------------------------
@@ -33,7 +32,6 @@ class CityModel {
   final bool isPublic;
   final List<Name> names;
   final GeoPoint position;
-  final List<String> promotedFlyersIDs;
   final String state; // only for USA
   /// --------------------------------------------------------------------------
   Map<String, Object> toMap({@required bool toJSON}) {
@@ -45,7 +43,6 @@ class CityModel {
       'isActivated': isActivated,
       'isPublic': isPublic,
       'names': Name.cipherNames(names: names),
-      'promotedFlyersIDs': promotedFlyersIDs,
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON)
     };
   }
@@ -84,7 +81,6 @@ class CityModel {
         isActivated: map['isActivated'],
         isPublic: map['isPublic'],
         names: Name.decipherNames(map['names']),
-        promotedFlyersIDs: Mapper.getStringsFromDynamics(dynamics: map['promotedFlyersIDs']),
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
       );
     }
@@ -192,7 +188,6 @@ class CityModel {
     blog('isPublic : $isPublic');
     blog('names : $names');
     blog('position : $position');
-    blog('promotedFlyersIDs : ${promotedFlyersIDs.toString()}');
 
     blog('CITY - PRINT --------------------------------------- END');
   }

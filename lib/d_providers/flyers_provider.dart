@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
@@ -11,14 +12,15 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
-import 'package:bldrs/e_db/fire/ops/search_ops.dart' as FireSearchOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
+import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 
 /// fetch : a method that returns searched value in LDB, then in firebase, and stores in LDB if found
 /// get : a method that returns processed inputs with provider global variables
@@ -250,11 +252,18 @@ class FlyersProvider extends ChangeNotifier {
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     final CityModel _currentCity = _zoneProvider.currentCity;
 
-    if (_currentCity != null && Mapper.canLoopList(_currentCity.promotedFlyersIDs)){
+    if (_currentCity != null){
 
-      final List<FlyerModel> _fetchedFlyers = await fetchFlyersByIDs(context: context, flyersIDs: _currentCity.promotedFlyersIDs);
+      final List<FlyerPromotion> _promotions = await FlyerSearch.flyerPromotionsByCity(
+        context: context,
+        cityID: _currentCity.cityID,
+      );
 
-      _promotedFlyers = _fetchedFlyers;
+      final List<String> _flyersIDs = FlyerPromotion.getFlyersIDsFromFlyersPromotions(promotions: _promotions);
+
+      final List<FlyerModel> _flyers = await fetchFlyersByIDs(context: context, flyersIDs: _flyersIDs);
+
+      _promotedFlyers = _flyers;
       notifyListeners();
     }
 
@@ -299,7 +308,7 @@ class FlyersProvider extends ChangeNotifier {
 
           /// READ data from cloud Firestore flyers collection
 
-          final List<FlyerModel> _foundFlyers = await FireSearchOps.flyersByZoneAndFlyerType(
+          final List<FlyerModel> _foundFlyers = await FlyerSearch.flyersByZoneAndFlyerType(
             context: context,
             zone: _currentZone,
             flyerType: _flyerType,
@@ -324,7 +333,7 @@ class FlyersProvider extends ChangeNotifier {
     final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
     final ZoneModel _currentZone = _zoneProvider.currentZone;
 
-    final List<FlyerModel> _flyers = await FireSearchOps.flyersByZoneAndFlyerType(
+    final List<FlyerModel> _flyers = await FlyerSearch.flyersByZoneAndFlyerType(
       context: context,
       zone: _currentZone,
       flyerType: flyerType,
@@ -376,7 +385,7 @@ class FlyersProvider extends ChangeNotifier {
     final ZoneModel _currentZone = _zoneProvider.currentZone;
 
     /// TASK : think this through.. can it be fetch instead of just search ? I don't think soooooo
-    final List<FlyerModel> _flyers = await FireSearchOps.flyersByZoneAndKeyword(
+    final List<FlyerModel> _flyers = await FlyerSearch.flyersByZoneAndKeyword(
       context: context,
       zone: _currentZone,
       kw: kw,

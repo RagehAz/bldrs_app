@@ -13,7 +13,9 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/search_ops.dart' as FireSearchOps;
+import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzSearch;
+import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
+import 'package:bldrs/e_db/fire/search/user_search.dart' as UserSearchOps;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -204,7 +206,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     blog('_onSearchBzz : _searchController.text : ${_searchController.text}');
 
-    final List<BzModel> _bzz = await FireSearchOps.bzzByBzName(
+    final List<BzModel> _bzz = await BzSearch.bzzByBzName(
       context: context,
       bzName: _searchController.text,
     );
@@ -231,7 +233,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<List<SearchResult>> _searchAuthors() async {
     final List<SearchResult> _results = <SearchResult>[];
 
-    final List<UserModel> _users = await FireSearchOps.usersByNameAndIsAuthor(
+    final List<UserModel> _users = await UserSearchOps.usersByNameAndIsAuthor(
       context: context,
       name: _searchController.text,
     );
@@ -276,7 +278,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<List<SearchResult>> _searchFlyersByTitle() async {
     final List<SearchResult> _results = <SearchResult>[];
 
-    final List<FlyerModel> _flyers = await FireSearchOps.flyersByZoneAndTitle(
+    final List<FlyerModel> _flyers = await FlyerSearch.flyersByZoneAndTitle(
       context: context,
       zone: _zoneProvider.currentZone,
       title: _searchController.text,
