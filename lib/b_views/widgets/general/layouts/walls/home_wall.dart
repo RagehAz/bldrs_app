@@ -142,7 +142,6 @@ class HomeWall extends StatelessWidget {
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
     final List<FlyerModel> _promotedFlyers = _flyersProvider.promotedFlyers;
 
-
     final List<Widget> _homeWallWidgets = <Widget>[
 
       /// PROMOTED
@@ -153,6 +152,7 @@ class HomeWall extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
               child: SuperVerse(
@@ -163,11 +163,14 @@ class HomeWall extends StatelessWidget {
                 color: Colorz.white125,
               ),
             ),
+
             HomeWall.spacer,
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+
                 //         // Ask(
                 //         //   tappingAskInfo: () {blog('Ask info is tapped aho');},
                 //         // ),
@@ -179,8 +182,7 @@ class HomeWall extends StatelessWidget {
                     flyerModel: _promotedFlyers[0],
                   ),
 
-
-                  if (canLoopList(_promotedFlyers) == false)
+                if (canLoopList(_promotedFlyers) == false)
                 FlyerBox(
                   flyerBoxWidth: _sponsoredFlyerWidth,
                   superFlyer: SuperFlyer.createEmptySuperFlyer(
@@ -198,8 +200,10 @@ class HomeWall extends StatelessWidget {
                       flyerBoxWidth: _sponsoredFlyerWidth, goesToEditor: false),
                   onFlyerZoneTap: null,
                 ),
+
               ],
             ),
+
           ],
         ),
       ),
@@ -230,6 +234,7 @@ class HomeWall extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
 
     final List<Widget> _homeWallWidgets = userIsSignedIn() == true ?
@@ -251,5 +256,6 @@ class HomeWall extends StatelessWidget {
         },
       );
     }
+
   }
 }
