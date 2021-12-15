@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/screens/a_starters/a_0_logo_screen.dart';
-import 'package:bldrs/b_views/screens/a_starters/a_1_home_screen.dart';
-import 'package:bldrs/b_views/screens/i_flyer/h_0_flyer_screen.dart';
+import 'package:bldrs/b_views/x_screens/a_starters/a_0_logo_screen.dart';
+import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
+import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';

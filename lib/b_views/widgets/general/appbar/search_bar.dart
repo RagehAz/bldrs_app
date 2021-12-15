@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/back_anb_search_button.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -44,8 +44,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   void initState() {
     super.initState();
-    _searchTextController =
-        widget.searchController ?? TextEditingController(text: '');
+    _searchTextController = widget.searchController ?? TextEditingController(text: '');
   }
 
   @override
@@ -58,16 +57,13 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    final double _appBarClearWidth =
-        BldrsAppBar.width(context, boxWidth: widget.boxWidth);
+    final double _appBarClearWidth = BldrsAppBar.width(context, boxWidth: widget.boxWidth);
 
     const double _padding = Ratioz.appBarPadding;
-    final double _historyButtonWidth =
-        widget.historyButtonIsOn == true ? 40 : 0;
+    final double _historyButtonWidth = widget.historyButtonIsOn == true ? 40 : 0;
     const double _historyButtonHeight = 40;
     final int _numberOFPaddings = widget.historyButtonIsOn == true ? 3 : 2;
-    final double _textFieldWidth =
-        _appBarClearWidth - _historyButtonWidth - _padding * _numberOFPaddings;
+    final double _textFieldWidth = _appBarClearWidth - _historyButtonWidth - _padding * _numberOFPaddings;
 
     // _appBarClearWidth - (Ratioz.appBarButtonSize + Ratioz.appBarPadding * 3) - 3;
 

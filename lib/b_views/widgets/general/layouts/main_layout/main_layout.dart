@@ -42,11 +42,12 @@ class MainLayout extends StatelessWidget {
     this.scaffoldKey,
     // this.myTinyBzz,
     this.appBarScrollController,
-    this.sectionButtonIsOn,
     this.searchController,
     this.onSearchSubmit,
-    this.historyButtonIsOn = true,
     this.onSearchChanged,
+    this.historyButtonIsOn = true,
+    this.sectionButtonIsOn = true,
+    this.zoneButtonIsOn = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -62,11 +63,12 @@ class MainLayout extends StatelessWidget {
   final Key scaffoldKey;
   // final List<TinyBz> myTinyBzz;
   final ScrollController appBarScrollController;
-  final bool sectionButtonIsOn;
   final TextEditingController searchController;
   final ValueChanged<String> onSearchSubmit;
-  final bool historyButtonIsOn;
   final ValueChanged<String> onSearchChanged;
+  final bool historyButtonIsOn;
+  final bool sectionButtonIsOn;
+  final bool zoneButtonIsOn;
   /// --------------------------------------------------------------------------
   static const Widget spacer5 = SizedBox(
     width: 5,
@@ -115,6 +117,7 @@ class MainLayout extends StatelessWidget {
       loading: loading,
       appBarScrollController: appBarScrollController,
       sectionButtonIsOn: sectionButtonIsOn,
+      zoneButtonIsOn: zoneButtonIsOn,
       searchController: searchController,
       onSearchSubmit: onSearchSubmit,
       historyButtonIsOn: historyButtonIsOn,

@@ -7,12 +7,12 @@ import 'package:bldrs/a_models/kw/chain/chain_properties.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
-import 'package:bldrs/b_views/widgets/components/horizon.dart';
 import 'package:bldrs/b_views/widgets/general/appbar/search_bar.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/section_dialog/section_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
@@ -141,10 +141,8 @@ class _DrawerDialogState extends State<DrawerDialog> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _drawerWidth =
-        widget.width ?? Scale.superScreenWidth(context) * 0.9;
-    final double _drawerHeight =
-        Scale.superScreenHeightWithoutSafeArea(context);
+    final double _drawerWidth = widget.width ?? Scale.superScreenWidth(context) * 0.9;
+    final double _drawerHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     final double _bubbleWidth = _drawerWidth - (Ratioz.appBarMargin * 2);
     // final double _tileWidth = _bubbleWidth - (Ratioz.appBarMargin * 2);
@@ -167,6 +165,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
           alignment: Aligners.superTopAlignment(context),
           child: Column(
             children: <Widget>[
+
               /// SEARCH BAR
               Container(
                 width: _drawerWidth,
@@ -303,6 +302,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                   ),
                 ),
               ),
+
             ],
           ),
         ),

@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/screens/a_starters/a_0_logo_screen.dart';
-import 'package:bldrs/b_views/screens/b_auth/b_1_email_auth_screen.dart';
-import 'package:bldrs/b_views/widgets/components/expander.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/dialogz.dart' as Dialogz;
+import 'package:bldrs/b_views/x_screens/a_starters/a_0_logo_screen.dart';
+import 'package:bldrs/b_views/x_screens/b_auth/b_1_email_auth_screen.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';

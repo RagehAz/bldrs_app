@@ -21,16 +21,14 @@ bool appIsLeftToRight(BuildContext context) {
 
   return _isLTR;
 }
-
 // -----------------------------------------------------------------------------
-TextDirection superTextDirection(BuildContext context) {
+TextDirection textDirectionAsPerAppDirection(BuildContext context) {
   if (appIsLeftToRight(context)) {
     return TextDirection.ltr;
   } else {
     return TextDirection.rtl;
   }
 }
-
 // -----------------------------------------------------------------------------
 TextDirection superInverseTextDirection(BuildContext context) {
   if (appIsLeftToRight(context)) {
@@ -39,7 +37,6 @@ TextDirection superInverseTextDirection(BuildContext context) {
     return TextDirection.ltr;
   }
 }
-
 // -----------------------------------------------------------------------------
 /// if keyboard lang is ltr ? ltr : rtl
 /// On native iOS the current keyboard language can be gotten from
@@ -50,8 +47,7 @@ TextDirection superInverseTextDirection(BuildContext context) {
 /// getCurrentInputMethodSubtype
 /// to get the keyboard language, but I'm not seeing a way to listen
 /// to keyboard language changes.
-TextDirection superTextDirectionSwitcherByController(
-    TextEditingController controller) {
+TextDirection superTextDirectionSwitcherByController(TextEditingController controller) {
   TextDirection _textDirection;
 
   final bool controllerIsEmpty = TextChecker.textControllerIsEmpty(controller);
@@ -80,7 +76,6 @@ TextDirection superTextDirectionSwitcherByController(
 
   return _textDirection;
 }
-
 // -----------------------------------------------------------------------------
 TextDirection superTextDirectionSwitcher(String val) {
   TextDirection _textDirection;
@@ -120,7 +115,6 @@ TextDirection superTextDirectionSwitcher(String val) {
 
   return _textDirection;
 }
-
 // -----------------------------------------------------------------------------
 TextDirection concludeTextDirection({
   @required BuildContext context,
@@ -137,7 +131,7 @@ TextDirection concludeTextDirection({
   /// when it is not defined outside, and detectedDirection hadn't changed yet we
   /// use default superTextDirection that detects current app language
   else if (detectedDirection == null) {
-    _concludedTextDirection = superTextDirection(context);
+    _concludedTextDirection = textDirectionAsPerAppDirection(context);
   }
 
   /// so otherwise we use detectedDirection that auto detects current input

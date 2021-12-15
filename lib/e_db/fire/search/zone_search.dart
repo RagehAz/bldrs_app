@@ -15,10 +15,44 @@ import 'package:flutter/material.dart';
 /// ZONES
 
 // -----------------------------------------------
-Future<List<CityModel>> citiesByCityName(
-    {@required BuildContext context,
-    @required String cityName,
-    @required String lingoCode}) async {
+Future<List<CountryModel>> countriesByCountryName({
+  @required BuildContext context,
+  @required String countryName,
+  @required String lingoCode
+}) async {
+
+  List<CountryModel> _countries = <CountryModel>[];
+
+  if (countryName != null && countryName.isNotEmpty) {
+    final List<Map<String, dynamic>> _result = await Search.subCollectionMapsByFieldValue(
+      context: context,
+      collName: FireColl.zones,
+      docName: FireDoc.zones_countries,
+      subCollName: FireSubColl.zones_countries_countries,
+      field: 'names.$lingoCode.trigram',
+      compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
+        input: CountryModel.fixCountryName(countryName),
+        numberOfCharacters: Standards.maxTrigramLength,
+      ),
+      valueIs: Search.ValueIs.arrayContains,
+    );
+
+    if (Mapper.canLoopList(_result)) {
+      _countries = CountryModel.decipherCountriesMaps(
+        maps: _result,
+        fromJSON: false,
+      );
+    }
+  }
+
+  return _countries;
+}
+// -----------------------------------------------
+Future<List<CityModel>> citiesByCityName({
+  @required BuildContext context,
+  @required String cityName,
+  @required String lingoCode,
+}) async {
   List<CityModel> _cities = <CityModel>[];
 
   if (cityName != null && cityName.isNotEmpty) {
@@ -45,7 +79,6 @@ Future<List<CityModel>> citiesByCityName(
 
   return _cities;
 }
-
 // -----------------------------------------------
 /// not tested
 Future<List<CityModel>> citiesByCityNameAndCountryID({
