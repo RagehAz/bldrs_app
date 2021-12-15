@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/screens/i_flyer/h_1_bz_card_screen.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/b_views/widgets/specific/bz/bz_grid.dart';
+import 'package:bldrs/b_views/x_screens/i_flyer/h_1_bz_card_screen.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

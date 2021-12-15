@@ -1,11 +1,11 @@
-import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/rageh_button.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/general/textings/the_golden_scroll.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;

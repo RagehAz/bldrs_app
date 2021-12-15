@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/widgets/general/layouts/testing_layout.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/xxx_lab/cleaning_space.dart';

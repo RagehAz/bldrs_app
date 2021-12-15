@@ -220,7 +220,7 @@ class DreamBox extends StatelessWidget {
     );
 // -----------------------------------------------------------------------------
     final TextDirection _textDirection =
-        textDirection ?? superTextDirection(context);
+        textDirection ?? textDirectionAsPerAppDirection(context);
 // -----------------------------------------------------------------------------
     final EdgeInsets _boxMargins = Scale.superMargins(margins: margins);
 // -----------------------------------------------------------------------------

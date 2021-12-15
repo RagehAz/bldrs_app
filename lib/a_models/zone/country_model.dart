@@ -189,8 +189,11 @@ class CountryModel {
   }
 
 // -----------------------------------------------------------------------------
-  static String getTranslatedCountryNameByID(
-      {@required BuildContext context, @required String countryID}) {
+  static String getTranslatedCountryNameByID({
+    @required BuildContext context,
+    @required String countryID
+  }) {
+
     String _countryName = '...';
 
     if (countryID != null) {

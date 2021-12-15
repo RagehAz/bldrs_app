@@ -66,6 +66,7 @@ abstract class FireSubColl {
   static const String flyers_flyer_reviews = 'reviews';
 
   static const String zones_cities_cities = 'cities';
+  static const String zones_countries_countries = 'countries';
 
 }
 // -----------------------------------------------------------------------------

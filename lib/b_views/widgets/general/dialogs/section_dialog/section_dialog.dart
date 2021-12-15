@@ -1,10 +1,10 @@
 import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
-import 'package:bldrs/b_views/widgets/components/horizon.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/section_dialog/section_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/section_dialog/section_button.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';

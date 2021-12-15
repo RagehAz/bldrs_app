@@ -1,5 +1,4 @@
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as international;
 
@@ -202,8 +201,8 @@ bool stringContainsSubString(
     }
   }
 
-  final String _blah = _itContainsIt == true ? 'CONTAIN' : 'DOES NOT CONTAIN';
-  blog('string : $string : $_blah this : $subString');
+  // final String _blah = _itContainsIt == true ? 'CONTAIN' : 'DOES NOT CONTAIN';
+  // blog('string : $string : $_blah this : $subString');
 
   return _itContainsIt;
 }
