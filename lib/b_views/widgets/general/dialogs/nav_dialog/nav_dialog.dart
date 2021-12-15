@@ -86,10 +86,8 @@ class NavDialog extends StatelessWidget {
 
     final double _navBarHeight = NavBar.navBarHeight(context: context);
     final double _navBarClearWidth = _screenWidth - (4 * Ratioz.appBarMargin);
-    final double _titleHeight =
-        secondLine == null ? _navBarHeight : _navBarHeight * 0.35;
-    final double _bodyHeight =
-        secondLine == null ? 0 : (_navBarHeight - _titleHeight);
+    final double _titleHeight = secondLine == null ? _navBarHeight : _navBarHeight * 0.35;
+    final double _bodyHeight = secondLine == null ? 0 : (_navBarHeight - _titleHeight);
 
     return GestureDetector(
       onTap: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
@@ -102,21 +100,17 @@ class NavDialog extends StatelessWidget {
           width: _navBarClearWidth,
           decoration: BoxDecoration(
             color: color,
-            borderRadius:
-                Borderers.superBorderAll(context, Ratioz.appBarCorner),
+            borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
           ),
           alignment: Alignment.center,
           child: Column(
-            crossAxisAlignment: secondLine == null
-                ? CrossAxisAlignment.center
-                : CrossAxisAlignment.start,
+            crossAxisAlignment: secondLine == null ? CrossAxisAlignment.center : CrossAxisAlignment.start,
             children: <Widget>[
+
               Container(
                 height: _titleHeight,
                 width: _navBarClearWidth,
-                alignment: secondLine == null
-                    ? Alignment.center
-                    : Aligners.superCenterAlignment(context),
+                alignment: secondLine == null ? Alignment.center : Aligners.superCenterAlignment(context),
                 padding: const EdgeInsets.symmetric(
                   horizontal: Ratioz.appBarMargin,
                 ),
@@ -127,6 +121,7 @@ class NavDialog extends StatelessWidget {
                   centered: _verseIsCentered(),
                 ),
               ),
+
               if (secondLine != null)
                 Container(
                   height: _bodyHeight,
@@ -145,6 +140,7 @@ class NavDialog extends StatelessWidget {
                     centered: false,
                   ),
                 ),
+
             ],
           ),
         ),

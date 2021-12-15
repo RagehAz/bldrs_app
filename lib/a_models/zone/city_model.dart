@@ -90,7 +90,7 @@ class CityModel {
 // -----------------------------------------------------------------------------
   static List<CityModel> decipherCitiesMaps({
     @required List<Map<String, dynamic>> maps,
-    @required bool fromJSON
+    @required bool fromJSON,
   }) {
     final List<CityModel> _cities = <CityModel>[];
 
@@ -129,7 +129,7 @@ class CityModel {
 // -----------------------------------------------------------------------------
   static List<String> getTranslatedCitiesNamesFromCities({
     @required BuildContext context,
-    @required List<CityModel> cities
+    @required List<CityModel> cities,
   }) {
     final List<String> _citiesNames = <String>[];
 
@@ -146,7 +146,7 @@ class CityModel {
 // -----------------------------------------------------------------------------
   static KW getKeywordFromCity({
     @required BuildContext context,
-    @required CityModel city
+    @required CityModel city,
   }) {
     // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
@@ -162,7 +162,7 @@ class CityModel {
 // -----------------------------------------------------------------------------
   static List<KW> getKeywordsFromCities({
     @required BuildContext context,
-    @required List<CityModel> cities
+    @required List<CityModel> cities,
   }) {
     final List<KW> _keywords = <KW>[];
 
@@ -194,7 +194,7 @@ class CityModel {
 // -----------------------------------------------------------------------------
   static List<MapModel> getCitiesNamesMapModels({
     @required BuildContext context,
-    @required List<CityModel> cities
+    @required List<CityModel> cities,
   }) {
     final List<MapModel> _citiesMapModels = <MapModel>[];
 
@@ -211,7 +211,7 @@ class CityModel {
 // -----------------------------------------------------------------------------
   static CityModel getCityFromCities({
     @required List<CityModel> cities,
-    @required String cityID
+    @required String cityID,
   }) {
     CityModel _city;
     if (Mapper.canLoopList(cities)) {
@@ -223,7 +223,7 @@ class CityModel {
 // -----------------------------------------------------------------------------
   static String getTranslatedCityNameFromCity({
     @required BuildContext context,
-    @required CityModel city
+    @required CityModel city,
   }) {
     String _cityName = '...';
 
@@ -261,23 +261,3 @@ class CityModel {
   }
 // -----------------------------------------------------------------------------
 }
-
-/*
-
-/// non production method
-
-//   static List<CityModel> getFixedCities(List<CityModel> inputs){
-//
-//     final List<CityModel> _fixed = <CityModel>[];
-//
-//     for (CityModel city in inputs){
-//
-//       final CityModel _fixedCity = city .. cityID = CountryModel.fixCountryName(city.cityID);
-//       _fixed.add(_fixedCity);
-//     }
-//
-//     return _fixed;
-//   }
-
-
- */

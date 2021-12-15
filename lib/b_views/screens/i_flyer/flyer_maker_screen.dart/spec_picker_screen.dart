@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
@@ -14,6 +15,7 @@ import 'package:bldrs/b_views/widgets/specific/specs/specs_selector_bubble.dart'
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -67,10 +69,8 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
       kw: kw,
     );
 
-    final bool _alreadySelected =
-        Spec.specsContainThisSpec(specs: _selectedSpecs.value, spec: _spec);
-    final int _specIndex =
-        _selectedSpecs.value.indexWhere((Spec sp) => sp.value == _spec.value);
+    final bool _alreadySelected = Spec.specsContainThisSpec(specs: _selectedSpecs.value, spec: _spec);
+    final int _specIndex = _selectedSpecs.value.indexWhere((Spec sp) => sp.value == _spec.value);
 
     // ----------------------------------------------------------
     /// A - ALREADY SELECTED SPEC
@@ -243,6 +243,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
       layoutWidget: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+
           const Stratosphere(),
 
           /// INSTRUCTIONS BOX HEIGHT
@@ -250,8 +251,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
             width: _screenWidth,
             height: SpecPickerScreen.instructionBoxHeight,
             alignment: Alignment.center,
-            padding:
-                const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+            padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
             child: SuperVerse(
               verse: _instructions,
               maxLines: 3,

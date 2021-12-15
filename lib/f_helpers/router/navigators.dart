@@ -76,16 +76,22 @@ Future<void> openFlyerOldWay(BuildContext context, String flyerID) async {
 }
 
 // -----------------------------------------------------------------------------
-Future<void> openFlyer(
-    {BuildContext context, String flyerID, FlyerModel flyer}) async {
-  /// A - by tinyFlyer
+Future<void> openFlyer({
+  @required BuildContext context,
+  String flyerID,
+  FlyerModel flyer,
+}) async {
+
+  /// A - by  flyer
   if (flyer != null) {
+
     await goToNewScreen(
         context,
         FlyerScreen(
           flyerModel: flyer,
           flyerID: flyerID,
         ));
+
   }
 
   /// A - by flyerID
@@ -98,23 +104,20 @@ Future<void> openFlyer(
   //   // do nothing
   // }
 }
-
 // -----------------------------------------------------------------------------
 void goBack(BuildContext context, {dynamic argument}) {
   /// you can send whatever you want in Navigator.pop(context,whatever you want to pass)
   Navigator.pop(context, argument);
   // await null;
 }
-
 // -----------------------------------------------------------------------------
-void goBackToUserChecker(BuildContext context) {
+void goBackToLogoScreen(BuildContext context) {
   // var _navResult = Navigator.popUntil(context,
   //     ModalRoute.withName(Routez.UserChecker)
   // );
 
   Navigator.popUntil(context, ModalRoute.withName(Routez.logoScreen));
 }
-
 // -----------------------------------------------------------------------------
 void goBackUntil(BuildContext context, String routez) {
   // var _navResult = Navigator.popUntil(context,
@@ -123,7 +126,6 @@ void goBackUntil(BuildContext context, String routez) {
 
   Navigator.popUntil(context, ModalRoute.withName(routez));
 }
-
 // -----------------------------------------------------------------------------
 void goBackToHomeScreen(BuildContext context) {
   Navigator.popUntil(context, ModalRoute.withName(Routez.home));
@@ -131,8 +133,7 @@ void goBackToHomeScreen(BuildContext context) {
 
 // -----------------------------------------------------------------------------
 Future<dynamic> replaceScreen(BuildContext context, Widget screen) async {
-  final dynamic _result = await Navigator.pushReplacement(context,
-      MaterialPageRoute<dynamic>(builder: (BuildContext context) => screen));
+  final dynamic _result = await Navigator.pushReplacement(context, MaterialPageRoute<dynamic>(builder: (BuildContext context) => screen));
   return _result;
 }
 

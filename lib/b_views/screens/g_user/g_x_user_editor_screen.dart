@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/contact_field_bubble.dart';
@@ -20,6 +22,7 @@ import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -99,26 +102,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _currentGender = widget.user.gender;
     _titleController.text = widget.user.title;
     _currentZone = widget.firstTimer == true ? null : widget.user.zone;
-    _phoneController.text = ContactModel.getAContactValueFromContacts(
-        widget.user.contacts, ContactType.phone);
-    _emailController.text = ContactModel.getAContactValueFromContacts(
-        widget.user.contacts, ContactType.email);
-    _websiteController.text = ContactModel.getAContactValueFromContacts(
-        widget.user.contacts, ContactType.website);
-    _facebookController.text = ContactModel.getAContactValueFromContacts(
-        widget.user.contacts, ContactType.facebook);
-    _linkedInController.text = ContactModel.getAContactValueFromContacts(
-        widget.user.contacts, ContactType.linkedIn);
-    _youTubeController.text = ContactModel.getAContactValueFromContacts(
-        widget.user.contacts, ContactType.youtube);
-    _instagramController.text = ContactModel.getAContactValueFromContacts(
-        widget.user.contacts, ContactType.instagram);
-    _pinterestController.text = ContactModel.getAContactValueFromContacts(
-        widget.user.contacts, ContactType.pinterest);
-    _tiktokController.text = ContactModel.getAContactValueFromContacts(
-        widget.user.contacts, ContactType.tiktok);
-    _twitterController.text = ContactModel.getAContactValueFromContacts(
-        widget.user.contacts, ContactType.twitter);
+    _phoneController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.phone);
+    _emailController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.email);
+    _websiteController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.website);
+    _facebookController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.facebook);
+    _linkedInController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.linkedIn);
+    _youTubeController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.youtube);
+    _instagramController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.instagram);
+    _pinterestController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.pinterest);
+    _tiktokController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.tiktok);
+    _twitterController.text = ContactModel.getAContactValueFromContacts(widget.user.contacts, ContactType.twitter);
   }
 
 // -----------------------------------------------------------------------------
@@ -489,6 +482,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: <Widget>[
+
             const Stratosphere(),
 
             AddGalleryPicBubble(
@@ -659,7 +653,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               onTap: _confirmEdits,
             ),
 
-            const PyramidsHorizon(),
+            const Horizon(),
           ],
         ),
       ),

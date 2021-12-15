@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/screens/d_zoning/d_1_select_country_screen.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
-Future<ZoneModel> selectCountryOnly(BuildContext context) async {
+Future<ZoneModel> controlSelectCountryOnly(BuildContext context) async {
 
   final ZoneModel _zone = await goToNewScreen(context,
       const SelectCountryScreen(
@@ -14,7 +14,7 @@ Future<ZoneModel> selectCountryOnly(BuildContext context) async {
   return _zone;
 }
 // -----------------------------------------------------------------------------
-Future<ZoneModel> selectCountryAndCityOnly(BuildContext context) async {
+Future<ZoneModel> controlSelectCountryAndCityOnly(BuildContext context) async {
 
   final ZoneModel _zone = await goToNewScreen(context,
       const SelectCountryScreen(
@@ -23,6 +23,5 @@ Future<ZoneModel> selectCountryAndCityOnly(BuildContext context) async {
   );
 
   return _zone;
-
 }
 // -----------------------------------------------------------------------------

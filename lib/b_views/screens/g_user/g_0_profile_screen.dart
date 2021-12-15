@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/screens/g_user/g_x_user_editor_screen.dart';
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/contacts_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/following_bzz_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/status_bubble.dart';
@@ -20,6 +22,7 @@ import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as FireBzOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -332,6 +335,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: <Widget>[
+
             const Stratosphere(),
 
             UserBubble(
@@ -359,7 +363,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               contacts: widget.userModel?.contacts,
             ),
 
-            const PyramidsHorizon(),
+            const Horizon(),
           ],
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/b_views/widgets/components/expander.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/slides_counter.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
@@ -60,6 +62,7 @@ class FlyerMakerScreen extends StatelessWidget {
       layoutWidget: Column(
         // physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
+
           const Stratosphere(),
 
           /// FLYER & PANEL ZONES

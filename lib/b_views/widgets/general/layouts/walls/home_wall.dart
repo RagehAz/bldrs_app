@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bzz_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
@@ -16,6 +16,7 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +126,7 @@ class HomeWall extends StatelessWidget {
         flyers: FlyerModel.dummyFlyers(),
       ),
 
-      const PyramidsHorizon(),
+      const Horizon(),
     ];
 
     return _homeWallWidgets;
@@ -226,7 +227,7 @@ class HomeWall extends StatelessWidget {
         flyers: FlyerModel.dummyFlyers(),
       ),
 
-      const PyramidsHorizon(),
+      const Horizon(),
     ];
 
     return _homeWallWidgets;

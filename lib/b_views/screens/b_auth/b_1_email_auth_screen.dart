@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/widgets/specific/auth/register_form.dart';
@@ -20,17 +21,11 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   bool signingIn = true;
   String _email = '';
   String _password = '';
-  ScrollController _scrollController;
-  // final _keyboardHeight = EdgeInsets.fromWindowPadding(WidgetsBinding.instance.window.viewInsets,WidgetsBinding.instance.window.devicePixelRatio).bottom;
-  // final _keyboardHeight = viewInsets.bottom;
   // -----------------------------------------------------------------------------
-
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
   }
-
 // -----------------------------------------------------------------------------
   void _switchSignIn(String email, String password) {
     setState(() {
@@ -39,15 +34,6 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       signingIn = !signingIn;
     });
   }
-
-// -----------------------------------------------------------------------------
-  Future<void> moveScreen(double keyboardHeight) async {
-    // double _keyBoardHeight = keyboard.keyboardHeight;
-    // print('_keyBoardHeight : ${keyboardHeight}');
-    await _scrollController.animateTo(keyboardHeight,
-        duration: const Duration(milliseconds: 200), curve: Curves.bounceInOut);
-  }
-
 // -----------------------------------------------------------------------------
 //   void emailTextOnChanged(String val){
 //     setState(() {
@@ -69,8 +55,8 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       appBarType: AppBarType.non,
       layoutWidget: Stack(
         children: <Widget>[
+
           ListView(
-            controller: _scrollController,
             shrinkWrap: true,
             // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
             children: <Widget>[
@@ -81,8 +67,8 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
                   switchSignIn: _switchSignIn,
                   email: _email,
                   password: _password,
-                  fieldOnTap: (double keyboardHeight) =>
-                      moveScreen(keyboardHeight),
+                //   fieldOnTap: (double keyboardHeight) =>
+                //       moveScreen(keyboardHeight),
                 ),
 
               if (signingIn == false)
@@ -92,9 +78,10 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
                   password: _password,
                 ),
 
-              const PyramidsHorizon(),
+              const Horizon(),
             ],
           ),
+
         ],
       ),
     );

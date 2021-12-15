@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
@@ -59,7 +60,9 @@ class ListLayout extends StatelessWidget {
       // appBarBackButton: true,
       layoutWidget: Column(
         children: <Widget>[
+
           const Stratosphere(),
+
           if (pageIcon != null)
             DreamBox(
               height: Ratioz.appBarSmallHeight,
@@ -68,14 +71,17 @@ class ListLayout extends StatelessWidget {
                   : Ratioz.boxCorner12,
               icon: pageIcon,
             ),
+
           if (pageIconVerse != null)
             SuperVerse(
               verse: pageIconVerse,
               labelColor: Colorz.white10,
             ),
+
           const SizedBox(
             height: 10,
           ),
+
           SizedBox(
             width: _screenWidth,
             height: _bubbleHeight,
@@ -119,7 +125,8 @@ class ListLayout extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
+
         ],
       ),
     );

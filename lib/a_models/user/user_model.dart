@@ -243,43 +243,24 @@ class UserModel {
 // -----------------------------------------------------------------------------
   static AuthBy decipherAuthBy(String authBy) {
     switch (authBy) {
-      case 'email':
-        return AuthBy.email;
-        break;
-      case 'facebook':
-        return AuthBy.facebook;
-        break;
-      case 'apple':
-        return AuthBy.apple;
-        break;
-      case 'google':
-        return AuthBy.google;
-        break;
-      default:
-        return AuthBy.unknown;
+      case 'email': return AuthBy.email; break;
+      case 'facebook': return AuthBy.facebook; break;
+      case 'apple': return AuthBy.apple; break;
+      case 'google': return AuthBy.google; break;
+      default: return null;
     }
   }
 
 // -----------------------------------------------------------------------------
   static String cipherAuthBy(AuthBy authBy) {
     switch (authBy) {
-      case AuthBy.email:
-        return 'email';
-        break;
-      case AuthBy.facebook:
-        return 'facebook';
-        break;
-      case AuthBy.apple:
-        return 'apple';
-        break;
-      case AuthBy.google:
-        return 'google';
-        break;
-      default:
-        return null;
+      case AuthBy.email: return 'email'; break;
+      case AuthBy.facebook: return 'facebook'; break;
+      case AuthBy.apple: return 'apple'; break;
+      case AuthBy.google: return 'google'; break;
+      default: return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static bool userIsAuthor(UserModel userModel) {
     bool _userIsAuthor = false;
@@ -304,9 +285,7 @@ class UserModel {
   ];
 // -----------------------------------------------------------------------------
   static List<String> removeIDFromIDs(List<String> ids, String id) {
-    final int _idIndex = ids.indexWhere(
-      (String _id) => _id == id,
-    );
+    final int _idIndex = ids.indexWhere((String _id) => _id == id,);
 
     if (_idIndex != null) {
       ids.removeAt(_idIndex);
@@ -538,6 +517,5 @@ enum AuthBy {
   facebook,
   google,
   apple,
-  unknown,
 }
 // -----------------------------------------------------------------------------
