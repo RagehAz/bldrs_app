@@ -7,6 +7,8 @@ import 'package:bldrs/b_views/screens/f_bz/f_x_bz_editor_screen.dart';
 import 'package:bldrs/b_views/screens/g_user/d_4_change_language_screen.dart';
 import 'package:bldrs/b_views/screens/g_user/d_5_about_bldrs_screen.dart';
 import 'package:bldrs/b_views/screens/g_user/d_6_feedback_screen.dart';
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/tile_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/flagbox_button.dart';
@@ -55,6 +57,7 @@ class MoreScreen extends StatelessWidget {
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: <Widget>[
+
               const Stratosphere(),
 
               TileBubble(
@@ -168,7 +171,7 @@ class MoreScreen extends StatelessWidget {
                     context: context, routeToUserChecker: true),
               ),
 
-              const PyramidsHorizon(),
+              const Horizon(),
             ],
           ),
         ),

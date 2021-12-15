@@ -25,18 +25,25 @@ Future<void> controlHomeScreen(BuildContext context) async {
   /// F - SPONSORS
   await _initializeSponsors(context);
 
-  /// G - KEYWORDS
-  await _initializeKeywords(context);
-
-  /// H - USER BZZ
+  /// G - USER BZZ
   await _initializeUserBzz(context);
+
+  /// H - KEYWORDS
+  await _initializeKeywords(context);
 
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializeUserModel(BuildContext context) async {
   if (FireAuthOps.userIsSignedIn() == true) {
     final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
-    await _userProvider.getsetMyUserModel(context: context);
+    final UserModel _myUserModel = _userProvider.myUserModel;
+
+    if (_myUserModel == null){
+
+      await _userProvider.getsetMyUserModel(context);
+
+    }
+
   }
 }
 // -----------------------------------------------------------------------------
@@ -79,9 +86,7 @@ Future<void> _initializeUserBzz(BuildContext context) async {
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializePromotedFlyers(BuildContext context) async {
-
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   await _flyersProvider.getSetPromotedFlyers(context);
-
 }
 // -----------------------------------------------------------------------------

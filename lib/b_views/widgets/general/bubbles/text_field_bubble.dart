@@ -50,7 +50,7 @@ class TextFieldBubble extends StatelessWidget {
   final ValueChanged<String> textOnChanged;
   final bool obscured;
   final bool fieldIsFormField;
-  final Function onSaved;
+  final ValueChanged<String> onSaved;
   final TextInputAction keyboardTextInputAction;
   final String initialTextValue;
   final ValueChanged<String> validator;
@@ -77,11 +77,7 @@ class TextFieldBubble extends StatelessWidget {
     final double obscureBtSize = obscured == null ? 0 : 35;
     final double obscureBtSpacing = obscured == null ? 0 : 5;
     final double bubbleClearWidth = Bubble.clearWidth(context);
-    final double fieldWidth = bubbleClearWidth -
-        leadingIconSize -
-        leadingAndFieldSpacing -
-        obscureBtSize -
-        obscureBtSpacing;
+    final double fieldWidth = bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing - obscureBtSize - obscureBtSpacing - 10;
 
     return Bubble(
         bubbleColor: bubbleColor,
@@ -94,6 +90,7 @@ class TextFieldBubble extends StatelessWidget {
           Stack(
             alignment: Aligners.superInverseTopAlignment(context),
             children: <Widget>[
+
               /// TEXT FIELD
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,6 +178,7 @@ class TextFieldBubble extends StatelessWidget {
                   color: Colorz.white10,
                   onTap: pasteFunction,
                 ),
+
             ],
           ),
 

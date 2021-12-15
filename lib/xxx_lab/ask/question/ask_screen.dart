@@ -1,6 +1,9 @@
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/xxx_lab/ask/enum_lister/enum_lister.dart';
 import 'package:bldrs/xxx_lab/ask/quest/quests_screen.dart';
@@ -66,34 +69,42 @@ class _OldAskScreenState extends State<OldAskScreen> {
     return MainLayout(
       layoutWidget: Stack(
         children: <Widget>[
+
           CustomScrollView(
             slivers: <Widget>[
               SliverList(
                 // key: ,
                 delegate: SliverChildListDelegate(<Widget>[
+
                   const Stratosphere(),
+
                   QuestionBubble(
                     tappingAskInfo: () {
                       blog('Ask info is tapped aho');
                     },
                   ),
+
                   DreamBox(
                     height: 80,
                     width: 200,
                     verse: 'tap me',
                     onTap: () => _openEnumLister(bzTypesMap),
                   ),
+
                   DreamBox(
                     height: 80,
                     width: Scale.superScreenWidth(context),
                     verse: 'Go to Questions Screen',
                     onTap: () => Nav.goToNewScreen(context, const QuesScreen()),
                   ),
-                  const PyramidsHorizon(),
+
+                  const Horizon(),
+
                 ]),
               ),
             ],
           ),
+
           if (enumListerIsOn == true)
             EnumLister(
               listTitle: enumListTitle,
@@ -102,6 +113,7 @@ class _OldAskScreenState extends State<OldAskScreen> {
               triggerTile: _triggerTile,
               closeEnumLister: _closeEnumLister,
             ),
+
         ],
       ),
     );

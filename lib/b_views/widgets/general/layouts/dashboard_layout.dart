@@ -1,3 +1,5 @@
+import 'package:bldrs/b_views/widgets/components/expander.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
@@ -54,8 +56,11 @@ class DashBoardLayout extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             controller: _controller,
             children: <Widget>[
+
               const Stratosphere(),
+
               ...listWidgets,
+
             ],
           ),
         ),

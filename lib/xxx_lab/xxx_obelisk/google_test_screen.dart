@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/appbar/search_bar.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/top_dialog/top_dialog.dart';
@@ -14,6 +15,7 @@ import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navi
 import 'package:bldrs/b_views/widgets/general/textings/data_strip.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -186,7 +188,9 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
             physics: const BouncingScrollPhysics(),
             controller: _scrollController,
             children: <Widget>[
+
               const Stratosphere(),
+
               Container(
                 color: Colorz.white10,
                 child: SearchBar(
@@ -218,7 +222,9 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                     },
                     historyButtonIsOn: false),
               ),
+
               FlagBox(size: 50, flag: Flag.getFlagIconByCountryID(_countryID)),
+
               WideButton(
                 verse: 'Get Current Location',
                 icon: _countryID == null
@@ -230,6 +236,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                   await _getCurrentUserLocation();
                 },
               ),
+
               WideButton(
                 verse: 'Get Position from Map',
                 icon: _countryID == null
@@ -241,31 +248,38 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                   await _getPositionFromMap();
                 },
               ),
+
               DataStrip(
                 dataKey: 'geo point',
                 dataValue:
                     'LAT : ${_point?.latitude} : LNG : ${_point?.longitude}',
               ),
+
               DataStrip(
                 dataKey: 'ID',
                 dataValue: _countryID,
               ),
+
               DataStrip(
                 dataKey: 'Country Name (EN)',
                 dataValue: Name.getNameByLingoFromNames(
                     names: _countryModel?.names, lingoCode: 'en'),
               ),
+
               DataStrip(
                 dataKey: 'Country Name (AR)',
                 dataValue: Name.getNameByLingoFromNames(
                     names: _countryModel?.names, lingoCode: 'ar'),
               ),
+
               DataStrip(dataKey: 'City ID', dataValue: _cityModel?.cityID),
+
               DataStrip(
                 dataKey: 'City Name (EN)',
                 dataValue: Name.getNameByLingoFromNames(
                     names: _cityModel?.names, lingoCode: 'en'),
               ),
+
             ],
           ),
         ),

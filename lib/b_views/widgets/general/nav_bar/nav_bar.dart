@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/screens/b_auth/b_1_auth_screen.dart';
+import 'package:bldrs/b_views/screens/b_auth/b_0_auth_screen.dart';
 import 'package:bldrs/b_views/screens/d_0_more_screen.dart';
 import 'package:bldrs/b_views/screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/b_views/screens/g_user/g_0_profile_screen.dart';
@@ -60,8 +60,7 @@ class NavBar extends StatelessWidget {
   /// --- MAIN CONTROLS
   static const double _circleWidth = Ratioz.appBarButtonSize;
   static const double navbarPaddings = Ratioz.appBarPadding * 1.5;
-  static const double navBarButtonWidth =
-      _circleWidth + (navbarPaddings * 0.5 * 2) + (navbarPaddings * 0.5 * 2);
+  static const double navBarButtonWidth = _circleWidth + (navbarPaddings * 0.5 * 2) + (navbarPaddings * 0.5 * 2);
   static const double _textScaleFactor = 0.95;
   static const int _textSize = 0;
   static const double buttonCircleCorner = _circleWidth * 0.5;
@@ -72,13 +71,12 @@ class NavBar extends StatelessWidget {
     @required BuildContext context,
     BarType barType = _standardBarType,
   }) {
-    final double _textBoxHeight =
-        navBarTextBoxHeight(context: context, barType: barType);
+    final double _textBoxHeight = navBarTextBoxHeight(context: context, barType: barType);
 
-    final double _boxHeight =
-        barType == BarType.maxWithText || barType == BarType.minWithText
-            ? _circleWidth + (navbarPaddings * 2) + _textBoxHeight
-            : _circleWidth + (navbarPaddings * 2);
+    final double _boxHeight = barType == BarType.maxWithText || barType == BarType.minWithText ?
+    _circleWidth + (navbarPaddings * 2) + _textBoxHeight
+            :
+    _circleWidth + (navbarPaddings * 2);
 
     return _boxHeight;
   }
@@ -89,6 +87,7 @@ class NavBar extends StatelessWidget {
     @required UserModel userModel,
     BarType barType = _standardBarType,
   }) {
+
     final int _numberOfButtons = navBarNumberOfButtons(userModel);
     final int _numberOfSpacings = _numberOfButtons - 1;
     const double _spacingFactor = 0.5;
@@ -96,13 +95,13 @@ class NavBar extends StatelessWidget {
         context: context,
         numberOfButtons: _numberOfButtons,
         numberOfSpacings: _numberOfSpacings,
-        spacingFactor: _spacingFactor);
+        spacingFactor: _spacingFactor
+    );
 
-    final double _boxWidth =
-        barType == BarType.maxWithText || barType == BarType.max
-            ? Scale.superScreenWidth(context)
-            : (navBarButtonWidth * _numberOfButtons) +
-                (_spacings * _numberOfSpacings);
+    final double _boxWidth = barType == BarType.maxWithText || barType == BarType.max ?
+    Scale.superScreenWidth(context)
+            :
+    (navBarButtonWidth * _numberOfButtons) + (_spacings * _numberOfSpacings);
 
     return _boxWidth;
   }
@@ -112,11 +111,11 @@ class NavBar extends StatelessWidget {
     @required BuildContext context,
     BarType barType = _standardBarType,
   }) {
-    final double _textBoxHeight =
-        barType == BarType.maxWithText || barType == BarType.minWithText
-            ? SuperVerse.superVerseRealHeight(
-                context, _textSize, _textScaleFactor, null)
-            : 0;
+
+    final double _textBoxHeight = barType == BarType.maxWithText || barType == BarType.minWithText ?
+    SuperVerse.superVerseRealHeight(context, _textSize, _textScaleFactor, null)
+            :
+    0;
 
     return _textBoxHeight;
   }
@@ -130,7 +129,7 @@ class NavBar extends StatelessWidget {
     } else if (UserModel.userIsAuthor(userModel)) {
       _numberOfButtons = 5;
     } else {
-      _numberOfButtons = 3;
+      _numberOfButtons = 4;
     }
 
     return _numberOfButtons;
@@ -144,13 +143,13 @@ class NavBar extends StatelessWidget {
     @required double spacingFactor,
     BarType barType = _standardBarType,
   }) {
+
     final double _spacings =
-        barType == BarType.max || barType == BarType.maxWithText
-            ? ((Scale.superScreenWidth(context) -
-                        (navBarButtonWidth * numberOfButtons)) /
-                    numberOfSpacings) *
-                spacingFactor
-            : navbarPaddings * 0;
+        barType == BarType.max || barType == BarType.maxWithText ?
+        ((Scale.superScreenWidth(context) - (navBarButtonWidth * numberOfButtons)) / numberOfSpacings) * spacingFactor
+            :
+        navbarPaddings * 0;
+
     return _spacings;
   }
 
@@ -175,62 +174,66 @@ class NavBar extends StatelessWidget {
     @required BuildContext context,
     BarType barType = _standardBarType,
   }) {
-    final BorderRadius _boxBorders = barType == BarType.min
-        ? Borderers.superBorderOnly(
+    final BorderRadius _boxBorders = barType == BarType.min ?
+    Borderers.superBorderOnly(
             context: context,
             enTopLeft: _boxCorner,
             enBottomLeft: _boxCorner,
             enBottomRight: _boxCorner,
-            enTopRight: _boxCorner)
-        : barType == BarType.max || barType == BarType.maxWithText
-            ? Borderers.superBorderOnly(
-                context: context,
-                enTopLeft: _boxCorner,
-                enBottomLeft: 0,
-                enBottomRight: 0,
-                enTopRight: _boxCorner)
-            : Borderers.superBorderOnly(
-                context: context,
-                enTopLeft: _boxCorner,
-                enBottomLeft: _boxCorner * 0.5,
-                enBottomRight: _boxCorner * 0.5,
-                enTopRight: _boxCorner);
+            enTopRight: _boxCorner
+    )
+        :
+    barType == BarType.max || barType == BarType.maxWithText ?
+
+    Borderers.superBorderOnly(
+        context: context,
+        enTopLeft: _boxCorner,
+        enBottomLeft: 0,
+        enBottomRight: 0,
+        enTopRight: _boxCorner)
+        :
+    Borderers.superBorderOnly(
+        context: context,
+        enTopLeft: _boxCorner,
+        enBottomLeft: _boxCorner * 0.5,
+        enBottomRight: _boxCorner * 0.5,
+        enTopRight: _boxCorner
+    );
 
     return _boxBorders;
   }
 
 // -----------------------------------------------------------------------------
   static double navBarBottomOffset({BarType barType = _standardBarType}) {
-    final double _bottomOffset =
-        barType == BarType.min || barType == BarType.minWithText
-            ? navbarPaddings
-            : barType == BarType.max || barType == BarType.maxWithText
-                ? 0
-                : 0;
+
+    final double _bottomOffset = barType == BarType.min || barType == BarType.minWithText ?
+    navbarPaddings
+        :
+    barType == BarType.max || barType == BarType.maxWithText ? 0 : 0;
+
     return _bottomOffset;
   }
 
 // -----------------------------------------------------------------------------
   double _myBzzListSlideHeight(BuildContext context, List<BzModel> myBzz) {
-    final double _wantedHeight =
-        Scale.superScreenWidth(context) * 0.3 * myBzz.length;
+    final double _wantedHeight = Scale.superScreenWidth(context) * 0.3 * myBzz.length;
     final double _maxHeight = Scale.superScreenHeight(context) * 0.5;
+
     double _finalHeight;
     if (_wantedHeight >= _maxHeight) {
       _finalHeight = _maxHeight;
     } else {
       _finalHeight = _wantedHeight;
     }
+
     return _finalHeight;
   }
 
 // -----------------------------------------------------------------------------
-  Future<void> _multiBzzSlider(
-      BuildContext context, UserModel userModel, List<BzModel> myBzz) async {
+  Future<void> _multiBzzSlider(BuildContext context, UserModel userModel, List<BzModel> myBzz) async {
     final double _sliderHeight = _myBzzListSlideHeight(context, myBzz);
     // double _sliderHeightRatio = _sliderHeight / Scale.superScreenHeight(context);
-    final double _bzButtonWidth = Scale.superScreenWidth(context) -
-        BottomDialog.draggerZoneHeight(draggable: true) * 2;
+    final double _bzButtonWidth = Scale.superScreenWidth(context) - BottomDialog.draggerZoneHeight(draggable: true) * 2;
 
     // int _titleSize = 2;
     // double _titleMargin = 5;
@@ -288,13 +291,10 @@ class NavBar extends StatelessWidget {
                     onTap: () async {
                       blog(_bzModel.id);
 
-                      final FlyersProvider _flyersProvider =
-                          Provider.of<FlyersProvider>(context, listen: false);
-                      final BzzProvider _bzzProvider =
-                          Provider.of<BzzProvider>(context, listen: false);
+                      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+                      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
                       await _bzzProvider.setActiveBz(_bzModel);
-                      await _flyersProvider.getsetActiveBzFlyers(
-                          context: context, bzID: _bzModel.id);
+                      await _flyersProvider.getsetActiveBzFlyers(context: context, bzID: _bzModel.id);
 
                       await Nav.goToNewScreen(
                           context,
@@ -316,30 +316,23 @@ class NavBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final UsersProvider _usersProvider =
-        Provider.of<UsersProvider>(context, listen: true);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: true);
     final UserModel _myUserModel = _usersProvider.myUserModel;
-    final BzzProvider _bzzProvider =
-        Provider.of<BzzProvider>(context, listen: true);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
     final List<BzModel> _myBzz = _bzzProvider.myBzz;
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     const double _buttonCircleCorner = buttonCircleCorner;
-    final BorderRadius _boxCorners =
-        navBarCorners(context: context, barType: barType);
+    final BorderRadius _boxCorners = navBarCorners(context: context, barType: barType);
     final double _boxHeight = navBarHeight(context: context, barType: barType);
     final double _bottomOffset = navBarBottomOffset(barType: barType);
 // -----------------------------------------------------------------------------
     /// TASK : IOS back button needs revision
     const bool _deviceIsIOS = false; //DeviceChecker.deviceIsIOS();
 // -----------------------------------------------------------------------------
-    final Widget _expander = _deviceIsIOS
-        ? Expanded(
-            child: Container(),
-          )
-        : Container();
+    final Widget _expander = _deviceIsIOS ?
+    Expanded(child: Container(),) : Container();
 // -----------------------------------------------------------------------------
-
     final double _spacerWidth = navBarSpacerWidth(context, _myUserModel);
     final Widget _spacer = SizedBox(
       width: _spacerWidth,
@@ -348,14 +341,15 @@ class NavBar extends StatelessWidget {
       width: _spacerWidth * 0.5,
     );
 
-    final double _boxWidth =
-        navBarWidth(context: context, userModel: _myUserModel);
+    final double _boxWidth = navBarWidth(context: context, userModel: _myUserModel);
 
     final List<String> _userBzzIDs = BzModel.getBzzIDsFromBzz(_myBzz);
 
     // List<dynamic> _followedBzzIDs = _myUserModel != null ? _myUserModel?.followedBzzIDs : [];
     // String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
     // String _bzLogo = prof.getBzByBzID(_bzID)?.bzLogo;
+
+    final bool _userIsSignedIn = FireAuthOps.userIsSignedIn();
 
     return Positioned(
       key: key,
@@ -365,6 +359,7 @@ class NavBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+
             /// ios back button
             if (_deviceIsIOS)
               DreamBox(
@@ -391,6 +386,7 @@ class NavBar extends StatelessWidget {
               ),
               child: Stack(
                 children: <Widget>[
+
                   /// --- BLUR LAYER
                   BlurLayer(
                     width: _boxWidth,
@@ -405,7 +401,7 @@ class NavBar extends StatelessWidget {
                       _halfSpacer,
 
                       /// SAVED FLYERS
-                      if (FireAuthOps.userIsSignedIn() == true)
+                      if (_userIsSignedIn == true)
                         BarButton(
                           width: navBarButtonWidth,
                           text: 'Choices',
@@ -435,7 +431,7 @@ class NavBar extends StatelessWidget {
                       _spacer,
 
                       /// BZZ BUTTON
-                      if (UserModel.userIsAuthor(_myUserModel))
+                      if (UserModel.userIsAuthor(_myUserModel) && _userIsSignedIn == true)
                         BzzButton(
                           width: navBarButtonWidth,
                           circleWidth: _circleWidth,
@@ -460,7 +456,7 @@ class NavBar extends StatelessWidget {
                       _spacer,
 
                       /// NEWS
-                      if (FireAuthOps.userIsSignedIn() == true)
+                      if (_userIsSignedIn == true)
                         BarButton(
                           width: navBarButtonWidth,
                           text: Wordz.news(context),
@@ -476,7 +472,7 @@ class NavBar extends StatelessWidget {
                       _spacer,
 
                       /// PROFILE
-                      if (FireAuthOps.userIsSignedIn() == true)
+                      if (_userIsSignedIn == true)
                         BarButton(
                             width: navBarButtonWidth,
                             text: Wordz.profile(context),
@@ -494,7 +490,7 @@ class NavBar extends StatelessWidget {
                               userModel: _myUserModel,
                             )),
 
-                      if (FireAuthOps.userIsSignedIn() == false)
+                      if (_userIsSignedIn == false)
                         BarButton(
                           width: navBarButtonWidth,
                           text: 'Sign',
@@ -508,6 +504,7 @@ class NavBar extends StatelessWidget {
                         ),
 
                       _halfSpacer,
+
                     ],
                   ),
                 ],

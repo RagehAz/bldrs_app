@@ -1,5 +1,5 @@
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/dashboard_layout.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/auditor/flyers_auditor_screen.dart';
@@ -27,67 +27,81 @@ class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     return DashBoardLayout(pageTitle: 'DashBoard', listWidgets: <Widget>[
+
       WideButton(
         verse: 'Big Mac Price Index',
         icon: Iconz.bigMac,
         onTap: () => Nav.goToNewScreen(context, const PricingScreen()),
       ),
+
       WideButton(
         verse: 'Pricing',
         icon: Iconz.dollar,
         onTap: () => Nav.goToNewScreen(context, const PricingScreen()),
       ),
+
       WideButton(
         verse: 'All Flyers',
         icon: Iconz.flyer,
         onTap: () => Nav.goToNewScreen(context, const AllFlyersScreen()),
       ),
+
       WideButton(
         verse: 'General Statistics',
         icon: Iconz.statistics,
         onTap: () => Nav.goToNewScreen(context, const GeneralStatistics()),
       ),
+
       WideButton(
         verse: 'Users Manager',
         icon: Iconz.users,
         onTap: () => Nav.goToNewScreen(context, const UsersManagerScreen()),
       ),
+
       WideButton(
         verse: 'Zones Manager',
         icon: Iconz.earth,
         onTap: () => Nav.goToNewScreen(context, const ZonesManagerScreen()),
       ),
+
       WideButton(
         verse: 'Bzz Manager',
         icon: Iconz.bz,
         onTap: () => Nav.goToNewScreen(context, const BzzManagerScreen()),
       ),
+
       WideButton(
         verse: 'Notifications Manager',
         icon: Iconz.news,
         onTap: () => Nav.goToNewScreen(context, const NotificationsManager()),
       ),
+
       WideButton(
         verse: 'Keywords Manager',
         icon: Iconz.keyword,
         onTap: () => Nav.goToNewScreen(context, const KeywordsManager()),
       ),
+
       WideButton(
         verse: 'Flyers Auditor',
         icon: Iconz.verifyFlyer,
         onTap: () => Nav.goToNewScreen(context, const FlyersAuditor()),
       ),
+
       WideButton(
         verse: 'UI Manager',
         icon: Iconz.star,
         onTap: () => Nav.goToNewScreen(context, const UIManager()),
       ),
+
       WideButton(
         verse: 'Local db viewers',
         icon: Iconz.terms,
         onTap: () => Nav.goToNewScreen(context, const LDBViewersScreen()),
       ),
-      const PyramidsHorizon(),
+
+      const Horizon(),
+
     ]);
   }
 }

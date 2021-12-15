@@ -1,6 +1,6 @@
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/artworks/pyramids.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/rageh_button.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_text_field.dart';
@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/widgets/general/textings/the_golden_scroll.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -19,6 +20,7 @@ import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 
 class FontLab extends StatefulWidget {
+
   const FontLab({Key key}) : super(key: key);
 
   @override
@@ -95,10 +97,13 @@ class _FontLabState extends State<FontLab> {
       child: Scaffold(
         body: Stack(
           children: <Widget>[
+
             const Sky(),
+
             Scroller(
               child: ListView(
                 children: <Widget>[
+
                   const Stratosphere(),
 
                   _superVerse(0),
@@ -625,10 +630,11 @@ class _FontLabState extends State<FontLab> {
                 ],
               ),
             ),
+
             const Pyramids(
               pyramidsIcon: Iconz.pyramidsYellow,
-              loading: true,
             ),
+
             Rageh(
               tappingRageh: Wordz.activeLanguage(context) ==
                       Lingo.arabicLingo.code
@@ -646,6 +652,7 @@ class _FontLabState extends State<FontLab> {
                 blog(_screenHeight * 0.022 * 1.48);
               },
             ),
+
           ],
         ),
       ),

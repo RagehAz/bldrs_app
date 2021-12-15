@@ -80,15 +80,13 @@ class UsersProvider extends ChangeNotifier {
 
 // -----------------------------------------------------------------------------
   /// MY USER MODEL
-  UserModel
-      _myUserModel; //UserModel.initializeUserModelStreamFromUser(superFirebaseUser()); needs to be null if didn't find the userModel
+  UserModel _myUserModel; //UserModel.initializeUserModelStreamFromUser(superFirebaseUser()); needs to be null if didn't find the userModel
 // -------------------------------------
   UserModel get myUserModel {
     return _myUserModel;
   }
-
 // -------------------------------------
-  Future<void> getsetMyUserModel({BuildContext context}) async {
+  Future<void> getsetMyUserModel(BuildContext context) async {
     UserModel _userModel;
 
     final String _myUserID = FireAuthOps.superUserID();
@@ -100,7 +98,11 @@ class UsersProvider extends ChangeNotifier {
     _myUserModel = _userModel;
     notifyListeners();
   }
-
+// -------------------------------------
+  void setUserModel(UserModel userModel){
+    _myUserModel = userModel;
+    notifyListeners();
+  }
 // -----------------------------------------------------------------------------
   /// USER STREAM
   Stream<UserModel> get myUserModelStream {
@@ -111,7 +113,6 @@ class UsersProvider extends ChangeNotifier {
         .map(_userModelFromSnapshot);
     return _stream;
   }
-
 // -------------------------------------
   static UserModel _userModelFromSnapshot(DocumentSnapshot<Object> doc) {
     UserModel _userModel;

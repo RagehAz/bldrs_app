@@ -22,7 +22,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 /// Firebase Authentication Error
 /// An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.
 /// we should consider same scenario with other auth methods that have this conflict with existing signed up e-mail
-/// need to fix if user signed in with facebook previously,, use the existing proile and not overwrite the existing user profile data
+/// need to fix if user signed in with facebook previously,, use the existing profile and not overwrite the existing user profile data
 
 // -----------------------------------------------------------------------------
 
@@ -183,7 +183,6 @@ Future<dynamic> emailSignInOps({
     return _error;
   }
 }
-
 // -----------------------------------------------------------------------------
 /// register with email & password
 Future<dynamic> emailRegisterOps({
@@ -231,9 +230,11 @@ Future<dynamic> emailRegisterOps({
     return _error;
   }
 }
-
 // -----------------------------------------------------------------------------
+
 /// sign out
+
+// ---------------------------------------------------
 Future<void> emailSignOutOps(BuildContext context) async {
   try {
     final FirebaseAuth _auth = FirebaseAuth?.instance;
@@ -247,7 +248,6 @@ Future<void> emailSignOutOps(BuildContext context) async {
     );
   }
 }
-
 // -----------------------------------------------------------------------------
 Future<dynamic> facebookSignInOps({
   @required BuildContext context,
@@ -342,7 +342,6 @@ Future<dynamic> facebookSignInOps({
     return _userModelMap;
   }
 }
-
 // -----------------------------------------------------------------------------
 Future<dynamic> googleSignInOps({
   @required BuildContext context,
@@ -526,7 +525,15 @@ Future<dynamic> googleSignInOps({
 
   }
 }
+// -----------------------------------------------------------------------------
+Future<dynamic> appleAuthOps({
+  @required BuildContext context,
+  @required ZoneModel currentZone,
+}) async {
 
+  blog('starting apple auth ops');
+
+}
 // -----------------------------------------------------------------------------
 /// google sign out
 Future<bool> googleSignOutOps(BuildContext context) async {
@@ -557,7 +564,6 @@ Future<bool> googleSignOutOps(BuildContext context) async {
 
   return _isSignedIn;
 }
-
 // -----------------------------------------------------------------------------
 Future<void> signOut({
   @required BuildContext context,
@@ -609,7 +615,6 @@ String superUserID() {
   final String userID = superFirebaseUser()?.uid;
   return userID;
 }
-
 // =============================================================================
 User superFirebaseUser() {
   final User _user = FirebaseAuth.instance.currentUser;

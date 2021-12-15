@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/secondary_models/feedback_model.dart';
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
@@ -11,6 +13,7 @@ import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -98,11 +101,14 @@ class _FeedBackState extends State<FeedBack> {
       loading: _loading,
       layoutWidget: ListView(
         children: <Widget>[
+
           const Stratosphere(),
+
           const SuperVerse(
             verse: 'Your opinion Matters !',
             margin: 10,
           ),
+
           Center(
             child: Container(
               width: Scale.superScreenWidth(context) * 0.7,
@@ -119,6 +125,7 @@ class _FeedBackState extends State<FeedBack> {
               ),
             ),
           ),
+
           TextFieldBubble(
             title: 'Feedback',
             textController: _feedbackController,
@@ -130,6 +137,7 @@ class _FeedBackState extends State<FeedBack> {
             maxLength: 1000,
             counterIsOn: true,
           ),
+
           DreamBox(
             height: 50,
             width: 200,
@@ -139,7 +147,9 @@ class _FeedBackState extends State<FeedBack> {
             verseScaleFactor: 0.6,
             onTap: _uploadFeedBack,
           ),
-          const PyramidsHorizon(),
+
+          const Horizon(),
+
         ],
       ),
     );

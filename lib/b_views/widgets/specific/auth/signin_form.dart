@@ -1,15 +1,13 @@
 import 'dart:async';
 
+import 'package:bldrs/b_views/widgets/components/expander.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/dialogz.dart' as Dialogz;
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart'
-    show Expander;
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -23,7 +21,7 @@ class SignInForm extends StatefulWidget {
     @required this.switchSignIn,
     @required this.email,
     @required this.password,
-    @required this.fieldOnTap,
+    this.fieldOnTap,
     Key key,
   }) : super(key: key);
 
@@ -136,7 +134,7 @@ class _SignInFormState extends State<SignInForm> {
         /// so sign in succeeded returning a userModel
         // UserModel _userModel = _result;
 
-        Nav.goBackToUserChecker(context);
+        Nav.goBackToLogoScreen(context);
 
         // /// check if user model is properly completed
         // List<String> _missingFields = UserModel.missingFields(_userModel);
@@ -212,8 +210,8 @@ class _SignInFormState extends State<SignInForm> {
             keyboardTextInputType: TextInputType.visiblePassword,
             keyboardTextInputAction: TextInputAction.done,
             title: Wordz.password(context),
-            onSaved: () {
-              blog('onSaved');
+            onSaved: (String value) {
+              blog('onSaved $value');
             },
             obscured: _passwordObscured,
             horusOnTap: _horusOnTap,
