@@ -49,45 +49,50 @@ class SuperImage extends StatelessWidget {
     // int _height = fit == BoxFit.fitHeight ? height : null;
     // Asset _asset = ObjectChecker.objectIsAsset(pic) == true ? pic : null;
 
-    return pic == null
-        ? null
-        : Transform.scale(
-            scale: scale,
-            child: ObjectChecker.objectIsJPGorPNG(pic)
-                ? Image.asset(pic, fit: _boxFit)
-                : ObjectChecker.objectIsSVG(pic)
-                    ? WebsafeSvg.asset(pic, fit: _boxFit, color: iconColor)
-                    :
+    return pic == null ? Container()
+        :
+    Transform.scale(
+      scale: scale,
+      child:
+      ObjectChecker.objectIsJPGorPNG(pic) ?
+      Image.asset(pic, fit: _boxFit)
+          :
+      ObjectChecker.objectIsSVG(pic) ?
+      WebsafeSvg.asset(pic, fit: _boxFit, color: iconColor)
+          :
 
-                    /// max user NetworkImage(userPic), to try it later
-                    ObjectChecker.objectIsURL(pic)
-                        ? Image.network(pic, fit: _boxFit)
-                        : ObjectChecker.objectIsFile(pic)
-                            ? Image.file(
-                                pic,
-                                fit: _boxFit,
-                                width: width,
-                                height: height,
-                              )
-                            : ObjectChecker.objectIsUint8List(pic) ||
-                                    ObjectChecker.isBase64(pic)
-                                ? // Image.memory(logoBase64!);
-                                Image.memory(
-                                    base64Decode(pic),
-                                    fit: _boxFit,
-                                    // width: width?.toDouble(),
-                                    // height: height?.toDouble(),
-                                  )
-                                : ObjectChecker.objectIsAsset(pic)
-                                    ? AssetThumb(
-                                        asset: pic,
-                                        width: (pic.originalWidth).toInt(),
-                                        height: (pic.originalHeight).toInt(),
-                                        spinner: const Loading(
-                                          loading: true,
-                                        ),
-                                      )
-                                    : Container(),
-          );
+      /// max user NetworkImage(userPic), to try it later
+      ObjectChecker.objectIsURL(pic) ?
+      Image.network(pic, fit: _boxFit)
+          :
+      ObjectChecker.objectIsFile(pic) ?
+      Image.file(
+        pic,
+        fit: _boxFit,
+        width: width,
+        height: height,
+      )
+          :
+      ObjectChecker.objectIsUint8List(pic) || ObjectChecker.isBase64(pic) ? // Image.memory(logoBase64!);
+      Image.memory(
+        base64Decode(pic),
+        fit: _boxFit,
+        // width: width?.toDouble(),
+        // height: height?.toDouble(),
+      )
+          :
+      ObjectChecker.objectIsAsset(pic) ?
+      AssetThumb(
+        asset: pic,
+        width: (pic.originalWidth).toInt(),
+        height: (pic.originalHeight).toInt(),
+        spinner: const Loading(
+          loading: true,
+        ),
+      )
+          :
+      Container(),
+
+    );
   }
 }
