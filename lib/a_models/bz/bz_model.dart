@@ -88,7 +88,6 @@ class BzModel with ChangeNotifier {
     @required this.flyersIDs,
     @required this.totalFlyers,
   });
-
   /// --------------------------------------------------------------------------
   final String id;
   // -------------------------
@@ -122,7 +121,6 @@ class BzModel with ChangeNotifier {
   int totalFlyers;
   // -------------------------
   final List<String> flyersIDs;
-
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}) {
     return <String, dynamic>{
@@ -464,14 +462,12 @@ class BzModel with ChangeNotifier {
 
     return _bzTeamIDs;
   }
-
 // -----------------------------------------------------------------------------
   static BzModel getBzFromBzzByBzID(List<BzModel> bzz, String bzID) {
     final BzModel _bz =
         bzz.singleWhere((BzModel _b) => _b.id == bzID, orElse: () => null);
     return _bz;
   }
-
 // -----------------------------------------------------------------------------
   static BzModel getBzModelFromSnapshot(DocumentSnapshot<Object> doc) {
     final DocumentSnapshot<Object> _map = doc.data();
@@ -484,7 +480,6 @@ class BzModel with ChangeNotifier {
 
     return _bzModel;
   }
-
 // -----------------------------------------------------------------------------
   void blogBz({String methodName = 'printBzModel'}) {
     final String _methodName = methodName ?? 'BZ';
@@ -519,7 +514,10 @@ class BzModel with ChangeNotifier {
     blog('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
   }
 // -----------------------------------------------------------------------------
-  static void blogBzz({@required List<BzModel> bzz, String methodName}){
+  static void blogBzz({
+    @required List<BzModel> bzz,
+    String methodName,
+  }){
 
     if (Mapper.canLoopList(bzz)){
 

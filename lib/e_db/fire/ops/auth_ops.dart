@@ -174,8 +174,7 @@ Future<dynamic> emailSignInOps({
     blog('x2 - emailSignInOps userID : $_userID');
 
     /// read user ops
-    final UserModel _userModel =
-        await UserFireOps.readUser(context: context, userID: _userID);
+    final UserModel _userModel = await UserFireOps.readUser(context: context, userID: _userID);
     blog('x2 - emailSignInOps _userModel : $_userModel');
 
     return _userModel;
