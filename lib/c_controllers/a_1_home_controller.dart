@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -7,6 +8,9 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
@@ -88,5 +92,18 @@ Future<void> _initializeUserBzz(BuildContext context) async {
 Future<void> _initializePromotedFlyers(BuildContext context) async {
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   await _flyersProvider.getSetPromotedFlyers(context);
+
+  /// OPEN FIRST PROMOTED FLYER IF POSSIBLE
+  final List<FlyerModel> _promotedFlyers = _flyersProvider.promotedFlyers;
+  if (Mapper.canLoopList(_promotedFlyers)){
+    await Future.delayed(Ratioz.duration150ms, () async {
+
+      await Nav.openFlyer(
+        context: context,
+        flyer: _flyersProvider.promotedFlyers[0],
+      );
+
+    });
+  }
 }
 // -----------------------------------------------------------------------------
