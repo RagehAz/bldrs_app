@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/widgets/components/expander.dart';
 import 'package:bldrs/b_views/widgets/general/appbar/search_bar.dart';
 import 'package:bldrs/b_views/widgets/general/appbar/sections_button.dart';
 import 'package:bldrs/b_views/widgets/general/appbar/zone_button.dart';
@@ -6,6 +5,7 @@ import 'package:bldrs/b_views/widgets/general/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
@@ -15,21 +15,21 @@ import 'package:flutter/material.dart';
 
 class BldrsAppBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BldrsAppBar(
-      {this.appBarType,
-      this.onBack,
-      this.pageTitle,
-      this.appBarRowWidgets,
-      this.loading = false,
-      this.appBarScrollController,
-      this.sectionButtonIsOn,
-      this.searchController,
-      this.onSearchSubmit,
-      this.historyButtonIsOn,
-      this.onSearchChanged,
-      Key key})
-      : super(key: key);
-
+  const BldrsAppBar({
+    this.appBarType,
+    this.onBack,
+    this.pageTitle,
+    this.appBarRowWidgets,
+    this.loading = false,
+    this.appBarScrollController,
+    this.sectionButtonIsOn,
+    this.searchController,
+    this.onSearchSubmit,
+    this.onSearchChanged,
+    this.historyButtonIsOn,
+    this.zoneButtonIsOn,
+    Key key
+  }) : super(key: key);
   /// --------------------------------------------------------------------------
   final AppBarType appBarType;
   final Function onBack;
@@ -40,22 +40,22 @@ class BldrsAppBar extends StatelessWidget {
   final bool sectionButtonIsOn;
   final TextEditingController searchController;
   final ValueChanged<String> onSearchSubmit;
-  final bool historyButtonIsOn;
   final ValueChanged<String> onSearchChanged;
-
+  final bool historyButtonIsOn;
+  final bool zoneButtonIsOn;
   /// --------------------------------------------------------------------------
   static double width(BuildContext context, {double boxWidth}) {
     final double _boxWidth = boxWidth ?? Scale.superScreenWidth(context);
-
     final double _abWidth = _boxWidth - (2 * Ratioz.appBarMargin);
     return _abWidth;
   }
 
 // -----------------------------------------------------------------------------
   static double height(BuildContext context, AppBarType appBarType) {
-    final double _abHeight = appBarType == AppBarType.search
-        ? Ratioz.appBarBigHeight
-        : Ratioz.appBarSmallHeight;
+    final double _abHeight = appBarType == AppBarType.search ?
+    Ratioz.appBarBigHeight
+        :
+    Ratioz.appBarSmallHeight;
     return _abHeight;
   }
 
@@ -119,8 +119,8 @@ class BldrsAppBar extends StatelessWidget {
   bool _sectionButtonIsOnCheck() {
     bool _isOn;
 
-    if (sectionButtonIsOn == true) {
-      _isOn = true;
+    if (sectionButtonIsOn != null) {
+      _isOn = sectionButtonIsOn;
     } else if (sectionButtonIsOn == false) {
       _isOn = false;
     } else if (appBarType == AppBarType.basic) {
@@ -146,19 +146,28 @@ class BldrsAppBar extends StatelessWidget {
   bool _zoneButtonIsOnCheck() {
     bool _isOn;
 
-    if (appBarType == AppBarType.basic) {
+    if (zoneButtonIsOn != null){
+      _isOn = zoneButtonIsOn;
+    }
+    else if (appBarType == AppBarType.basic) {
       _isOn = false;
-    } else if (appBarType == AppBarType.scrollable) {
+    }
+    else if (appBarType == AppBarType.scrollable) {
       _isOn = false;
-    } else if (appBarType == AppBarType.main) {
+    }
+    else if (appBarType == AppBarType.main) {
       _isOn = true;
-    } else if (appBarType == AppBarType.intro) {
+    }
+    else if (appBarType == AppBarType.intro) {
       _isOn = true;
-    } else if (appBarType == AppBarType.search) {
+    }
+    else if (appBarType == AppBarType.search) {
       _isOn = true;
-    } else if (appBarType == AppBarType.non) {
+    }
+    else if (appBarType == AppBarType.non) {
       _isOn = false;
-    } else {
+    }
+    else {
       _isOn = false;
     }
 

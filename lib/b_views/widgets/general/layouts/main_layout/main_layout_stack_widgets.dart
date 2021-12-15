@@ -22,12 +22,13 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.onBack,
     @required this.loading,
     @required this.appBarScrollController,
-    @required this.sectionButtonIsOn,
     @required this.searchController,
     @required this.onSearchSubmit,
-    @required this.historyButtonIsOn,
     @required this.onSearchChanged,
     @required this.pyramids,
+    @required this.sectionButtonIsOn,
+    @required this.historyButtonIsOn,
+    @required this.zoneButtonIsOn,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -40,12 +41,13 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final Function onBack;
   final bool loading;
   final ScrollController appBarScrollController;
-  final bool sectionButtonIsOn;
   final TextEditingController searchController;
   final ValueChanged<String> onSearchSubmit;
-  final bool historyButtonIsOn;
   final ValueChanged<String> onSearchChanged;
   final String pyramids;
+  final bool historyButtonIsOn;
+  final bool sectionButtonIsOn;
+  final bool zoneButtonIsOn;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -79,8 +81,9 @@ class MainLayoutStackWidgets extends StatelessWidget {
             sectionButtonIsOn: sectionButtonIsOn,
             searchController: searchController,
             onSearchSubmit: onSearchSubmit,
-            historyButtonIsOn: historyButtonIsOn,
             onSearchChanged: onSearchChanged,
+            historyButtonIsOn: historyButtonIsOn,
+            zoneButtonIsOn: zoneButtonIsOn,
           ),
 
         /// --- PYRAMIDS

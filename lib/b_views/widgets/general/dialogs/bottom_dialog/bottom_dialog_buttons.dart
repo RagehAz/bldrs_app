@@ -69,7 +69,7 @@ class BottomDialogButtons extends StatelessWidget {
               verseScaleFactor: 0.8,
               color: Colorz.white10,
               textDirection: bottomDialogType == BottomDialogType.bottomSheet
-                  ? superTextDirection(context)
+                  ? textDirectionAsPerAppDirection(context)
                   : superInverseTextDirection(context),
               onTap: () => buttonTap(_id),
             ),

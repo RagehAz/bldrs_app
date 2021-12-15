@@ -1,6 +1,6 @@
-import 'package:bldrs/b_views/screens/c_search/c_0_search_screen.dart';
-import 'package:bldrs/b_views/screens/c_search/c_1_search_history_screen.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/x_screens/c_search/c_0_search_screen.dart';
+import 'package:bldrs/b_views/x_screens/c_search/c_1_search_history_screen.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;

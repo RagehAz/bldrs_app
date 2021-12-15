@@ -1,5 +1,5 @@
-import 'package:bldrs/b_views/widgets/components/horizon.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/dashboard_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/auditor/flyers_auditor_screen.dart';

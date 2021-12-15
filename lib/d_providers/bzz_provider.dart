@@ -18,8 +18,10 @@ class BzzProvider extends ChangeNotifier {
   /// 2 - if not found, search firebase
   ///   2.1 read firebase bz ops
   ///   2.2 if found on firebase, store in ldb sessionBzz
-  Future<BzModel> fetchBzModel(
-      {@required BuildContext context, @required String bzID}) async {
+  Future<BzModel> fetchBzModel({
+    @required BuildContext context,
+    @required String bzID
+  }) async {
     BzModel _bz;
 
     /// 1 - search in entire LDBs for this bzModel
@@ -59,7 +61,6 @@ class BzzProvider extends ChangeNotifier {
 
     return _bz;
   }
-
 // -------------------------------------
   Future<List<BzModel>> fetchBzzModels(
       {@required BuildContext context, @required List<String> bzzIDs}) async {
@@ -201,8 +202,7 @@ class BzzProvider extends ChangeNotifier {
 // -------------------------------------
   Future<void> fetchFollowedBzz(BuildContext context) async {
     /// 1 - get user saved followed bzz IDs
-    final UsersProvider _usersProvider =
-        Provider.of<UsersProvider>(context, listen: false);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final UserModel _myUserModel = _usersProvider.myUserModel;
     final List<String> _followedBzzIDs = _myUserModel?.followedBzzIDs;
 
@@ -225,8 +225,7 @@ class BzzProvider extends ChangeNotifier {
         Provider.of<UsersProvider>(context, listen: false);
     final UserModel _myUserModel = _usersProvider.myUserModel;
 
-    final String _id = _myUserModel?.followedBzzIDs
-        ?.firstWhere((String id) => id == bzID, orElse: () => null);
+    final String _id = _myUserModel?.followedBzzIDs?.firstWhere((String id) => id == bzID, orElse: () => null);
 
     if (_id == null) {
       _isFollowing = false;
