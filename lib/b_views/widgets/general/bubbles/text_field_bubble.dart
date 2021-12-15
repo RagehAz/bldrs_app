@@ -3,10 +3,12 @@ import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_text_field.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -27,10 +29,10 @@ class TextFieldBubble extends StatelessWidget {
     this.validator,
     this.comments,
     this.fieldIsRequired = false,
-    this.loading = false,
+    // this.loading = false,
     this.actionBtIcon,
     this.actionBtFunction,
-    this.horusOnTap,
+    this.onObscureTap,
     this.leadingIcon,
     this.pasteFunction,
     this.textDirection,
@@ -56,10 +58,10 @@ class TextFieldBubble extends StatelessWidget {
   final ValueChanged<String> validator;
   final String comments;
   final bool fieldIsRequired;
-  final bool loading;
+  // final bool loading;
   final String actionBtIcon;
   final Function actionBtFunction;
-  final Function horusOnTap;
+  final Function onObscureTap;
   final String leadingIcon;
   final Function pasteFunction;
   final TextDirection textDirection;
@@ -67,6 +69,18 @@ class TextFieldBubble extends StatelessWidget {
   final Function fieldOnTap;
 
   /// --------------------------------------------------------------------------
+  static double _leadingIconSizeFactor(String leadingIcon){
+    final double _sizeFactor =
+    leadingIcon == Iconz.comWebsite ||
+        leadingIcon == Iconz.comEmail ||
+        leadingIcon == Iconz.comPhone ?
+    0.6
+        :
+    1;
+
+    return _sizeFactor;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // int titleVerseSize = 2;
@@ -87,6 +101,8 @@ class TextFieldBubble extends StatelessWidget {
         actionBtFunction: actionBtFunction,
         width: Bubble.defaultWidth(context),
         columnChildren: <Widget>[
+
+          /// TEXT FIELD ROW
           Stack(
             alignment: Aligners.superInverseTopAlignment(context),
             children: <Widget>[
@@ -95,24 +111,19 @@ class TextFieldBubble extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+
                   /// LEADING ICON
                   if (leadingIcon != null)
                     DreamBox(
                       height: 35,
                       width: 35,
                       icon: leadingIcon,
-                      iconSizeFactor: leadingIcon == Iconz.comWebsite ||
-                              leadingIcon == Iconz.comEmail ||
-                              leadingIcon == Iconz.comPhone
-                          ? 0.6
-                          : 1,
+                      iconSizeFactor: _leadingIconSizeFactor(leadingIcon),
                     ),
 
                   /// SPACER
                   if (leadingIcon != null)
-                    const SizedBox(
-                      width: 5,
-                    ),
+                    const SizedBox(width: 5,),
 
                   /// TEXT FIELD
                   SizedBox(
@@ -138,13 +149,11 @@ class TextFieldBubble extends StatelessWidget {
                   ),
 
                   /// SPACER
-                  if (obscured != null)
-                    const SizedBox(
-                      width: 5,
-                    ),
+                  if (onObscureTap != null)
+                    const SizedBox(width: 5,),
 
                   /// OBSCURE BUTTON
-                  if (obscured != null)
+                  if (onObscureTap != null)
                     DreamBox(
                       height: 35,
                       width: 35,
@@ -153,21 +162,35 @@ class TextFieldBubble extends StatelessWidget {
                       iconColor: obscured ? Colorz.white20 : Colorz.black230,
                       iconSizeFactor: 0.7,
                       bubble: false,
-                      onTap: horusOnTap,
+                      onTap: onObscureTap,
                       // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
-                      corners:
-                          SuperVerse.superVerseLabelCornerValue(context, 3),
+                      corners: SuperVerse.superVerseLabelCornerValue(context, 3),
                     ),
                 ],
               ),
 
-              /// --- LOADING INDICATOR
-              if (loading)
-                Loading(
+              /// LOADING INDICATOR
+              Selector<UiProvider, bool>(
+                selector: (_, UiProvider uiProvider) => uiProvider.loading,
+                child: const Loading(
                   size: 35,
-                  loading: loading,
+                  loading: true,
                 ),
+                // shouldRebuild: ,
+                builder: (BuildContext context, bool loading, Widget child){
 
+                  if (loading == true) {
+                    return child;
+                  }
+
+                  else {
+                    return const SizedBox();
+                  }
+
+                  },
+              ),
+
+              /// PASTE BUTTON
               if (keyboardTextInputType == TextInputType.url)
                 DreamBox(
                   height: 35,
@@ -191,7 +214,9 @@ class TextFieldBubble extends StatelessWidget {
               weight: VerseWeight.thin,
               leadingDot: true,
             ),
-        ]);
+
+        ]
+    );
   }
 }
 
