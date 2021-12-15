@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/tab_button.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/tab_layout.dart';
 import 'package:bldrs/b_views/widgets/specific/bz/targets_bubble.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -43,8 +43,11 @@ class BzTargetsTab extends StatelessWidget {
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: const <Widget>[
+
         TargetsBubble(),
-        PyramidsHorizon(),
+
+        Horizon(),
+
       ],
     );
   }

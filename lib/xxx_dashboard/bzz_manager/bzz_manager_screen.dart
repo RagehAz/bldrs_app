@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
@@ -17,6 +18,7 @@ import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -197,7 +199,8 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                   itemCount: _bzz.length,
                   padding: const EdgeInsets.only(
                       bottom: Ratioz.stratosphere,
-                      top: Stratosphere.bigAppBarStratosphere),
+                      top: Stratosphere.bigAppBarStratosphere
+                  ),
                   itemBuilder: (BuildContext ctx, int index) {
                     final BzModel _bz = _bzz[index];
                     final String _bzName =

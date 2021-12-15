@@ -29,7 +29,7 @@ Widget bzModelStreamBuilder({
 
         blog('xx bzModel in  stream is : $bzModel');
 
-        bzModel.printBzModel();
+        bzModel.blogBz();
 
         return builder(context, bzModel);
       }

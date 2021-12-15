@@ -1,8 +1,8 @@
 import 'package:bldrs/b_views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_controllers/a_0_logo_controller.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class LogoScreen extends StatefulWidget {
@@ -30,12 +30,7 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
 // -----------------------------------
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
-
-    if (_loading.value == true) {
-      blog('LOADING --------------------------------------');
-    } else {
-      blog('LOADING COMPLETE -----------------------------');
-    }
+    blogLoading(loading: _loading.value);
   }
 
 // -----------------------------------------------------------------------------
@@ -98,26 +93,13 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
                 ),
               ),
 
-              const SizedBox(
-                height: Ratioz.appBarMargin,
-              ),
-
-              // if (loading == true)
-              //   Center(
-              //     child: Loading(
-              //       loading: loading,
-              //     ),
-              //   ),
+              // const SizedBox(
+              //   height: Ratioz.appBarMargin,
+              // ),
               //
-              // if (error != null)
-              //   SuperVerse(
-              //     verse: error,
-              //     weight: VerseWeight.thin,
-              //   ),
-
-              const SizedBox(
-                height: Ratioz.appBarMargin,
-              ),
+              // const SizedBox(
+              //   height: Ratioz.appBarMargin,
+              // ),
 
             ],
           ),

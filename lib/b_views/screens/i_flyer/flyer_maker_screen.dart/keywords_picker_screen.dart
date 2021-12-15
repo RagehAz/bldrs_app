@@ -1,7 +1,9 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart'
     as FlyerTypeClass;
 import 'package:bldrs/a_models/kw/kw.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -333,6 +335,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
       },
       layoutWidget: Column(
         children: const <Widget>[
+
           Stratosphere(),
 
           // /// selected keywords zone

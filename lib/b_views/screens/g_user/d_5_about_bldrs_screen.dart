@@ -1,3 +1,5 @@
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/paragraph_bubble.dart';
@@ -9,6 +11,7 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class AboutBldrsScreen extends StatelessWidget {
+
   const AboutBldrsScreen({Key key}) : super(key: key);
 
   @override
@@ -23,22 +26,29 @@ class AboutBldrsScreen extends StatelessWidget {
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: const <Widget>[
+
             Stratosphere(),
+
             LogoSlogan(
               sizeFactor: 0.87,
             ),
+
             ParagraphBubble(
                 maxLines: 1000,
                 title: 'Bldrs.net',
                 paragraph: 'Is the Network of builders\n'
                     'categorizing major Bldrs sectors as\n'
-                    'Real-estate, Construction & Supplies.\n'),
+                    'Real-estate, Construction & Supplies.\n'
+            ),
+
             ParagraphBubble(
               paragraph: 'So whenever you need to connect with a professional '
                   'or a company in a specific field or trade to aid you in '
                   'building you projects, you have all Businesses here for you',
             ),
+
             BubblesSeparator(),
+
             ParagraphBubble(
               title: 'Bldrs.net Business types',
               centered: true,
@@ -46,6 +56,7 @@ class AboutBldrsScreen extends StatelessWidget {
               bubbleWidth: 200,
               paragraph: '',
             ),
+
             TileBubble(
               verse: 'Developers',
               icon: Iconz.bxPropertiesOn,
@@ -58,6 +69,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'in Short... if You are looking for a property directly from '
                   'its creator, then these are the companies to contact',
             ),
+
             TileBubble(
               verse: 'Brokers',
               icon: Iconz.bxPropertiesOn,
@@ -70,6 +82,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'in Short... if You are looking for someone to get you the best '
                   'property deals, these are the ones to contact',
             ),
+
             TileBubble(
               verse: 'Designers',
               icon: Iconz.bxDesignsOn,
@@ -81,6 +94,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'in Short... if You have an idea or project to plan its '
                   'construction, you must contact these people',
             ),
+
             TileBubble(
               verse: 'Contractors',
               icon: Iconz.bxProjectsOn,
@@ -92,6 +106,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'in Short... if You have a project in construction, '
                   'they build it for you',
             ),
+
             TileBubble(
               verse: 'Crafts-men',
               icon: Iconz.bxCraftsOn,
@@ -101,6 +116,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   '\n'
                   'in Short... The Work-force and the actual builders of all constructs',
             ),
+
             TileBubble(
               verse: 'Manufacturers',
               icon: Iconz.bxProductsOn,
@@ -113,6 +129,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'construction products or equipment, these are the companies '
                   'to contact',
             ),
+
             TileBubble(
               verse: 'Suppliers',
               icon: Iconz.bxProductsOn,
@@ -129,8 +146,10 @@ class AboutBldrsScreen extends StatelessWidget {
                   'construction products or equipment, these are the companies '
                   'to contact',
             ),
+
             BubblesSeparator(),
-            PyramidsHorizon(),
+
+            Horizon(),
           ],
         ),
       ),

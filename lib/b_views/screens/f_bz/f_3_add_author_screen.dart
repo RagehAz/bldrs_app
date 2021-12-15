@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
@@ -37,7 +38,9 @@ class AddAuthorScreen extends StatelessWidget {
       appBarType: AppBarType.basic,
       layoutWidget: ListView(
         children: <Widget>[
+
           const Stratosphere(),
+
           Bubble(
             title: 'Share invitation Link',
             width: Bubble.defaultWidth(context),
@@ -79,6 +82,7 @@ class AddAuthorScreen extends StatelessWidget {
               ),
             ],
           ),
+
           DreamBox(
             verse: 'Add Rageh as Author',
             height: 50,
@@ -141,6 +145,7 @@ class AddAuthorScreen extends StatelessWidget {
               Nav.goBack(context);
             },
           ),
+
         ],
       ),
     );

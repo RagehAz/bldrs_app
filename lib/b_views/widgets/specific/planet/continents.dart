@@ -33,8 +33,8 @@ class Continents extends StatelessWidget {
 
             const Pyramids(
               pyramidsIcon: Iconz.pyramidzYellow,
-              loading: true,
             ),
+
           ],
         ),
       ),

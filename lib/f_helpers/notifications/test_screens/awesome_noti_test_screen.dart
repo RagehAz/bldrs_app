@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/notification/noti_model.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/notifications/audioz.dart' as Audioz;
 import 'package:bldrs/f_helpers/notifications/noti_ops.dart' as NotiOps;
 import 'package:bldrs/f_helpers/notifications/test_screens/second_noti_test_screen.dart';
@@ -211,7 +213,9 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
       pageTitle: 'Awesome notification test',
       layoutWidget: Column(
         children: <Widget>[
+
           const Stratosphere(),
+
           Container(
             width: 300,
             height: 300,
@@ -227,6 +231,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
               onTap: _onSendNotification,
             ),
           ),
+
           DreamBox(
             height: 60,
             width: 250,
@@ -239,6 +244,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
               await _multiFlickerPyramids();
             },
           ),
+
           DreamBox(
             height: 60,
             width: 250,
@@ -249,6 +255,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             verseShadow: false,
             onTap: _onSendScheduledNotification,
           ),
+
           DreamBox(
             height: 60,
             width: 250,
@@ -261,6 +268,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
               await NotiOps.cancelScheduledNotification();
             },
           ),
+
         ],
       ),
     );

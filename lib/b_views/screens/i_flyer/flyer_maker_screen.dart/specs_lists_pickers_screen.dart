@@ -16,6 +16,7 @@ import 'package:bldrs/b_views/widgets/specific/specs/price_data_creator.dart';
 import 'package:bldrs/b_views/widgets/specific/specs/spec_list_tile.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -125,17 +126,26 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen>
 
     if (specList.specChain.sons.runtimeType != DataCreator) {
       await _goToSpecPickerScreen(specList);
-    } else if (specList.specChain.sons == DataCreator.price) {
+    }
+
+    else if (specList.specChain.sons == DataCreator.price) {
       await _goToSpecPickerScreen(specList);
-    } else if (specList.specChain.sons == DataCreator.currency) {
+    }
+
+    else if (specList.specChain.sons == DataCreator.currency) {
       await _runCurrencyDialog(specList);
-    } else if (specList.specChain.sons == DataCreator.integerIncrementer) {
-      blog('aho');
-      await _goToSpecPickerScreen(specList);
-    } else if (specList.specChain.sons == DataCreator.doubleCreator) {
+    }
+
+    else if (specList.specChain.sons == DataCreator.integerIncrementer) {
       blog('aho');
       await _goToSpecPickerScreen(specList);
     }
+
+    else if (specList.specChain.sons == DataCreator.doubleCreator) {
+      blog('aho');
+      await _goToSpecPickerScreen(specList);
+    }
+
   }
 
 // -----------------------------------------------------------------------------

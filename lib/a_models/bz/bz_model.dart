@@ -53,7 +53,6 @@ enum BzState {
   deleted,
   banned,
 }
-
 // -----------------------------------------------------------------------------
 class BzModel with ChangeNotifier {
   /// --------------------------------------------------------------------------
@@ -159,9 +158,11 @@ class BzModel with ChangeNotifier {
       'flyersIDs': flyersIDs,
     };
   }
-
 // -----------------------------------------------------------------------------
-  static BzModel decipherBz({@required dynamic map, @required bool fromJSON}) {
+  static BzModel decipherBz({
+    @required dynamic map,
+    @required bool fromJSON
+  }) {
     BzModel _bzModel;
 
     if (map != null) {
@@ -203,10 +204,11 @@ class BzModel with ChangeNotifier {
 
     return _bzModel;
   }
-
 // -----------------------------------------------------------------------------
-  static List<BzModel> decipherBzz(
-      {@required List<Map<String, dynamic>> maps, @required bool fromJSON}) {
+  static List<BzModel> decipherBzz({
+    @required List<Map<String, dynamic>> maps,
+    @required bool fromJSON
+  }) {
     final List<BzModel> _bzList = <BzModel>[];
 
     for (final Map<String, dynamic> map in maps) {
@@ -218,7 +220,6 @@ class BzModel with ChangeNotifier {
 
     return _bzList;
   }
-
 // -----------------------------------------------------------------------------
   static BzAccountType decipherBzAccountType(String bzAccountType) {
     switch (bzAccountType) {
@@ -235,7 +236,6 @@ class BzModel with ChangeNotifier {
         return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static String cipherBzAccountType(BzAccountType bzAccountType) {
     switch (bzAccountType) {
@@ -252,7 +252,6 @@ class BzModel with ChangeNotifier {
         return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static BzModel createInitialBzModelFromUserData(UserModel userModel) {
     return BzModel(
@@ -297,7 +296,6 @@ class BzModel with ChangeNotifier {
       bzType: null,
     );
   }
-
 // -----------------------------------------------------------------------------
   static BzType decipherBzType(String x) {
     switch (x) {
@@ -326,7 +324,6 @@ class BzModel with ChangeNotifier {
         return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static String cipherBzType(BzType x) {
     switch (x) {
@@ -355,7 +352,6 @@ class BzModel with ChangeNotifier {
         return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static BzForm decipherBzForm(String x) {
     switch (x) {
@@ -369,7 +365,6 @@ class BzModel with ChangeNotifier {
         return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static String cipherBzForm(BzForm x) {
     switch (x) {
@@ -383,7 +378,6 @@ class BzModel with ChangeNotifier {
         return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static String cipherBzState(BzState state) {
     switch (state) {
@@ -406,7 +400,6 @@ class BzModel with ChangeNotifier {
         return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static BzState decipherBzState(String state) {
     switch (state) {
@@ -429,7 +422,6 @@ class BzModel with ChangeNotifier {
         return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static const List<BzState> bzStatesList = <BzState>[
     BzState.online,
@@ -494,7 +486,7 @@ class BzModel with ChangeNotifier {
   }
 
 // -----------------------------------------------------------------------------
-  void printBzModel({String methodName = 'printBzModel'}) {
+  void blogBz({String methodName = 'printBzModel'}) {
     final String _methodName = methodName ?? 'BZ';
 
     blog('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
@@ -526,7 +518,18 @@ class BzModel with ChangeNotifier {
 
     blog('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
   }
+// -----------------------------------------------------------------------------
+  static void blogBzz({@required List<BzModel> bzz, String methodName}){
 
+    if (Mapper.canLoopList(bzz)){
+
+      for (final BzModel bz in bzz){
+        bz.blogBz(methodName: methodName);
+      }
+
+    }
+
+  }
 // -----------------------------------------------------------------------------
   static const List<String> bzPagesTabsTitles = <String>[
     'Flyers',
@@ -549,7 +552,6 @@ class BzModel with ChangeNotifier {
 
     return _contains;
   }
-
 // -----------------------------------------------------------------------------
   static List<String> getBzzIDsFromBzz(List<BzModel> bzzModels) {
     final List<String> _ids = <String>[];
@@ -562,7 +564,6 @@ class BzModel with ChangeNotifier {
 
     return _ids;
   }
-
 // -----------------------------------------------------------------------------
   static BzModel dummyBz(String bzID) {
     final String _bzID = bzID ?? 'ytLfMwdqK565ByP1p56G';
