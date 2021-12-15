@@ -28,8 +28,7 @@ class Region {
     return Region(
       name: map['name'],
       continent: map['continent'],
-      countriesIDs:
-          Mapper.getStringsFromDynamics(dynamics: map['countriesIDs']),
+      countriesIDs: Mapper.getStringsFromDynamics(dynamics: map['countriesIDs']),
     );
   }
 

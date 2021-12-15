@@ -1,11 +1,13 @@
 import 'package:bldrs/a_models/secondary_models/app_updates.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 Future<void> controlLogoScreen(BuildContext context) async {
+
 
   /// B - APP STATE
   final bool _canContinue = await _initializeAppState(context);
@@ -14,6 +16,8 @@ Future<void> controlLogoScreen(BuildContext context) async {
 
 
   } else {
+
+    Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
     await goToRoute(context, Routez.home);
 

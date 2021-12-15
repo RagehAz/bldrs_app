@@ -33,17 +33,13 @@ class ZonesPage extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight =
-        Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 // -----------------------------------------------------------------------------
     const double _continentIconHeight = 50;
-    const double _verseHeight =
-        25; //superVerseRealHeight(context, 2, 1, Colorz.White10);
+    const double _verseHeight = 25; //superVerseRealHeight(context, 2, 1, Colorz.White10);
 
-    final double _pageHeight =
-        pageHeight; //_screenHeight - Ratioz.stratosphere;
-    final double _bubbleZoneHeight =
-        _pageHeight - _continentIconHeight - _verseHeight;
+    final double _pageHeight = pageHeight; //_screenHeight - Ratioz.stratosphere;
+    final double _bubbleZoneHeight = _pageHeight - _continentIconHeight - _verseHeight;
 
     return SafeArea(
       child: SizedBox(
@@ -96,8 +92,7 @@ class ZonesPage extends StatelessWidget {
                               width: Bubble.clearWidth(context) - 10,
                               icon: Flag.getFlagIconByCountryID(_id),
                               iconSizeFactor: 0.8,
-                              verse: CountryModel.getTranslatedCountryNameByID(
-                                  context: context, countryID: _id),
+                              verse: CountryModel.getTranslatedCountryNameByID(context: context, countryID: _id),
                               bubble: false,
                               margins: const EdgeInsets.symmetric(vertical: 5),
                               verseScaleFactor: 0.8,

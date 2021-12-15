@@ -1,7 +1,7 @@
-import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -116,8 +116,7 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight =
-        Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 // -----------------------------------------------------------------------------
     final double _pageHeight = _screenHeight - Ratioz.stratosphere;
 

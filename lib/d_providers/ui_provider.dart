@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 class UiProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
+
   /// --- LOADING
+
+// -------------------------------------
   bool _loading = false;
 // -------------------------------------
   bool get loading => _loading;
@@ -25,7 +28,7 @@ class UiProvider extends ChangeNotifier {
     notifyListeners();
   }
 // -------------------------------------
-  /// FAST COPY WIDGET
+  /// --- LOADING SELECTOR TEMPLATE
   /*
 
   Selector<UiProvider, bool>(
@@ -40,6 +43,10 @@ class UiProvider extends ChangeNotifier {
 
    */
 // -----------------------------------------------------------------------------
+
+  /// --- TEXT FIELD OBSCURED
+
+// -------------------------------------
   void startController(Function controllerMethod) {
 
     _start().then((_) async {
@@ -49,9 +56,10 @@ class UiProvider extends ChangeNotifier {
     });
 
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
   Future<void> _start() async {}
 // -----------------------------------------------------------------------------
+  /// --- TEXT FIELD OBSCURED
   bool _textFieldsObscured = true;
 // -------------------------------------
   bool get textFieldsObscured => _textFieldsObscured;
@@ -67,6 +75,55 @@ class UiProvider extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+// -----------------------------------------------------------------------------
+
+  /// --- IS SEARCHING
+
+// -------------------------------------
+  bool _isSearching = false;
+// -------------------------------------
+  bool get isSearching => _isSearching;
+// -------------------------------------
+  void triggerIsSearching({bool setIsSearchingTo}){
+
+    if (setIsSearchingTo == null){
+      _isSearching = !_isSearching;
+    }
+
+    else {
+      _isSearching = setIsSearchingTo;
+    }
+
+    notifyListeners();
+
+  }
+// -------------------------------------
+  void triggerIsSearchingAfterTextLengthIsAt({
+    @required String text,
+    int searchStartAtTextLength = 3,
+    bool setIsSearchingTo,
+}){
+
+    // blog('triggerIsSearchingAfterTextLengthIsAt receives : text : $text : Length ${text.length}: _isSearching : $_isSearching');
+
+    /// A - not searching
+    if (_isSearching == false) {
+      /// A.1 starts searching
+      if (text.length >= searchStartAtTextLength) {
+        triggerIsSearching(setIsSearchingTo: true);
+      }
+    }
+
+    /// B - while searching
+    else {
+      /// B.1 ends searching
+      if (text.length < searchStartAtTextLength) {
+        triggerIsSearching(setIsSearchingTo: false);
+      }
+
+    }
+
   }
 // -----------------------------------------------------------------------------
 }

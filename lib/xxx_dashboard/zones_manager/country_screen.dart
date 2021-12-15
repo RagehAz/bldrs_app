@@ -5,8 +5,6 @@ import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
-import 'package:bldrs/b_views/widgets/components/horizon.dart';
-import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/tile_bubble.dart';
@@ -15,6 +13,8 @@ import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialo
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/widgets/specific/keywords/keywords_bubble.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
