@@ -129,7 +129,7 @@ class _FeedBackState extends State<FeedBack> {
           TextFieldBubble(
             title: 'Feedback',
             textController: _feedbackController,
-            loading: _loading,
+            // loading: _loading,
             maxLines: 5,
             fieldIsRequired: true,
             keyboardTextInputAction: TextInputAction.newline,

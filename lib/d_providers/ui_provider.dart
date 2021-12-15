@@ -24,6 +24,21 @@ class UiProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+// -------------------------------------
+  /// FAST COPY WIDGET
+  /*
+
+  Selector<UiProvider, bool>(
+            selector: (_, UiProvider uiProvider) => uiProvider.loading,
+            child: WebsafeSvg.asset(widget.pyramidsIcon),
+            // shouldRebuild: ,
+            builder: (BuildContext context, bool loading, Widget child){
+
+            return const SizeBox();
+
+            }
+
+   */
 // -----------------------------------------------------------------------------
   void startController(Function controllerMethod) {
 
@@ -36,5 +51,22 @@ class UiProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   Future<void> _start() async {}
+// -----------------------------------------------------------------------------
+  bool _textFieldsObscured = true;
+// -------------------------------------
+  bool get textFieldsObscured => _textFieldsObscured;
+// -------------------------------------
+  void triggerTextFieldsObscured({bool setObscuredTo}){
+
+    if (setObscuredTo == null){
+      _textFieldsObscured = !_textFieldsObscured;
+    }
+
+    else {
+      _textFieldsObscured = setObscuredTo;
+    }
+
+    notifyListeners();
+  }
 // -----------------------------------------------------------------------------
 }

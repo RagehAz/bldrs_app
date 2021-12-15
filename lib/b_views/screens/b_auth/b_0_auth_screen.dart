@@ -1,13 +1,11 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/screens/b_auth/b_1_email_auth_screen.dart';
 import 'package:bldrs/b_views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/main_button.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_controllers/b_0_auth_controller.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -31,7 +29,7 @@ class _AuthScreenState extends State<AuthScreen> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _tapContinueWith(BuildContext context, AuthBy authBy) async {
+  Future<void> _auth(BuildContext context, AuthBy authBy) async {
 
     await controlAuth(context, authBy);
 
@@ -78,7 +76,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   buttonIcon: Iconz.comGooglePlus,
                   buttonColor: Colorz.googleRed,
                   buttonVerseShadow: false,
-                  function: () => _tapContinueWith(context, AuthBy.google),
+                  function: () => _auth(context, AuthBy.google),
                 ),
 
               /// --- CONTINUE WITH FACEBOOK
@@ -87,7 +85,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 buttonIcon: Iconz.comFacebookWhite,
                 buttonColor: Colorz.facebook,
                 buttonVerseShadow: false,
-                function: () => _tapContinueWith(context, AuthBy.facebook),
+                function: () => _auth(context, AuthBy.facebook),
               ),
 
               /// --- CONTINUE WITH EMAIL
@@ -96,8 +94,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 buttonIcon: Iconz.comEmail,
                 buttonColor: Colorz.white10,
                 buttonVerseShadow: false,
-                function: () =>
-                    Nav.goToNewScreen(context, const EmailAuthScreen()),
+                function: () => _auth(context, AuthBy.email),
               ),
 
             ],
