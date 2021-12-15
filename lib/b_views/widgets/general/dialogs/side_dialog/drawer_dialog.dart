@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/kw/chain/chain_properties.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
 import 'package:bldrs/b_views/widgets/general/appbar/search_bar.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/section_dialog/section_bubble.dart';
@@ -19,6 +20,7 @@ import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -70,8 +72,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
   bool _noResultFound = false;
 // ---------------------------
   Future<void> _onSearchChanged(String text) async {
-    blog(
-        'drawer receives text : $text : Length ${text.length}: _isSearching : $_isSearching');
+    blog('drawer receives text : $text : Length ${text.length}: _isSearching : $_isSearching');
 
     /// A - not searching
     if (_isSearching == false) {
@@ -295,7 +296,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                             ),
                           ],
                         ),
-                      const PyramidsHorizon(
+                      const Horizon(
                         heightFactor: 4,
                       ),
                     ],

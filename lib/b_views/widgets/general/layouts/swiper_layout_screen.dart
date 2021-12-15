@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar.dart';
@@ -6,6 +7,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -205,12 +207,15 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
                     alignment: Alignment.topCenter,
                     child: Column(
                       children: <Widget>[
+
                         const Stratosphere(),
+
                         SizedBox(
                           width: _screenWidth,
                           height: _pageHeight,
                           child: widget.swiperPages[index]['widget'],
                         ),
+
                       ],
                     )
                 );

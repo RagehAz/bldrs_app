@@ -1,17 +1,21 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/widgets/wide_button.dart';
@@ -95,6 +99,9 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
     final CityModel _currentCity = _zoneProvider?.currentCity;
     final List<FlyerModel> _promotedFlyers = _flyersProvider?.promotedFlyers;
 
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final List<BzModel> _userBzz = _bzzProvider.myBzz;
+
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramids: Iconz.pyramidzYellow,
@@ -106,7 +113,9 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
             physics: const BouncingScrollPhysics(),
             controller: _scrollController,
             children: <Widget>[
+
               const Stratosphere(),
+
               WideButton(
                   color: Colorz.black255,
                   verse: 'print _usersProvider.myUserModel',
@@ -118,20 +127,31 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 
                     unawaited(_triggerLoading());
                   }),
+
               WideButton(
                   color: Colorz.black255,
                   verse: 'print _myUserModelStream',
                   icon: Iconizer.valueIsNotNull(_myUserModelStream),
                   onTap: () async {
                     unawaited(_triggerLoading());
-
-                    final UserModel _userModelFromStream =
-                        await _myUserModelStream.first;
-
+                    final UserModel _userModelFromStream = await _myUserModelStream.first;
                     _userModelFromStream.printUserModel();
+                    unawaited(_triggerLoading());
+                  }),
+
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print _userBzz : ${_userBzz?.length}',
+                  icon: Iconizer.valueIsNotNull(_myUserModelStream),
+                  onTap: () async {
+                    unawaited(_triggerLoading());
+
+                    BzModel.blogBzz(bzz: _userBzz);
 
                     unawaited(_triggerLoading());
                   }),
+
+
               WideButton(
                   color: Colorz.black255,
                   verse: 'print _currentZone',
@@ -143,6 +163,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 
                     unawaited(_triggerLoading());
                   }),
+
               WideButton(
                   color: Colorz.black255,
                   verse: 'print _currentContinent',
@@ -154,6 +175,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 
                     unawaited(_triggerLoading());
                   }),
+
               WideButton(
                   color: Colorz.black255,
                   verse: 'print _currentCountry',
@@ -165,6 +187,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 
                     unawaited(_triggerLoading());
                   }),
+
               WideButton(
                   color: Colorz.black255,
                   verse: 'print _currentCity',
@@ -176,6 +199,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 
                     unawaited(_triggerLoading());
                   }),
+
               WideButton(
                   color: Colorz.black255,
                   verse: 'print _promotedFlyers',
@@ -187,6 +211,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 
                     unawaited(_triggerLoading());
                   }),
+
             ],
           ),
         ),

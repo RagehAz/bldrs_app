@@ -5,6 +5,8 @@ import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/tile_bubble.dart';
@@ -14,6 +16,7 @@ import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.da
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/widgets/specific/keywords/keywords_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -141,6 +144,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
         // mainAxisAlignment: MainAxisAlignment.start,
         // crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+
           const Stratosphere(),
 
           /// --- ISO3
@@ -268,8 +272,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           KeywordsBubble(
             title: '${_citiesNames.length} Provinces',
-            keywords: CityModel.getKeywordsFromCities(
-                context: context, cities: _cities),
+            keywords: CityModel.getKeywordsFromCities(context: context, cities: _cities),
             onTap: () {
               blog('bubble tapped');
             },
@@ -280,7 +283,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             addButtonIsOn: false,
           ),
 
-          const PyramidsHorizon(),
+          const Horizon(),
         ],
       ),
     );

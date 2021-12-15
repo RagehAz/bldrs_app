@@ -1,8 +1,9 @@
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart'
-    as FlyerTypeClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
 import 'package:bldrs/b_views/screens/i_flyer/flyer_maker_screen.dart/specs_lists_pickers_screen.dart';
-import 'package:bldrs/b_views/screens/zebala/a_0_user_checker_widget.dart';
+import 'package:bldrs/b_views/widgets/components/expander.dart';
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/obelisk_button.dart';
@@ -113,6 +114,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
       layoutWidget: ListView(
         physics: const BouncingScrollPhysics(),
         children: <Widget>[
+
           const Stratosphere(),
 
           const SuperVerse(
@@ -144,8 +146,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           const ObeliskButton(
               'Expansion Tiles Test', Iconz.flyer, ExpansionTilesTest()),
 
-          const ObeliskButton(
-              'Providers Test', Iconz.terms, ProvidersTestScreen()),
+          const ObeliskButton('Providers Test', Iconz.terms, ProvidersTestScreen()),
 
           const ObeliskButton('TimersTest', Iconz.clock, TimerTest()),
 
@@ -163,8 +164,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
               'Awesome Notification test', Iconz.news, AwesomeNotiTestScreen()),
 
           // ObeliskButton('HERO TEST', Iconz.DvDonaldDuck, HeroMinScreen()),
-
-          const ObeliskButton('go to user checker', Iconz.flyer, UserChecker()),
 
           const ObeliskButton(
               'Slider Test Screen', Iconz.flyer, SliderTestScreen()),
@@ -186,11 +185,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 
           // ObeliskButton('30 - Google Maps - text box canvas', Iconz.ComMap, GoogleMapScreen4()),
 
-          const ObeliskButton(
-              '36 - Animations Screen', Iconz.dvDonaldDuck, AnimationsScreen()),
+          const ObeliskButton('36 - Animations Screen', Iconz.dvDonaldDuck, AnimationsScreen()),
 
-          const ObeliskButton(
-              'BLACK HOLE', Iconz.dvBlackHole, BlackHoleScreen()),
+          const ObeliskButton('BLACK HOLE', Iconz.dvBlackHole, BlackHoleScreen()),
 
           /// --- BLDRS DEVELOPMENT SCROLLS --------------------------------
           Column(
@@ -230,7 +227,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             ],
           ),
 
-          const PyramidsHorizon(),
+          const Horizon(),
         ],
       ),
     );

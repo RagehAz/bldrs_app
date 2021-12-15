@@ -12,25 +12,24 @@ import 'package:flutter/material.dart';
 
 class MainLayoutStackWidgets extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const MainLayoutStackWidgets(
-      {@required this.alignment,
-      @required this.skyType,
-      @required this.layoutWidget,
-      @required this.appBarType,
-      @required this.appBarRowWidgets,
-      @required this.pageTitle,
-      @required this.onBack,
-      @required this.loading,
-      @required this.appBarScrollController,
-      @required this.sectionButtonIsOn,
-      @required this.searchController,
-      @required this.onSearchSubmit,
-      @required this.historyButtonIsOn,
-      @required this.onSearchChanged,
-      @required this.pyramids,
-      Key key})
-      : super(key: key);
-
+  const MainLayoutStackWidgets({
+    @required this.alignment,
+    @required this.skyType,
+    @required this.layoutWidget,
+    @required this.appBarType,
+    @required this.appBarRowWidgets,
+    @required this.pageTitle,
+    @required this.onBack,
+    @required this.loading,
+    @required this.appBarScrollController,
+    @required this.sectionButtonIsOn,
+    @required this.searchController,
+    @required this.onSearchSubmit,
+    @required this.historyButtonIsOn,
+    @required this.onSearchChanged,
+    @required this.pyramids,
+    Key key
+  }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Alignment alignment;
   final SkyType skyType;
@@ -47,7 +46,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final bool historyButtonIsOn;
   final ValueChanged<String> onSearchChanged;
   final String pyramids;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -55,8 +53,10 @@ class MainLayoutStackWidgets extends StatelessWidget {
       key: key,
       alignment: alignment,
       children: <Widget>[
+
         Sky(key: const ValueKey<String>('sky'), skyType: skyType),
 
+        /// --- LAYOUT WIDGET
         if (layoutWidget != null)
           Container(
             key: const ValueKey<String>('layoutWidget'),
@@ -66,6 +66,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             child: layoutWidget,
           ),
 
+        /// --- APP BAR
         if (appBarType != AppBarType.non)
           BldrsAppBar(
             key: const ValueKey<String>('appBar'),
@@ -82,19 +83,21 @@ class MainLayoutStackWidgets extends StatelessWidget {
             onSearchChanged: onSearchChanged,
           ),
 
+        /// --- PYRAMIDS
         if (pyramids != null && pyramids != Iconz.dvBlankSVG)
           Pyramids(
             key: const ValueKey<String>('pyramids'),
             pyramidsIcon: pyramids,
-            loading: loading,
+            // loading: loading,
           ),
 
-        /// NAV BAR
+        /// --- NAV BAR
         if (pyramids == null)
           const NavBar(
             key: ValueKey<String>('navBar'),
           ),
 
+        /// --- IOS BACK BUTTON
         if (pyramids != null && DeviceChecker.deviceIsIOS() == true)
           Positioned(
             key: const ValueKey<String>('backAndSearchButton'),
@@ -102,10 +105,10 @@ class MainLayoutStackWidgets extends StatelessWidget {
             left: 0,
             child: BackAndSearchButton(
               backAndSearchAction: BackAndSearchAction.goBack,
-              color:
-                  skyType == SkyType.black ? Colorz.yellow50 : Colorz.white20,
+              color: skyType == SkyType.black ? Colorz.yellow50 : Colorz.white20,
             ),
           ),
+
       ],
     );
   }

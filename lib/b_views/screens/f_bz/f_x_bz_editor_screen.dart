@@ -7,6 +7,8 @@ import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/widgets/components/horizon.dart';
+import 'package:bldrs/b_views/widgets/components/stratosphere.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/locale_bubble.dart';
@@ -24,6 +26,7 @@ import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -604,6 +607,7 @@ class _BzEditorScreenState extends State<BzEditorScreen>
           ListView(
             physics: const BouncingScrollPhysics(),
             children: <Widget>[
+
               const Stratosphere(),
 
               /// --- CHOOSE SECTION
@@ -744,7 +748,7 @@ class _BzEditorScreenState extends State<BzEditorScreen>
                 bubbleType: BubbleType.authorPic,
               ),
 
-              const PyramidsHorizon(),
+              const Horizon(),
             ],
           ),
 

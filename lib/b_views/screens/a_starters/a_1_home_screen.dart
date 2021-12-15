@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.da
 import 'package:bldrs/b_views/widgets/general/layouts/walls/home_wall.dart';
 import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
 import 'package:bldrs/c_controllers/a_1_home_controller.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,14 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
 // -----------------------------------
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
-
-    if (_loading.value == true) {
-      blog('LOADING --------------------------------------');
-    } else {
-      blog('LOADING COMPLETE -----------------------------');
-    }
+    blogLoading(loading: _loading.value);
   }
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
