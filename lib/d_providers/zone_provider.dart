@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/dialogz.dart' as Dialogz;
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
-import 'package:bldrs/e_db/fire/search/zone_search.dart' as Search;
+import 'package:bldrs/e_db/fire/search/zone_search.dart' as ZoneSearch;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -114,6 +114,7 @@ class ZoneProvider extends ChangeNotifier {
         searchField: 'cityID',
         searchValue: cityID,
       );
+
       if (_map != null && _map != <String, dynamic>{}){
         blog('fetchCityByID : City found in local db : ${LDBDoc.cities}');
         _cityModel = CityModel.decipherCityMap(map: _map, fromJSON: true);
@@ -186,7 +187,7 @@ class ZoneProvider extends ChangeNotifier {
 
           /// C-1 - trial 3 if countryID is not available
           if (countryID == null){
-            _foundCities = await Search.citiesByCityName(
+            _foundCities = await ZoneSearch.citiesByCityName(
               context: context,
               cityName: cityName,
               lingoCode: lingoCode,
@@ -195,7 +196,7 @@ class ZoneProvider extends ChangeNotifier {
 
           /// C-1 - trial 3 if countryID is available
           else {
-            _foundCities = await Search.citiesByCityNameAndCountryID(
+            _foundCities = await ZoneSearch.citiesByCityNameAndCountryID(
               context: context,
               cityName: cityName,
               countryID: countryID,
@@ -506,17 +507,17 @@ class ZoneProvider extends ChangeNotifier {
 
   /// CURRENCY
 
-  // -------------------------------------
+// -------------------------------------
   CurrencyModel _currentCurrency;
   List<CurrencyModel> _allCurrencies;
-  // -------------------------------------
+// -------------------------------------
   CurrencyModel get currentCurrency{
     return _currentCurrency;
   }
   List<CurrencyModel> get allCurrencies{
     return _allCurrencies;
   }
-  // -------------------------------------
+// -------------------------------------
   Future<void> _getSetAllCurrenciesAndCurrentCurrency({@required BuildContext context}) async {
 
     final List<CurrencyModel> _currencies = await fetchCurrencies(context: context);
@@ -531,7 +532,69 @@ class ZoneProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-/// TASK : ACTIVATED & GLOBAL COUNTRIES
+  /// SEARCHED COUNTRIES
+
+// -------------------------------------
+  List<CountryModel> _searchedCountries = <CountryModel>[];
+// -------------------------------------
+  List<CountryModel> get searchedCountries => <CountryModel>[..._searchedCountries];
+// -------------------------------------
+  Future<void> getSetSearchedCountries({
+    @required BuildContext context,
+    @required String input,
+  }) async {
+
+    /// SEARCH COUNTRIES
+    final List<CountryModel> _foundCountries = await ZoneSearch.countriesByCountryName(
+        context: context,
+        countryName: input,
+        lingoCode: TextChecker.concludeEnglishOrArabicLingo(input),
+    );
+
+
+    /// INSERT FOUND COUNTRIES TO LDB
+    if (_foundCountries.isNotEmpty){
+      for (final CountryModel country in _foundCountries){
+        await LDBOps.insertMap(
+          input: country.toMap(toJSON: true),
+          docName: LDBDoc.countries,
+          primaryKey: 'id',
+        );
+      }
+    }
+
+    /// SET FOUND COUNTRIES
+    _searchedCountries = _foundCountries;
+    notifyListeners();
+  }
+// -------------------------------------
+  void emptySearchedCountries(){
+    _searchedCountries = <CountryModel>[];
+    notifyListeners();
+  }
 // -----------------------------------------------------------------------------
 
+  /// SELECTED COUNTRY CITIES
+
+// -------------------------------------
+  List<CityModel> _selectedCountryCities = <CityModel>[];
+// -------------------------------------
+  List<CityModel> get selectedCountryCities => <CityModel>[..._selectedCountryCities];
+// -------------------------------------
+  Future<void> getSetSelectedCountryCities({
+    @required BuildContext context,
+    @required CountryModel countryModel,
+  }) async {
+
+    final List<CityModel> _fetchedCities = await fetchCitiesByIDs(
+      context: context,
+      citiesIDs: countryModel?.citiesIDs,
+    );
+
+    _selectedCountryCities = _fetchedCities;
+    notifyListeners();
+
+  }
+// -----------------------------------------------------------------------------
 }
+/// TASK : ACTIVATED & GLOBAL COUNTRIES

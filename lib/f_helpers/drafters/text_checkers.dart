@@ -12,10 +12,13 @@ bool textIsEnglish(String val) {
   if (exp.hasMatch(val.substring(characterNumber)) &&
       val.substring(characterNumber) != ' ') {
     textIsEnglish = true;
-  } else if (!exp.hasMatch(val.substring(characterNumber)) &&
+  }
+
+  else if (!exp.hasMatch(val.substring(characterNumber)) &&
       val.substring(characterNumber) != ' ') {
     textIsEnglish = false;
   }
+
   return textIsEnglish;
 }
 
@@ -26,12 +29,12 @@ bool textControllerIsEmpty(TextEditingController controller) {
   if (controller == null ||
       controller.text == '' ||
       controller.text.isEmpty ||
-      TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) ==
-          '' ||
-      TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) ==
-          null) {
+      TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) == '' ||
+      TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) == null) {
     _controllerIsEmpty = true;
-  } else {
+  }
+
+  else {
     _controllerIsEmpty = false;
   }
 
@@ -105,13 +108,14 @@ List<TextEditingController> createEmptyTextControllers(int length) {
 bool stringIsEmpty(String val) {
   bool _controllerIsEmpty;
 
-  if (val == null ||
-      val == '' ||
-      val.isEmpty ||
+  if (
+  val == null || val == '' || val.isEmpty ||
       TextMod.firstCharacterAfterRemovingSpacesFromAString(val) == '' ||
       TextMod.firstCharacterAfterRemovingSpacesFromAString(val) == null) {
     _controllerIsEmpty = true;
-  } else {
+  }
+
+  else {
     _controllerIsEmpty = false;
   }
 
@@ -151,9 +155,13 @@ bool textStartsInArabic(String val) {
 
   if (_firstCharacter == null || _firstCharacter == '') {
     _startInArabic = false;
-  } else if (_exp.hasMatch(_firstCharacter) == true) {
+  }
+
+  else if (_exp.hasMatch(_firstCharacter) == true) {
     _startInArabic = true;
-  } else {
+  }
+
+  else {
     _startInArabic = false;
   }
 
@@ -164,16 +172,19 @@ bool textStartsInArabic(String val) {
 bool textStartsInEnglish(String val) {
   const String _reg = r'[a-zA-Z]';
   final RegExp _exp = RegExp(_reg, multiLine: true);
-  final String _firstCharacter =
-      TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
+  final String _firstCharacter = TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
 
   bool _startsInEnglish;
 
   if (_firstCharacter == null || _firstCharacter == '') {
     _startsInEnglish = false;
-  } else if (_exp.hasMatch(_firstCharacter) == true) {
+  }
+
+  else if (_exp.hasMatch(_firstCharacter) == true) {
     _startsInEnglish = true;
-  } else {
+  }
+
+  else {
     _startsInEnglish = false;
   }
 
@@ -182,16 +193,17 @@ bool textStartsInEnglish(String val) {
 
 // -----------------------------------------------------------------------------
 /// TASK : textIsRTL is not tested yet
-bool textIsRTL(String text) {
+bool textIsRTL(String text){
   return international.Bidi.detectRtlDirectionality(text);
 }
 
 // -----------------------------------------------------------------------------
-bool stringContainsSubString(
-    {String string,
-    String subString,
-    bool caseSensitive,
-    bool multiLine = false}) {
+bool stringContainsSubString({
+  String string,
+  String subString,
+  bool caseSensitive,
+  bool multiLine = false
+}) {
   bool _itContainsIt = false;
   // string.contains(new RegExp(subString, caseSensitive: caseSensitive, multiLine: multiLine));
 
@@ -209,11 +221,14 @@ bool stringContainsSubString(
 
 // -----------------------------------------------------------------------------
 String concludeEnglishOrArabicLingo(String text) {
-  final String _lingoCode = textStartsInArabic(text) == true
-      ? 'ar'
-      : textStartsInEnglish(text) == true
-          ? 'en'
-          : 'en';
+
+  final String _lingoCode =
+  textStartsInArabic(text) == true ? 'ar'
+      :
+  textStartsInEnglish(text) == true ?
+  'en'
+      :
+  'en';
 
   return _lingoCode;
 }
