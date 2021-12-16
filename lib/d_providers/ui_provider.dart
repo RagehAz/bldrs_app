@@ -17,7 +17,13 @@ class UiProvider extends ChangeNotifier {
     /// each screen like triggerLoading.then(()=>methods)
     /// in didChangeDependencies override
 
-    _loading = !_loading;
+    if (setLoadingTo == null){
+      _loading = !_loading;
+    }
+
+    else {
+      _loading = setLoadingTo;
+    }
 
     if (_loading == true) {
       blog('LOADING --------------------------------------');

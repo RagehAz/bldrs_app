@@ -1,9 +1,10 @@
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
-import 'package:bldrs/b_views/z_components/buttons/wide_country_button.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/b_views/y_views/d_zoning/d_1a_all_countries_buttons.dart';
+import 'package:bldrs/b_views/y_views/d_zoning/d_1b_searched_countries_buttons.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SelectCountryScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -17,22 +18,29 @@ class SelectCountryScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
-
     return MaxBounceNavigator(
       child: Scroller(
-        child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: _allCountriesIDs.length,
-          padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2),
-          itemBuilder: (_, int index) {
+        child: Selector<UiProvider, bool>(
+          selector: (_, UiProvider uiProvider) => uiProvider.isSearching,
+          builder: (BuildContext context, bool isSearching, Widget child){
 
-            final String _countryID = _allCountriesIDs[index];
+            if (isSearching == true){
 
-            return WideCountryButton(
-              countryID: _countryID,
-              onTap: () => onCountryTap(_countryID),
-            );
+              return
+                SearchedCountriesButtons(
+                  onCountryTap: (String countryID) => onCountryTap(countryID),
+                );
+
+            }
+
+            else {
+
+              return
+                AllCountriesButtons(
+                  onCountryTap: (String countryID) => onCountryTap(countryID),
+                );
+
+            }
 
           },
         ),

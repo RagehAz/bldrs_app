@@ -26,7 +26,6 @@ class ListLayout extends StatelessWidget {
     this.sky = SkyType.night,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String pageTitle;
   final String pyramids;
@@ -36,7 +35,6 @@ class ListLayout extends StatelessWidget {
   final String pageIcon;
   final String pageIconVerse;
   final SkyType sky;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -44,12 +42,8 @@ class ListLayout extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    final double _verseHeight =
-        SuperVerse.superVerseRealHeight(context, 2, 1, Colorz.white10);
-    final double _bubbleHeight = _screenHeight -
-        Ratioz.stratosphere -
-        Ratioz.appBarSmallHeight -
-        _verseHeight -
+    final double _verseHeight = SuperVerse.superVerseRealHeight(context, 2, 1, Colorz.white10);
+    final double _bubbleHeight = _screenHeight - Ratioz.stratosphere - Ratioz.appBarSmallHeight - _verseHeight -
         (Ratioz.appBarMargin * 4);
 // -----------------------------------------------------------------------------
     return MainLayout(
