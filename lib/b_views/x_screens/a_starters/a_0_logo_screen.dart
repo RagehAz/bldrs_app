@@ -57,7 +57,7 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
     if (_isInit) {
 
       _triggerLoading().then((_) async {
-        await controlLogoScreen(context);
+        await initializeLogoScreen(context);
         await _triggerLoading();
       });
 

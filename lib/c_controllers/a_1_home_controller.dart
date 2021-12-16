@@ -14,7 +14,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
-Future<void> controlHomeScreen(BuildContext context) async {
+Future<void> initializeHomeScreen(BuildContext context) async {
   /// A - SHOW AD FLYER
 
   /// C - USER MODEL

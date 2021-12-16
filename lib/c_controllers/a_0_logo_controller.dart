@@ -6,7 +6,7 @@ import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
-Future<void> controlLogoScreen(BuildContext context) async {
+Future<void> initializeLogoScreen(BuildContext context) async {
 
 
   /// B - APP STATE

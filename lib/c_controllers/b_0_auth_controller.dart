@@ -22,7 +22,7 @@ import 'package:provider/provider.dart';
   /// AUTH MAIN CONTROLLERS
 
 // -------------------------------------
-Future<void> controlAuth(BuildContext context, AuthBy authBy) async {
+Future<void> controlOnAuth(BuildContext context, AuthBy authBy) async {
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   _uiProvider.triggerLoading();

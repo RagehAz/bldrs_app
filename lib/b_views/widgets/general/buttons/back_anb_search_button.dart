@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/x_screens/c_search/c_0_search_screen.dart';
 import 'package:bldrs/b_views/x_screens/c_search/c_1_search_history_screen.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -8,6 +9,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum BackAndSearchAction {
   goToSearchScreen,
@@ -64,20 +66,31 @@ class BackAndSearchButton extends StatelessWidget {
         color: color,
         // textDirection: superInverseTextDirection(context),
         onTap: () async {
+
           if (onTap != null) {
             onTap();
-          } else {
+          }
+
+          else {
+
             if (backAndSearchAction == BackAndSearchAction.goBack) {
               Nav.goBack(context);
-            } else if (backAndSearchAction ==
-                BackAndSearchAction.goToSearchScreen) {
+              final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+              _uiProvider.triggerLoading(setLoadingTo: false);
+
+            }
+
+            else if (backAndSearchAction == BackAndSearchAction.goToSearchScreen) {
               await Nav.goToNewScreen(context, const SearchScreen());
-            } else if (backAndSearchAction == BackAndSearchAction.showHistory) {
-              final String _result =
-                  await Nav.goToNewScreen(context, const SearchHistoryScreen());
+            }
+
+            else if (backAndSearchAction == BackAndSearchAction.showHistory) {
+              final String _result = await Nav.goToNewScreen(context, const SearchHistoryScreen());
               blog('received back this result : $_result');
               passSearchHistory(_result);
-            } else {
+            }
+
+            else {
               blog('nothing to do');
             }
           }
