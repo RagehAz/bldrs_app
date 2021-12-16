@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       _triggerLoading().then((_) async {
 
-        await controlHomeScreen(context);
+        await initializeHomeScreen(context);
 
         await _triggerLoading();
       });
