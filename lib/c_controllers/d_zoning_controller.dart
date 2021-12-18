@@ -61,6 +61,7 @@ Future<void> controlCountryOnTap({
 
   // blog('controlCountryOnTap : countryID : $countryID : selectCountryIDOnly : $selectCountryIDOnly : selectCountryAndCityOnly : $selectCountryAndCityOnly');
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
   /// A - WHEN SELECTING (COUNTRY) ONLY
   if (selectCountryIDOnly){
@@ -129,10 +130,16 @@ Future<void> controlCountrySearch({
 }) async {
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  final bool _isSearchingCountry = _uiProvider.isSearchingCountry;
 
-  _uiProvider.triggerIsSearchingAfterTextLengthIsAt(text: searchText);
+  _uiProvider.triggerIsSearchingAfterMaxTextLength(
+    searchModel: SearchingModel.country,
+    isSearching: _isSearchingCountry,
+    setIsSearchingTo: true,
+    text: searchText,
+  );
 
-  if (_uiProvider.isSearching == true) {
+  if (_uiProvider.isSearchingCountry == true) {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
@@ -142,6 +149,40 @@ Future<void> controlCountrySearch({
     );
 
   }
+
+}
+// -------------------------------------
+void controlCountryScreenOnBack(BuildContext context,){
+
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
+  /// CLOSE SEARCH
+  _uiProvider.triggerIsSearching(
+    searchingModel: SearchingModel.country,
+    setIsSearchingTo: false,
+  );
+
+  /// CLOSE SEARCH
+  _uiProvider.triggerIsSearching(
+    searchingModel: SearchingModel.city,
+    setIsSearchingTo: false,
+  );
+
+  /// CLOSE SEARCH
+  _uiProvider.triggerIsSearching(
+    searchingModel: SearchingModel.district,
+    setIsSearchingTo: false,
+  );
+
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+  _zoneProvider.emptySearchedCountries();
+  _zoneProvider.emptySelectedCountryCities();
+  _zoneProvider.emptySearchedCities();
+  _zoneProvider.emptySearchedDistricts();
+
+  goBack(context);
+
 
 }
 // -----------------------------------------------------------------------------
@@ -181,7 +222,10 @@ Future<void> controlCityOnTap({
   if (selectCountryAndCityOnly){
 
     _uiProvider.triggerLoading(setLoadingTo: false);
-    _uiProvider.triggerIsSearching(setIsSearchingTo: false);
+    _uiProvider.triggerIsSearching(
+      searchingModel: SearchingModel.city,
+      setIsSearchingTo: false,
+    );
     Nav.goBack(context, argument: cityID);
 
   }
@@ -231,7 +275,11 @@ Future<void> controlCityOnTap({
       }
 
       _uiProvider.triggerLoading(setLoadingTo: false);
-      _uiProvider.triggerIsSearching(setIsSearchingTo: false);
+      _uiProvider.triggerIsSearching(
+        searchingModel: SearchingModel.city,
+        setIsSearchingTo: false,
+      );
+
       Nav.goBackToHomeScreen(context);
     }
 
@@ -246,10 +294,16 @@ Future<void> controlCitySearch({
 }) async {
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  final bool _isSearchingCity = _uiProvider.isSearchingCity;
 
-  _uiProvider.triggerIsSearchingAfterTextLengthIsAt(text: searchText);
+  _uiProvider.triggerIsSearchingAfterMaxTextLength(
+    text: searchText,
+    searchModel: SearchingModel.city,
+    isSearching: _isSearchingCity,
+    setIsSearchingTo: true,
+  );
 
-  if (_uiProvider.isSearching == true) {
+  if (_uiProvider.isSearchingCity == true) {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
@@ -260,6 +314,32 @@ Future<void> controlCitySearch({
 
   }
 
+
+}
+
+void controlCityScreenOnBack(BuildContext context){
+
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
+  /// CLOSE SEARCH
+  _uiProvider.triggerIsSearching(
+    searchingModel: SearchingModel.city,
+    setIsSearchingTo: false,
+  );
+
+  /// CLOSE SEARCH
+  _uiProvider.triggerIsSearching(
+    searchingModel: SearchingModel.district,
+    setIsSearchingTo: false,
+  );
+
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+  _zoneProvider.emptySelectedCountryCities();
+  _zoneProvider.emptySearchedCities();
+  _zoneProvider.emptySearchedDistricts();
+
+  goBack(context);
 
 }
 // -----------------------------------------------------------------------------
