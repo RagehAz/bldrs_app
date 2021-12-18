@@ -86,7 +86,10 @@ class DistrictModel{
     return _districts;
   }
 // -----------------------------------------------------------------------------
-  static List<MapModel> getDistrictsNamesMapModels({@required BuildContext context, @required List<DistrictModel> districts}){
+  static List<MapModel> getDistrictsNamesMapModels({
+    @required BuildContext context,
+    @required List<DistrictModel> districts
+  }){
     final List<MapModel> _districtsMapModels = <MapModel>[];
 
     if (Mapper.canLoopList(districts)){
@@ -106,7 +109,10 @@ class DistrictModel{
 
   }
 // -----------------------------------------------------------------------------
-  static DistrictModel getDistrictFromDistricts({@required List<DistrictModel> districts, @required String districtID}){
+  static DistrictModel getDistrictFromDistricts({
+    @required List<DistrictModel> districts,
+    @required String districtID
+  }){
     DistrictModel _district;
     if (Mapper.canLoopList(districts)){
 
@@ -116,7 +122,11 @@ class DistrictModel{
     return _district;
   }
 // -----------------------------------------------------------------------------
-  static String getTranslatedDistrictNameFromCity({@required BuildContext context, @required CityModel city, @required String districtID}){
+  static String getTranslatedDistrictNameFromCity({
+    @required BuildContext context,
+    @required CityModel city,
+    @required String districtID
+  }){
 
     String _districtName = '...';
 
@@ -128,6 +138,68 @@ class DistrictModel{
     }
 
     return _districtName;
+  }
+// -----------------------------------------------------------------------------
+  static List<DistrictModel> searchDistrictsByCurrentLingoName({
+    @required BuildContext context,
+    @required List<DistrictModel> sourceDistricts,
+    @required String inputText,
+  }){
+
+    /// CREATE NAMES LIST
+    final List<Name> _districtsNames = <Name>[];
+    for (final DistrictModel district in sourceDistricts){
+      final Name _nameInLingo = Name.getNameByCurrentLingoFromNames(
+        context: context,
+        names: district.names,
+      );
+      _districtsNames.add(_nameInLingo);
+    }
+
+    /// SEARCH NAMES
+    final List<Name> _foundNames = Name.searchNamesTrigrams(
+      sourceNames: _districtsNames,
+      inputText: inputText,
+    );
+
+    /// GET CITIES BY IDS FROM NAMES
+    final List<DistrictModel> _foundDistricts = _getDistrictsFromNames(
+        names: _foundNames,
+        sourceDistricts: sourceDistricts
+    );
+
+
+    return _foundDistricts;
+  }
+// -----------------------------------------------------------------------------
+  static List<DistrictModel> _getDistrictsFromNames({
+    @required List<Name> names,
+    @required List<DistrictModel> sourceDistricts,
+  }){
+    final List<DistrictModel> _foundDistricts = <DistrictModel>[];
+
+    if (Mapper.canLoopList(sourceDistricts) && Mapper.canLoopList(names)){
+
+      for (final Name name in names){
+
+        for (final DistrictModel district in sourceDistricts){
+
+          if (district.names.contains(name)){
+
+            if (!_foundDistricts.contains(district)){
+              _foundDistricts.add(district);
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+    return _foundDistricts;
   }
 // -----------------------------------------------------------------------------
 }
