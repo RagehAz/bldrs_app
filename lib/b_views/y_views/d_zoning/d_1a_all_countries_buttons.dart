@@ -15,16 +15,16 @@ class AllCountriesButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
+    final List<String> _allCountriesIDsSortedByNames = CountryModel.getAllCountriesIDsSortedByName(context);
 
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
-      itemCount: _allCountriesIDs.length,
+      itemCount: _allCountriesIDsSortedByNames.length,
       padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2, bottom: Ratioz.horizon),
       shrinkWrap: true,
       itemBuilder: (_, int index) {
 
-        final String _countryID = _allCountriesIDs[index];
+        final String _countryID = _allCountriesIDsSortedByNames[index];
 
         return WideCountryButton(
           countryID: _countryID,
