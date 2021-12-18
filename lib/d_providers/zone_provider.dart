@@ -599,17 +599,19 @@ class ZoneProvider extends ChangeNotifier {
     notifyListeners();
 
   }
-
+// -------------------------------------
   void emptySelectedCountryCities(){
     _selectedCountryCities = <CityModel>[];
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
+
+  /// SEARCHED CITIES
+
   List<CityModel> _searchedCities = <CityModel>[];
 // -------------------------------------
   List<CityModel> get searchedCities => <CityModel>[..._searchedCities];
 // -------------------------------------
-  /// SEARCHES SELECTED COUNTRY CITIES
   Future<void> getSetSearchedCities({
     @required BuildContext context,
     @required String input,
@@ -641,11 +643,52 @@ class ZoneProvider extends ChangeNotifier {
 /// SELECTED CITY DISTRICTS
 
 // -------------------------------------
+  List<DistrictModel> _selectedCityDistricts = <DistrictModel>[];
+// -------------------------------------
+  List<DistrictModel> get selectedCityDistricts => <DistrictModel>[..._selectedCityDistricts];
+// -------------------------------------
+  Future<void> getSetSelectedCityDistricts({
+    @required BuildContext context,
+    @required CityModel cityModel,
+  }) async {
+
+    _selectedCityDistricts = cityModel.districts;
+    _searchedDistricts = <DistrictModel>[];
+    notifyListeners();
+
+  }
+// -------------------------------------
+  void emptySelectedCityDistricts(){
+    _selectedCityDistricts = <DistrictModel>[];
+    notifyListeners();
+  }
+// -----------------------------------------------------------------------------
+
+  /// SEARCHED DISTRICTS
+
+// -------------------------------------
   List<DistrictModel> _searchedDistricts = <DistrictModel>[];
 // -------------------------------------
   List<DistrictModel> get searchedDistricts => <DistrictModel>[..._searchedDistricts];
 // -------------------------------------
-  void getSetSearchedDistricts(){
+  void getSetSearchedDistricts({
+    @required BuildContext context,
+    @required String textInput,
+  }){
+
+    /// SEARCH SELECTED CITY DISTRICTS
+    final List<DistrictModel> _foundDistricts = DistrictModel.searchDistrictsByCurrentLingoName(
+      context: context,
+      sourceDistricts: _selectedCityDistricts,
+      inputText: textInput,
+    );
+
+    // blog('getSetSearchedCities : _selectedCountryCities.length : ${_selectedCountryCities.length} : input : $input : _foundCities : ${_foundCities.length}' );
+    // blog('${_foundCities[0]}');
+
+    /// SET FOUND CITIES
+    _searchedDistricts = _foundDistricts;
+    notifyListeners();
 
   }
 // -------------------------------------
@@ -654,5 +697,18 @@ class ZoneProvider extends ChangeNotifier {
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
+  void clearAllSearchesAndSelections(){
+
+    _searchedCountries = [];
+    _searchedCities = [];
+    _searchedCountries = [];
+
+    _selectedCountryCities = [];
+    _selectedCityDistricts = [];
+
+    notifyListeners();
+  }
+// -----------------------------------------------------------------------------
+
 }
 /// TASK : ACTIVATED & GLOBAL COUNTRIES

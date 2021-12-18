@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/d_zoning/d_1_select_country_screen.dart';
 import 'package:bldrs/b_views/x_screens/d_zoning/d_2_select_city_screen.dart';
-import 'package:bldrs/b_views/x_screens/d_zoning/d_3_select_area_screen.dart';
+import 'package:bldrs/b_views/x_screens/d_zoning/d_3_select_district_screen.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -74,6 +74,8 @@ Future<void> controlCountryOnTap({
     /// C - TAMAM
     Nav.goBack(context, argument: _zone);
 
+    _zoneProvider.clearAllSearchesAndSelections();
+
   }
 
 
@@ -100,8 +102,12 @@ Future<void> controlCountryOnTap({
           cityID: _cityID,
         );
 
+        _zoneProvider.clearAllSearchesAndSelections();
+        _uiProvider.closeAllSearches();
+
         /// D.2 GO BACK
         Nav.goBack(context, argument: _zone);
+
 
       }
 
@@ -184,9 +190,13 @@ void controlCountryScreenOnBack(BuildContext context,){
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
   _zoneProvider.emptySearchedCountries();
+
   _zoneProvider.emptySelectedCountryCities();
   _zoneProvider.emptySearchedCities();
+
+  _zoneProvider.emptySelectedCityDistricts();
   _zoneProvider.emptySearchedDistricts();
+
 
 }
 // -----------------------------------------------------------------------------
@@ -217,12 +227,14 @@ Future<void> controlCityOnTap({
   @required BuildContext context,
   @required bool selectCountryAndCityOnly,
   @required String cityID,
-  @required bool setCurrentZone,
+  @required CountryModel country,
+  @required bool settingCurrentZone,
 }) async {
 
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-  /// A - WHEN SELECTING (COUNTRY AND CITY) ONLY
+    /// A - WHEN SELECTING (COUNTRY AND CITY) ONLY
   if (selectCountryAndCityOnly){
 
     _uiProvider.triggerLoading(setLoadingTo: false);
@@ -230,6 +242,8 @@ Future<void> controlCityOnTap({
       searchingModel: SearchingModel.city,
       setIsSearchingTo: false,
     );
+
+    _zoneProvider.clearAllSearchesAndSelections();
     Nav.goBack(context, argument: cityID);
 
   }
@@ -246,10 +260,14 @@ Future<void> controlCityOnTap({
 
     /// WHEN CITY HAS DISTRICTS
     if (Mapper.canLoopList(_city.districts)) {
-      await Nav.goToNewScreen(
-          context, SelectAreaScreen(
+
+      await Nav.goToNewScreen(context,
+          SelectDistrictScreen(
             city: _city,
-          ));
+            country: country,
+            settingCurrentZone: settingCurrentZone,
+          )
+      );
     }
 
     /// WHEN CITY HAS NO DISTRICTS
@@ -262,7 +280,7 @@ Future<void> controlCityOnTap({
       _zone.blogZone(methodName: 'SELECTED ZONE');
 
       /// WHEN SEQUENCE IS TO SET CURRENT ZONE
-      if (setCurrentZone == true){
+      if (settingCurrentZone == true){
 
         final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
         await _zoneProvider.getsetCurrentZoneAndCountryAndCity(context: context, zone: _zone);
@@ -283,6 +301,9 @@ Future<void> controlCityOnTap({
         searchingModel: SearchingModel.city,
         setIsSearchingTo: false,
       );
+
+      _zoneProvider.clearAllSearchesAndSelections();
+      _uiProvider.closeAllSearches();
 
       Nav.goBackToHomeScreen(context);
     }
@@ -323,6 +344,8 @@ Future<void> controlCitySearch({
 // -------------------------------------
 void controlCityScreenOnBack(BuildContext context){
 
+  goBack(context);
+
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
   /// CLOSE SEARCH
@@ -341,9 +364,9 @@ void controlCityScreenOnBack(BuildContext context){
 
   _zoneProvider.emptySelectedCountryCities();
   _zoneProvider.emptySearchedCities();
-  _zoneProvider.emptySearchedDistricts();
 
-  goBack(context);
+  _zoneProvider.emptySelectedCityDistricts();
+  _zoneProvider.emptySearchedDistricts();
 
 }
 // -----------------------------------------------------------------------------
@@ -351,5 +374,116 @@ void controlCityScreenOnBack(BuildContext context){
 /// DISTRICT CONTROLLERS
 
 // -------------------------------------
+Future<void> initializeSelectDistrictScreen({
+  @required BuildContext context,
+  @required CityModel cityModel,
+}) async {
 
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
+  _uiProvider.triggerLoading(setLoadingTo: true);
+
+  await _zoneProvider.getSetSelectedCityDistricts(
+    context: context,
+    cityModel: cityModel,
+  );
+
+  _uiProvider.triggerLoading(setLoadingTo: false);
+
+}
+// -------------------------------------
+Future<void> controlDistrictOnTap({
+  @required BuildContext context,
+  @required String districtID,
+  @required CityModel cityModel,
+  @required bool settingCurrentZone,
+}) async {
+
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+  final ZoneModel _zone = ZoneModel(
+    countryID: cityModel.countryID,
+    cityID: cityModel.cityID,
+    districtID: districtID,
+  );
+
+
+  _zone.blogZone(methodName: 'SELECTED ZONE');
+
+  /// WHEN SEQUENCE IS TO SET CURRENT ZONE
+  if (settingCurrentZone == true){
+
+    await _zoneProvider.getsetCurrentZoneAndCountryAndCity(context: context, zone: _zone);
+
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+
+    await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
+      context: context,
+      section: _generalProvider.currentSection,
+      kw: _generalProvider.currentKeyword,
+    );
+
+  }
+
+  _uiProvider.triggerLoading(setLoadingTo: false);
+
+  _uiProvider.closeAllSearches();
+  _zoneProvider.clearAllSearchesAndSelections();
+
+  Nav.goBackToHomeScreen(context);
+
+}
+// -------------------------------------
+Future<void> controlDistrictSearch({
+  @required BuildContext context,
+  @required String searchText,
+}) async {
+
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  final bool _isSearchingDistrict = _uiProvider.isSearchingDistrict;
+
+  _uiProvider.triggerIsSearchingAfterMaxTextLength(
+    text: searchText,
+    searchModel: SearchingModel.district,
+    isSearching: _isSearchingDistrict,
+    setIsSearchingTo: true,
+  );
+
+  if (_uiProvider.isSearchingDistrict == true) {
+
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+    _zoneProvider.getSetSearchedDistricts(
+      context: context,
+      textInput: CountryModel.fixCountryName(searchText),
+    );
+
+  }
+
+
+}
+// -------------------------------------
+void controlDistrictScreenOnBack(BuildContext context){
+
+  goBack(context);
+
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
+  /// CLOSE SEARCH
+  _uiProvider.triggerIsSearching(
+    searchingModel: SearchingModel.district,
+    setIsSearchingTo: false,
+  );
+
+
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+  _zoneProvider.emptySelectedCityDistricts();
+  _zoneProvider.emptySearchedDistricts();
+
+}
 // -----------------------------------------------------------------------------
