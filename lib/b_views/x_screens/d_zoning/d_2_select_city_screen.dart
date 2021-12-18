@@ -20,13 +20,13 @@ class SelectCityScreen extends StatefulWidget {
   const SelectCityScreen({
     this.country,
     this.selectCountryAndCityOnly = false,
-    this.setCurrentZone = true,
+    this.settingCurrentZone = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final CountryModel country;
   final bool selectCountryAndCityOnly;
-  final bool setCurrentZone;
+  final bool settingCurrentZone;
   /// --------------------------------------------------------------------------
   @override
   State<SelectCityScreen> createState() => _SelectCityScreenState();
@@ -67,10 +67,11 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
   Future<void> _onCityTap(String cityID) async {
 
     await controlCityOnTap(
-        context: context,
-        selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
-        cityID: cityID,
-        setCurrentZone: widget.setCurrentZone
+      context: context,
+      selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
+      country: widget.country,
+      cityID: cityID,
+      settingCurrentZone: widget.settingCurrentZone,
     );
 
   }
@@ -87,7 +88,7 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
   void _onBack(){
     controlCityScreenOnBack(context);
   }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
