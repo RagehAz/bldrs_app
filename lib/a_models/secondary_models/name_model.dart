@@ -278,4 +278,13 @@ class Name {
     return _foundNames;
   }
 // -----------------------------------------------------------------------------
+  static List<Name> sortNamesAlphabetically(List<Name> names){
+
+    if (Mapper.canLoopList(names)){
+      names.sort((Name a, Name b) => a.value.compareTo(b.value));
+    }
+
+    return names;
+  }
+// -----------------------------------------------------------------------------
 }
