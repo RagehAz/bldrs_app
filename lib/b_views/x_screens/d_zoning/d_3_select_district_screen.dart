@@ -20,7 +20,6 @@ class SelectDistrictScreen extends StatefulWidget {
     this.settingCurrentZone = true,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final CountryModel country;
   final CityModel city;
