@@ -162,9 +162,9 @@ String cityCountryStringer ({@required BuildContext context, @required CountryMo
 
   if (country != null && ZoneModel.zoneHasAllIDs(zone)){
 
-    final String _countryName = Name.getNameByCurrentLingoFromNames(context, country.names);
+    final String _countryName = Name.getNameByCurrentLingoFromNames(context: context, names: country.names)?.value;
 
-    final String _cityName = Name.getNameByCurrentLingoFromNames(context, city.names);
+    final String _cityName = Name.getNameByCurrentLingoFromNames(context: context, names: city.names)?.value;
 
     _verse =
     zone.countryID == null || zone.cityID == null ? '...' :

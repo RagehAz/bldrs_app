@@ -27,17 +27,12 @@ class SelectAreaScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final FlyersProvider _flyersProvider =
-        Provider.of<FlyersProvider>(context, listen: true);
-    final GeneralProvider _generalProvider =
-        Provider.of<GeneralProvider>(context, listen: true);
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
 // -----------------------------------------------------------------------------
-    final ZoneProvider _zoneProvider =
-        Provider.of<ZoneProvider>(context, listen: true);
-    final String _cityName =
-        Name.getNameByCurrentLingoFromNames(context, city.names);
-    final List<MapModel> _districtsMapModel =
-        DistrictModel.getDistrictsNamesMapModels(
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
+    final String _cityName = Name.getNameByCurrentLingoFromNames(context: context, names: city.names)?.value;
+    final List<MapModel> _districtsMapModel = DistrictModel.getDistrictsNamesMapModels(
       context: context,
       districts: city.districts,
     );

@@ -19,13 +19,18 @@ class ZoneButton extends StatelessWidget {
   const ZoneButton({
     this.onTap,
     this.isOn = false,
+    this.zoneOverride,
+    this.countryOverride,
+    this.cityOverride,
     Key key,
   }) : super(key: key);
 
   /// --------------------------------------------------------------------------
   final Function onTap;
   final bool isOn;
-
+  final ZoneModel zoneOverride;
+  final CountryModel countryOverride;
+  final CityModel cityOverride;
   /// --------------------------------------------------------------------------
   Future<void> _zoneButtonOnTap(BuildContext context) async {
     await Nav.goToNewScreen(context, const SelectCountryScreen()
@@ -37,30 +42,69 @@ class ZoneButton extends StatelessWidget {
   }
 
 // -----------------------------------------------------------------------------
+  ZoneModel _buttonZone(BuildContext context){
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
+    final ZoneModel _currentZone = _zoneProvider.currentZone;
+    return zoneOverride ?? _currentZone;
+  }
+// -----------------------------------------------------------------------------
+  CountryModel _buttonCountry(BuildContext context){
+
+    CountryModel _output;
+
+    if (zoneOverride == null){
+      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
+      _output = _zoneProvider.currentCountry;
+    }
+
+    else {
+      _output = countryOverride;
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+  CityModel _buttonCity(BuildContext context){
+
+    CityModel _output;
+
+    if (zoneOverride == null){
+      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
+      _output = _zoneProvider.currentCity;
+    }
+
+    else {
+      _output = cityOverride;
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final ZoneProvider _zoneProvider =
-        Provider.of<ZoneProvider>(context, listen: true);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
 
-    final ZoneModel _currentZone = _zoneProvider.currentZone;
-    final CountryModel _currentCountry = _zoneProvider.currentCountry;
-    final CityModel _currentCity = _zoneProvider.currentCity;
+    final ZoneModel _currentZone = _buttonZone(context);
+    final CountryModel _currentCountry = _buttonCountry(context);
+    final CityModel _currentCity = _buttonCity(context);
 
     final String _countryName = CountryModel.getTranslatedCountryNameByID(
-        context: context, countryID: _currentCountry?.id);
-    final String _countryFlag =
-        Flag.getFlagIconByCountryID(_currentCountry?.id);
+        context: context,
+        countryID: _currentCountry?.id
+    );
+
+    final String _countryFlag = Flag.getFlagIconByCountryID(_currentCountry?.id);
 
     final String _cityName = CityModel.getTranslatedCityNameFromCity(
       context: context,
       city: _currentCity,
     );
 
-    final String _districtName =
-        DistrictModel.getTranslatedDistrictNameFromCity(
+    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
             context: context,
             city: _currentCity,
-            districtID: _currentZone?.districtID);
+            districtID: _currentZone?.districtID
+    );
 
     final String _countryAndCityNames = appIsLeftToRight(context)
         ? '$_cityName - $_countryName'

@@ -206,8 +206,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                                       width: _bubbleWidth,
                                       color: Colorz.white20,
                                       verse:
-                                          Name.getNameByCurrentLingoFromNames(
-                                              context, _keyword.names),
+                                          Name.getNameByCurrentLingoFromNames(context: context, names: _keyword.names)?.value,
                                       // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
                                       icon: _keywordsProvider.getIcon(
                                           context: context, son: _keyword),

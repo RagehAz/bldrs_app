@@ -56,7 +56,7 @@ class Inception extends StatelessWidget {
         width: _buttonWidth,
         height: _buttonHeight,
         icon: _keywordsProvider.getIcon(son: _kw, context: context),
-        verse: Name.getNameByCurrentLingoFromNames(context, _kw.names),
+        verse: Name.getNameByCurrentLingoFromNames(context: context, names: _kw.names)?.value,
         verseScaleFactor: 0.7,
         verseCentered: false,
         color: _color,
@@ -72,7 +72,7 @@ class Inception extends StatelessWidget {
         icon: _keywordsProvider.getIcon(son: son, context: context),
         width: _buttonWidth,
         collapsedHeight: _buttonHeight,
-        firstHeadline: Name.getNameByCurrentLingoFromNames(context, son.names),
+        firstHeadline: Name.getNameByCurrentLingoFromNames(context: context, names: son.names)?.value,
         secondHeadline: null,
         margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
         child: Column(

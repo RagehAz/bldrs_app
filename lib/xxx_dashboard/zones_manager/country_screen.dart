@@ -115,7 +115,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     // );
 
     final String _countryName =
-        Name.getNameByCurrentLingoFromNames(context, widget.country.names);
+        Name.getNameByCurrentLingoFromNames(context: context, names: widget.country.names)?.value;
 
     return MainLayout(
       skyType: SkyType.black,

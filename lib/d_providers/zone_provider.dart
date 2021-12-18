@@ -440,8 +440,7 @@ class ZoneProvider extends ChangeNotifier {
 
 // -------------------------------------
   String getCurrentCountryNameByCurrentLingo(BuildContext context) {
-    final String _name = Name.getNameByCurrentLingoFromNames(
-        context, _currentCountryModel.names);
+    final String _name = Name.getNameByCurrentLingoFromNames(context: context, names: _currentCountryModel.names)?.value;
     return _name;
   }
 // -------------------------------------
@@ -452,7 +451,10 @@ class ZoneProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   String getCityNameWithCurrentLingoIfPossible(BuildContext context, String cityID){
 
-    final String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(context, _currentCityModel?.names);
+    final String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(
+        context: context,
+        names: _currentCityModel?.names
+    )?.value;
 
     return _nameInCurrentLanguage ?? cityID;
   }
@@ -592,6 +594,33 @@ class ZoneProvider extends ChangeNotifier {
     );
 
     _selectedCountryCities = _fetchedCities;
+    notifyListeners();
+
+  }
+// -----------------------------------------------------------------------------
+  List<CityModel> _searchedCities = <CityModel>[];
+// -------------------------------------
+  List<CityModel> get searchedCities => <CityModel>[..._searchedCities];
+// -------------------------------------
+  /// SEARCHES SELECTED COUNTRY CITIES
+  Future<void> getSetSearchedCities({
+    @required BuildContext context,
+    @required String input,
+  }) async {
+
+    /// SEARCH SELECTED COUNTRY CITIES
+    final List<CityModel> _foundCities = CityModel.searchCitiesByCurrentLingoName(
+        context: context,
+        sourceCities: _selectedCountryCities,
+        inputText: input,
+    );
+
+    blog('getSetSearchedCities : _selectedCountryCities.length : ${_selectedCountryCities.length} : input : $input : _foundCities : ${_foundCities.length}' );
+
+    blog('${_foundCities[0]}');
+
+    /// SET FOUND CITIES
+    _searchedCities = _foundCities;
     notifyListeners();
 
   }

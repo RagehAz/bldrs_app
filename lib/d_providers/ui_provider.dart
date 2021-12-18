@@ -19,10 +19,14 @@ class UiProvider extends ChangeNotifier {
 
     if (setLoadingTo == null){
       _loading = !_loading;
+      notifyListeners();
     }
 
     else {
-      _loading = setLoadingTo;
+      if (_loading != setLoadingTo){
+        _loading = setLoadingTo;
+        notifyListeners();
+      }
     }
 
     if (_loading == true) {
@@ -31,7 +35,6 @@ class UiProvider extends ChangeNotifier {
       blog('LOADING COMPLETE -----------------------------');
     }
 
-    notifyListeners();
   }
 // -------------------------------------
   /// --- LOADING SELECTOR TEMPLATE
@@ -74,13 +77,18 @@ class UiProvider extends ChangeNotifier {
 
     if (setObscuredTo == null){
       _textFieldsObscured = !_textFieldsObscured;
+      notifyListeners();
     }
 
     else {
-      _textFieldsObscured = setObscuredTo;
+
+      if(_textFieldsObscured != setObscuredTo){
+        _textFieldsObscured = setObscuredTo;
+        notifyListeners();
+      }
+
     }
 
-    notifyListeners();
   }
 // -----------------------------------------------------------------------------
 
@@ -95,13 +103,18 @@ class UiProvider extends ChangeNotifier {
 
     if (setIsSearchingTo == null){
       _isSearching = !_isSearching;
+      notifyListeners();
     }
 
     else {
-      _isSearching = setIsSearchingTo;
+
+      if (_isSearching != setIsSearchingTo){
+        _isSearching = setIsSearchingTo;
+        notifyListeners();
+      }
+
     }
 
-    notifyListeners();
 
   }
 // -------------------------------------
@@ -130,6 +143,7 @@ class UiProvider extends ChangeNotifier {
 
     }
 
+    /// CAUTION : [triggerIsSearching] method has notifyListeners();
   }
 // -----------------------------------------------------------------------------
 }

@@ -135,8 +135,7 @@ class CityModel {
 
     if (Mapper.canLoopList(cities)) {
       for (final CityModel city in cities) {
-        final String _cityName =
-            Name.getNameByCurrentLingoFromNames(context, city.names);
+        final String _cityName = Name.getNameByCurrentLingoFromNames(context: context, names: city.names)?.value;
         _citiesNames.add(_cityName);
       }
     }
@@ -177,7 +176,7 @@ class CityModel {
     return _keywords;
   }
 // -----------------------------------------------------------------------------
-  void printCity() {
+  void blogCity() {
     blog('CITY - PRINT --------------------------------------- START');
 
     blog('countryID : $countryID');
@@ -192,6 +191,20 @@ class CityModel {
     blog('CITY - PRINT --------------------------------------- END');
   }
 // -----------------------------------------------------------------------------
+  static void blogCities(List<CityModel> cities){
+
+    if (Mapper.canLoopList(cities)){
+
+      for (final CityModel city in cities){
+
+        city.blogCity();
+
+      }
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
   static List<MapModel> getCitiesNamesMapModels({
     @required BuildContext context,
     @required List<CityModel> cities,
@@ -202,7 +215,12 @@ class CityModel {
       for (final CityModel city in cities) {
         _citiesMapModels.add(MapModel(
             key: city.cityID,
-            value: Name.getNameByCurrentLingoFromNames(context, city.names)));
+            value: Name.getNameByCurrentLingoFromNames(
+                context: context,
+                names: city.names
+            )
+        )
+        );
       }
     }
 
@@ -228,7 +246,9 @@ class CityModel {
     String _cityName = '...';
 
     if (city != null) {
-      _cityName = Name.getNameByCurrentLingoFromNames(context, city.names);
+      _cityName = Name.getNameByCurrentLingoFromNames(
+          context: context,
+          names: city.names)?.value;
     }
 
     return _cityName;
@@ -256,8 +276,72 @@ class CityModel {
   }
 // -----------------------------------------------------------------------------
   static String getCityNameWithCurrentLingoIfPossible(BuildContext context, CityModel cityModel) {
-    final String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(context, cityModel?.names);
+    final String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(context: context, names: cityModel?.names)?.value;
     return _nameInCurrentLanguage ?? cityModel?.cityID;
   }
+// -----------------------------------------------------------------------------
+  static List<CityModel> searchCitiesByCurrentLingoName({
+    @required BuildContext context,
+    @required List<CityModel> sourceCities,
+    @required String inputText,
+  }){
+
+    /// CREATE NAMES LIST
+    final List<Name> _citiesNames = <Name>[];
+    for (final CityModel city in sourceCities){
+      final Name _nameInLingo = Name.getNameByCurrentLingoFromNames(
+        context: context,
+        names: city.names,
+      );
+      _citiesNames.add(_nameInLingo);
+    }
+
+
+    /// SEARCH NAMES
+    final List<Name> _foundNames = Name.searchNamesTrigrams(
+      sourceNames: _citiesNames,
+      inputText: inputText,
+    );
+
+    /// GET CITIES BY IDS FROM NAMES
+    final List<CityModel> _foundCities = _getCitiesFromNames(
+        names: _foundNames,
+        sourceCities: sourceCities
+    );
+
+    CityModel.blogCities(_foundCities);
+
+    return _foundCities;
+  }
+// -----------------------------------------------------------------------------
+  static List<CityModel> _getCitiesFromNames({
+  @required List<Name> names,
+    @required List<CityModel> sourceCities,
+}){
+    final List<CityModel> _foundCities = <CityModel>[];
+
+    if (Mapper.canLoopList(sourceCities) && Mapper.canLoopList(names)){
+
+      for (final Name name in names){
+
+        for (final CityModel city in sourceCities){
+
+          if (city.names.contains(name)){
+
+            if (!_foundCities.contains(city)){
+              _foundCities.add(city);
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+    return _foundCities;
+}
 // -----------------------------------------------------------------------------
 }
