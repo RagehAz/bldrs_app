@@ -6,13 +6,11 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/d_zoning/d_1_select_country_screen.dart';
 import 'package:bldrs/b_views/x_screens/d_zoning/d_2_select_city_screen.dart';
 import 'package:bldrs/b_views/x_screens/d_zoning/d_3_select_area_screen.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
@@ -61,7 +59,7 @@ Future<void> controlCountryOnTap({
   @required bool selectCountryAndCityOnly,
 }) async {
 
-  blog('controlCountryOnTap : countryID : $countryID : selectCountryIDOnly : $selectCountryIDOnly : selectCountryAndCityOnly : $selectCountryAndCityOnly');
+  // blog('controlCountryOnTap : countryID : $countryID : selectCountryIDOnly : $selectCountryIDOnly : selectCountryAndCityOnly : $selectCountryAndCityOnly');
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
   /// A - WHEN SELECTING (COUNTRY) ONLY
@@ -168,7 +166,8 @@ Future<void> initializeSelectCityScreen({
 
   _uiProvider.triggerLoading(setLoadingTo: false);
 
-}// -------------------------------------
+}
+// -------------------------------------
 Future<void> controlCityOnTap({
   @required BuildContext context,
   @required bool selectCountryAndCityOnly,
@@ -176,9 +175,13 @@ Future<void> controlCityOnTap({
   @required bool setCurrentZone,
 }) async {
 
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
   /// A - WHEN SELECTING (COUNTRY AND CITY) ONLY
   if (selectCountryAndCityOnly){
 
+    _uiProvider.triggerLoading(setLoadingTo: false);
+    _uiProvider.triggerIsSearching(setIsSearchingTo: false);
     Nav.goBack(context, argument: cityID);
 
   }
@@ -227,8 +230,33 @@ Future<void> controlCityOnTap({
 
       }
 
+      _uiProvider.triggerLoading(setLoadingTo: false);
+      _uiProvider.triggerIsSearching(setIsSearchingTo: false);
       Nav.goBackToHomeScreen(context);
     }
+
+  }
+
+
+}
+// -------------------------------------
+Future<void> controlCitySearch({
+  @required BuildContext context,
+  @required String searchText,
+}) async {
+
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
+  _uiProvider.triggerIsSearchingAfterTextLengthIsAt(text: searchText);
+
+  if (_uiProvider.isSearching == true) {
+
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+    await _zoneProvider.getSetSearchedCities(
+      context: context,
+      input: CountryModel.fixCountryName(searchText),
+    );
 
   }
 

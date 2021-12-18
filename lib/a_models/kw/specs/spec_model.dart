@@ -553,7 +553,7 @@ class Spec {
             _kws.singleWhere((KW kw) => kw.id == _kwID, orElse: () => null);
 
         if (_kw != null) {
-          _name = Name.getNameByCurrentLingoFromNames(context, _kw.names);
+          _name = Name.getNameByCurrentLingoFromNames(context: context, names: _kw.names)?.value;
         }
       }
     }

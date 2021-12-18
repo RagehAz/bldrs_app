@@ -94,7 +94,7 @@ class SpecListTile extends StatelessWidget {
                               width: _specNameBoxWidth,
                               child: SuperVerse(
                                 verse: Name.getNameByCurrentLingoFromNames(
-                                    context, specList.names),
+                                    context: context, names: specList.names)?.value,
                                 centered: false,
                                 margin: 10,
                                 maxLines: 2,
