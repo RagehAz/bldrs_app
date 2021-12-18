@@ -143,16 +143,23 @@ Future<void> controlCountrySearch({
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
+    _uiProvider.triggerLoading(setLoadingTo: true);
+    _zoneProvider.emptySearchedCountries();
+
     await _zoneProvider.getSetSearchedCountries(
       context: context,
       input: CountryModel.fixCountryName(searchText),
     );
+
+    _uiProvider.triggerLoading(setLoadingTo: false);
 
   }
 
 }
 // -------------------------------------
 void controlCountryScreenOnBack(BuildContext context,){
+
+  goBack(context);
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
@@ -180,9 +187,6 @@ void controlCountryScreenOnBack(BuildContext context,){
   _zoneProvider.emptySelectedCountryCities();
   _zoneProvider.emptySearchedCities();
   _zoneProvider.emptySearchedDistricts();
-
-  goBack(context);
-
 
 }
 // -----------------------------------------------------------------------------
@@ -316,7 +320,7 @@ Future<void> controlCitySearch({
 
 
 }
-
+// -------------------------------------
 void controlCityScreenOnBack(BuildContext context){
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
