@@ -210,26 +210,30 @@ class KW {
 
     return _keywords;
   }
-
 // -----------------------------------------------------------------------------
   static String translateKeyword(BuildContext context, KW kw) {
-    final String _name = Name.getNameByCurrentLingoFromNames(context, kw.names);
+    final String _name = Name.getNameByCurrentLingoFromNames(
+        context: context,
+        names: kw.names)?.value;
+
     return _name;
   }
-
 // -----------------------------------------------------------------------------
   static bool keywordsContainKeyword(
       {@required List<KW> keywords, @required KW keyword}) {
     bool _contains = false;
 
     if (Mapper.canLoopList(keywords) && keyword != null) {
+
       final KW _result = keywords.firstWhere(
           (KW kw) => KW.keywordsAreTheSame(kw, keyword) == true,
           orElse: () => null);
 
       if (_result == null) {
         _contains = false;
-      } else {
+      }
+
+      else {
         _contains = true;
       }
     }

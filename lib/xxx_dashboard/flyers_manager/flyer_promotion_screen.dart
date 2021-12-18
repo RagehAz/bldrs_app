@@ -55,8 +55,8 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
       _selectedZone.value = ZoneModel(
         countryID: _zone.countryID,
         cityID: _zone.cityID,
-        countryName: Name.getNameByCurrentLingoFromNames(context, _country.names),
-        cityName: Name.getNameByCurrentLingoFromNames(context, _city.names),
+        countryName: Name.getNameByCurrentLingoFromNames(context: context, names: _country.names)?.value,
+        cityName: Name.getNameByCurrentLingoFromNames(context: context, names: _city.names)?.value,
       );
 
     }

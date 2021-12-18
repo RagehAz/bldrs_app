@@ -42,8 +42,7 @@ class KeywordsButtonsList extends StatelessWidget {
           final String _icon =
               _keywordsProvider.getIcon(context: context, son: _keyword);
           final String _keywordName = KW.translateKeyword(context, _keyword);
-          final String _keywordNameArabic = Name.getNameByLingoFromNames(
-              names: _keyword.names, lingoCode: 'ar');
+          final String _keywordNameArabic = Name.getNameByLingoFromNames(names: _keyword.names, lingoCode: 'ar')?.value;
 
           return DreamBox(
             height: ExpandingTile.collapsedTileHeight,

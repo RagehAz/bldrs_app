@@ -119,18 +119,15 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
     final double _screenWidth = Scale.superScreenWidth(context);
     const double _bubbleHeight = 150;
     final double _bubbleWidth = BldrsAppBar.width(context);
-    final BorderRadius _bubbleCorners =
-        Borderers.superBorderAll(context, Ratioz.appBarCorner);
+    final BorderRadius _bubbleCorners = Borderers.superBorderAll(context, Ratioz.appBarCorner);
 
     const double _buttonsBoxWidth = 70;
-    final double _textFieldWidth =
-        _bubbleWidth - _buttonsBoxWidth - (Ratioz.appBarMargin * 2);
+    final double _textFieldWidth = _bubbleWidth - _buttonsBoxWidth - (Ratioz.appBarMargin * 2);
     const double _fieldHeight = 100;
 
     const double _buttonSize = _buttonsBoxWidth - 25;
 
-    final String _hintText =
-        Name.getNameByCurrentLingoFromNames(context, widget.specList.names);
+    final String _hintText = Name.getNameByCurrentLingoFromNames(context: context, names: widget.specList.names)?.value;
 
     return Container(
       width: _screenWidth,

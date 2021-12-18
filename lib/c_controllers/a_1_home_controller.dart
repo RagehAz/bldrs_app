@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -24,7 +26,7 @@ Future<void> initializeHomeScreen(BuildContext context) async {
   await _initializeUserZone(context);
 
   /// E - PROMOTED FLYERS
-  await _initializePromotedFlyers(context);
+  unawaited(_initializePromotedFlyers(context));
 
   /// F - SPONSORS
   await _initializeSponsors(context);
@@ -98,10 +100,10 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
   if (Mapper.canLoopList(_promotedFlyers)){
     await Future.delayed(Ratioz.duration150ms, () async {
 
-      await Nav.openFlyer(
+      unawaited(Nav.openFlyer(
         context: context,
         flyer: _flyersProvider.promotedFlyers[0],
-      );
+      ));
 
     });
   }
