@@ -23,7 +23,6 @@ class CountryModel {
     @required this.names,
     @required this.currency,
   });
-
   /// --------------------------------------------------------------------------
   final String id;
   final String region;
@@ -39,7 +38,6 @@ class CountryModel {
   final String language;
   final List<Name> names;
   final String currency;
-
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}) {
     return <String, dynamic>{
@@ -54,10 +52,11 @@ class CountryModel {
       'currency': currency,
     };
   }
-
 // -----------------------------------------------------------------------------
-  static CountryModel decipherCountryMap(
-      {@required Map<String, dynamic> map, @required bool fromJSON}) {
+  static CountryModel decipherCountryMap({
+    @required Map<String, dynamic> map,
+    @required bool fromJSON,
+  }) {
     CountryModel _countryModel;
 
     if (map != null) {
@@ -78,10 +77,11 @@ class CountryModel {
 
     return _countryModel;
   }
-
 // -----------------------------------------------------------------------------
-  static List<CountryModel> decipherCountriesMaps(
-      {@required List<Map<String, dynamic>> maps, @required bool fromJSON}) {
+  static List<CountryModel> decipherCountriesMaps({
+    @required List<Map<String, dynamic>> maps,
+    @required bool fromJSON,
+  }) {
     final List<CountryModel> _countries = <CountryModel>[];
 
     if (Mapper.canLoopList(maps)) {
@@ -96,7 +96,7 @@ class CountryModel {
     return _countries;
   }
 
-// -----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
   static String fixCountryName(String input) {
     String _output;
 
@@ -172,10 +172,11 @@ class CountryModel {
 
     return _output;
   }
-
 // -----------------------------------------------------------------------------
-  static bool countriesIDsIncludeCountryID(
-      {@required List<String> countriesIDs, @required String countryID}) {
+  static bool countriesIDsIncludeCountryID({
+    @required List<String> countriesIDs,
+    @required String countryID,
+  }) {
     bool _includes = false;
 
     for (final String id in countriesIDs) {
@@ -187,7 +188,6 @@ class CountryModel {
 
     return _includes;
   }
-
 // -----------------------------------------------------------------------------
   static String getTranslatedCountryNameByID({
     @required BuildContext context,
@@ -202,7 +202,6 @@ class CountryModel {
 
     return _countryName;
   }
-
 // -----------------------------------------------------------------------------
   static List<String> getCountriesIDsOfContinent(Continent continent) {
     final List<String> _countriesIDs = <String>[];
@@ -213,7 +212,6 @@ class CountryModel {
 
     return _countriesIDs;
   }
-
 // -----------------------------------------------------------------------------
   static List<String> getAllCountriesIDs() {
     final List<String> _ids = <String>[];
@@ -224,7 +222,6 @@ class CountryModel {
 
     return _ids;
   }
-
 // -----------------------------------------------------------------------------
   static List<MapModel> getAllCountriesNamesMapModels(BuildContext context) {
     final List<MapModel> _mapModels = <MapModel>[];
@@ -243,7 +240,6 @@ class CountryModel {
 
     return _mapModels;
   }
-
 // -----------------------------------------------------------------------------
   void printCountry({String methodName = 'PRINTING COUNTRY'}) {
     blog('$methodName ------------------------------------------- START');
@@ -259,10 +255,8 @@ class CountryModel {
 
     blog('$methodName ------------------------------------------- END');
   }
-
 // -----------------------------------------------------------------------------
-  static bool countriesAreTheSame(
-      CountryModel countryA, CountryModel countryB) {
+  static bool countriesAreTheSame(CountryModel countryA, CountryModel countryB) {
     bool _areTheSame = false;
 
     if (countryA != null && countryB != null) {
@@ -274,6 +268,40 @@ class CountryModel {
     return _areTheSame;
   }
 // -----------------------------------------------------------------------------
+  static List<String> getAllCountriesIDsSortedByName(BuildContext context){
+
+    final List<String> _allCountriesIDs = getAllCountriesIDs();
+
+    final List<Name> _allCountriesNamesInCurrentLanguage = <Name>[];
+
+    for (final String id in _allCountriesIDs){
+
+      final String _countryName = getTranslatedCountryNameByID(context: context, countryID: id);
+
+      final Name _name = Name(
+          code: id,
+          value: _countryName,
+      );
+
+      if (_countryName != null){
+        _allCountriesNamesInCurrentLanguage.add(_name);
+      }
+    }
+
+    final List<Name> _namesSorted = Name.sortNamesAlphabetically(_allCountriesNamesInCurrentLanguage);
+
+    final List<String> _sortedCountriesIDs = <String>[];
+
+    for (final Name name in _namesSorted){
+
+      _sortedCountriesIDs.add(name.code);
+
+    }
+
+    return _sortedCountriesIDs;
+  }
+
+
 }
 
 // -----------------------------------------------------------------------------

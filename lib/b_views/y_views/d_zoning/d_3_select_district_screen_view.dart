@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
@@ -21,6 +22,15 @@ class SelectDistrictScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    districts.sort((DistrictModel a, DistrictModel b){
+
+      final String _nameA = Name.getNameByCurrentLingoFromNames(context: context, names: a.names).value;
+      final String _nameB = Name.getNameByCurrentLingoFromNames(context: context, names: b.names).value;
+
+      return _nameA.compareTo(_nameB);
+    });
+
 
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
 
