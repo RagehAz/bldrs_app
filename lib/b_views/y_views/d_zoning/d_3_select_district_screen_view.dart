@@ -1,23 +1,23 @@
-import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
-import 'package:bldrs/b_views/y_views/d_zoning/d_2a_all_cities_buttons.dart';
-import 'package:bldrs/b_views/y_views/d_zoning/d_2b_searched_cities_buttons.dart';
+import 'package:bldrs/b_views/y_views/d_zoning/d_3a_all_districts_buttons.dart';
+import 'package:bldrs/b_views/y_views/d_zoning/d_3b_searched_districts_buttons.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SelectCityScreenView extends StatelessWidget {
+class SelectDistrictScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SelectCityScreenView({
-    @required this.cities,
-    @required this.onCityTap,
+  const SelectDistrictScreenView({
+    @required this.districts,
+    @required this.onDistrictTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final List<CityModel> cities;
-  final ValueChanged<String> onCityTap;
+  final List<DistrictModel> districts;
+  final ValueChanged<String> onDistrictTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -31,21 +31,21 @@ class SelectCityScreenView extends StatelessWidget {
 
     }
 
-    /// WHEN SHOWING ALL COUNTRY CITIES
+    /// WHEN SHOWING ALL CITY DISTRICTS
     else {
 
       return MaxBounceNavigator(
         child: Scroller(
           child: Selector<UiProvider, bool>(
-            selector: (_, UiProvider uiProvider) => uiProvider.isSearchingCity,
-            builder: (BuildContext context, bool isSearchingCity, Widget child){
+            selector: (_, UiProvider uiProvider) => uiProvider.isSearchingDistrict,
+            builder: (BuildContext context, bool isSearchingDistrict, Widget child){
 
-              if (isSearchingCity == true){
+              if (isSearchingDistrict == true){
 
                 return
 
-                  SearchedCitiesButtons(
-                    onCityTap: (String cityID) => onCityTap(cityID),
+                  SearchedDistrictsButtons(
+                    onDistrictTap: onDistrictTap,
                   );
 
               }
@@ -53,9 +53,9 @@ class SelectCityScreenView extends StatelessWidget {
               else {
 
                 return
-                  AllCitiesButtons(
-                    onCityChanged: onCityTap,
-                    cities: cities,
+                  AllDistrictsButtons(
+                    onDistrictChanged: onDistrictTap,
+                    districts: districts,
                   );
 
               }

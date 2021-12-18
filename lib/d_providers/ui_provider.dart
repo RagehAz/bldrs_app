@@ -120,8 +120,6 @@ class UiProvider extends ChangeNotifier {
     notifyListeners();
   }
 // -------------------------------------
-
-
   void triggerIsSearchingAfterMaxTextLength({
     @required String text,
     @required SearchingModel searchModel,
@@ -156,6 +154,16 @@ class UiProvider extends ChangeNotifier {
     }
 
     /// CAUTION : [triggerIsSearching] method has notifyListeners();
+  }
+// -------------------------------------
+  void closeAllSearches(){
+
+    _isSearchingCountry = false;
+    _isSearchingCity = false;
+    _isSearchingDistrict = false;
+
+    notifyListeners();
+
   }
 // -----------------------------------------------------------------------------
 }
