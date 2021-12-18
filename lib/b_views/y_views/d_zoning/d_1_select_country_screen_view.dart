@@ -21,10 +21,10 @@ class SelectCountryScreenView extends StatelessWidget {
     return MaxBounceNavigator(
       child: Scroller(
         child: Selector<UiProvider, bool>(
-          selector: (_, UiProvider uiProvider) => uiProvider.isSearching,
-          builder: (BuildContext context, bool isSearching, Widget child){
+          selector: (_, UiProvider uiProvider) => uiProvider.isSearchingCountry,
+          builder: (BuildContext context, bool isSearchingCountry, Widget child){
 
-            if (isSearching == true){
+            if (isSearchingCountry == true){
 
               return
                 SearchedCountriesButtons(
