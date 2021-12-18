@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
+import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/dialogz.dart' as Dialogz;
@@ -594,8 +595,14 @@ class ZoneProvider extends ChangeNotifier {
     );
 
     _selectedCountryCities = _fetchedCities;
+    _searchedCities = <CityModel>[];
     notifyListeners();
 
+  }
+
+  void emptySelectedCountryCities(){
+    _selectedCountryCities = <CityModel>[];
+    notifyListeners();
   }
 // -----------------------------------------------------------------------------
   List<CityModel> _searchedCities = <CityModel>[];
@@ -623,6 +630,28 @@ class ZoneProvider extends ChangeNotifier {
     _searchedCities = _foundCities;
     notifyListeners();
 
+  }
+  // -------------------------------------
+  void emptySearchedCities(){
+    _searchedCities = <CityModel>[];
+    notifyListeners();
+  }
+// -----------------------------------------------------------------------------
+
+/// SELECTED CITY DISTRICTS
+
+// -------------------------------------
+  List<DistrictModel> _searchedDistricts = <DistrictModel>[];
+// -------------------------------------
+  List<DistrictModel> get searchedDistricts => <DistrictModel>[..._searchedDistricts];
+// -------------------------------------
+  void getSetSearchedDistricts(){
+
+  }
+// -------------------------------------
+  void emptySearchedDistricts(){
+    _searchedDistricts = <DistrictModel>[];
+    notifyListeners();
   }
 // -----------------------------------------------------------------------------
 }

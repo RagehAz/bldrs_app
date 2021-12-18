@@ -95,50 +95,62 @@ class UiProvider extends ChangeNotifier {
   /// --- IS SEARCHING
 
 // -------------------------------------
-  bool _isSearching = false;
+  bool _isSearchingCountry = false;
+  bool _isSearchingCity = false;
+  bool _isSearchingDistrict = false;
 // -------------------------------------
-  bool get isSearching => _isSearching;
+  bool get isSearchingCountry => _isSearchingCountry;
+  bool get isSearchingCity => _isSearchingCity;
+  bool get isSearchingDistrict => _isSearchingDistrict;
 // -------------------------------------
-  void triggerIsSearching({bool setIsSearchingTo}){
+  void triggerIsSearching({@required SearchingModel searchingModel, @required bool setIsSearchingTo}){
 
-    if (setIsSearchingTo == null){
-      _isSearching = !_isSearching;
-      notifyListeners();
+    if (searchingModel == SearchingModel.country){
+      _isSearchingCountry = setIsSearchingTo;
     }
 
-    else {
-
-      if (_isSearching != setIsSearchingTo){
-        _isSearching = setIsSearchingTo;
-        notifyListeners();
-      }
-
+    else if (searchingModel == SearchingModel.city){
+      _isSearchingCity = setIsSearchingTo;
     }
 
+    else if (searchingModel == SearchingModel.district){
+      _isSearchingDistrict = setIsSearchingTo;
+    }
 
+    notifyListeners();
   }
 // -------------------------------------
-  void triggerIsSearchingAfterTextLengthIsAt({
+
+
+  void triggerIsSearchingAfterMaxTextLength({
     @required String text,
-    int searchStartAtTextLength = 3,
-    bool setIsSearchingTo,
+    @required SearchingModel searchModel,
+    @required bool isSearching,
+    @required bool setIsSearchingTo,
+    int maxTextLength = 3,
 }){
 
     // blog('triggerIsSearchingAfterTextLengthIsAt receives : text : $text : Length ${text.length}: _isSearching : $_isSearching');
 
     /// A - not searching
-    if (_isSearching == false) {
+    if (isSearching == false) {
       /// A.1 starts searching
-      if (text.length >= searchStartAtTextLength) {
-        triggerIsSearching(setIsSearchingTo: true);
+      if (text.length >= maxTextLength) {
+        triggerIsSearching(
+          searchingModel: searchModel,
+          setIsSearchingTo: true,
+        );
       }
     }
 
     /// B - while searching
     else {
       /// B.1 ends searching
-      if (text.length < searchStartAtTextLength) {
-        triggerIsSearching(setIsSearchingTo: false);
+      if (text.length < maxTextLength) {
+        triggerIsSearching(
+          searchingModel: searchModel,
+          setIsSearchingTo: false,
+        );
       }
 
     }
@@ -146,4 +158,13 @@ class UiProvider extends ChangeNotifier {
     /// CAUTION : [triggerIsSearching] method has notifyListeners();
   }
 // -----------------------------------------------------------------------------
+}
+
+enum SearchingModel{
+  country,
+  city,
+  district,
+  // bz,
+  // flyers,
+  // users,
 }

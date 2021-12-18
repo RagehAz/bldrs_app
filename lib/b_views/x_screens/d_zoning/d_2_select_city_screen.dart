@@ -84,6 +84,10 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  void _onBack(){
+    controlCityScreenOnBack(context);
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -107,6 +111,7 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
           pageTitle: 'Select a City',
           pyramids: Iconz.dvBlankSVG,
 
+          onBack: _onBack,
           appBarRowWidgets: [
 
             const Expander(),

@@ -45,6 +45,10 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  void _onBack(){
+    controlCountryScreenOnBack(context);
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -60,6 +64,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 
         pageTitle: 'Select a Country',
         pyramids: Iconz.dvBlankSVG,
+        onBack: _onBack,
         layoutWidget: SelectCountryScreenView(
           onCountryTap: _onCountryTap,
         ),
