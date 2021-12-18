@@ -232,12 +232,15 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     final String _instructions = _getInstructions();
 
+    final String _pageTitle = Name.getNameByCurrentLingoFromNames(
+        context: context,
+        names: widget.specList.names)?.value;
+
     return MainLayout(
       appBarType: AppBarType.basic,
       // appBarBackButton: true,
       skyType: SkyType.black,
-      pageTitle:
-          Name.getNameByCurrentLingoFromNames(context, widget.specList.names),
+      pageTitle: _pageTitle,
       pyramids: Iconz.pyramidzYellow,
       onBack: _onBack,
       layoutWidget: Column(

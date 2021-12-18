@@ -214,7 +214,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                           _cityModel = _result;
                         });
 
-                        _result.printCity();
+                        _result.blogCity();
                       } else {
                         await TopDialog.showTopDialog(
                             context: context, verse: 'No city found');

@@ -127,10 +127,9 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
                 padding: const EdgeInsets.only(top: Ratioz.stratosphere),
                 itemCount: _countries?.length,
                 itemBuilder: (BuildContext context, int index) {
+
                   final CountryModel _countryModel = _countries[index];
-                  final String _countryName =
-                      Name.getNameByCurrentLingoFromNames(
-                          context, _countryModel.names);
+                  final String _countryName = Name.getNameByCurrentLingoFromNames(context: context, names: _countryModel.names)?.value;
 
                   return DreamBox(
                     height: 100,

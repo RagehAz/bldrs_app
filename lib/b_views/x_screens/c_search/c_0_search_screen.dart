@@ -189,7 +189,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
         if (_flyersByKeyword.isNotEmpty) {
           _results.add(SearchResult(
-            title: Name.getNameByCurrentLingoFromNames(context, kw.names),
+            title: Name.getNameByCurrentLingoFromNames(context: context, names: kw.names)?.value,
             icon: _keywordsProvider.getIcon(context: context, son: kw),
             flyers: _flyersByKeyword,
           ));

@@ -51,7 +51,7 @@ class SectionsButton extends StatelessWidget {
 
     final String _sectionVerse = _currentKeyword == null
         ? TextGen.sectionStringer(context, _currentSection)
-        : Name.getNameByCurrentLingoFromNames(context, _currentKeyword.names);
+        : Name.getNameByCurrentLingoFromNames(context: context, names: _currentKeyword.names);
     // double _btThirdsOfScreenWidth = (_screenWidth - (6*_abPadding))/3;
 
     // double _buttonWidth = _sectionsAreExpanded == true ? _btThirdsOfScreenWidth : null;

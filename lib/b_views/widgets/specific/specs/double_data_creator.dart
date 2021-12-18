@@ -126,8 +126,7 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
 
     // const double _buttonSize = _buttonsBoxWidth - 25;
 
-    final String _hintText =
-        Name.getNameByCurrentLingoFromNames(context, widget.specList.names);
+    final String _hintText = Name.getNameByCurrentLingoFromNames(context: context, names: widget.specList.names)?.value;
 
     return Container(
       width: _screenWidth,
