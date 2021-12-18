@@ -1,6 +1,8 @@
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_country_button.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -25,6 +27,8 @@ class SearchedCountriesButtons extends StatelessWidget {
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final List<CountryModel> _searchedCountries = _zoneProvider.searchedCountries;
 
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
+
     /// WHEN SEARCH RESULTS
     if (canLoopList(_searchedCountries)){
 
@@ -44,6 +48,12 @@ class SearchedCountriesButtons extends StatelessWidget {
 
           }
           );
+
+    }
+
+    else if (_uiProvider.loading == true){
+
+      return const LoadingFullScreenLayer();
 
     }
 
