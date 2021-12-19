@@ -1,7 +1,6 @@
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_lab/ask/quest/quests_list.dart';
 import 'package:bldrs/xxx_lab/ask/question/questions_provider.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class QuesScreen extends StatelessWidget {
         Provider.of<QuestionsProvider>(context);
 
     return MainLayout(
-      pyramids: Iconz.pyramidsGlass,
+      pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       appBarRowWidgets: const <Widget>[
         SuperVerse(

@@ -1,6 +1,5 @@
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class TestingLayout extends StatelessWidget {
@@ -28,7 +27,6 @@ class TestingLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainLayout(
       appBarType: AppBarType.basic,
-      pyramids: Iconz.dvBlankSVG,
       pageTitle: screenTitle,
       // scaffoldKey: scaffoldKey,
 

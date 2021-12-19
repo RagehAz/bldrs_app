@@ -32,7 +32,6 @@ class DialogTestScreen extends StatelessWidget {
 
     return MainLayout(
       skyType: SkyType.black,
-      pyramids: Iconz.dvBlankSVG,
       layoutWidget: GestureDetector(
         onTap: () async {
           final int _totalNumOfFlyers = _flyers.length;

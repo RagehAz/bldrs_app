@@ -117,7 +117,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     return MainLayout(
       appBarType: AppBarType.basic,
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       loading: _loading,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(

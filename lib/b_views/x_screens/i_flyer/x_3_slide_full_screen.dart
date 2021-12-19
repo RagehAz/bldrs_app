@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_pa
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class SlideFullScreen extends StatelessWidget {
@@ -31,7 +30,7 @@ class SlideFullScreen extends StatelessWidget {
 
     return MainLayout(
       pageTitle: 'Create flyers',
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       appBarType: AppBarType.non,
       skyType: SkyType.black,
       appBarRowWidgets: const <Widget>[],

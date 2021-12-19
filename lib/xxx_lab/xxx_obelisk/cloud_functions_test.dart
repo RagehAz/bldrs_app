@@ -7,7 +7,6 @@ import 'package:bldrs/e_db/fire/methods/cloud_functions.dart' as CloudFunctionz;
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -83,7 +82,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
 
     return MainLayout(
       appBarType: AppBarType.basic,
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       loading: _loading,
       appBarRowWidgets: <Widget>[
         DreamBox(

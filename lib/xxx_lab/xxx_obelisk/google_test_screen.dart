@@ -179,7 +179,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
     return MainLayout(
       appBarType: AppBarType.basic,
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       loading: _loading,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(

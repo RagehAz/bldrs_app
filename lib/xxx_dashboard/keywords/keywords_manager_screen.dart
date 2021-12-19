@@ -1,6 +1,5 @@
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +33,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
     return MainLayout(
       pageTitle: 'All Keywords',
       appBarType: AppBarType.basic,
-      pyramids: Iconz.pyramidsYellow,
+      pyramidsAreOn: true,
       layoutWidget: Container(
         width: Scale.superScreenWidth(context) -
             Ratioz.appBarMargin * 2, // this dictates overall width

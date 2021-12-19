@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.da
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/y_views/d_zoning/d_1_select_country_screen_view.dart';
 import 'package:bldrs/c_controllers/d_zoning_controller.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class SelectCountryScreen extends StatefulWidget {
@@ -53,21 +52,19 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-        skyType: SkyType.black,
-        appBarType: AppBarType.search,
-        historyButtonIsOn: false,
-        sectionButtonIsOn: false,
-        zoneButtonIsOn: false,
-
-        onSearchSubmit: _onSearchCountry,
-        onSearchChanged: _onSearchCountry,
-
-        pageTitle: 'Select a Country',
-        pyramids: Iconz.dvBlankSVG,
-        onBack: _onBack,
-        layoutWidget: SelectCountryScreenView(
-          onCountryTap: _onCountryTap,
-        ),
+      skyType: SkyType.black,
+      appBarType: AppBarType.search,
+      historyButtonIsOn: false,
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
+      onSearchSubmit: _onSearchCountry,
+      onSearchChanged: _onSearchCountry,
+      pageTitle: 'Select a Country',
+      pyramidsAreOn: true,
+      onBack: _onBack,
+      layoutWidget: SelectCountryScreenView(
+        onCountryTap: _onCountryTap,
+      ),
 
     );
 

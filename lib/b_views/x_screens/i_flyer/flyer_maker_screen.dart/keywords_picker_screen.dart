@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.da
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class SelectKeywordsScreen extends StatefulWidget {
@@ -327,7 +326,6 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     return MainLayout(
       pageTitle: 'Select Flyer keywords',
       appBarType: AppBarType.basic,
-      pyramids: Iconz.dvBlankSVG,
       onBack: () {
         Nav.goBack(context, argument: _selectedKeywords);
         // await null

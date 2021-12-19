@@ -125,7 +125,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       loading: _loading,
       pageTitle: 'News And Notifications',
       skyType: SkyType.black,
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       // tappingRageh: () async {
       //
       //   blog('fuck fuck');

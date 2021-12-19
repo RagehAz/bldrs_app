@@ -51,7 +51,7 @@ class MoreScreen extends StatelessWidget {
       // appBarBackButton: true,
       skyType: SkyType.black,
       pageTitle: 'Options',
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       layoutWidget: MaxBounceNavigator(
         child: Scroller(
           child: ListView(

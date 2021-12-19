@@ -131,7 +131,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
   Widget build(BuildContext context) {
     return MainLayout(
       appBarType: AppBarType.basic,
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       pageTitle: 'All Flyers',
       appBarRowWidgets: const <Widget>[],
       loading: _loading,
