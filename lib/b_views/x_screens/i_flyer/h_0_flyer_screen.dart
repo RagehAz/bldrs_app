@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
@@ -24,6 +23,7 @@ class FlyerScreen extends StatelessWidget {
     this.flyerModel,
     this.initialSlideIndex,
     this.flyerID,
+    this.isSponsored,
     Key key,
   }) : super(key: key);
 
@@ -31,7 +31,7 @@ class FlyerScreen extends StatelessWidget {
   final FlyerModel flyerModel;
   final int initialSlideIndex;
   final String flyerID;
-
+  final bool isSponsored;
   /// --------------------------------------------------------------------------
   static const String routeName = Routez.flyerScreen;
 
@@ -49,7 +49,6 @@ class FlyerScreen extends StatelessWidget {
 
     return MainLayout(
       appBarType: AppBarType.non,
-      pyramids: Iconz.dvBlankSVG,
       layoutWidget: Center(
         child:
 
@@ -91,6 +90,7 @@ class FlyerScreen extends StatelessWidget {
           flyerID: flyerID,
           initialSlideIndex: initialSlideIndex ?? 0,
           flyerKey: PageStorageKey<String>(_flyerID),
+          isSponsored: isSponsored,
           onSwipeFlyer: (Sliders.SwipeDirection direction) {
             // blog('Direction is $direction');
           },

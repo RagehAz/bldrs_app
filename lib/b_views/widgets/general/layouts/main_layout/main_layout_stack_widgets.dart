@@ -25,7 +25,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.searchController,
     @required this.onSearchSubmit,
     @required this.onSearchChanged,
-    @required this.pyramids,
+    @required this.pyramidsAreOn,
     @required this.sectionButtonIsOn,
     @required this.historyButtonIsOn,
     @required this.zoneButtonIsOn,
@@ -44,11 +44,31 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final TextEditingController searchController;
   final ValueChanged<String> onSearchSubmit;
   final ValueChanged<String> onSearchChanged;
-  final String pyramids;
+  final bool pyramidsAreOn;
   final bool historyButtonIsOn;
   final bool sectionButtonIsOn;
   final bool zoneButtonIsOn;
   /// --------------------------------------------------------------------------
+  String _pyramidsIcon(){
+
+    if (skyType == SkyType.black){
+      return Iconz.pyramidzWhite;
+    }
+
+    else if (skyType == SkyType.night){
+      return Iconz.pyramidzYellow;
+    }
+
+    else if (skyType == SkyType.non){
+      return Iconz.pyramidsCrystal;
+    }
+
+    else {
+      return Iconz.pyramidsGlass;
+    }
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -56,7 +76,11 @@ class MainLayoutStackWidgets extends StatelessWidget {
       alignment: alignment,
       children: <Widget>[
 
-        Sky(key: const ValueKey<String>('sky'), skyType: skyType),
+        Sky(
+          key: const ValueKey<String>('sky'),
+          skyType: skyType,
+          gradientIsOn: pyramidsAreOn,
+        ),
 
         /// --- LAYOUT WIDGET
         if (layoutWidget != null)
@@ -87,21 +111,21 @@ class MainLayoutStackWidgets extends StatelessWidget {
           ),
 
         /// --- PYRAMIDS
-        if (pyramids != null && pyramids != Iconz.dvBlankSVG)
+        if (pyramidsAreOn == true)
           Pyramids(
             key: const ValueKey<String>('pyramids'),
-            pyramidsIcon: pyramids,
+            pyramidsIcon: _pyramidsIcon(),
             // loading: loading,
           ),
 
         /// --- NAV BAR
-        if (pyramids == null)
+        if (pyramidsAreOn == false)
           const NavBar(
             key: ValueKey<String>('navBar'),
           ),
 
         /// --- IOS BACK BUTTON
-        if (pyramids != null && DeviceChecker.deviceIsIOS() == true)
+        if (pyramidsAreOn == false && DeviceChecker.deviceIsIOS() == true)
           Positioned(
             key: const ValueKey<String>('backAndSearchButton'),
             bottom: 0,

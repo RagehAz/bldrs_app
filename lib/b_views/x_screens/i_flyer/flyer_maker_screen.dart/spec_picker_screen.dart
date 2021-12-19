@@ -18,7 +18,6 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -241,7 +240,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
       // appBarBackButton: true,
       skyType: SkyType.black,
       pageTitle: _pageTitle,
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       onBack: _onBack,
       layoutWidget: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

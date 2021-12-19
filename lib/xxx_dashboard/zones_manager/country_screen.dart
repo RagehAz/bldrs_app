@@ -119,7 +119,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
     return MainLayout(
       skyType: SkyType.black,
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       loading: _loading,
       appBarType: AppBarType.scrollable,
       appBarRowWidgets: <Widget>[

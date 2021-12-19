@@ -11,7 +11,6 @@ import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -120,7 +119,6 @@ class _NewLayoutState extends State<NewLayout>
 
     return MainLayout(
       appBarType: AppBarType.non,
-      pyramids: Iconz.dvBlankSVG,
       loading: _loading,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Container(

@@ -17,7 +17,6 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -104,7 +103,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 
     return MainLayout(
       appBarType: AppBarType.basic,
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       loading: _loading,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(

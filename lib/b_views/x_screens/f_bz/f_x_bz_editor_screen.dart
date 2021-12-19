@@ -595,7 +595,7 @@ class _BzEditorScreenState extends State<BzEditorScreen>
     return MainLayout(
       loading: _loading,
       appBarType: AppBarType.basic,
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       skyType: SkyType.black,
       pageTitle: widget.firstTimer == true
           ? Wordz.createBzAccount(context)

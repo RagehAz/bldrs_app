@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/y_views/d_zoning/d_3_select_district_screen_view.d
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/d_zoning_controller.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -143,7 +142,7 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
       onSearchChanged: _onSearchDistrict,
 
       pageTitle: 'Select a District',
-      pyramids: Iconz.dvBlankSVG,
+      pyramidsAreOn: true,
 
       onBack: _onBack,
       appBarRowWidgets: <Widget>[

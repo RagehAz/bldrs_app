@@ -418,7 +418,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return MainLayout(
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       skyType: SkyType.black,
       // appBarBackButton: true,
       loading: _loading,
