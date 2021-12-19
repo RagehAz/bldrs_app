@@ -176,8 +176,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
     return MainLayout(
       skyType: SkyType.black,
-      pyramids: Iconz.dvBlankSVG,
-      // tappingRageh: getUserLocation,
       layoutWidget: Stack(
         alignment: Alignment.center,
         children: <Widget>[

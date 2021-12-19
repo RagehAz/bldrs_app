@@ -330,7 +330,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       // appBarBackButton: true,
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       layoutWidget: MaxBounceNavigator(
         child: ListView(
           physics: const BouncingScrollPhysics(),

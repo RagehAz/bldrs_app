@@ -123,7 +123,7 @@ class _NotificationTemplatesScreenState
       loading: _loading,
       pageTitle: 'News & Notifications',
       skyType: SkyType.black,
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       layoutWidget: _notifications.isEmpty
           ? const Center(
               child: SuperVerse(

@@ -16,7 +16,6 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class FeedBack extends StatefulWidget {
@@ -93,7 +92,7 @@ class _FeedBackState extends State<FeedBack> {
   @override
   Widget build(BuildContext context) {
     return MainLayout(
-      pyramids: Iconz.pyramidsYellow,
+      pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       // appBarBackButton: true,
       pageTitle: 'About Bldrs.net',

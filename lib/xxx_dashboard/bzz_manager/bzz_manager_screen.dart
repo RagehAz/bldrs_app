@@ -20,7 +20,6 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -172,86 +171,92 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
     final List<BzModel> _bzz = _searchedBzz.isEmpty ? _bzzModels : _searchedBzz;
 
-    return _bzzModels == null
-        ? const LoadingFullScreenLayer()
-        : MainLayout(
-            pyramids: Iconz.pyramidsYellow,
-            appBarType: AppBarType.search,
-            pageTitle: '${_bzzModels.length} Bzz Manager',
-            // appBarBackButton: true,
-            loading: _loading,
-            sectionButtonIsOn: false,
-            skyType: SkyType.black,
-            searchController: _searchController,
-            onSearchSubmit: (String val) => _onSearchChanged(val),
-            historyButtonIsOn: false,
-            onSearchChanged: (String val) => _onSearchChanged(val),
-            layoutWidget: Container(
-              width: _screenWidth,
-              height: _screenHeight,
-              color: Colorz.blue80,
-              alignment: Alignment.topCenter,
-              child: MaxBounceNavigator(
-                child: ListView.builder(
-                  controller: ScrollController(),
-                  physics: const BouncingScrollPhysics(),
-                  itemExtent: _bzButtonHeight + _bzButtonMargin,
-                  itemCount: _bzz.length,
-                  padding: const EdgeInsets.only(
-                      bottom: Ratioz.stratosphere,
-                      top: Stratosphere.bigAppBarStratosphere
-                  ),
-                  itemBuilder: (BuildContext ctx, int index) {
-                    final BzModel _bz = _bzz[index];
-                    final String _bzName =
-                        _bz.name == null || _bz.name == '' ? '.....' : _bz.name;
+    return _bzzModels == null ?
+    const LoadingFullScreenLayer()
+        :
+    MainLayout(
+      pyramidsAreOn: true,
+      appBarType: AppBarType.search,
+      pageTitle: '${_bzzModels.length} Bzz Manager',
+      // appBarBackButton: true,
+      loading: _loading,
+      sectionButtonIsOn: false,
+      skyType: SkyType.black,
+      searchController: _searchController,
+      onSearchSubmit: (String val) => _onSearchChanged(val),
+      historyButtonIsOn: false,
+      onSearchChanged: (String val) => _onSearchChanged(val),
+      layoutWidget: Container(
+        width: _screenWidth,
+        height: _screenHeight, color: Colorz.blue80,
+        alignment: Alignment.topCenter,
+        child: MaxBounceNavigator(
+          child: ListView.builder(
+            controller: ScrollController(),
+            physics: const BouncingScrollPhysics(),
+            itemExtent: _bzButtonHeight + _bzButtonMargin,
+            itemCount: _bzz.length,
+            padding: const EdgeInsets.only(
+                bottom: Ratioz.stratosphere,
+                top: Stratosphere.bigAppBarStratosphere
+            ),
+            itemBuilder: (BuildContext ctx, int index) {
 
-                    return DreamBox(
-                      height: _bzButtonHeight,
-                      width: _screenWidth - Ratioz.appBarMargin * 2,
-                      color: Colorz.white20,
-                      verse: _bzName,
-                      icon: _bz.logo,
-                      margins: const EdgeInsets.only(top: _bzButtonMargin),
-                      verseScaleFactor: 0.7,
-                      verseCentered: false,
-                      secondLine: _bz.id,
-                      onTap: () async {
-                        final double _dialogHeight = _screenHeight * 0.8;
+              final BzModel _bz = _bzz[index];
+              final String _bzName =
+              _bz.name == null || _bz.name == '' ? '.....' : _bz.name;
 
-                        final CountryModel _bzCountry =
-                            await _zoneProvider.fetchCountryByID(
-                                context: context,
-                                countryID: _bz.zone.countryID);
-                        final CityModel _bzCity =
-                            await _zoneProvider.fetchCityByID(
-                                context: context, cityID: _bz.zone.cityID);
+              return DreamBox(
+                height: _bzButtonHeight,
+                width: _screenWidth - Ratioz.appBarMargin * 2,
+                color: Colorz.white20,
+                verse: _bzName,
+                icon: _bz.logo,
+                margins: const EdgeInsets.only(top: _bzButtonMargin),
+                verseScaleFactor: 0.7,
+                verseCentered: false,
+                secondLine: _bz.id,
+                onTap: () async {
 
-                        await BottomDialog.showBottomDialog(
-                          context: context,
-                          title: _bzName,
+                  final double _dialogHeight = _screenHeight * 0.8;
+                  final CountryModel _bzCountry =
+
+                  await _zoneProvider.fetchCountryByID(
+                      context: context,
+                      countryID: _bz.zone.countryID
+                  );
+
+                  final CityModel _bzCity =
+                  await _zoneProvider.fetchCityByID(
+                      context: context, cityID: _bz.zone.cityID
+                  );
+
+                  await BottomDialog.showBottomDialog(
+                    context: context,
+                    title: _bzName,
+                    draggable: true,
+                    height: _dialogHeight,
+                    child: SizedBox(
+                      width: _clearDialogWidth,
+                      height: BottomDialog.dialogClearHeight(
                           draggable: true,
-                          height: _dialogHeight,
-                          child: SizedBox(
-                            width: _clearDialogWidth,
-                            height: BottomDialog.dialogClearHeight(
-                                draggable: true,
-                                titleIsOn: true,
-                                context: context,
-                                overridingDialogHeight: _dialogHeight),
-                            // color: Colorz.BloodTest,
-                            child: MaxBounceNavigator(
-                              child: ListView(
-                                physics: const BouncingScrollPhysics(),
+                          titleIsOn: true,
+                          context: context,
+                          overridingDialogHeight: _dialogHeight),
+                      // color: Colorz.BloodTest,
+                      child: MaxBounceNavigator(
+                        child: ListView(
+                          physics: const BouncingScrollPhysics(),
+                          children: <Widget>[
+
+                            SizedBox(
+                              width: _clearDialogWidth,
+                              height: FlyerBox.headerStripHeight(
+                                  bzPageIsOn: false,
+                                  flyerBoxWidth: _clearDialogWidth),
+                              child: Column(
                                 children: <Widget>[
-                                  SizedBox(
-                                    width: _clearDialogWidth,
-                                    height: FlyerBox.headerStripHeight(
-                                        bzPageIsOn: false,
-                                        flyerBoxWidth: _clearDialogWidth),
-                                    child: Column(
-                                      children: <Widget>[
-                                        MiniHeaderStrip(
+                                  MiniHeaderStrip(
                                           superFlyer: SuperFlyer
                                               .getSuperFlyerFromBzModelOnly(
                                             onHeaderTap: () {},
@@ -265,133 +270,132 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                                     ),
                                   ),
 
-                                  DataStrip(
-                                    dataKey: 'bzName',
-                                    dataValue: _bz.name,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzLogo',
-                                    dataValue: _bz.logo,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzID',
-                                    dataValue: _bz.id,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzType',
-                                    dataValue: _bz.bzType,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzForm',
-                                    dataValue: _bz.bzForm,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'createdAt',
-                                    dataValue: _bz.createdAt,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'accountType',
-                                    dataValue: _bz.accountType,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzScope',
-                                    dataValue: _bz.scope,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzZone',
-                                    dataValue: _bz.zone,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzAbout',
-                                    dataValue: _bz.about,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzPosition',
-                                    dataValue: _bz.position,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzContacts',
-                                    dataValue: _bz.contacts,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzAuthors',
-                                    dataValue: _bz.authors,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzShowsTeam',
-                                    dataValue: _bz.showsTeam,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzIsVerified',
-                                    dataValue: _bz.isVerified,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzState',
-                                    dataValue: _bz.bzState,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzTotalFollowers',
-                                    dataValue: _bz.totalFollowers,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzTotalSaves',
-                                    dataValue: _bz.totalSaves,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzTotalShares',
-                                    dataValue: _bz.totalShares,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzTotalSlides',
-                                    dataValue: _bz.totalSlides,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzTotalViews',
-                                    dataValue: _bz.totalViews,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzTotalCalls',
-                                    dataValue: _bz.totalCalls,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'flyersIDs,',
-                                    dataValue: _bz.flyersIDs,
-                                  ),
-                                  DataStrip(
-                                    dataKey: 'bzTotalFlyers',
-                                    dataValue: _bz.totalFlyers,
-                                  ),
-
-                                  // Container(
-                                  //     width: _clearDialogWidth,
-                                  //     height: 100,
-                                  //     child: Row(
-                                  //       mainAxisAlignment: MainAxisAlignment.center,
-                                  //       crossAxisAlignment: CrossAxisAlignment.center,
-                                  //       children: <Widget>[
-                                  //
-                                  //         DreamBox(
-                                  //           height: 80,
-                                  //           width: 80,
-                                  //           verse: 'Delete User',
-                                  //           verseMaxLines: 2,
-                                  //           onTap: () => _deleteUser(_userModel),
-                                  //         ),
-                                  //
-                                  //       ],
-                                  //     )
-                                  // )
-                                ],
-                              ),
+                            DataStrip(
+                              dataKey: 'bzName',
+                              dataValue: _bz.name,
                             ),
-                          ),
-                        );
-                      },
-                    );
+                            DataStrip(
+                              dataKey: 'bzLogo',
+                              dataValue: _bz.logo,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzID',
+                              dataValue: _bz.id,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzType',
+                              dataValue: _bz.bzType,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzForm',
+                              dataValue: _bz.bzForm,
+                            ),
+                            DataStrip(
+                              dataKey: 'createdAt',
+                              dataValue: _bz.createdAt,
+                            ),
+                            DataStrip(
+                              dataKey: 'accountType',
+                              dataValue: _bz.accountType,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzScope',
+                              dataValue: _bz.scope,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzZone',
+                              dataValue: _bz.zone,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzAbout',
+                              dataValue: _bz.about,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzPosition',
+                              dataValue: _bz.position,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzContacts',
+                              dataValue: _bz.contacts,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzAuthors',
+                              dataValue: _bz.authors,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzShowsTeam',
+                              dataValue: _bz.showsTeam,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzIsVerified',
+                              dataValue: _bz.isVerified,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzState',
+                              dataValue: _bz.bzState,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzTotalFollowers',
+                              dataValue: _bz.totalFollowers,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzTotalSaves',
+                              dataValue: _bz.totalSaves,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzTotalShares',
+                              dataValue: _bz.totalShares,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzTotalSlides',
+                              dataValue: _bz.totalSlides,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzTotalViews',
+                              dataValue: _bz.totalViews,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzTotalCalls',
+                              dataValue: _bz.totalCalls,
+                            ),
+                            DataStrip(
+                              dataKey: 'flyersIDs,',
+                              dataValue: _bz.flyersIDs,
+                            ),
+                            DataStrip(
+                              dataKey: 'bzTotalFlyers',
+                              dataValue: _bz.totalFlyers,
+                            ),
+                            // Container(
+                            //     width: _clearDialogWidth,
+                            //     height: 100,
+                            //     child: Row(
+                            //       mainAxisAlignment: MainAxisAlignment.center,
+                            //       crossAxisAlignment: CrossAxisAlignment.center,
+                            //       children: <Widget>[
+                            //
+                            //         DreamBox(
+                            //           height: 80,
+                            //           width: 80,
+                            //           verse: 'Delete User',
+                            //           verseMaxLines: 2,
+                            //           onTap: () => _deleteUser(_userModel),
+                            //         ),
+                            //
+                            //       ],
+                            //     )
+                            // )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
                   },
-                ),
-              ),
-            ),
-          );
+              );
+              },
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -19,7 +19,6 @@ import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerOps;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -122,7 +121,6 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
     return MainLayout(
       pageTitle: 'Flyer promotion',
       appBarType: AppBarType.basic,
-      pyramids: Iconz.dvBlankPNG,
       layoutWidget: Column(
         children: <Widget>[
 

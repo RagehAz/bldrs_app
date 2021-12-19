@@ -2,7 +2,6 @@ import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.da
 import 'package:bldrs/b_views/y_views/a_starters/a_0_logo_screen_view.dart';
 import 'package:bldrs/c_controllers/a_0_logo_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class LogoScreen extends StatefulWidget {
@@ -73,7 +72,7 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
 
     traceWidgetBuild(widgetName: 'Logo screen', varName: '_isInit', varValue: _isInit);
     return MainLayout(
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       appBarType: AppBarType.non,
       loading: true,
       layoutWidget: LogoScreenView(

@@ -2,10 +2,10 @@ import 'package:bldrs/b_views/widgets/general/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +39,8 @@ class DashBoardLayout extends StatelessWidget {
 
     return MainLayout(
       // scaffoldKey: _globalKey,
-      pyramids: Iconz.dvBlankSVG,
+      pyramidsAreOn: true,
+      skyType: SkyType.black,
       appBarType: AppBarType.basic,
       pageTitle: pageTitle,
       loading: loading,

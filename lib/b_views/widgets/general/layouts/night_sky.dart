@@ -158,11 +158,15 @@ import 'package:flutter/material.dart';
 
 class Sky extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const Sky({this.skyType = SkyType.night, Key key}) : super(key: key);
+  const Sky({
+    this.skyType = SkyType.night,
+    this.gradientIsOn = false,
+    Key key,
+  }) : super(key: key);
 
   /// --------------------------------------------------------------------------
   final SkyType skyType;
-
+  final bool gradientIsOn;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -176,14 +180,15 @@ class Sky extends StatelessWidget {
             ? <Color>[Colorz.blackSemi230, Colorz.blackSemi230]
             : <Color>[Colorz.skyDarkBlue, Colorz.skyDarkBlue];
 // -----------------------------------------------------------------------------
-    final Gradient _skyGradient =
-        skyType == SkyType.night || skyType == SkyType.black
-            ? RadialGradient(
-                center: const Alignment(0.75, 1.25),
-                radius: 1,
-                colors: _skyColors,
-                stops: const <double>[0, 0.65])
-            : null;
+    final Gradient _skyGradient = gradientIsOn ?
+    RadialGradient(
+        center: const Alignment(0.75, 1.25),
+        radius: 1,
+        colors: _skyColors,
+        stops: const <double>[0, 0.65]
+    )
+        :
+    null;
 // -----------------------------------------------------------------------------
     final Color _plainColor =
         skyType == SkyType.night || skyType == SkyType.black
@@ -194,7 +199,10 @@ class Sky extends StatelessWidget {
       key: key,
       width: _screenWidth,
       height: _screenHeight,
-      decoration: BoxDecoration(color: _plainColor, gradient: _skyGradient),
+      decoration: BoxDecoration(
+          color: _plainColor,
+          gradient: _skyGradient
+      ),
     );
   }
 }

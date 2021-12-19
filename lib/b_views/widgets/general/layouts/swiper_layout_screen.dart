@@ -8,7 +8,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -124,7 +123,6 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
       skyType: widget.sky,
       appBarType: AppBarType.basic,
       pageTitle: _title,
-      pyramids: Iconz.dvBlankSVG,
       // appBarBackButton: true,
       // layoutWidget: Swiper(
       //   physics: const BouncingScrollPhysics(),

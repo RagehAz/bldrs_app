@@ -198,7 +198,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
 
     return MainLayout(
       skyType: SkyType.black,
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       // appBarBackButton: true,
       pageTitle: 'Old Flyers',

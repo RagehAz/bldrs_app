@@ -78,6 +78,7 @@ class FinalFlyer extends StatefulWidget {
     this.bzModel,
     this.flyerID,
     this.flyerKey,
+    this.isSponsored = false,
     Key key,
   }) : super(key: key);
   // :
@@ -94,7 +95,7 @@ class FinalFlyer extends StatefulWidget {
   final BzModel bzModel;
   final String flyerID;
   final Key flyerKey;
-
+  final bool isSponsored;
   /// --------------------------------------------------------------------------
   @override
   _FinalFlyerState createState() => _FinalFlyerState();
@@ -3016,6 +3017,25 @@ class _FinalFlyerState extends State<FinalFlyer>
             superFlyer: _superFlyer,
             flyerBoxWidth: widget.flyerBoxWidth,
           ),
+
+        if (widget.isSponsored == true)
+          Container(
+            width: widget.flyerBoxWidth,
+            height: FlyerBox.headerBoxHeight(bzPageIsOn: false, flyerBoxWidth: widget.flyerBoxWidth) * 1.25,
+            alignment: Aligners.superBottomAlignment(context),
+            padding: EdgeInsets.symmetric(horizontal: widget.flyerBoxWidth * 0.02),
+            child: SuperVerse(
+              verse: 'Sponsored Flyer',
+              weight: VerseWeight.thin,
+              italic: true,
+              centered: false,
+              color: Colorz.white200,
+              shadow: true,
+              scaleFactor: widget.flyerBoxWidth * 0.0022,
+              leadingDot: true,
+            ),
+          ),
+
         if (_superFlyerHasID == true)
           NewHeader(
             superFlyer: _superFlyer,

@@ -33,7 +33,7 @@ class AddAuthorScreen extends StatelessWidget {
     return MainLayout(
       skyType: SkyType.black,
       pageTitle: 'Add new Author',
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       // appBarBackButton: true,
       appBarType: AppBarType.basic,
       layoutWidget: ListView(

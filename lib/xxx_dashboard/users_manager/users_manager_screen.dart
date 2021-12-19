@@ -8,7 +8,6 @@ import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/xxx_dashboard/widgets/user_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -117,7 +116,6 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
       loading: _loading,
       pageTitle: 'Users Manager',
       appBarType: AppBarType.basic,
-      pyramids: Iconz.dvBlankSVG,
       skyType: SkyType.black,
       appBarRowWidgets: <Widget>[
         const Expander(),

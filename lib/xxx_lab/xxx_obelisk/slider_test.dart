@@ -62,7 +62,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
     return MainLayout(
       // appBarBackButton: true,
       appBarType: AppBarType.basic,
-      pyramids: Iconz.pyramidsGlass,
+      pyramidsAreOn: true,
       pageTitle: 'Slider test',
       layoutWidget: Center(
         child: ListView(

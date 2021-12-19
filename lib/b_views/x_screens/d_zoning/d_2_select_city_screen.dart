@@ -11,7 +11,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/d_zoning_controller.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -99,37 +98,35 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
       countryID: widget.country.id,
     );
 
-      return MainLayout(
-          skyType: SkyType.black,
-          appBarType: AppBarType.search,
-          historyButtonIsOn: false,
-          sectionButtonIsOn: false,
-          zoneButtonIsOn: false,
+    return MainLayout(
+      skyType: SkyType.black,
+      appBarType: AppBarType.search,
+      historyButtonIsOn: false,
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
+      onSearchSubmit: _onSearchCity,
+      onSearchChanged: _onSearchCity,
+      pageTitle: 'Select a City',
+      pyramidsAreOn: true,
+      onBack: _onBack,
+      appBarRowWidgets: <Widget>[
 
-          onSearchSubmit: _onSearchCity,
-          onSearchChanged: _onSearchCity,
+        const Expander(),
 
-          pageTitle: 'Select a City',
-          pyramids: Iconz.dvBlankSVG,
+        ZoneButton(
+          zoneOverride: _appBarZone,
+          countryOverride: widget.country,
 
-          onBack: _onBack,
-          appBarRowWidgets: [
+        ),
 
-            const Expander(),
+      ],
 
-            ZoneButton(
-              zoneOverride: _appBarZone,
-              countryOverride: widget.country,
+      layoutWidget: SelectCityScreenView(
+        cities: _selectedCountryCities,
+        onCityTap: _onCityTap,
+      ),
 
-            ),
-
-          ],
-
-          layoutWidget: SelectCityScreenView(
-            cities: _selectedCountryCities,
-            onCityTap: _onCityTap,
-          ),
-      );
+    );
 
   }
 }

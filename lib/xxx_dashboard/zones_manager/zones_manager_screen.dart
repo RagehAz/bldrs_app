@@ -13,7 +13,6 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/xxx_dashboard/zones_manager/country_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -114,7 +113,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
     final double _screenWidth = Scale.superScreenWidth(context);
 
     return MainLayout(
-        pyramids: Iconz.pyramidzYellow,
+        pyramidsAreOn: true,
         appBarType: AppBarType.basic,
         pageTitle: 'Zones Manager',
         // appBarBackButton: true,

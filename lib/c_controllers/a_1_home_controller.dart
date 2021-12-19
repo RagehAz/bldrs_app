@@ -103,6 +103,7 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
       unawaited(Nav.openFlyer(
         context: context,
         flyer: _flyersProvider.promotedFlyers[0],
+        isSponsored: true,
       ));
 
     });

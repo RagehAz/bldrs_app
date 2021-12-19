@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/y_views/b_auth/b_1_email_auth_screen_view.dart';
 import 'package:bldrs/c_controllers/b_0_auth_controller.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -101,7 +100,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       skyType: SkyType.black,
       appBarType: AppBarType.non,
       layoutWidget: EmailAuthScreenView(

@@ -156,7 +156,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       pageTitle: 'Select on Map',
       appBarType: AppBarType.basic,
       loading: _loading,
-      pyramids: Iconz.dvBlankSVG,
       appBarRowWidgets: const <Widget>[],
       onBack: () {
         Nav.goBack(context, argument: _geoPoint);

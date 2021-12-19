@@ -1,7 +1,6 @@
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class SecondNotiTestScreen extends StatelessWidget {
@@ -18,7 +17,7 @@ class SecondNotiTestScreen extends StatelessWidget {
     // log(thing);
 
     return MainLayout(
-      pyramids: Iconz.pyramidsWhite,
+      pyramidsAreOn: true,
       layoutWidget: Column(
         children: <Widget>[
 
