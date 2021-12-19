@@ -17,7 +17,7 @@ class AboutBldrsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainLayout(
-      pyramids: Iconz.pyramidsYellow,
+      pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       // appBarBackButton: true,
       pageTitle: 'About Bldrs.net',

@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +39,6 @@ class FlyerMakerScreen extends StatelessWidget {
     // BoxFit _currentPicFit = _superFlyer?.boxesFits?.length == 0 ? null : _superFlyer?.boxesFits[_superFlyer?.currentSlideIndex];
 
     return MainLayout(
-      pyramids: Iconz.dvBlankSVG,
       appBarType: AppBarType.basic,
       appBarRowWidgets: const <Widget>[
         SlidesCounter(),

@@ -87,7 +87,7 @@ class _AnimationsScreenState extends State<AnimationsScreen>
 
     return MainLayout(
       appBarType: AppBarType.basic,
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       appBarRowWidgets: <Widget>[
         DreamBox(
           height: 40,
@@ -399,7 +399,7 @@ class HeroMax extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainLayout(
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       layoutWidget: Center(
         child: SizedBox(
           width: 400,

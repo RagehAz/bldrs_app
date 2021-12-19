@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -77,7 +76,6 @@ class TabLayout extends StatelessWidget {
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       pageTitle: pageTitle,
-      pyramids: Iconz.dvBlankSVG,
       onBack: selectionMode == false
           ? null
           : () {

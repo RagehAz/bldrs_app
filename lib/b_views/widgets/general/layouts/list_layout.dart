@@ -50,7 +50,6 @@ class ListLayout extends StatelessWidget {
       skyType: sky,
       appBarType: AppBarType.basic,
       pageTitle: pageTitle,
-      pyramids: pyramids,
       // appBarBackButton: true,
       layoutWidget: Column(
         children: <Widget>[

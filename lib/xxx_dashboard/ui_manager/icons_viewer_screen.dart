@@ -35,7 +35,6 @@ class IconsViewerScreen extends StatelessWidget {
     return MainLayout(
       skyType: SkyType.black,
       pageTitle: 'UI Manager',
-      pyramids: Iconz.dvBlankSVG,
       appBarType: AppBarType.basic,
       layoutWidget: GridView.builder(
           physics: const BouncingScrollPhysics(),

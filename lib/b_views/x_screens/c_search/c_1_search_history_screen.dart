@@ -23,7 +23,7 @@ class SearchHistoryScreen extends StatelessWidget {
       appBarType: AppBarType.basic,
       pageTitle: 'Search History',
       // appBarBackButton: true,
-      pyramids: Iconz.dvBlankSVG,
+      pyramidsAreOn: true,
       layoutWidget: ListView.builder(
           itemCount: _searchList.length,
           padding: const EdgeInsets.only(top: Ratioz.stratosphere),

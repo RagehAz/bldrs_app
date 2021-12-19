@@ -92,7 +92,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 
 // ---------------------------------------------------------------------------
     return MainLayout(
-      pyramids: Iconz.pyramidsCrystal,
+      pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       appBarRowWidgets: <Widget>[
         /// IS SIGNED IN ?

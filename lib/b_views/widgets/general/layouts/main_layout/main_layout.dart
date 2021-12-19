@@ -32,7 +32,7 @@ class MainLayout extends StatelessWidget {
   const MainLayout({
     this.appBarRowWidgets,
     this.layoutWidget,
-    this.pyramids,
+    this.pyramidsAreOn,
     this.appBarType,
     this.pageTitle,
     this.skyType = SkyType.night,
@@ -53,7 +53,7 @@ class MainLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final List<Widget> appBarRowWidgets;
   final Widget layoutWidget;
-  final String pyramids;
+  final bool pyramidsAreOn;
   final AppBarType appBarType;
   final String pageTitle;
   final SkyType skyType;
@@ -122,7 +122,7 @@ class MainLayout extends StatelessWidget {
       onSearchSubmit: onSearchSubmit,
       historyButtonIsOn: historyButtonIsOn,
       onSearchChanged: onSearchChanged,
-      pyramids: pyramids,
+      pyramidsAreOn: pyramidsAreOn,
       layoutWidget: layoutWidget,
     );
 

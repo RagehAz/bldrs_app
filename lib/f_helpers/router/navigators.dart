@@ -80,6 +80,7 @@ Future<void> openFlyer({
   @required BuildContext context,
   String flyerID,
   FlyerModel flyer,
+  bool isSponsored = false,
 }) async {
 
   /// A - by  flyer
@@ -90,6 +91,7 @@ Future<void> openFlyer({
         FlyerScreen(
           flyerModel: flyer,
           flyerID: flyerID,
+          isSponsored: isSponsored,
         ));
 
   }

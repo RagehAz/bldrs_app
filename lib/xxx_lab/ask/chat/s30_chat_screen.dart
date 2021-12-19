@@ -9,7 +9,6 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_lab/ask/chat/chat_model.dart';
 import 'package:bldrs/xxx_lab/ask/chat/chat_ops.dart' as ChatOps;
 import 'package:bldrs/xxx_lab/ask/chat/message_model.dart';
@@ -101,7 +100,6 @@ class _ChatScreenState extends State<ChatScreen> {
     return MainLayout(
       appBarType: AppBarType.basic,
       pageTitle: 'Chat Screen',
-      pyramids: Iconz.dvBlankSVG,
       appBarRowWidgets: const <Widget>[
         BackButton(),
       ],

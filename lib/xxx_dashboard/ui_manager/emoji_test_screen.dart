@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialo
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +40,7 @@ class EmojiTestScreen extends StatelessWidget {
 
     return MainLayout(
       pageTitle: 'Emojis',
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       layoutWidget: GridView.builder(
           itemCount: _emojis.length,

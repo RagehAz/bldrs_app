@@ -23,7 +23,7 @@ class GeneralStatistics extends StatelessWidget {
     final double _screenWidth = MediaQuery.of(context).size.width;
 
     return MainLayout(
-      pyramids: Iconz.pyramidsYellow,
+      pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       pageTitle: Wordz.allahoAkbar(context),

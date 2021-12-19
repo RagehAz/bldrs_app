@@ -67,7 +67,7 @@ class _BlackHoleScreenState extends State<BlackHoleScreen>
   Widget build(BuildContext context) {
     return MainLayout(
       pageTitle: 'Enter The Black-Hole',
-      pyramids: Iconz.pyramidzYellow,
+      pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(
