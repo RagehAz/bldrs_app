@@ -1,6 +1,14 @@
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
+enum SearchingModel{
+  country,
+  city,
+  district,
+  flyersAndBzz
+  // users,
+}
+
 // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 class UiProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
@@ -10,7 +18,7 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   bool _loading = false;
 // -------------------------------------
-  bool get loading => _loading;
+  bool get isLoading => _loading;
 // -------------------------------------
   void triggerLoading({bool setLoadingTo}) {
     /// trigger loading method should remain Future as it starts controllers of
@@ -98,12 +106,17 @@ class UiProvider extends ChangeNotifier {
   bool _isSearchingCountry = false;
   bool _isSearchingCity = false;
   bool _isSearchingDistrict = false;
+  bool _isSearchingFlyersAndBzz = false;
 // -------------------------------------
   bool get isSearchingCountry => _isSearchingCountry;
   bool get isSearchingCity => _isSearchingCity;
   bool get isSearchingDistrict => _isSearchingDistrict;
+  bool get isSearchingFlyersAndBzz => _isSearchingFlyersAndBzz;
 // -------------------------------------
-  void triggerIsSearching({@required SearchingModel searchingModel, @required bool setIsSearchingTo}){
+  void triggerIsSearching({
+    @required SearchingModel searchingModel,
+    @required bool setIsSearchingTo,
+  }){
 
     if (searchingModel == SearchingModel.country){
       _isSearchingCountry = setIsSearchingTo;
@@ -115,6 +128,10 @@ class UiProvider extends ChangeNotifier {
 
     else if (searchingModel == SearchingModel.district){
       _isSearchingDistrict = setIsSearchingTo;
+    }
+
+    else if (searchingModel == SearchingModel.flyersAndBzz){
+      _isSearchingFlyersAndBzz = setIsSearchingTo;
     }
 
     notifyListeners();
@@ -166,13 +183,4 @@ class UiProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
-}
-
-enum SearchingModel{
-  country,
-  city,
-  district,
-  // bz,
-  // flyers,
-  // users,
 }

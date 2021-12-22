@@ -135,8 +135,7 @@ Future<ZoneModel> _getZoneByIP_ipApi({@required BuildContext context}) async {
             final String _cityName = _countryData['city'];
 
             if (_countryISO != null && _countryISO != '') {
-              final ZoneProvider _zoneProvider =
-                  Provider.of<ZoneProvider>(context, listen: false);
+              final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
               _countryID = CountryIso.getCountryIDByIso(_countryISO);
 
@@ -170,8 +169,7 @@ Future<ZoneModel> _getZoneByIP_ipApi({@required BuildContext context}) async {
 
 // ---------------------------------------------------
 /// this needs subscription after first 100'000 requests
-Future<ZoneModel> _getZoneByIP_ipRegistry(
-    {@required BuildContext context}) async {
+Future<ZoneModel> _getZoneByIP_ipRegistry({@required BuildContext context}) async {
   /// Note that on Android it requires the android.permission.INTERNET permission.
   String _countryID;
   String _cityID;

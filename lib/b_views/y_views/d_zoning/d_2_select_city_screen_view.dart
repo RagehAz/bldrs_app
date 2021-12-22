@@ -25,7 +25,7 @@ class SelectCityScreenView extends StatelessWidget {
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
 
     /// WHEN LOADING
-    if (_uiProvider.loading){
+    if (_uiProvider.isLoading){
 
       return const LoadingFullScreenLayer();
 
