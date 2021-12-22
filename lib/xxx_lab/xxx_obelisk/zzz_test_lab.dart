@@ -148,7 +148,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
               Consumer<UiProvider>(
                 builder:
                     (BuildContext ctx, UiProvider uiProvider, Widget child) {
-                  final bool _loading = uiProvider.loading;
+                  final bool _loading = uiProvider.isLoading;
                   return DreamBox(
                     height: 50,
                     width: 300,

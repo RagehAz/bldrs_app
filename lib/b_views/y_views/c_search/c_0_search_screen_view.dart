@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/secondary_models/search_result.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/stacks/flyers_shelf.dart';
+import 'package:bldrs/b_views/y_views/c_search/c_2_search_records_view.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -18,12 +19,10 @@ class SearchScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-
     return Stack(
       children: <Widget>[
 
@@ -34,59 +33,28 @@ class SearchScreenView extends StatelessWidget {
             width: _screenWidth,
             height: _screenHeight,
             // color: Colorz.BlackPlastic,
-            child: Selector<UiProvider, bool>(
-              selector: (_, UiProvider uiProvider) => uiProvider.loading,
+            child: Consumer<UiProvider>(
               child: const Center(child: Loading(loading: true,),),
+              builder: (_, UiProvider uiProvider, Widget child) {
 
-              builder: (BuildContext context, bool loading, Widget child){
+                final bool _isLoading = uiProvider.isLoading;
+                final bool _isSearchingFlyersAndBzz = uiProvider.isSearchingFlyersAndBzz;
 
-                if (loading == true){
-
+                if (_isLoading == true){
                   return child;
+                }
 
+                else if (_isSearchingFlyersAndBzz == true){
+                  return Container();
                 }
 
                 else {
-
-                  return Selector<GeneralProvider, List<SearchResult>>(
-                    selector: (_, GeneralProvider generalProvider) => generalProvider.searchResult,
-                    // child: Container(),
-                    // shouldRebuild: ,
-                    builder: (BuildContext context, List<SearchResult> searchResult, Widget child){
-
-                      return ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: searchResult.length,
-                        padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2),
-                        itemBuilder: (BuildContext ctx, int index) {
-
-                          final SearchResult _result = searchResult[index];
-
-                          return FlyersShelf(
-                            title: _result.title,
-                            titleIcon: _result.icon,
-                            flyerOnTap: () {
-                              blog('flyer tapped');
-                            },
-                            onScrollEnd: () {
-                              blog('scroll ended');
-                            },
-                            flyers: _result.flyers,
-                          );
-
-                        },
-                      );
-
-                    }
-                    ,
-                  );
-
+                  return SearchRecordsView();
                 }
 
-              },
-        ),
-    ),
+                },
+            ),
+          ),
 
         ),
       ],

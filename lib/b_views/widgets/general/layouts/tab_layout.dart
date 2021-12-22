@@ -75,6 +75,7 @@ class TabLayout extends StatelessWidget {
     return MainLayout(
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
+      pyramidsAreOn: true,
       pageTitle: pageTitle,
       onBack: selectionMode == false
           ? null

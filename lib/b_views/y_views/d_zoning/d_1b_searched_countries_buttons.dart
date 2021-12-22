@@ -51,7 +51,7 @@ class SearchedCountriesButtons extends StatelessWidget {
 
     }
 
-    else if (_uiProvider.loading == true){
+    else if (_uiProvider.isLoading == true){
 
       return const LoadingFullScreenLayer();
 

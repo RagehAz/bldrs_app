@@ -180,7 +180,7 @@ class Sky extends StatelessWidget {
             ? <Color>[Colorz.blackSemi230, Colorz.blackSemi230]
             : <Color>[Colorz.skyDarkBlue, Colorz.skyDarkBlue];
 // -----------------------------------------------------------------------------
-    final Gradient _skyGradient = gradientIsOn ?
+    final Gradient _skyGradient = gradientIsOn == true ?
     RadialGradient(
         center: const Alignment(0.75, 1.25),
         radius: 1,

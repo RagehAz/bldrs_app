@@ -52,7 +52,7 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
         child: GestureDetector(
           onLongPress: () {Navigator.pushNamed(context, Routez.obelisk);}, /// TASK : REMOVE THIS ON RELEASE
           child: Selector<UiProvider, bool>(
-            selector: (_, UiProvider uiProvider) => uiProvider.loading,
+            selector: (_, UiProvider uiProvider) => uiProvider.isLoading,
             child: WebsafeSvg.asset(widget.pyramidsIcon),
             // shouldRebuild: ,
             builder: (BuildContext context, bool loading, Widget child){

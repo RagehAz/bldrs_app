@@ -152,8 +152,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>
   Widget build(BuildContext context) {
     return TabLayout(
       tabModels: _tabModels,
-      pageTitle:
-          'Saved flyers ', //${TextGenerator.sectionStringer(context, _sectionsList[_currentIndex])}',
+      pageTitle: 'Saved flyers ', //${TextGenerator.sectionStringer(context, _sectionsList[_currentIndex])}',
       tabController: _tabController,
       currentIndex: _currentTabIndex,
       selectionMode: widget.selectionMode,
