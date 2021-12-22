@@ -17,6 +17,7 @@ abstract class FireColl{
   static const String zones = 'zones';
 
   static const String keys = 'keys';
+  static const String records = 'records';
 
 }
 // -----------------------------------------------------------------------------

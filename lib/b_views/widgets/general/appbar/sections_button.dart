@@ -36,22 +36,20 @@ class SectionsButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final GeneralProvider _generalProvider =
-        Provider.of<GeneralProvider>(context, listen: true);
-    final SectionClass.Section _currentSection =
-        _generalProvider.currentSection;
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
+    final SectionClass.Section _currentSection = _generalProvider.currentSection;
     final KW _currentKeyword = _generalProvider.currentKeyword;
 
     const double _corners = Ratioz.boxCorner12;
 
-    final String _sectionName =
-        TextGen.sectionStringer(context, _currentSection);
-    final String _titleVerse =
-        _currentKeyword == null ? Wordz.section(context) : _sectionName;
+    final String _sectionName = TextGen.sectionStringer(context, _currentSection);
+    final String _titleVerse = _currentKeyword == null ? Wordz.section(context) : _sectionName;
 
-    final String _sectionVerse = _currentKeyword == null
-        ? TextGen.sectionStringer(context, _currentSection)
-        : Name.getNameByCurrentLingoFromNames(context: context, names: _currentKeyword.names);
+    final String _sectionVerse = _currentKeyword == null ?
+    TextGen.sectionStringer(context, _currentSection)
+        :
+    Name.getNameByCurrentLingoFromNames(context: context, names: _currentKeyword.names)?.value;
+
     // double _btThirdsOfScreenWidth = (_screenWidth - (6*_abPadding))/3;
 
     // double _buttonWidth = _sectionsAreExpanded == true ? _btThirdsOfScreenWidth : null;

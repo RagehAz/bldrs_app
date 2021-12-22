@@ -1,32 +1,62 @@
-import 'package:bldrs/a_models/flyer/records/customer_journey.dart';
+import 'package:bldrs/a_models/flyer/records/record_model.dart';
+import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/search/fire_search.dart' as FireSearch;
 import 'package:flutter/material.dart';
+// -----------------------------------------------------------------------------
+Future<void> createRecord({
+  @required BuildContext context,
+  @required RecordModel record,
+}) async {
 
-/// WHAT HAPPENS AROUND FOLLOW EVENT
-/// 1 - app starts
-///   x - follows are already saved in local db, if empty checks firebase and updates
-///   x- followedIDs are saved on firebase/users/userID/records/bzz
-///   x- followsIDs are saved locally in myFollowedBzz inside bzzModels
-/// 2- app reads local follows
-/// 3- on new follow event :-
-///   a - update bzID in local db
-///   b - update firebase with the new list
-///   c - insert record in firebase/records/activities/follows/{recordID}
-///   d - update provider with the new list
-///   e - notify listeners
+  // DocumentReference<Object> _docRef =
+  await Fire.createDoc(
+      context: context,
+      collName: FireColl.records,
+      input: record.toMap(toJSON: false,)
+  );
 
-Future<void> createRecord({BuildContext context, Record record}) async {}
+}
 
-  // static Future<List<String>> readUserFollows({BuildContext context, String userID, }) async {
-  //
-  //   Map<String, dynamic> _followsMap = await Fire.readSubDoc(
-  //     context: context,
-  //     collName: FireCollection.users,
-  //     docName: userID,
-  //     subCollName: FireCollection.users_user_records,
-  //     subDocName: FireCollection.users_user_records_bzz,
-  //   );
-  // }
+// -----------------------------------------------------------------------------
+Future<List<RecordModel>> readRecords({
+  @required BuildContext context,
+  @required String userID,
+  @required ModelType modelType,
+  @required int limit,
+  @required bool addDocSnapshotToEachMap,
+}) async {
 
-  // static Future<List<Record>> readBzFollowers({BuildContext context, String bzID}) async {
-  //
-  // }
+  final List<Map<String, dynamic>> _foundMaps = await FireSearch.mapsByTwoValuesEqualTo(
+    context: context,
+    collName: FireColl.records,
+    fieldA: 'userID',
+    valueA: userID,
+    fieldB: 'modelType',
+    valueB: RecordModel.cipherModelType(modelType),
+    addDocsIDs: true, /// super important
+    addDocSnapshotToEachMap: addDocSnapshotToEachMap,
+    limit: limit,
+  );
+
+  final List<RecordModel> _records = RecordModel.decipherRecords(
+    fromJSON: false,
+    maps: _foundMaps,
+  );
+
+  return _records;
+}
+// -----------------------------------------------------------------------------
+Future<void> deleteRecord({
+  @required BuildContext context,
+  @required String recordID,
+}) async {
+
+  await Fire.deleteDoc(
+      context: context,
+      collName: FireColl.records,
+      docName: recordID,
+  );
+
+}
+// -----------------------------------------------------------------------------
