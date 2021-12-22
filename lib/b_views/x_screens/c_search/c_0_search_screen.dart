@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_0_search_screen_view.dart';
+import 'package:bldrs/b_views/y_views/c_search/c_2_search_records_view.dart';
 import 'package:bldrs/c_controllers/c_0_search_controller.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key key}) : super(key: key);
@@ -17,6 +20,23 @@ class _SearchScreenState extends State<SearchScreen> {
 
   final TextEditingController _searchController = TextEditingController();
 
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit && mounted) {
+
+      final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+      _uiProvider.startController(()async{
+
+        await initializeSearchScreen(context);
+
+      });
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
@@ -53,7 +73,8 @@ class _SearchScreenState extends State<SearchScreen> {
       searchController: _searchController,
       onSearchSubmit: _onSearchSubmit,
       onSearchChanged: _onSearchClear,
-      layoutWidget: SearchScreenView(),
+      layoutWidget: const SearchScreenView(),
+
     );
   }
 }

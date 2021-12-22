@@ -25,10 +25,10 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.searchController,
     @required this.onSearchSubmit,
     @required this.onSearchChanged,
-    @required this.pyramidsAreOn,
     @required this.sectionButtonIsOn,
     @required this.historyButtonIsOn,
     @required this.zoneButtonIsOn,
+    this.pyramidsAreOn = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------

@@ -8,6 +8,7 @@
   const String reviews = 'myReviews';
   const String questions = 'myQuestions';
   const String answers = 'myAnswers';
+  const String searches = 'mySearches';
   const String flyers = 'sessionFlyers';
   const String bzz = 'sessionBzz';
   const String users = 'sessionUsers';
@@ -46,4 +47,5 @@
     cities,
     continents,
     currencies,
+    searches,
   ];

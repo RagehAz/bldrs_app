@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/records/record_model.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/secondary_models/search_result.dart';
@@ -13,6 +14,8 @@ import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/record_ops.dart' as RecordOps;
 import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzSearch;
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
 import 'package:bldrs/e_db/fire/search/user_search.dart' as UserSearchOps;
@@ -24,6 +27,17 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -------------------------------------------------------
+Future<void> initializeSearchScreen(BuildContext context) async {
+
+  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
+  _uiProvider.triggerLoading(setLoadingTo: true);
+  await _generalProvider.getSetSearchRecords(context);
+  _uiProvider.triggerLoading(setLoadingTo: false);
+
+}
+// -------------------------------------------------------
 Future<void> controlOnSearchSubmit({
   @required BuildContext context,
   @required String searchText,
@@ -32,6 +46,17 @@ Future<void> controlOnSearchSubmit({
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
   _uiProvider.triggerLoading(setLoadingTo: true);
+  _uiProvider.triggerIsSearchingAfterMaxTextLength(
+      text: searchText,
+      searchModel: SearchingModel.flyersAndBzz,
+      isSearching: _uiProvider.isSearchingFlyersAndBzz,
+      setIsSearchingTo: true,
+  );
+
+  await _createFireSearchRecord(
+    context: context,
+    searchText: searchText,
+  );
 
   final List<SearchResult> _keywordsResults = await _searchKeywords(
     context: context,
@@ -63,6 +88,11 @@ Future<void> controlOnSearchSubmit({
   );
 
   _uiProvider.triggerLoading(setLoadingTo: false);
+  _uiProvider.triggerIsSearching(
+      searchingModel: SearchingModel.flyersAndBzz,
+      setIsSearchingTo: false,
+  );
+
 }
 // -------------------------------------------------------
 void controlOnSearchClear({
@@ -131,7 +161,7 @@ Future<List<SearchResult>> _searchBzz({
 }) async {
   final List<SearchResult> _results = <SearchResult>[];
 
-  blog('_onSearchBzz : _searchController.text : ${searchText}');
+  blog('_onSearchBzz : _searchController.text : $searchText');
 
   final List<BzModel> _bzz = await BzSearch.bzzByBzName(
     context: context,
@@ -237,8 +267,8 @@ Future<List<SearchResult>> _searchFlyersByTitle({
 }
 // -------------------------------------------------------
 Future<void> _handleSearchResult({
-  @required List<SearchResult> allResults,
   @required BuildContext context,
+  @required List<SearchResult> allResults,
 }) async {
 
   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
@@ -260,6 +290,32 @@ Future<void> _handleSearchResult({
     );
 
   }
+
+}
+// -----------------------------------------------------------------------------
+Future<void> _createFireSearchRecord({
+  @required BuildContext context,
+  @required String searchText,
+}) async {
+
+  final RecordModel _record = RecordModel(
+    recordID: null, /// will be defined as docID and injected into retrieved map
+    userID: superUserID(),
+    timeStamp: DateTime.now(),
+    activityType: ActivityType.search,
+    modelType: null, /// only used to trace model id
+    modelID: null, /// like flyerID, bzID, questionID, answerID
+    recordDetailsType: RecordDetailsType.searchText,
+    recordDetails: searchText,
+  );
+
+  await RecordOps.createRecord(
+      context: context,
+      record: _record,
+  );
+
+  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+  _generalProvider.addToSearchRecords(_record);
 
 }
 // -----------------------------------------------------------------------------

@@ -242,7 +242,7 @@ class HomeScreenView extends StatelessWidget {
         :
     _getAnonymousUserHomeWallWidgets(context);
 
-    if (_uiProvider.loading == true){
+    if (_uiProvider.isLoading == true){
       return const LoadingFullScreenLayer();
     }
 

@@ -254,14 +254,16 @@ Future<dynamic> mapsByValueInArray({
 // -----------------------------------------------
 Future<dynamic> mapsByTwoValuesEqualTo({
   @required BuildContext context,
-  @required CollectionReference<Object> collRef,
+  @required String collName,
   @required String fieldA,
   @required dynamic valueA,
   @required String fieldB,
   @required dynamic valueB,
+  @required int limit,
   bool addDocsIDs = false,
   bool addDocSnapshotToEachMap = false,
 }) async {
+
   List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
   await tryAndCatch(
@@ -270,9 +272,12 @@ Future<dynamic> mapsByTwoValuesEqualTo({
       functions: () async {
         QuerySnapshot<Object> _collectionSnapshot;
 
-        _collectionSnapshot = await collRef
+        final CollectionReference<Object> _collRef = Fire.getCollectionRef(collName);
+
+        _collectionSnapshot = await _collRef
             .where(fieldA, isEqualTo: valueA)
             .where(fieldB, isEqualTo: valueB)
+            .limit(limit)
             .get();
 
         blog('is not equal to null aho');

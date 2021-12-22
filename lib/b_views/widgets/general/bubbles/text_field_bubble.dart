@@ -171,7 +171,7 @@ class TextFieldBubble extends StatelessWidget {
 
               /// LOADING INDICATOR
               Selector<UiProvider, bool>(
-                selector: (_, UiProvider uiProvider) => uiProvider.loading,
+                selector: (_, UiProvider uiProvider) => uiProvider.isLoading,
                 child: const Loading(
                   size: 35,
                   loading: true,

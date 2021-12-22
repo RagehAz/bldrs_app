@@ -32,7 +32,7 @@ class MainLayout extends StatelessWidget {
   const MainLayout({
     this.appBarRowWidgets,
     this.layoutWidget,
-    this.pyramidsAreOn,
+    this.pyramidsAreOn = false,
     this.appBarType,
     this.pageTitle,
     this.skyType = SkyType.night,
