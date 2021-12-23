@@ -119,7 +119,7 @@ class _NewLayoutState extends State<NewLayout>
 
     return MainLayout(
       appBarType: AppBarType.non,
-      loading: _loading,
+      // loading: _loading,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Container(
         width: _screenWidth,

@@ -120,7 +120,7 @@ class _NotificationTemplatesScreenState
           },
         ),
       ],
-      loading: _loading,
+      // loading: _loading,
       pageTitle: 'News & Notifications',
       skyType: SkyType.black,
       pyramidsAreOn: true,

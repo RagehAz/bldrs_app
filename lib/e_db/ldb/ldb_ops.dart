@@ -11,40 +11,23 @@ import 'package:flutter/foundation.dart';
 // ---------------------------------------------------
 String getPrimaryKey(String docName) {
   switch (docName) {
-    case LDBDoc.follows:
-      return 'followID';
-    case LDBDoc.calls:
-      return 'callID';
-    case LDBDoc.shares:
-      return 'shareID';
-    case LDBDoc.views:
-      return 'viewID';
-    case LDBDoc.saves:
-      return 'saveID';
-    case LDBDoc.reviews:
-      return 'reviewID';
-    case LDBDoc.questions:
-      return 'questionID';
-    case LDBDoc.answers:
-      return 'answerID';
-    case LDBDoc.flyers:
-      return 'id';
-    case LDBDoc.bzz:
-      return 'id';
-    case LDBDoc.users:
-      return 'id';
-    case LDBDoc.keywords:
-      return 'id';
-    case LDBDoc.countries:
-      return 'id';
-    case LDBDoc.cities:
-      return 'cityID';
-    case LDBDoc.continents:
-      return 'name';
-    case LDBDoc.currencies:
-      return 'currencies';
-    default:
-      return null;
+    case LDBDoc.follows: return 'followID';
+    case LDBDoc.calls: return 'callID';
+    case LDBDoc.shares: return 'shareID';
+    case LDBDoc.views: return 'viewID';
+    case LDBDoc.saves: return 'saveID';
+    case LDBDoc.reviews: return 'reviewID';
+    case LDBDoc.questions: return 'questionID';
+    case LDBDoc.answers: return 'answerID';
+    case LDBDoc.flyers: return 'id';
+    case LDBDoc.bzz: return 'id';
+    case LDBDoc.users: return 'id';
+    case LDBDoc.keywords: return 'id';
+    case LDBDoc.countries: return 'id';
+    case LDBDoc.cities: return 'cityID';
+    case LDBDoc.continents: return 'name';
+    case LDBDoc.currencies: return 'currencies';
+    default: return null;
   }
 }
 // -----------------------------------------------------------------------------
@@ -58,9 +41,7 @@ Future<void> insertMap({
   @required String docName,
 }) async {
   await Sembast.insertAll(
-    inputs: <Map<String, Object>>[
-      input
-    ], //_cipherFirebaseMapsToSembastMaps(<Map<String, Object>>[input]),
+    inputs: <Map<String, Object>>[input], //_cipherFirebaseMapsToSembastMaps(<Map<String, Object>>[input]),
     docName: docName,
     primaryKey: primaryKey,
   );
@@ -91,8 +72,7 @@ Future<List<Map<String, Object>>> readAllMaps(
     docName: docName,
   );
 
-  final List<Map<String, Object>> _fixedMaps =
-      _result; //_decipherSembastMapsToFirebaseMaps(_result);
+  final List<Map<String, Object>> _fixedMaps = _result; //_decipherSembastMapsToFirebaseMaps(_result);
 
   return _fixedMaps;
 }
@@ -113,8 +93,7 @@ Future<Map<String, Object>> searchFirstMap({
 
   // blog('LDBOps.searchMap in ${docName} : ${searchField} : ${searchValue} : _result has value ? : ${_result != null}');
 
-  final Map<String, Object> _fixedMap =
-      _result; //_decipherSembastMapToFirebaseMap(_result);
+  final Map<String, Object> _fixedMap = _result; //_decipherSembastMapToFirebaseMap(_result);
 
   return _fixedMap;
 }
@@ -126,6 +105,7 @@ Future<List<Map<String, Object>>> searchAllMaps({
   @required dynamic searchValue,
   @required String docName,
 }) async {
+
   final List<Map<String, Object>> _result = await Sembast.search(
     docName: docName,
     fieldToSortBy: fieldToSortBy,
@@ -135,8 +115,7 @@ Future<List<Map<String, Object>>> searchAllMaps({
 
   // blog('searchMaps : _result : $_result');
 
-  final List<Map<String, Object>> _fixedMaps =
-      _result; //_decipherSembastMapsToFirebaseMaps(_result);
+  final List<Map<String, Object>> _fixedMaps = _result; //_decipherSembastMapsToFirebaseMaps(_result);
 
   return _fixedMaps;
 }
@@ -191,6 +170,7 @@ Future<void> deleteMap({
     searchPrimaryKey: _primaryKey,
     searchPrimaryValue: objectID,
   );
+
 }
 
 // ---------------------------------------------------
