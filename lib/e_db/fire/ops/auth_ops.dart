@@ -24,6 +24,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 /// we should consider same scenario with other auth methods that have this conflict with existing signed up e-mail
 /// need to fix if user signed in with facebook previously,, use the existing profile and not overwrite the existing user profile data
 
+/// [firebase_auth/account-exists-with-different-credential] An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.
+
 // -----------------------------------------------------------------------------
 
 /// REFERENCES

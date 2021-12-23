@@ -179,7 +179,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
       appBarType: AppBarType.search,
       pageTitle: '${_bzzModels.length} Bzz Manager',
       // appBarBackButton: true,
-      loading: _loading,
+      // loading: _loading,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       searchController: _searchController,

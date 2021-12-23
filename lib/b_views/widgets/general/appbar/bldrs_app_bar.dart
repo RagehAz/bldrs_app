@@ -20,7 +20,7 @@ class BldrsAppBar extends StatelessWidget {
     this.onBack,
     this.pageTitle,
     this.appBarRowWidgets,
-    this.loading = false,
+    // this.loading = false,
     this.appBarScrollController,
     this.sectionButtonIsOn,
     this.searchController,
@@ -35,7 +35,7 @@ class BldrsAppBar extends StatelessWidget {
   final Function onBack;
   final String pageTitle;
   final List<Widget> appBarRowWidgets;
-  final bool loading;
+  // final bool loading;
   final ScrollController appBarScrollController;
   final bool sectionButtonIsOn;
   final TextEditingController searchController;

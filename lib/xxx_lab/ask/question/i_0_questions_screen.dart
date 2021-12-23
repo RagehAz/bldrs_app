@@ -46,7 +46,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   Widget build(BuildContext context) {
     return MainLayout(
       appBarRowWidgets: const <Widget>[],
-      loading: _loading,
+      // loading: _loading,
       pageTitle: 'Questions',
       appBarType: AppBarType.basic,
       layoutWidget: Column(

@@ -74,7 +74,7 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.non,
-      loading: true,
+      // loading: true,
       layoutWidget: LogoScreenView(
         scaleController: _scaleController,
       ),

@@ -20,7 +20,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.appBarRowWidgets,
     @required this.pageTitle,
     @required this.onBack,
-    @required this.loading,
+    // @required this.loading,
     @required this.appBarScrollController,
     @required this.searchController,
     @required this.onSearchSubmit,
@@ -39,7 +39,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final List<Widget> appBarRowWidgets;
   final String pageTitle;
   final Function onBack;
-  final bool loading;
+  // final bool loading;
   final ScrollController appBarScrollController;
   final TextEditingController searchController;
   final ValueChanged<String> onSearchSubmit;
@@ -100,7 +100,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             appBarRowWidgets: appBarRowWidgets,
             pageTitle: pageTitle,
             onBack: onBack,
-            loading: loading,
+            // loading: loading,
             appBarScrollController: appBarScrollController,
             sectionButtonIsOn: sectionButtonIsOn,
             searchController: searchController,

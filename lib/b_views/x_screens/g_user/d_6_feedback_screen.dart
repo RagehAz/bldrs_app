@@ -97,7 +97,7 @@ class _FeedBackState extends State<FeedBack> {
       // appBarBackButton: true,
       pageTitle: 'About Bldrs.net',
       skyType: SkyType.black,
-      loading: _loading,
+      // loading: _loading,
       layoutWidget: ListView(
         children: <Widget>[
 
