@@ -209,7 +209,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
       scaffoldKey: _scaffoldKey,
       appBarType: AppBarType.basic,
       // pyramids: _pyramids == null ? true : false,
-      loading: _loading,
+      // loading: _loading,
       pageTitle: 'Awesome notification test',
       layoutWidget: Column(
         children: <Widget>[

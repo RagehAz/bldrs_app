@@ -104,7 +104,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      loading: _loading,
+      // loading: _loading,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(
         child: MaxBounceNavigator(

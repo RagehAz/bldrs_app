@@ -202,7 +202,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
       appBarType: AppBarType.basic,
       // appBarBackButton: true,
       pageTitle: 'Old Flyers',
-      loading: _loading,
+      // loading: _loading,
       layoutWidget: _allFlyers == null
           ? Loading(
               loading: _loading,

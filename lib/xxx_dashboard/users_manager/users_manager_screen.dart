@@ -113,7 +113,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
   @override
   Widget build(BuildContext context) {
     return MainLayout(
-      loading: _loading,
+      // loading: _loading,
       pageTitle: 'Users Manager',
       appBarType: AppBarType.basic,
       skyType: SkyType.black,

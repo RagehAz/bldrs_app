@@ -10,8 +10,10 @@ import 'package:flutter/material.dart';
 // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 class UsersProvider extends ChangeNotifier {
   /// FETCHING USER
-  Future<UserModel> _fetchUserByID(
-      {BuildContext context, String userID}) async {
+  Future<UserModel> fetchUserByID({
+    @required BuildContext context,
+    @required String userID
+  }) async {
     UserModel _userModel;
 
     /// 1 - search in entire LDBs for this userModel
@@ -92,7 +94,7 @@ class UsersProvider extends ChangeNotifier {
     final String _myUserID = FireAuthOps.superUserID();
 
     if (_myUserID != null) {
-      _userModel = await _fetchUserByID(context: context, userID: _myUserID);
+      _userModel = await fetchUserByID(context: context, userID: _myUserID);
     }
 
     _myUserModel = _userModel;
