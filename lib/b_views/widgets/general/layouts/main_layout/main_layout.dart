@@ -37,7 +37,7 @@ class MainLayout extends StatelessWidget {
     this.pageTitle,
     this.skyType = SkyType.night,
     this.canRefreshFlyers = false,
-    this.loading = false,
+    // this.loading = false,
     this.onBack,
     this.scaffoldKey,
     // this.myTinyBzz,
@@ -58,7 +58,7 @@ class MainLayout extends StatelessWidget {
   final String pageTitle;
   final SkyType skyType;
   final bool canRefreshFlyers;
-  final bool loading;
+  // final bool loading;
   final Function onBack;
   final Key scaffoldKey;
   // final List<TinyBz> myTinyBzz;
@@ -114,7 +114,7 @@ class MainLayout extends StatelessWidget {
       appBarRowWidgets: appBarRowWidgets,
       pageTitle: pageTitle,
       onBack: onBack,
-      loading: loading,
+      // loading: loading,
       appBarScrollController: appBarScrollController,
       sectionButtonIsOn: sectionButtonIsOn,
       zoneButtonIsOn: zoneButtonIsOn,

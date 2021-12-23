@@ -83,7 +83,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      loading: _loading,
+      // loading: _loading,
       appBarRowWidgets: <Widget>[
         DreamBox(
             height: 40,

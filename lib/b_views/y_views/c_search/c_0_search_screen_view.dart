@@ -1,13 +1,8 @@
-import 'package:bldrs/a_models/secondary_models/search_result.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_2_search_records_view.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -49,7 +44,7 @@ class SearchScreenView extends StatelessWidget {
                 }
 
                 else {
-                  return SearchRecordsView();
+                  return const SearchRecordsView();
                 }
 
                 },

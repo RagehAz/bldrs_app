@@ -84,7 +84,7 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      loading: _loading,
+      // loading: _loading,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Container(
         width: 300,

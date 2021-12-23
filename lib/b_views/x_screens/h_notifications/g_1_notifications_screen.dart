@@ -122,7 +122,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           },
         ),
       ],
-      loading: _loading,
+      // loading: _loading,
       pageTitle: 'News And Notifications',
       skyType: SkyType.black,
       pyramidsAreOn: true,

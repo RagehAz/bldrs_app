@@ -180,7 +180,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      loading: _loading,
+      // loading: _loading,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(
         child: MaxBounceNavigator(
@@ -196,17 +196,21 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                 child: SearchBar(
                     // onSearchChanged: (String val) async {blog(val);},
                     onSearchSubmit: (String val) async {
-                      final ZoneProvider _zoneProvider =
-                          Provider.of<ZoneProvider>(context, listen: false);
 
-                      final CityModel _result =
-                          await _zoneProvider.fetchCityByName(
-                              context: context, cityName: val, lingoCode: 'en');
+                      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+                      final CityModel _result = await _zoneProvider.fetchCityByName(
+                          context: context,
+                          cityName: val,
+                          lingoCode: 'en'
+                      );
 
                       if (_result != null) {
-                        final CountryModel _country =
-                            await _zoneProvider.fetchCountryByID(
-                                context: context, countryID: _result.countryID);
+
+                        final CountryModel _country = await _zoneProvider.fetchCountryByID(
+                            context: context,
+                            countryID: _result.countryID
+                        );
 
                         setState(() {
                           _countryModel = _country;

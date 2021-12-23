@@ -134,7 +134,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
       pyramidsAreOn: true,
       pageTitle: 'All Flyers',
       appBarRowWidgets: const <Widget>[],
-      loading: _loading,
+      // loading: _loading,
       layoutWidget: _flyers == null ?
       Container()
           :

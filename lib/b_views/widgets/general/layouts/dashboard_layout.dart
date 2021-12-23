@@ -43,7 +43,7 @@ class DashBoardLayout extends StatelessWidget {
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       pageTitle: pageTitle,
-      loading: loading,
+      // loading: loading,
       appBarRowWidgets: <Widget>[
         const Expander(),
         BldrsButton(

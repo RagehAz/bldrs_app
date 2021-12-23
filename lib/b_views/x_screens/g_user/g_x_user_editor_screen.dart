@@ -421,7 +421,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       pyramidsAreOn: true,
       skyType: SkyType.black,
       // appBarBackButton: true,
-      loading: _loading,
+      // loading: _loading,
       appBarType: AppBarType.basic,
       pageTitle: widget.firstTimer == true
           ? 'Add your profile data'

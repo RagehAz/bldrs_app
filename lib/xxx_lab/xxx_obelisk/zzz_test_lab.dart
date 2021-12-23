@@ -1,5 +1,5 @@
-import 'dart:async';
 
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
@@ -12,6 +12,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/xxx_dashboard/exotic_methods.dart';
 import 'package:bldrs/xxx_dashboard/widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,28 +28,7 @@ class TestLab extends StatefulWidget {
 class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   ScrollController _scrollController;
   AnimationController _animationController;
-
-// -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future<void> _triggerLoading({Function function}) async {
-    if (mounted) {
-      if (function == null) {
-        setState(() {
-          _loading = !_loading;
-        });
-      } else {
-        setState(() {
-          _loading = !_loading;
-          function();
-        });
-      }
-    }
-
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
-  }
+  UiProvider _uiProvider;
 
 // -----------------------------------------------------------------------------
   @override
@@ -59,6 +39,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
       duration: const Duration(seconds: 1),
       vsync: this,
     );
+
+    _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
     // works
     // Provider.of<FlyersProvider>(context,listen: false).fetchAndSetBzz();
@@ -76,12 +58,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _triggerLoading().then((_) async {
-        /// do Futures here
-        unawaited(_triggerLoading(function: () {
-          /// set new values here
-        }));
-      });
+      // _triggerLoading().then((_) async {
+      //   /// do Futures here
+      //   unawaited(_triggerLoading(function: () {
+      //     /// set new values here
+      //   }));
+      // });
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -118,7 +100,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      loading: _loading,
+      // loading: _loading,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(
         child: MaxBounceNavigator(
@@ -202,16 +184,44 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
               /// DO SOMETHING
               WideButton(
                   color: Colorz.bloodTest,
-                  verse: 'DELETE THE TEST',
-                  icon: Iconz.share,
+                  verse: 'DO THE DAMN THING',
+                  icon: Iconz.star,
                   onTap: () async {
-                    unawaited(_triggerLoading());
+
+                    _uiProvider.triggerLoading(setLoadingTo: true);
+
+                    final List<BzModel> _bzz = await searchBzzByAuthorID(
+                        context: context,
+                        authorID: 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2',
+                    );
+
+                    blog('bzz are ${_bzz.length} bzz');
+
+                    for (final BzModel bz in _bzz){
+
+                      await takeOverFlyers(
+                          context: context,
+                          newUserID: 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2',
+                          flyersIDs: bz.flyersIDs,
+                      );
+
+                      blog('bzModel ${bz.id} finished');
+
+                    }
+
+                    final List<String> _bzzIDs = BzModel.getBzzIDsFromBzz(_bzz);
+
+                    await assignBzzOwnership(
+                        context: context,
+                        userID: 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2',
+                        bzzIDs: _bzzIDs,
+                    );
 
 
-                    // blog('XXXXXX - DELETED FIREBASE FILE  IN [$_diffSave] SECONDS');
+                    _uiProvider.triggerLoading(setLoadingTo: false);
 
 
-                    unawaited(_triggerLoading());
+
                   }),
 
               /// MANIPULATE LOCAL ASSETS TESTING

@@ -593,7 +593,7 @@ class _BzEditorScreenState extends State<BzEditorScreen>
         'bzZone is : countryID : $_currentBzCountry : cityID : $_currentBzCity : districtID : $_currentBzDistrict');
 
     return MainLayout(
-      loading: _loading,
+      // loading: _loading,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       skyType: SkyType.black,
