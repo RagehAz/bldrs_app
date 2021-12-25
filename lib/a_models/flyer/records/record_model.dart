@@ -69,7 +69,7 @@ class RecordModel {
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}) {
     return <String, dynamic>{
-      'activityType' : _cipherActivityType(activityType),
+      'activityType' : cipherActivityType(activityType),
       'userID' : userID,
       // 'recordID' : recordID,
       'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: toJSON),
@@ -89,7 +89,7 @@ class RecordModel {
     if (map != null) {
 
       _record = RecordModel(
-        activityType: _decipherActivityType(map['activityType']),
+        activityType: decipherActivityType(map['activityType']),
         userID: map['userID'],
         recordID: map['id'],
         timeStamp: Timers.decipherTime(time: map['timeStamp'], fromJSON: fromJSON),
@@ -144,7 +144,7 @@ class RecordModel {
     return _records;
   }
 // -----------------------------------------------------------------------------
-  static String _cipherActivityType(ActivityType activity) {
+  static String cipherActivityType(ActivityType activity) {
     switch (activity) {
       case ActivityType.follow:         return 'follow';          break;
       case ActivityType.unfollow:       return 'unfollow';        break;
@@ -167,7 +167,7 @@ class RecordModel {
     }
   }
 // -----------------------------------------------------------------------------
-  static ActivityType _decipherActivityType(String activity) {
+  static ActivityType decipherActivityType(String activity) {
     switch (activity) {
       case 'follow':          return ActivityType.follow;         break;
       case 'unfollow':        return ActivityType.unfollow;       break;

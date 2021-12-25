@@ -107,6 +107,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
     return MainLayout(
       appBarType: AppBarType.basic,
+      zoneButtonIsOn: false,
+      sectionButtonIsOn: false,
       appBarRowWidgets: <Widget>[
         const Expander(),
         DreamBox(

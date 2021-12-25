@@ -24,14 +24,13 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
   AnimationController _scaleController;
   static const int _fadeCycleDuration = 750;
 // -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
+  /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------------------------------
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
     blogLoading(loading: _loading.value);
   }
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {

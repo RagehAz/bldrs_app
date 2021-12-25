@@ -1,4 +1,3 @@
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -217,10 +216,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                         bzzIDs: _bzzIDs,
                     );
 
-
                     _uiProvider.triggerLoading(setLoadingTo: false);
-
-
 
                   }),
 

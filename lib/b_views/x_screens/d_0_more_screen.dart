@@ -50,6 +50,8 @@ class MoreScreen extends StatelessWidget {
       appBarType: AppBarType.basic,
       // appBarBackButton: true,
       skyType: SkyType.black,
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
       pageTitle: 'Options',
       pyramidsAreOn: true,
       layoutWidget: MaxBounceNavigator(
