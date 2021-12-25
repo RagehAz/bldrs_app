@@ -329,6 +329,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return MainLayout(
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
+      zoneButtonIsOn: false,
+      sectionButtonIsOn: false,
+      pageTitle: 'Profile',
       // appBarBackButton: true,
       pyramidsAreOn: true,
       layoutWidget: MaxBounceNavigator(

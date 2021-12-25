@@ -98,13 +98,11 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
         functions: () async {
           blog('getting location aho');
 
-          final Position _position =
-              await ZoneOps.getGeoLocatorCurrentPosition();
+          final Position _position = await ZoneOps.getGeoLocatorCurrentPosition();
 
           blog('got position = $_position');
 
-          final GeoPoint _geoPoint =
-              GeoPoint(_position?.latitude, _position?.longitude);
+          final GeoPoint _geoPoint = GeoPoint(_position?.latitude, _position?.longitude);
 
           blog('made geo point aho $_geoPoint');
 
@@ -122,7 +120,6 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
     unawaited(_triggerLoading());
   }
-
 // -------------------------------------------------
   Future<void> _getPositionFromMap() async {
     unawaited(_triggerLoading());
@@ -149,17 +146,26 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
   CountryModel _countryModel;
   CityModel _cityModel;
   Future<void> _getCountryData({@required GeoPoint geoPoint}) async {
+
     final ZoneProvider _zoneProvider =
         Provider.of<ZoneProvider>(context, listen: false);
 
     final ZoneModel _zoneModel = await _zoneProvider.getZoneModelByGeoPoint(
-        context: context, geoPoint: geoPoint);
+        context: context,
+        geoPoint: geoPoint
+    );
 
     if (_zoneModel != null) {
+
       final CountryModel _country = await _zoneProvider.fetchCountryByID(
-          context: context, countryID: _zoneModel.countryID);
+          context: context,
+          countryID: _zoneModel.countryID
+      );
+
       final CityModel _city = await _zoneProvider.fetchCityByID(
-          context: context, cityID: _zoneModel.cityID);
+          context: context,
+          cityID: _zoneModel.cityID
+      );
 
       setState(() {
         _countryID = _zoneModel.countryID;
@@ -194,7 +200,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
               Container(
                 color: Colorz.white10,
                 child: SearchBar(
-                    // onSearchChanged: (String val) async {blog(val);},
+                  // onSearchChanged: (String val) async {blog(val);},
                     onSearchSubmit: (String val) async {
 
                       final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -221,7 +227,9 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                         _result.blogCity();
                       } else {
                         await TopDialog.showTopDialog(
-                            context: context, verse: 'No city found');
+                            context: context,
+                            verse: 'No city found'
+                        );
                       }
                     },
                     historyButtonIsOn: false),
@@ -231,9 +239,10 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
               WideButton(
                 verse: 'Get Current Location',
-                icon: _countryID == null
-                    ? Iconz.share
-                    : Flag.getFlagIconByCountryID(_countryID),
+                icon: _countryID == null ?
+                Iconz.share
+                    :
+                Flag.getFlagIconByCountryID(_countryID),
                 onTap: () async {
                   blog('LET THE GAMES BEGIN');
 
@@ -243,12 +252,12 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
               WideButton(
                 verse: 'Get Position from Map',
-                icon: _countryID == null
-                    ? Iconz.share
-                    : Flag.getFlagIconByCountryID(_countryID),
+                icon: _countryID == null ?
+                Iconz.share
+                    :
+                Flag.getFlagIconByCountryID(_countryID),
                 onTap: () async {
                   blog('LET THE GAMES BEGIN');
-
                   await _getPositionFromMap();
                 },
               ),

@@ -7,7 +7,7 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/e_db/fire/ops/record_ops.dart';
+import 'package:bldrs/e_db/fire/ops/record_ops.dart' as RecordOps;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -118,22 +118,22 @@ class GeneralProvider extends ChangeNotifier {
     /// 1 - search  LDB for all searches
     final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(docName: LDBDoc.searches);
 
-    /// 2 - if not found, search firebase
+    /// 2 - if not found in LDB, search firebase
     if (Mapper.canLoopList(_maps) == false){
       blog('fetchSearchRecords : NO search records found in LDB');
 
-      /// 2.1 read firebase flyer ops
-      _searchRecords = await readRecords(
+      /// 2.1 read firebase record ops
+      _searchRecords = await RecordOps.readRecords(
           context: context,
           userID: superUserID(),
-          modelType: ModelType.search,
+          activityType: ActivityType.search,
           limit: 10,
           addDocSnapshotToEachMap: true,
       );
 
       /// 2.2 if found on firebase, store in ldb sessionFlyers
       if (Mapper.canLoopList(_searchRecords)){
-        blog('fetchSearchRecords : search records found in firestore db');
+        blog('fetchSearchRecords : found search records firestore db');
 
         await LDBOps.insertMaps(
             primaryKey: 'recordID',
@@ -143,6 +143,18 @@ class GeneralProvider extends ChangeNotifier {
 
       }
 
+      /// 2.3 if no records found in firestore
+      else {
+        blog('fetchSearchRecords : no search record found on firestore db');
+      }
+
+    }
+
+    /// 3 - if found in LDB
+    else {
+      blog('fetchSearchRecords : found search records in LDB');
+      final List<RecordModel> _records = RecordModel.decipherRecords(maps: _maps, fromJSON: true);
+      _searchRecords = _records;
     }
 
     return _searchRecords;

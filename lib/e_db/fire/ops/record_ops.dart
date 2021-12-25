@@ -22,7 +22,7 @@ Future<void> createRecord({
 Future<List<RecordModel>> readRecords({
   @required BuildContext context,
   @required String userID,
-  @required ModelType modelType,
+  @required ActivityType activityType,
   @required int limit,
   @required bool addDocSnapshotToEachMap,
 }) async {
@@ -32,8 +32,8 @@ Future<List<RecordModel>> readRecords({
     collName: FireColl.records,
     fieldA: 'userID',
     valueA: userID,
-    fieldB: 'modelType',
-    valueB: RecordModel.cipherModelType(modelType),
+    fieldB: 'activityType',
+    valueB: RecordModel.cipherActivityType(activityType),
     addDocsIDs: true, /// super important
     addDocSnapshotToEachMap: addDocSnapshotToEachMap,
     limit: limit,

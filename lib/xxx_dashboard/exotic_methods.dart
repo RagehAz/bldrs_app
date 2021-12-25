@@ -481,7 +481,7 @@ Future<void> takeOverFlyers({
   }
 
 }
-/// -----------------------------------------------------------------------------
+/// ----------------------------------------------------------------------------
 Future<void> assignBzzOwnership({
   @required BuildContext context,
   @required String userID,
@@ -497,7 +497,7 @@ Future<void> assignBzzOwnership({
   );
 
 }
-/// -----------------------------------------------------------------------------
+/// ----------------------------------------------------------------------------
 Future<List<BzModel>> searchBzzByAuthorID({
   @required BuildContext context,
   @required String authorID,
@@ -516,7 +516,7 @@ Future<List<BzModel>> searchBzzByAuthorID({
 
   return _foundBzz;
 }
-/// -----------------------------------------------------------------------------
+/// ----------------------------------------------------------------------------
   // Future<List<CurrencyModel>> getCurrenciesFromCountries({@required BuildContext context}) async {
   //
   //   final List<CurrencyModel> _currencies = <CurrencyModel>[];

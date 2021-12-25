@@ -99,8 +99,7 @@ class LDBViewersScreen extends StatelessWidget {
       onBldrsTap: () async {
         blog('starting the thing');
 
-        final FlyersProvider _prof =
-            Provider.of<FlyersProvider>(context, listen: false);
+        final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
         final FlyerModel _flyer = await _prof.fetchFlyerByID(
           context: context,
           flyerID: 'f002',

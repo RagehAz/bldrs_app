@@ -1,10 +1,12 @@
 import 'package:bldrs/b_views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/back_anb_search_button.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -76,6 +78,7 @@ class _SearchBarState extends State<SearchBar> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+
           const SizedBox(
             width: _padding,
             height: _padding,
@@ -83,20 +86,14 @@ class _SearchBarState extends State<SearchBar> {
 
           /// SEARCH HISTORY BUTTON
           if (widget.historyButtonIsOn)
-            Container(
+            DreamBox(
               width: _historyButtonWidth,
               height: _historyButtonHeight,
               // color: Colorz.linkedIn,
-              alignment: Alignment.topLeft,
-              child: BackAndSearchButton(
-                backAndSearchAction: BackAndSearchAction.showHistory,
-                passSearchHistory: (String value) {
-                  blog('value aho is $value');
-                  setState(() {
-                    _searchTextController.text = value;
-                  });
-                },
-              ),
+              icon: Iconz.search,
+              iconSizeFactor: 0.5,
+              bubble: false,
+              onTap: (){blog('tapping on search button');},
             ),
 
           if (widget.historyButtonIsOn)
