@@ -224,6 +224,7 @@ class BldrsAppBar extends StatelessWidget {
           child: Stack(
             alignment: Aligners.superCenterAlignment(context),
             children: <Widget>[
+
               /// --- APPBAR BLUR
               BlurLayer(
                 width: _abWidth,
@@ -240,6 +241,7 @@ class BldrsAppBar extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+
                     /// BACK / SEARCH / SECTION / ZONE
                     Row(
                       children: <Widget>[
@@ -330,6 +332,7 @@ class BldrsAppBar extends StatelessWidget {
                         historyButtonIsOn: historyButtonIsOn,
                         onSearchChanged: onSearchChanged,
                       ),
+
                   ],
                 ),
               ),

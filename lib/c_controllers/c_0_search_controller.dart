@@ -29,13 +29,13 @@ import 'package:provider/provider.dart';
 // -------------------------------------------------------
 Future<void> initializeSearchScreen(BuildContext context) async {
 
+  _setIsLoading(context, true);
+  _setIsSearching(context, false);
+
   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-
-  _uiProvider.triggerLoading(setLoadingTo: true);
   await _generalProvider.getSetSearchRecords(context);
-  _uiProvider.triggerLoading(setLoadingTo: false);
 
+  _setIsLoading(context, false);
 }
 // -------------------------------------------------------
 Future<void> controlOnSearchSubmit({
@@ -45,13 +45,15 @@ Future<void> controlOnSearchSubmit({
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
-  _uiProvider.triggerLoading(setLoadingTo: true);
-  _uiProvider.triggerIsSearchingAfterMaxTextLength(
-      text: searchText,
-      searchModel: SearchingModel.flyersAndBzz,
-      isSearching: _uiProvider.isSearchingFlyersAndBzz,
-      setIsSearchingTo: true,
-  );
+  _setIsLoading(context, true);
+  _setIsSearching(context, true);
+
+  // _uiProvider.triggerIsSearchingAfterMaxTextLength(
+  //     text: searchText,
+  //     searchModel: SearchingModel.flyersAndBzz,
+  //     isSearching: _uiProvider.isSearchingFlyersAndBzz,
+  //     setIsSearchingTo: true,
+  // );
 
   await _createFireSearchRecord(
     context: context,
@@ -87,27 +89,45 @@ Future<void> controlOnSearchSubmit({
     allResults: _all,
   );
 
-  _uiProvider.triggerLoading(setLoadingTo: false);
-  _uiProvider.triggerIsSearching(
-      searchingModel: SearchingModel.flyersAndBzz,
-      setIsSearchingTo: false,
-  );
+  _setIsLoading(context, false);
+  _setIsSearching(context, true);
 
 }
 // -------------------------------------------------------
-void controlOnSearchClear({
+void controlOnSearchChange({
   @required BuildContext context,
   @required String searchText,
 }){
 
-
   blog('search value changed to $searchText');
+  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
   if (searchText.isEmpty) {
-
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-
     _generalProvider.setSearchResult(<SearchResult>[]);
+    _setIsSearching(context, false);
+  }
+
+  else if (searchText.length < 3){
+    _setIsSearching(context, false);
+  }
+
+  else if (searchText.length >= 3){
+    _setIsSearching(context, true);
+  }
+
+}
+// -------------------------------------------------------
+Future<void> onSearchRecordTap({
+  @required BuildContext context,
+  @required RecordModel record,
+}) async {
+
+  final String _recordText = record?.recordDetails.toString();
+
+  if (_recordText != null){
+
+    await controlOnSearchSubmit(context: context, searchText: _recordText);
 
   }
 
@@ -298,24 +318,45 @@ Future<void> _createFireSearchRecord({
   @required String searchText,
 }) async {
 
-  final RecordModel _record = RecordModel(
-    recordID: null, /// will be defined as docID and injected into retrieved map
-    userID: superUserID(),
-    timeStamp: DateTime.now(),
-    activityType: ActivityType.search,
-    modelType: null, /// only used to trace model id
-    modelID: null, /// like flyerID, bzID, questionID, answerID
-    recordDetailsType: RecordDetailsType.searchText,
-    recordDetails: searchText,
-  );
+  /// TASK : need to check if this record already exists
 
-  await RecordOps.createRecord(
+  if (searchText.isNotEmpty){
+
+    final RecordModel _record = RecordModel(
+      recordID: null, /// will be defined as docID and injected into retrieved map
+      userID: superUserID(),
+      timeStamp: DateTime.now(),
+      activityType: ActivityType.search,
+      modelType: null, /// only used to trace model id
+      modelID: null, /// like flyerID, bzID, questionID, answerID
+      recordDetailsType: RecordDetailsType.searchText,
+      recordDetails: searchText,
+    );
+
+    await RecordOps.createRecord(
       context: context,
       record: _record,
-  );
+    );
 
-  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-  _generalProvider.addToSearchRecords(_record);
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+    _generalProvider.addToSearchRecords(_record);
+
+  }
+
+}
+// -----------------------------------------------------------------------------
+void _setIsLoading(BuildContext context, bool isLoading){
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  _uiProvider.triggerLoading(setLoadingTo: isLoading);
+}
+// -----------------------------------------------------------------------------
+void _setIsSearching(BuildContext context, bool searching){
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
+  _uiProvider.triggerIsSearching(
+      searchingModel: SearchingModel.flyersAndBzz,
+      setIsSearchingTo: searching,
+  );
 
 }
 // -----------------------------------------------------------------------------

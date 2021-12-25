@@ -280,7 +280,7 @@ Future<dynamic> mapsByTwoValuesEqualTo({
             .limit(limit)
             .get();
 
-        blog('is not equal to null aho');
+        // blog('is not equal to null aho');
 
         _maps = Mapper.getMapsFromQuerySnapshot(
           querySnapshot: _collectionSnapshot,

@@ -40,6 +40,8 @@ class DashBoardLayout extends StatelessWidget {
     return MainLayout(
       // scaffoldKey: _globalKey,
       pyramidsAreOn: true,
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       pageTitle: pageTitle,

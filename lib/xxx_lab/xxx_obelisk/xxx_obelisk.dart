@@ -94,6 +94,8 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
+      zoneButtonIsOn: false,
+      sectionButtonIsOn: false,
       appBarRowWidgets: <Widget>[
         /// IS SIGNED IN ?
         DreamBox(

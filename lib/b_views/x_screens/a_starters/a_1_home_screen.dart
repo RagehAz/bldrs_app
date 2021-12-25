@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 // -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
+  /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------------------------------
   Future<void> _triggerLoading() async {

@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 // === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
@@ -47,53 +48,55 @@ class FlyerScreen extends StatelessWidget {
     // final TinyFlyer _tinyFlyer = tinyFlyer == null ? _pro.getTinyFlyerByFlyerID(_flyerID) : tinyFlyer;
     // final BzModel _bz = _pro.getBzByBzID(_flyer?.tinyBz?.bzID);
 
-    return MainLayout(
-      appBarType: AppBarType.non,
-      layoutWidget: Center(
-        child:
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colorz.skyDarkBlue,
+        body: Center(
+          child:
 
-            // ChangeNotifierProvider.value(
-            //   value: _flyer,
-            //   child: ChangeNotifierProvider.value(
-            //     value: _bz,
-            //     child: Flyer(
-            //       flyerSizeFactor: 1,// golden factor 0.97,
-            //       initialSlide: 0,
-            //       slidingIsOn: true,
-            //       tappingFlyerZone: (){},
-            //
-            //     ),
-            //   ),
-            // ),
+              // ChangeNotifierProvider.value(
+              //   value: _flyer,
+              //   child: ChangeNotifierProvider.value(
+              //     value: _bz,
+              //     child: Flyer(
+              //       flyerSizeFactor: 1,// golden factor 0.97,
+              //       initialSlide: 0,
+              //       slidingIsOn: true,
+              //       tappingFlyerZone: (){},
+              //
+              //     ),
+              //   ),
+              // ),
 
-            ///
+              ///
 
-            // flyerModelBuilder(
-            //   context: context,
-            //   tinyFlyer : _tinyFlyer,
-            //   flyerSizeFactor: 1,
-            //   builder: (ctx, flyerModel){
-            //     return
-            //         NormalFlyerWidget(
-            //             flyer: flyerModel,
-            //             flyerSizeFactor: 1,
-            //         );
-            //   }
-            //
-            // ),
+              // flyerModelBuilder(
+              //   context: context,
+              //   tinyFlyer : _tinyFlyer,
+              //   flyerSizeFactor: 1,
+              //   builder: (ctx, flyerModel){
+              //     return
+              //         NormalFlyerWidget(
+              //             flyer: flyerModel,
+              //             flyerSizeFactor: 1,
+              //         );
+              //   }
+              //
+              // ),
 
-            ///
+              ///
 
-            FinalFlyer(
-          flyerBoxWidth: FlyerBox.width(context, 1),
-          flyerModel: flyerModel,
-          flyerID: flyerID,
-          initialSlideIndex: initialSlideIndex ?? 0,
-          flyerKey: PageStorageKey<String>(_flyerID),
-          isSponsored: isSponsored,
-          onSwipeFlyer: (Sliders.SwipeDirection direction) {
-            // blog('Direction is $direction');
-          },
+              FinalFlyer(
+            flyerBoxWidth: FlyerBox.width(context, 1),
+            flyerModel: flyerModel,
+            flyerID: flyerID,
+            initialSlideIndex: initialSlideIndex ?? 0,
+            flyerKey: PageStorageKey<String>(_flyerID),
+            isSponsored: isSponsored,
+            onSwipeFlyer: (Sliders.SwipeDirection direction) {
+              // blog('Direction is $direction');
+            },
+          ),
         ),
       ),
     );

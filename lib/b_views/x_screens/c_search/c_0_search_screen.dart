@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_0_search_screen_view.dart';
 import 'package:bldrs/c_controllers/c_0_search_controller.dart';
+import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:flutter/material.dart';
@@ -53,9 +55,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
   }
 // -----------------------------------------------------------------------------
-  void _onSearchClear(String searchText){
+  void _onSearchChanged(String searchText){
 
-    controlOnSearchClear(
+    controlOnSearchChange(
       context: context,
       searchText: searchText,
     );
@@ -65,13 +67,26 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
 
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
+    final String _verse =
+        _uiProvider.isLoading ? 'loading' :
+            _uiProvider.isSearchingFlyersAndBzz ? 'searching' :
+                'default';
+
     return MainLayout(
       appBarType: AppBarType.search,
-      // appBarBackButton: true,
+      appBarRowWidgets: [
+        DreamBox(
+          height: 35,
+          verse: _verse,
+        ),
+      ],
       pyramidsAreOn: true,
       searchController: _searchController,
       onSearchSubmit: _onSearchSubmit,
-      onSearchChanged: _onSearchClear,
+      onSearchChanged: _onSearchChanged,
       layoutWidget: const SearchScreenView(),
 
     );
