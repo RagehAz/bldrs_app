@@ -10,8 +10,11 @@ import 'package:provider/provider.dart';
 class SearchScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SearchScreenView({
+    @required this.scrollController,
     Key key
   }) : super(key: key);
+
+  final ScrollController scrollController;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,9 @@ class SearchScreenView extends StatelessWidget {
             }
 
             else {
-              return const SearchRecordsView();
+              return SearchRecordsView(
+                scrollController: scrollController,
+              );
             }
 
             },

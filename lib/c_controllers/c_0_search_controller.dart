@@ -55,10 +55,14 @@ Future<void> controlOnSearchSubmit({
   //     setIsSearchingTo: true,
   // );
 
+  /// add record to firebase
   await _createFireSearchRecord(
     context: context,
     searchText: searchText,
   );
+  // /// add record to LDB
+  // await
+  // /// add record to provider
 
   final List<SearchResult> _keywordsResults = await _searchKeywords(
     context: context,
