@@ -2,6 +2,8 @@ import 'package:bldrs/a_models/flyer/records/record_model.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/search/fire_search.dart' as FireSearch;
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 Future<void> createRecord({
@@ -25,18 +27,39 @@ Future<List<RecordModel>> readRecords({
   @required ActivityType activityType,
   @required int limit,
   @required bool addDocSnapshotToEachMap,
+  DocumentSnapshot<Object> startAfter,
 }) async {
 
-  final List<Map<String, dynamic>> _foundMaps = await FireSearch.mapsByTwoValuesEqualTo(
-    context: context,
-    collName: FireColl.records,
-    fieldA: 'userID',
-    valueA: userID,
-    fieldB: 'activityType',
-    valueB: RecordModel.cipherActivityType(activityType),
-    addDocsIDs: true, /// super important
+  final CollectionReference<Object> _collRef = Fire.getCollectionRef(FireColl.records);
+  QuerySnapshot<Object> _collectionSnapshot;
+
+  if (startAfter == null){
+
+    final Query _initialQuery = _collRef
+        .where('userID', isEqualTo: userID)
+        .where('activityType', isEqualTo: RecordModel.cipherActivityType(activityType))
+        .orderBy('timeStamp', descending: true)
+        .limit(limit);
+
+    _collectionSnapshot = await _initialQuery.get();
+  }
+
+  else {
+
+    final Query _continueQuery = _collRef
+        .where('userID', isEqualTo: userID)
+        .where('activityType', isEqualTo: RecordModel.cipherActivityType(activityType))
+        .orderBy('timeStamp', descending: true)
+        .startAfterDocument(startAfter)
+        .limit(limit);
+
+    _collectionSnapshot = await _continueQuery.get();
+  }
+
+  final List<Map<String, dynamic>> _foundMaps = Mapper.getMapsFromQuerySnapshot(
+    querySnapshot: _collectionSnapshot,
+    addDocsIDs: true,
     addDocSnapshotToEachMap: addDocSnapshotToEachMap,
-    limit: limit,
   );
 
   final List<RecordModel> _records = RecordModel.decipherRecords(

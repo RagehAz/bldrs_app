@@ -1,5 +1,6 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -52,6 +53,7 @@ class RecordModel {
 
     @required this.recordDetailsType,
     @required this.recordDetails,
+    this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
   final ActivityType activityType;
@@ -65,6 +67,7 @@ class RecordModel {
 
   final RecordDetailsType recordDetailsType;
   final dynamic recordDetails;
+  final DocumentSnapshot<Object> docSnapshot;
 
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}) {
@@ -99,6 +102,7 @@ class RecordModel {
 
         recordDetailsType: _decipherRecordDetailsType(map['recordDetailsType']),
         recordDetails: map['recordDetails'],
+        docSnapshot: map['docSnapshot'],
       );
 
     }
@@ -227,6 +231,63 @@ class RecordModel {
       default: return null;
     }
   }
+// -----------------------------------------------------------------------------
+  static List<RecordModel> insertRecordToRecords({@required List<RecordModel> records, @required RecordModel record}){
+
+    final bool _recordsContainRecord = recordsContainRecord(
+      records: records,
+      record: record,
+    );
+
+    if (_recordsContainRecord == false){
+      records.add(record);
+    }
+
+    return records;
+  }
+// -----------------------------------------------------------------------------
+  static List<RecordModel> insertRecordsToRecords({
+    @required List<RecordModel> originalRecords,
+    @required List<RecordModel> addRecords,
+}){
+
+    List<RecordModel> _output = <RecordModel>[];
+
+    if (Mapper.canLoopList(addRecords)){
+
+      for (final RecordModel record in addRecords){
+        _output = insertRecordToRecords(records: originalRecords, record: record);
+      }
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+  static bool recordsContainRecord({@required List<RecordModel> records, @required RecordModel record}){
+
+    bool _contains = false;
+
+    if (Mapper.canLoopList(records) && record != null){
+
+      for (final RecordModel rec in records){
+
+        if (rec.recordID == record.recordID){
+          _contains = true;
+          break;
+        }
+
+      }
+
+    }
+
+    return _contains;
+  }
+// -----------------------------------------------------------------------------
+
+
+// -----------------------------------------------------------------------------
+
 // -----------------------------------------------------------------------------
 //   static dynamic _cipherRecordDetails({
 //     @required dynamic recordDetails,

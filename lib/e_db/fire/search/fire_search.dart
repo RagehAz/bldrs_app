@@ -270,11 +270,10 @@ Future<dynamic> mapsByTwoValuesEqualTo({
       context: context,
       methodName: 'mapsByTwoValuesEqualTo',
       functions: () async {
-        QuerySnapshot<Object> _collectionSnapshot;
 
         final CollectionReference<Object> _collRef = Fire.getCollectionRef(collName);
 
-        _collectionSnapshot = await _collRef
+        final QuerySnapshot<Object> _collectionSnapshot = await _collRef
             .where(fieldA, isEqualTo: valueA)
             .where(fieldB, isEqualTo: valueB)
             .limit(limit)
@@ -287,8 +286,34 @@ Future<dynamic> mapsByTwoValuesEqualTo({
           addDocsIDs: addDocsIDs,
           addDocSnapshotToEachMap: addDocSnapshotToEachMap,
         );
+
       });
 
   return _maps;
 }
 // -----------------------------------------------------------------------------
+Future<dynamic> paginate({
+  @required BuildContext context,
+  @required String collName,
+  bool addDocsIDs = false,
+  bool addDocSnapshotToEachMap = false,
+}) async {
+
+  // final CollectionReference<Object> _collRef = Fire.getCollectionRef(collName);
+  //
+  // final QuerySnapshot<Object> _collectionSnapshot = await _collRef
+  //     .where(fieldA, isEqualTo: valueA)
+  //     .where(fieldB, isEqualTo: valueB)
+  //     .limit(limit)
+  //     .get();
+  //
+  // // blog('is not equal to null aho');
+  //
+  // _maps = Mapper.getMapsFromQuerySnapshot(
+  //   querySnapshot: _collectionSnapshot,
+  //   addDocsIDs: addDocsIDs,
+  //   addDocSnapshotToEachMap: addDocSnapshotToEachMap,
+  // );
+
+
+}
