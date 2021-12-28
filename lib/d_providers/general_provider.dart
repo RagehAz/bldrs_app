@@ -12,6 +12,7 @@ import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -111,65 +112,97 @@ class GeneralProvider extends ChangeNotifier {
     return <RecordModel>[... _searchRecords];
 }
 // -------------------------------------
-  Future<List<RecordModel>> fetchSearchRecords(BuildContext context) async{
-    List<RecordModel> _searchRecords = <RecordModel>[];
+  Future<List<RecordModel>> _fetchSearchRecords(BuildContext context) async{
 
+    // List<RecordModel> _searchRecords = <RecordModel>[];
 
-    /// 1 - search  LDB for all searches
-    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(docName: LDBDoc.searches);
+    // /// 1 - search  LDB for all searches
+    // final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(docName: LDBDoc.searches);
+    //
+    // /// 2 - if not found in LDB, search firebase
+    // if (Mapper.canLoopList(_maps) == false){
+    //   blog('fetchSearchRecords : NO search records found in LDB');
+    //
+    //   /// 2.1 read firebase record ops
+    //   _searchRecords = await RecordOps.readRecords(
+    //       context: context,
+    //       userID: superUserID(),
+    //       activityType: ActivityType.search,
+    //       limit: 10,
+    //       addDocSnapshotToEachMap: true,
+    //   );
+    //
+    //   /// 2.2 if found on firebase, store in ldb sessionFlyers
+    //   if (Mapper.canLoopList(_searchRecords)){
+    //     blog('fetchSearchRecords : found search records firestore db');
+    //
+    //     await LDBOps.insertMaps(
+    //         primaryKey: 'recordID',
+    //         docName: LDBDoc.searches,
+    //         inputs: RecordModel.cipherRecords(records: _searchRecords, toJSON: true),
+    //     );
+    //
+    //   }
+    //
+    //   /// 2.3 if no records found in firestore
+    //   else {
+    //     blog('fetchSearchRecords : no search record found on firestore db');
+    //   }
+    //
+    // }
+    //
+    // /// 3 - if found in LDB
+    // else {
+    //   blog('fetchSearchRecords : found search records in LDB');
+    //   final List<RecordModel> _records = RecordModel.decipherRecords(maps: _maps, fromJSON: true);
+    //   _searchRecords = _records;
+    // }
 
-    /// 2 - if not found in LDB, search firebase
-    if (Mapper.canLoopList(_maps) == false){
-      blog('fetchSearchRecords : NO search records found in LDB');
+    DocumentSnapshot<Object> _lastRecordSnapshot;
 
-      /// 2.1 read firebase record ops
-      _searchRecords = await RecordOps.readRecords(
-          context: context,
-          userID: superUserID(),
-          activityType: ActivityType.search,
-          limit: 10,
-          addDocSnapshotToEachMap: true,
-      );
-
-      /// 2.2 if found on firebase, store in ldb sessionFlyers
-      if (Mapper.canLoopList(_searchRecords)){
-        blog('fetchSearchRecords : found search records firestore db');
-
-        await LDBOps.insertMaps(
-            primaryKey: 'recordID',
-            docName: LDBDoc.searches,
-            inputs: RecordModel.cipherRecords(records: _searchRecords, toJSON: true),
-        );
-
-      }
-
-      /// 2.3 if no records found in firestore
-      else {
-        blog('fetchSearchRecords : no search record found on firestore db');
-      }
-
+    if (Mapper.canLoopList(_searchRecords)){
+      final int _length = _searchRecords.length;
+      final RecordModel _lastRecord = _searchRecords[_length - 1];
+      _lastRecordSnapshot = _lastRecord.docSnapshot;
     }
 
-    /// 3 - if found in LDB
-    else {
-      blog('fetchSearchRecords : found search records in LDB');
-      final List<RecordModel> _records = RecordModel.decipherRecords(maps: _maps, fromJSON: true);
-      _searchRecords = _records;
-    }
+    final List<RecordModel> _records = await RecordOps.readRecords(
+      context: context,
+      userID: superUserID(),
+      activityType: ActivityType.search,
+      limit: 5,
+      addDocSnapshotToEachMap: true,
+      startAfter: _lastRecordSnapshot,
+    );
 
-    return _searchRecords;
+
+    return _records;
   }
 // -------------------------------------
   Future<void> getSetSearchRecords(BuildContext context) async {
-    final List<RecordModel> _fetchedRecords = await fetchSearchRecords(context);
-    _searchRecords = _fetchedRecords;
+    final List<RecordModel> _fetchedRecords = await _fetchSearchRecords(context);
+
+    final List<RecordModel> _updatedList = RecordModel.insertRecordsToRecords(originalRecords: _searchRecords, addRecords: _fetchedRecords);
+    _searchRecords = _updatedList;
     notifyListeners();
   }
 // -------------------------------------
   void addToSearchRecords(RecordModel record){
 
-    _searchRecords.add(record);
+    final List<RecordModel> _recs = RecordModel.insertRecordToRecords(records: _searchRecords, record: record);
+    _searchRecords = _recs;
     notifyListeners();
+
+  }
+// -----------------------------------------------------------------------------
+  void deleteSearchRecord(RecordModel record){
+
+    final int index = _searchRecords.indexWhere((rec) => rec.recordID == record.recordID);
+
+    if (index != -1){
+      _searchRecords.removeAt(index);
+      notifyListeners();
+    }
 
   }
 // -----------------------------------------------------------------------------
