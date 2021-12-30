@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/secondary_models/link_model.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/dialog_button.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
@@ -47,10 +47,8 @@ class SectionDialogButton extends StatelessWidget {
       {BuildContext context,
       SectionClass.Section section,
       bool inActiveMode}) async {
-    final ZoneProvider _zoneProvider =
-        Provider.of<ZoneProvider>(context, listen: false);
-    final GeneralProvider _generalProvider =
-        Provider.of<GeneralProvider>(context, listen: false);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
     final String _currentCityID = _zoneProvider.currentZone.cityID;
 
     /// A - if section is not active * if user is author or not
@@ -87,7 +85,7 @@ class SectionDialogButton extends StatelessWidget {
       blog(
           'the weird _onSectionTap function is firing here,, dunno what to do,, im lost here');
 
-      await _generalProvider.changeSection(
+      await _keywordsProvider.changeSection(
         context: context,
         section: section,
         kw: null,
