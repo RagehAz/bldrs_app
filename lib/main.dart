@@ -10,6 +10,7 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/d_providers/noti_provider.dart';
+import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -202,6 +203,9 @@ class _BldrsAppState extends State<BldrsApp> {
           ),
           ChangeNotifierProvider<KeywordsProvider>(
             create: (BuildContext ctx) => KeywordsProvider(),
+          ),
+          ChangeNotifierProvider<SearchProvider>(
+            create: (BuildContext ctx) => SearchProvider(),
           ),
           ChangeNotifierProvider<QuestionsProvider>(
             create: (BuildContext ctx) => QuestionsProvider(),

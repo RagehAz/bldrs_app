@@ -10,8 +10,8 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
+import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
@@ -32,8 +32,8 @@ Future<void> initializeSearchScreen(BuildContext context) async {
   _setIsLoading(context, true);
   _setIsSearching(context, false);
 
-  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-  await _generalProvider.getSetSearchRecords(context);
+  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
+  await _searchProvider.getSetSearchRecords(context);
 
   _setIsLoading(context, false);
 }
@@ -104,11 +104,10 @@ void controlOnSearchChange({
 }){
 
   blog('search value changed to $searchText');
-  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 
   if (searchText.isEmpty) {
-    _generalProvider.setSearchResult(<SearchResult>[]);
+    _searchProvider.setSearchResult(<SearchResult>[]);
     _setIsSearching(context, false);
   }
 
@@ -295,17 +294,17 @@ Future<void> _handleSearchResult({
   @required List<SearchResult> allResults,
 }) async {
 
-  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 
   if (allResults.isNotEmpty) {
 
-    _generalProvider.setSearchResult(allResults);
+    _searchProvider.setSearchResult(allResults);
 
   }
 
   else {
 
-    _generalProvider.setSearchResult(<SearchResult>[]);
+    _searchProvider.setSearchResult(<SearchResult>[]);
 
     await NavDialog.showNavDialog(
       context: context,
@@ -344,9 +343,8 @@ Future<void> _createFireSearchRecord({
       );
     }
 
-
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-    _generalProvider.addToSearchRecords(_record);
+    final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
+    _searchProvider.addToSearchRecords(_record);
 
   }
 

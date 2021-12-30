@@ -44,6 +44,7 @@ class FlyerModel with ChangeNotifier{
     // -------------------------
     this.flyerState = FlyerState.draft,
     this.showsAuthor = false,
+    this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -68,6 +69,7 @@ class FlyerModel with ChangeNotifier{
   final String info;
   final List<PublishTime> times;
   final bool priceTagIsOn;
+  final DocumentSnapshot docSnapshot;
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}){
     return <String, dynamic>{
@@ -122,6 +124,8 @@ class FlyerModel with ChangeNotifier{
         info: map['info'],
         priceTagIsOn: map['priceTagIsOn'],
         times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: fromJSON),
+
+        docSnapshot: map['docSnapshot'],
       );
 
     }

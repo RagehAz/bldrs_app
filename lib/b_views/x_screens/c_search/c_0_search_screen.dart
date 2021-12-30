@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.da
 import 'package:bldrs/b_views/y_views/c_search/c_0_search_screen_view.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/c_0_search_controller.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -43,8 +43,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
         blog('_maxScroll : $_maxScroll : _currentScroll : $_currentScroll : diff : ${_maxScroll - _currentScroll} : _delta : $_delta');
 
-        final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-        _generalProvider.getSetSearchRecords(context);
+        final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
+        _searchProvider.getSetSearchRecords(context);
 
 
       }
@@ -101,9 +101,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
+    final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
-    final List<RecordModel> _records = _generalProvider.searchRecords;
+    final List<RecordModel> _records = _searchProvider.searchRecords;
 
     final String _verse =
         _uiProvider.isLoading ? 'loading' :
@@ -120,7 +120,7 @@ class _SearchScreenState extends State<SearchScreen> {
           secondLine: '${_records.length} records',
           onTap: () async {
 
-            final bool _isOnline = userIsSignedIn();
+            // final bool _isOnline = userIsSignedIn();
 
             final String id = superUserID();
 
@@ -135,8 +135,8 @@ class _SearchScreenState extends State<SearchScreen> {
       onSearchChanged: _onSearchChanged,
       onBack: () async {
 
-        _generalProvider.emptySearchRecords();
-        _generalProvider.setSearchResult(<SearchResult>[]);
+        _searchProvider.emptySearchRecords();
+        _searchProvider.setSearchResult(<SearchResult>[]);
         _uiProvider.triggerIsSearching(searchingModel: SearchingModel.flyersAndBzz, setIsSearchingTo: false);
         _uiProvider.triggerLoading(setLoadingTo: false);
 
