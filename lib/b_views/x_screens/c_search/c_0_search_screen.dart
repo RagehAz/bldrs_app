@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/flyer/records/record_model.dart';
+import 'package:bldrs/a_models/secondary_models/search_result.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_0_search_screen_view.dart';
@@ -8,8 +9,10 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/c_0_search_controller.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +43,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
         blog('_maxScroll : $_maxScroll : _currentScroll : $_currentScroll : diff : ${_maxScroll - _currentScroll} : _delta : $_delta');
 
+        final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+        _generalProvider.getSetSearchRecords(context);
+
 
       }
 
@@ -52,12 +58,16 @@ class _SearchScreenState extends State<SearchScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-      _uiProvider.startController(()async{
+      if (userIsSignedIn()){
 
-        await initializeSearchScreen(context);
+        final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+        _uiProvider.startController(()async{
 
-      });
+          await initializeSearchScreen(context);
+
+        });
+
+      }
 
     }
     _isInit = false;
@@ -92,7 +102,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
 
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
     final List<RecordModel> _records = _generalProvider.searchRecords;
 
     final String _verse =
@@ -110,8 +120,11 @@ class _SearchScreenState extends State<SearchScreen> {
           secondLine: '${_records.length} records',
           onTap: () async {
 
-            final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-            await _generalProvider.getSetSearchRecords(context);
+            final bool _isOnline = userIsSignedIn();
+
+            final String id = superUserID();
+
+            blog(id);
 
           },
         ),
@@ -120,6 +133,16 @@ class _SearchScreenState extends State<SearchScreen> {
       searchController: _searchController,
       onSearchSubmit: _onSearchSubmit,
       onSearchChanged: _onSearchChanged,
+      onBack: () async {
+
+        _generalProvider.emptySearchRecords();
+        _generalProvider.setSearchResult(<SearchResult>[]);
+        _uiProvider.triggerIsSearching(searchingModel: SearchingModel.flyersAndBzz, setIsSearchingTo: false);
+        _uiProvider.triggerLoading(setLoadingTo: false);
+
+        goBack(context);
+
+      },
       layoutWidget: SearchScreenView(
         scrollController: _scrollController,
       ),
