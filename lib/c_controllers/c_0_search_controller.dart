@@ -337,10 +337,13 @@ Future<void> _createFireSearchRecord({
       recordDetails: searchText,
     );
 
-    await RecordOps.createRecord(
-      context: context,
-      record: _record,
-    );
+    if (userIsSignedIn() == true){
+      await RecordOps.createRecord(
+        context: context,
+        record: _record,
+      );
+    }
+
 
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     _generalProvider.addToSearchRecords(_record);
