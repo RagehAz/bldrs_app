@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
-import 'package:bldrs/b_views/y_views/a_starters/a_1_home_screen_view.dart';
+import 'package:bldrs/b_views/y_views/a_starters/a_1_anonymous_home_screen_view.dart';
+import 'package:bldrs/b_views/y_views/a_starters/a_2_user_home_screen_view.dart';
 import 'package:bldrs/c_controllers/a_1_home_controller.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -63,12 +65,24 @@ class _HomeScreenState extends State<HomeScreen> {
           valueListenable: _loading,
           builder: (_, bool loading, Widget child){
 
+                /// LOADING
                 if (loading == true) {
-                  return const Loading(loading: true,);
+                  return const Center(child: Loading(loading: true,));
                 }
 
+                /// FOR ANONYMOUS USER
+                else if (userIsSignedIn() == false){
+                  return const AnonymousHomeScreen();
+                }
+
+                /// FOR KNOWN SIGNED IN USER
+                else if (userIsSignedIn() == true){
+                  return const UserHomeScreen();
+                }
+
+                /// UNKNOWN CONDITION
                 else {
-                  return const HomeScreenView();
+                  return Container();
                 }
 
           },

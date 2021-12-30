@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -36,9 +36,9 @@ class SectionsButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
-    final SectionClass.Section _currentSection = _generalProvider.currentSection;
-    final KW _currentKeyword = _generalProvider.currentKeyword;
+    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
+    final SectionClass.Section _currentSection = _keywordsProvider.currentSection;
+    final KW _currentKeyword = _keywordsProvider.currentKeyword;
 
     const double _corners = Ratioz.boxCorner12;
 

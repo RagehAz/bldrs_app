@@ -1,7 +1,9 @@
 import 'package:bldrs/a_models/kw/chain/chain.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
+import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/a_models/secondary_models/app_updates.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/e_db/fire/ops/keyword_ops.dart' as FireKeywordOps;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
@@ -10,6 +12,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/xxx_dashboard/exotic_methods.dart' as RagehMethods;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
@@ -166,4 +169,48 @@ class KeywordsProvider extends ChangeNotifier {
     return _icon;
   }
 // -----------------------------------------------------------------------------
+
+  /// SELECTED SECTION
+
+// -------------------------------------
+  SectionClass.Section _currentSection;
+// -------------------------------------
+  SectionClass.Section get currentSection {
+    return _currentSection ?? SectionClass.Section.designs;
+  }
+// -----------------------------------------------------------------------------
+
+  /// SELECTED KEYWORD
+
+// -------------------------------------
+  KW _currentKeyword;
+// -------------------------------------
+  KW get currentKeyword {
+    return _currentKeyword;
+  }
+// -------------------------------------
+  Future<void> changeSection({
+    @required BuildContext context,
+    @required SectionClass.Section section,
+    @required KW kw,
+  }) async {
+    blog('Changing section to $section');
+
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+
+    await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
+      context: context,
+      section: section,
+      kw: kw,
+    );
+
+    _currentSection = section;
+    _currentKeyword = kw;
+    // setSectionGroups();
+
+    notifyListeners();
+  }
+// -----------------------------------------------------------------------------
+
+
 }

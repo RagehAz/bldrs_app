@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/widgets/general/dialogs/side_dialog/drawer_dialog.
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -87,9 +87,9 @@ class MainLayout extends StatelessWidget {
 // -----------------------------------------------------------------------------
   Future<void> _refresh(BuildContext context) async {
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
-    final SectionClass.Section _currentSection = _generalProvider.currentSection;
-    final KW _currentKeyword = _generalProvider.currentKeyword;
+    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
+    final SectionClass.Section _currentSection = _keywordsProvider.currentSection;
+    final KW _currentKeyword = _keywordsProvider.currentKeyword;
 
     await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
       context: context,

@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/secondary_models/search_result.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +11,8 @@ class SearchResultView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<GeneralProvider, List<SearchResult>>(
-      selector: (_, GeneralProvider generalProvider) => generalProvider.searchResult,
+    return Selector<SearchProvider, List<SearchResult>>(
+      selector: (_, SearchProvider searchProvider) => searchProvider.searchResult,
       // child: Container(),
       // shouldRebuild: ,
       builder: (BuildContext context, List<SearchResult> searchResult, Widget child){
