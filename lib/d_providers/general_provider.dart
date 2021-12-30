@@ -206,4 +206,9 @@ class GeneralProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
+  void emptySearchRecords(){
+    _searchRecords = <RecordModel>[];
+    notifyListeners();
+  }
+// -----------------------------------------------------------------------------
 }
