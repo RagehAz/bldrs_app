@@ -275,10 +275,17 @@ class FlyersProvider extends ChangeNotifier {
 // -------------------------------------
   List<FlyerModel> _wallFlyers;
 // -------------------------------------
-  List<FlyerModel> get wallTinyFlyers {
+  List<FlyerModel> get wallFlyers {
     return <FlyerModel>[..._wallFlyers];
   }
 // -------------------------------------
+  void setWallFlyers(List<FlyerModel> flyers){
+
+    _wallFlyers = flyers;
+    notifyListeners();
+
+  }
+
   Future<void> getsetWallFlyersBySectionAndKeyword({
     @required BuildContext context,
     @required SectionClass.Section section,

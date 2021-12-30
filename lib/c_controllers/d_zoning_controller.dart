@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/x_screens/d_zoning/d_1_select_country_screen.dart'
 import 'package:bldrs/b_views/x_screens/d_zoning/d_2_select_city_screen.dart';
 import 'package:bldrs/b_views/x_screens/d_zoning/d_3_select_district_screen.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -286,12 +286,12 @@ Future<void> controlCityOnTap({
         await _zoneProvider.getsetCurrentZoneAndCountryAndCity(context: context, zone: _zone);
 
         final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-        final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+        final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 
         await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
           context: context,
-          section: _generalProvider.currentSection,
-          kw: _generalProvider.currentKeyword,
+          section: _keywordsProvider.currentSection,
+          kw: _keywordsProvider.currentKeyword,
         );
 
       }
@@ -419,12 +419,12 @@ Future<void> controlDistrictOnTap({
     await _zoneProvider.getsetCurrentZoneAndCountryAndCity(context: context, zone: _zone);
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 
     await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
       context: context,
-      section: _generalProvider.currentSection,
-      kw: _generalProvider.currentKeyword,
+      section: _keywordsProvider.currentSection,
+      kw: _keywordsProvider.currentKeyword,
     );
 
   }

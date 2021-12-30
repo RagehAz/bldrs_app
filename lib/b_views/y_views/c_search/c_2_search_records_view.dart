@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/flyer/records/record_model.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/c_controllers/c_0_search_controller.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -22,8 +22,8 @@ class SearchRecordsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
-    final List<RecordModel> _searchRecords = _generalProvider.searchRecords;
+    final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
+    final List<RecordModel> _searchRecords = _searchProvider.searchRecords;
 
     _searchRecords.sort((RecordModel a, RecordModel b){
       final DateTime _timeA = a.timeStamp;
@@ -77,7 +77,7 @@ class SearchRecordsView extends StatelessWidget {
                         docName: _searchRecord.recordID,
                     );
 
-                    _generalProvider.deleteSearchRecord(_searchRecord);
+                    _searchProvider.deleteSearchRecord(_searchRecord);
 
                   },
                 ),
