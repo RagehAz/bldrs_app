@@ -219,10 +219,13 @@ class _FinalFlyerState extends State<FinalFlyer>
             flyerCity: _flyerCity,
             flyerCountry: _flyerCountry,
           );
-        } else if (_flyerMode == FlyerMethod.FlyerMode.tinyModeByFlyerModel) {
+        }
+
+        else if (_flyerMode == FlyerMethod.FlyerMode.tinyModeByFlyerModel) {
           final BzModel _bz = await _bzzProvider.fetchBzModel(context: context, bzID: widget.flyerModel.bzID);
-          final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bz.zone.countryID);
-          final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: _bz.zone.cityID);
+          final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bz?.zone?.countryID);
+          final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: _bz?.zone?.cityID);
+
           final CountryModel _flyerCountry = await _zoneProvider.fetchCountryByID(
               context: context,
               countryID: widget.flyerModel.zone.countryID);
@@ -240,7 +243,10 @@ class _FinalFlyerState extends State<FinalFlyer>
             flyerCity: _flyerCity,
             flyerCountry: _flyerCountry,
           );
-        } else if (_flyerMode == FlyerMethod.FlyerMode.tinyModeByBzModel) {
+
+        }
+
+        else if (_flyerMode == FlyerMethod.FlyerMode.tinyModeByBzModel) {
 
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
               context: context,
@@ -270,26 +276,32 @@ class _FinalFlyerState extends State<FinalFlyer>
         // --------------------------------------------------------------------X
 
         else if (_flyerMode == FlyerMethod.FlyerMode.bigModeByFlyerID) {
+
           final FlyerModel _flyer = await _flyersProvider.fetchFlyerByID(
               context: context,
               flyerID: widget.flyerID
           );
-          final BzModel _bz = await _bzzProvider.fetchBzModel(context: context,
+
+          final BzModel _bz = await _bzzProvider.fetchBzModel(
+              context: context,
               bzID: widget.flyerModel.bzID
           );
+
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
               context: context,
               countryID: _bz.zone.countryID,
           );
+
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(
               context: context,
               cityID: _bz.zone.cityID
           );
-          final CountryModel _flyerCountry =
-              await _zoneProvider.fetchCountryByID(
+
+          final CountryModel _flyerCountry = await _zoneProvider.fetchCountryByID(
                   context: context,
                   countryID: _flyer.zone.countryID
               );
+
           final CityModel _flyerCity = await _zoneProvider.fetchCityByID(
               context: context,
               cityID: _flyer.zone.cityID
@@ -303,24 +315,32 @@ class _FinalFlyerState extends State<FinalFlyer>
             flyerCity: _flyerCity,
             flyerCountry: _flyerCountry,
           );
+
           // await null;
-        } else if (_flyerMode == FlyerMethod.FlyerMode.bigModeByFlyerModel) {
+        }
+
+        else if (_flyerMode == FlyerMethod.FlyerMode.bigModeByFlyerModel) {
+
           final BzModel _bz = await _bzzProvider.fetchBzModel(
               context: context,
               bzID: widget.flyerModel.bzID
           );
+
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
               context: context,
-              countryID: _bz.zone.countryID
+              countryID: _bz?.zone?.countryID
           );
+
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(
               context: context,
-              cityID: _bz.zone.cityID
+              cityID: _bz?.zone?.cityID
           );
+
           final CountryModel _flyerCountry = await _zoneProvider.fetchCountryByID(
               context: context,
               countryID: widget.flyerModel.zone.countryID
           );
+
           final CityModel _flyerCity = await _zoneProvider.fetchCityByID(
               context: context,
               cityID: widget.flyerModel.zone.cityID
@@ -354,7 +374,9 @@ class _FinalFlyerState extends State<FinalFlyer>
             bzCountry: _bzCountry,
             bzCity: _bzCity,
           );
-        } else if (_flyerMode == FlyerMethod.FlyerMode.bigModeByNull) {
+        }
+
+        else if (_flyerMode == FlyerMethod.FlyerMode.bigModeByNull) {
           _builtSuperFlyer = SuperFlyer.createEmptySuperFlyer(
               flyerBoxWidth: widget.flyerBoxWidth,
               goesToEditor: widget.goesToEditor
@@ -364,23 +386,27 @@ class _FinalFlyerState extends State<FinalFlyer>
         // --------------------------------------------------------------------X
 
         else if (_flyerMode == FlyerMethod.FlyerMode.editorModeByFlyerID) {
+
           _originalFlyer = await _flyersProvider.fetchFlyerByID(
               context: context,
               flyerID: widget.flyerID
           );
+
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
               context: context,
               countryID: _bzModel.zone.countryID
           );
+
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(
               context: context,
               cityID: _bzModel.zone.cityID
           );
-          final CountryModel _flyerCountry =
-              await _zoneProvider.fetchCountryByID(
+
+          final CountryModel _flyerCountry = await _zoneProvider.fetchCountryByID(
                   context: context,
                   countryID: _originalFlyer.zone.countryID
               );
+
           final CityModel _flyerCity = await _zoneProvider.fetchCityByID(
               context: context,
               cityID: _originalFlyer.zone.cityID
@@ -394,22 +420,26 @@ class _FinalFlyerState extends State<FinalFlyer>
             flyerCity: _flyerCity,
             flyerCountry: _flyerCountry,
           );
-        } else if (_flyerMode == FlyerMethod.FlyerMode.editorModeByFlyerModel) {
+        }
+
+        else if (_flyerMode == FlyerMethod.FlyerMode.editorModeByFlyerModel) {
           _originalFlyer = widget.flyerModel;
 
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
               context: context,
               countryID: _bzModel.zone.countryID
           );
+
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(
               context: context,
               cityID: _bzModel.zone.cityID
           );
-          final CountryModel _flyerCountry =
-              await _zoneProvider.fetchCountryByID(
-                  context: context,
-                  countryID: widget.flyerModel.zone.countryID
-              );
+
+          final CountryModel _flyerCountry = await _zoneProvider.fetchCountryByID(
+              context: context,
+              countryID: widget.flyerModel.zone.countryID
+          );
+
           final CityModel _flyerCity = await _zoneProvider.fetchCityByID(
               context: context,
               cityID: widget.flyerModel.zone.cityID
@@ -423,11 +453,15 @@ class _FinalFlyerState extends State<FinalFlyer>
             flyerCity: _flyerCity,
             flyerCountry: _flyerCountry,
           );
-        } else if (_flyerMode == FlyerMethod.FlyerMode.editorModeByBzModel) {
+        }
+
+        else if (_flyerMode == FlyerMethod.FlyerMode.editorModeByBzModel) {
+
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
               context: context,
               countryID: _bzModel.zone.countryID
           );
+
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(
               context: context,
               cityID: _bzModel.zone.cityID
@@ -438,12 +472,17 @@ class _FinalFlyerState extends State<FinalFlyer>
             bzCountry: _bzCountry,
             bzCity: _bzCity,
           );
+
           // await null;
-        } else if (_flyerMode == FlyerMethod.FlyerMode.editorModeByNull) {
+        }
+
+        else if (_flyerMode == FlyerMethod.FlyerMode.editorModeByNull) {
+
           final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
               context: context,
               countryID: _bzModel.zone.countryID
           );
+
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(
               context: context,
               cityID: _bzModel.zone.cityID
