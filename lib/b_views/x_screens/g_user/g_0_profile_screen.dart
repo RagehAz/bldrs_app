@@ -93,7 +93,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             Provider.of<UsersProvider>(context, listen: false);
         final BzzProvider _bzzProvider =
             Provider.of<BzzProvider>(context, listen: false);
-        await _bzzProvider.fetchFollowedBzz(context);
+        await _bzzProvider.getsetFollowedBzz(context);
 
         _followedBzzIDs = _usersProvider.myUserModel.followedBzzIDs;
 

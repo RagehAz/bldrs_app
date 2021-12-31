@@ -78,7 +78,7 @@ Future<void> _initializeUserZone(BuildContext context) async {
 // -----------------------------------------------------------------------------
 Future<void> _initializeSponsors(BuildContext context) async {
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  await _bzzProvider.fetchSponsors(context);
+  await _bzzProvider.getSetSponsors(context);
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializeKeywords(BuildContext context) async {

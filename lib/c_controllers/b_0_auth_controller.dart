@@ -136,7 +136,7 @@ Future<void> _controlAuthResult({
 
     /// B.2 - so sign in succeeded returning a userModel, then set it in provider
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    _usersProvider.setUserModel(_userModel);
+    _usersProvider.setMyUserModel(_userModel);
 
     _uiProvider.triggerLoading(setLoadingTo: false);
 

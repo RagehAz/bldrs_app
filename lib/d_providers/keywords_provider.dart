@@ -18,8 +18,7 @@ import 'package:provider/provider.dart';
 // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 class KeywordsProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
-  Future<List<KW>> _readAllKeywordsThenWipeLDBThenInsertAll(
-      BuildContext context) async {
+  Future<List<KW>> _readAllKeywordsThenWipeLDBThenInsertAll(BuildContext context) async {
     /// 1 - read firebase KeywordOps
     final List<KW> _allKeywords = await FireKeywordOps.readKeywordsOps(
       context: context,
@@ -43,9 +42,11 @@ class KeywordsProvider extends ChangeNotifier {
 
     return _allKeywords;
   }
-
 // -----------------------------------------------------------------------------
+
   /// FETCHING KEYWORDS
+
+// -------------------------------------
   Future<List<KW>> fetchAllKeywords({@required BuildContext context}) async {
     final GeneralProvider _generalProvider =
         Provider.of<GeneralProvider>(context, listen: false);
@@ -80,55 +81,33 @@ class KeywordsProvider extends ChangeNotifier {
 
     return _allKeywords;
   }
-
 // -----------------------------------------------------------------------------
+
   /// ALL KEYWORDS
+
+// -------------------------------------
   List<KW> _allKeywords = <KW>[];
 // -------------------------------------
   List<KW> get allKeywords {
     return <KW>[..._allKeywords];
   }
-
-// -------------------------------------
-  void emptyAllKeywords() {
-    _allKeywords = <KW>[];
-    notifyListeners();
-  }
-
 // -------------------------------------
   Future<void> getsetAllKeywords(BuildContext context) async {
     final List<KW> _keywords = await fetchAllKeywords(context: context);
 
-    _allKeywords = _keywords;
+    _setAllKeywords(_keywords);
+  }
+// -------------------------------------
+  void _setAllKeywords(List<KW> kws){
+    _allKeywords = kws;
     notifyListeners();
   }
-
-// -----------------------------------------------------------------------------
-  KW getKeywordByID(String id) {
-    final KW _kw =
-        _allKeywords.firstWhere((KW kw) => kw.id == id, orElse: () => null);
-    return _kw;
+// -------------------------------------
+  void clearAllKeywords() {
+    _setAllKeywords(<KW>[]);
   }
-
 // -----------------------------------------------------------------------------
-  List<KW> getKeywordsByKeywordsIDs(List<String> ids) {
-    final List<KW> _keywords = <KW>[];
-
-    if (Mapper.canLoopList(ids)) {
-      for (final String id in ids) {
-        final KW _keyword = getKeywordByID(id);
-
-        if (_keyword != null) {
-          _keywords.add(_keyword);
-        }
-      }
-    }
-
-    return _keywords;
-  }
-
-// -----------------------------------------------------------------------------
-  String getIcon({@required BuildContext context, @required dynamic son}) {
+  String getKeywordIcon({@required BuildContext context, @required dynamic son}) {
     String _icon;
 
     tryAndCatch(
@@ -178,17 +157,7 @@ class KeywordsProvider extends ChangeNotifier {
   SectionClass.Section get currentSection {
     return _currentSection ?? SectionClass.Section.designs;
   }
-// -----------------------------------------------------------------------------
-
-  /// SELECTED KEYWORD
-
-// -------------------------------------
-  KW _currentKeyword;
-// -------------------------------------
-  KW get currentKeyword {
-    return _currentKeyword;
-  }
-// -------------------------------------
+  // -------------------------------------
   Future<void> changeSection({
     @required BuildContext context,
     @required SectionClass.Section section,
@@ -198,10 +167,11 @@ class KeywordsProvider extends ChangeNotifier {
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
-    await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
-      context: context,
-      section: section,
-      kw: kw,
+    await _flyersProvider.paginateWallFlyers(
+      // context: context,
+      // section: section,
+      // kw: kw,
+        context
     );
 
     _currentSection = section;
@@ -210,7 +180,33 @@ class KeywordsProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+  // -------------------------------------
+  void _setCurrentSection(SectionClass.Section section){
+    _currentSection = section;
+    notifyListeners();
+  }
+  // -------------------------------------
+  void clearCurrentSection(){
+    _setCurrentSection(null);
+  }
 // -----------------------------------------------------------------------------
 
+  /// CURRENT KEYWORD
 
+// -------------------------------------
+  KW _currentKeyword;
+// -------------------------------------
+  KW get currentKeyword {
+    return _currentKeyword;
+  }
+// -----------------------------------------------------------------------------
+  void _setCurrentKeyword(KW kw){
+    _currentKeyword = kw;
+    notifyListeners();
+  }
+// -------------------------------------
+  void clearCurrentKeyword(){
+    _setCurrentKeyword(null);
+  }
+// -----------------------------------------------------------------------------
 }

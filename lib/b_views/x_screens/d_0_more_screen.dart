@@ -16,6 +16,11 @@ import 'package:bldrs/b_views/x_screens/g_user/d_5_about_bldrs_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user/d_6_feedback_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
+import 'package:bldrs/d_providers/keywords_provider.dart';
+import 'package:bldrs/d_providers/search_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
@@ -41,8 +46,7 @@ class MoreScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final ZoneProvider zoneProvider =
-        Provider.of<ZoneProvider>(context, listen: true);
+    final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final CountryModel _currentCountry = zoneProvider.currentCountry;
     final String _currentFlag = Flag.getFlagIconByCountryID(_currentCountry.id);
 
@@ -169,8 +173,53 @@ class MoreScreen extends StatelessWidget {
               TileBubble(
                 verse: Wordz.signOut(context),
                 icon: Iconz.exit,
-                btOnTap: () => FireAuthOps.signOut(
-                    context: context, routeToUserChecker: true),
+                btOnTap: () async {
+
+                  /// CLEAR FLYERS
+                  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+                  _flyersProvider.clearSavedFlyers();
+                  _flyersProvider.clearPromotedFlyers();
+                  _flyersProvider.clearActiveBzFlyers();
+                  _flyersProvider.clearWallFlyers();
+
+                  /// CLEAR SEARCHES
+                  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
+                  _searchProvider.clearSearchResult();
+                  _searchProvider.clearSearchRecords();
+                  _searchProvider.closeAllZoneSearches();
+
+                  /// CLEAR KEYWORDS
+                  final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+                  _keywordsProvider.clearAllKeywords();
+                  _keywordsProvider.clearCurrentKeyword();
+                  _keywordsProvider.clearCurrentSection();
+
+                  /// CLEAR BZZ
+                  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+                  _bzzProvider.clearMyBzz();
+                  _bzzProvider.clearFollowedBzz();
+                  _bzzProvider.clearSponsors();
+                  _bzzProvider.clearMyActiveBz();
+
+                  /// CLEAR USER
+                  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+                  _usersProvider.clearMyUserModel();
+
+                  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+                  // _zoneProvider.clearAllSearchesAndSelections();
+                  _zoneProvider.clearCurrentContinent();
+                  _zoneProvider.clearUserCountryModel();
+                  _zoneProvider.clearCurrentZoneAndCurrentCountryAndCurrentCity();
+                  _zoneProvider.clearCurrentCurrencyAndAllCurrencies();
+                  _zoneProvider.clearSearchedCountries();
+                  _zoneProvider.clearSelectedCountryCities();
+                  _zoneProvider.clearSearchedCities();
+                  _zoneProvider.clearSelectedCityDistricts();
+                  _zoneProvider.clearSearchedDistricts();
+
+                  await FireAuthOps.signOut(context: context, routeToUserChecker: true);
+
+                },
               ),
 
               const Horizon(),

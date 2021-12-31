@@ -4,12 +4,15 @@ import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 class UsersProvider extends ChangeNotifier {
+// -------------------------------------
+
   /// FETCHING USER
+
+// -------------------------------------
   Future<UserModel> fetchUserByID({
     @required BuildContext context,
     @required String userID
@@ -81,7 +84,10 @@ class UsersProvider extends ChangeNotifier {
 //   }
 
 // -----------------------------------------------------------------------------
+
   /// MY USER MODEL
+
+// -------------------------------------
   UserModel _myUserModel; //UserModel.initializeUserModelStreamFromUser(superFirebaseUser()); needs to be null if didn't find the userModel
 // -------------------------------------
   UserModel get myUserModel {
@@ -97,41 +103,47 @@ class UsersProvider extends ChangeNotifier {
       _userModel = await fetchUserByID(context: context, userID: _myUserID);
     }
 
-    _myUserModel = _userModel;
-    notifyListeners();
+    setMyUserModel(_userModel);
   }
 // -------------------------------------
-  void setUserModel(UserModel userModel){
+  void setMyUserModel(UserModel userModel){
     _myUserModel = userModel;
     notifyListeners();
   }
-// -----------------------------------------------------------------------------
-  /// USER STREAM
-  Stream<UserModel> get myUserModelStream {
-    final CollectionReference<Object> _userCollection = UserFireOps.collRef();
-    final Stream<UserModel> _stream = _userCollection
-        .doc(_myUserModel?.id)
-        .snapshots()
-        .map(_userModelFromSnapshot);
-    return _stream;
-  }
 // -------------------------------------
-  static UserModel _userModelFromSnapshot(DocumentSnapshot<Object> doc) {
-    UserModel _userModel;
-
-    if (doc != null) {
-      try {
-        final Map<String, dynamic> _map = doc.data() as Map<String, dynamic>;
-
-        _userModel = UserModel.decipherUserMap(map: _map, fromJSON: false);
-      } on Exception catch (error) {
-        blog('_userModelFromSnapshot error is : $error');
-        rethrow;
-      }
-    }
-
-    return _userModel;
+  void clearMyUserModel(){
+    setMyUserModel(null);
   }
 // -----------------------------------------------------------------------------
+
+  /// USER STREAM
+
+// // -------------------------------------
+//   Stream<UserModel> get myUserModelStream {
+//     final CollectionReference<Object> _userCollection = UserFireOps.collRef();
+//     final Stream<UserModel> _stream = _userCollection
+//         .doc(_myUserModel?.id)
+//         .snapshots()
+//         .map(_userModelFromSnapshot);
+//     return _stream;
+//   }
+// // -------------------------------------
+//   static UserModel _userModelFromSnapshot(DocumentSnapshot<Object> doc) {
+//     UserModel _userModel;
+//
+//     if (doc != null) {
+//       try {
+//         final Map<String, dynamic> _map = doc.data() as Map<String, dynamic>;
+//
+//         _userModel = UserModel.decipherUserMap(map: _map, fromJSON: false);
+//       } on Exception catch (error) {
+//         blog('_userModelFromSnapshot error is : $error');
+//         rethrow;
+//       }
+//     }
+//
+//     return _userModel;
+//   }
+// // -----------------------------------------------------------------------------
 
 }

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/flyer/records/record_model.dart';
-import 'package:bldrs/a_models/secondary_models/search_result.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_0_search_screen_view.dart';
@@ -107,7 +106,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     final String _verse =
         _uiProvider.isLoading ? 'loading' :
-            _uiProvider.isSearchingFlyersAndBzz ? 'searching' :
+        _searchProvider.isSearchingFlyersAndBzz ? 'searching' :
                 'default';
 
     return MainLayout(
@@ -135,9 +134,9 @@ class _SearchScreenState extends State<SearchScreen> {
       onSearchChanged: _onSearchChanged,
       onBack: () async {
 
-        _searchProvider.emptySearchRecords();
-        _searchProvider.setSearchResult(<SearchResult>[]);
-        _uiProvider.triggerIsSearching(searchingModel: SearchingModel.flyersAndBzz, setIsSearchingTo: false);
+        _searchProvider.clearSearchRecords();
+        _searchProvider.clearSearchResult();
+        _searchProvider.triggerIsSearching(searchingModel: SearchingModel.flyersAndBzz, setIsSearchingTo: false);
         _uiProvider.triggerLoading(setLoadingTo: false);
 
         goBack(context);

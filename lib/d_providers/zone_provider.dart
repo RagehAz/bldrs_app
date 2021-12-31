@@ -370,12 +370,23 @@ class ZoneProvider extends ChangeNotifier {
     return _currentContinent;
   }
 // -------------------------------------
-  Future<void> getsetContinentByCountryID({@required BuildContext context, @required String countryID}) async {
+  Future<void> getsetContinentByCountryID({
+    @required BuildContext context,
+    @required String countryID
+  }) async {
     final List<Continent> _allContinents = await fetchContinents(context: context);
     final Continent _continent = Continent.getContinentFromContinentsByCountryID(continents: _allContinents, countryID: countryID);
 
-    _currentContinent = _continent;
+    _setCurrentContinent(_continent);
+  }
+// -------------------------------------
+  void _setCurrentContinent(Continent continent){
+    _currentContinent = continent;
     notifyListeners();
+  }
+// -------------------------------------
+  void clearCurrentContinent(){
+    _setCurrentContinent(null);
   }
 // -------------------------------------
   Future<List<CountryModel>> getContinentActivatedCountries(BuildContext context) async {
@@ -401,14 +412,26 @@ class ZoneProvider extends ChangeNotifier {
     return _userCityModel;
   }
 // -------------------------------------
-  Future<void> getsetUserCountryAndCity({@required BuildContext context, @required ZoneModel zone}) async {
+  Future<void> getsetUserCountryAndCity({
+    @required BuildContext context,
+    @required ZoneModel zone
+  }) async {
 
     final CountryModel _country = await fetchCountryByID(context: context, countryID: zone.countryID);
     final CityModel _city = await fetchCityByID(context: context, cityID: zone.cityID);
 
-    _userCountyModel = _country;
-    _userCityModel = _city;
+    _setUserCountryAndCityModels(_country, _city);
+
+  }
+// -------------------------------------
+  void _setUserCountryAndCityModels(CountryModel country, CityModel city){
+    _userCountyModel = country;
+    _userCityModel = city;
     notifyListeners();
+  }
+// -------------------------------------
+  void clearUserCountryModel(){
+    _setUserCountryAndCityModels(null, null);
   }
 // -----------------------------------------------------------------------------
 
@@ -423,7 +446,10 @@ class ZoneProvider extends ChangeNotifier {
   CountryModel get currentCountry{return _currentCountryModel;}
   CityModel get currentCity{return _currentCityModel;}
 // -------------------------------------
-  Future<void> getsetCurrentZoneAndCountryAndCity({@required BuildContext context, @required ZoneModel zone}) async {
+  Future<void> getsetCurrentZoneAndCountryAndCity({
+    @required BuildContext context,
+    @required ZoneModel zone
+  }) async {
 
     final CountryModel _country = await fetchCountryByID(context: context, countryID: zone.countryID);
     final CityModel _city = await fetchCityByID(context: context, cityID: zone.cityID);
@@ -433,7 +459,35 @@ class ZoneProvider extends ChangeNotifier {
     _currentCityModel = _city;
 
     await _getSetAllCurrenciesAndCurrentCurrency(context: context);
+
+    _setCurrentZoneAndCountryModelAndCityModel(
+      zone: zone,
+      country: _country,
+      city: _city,
+    );
+
+  }
+// -------------------------------------
+  void _setCurrentZoneAndCountryModelAndCityModel({
+    @required ZoneModel zone,
+    @required CountryModel country,
+    @required CityModel city,
+  }){
+
+    _currentZone = zone;
+    _currentCountryModel = country;
+    _currentCityModel = city;
+
     notifyListeners();
+
+  }
+// -------------------------------------
+  void clearCurrentZoneAndCurrentCountryAndCurrentCity(){
+    _setCurrentZoneAndCountryModelAndCityModel(
+        zone: null,
+        country: null,
+        city: null
+    );
   }
 // -----------------------------------------------------------------------------
 
@@ -460,7 +514,10 @@ class ZoneProvider extends ChangeNotifier {
     return _nameInCurrentLanguage ?? cityID;
   }
 // -----------------------------------------------------------------------------
-  Future<ZoneModel> getZoneModelByGeoPoint({@required BuildContext context, @required GeoPoint geoPoint}) async {
+  Future<ZoneModel> getZoneModelByGeoPoint({
+    @required BuildContext context,
+    @required GeoPoint geoPoint
+  }) async {
 
     ZoneModel _zoneModel;
 
@@ -521,7 +578,9 @@ class ZoneProvider extends ChangeNotifier {
     return _allCurrencies;
   }
 // -------------------------------------
-  Future<void> _getSetAllCurrenciesAndCurrentCurrency({@required BuildContext context}) async {
+  Future<void> _getSetAllCurrenciesAndCurrentCurrency({
+    @required BuildContext context
+  }) async {
 
     final List<CurrencyModel> _currencies = await fetchCurrencies(context: context);
 
@@ -532,6 +591,27 @@ class ZoneProvider extends ChangeNotifier {
 
     _allCurrencies = _currencies;
     _currentCurrency = _currencyByCountryID;
+
+    _setAllCurrenciesAndCurrentCurrency(
+      allCurrencies: _currencies,
+      currentCurrency: _currencyByCountryID,
+    );
+  }
+// -------------------------------------
+  void _setAllCurrenciesAndCurrentCurrency({
+    @required List<CurrencyModel> allCurrencies,
+    @required CurrencyModel currentCurrency,
+  }){
+    _allCurrencies = allCurrencies;
+    _currentCurrency = currentCurrency;
+    notifyListeners();
+  }
+// -------------------------------------
+  void clearCurrentCurrencyAndAllCurrencies(){
+    _setAllCurrenciesAndCurrentCurrency(
+      currentCurrency: null,
+      allCurrencies: null,
+    );
   }
 // -----------------------------------------------------------------------------
 
@@ -567,13 +647,16 @@ class ZoneProvider extends ChangeNotifier {
     }
 
     /// SET FOUND COUNTRIES
-    _searchedCountries = _foundCountries;
+    _setSearchedCountries(_foundCountries);
+  }
+// -------------------------------------
+  void _setSearchedCountries(List<CountryModel> countries){
+    _searchedCountries = countries;
     notifyListeners();
   }
 // -------------------------------------
-  void emptySearchedCountries(){
-    _searchedCountries = <CountryModel>[];
-    notifyListeners();
+  void clearSearchedCountries(){
+    _setSearchedCountries(<CountryModel>[]);
   }
 // -----------------------------------------------------------------------------
 
@@ -594,15 +677,18 @@ class ZoneProvider extends ChangeNotifier {
       citiesIDs: countryModel?.citiesIDs,
     );
 
-    _selectedCountryCities = _fetchedCities;
-    _searchedCities = <CityModel>[];
-    notifyListeners();
+    _setSelectedCountryCities(_fetchedCities);
+    clearSearchedCities();
 
   }
-// -------------------------------------
-  void emptySelectedCountryCities(){
-    _selectedCountryCities = <CityModel>[];
+
+  void _setSelectedCountryCities(List<CityModel> cities){
+    _selectedCountryCities = cities;
     notifyListeners();
+  }
+// -------------------------------------
+  void clearSelectedCountryCities(){
+    _setSelectedCountryCities(<CityModel>[]);
   }
 // -----------------------------------------------------------------------------
 
@@ -629,38 +715,35 @@ class ZoneProvider extends ChangeNotifier {
     blog('${_foundCities[0]}');
 
     /// SET FOUND CITIES
-    _searchedCities = _foundCities;
-    notifyListeners();
+    _setSearchedCities(_foundCities);
 
   }
   // -------------------------------------
-  void emptySearchedCities(){
-    _searchedCities = <CityModel>[];
+  void _setSearchedCities(List<CityModel> cities){
+    _searchedCities = cities;
     notifyListeners();
+  }
+  // -------------------------------------
+  void clearSearchedCities(){
+    _setSearchedCities(<CityModel>[]);
   }
 // -----------------------------------------------------------------------------
 
-/// SELECTED CITY DISTRICTS
+  /// SELECTED CITY DISTRICTS
 
 // -------------------------------------
   List<DistrictModel> _selectedCityDistricts = <DistrictModel>[];
 // -------------------------------------
   List<DistrictModel> get selectedCityDistricts => <DistrictModel>[..._selectedCityDistricts];
 // -------------------------------------
-  Future<void> getSetSelectedCityDistricts({
-    @required BuildContext context,
-    @required CityModel cityModel,
-  }) async {
-
-    _selectedCityDistricts = cityModel.districts;
-    _searchedDistricts = <DistrictModel>[];
+  void setSelectedCityDistricts(List<DistrictModel> districts){
+    _selectedCityDistricts = districts;
+    clearSearchedDistricts();
     notifyListeners();
-
   }
 // -------------------------------------
-  void emptySelectedCityDistricts(){
-    _selectedCityDistricts = <DistrictModel>[];
-    notifyListeners();
+  void clearSelectedCityDistricts(){
+    setSelectedCityDistricts(<DistrictModel>[]);
   }
 // -----------------------------------------------------------------------------
 
@@ -687,14 +770,17 @@ class ZoneProvider extends ChangeNotifier {
     // blog('${_foundCities[0]}');
 
     /// SET FOUND CITIES
-    _searchedDistricts = _foundDistricts;
-    notifyListeners();
+    _setSearchedDistricts(_foundDistricts);
 
   }
 // -------------------------------------
-  void emptySearchedDistricts(){
-    _searchedDistricts = <DistrictModel>[];
+  void _setSearchedDistricts(List<DistrictModel> districts){
+    _searchedDistricts = districts;
     notifyListeners();
+  }
+// -------------------------------------
+  void clearSearchedDistricts(){
+    _setSearchedDistricts(<DistrictModel>[]);
   }
 // -----------------------------------------------------------------------------
   void clearAllSearchesAndSelections(){

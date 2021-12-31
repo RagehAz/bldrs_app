@@ -277,7 +277,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
               blog('bubble tapped');
             },
             onKeywordTap: (KW kw) {
-              kw.printKeyword();
+              kw.blogKeyword();
             },
             selectedWords: const <dynamic>[],
             addButtonIsOn: false,
