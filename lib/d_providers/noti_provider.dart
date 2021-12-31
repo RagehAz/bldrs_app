@@ -10,7 +10,6 @@ class NotiProvider extends ChangeNotifier {
   bool get notiIsOn {
     return _notiIsOn;
   }
-
 // -------------------------------------
   void triggerNotiIsOn({bool setNotiIsOn}) {
     if (setNotiIsOn == null) {
@@ -21,20 +20,22 @@ class NotiProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-
 // -----------------------------------------------------------------------------
-  List<NotiModel> _unreadNotiModels;
-// -------------------------------------
-  List<NotiModel> get unreadNotiModels {
-    return [..._unreadNotiModels];
-  }
 
+  /// UNREAD NOTIFICATIONS
+
+// -------------------------------------
+  List<NotiModel> _unreadNotifications;
+// -------------------------------------
+  List<NotiModel> get unreadNotifications {
+    return [..._unreadNotifications];
+  }
 // -------------------------------------
   void getSetNotiModels() {
     /// TASK : get notifications
     /// TASK : set notifications
 
-    _unreadNotiModels = [];
+    _unreadNotifications = [];
     notifyListeners();
   }
 // -----------------------------------------------------------------------------

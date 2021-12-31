@@ -455,7 +455,7 @@ class _BzEditorScreenState extends State<BzEditorScreen>
           context: context, inputBz: _newBzModel, userModel: widget.userModel);
 
       /// add the final _bzModel to _userBzz
-      _bzzProvider.addBzToUserBzz(_bzModel);
+      _bzzProvider.addBzToMyBzz(_bzModel);
 
       unawaited(_triggerLoading());
 

@@ -80,3 +80,11 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
     );
   }
 }
+
+/// NEED TO PUT THESE STATEMENTS FOR BZZ
+///  - NO SUBSCRIPTION FEES
+///  - NO SALES COMMISSION
+///  - SHARE YOUR WORK AND YOUR SOCIAL MEDIA LINKS
+///  - BLDRS COMMUNITY IS REFERRAL COMMUNITY
+///  - NO VIOLATIONS ALLOWED
+///  ...

@@ -20,12 +20,11 @@ Future<void> createRecord({
 }
 
 // -----------------------------------------------------------------------------
-Future<List<RecordModel>> readRecords({
+Future<List<RecordModel>> paginateRecords({
   @required BuildContext context,
   @required String userID,
   @required ActivityType activityType,
   @required int limit,
-  @required bool addDocSnapshotToEachMap,
   DocumentSnapshot<Object> startAfter,
 }) async {
 
@@ -58,7 +57,7 @@ Future<List<RecordModel>> readRecords({
   final List<Map<String, dynamic>> _foundMaps = Mapper.getMapsFromQuerySnapshot(
     querySnapshot: _collectionSnapshot,
     addDocsIDs: true,
-    addDocSnapshotToEachMap: addDocSnapshotToEachMap,
+    addDocSnapshotToEachMap: true,
   );
 
   final List<RecordModel> _records = RecordModel.decipherRecords(

@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/flyer/records/review_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/methods/storage.dart' as Storage;
@@ -165,10 +166,11 @@ Future<FlyerModel> readFlyerOps({
 
   return _flyer;
 }
-
 // ---------------------------------------------------
-Future<List<FlyerModel>> readBzFlyers(
-    {@required BuildContext context, @required BzModel bzModel}) async {
+Future<List<FlyerModel>> readBzFlyers({
+  @required BuildContext context,
+  @required BzModel bzModel
+}) async {
   final List<FlyerModel> _flyers = <FlyerModel>[];
 
   if (Mapper.canLoopList(bzModel?.flyersIDs)) {
@@ -186,7 +188,6 @@ Future<List<FlyerModel>> readBzFlyers(
 
   return _flyers;
 }
-
 // ---------------------------------------------------
 Future<List<FlyerModel>> readBzzFlyers({
   @required BuildContext context,
@@ -209,7 +210,6 @@ Future<List<FlyerModel>> readBzzFlyers({
 
   return _allFlyers;
 }
-
 // ---------------------------------------------------
 Future<List<ReviewModel>> readAllReviews({
   @required BuildContext context,
@@ -232,6 +232,68 @@ Future<List<ReviewModel>> readAllReviews({
       ReviewModel.decipherReviews(maps: _maps, fromJSON: false);
 
   return _reviews;
+}
+// ---------------------------------------------------
+Future<List<FlyerModel>> paginateFlyers({
+  @required BuildContext context,
+  @required ZoneModel zone,
+  @required int limit,
+  // @required FlyerType flyerType,
+  // @required List<Keyword> keywords, or just one keyword
+  DocumentSnapshot<Object> startAfter,
+}) async {
+
+  final CollectionReference<Object> _collRef = Fire.getCollectionRef(FireColl.flyers);
+  QuerySnapshot<Object> _collectionSnapshot;
+
+  /// INITIAL QUERY
+  if (startAfter == null){
+
+    final Query _initialQuery = _collRef
+        .where('isBanned', isEqualTo: false)
+        .where('zone.countryID', isEqualTo: zone.countryID)
+        .where('zone.cityID', isEqualTo: zone.cityID)
+        // .where('zone.districtID', isEqualTo: zone.districtID)
+        // .where('keywordsIDs', arrayContains: keyword.id)
+        // .where('flyerType', isEqualTo: flyerType)
+        // .orderBy('score')
+        .orderBy('id', descending: true) /// temp until we fix the scoring system
+        .limit(limit);
+
+    _collectionSnapshot = await _initialQuery.get();
+
+  }
+
+  /// CONTINUE QUERY
+  else {
+
+    final Query _continueQuery = _collRef
+        .where('isBanned', isEqualTo: false)
+        .where('zone.countryID', isEqualTo: zone.countryID)
+        .where('zone.cityID', isEqualTo: zone.cityID)
+        // .where('zone.districtID', isEqualTo: zone.districtID)
+        // .where('keywordsIDs', arrayContains: keyword.id)
+        // .where('flyerType', isEqualTo: flyerType)
+        // .orderBy('score')
+        .orderBy('id', descending: true) /// temp until we fix the scoring system
+        .startAfterDocument(startAfter)
+        .limit(limit);
+
+    _collectionSnapshot = await _continueQuery.get();
+  }
+
+  final List<Map<String, dynamic>> _foundMaps = Mapper.getMapsFromQuerySnapshot(
+    querySnapshot: _collectionSnapshot,
+    addDocsIDs: true,
+    addDocSnapshotToEachMap: true,
+  );
+
+  final List<FlyerModel> _flyers = FlyerModel.decipherFlyers(
+      maps: _foundMaps,
+      fromJSON: false,
+  );
+
+  return _flyers;
 }
 // -----------------------------------------------------------------------------
 

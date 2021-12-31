@@ -11,8 +11,8 @@ class QuestionsScreen extends StatefulWidget {
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
 // -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  final bool _loading = false;
+//   /// --- FUTURE LOADING BLOCK
+//   final bool _loading = false;
 //   Future <void> _triggerLoading({Function function}) async {
 //
 //     if (function == null){

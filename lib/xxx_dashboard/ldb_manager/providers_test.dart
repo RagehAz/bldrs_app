@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
@@ -10,7 +9,6 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -91,15 +89,15 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 // -----------------------------------------------------------------------------
 
     final UserModel _myUserModel = _usersProvider?.myUserModel;
-    final Stream<UserModel> _myUserModelStream = _usersProvider?.myUserModelStream;
+    // final Stream<UserModel> _myUserModelStream = _usersProvider?.myUserModelStream;
     final ZoneModel _currentZone = _zoneProvider?.currentZone;
     final Continent _currentContinent = _zoneProvider?.currentContinent;
     final CountryModel _currentCountry = _zoneProvider?.currentCountry;
     final CityModel _currentCity = _zoneProvider?.currentCity;
     final List<FlyerModel> _promotedFlyers = _flyersProvider?.promotedFlyers;
 
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    final List<BzModel> _userBzz = _bzzProvider.myBzz;
+    // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    // final List<BzModel> _userBzz = _bzzProvider.myBzz;
 
     return MainLayout(
       appBarType: AppBarType.basic,
@@ -127,28 +125,28 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
                     unawaited(_triggerLoading());
                   }),
 
-              WideButton(
-                  color: Colorz.black255,
-                  verse: 'print _myUserModelStream',
-                  icon: Iconizer.valueIsNotNull(_myUserModelStream),
-                  onTap: () async {
-                    unawaited(_triggerLoading());
-                    final UserModel _userModelFromStream = await _myUserModelStream.first;
-                    _userModelFromStream.printUserModel();
-                    unawaited(_triggerLoading());
-                  }),
+              // WideButton(
+              //     color: Colorz.black255,
+              //     verse: 'print _myUserModelStream',
+              //     icon: Iconizer.valueIsNotNull(_myUserModelStream),
+              //     onTap: () async {
+              //       unawaited(_triggerLoading());
+              //       final UserModel _userModelFromStream = await _myUserModelStream.first;
+              //       _userModelFromStream.printUserModel();
+              //       unawaited(_triggerLoading());
+              //     }),
 
-              WideButton(
-                  color: Colorz.black255,
-                  verse: 'print _userBzz : ${_userBzz?.length}',
-                  icon: Iconizer.valueIsNotNull(_myUserModelStream),
-                  onTap: () async {
-                    unawaited(_triggerLoading());
-
-                    BzModel.blogBzz(bzz: _userBzz);
-
-                    unawaited(_triggerLoading());
-                  }),
+              // WideButton(
+              //     color: Colorz.black255,
+              //     verse: 'print _userBzz : ${_userBzz?.length}',
+              //     icon: Iconizer.valueIsNotNull(_myUserModelStream),
+              //     onTap: () async {
+              //       unawaited(_triggerLoading());
+              //
+              //       BzModel.blogBzz(bzz: _userBzz);
+              //
+              //       unawaited(_triggerLoading());
+              //     }),
 
 
               WideButton(
