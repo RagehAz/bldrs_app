@@ -38,7 +38,7 @@ class BzPageHeadline extends StatelessWidget {
               children: <Widget>[
                 /// BUSINESS NAME
                 SuperVerse(
-                  verse: bzModel.name,
+                  verse: bzModel?.name,
                   size: 5,
                   shadow: true,
                   maxLines: 2,
@@ -49,7 +49,7 @@ class BzPageHeadline extends StatelessWidget {
                 SuperVerse(
                   verse: TextGen.countryStringer(
                     context: context,
-                    zone: bzModel.zone,
+                    zone: bzModel?.zone,
                     country: country,
                     city: city,
                   ),

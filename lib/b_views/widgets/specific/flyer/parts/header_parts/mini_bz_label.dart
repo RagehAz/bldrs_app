@@ -39,7 +39,7 @@ class BzLabel extends StatelessWidget {
     /// B.LOCALE
     final String _businessLocale = TextGen.countryStringer(
       context: context,
-      zone: superFlyer.bz.zone,
+      zone: superFlyer.bz?.zone,
       country: superFlyer.bzCountry,
       city: superFlyer.bzCity,
     );
@@ -60,7 +60,7 @@ class BzLabel extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
               child: SuperVerse(
-                verse: superFlyer.bz.name,
+                verse: superFlyer.bz?.name,
                 centered: false,
                 size: _bzNameSize,
                 scaleFactor: (flyerBoxWidth / _screenWidth) * 0.9,

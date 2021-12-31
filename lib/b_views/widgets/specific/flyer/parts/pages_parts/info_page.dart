@@ -112,9 +112,9 @@ class InfoPage extends StatelessWidget {
 
     final bool _flyerInfoExists = _flyerInfoExistsCheck(_flyerInfoParagraph);
 
-    final List<FlyerTypeClass.FlyerType> _possibleFlyerTypes =
-        FlyerTypeClass.concludePossibleFlyerTypesForBz(
-            bzType: superFlyer.bz.bzType);
+    final List<FlyerTypeClass.FlyerType> _possibleFlyerTypes = FlyerTypeClass.concludePossibleFlyerTypesForBz(
+            bzType: superFlyer.bz?.bzType
+        );
 
     return NeedToSaveScrollPosition(
       superFlyer: superFlyer,

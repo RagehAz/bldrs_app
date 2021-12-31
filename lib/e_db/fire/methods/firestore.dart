@@ -15,7 +15,6 @@ String pathOfDoc({
 }) {
   return '$collName/$docName';
 }
-
 // ---------------------------------------------------
 String pathOfSubColl({
   @required String collName,
@@ -24,7 +23,6 @@ String pathOfSubColl({
 }) {
   return '$collName/$docName/$subCollName';
 }
-
 // ---------------------------------------------------
 String pathOfSubDoc({
   @required String collName,
@@ -45,7 +43,6 @@ CollectionReference<Object> getCollectionRef(String collName) {
       _fireInstance.collection(collName);
   return _collection;
 }
-
 // ---------------------------------------------------
 DocumentReference<Object> getDocRef({
   @required String collName,
@@ -62,7 +59,6 @@ DocumentReference<Object> getDocRef({
 
   return _doc;
 }
-
 // ---------------------------------------------------
 CollectionReference<Object> getSubCollectionRef({
   @required String collName,
@@ -81,7 +77,6 @@ CollectionReference<Object> getSubCollectionRef({
 
   return _subCollection;
 }
-
 // ---------------------------------------------------
 DocumentReference<Object> getSubDocRef({
   @required String collName,
@@ -164,7 +159,6 @@ Future<DocumentReference<Object>> createNamedDoc({
 
   return _docRef;
 }
-
 // ---------------------------------------------------
 /// creates firestore sub doc with auto ID
 Future<DocumentReference<Object>> createSubDoc({
@@ -190,7 +184,6 @@ Future<DocumentReference<Object>> createSubDoc({
 
   return _subDocRef;
 }
-
 // ---------------------------------------------------
 Future<DocumentReference<Object>> createNamedSubDoc({
   @required BuildContext context,
@@ -307,12 +300,12 @@ Future<List<Map<String, dynamic>>> readCollectionDocs({
 
   return _maps;
 }
-
 // ---------------------------------------------------
-Future<Map<String, dynamic>> readDoc(
-    {@required BuildContext context,
-    @required String collName,
-    @required String docName}) async {
+Future<Map<String, dynamic>> readDoc({
+  @required BuildContext context,
+  @required String collName,
+  @required String docName,
+}) async {
   blog('readDoc() : starting to read doc : firestore/$collName/$docName');
   // blog('lng : ${Wordz.languageCode(context)}');
 
@@ -342,7 +335,6 @@ Future<Map<String, dynamic>> readDoc(
 
   return _result.runtimeType == String ? null : _map;
 }
-
 // ---------------------------------------------------
 /// TASK : delete Fire.readDocField if not used in release mode
 Future<dynamic> readDocField({
@@ -366,7 +358,6 @@ Future<dynamic> readDocField({
 
   return _map[fieldName];
 }
-
 // ---------------------------------------------------
 Future<List<Map<String, dynamic>>> readSubCollectionDocs({
   @required BuildContext context,
@@ -470,12 +461,13 @@ Future<List<Map<String, dynamic>>> readSubCollectionDocs({
 }
 
 // ---------------------------------------------------
-Future<dynamic> readSubDoc(
-    {@required BuildContext context,
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
-    @required String subDocName}) async {
+Future<dynamic> readSubDoc({
+  @required BuildContext context,
+  @required String collName,
+  @required String docName,
+  @required String subCollName,
+  @required String subDocName,
+}) async {
   dynamic _map;
 
   await tryAndCatch(
@@ -494,7 +486,6 @@ Future<dynamic> readSubDoc(
 
   return _map;
 }
-
 // ---------------------------------------------------
 Stream<QuerySnapshot<Object>> streamCollection(String collectionName) {
   final CollectionReference<Object> _collection =
@@ -502,7 +493,6 @@ Stream<QuerySnapshot<Object>> streamCollection(String collectionName) {
   final Stream<QuerySnapshot<Object>> _snapshots = _collection.snapshots();
   return _snapshots;
 }
-
 // ---------------------------------------------------
 Stream<QuerySnapshot<Object>> streamSubCollection({
   @required String collName,
@@ -534,16 +524,13 @@ Stream<QuerySnapshot<Object>> streamSubCollection({
 
   return _snapshots;
 }
-
 // ---------------------------------------------------
-Stream<DocumentSnapshot<Object>> streamDoc(
-    String collectionName, String documentName) {
+Stream<DocumentSnapshot<Object>> streamDoc(String collectionName, String documentName) {
   final DocumentReference<Object> _document =
       getDocRef(collName: collectionName, docName: documentName);
   final Stream<DocumentSnapshot<Object>> _snapshots = _document.snapshots();
   return _snapshots;
 }
-
 // ---------------------------------------------------
 Stream<DocumentSnapshot<Object>> streamSubDoc({
   @required String collName,
@@ -592,14 +579,14 @@ Future<void> updateDoc({
   //     }
   // );
 }
-
 // ---------------------------------------------------
-Future<void> updateDocField(
-    {@required BuildContext context,
-    @required String collName,
-    @required String docName,
-    @required String field,
-    @required dynamic input}) async {
+Future<void> updateDocField({
+  @required BuildContext context,
+  @required String collName,
+  @required String docName,
+  @required String field,
+  @required dynamic input,
+}) async {
   final DocumentReference<Object> _doc =
       getDocRef(collName: collName, docName: docName);
 
@@ -613,7 +600,6 @@ Future<void> updateDocField(
             'Updated doc : $docName : field : [$field] : to : ${input.toString()}');
       });
 }
-
 // ---------------------------------------------------
 Future<void> updateSubDoc({
   @required BuildContext context,
@@ -632,7 +618,6 @@ Future<void> updateSubDoc({
     input: input,
   );
 }
-
 // ---------------------------------------------------
 /// this updates a field if exists, if absent it creates a new field and inserts the value
 Future<void> updateSubDocField(
@@ -679,7 +664,6 @@ Future<void> deleteDoc({
         await _doc.delete();
       });
 }
-
 // ---------------------------------------------------
 Future<void> deleteSubDoc({
   @required BuildContext context,
@@ -702,7 +686,6 @@ Future<void> deleteSubDoc({
         await _subDoc.delete();
       });
 }
-
 // ---------------------------------------------------
 Future<void> deleteCollection({
   @required BuildContext context,
@@ -781,7 +764,6 @@ Future<void> deleteDocField({
   //     }
   // );
 }
-
 // ---------------------------------------------------
 Future<void> deleteSubDocField({
   @required BuildContext context,
@@ -812,3 +794,4 @@ Future<void> deleteSubDocField({
         await _docRef.update(updates);
       });
 }
+// ---------------------------------------------------
