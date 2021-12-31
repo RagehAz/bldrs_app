@@ -1,10 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
-import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -28,15 +25,20 @@ import 'package:provider/provider.dart';
 // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 class FlyersProvider extends ChangeNotifier {
 // -------------------------------------
+
   /// FETCHING FLYERS
-  /// 1 - search in entire LDBs for this flyerModel
-  /// 2 - if not found, search firebase
-  ///   2.1 read firebase flyer ops
-  ///   2.2 if found on firebase, store in ldb sessionFlyers
+
+// -------------------------------------
   Future<FlyerModel> fetchFlyerByID({
     @required BuildContext context,
     @required  String flyerID,
   }) async {
+
+    /// 1 - search in entire LDBs for this flyerModel
+    /// 2 - if not found, search firebase
+    ///   2.1 read firebase flyer ops
+    ///   2.2 if found on firebase, store in ldb sessionFlyers
+
 
     FlyerModel _flyer;
 
@@ -153,11 +155,19 @@ class FlyersProvider extends ChangeNotifier {
         flyersIDs: _savedFlyersIDs,
       );
 
-      _savedFlyers = _flyers;
-      notifyListeners();
+      _setSavedFlyers(_flyers);
 
     }
 
+  }
+// -------------------------------------
+  void _setSavedFlyers(List<FlyerModel> flyers){
+    _savedFlyers = flyers;
+    notifyListeners();
+  }
+// -------------------------------------
+  void clearSavedFlyers(){
+    _setSavedFlyers(<FlyerModel>[]);
   }
 // -------------------------------------
   bool getAnkh(String flyerID){
@@ -228,14 +238,6 @@ class FlyersProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-// -------------------------------------
-//   FlyerModel getSavedFlyerByFlyerID(String flyerID){
-//     final FlyerModel  _flyer = FlyerModel.getFlyerFromFlyersByID(
-//       flyers: _savedFlyers,
-//       flyerID: flyerID,
-//     );
-//     return  _flyer;
-//   }
 // -----------------------------------------------------------------------------
 
   /// PROMOTED FLYERS
@@ -263,10 +265,18 @@ class FlyersProvider extends ChangeNotifier {
 
       final List<FlyerModel> _flyers = await fetchFlyersByIDs(context: context, flyersIDs: _flyersIDs);
 
-      _promotedFlyers = _flyers;
-      notifyListeners();
+      _setPromotedFlyers(_flyers);
     }
 
+  }
+// -------------------------------------
+  void _setPromotedFlyers(List<FlyerModel> flyers){
+    _promotedFlyers = flyers;
+    notifyListeners();
+  }
+// -------------------------------------
+  void clearPromotedFlyers(){
+    _setPromotedFlyers(<FlyerModel>[]);
   }
 // -----------------------------------------------------------------------------
 
@@ -274,11 +284,125 @@ class FlyersProvider extends ChangeNotifier {
 
 // -------------------------------------
   List<FlyerModel> _wallFlyers;
+  FlyerModel _lastWallFlyer;
 // -------------------------------------
   List<FlyerModel> get wallFlyers {
     return <FlyerModel>[..._wallFlyers];
   }
+  FlyerModel get lastWallFlyer => _lastWallFlyer;
 // -------------------------------------
+  Future<void> paginateWallFlyers(BuildContext context) async {
+
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+    final List<FlyerModel> _flyers = await FireFlyerOps.paginateFlyers(
+      context: context,
+      zone: _zoneProvider.currentZone,
+      limit: 6,
+      startAfter: _lastWallFlyer?.docSnapshot,
+    );
+
+    _setWallFlyers(_flyers);
+
+  }
+// -------------------------------------
+  void _setWallFlyers(List<FlyerModel> flyers){
+    _wallFlyers = flyers;
+    notifyListeners();
+  }
+// -------------------------------------
+  void clearWallFlyers(){
+    _setWallFlyers(<FlyerModel>[]);
+  }
+// -----------------------------------------------------------------------------
+
+  /// ACTIVE BZ FLYERS
+
+// -------------------------------------
+  List<FlyerModel> _myActiveBzFlyers = <FlyerModel>[];
+// -------------------------------------
+  List<FlyerModel> get myActiveBzFlyer{
+    return _myActiveBzFlyers;
+  }
+// -------------------------------------
+  Future<void> getsetActiveBzFlyers({
+    @required BuildContext context,
+    @required String bzID
+  }) async {
+
+    final List<FlyerModel> _flyers = await fetchAllBzFlyersByBzID(context: context, bzID: bzID);
+
+    _setActiveBzFlyers(_flyers);
+
+  }
+// -------------------------------------
+  void _setActiveBzFlyers(List<FlyerModel> flyers){
+    _myActiveBzFlyers = flyers;
+    notifyListeners();
+  }
+// -------------------------------------
+  void clearActiveBzFlyers(){
+    _setActiveBzFlyers(<FlyerModel>[]);
+  }
+// -----------------------------------------------------------------------------
+
+  /// SEARCHERS
+
+// -------------------------------------
+  Future<List<FlyerModel>> fetchFlyersByCurrentZoneAndKeyword({
+    @required BuildContext context,
+    @required KW kw,
+    int limit = 3,
+  }) async {
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final ZoneModel _currentZone = _zoneProvider.currentZone;
+
+    /// TASK : think this through.. can it be fetch instead of just search ? I don't think soooooo
+    final List<FlyerModel> _flyers = await FlyerSearch.flyersByZoneAndKeyword(
+      context: context,
+      zone: _currentZone,
+      kw: kw,
+      limit: limit,
+    );
+
+    return _flyers;
+  }
+// -------------------------------------
+  Future<List<FlyerModel>> fetchFirstFlyersByBzModel({
+    @required BuildContext context,
+    @required BzModel bz,
+    int limit = 3,
+  }) async {
+
+    final List<String> _flyersIDs = <String>[];
+    final List<FlyerModel> _bzFlyers = <FlyerModel>[];
+
+    if (bz != null && Mapper.canLoopList(bz.flyersIDs) == true){
+
+      final int _limit = bz.flyersIDs.length > limit ? limit : bz.flyersIDs.length;
+
+      for (int i = 0; i < _limit; i++){
+        _flyersIDs.add(bz.flyersIDs[i]);
+      }
+
+
+      for (final String flyerID in _flyersIDs){
+
+        final FlyerModel _flyer = await fetchFlyerByID(context: context, flyerID: flyerID);
+        _bzFlyers.add(_flyer);
+      }
+
+    }
+
+    return _bzFlyers;
+  }
+// -----------------------------------------------------------------------------
+
+}
+
+/// OLD METHODS
+/*
+
   void setWallFlyers(List<FlyerModel> flyers){
 
     _wallFlyers = flyers;
@@ -361,76 +485,5 @@ class FlyersProvider extends ChangeNotifier {
 //   }
 // -----------------------------------------------------------------------------
 
-  /// ACTIVE BZ FLYERS
 
-// -------------------------------------
-  List<FlyerModel> _myActiveBzFlyers = <FlyerModel>[];
-// -------------------------------------
-  List<FlyerModel> get myActiveBzFlyer{
-    return _myActiveBzFlyers;
-  }
-// -------------------------------------
-  Future<void> getsetActiveBzFlyers({@required BuildContext context, @required String bzID}) async {
-
-    final List<FlyerModel> _flyers = await fetchAllBzFlyersByBzID(context: context, bzID: bzID);
-
-    _myActiveBzFlyers = _flyers;
-    notifyListeners();
-
-  }
-// -----------------------------------------------------------------------------
-
-  /// SEARCHERS
-
-// -------------------------------------
-  Future<List<FlyerModel>> fetchFlyersByCurrentZoneAndKeyword({
-    @required BuildContext context,
-    @required KW kw,
-    int limit = 3,
-  }) async {
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final ZoneModel _currentZone = _zoneProvider.currentZone;
-
-    /// TASK : think this through.. can it be fetch instead of just search ? I don't think soooooo
-    final List<FlyerModel> _flyers = await FlyerSearch.flyersByZoneAndKeyword(
-      context: context,
-      zone: _currentZone,
-      kw: kw,
-      limit: limit,
-    );
-
-    return _flyers;
-  }
-// -------------------------------------
-  Future<List<FlyerModel>> fetchFirstFlyersByBzModel({
-    @required BuildContext context,
-    @required BzModel bz,
-    int limit = 3,
-  }) async {
-
-    final List<String> _flyersIDs = <String>[];
-    final List<FlyerModel> _bzFlyers = <FlyerModel>[];
-
-    if (bz != null && Mapper.canLoopList(bz.flyersIDs) == true){
-
-      final int _limit = bz.flyersIDs.length > limit ? limit : bz.flyersIDs.length;
-
-      for (int i = 0; i < _limit; i++){
-        _flyersIDs.add(bz.flyersIDs[i]);
-      }
-
-
-      for (final String flyerID in _flyersIDs){
-
-        final FlyerModel _flyer = await fetchFlyerByID(context: context, flyerID: flyerID);
-        _bzFlyers.add(_flyer);
-      }
-
-    }
-
-    return _bzFlyers;
-  }
-// -----------------------------------------------------------------------------
-
-  ///
-}
+ */

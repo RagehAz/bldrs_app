@@ -1,17 +1,12 @@
-import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/b_views/widgets/general/dialogs/side_dialog/drawer_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 export 'package:bldrs/b_views/widgets/general/appbar/app_bar_button.dart';
 
@@ -86,16 +81,18 @@ class MainLayout extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   Future<void> _refresh(BuildContext context) async {
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
-    final SectionClass.Section _currentSection = _keywordsProvider.currentSection;
-    final KW _currentKeyword = _keywordsProvider.currentKeyword;
+    // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
+    // final SectionClass.Section _currentSection = _keywordsProvider.currentSection;
+    // final KW _currentKeyword = _keywordsProvider.currentKeyword;
 
-    await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
-      context: context,
-      section: _currentSection,
-      kw: _currentKeyword,
-    );
+    // await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
+    //   context: context,
+    //   section: _currentSection,
+    //   kw: _currentKeyword,
+    // );
+
+    blog('SHOULD REFRESH SCREEN');
 
   }
 // -----------------------------------------------------------------------------

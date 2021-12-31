@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/flyer/records/record_model.dart';
 import 'package:bldrs/a_models/secondary_models/search_result.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/record_ops.dart' as RecordOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -8,6 +9,90 @@ import 'package:flutter/material.dart';
 
 // final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 class SearchProvider extends ChangeNotifier {
+// -----------------------------------------------------------------------------
+
+  /// --- IS SEARCHING
+
+// -------------------------------------
+  bool _isSearchingCountry = false;
+  bool _isSearchingCity = false;
+  bool _isSearchingDistrict = false;
+  bool _isSearchingFlyersAndBzz = false;
+// -------------------------------------
+  bool get isSearchingCountry => _isSearchingCountry;
+  bool get isSearchingCity => _isSearchingCity;
+  bool get isSearchingDistrict => _isSearchingDistrict;
+  bool get isSearchingFlyersAndBzz => _isSearchingFlyersAndBzz;
+// -------------------------------------
+  void triggerIsSearching({
+    @required SearchingModel searchingModel,
+    @required bool setIsSearchingTo,
+  }){
+
+    if (searchingModel == SearchingModel.country){
+      _isSearchingCountry = setIsSearchingTo;
+    }
+
+    else if (searchingModel == SearchingModel.city){
+      _isSearchingCity = setIsSearchingTo;
+    }
+
+    else if (searchingModel == SearchingModel.district){
+      _isSearchingDistrict = setIsSearchingTo;
+    }
+
+    else if (searchingModel == SearchingModel.flyersAndBzz){
+      _isSearchingFlyersAndBzz = setIsSearchingTo;
+    }
+
+    notifyListeners();
+  }
+// -------------------------------------
+  void triggerIsSearchingAfterMaxTextLength({
+    @required String text,
+    @required SearchingModel searchModel,
+    @required bool isSearching,
+    @required bool setIsSearchingTo,
+    int maxTextLength = 3,
+  }){
+
+    // blog('triggerIsSearchingAfterTextLengthIsAt receives : text : $text : Length ${text.length}: _isSearching : $_isSearching');
+
+    /// A - not searching
+    if (isSearching == false) {
+      /// A.1 starts searching
+      if (text.length >= maxTextLength) {
+        triggerIsSearching(
+          searchingModel: searchModel,
+          setIsSearchingTo: true,
+        );
+      }
+    }
+
+    /// B - while searching
+    else {
+      /// B.1 ends searching
+      if (text.length < maxTextLength) {
+        triggerIsSearching(
+          searchingModel: searchModel,
+          setIsSearchingTo: false,
+        );
+      }
+
+    }
+
+    /// CAUTION : [triggerIsSearching] method has notifyListeners();
+  }
+// -------------------------------------
+  void closeAllZoneSearches(){
+
+    _isSearchingCountry = false;
+    _isSearchingCity = false;
+    _isSearchingDistrict = false;
+
+    notifyListeners();
+
+  }
 // -----------------------------------------------------------------------------
 
   /// SEARCH RESULT
@@ -25,6 +110,10 @@ class SearchProvider extends ChangeNotifier {
     notifyListeners();
 
   }
+// -------------------------------------
+  void clearSearchResult(){
+    setSearchResult(<SearchResult>[]);
+  }
 // -----------------------------------------------------------------------------
 
   /// SEARCH RECORDS
@@ -36,7 +125,7 @@ class SearchProvider extends ChangeNotifier {
     return <RecordModel>[... _searchRecords];
   }
 // -------------------------------------
-  Future<List<RecordModel>> _fetchSearchRecords(BuildContext context) async{
+  Future<List<RecordModel>> _paginateSearchRecords(BuildContext context) async{
 
     // List<RecordModel> _searchRecords = <RecordModel>[];
 
@@ -90,12 +179,11 @@ class SearchProvider extends ChangeNotifier {
       _lastRecordSnapshot = _lastRecord.docSnapshot;
     }
 
-    final List<RecordModel> _records = await RecordOps.readRecords(
+    final List<RecordModel> _records = await RecordOps.paginateRecords(
       context: context,
       userID: superUserID(),
       activityType: ActivityType.search,
       limit: 5,
-      addDocSnapshotToEachMap: true,
       startAfter: _lastRecordSnapshot,
     );
 
@@ -104,7 +192,7 @@ class SearchProvider extends ChangeNotifier {
   }
 // -------------------------------------
   Future<void> getSetSearchRecords(BuildContext context) async {
-    final List<RecordModel> _fetchedRecords = await _fetchSearchRecords(context);
+    final List<RecordModel> _fetchedRecords = await _paginateSearchRecords(context);
 
     final List<RecordModel> _updatedList = RecordModel.insertRecordsToRecords(originalRecords: _searchRecords, addRecords: _fetchedRecords);
     _searchRecords = _updatedList;
@@ -119,7 +207,7 @@ class SearchProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
-  void deleteSearchRecord(RecordModel record){
+  void deleteASearchRecord(RecordModel record){
 
     final int index = _searchRecords.indexWhere((rec) => rec.recordID == record.recordID);
 
@@ -130,7 +218,7 @@ class SearchProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
-  void emptySearchRecords(){
+  void clearSearchRecords(){
     _searchRecords = <RecordModel>[];
     notifyListeners();
   }

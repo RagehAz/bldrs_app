@@ -12,11 +12,9 @@ class KW {
     @required this.id,
     @required this.names,
   });
-
   /// --------------------------------------------------------------------------
   final String id;
   final List<Name> names;
-
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}) {
     return <String, dynamic>{
@@ -24,10 +22,11 @@ class KW {
       'names': Name.cipherNames(names: names, addTrigrams: toJSON),
     };
   }
-
 // -----------------------------------------------------------------------------
-  static KW decipherKeyword(
-      {@required Map<String, dynamic> map, @required bool fromJSON}) {
+  static KW decipherKeyword({
+    @required Map<String, dynamic> map,
+    @required bool fromJSON
+  }) {
     KW _keyword;
 
     if (map != null) {
@@ -39,7 +38,6 @@ class KW {
 
     return _keyword;
   }
-
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> cipherKeywordsToFirebaseMap(List<KW> keywords) {
     Map<String, dynamic> _map;
@@ -56,7 +54,6 @@ class KW {
 
     return _map;
   }
-
 // -----------------------------------------------------------------------------
   static List<Map<String, dynamic>> cipherKeywordsToLDBMaps(List<KW> keywords) {
     final List<Map<String, dynamic>> maps = <Map<String, dynamic>>[];
@@ -70,10 +67,10 @@ class KW {
 
     return maps;
   }
-
 // -----------------------------------------------------------------------------
-  static List<KW> decipherKeywordsFirebaseMap(
-      {@required Map<String, dynamic> map}) {
+  static List<KW> decipherKeywordsFirebaseMap({
+    @required Map<String, dynamic> map
+  }) {
     final List<KW> _keywords = <KW>[];
 
     if (map != null) {
@@ -90,10 +87,10 @@ class KW {
 
     return _keywords;
   }
-
 // -----------------------------------------------------------------------------
-  static List<KW> decipherKeywordsLDBMaps(
-      {@required List<Map<String, dynamic>> maps}) {
+  static List<KW> decipherKeywordsLDBMaps({
+    @required List<Map<String, dynamic>> maps
+  }) {
     final List<KW> _keywords = <KW>[];
 
     if (Mapper.canLoopList(maps)) {
@@ -105,9 +102,8 @@ class KW {
 
     return _keywords;
   }
-
 // -----------------------------------------------------------------------------
-  void printKeyword({String methodName = 'PRINTING KEYWORD'}) {
+  void blogKeyword({String methodName = 'PRINTING KEYWORD'}) {
     blog('$methodName ------------------------------- START');
 
     blog('id : $id');
@@ -115,7 +111,6 @@ class KW {
 
     blog('$methodName ------------------------------- END');
   }
-
 // -----------------------------------------------------------------------------
   static String getKeywordArabicName(KW keyword) {
     final List<Name> _names = keyword.names;
@@ -127,7 +122,6 @@ class KW {
 
     return _name;
   }
-
 // -----------------------------------------------------------------------------
   static List<String> getKeywordsIDsFromKeywords(List<KW> keywords) {
     final List<String> _ids = <String>[];
@@ -140,7 +134,6 @@ class KW {
 
     return _ids;
   }
-
 // -----------------------------------------------------------------------------
   static bool keywordsAreTheSame(KW _firstKeyword, KW _secondKeyword) {
     bool _keywordsAreTheSame;
@@ -159,7 +152,6 @@ class KW {
 
     return _keywordsAreTheSame;
   }
-
 // -----------------------------------------------------------------------------
   static bool keywordsListsAreTheSame(List<KW> listA, List<KW> listB) {
     bool _same;
@@ -179,7 +171,6 @@ class KW {
 
     return _same;
   }
-
 // -----------------------------------------------------------------------------
   static List<KW> getAllKeywordsFromBldrsChain() {
     const Chain _bldrsChain = Chain.bldrsChain;
@@ -188,7 +179,6 @@ class KW {
 
     return _kws;
   }
-
 // -----------------------------------------------------------------------------
   static List<KW> getKeywordsFromChain(Chain chain) {
     final List<KW> _keywords = <KW>[];
@@ -219,8 +209,10 @@ class KW {
     return _name;
   }
 // -----------------------------------------------------------------------------
-  static bool keywordsContainKeyword(
-      {@required List<KW> keywords, @required KW keyword}) {
+  static bool keywordsContainKeyword({
+    @required List<KW> keywords,
+    @required KW keyword
+  }) {
     bool _contains = false;
 
     if (Mapper.canLoopList(keywords) && keyword != null) {
@@ -240,7 +232,6 @@ class KW {
 
     return _contains;
   }
-
 // -----------------------------------------------------------------------------
   static List<String> getKeywordsIDsFromSpecs(List<Spec> specs) {
     final List<String> _keywordsIDs = <String>[];
@@ -257,6 +248,44 @@ class KW {
     }
 
     return _keywordsIDs;
+  }
+// -----------------------------------------------------------------------------
+  static KW getKeywordFromKeywordsByID({
+    @required List<KW> sourceKeywords,
+    @required String keywordID,
+  }){
+
+    KW _kw;
+
+    if (Mapper.canLoopList(sourceKeywords) && keywordID != null && keywordID != ''){
+      _kw = sourceKeywords.firstWhere((KW kw) => kw.id == keywordID, orElse: () => null);
+    }
+
+    return _kw;
+  }
+// -----------------------------------------------------------------------------
+  static List<KW> getKeywordsFromKeywordsByIDs({
+    @required List<KW> sourceKWs,
+    @required List<String> keywordsIDs,
+  }){
+
+    final List<KW> _keywords = <KW>[];
+
+    if (Mapper.canLoopList(sourceKWs) && Mapper.canLoopList(keywordsIDs)){
+      for (final String id in keywordsIDs) {
+        final KW _keyword = getKeywordFromKeywordsByID(
+          sourceKeywords: sourceKWs,
+          keywordID: id,
+        );
+
+        if (_keyword != null) {
+          _keywords.add(_keyword);
+        }
+      }
+
+    }
+
+    return _keywords;
   }
 // -----------------------------------------------------------------------------
 }

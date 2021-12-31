@@ -18,6 +18,7 @@ class GeneralProvider extends ChangeNotifier {
   }
 // -------------------------------------
   Future<void> getsetAppState(BuildContext context) async {
+
     final Map<String, dynamic> _map = await Fire.readDoc(
       context: context,
       collName: FireColl.admin,

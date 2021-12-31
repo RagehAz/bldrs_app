@@ -64,10 +64,11 @@ DocumentReference<Object> getDocRef({
 }
 
 // ---------------------------------------------------
-CollectionReference<Object> getSubCollectionRef(
-    {@required String collName,
-    @required String docName,
-    @required String subCollName}) {
+CollectionReference<Object> getSubCollectionRef({
+  @required String collName,
+  @required String docName,
+  @required String subCollName,
+}) {
   final CollectionReference<Object> _subCollection =
       FirebaseFirestore.instance.collection('$collName/$docName/$subCollName');
 
@@ -138,7 +139,6 @@ Future<DocumentReference<Object>> createDoc({
 
   return _docRef;
 }
-
 // ---------------------------------------------------
 Future<DocumentReference<Object>> createNamedDoc({
   @required BuildContext context,
@@ -324,8 +324,11 @@ Future<Map<String, dynamic>> readDoc(
     context: context,
     methodName: 'readDoc',
     functions: () async {
-      final DocumentReference<Object> _docRef =
-          getDocRef(collName: collName, docName: docName);
+
+      final DocumentReference<Object> _docRef = getDocRef(
+          collName: collName,
+          docName: docName,
+          );
       // blog('readDoc() : _docRef : $_docRef');
 
       _map = await _getMapByDocRef(_docRef);

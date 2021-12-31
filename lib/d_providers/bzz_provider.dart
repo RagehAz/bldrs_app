@@ -13,15 +13,20 @@ import 'package:provider/provider.dart';
 // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 class BzzProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
+
   /// FETCHING BZZ
-  /// 1 - search in entire LDBs for this bzModel
-  /// 2 - if not found, search firebase
-  ///   2.1 read firebase bz ops
-  ///   2.2 if found on firebase, store in ldb sessionBzz
+
+// -------------------------------------
   Future<BzModel> fetchBzModel({
     @required BuildContext context,
     @required String bzID
   }) async {
+
+    /// 1 - search in entire LDBs for this bzModel
+    /// 2 - if not found, search firebase
+    ///   2.1 read firebase bz ops
+    ///   2.2 if found on firebase, store in ldb sessionBzz
+
     BzModel _bz;
 
     /// 1 - search in entire LDBs for this bzModel
@@ -62,8 +67,10 @@ class BzzProvider extends ChangeNotifier {
     return _bz;
   }
 // -------------------------------------
-  Future<List<BzModel>> fetchBzzModels(
-      {@required BuildContext context, @required List<String> bzzIDs}) async {
+  Future<List<BzModel>> fetchBzzModels({
+    @required BuildContext context,
+    @required List<String> bzzIDs
+  }) async {
     final List<BzModel> _bzz = <BzModel>[];
 
     if (Mapper.canLoopList(bzzIDs)) {
@@ -78,81 +85,100 @@ class BzzProvider extends ChangeNotifier {
 
     return _bzz;
   }
-
-// -----------------------------------------------------------------------------
-  /// SPONSORS
-  List<BzModel> _sponsors = <BzModel>[];
 // -------------------------------------
-  List<BzModel> get sponsors {
-    return <BzModel>[..._sponsors];
-  }
+  Future<List<BzModel>> fetchUserBzz({
+    @required BuildContext context,
+    @required UserModel userModel
+  }) async {
 
-// -------------------------------------
-  /// TASK : sponsors bzz should depend on which city
-  /// FETCH SPONSORS
-  /// 1 - get sponsors from app state
-  /// 2 - fetch each bzID if found
-  Future<void> fetchSponsors(BuildContext context) async {
-    /// 1 - get sponsorsIDs from app state
-    final GeneralProvider _generalProvider =
-        Provider.of<GeneralProvider>(context, listen: false);
-    final List<String> _sponsorsBzzIDs = _generalProvider.appState.sponsors;
-
-    if (Mapper.canLoopList(_sponsorsBzzIDs)) {
-      /// 2 - fetch bzz
-      final List<BzModel> _bzzSponsors =
-          await fetchBzzModels(context: context, bzzIDs: _sponsorsBzzIDs);
-
-      _sponsors = _bzzSponsors;
-      notifyListeners();
-    }
-  }
-
-// -----------------------------------------------------------------------------
-  /// USER BZZ
-  List<BzModel> _myBzz = <BzModel>[];
-// -------------------------------------
-  List<BzModel> get myBzz {
-    return <BzModel>[..._myBzz];
-  }
-
-// -------------------------------------
-  Future<void> getSetMyBzz(BuildContext context) async {
-    /// 1 - get userBzzIDs from userModel
-    final UsersProvider _usersProvider =
-        Provider.of<UsersProvider>(context, listen: false);
-    final List<String> _userBzzIDs = _usersProvider.myUserModel?.myBzzIDs;
-
-    if (Mapper.canLoopList(_userBzzIDs)) {
-      /// 2 - fetch bzz
-      final List<BzModel> _bzz =
-          await fetchBzzModels(context: context, bzzIDs: _userBzzIDs);
-
-      _myBzz = _bzz;
-      notifyListeners();
-    }
-  }
-
-// -------------------------------------
-  Future<List<BzModel>> fetchUserBzz(
-      {@required BuildContext context, @required UserModel userModel}) async {
-    final List<BzModel> _bzz = <BzModel>[];
+     List<BzModel> _bzz = <BzModel>[];
 
     if (userModel != null) {
       if (Mapper.canLoopList(userModel.myBzzIDs)) {
-        for (final String id in userModel.myBzzIDs) {
-          final BzModel _bz = await fetchBzModel(context: context, bzID: id);
 
-          _bzz.add(_bz);
-        }
+        _bzz = await fetchBzzModels(
+            context: context,
+            bzzIDs: userModel.myBzzIDs
+        );
+
       }
     }
 
     return _bzz;
   }
+// -----------------------------------------------------------------------------
+
+  /// SPONSORS
 
 // -------------------------------------
-  Future<void> removeBzFromMyBzz({String bzID}) async {
+  List<BzModel> _sponsors = <BzModel>[];
+// -------------------------------------
+  List<BzModel> get sponsors {
+    return <BzModel>[..._sponsors];
+  }
+// -------------------------------------
+  /// TASK : sponsors bzz should depend on which city
+  /// FETCH SPONSORS
+  /// 1 - get sponsors from app state
+  /// 2 - fetch each bzID if found
+  Future<void> getSetSponsors(BuildContext context) async {
+    /// 1 - get sponsorsIDs from app state
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+    final List<String> _sponsorsBzzIDs = _generalProvider.appState.sponsors;
+
+    if (Mapper.canLoopList(_sponsorsBzzIDs)) {
+      /// 2 - fetch bzz
+      final List<BzModel> _bzzSponsors = await fetchBzzModels(
+          context: context,
+          bzzIDs: _sponsorsBzzIDs
+      );
+
+      _setSponsors(_bzzSponsors);
+    }
+  }
+// -------------------------------------
+  void _setSponsors(List<BzModel> bzz){
+    _sponsors = bzz;
+    notifyListeners();
+  }
+// -------------------------------------
+  void clearSponsors(){
+    _setSponsors(<BzModel>[]);
+  }
+// -----------------------------------------------------------------------------
+
+  /// USER BZZ
+
+// -------------------------------------
+  List<BzModel> _myBzz = <BzModel>[];
+// -------------------------------------
+  List<BzModel> get myBzz {
+    return <BzModel>[..._myBzz];
+  }
+// -------------------------------------
+  Future<void> getSetMyBzz(BuildContext context) async {
+    /// 1 - get userBzzIDs from userModel
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final List<String> _userBzzIDs = _usersProvider.myUserModel?.myBzzIDs;
+
+    if (Mapper.canLoopList(_userBzzIDs)) {
+      /// 2 - fetch bzz
+      final List<BzModel> _bzz = await fetchBzzModels(context: context, bzzIDs: _userBzzIDs);
+
+      _setMyBzz(_bzz);
+    }
+  }
+// -------------------------------------
+  void _setMyBzz(List<BzModel> bzz){
+    _myBzz = bzz;
+    notifyListeners();
+  }
+// -------------------------------------
+  void clearMyBzz(){
+    _setMyBzz(<BzModel>[]);
+  }
+// -------------------------------------
+  Future<void> removeBzFromMyBzz({@required String bzID}) async {
     if (Mapper.canLoopList(_myBzz)) {
       await LDBOps.deleteMap(
         objectID: bzID,
@@ -166,13 +192,11 @@ class BzzProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 // -------------------------------------
-  void addBzToUserBzz(BzModel bzModel) {
+  void addBzToMyBzz(BzModel bzModel) {
     _myBzz.add(bzModel);
     notifyListeners();
   }
-
 // -------------------------------------
   Future<void> updateBzInUserBzz(BzModel modifiedBz) async {
     if (Mapper.canLoopList(_myBzz)) {
@@ -190,33 +214,42 @@ class BzzProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 // -----------------------------------------------------------------------------
+
   /// FOLLOWED BZZ
+
+// -------------------------------------
   List<BzModel> _followedBzz;
 // -------------------------------------
   List<BzModel> get followedBzz {
     return <BzModel>[..._followedBzz];
   }
-
 // -------------------------------------
-  Future<void> fetchFollowedBzz(BuildContext context) async {
+  Future<void> getsetFollowedBzz(BuildContext context) async {
     /// 1 - get user saved followed bzz IDs
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final UserModel _myUserModel = _usersProvider.myUserModel;
     final List<String> _followedBzzIDs = _myUserModel?.followedBzzIDs;
 
     if (Mapper.canLoopList(_followedBzzIDs)) {
+
       final List<BzModel> _bzz = await fetchBzzModels(
         context: context,
         bzzIDs: _followedBzzIDs,
       );
 
-      _followedBzz = _bzz;
-      notifyListeners();
+      _setFollowedBzz(_bzz);
     }
   }
-
+// -------------------------------------
+  void _setFollowedBzz(List<BzModel> bzz){
+    _followedBzz = bzz;
+    notifyListeners();
+  }
+// -------------------------------------
+  void clearFollowedBzz(){
+    _setFollowedBzz(<BzModel>[]);
+  }
 // -------------------------------------
   bool checkFollow({BuildContext context, String bzID}) {
     bool _isFollowing = false;
@@ -236,23 +269,27 @@ class BzzProvider extends ChangeNotifier {
 
     return _isFollowing;
   }
-
 // -----------------------------------------------------------------------------
-  /// ACTIVE BZ
+
+  /// MY ACTIVE BZ
+
+// -------------------------------------
   BzModel _myActiveBz;
 // -----------------------------------------------------------------------------
   BzModel get myActiveBz {
     return _myActiveBz;
   }
-
 // -----------------------------------------------------------------------------
-  Future<void> setActiveBz(BzModel bzModel) async {
+  void setActiveBz(BzModel bzModel) {
     blog('setting active bz to ${bzModel.id}');
     _myActiveBz = bzModel;
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
-
+  void clearMyActiveBz(){
+    setActiveBz(null);
+  }
+// -----------------------------------------------------------------------------
 }
 
 /*

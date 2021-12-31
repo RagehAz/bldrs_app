@@ -43,8 +43,6 @@ Future<void> controlOnSearchSubmit({
   @required String searchText,
 }) async {
 
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-
   _setIsLoading(context, true);
   _setIsSearching(context, true);
 
@@ -107,7 +105,7 @@ void controlOnSearchChange({
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 
   if (searchText.isEmpty) {
-    _searchProvider.setSearchResult(<SearchResult>[]);
+    _searchProvider.clearSearchResult();
     _setIsSearching(context, false);
   }
 
@@ -167,7 +165,7 @@ Future<List<SearchResult>> _searchKeywords({
       if (_flyersByKeyword.isNotEmpty) {
         _results.add(SearchResult(
           title: Name.getNameByCurrentLingoFromNames(context: context, names: kw.names)?.value,
-          icon: _keywordsProvider.getIcon(context: context, son: kw),
+          icon: _keywordsProvider.getKeywordIcon(context: context, son: kw),
           flyers: _flyersByKeyword,
         ));
       }
@@ -230,11 +228,10 @@ Future<List<SearchResult>> _searchAuthors({
   if (Mapper.canLoopList(_users)) {
     for (final UserModel user in _users) {
       /// task should get only bzz showing teams
-      final List<BzModel> _bzz =
-      await _bzzProvider.fetchUserBzz(context: context, userModel: user);
+      final List<BzModel> _userBzz = await _bzzProvider.fetchUserBzz(context: context, userModel: user);
 
-      if (Mapper.canLoopList(_bzz)) {
-        for (final BzModel bz in _bzz) {
+      if (Mapper.canLoopList(_userBzz)) {
+        for (final BzModel bz in _userBzz) {
           /// task should get only flyers showing authors
           final List<FlyerModel> _bzFlyers = await _flyersProvider
               .fetchFirstFlyersByBzModel(context: context, bz: bz);
@@ -304,7 +301,7 @@ Future<void> _handleSearchResult({
 
   else {
 
-    _searchProvider.setSearchResult(<SearchResult>[]);
+    _searchProvider.clearSearchResult();
 
     await NavDialog.showNavDialog(
       context: context,
@@ -356,9 +353,9 @@ void _setIsLoading(BuildContext context, bool isLoading){
 }
 // -----------------------------------------------------------------------------
 void _setIsSearching(BuildContext context, bool searching){
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 
-  _uiProvider.triggerIsSearching(
+  _searchProvider.triggerIsSearching(
       searchingModel: SearchingModel.flyersAndBzz,
       setIsSearchingTo: searching,
   );

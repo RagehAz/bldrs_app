@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navi
 import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_1_search_result_view.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_2_search_records_view.dart';
+import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:flutter/material.dart';
@@ -33,20 +34,31 @@ class SearchScreenView extends StatelessWidget {
           builder: (_, UiProvider uiProvider, Widget child) {
 
             final bool _isLoading = uiProvider.isLoading;
-            final bool _isSearchingFlyersAndBzz = uiProvider.isSearchingFlyersAndBzz;
 
             if (_isLoading == true){
               return child;
             }
 
-            else if (_isSearchingFlyersAndBzz == true){
-              return const SearchResultView();
-            }
-
             else {
-              return SearchRecordsView(
-                scrollController: scrollController,
+
+              return Selector<SearchProvider, bool>(
+                selector: (_, SearchProvider searchProvider) => searchProvider.isSearchingFlyersAndBzz,
+                builder: (BuildContext context, bool isSearchingFlyersAndBzz, Widget child){
+
+                  if (isSearchingFlyersAndBzz == true){
+                    return const SearchResultView();
+                  }
+
+                  else {
+                    return SearchRecordsView(
+                      scrollController: scrollController,
+                    );
+                  }
+
+
+                  },
               );
+
             }
 
             },

@@ -306,12 +306,9 @@ class SuperFlyer {
   }) {
     final int _initialPage = initialPage ?? 0;
 
-    final FlyersProvider _flyersProvider =
-        Provider.of<FlyersProvider>(context, listen: false);
-    final BzzProvider _bzzProvider =
-        Provider.of<BzzProvider>(context, listen: false);
-    final KeywordsProvider _keywordsProvider =
-        Provider.of<KeywordsProvider>(context, listen: false);
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 
     final ScrollController _infoScrollController = ScrollController(
       initialScrollOffset: initialInfoScrollOffset ?? 0,
@@ -386,8 +383,7 @@ class SuperFlyer {
         editMode: false,
         canDelete: true,
       ),
-      mSlides:
-          MutableSlide.getViewMutableSlidesFromSlidesModels(flyerModel.slides),
+      mSlides: MutableSlide.getViewMutableSlidesFromSlidesModels(flyerModel.slides),
       bz: bzModel,
 
       loading: false,
@@ -418,8 +414,10 @@ class SuperFlyer {
       /// flyer tags
       flyerInfo: flyerModel.info,
       specs: flyerModel.specs,
-      keywords:
-          _keywordsProvider.getKeywordsByKeywordsIDs(flyerModel.keywordsIDs),
+      keywords: KW.getKeywordsFromKeywordsByIDs(
+          sourceKWs: _keywordsProvider.allKeywords,
+          keywordsIDs: flyerModel.keywordsIDs
+      ),
 
       /// flyer location
       zone: flyerModel.zone,
@@ -764,8 +762,10 @@ class SuperFlyer {
       /// flyer tags
       flyerInfo: flyerModel.info,
       specs: flyerModel.specs,
-      keywords:
-          _keywordsProvider.getKeywordsByKeywordsIDs(flyerModel.keywordsIDs),
+      keywords: KW.getKeywordsFromKeywordsByIDs(
+          sourceKWs: _keywordsProvider.allKeywords,
+          keywordsIDs: flyerModel.keywordsIDs
+      ),
 
       /// flyer location
       zone: flyerModel.zone,
