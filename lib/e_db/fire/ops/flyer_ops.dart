@@ -158,11 +158,17 @@ Future<FlyerModel> readFlyerOps({
   @required BuildContext context,
   @required String flyerID,
 }) async {
-  final dynamic _flyerMap = await Fire.readDoc(
-      context: context, collName: FireColl.flyers, docName: flyerID);
 
-  final FlyerModel _flyer =
-      FlyerModel.decipherFlyer(map: _flyerMap, fromJSON: false);
+  final dynamic _flyerMap = await Fire.readDoc(
+      context: context,
+      collName: FireColl.flyers,
+      docName: flyerID
+  );
+
+  final FlyerModel _flyer = FlyerModel.decipherFlyer(
+      map: _flyerMap,
+      fromJSON: false
+  );
 
   return _flyer;
 }

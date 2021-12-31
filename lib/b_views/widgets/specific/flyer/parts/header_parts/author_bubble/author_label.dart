@@ -63,8 +63,8 @@ class AuthorLabel extends StatelessWidget {
         (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
 // -----------------------------------------------------------------------------
     /// --- FOLLOWERS COUNTER
-    final int _followersCount = bzModel.totalFollowers;
-    final int _bzGalleryCount = bzModel.totalFlyers;
+    final int _followersCount = bzModel?.totalFollowers;
+    final int _bzGalleryCount = bzModel?.totalFlyers;
 
     final String _galleryCountCalibrated =
         Numeric.counterCaliber(context, _bzGalleryCount);

@@ -334,9 +334,8 @@ class _NewHeaderState extends State<NewHeader>
                             /// LOGO
                             BzLogo(
                               width: _logoSizeBegin * _logoSizeRatioTween.value,
-                              image: widget.superFlyer.bz.logo,
-                              tinyMode: FlyerBox.isTinyMode(
-                                  context, widget.flyerBoxWidth),
+                              image: widget.superFlyer.bz?.logo,
+                              tinyMode: FlyerBox.isTinyMode(context, widget.flyerBoxWidth),
                               corners: _logoBorders,
                               bzPageIsOn: widget.superFlyer.nav.bzPageIsOn,
                               zeroCornerIsOn:
