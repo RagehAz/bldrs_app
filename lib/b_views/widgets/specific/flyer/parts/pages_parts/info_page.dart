@@ -272,7 +272,7 @@ class InfoPage extends StatelessWidget {
             selectedWords: null,
             onTap: _editMode == true ? superFlyer.edit.onEditKeywordsTap : null,
             onKeywordTap: (KW kw) {
-              kw.printKeyword();
+              kw.blogKeyword();
             },
             addButtonIsOn: superFlyer.edit.editMode,
           ),

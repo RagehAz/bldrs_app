@@ -853,7 +853,7 @@ class _FinalFlyerState extends State<FinalFlyer>
     blog(
         'opening tiny flyer : ${_flyer.id} while THE FUCKING widget.goesToEditor IS : ${widget.goesToEditor}');
 
-    await _bzzProvider.setActiveBz(_superFlyer.bz);
+    _bzzProvider.setActiveBz(_superFlyer.bz);
 
     /// opening editor
     if (widget.goesToEditor == true) {

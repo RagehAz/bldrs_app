@@ -161,7 +161,7 @@ class _NewLayoutState extends State<NewLayout>
                     return DreamBox(
                       height: _barHeight - 10,
                       width: _barHeight - 10,
-                      icon: _keywordsProvider.getIcon(
+                      icon: _keywordsProvider.getKeywordIcon(
                           son: _keyword, context: context),
                       margins: 5,
                     );

@@ -1,11 +1,8 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
-import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 /// IMPLEMENTATION
 /// userStreamBuilder(
@@ -21,28 +18,28 @@ typedef UserModelWidgetBuilder = Widget Function(
   UserModel userModel,
 );
 // -----------------------------------------------------------------------------
-Widget userStreamBuilder({
-  BuildContext context,
-  UserModelWidgetBuilder builder,
-  bool listen,
-}) {
-  final UsersProvider _usersProvider =
-      Provider.of<UsersProvider>(context, listen: listen);
-
-  return StreamBuilder<UserModel>(
-    stream: _usersProvider.myUserModelStream,
-    builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
-      if (StreamChecker.connectionIsLoading(snapshot) == true) {
-        return const Loading(
-          loading: true,
-        );
-      } else {
-        final UserModel userModel = snapshot.data;
-        return builder(context, userModel);
-      }
-    },
-  );
-}
+// Widget userStreamBuilder({
+//   BuildContext context,
+//   UserModelWidgetBuilder builder,
+//   bool listen,
+// }) {
+//   final UsersProvider _usersProvider =
+//       Provider.of<UsersProvider>(context, listen: listen);
+//
+//   return StreamBuilder<UserModel>(
+//     stream: _usersProvider.myUserModelStream,
+//     builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
+//       if (StreamChecker.connectionIsLoading(snapshot) == true) {
+//         return const Loading(
+//           loading: true,
+//         );
+//       } else {
+//         final UserModel userModel = snapshot.data;
+//         return builder(context, userModel);
+//       }
+//     },
+//   );
+// }
 
 // -----------------------------------------------------------------------------
 Widget userModelBuilder({

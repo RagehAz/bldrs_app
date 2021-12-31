@@ -28,6 +28,7 @@ class SearchHistoryScreen extends StatelessWidget {
           itemCount: _searchList.length,
           padding: const EdgeInsets.only(top: Ratioz.stratosphere),
           itemBuilder: (BuildContext context, int index) {
+
             final String _searchWord = _searchList[index];
 
             return TileBubble(

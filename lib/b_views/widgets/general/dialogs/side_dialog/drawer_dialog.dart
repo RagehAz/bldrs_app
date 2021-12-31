@@ -208,7 +208,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                                       verse:
                                           Name.getNameByCurrentLingoFromNames(context: context, names: _keyword.names)?.value,
                                       // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
-                                      icon: _keywordsProvider.getIcon(
+                                      icon: _keywordsProvider.getKeywordIcon(
                                           context: context, son: _keyword),
                                       margins: const EdgeInsets.only(
                                           top: Ratioz.appBarPadding),

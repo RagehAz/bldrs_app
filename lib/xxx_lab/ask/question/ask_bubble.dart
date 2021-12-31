@@ -12,7 +12,6 @@ import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field.dart';
-import 'package:bldrs/d_providers/streamers/user_streamer.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
@@ -259,32 +258,33 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                 height: _abButtonsHeight,
               ),
 
-              userStreamBuilder(
-                  context: context,
-                  listen: false,
-                  builder: (BuildContext context, UserModel userModel) {
-                    return
-
-                        /// USER NAME AND TITLE
-                        Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SuperVerse(
-                          verse: userModel.name,
-                          weight: VerseWeight.regular,
-                          margin: 0,
-                        ),
-                        SuperVerse(
-                          verse: userModel.company == null ||
-                                  userModel.company == ''
-                              ? userModel.title
-                              : '${userModel.title} @ ${userModel.company}',
-                          size: 1,
-                          weight: VerseWeight.thin,
-                        ),
-                      ],
-                    );
-                  }),
+              /// USER BUBBLE (WAS PREVIOUSLY A STREAM FOR NO GOOD REASON)
+              // userStreamBuilder(
+              //     context: context,
+              //     listen: false,
+              //     builder: (BuildContext context, UserModel userModel) {
+              //       return
+              //
+              //           /// USER NAME AND TITLE
+              //           Column(
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+              //         children: <Widget>[
+              //           SuperVerse(
+              //             verse: userModel.name,
+              //             weight: VerseWeight.regular,
+              //             margin: 0,
+              //           ),
+              //           SuperVerse(
+              //             verse: userModel.company == null ||
+              //                     userModel.company == ''
+              //                 ? userModel.title
+              //                 : '${userModel.title} @ ${userModel.company}',
+              //             size: 1,
+              //             weight: VerseWeight.thin,
+              //           ),
+              //         ],
+              //       );
+              //     }),
 
               /// EXPANDER SPACE
               const Expander(),
