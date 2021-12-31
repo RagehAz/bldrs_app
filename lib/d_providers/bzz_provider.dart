@@ -281,7 +281,7 @@ class BzzProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
   void setActiveBz(BzModel bzModel) {
-    blog('setting active bz to ${bzModel.id}');
+    blog('setting active bz to ${bzModel?.id}');
     _myActiveBz = bzModel;
     notifyListeners();
   }
