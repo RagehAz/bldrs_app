@@ -283,7 +283,7 @@ class FlyersProvider extends ChangeNotifier {
   /// WALL FLYERS
 
 // -------------------------------------
-  List<FlyerModel> _wallFlyers;
+  List<FlyerModel> _wallFlyers = <FlyerModel>[];
   FlyerModel _lastWallFlyer;
 // -------------------------------------
   List<FlyerModel> get wallFlyers {
@@ -302,17 +302,36 @@ class FlyersProvider extends ChangeNotifier {
       startAfter: _lastWallFlyer?.docSnapshot,
     );
 
-    _setWallFlyers(_flyers);
+    _addToWallFlyers(_flyers);
+    _setLastWallFlyer(_flyers);
 
   }
 // -------------------------------------
-  void _setWallFlyers(List<FlyerModel> flyers){
-    _wallFlyers = flyers;
+  void _addToWallFlyers(List<FlyerModel> flyers) {
+    _wallFlyers = [..._wallFlyers, ...flyers];
     notifyListeners();
   }
 // -------------------------------------
+  void _setLastWallFlyer(List<FlyerModel> flyers){
+
+    if (Mapper.canLoopList(flyers)){
+
+      final int _lastIndex = flyers.length - 1;
+
+      _lastWallFlyer = flyers[_lastIndex];
+      notifyListeners();
+    }
+
+  }
+// -------------------------------------
   void clearWallFlyers(){
-    _setWallFlyers(<FlyerModel>[]);
+    _wallFlyers = <FlyerModel>[];
+    notifyListeners();
+  }
+
+  void clearLastWallFlyer(){
+    _lastWallFlyer = null;
+    notifyListeners();
   }
 // -----------------------------------------------------------------------------
 
