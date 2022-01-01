@@ -181,6 +181,7 @@ class MoreScreen extends StatelessWidget {
                   _flyersProvider.clearPromotedFlyers();
                   _flyersProvider.clearActiveBzFlyers();
                   _flyersProvider.clearWallFlyers();
+                  _flyersProvider.clearLastWallFlyer();
 
                   /// CLEAR SEARCHES
                   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
