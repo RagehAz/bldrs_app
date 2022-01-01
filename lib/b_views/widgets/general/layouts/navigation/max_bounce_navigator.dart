@@ -43,7 +43,9 @@ class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
     if (widget.onNavigate == null) {
       Nav.goBack(context);
       // await null;
-    } else {
+    }
+
+    else {
       widget.onNavigate();
       setState(() {
         _canNavigate = true;

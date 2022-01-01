@@ -17,6 +17,7 @@ class FlyersGrid extends StatelessWidget {
     this.stratosphere = false,
     this.scrollDirection = Axis.vertical,
     this.onFlyerTap,
+    this.scrollController,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,6 +28,7 @@ class FlyersGrid extends StatelessWidget {
   final bool stratosphere;
   final Axis scrollDirection;
   final ValueChanged<FlyerModel> onFlyerTap;
+  final ScrollController scrollController;
   /// --------------------------------------------------------------------------
   bool _canTapFlyerCheck(){
     bool _canTap;
@@ -73,8 +75,9 @@ class FlyersGrid extends StatelessWidget {
     EdgeInsets.only(
         right: gridSpacing,
         left: gridSpacing,
-        bottom: gridSpacing + Ratioz.horizon * 5,
-        top: gridSpacing + Ratioz.stratosphere)
+        bottom: gridSpacing + Ratioz.horizon,
+        top: gridSpacing + Ratioz.stratosphere
+    )
         :
     EdgeInsets.all(gridSpacing);
 // -----------------------------------------------------------------------------
@@ -84,8 +87,8 @@ class FlyersGrid extends StatelessWidget {
       width: gridZoneWidth,
       height: gridHeight,
       child:
-      flyers == null ?
 
+      flyers == null ?
       const Center(
           child: Loading(
             loading: true,
@@ -98,6 +101,7 @@ class FlyersGrid extends StatelessWidget {
         physics: scrollable ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
         scrollDirection: scrollDirection,
         padding: _gridPadding,
+        controller: scrollController,
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           crossAxisSpacing: gridSpacing,
           mainAxisSpacing: gridSpacing,
