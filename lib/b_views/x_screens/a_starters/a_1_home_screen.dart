@@ -1,13 +1,16 @@
 import 'dart:async';
 
+import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_1_anonymous_home_screen_view.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_2_user_home_screen_view.dart';
 import 'package:bldrs/c_controllers/a_1_home_controller.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -61,6 +64,23 @@ class _HomeScreenState extends State<HomeScreen> {
       child: MainLayout(
         key: const ValueKey<String>('mainLayout'),
         appBarType: AppBarType.main,
+
+        appBarRowWidgets: <Widget>[
+
+          DreamBox(
+            height: 40,
+            verse: 'load more flyers',
+            verseScaleFactor: 0.4,
+            onTap: () async {
+
+              final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+              await _flyersProvider.paginateWallFlyers(context);
+
+            },
+          ),
+
+        ],
+
         layoutWidget: ValueListenableBuilder(
           valueListenable: _loading,
           builder: (_, bool loading, Widget child){
