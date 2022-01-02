@@ -64,23 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: MainLayout(
         key: const ValueKey<String>('mainLayout'),
         appBarType: AppBarType.main,
-
-        appBarRowWidgets: <Widget>[
-
-          DreamBox(
-            height: 40,
-            verse: 'load more flyers',
-            verseScaleFactor: 0.4,
-            onTap: () async {
-
-              final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-              await _flyersProvider.paginateWallFlyers(context);
-
-            },
-          ),
-
-        ],
-
         layoutWidget: ValueListenableBuilder(
           valueListenable: _loading,
           builder: (_, bool loading, Widget child){
