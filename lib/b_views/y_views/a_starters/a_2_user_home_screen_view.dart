@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/stacks/flyers_grid.dart';
-import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
+import 'package:bldrs/c_controllers/a_1_home_controller.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/methods/paths.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// NOTE : this widget is an exact replica of AnonymousHomeScreen widget
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({Key key}) : super(key: key);
 
@@ -19,7 +18,20 @@ class UserHomeScreen extends StatefulWidget {
 }
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
+  final ScrollController _scrollController = ScrollController();
+  bool _canPaginate = true;
+// -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    super.initState();
 
+    _canPaginate = initializeFlyersPagination(
+        context: context,
+        scrollController: _scrollController,
+        canPaginate: _canPaginate
+    );
+
+  }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
@@ -30,17 +42,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       _uiProvider.startController(
               () async {
 
-                final List<dynamic> _maps = await Fire.readCollectionDocs(
-                  collName: FireColl.flyers,
-                  orderBy: 'id',
-                  limit: 6,
-                  addDocSnapshotToEachMap: true,
-                );
-
-                final List<FlyerModel> _flyersFromMaps = FlyerModel.decipherFlyers(
-                    maps: _maps,
-                    fromJSON: false
-                );
+                await readMoreFlyers(context);
+                _canPaginate = true;
 
               }
               );
@@ -50,26 +53,22 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _onFlyerTap(FlyerModel flyer) async {
-
-    await goToNewScreen(context,
-        FlyerScreen(
-          flyerModel: flyer,
-          flyerID: flyer.id,
-          initialSlideIndex: 0,
-        )
-    );
-
+    await onFlyerTap(context: context, flyer: flyer);
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
+    final List<FlyerModel> _wallFlyers = _flyersProvider.wallFlyers;
+
     return FlyersGrid(
       gridZoneWidth: FlyerBox.width(context, 1),
+      scrollController: _scrollController,
       stratosphere: true,
       numberOfColumns: 2,
       scrollable: true,
-      flyers: [FlyerModel.dummyFlyer(), FlyerModel.dummyFlyer(), FlyerModel.dummyFlyer(), FlyerModel.dummyFlyer()],
+      flyers: _wallFlyers,
       onFlyerTap: (FlyerModel flyer) => _onFlyerTap(flyer),
     );
 
