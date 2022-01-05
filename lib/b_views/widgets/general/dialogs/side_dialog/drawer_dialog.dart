@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/kw/chain/chain.dart';
 import 'package:bldrs/a_models/kw/chain/chain_crafts.dart';
 import 'package:bldrs/a_models/kw/chain/chain_designs.dart';
@@ -5,7 +6,6 @@ import 'package:bldrs/a_models/kw/chain/chain_equipment.dart';
 import 'package:bldrs/a_models/kw/chain/chain_products.dart';
 import 'package:bldrs/a_models/kw/chain/chain_properties.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/b_views/widgets/general/appbar/search_bar.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -141,6 +141,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double _drawerWidth = widget.width ?? Scale.superScreenWidth(context) * 0.9;
     final double _drawerHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
@@ -171,7 +172,9 @@ class _DrawerDialogState extends State<DrawerDialog> {
                 width: _drawerWidth,
                 height: Ratioz.appBarButtonSize,
                 margin: const EdgeInsets.symmetric(
-                    vertical: Ratioz.appBarMargin + Ratioz.appBarPadding),
+                    vertical: Ratioz.appBarMargin + Ratioz.appBarPadding
+                ),
+
                 child: SearchBar(
                   height: Ratioz.appBarButtonSize,
                   onSearchSubmit: (String val) => _onSearchSubmit(val),
@@ -190,9 +193,11 @@ class _DrawerDialogState extends State<DrawerDialog> {
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
                     children: <Widget>[
+
                       if (_isSearching == true)
                         Column(
                           children: <Widget>[
+
                             if (Mapper.canLoopList(_foundKeywords))
                               ListView.builder(
                                   physics: const NeverScrollableScrollPhysics(),
@@ -206,27 +211,37 @@ class _DrawerDialogState extends State<DrawerDialog> {
                                       width: _bubbleWidth,
                                       color: Colorz.white20,
                                       verse:
-                                          Name.getNameByCurrentLingoFromNames(context: context, names: _keyword.names)?.value,
+                                      Name.getNameByCurrentLingoFromNames(
+                                          context: context,
+                                          names: _keyword.names
+                                      )?.value,
                                       // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
                                       icon: _keywordsProvider.getKeywordIcon(
-                                          context: context, son: _keyword),
+                                          context: context,
+                                          son: _keyword
+                                      ),
                                       margins: const EdgeInsets.only(
-                                          top: Ratioz.appBarPadding),
+                                          top: Ratioz.appBarPadding
+                                      ),
                                       verseScaleFactor: 0.7,
                                       verseCentered: false,
                                       onTap: () async {},
                                     );
-                                  }),
+                                  }
+                                  ),
+
                             if (_noResultFound == true)
                               const SuperVerse(
                                 verse: 'No Keywords found',
                               ),
                           ],
                         ),
+
                       if (_isSearching == false)
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
+
                             const SuperVerse(
                               verse: 'SELECT A SECTION',
                               weight: VerseWeight.black,
@@ -242,13 +257,16 @@ class _DrawerDialogState extends State<DrawerDialog> {
                                 icon: Iconz.pyramidSingleYellow,
                                 bubbleWidth: _bubbleWidth,
                                 buttons: <Widget>[
+
                                   SectionTile(
                                     bubbleWidth: _bubbleWidth,
                                     inActiveMode: false,
-                                    section: SectionClass.Section.properties,
+                                    flyerType: FlyerType.property,
                                     chain: _propertiesChain,
                                   ),
-                                ]),
+
+                                ]
+                            ),
 
                             /// Construction
                             SectionBubble(
@@ -256,20 +274,25 @@ class _DrawerDialogState extends State<DrawerDialog> {
                                 icon: Iconz.pyramidSingleYellow,
                                 bubbleWidth: _bubbleWidth,
                                 buttons: <Widget>[
+
                                   SectionTile(
                                     bubbleWidth: _bubbleWidth,
                                     inActiveMode: false,
-                                    section: SectionClass.Section.designs,
+                                    flyerType: FlyerType.design,
                                     chain: _designsChain,
                                   ),
+
                                   MainLayout.spacer10,
+
                                   SectionTile(
                                     bubbleWidth: _bubbleWidth,
                                     inActiveMode: false,
-                                    section: SectionClass.Section.crafts,
+                                    flyerType: FlyerType.craft,
                                     chain: _craftsChain,
                                   ),
-                                ]),
+
+                                ]
+                            ),
 
                             /// Supplies
                             SectionBubble(
@@ -277,26 +300,32 @@ class _DrawerDialogState extends State<DrawerDialog> {
                               icon: Iconz.pyramidSingleYellow,
                               bubbleWidth: _bubbleWidth,
                               buttons: <Widget>[
+
                                 SectionTile(
                                   bubbleWidth: _bubbleWidth,
                                   inActiveMode: false,
-                                  section: SectionClass.Section.products,
+                                  flyerType: FlyerType.product,
                                   chain: _productsChain,
                                 ),
+
                                 MainLayout.spacer10,
+
                                 SectionTile(
                                   bubbleWidth: _bubbleWidth,
                                   inActiveMode: false,
-                                  section: SectionClass.Section.equipment,
+                                  flyerType: FlyerType.equipment,
                                   chain: _equipmentChain,
                                 ),
+
                               ],
                             ),
                           ],
                         ),
+
                       const Horizon(
                         heightFactor: 4,
                       ),
+
                     ],
                   ),
                 ),

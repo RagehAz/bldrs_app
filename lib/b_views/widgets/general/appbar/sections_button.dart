@@ -1,5 +1,5 @@
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
@@ -37,16 +37,16 @@ class SectionsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
-    final SectionClass.Section _currentSection = _keywordsProvider.currentSection;
+    final FlyerType _currentSection = _keywordsProvider.currentSection;
     final KW _currentKeyword = _keywordsProvider.currentKeyword;
 
     const double _corners = Ratioz.boxCorner12;
 
-    final String _sectionName = TextGen.sectionStringer(context, _currentSection);
+    final String _sectionName = TextGen.flyerTypePluralStringer(context, _currentSection);
     final String _titleVerse = _currentKeyword == null ? Wordz.section(context) : _sectionName;
 
     final String _sectionVerse = _currentKeyword == null ?
-    TextGen.sectionStringer(context, _currentSection)
+    TextGen.flyerTypePluralStringer(context, _currentSection)
         :
     Name.getNameByCurrentLingoFromNames(context: context, names: _currentKeyword.names)?.value;
 

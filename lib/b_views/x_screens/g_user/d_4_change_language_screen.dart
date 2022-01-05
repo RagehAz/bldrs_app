@@ -8,21 +8,22 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class SelectLanguageScreen extends StatelessWidget {
-  const SelectLanguageScreen({Key key}) : super(key: key);
-
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  const SelectLanguageScreen({
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
   Future<void> _tapLanguage(BuildContext context, String languageCode) async {
     await Localizer.changeAppLanguage(context, languageCode);
 
     // Nav.pushNamedAndRemoveAllBelow(context, Routez.UserChecker);
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     const List<Lingo> _languagesModels = Lingo.allLanguages;
-    final List<MapModel> _languageMaps =
-        Lingo.getLingoNamesMapModels(_languagesModels);
+    final List<MapModel> _languageMaps = Lingo.getLingoNamesMapModels(_languagesModels);
 
     return ListLayout(
       pyramids: Iconz.pyramidzYellow,
@@ -31,5 +32,6 @@ class SelectLanguageScreen extends StatelessWidget {
       sky: SkyType.black,
       onItemTap: (String value) => _tapLanguage(context, value),
     );
+
   }
 }

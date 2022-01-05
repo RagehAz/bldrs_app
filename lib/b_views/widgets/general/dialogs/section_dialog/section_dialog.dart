@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/section_dialog/section_bubble.dart';
@@ -18,18 +18,19 @@ class SectionDialog extends StatelessWidget {
 
   /// --------------------------------------------------------------------------
   final double dialogHeight;
-
   /// --------------------------------------------------------------------------
-  static Future<void> slideDialog(
-      {BuildContext context, double dialogHeight}) async {
+  static Future<void> slideDialog({
+    @required BuildContext context,
+    double dialogHeight,
+  }) async {
+
     await BottomDialog.showBottomDialog(
       context: context,
       title: 'Select a section',
       height: BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7),
       draggable: true,
-      child: SectionDialog(
-        dialogHeight: dialogHeight,
-      ),
+      child: SectionDialog(dialogHeight: dialogHeight,),
+
       // builder: (context, title){
       //   return StatefulBuilder(
       //     builder: (BuildContext context, StateSetter setDialogState){
@@ -41,14 +42,15 @@ class SectionDialog extends StatelessWidget {
       //     }
       //   );
       // }
+
     );
   }
 
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _bubbleWidth =
-        CenterDialog.dialogWidth(context: context) - Ratioz.appBarMargin * 2;
+
+    final double _bubbleWidth = CenterDialog.dialogWidth(context: context) - Ratioz.appBarMargin * 2;
     final double _buttonWidth = _bubbleWidth * 0.9;
 
     return MaxBounceNavigator(
@@ -60,14 +62,16 @@ class SectionDialog extends StatelessWidget {
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: <Widget>[
+
             /// REAL ESTATE
             SectionBubble(
                 title: 'RealEstate',
                 icon: Iconz.pyramidSingleYellow,
                 bubbleWidth: _buttonWidth,
                 buttons: <Widget>[
+
                   SectionDialogButton(
-                    section: SectionClass.Section.properties,
+                    flyerType: FlyerType.property,
                     inActiveMode: false,
                     dialogHeight: dialogHeight,
                   ),
@@ -79,18 +83,21 @@ class SectionDialog extends StatelessWidget {
                 icon: Iconz.pyramidSingleYellow,
                 bubbleWidth: _buttonWidth,
                 buttons: <Widget>[
+
                   SectionDialogButton(
-                    section: SectionClass.Section.designs,
+                    flyerType: FlyerType.design,
                     inActiveMode: false,
                     dialogHeight: dialogHeight,
                   ),
+
                   SectionDialogButton(
-                    section: SectionClass.Section.projects,
+                    flyerType: FlyerType.project,
                     inActiveMode: false,
                     dialogHeight: dialogHeight,
                   ),
+
                   SectionDialogButton(
-                    section: SectionClass.Section.crafts,
+                    flyerType: FlyerType.craft,
                     inActiveMode: false,
                     dialogHeight: dialogHeight,
                   ),
@@ -102,13 +109,15 @@ class SectionDialog extends StatelessWidget {
               icon: Iconz.pyramidSingleYellow,
               bubbleWidth: _buttonWidth,
               buttons: <Widget>[
+
                 SectionDialogButton(
-                  section: SectionClass.Section.products,
+                  flyerType: FlyerType.product,
                   inActiveMode: false,
                   dialogHeight: dialogHeight,
                 ),
+
                 SectionDialogButton(
-                  section: SectionClass.Section.equipment,
+                  flyerType: FlyerType.equipment,
                   inActiveMode: false,
                   dialogHeight: dialogHeight,
                 ),
@@ -118,6 +127,7 @@ class SectionDialog extends StatelessWidget {
             const Horizon(
               heightFactor: 0.5,
             ),
+
           ],
         ),
       ),
