@@ -1,17 +1,16 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/c_controllers/a_1_home_controller.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/xxx_dashboard/exotic_methods.dart';
 import 'package:bldrs/xxx_dashboard/widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -110,6 +109,20 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
               const Stratosphere(),
 
+              /// DO SOMETHING
+              WideButton(
+                  color: Colorz.red255,
+                  verse: 'DO THE DAMN THING',
+                  icon: Iconz.star,
+                  onTap: () async {
+
+                    _uiProvider.triggerLoading(setLoadingTo: true);
+
+
+                    _uiProvider.triggerLoading(setLoadingTo: false);
+
+                  }),
+
               /// AVOID SET STATE : WAY # 1
               ValueListenableBuilder<int>(
                   valueListenable: _counter,
@@ -141,23 +154,23 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 },
               ),
 
-              // /// AVOID SET STATE : WAY # 3
-              // Selector<UiProvider, int>(
-              //   selector: (_, UiProvider uiProvider) => uiProvider.theCounter,
-              //   builder: (BuildContext ctx, int value, Widget child){
-              //
-              //     return
-              //       DreamBox(
-              //         height: 50,
-              //         width: 300,
-              //         verse: 'increment by 1 : $value',
-              //         verseScaleFactor: 0.6,
-              //         verseWeight: VerseWeight.black,
-              //         onTap: _uiProvider.incrementCounter,
-              //       );
-              //
-              //   },
-              // ),
+              /// AVOID SET STATE : WAY # 3
+              Selector<UiProvider, bool>(
+                selector: (_, UiProvider uiProvider) => uiProvider.isLoading,
+                builder: (BuildContext ctx, bool isLoading, Widget child){
+
+                  return
+                    DreamBox(
+                      height: 50,
+                      width: 300,
+                      verse: 'isLoading is : $isLoading',
+                      verseScaleFactor: 0.6,
+                      verseWeight: VerseWeight.black,
+                      onTap: () => _uiProvider.triggerLoading(),
+                    );
+
+                },
+              ),
 
               /// Builder child pattern
               AnimatedBuilder(
@@ -178,46 +191,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                       /// passing child here will prevent its rebuilding with each tick
                     );
-                  }),
-
-              /// DO SOMETHING
-              WideButton(
-                  color: Colorz.bloodTest,
-                  verse: 'DO THE DAMN THING',
-                  icon: Iconz.star,
-                  onTap: () async {
-
-                    _uiProvider.triggerLoading(setLoadingTo: true);
-
-                    final List<BzModel> _bzz = await searchBzzByAuthorID(
-                        context: context,
-                        authorID: 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2',
-                    );
-
-                    blog('bzz are ${_bzz.length} bzz');
-
-                    for (final BzModel bz in _bzz){
-
-                      await takeOverFlyers(
-                          context: context,
-                          newUserID: 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2',
-                          flyersIDs: bz.flyersIDs,
-                      );
-
-                      blog('bzModel ${bz.id} finished');
-
-                    }
-
-                    final List<String> _bzzIDs = BzModel.getBzzIDsFromBzz(_bzz);
-
-                    await assignBzzOwnership(
-                        context: context,
-                        userID: 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2',
-                        bzzIDs: _bzzIDs,
-                    );
-
-                    _uiProvider.triggerLoading(setLoadingTo: false);
-
                   }),
 
               /// MANIPULATE LOCAL ASSETS TESTING
@@ -255,18 +228,20 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
               //   ),
               // ),
 
+              /// PROMOTED FLYERS
               Selector<FlyersProvider, List<FlyerModel>>(
                 selector: (_, FlyersProvider flyersProvider) => flyersProvider.promotedFlyers,
                 builder: (BuildContext ctx, List<FlyerModel> flyers, Widget child){
 
-                  FlyerModel _flyer;
-
                   return
-                    FinalFlyer(
-                      flyerBoxWidth: 300,
-                      onSwipeFlyer: (){},
-                      flyerModel: _flyer,
-                    );
+
+                      FlyersShelf(
+                        title: 'Promoted Flyers',
+                        titleIcon: Iconz.flyer,
+                        flyers: flyers,
+                        flyerOnTap: (FlyerModel flyer) => onFlyerTap(context: context, flyer: flyer),
+                        onScrollEnd: (){blog('REACHED SHELF END');},
+                      );
 
                 },
               ),

@@ -27,8 +27,7 @@ class TabButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color _buttonColor = isSelected == true ? Colorz.yellow255 : null;
-    final Color _iconColor =
-        isSelected == true && triggerIconColor == true ? Colorz.black255 : null;
+    final Color _iconColor = isSelected == true && triggerIconColor == true ? Colorz.black255 : null;
     final Color _verseColor = isSelected == true ? Colorz.black255 : null;
 
     return DreamBox(

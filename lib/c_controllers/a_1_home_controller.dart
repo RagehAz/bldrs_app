@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
@@ -17,7 +16,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 
 // -----------------------------------------------------------------------------
 Future<void> initializeHomeScreen(BuildContext context) async {
@@ -127,7 +125,7 @@ bool initializeFlyersPagination({
     final double _maxScroll = scrollController.position.maxScrollExtent;
     final double _currentScroll = scrollController.position.pixels;
     // final double _screenHeight = Scale.superScreenHeight(context);
-    final double _paginationHeightLight = Ratioz.horizon * 3;
+    const double _paginationHeightLight = Ratioz.horizon * 3;
 
     if (_maxScroll - _currentScroll <= _paginationHeightLight && _canPaginate == true){
 
@@ -168,4 +166,3 @@ Future<void> onFlyerTap({
 
 }
 // -----------------------------------------------------------------------------
-

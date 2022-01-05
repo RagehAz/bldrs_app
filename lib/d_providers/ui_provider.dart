@@ -1,3 +1,5 @@
+import 'package:bldrs/b_views/z_components/layouts/tab_layout_model.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -76,7 +78,10 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   Future<void> _start() async {}
 // -----------------------------------------------------------------------------
+
   /// --- TEXT FIELD OBSCURED
+
+// -------------------------------------
   bool _textFieldsObscured = true;
 // -------------------------------------
   bool get textFieldsObscured => _textFieldsObscured;
@@ -98,5 +103,36 @@ class UiProvider extends ChangeNotifier {
     }
 
   }
+// -----------------------------------------------------------------------------
+
+  /// --- SAVED FLYERS CURRENT TAB INDEX
+
+// -------------------------------------
+  int _savedFlyersCurrentTabIndex = 0;
+// -------------------------------------
+  int get savedFlyersCurrentTabIndex => _savedFlyersCurrentTabIndex;
+// -------------------------------------
+  void setSavedFlyersCurrentTabIndex(int index){
+    _savedFlyersCurrentTabIndex = index;
+    notifyListeners();
+  }
+// -----------------------------------------------------------------------------
+
+/// --- SAVED FLYERS TAB MODELS
+
+// -------------------------------------
+  List<TabModel> _savedFlyersTabModels = <TabModel>[];
+// -------------------------------------
+  List<TabModel> get savedFlyersTabModels => _savedFlyersTabModels;
+// -------------------------------------
+  void setSavedFlyersTabModels(List<TabModel> tabModels){
+
+    if (Mapper.canLoopList(tabModels)){
+      _savedFlyersTabModels = tabModels;
+      notifyListeners();
+    }
+
+  }
+// -------------------------------------
 
 }
