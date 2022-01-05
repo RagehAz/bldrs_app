@@ -288,6 +288,27 @@ class KW {
     return _keywords;
   }
 // -----------------------------------------------------------------------------
+  static List<KW> dummyKeywords({int length = 4}){
+
+    final List<KW> _dummies = <KW>[];
+
+    for (int i = 0; i <= length; i++){
+
+      _dummies.add(
+        KW(
+          id: 'dummy_keywordID_$i',
+          names: <Name>[
+            Name(code: 'en', value: 'dummy_keyword_$i'),
+            Name(code: 'ar', value: '_${i}_المفتاح_السحري')
+          ],
+        )
+      );
+
+    }
+
+     return _dummies;
+  }
+// -----------------------------------------------------------------------------
 }
 
 /*
