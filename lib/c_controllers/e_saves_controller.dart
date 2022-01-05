@@ -1,27 +1,18 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
-import 'package:bldrs/a_models/kw/section_class.dart';
-import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/tab_button.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/tab_button.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/stacks/saved_flyers_grid.dart';
-import 'package:bldrs/b_views/z_components/layouts/tab_bar_view_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/tab_layout_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/tab_layout_model.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
-const List<Section> sectionsTabs = SectionClass.sectionsTabs;
+const List<FlyerType> sectionsTabs = sectionsList;
 // -----------------------------------------------------------------------------
 void createSavedFlyersTabModels({
   @required BuildContext context,
@@ -71,14 +62,14 @@ Widget _createSectionTabButton({
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   final int _currentTabIndex = _uiProvider.savedFlyersCurrentTabIndex;
 
-  const List<Section> _sectionsTabs = SectionClass.sectionsTabs;
-  final Section _section = _sectionsTabs[tabIndex];
+  const List<FlyerType> _sectionsTabs = sectionsList;
+  final FlyerType _section = _sectionsTabs[tabIndex];
 
   return
     TabButton(
       key: ValueKey<String>('saved_flyer_tab_button_$tabIndex'),
-      verse: TextGen.sectionStringer(context, _section),
-      icon: Iconizer.sectionIconOff(_section),
+      verse: TextGen.flyerTypePluralStringer(context, _section),
+      icon: Iconizer.flyerTypeIconOff(_section),
       isSelected: _sectionsTabs[_currentTabIndex] == _section,
       onTap: () {
 
@@ -96,7 +87,7 @@ Widget _createSavedFlyersGridPage({
   @required BuildContext context,
   @required bool selectionMode,
   @required List<FlyerModel> allFlyers,
-  @required Section section,
+  @required FlyerType section,
 }){
 
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
@@ -111,9 +102,9 @@ Widget _createSavedFlyersGridPage({
         flyer: flyer,
       ),
       selectedFlyers: _selectedFlyers,
-      flyers: FlyerModel.filterFlyersBySection(
+      flyers: FlyerModel.filterFlyersByFlyerType(
         flyers: allFlyers,
-        section: section,
+        flyerType: section,
       ),
     );
 

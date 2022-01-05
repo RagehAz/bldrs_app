@@ -1,11 +1,9 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart'
-    as FlyerTypeClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
@@ -17,7 +15,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
-
 class FlyerModel with ChangeNotifier{
   /// --------------------------------------------------------------------------
   FlyerModel({
@@ -465,26 +462,6 @@ class FlyerModel with ChangeNotifier{
     return _flyerIDs;
   }
 // -----------------------------------------------------------------------------
-  static List<FlyerModel> filterFlyersBySection({List<FlyerModel> flyers, SectionClass.Section section}){
-    List<FlyerModel> _filteredFlyers = <FlyerModel>[];
-
-    if (section == SectionClass.Section.all){
-      _filteredFlyers = flyers;
-    }
-
-    else {
-
-      final FlyerTypeClass.FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
-
-      _filteredFlyers = filterFlyersByFlyerType(
-        flyers: flyers,
-        flyerType: _flyerType,
-      );
-    }
-
-    return _filteredFlyers;
-  }
-// -----------------------------------------------------------------------------
   static List<FlyerModel> filterFlyersByFlyerType({List<FlyerModel> flyers, FlyerTypeClass.FlyerType flyerType}){
     final List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
@@ -556,4 +533,26 @@ ZEBALA
     ankhIsOn = !ankhIsOn;
     notifyListeners();
   }
+// -----------------------------------------------------------------------------
+    static List<FlyerModel> filterFlyersBySection({List<FlyerModel> flyers, SectionClass.Section section}){
+    List<FlyerModel> _filteredFlyers = <FlyerModel>[];
+
+    if (section == SectionClass.Section.all){
+      _filteredFlyers = flyers;
+    }
+
+    else {
+
+      final FlyerTypeClass.FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
+
+      _filteredFlyers = filterFlyersByFlyerType(
+        flyers: flyers,
+        flyerType: _flyerType,
+      );
+    }
+
+    return _filteredFlyers;
+  }
+// -----------------------------------------------------------------------------
+
  */

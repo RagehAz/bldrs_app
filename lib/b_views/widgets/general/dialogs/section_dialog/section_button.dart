@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
@@ -19,34 +19,37 @@ class SectionDialogButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SectionDialogButton({
     @required this.dialogHeight,
-    @required this.section,
+    @required this.flyerType,
     @required this.inActiveMode,
     Key key,
   }) : super(key: key);
 
   /// --------------------------------------------------------------------------
   final double dialogHeight;
-  final SectionClass.Section section;
+  final FlyerType flyerType;
   final bool inActiveMode;
 
   /// --------------------------------------------------------------------------
-  String _sectionIcon({SectionClass.Section section, bool inActiveMode}) {
+  String _sectionIcon({
+    @required FlyerType flyerType,
+    @required bool inActiveMode,
+  }) {
     String _icon;
 
     if (inActiveMode == true) {
-      _icon = Iconizer.sectionIconOff(section);
+      _icon = Iconizer.flyerTypeIconOff(flyerType);
     } else {
-      _icon = Iconizer.sectionIconOn(section);
+      _icon = Iconizer.flyerTypeIconOn(flyerType);
     }
 
     return _icon;
   }
-
 // -----------------------------------------------------------------------------
-  Future<void> _onSectionTap(
-      {BuildContext context,
-      SectionClass.Section section,
-      bool inActiveMode}) async {
+  Future<void> _onSectionTap({
+    BuildContext context,
+    FlyerType flyerType,
+    bool inActiveMode,
+  }) async {
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
     final String _currentCityID = _zoneProvider.currentZone.cityID;
@@ -56,7 +59,7 @@ class SectionDialogButton extends StatelessWidget {
       await CenterDialog.showCenterDialog(
         context: context,
         title:
-            'Section "${TextGen.sectionStringer(context, section)}" is\nTemporarily closed in $_currentCityID',
+            'Section "${TextGen.flyerTypePluralStringer(context, flyerType)}" is\nTemporarily closed in $_currentCityID',
         body:
             'The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
         child: Row(
@@ -87,7 +90,7 @@ class SectionDialogButton extends StatelessWidget {
 
       await _keywordsProvider.changeSection(
         context: context,
-        section: section,
+        section: flyerType,
         kw: null,
       );
 
@@ -95,22 +98,24 @@ class SectionDialogButton extends StatelessWidget {
       Nav.goBack(context);
     }
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return DreamBox(
       height: dialogHeight * 0.06,
       // width: _buttonWidth,
-      icon: _sectionIcon(section: section, inActiveMode: inActiveMode),
-      verse: TextGen.sectionStringer(context, section),
+      icon: _sectionIcon(flyerType: flyerType, inActiveMode: inActiveMode),
+      verse: TextGen.flyerTypePluralStringer(context, flyerType),
       verseScaleFactor: 0.55,
-      secondLine: TextGen.sectionDescriptionStringer(context, section),
+      secondLine: TextGen.flyerTypeDescriptionStringer(context, flyerType),
       secondLineColor: Colorz.white200,
       margins: Ratioz.appBarPadding,
       inActiveMode: inActiveMode,
       onTap: () => _onSectionTap(
-          context: context, section: section, inActiveMode: inActiveMode),
+          context: context,
+          flyerType: flyerType,
+          inActiveMode: inActiveMode
+      ),
     );
   }
 }

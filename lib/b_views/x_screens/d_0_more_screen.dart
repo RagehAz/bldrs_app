@@ -120,8 +120,7 @@ class MoreScreen extends StatelessWidget {
               const BubblesSeparator(),
 
               TileBubble(
-                verse:
-                    '${Wordz.about(context)} ${Wordz.bldrsShortName(context)}',
+                verse: '${Wordz.about(context)} ${Wordz.bldrsShortName(context)}',
                 icon: Iconz.pyramidSingleYellow,
                 iconSizeFactor: 0.8,
                 btOnTap: () =>
