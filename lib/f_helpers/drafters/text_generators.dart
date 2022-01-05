@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
-import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -11,43 +10,28 @@ import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
-String sectionStringer (BuildContext context, SectionClass.Section section){
-  return
-    section == SectionClass.Section.properties ? 'properties' : //Wordz.realEstate(context) :
-
-    section == SectionClass.Section.designs ? 'Designs' : //Wordz.construction(context) :
-    section == SectionClass.Section.projects ? 'Projects' : //Wordz.construction(context) :
-    section == SectionClass.Section.crafts ? 'Crafts & Trades' : //Wordz.construction(context) :
-
-    section == SectionClass.Section.products ? 'Products & Materials' : //Wordz.supplies(context) :
-    section == SectionClass.Section.equipment ? 'Tools & Equipment' : //Wordz.supplies(context) :
-
-    section == SectionClass.Section.all ? 'All flyers' : //Wordz.supplies(context) :
-
-    Wordz.bldrsShortName(context);
-}
 // -----------------------------------------------------------------------------
-String sectionDescriptionStringer(BuildContext context, SectionClass.Section section){
+String flyerTypeDescriptionStringer(BuildContext context, FlyerTypeClass.FlyerType flyerType){
   final String _description =
-  section == SectionClass.Section.properties ? 'By RealEstate Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
-
-  section == SectionClass.Section.designs ? 'By Architects & Designers' : //Wordz.constructionTagLine(context) :
-  section == SectionClass.Section.projects ? 'By Contractors' : //Wordz.constructionTagLine(context) :
-  section == SectionClass.Section.crafts ? 'By Craftsmen, Technicians & Artists.' : //Wordz.constructionTagLine(context) :
-
-  section == SectionClass.Section.products ? 'By Manufacturers & Suppliers.' : //Wordz.suppliesTagLine(context) :
-  section == SectionClass.Section.equipment ? 'By Manufacturers & Suppliers.' : //Wordz.constructionTagLine(context) :
+  flyerType == FlyerTypeClass.FlyerType.property ? 'By RealEstate Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
+  flyerType == FlyerTypeClass.FlyerType.design ? 'By Architects & Designers' : //Wordz.constructionTagLine(context) :
+  flyerType == FlyerTypeClass.FlyerType.project ? 'By Contractors' : //Wordz.constructionTagLine(context) :
+  flyerType == FlyerTypeClass.FlyerType.craft ? 'By Craftsmen, Technicians & Artists.' : //Wordz.constructionTagLine(context) :
+  flyerType == FlyerTypeClass.FlyerType.product ? 'By Manufacturers & Suppliers.' : //Wordz.suppliesTagLine(context) :
+  flyerType == FlyerTypeClass.FlyerType.equipment ? 'By Manufacturers & Suppliers.' : //Wordz.constructionTagLine(context) :
 
   Wordz.bldrsShortName(context);
 
   return _description;
 }
 // -----------------------------------------------------------------------------
-List<String> sectionsListStrings (BuildContext context){
-  const List<SectionClass.Section> _sections = SectionClass.sectionsList;
+List<String> flyerTypesListStrings (BuildContext context){
+
+  const List<FlyerTypeClass.FlyerType> _flyerTypes = FlyerTypeClass.flyerTypesList;
+
   final List<String> _sectionsStrings = <String>[];
-  for(final SectionClass.Section bs in _sections){
-    _sectionsStrings.add(sectionStringer(context, bs));
+  for(final FlyerTypeClass.FlyerType bs in _flyerTypes){
+    _sectionsStrings.add(flyerTypePluralStringer(context, bs));
   }
   return _sectionsStrings;
 }
@@ -302,3 +286,24 @@ List<String> createTrigram({@required String input}){
 
   return _trigram;
 }
+
+/*
+
+String sectionStringer (BuildContext context, SectionClass.Section section){
+  return
+    section == SectionClass.Section.properties ? 'properties' : //Wordz.realEstate(context) :
+
+    section == SectionClass.Section.designs ? 'Designs' : //Wordz.construction(context) :
+    section == SectionClass.Section.projects ? 'Projects' : //Wordz.construction(context) :
+    section == SectionClass.Section.crafts ? 'Crafts & Trades' : //Wordz.construction(context) :
+
+    section == SectionClass.Section.products ? 'Products & Materials' : //Wordz.supplies(context) :
+    section == SectionClass.Section.equipment ? 'Tools & Equipment' : //Wordz.supplies(context) :
+
+    section == SectionClass.Section.all ? 'All flyers' : //Wordz.supplies(context) :
+
+    Wordz.bldrsShortName(context);
+}
+
+
+ */

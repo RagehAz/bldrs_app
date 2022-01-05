@@ -1,6 +1,6 @@
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/kw/chain/chain.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
 import 'package:bldrs/a_models/secondary_models/app_updates.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -152,15 +152,15 @@ class KeywordsProvider extends ChangeNotifier {
   /// SELECTED SECTION
 
 // -------------------------------------
-  SectionClass.Section _currentSection;
+  FlyerType _currentSection;
 // -------------------------------------
-  SectionClass.Section get currentSection {
-    return _currentSection ?? SectionClass.Section.designs;
+  FlyerType get currentSection {
+    return _currentSection ?? FlyerType.design;
   }
   // -------------------------------------
   Future<void> changeSection({
     @required BuildContext context,
-    @required SectionClass.Section section,
+    @required FlyerType section,
     @required KW kw,
   }) async {
     blog('Changing section to $section');
@@ -181,7 +181,7 @@ class KeywordsProvider extends ChangeNotifier {
     notifyListeners();
   }
   // -------------------------------------
-  void _setCurrentSection(SectionClass.Section section){
+  void _setCurrentSection(FlyerType section){
     _currentSection = section;
     notifyListeners();
   }

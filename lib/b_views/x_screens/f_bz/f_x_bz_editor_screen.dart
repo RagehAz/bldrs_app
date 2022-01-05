@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -43,16 +43,13 @@ class BzEditorScreen extends StatefulWidget {
     this.bzModel,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final bool firstTimer;
   final UserModel userModel;
   final BzModel bzModel;
-
   /// --------------------------------------------------------------------------
   @override
   _BzEditorScreenState createState() => _BzEditorScreenState();
-
   /// --------------------------------------------------------------------------
 }
 
@@ -67,7 +64,7 @@ class _BzEditorScreenState extends State<BzEditorScreen>
   // String _currentBzID;
   BzAccountType _currentAccountType;
   // -------------------------
-  SectionClass.Section _currentSection;
+  FlyerType _currentFlyerType;
   List<bool> _bzTypeInActivityList;
   BzType _currentBzType; // profession
   List<bool> _bzFormInActivityList;
@@ -129,7 +126,7 @@ class _BzEditorScreenState extends State<BzEditorScreen>
     _currentAccountType = _bz.accountType;
     // -------------------------
     _currentBzType = _bz.bzType;
-    _currentSection = SectionClass.getSectionByBzType(_currentBzType);
+    _currentFlyerType = concludeFlyerType(_currentBzType);
     _currentBzForm = _bz.bzForm;
     // -------------------------
     _createBzTypeInActivityList();
@@ -230,71 +227,77 @@ class _BzEditorScreenState extends State<BzEditorScreen>
 // -----------------------------------------------------------------------------
   void _selectASection(int index) {
     setState(() {
-      _currentSection = SectionClass.sectionsList[index];
+      _currentFlyerType = flyerTypesList[index];
 
       /// Task : FIX THIS SHIT
-      _bzTypeInActivityList = _currentSection == SectionClass.Section.properties
-          ? <bool>[false, false, true, true, true, true, true]
-          : _currentSection == SectionClass.Section.designs
-              ? <bool>[true, true, false, false, true, true, true]
-              : _currentSection == SectionClass.Section.projects
-                  ? <bool>[true, true, false, false, true, true, true]
-                  : _currentSection == SectionClass.Section.crafts
-                      ? <bool>[true, true, true, true, false, true, true]
-                      : _currentSection == SectionClass.Section.products
-                          ? <bool>[true, true, true, true, true, false, false]
-                          : _currentSection == SectionClass.Section.equipment
-                              ? <bool>[
-                                  true,
-                                  true,
-                                  true,
-                                  true,
-                                  true,
-                                  false,
-                                  false
-                                ]
-                              : _bzTypeInActivityList;
-    });
+      _bzTypeInActivityList =
+      _currentFlyerType == FlyerType.property ?
+      <bool>[false, false, true, true, true, true, true]
+          :
+      _currentFlyerType == FlyerType.design ?
+      <bool>[true, true, false, false, true, true, true]
+          :
+      _currentFlyerType == FlyerType.project ?
+      <bool>[true, true, false, false, true, true, true]
+          :
+      _currentFlyerType == FlyerType.craft ?
+      <bool>[true, true, true, true, false, true, true]
+          :
+      _currentFlyerType == FlyerType.product ?
+      <bool>[true, true, true, true, true, false, false]
+          :
+      _currentFlyerType == FlyerType.equipment ?
+      <bool>[true, true, true, true, true, false, false]
+          :
+      _bzTypeInActivityList;
+    }
+    );
   }
 
 // -----------------------------------------------------------------------------
   void _selectBzType(int index) {
     setState(() {
       _currentBzType = BzModel.bzTypesList[index];
-      _bzFormInActivityList = _currentBzType == BzType.developer
-          ? <bool>[true, false]
-          : _currentBzType == BzType.broker
-              ? <bool>[false, false]
-              : _currentBzType == BzType.designer
-                  ? <bool>[false, false]
-                  : _currentBzType == BzType.contractor
-                      ? <bool>[false, false]
-                      : _currentBzType == BzType.artisan
-                          ? <bool>[false, false]
-                          : _currentBzType == BzType.manufacturer
-                              ? <bool>[true, false]
-                              : _currentBzType == BzType.supplier
-                                  ? <bool>[true, false]
-                                  : _bzFormInActivityList;
+
+      _bzFormInActivityList =
+      _currentBzType == BzType.developer ? <bool>[true, false]
+          :
+      _currentBzType == BzType.broker ? <bool>[false, false]
+          :
+      _currentBzType == BzType.designer ? <bool>[false, false]
+          :
+      _currentBzType == BzType.contractor ? <bool>[false, false]
+          :
+      _currentBzType == BzType.artisan ? <bool>[false, false]
+          :
+      _currentBzType == BzType.manufacturer ? <bool>[true, false]
+          :
+      _currentBzType == BzType.supplier ? <bool>[true, false]
+          :
+      _bzFormInActivityList;
+
       // _currentBz.bzType = _currentBzType;
+
     });
   }
 
 // -----------------------------------------------------------------------------
   void _createBzTypeInActivityList() {
+
     if (widget.firstTimer) {
       setState(() {
         _bzTypeInActivityList =
             List<bool>.filled(BzModel.bzTypesList.length, true);
       });
-    } else {
-      /// TASK : FIX THIS SHIT
+    }
 
-      final SectionClass.Section _section =
-          SectionClass.getSectionByBzType(_currentBzType);
+    else {
+
+      /// TASK : FIX THIS SHIT
+      final FlyerType _section = concludeFlyerType(_currentBzType);
 
       setState(() {
-        _currentSection = _section;
+        _currentFlyerType = _section;
       });
 
       // _bzTypeInActivityList =
@@ -307,48 +310,56 @@ class _BzEditorScreenState extends State<BzEditorScreen>
 
 // -----------------------------------------------------------------------------
   void _createBzFormInActivityLst() {
+
     if (widget.firstTimer) {
       setState(() {
         _bzFormInActivityList =
             List<bool>.filled(BzModel.bzFormsList.length, true);
       });
-    } else {
-      _bzFormInActivityList = _currentBzType == BzType.developer
-          ? <bool>[true, false]
-          : _currentBzType == BzType.broker
-              ? <bool>[false, false]
-              : _currentBzType == BzType.designer
-                  ? <bool>[false, false]
-                  : _currentBzType == BzType.contractor
-                      ? <bool>[false, false]
-                      : _currentBzType == BzType.artisan
-                          ? <bool>[false, false]
-                          : _currentBzType == BzType.manufacturer
-                              ? <bool>[true, false]
-                              : _currentBzType == BzType.supplier
-                                  ? <bool>[true, false]
-                                  : _bzFormInActivityList;
+    }
+
+    else {
+      _bzFormInActivityList = _currentBzType == BzType.developer ? <bool>[true, false]
+          :
+      _currentBzType == BzType.broker ? <bool>[false, false]
+          :
+      _currentBzType == BzType.designer ? <bool>[false, false]
+          :
+      _currentBzType == BzType.contractor ? <bool>[false, false]
+          :
+      _currentBzType == BzType.artisan ? <bool>[false, false]
+          :
+      _currentBzType == BzType.manufacturer ? <bool>[true, false]
+          :
+      _currentBzType == BzType.supplier ? <bool>[true, false]
+          :
+      _bzFormInActivityList;
     }
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _takeBzLogo() async {
-    final File _imageFile =
-        await Imagers.takeGalleryPicture(picType: Imagers.PicType.bzLogo);
+
+    final File _imageFile = await Imagers.takeGalleryPicture(
+        picType: Imagers.PicType.bzLogo
+    );
+
     setState(() {
       _currentBzLogoFile = _imageFile;
     });
-  }
 
+  }
 // -----------------------------------------------------------------------------
   Future<void> _takeAuthorPicture() async {
-    final File _imageFile =
-        await Imagers.takeGalleryPicture(picType: Imagers.PicType.authorPic);
+
+    final File _imageFile = await Imagers.takeGalleryPicture(
+        picType: Imagers.PicType.authorPic
+    );
+
     setState(() {
       _currentAuthorPicFile = File(_imageFile.path);
     });
-  }
 
+  }
 // -----------------------------------------------------------------------------
   /// TASK : create bzEditors validators for bubbles instead of this basic null checker
   /// TASK : need to validate inputs creating new bz
@@ -361,17 +372,17 @@ class _BzEditorScreenState extends State<BzEditorScreen>
 
     bool _inputsAreValid;
     if (_currentBzType == null ||
-            _currentBzForm == null ||
-            _bzNameTextController.text == null ||
-            _bzNameTextController.text.length < 3 ||
-            _currentBzLogoFile == null ||
-            _bzScopeTextController.text == null ||
-            _bzScopeTextController.text.length < 3 ||
-            _currentBzCountry == null ||
-            _currentBzCity == null ||
-            _currentBzDistrict == null ||
-            _bzAboutTextController.text == null ||
-            _bzAboutTextController.text.length < 6
+        _currentBzForm == null ||
+        _bzNameTextController.text == null ||
+        _bzNameTextController.text.length < 3 ||
+        _currentBzLogoFile == null ||
+        _bzScopeTextController.text == null ||
+        _bzScopeTextController.text.length < 3 ||
+        _currentBzCountry == null ||
+        _currentBzCity == null ||
+        _currentBzDistrict == null ||
+        _bzAboutTextController.text == null ||
+        _bzAboutTextController.text.length < 6
         // _currentBzContacts.length == 0 ||
         // _currentBzShowsTeam == null
         ) {
@@ -395,7 +406,9 @@ class _BzEditorScreenState extends State<BzEditorScreen>
         title: '',
         body: 'Please add all required fields',
       );
-    } else {
+    }
+
+    else {
       unawaited(_triggerLoading());
 
       /// create new master AuthorModel
@@ -478,7 +491,9 @@ class _BzEditorScreenState extends State<BzEditorScreen>
         title: '',
         body: 'Please add all required fields',
       );
-    } else {
+    }
+
+    else {
       unawaited(_triggerLoading());
 
       /// create modified authorModel
@@ -589,17 +604,21 @@ class _BzEditorScreenState extends State<BzEditorScreen>
     // '${Wordz.about(context)} ${Wordz.yourBusiness(context)}' :
     // '${Wordz.about(context)} ${_bzNameTextController.text}';
 
-    blog(
-        'bzZone is : countryID : $_currentBzCountry : cityID : $_currentBzCity : districtID : $_currentBzDistrict');
+    blog('bzZone is : countryID :'
+        ' $_currentBzCountry : cityID :'
+        ' $_currentBzCity : districtID :'
+        ' $_currentBzDistrict'
+    );
 
     return MainLayout(
       // loading: _loading,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       skyType: SkyType.black,
-      pageTitle: widget.firstTimer == true
-          ? Wordz.createBzAccount(context)
-          : 'Edit Business account info', // createBzAccount
+      pageTitle: widget.firstTimer == true ?
+      Wordz.createBzAccount(context)
+          :
+      'Edit Business account info', // createBzAccount
       // appBarBackButton: true,
       layoutWidget: Stack(
         children: <Widget>[
@@ -613,9 +632,9 @@ class _BzEditorScreenState extends State<BzEditorScreen>
               /// --- CHOOSE SECTION
               MultipleChoiceBubble(
                 title: Wordz.sections(context),
-                buttonsList: TextGen.sectionsListStrings(context),
+                buttonsList: TextGen.flyerTypesListStrings(context),
                 tappingAButton: _selectASection,
-                chosenButton: TextGen.sectionStringer(context, _currentSection),
+                chosenButton: TextGen.flyerTypePluralStringer(context, _currentFlyerType),
               ),
 
               /// --- CHOOSE BzType
@@ -623,8 +642,7 @@ class _BzEditorScreenState extends State<BzEditorScreen>
                 title: 'Profession',
                 buttonsList: TextGen.bzTypesStrings(context),
                 tappingAButton: _selectBzType,
-                chosenButton:
-                    TextGen.bzTypeSingleStringer(context, _currentBzType),
+                chosenButton: TextGen.bzTypeSingleStringer(context, _currentBzType),
                 buttonsInActivityList: _bzTypeInActivityList,
               ),
 
@@ -758,6 +776,7 @@ class _BzEditorScreenState extends State<BzEditorScreen>
             left: 0,
             child: Row(
               children: <Widget>[
+
                 /// --- SHOW BZCARD
                 DreamBox(
                   height: 50,
@@ -786,6 +805,7 @@ class _BzEditorScreenState extends State<BzEditorScreen>
                   margins: const EdgeInsets.all(5),
                   onTap: _confirmButton,
                 ),
+
               ],
             ),
           ),
