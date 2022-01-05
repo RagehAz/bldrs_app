@@ -10,7 +10,7 @@ import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 
 /// Simple Embedded Application Store database
-class Sembast {
+class Sembast  {
 // -----------------------------------------------------------------------------
 
   /// REFERENCES
@@ -197,7 +197,6 @@ class Sembast {
 
     return _maps;
   }
-
 // ---------------------------------------------------
   static Future<Map<String, Object>> findFirst({
     @required String fieldToSortBy,
@@ -205,6 +204,7 @@ class Sembast {
     @required dynamic searchValue,
     @required String docName,
   }) async {
+
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
 

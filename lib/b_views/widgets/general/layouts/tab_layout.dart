@@ -1,47 +1,12 @@
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/tab_layout_model.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-
-class TabModel {
-  /// --------------------------------------------------------------------------
-  const TabModel({
-    @required this.tabButton,
-    @required this.page,
-  });
-
-  /// --------------------------------------------------------------------------
-  final Widget tabButton;
-  final Widget page;
-
-  /// --------------------------------------------------------------------------
-  static List<Widget> getPageWidgetsFromTabModels(List<TabModel> tabModels) {
-    final List<Widget> _widgets = <Widget>[];
-
-    for (final TabModel tabModel in tabModels) {
-      _widgets.add(tabModel.page);
-    }
-
-    return _widgets;
-  }
-
-// -----------------------------------------------------------------------------
-  static List<Widget> getTabButtonsFromTabModels(List<TabModel> tabModels) {
-    final List<Widget> _widgets = <Widget>[];
-
-    for (final TabModel tabModel in tabModels) {
-      _widgets.add(tabModel.tabButton);
-    }
-
-    return _widgets;
-  }
-// -----------------------------------------------------------------------------
-
-}
 
 class TabLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -55,7 +20,6 @@ class TabLayout extends StatelessWidget {
     this.appBarRowWidgets,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final List<TabModel> tabModels;
   final String pageTitle;
@@ -64,11 +28,10 @@ class TabLayout extends StatelessWidget {
   final bool selectionMode;
   final List<dynamic> selectedItems;
   final List<Widget> appBarRowWidgets;
-
   /// --------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
+
     final List<Widget> _tabs = TabModel.getTabButtonsFromTabModels(tabModels);
     final List<Widget> _pages = TabModel.getPageWidgetsFromTabModels(tabModels);
 
@@ -79,9 +42,9 @@ class TabLayout extends StatelessWidget {
       pageTitle: pageTitle,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
-      onBack: selectionMode == false
-          ? null
-          : () {
+      onBack: selectionMode == false ? null
+          :
+          () {
               Nav.goBack(context, argument: selectedItems);
               // await null;
             },

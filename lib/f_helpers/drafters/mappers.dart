@@ -76,8 +76,8 @@ List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
   final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
   if (canLoopList(queryDocumentSnapshots)) {
-    for (final QueryDocumentSnapshot<Object> docSnapshot
-        in queryDocumentSnapshots) {
+    for (final QueryDocumentSnapshot<Object> docSnapshot in queryDocumentSnapshots) {
+
       final String _docID = docSnapshot.id;
 
       Map<String, dynamic> _map = docSnapshot.data();
@@ -100,14 +100,12 @@ List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
 
   return _maps;
 }
-
 // -----------------------------------------------------------------------------
 Map<String, dynamic> getMapFromDocumentSnapshot(
     DocumentSnapshot<Object> documentSnapshot) {
   final Map<String, dynamic> _map = documentSnapshot.data();
   return _map;
 }
-
 // -----------------------------------------------------------------------------
 bool listOfMapsContainValue(
     {@required List<Map<String, dynamic>> listOfMaps,

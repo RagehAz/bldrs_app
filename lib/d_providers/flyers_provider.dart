@@ -308,7 +308,7 @@ class FlyersProvider extends ChangeNotifier {
   }
 // -------------------------------------
   void _addToWallFlyers(List<FlyerModel> flyers) {
-    _wallFlyers = [..._wallFlyers, ...flyers];
+    _wallFlyers.addAll(flyers);
     notifyListeners();
   }
 // -------------------------------------
@@ -316,9 +316,7 @@ class FlyersProvider extends ChangeNotifier {
 
     if (Mapper.canLoopList(flyers)){
 
-      final int _lastIndex = flyers.length - 1;
-
-      _lastWallFlyer = flyers[_lastIndex];
+  _lastWallFlyer = flyers.last;
       notifyListeners();
     }
 
@@ -417,92 +415,41 @@ class FlyersProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-}
+  /// SELECTED FLYERS
 
-/// OLD METHODS
-/*
-
-  void setWallFlyers(List<FlyerModel> flyers){
-
-    _wallFlyers = flyers;
-    notifyListeners();
-
-  }
-
-  Future<void> getsetWallFlyersBySectionAndKeyword({
-    @required BuildContext context,
-    @required SectionClass.Section section,
-    @required KW kw,
-  }) async {
-    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
-    final ZoneModel _currentZone = _zoneProvider.currentZone;
-    //
-    // // final String _zoneString = TextGenerator.zoneStringer(
-    // //   context: context,
-    // //   zone: _currentZone,
-    // // );
-    //
-    //
-
-    blog('flyers provider getsetWallFlyersBySectionAndKeyword received ${kw?.id} aho and will search by it now');
-
-    /// TASK : test this later before launch
-    await tryAndCatch(
-        context: context,
-        methodName: 'fetchAndSetTinyFlyersBySectionType',
-        functions: () async {
-
-          final FlyerTypeClass.FlyerType _flyerType = FlyerTypeClass.getFlyerTypeBySection(section: section);
-
-          // blog('_flyerType is : ${_flyerType.toString()}');
-
-          /// READ data from cloud Firestore flyers collection
-
-          final List<FlyerModel> _foundFlyers = await FlyerSearch.flyersByZoneAndFlyerType(
-            context: context,
-            zone: _currentZone,
-            flyerType: _flyerType,
-          );
-
-
-          // blog('${(TinyFlyer.cipherTinyFlyers(_foundFlyers)).toString()}');
-
-          _wallFlyers = _foundFlyers;
-
-          notifyListeners();
-          // blog('_loadedTinyBzz :::: --------------- $_loadedTinyBzz');
-
-        }
-    );
-
-
+// -------------------------------------
+  final List<FlyerModel> _selectedFlyers = <FlyerModel>[];
+// -------------------------------------
+  List<FlyerModel> get selectedFlyers {
+    return <FlyerModel>[..._selectedFlyers];
   }
 // -------------------------------------
-  Future<void> getsetWallFlyersByFlyerType({@required BuildContext context, @required FlyerTypeClass.FlyerType flyerType}) async {
+  void addFlyerToSelectedFlyers(FlyerModel flyer){
 
-    final ZoneProvider _zoneProvider =  Provider.of<ZoneProvider>(context, listen: false);
-    final ZoneModel _currentZone = _zoneProvider.currentZone;
-
-    final List<FlyerModel> _flyers = await FlyerSearch.flyersByZoneAndFlyerType(
-      context: context,
-      zone: _currentZone,
-      flyerType: flyerType,
+    final bool _flyersContainThisFlyer = FlyerModel.flyersContainThisID(
+      flyers: _selectedFlyers,
+      flyerID: flyer.id,
     );
 
-    _wallFlyers = _flyers;
-    notifyListeners();
+    if (_flyersContainThisFlyer == false){
+      _selectedFlyers.add(flyer);
+      notifyListeners();
+    }
+
   }
-// -------------------------------------
-//   List<FlyerModel> filterWallFlyersByFlyerType(FlyerType flyerType){
-//
-//     final List<FlyerModel> _flyers = FlyerModel.filterFlyersByFlyerType(
-//       flyers: _wallFlyers,
-//       flyerType: flyerType,
-//     );
-//
-//     return _flyers;
-//   }
 // -----------------------------------------------------------------------------
+  void removeFlyerFromSelectedFlyers(FlyerModel flyer){
 
+    final bool _flyersContainThisFlyer = FlyerModel.flyersContainThisID(
+      flyers: _selectedFlyers,
+      flyerID: flyer.id,
+    );
 
- */
+    if (_flyersContainThisFlyer == true){
+      _selectedFlyers.remove(flyer);
+      notifyListeners();
+    }
+
+  }
+// -----------------------------------------------------------------------------
+}
