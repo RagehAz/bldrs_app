@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/widgets/specific/bz/tabs/bz_about_tab.dart';
 import 'package:bldrs/b_views/widgets/specific/bz/tabs/bz_flyers_tab.dart';
 import 'package:bldrs/b_views/widgets/specific/bz/tabs/bz_powers_tab.dart';
 import 'package:bldrs/b_views/widgets/specific/bz/tabs/bz_targets_tab.dart';
+import 'package:bldrs/b_views/z_components/layouts/tab_layout_model.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

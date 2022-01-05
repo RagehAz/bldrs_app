@@ -107,7 +107,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
   void _onBalloonTap() {
     blog('on balloon tap');
   }
-
 // -----------------------------------------------------------------------------
   dynamic _attachment;
   NotiAttachmentType _attachmentType = NotiAttachmentType.non;

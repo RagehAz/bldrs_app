@@ -4,8 +4,8 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/foundation.dart';
-
 // -----------------------------------------------------------------------------
 class AuthorModel {
   /// --------------------------------------------------------------------------
@@ -17,7 +17,6 @@ class AuthorModel {
     this.isMaster,
     this.contacts,
   });
-
   /// --------------------------------------------------------------------------
   final String userID;
   final String name;
@@ -25,7 +24,6 @@ class AuthorModel {
   final String title;
   bool isMaster;
   final List<ContactModel> contacts;
-
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -37,7 +35,6 @@ class AuthorModel {
       'contacts': ContactModel.cipherContacts(contacts),
     };
   }
-
 // -----------------------------------------------------------------------------
   static Map<String, Object> cipherAuthors(List<AuthorModel> authors) {
     Map<String, dynamic> _map = <String, dynamic>{};
@@ -54,7 +51,6 @@ class AuthorModel {
 
     return _map;
   }
-
 // -----------------------------------------------------------------------------
   static AuthorModel decipherAuthor(Map<String, dynamic> map) {
     return AuthorModel(
@@ -66,7 +62,6 @@ class AuthorModel {
       contacts: ContactModel.decipherContacts(map['contacts']),
     );
   }
-
 // -----------------------------------------------------------------------------
   static List<AuthorModel> decipherAuthors(Map<String, dynamic> maps) {
     final List<AuthorModel> _authors = <AuthorModel>[];
@@ -82,12 +77,12 @@ class AuthorModel {
 
     return _authors;
   }
-
 // -----------------------------------------------------------------------------
-  static int getAuthorGalleryCountFromBzModel(
-      {@required BzModel bzModel,
-      @required AuthorModel author,
-      @required List<FlyerModel> bzFlyers}) {
+  static int getAuthorGalleryCountFromBzModel({
+    @required BzModel bzModel,
+    @required AuthorModel author,
+    @required List<FlyerModel> bzFlyers
+  }) {
     final String _authorID = author.userID;
 
     final List<String> _authorFlyersIDs = <String>[];
@@ -102,7 +97,6 @@ class AuthorModel {
 
     return _authorGalleryCount;
   }
-
 // -----------------------------------------------------------------------------
   static AuthorModel getAuthorFromBzByAuthorID(BzModel bz, String authorID) {
     final AuthorModel author = bz?.authors?.singleWhere(
@@ -110,11 +104,9 @@ class AuthorModel {
         orElse: () => null);
     return author;
   }
-
 // -----------------------------------------------------------------------------
   /// temp
-  static AuthorModel createAuthorModelFromUserModelAndBzModel(
-      UserModel user, BzModel bz) {
+  static AuthorModel createAuthorModelFromUserModelAndBzModel(UserModel user, BzModel bz) {
     final String authorID = user?.id;
     final AuthorModel authorFromBz = getAuthorFromBzByAuthorID(bz, authorID);
     final AuthorModel author = AuthorModel(
@@ -128,7 +120,6 @@ class AuthorModel {
     );
     return author;
   }
-
 // -----------------------------------------------------------------------------
   static AuthorModel createMasterAuthorModelFromUserModel(UserModel userModel) {
     return AuthorModel(
@@ -140,20 +131,18 @@ class AuthorModel {
       isMaster: true, // need to make sure about this
     );
   }
-
 // -----------------------------------------------------------------------------
-  static int getAuthorIndexByAuthorID(
-      List<AuthorModel> authors, String authorID) {
+  static int getAuthorIndexByAuthorID(List<AuthorModel> authors, String authorID) {
     final int _currentAuthorIndex =
         authors.indexWhere((AuthorModel au) => authorID == au.userID);
     return _currentAuthorIndex;
   }
-
 // -----------------------------------------------------------------------------
-  static BzModel replaceAuthorModelInBzModel(
-      {@required BzModel bzModel,
-      @required AuthorModel oldAuthor,
-      @required AuthorModel newAuthor}) {
+  static BzModel replaceAuthorModelInBzModel({
+    @required BzModel bzModel,
+    @required AuthorModel oldAuthor,
+    @required AuthorModel newAuthor
+  }) {
     final List<AuthorModel> _modifiedAuthorsList =
         replaceAuthorModelInAuthorsList(
       originalAuthors: bzModel.authors,
@@ -196,12 +185,12 @@ class AuthorModel {
       totalFlyers: bzModel.totalFlyers,
     );
   }
-
 // -----------------------------------------------------------------------------
-  static List<AuthorModel> replaceAuthorModelInAuthorsList(
-      {@required List<AuthorModel> originalAuthors,
-      @required AuthorModel oldAuthor,
-      @required AuthorModel newAuthor}) {
+  static List<AuthorModel> replaceAuthorModelInAuthorsList({
+    @required List<AuthorModel> originalAuthors,
+    @required AuthorModel oldAuthor,
+    @required AuthorModel newAuthor
+  }) {
     List<AuthorModel> _modifiedAuthorsList;
     final List<AuthorModel> _originalAuthors = originalAuthors;
     final int _indexOfOldAuthor =
@@ -215,12 +204,12 @@ class AuthorModel {
 
     return _modifiedAuthorsList;
   }
-
 // -----------------------------------------------------------------------------
-  static List<String> replaceAuthorIDInAuthorsIDsList(
-      {@required List<AuthorModel> originalAuthors,
-      @required AuthorModel oldAuthor,
-      @required AuthorModel newAuthor}) {
+  static List<String> replaceAuthorIDInAuthorsIDsList({
+    @required List<AuthorModel> originalAuthors,
+    @required AuthorModel oldAuthor,
+    @required AuthorModel newAuthor
+  }) {
     List<String> _modifiedAuthorsIDsList;
     final List<String> _originalAuthorsIDs =
         getAuthorsIDsFromAuthors(originalAuthors);
@@ -237,7 +226,6 @@ class AuthorModel {
 
     return _modifiedAuthorsIDsList;
   }
-
 // -----------------------------------------------------------------------------
   static List<String> getAuthorsIDsFromAuthors(List<AuthorModel> authors) {
     final List<String> _authorsIDs = <String>[];
@@ -248,17 +236,18 @@ class AuthorModel {
 
     return _authorsIDs;
   }
-
 // -----------------------------------------------------------------------------
-  static String generateAuthorPicID(
-      {@required String authorID, @required String bzID}) {
+  static String generateAuthorPicID({
+    @required String authorID,
+    @required String bzID
+  }) {
     final String _authorPicID = '$authorID---$bzID';
     return _authorPicID;
   }
-
 // -----------------------------------------------------------------------------
-  static AuthorModel getAuthorModelFromUserModel(
-      {@required UserModel userModel}) {
+  static AuthorModel getAuthorModelFromUserModel({
+    @required UserModel userModel
+  }) {
     final AuthorModel _author = AuthorModel(
       userID: userModel.id,
       name: userModel.name,
@@ -269,10 +258,8 @@ class AuthorModel {
     );
     return _author;
   }
-
 // -----------------------------------------------------------------------------
-  static List<AuthorModel> getAuthorsFromAuthorsByAuthorsIDs(
-      List<AuthorModel> allAuthors, List<String> authorsIDs) {
+  static List<AuthorModel> getAuthorsFromAuthorsByAuthorsIDs(List<AuthorModel> allAuthors, List<String> authorsIDs) {
     final List<AuthorModel> _bzAuthors = <AuthorModel>[];
 
     if (Mapper.canLoopList(allAuthors) && Mapper.canLoopList(authorsIDs)) {
@@ -289,7 +276,6 @@ class AuthorModel {
 
     return _bzAuthors;
   }
-
 // -----------------------------------------------------------------------------
   static List<AuthorModel> combineAllBzzAuthors(List<BzModel> allBzz) {
     final List<AuthorModel> _allAuthors = <AuthorModel>[];
@@ -302,12 +288,26 @@ class AuthorModel {
 
     return _allAuthors;
   }
-
 // -----------------------------------------------------------------------------
   static AuthorModel dummyAuthor() {
-    return null;
+    return AuthorModel(
+      userID: 'author_dummy_id',
+      pic: Iconz.dvRageh,
+      isMaster: true,
+      name: 'Rageh Author',
+      contacts: [],
+      title: 'The CEO And Founder of this'
+    );
   }
-
+// -----------------------------------------------------------------------------
+  static List<AuthorModel> dummyAuthors() {
+    return <AuthorModel>[
+      dummyAuthor(),
+      dummyAuthor(),
+      dummyAuthor(),
+      dummyAuthor(),
+    ];
+  }
 // -----------------------------------------------------------------------------
   void printAuthor({String methodName}) {
     final String _methodName = methodName ?? 'AUTHOR';
@@ -323,7 +323,6 @@ class AuthorModel {
 
     blog('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
   }
-
 // -----------------------------------------------------------------------------
   static AuthorModel getMasterAuthorFromBzModel(BzModel bzModel) {
     final AuthorModel _masterAuthor = bzModel.authors.firstWhere(

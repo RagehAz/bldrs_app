@@ -54,7 +54,7 @@ enum BzState {
   banned,
 }
 // -----------------------------------------------------------------------------
-class BzModel with ChangeNotifier {
+class BzModel{
   /// --------------------------------------------------------------------------
   BzModel({
     @required this.id,
@@ -568,8 +568,7 @@ class BzModel with ChangeNotifier {
 
     return BzModel(
       id: _bzID,
-      logo: Iconz
-          .dumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
+      logo: Iconz.dumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
       name: 'Business Name',
       trigram: TextGen.createTrigram(input: 'Business Name'),
       bzType: BzType.designer,
@@ -594,6 +593,17 @@ class BzModel with ChangeNotifier {
       totalSlides: 4,
       totalViews: 5,
     );
+  }
+// -----------------------------------------------------------------------------
+  static List<BzModel> dummyBzz({int length = 4}){
+
+    final List<BzModel> _dummies = <BzModel>[];
+
+    for (int i = 0; i <= length; i++){
+      _dummies.add(dummyBz('bzID_$i'));
+    }
+
+    return _dummies;
   }
 // -----------------------------------------------------------------------------
 }

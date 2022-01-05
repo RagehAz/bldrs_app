@@ -352,12 +352,12 @@ void _setIsLoading(BuildContext context, bool isLoading){
   _uiProvider.triggerLoading(setLoadingTo: isLoading);
 }
 // -----------------------------------------------------------------------------
-void _setIsSearching(BuildContext context, bool searching){
+void _setIsSearching(BuildContext context, bool isSearching){
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 
   _searchProvider.triggerIsSearching(
       searchingModel: SearchingModel.flyersAndBzz,
-      setIsSearchingTo: searching,
+      setIsSearchingTo: isSearching,
   );
 
 }

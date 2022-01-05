@@ -530,6 +530,9 @@ class FlyerModel with ChangeNotifier{
   static List<FlyerModel> dummyFlyers(){
     return <FlyerModel>[
       dummyFlyer(),
+      dummyFlyer(),
+      dummyFlyer(),
+      dummyFlyer(),
     ];
   }
 // -----------------------------------------------------------------------------

@@ -1,6 +1,5 @@
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/x_screens/c_search/c_0_search_screen.dart';
-import 'package:bldrs/b_views/x_screens/c_search/c_1_search_history_screen.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -24,7 +23,6 @@ class BackAndSearchButton extends StatelessWidget {
     @required this.backAndSearchAction,
     this.onTap,
     this.color = Colorz.white10,
-    this.passSearchHistory,
     Key key,
   }) : super(key: key);
 
@@ -32,8 +30,6 @@ class BackAndSearchButton extends StatelessWidget {
   final Function onTap;
   final Color color;
   final BackAndSearchAction backAndSearchAction;
-  final Function passSearchHistory;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -85,12 +81,6 @@ class BackAndSearchButton extends StatelessWidget {
 
             else if (backAndSearchAction == BackAndSearchAction.goToSearchScreen) {
               await Nav.goToNewScreen(context, const SearchScreen());
-            }
-
-            else if (backAndSearchAction == BackAndSearchAction.showHistory) {
-              final String _result = await Nav.goToNewScreen(context, const SearchHistoryScreen());
-              blog('received back this result : $_result');
-              passSearchHistory(_result);
             }
 
             else {
