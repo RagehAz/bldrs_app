@@ -33,4 +33,3 @@ class SavedFlyersScreenView extends StatelessWidget {
         );
   }
 }
-

@@ -16,7 +16,7 @@ import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/notifications/notification_balloon.dart';
 import 'package:bldrs/b_views/widgets/specific/notifications/notification_card.dart';
 import 'package:bldrs/b_views/widgets/specific/notifications/notification_flyers.dart';
-import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
+import 'package:bldrs/b_views/x_screens/e_saves/e_0_old_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
@@ -193,7 +193,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
       context,
-      const SavedFlyersScreen(
+      const OldSavedFlyersScreen(
         selectionMode: true,
       ),
     );

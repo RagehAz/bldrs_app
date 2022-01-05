@@ -1,9 +1,7 @@
 import 'dart:core';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart'
-    as FlyerTypeClass;
-import 'package:bldrs/a_models/kw/section_class.dart' as SectionClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
@@ -19,155 +17,134 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
-String sectionIconOn(SectionClass.Section section) {
-  return section == SectionClass.Section.properties
-      ? Iconz.bxPropertiesOn
-      : section == SectionClass.Section.designs
-          ? Iconz.bxDesignsOn
-          : section == SectionClass.Section.projects
-              ? Iconz.bxProjectsOn
-              : section == SectionClass.Section.crafts
-                  ? Iconz.bxCraftsOn
-                  : section == SectionClass.Section.products
-                      ? Iconz.bxProductsOn
-                      : section == SectionClass.Section.equipment
-                          ? Iconz.bxEquipmentOn
-                          : Iconz.bz;
-}
-
-// -----------------------------------------------------------------------------
-String sectionIconOff(SectionClass.Section section) {
-  return section == SectionClass.Section.properties
-      ? Iconz.bxPropertiesOff
-      : section == SectionClass.Section.designs
-          ? Iconz.bxDesignsOff
-          : section == SectionClass.Section.projects
-              ? Iconz.bxProjectsOff
-              : section == SectionClass.Section.crafts
-                  ? Iconz.bxCraftsOff
-                  : section == SectionClass.Section.products
-                      ? Iconz.bxProductsOff
-                      : section == SectionClass.Section.equipment
-                          ? Iconz.bxEquipmentOff
-                          : section == SectionClass.Section.all
-                              ? Iconz.savedFlyers
-                              : Iconz.bz;
-}
-
-// -----------------------------------------------------------------------------
 String superArrowENRight(BuildContext context) {
+
   if (Wordz.textDirection(context) == 'ltr') {
     return Iconz.arrowRight;
-  } else {
+  }
+
+  else {
     return Iconz.arrowLeft;
   }
-}
 
+}
 // -----------------------------------------------------------------------------
 String superArrowENLeft(BuildContext context) {
+
   if (Wordz.textDirection(context) == 'ltr') {
     return Iconz.arrowLeft;
-  } else {
+  }
+
+  else {
     return Iconz.arrowRight;
   }
-}
 
+}
 // -----------------------------------------------------------------------------
 String bzTypeIconOff(BzType bzType) {
-  final String icon = bzType == BzType.developer
-      ? Iconz.bxPropertiesOff
-      : bzType == BzType.broker
-          ? Iconz.bxPropertiesOff
-          : bzType == BzType.manufacturer
-              ? Iconz.bxProductsOff
-              : bzType == BzType.supplier
-                  ? Iconz.bxProductsOff
-                  : bzType == BzType.designer
-                      ? Iconz.bxDesignsOff
-                      : bzType == BzType.contractor
-                          ? Iconz.bxProjectsOff
-                          : bzType == BzType.artisan
-                              ? Iconz.bxCraftsOff
-                              : null;
+
+  final String icon = bzType == BzType.developer ? Iconz.bxPropertiesOff
+      :
+  bzType == BzType.broker ? Iconz.bxPropertiesOff
+      :
+  bzType == BzType.manufacturer ? Iconz.bxProductsOff
+      :
+  bzType == BzType.supplier ? Iconz.bxProductsOff
+      :
+  bzType == BzType.designer ? Iconz.bxDesignsOff
+      :
+  bzType == BzType.contractor ? Iconz.bxProjectsOff
+      :
+  bzType == BzType.artisan ? Iconz.bxCraftsOff
+      :
+  null;
+
   return icon;
 }
-
 // -----------------------------------------------------------------------------
 String bzTypeIconOn(BzType bzType) {
-  final String icon = bzType == BzType.developer
-      ? Iconz.bxPropertiesOn
-      : bzType == BzType.broker
-          ? Iconz.bxPropertiesOn
-          : bzType == BzType.manufacturer
-              ? Iconz.bxProductsOn
-              : bzType == BzType.supplier
-                  ? Iconz.bxProductsOn
-                  : bzType == BzType.designer
-                      ? Iconz.bxDesignsOn
-                      : bzType == BzType.contractor
-                          ? Iconz.bxProjectsOn
-                          : bzType == BzType.artisan
-                              ? Iconz.bxCraftsOn
-                              : null;
+
+  final String icon =
+  bzType == BzType.developer ? Iconz.bxPropertiesOn
+      :
+  bzType == BzType.broker ? Iconz.bxPropertiesOn
+      :
+  bzType == BzType.manufacturer ? Iconz.bxProductsOn
+      :
+  bzType == BzType.supplier ? Iconz.bxProductsOn
+      :
+  bzType == BzType.designer ? Iconz.bxDesignsOn
+      :
+  bzType == BzType.contractor ? Iconz.bxProjectsOn
+      :
+  bzType == BzType.artisan ? Iconz.bxCraftsOn
+      :
+  null;
+
   return icon;
 }
-
 // -----------------------------------------------------------------------------
 String flyerTypeIconOn(FlyerTypeClass.FlyerType flyerType) {
-  final String icon = flyerType == FlyerTypeClass.FlyerType.property
-      ? Iconz.bxPropertiesOn
-      : flyerType == FlyerTypeClass.FlyerType.design
-          ? Iconz.bxDesignsOn
-          : flyerType == FlyerTypeClass.FlyerType.project
-              ? Iconz.bxProjectsOn
-              : flyerType == FlyerTypeClass.FlyerType.craft
-                  ? Iconz.bxCraftsOn
-                  : flyerType == FlyerTypeClass.FlyerType.product
-                      ? Iconz.bxProductsOn
-                      : flyerType == FlyerTypeClass.FlyerType.equipment
-                          ? Iconz.bxEquipmentOn
-                          : null;
+
+  final String icon =
+  flyerType == FlyerTypeClass.FlyerType.property ? Iconz.bxPropertiesOn
+      :
+  flyerType == FlyerTypeClass.FlyerType.design ? Iconz.bxDesignsOn
+      :
+  flyerType == FlyerTypeClass.FlyerType.project ? Iconz.bxProjectsOn
+      :
+  flyerType == FlyerTypeClass.FlyerType.craft ? Iconz.bxCraftsOn
+      :
+  flyerType == FlyerTypeClass.FlyerType.product ? Iconz.bxProductsOn
+      :
+  flyerType == FlyerTypeClass.FlyerType.equipment ? Iconz.bxEquipmentOn
+      :
+  null;
+
   return icon;
 }
-
 // -----------------------------------------------------------------------------
 String flyerTypeIconOff(FlyerTypeClass.FlyerType flyerType) {
-  final String _icon = flyerType == FlyerTypeClass.FlyerType.property
-      ? Iconz.bxPropertiesOff
-      : flyerType == FlyerTypeClass.FlyerType.design
-          ? Iconz.bxDesignsOff
-          : flyerType == FlyerTypeClass.FlyerType.project
-              ? Iconz.bxProjectsOff
-              : flyerType == FlyerTypeClass.FlyerType.craft
-                  ? Iconz.bxCraftsOff
-                  : flyerType == FlyerTypeClass.FlyerType.product
-                      ? Iconz.bxProductsOff
-                      : flyerType == FlyerTypeClass.FlyerType.equipment
-                          ? Iconz.bxEquipmentOff
-                          : null;
+
+  final String _icon =
+  flyerType == FlyerTypeClass.FlyerType.property ? Iconz.bxPropertiesOff
+      :
+  flyerType == FlyerTypeClass.FlyerType.design ? Iconz.bxDesignsOff
+      :
+  flyerType == FlyerTypeClass.FlyerType.project ? Iconz.bxProjectsOff
+      :
+  flyerType == FlyerTypeClass.FlyerType.craft ? Iconz.bxCraftsOff
+      :
+  flyerType == FlyerTypeClass.FlyerType.product ? Iconz.bxProductsOff
+      :
+  flyerType == FlyerTypeClass.FlyerType.equipment ? Iconz.bxEquipmentOff
+      :
+  null;
+
   return _icon;
 }
-
 // -----------------------------------------------------------------------------
 CustomClipper<Path> userBalloon(UserStatus userType) {
-  final CustomClipper<Path> userBalloon = userType == UserStatus.normal
-      ? NormalCircle()
-      : userType == UserStatus.searching
-          ? SearchingThinking()
-          : userType == UserStatus.finishing
-              ? FinishingBalloon()
-              : userType == UserStatus.planning
-                  ? PlanningTalkingBalloon()
-                  : userType == UserStatus.building
-                      ? BuildingBalloon()
-                      : userType == UserStatus.selling
-                          ? SellingBalloon()
-                          : userType == null
-                              ? NormalCircle()
-                              : NormalCircle();
-  return userBalloon;
-}
 
+  final CustomClipper<Path> userBalloon = userType == UserStatus.normal ? NormalCircle()
+      :
+  userType == UserStatus.searching ? SearchingThinking()
+      :
+  userType == UserStatus.finishing ? FinishingBalloon()
+      :
+  userType == UserStatus.planning ? PlanningTalkingBalloon()
+      :
+  userType == UserStatus.building ? BuildingBalloon()
+      :
+  userType == UserStatus.selling ? SellingBalloon()
+      :
+  userType == null ? NormalCircle()
+      :
+  NormalCircle();
+
+  return userBalloon;
+
+}
 // -----------------------------------------------------------------------------
 /// MediaQueryData data = MediaQuery.of(context);
 /// double ratio = data.devicePixelRatio;
@@ -185,67 +162,50 @@ String imageDir({
   @required double pixelRatio,
   @required bool isIOS,
 }) {
+
   String directory = '/';
+
   if (!isIOS) {
     if (pixelRatio >= 1.5) {
       directory = '/2.0x/';
-    } else if (pixelRatio >= 2.5) {
+    }
+
+    else if (pixelRatio >= 2.5) {
       directory = '/3.0x/';
-    } else if (pixelRatio >= 3.5) {
+    }
+
+    else if (pixelRatio >= 3.5) {
       directory = '/4.0x/';
     }
+
   }
+
   return '$prefix$directory$fileName';
 }
-
 // -----------------------------------------------------------------------------
 String superBackIcon(BuildContext context) {
   return appIsLeftToRight(context) ? Iconz.back : Iconz.backArabic;
 }
-
 // -----------------------------------------------------------------------------
 String superInverseBackIcon(BuildContext context) {
   return appIsLeftToRight(context) ? Iconz.backArabic : Iconz.back;
 }
-
 // -----------------------------------------------------------------------------
 String superContactIcon(ContactType contactType) {
   switch (contactType) {
-    case ContactType.phone:
-      return Iconz.comPhone;
-      break;
-    case ContactType.email:
-      return Iconz.comEmail;
-      break;
-    case ContactType.website:
-      return Iconz.comWebsite;
-      break;
-    case ContactType.facebook:
-      return Iconz.comFacebook;
-      break;
-    case ContactType.linkedIn:
-      return Iconz.comLinkedin;
-      break;
-    case ContactType.youtube:
-      return Iconz.comYoutube;
-      break;
-    case ContactType.instagram:
-      return Iconz.comInstagram;
-      break;
-    case ContactType.pinterest:
-      return Iconz.comPinterest;
-      break;
-    case ContactType.tiktok:
-      return Iconz.comTikTok;
-      break;
-    case ContactType.twitter:
-      return Iconz.comTwitter;
-      break;
-    default:
-      return null;
+    case ContactType.phone: return Iconz.comPhone; break;
+    case ContactType.email: return Iconz.comEmail; break;
+    case ContactType.website: return Iconz.comWebsite; break;
+    case ContactType.facebook: return Iconz.comFacebook; break;
+    case ContactType.linkedIn: return Iconz.comLinkedin; break;
+    case ContactType.youtube: return Iconz.comYoutube; break;
+    case ContactType.instagram: return Iconz.comInstagram; break;
+    case ContactType.pinterest: return Iconz.comPinterest; break;
+    case ContactType.tiktok: return Iconz.comTikTok; break;
+    case ContactType.twitter: return Iconz.comTwitter; break;
+    default: return null;
   }
 }
-
 // -----------------------------------------------------------------------------
 bool iconIsContinent(String icon) {
   bool _iconIsContinent;
@@ -257,41 +217,28 @@ bool iconIsContinent(String icon) {
       icon == Iconz.contEurope ||
       icon == Iconz.contAustralia) {
     _iconIsContinent = true;
-  } else {
+  }
+
+  else {
     _iconIsContinent = false;
   }
 
   return _iconIsContinent;
 }
-
 // -----------------------------------------------------------------------------
 String getContinentIcon(Continent continent) {
   final String _name = continent.name;
 
   switch (_name) {
-    case 'Africa':
-      return Iconz.contAfrica;
-      break;
-    case 'Asia':
-      return Iconz.contAsia;
-      break;
-    case 'Oceania':
-      return Iconz.contAustralia;
-      break;
-    case 'Europe':
-      return Iconz.contEurope;
-      break;
-    case 'North America':
-      return Iconz.contNorthAmerica;
-      break;
-    case 'South America':
-      return Iconz.contSouthAmerica;
-      break;
-    default:
-      return null;
+    case 'Africa': return Iconz.contAfrica; break;
+    case 'Asia': return Iconz.contAsia; break;
+    case 'Oceania': return Iconz.contAustralia; break;
+    case 'Europe': return Iconz.contEurope; break;
+    case 'North America': return Iconz.contNorthAmerica; break;
+    case 'South America': return Iconz.contSouthAmerica; break;
+    default: return null;
   }
 }
-
 // -----------------------------------------------------------------------------
 const List<Map<String, dynamic>> continentsMaps = <Map<String, dynamic>>[
   <String, dynamic>{
@@ -325,3 +272,46 @@ String valueIsNotNull(dynamic value) {
   return _icon;
 }
 // -----------------------------------------------------------------------------
+
+/*
+
+ZEBALA
+
+// -----------------------------------------------------------------------------
+String sectionIconOn(SectionClass.Section section) {
+  return
+    section == SectionClass.Section.properties ? Iconz.bxPropertiesOn
+        :
+    section == SectionClass.Section.designs ? Iconz.bxDesignsOn
+        :
+    section == SectionClass.Section.projects ? Iconz.bxProjectsOn
+        :
+    section == SectionClass.Section.crafts ? Iconz.bxCraftsOn
+        :
+    section == SectionClass.Section.products ? Iconz.bxProductsOn
+        :
+    section == SectionClass.Section.equipment ? Iconz.bxEquipmentOn
+        :
+    Iconz.bz;
+}
+// -----------------------------------------------------------------------------
+String sectionIconOff(SectionClass.Section section) {
+  return section == SectionClass.Section.properties
+      ? Iconz.bxPropertiesOff
+      : section == SectionClass.Section.designs
+          ? Iconz.bxDesignsOff
+          : section == SectionClass.Section.projects
+              ? Iconz.bxProjectsOff
+              : section == SectionClass.Section.crafts
+                  ? Iconz.bxCraftsOff
+                  : section == SectionClass.Section.products
+                      ? Iconz.bxProductsOff
+                      : section == SectionClass.Section.equipment
+                          ? Iconz.bxEquipmentOff
+                          : section == SectionClass.Section.all
+                              ? Iconz.savedFlyers
+                              : Iconz.bz;
+}
+
+
+ */

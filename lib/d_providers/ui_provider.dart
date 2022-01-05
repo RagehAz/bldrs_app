@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/z_components/layouts/tab_layout_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -114,7 +115,7 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   void setSavedFlyersCurrentTabIndex(int index){
     _savedFlyersCurrentTabIndex = index;
-    notifyListeners();
+    // notifyListeners();
   }
 // -----------------------------------------------------------------------------
 
@@ -129,10 +130,22 @@ class UiProvider extends ChangeNotifier {
 
     if (Mapper.canLoopList(tabModels)){
       _savedFlyersTabModels = tabModels;
-      notifyListeners();
+      // notifyListeners();
     }
 
   }
-// -------------------------------------
+// -----------------------------------------------------------------------------
 
+/// --- SAVED FLYERS TAB CURRENT FLYER TYPE
+
+// -------------------------------------
+  FlyerType _currentFlyerTypeTab = FlyerType.all;
+// -------------------------------------
+  FlyerType get currentFlyerTypeTab => _currentFlyerTypeTab;
+// -------------------------------------
+  void setCurrentFlyerTypeTab(FlyerType flyerType){
+    _currentFlyerTypeTab = flyerType;
+    notifyListeners();
+  }
+// -------------------------------------
 }

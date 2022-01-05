@@ -29,8 +29,7 @@ class FlyerMakerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _flyerBoxWidth =
-        _screenWidth - (Ratioz.appBarMargin * 3) - FlyerBox.editorPanelWidth;
+    final double _flyerBoxWidth = _screenWidth - (Ratioz.appBarMargin * 3) - FlyerBox.editorPanelWidth;
 
     // double _panelWidth = _screenWidth - _flyerBoxWidth - (Ratioz.appBarMargin * 3);
     // AuthorModel _author = widget.firstTimer ?
@@ -40,6 +39,10 @@ class FlyerMakerScreen extends StatelessWidget {
 
     return MainLayout(
       appBarType: AppBarType.basic,
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
+      pyramidsAreOn: true,
+
       appBarRowWidgets: const <Widget>[
         SlidesCounter(),
 
