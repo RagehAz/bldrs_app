@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -130,6 +131,7 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
       cityID: widget.city.cityID,
     );
 
+    final String _cityName = Name.getNameByCurrentLingoFromNames(context: context, names: widget.city.names)?.value;
 
     return MainLayout(
       skyType: SkyType.black,
@@ -145,6 +147,7 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
       pyramidsAreOn: true,
 
       onBack: _onBack,
+      searchHint: 'Search Districts of $_cityName',
       appBarRowWidgets: <Widget>[
 
         const Expander(),

@@ -29,6 +29,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.historyButtonIsOn,
     @required this.zoneButtonIsOn,
     this.pyramidsAreOn = false,
+    this.searchHint,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -48,6 +49,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final bool historyButtonIsOn;
   final bool sectionButtonIsOn;
   final bool zoneButtonIsOn;
+  final String searchHint;
   /// --------------------------------------------------------------------------
   String _pyramidsIcon(){
 
@@ -108,6 +110,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             onSearchChanged: onSearchChanged,
             historyButtonIsOn: historyButtonIsOn,
             zoneButtonIsOn: zoneButtonIsOn,
+            searchHint: searchHint,
           ),
 
         /// --- PYRAMIDS
