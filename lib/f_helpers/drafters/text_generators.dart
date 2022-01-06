@@ -89,12 +89,13 @@ String flyerTypeSingleStringerByBzType(BuildContext context, BzType bzType){
 // -----------------------------------------------------------------------------
 String flyerTypePluralStringer (BuildContext context, FlyerTypeClass.FlyerType flyerType){
   return
-    flyerType == FlyerTypeClass.FlyerType.property   ? Wordz.properties(context)  :
-    flyerType == FlyerTypeClass.FlyerType.design     ? Wordz.designs(context)  :
-    flyerType == FlyerTypeClass.FlyerType.product    ? Wordz.products(context)  :
-    flyerType == FlyerTypeClass.FlyerType.project    ? Wordz.projects(context)  :
-    flyerType == FlyerTypeClass.FlyerType.equipment  ? Wordz.equipments(context)  :
-    flyerType == FlyerTypeClass.FlyerType.craft      ? Wordz.crafts(context)  :
+    flyerType == FlyerTypeClass.FlyerType.all         ? 'All Flyers' :
+    flyerType == FlyerTypeClass.FlyerType.property    ? Wordz.properties(context)  :
+    flyerType == FlyerTypeClass.FlyerType.design      ? Wordz.designs(context)  :
+    flyerType == FlyerTypeClass.FlyerType.product     ? Wordz.products(context)  :
+    flyerType == FlyerTypeClass.FlyerType.project     ? Wordz.projects(context)  :
+    flyerType == FlyerTypeClass.FlyerType.equipment   ? Wordz.equipments(context)  :
+    flyerType == FlyerTypeClass.FlyerType.craft       ? Wordz.crafts(context)  :
     Wordz.general(context);
 }
 // -----------------------------------------------------------------------------

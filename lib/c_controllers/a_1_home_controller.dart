@@ -39,6 +39,9 @@ Future<void> initializeHomeScreen(BuildContext context) async {
   /// H - KEYWORDS
   await _initializeKeywords(context);
 
+  /// I - SAVED FLYERS
+  await _initializeSavedFlyers(context);
+
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializeUserModel(BuildContext context) async {
@@ -109,6 +112,24 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
       ));
 
     });
+  }
+}
+// -----------------------------------------------------------------------------
+Future<void> _initializeSavedFlyers(BuildContext context) async {
+
+  if (FireAuthOps.userIsSignedIn() == true){
+
+    final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
+    final UserModel _myUserModel = _userProvider.myUserModel;
+
+    final List<String> _savedFlyersIDs = _myUserModel.savedFlyersIDs;
+
+    if (Mapper.canLoopList(_savedFlyersIDs)){
+
+      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+      await _flyersProvider.getsetSavedFlyers(context);
+    }
+
   }
 }
 // -----------------------------------------------------------------------------
