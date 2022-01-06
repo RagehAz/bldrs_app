@@ -139,12 +139,12 @@ class UiProvider extends ChangeNotifier {
 /// --- SAVED FLYERS TAB CURRENT FLYER TYPE
 
 // -------------------------------------
-  FlyerType _currentFlyerTypeTab = FlyerType.all;
+  FlyerType _currentSavedFlyerTypeTab = FlyerType.all;
 // -------------------------------------
-  FlyerType get currentFlyerTypeTab => _currentFlyerTypeTab;
+  FlyerType get currentSavedFlyerTypeTab => _currentSavedFlyerTypeTab;
 // -------------------------------------
   void setCurrentFlyerTypeTab(FlyerType flyerType){
-    _currentFlyerTypeTab = flyerType;
+    _currentSavedFlyerTypeTab = flyerType;
     notifyListeners();
   }
 // -------------------------------------
