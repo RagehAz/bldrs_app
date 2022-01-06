@@ -97,7 +97,7 @@ Widget _createSavedFlyersGridPage({
     SavedFlyersGrid(
       key: ValueKey<String>('saved_flyers_grid_page_$section'),
       selectionMode: selectionMode,
-      onSelectFlyer: (FlyerModel flyer) => _onSelectFlyer(
+      onSelectFlyer: (FlyerModel flyer) => onSelectFlyerFromSavedFlyers(
         context: context,
         flyer: flyer,
       ),
@@ -135,7 +135,63 @@ void onSetCurrentTab({
 
 }
 // -----------------------------------------------------------------------------
-void _onSelectFlyer({
+/// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+/// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+/// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+/// THE NEW CORRECT SEXY STUFF BABY
+// -----------------------------------------------------------------------------
+int getInitialTabIndex(BuildContext context){
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  final FlyerType _currentTab = _uiProvider.currentSavedFlyerTypeTab;
+  final int _index = getFlyerTypeIndexFromSectionsTabs(_currentTab);
+  return _index;
+}
+// -----------------------------------------------------------------------------
+void onChangeTabIndexWhileAnimation({
+  @required BuildContext context,
+  @required TabController tabController,
+}){
+
+  if (tabController.indexIsChanging == false) {
+
+    final int _indexFromAnimation = (tabController.animation.value).round();
+    onChangeTabIndex(
+      context: context,
+      index: _indexFromAnimation,
+      tabController: tabController,
+    );
+
+  }
+
+}
+// -----------------------------------------------------------------------------
+void onChangeTabIndex({
+  @required BuildContext context,
+  @required int index,
+  @required TabController tabController,
+}) {
+
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
+  final FlyerType _newFlyerType = sectionsTabs[index];
+  final FlyerType _previousTab = _uiProvider.currentSavedFlyerTypeTab;
+
+  /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS
+  if (_newFlyerType != _previousTab){
+    // blog('index is $index');
+    _uiProvider.setCurrentFlyerTypeTab(_newFlyerType);
+    tabController.animateTo(index,
+        curve: Curves.easeIn,
+        duration: Ratioz.duration150ms
+    );
+  }
+
+}
+// -----------------------------------------------------------------------------
+void onSelectFlyerFromSavedFlyers({
   @required BuildContext context,
   @required FlyerModel flyer,
 }) {
@@ -152,13 +208,13 @@ void _onSelectFlyer({
   if (_alreadySelected == true) {
 
     _flyersProvider.removeFlyerFromSelectedFlyers(flyer);
-      // _tabModels = createTabModels();
+    // _tabModels = createTabModels();
 
   }
 
   else {
     _flyersProvider.addFlyerToSelectedFlyers(flyer);
-      // _tabModels = createTabModels();
+    // _tabModels = createTabModels();
   }
 
 }

@@ -20,7 +20,7 @@ const List<FlyerType> flyerTypesList = <FlyerType>[
   FlyerType.craft,
   FlyerType.equipment,
 ];
-
+// -----------------------------------------------------------------------------
 const List<FlyerType> sectionsList = <FlyerType>[
   FlyerType.all,
   FlyerType.property,
@@ -30,6 +30,11 @@ const List<FlyerType> sectionsList = <FlyerType>[
   FlyerType.craft,
   FlyerType.equipment,
 ];
+// -----------------------------------------------------------------------------
+int getFlyerTypeIndexFromSectionsTabs(FlyerType flyerType){
+  final int _index = sectionsList.indexWhere((type) => type == flyerType);
+  return _index;
+}
 // -----------------------------------------------------------------------------
 String fixFlyerTypeFromIntToString(int x) {
   switch (x) {

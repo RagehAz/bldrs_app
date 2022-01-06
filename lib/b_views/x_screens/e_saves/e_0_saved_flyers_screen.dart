@@ -1,10 +1,13 @@
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/tab_button.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/stacks/saved_flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/tab_layout_model.dart';
 import 'package:bldrs/c_controllers/e_saves_controller.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
@@ -36,14 +39,18 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
   @override
   void initState() {
 
-    createSavedFlyersTabModels(
-      context: context,
-      tabController: _tabController,
-      selectionMode: widget.selectionMode,
-      allFlyers: [],
-    );
+    _tabController = TabController(vsync: this, length: sectionsTabs.length, initialIndex: getInitialTabIndex(context));
 
-    _tabController = TabController(vsync: this, length: sectionsTabs.length);
+    /// LISTENS TO TAB CHANGE AFTER SWIPE ANIMATION ENDS
+    // _tabController.addListener(() => _onChangeTabIndex(_tabController.index));
+
+    /// LISTEN TO TAB CHANGE WHILE ANIMATION
+    _tabController.animation.addListener(
+        () => onChangeTabIndexWhileAnimation(
+          context: context,
+          tabController: _tabController,
+        )
+    );
 
     super.initState();
   }
@@ -54,6 +61,12 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
 
     _uiProvider.startController((){
 
+      // createSavedFlyersTabModels(
+      //   context: context,
+      //   tabController: _tabController,
+      //   selectionMode: widget.selectionMode,
+      //   allFlyers: [],
+      // );
 
     });
 
@@ -65,8 +78,6 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
     // TODO: implement dispose
     super.dispose();
   }
-// -----------------------------------------------------------------------------
-
 // -----------------------------------------------------------------------------
   void _passSelectedFlyersBack(){
 
@@ -90,6 +101,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
       onBack: widget.selectionMode ? _passSelectedFlyersBack : null,
       layoutWidget: SavedFlyersScreenView(
         tabController: _tabController,
+        selectionMode: widget.selectionMode,
       ),
 
     );
@@ -102,15 +114,13 @@ class SavedFlyersScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SavedFlyersScreenView({
     @required this.tabController,
+    @required this.selectionMode,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final TabController tabController;
+  final bool selectionMode;
   /// --------------------------------------------------------------------------
-  void _onTabTap(FlyerType flyerType){
-
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -121,15 +131,15 @@ class SavedFlyersScreenView extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
 
           return <Widget>[
+            /// SAVED FLYER SCREEN SLIVER TABS
             Consumer<UiProvider>(
               builder: (BuildContext ctx, UiProvider uiProvider, Widget child) {
 
-                final FlyerType _currentFlyerTypeTab = uiProvider.currentFlyerTypeTab;
+                final FlyerType _currentFlyerTypeTab = uiProvider.currentSavedFlyerTypeTab;
 
                 return SavedFlyersTabBar(
                     tabController: tabController,
                     currentFlyerTypeTab: _currentFlyerTypeTab,
-                    onTap: (FlyerType flyerType) => _onTabTap(flyerType),
                 );
 
               },
@@ -137,17 +147,48 @@ class SavedFlyersScreenView extends StatelessWidget {
           ];
 
         },
-        body: Consumer<UiProvider>(
-          builder: (_, UiProvider uiProvider, Widget child){
 
-            final List<TabModel> _savedFlyersTabModels = uiProvider.savedFlyersTabModels;
-            final List<Widget> _savedFlyersPages = TabModel.getPageWidgetsFromTabModels(_savedFlyersTabModels);
+        /// FLYERS GRIDS PAGES
+        body: Consumer<FlyersProvider>(
+          builder: (_, FlyersProvider flyersProvider, Widget child){
 
-            return TabBarView(
-              physics: const BouncingScrollPhysics(),
-              controller: tabController,
-              children: _savedFlyersPages,
-            );
+            final List<FlyerModel> _savedFlyers = flyersProvider.savedFlyers;
+            final List<FlyerModel> _selectedFlyers = flyersProvider.selectedFlyers;
+
+            return
+
+              TabBarView(
+                physics: const BouncingScrollPhysics(),
+                controller: tabController,
+                children: <Widget>[
+
+                  /// IT HAS TO BE LIST.GENERATE (ma3lesh agebha ymeen shmal mesh gayya)
+                  ...List.generate(sectionsTabs.length, (index){
+
+                    final FlyerType _flyerType = sectionsTabs[index];
+                    final String _flyerTypeString = cipherFlyerType(_flyerType);
+
+                    final List<FlyerModel> _flyersOfThisType = FlyerModel.filterFlyersByFlyerType(
+                      flyers: _savedFlyers,
+                      flyerType: _flyerType,
+                    );
+
+                    return
+                      SavedFlyersGrid(
+                        key: ValueKey<String>('Saved_flyers_page_$_flyerTypeString'),
+                        selectionMode: selectionMode,
+                        onSelectFlyer: (FlyerModel flyer) => onSelectFlyerFromSavedFlyers(
+                          context: context,
+                          flyer: flyer,
+                        ),
+                        selectedFlyers: _selectedFlyers,
+                        flyers: _flyersOfThisType,
+                      );
+
+                  }),
+
+                ],
+              );
 
           },
         ),
@@ -163,13 +204,11 @@ class SavedFlyersTabBar extends StatelessWidget {
   const SavedFlyersTabBar({
     @required this.tabController,
     @required this.currentFlyerTypeTab,
-    @required this.onTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerType currentFlyerTypeTab;
   final TabController tabController;
-  final ValueChanged<FlyerType> onTap;
   /// --------------------------------------------------------------------------
   bool _isSelected(FlyerType flyerType){
 
@@ -190,6 +229,7 @@ class SavedFlyersTabBar extends StatelessWidget {
       tabController: tabController,
       tabs: <Widget>[
 
+        /// IT HAS TO BE LIST.GENERATE ma3lesh
         ...List.generate(sectionsTabs.length, (index){
 
           final FlyerType _flyerType = sectionsTabs[index];
@@ -201,7 +241,11 @@ class SavedFlyersTabBar extends StatelessWidget {
               verse: TextGen.flyerTypePluralStringer(context, _flyerType),
               icon: Iconizer.flyerTypeIconOff(_flyerType),
               isSelected: _isSelected(_flyerType),
-              onTap: () => onTap(_flyerType),
+              onTap: () => onChangeTabIndex(
+                context: context,
+                tabController: tabController,
+                index: index,
+              ),
             );
 
         }),
