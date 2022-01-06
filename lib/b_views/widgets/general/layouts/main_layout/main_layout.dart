@@ -46,6 +46,7 @@ class MainLayout extends StatelessWidget {
     this.historyButtonIsOn = true,
     this.sectionButtonIsOn = true,
     this.zoneButtonIsOn = true,
+    this.searchHint,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -67,6 +68,7 @@ class MainLayout extends StatelessWidget {
   final bool historyButtonIsOn;
   final bool sectionButtonIsOn;
   final bool zoneButtonIsOn;
+  final String searchHint;
   /// --------------------------------------------------------------------------
   static const Widget spacer5 = SizedBox(
     width: 5,
@@ -144,6 +146,7 @@ class MainLayout extends StatelessWidget {
       historyButtonIsOn: historyButtonIsOn,
       onSearchChanged: onSearchChanged,
       pyramidsAreOn: pyramidsAreOn,
+      searchHint: searchHint,
       layoutWidget: layoutWidget,
     );
 

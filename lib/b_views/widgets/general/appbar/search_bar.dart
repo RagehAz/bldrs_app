@@ -118,6 +118,7 @@ class _SearchBarState extends State<SearchBar> {
 
               return SuperTextField(
                 fieldIsFormField: true,
+                height: widget.height ?? Ratioz.appBarButtonSize + Ratioz.appBarPadding,
                 width: _textFieldWidth - 5,
                 // height: Ratioz.appBarButtonSize * 0.5 * 2,
                 textController: _searchTextController,
