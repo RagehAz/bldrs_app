@@ -111,7 +111,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return MainLayout(
       appBarType: AppBarType.search,
-      appBarRowWidgets: [
+      appBarRowWidgets: <Widget>[
         DreamBox(
           height: 35,
           verse: _verse,
