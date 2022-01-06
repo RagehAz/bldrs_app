@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/z_components/layouts/tab_layout_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
 enum SearchingModel{
@@ -106,33 +107,22 @@ class UiProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-  /// --- SAVED FLYERS CURRENT TAB INDEX
+  /// --- KEYWORDS DRAWER
 
 // -------------------------------------
-  int _savedFlyersCurrentTabIndex = 0;
+  bool _keywordsDrawerIsOn = false;
 // -------------------------------------
-  int get savedFlyersCurrentTabIndex => _savedFlyersCurrentTabIndex;
+  bool get keywordsDrawerIsOn => _keywordsDrawerIsOn;
 // -------------------------------------
-  void setSavedFlyersCurrentTabIndex(int index){
-    _savedFlyersCurrentTabIndex = index;
-    // notifyListeners();
+  void setKeywordsDrawerIsOn({@required bool setTo}){
+    _keywordsDrawerIsOn = setTo;
+    notifyListeners();
   }
-// -----------------------------------------------------------------------------
-
-/// --- SAVED FLYERS TAB MODELS
-
 // -------------------------------------
-  List<TabModel> _savedFlyersTabModels = <TabModel>[];
-// -------------------------------------
-  List<TabModel> get savedFlyersTabModels => _savedFlyersTabModels;
-// -------------------------------------
-  void setSavedFlyersTabModels(List<TabModel> tabModels){
-
-    if (Mapper.canLoopList(tabModels)){
-      _savedFlyersTabModels = tabModels;
-      // notifyListeners();
+  void closeDrawerIfOpen(BuildContext context){
+    if (_keywordsDrawerIsOn == true){
+      goBack(context);
     }
-
   }
 // -----------------------------------------------------------------------------
 

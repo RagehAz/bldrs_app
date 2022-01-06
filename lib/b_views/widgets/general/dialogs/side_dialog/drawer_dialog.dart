@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/kw/chain/chain_properties.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/b_views/widgets/general/appbar/search_bar.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/section_dialog/section_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
@@ -171,17 +172,26 @@ class _DrawerDialogState extends State<DrawerDialog> {
               Container(
                 width: _drawerWidth,
                 height: Ratioz.appBarButtonSize,
-                margin: const EdgeInsets.symmetric(
-                    vertical: Ratioz.appBarMargin + Ratioz.appBarPadding
+                margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin + Ratioz.appBarPadding
                 ),
 
-                child: SearchBar(
-                  height: Ratioz.appBarButtonSize,
-                  onSearchSubmit: (String val) => _onSearchSubmit(val),
-                  historyButtonIsOn: false,
-                  onSearchChanged: (String val) => _onSearchChanged(val),
-                  boxWidth: _drawerWidth,
-                  hintText: 'Search Sections Keywords',
+                child: Row(
+                  children: <Widget>[
+
+                    const BackAndSearchButton(
+                      backAndSearchAction: BackAndSearchAction.goBack,
+                    ),
+
+                    SearchBar(
+                      height: Ratioz.appBarButtonSize,
+                      boxWidth: _drawerWidth - 40,
+                      onSearchSubmit: (String val) => _onSearchSubmit(val),
+                      historyButtonIsOn: false,
+                      onSearchChanged: (String val) => _onSearchChanged(val),
+                      hintText: 'Search Sections Keywords',
+                    ),
+
+                  ],
                 ),
               ),
 
