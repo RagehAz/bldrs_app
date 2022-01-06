@@ -188,7 +188,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                       onSearchSubmit: (String val) => _onSearchSubmit(val),
                       historyButtonIsOn: false,
                       onSearchChanged: (String val) => _onSearchChanged(val),
-                      hintText: 'Search Sections Keywords',
+                      hintText: 'Search Keywords',
                     ),
 
                   ],

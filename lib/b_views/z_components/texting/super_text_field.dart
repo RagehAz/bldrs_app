@@ -224,7 +224,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
       hintMaxLines: 1,
       hintStyle: superHintStyle(Colorz.white80, 0.8),
       alignLabelWithHint: true,
-      contentPadding: EdgeInsets.all(_sidePaddings),
+      contentPadding: EdgeInsets.symmetric(horizontal: _sidePaddings, ),
 
       focusedBorder: Borderers.superOutlineInputBorder(Colorz.yellow80, _labelCorner),
       enabledBorder: Borderers.superOutlineInputBorder(Colorz.nothing, _labelCorner),
@@ -240,8 +240,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
       counterStyle: superTextStyle(Colorz.white200, 0.7),
 
       // SOME BULLSHIT
-      isDense: true,
-      isCollapsed: true,
+      isDense: false,
+      isCollapsed: false,
       // semanticCounterText: 'semantic',
       focusColor: Colorz.green255,
       filled: true,
@@ -351,6 +351,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
               decoration: _boxDecoration,
               child: TextField(
                 key: widget.key,
+                // scrollPadding: EdgeInsets.symmetric(vertical: ),
                 controller: widget.textController,
                 onChanged: _onChanged,
                 // onTap: () => widget.onTap(_keyboard),

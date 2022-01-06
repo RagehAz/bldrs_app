@@ -62,6 +62,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
       pageTitle: 'Select a Country',
       pyramidsAreOn: true,
       onBack: _onBack,
+      searchHint: 'Search Countries',
       layoutWidget: SelectCountryScreenView(
         onCountryTap: _onCountryTap,
       ),
