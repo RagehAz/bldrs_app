@@ -463,13 +463,19 @@ class FlyerModel with ChangeNotifier{
   }
 // -----------------------------------------------------------------------------
   static List<FlyerModel> filterFlyersByFlyerType({List<FlyerModel> flyers, FlyerTypeClass.FlyerType flyerType}){
-    final List<FlyerModel> _filteredFlyers = <FlyerModel>[];
+    List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
     if(Mapper.canLoopList(flyers)){
 
-      for (final FlyerModel flyer in flyers){
-        if (flyer.flyerType == flyerType){
-          _filteredFlyers.add(flyer);
+      if (flyerType == FlyerTypeClass.FlyerType.all){
+        _filteredFlyers = flyers;
+      }
+
+      else {
+        for (final FlyerModel flyer in flyers){
+          if (flyer.flyerType == flyerType){
+            _filteredFlyers.add(flyer);
+          }
         }
       }
 
