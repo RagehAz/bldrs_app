@@ -25,7 +25,6 @@ class BackAndSearchButton extends StatelessWidget {
     this.color = Colorz.white10,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final Function onTap;
   final Color color;
@@ -34,22 +33,22 @@ class BackAndSearchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    final String _icon = backAndSearchAction == BackAndSearchAction.goBack
-        ? Iconizer.superBackIcon(context)
-        : backAndSearchAction == BackAndSearchAction.goToSearchScreen
-            ? Iconz.search
-            : backAndSearchAction == BackAndSearchAction.showHistory
-                ? Iconz.clock
-                : null;
+    final String _icon =
+    backAndSearchAction == BackAndSearchAction.goBack ? Iconizer.superBackIcon(context)
+        :
+    backAndSearchAction == BackAndSearchAction.goToSearchScreen ? Iconz.search
+        :
+    backAndSearchAction == BackAndSearchAction.showHistory ? Iconz.clock
+        :
+    null;
 // -----------------------------------------------------------------------------
-    final double _iconSizeFactor =
-        backAndSearchAction == BackAndSearchAction.goBack
-            ? 1
-            : backAndSearchAction == BackAndSearchAction.goToSearchScreen
-                ? 0.5
-                : backAndSearchAction == BackAndSearchAction.showHistory
-                    ? 0.5
-                    : 1;
+    final double _iconSizeFactor = backAndSearchAction == BackAndSearchAction.goBack ? 1
+        :
+    backAndSearchAction == BackAndSearchAction.goToSearchScreen ? 0.5
+        :
+    backAndSearchAction == BackAndSearchAction.showHistory ? 0.5
+        :
+    1;
 // -----------------------------------------------------------------------------
     return DreamBox(
         height: Ratioz.appBarButtonSize,

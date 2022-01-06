@@ -5,9 +5,12 @@ import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_1_anonymous_home_screen_view.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_2_user_home_screen_view.dart';
 import 'package:bldrs/c_controllers/a_1_home_controller.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -57,7 +60,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // traceWidgetBuild(widgetName: 'Home screen', varName: '_isInit', varValue: _isInit);
     return WillPopScope(
-      onWillPop: () => Future<bool>.value(false),
+      onWillPop: () async {
+
+        /// TO CLOSE DRAWER IF OPEN
+        final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+        _uiProvider.closeDrawerIfOpen(context);
+
+        /// prevents going back from home screen
+        // final bool thing = await Future<bool>.value(false);
+        return false;
+      },
       child: MainLayout(
         key: const ValueKey<String>('mainLayout'),
         appBarType: AppBarType.main,

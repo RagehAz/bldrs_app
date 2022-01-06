@@ -1,12 +1,15 @@
 import 'package:bldrs/b_views/widgets/general/dialogs/side_dialog/drawer_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 export 'package:bldrs/b_views/widgets/general/appbar/app_bar_button.dart';
 
@@ -96,8 +99,29 @@ class MainLayout extends StatelessWidget {
 
   }
 // -----------------------------------------------------------------------------
-  // final static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  void _onDrawerChanged(context, bool drawerIsOn){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    _uiProvider.setKeywordsDrawerIsOn(setTo: drawerIsOn);
+  }
+// -----------------------------------------------------------------------------
+  void _onBack(BuildContext context){
 
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final bool _drawerIsOn = _uiProvider.keywordsDrawerIsOn;
+
+    if (_drawerIsOn == true){
+      Nav.goBack(context);
+      _uiProvider.setKeywordsDrawerIsOn(setTo: false);
+    }
+
+    else {
+      onBack();
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  /// final static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -110,7 +134,7 @@ class MainLayout extends StatelessWidget {
       appBarType: appBarType,
       appBarRowWidgets: appBarRowWidgets,
       pageTitle: pageTitle,
-      onBack: onBack,
+      onBack: () => _onBack(context),
       // loading: loading,
       appBarScrollController: appBarScrollController,
       sectionButtonIsOn: sectionButtonIsOn,
@@ -152,9 +176,7 @@ class MainLayout extends StatelessWidget {
               drawer: const DrawerDialog(),
               drawerEdgeDragWidth: DrawerDialog.drawerEdgeDragWidth,
               drawerScrimColor: DrawerDialog.drawerScrimColor,
-              onDrawerChanged: (bool thing) {
-                blog('drawer changed and thing is :$thing');
-              },
+              onDrawerChanged: (bool drawerIsOn) => _onDrawerChanged(context, drawerIsOn),
 
               /// BODY CONTENT
               body: canRefreshFlyers ?
