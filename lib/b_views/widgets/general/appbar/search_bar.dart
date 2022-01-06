@@ -1,13 +1,18 @@
+import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SearchBar extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -74,7 +79,6 @@ class _SearchBarState extends State<SearchBar> {
       // color: Colorz.bloodTest,
       alignment: Alignment.center, //Aligners.superTopAlignment(context),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
@@ -102,32 +106,45 @@ class _SearchBarState extends State<SearchBar> {
             ),
 
           /// SEARCH TEXT FIELD
-          SuperTextField(
-            fieldIsFormField: true,
-            width: _textFieldWidth,
-            // height: Ratioz.appBarButtonSize * 0.5 * 2,
-            textController: _searchTextController,
-            labelColor: Colorz.yellow255,
-            italic: true,
-            keyboardTextInputAction: TextInputAction.search,
-            counterIsOn: false,
-            corners: Ratioz.appBarButtonCorner,
-            onTap: () {},
-            onChanged: (String val) {
-              if (widget.onSearchChanged != null) {
-                if (val != null) {
-                  widget.onSearchChanged(val);
-                }
-              }
-            },
-            hintText: widget.hintText ?? ' Search ... ',
-            inputColor: Colorz.yellow255,
-            inputWeight: VerseWeight.thin,
-            onSaved: (String val) {
-              blog('on saved');
-            },
-            onSubmitted: (String val) {
-              widget.onSearchSubmit(val);
+          Consumer<ZoneProvider>(
+            builder: (_,ZoneProvider zoneProvider, Widget child){
+
+              final CountryModel _country = zoneProvider.currentCountry;
+              final CityModel _city = zoneProvider.currentCity;
+              final String _countryName = Name.getNameByCurrentLingoFromNames(context: context, names: _country.names)?.value;
+              final String _cityName = Name.getNameByCurrentLingoFromNames(context: context, names: _city.names)?.value;
+
+              final String _hintText = 'Search flyers in $_cityName, $_countryName';
+
+              return SuperTextField(
+                fieldIsFormField: true,
+                width: _textFieldWidth - 5,
+                // height: Ratioz.appBarButtonSize * 0.5 * 2,
+                textController: _searchTextController,
+                labelColor: Colorz.yellow255,
+                italic: true,
+                keyboardTextInputAction: TextInputAction.search,
+                counterIsOn: false,
+                corners: Ratioz.appBarButtonCorner,
+                onTap: () {},
+                onChanged: (String val) {
+                  if (widget.onSearchChanged != null) {
+                    if (val != null) {
+                      widget.onSearchChanged(val);
+                    }
+                  }
+                },
+                hintText: widget.hintText ?? _hintText,
+                inputColor: Colorz.yellow255,
+                inputWeight: VerseWeight.thin,
+                onSaved: (String val) {
+                  blog('on saved');
+                },
+                onSubmitted: (String val) {
+                  widget.onSearchSubmit(val);
+                },
+              );
+
             },
           ),
 
