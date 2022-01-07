@@ -241,7 +241,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
       // SOME BULLSHIT
       isDense: false,
-      isCollapsed: false,
+      // isCollapsed: false,
       // semanticCounterText: 'semantic',
       focusColor: Colorz.green255,
       filled: true,

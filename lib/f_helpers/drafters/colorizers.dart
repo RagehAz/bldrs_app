@@ -97,20 +97,16 @@ Color decipherColor(String colorString) {
     // String _string = '${_alpha}*${_r}*${_g}*${_b}';
 
     /// ALPHA
-    final String _a =
-        TextMod.removeTextAfterFirstSpecialCharacter(colorString, '*');
+    final String _a = TextMod.removeTextAfterFirstSpecialCharacter(colorString, '*');
     final int _alpha = Numeric.stringToInt(_a);
 
     /// RED
-    final String _rX_gX_b =
-        TextMod.removeTextBeforeFirstSpecialCharacter(colorString, '*');
-    final String _r =
-        TextMod.removeTextAfterFirstSpecialCharacter(_rX_gX_b, '*');
+    final String _rX_gX_b = TextMod.removeTextBeforeFirstSpecialCharacter(colorString, '*');
+    final String _r = TextMod.removeTextAfterFirstSpecialCharacter(_rX_gX_b, '*');
     final int _red = Numeric.stringToInt(_r);
 
     /// GREEN
-    final String _gX_b =
-        TextMod.removeTextBeforeFirstSpecialCharacter(_rX_gX_b, '*');
+    final String _gX_b = TextMod.removeTextBeforeFirstSpecialCharacter(_rX_gX_b, '*');
     final String _g = TextMod.removeTextAfterFirstSpecialCharacter(_gX_b, '*');
     final int _green = Numeric.stringToInt(_g);
 

@@ -1,5 +1,6 @@
 
 
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/foundation.dart';
 
 class MapModel{
@@ -36,6 +37,18 @@ class MapModel{
       map.forEach((String key, dynamic value) => _models.add(MapModel(key: key, value: value)));
     }
     return _models;
+  }
+// -----------------------------------------------------------------------------
+  void blogMapModel(){
+    blog('$key : ${value.toString()}');
+  }
+// -----------------------------------------------------------------------------
+  static void blogMapModels(List<MapModel> mapModels){
+    for (int i = 0; i < mapModels.length; i++){
+      final int _num = i+1;
+      final MapModel _mapModel = mapModels[i];
+      blog('$_num : ${_mapModel.key} : ${_mapModel.value}');
+    }
   }
 // -----------------------------------------------------------------------------
 }
