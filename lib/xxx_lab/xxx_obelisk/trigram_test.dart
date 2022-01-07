@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/xxx_lab/cleaning_space.dart';
 import 'package:flutter/material.dart';
 
 class TrigramTest extends StatefulWidget {
@@ -22,7 +21,7 @@ class _TrigramTestState extends State<TrigramTest> {
   }
 
   // String _input = 'Rageh mohammed Fawzi Fahim Soliman El Azzazy';
-  List<String> _result = <String>['Nothing Yet'];
+  final List<String> _result = <String>['Nothing Yet'];
 
   // void _createTrigram(String input){
   //
@@ -62,15 +61,16 @@ class _TrigramTestState extends State<TrigramTest> {
             fieldIsFormField: true,
             keyboardTextInputAction: TextInputAction.search,
             onChanged: (String val) {
+
               // List<String> _trigram = TextGen.createTrigram(
               //   input: val,
               // );
 
-              final List<String> _trigram = generateStringPermutations(val);
+              // final List<String> _trigram = generateStringPermutations(val);
 
-              setState(() {
-                _result = _trigram;
-              });
+              // setState(() {
+              //   _result = _trigram;
+              // });
             },
           ),
         ),

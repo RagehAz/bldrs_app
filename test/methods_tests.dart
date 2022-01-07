@@ -10,7 +10,6 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/xxx_lab/cleaning_space.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -467,20 +466,5 @@ void main() {
     expect(_numberFractions, 5);
   });
 // -----------------------------------------------------------------------------
-  test('get Factorial', () async {
-    const int input = 0;
-    final int _factorial = getFactorial(input);
-    const int _expected = 1;
-
-    expect(_factorial, _expected);
-
-    final int _numberOfPermutations =
-        getNumberOfPermutations(number: 5, numberOfSelectedObjects: 3);
-    expect(_numberOfPermutations, 60);
-
-    final int _numberOfCombinations =
-        getNumberOfCombinations(number: 5, numberOfSelectedObjects: 3);
-    expect(_numberOfCombinations, 10);
-  });
 // -----------------------------------------------------------------------------
 }

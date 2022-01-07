@@ -1,10 +1,14 @@
+import 'dart:math' show cos, sqrt, asin, sin, pow;
+
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 // -----------------------------------------------------------------------------
-dynamic cipherGeoPoint({@required GeoPoint point, @required bool toJSON}) {
+dynamic cipherGeoPoint({
+  @required GeoPoint point,
+  @required bool toJSON,
+}) {
   dynamic _output;
 
   if (point != null) {
@@ -19,9 +23,11 @@ dynamic cipherGeoPoint({@required GeoPoint point, @required bool toJSON}) {
 
   return _output;
 }
-
 // -----------------------------------------------------------------------------
-GeoPoint decipherGeoPoint({@required dynamic point, @required bool fromJSON}) {
+GeoPoint decipherGeoPoint({
+  @required dynamic point,
+  @required bool fromJSON,
+}) {
   GeoPoint _output;
 
   if (point != null) {
@@ -41,13 +47,46 @@ GeoPoint decipherGeoPoint({@required dynamic point, @required bool fromJSON}) {
 
   return _output;
 }
-
 // -----------------------------------------------------------------------------
 GeoPoint dummyPosition() {
   return const GeoPoint(29.979174, 31.134264);
 }
 // -----------------------------------------------------------------------------
+double haversineGeoPoints({
+  @required GeoPoint pointA,
+  @required GeoPoint pointB,
+}){
 
+  double _distance = 0;
+
+  if (pointA != null && pointB != null){
+
+    final double _latA = pointA.latitude;
+    final double _latB = pointB.latitude;
+
+    final double _lngA = pointA.longitude;
+    final double _lngB = pointB.longitude;
+
+    final double _dRadLat = Numeric.degreeToRadian(_latB - _latA);
+    final double _dRadLng = Numeric.degreeToRadian(_lngB - _lngA);
+
+    final double _radLatA = Numeric.degreeToRadian(_latA);
+    final double _radLatB = Numeric.degreeToRadian(_latB);
+
+    final double _a =
+        pow(sin(_dRadLat / 2), 2)
+            + pow(sin(_dRadLng / 2), 2) * cos(_radLatA) * cos(_radLatB);
+
+    final double _c = 2 * asin(sqrt(_a));
+
+    /// EARTH RADIUS IN KM
+    const double _r = 6372.8; // In kilometers
+
+    _distance = _r * _c;
+  }
+
+  return _distance;
+}
 // ----------------------------------------------------------------------
 // const String GOOGLE_API_KEY = 'AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI';
 // ----------------------------------------------------------------------
