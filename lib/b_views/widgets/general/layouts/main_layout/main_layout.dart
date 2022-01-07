@@ -116,8 +116,12 @@ class MainLayout extends StatelessWidget {
       _uiProvider.setKeywordsDrawerIsOn(setTo: false);
     }
 
-    else {
+    else if (onBack != null){
       onBack();
+    }
+
+    else {
+      Nav.goBack(context);
     }
 
   }

@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/flyer/records/record_model.dart';
+import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_0_search_screen_view.dart';
@@ -8,6 +11,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/c_0_search_controller.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
@@ -97,6 +101,18 @@ class _SearchScreenState extends State<SearchScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  String _getSearchHintText(BuildContext context){
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+    final CountryModel _country = _zoneProvider.currentCountry;
+    final CityModel _city = _zoneProvider.currentCity;
+    final String _countryName = Name.getNameByCurrentLingoFromNames(context: context, names: _country.names)?.value;
+    final String _cityName = Name.getNameByCurrentLingoFromNames(context: context, names: _city.names)?.value;
+
+    final String _hintText = 'Search flyers in $_cityName, $_countryName';
+    return _hintText;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -111,6 +127,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return MainLayout(
       appBarType: AppBarType.search,
+      searchHint: _getSearchHintText(context),
       appBarRowWidgets: <Widget>[
         DreamBox(
           height: 35,
