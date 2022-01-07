@@ -18,33 +18,45 @@ class DataStrip extends StatelessWidget {
     this.width,
     this.valueBoxColor = Colorz.white10,
     this.isPercent = false,
+    this.onTap,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String dataKey;
   final dynamic dataValue;
   final double width;
   final Color valueBoxColor;
   final bool isPercent;
-
+  final Function onTap;
   /// --------------------------------------------------------------------------
+  Future<void> _onStripTap(BuildContext context) async {
+
+      await Keyboarders.copyToClipboard(
+        context: context,
+        copy: dataValue.toString(),
+      );
+
+      await NavDialog.showNavDialog(
+        context: context,
+        firstLine: 'data copied to clipboard',
+        secondLine: dataValue.toString(),
+      );
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     const double _rowHeight = 60;
     const double _verticalMargin = 2.5;
-    final double _rowWidth =
-        width ?? BottomDialog.dialogClearWidth(context) - _verticalMargin * 2;
+    final double _rowWidth = width ?? BottomDialog.dialogClearWidth(context) - _verticalMargin * 2;
     const double _keyButtonMargin = Ratioz.appBarMargin;
 
     const double _keyRowHeight = _rowHeight * 0.4;
     const double _valueRowHeight = _rowHeight * 0.6;
 
-    final bool _valueIsPercentage =
-        isPercent == true && dataValue.runtimeType == double;
+    final bool _valueIsPercentage = isPercent == true && dataValue.runtimeType == double;
 
-    final String _valueString =
-        _valueIsPercentage == true ? '$dataValue %' : dataValue.toString();
+    final String _valueString = _valueIsPercentage == true ? '$dataValue %' : dataValue.toString();
 
     return Center(
       child: Container(
@@ -55,6 +67,7 @@ class DataStrip extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
             /// KEY
             Container(
               height: _keyRowHeight,
@@ -110,29 +123,18 @@ class DataStrip extends StatelessWidget {
 
             /// VALUE
             GestureDetector(
-              onTap: () async {
-                await Keyboarders.copyToClipboard(
-                  context: context,
-                  copy: dataValue.toString(),
-                );
-
-                await NavDialog.showNavDialog(
-                  context: context,
-                  firstLine: 'data copied to clipboard',
-                  secondLine: dataValue.toString(),
-                );
-              },
+              onTap: onTap ?? () => _onStripTap(context),
               child: Container(
                 width: _rowWidth,
                 height: _valueRowHeight,
                 decoration: BoxDecoration(
                   color: valueBoxColor,
-                  borderRadius:
-                      Borderers.superBorderAll(context, Ratioz.boxCorner8),
+                  borderRadius: Borderers.superBorderAll(context, Ratioz.boxCorner8),
                 ),
                 child: Stack(
                   alignment: Aligners.superCenterAlignment(context),
                   children: <Widget>[
+
                     if (_valueIsPercentage == true)
                       DreamBox(
                         width: (dataValue / 100) * _rowWidth,
@@ -143,6 +145,7 @@ class DataStrip extends StatelessWidget {
                             context, Ratioz.boxCorner8),
                         // ),
                       ),
+
                     SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
@@ -154,6 +157,7 @@ class DataStrip extends StatelessWidget {
                         shadow: true,
                       ),
                     ),
+
                   ],
                 ),
               ),

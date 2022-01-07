@@ -8,7 +8,6 @@ import 'package:bldrs/c_controllers/a_1_home_controller.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
