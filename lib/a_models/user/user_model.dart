@@ -493,7 +493,6 @@ class UserModel {
   }
 // -----------------------------------------------------------------------------
 }
-
 // -----------------------------------------------------------------------------
 enum UserStatus {
   normal,
@@ -517,5 +516,31 @@ enum AuthBy {
   facebook,
   google,
   apple,
+}
+// -----------------------------------------------------------------------------
+enum UserTab {
+  profile,
+  state,
+  following,
+}
+// -----------------------------------------------------------------------------
+List<UserTab> userProfileTabsList = <UserTab>[
+  UserTab.profile,
+  UserTab.state,
+  UserTab.following,
+];
+// -----------------------------------------------------------------------------
+String cipherUserTab(UserTab userTab){
+  switch(userTab){
+    case UserTab.profile  : return 'Profile';   break;
+    case UserTab.state    : return 'State';     break;
+    case UserTab.following: return 'Following'; break;
+    default: return null;
+  }
+}
+// -----------------------------------------------------------------------------
+int getUserTabIndex(UserTab userTab){
+  final int _index = userProfileTabsList.indexWhere((tab) => tab == userTab);
+  return _index;
 }
 // -----------------------------------------------------------------------------
