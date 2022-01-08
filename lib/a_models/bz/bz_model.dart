@@ -61,7 +61,7 @@ enum BzTab{
   powers,
 }
 // -----------------------------------------------------------------------------
-List<BzTab> bzTabs = <BzTab>[
+List<BzTab> bzTabsList = <BzTab>[
   BzTab.flyers,
   BzTab.about,
   BzTab.targets,
@@ -69,7 +69,7 @@ List<BzTab> bzTabs = <BzTab>[
 ];
 // -----------------------------------------------------------------------------
 int getBzTabIndex(BzTab bzTab){
-  final int _index = bzTabs.indexWhere((tab) => tab == bzTab);
+  final int _index = bzTabsList.indexWhere((tab) => tab == bzTab);
   return _index;
 }
 // -----------------------------------------------------------------------------

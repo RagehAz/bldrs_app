@@ -1,42 +1,41 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/tab_button.dart';
 import 'package:bldrs/b_views/z_components/tab_bars/bldrs_sliver_tab_bar.dart';
-import 'package:bldrs/c_controllers/f_my_bz_screen_controller.dart';
+import 'package:bldrs/c_controllers/g_user_screen_controller.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 
-class MyBzScreenTabBar extends StatelessWidget {
+class UserScreenTabBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const MyBzScreenTabBar({
+  const UserScreenTabBar({
     @required this.tabController,
-    @required this.currentBzTab,
+    @required this.currentUserTab,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final TabController tabController;
-  final BzTab currentBzTab;
+  final UserTab currentUserTab;
   /// --------------------------------------------------------------------------
   bool _isSelected({
     @required BuildContext context,
-    @required BzTab bzTab
+    @required UserTab userTab,
   }){
 
     bool _isSelected = false;
 
-    if (currentBzTab == bzTab){
+    if (currentUserTab == userTab){
       _isSelected = true;
     }
 
     return _isSelected;
   }
 // -----------------------------------------------------------------------------
-  String _bzTabIcon(BzTab bzTab){
-    switch(bzTab){
-      case BzTab.flyers   : return Iconz.flyerGrid   ; break;
-      case BzTab.about    : return Iconz.info        ; break;
-      case BzTab.targets  : return Iconz.target      ; break;
-      case BzTab.powers   : return Iconz.power       ; break;
+  String _userTabIcon(UserTab userTab){
+    switch(userTab){
+      case UserTab.profile    : return Iconz.normalUser   ; break;
+      case UserTab.state      : return Iconz.terms        ; break;
+      case UserTab.following  : return Iconz.follow       ; break;
       default : return null;
     }
   }
@@ -49,29 +48,30 @@ class MyBzScreenTabBar extends StatelessWidget {
       tabs: <Widget>[
 
         /// IT HAS TO BE LIST.GENERATE ma3lesh
-        ...List.generate(bzTabsList.length, (index){
+        ...List.generate(userProfileTabsList.length, (index){
 
-          final BzTab _bzTab = bzTabsList[index];
-          final String _bzTabString = BzModel.bzPagesTabsTitles[index];
+          final UserTab _userTab = userProfileTabsList[index];
+          final String _userTabString = cipherUserTab(_userTab);
 
           return
+
             TabButton(
-              key: ValueKey<String>('bz_tab_button_$_bzTabString'),
-              verse: _bzTabString,
-              icon: _bzTabIcon(_bzTab),
+              key: ValueKey<String>('user_tab_button_$_userTabString'),
+              verse: _userTabString,
+              icon: _userTabIcon(_userTab),
               isSelected: _isSelected(
                 context: context,
-                bzTab: _bzTab,
+                userTab: _userTab,
               ),
-              onTap: () => onChangeMyBzScreenTabIndex(
+              onTap: () => onChangeUserScreenTabIndex(
                 context: context,
                 tabController: tabController,
                 index: index,
               ),
             );
 
-        }),
-
+        }
+        ),
       ],
     );
   }

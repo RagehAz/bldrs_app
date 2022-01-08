@@ -30,30 +30,26 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class UserProfileScreen extends StatefulWidget {
+class OldUserProfileScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const UserProfileScreen({
+  const OldUserProfileScreen({
     @required this.userModel,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final UserModel userModel;
-
   /// --------------------------------------------------------------------------
   @override
-  _UserProfileScreenState createState() => _UserProfileScreenState();
-
+  _OldUserProfileScreenState createState() => _OldUserProfileScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _UserProfileScreenState extends State<UserProfileScreen> {
+class _OldUserProfileScreenState extends State<OldUserProfileScreen> {
   UserStatus _currentUserStatus;
   List<BzModel> _followedBzz;
   List<String> _followedBzzIDs;
   // FlyersProvider _pro;
   bool _isInit = true;
-
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -83,16 +79,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     _followedBzz = <BzModel>[];
     _followedBzzIDs = <String>[];
   }
-
 // -----------------------------------------------------------------------------
   @override
   void didChangeDependencies() {
     if (_isInit) {
       _triggerLoading().then((_) async {
-        final UsersProvider _usersProvider =
-            Provider.of<UsersProvider>(context, listen: false);
-        final BzzProvider _bzzProvider =
-            Provider.of<BzzProvider>(context, listen: false);
+        final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+        final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
         await _bzzProvider.getsetFollowedBzz(context);
 
         _followedBzzIDs = _usersProvider.myUserModel.followedBzzIDs;
@@ -153,7 +146,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       _currentUserStatus = type;
     });
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _deleteUserOnTap(UserModel userModel) async {
     /// close bottom sheet
@@ -208,7 +200,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       }
     }
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _deactivateUserOnTap(UserModel userModel) async {
     /// close bottom sheet
@@ -259,7 +250,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       }
     }
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _editUserOnTap(UserModel userModel) async {
     await Nav.goToNewScreen(
@@ -268,10 +258,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           user: userModel,
         ));
   }
-
 // -----------------------------------------------------------------------------
-  Future<void> _slideUserOptions(
-      BuildContext context, UserModel userModel) async {
+  Future<void> _slideUserOptions({
+    @required BuildContext context,
+    @required UserModel userModel
+  }) async {
     const double _buttonHeight = 50;
 
     await BottomDialog.showButtonsBottomDialog(
@@ -279,6 +270,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       draggable: true,
       buttonHeight: _buttonHeight,
       buttons: <Widget>[
+
         /// --- Delete user ops
         DreamBox(
           height: _buttonHeight,
@@ -317,14 +309,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           verseScaleFactor: 1.2,
           onTap: () => _editUserOnTap(userModel),
         ),
+
       ],
     );
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // final _user = Provider.of<UserModel>(context);
 
     return MainLayout(
       appBarType: AppBarType.basic,
@@ -344,8 +335,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             UserBubble(
               user: widget.userModel,
               switchUserType: (UserStatus type) => _switchUserStatus(type),
-              editProfileBtOnTap: () =>
-                  _slideUserOptions(context, widget.userModel),
+              editProfileBtOnTap: () => _slideUserOptions(
+                  context: context,
+                  userModel: widget.userModel
+              ),
               loading: StreamChecker.valueIsLoading(widget.userModel),
             ),
 
@@ -367,6 +360,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             ),
 
             const Horizon(),
+
           ],
         ),
       ),
