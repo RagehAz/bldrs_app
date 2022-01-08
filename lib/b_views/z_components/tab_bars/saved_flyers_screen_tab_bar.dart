@@ -48,7 +48,7 @@ class SavedFlyersTabBar extends StatelessWidget {
               verse: TextGen.flyerTypePluralStringer(context, _flyerType),
               icon: Iconizer.flyerTypeIconOff(_flyerType),
               isSelected: _isSelected(_flyerType),
-              onTap: () => onChangeTabIndex(
+              onTap: () => onChangeSavedFlyersTabIndex(
                 context: context,
                 tabController: tabController,
                 index: index,

@@ -16,10 +16,8 @@ class BzPowersTab extends StatelessWidget {
     @required this.bzModel,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
-
   /// --------------------------------------------------------------------------
   static TabModel powersTabModel({
     @required Function onChangeTab,
@@ -29,6 +27,7 @@ class BzPowersTab extends StatelessWidget {
   }) {
     return TabModel(
       tabButton: TabButton(
+        key: ValueKey<String>('bz_powers_tab_${bzModel.id}'),
         verse: BzModel.bzPagesTabsTitles[tabIndex],
         icon: Iconz.power,
         isSelected: isSelected,
@@ -36,17 +35,18 @@ class BzPowersTab extends StatelessWidget {
         iconSizeFactor: 0.7,
       ),
       page: BzPowersTab(
+        key: ValueKey<String>('bz_powers_page_${bzModel.id}'),
         bzModel: bzModel,
       ),
     );
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: <Widget>[
+
         const Bubble(
           title: 'Get More Slides',
           columnChildren: <Widget>[
@@ -156,7 +156,9 @@ class BzPowersTab extends StatelessWidget {
             ),
           ],
         ),
+
         const Horizon(),
+
       ],
     );
   }

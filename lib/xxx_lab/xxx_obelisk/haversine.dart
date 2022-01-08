@@ -1,11 +1,9 @@
-import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/textings/data_strip.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -13,7 +11,6 @@ import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/xxx_dashboard/widgets/wide_button.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,11 +22,11 @@ class Haversine extends StatefulWidget {
 }
 
 class _HaversineState extends State<Haversine> {
-  final String _theCountryID = 'are';
+  final String _theCountryID = 'afg';
 
   ZoneProvider _zoneProvider;
   CityModel _selectedCity;
-  CountryModel _country;
+  // CountryModel _country;
   List<CityModel> _countryCities;
 // -----------------------------------------------------------------------------
   @override
@@ -47,60 +44,19 @@ class _HaversineState extends State<Haversine> {
     }
 
     setState(() {
-      _country = _countryModel;
       _countryCities = _cities;
     });
   }
 // -----------------------------------------------------------------------------
-  void _orderByNearestCityTo({@required CityModel city}){
-
-
-    final List<MapModel> _mapModels = <MapModel>[];
-
-    for (final CityModel _city in _countryCities){
-
-        final double _distance = haversineGeoPoints(pointA: city.position, pointB: _city.position);
-
-        final MapModel _maw = MapModel(
-          value: _distance,
-          key: _city.cityID,
-        );
-
-        _mapModels.add(_maw);
-
-        // blog('${_city.cityID} is $_distance Km away from ${city.cityID}');
-
-    }
-
-    _mapModels.sort((MapModel modelA, MapModel modelB){
-      return modelA.value.compareTo(modelB.value);
-    });
-
-    MapModel.blogMapModels(_mapModels);
-
-  }
-// -----------------------------------------------------------------------------
   void _orderTheSexyWay({CityModel city}){
 
-      /// sorting
-    _countryCities.sort((CityModel cityA, CityModel cityB){
-
-      final double _distanceA = haversineGeoPoints(pointA: cityA.position, pointB: city.position);
-      final double _distanceB = haversineGeoPoints(pointA: cityB.position, pointB: city.position);
-
-      return _distanceA.compareTo(_distanceB);
-    });
-
-    /// blogger
-    for (int i = 0; i < _countryCities.length; i++){
-      final int _num = i+1;
-      final CityModel _city = _countryCities[i];
-      final double distance = haversineGeoPoints(pointA: _city.position, pointB: city.position);
-      blog('$_num : ${_city.cityID} : $distance');
-    }
+    final List<CityModel> _orderedCities = CityModel.orderCitiesPerNearestToCity(
+        city: city,
+        cities: _countryCities,
+    );
 
     setState(() {
-
+      _countryCities = _orderedCities;
     });
 
   }
@@ -111,7 +67,7 @@ class _HaversineState extends State<Haversine> {
     // final Name _cityName = Name.getNameByCurrentLingoFromNames(context: context, names: _city?.names);
 
     return MainLayout(
-      pageTitle: 'Pythagoras',
+      pageTitle: 'Haversine',
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
@@ -136,7 +92,7 @@ class _HaversineState extends State<Haversine> {
 
             final CityModel _city = _countryCities[index];
             final String _cityName = Name.getNameByCurrentLingoFromNames(context: context, names: _city?.names)?.value;
-            final GeoPoint _point = _city.position;
+            // final GeoPoint _point = _city.position;
 
             final double _distance = haversineGeoPoints(pointA: _selectedCity?.position, pointB: _city.position);
 

@@ -25,6 +25,7 @@ class BzTargetsTab extends StatelessWidget {
   }) {
     return TabModel(
       tabButton: TabButton(
+        key: ValueKey<String>('bz_targets_tab_${bzModel.id}'),
         verse: BzModel.bzPagesTabsTitles[tabIndex],
         icon: Iconz.target,
         isSelected: isSelected,
@@ -32,11 +33,11 @@ class BzTargetsTab extends StatelessWidget {
         iconSizeFactor: 0.7,
       ),
       page: BzTargetsTab(
+        key: ValueKey<String>('bz_targets_page_${bzModel.id}'),
         bzModel: bzModel,
       ),
     );
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

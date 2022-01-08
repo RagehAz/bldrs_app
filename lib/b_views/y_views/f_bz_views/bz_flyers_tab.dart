@@ -25,13 +25,11 @@ class BzFlyersTab extends StatelessWidget {
     @required this.bzCity,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final List<FlyerModel> flyers;
   final CountryModel bzCountry;
   final CityModel bzCity;
-
   /// --------------------------------------------------------------------------
   static TabModel flyersTabModel({
     @required Function onChangeTab,
@@ -44,6 +42,7 @@ class BzFlyersTab extends StatelessWidget {
   }) {
     return TabModel(
       tabButton: TabButton(
+        key: ValueKey<String>('bz_flyers_tab_${bzModel.id}'),
         verse: BzModel.bzPagesTabsTitles[tabIndex],
         icon: Iconz.flyerGrid,
         isSelected: isSelected,
@@ -52,6 +51,7 @@ class BzFlyersTab extends StatelessWidget {
         triggerIconColor: false,
       ),
       page: BzFlyersTab(
+        key: ValueKey<String>('bz_flyers_page_${bzModel.id}'),
         bzModel: bzModel,
         flyers: tinyFlyers,
         bzCountry: bzCountry,
@@ -59,18 +59,18 @@ class BzFlyersTab extends StatelessWidget {
       ),
     );
   }
-
 // -----------------------------------------------------------------------------
   void _showOldFlyersOnTap(BuildContext context, BzModel bzModel) {
     Nav.goToNewScreen(context, DeactivatedFlyerScreen(bz: bzModel));
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: <Widget>[
+
         /// --- PUBLISHED FLYERS
         if (bzModel.flyersIDs != null)
           Bubble(
@@ -78,6 +78,7 @@ class BzFlyersTab extends StatelessWidget {
             actionBtIcon: Iconz.clock,
             actionBtFunction: () => _showOldFlyersOnTap(context, bzModel),
             columnChildren: <Widget>[
+
               if (Mapper.canLoopList(flyers))
                 Gallery(
                   galleryBoxWidth: Bubble.clearWidth(context),
@@ -90,6 +91,7 @@ class BzFlyersTab extends StatelessWidget {
                   showFlyers: true,
                   // tinyFlyers: tinyFlyers,
                 ),
+
               if (flyers == null)
                 Container(
                     width: Bubble.clearWidth(context),
@@ -97,10 +99,12 @@ class BzFlyersTab extends StatelessWidget {
                     child: const Loading(
                       loading: true,
                     )),
+
             ],
           ),
 
         const Horizon(),
+
       ],
     );
   }
