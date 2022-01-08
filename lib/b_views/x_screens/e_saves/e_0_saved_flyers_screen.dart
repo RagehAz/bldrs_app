@@ -28,14 +28,18 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
   @override
   void initState() {
 
-    _tabController = TabController(vsync: this, length: sectionsList.length, initialIndex: getInitialTabIndex(context));
+    _tabController = TabController(
+        vsync: this,
+        length: sectionsList.length,
+        initialIndex: getInitialSavedFlyersTabIndex(context)
+    );
 
     /// LISTENS TO TAB CHANGE AFTER SWIPE ANIMATION ENDS
     // _tabController.addListener(() => _onChangeTabIndex(_tabController.index));
 
     /// LISTEN TO TAB CHANGE WHILE ANIMATION
     _tabController.animation.addListener(
-        () => onChangeTabIndexWhileAnimation(
+        () => onChangeSavedFlyersTabIndexWhileAnimation(
           context: context,
           tabController: _tabController,
         )

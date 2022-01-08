@@ -333,36 +333,6 @@ class FlyersProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-  /// ACTIVE BZ FLYERS
-
-// -------------------------------------
-  List<FlyerModel> _myActiveBzFlyers = <FlyerModel>[];
-// -------------------------------------
-  List<FlyerModel> get myActiveBzFlyer{
-    return _myActiveBzFlyers;
-  }
-// -------------------------------------
-  Future<void> getsetActiveBzFlyers({
-    @required BuildContext context,
-    @required String bzID
-  }) async {
-
-    final List<FlyerModel> _flyers = await fetchAllBzFlyersByBzID(context: context, bzID: bzID);
-
-    _setActiveBzFlyers(_flyers);
-
-  }
-// -------------------------------------
-  void _setActiveBzFlyers(List<FlyerModel> flyers){
-    _myActiveBzFlyers = flyers;
-    notifyListeners();
-  }
-// -------------------------------------
-  void clearActiveBzFlyers(){
-    _setActiveBzFlyers(<FlyerModel>[]);
-  }
-// -----------------------------------------------------------------------------
-
   /// SEARCHERS
 
 // -------------------------------------

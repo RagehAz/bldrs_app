@@ -78,10 +78,8 @@ class TabLayout extends StatelessWidget {
                     ),
 
                     isScrollable: true,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: Ratioz.appBarMargin),
-                    labelPadding: const EdgeInsets.symmetric(
-                        horizontal: Ratioz.appBarPadding),
+                    padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                    labelPadding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
 
                     // onTap: (int x){
                     //   print('x is : $x');

@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -135,5 +136,19 @@ class UiProvider extends ChangeNotifier {
     _currentSavedFlyerTypeTab = flyerType;
     notifyListeners();
   }
+// -----------------------------------------------------------------------------
+
+/// --- MY BZ SCREEN CURRENT TAB
+
 // -------------------------------------
+  BzTab _currentBzTab = BzTab.flyers;
+// -------------------------------------
+  BzTab get currentBzTab => _currentBzTab;
+// -------------------------------------
+  void setCurrentBzTab(BzTab bzTab){
+    _currentBzTab = bzTab;
+    notifyListeners();
+  }
+// -----------------------------------------------------------------------------
+
 }
