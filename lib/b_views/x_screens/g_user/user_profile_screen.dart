@@ -1,23 +1,24 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
-import 'package:bldrs/b_views/widgets/specific/bz/appbar/bz_app_bar.dart';
-import 'package:bldrs/b_views/y_views/f_bz/my_bz_screen_view.dart';
-import 'package:bldrs/c_controllers/f_my_bz_screen_controller.dart';
+import 'package:bldrs/b_views/y_views/g_user/user_screen_view.dart';
+import 'package:bldrs/c_controllers/g_user_screen_controller.dart';
 import 'package:flutter/material.dart';
 
-class MyBzScreen extends StatefulWidget {
-  /// --------------------------------------------------------------------------
-  const MyBzScreen({
+class UserProfileScreen extends StatefulWidget {
+
+  const UserProfileScreen({
+
     Key key
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
+
+
+
   @override
-  _MyBzScreenState createState() => _MyBzScreenState();
-/// --------------------------------------------------------------------------
+  _UserProfileScreenState createState() => _UserProfileScreenState();
 }
 
-class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateMixin {
+class _UserProfileScreenState extends State<UserProfileScreen> with SingleTickerProviderStateMixin {
   TabController _tabController;
 // -----------------------------------------------------------------------------
   @override
@@ -25,17 +26,16 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
 
     _tabController = TabController(
       vsync: this,
-      length: BzModel.bzPagesTabsTitles.length,
-      initialIndex: getInitialMyBzScreenTabIndex(context),
+      length: userProfileTabsList.length,
+      initialIndex: getInitialUserScreenTabIndex(context),
     );
 
     _tabController.animation.addListener(
-            () => onChangeMyBzScreenTabIndexWhileAnimation(
+            () => onChangeUserScreenTabIndexWhileAnimation(
           context: context,
           tabController: _tabController,
         )
     );
-
 
     super.initState();
   }
@@ -55,8 +55,8 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
-      appBarRowWidgets: const <Widget>[BzAppBar(),],
-      layoutWidget: MyBzScreenView(
+      pageTitle: 'Profile',
+      layoutWidget: UserProfileScreenView(
         tabController: _tabController,
       ),
 

@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +126,7 @@ class UiProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-/// --- SAVED FLYERS TAB CURRENT FLYER TYPE
+  /// --- SAVED FLYERS TAB CURRENT FLYER TYPE
 
 // -------------------------------------
   FlyerType _currentSavedFlyerTypeTab = FlyerType.all;
@@ -138,7 +139,7 @@ class UiProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-/// --- MY BZ SCREEN CURRENT TAB
+  /// --- MY BZ SCREEN CURRENT TAB
 
 // -------------------------------------
   BzTab _currentBzTab = BzTab.flyers;
@@ -147,6 +148,19 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   void setCurrentBzTab(BzTab bzTab){
     _currentBzTab = bzTab;
+    notifyListeners();
+  }
+// -----------------------------------------------------------------------------
+
+  /// --- USER SCREEN CURRENT TAB
+
+// -------------------------------------
+  UserTab _currentUserTab = UserTab.profile;
+// -------------------------------------
+  UserTab get currentUserTab => _currentUserTab;
+// -------------------------------------
+  void setCurrentUserTab(UserTab userTab){
+    _currentUserTab = userTab;
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
