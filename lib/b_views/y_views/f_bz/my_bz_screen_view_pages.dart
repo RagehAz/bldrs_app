@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/y_views/f_bz/bz_targets_tab.dart';
 import 'package:flutter/material.dart';
 
 class MyBzScreenViewPages extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const MyBzScreenViewPages({
     @required this.tabController,
     @required this.bzModel,
@@ -18,13 +18,13 @@ class MyBzScreenViewPages extends StatelessWidget {
     @required this.bzCity,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final TabController tabController;
   final BzModel bzModel;
   final List<FlyerModel> bzFlyers;
   final CountryModel bzCountry;
   final CityModel bzCity;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return TabBarView(
