@@ -11,14 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MyBzScreenView extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const MyBzScreenView({
     @required this.tabController,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final TabController tabController;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
