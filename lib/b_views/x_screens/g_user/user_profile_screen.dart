@@ -55,8 +55,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> with SingleTicker
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
-      pageTitle: 'Profile',
-      layoutWidget: UserProfileScreenView(
+      pageTitle: 'My Profile',
+      layoutWidget: UserScreenView(
         tabController: _tabController,
       ),
 
