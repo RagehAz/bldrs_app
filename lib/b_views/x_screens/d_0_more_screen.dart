@@ -178,7 +178,6 @@ class MoreScreen extends StatelessWidget {
                   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
                   _flyersProvider.clearSavedFlyers();
                   _flyersProvider.clearPromotedFlyers();
-                  _flyersProvider.clearActiveBzFlyers();
                   _flyersProvider.clearWallFlyers();
                   _flyersProvider.clearLastWallFlyer();
 
@@ -200,6 +199,7 @@ class MoreScreen extends StatelessWidget {
                   _bzzProvider.clearFollowedBzz();
                   _bzzProvider.clearSponsors();
                   _bzzProvider.clearMyActiveBz();
+                  _bzzProvider.clearActiveBzFlyers();
 
                   /// CLEAR USER
                   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);

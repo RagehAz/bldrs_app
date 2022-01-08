@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
+import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -343,5 +344,28 @@ class CityModel {
 
     return _foundCities;
 }
+// -----------------------------------------------------------------------------
+  static List<CityModel> orderCitiesPerNearestToCity({
+    @required CityModel city,
+    @required List<CityModel> cities,
+  }){
+
+    /// sorting
+    cities.sort((CityModel cityA, CityModel cityB){
+      final double _distanceA = haversineGeoPoints(pointA: cityA.position, pointB: city.position);
+      final double _distanceB = haversineGeoPoints(pointA: cityB.position, pointB: city.position);
+      return _distanceA.compareTo(_distanceB);
+    });
+
+    /// blogger
+    // for (int i = 0; i < cities.length; i++){
+    //   final int _num = i+1;
+    //   final CityModel _city = cities[i];
+    //   final double distance = haversineGeoPoints(pointA: _city.position, pointB: city.position);
+    //   blog('$_num : ${_city.cityID} : $distance');
+    // }
+
+    return cities;
+  }
 // -----------------------------------------------------------------------------
 }

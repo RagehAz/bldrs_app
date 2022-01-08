@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/widgets/general/buttons/obelisk_button.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/general/textings/the_golden_scroll.dart';
+import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/specs_lists_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
@@ -32,6 +33,7 @@ import 'package:bldrs/xxx_lab/xxx_obelisk/haversine.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/slider_test.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/timer_test.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/trigram_test.dart';
+import 'package:bldrs/xxx_lab/xxx_obelisk/video_player.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/x03_font_lab.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/zzz_test_lab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -130,6 +132,10 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             maxLines: 5,
             margin: 10,
           ),
+
+          const ObeliskButton('New Bz Screen', Iconz.bz, MyBzScreen()),
+
+          const ObeliskButton('VideoPlayer', Iconz.play, VideoPlayerScreen()),
 
           const ObeliskButton('Haversine', Iconz.pyramidSingleWhite, Haversine()),
 
