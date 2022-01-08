@@ -6,14 +6,14 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
-int getInitialTabIndex(BuildContext context){
+int getInitialSavedFlyersTabIndex(BuildContext context){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   final FlyerType _currentTab = _uiProvider.currentSavedFlyerTypeTab;
   final int _index = getFlyerTypeIndexFromSectionsTabs(_currentTab);
   return _index;
 }
 // -----------------------------------------------------------------------------
-void onChangeTabIndexWhileAnimation({
+void onChangeSavedFlyersTabIndexWhileAnimation({
   @required BuildContext context,
   @required TabController tabController,
 }){
@@ -21,7 +21,7 @@ void onChangeTabIndexWhileAnimation({
   if (tabController.indexIsChanging == false) {
 
     final int _indexFromAnimation = (tabController.animation.value).round();
-    onChangeTabIndex(
+    onChangeSavedFlyersTabIndex(
       context: context,
       index: _indexFromAnimation,
       tabController: tabController,
@@ -31,7 +31,7 @@ void onChangeTabIndexWhileAnimation({
 
 }
 // -----------------------------------------------------------------------------
-void onChangeTabIndex({
+void onChangeSavedFlyersTabIndex({
   @required BuildContext context,
   @required int index,
   @required TabController tabController,

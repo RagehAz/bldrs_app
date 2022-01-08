@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
@@ -15,8 +17,8 @@ import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user/g_0_profile_screen.dart';
 import 'package:bldrs/b_views/x_screens/h_notifications/g_1_notifications_screen.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
@@ -291,16 +293,35 @@ class NavBar extends StatelessWidget {
                     onTap: () async {
                       blog(_bzModel.id);
 
-                      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
                       final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-                      _bzzProvider.setActiveBz(_bzModel);
-                      await _flyersProvider.getsetActiveBzFlyers(context: context, bzID: _bzModel.id);
+                      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+                      final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
+                          context: context,
+                          countryID: _bzModel.zone.countryID,
+                      );
+
+                      final CityModel _bzCity = await _zoneProvider.fetchCityByID(
+                          context: context,
+                          cityID: _bzModel.zone.cityID,
+                      );
+
+                      _bzzProvider.setActiveBz(
+                        bzModel: _bzModel,
+                        bzCountry: _bzCountry,
+                        bzCity: _bzCity,
+                      );
+
+                      await _bzzProvider.getsetActiveBzFlyers(
+                          context: context,
+                          bzID: _bzModel.id,
+                      );
 
                       await Nav.goToNewScreen(
                           context,
-                          MyBzScreen(
-                            userModel: userModel,
-                            bzModel: _bzModel,
+                          const MyBzScreen(
+                            // userModel: userModel,
+                            // bzModel: _bzModel,
                           ));
                     },
                   ),
@@ -443,9 +464,9 @@ class NavBar extends StatelessWidget {
                             if (_userBzzIDs.length == 1) {
                               Nav.goToNewScreen(
                                   context,
-                                  MyBzScreen(
-                                    userModel: _myUserModel,
-                                    bzModel: _myBzz[0],
+                                  const MyBzScreen(
+                                    // userModel: _myUserModel,
+                                    // bzModel: _myBzz[0],
                                   ));
                             } else {
                               _multiBzzSlider(context, _myUserModel, _myBzz);

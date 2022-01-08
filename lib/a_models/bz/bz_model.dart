@@ -54,6 +54,25 @@ enum BzState {
   banned,
 }
 // -----------------------------------------------------------------------------
+enum BzTab{
+  flyers,
+  about,
+  targets,
+  powers,
+}
+// -----------------------------------------------------------------------------
+List<BzTab> bzTabs = <BzTab>[
+  BzTab.flyers,
+  BzTab.about,
+  BzTab.targets,
+  BzTab.powers,
+];
+// -----------------------------------------------------------------------------
+int getBzTabIndex(BzTab bzTab){
+  final int _index = bzTabs.indexWhere((tab) => tab == bzTab);
+  return _index;
+}
+// -----------------------------------------------------------------------------
 class BzModel{
   /// --------------------------------------------------------------------------
   BzModel({

@@ -135,7 +135,7 @@ class _FinalFlyerState extends State<FinalFlyer>
 
 // -----------------------------------------------------------------------------
   FlyersProvider _flyersProvider;
-  BzzProvider _bzzProvider;
+  // BzzProvider _bzzProvider;
   ZoneProvider _zoneProvider;
   // KeywordsProvider _keywordsProvider;
 
@@ -143,7 +143,7 @@ class _FinalFlyerState extends State<FinalFlyer>
   void initState() {
     super.initState();
     _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    // _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     // _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 
@@ -887,12 +887,11 @@ class _FinalFlyerState extends State<FinalFlyer>
   ///   NAVIGATION METHODS
 
   Future<void> _openTinyFlyer() async {
-    final FlyerModel _flyer =
-        FlyerModel.getFlyerModelFromSuperFlyer(_superFlyer);
-    blog(
-        'opening tiny flyer : ${_flyer.id} while THE FUCKING widget.goesToEditor IS : ${widget.goesToEditor}');
 
-    _bzzProvider.setActiveBz(_superFlyer.bz);
+    final FlyerModel _flyer = FlyerModel.getFlyerModelFromSuperFlyer(_superFlyer);
+    blog('opening tiny flyer : ${_flyer.id} while THE FUCKING widget.goesToEditor IS : ${widget.goesToEditor}');
+
+    // _bzzProvider.setActiveBz(_superFlyer.bz);
 
     /// opening editor
     if (widget.goesToEditor == true) {

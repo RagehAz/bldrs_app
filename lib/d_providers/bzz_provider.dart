@@ -1,5 +1,9 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as FireBzOps;
@@ -275,19 +279,58 @@ class BzzProvider extends ChangeNotifier {
 
 // -------------------------------------
   BzModel _myActiveBz;
+  CountryModel _myActiveBzCountry;
+  CityModel _myActiveBzCity;
+  List<FlyerModel> _myActiveBzFlyers = <FlyerModel>[];
 // -----------------------------------------------------------------------------
   BzModel get myActiveBz {
     return _myActiveBz;
   }
+  CountryModel get myActiveBzCountry => _myActiveBzCountry;
+  CityModel get myActiveBzCity => _myActiveBzCity;
+  List<FlyerModel> get myActiveBzFlyer{
+    return _myActiveBzFlyers;
+  }
 // -----------------------------------------------------------------------------
-  void setActiveBz(BzModel bzModel) {
+  void setActiveBz({
+    @required BzModel bzModel,
+    @required CountryModel bzCountry,
+    @required CityModel bzCity,
+  }) {
     blog('setting active bz to ${bzModel?.id}');
     _myActiveBz = bzModel;
+    _myActiveBzCountry = bzCountry;
+    _myActiveBzCity = bzCity;
     notifyListeners();
+  }
+// -------------------------------------
+  Future<void> getsetActiveBzFlyers({
+    @required BuildContext context,
+    @required String bzID
+  }) async {
+
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final List<FlyerModel> _flyers = await _flyersProvider.fetchAllBzFlyersByBzID(context: context, bzID: bzID);
+
+    _setActiveBzFlyers(_flyers);
+
+  }
+// -------------------------------------
+  void _setActiveBzFlyers(List<FlyerModel> flyers){
+    _myActiveBzFlyers = flyers;
+    notifyListeners();
+  }
+// -------------------------------------
+  void clearActiveBzFlyers(){
+    _setActiveBzFlyers(<FlyerModel>[]);
   }
 // -----------------------------------------------------------------------------
   void clearMyActiveBz(){
-    setActiveBz(null);
+    setActiveBz(
+      bzModel: null,
+      bzCity: null,
+      bzCountry: null,
+    );
   }
 // -----------------------------------------------------------------------------
 }

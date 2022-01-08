@@ -17,10 +17,8 @@ class BzAboutTab extends StatelessWidget {
     @required this.bzModel,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
-
   /// --------------------------------------------------------------------------
   static TabModel aboutTabModel({
     @required Function onChangeTab,
@@ -30,6 +28,7 @@ class BzAboutTab extends StatelessWidget {
   }) {
     return TabModel(
       tabButton: TabButton(
+        key: ValueKey<String>('bz_about_tab_${bzModel.id}'),
         verse: BzModel.bzPagesTabsTitles[tabIndex],
         icon: Iconz.info,
         iconSizeFactor: 0.7,
@@ -37,17 +36,18 @@ class BzAboutTab extends StatelessWidget {
         onTap: () => onChangeTab(tabIndex),
       ),
       page: BzAboutTab(
+        key: ValueKey<String>('bz_about_page_${bzModel.id}'),
         bzModel: bzModel,
       ),
     );
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: <Widget>[
+
         /// --- ABOUT
         if (bzModel.about != null)
           ParagraphBubble(
@@ -112,6 +112,7 @@ class BzAboutTab extends StatelessWidget {
           ]),
 
         const Horizon(),
+
       ],
     );
   }
