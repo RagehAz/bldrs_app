@@ -133,7 +133,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             margin: 10,
           ),
 
-          const ObeliskButton('New Bz Screen', Iconz.bz, MyBzScreen()),
+
+
+          const ObeliskButton('New User Screen', Iconz.bz, MyBzScreen()),
 
           const ObeliskButton('VideoPlayer', Iconz.play, VideoPlayerScreen()),
 

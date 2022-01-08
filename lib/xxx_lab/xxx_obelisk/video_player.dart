@@ -26,7 +26,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   void initState() {
     super.initState();
     _videoPlayerController = VideoPlayerController.network(
-        "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
         videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
       ..initialize()
       ..setVolume(10)

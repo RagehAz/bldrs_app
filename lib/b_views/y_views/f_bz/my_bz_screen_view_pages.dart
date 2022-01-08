@@ -2,10 +2,10 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/b_views/y_views/f_bz_views/bz_about_tab.dart';
-import 'package:bldrs/b_views/y_views/f_bz_views/bz_flyers_tab.dart';
-import 'package:bldrs/b_views/y_views/f_bz_views/bz_powers_tab.dart';
-import 'package:bldrs/b_views/y_views/f_bz_views/bz_targets_tab.dart';
+import 'package:bldrs/b_views/y_views/f_bz/bz_about_tab.dart';
+import 'package:bldrs/b_views/y_views/f_bz/bz_flyers_tab.dart';
+import 'package:bldrs/b_views/y_views/f_bz/bz_powers_tab.dart';
+import 'package:bldrs/b_views/y_views/f_bz/bz_targets_tab.dart';
 import 'package:flutter/material.dart';
 
 class MyBzScreenViewPages extends StatelessWidget {

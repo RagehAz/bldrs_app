@@ -68,7 +68,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    // TODO: implement dispose
+    _tabController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------

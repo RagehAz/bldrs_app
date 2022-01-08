@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/b_views/y_views/f_bz_views/my_bz_screen_view_pages.dart';
+import 'package:bldrs/b_views/y_views/f_bz/my_bz_screen_view_pages.dart';
 import 'package:bldrs/b_views/z_components/tab_bars/my_bz_screen_tab_bar.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
