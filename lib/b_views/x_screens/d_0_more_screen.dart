@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/tile_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/flagbox_button.dart';
@@ -48,7 +47,6 @@ class MoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final CountryModel _currentCountry = zoneProvider.currentCountry;
-    final String _currentFlag = Flag.getFlagIconByCountryID(_currentCountry?.id);
 
     return MainLayout(
       appBarType: AppBarType.basic,
@@ -99,7 +97,7 @@ class MoreScreen extends StatelessWidget {
 
               TileBubble(
                 verse: Wordz.changeCountry(context),
-                icon: FlagBox(flag: _currentFlag),
+                icon: FlagBox(countryID: _currentCountry?.id),
                 iconSizeFactor: 0.9,
                 btOnTap: () =>
                     Nav.goToNewScreen(context, const SelectCountryScreen()
@@ -203,7 +201,7 @@ class MoreScreen extends StatelessWidget {
 
                   /// CLEAR USER
                   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-                  _usersProvider.clearMyUserModel();
+                  _usersProvider.clearMyUserModelAndCountryAndCity();
 
                   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
                   // _zoneProvider.clearAllSearchesAndSelections();

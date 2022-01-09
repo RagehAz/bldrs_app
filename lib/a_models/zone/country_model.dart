@@ -241,7 +241,7 @@ class CountryModel {
     return _mapModels;
   }
 // -----------------------------------------------------------------------------
-  void printCountry({String methodName = 'PRINTING COUNTRY'}) {
+  void blogCountry({String methodName = 'PRINTING COUNTRY'}) {
     blog('$methodName ------------------------------------------- START');
 
     blog('id : $id');

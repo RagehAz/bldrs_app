@@ -29,7 +29,6 @@ class ZoneModel {
       districtID: districtID,
     );
   }
-
 // -----------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -38,12 +37,10 @@ class ZoneModel {
       'districtID': districtID,
     };
   }
-
 // -----------------------------------------------------------------------------
   String cipherToString() {
     return '$countryID/$cityID/$districtID';
   }
-
 // -----------------------------------------------------------------------------
   static ZoneModel decipherZoneMap(Map<String, dynamic> map) {
     final ZoneModel _zone = map == null
@@ -72,7 +69,6 @@ class ZoneModel {
 
     return _zonesAreTheSame;
   }
-
 // -----------------------------------------------------------------------------
   static ZoneModel decipherZoneString(String zoneString) {
     final String _countryID = decipherZoneStringToCountryID(zoneString);
@@ -85,14 +81,12 @@ class ZoneModel {
       districtID: _districtID,
     );
   }
-
 // -----------------------------------------------------------------------------
   static String decipherZoneStringToCountryID(String zoneString) {
     final String _countryID =
         TextMod.removeTextAfterFirstSpecialCharacter(zoneString, '/');
     return _countryID;
   }
-
 // -----------------------------------------------------------------------------
   static String decipherZoneStringToCityID(String zoneString) {
     final String _cityAndDistrict =
@@ -101,24 +95,12 @@ class ZoneModel {
         TextMod.removeTextAfterLastSpecialCharacter(_cityAndDistrict, '/');
     return _cityID;
   }
-
 // -----------------------------------------------------------------------------
   static String decipherZoneStringToDistrictID(String zoneString) {
     final String _districtID =
         TextMod.removeTextBeforeLastSpecialCharacter(zoneString, '/');
     return _districtID;
   }
-
-// -----------------------------------------------------------------------------
-  static ZoneModel getZoneFromIDs(
-      {String countryID, String cityID, String districtID}) {
-    return ZoneModel(
-      countryID: countryID,
-      cityID: cityID,
-      districtID: districtID,
-    );
-  }
-
 // -----------------------------------------------------------------------------
 //   static Zone getZoneFromBzModel(BzModel bzModel){
 //       return bzModel.bzZone;
@@ -142,14 +124,12 @@ class ZoneModel {
 
     blog('$methodName ------------------------------- END');
   }
-
 // -----------------------------------------------------------------------------
   bool isNotEmpty() {
     final bool _isEmpty = TextChecker.stringIsEmpty(countryID) == true;
     final bool _isNotEmpty = !_isEmpty;
     return _isNotEmpty;
   }
-
 // -----------------------------------------------------------------------------
   static bool zoneHasAllIDs(ZoneModel zone) {
     final bool _hasAllIDs = zone != null &&
