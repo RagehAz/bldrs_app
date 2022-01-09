@@ -1,10 +1,14 @@
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 class UsersProvider extends ChangeNotifier {
@@ -89,30 +93,57 @@ class UsersProvider extends ChangeNotifier {
 
 // -------------------------------------
   UserModel _myUserModel; //UserModel.initializeUserModelStreamFromUser(superFirebaseUser()); needs to be null if didn't find the userModel
+  CountryModel _myUserCountry;
+  CityModel _myUserCity;
 // -------------------------------------
-  UserModel get myUserModel {
-    return _myUserModel;
-  }
+  UserModel get myUserModel =>_myUserModel;
+  CountryModel get myUserCountry => _myUserCountry;
+  CityModel get myUserCity => _myUserCity;
 // -------------------------------------
-  Future<void> getsetMyUserModel(BuildContext context) async {
+  Future<void> getsetMyUserModelAndCountryAndCity(BuildContext context) async {
     UserModel _userModel;
+    CountryModel _userCountry;
+    CityModel _userCity;
 
     final String _myUserID = FireAuthOps.superUserID();
 
     if (_myUserID != null) {
       _userModel = await fetchUserByID(context: context, userID: _myUserID);
+
+      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+      _userCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _userModel.zone.countryID);
+      _userCity = await _zoneProvider.fetchCityByID(context: context, cityID: _userModel.zone.cityID);
+
+      blog('_userCountry is ${_userCountry.id} ahoooooooooooooo');
+      blog('_userCity is ${_userCity.cityID} ahoooooooooooooo');
+
+      setMyUserModelAndCountryAndCity(
+        userModel: _userModel,
+        countryModel: _userCountry,
+        cityModel: _userCity,
+      );
+
     }
 
-    setMyUserModel(_userModel);
   }
 // -------------------------------------
-  void setMyUserModel(UserModel userModel){
+  void setMyUserModelAndCountryAndCity({
+    @required UserModel userModel,
+    @required CountryModel countryModel,
+    @required CityModel cityModel,
+  }){
     _myUserModel = userModel;
+    _myUserCountry = countryModel;
+    _myUserCity = cityModel;
     notifyListeners();
   }
 // -------------------------------------
-  void clearMyUserModel(){
-    setMyUserModel(null);
+  void clearMyUserModelAndCountryAndCity(){
+    setMyUserModelAndCountryAndCity(
+      userModel: null,
+      countryModel: null,
+      cityModel: null,
+    );
   }
 // -----------------------------------------------------------------------------
 

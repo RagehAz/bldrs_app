@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
-import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/balloons/user_balloon.dart';
@@ -86,8 +85,7 @@ class _UserBubbleState extends State<UserBubble> {
             Provider.of<ZoneProvider>(context, listen: false);
 
         final ZoneModel _userZone = widget.user?.zone;
-        final CountryModel _country = await _zoneProvider.fetchCountryByID(
-            context: context, countryID: _userZone.countryID);
+        final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _userZone.countryID);
         final CityModel _city = await _zoneProvider.fetchCityByID(
             context: context, cityID: _userZone.cityID);
 
@@ -104,17 +102,18 @@ class _UserBubbleState extends State<UserBubble> {
 
   @override
   Widget build(BuildContext context) {
+
     final String _countryName = CountryModel.getTranslatedCountryNameByID(
-        context: context, countryID: _userCountry?.id);
-    final String _countryFlag = Flag.getFlagIconByCountryID(_userCountry?.id);
+        context: context,
+        countryID: _userCountry?.id
+    );
 
     final String _cityName = CityModel.getTranslatedCityNameFromCity(
       context: context,
       city: _userCity,
     );
 
-    final String _districtName =
-        DistrictModel.getTranslatedDistrictNameFromCity(
+    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
       context: context,
       city: _userCity,
       districtID: widget.user?.zone?.districtID,
@@ -129,6 +128,8 @@ class _UserBubbleState extends State<UserBubble> {
     return Bubble(
       centered: true,
       columnChildren: <Widget>[
+
+        /// UPPER PADDING
         Container(
           height: _topPadding,
           alignment: Aligners.superInverseCenterAlignment(context),
@@ -141,6 +142,7 @@ class _UserBubbleState extends State<UserBubble> {
           ),
         ),
 
+        /// USER PIC
         UserBalloon(
           balloonWidth: 80,
           balloonType: widget.user?.status,
@@ -174,14 +176,17 @@ class _UserBubbleState extends State<UserBubble> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+
               FlagBox(
                 size: 20,
-                flag: _countryFlag,
+                countryID: _userCountry?.id,
               ),
+
               const SizedBox(
                 width: 5,
                 height: 5,
               ),
+
               SuperVerse(
                 verse:
                     '${Wordz.inn(context)} $_districtName, $_cityName, $_countryName',
@@ -190,6 +195,7 @@ class _UserBubbleState extends State<UserBubble> {
                 color: Colorz.grey255,
                 margin: 5,
               ),
+
             ],
           ),
         ),
@@ -203,10 +209,12 @@ class _UserBubbleState extends State<UserBubble> {
           size: 1,
         ),
 
+        /// BOTTOM PADDING
         SizedBox(
           width: _screenWidth,
           height: _screenHeight * 0.05,
         ),
+
       ],
     );
   }

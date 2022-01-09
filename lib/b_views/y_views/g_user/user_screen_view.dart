@@ -1,4 +1,6 @@
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/y_views/g_user/user_screen_view_pages.dart';
 import 'package:bldrs/b_views/z_components/tab_bars/user_screen_tab_bar.dart';
@@ -48,12 +50,16 @@ class UserScreenView extends StatelessWidget {
           builder: (_, UsersProvider usersProvider, Widget child){
 
             final UserModel _myUserModel = usersProvider.myUserModel;
+            final CountryModel _myUserCountry = usersProvider.myUserCountry;
+            final CityModel _myUserCity = usersProvider.myUserCity;
 
             return
 
                 UserScreenViewPages(
                   tabController: tabController,
                   userModel: _myUserModel,
+                  userCountry: _myUserCountry,
+                  userCity: _myUserCity,
                 );
 
           },

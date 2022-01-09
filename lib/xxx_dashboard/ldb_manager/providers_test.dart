@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -89,6 +90,8 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 // -----------------------------------------------------------------------------
 
     final UserModel _myUserModel = _usersProvider?.myUserModel;
+    final CountryModel _myUserCountry = _usersProvider?.myUserCountry;
+    final CityModel _myUserCity = _usersProvider?.myUserCity;
     // final Stream<UserModel> _myUserModelStream = _usersProvider?.myUserModelStream;
     final ZoneModel _currentZone = _zoneProvider?.currentZone;
     final Continent _currentContinent = _zoneProvider?.currentContinent;
@@ -125,16 +128,27 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
                     unawaited(_triggerLoading());
                   }),
 
-              // WideButton(
-              //     color: Colorz.black255,
-              //     verse: 'print _myUserModelStream',
-              //     icon: Iconizer.valueIsNotNull(_myUserModelStream),
-              //     onTap: () async {
-              //       unawaited(_triggerLoading());
-              //       final UserModel _userModelFromStream = await _myUserModelStream.first;
-              //       _userModelFromStream.printUserModel();
-              //       unawaited(_triggerLoading());
-              //     }),
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print _myUserCountry',
+                  icon: Iconizer.valueIsNotNull(_myUserCountry),
+                  onTap: () async {
+                    unawaited(_triggerLoading());
+                    _myUserCountry.blogCountry();
+                    unawaited(_triggerLoading());
+                  }),
+
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print _myUserCity',
+                  icon: Iconizer.valueIsNotNull(_myUserCity),
+                  onTap: () async {
+                    unawaited(_triggerLoading());
+                    _myUserCity.blogCity();
+                    unawaited(_triggerLoading());
+                  }),
+
+              const BubblesSeparator(),
 
               // WideButton(
               //     color: Colorz.black255,
@@ -180,7 +194,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
                   onTap: () async {
                     unawaited(_triggerLoading());
 
-                    _currentCountry.printCountry();
+                    _currentCountry.blogCountry();
 
                     unawaited(_triggerLoading());
                   }),
@@ -196,6 +210,8 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
 
                     unawaited(_triggerLoading());
                   }),
+
+              const BubblesSeparator(),
 
               WideButton(
                   color: Colorz.black255,
