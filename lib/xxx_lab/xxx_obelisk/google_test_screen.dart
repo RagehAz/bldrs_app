@@ -235,7 +235,10 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                     historyButtonIsOn: false),
               ),
 
-              FlagBox(size: 50, flag: Flag.getFlagIconByCountryID(_countryID)),
+              FlagBox(
+                  size: 50,
+                  countryID: _countryID,
+              ),
 
               WideButton(
                 verse: 'Get Current Location',

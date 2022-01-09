@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/dialogz.dart' as Dialogz;
 import 'package:bldrs/b_views/x_screens/a_starters/a_0_logo_screen.dart';
@@ -136,7 +138,15 @@ Future<void> _controlAuthResult({
 
     /// B.2 - so sign in succeeded returning a userModel, then set it in provider
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    _usersProvider.setMyUserModel(_userModel);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final CountryModel _userCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _userModel.zone.countryID);
+    final CityModel _userCity = await _zoneProvider.fetchCityByID(context: context, cityID: _userModel.zone.cityID);
+
+    _usersProvider.setMyUserModelAndCountryAndCity(
+      userModel: _userModel,
+      countryModel: _userCountry,
+      cityModel: _userCity,
+    );
 
     _uiProvider.triggerLoading(setLoadingTo: false);
 

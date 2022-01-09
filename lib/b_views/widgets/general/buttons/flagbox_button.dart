@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -7,14 +8,14 @@ import 'package:websafe_svg/websafe_svg.dart';
 class FlagBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlagBox({
-    @required this.flag,
+    @required this.countryID,
     this.onTap,
     this.size = 35,
     Key key,
   }) : super(key: key);
 
   /// --------------------------------------------------------------------------
-  final String flag;
+  final String countryID;
   final Function onTap;
   final double size;
   static const double corner = Ratioz.boxCorner12;
@@ -22,6 +23,10 @@ class FlagBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final String _flagIcon = Flag.getFlagIconByCountryID(countryID);
+
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -41,9 +46,9 @@ class FlagBox extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
+
               /// FLAG
-              if (flag != null && flag != '' && flag != 'Black')
-                WebsafeSvg.asset(flag, width: size),
+                WebsafeSvg.asset(_flagIcon, width: size),
 
               ///  BUTTON GRADIENT
               Container(
@@ -71,9 +76,11 @@ class FlagBox extends StatelessWidget {
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
                       colors: <Color>[Colorz.nothing, Colorz.white80],
-                      stops: <double>[0.75, 1]),
+                      stops: <double>[0.75, 1]
+                  ),
                 ),
               ),
+
             ],
           ),
         ),

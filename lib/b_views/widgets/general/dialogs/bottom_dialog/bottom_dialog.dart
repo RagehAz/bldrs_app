@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
-import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/widgets/general/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/flagbox_button.dart';
@@ -354,7 +353,7 @@ class BottomDialog extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static Future<String> keyboardDialog({
     @required BuildContext context,
-    @required String flag,
+    @required String countryID,
     String hintText,
   }) async {
     /// TASK flag is temp
@@ -362,14 +361,15 @@ class BottomDialog extends StatelessWidget {
     final TextEditingController _textController = TextEditingController();
 
     const double _ratioOfScreenHeight = 0.65;
-    final double _overridingDialogHeight =
-        dialogHeight(context, ratioOfScreenHeight: _ratioOfScreenHeight);
+    final double _overridingDialogHeight = dialogHeight(context, ratioOfScreenHeight: _ratioOfScreenHeight);
     final double _clearWidth = dialogClearWidth(context);
     final double _clearHeight = dialogClearHeight(
         context: context,
         overridingDialogHeight: _overridingDialogHeight,
         draggable: true,
-        titleIsOn: false);
+        titleIsOn: false
+    );
+
     final double _corners = dialogClearCornerValue();
 
     await BottomDialog.showBottomDialog(
@@ -382,6 +382,7 @@ class BottomDialog extends StatelessWidget {
         // color: Colorz.BloodTest,
         child: Column(
           children: <Widget>[
+
             SuperTextField(
               textController: _textController,
               width: _clearWidth,
@@ -395,7 +396,12 @@ class BottomDialog extends StatelessWidget {
               hintText: hintText ?? 'text here ...',
               corners: _corners,
             ),
-            if (flag != null) FlagBox(flag: Flag.getFlagIconByCountryID(flag))
+
+            if (countryID != null)
+              FlagBox(
+                countryID: countryID,
+              ),
+
           ],
         ),
       ),

@@ -418,7 +418,7 @@ class UserModel {
     blog('title : $title');
     blog('company : $company');
     blog('gender : $gender');
-    blog('zone : $zone');
+    zone.blogZone();
     blog('language : $language');
     blog('position : $position');
     blog('contacts : $contacts');

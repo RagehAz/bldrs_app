@@ -51,7 +51,7 @@ Future<void> _initializeUserModel(BuildContext context) async {
 
     if (_myUserModel == null){
 
-      await _userProvider.getsetMyUserModel(context);
+      await _userProvider.getsetMyUserModelAndCountryAndCity(context);
 
     }
 
