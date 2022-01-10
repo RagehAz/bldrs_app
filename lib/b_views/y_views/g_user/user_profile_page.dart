@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
+import 'package:bldrs/b_views/widgets/general/bubbles/contacts_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/flagbox_button.dart';
@@ -62,7 +63,6 @@ class UserProfilePage extends StatelessWidget {
       city: userCity,
       districtID: userModel?.zone?.districtID,
     );
-
 
     return Column(
       children: <Widget>[
@@ -143,11 +143,16 @@ class UserProfilePage extends StatelessWidget {
           size: 1,
         ),
 
+        /// CONTACTS
+        ContactsBubble(
+          contacts: userModel?.contacts,
+        ),
+
+
         /// BOTTOM PADDING
         const SizedBox(
           height: 30,
         ),
-
 
       ],
     );
