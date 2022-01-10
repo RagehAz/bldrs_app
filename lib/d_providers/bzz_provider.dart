@@ -223,7 +223,7 @@ class BzzProvider extends ChangeNotifier {
   /// FOLLOWED BZZ
 
 // -------------------------------------
-  List<BzModel> _followedBzz;
+  List<BzModel> _followedBzz = <BzModel>[];
 // -------------------------------------
   List<BzModel> get followedBzz {
     return <BzModel>[..._followedBzz];

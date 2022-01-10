@@ -25,19 +25,16 @@ class FollowingBzzBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final UsersProvider _usersProvider =
-        Provider.of<UsersProvider>(context, listen: false);
-    final List<dynamic> followedBzzIDs =
-        _usersProvider.myUserModel.followedBzzIDs;
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final List<dynamic> followedBzzIDs = _usersProvider.myUserModel.followedBzzIDs;
 
     return Bubble(
       title: 'Following ${followedBzzIDs?.length} Businesses',
       columnChildren: <Widget>[
         /// FOLLOWING BZZ GRID
         BzGrid(
-          gridZoneWidth:
-              Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
-          bzzModels: bzzModels,
+          gridZoneWidth: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
+          bzzModels: bzzModels ?? [],
           numberOfColumns: 7,
           scrollDirection: Axis.horizontal,
           itemOnTap: (String bzID) async {
