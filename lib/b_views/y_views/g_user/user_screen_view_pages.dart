@@ -36,7 +36,7 @@ class UserScreenViewPages extends StatelessWidget {
           userCity: userCity,
         ),
 
-        UserStatsPage(
+        UserStatusPage(
           userModel: userModel,
         ),
 

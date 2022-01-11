@@ -3,7 +3,13 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class BubblesSeparator extends StatelessWidget {
-  const BubblesSeparator({Key key}) : super(key: key);
+
+  const BubblesSeparator({
+    this.bottomMarginIsOn = true,
+    Key key
+  }) : super(key: key);
+
+  final bool bottomMarginIsOn;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +19,7 @@ class BubblesSeparator extends StatelessWidget {
       width: screenWidth,
       height: 15,
       alignment: Alignment.center,
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: bottomMarginIsOn ? const EdgeInsets.only(bottom: 10) : EdgeInsets.zero,
       child: Container(
         width: 5,
         height: 5,

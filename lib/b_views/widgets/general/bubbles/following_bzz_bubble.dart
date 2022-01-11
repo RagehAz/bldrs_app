@@ -6,6 +6,7 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,25 +18,26 @@ class FollowingBzzBubble extends StatelessWidget {
     this.onBzTap,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final List<BzModel> bzzModels;
   final Function onBzTap;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final List<dynamic> followedBzzIDs = _usersProvider.myUserModel.followedBzzIDs;
 
     return Bubble(
       title: 'Following ${followedBzzIDs?.length} Businesses',
+      bubbleColor: Colorz.nothing,
       columnChildren: <Widget>[
+
         /// FOLLOWING BZZ GRID
         BzGrid(
           gridZoneWidth: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
           bzzModels: bzzModels ?? [],
-          numberOfColumns: 7,
+          numberOfColumns: 4,
           scrollDirection: Axis.horizontal,
           itemOnTap: (String bzID) async {
             blog('bzID = $bzID');
@@ -48,11 +50,14 @@ class FollowingBzzBubble extends StatelessWidget {
                     flyerBoxWidth: Scale.superScreenWidth(context) -
                         Ratioz.appBarMargin * 4,
                   ));
-            } else {
+            }
+
+            else {
               onBzTap(bzID);
             }
           },
         ),
+
       ],
     );
   }

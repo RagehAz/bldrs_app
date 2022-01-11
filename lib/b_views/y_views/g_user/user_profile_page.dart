@@ -7,10 +7,9 @@ import 'package:bldrs/b_views/widgets/general/buttons/balloons/user_balloon.dart
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_controllers/g_user_screen_controller.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -29,22 +28,6 @@ class UserProfilePage extends StatelessWidget {
   final CountryModel userCountry;
   final CityModel userCity;
   /// --------------------------------------------------------------------------
-  void _switchUserStatus(UserStatus status){
-    blog('status is : $status');
-  }
-
-  void _slideUserOptions({BuildContext context, UserModel userModel}){
-    blog('blah blha');
-  }
-
-  void onEditProfileTap(){
-    blog('edit profile');
-  }
-
-  void onUserPicTap(){
-    blog('user pic tapped');
-  }
-
   @override
   Widget build(BuildContext context) {
 
@@ -71,7 +54,7 @@ class UserProfilePage extends StatelessWidget {
         Container(
           height: 30,
           alignment: Aligners.superInverseCenterAlignment(context),
-          child: DreamBox(
+          child: const DreamBox(
             height: 30,
             width: 30,
             icon: Iconz.gears,
@@ -123,8 +106,7 @@ class UserProfilePage extends StatelessWidget {
                 height: 5,
               ),
               SuperVerse(
-                verse:
-                '${Wordz.inn(context)} $_districtName, $_cityName, $_countryName',
+                verse: '${Wordz.inn(context)} $_districtName, $_cityName, $_countryName',
                 weight: VerseWeight.thin,
                 italic: true,
                 color: Colorz.grey255,

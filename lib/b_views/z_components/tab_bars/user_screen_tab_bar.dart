@@ -34,7 +34,7 @@ class UserScreenTabBar extends StatelessWidget {
   String _userTabIcon(UserTab userTab){
     switch(userTab){
       case UserTab.profile    : return Iconz.normalUser   ; break;
-      case UserTab.state      : return Iconz.terms        ; break;
+      case UserTab.status      : return Iconz.terms        ; break;
       case UserTab.following  : return Iconz.follow       ; break;
       default : return null;
     }
