@@ -160,18 +160,18 @@ class CenterDialog extends StatelessWidget {
                               // height: _titleZoneHeight,
                               alignment: Alignment.center,
                               // color: Colorz.BloodTest,
-                              child: title == null
-                                  ? Container()
-                                  : SuperVerse(
-                                      verse: title,
-                                      color: Colorz.yellow255,
-                                      shadow: true,
-                                      size: 3,
-                                      italic: true,
-                                      maxLines: 2,
-                                      // labelColor: Colorz.Yellow,
-                                      margin: Ratioz.appBarMargin,
-                                    ),
+                              child: title == null ? Container()
+                                  :
+                              SuperVerse(
+                                verse: title,
+                                color: Colorz.yellow255,
+                                shadow: true,
+                                size: 3,
+                                italic: true,
+                                maxLines: 2,
+                                // labelColor: Colorz.Yellow,
+                                margin: Ratioz.appBarMargin,
+                              ),
                             ),
 
                             /// BODY
@@ -179,9 +179,9 @@ class CenterDialog extends StatelessWidget {
                               width: _dialogWidth,
                               // height: _bodyZoneHeight,
                               child: SuperVerse(
-                                verse: body.runtimeType == String
-                                    ? body
-                                    : body.toString(),
+                                verse: body.runtimeType == String ? body
+                                    :
+                                body.toString(),
                                 maxLines: 6,
                                 margin: Ratioz.appBarMargin,
                               ),
@@ -192,7 +192,9 @@ class CenterDialog extends StatelessWidget {
                               SizedBox(
                                   width: _dialogWidth,
                                   // height: _childZoneHeight,
-                                  child: child),
+                                  child: child
+                              ),
+
                           ],
                         ),
                       ),

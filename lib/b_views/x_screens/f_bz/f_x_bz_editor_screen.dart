@@ -53,8 +53,7 @@ class BzEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
 }
 
-class _BzEditorScreenState extends State<BzEditorScreen>
-    with TickerProviderStateMixin {
+class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStateMixin {
   BzzProvider _bzzProvider;
   // -------------------------
   // final _formKey = GlobalKey<FormState>();
@@ -619,6 +618,7 @@ class _BzEditorScreenState extends State<BzEditorScreen>
       // appBarBackButton: true,
       layoutWidget: Stack(
         children: <Widget>[
+
           ///--- BUBBLES
           ListView(
             physics: const BouncingScrollPhysics(),
@@ -806,6 +806,7 @@ class _BzEditorScreenState extends State<BzEditorScreen>
               ],
             ),
           ),
+
         ],
       ),
     );
