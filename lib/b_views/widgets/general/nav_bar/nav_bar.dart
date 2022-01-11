@@ -12,9 +12,8 @@ import 'package:bldrs/b_views/widgets/general/nav_bar/bar_button.dart';
 import 'package:bldrs/b_views/widgets/general/nav_bar/bzz_button.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
-import 'package:bldrs/b_views/x_screens/d_0_more_screen.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
-import 'package:bldrs/b_views/x_screens/g_user/g_0_old_profile_screen.dart';
+import 'package:bldrs/b_views/x_screens/g_user/user_profile_screen.dart';
 import 'package:bldrs/b_views/x_screens/h_notifications/g_1_notifications_screen.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -127,11 +126,11 @@ class NavBar extends StatelessWidget {
     int _numberOfButtons;
 
     if (FireAuthOps.userIsSignedIn() == false) {
-      _numberOfButtons = 2;
+      _numberOfButtons = 1;
     } else if (UserModel.userIsAuthor(userModel)) {
-      _numberOfButtons = 5;
-    } else {
       _numberOfButtons = 4;
+    } else {
+      _numberOfButtons = 3;
     }
 
     return _numberOfButtons;
@@ -433,21 +432,21 @@ class NavBar extends StatelessWidget {
                               Nav.goToRoute(context, Routez.savedFlyers),
                         ),
 
-                      _spacer,
-
-                      /// MORE
-                      BarButton(
-                        width: navBarButtonWidth,
-                        text: Wordz.more(context),
-                        icon: Iconz.more,
-                        iconSizeFactor: 0.45,
-                        barType: barType,
-                        onTap: () {
-                          blog('fish');
-                          Nav.goToNewScreen(
-                              context, MoreScreen(userModel: _myUserModel));
-                        },
-                      ),
+                      // _spacer,
+                      //
+                      // /// MORE
+                      // BarButton(
+                      //   width: navBarButtonWidth,
+                      //   text: Wordz.more(context),
+                      //   icon: Iconz.more,
+                      //   iconSizeFactor: 0.45,
+                      //   barType: barType,
+                      //   onTap: () {
+                      //     blog('fish');
+                      //     Nav.goToNewScreen(
+                      //         context, MoreScreen(userModel: _myUserModel));
+                      //   },
+                      // ),
 
                       _spacer,
 
@@ -502,9 +501,8 @@ class NavBar extends StatelessWidget {
                             barType: barType,
                             onTap: () => Nav.goToNewScreen(
                                 context,
-                                OldUserProfileScreen(
-                                  userModel: _myUserModel,
-                                )),
+                                const UserProfileScreen()
+                            ),
                             clipperWidget: UserBalloon(
                               balloonWidth: _circleWidth,
                               loading: false,

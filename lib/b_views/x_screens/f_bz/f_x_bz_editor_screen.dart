@@ -253,7 +253,6 @@ class _BzEditorScreenState extends State<BzEditorScreen>
     }
     );
   }
-
 // -----------------------------------------------------------------------------
   void _selectBzType(int index) {
     setState(() {
@@ -280,7 +279,6 @@ class _BzEditorScreenState extends State<BzEditorScreen>
 
     });
   }
-
 // -----------------------------------------------------------------------------
   void _createBzTypeInActivityList() {
 
@@ -307,7 +305,6 @@ class _BzEditorScreenState extends State<BzEditorScreen>
       // _bzTypeInActivityList;
     }
   }
-
 // -----------------------------------------------------------------------------
   void _createBzFormInActivityLst() {
 
@@ -394,7 +391,6 @@ class _BzEditorScreenState extends State<BzEditorScreen>
     /// TASK : temp bzEditor validator = true
     return _inputsAreValid;
   }
-
 // -----------------------------------------------------------------------------
   /// create new bzModel with current data and start createBzOps
   Future<void> _createNewBz() async {
@@ -481,7 +477,6 @@ class _BzEditorScreenState extends State<BzEditorScreen>
       Nav.goBack(context);
     }
   }
-
 // -----------------------------------------------------------------------------
   /// create updated bzModel with changed data and start updateBzOps
   Future<void> _updateExistingBz() async {
@@ -577,7 +572,6 @@ class _BzEditorScreenState extends State<BzEditorScreen>
       Nav.goBack(context, argument: true);
     }
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _confirmButton() async {
     // TASK : create bool dialog and use it here before confirming bz edits in bzEditor
@@ -614,6 +608,9 @@ class _BzEditorScreenState extends State<BzEditorScreen>
       // loading: _loading,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
+      historyButtonIsOn: false,
+      zoneButtonIsOn: false,
+      sectionButtonIsOn: false,
       skyType: SkyType.black,
       pageTitle: widget.firstTimer == true ?
       Wordz.createBzAccount(context)
