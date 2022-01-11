@@ -103,7 +103,6 @@ int stringToInt(String string) {
 
   return _value;
 }
-
 // -----------------------------------------------------------------------------
 double stringToDouble(String string) {
   double _value;
@@ -364,5 +363,42 @@ double degreeToRadian(double degree){
 /// simply, Negative value goes counter ClockWise
   final double _radian = degree * ( math.pi / 180 );
   return _radian;
+}
+// -----------------------------------------------------------------------------
+int binarySearch({
+  @required List<int> list,
+  @required int searchedValue, /// looking for which index in list is equal to 5 masalan
+}){
+
+  int _min = 0;
+  int _max = list.length - 1;
+
+  int _output;
+
+  while(_min <= _max){
+
+    final int _mid = ((_min + _max)/ 2).floor();
+
+    if (searchedValue == list[_mid]){
+
+      blog('Found searchedValue at index $_mid');
+      _output =  _mid;
+    }
+
+    else if (searchedValue < list[_mid]){
+      _max = _mid - 1;
+    }
+
+    else {
+      _min = _mid + 1;
+    }
+
+  }
+
+  if (_output == null){
+    blog('Not Found');
+  }
+
+  return _output;
 }
 // -----------------------------------------------------------------------------

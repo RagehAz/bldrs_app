@@ -427,8 +427,6 @@ void main() {
     expect(_areTheSame, true);
   });
 // -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
   test('Specs are the same', () async {
     const List<Spec> specsA = <Spec>[
       Spec(specsListID: 'x', value: 'x'),
@@ -466,5 +464,15 @@ void main() {
     expect(_numberFractions, 5);
   });
 // -----------------------------------------------------------------------------
+  test('binary search', () async {
+    final List<int> _list = <int>[0,1,2,3,4,5,6,7,8,9,10,12,15,18,19,22,25,26,27,29,31,33,35,38,39,40,42,43,48];
+    
+    final int _index = Numeric.binarySearch(
+        list: _list,
+        searchedValue: 10,
+    );
+
+    expect(_index, 10);
+  });
 // -----------------------------------------------------------------------------
 }

@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/widgets/general/bubbles/tile_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -19,7 +20,9 @@ class AboutBldrsScreen extends StatelessWidget {
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      // appBarBackButton: true,
+      historyButtonIsOn: false,
+      zoneButtonIsOn: false,
+      sectionButtonIsOn: false,
       pageTitle: 'About Bldrs.net',
       skyType: SkyType.black,
       layoutWidget: Scroller(
@@ -30,7 +33,7 @@ class AboutBldrsScreen extends StatelessWidget {
             Stratosphere(),
 
             LogoSlogan(
-              sizeFactor: 0.87,
+              sizeFactor: 0.6,
             ),
 
             ParagraphBubble(
@@ -49,12 +52,10 @@ class AboutBldrsScreen extends StatelessWidget {
 
             BubblesSeparator(),
 
-            ParagraphBubble(
-              title: 'Bldrs.net Business types',
-              centered: true,
-              maxLines: 100,
-              bubbleWidth: 200,
-              paragraph: '',
+            SuperVerse(
+              verse: 'Bldrs.net Business types',
+              size: 4,
+              italic: true,
             ),
 
             TileBubble(

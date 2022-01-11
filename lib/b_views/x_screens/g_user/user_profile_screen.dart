@@ -1,8 +1,12 @@
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/y_views/g_user/user_screen_view.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_user_screen_controller.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -32,9 +36,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> with SingleTicker
 
     _tabController.animation.addListener(
             () => onChangeUserScreenTabIndexWhileAnimation(
-          context: context,
-          tabController: _tabController,
-        )
+              context: context,
+              tabController: _tabController,
+            )
     );
 
     super.initState();
@@ -56,6 +60,20 @@ class _UserProfileScreenState extends State<UserProfileScreen> with SingleTicker
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       pageTitle: 'My Profile',
+      appBarRowWidgets: <Widget>[
+
+        const Expander(),
+
+        DreamBox(
+          height: Ratioz.appBarButtonSize,
+          width: Ratioz.appBarButtonSize,
+          icon: Iconz.more,
+          iconSizeFactor: 0.6,
+          margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+          onTap: () => onMoreOptionsTap(context),
+        ),
+
+      ],
       layoutWidget: UserScreenView(
         tabController: _tabController,
       ),

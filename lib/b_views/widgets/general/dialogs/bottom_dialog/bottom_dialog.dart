@@ -12,7 +12,6 @@ import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
@@ -198,12 +197,13 @@ class BottomDialog extends StatelessWidget {
     await showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: Borderers.superBorderOnly(
-          context: context,
-          enTopLeft: Ratioz.bottomSheetCorner,
-          enBottomLeft: 0,
-          enBottomRight: 0,
-          enTopRight: Ratioz.bottomSheetCorner,
-        )),
+              context: context,
+              enTopLeft: Ratioz.bottomSheetCorner,
+              enBottomLeft: 0,
+              enBottomRight: 0,
+              enTopRight: Ratioz.bottomSheetCorner,
+            )
+        ),
         backgroundColor: Colorz.blackSemi255,
         barrierColor: Colorz.black150,
         enableDrag: draggable,
@@ -234,16 +234,20 @@ class BottomDialog extends StatelessWidget {
     @required bool draggable,
     @required List<Widget> buttons,
     @required double buttonHeight,
+    String title,
   }) async {
+
     final double _spacing = buttonHeight * 0.1;
-    final double _height = (buttonHeight * buttons.length) + (_spacing * buttons.length) + 30;
+    final double _height = (buttonHeight * buttons.length) + (_spacing * buttons.length);
 
     await showBottomDialog(
       context: context,
       draggable: draggable,
       height: _height,
+      title: title,
       child: ListView.builder(
         itemCount: buttons.length,
+        shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         itemBuilder: (BuildContext ctx, int index) {
           return Column(
@@ -336,16 +340,19 @@ class BottomDialog extends StatelessWidget {
     @required String verse,
     Function onTap,
     String icon,
+    bool verseCentered = false,
   }) {
     return DreamBox(
-      height: 40,
+      height: 45,
       width: dialogClearWidth(context),
-      verse: verse.toUpperCase(),
-      verseWeight: VerseWeight.black,
-      verseItalic: true,
+      verse: verse,
+      verseScaleFactor: 1.1,
+      verseWeight: VerseWeight.thin,
+      // verseItalic: false,
       icon: icon,
-      iconSizeFactor: 0.7,
-      verseCentered: objectIsNull(icon),
+      iconSizeFactor: 0.6,
+      verseCentered: verseCentered,
+      verseMaxLines: 2,
       onTap: onTap,
     );
   }

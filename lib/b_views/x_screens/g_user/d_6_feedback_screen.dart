@@ -94,7 +94,9 @@ class _FeedBackState extends State<FeedBack> {
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      // appBarBackButton: true,
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
+      historyButtonIsOn: false,
       pageTitle: 'About Bldrs.net',
       skyType: SkyType.black,
       // loading: _loading,

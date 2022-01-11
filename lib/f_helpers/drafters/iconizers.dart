@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/widgets/general/buttons/balloons/path_normal_user.
 import 'package:bldrs/b_views/widgets/general/buttons/balloons/path_planning_user.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/balloons/path_searching_user.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/balloons/path_selling_user.dart';
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -272,46 +273,18 @@ String valueIsNotNull(dynamic value) {
   return _icon;
 }
 // -----------------------------------------------------------------------------
+String shareAppIcon(){
 
-/*
+  String _shareIcon = Iconz.share;
 
-ZEBALA
+  if (DeviceChecker.deviceIsIOS() == true){
+    _shareIcon = Iconz.comApple;
+  }
 
-// -----------------------------------------------------------------------------
-String sectionIconOn(SectionClass.Section section) {
-  return
-    section == SectionClass.Section.properties ? Iconz.bxPropertiesOn
-        :
-    section == SectionClass.Section.designs ? Iconz.bxDesignsOn
-        :
-    section == SectionClass.Section.projects ? Iconz.bxProjectsOn
-        :
-    section == SectionClass.Section.crafts ? Iconz.bxCraftsOn
-        :
-    section == SectionClass.Section.products ? Iconz.bxProductsOn
-        :
-    section == SectionClass.Section.equipment ? Iconz.bxEquipmentOn
-        :
-    Iconz.bz;
+  if (DeviceChecker.deviceIsAndroid() == true){
+    _shareIcon = Iconz.comGooglePlay;
+  }
+
+  return _shareIcon;
 }
 // -----------------------------------------------------------------------------
-String sectionIconOff(SectionClass.Section section) {
-  return section == SectionClass.Section.properties
-      ? Iconz.bxPropertiesOff
-      : section == SectionClass.Section.designs
-          ? Iconz.bxDesignsOff
-          : section == SectionClass.Section.projects
-              ? Iconz.bxProjectsOff
-              : section == SectionClass.Section.crafts
-                  ? Iconz.bxCraftsOff
-                  : section == SectionClass.Section.products
-                      ? Iconz.bxProductsOff
-                      : section == SectionClass.Section.equipment
-                          ? Iconz.bxEquipmentOff
-                          : section == SectionClass.Section.all
-                              ? Iconz.savedFlyers
-                              : Iconz.bz;
-}
-
-
- */
