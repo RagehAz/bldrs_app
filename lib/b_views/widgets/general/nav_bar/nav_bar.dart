@@ -13,7 +13,7 @@ import 'package:bldrs/b_views/widgets/general/nav_bar/bzz_button.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
-import 'package:bldrs/b_views/x_screens/g_user/user_profile_screen.dart';
+import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/x_screens/h_notifications/g_1_notifications_screen.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';

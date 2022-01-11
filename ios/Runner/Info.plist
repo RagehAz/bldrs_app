@@ -28,6 +28,8 @@
 	<string>Allow access to your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow access to your current location</string>
+	<key>NSContactsUsageDescription</key>
+    <string>Allow access to your contacts.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow access to Microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

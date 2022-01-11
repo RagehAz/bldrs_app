@@ -7,6 +7,7 @@ import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -63,30 +64,31 @@ class UsersProvider extends ChangeNotifier {
 
     return _userModel;
   }
-// // -------------------------------------
-//   /// fetch Users By IDs
-//   Future<List<UserModel>> _fetchUsersByIDs({BuildContext context, List<String> usersIDs}) async {
-//     List<UserModel> _userModels = <UserModel>[];
-//
-//     if (usersIDs != null && usersIDs.isNotEmpty){
-//
-//       for (String userID in usersIDs){
-//
-//         final UserModel _userModel = await _fetchUserByID(context: context, userID: userID);
-//
-//         if (_userModel != null){
-//
-//           _userModels.add(_userModel);
-//
-//         }
-//
-//       }
-//
-//     }
-//
-//     return _userModels;
-//   }
+// -------------------------------------
+  /*
+  /// fetch Users By IDs
+  Future<List<UserModel>> _fetchUsersByIDs({BuildContext context, List<String> usersIDs}) async {
+    List<UserModel> _userModels = <UserModel>[];
 
+    if (usersIDs != null && usersIDs.isNotEmpty){
+
+      for (String userID in usersIDs){
+
+        final UserModel _userModel = await _fetchUserByID(context: context, userID: userID);
+
+        if (_userModel != null){
+
+          _userModels.add(_userModel);
+
+        }
+
+      }
+
+    }
+
+    return _userModels;
+  }
+   */
 // -----------------------------------------------------------------------------
 
   /// MY USER MODEL
@@ -147,34 +149,49 @@ class UsersProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
+  /// MY DEVICE CONTACTS
+
+// -------------------------------------
+  List<Contact> _myDeviceContacts = <Contact>[];
+// -------------------------------------
+  List<Contact> get myDeviceContacts => _myDeviceContacts;
+// -------------------------------------
+  void setMyDeviceContacts(List<Contact> contacts){
+    _myDeviceContacts = contacts;
+    notifyListeners();
+  }
+// -----------------------------------------------------------------------------
+
   /// USER STREAM
 
-// // -------------------------------------
-//   Stream<UserModel> get myUserModelStream {
-//     final CollectionReference<Object> _userCollection = UserFireOps.collRef();
-//     final Stream<UserModel> _stream = _userCollection
-//         .doc(_myUserModel?.id)
-//         .snapshots()
-//         .map(_userModelFromSnapshot);
-//     return _stream;
-//   }
-// // -------------------------------------
-//   static UserModel _userModelFromSnapshot(DocumentSnapshot<Object> doc) {
-//     UserModel _userModel;
-//
-//     if (doc != null) {
-//       try {
-//         final Map<String, dynamic> _map = doc.data() as Map<String, dynamic>;
-//
-//         _userModel = UserModel.decipherUserMap(map: _map, fromJSON: false);
-//       } on Exception catch (error) {
-//         blog('_userModelFromSnapshot error is : $error');
-//         rethrow;
-//       }
-//     }
-//
-//     return _userModel;
-//   }
-// // -----------------------------------------------------------------------------
+// -------------------------------------
+  /*
 
+  Stream<UserModel> get myUserModelStream {
+    final CollectionReference<Object> _userCollection = UserFireOps.collRef();
+    final Stream<UserModel> _stream = _userCollection
+        .doc(_myUserModel?.id)
+        .snapshots()
+        .map(_userModelFromSnapshot);
+    return _stream;
+  }
+// -------------------------------------
+  static UserModel _userModelFromSnapshot(DocumentSnapshot<Object> doc) {
+    UserModel _userModel;
+
+    if (doc != null) {
+      try {
+        final Map<String, dynamic> _map = doc.data() as Map<String, dynamic>;
+
+        _userModel = UserModel.decipherUserMap(map: _map, fromJSON: false);
+      } on Exception catch (error) {
+        blog('_userModelFromSnapshot error is : $error');
+        rethrow;
+      }
+    }
+
+    return _userModel;
+  }
+   */
+// -----------------------------------------------------------------------------
 }
