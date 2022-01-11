@@ -20,6 +20,7 @@ class UserScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return MaxBounceNavigator(
       child: NestedScrollView(
         physics: const BouncingScrollPhysics(),
@@ -41,6 +42,7 @@ class UserScreenView extends StatelessWidget {
 
               },
             ),
+
           ];
 
         },
@@ -67,5 +69,6 @@ class UserScreenView extends StatelessWidget {
 
       ),
     );
+
   }
 }

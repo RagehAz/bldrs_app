@@ -520,21 +520,21 @@ enum AuthBy {
 // -----------------------------------------------------------------------------
 enum UserTab {
   profile,
-  state,
+  status,
   following,
 }
 // -----------------------------------------------------------------------------
 List<UserTab> userProfileTabsList = <UserTab>[
   UserTab.profile,
-  UserTab.state,
+  UserTab.status,
   UserTab.following,
 ];
 // -----------------------------------------------------------------------------
 String cipherUserTab(UserTab userTab){
   switch(userTab){
-    case UserTab.profile  : return 'Profile';   break;
-    case UserTab.state    : return 'State';     break;
-    case UserTab.following: return 'Following'; break;
+    case UserTab.profile    : return 'Profile';   break;
+    case UserTab.status     : return 'Status';     break;
+    case UserTab.following  : return 'Following'; break;
     default: return null;
   }
 }
