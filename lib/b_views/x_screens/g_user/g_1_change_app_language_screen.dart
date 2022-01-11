@@ -7,9 +7,9 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
-class SelectLanguageScreen extends StatelessWidget {
+class SelectAppLanguageScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SelectLanguageScreen({
+  const SelectAppLanguageScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------

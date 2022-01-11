@@ -3,9 +3,11 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_x_bz_editor_screen.dart';
-import 'package:bldrs/b_views/x_screens/g_user/d_4_change_language_screen.dart';
-import 'package:bldrs/b_views/x_screens/g_user/d_5_about_bldrs_screen.dart';
-import 'package:bldrs/b_views/x_screens/g_user/d_6_feedback_screen.dart';
+import 'package:bldrs/b_views/x_screens/g_user/g_1_change_app_language_screen.dart';
+import 'package:bldrs/b_views/x_screens/g_user/g_2_about_bldrs_screen.dart';
+import 'package:bldrs/b_views/x_screens/g_user/g_3_feedback_screen.dart';
+import 'package:bldrs/b_views/x_screens/g_user/g_4_terms_and_regulations_screen.dart';
+import 'package:bldrs/b_views/y_views/g_user/b_4_invite_businesses_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -15,12 +17,14 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/f_helpers/contacts_service/contacts_service.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer show shareAppIcon;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -163,7 +167,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
 }
 // -----------------------------------------------------------------------------
 Future<void> _onChangeAppLanguageTap(BuildContext context) async {
-  await Nav.goToNewScreen(context, const SelectLanguageScreen());
+  await Nav.goToNewScreen(context, const SelectAppLanguageScreen());
 }
 // -----------------------------------------------------------------------------
 Future<void> _onAboutBldrsTap(BuildContext context) async {
@@ -175,7 +179,7 @@ Future<void> _onFeedbackTap(BuildContext context) async {
 }
 // -----------------------------------------------------------------------------
 Future<void> _onTermsAndRegulationsTap(BuildContext context) async {
-  blog('terms and regulations button is tapped aho');
+  await Nav.goToNewScreen(context, const TermsAndRegulationsScreen());
 }
 // -----------------------------------------------------------------------------
 Future<void> _onCreateNewBzTap(BuildContext context) async {
@@ -258,3 +262,21 @@ void onEditProfileTap(){
 void onUserPicTap(){
   blog('user pic tapped');
 }
+// -----------------------------------------------------------------------------
+Future<void> onInviteBusinessesTap(BuildContext context) async {
+  await Nav.goToNewScreen(context, const InviteBusinessesScreen());
+}
+// -----------------------------------------------------------------------------
+Future<void> onImportDeviceContactsTap(BuildContext context) async {
+
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
+  _uiProvider.triggerLoading(setLoadingTo: true);
+  final List<Contact> _deviceContacts = await getDeviceContactsOps(context);
+  _uiProvider.triggerLoading(setLoadingTo: false);
+
+  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+  _usersProvider.setMyDeviceContacts(_deviceContacts);
+
+}
+// -----------------------------------------------------------------------------

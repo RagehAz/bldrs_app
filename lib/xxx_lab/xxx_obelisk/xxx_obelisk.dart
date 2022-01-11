@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/widgets/general/buttons/obelisk_button.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/general/textings/the_golden_scroll.dart';
-import 'package:bldrs/b_views/x_screens/g_user/user_profile_screen.dart';
+import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/specs_lists_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
@@ -171,7 +171,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           const ObeliskButton(
               'Sembast Screen', Iconz.dvGouran, SembastTestScreen()),
 
-          const ObeliskButton('Notification test', Iconz.news, FCMTestScreen()),
+          // const ObeliskButton('Notification test', Iconz.news, FCMTestScreen()),
 
           const ObeliskButton(
               'Awesome Notification test', Iconz.news, AwesomeNotiTestScreen()),
