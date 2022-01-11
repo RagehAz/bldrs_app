@@ -19,7 +19,10 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class FeedBack extends StatefulWidget {
-  const FeedBack({Key key}) : super(key: key);
+
+  const FeedBack({
+    Key key
+  }) : super(key: key);
 
   @override
   _FeedBackState createState() => _FeedBackState();
@@ -53,14 +56,12 @@ class _FeedBackState extends State<FeedBack> {
     super.initState();
     _feedbackController = TextEditingController();
   }
-
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
     _feedbackController.dispose();
     super.dispose();
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _uploadFeedBack() async {
     unawaited(_triggerLoading());
@@ -87,7 +88,6 @@ class _FeedBackState extends State<FeedBack> {
 
     Nav.goBack(context);
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
