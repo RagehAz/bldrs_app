@@ -26,19 +26,51 @@ class InviteBusinessesScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InviteBusinessesScreen({Key key}) : super(key: key);
   /// --------------------------------------------------------------------------
+  AppBarType _concludeAppBarType(BuildContext context){
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: true);
+    final bool _canSearchContacts = _usersProvider.canSearchContacts();
+
+    AppBarType _appBarType;
+
+    if (_canSearchContacts == true){
+      _appBarType = AppBarType.search;
+    }
+    else {
+      _appBarType = AppBarType.basic;
+    }
+
+    return _appBarType;
+  }
+// -----------------------------------------------------------------------------
+  double _layoutWidgetPadding(BuildContext context){
+
+    final AppBarType _appBarType = _concludeAppBarType(context);
+    double _padding = Ratioz.stratosphere;
+
+    if (_appBarType == AppBarType.search){
+      _padding = Ratioz.appBarBigHeight + Ratioz.appBarMargin;
+    }
+
+    return _padding;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return const MainLayout(
+
+    return MainLayout(
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       historyButtonIsOn: false,
       pageTitle: 'Invite Businesses',
-      appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       skyType: SkyType.black,
+      appBarType: _concludeAppBarType(context),
+      searchHint: 'Search Contacts',
+      onSearchChanged: onDeviceContactsSearch,
+      onSearchSubmit: onDeviceContactsSearch,
       layoutWidget: Padding(
-        padding: EdgeInsets.only(top: Ratioz.stratosphere),
-        child: InviteBusinessesScreenView(),
+        padding: EdgeInsets.only(top: _layoutWidgetPadding(context)),
+        child: const InviteBusinessesScreenView(),
       ),
 
       // ListView(
