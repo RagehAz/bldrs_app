@@ -6,7 +6,9 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/notifications/noti_ops.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -153,12 +155,45 @@ class UsersProvider extends ChangeNotifier {
 
 // -------------------------------------
   List<Contact> _myDeviceContacts = <Contact>[];
+  final List<String> _selectedDeviceContacts = <String>[];
 // -------------------------------------
   List<Contact> get myDeviceContacts => _myDeviceContacts;
+  List<String> get selectedDeviceContacts => _selectedDeviceContacts;
 // -------------------------------------
   void setMyDeviceContacts(List<Contact> contacts){
     _myDeviceContacts = contacts;
     notifyListeners();
+  }
+// -------------------------------------
+  bool canSearchContacts(){
+    bool _canSearch = false;
+
+    if (canLoopList(myDeviceContacts) == true){
+      _canSearch = true;
+    }
+    else {
+      _canSearch = false;
+    }
+    return _canSearch;
+  }
+// -------------------------------------
+  void selectDeviceContact(String contactString){
+
+    final bool _alreadySelected = stringsContainString(strings: _selectedDeviceContacts, string: contactString);
+
+    if (_alreadySelected == true){
+      _selectedDeviceContacts.remove(contactString);
+    }
+    else {
+      _selectedDeviceContacts.add(contactString);
+    }
+
+    notifyListeners();
+  }
+
+  bool deviceContactIsSelected(String contactString){
+    final bool _alreadySelected = stringsContainString(strings: _selectedDeviceContacts, string: contactString);
+    return _alreadySelected;
   }
 // -----------------------------------------------------------------------------
 

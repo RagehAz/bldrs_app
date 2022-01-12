@@ -280,3 +280,9 @@ Future<void> onImportDeviceContactsTap(BuildContext context) async {
 
 }
 // -----------------------------------------------------------------------------
+void onDeviceContactsSearch(String value){
+
+  blog('Searching contacts value is : $value');
+
+}
+// -----------------------------------------------------------------------------
