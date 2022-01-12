@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_user_screen_controller.dart';
-import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -17,11 +16,11 @@ import 'package:provider/provider.dart';
 
 
 List<String> getNamesFromDeviceContacts(List<Contact> deviceContacts){
-  List<String> _names = <String>[];
+  final List<String> _names = <String>[];
 
   if (Mapper.canLoopList(deviceContacts)){
     for (final Contact contact in deviceContacts){
-      final String _nameString = contact.displayName ?? '${contact.givenName} ${contact.middleName} ${contact.familyName}';
+      final String _nameString = contact.displayName; //?? '${contact.givenName} ${contact.middleName} ${contact.familyName}';
       _names.add(_nameString);
     }
   }
@@ -52,15 +51,17 @@ class InviteBusinessesScreenView extends StatelessWidget {
     _usersProvider.selectDeviceContact(contactString);
   }
 // -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: true);
-    final List<Contact> _contacts = _usersProvider.myDeviceContacts;
+    final List<Contact> _allContacts = _usersProvider.myDeviceContacts;
+    final List<Contact> _searchedContacts = _usersProvider.searchedDeviceContacts;
     final List<String> _selectedDeviceContacts = _usersProvider.selectedDeviceContacts;
+    final bool _isSearching = _usersProvider.isSearchingDeviceContacts;
 
-    if (canLoopList(_contacts) == false){
+    if (canLoopList(_allContacts) == false){
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         // crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,12 +82,15 @@ class InviteBusinessesScreenView extends StatelessWidget {
 
     else {
 
-      final List<String> _contactsStrings = getNamesFromDeviceContacts(_contacts);
+      final List<String> _contactsStrings = _isSearching ?
+          getNamesFromDeviceContacts(_searchedContacts)
+              :
+          getNamesFromDeviceContacts(_allContacts);
 
       return AlphabetListScrollView(
         strList: _contactsStrings,
         indexedHeight: (int height){
-          blog('indexedHeight is : $height');
+          // blog('indexedHeight is : $height');
           return 40;
         },
         showPreview: true,
