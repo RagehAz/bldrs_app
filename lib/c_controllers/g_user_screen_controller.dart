@@ -27,6 +27,7 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 
 // -----------------------------------------------------------------------------
 int getInitialUserScreenTabIndex(BuildContext context){
@@ -280,9 +281,17 @@ Future<void> onImportDeviceContactsTap(BuildContext context) async {
 
 }
 // -----------------------------------------------------------------------------
-void onDeviceContactsSearch(String value){
+void onDeviceContactsSearch({
+  @required BuildContext context,
+  @required String value,
+}){
 
-  blog('Searching contacts value is : $value');
+  final String _fixed = TextMod.fixSearchText(value);
+  blog('Searching contacts value is : $value : fixed : $_fixed');
+
+
+  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+  _usersProvider.searchDeviceContacts(value);
 
 }
 // -----------------------------------------------------------------------------

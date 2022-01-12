@@ -167,43 +167,46 @@ class TimerTest extends StatelessWidget {
       layoutWidget: ListView.builder(
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.only(
-              top: Ratioz.stratosphere, bottom: Ratioz.horizon),
+              top: Ratioz.stratosphere,
+              bottom: Ratioz.horizon,
+          ),
           itemCount: _mapModels.length,
           itemBuilder: (BuildContext ctx, int index) {
+
             final MapModel _pair = _mapModels[index];
 
             final bool _isDateFormat = TextChecker.stringContainsSubString(
-              caseSensitive: true,
               string: _pair.key,
               subString: 'dateFormat',
             );
 
             final bool _isTimersMethod = TextChecker.stringContainsSubString(
-              caseSensitive: true,
               string: _pair.key,
               subString: 'Timers.',
             );
 
-            final Color _color = _isDateFormat
-                ? Colorz.black255
-                : _isTimersMethod
-                    ? Colorz.green125
-                    : Colorz.bloodTest;
+            final Color _color = _isDateFormat ? Colorz.black255
+                :
+            _isTimersMethod ? Colorz.green125
+                :
+            Colorz.bloodTest;
 
-            return _pair.value == ''
-                ? Container(
-                    width: Scale.superScreenWidth(context),
-                    height: 0.5,
-                    color: Colorz.yellow255,
-                    margin: const EdgeInsets.symmetric(vertical: 20),
-                  )
-                : DataStrip(
-                    // width: null,
-                    dataKey: _pair.key,
-                    dataValue: _pair.value,
-                    valueBoxColor: _color,
-                  );
-          }),
+            return _pair.value == '' ?
+            Container(
+              width: Scale.superScreenWidth(context),
+              height: 0.5,
+              color: Colorz.yellow255,
+              margin: const EdgeInsets.symmetric(vertical: 20),
+            )
+                :
+            DataStrip(
+              // width: null,
+              dataKey: _pair.key,
+              dataValue: _pair.value,
+              valueBoxColor: _color,
+            );
+          }
+          ),
     );
   }
 }

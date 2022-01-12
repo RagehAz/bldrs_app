@@ -31,7 +31,7 @@ Future<List<CountryModel>> countriesByCountryName({
       subCollName: FireSubColl.zones_countries_countries,
       field: 'names.$lingoCode.trigram',
       compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: CountryModel.fixCountryName(countryName),
+        input: TextMod.fixCountryName(countryName),
         numberOfCharacters: Standards.maxTrigramLength,
       ),
       valueIs: Search.ValueIs.arrayContains,
@@ -63,7 +63,7 @@ Future<List<CityModel>> citiesByCityName({
       subCollName: FireSubColl.zones_cities_cities,
       field: 'names.$lingoCode.trigram',
       compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: CountryModel.fixCountryName(cityName),
+        input: TextMod.fixCountryName(cityName),
         numberOfCharacters: Standards.maxTrigramLength,
       ),
       valueIs: Search.ValueIs.arrayContains,
@@ -101,7 +101,7 @@ Future<List<CityModel>> citiesByCityNameAndCountryID({
 
         final String _searchValue =
             TextMod.removeAllCharactersAfterNumberOfCharacters(
-          input: CountryModel.fixCountryName(cityName),
+          input: TextMod.fixCountryName(cityName),
           numberOfCharacters: Standards.maxTrigramLength,
         );
 

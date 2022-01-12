@@ -56,8 +56,6 @@ Future<dynamic> callFunction(
     final bool _unauthenticated = TextChecker.stringContainsSubString(
       string: e.toString(),
       subString: '/unauthenticated]',
-      caseSensitive: true,
-      multiLine: true,
     );
 
     blog('unauthenticated IS $_unauthenticated');

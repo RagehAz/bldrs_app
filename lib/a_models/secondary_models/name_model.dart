@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -263,7 +263,7 @@ class Name {
     @required String inputText,
 }){
     final List<Name> _foundNames = <Name>[];
-    final String _fixedString = CountryModel.fixCountryName(inputText);
+    final String _fixedString = TextMod.fixCountryName(inputText);
 
     for (final Name source in sourceNames){
 

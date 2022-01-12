@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/region_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
@@ -97,82 +96,6 @@ class CountryModel {
   }
 
 // ----------------------------------------------------------------------------
-  static String fixCountryName(String input) {
-    String _output;
-
-    if (input != null) {
-      final String _countryNameTrimmed = TextMod.replaceAllCharactersWith(
-        input: input.toLowerCase().trim(),
-        characterToReplace: ' ',
-        replacement: '_',
-      );
-
-      final String _countryNameTrimmed2 = TextMod.replaceAllCharactersWith(
-        input: _countryNameTrimmed,
-        characterToReplace: '-',
-        replacement: '_',
-      );
-
-      final String _countryNameTrimmed3 = TextMod.replaceAllCharactersWith(
-        input: _countryNameTrimmed2,
-        characterToReplace: ',',
-        replacement: '',
-      );
-
-      final String _countryNameTrimmed4 = TextMod.replaceAllCharactersWith(
-        input: _countryNameTrimmed3,
-        characterToReplace: '(',
-        replacement: '',
-      );
-
-      final String _countryNameTrimmed5 = TextMod.replaceAllCharactersWith(
-        input: _countryNameTrimmed4,
-        characterToReplace: ')',
-        replacement: '',
-      );
-
-      final String _countryNameTrimmed6 = TextMod.replaceAllCharactersWith(
-        input: _countryNameTrimmed5,
-        characterToReplace: '’',
-        replacement: '',
-      );
-
-      final String _countryNameTrimmed7 = TextMod.replaceAllCharactersWith(
-        input: _countryNameTrimmed6,
-        characterToReplace: 'ô',
-        replacement: 'o',
-      );
-
-      final String _countryNameTrimmed8 = TextMod.replaceAllCharactersWith(
-        input: _countryNameTrimmed7,
-        characterToReplace: '`',
-        replacement: '',
-      );
-
-      final String _countryNameTrimmed9 = TextMod.replaceAllCharactersWith(
-        input: _countryNameTrimmed8,
-        characterToReplace: "'",
-        replacement: '',
-      );
-
-      final String _countryNameTrimmed10 = TextMod.replaceAllCharactersWith(
-        input: _countryNameTrimmed9,
-        characterToReplace: '.',
-        replacement: '',
-      );
-
-      final String _countryNameTrimmed11 = TextMod.replaceAllCharactersWith(
-        input: _countryNameTrimmed10,
-        characterToReplace: '/',
-        replacement: '',
-      );
-
-      _output = _countryNameTrimmed11;
-    }
-
-    return _output;
-  }
-// -----------------------------------------------------------------------------
   static bool countriesIDsIncludeCountryID({
     @required List<String> countriesIDs,
     @required String countryID,

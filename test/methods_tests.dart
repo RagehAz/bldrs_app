@@ -305,12 +305,27 @@ void main() {
     final bool _mapContainsTheError = TextChecker.stringContainsSubString(
       string: _string,
       subString: _substring,
-      caseSensitive: true,
     );
 
     // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
 
     expect(_mapContainsTheError, true);
+  });
+// -----------------------------------------------------------------------------
+  test('stringContainsSubStringREGEXP', () async {
+    const String _string = 'This is test text to get the damn subString bool Thing\n'
+        'bibi';
+    const String _substring = 'bibi';
+
+    final bool _stringContainsSubString = TextChecker.stringContainsSubStringRegExp(
+      string: _string,
+      subString: _substring,
+      caseSensitive: true,
+    );
+
+    // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
+
+    expect(_stringContainsSubString, true);
   });
 // -----------------------------------------------------------------------------
   test('objectIsDatTime', () async {

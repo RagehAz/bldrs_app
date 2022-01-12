@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
@@ -38,7 +37,7 @@ class CityModel {
   Map<String, Object> toMap({@required bool toJSON}) {
     return <String, Object>{
       'countryID': countryID,
-      'cityID': CountryModel.fixCountryName(cityID),
+      'cityID': TextMod.fixCountryName(cityID),
       'districts': DistrictModel.cipherDistricts(districts),
       'population': population,
       'isActivated': isActivated,
@@ -58,7 +57,7 @@ class CityModel {
       for (final CityModel city in cities) {
         _citiesMap = Mapper.insertPairInMap(
           map: _citiesMap,
-          key: CountryModel.fixCountryName(city.cityID),
+          key: TextMod.fixCountryName(city.cityID),
           value: city.toMap(toJSON: toJSON),
         );
       }
@@ -270,7 +269,7 @@ class CityModel {
     @required String countryID,
     @required String cityEnName,
   }) {
-    final String _fixedCityEnName = CountryModel.fixCountryName(cityEnName);
+    final String _fixedCityEnName = TextMod.fixCountryName(cityEnName);
     final String _cityID = '${countryID}_$_fixedCityEnName';
 
     return _cityID;

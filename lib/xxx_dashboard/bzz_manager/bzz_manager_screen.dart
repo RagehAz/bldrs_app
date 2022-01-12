@@ -126,7 +126,6 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     else {
       for (final BzModel tinyBz in _bzzModels) {
         final bool _matchFound = TextChecker.stringContainsSubString(
-          caseSensitive: false,
           string: TextMod.lowerCase(tinyBz.name),
           subString: TextMod.lowerCase(val),
         );

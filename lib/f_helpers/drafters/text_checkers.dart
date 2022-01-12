@@ -21,7 +21,6 @@ bool textIsEnglish(String val) {
 
   return textIsEnglish;
 }
-
 // -----------------------------------------------------------------------------
 bool textControllerIsEmpty(TextEditingController controller) {
   bool _controllerIsEmpty;
@@ -40,7 +39,6 @@ bool textControllerIsEmpty(TextEditingController controller) {
 
   return _controllerIsEmpty;
 }
-
 // -----------------------------------------------------------------------------
 /// TASK : is this the correct way to dispose a text controller ? are you sure ?
 void disposeControllerIfPossible(TextEditingController controller) {
@@ -50,7 +48,6 @@ void disposeControllerIfPossible(TextEditingController controller) {
     }
   }
 }
-
 // -----------------------------------------------------------------------------
 /// TASK : this makes more sense, dispose if controller has a value => tested and does not fire an error in search screen controller,,,
 void disposeControllerIfNotEmpty(TextEditingController controller) {
@@ -60,7 +57,6 @@ void disposeControllerIfNotEmpty(TextEditingController controller) {
     }
   }
 }
-
 // -----------------------------------------------------------------------------
 void disposeAllTextControllers(List<TextEditingController> controllers) {
   if (controllers != null) {
@@ -69,7 +65,6 @@ void disposeAllTextControllers(List<TextEditingController> controllers) {
     }
   }
 }
-
 // -----------------------------------------------------------------------------
 List<TextEditingController> createEmptyTextControllers(int length) {
   final List<TextEditingController> _controllers = <TextEditingController>[];
@@ -84,7 +79,6 @@ List<TextEditingController> createEmptyTextControllers(int length) {
 
   return _controllers;
 }
-
 // -----------------------------------------------------------------------------
 /// createTextControllersAndOverrideOneString
 //   List<TextEditingController> createTextControllersAndOverrideOneString({int length, int indexToOverride, String overridingString}){
@@ -121,12 +115,10 @@ bool stringIsEmpty(String val) {
 
   return _controllerIsEmpty;
 }
-
 // -----------------------------------------------------------------------------
 bool stringIsNotEmpty(String val) {
   return !stringIsEmpty(val);
 }
-
 // -----------------------------------------------------------------------------
 bool textStartsInArabic(String val) {
   /// \p{N} will match any unicode numeric digit.
@@ -167,7 +159,6 @@ bool textStartsInArabic(String val) {
 
   return _startInArabic;
 }
-
 // -----------------------------------------------------------------------------
 bool textStartsInEnglish(String val) {
   const String _reg = r'[a-zA-Z]';
@@ -190,35 +181,53 @@ bool textStartsInEnglish(String val) {
 
   return _startsInEnglish;
 }
-
 // -----------------------------------------------------------------------------
 /// TASK : textIsRTL is not tested yet
 bool textIsRTL(String text){
   return international.Bidi.detectRtlDirectionality(text);
 }
-
 // -----------------------------------------------------------------------------
 bool stringContainsSubString({
   String string,
   String subString,
-  bool caseSensitive,
-  bool multiLine = false
 }) {
   bool _itContainsIt = false;
-  // string.contains(new RegExp(subString, caseSensitive: caseSensitive, multiLine: multiLine));
 
   if (string != null && subString != null) {
-    if (string.toLowerCase().contains(subString?.toLowerCase())) {
+    if (
+    string.toLowerCase().contains(subString?.toLowerCase())
+    ) {
       _itContainsIt = true;
     }
   }
 
-  // final String _blah = _itContainsIt == true ? 'CONTAIN' : 'DOES NOT CONTAIN';
-  // blog('string : $string : $_blah this : $subString');
+  return _itContainsIt;
+}
+// -----------------------------------------------------------------------------
+bool stringContainsSubStringRegExp({
+  String string,
+  String subString,
+  bool caseSensitive = false,
+  // bool multiLine = false
+}) {
+  bool _itContainsIt = false;
+
+  if (string != null && subString != null) {
+
+    final RegExp pattern = RegExp(subString,
+        caseSensitive: caseSensitive,
+        // multiLine: multiLine // mesh shaghal w mesh wa2to
+    );
+    final Iterable matches = pattern.allMatches(string);
+
+    if (matches.isNotEmpty) {
+      _itContainsIt = true;
+    }
+
+  }
 
   return _itContainsIt;
 }
-
 // -----------------------------------------------------------------------------
 String concludeEnglishOrArabicLingo(String text) {
 
