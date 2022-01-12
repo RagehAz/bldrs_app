@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -31,7 +31,7 @@ class DistrictModel{
     return <String, Object>{
       'countryID' : countryID,
       'cityID' : cityID,
-      'districtID' : CountryModel.fixCountryName(districtID),
+      'districtID' : TextMod.fixCountryName(districtID),
       'names' : Name.cipherNames(names: names),
       'isActivated' : isActivated,
       'isPublic' : isPublic,
@@ -45,7 +45,7 @@ class DistrictModel{
 
       _districtsMap = Mapper.insertPairInMap(
         map: _districtsMap,
-        key: CountryModel.fixCountryName(district.districtID),
+        key: TextMod.fixCountryName(district.districtID),
         value: district.toMap(),
       );
 

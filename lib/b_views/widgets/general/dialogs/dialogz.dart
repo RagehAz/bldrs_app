@@ -92,7 +92,6 @@ Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
     final bool _mapContainsTheError = TextChecker.stringContainsSubString(
       string: result,
       subString: map['error'],
-      caseSensitive: true,
     );
 
     if (_mapContainsTheError == true) {

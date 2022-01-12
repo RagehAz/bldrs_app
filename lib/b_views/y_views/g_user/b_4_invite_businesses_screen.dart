@@ -1,26 +1,11 @@
-import 'package:bldrs/a_models/kw/specs/raw_specs.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
-import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
-import 'package:bldrs/b_views/widgets/general/textings/data_strip.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/y_views/g_user/b_4_invite_businesses_screen_view.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_controllers/g_user_screen_controller.dart';
-import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:alphabet_list_scroll_view/alphabet_list_scroll_view.dart';
 
 class InviteBusinessesScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -66,8 +51,14 @@ class InviteBusinessesScreen extends StatelessWidget {
       skyType: SkyType.black,
       appBarType: _concludeAppBarType(context),
       searchHint: 'Search Contacts',
-      onSearchChanged: onDeviceContactsSearch,
-      onSearchSubmit: onDeviceContactsSearch,
+      onSearchChanged: (String value) => onDeviceContactsSearch(
+        context: context,
+        value: value,
+      ),
+      onSearchSubmit: (String value) => onDeviceContactsSearch(
+        context: context,
+        value: value,
+      ),
       layoutWidget: Padding(
         padding: EdgeInsets.only(top: _layoutWidgetPadding(context)),
         child: const InviteBusinessesScreenView(),
