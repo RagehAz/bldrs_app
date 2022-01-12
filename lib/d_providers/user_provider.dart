@@ -7,11 +7,13 @@ import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/notifications/noti_ops.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+
 
 // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 class UsersProvider extends ChangeNotifier {
@@ -156,9 +158,13 @@ class UsersProvider extends ChangeNotifier {
 // -------------------------------------
   List<Contact> _myDeviceContacts = <Contact>[];
   final List<String> _selectedDeviceContacts = <String>[];
+  List<Contact> _searchedDeviceContacts = <Contact>[];
+  bool _isSearchingDeviceContacts = false;
 // -------------------------------------
   List<Contact> get myDeviceContacts => _myDeviceContacts;
   List<String> get selectedDeviceContacts => _selectedDeviceContacts;
+  List<Contact> get searchedDeviceContacts => _searchedDeviceContacts;
+  bool get isSearchingDeviceContacts => _isSearchingDeviceContacts;
 // -------------------------------------
   void setMyDeviceContacts(List<Contact> contacts){
     _myDeviceContacts = contacts;
@@ -190,10 +196,93 @@ class UsersProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-
+// -------------------------------------
   bool deviceContactIsSelected(String contactString){
     final bool _alreadySelected = stringsContainString(strings: _selectedDeviceContacts, string: contactString);
     return _alreadySelected;
+  }
+// -------------------------------------
+  void searchDeviceContacts(String searchString){
+
+    List<Contact> _foundContacts = <Contact>[];
+
+    /// A - WHEN CONTACTS NOT YET IMPORTED
+    if (canLoopList(_myDeviceContacts) == false){
+      blog('can not search device contacts as they are not yet imported');
+    }
+
+    /// A - WHEN CONTACTS ARE IMPORTED
+    else {
+
+      _triggerIsSearchingDeviceContacts(searchString: searchString, notify: true);
+
+      _foundContacts = _myDeviceContacts.where((contact){
+
+        final String _fixeContact = contact.displayName; //TextMod.fixSearchText(contact.givenName);
+        final String _fixedSearchText = searchString; //TextMod.fixSearchText(searchString);
+
+        blog('_fixeContact : $_fixeContact : _fixedSearchText : $_fixedSearchText');
+
+        return
+        TextChecker.stringContainsSubStringRegExp(
+          string: _fixeContact,
+          subString: _fixedSearchText,
+        ) == true;
+
+      })?.toList();
+    }
+
+    /// B - WHEN FOUND CONTACTS
+    if (canLoopList(_foundContacts) == true){
+      _searchedDeviceContacts = _foundContacts;
+      _triggerIsSearchingDeviceContacts(searchString: searchString, notify: false);
+      notifyListeners();
+    }
+    else {
+      _triggerIsSearchingDeviceContacts(searchString: searchString, notify: true);
+    }
+
+  }
+// -------------------------------------
+  void _triggerIsSearchingDeviceContacts({@required String searchString, @required bool notify}){
+
+    /// A - WHEN SEARCHING IS FALSE
+    if (_isSearchingDeviceContacts == false){
+
+      /// B - WHEN NOT SEARCHING
+      if (searchString.isEmpty){
+        /// DO NOTHING
+      }
+
+      /// B - WHEN STARTING TO SEARCH
+      else {
+        _setIsSearchingDeviceContacts(setTo: true, notify: notify);
+      }
+
+    }
+
+    /// A - WHEN ALREADY SEARCHING
+    else {
+
+      /// B - WHEN STOPPED SEARCHING
+      if (searchString.isEmpty){
+        _setIsSearchingDeviceContacts(setTo: false, notify: notify);
+      }
+
+      /// B - WHEN CONTINUING THE SEARCH
+      else {
+        /// DO NOTHING
+      }
+
+    }
+
+  }
+// -------------------------------------
+  void _setIsSearchingDeviceContacts({@required bool setTo, bool notify = true}){
+    _isSearchingDeviceContacts = setTo;
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -----------------------------------------------------------------------------
 

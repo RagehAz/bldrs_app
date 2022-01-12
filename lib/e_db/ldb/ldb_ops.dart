@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/sembast/sembast.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 
@@ -129,7 +129,7 @@ Future<List<Map<String, Object>>> searchTrigram({
   final List<Map<String, dynamic>> _result = await Sembast.search(
     fieldToSortBy: getPrimaryKey(docName),
     searchField: 'names.$lingoCode.trigram',
-    searchValue: CountryModel.fixCountryName(searchValue),
+    searchValue: TextMod.fixCountryName(searchValue),
     docName: docName,
   );
 

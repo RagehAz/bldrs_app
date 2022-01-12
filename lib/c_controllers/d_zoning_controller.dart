@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -11,6 +10,7 @@ import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
@@ -156,7 +156,7 @@ Future<void> controlCountrySearch({
 
     await _zoneProvider.getSetSearchedCountries(
       context: context,
-      input: CountryModel.fixCountryName(searchText),
+      input: TextMod.fixCountryName(searchText),
     );
 
     _uiProvider.triggerLoading(setLoadingTo: false);
@@ -338,7 +338,7 @@ Future<void> controlCitySearch({
 
     await _zoneProvider.getSetSearchedCities(
       context: context,
-      input: CountryModel.fixCountryName(searchText),
+      input: TextMod.fixCountryName(searchText),
     );
 
   }
@@ -461,7 +461,7 @@ Future<void> controlDistrictSearch({
 
     _zoneProvider.getSetSearchedDistricts(
       context: context,
-      textInput: CountryModel.fixCountryName(searchText),
+      textInput: TextMod.fixCountryName(searchText),
     );
 
   }

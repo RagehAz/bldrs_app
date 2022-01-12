@@ -3,8 +3,10 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 
-List<String> addStringToListIfDoesNotContainIt(
-    {List<String> strings, String stringToAdd}) {
+List<String> addStringToListIfDoesNotContainIt({
+  @required List<String> strings,
+  @required String stringToAdd,
+}) {
   List<String> _result = strings;
 
   final bool _containsIt = strings.contains(stringToAdd) == true;
@@ -15,13 +17,11 @@ List<String> addStringToListIfDoesNotContainIt(
 
   return _result;
 }
-
 // -----------------------------------------------------------------------------
 List<String> sortAlphabetically(List<String> inputList) {
   inputList.sort();
   return inputList;
 }
-
 // -----------------------------------------------------------------------------
 List<String> sortAlphabetically2(List<String> inputList) {
   // List<String> _outputList = <String>[];
@@ -30,7 +30,6 @@ List<String> sortAlphabetically2(List<String> inputList) {
 
   return inputList;
 }
-
 // -----------------------------------------------------------------------------
 String firstCharacterAfterRemovingSpacesFromAString(String string) {
   final String _stringTrimmed = string.trim();
@@ -39,71 +38,63 @@ String firstCharacterAfterRemovingSpacesFromAString(String string) {
 
   final String _firstCharacter = firstCharacterOfAString(_stringWithoutSpaces);
 
-  final String _output = _stringWithoutSpaces == null ||
-          _stringWithoutSpaces == '' ||
-          _stringWithoutSpaces == ' '
-      ? null
-      : _firstCharacter == ''
-          ? null
-          : _firstCharacter;
+  final String _output =
+  _stringWithoutSpaces == null || _stringWithoutSpaces == '' || _stringWithoutSpaces == ' ' ?
+  null
+      :
+  _firstCharacter == '' ? null
+          :
+  _firstCharacter;
 
   // blog('string($string) - _stringTrimmed($_stringTrimmed) - _stringWithoutSpaces($_stringWithoutSpaces) - _firstCharacter($_firstCharacter) - _output($_output)');
   return _output;
 }
-
 // -----------------------------------------------------------------------------
 String removeFirstCharacterFromAString(String string) {
-  final String stringWithoutFirstCharacter =
-      string.isNotEmpty ? string?.substring(1) : null;
+  final String stringWithoutFirstCharacter = string.isNotEmpty ? string?.substring(1) : null;
   return stringWithoutFirstCharacter;
 }
-
 // -----------------------------------------------------------------------------
-String removeNumberOfCharactersFromBeginningOfAString(
-    String string, int numberOfCharacters) {
+String removeNumberOfCharactersFromBeginningOfAString(String string, int numberOfCharacters) {
   String _stringTrimmed;
   if (numberOfCharacters > string.length) {
-    blog(
-        'can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
-
+    blog('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
     final Error _error = ArgumentError(
         'can not remove ($numberOfCharacters) from the given string because',
         'removeNumberOfCharactersFromBeginningOfAString');
-
     throw _error;
-  } else {
-    _stringTrimmed =
-        string.isNotEmpty ? string?.substring(numberOfCharacters) : null;
   }
+
+  else {
+    _stringTrimmed = string.isNotEmpty ? string?.substring(numberOfCharacters) : null;
+  }
+
   return _stringTrimmed;
 }
-
 // -----------------------------------------------------------------------------
-String removeNumberOfCharactersFromEndOfAString(
-    String string, int numberOfCharacters) {
+String removeNumberOfCharactersFromEndOfAString(String string, int numberOfCharacters) {
   String _stringTrimmed;
   // if (numberOfCharacters > string.length){
   //   blog('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
   //   throw('can not remove ($numberOfCharacters) from the given string because');
   // } else {}
 
-  blog(
-      'string length ${string.trim().length} and : numberOfCharacters : $numberOfCharacters');
+  blog('string length ${string.trim().length} and : numberOfCharacters : $numberOfCharacters');
 
   if (string != null && string.trim().isNotEmpty) {
     if (string.trim().length == numberOfCharacters) {
       _stringTrimmed = '';
-    } else if (string.trim().length > numberOfCharacters) {
-      _stringTrimmed =
-          string.substring(0, string.trim().length - numberOfCharacters);
-    } else {
+    }
+    else if (string.trim().length > numberOfCharacters) {
+      _stringTrimmed = string.substring(0, string.trim().length - numberOfCharacters);
+    }
+    else {
       _stringTrimmed = '';
     }
   }
 
   return _stringTrimmed;
 }
-
 // -----------------------------------------------------------------------------
 String removeSpacesFromAString(String string) {
   String _output5;
@@ -142,17 +133,15 @@ String removeSpacesFromAString(String string) {
 
   return _output5;
 }
-
 // -----------------------------------------------------------------------------
 String firstCharacterOfAString(String string) {
-  final String _output =
-      string == null || string.isEmpty || string == '' || string == ' '
-          ? null
-          : string?.substring(0, 1);
+  final String _output = string == null || string.isEmpty || string == '' || string == ' ' ?
+  null
+      :
+  string?.substring(0, 1);
 
   return _output == null || _output == '' || _output == '' ? null : _output;
 }
-
 // -----------------------------------------------------------------------------
 String lastTwoSubStringsFromAString(String string) {
   final List<String> _stringSplit = string.split('');
@@ -160,42 +149,37 @@ String lastTwoSubStringsFromAString(String string) {
   final int _lastIndex = _listLength - 1;
   final int _beforeLastIndex = _listLength - 2;
 
-  return _listLength == 0
-      ? null
-      : '${_stringSplit[_beforeLastIndex]}${_stringSplit[_lastIndex]}';
+  return _listLength == 0 ?
+  null
+      :
+  '${_stringSplit[_beforeLastIndex]}${_stringSplit[_lastIndex]}';
 }
-
 // -----------------------------------------------------------------------------
-String removeTextAfterFirstSpecialCharacter(
-    String verse, String specialCharacter) {
+String removeTextAfterFirstSpecialCharacter(String verse, String specialCharacter) {
   String _result;
 
   final bool _verseContainsChar = TextChecker.stringContainsSubString(
     string: verse,
     subString: specialCharacter,
-    caseSensitive: false,
-    multiLine: true,
   );
 
   if (_verseContainsChar == true) {
     _result = verse?.substring(0, verse.indexOf(specialCharacter));
-  } else {
+  }
+
+  else {
     _result = '';
   }
 
   return _result;
 }
-
 // -----------------------------------------------------------------------------
-String removeTextBeforeFirstSpecialCharacter(
-    String verse, String specialCharacter) {
+String removeTextBeforeFirstSpecialCharacter(String verse, String specialCharacter) {
   String _result;
 
   final bool _verseContainsChar = TextChecker.stringContainsSubString(
     string: verse,
     subString: specialCharacter,
-    caseSensitive: false,
-    multiLine: true,
   );
 
   if (_verseContainsChar == true) {
@@ -205,67 +189,63 @@ String removeTextBeforeFirstSpecialCharacter(
         : (_position != -1)
             ? verse.substring(_position + 1, verse.length)
             : verse;
-  } else {
+  }
+
+  else {
     _result = '';
   }
 
   return _result;
 }
-
 // -----------------------------------------------------------------------------
-String removeTextAfterLastSpecialCharacter(
-    String verse, String specialCharacter) {
+String removeTextAfterLastSpecialCharacter(String verse, String specialCharacter) {
   String _result;
 
   final bool _verseContainsChar = TextChecker.stringContainsSubString(
     string: verse,
     subString: specialCharacter,
-    caseSensitive: false,
-    multiLine: true,
   );
 
   if (_verseContainsChar == true) {
     _result = verse?.substring(0, verse.lastIndexOf(specialCharacter));
-  } else {
+  }
+
+  else {
     _result = '';
   }
 
   return _result;
 }
-
 // -----------------------------------------------------------------------------
-String removeTextBeforeLastSpecialCharacter(
-    String verse, String specialCharacter) {
+String removeTextBeforeLastSpecialCharacter(String verse, String specialCharacter) {
   String _result;
 
   final bool _verseContainsChar = TextChecker.stringContainsSubString(
     string: verse,
     subString: specialCharacter,
-    caseSensitive: false,
-    multiLine: true,
   );
 
   if (_verseContainsChar == true) {
     final int _position = verse?.lastIndexOf(specialCharacter);
-    _result = verse == null
-        ? null
-        : (_position != -1)
-            ? verse.substring(_position + 1, verse.length)
-            : verse;
-  } else {
+    _result = verse == null ? null
+        :
+    (_position != -1) ? verse.substring(_position + 1, verse.length)
+        :
+    verse;
+  }
+
+  else {
     _result = '';
   }
 
   return _result;
 }
-
 // -----------------------------------------------------------------------------
 /// this trims paths like 'assets/xx/pp_sodic/builds_1.jpg' to 'builds_1.jpg'
 String getFileNameFromAsset(String asset) {
   final String _fileName = removeTextBeforeLastSpecialCharacter(asset, '/');
   return _fileName;
 }
-
 // -----------------------------------------------------------------------------
 /// converts list of strings to map of keywords with true map value
 Future<Map<String, dynamic>> getKeywordsMap(List<String> keywordsIDs) async {
@@ -306,7 +286,6 @@ Future<Map<String, dynamic>> getKeywordsMap(List<String> keywordsIDs) async {
 
   return _stringIndexMap;
 }
-
 // -----------------------------------------------------------------------------
 Map<String, dynamic> getValueAndTrueMap(List<String> list) {
   final Map<String, dynamic> _result = <String, dynamic>{
@@ -314,18 +293,15 @@ Map<String, dynamic> getValueAndTrueMap(List<String> list) {
   };
   return _result;
 }
-
 // -----------------------------------------------------------------------------
 List<dynamic> getValuesFromValueAndTrueMap(Map<String, dynamic> map) {
   final List<dynamic> _flyersIDs = map.keys.toList();
   return _flyersIDs;
 }
-
 // -----------------------------------------------------------------------------
 String lowerCase(String val) {
   return val.toLowerCase();
 }
-
 // -----------------------------------------------------------------------------
 String sqlCipherStrings(List<String> strings) {
   String _output;
@@ -334,7 +310,9 @@ String sqlCipherStrings(List<String> strings) {
     for (final String string in strings) {
       if (_output == null) {
         _output = string;
-      } else {
+      }
+
+      else {
         _output = '${_output}__$string';
       }
     }
@@ -342,7 +320,6 @@ String sqlCipherStrings(List<String> strings) {
 
   return _output;
 }
-
 // -----------------------------------------------------------------------------
 List<String> sqlDecipherStrings(String text) {
   List<String> _strings;
@@ -353,20 +330,21 @@ List<String> sqlDecipherStrings(String text) {
 
   return _strings;
 }
-
 // -----------------------------------------------------------------------------
-String replaceAllCharactersWith(
-    {@required String characterToReplace,
-    @required String replacement,
-    @required String input}) {
+String replaceAllCharactersWith({
+  @required String characterToReplace,
+  @required String replacement,
+  @required String input,
+}) {
   final String _output = input.replaceAll(characterToReplace, replacement);
 
   return _output;
 }
-
 // -----------------------------------------------------------------------------
-String removeAllCharactersAfterNumberOfCharacters(
-    {@required String input, @required int numberOfCharacters}) {
+String removeAllCharactersAfterNumberOfCharacters({
+  @required String input,
+  @required int numberOfCharacters,
+}) {
   String _output = input;
 
   if (input != null &&
@@ -379,7 +357,6 @@ String removeAllCharactersAfterNumberOfCharacters(
 
   return _output;
 }
-
 // -----------------------------------------------------------------------------
 String fixArabicText(String input) {
   /// TASK : alef hamza issue
@@ -387,6 +364,97 @@ String fixArabicText(String input) {
   /// TASK : ha2 w ta2 marbouta issue
 
   return 'Bokra isa';
+}
+// -----------------------------------------------------------------------------
+/// only user with country names, city names, districts names
+String fixCountryName(String input) {
+  String _output;
+
+  if (input != null) {
+    final String _countryNameTrimmed = replaceAllCharactersWith(
+      input: input.toLowerCase().trim(),
+      characterToReplace: ' ',
+      replacement: '_',
+    );
+
+    final String _countryNameTrimmed2 = replaceAllCharactersWith(
+      input: _countryNameTrimmed,
+      characterToReplace: '-',
+      replacement: '_',
+    );
+
+    final String _countryNameTrimmed3 = replaceAllCharactersWith(
+      input: _countryNameTrimmed2,
+      characterToReplace: ',',
+      replacement: '',
+    );
+
+    final String _countryNameTrimmed4 = replaceAllCharactersWith(
+      input: _countryNameTrimmed3,
+      characterToReplace: '(',
+      replacement: '',
+    );
+
+    final String _countryNameTrimmed5 = replaceAllCharactersWith(
+      input: _countryNameTrimmed4,
+      characterToReplace: ')',
+      replacement: '',
+    );
+
+    final String _countryNameTrimmed6 = replaceAllCharactersWith(
+      input: _countryNameTrimmed5,
+      characterToReplace: '’',
+      replacement: '',
+    );
+
+    final String _countryNameTrimmed7 = replaceAllCharactersWith(
+      input: _countryNameTrimmed6,
+      characterToReplace: 'ô',
+      replacement: 'o',
+    );
+
+    final String _countryNameTrimmed8 = replaceAllCharactersWith(
+      input: _countryNameTrimmed7,
+      characterToReplace: '`',
+      replacement: '',
+    );
+
+    final String _countryNameTrimmed9 = replaceAllCharactersWith(
+      input: _countryNameTrimmed8,
+      characterToReplace: "'",
+      replacement: '',
+    );
+
+    final String _countryNameTrimmed10 = replaceAllCharactersWith(
+      input: _countryNameTrimmed9,
+      characterToReplace: '.',
+      replacement: '',
+    );
+
+    final String _countryNameTrimmed11 = replaceAllCharactersWith(
+      input: _countryNameTrimmed10,
+      characterToReplace: '/',
+      replacement: '',
+    );
+
+    _output = _countryNameTrimmed11;
+  }
+
+  return _output;
+}
+// -----------------------------------------------------------------------------
+String fixSearchText(String input){
+  String _output;
+
+  if (input != null && input != ''){
+
+    _output = input;
+        // removeSpacesFromAString(input.trim());
+    // _output = fixArabicText(_output);
+
+  }
+
+  return _output;
 }
 // -----------------------------------------------------------------------------
 /*
