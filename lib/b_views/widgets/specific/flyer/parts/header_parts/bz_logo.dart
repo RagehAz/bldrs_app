@@ -21,7 +21,6 @@ class BzLogo extends StatelessWidget {
     this.shadowIsOn = false,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double width;
   final dynamic image;
@@ -33,12 +32,10 @@ class BzLogo extends StatelessWidget {
   final Function onTap;
   final bool blackAndWhite;
   final bool shadowIsOn;
-
   /// --------------------------------------------------------------------------
   static double cornersValue(double logoWidth) {
     return logoWidth * Ratioz.bzLogoCorner;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -65,21 +62,30 @@ class BzLogo extends StatelessWidget {
           width: width,
           margin: margins,
           decoration: BoxDecoration(
-              color: image is Color ? null : Colorz.white10,
-              image: ObjectChecker.objectIsJPGorPNG(image)
-                  ? DecorationImage(image: AssetImage(image), fit: BoxFit.cover)
-                  : null,
+              color: image is Color ? image : Colorz.white10,
+              image: ObjectChecker.objectIsJPGorPNG(image) ?
+              DecorationImage(
+                  image: AssetImage(image),
+                  fit: BoxFit.cover
+              )
+                  :
+              null,
               borderRadius: bzLogoCorners,
-              boxShadow: shadowIsOn == false
-                  ? null
-                  : <BoxShadow>[
-                      Shadowz.CustomBoxShadow(
-                          color: Colorz.black200,
-                          blurRadius: width * 0.15,
-                          style: BlurStyle.outer),
-                    ]),
-          child:
-              ClipRRect(borderRadius: bzLogoCorners, child: SuperImage(image)),
+              boxShadow: shadowIsOn == false ? null
+                  :
+              <BoxShadow>[
+                Shadowz.CustomBoxShadow(
+                    color: Colorz.black200,
+                    blurRadius: width * 0.15,
+                    style: BlurStyle.outer
+                ),
+              ]
+          ),
+
+          child: ClipRRect(
+              borderRadius: bzLogoCorners,
+              child: SuperImage(image)
+          ),
         ),
       ),
     );

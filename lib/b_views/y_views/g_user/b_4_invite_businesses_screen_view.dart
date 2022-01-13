@@ -108,6 +108,23 @@ class InviteBusinessesScreenView extends StatelessWidget {
           //     },
           // ),
         // ],
+        highlightTextStyle: SuperVerse.createStyle(
+            context: context,
+            color: Colorz.yellow255,
+            weight: VerseWeight.thin,
+            italic: true,
+            size: 1,
+            shadow: true,
+        ),
+        normalTextStyle: SuperVerse.createStyle(
+          context: context,
+          color: Colorz.yellow255,
+          weight: VerseWeight.thin,
+          italic: true,
+          size: 1,
+          shadow: true,
+        ),
+        keyboardUsage: true,
         itemBuilder: (BuildContext ctx, int index){
 
           final String _contactString = _contactsStrings[index];
@@ -141,23 +158,6 @@ class InviteBusinessesScreenView extends StatelessWidget {
           );
 
         },
-        highlightTextStyle: SuperVerse.createStyle(
-            context: context,
-            color: Colorz.yellow255,
-            weight: VerseWeight.thin,
-            italic: true,
-            size: 1,
-            shadow: true,
-        ),
-        normalTextStyle: SuperVerse.createStyle(
-          context: context,
-          color: Colorz.yellow255,
-          weight: VerseWeight.thin,
-          italic: true,
-          size: 1,
-          shadow: true,
-        ),
-        keyboardUsage: true,
 
       );
 
