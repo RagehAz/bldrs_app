@@ -20,6 +20,7 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/contacts_service/contacts_service.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer show shareAppIcon;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -27,7 +28,6 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 
 // -----------------------------------------------------------------------------
 int getInitialUserScreenTabIndex(BuildContext context){
