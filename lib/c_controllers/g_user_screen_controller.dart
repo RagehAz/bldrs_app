@@ -289,7 +289,6 @@ void onDeviceContactsSearch({
   final String _fixed = TextMod.fixSearchText(value);
   blog('Searching contacts value is : $value : fixed : $_fixed');
 
-
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
   _usersProvider.searchDeviceContacts(value);
 

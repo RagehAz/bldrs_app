@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/following_bzz_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/bz/bz_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_user_screen_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -25,7 +26,9 @@ class UserFollowingPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
-    final List<BzModel> _followedBzz = _bzzProvider.followedBzz;
+
+    final List<BzModel> _myBzzTempDeleteAfterDoneUI = _bzzProvider.myBzz;
+    final List<BzModel> _followedBzz = _myBzzTempDeleteAfterDoneUI; //_bzzProvider.followedBzz;
 
     return Column(
       children: <Widget>[

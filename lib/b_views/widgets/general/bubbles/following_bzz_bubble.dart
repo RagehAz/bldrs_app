@@ -22,43 +22,52 @@ class FollowingBzzBubble extends StatelessWidget {
   final List<BzModel> bzzModels;
   final Function onBzTap;
   /// --------------------------------------------------------------------------
+  Future<void> _onBzTap({
+    @required BuildContext context,
+    @required String bzID
+  }) async {
+
+    blog('bzID = $bzID');
+
+    if (onBzTap == null) {
+      await Nav.goToNewScreen(
+          context,
+          BzCardScreen(
+            bzID: bzID,
+            flyerBoxWidth: Scale.superScreenWidth(context) -
+                Ratioz.appBarMargin * 4,
+          ));
+    }
+
+    else {
+      onBzTap(bzID);
+    }
+  }
+// -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    final List<dynamic> followedBzzIDs = _usersProvider.myUserModel.followedBzzIDs;
+    return Container(
+      width: Scale.superScreenWidth(context),
+      // height: Scale.superScreenHeight(context),
+      child: ListView(
+        shrinkWrap: true,
+        children: <Widget>[
 
-    return Bubble(
-      title: 'Following ${followedBzzIDs?.length} Businesses',
-      bubbleColor: Colorz.nothing,
-      columnChildren: <Widget>[
+          /// FOLLOWING BZZ GRID
+          BzGrid(
+            gridZoneWidth: Scale.appBarWidth(context),
+            bzzModels: bzzModels ?? [],
+            numberOfColumns: 4,
+            scrollDirection: Axis.horizontal,
 
-        /// FOLLOWING BZZ GRID
-        BzGrid(
-          gridZoneWidth: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 4,
-          bzzModels: bzzModels ?? [],
-          numberOfColumns: 4,
-          scrollDirection: Axis.horizontal,
-          itemOnTap: (String bzID) async {
-            blog('bzID = $bzID');
+            // numberOfRows: 1000,
+            itemOnTap: (String bzID) => _onBzTap(context: context, bzID: bzID),
+          ),
 
-            if (onBzTap == null) {
-              await Nav.goToNewScreen(
-                  context,
-                  BzCardScreen(
-                    bzID: bzID,
-                    flyerBoxWidth: Scale.superScreenWidth(context) -
-                        Ratioz.appBarMargin * 4,
-                  ));
-            }
-
-            else {
-              onBzTap(bzID);
-            }
-          },
-        ),
-
-      ],
+        ],
+      ),
     );
   }
 }
