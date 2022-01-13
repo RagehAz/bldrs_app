@@ -7,10 +7,10 @@
 // import 'package:bldrs/a_models/zone/country_model.dart';
 // import 'package:bldrs/b_views/widgets/general/layouts/tab_layout.dart';
 // import 'package:bldrs/b_views/widgets/specific/bz/appbar/bz_app_bar.dart';
-// import 'package:bldrs/b_views/y_views/f_bz_views/bz_about_tab.dart';
-// import 'package:bldrs/b_views/y_views/f_bz_views/bz_flyers_tab.dart';
-// import 'package:bldrs/b_views/y_views/f_bz_views/bz_powers_tab.dart';
-// import 'package:bldrs/b_views/y_views/f_bz_views/bz_targets_tab.dart';
+// import 'package:bldrs/b_views/y_views/f_bz_views/f_3_bz_about_tab.dart';
+// import 'package:bldrs/b_views/y_views/f_bz_views/f_2_bz_flyers_tab.dart';
+// import 'package:bldrs/b_views/y_views/f_bz_views/f_6_bz_powers_tab.dart';
+// import 'package:bldrs/b_views/y_views/f_bz_views/f_5_bz_targets_tab.dart';
 // import 'package:bldrs/b_views/z_components/layouts/tab_layout_model.dart';
 // import 'package:bldrs/d_providers/flyers_provider.dart';
 // import 'package:bldrs/d_providers/zone_provider.dart';
