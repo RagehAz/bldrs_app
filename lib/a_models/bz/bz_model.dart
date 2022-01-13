@@ -625,6 +625,24 @@ class BzModel{
     return _dummies;
   }
 // -----------------------------------------------------------------------------
+  static List<BzModel> getBzzFromBzzByBzType({
+    @required List<BzModel> bzz,
+    @required BzType bzType,
+  }){
+
+    final List<BzModel> _output = <BzModel>[];
+
+    if (Mapper.canLoopList(bzz) && bzType != null){
+      for (final BzModel bz in bzz){
+        if (bz.bzType == bzType){
+          _output.add(bz);
+        }
+      }
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
 }
 
 /*
