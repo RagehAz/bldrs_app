@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/widgets/specific/bz/bz_static_grid.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_1_bz_card_screen.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -21,29 +20,29 @@ class FollowingBzzGrid extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<BzModel> bzzModels;
-  final Function onBzTap;
+  final ValueChanged<BzModel> onBzTap;
   final String title;
   final String icon;
   /// --------------------------------------------------------------------------
   Future<void> _onBzTap({
     @required BuildContext context,
-    @required String bzID
+    @required BzModel bzModel
   }) async {
 
-    blog('bzID = $bzID');
+    bzModel.blogBz(methodName: 'Followed Bz tapped');
 
     if (onBzTap == null) {
       await Nav.goToNewScreen(
           context,
           BzCardScreen(
-            bzID: bzID,
+            bzID: bzModel.id,
             flyerBoxWidth: Scale.superScreenWidth(context) -
                 Ratioz.appBarMargin * 4,
           ));
     }
 
     else {
-      onBzTap(bzID);
+      onBzTap(bzModel);
     }
   }
 // -----------------------------------------------------------------------------
@@ -80,7 +79,10 @@ class FollowingBzzGrid extends StatelessWidget {
             gridBoxWidth: Scale.superScreenWidth(context),
             bzzModels: bzzModels ?? [],
             numberOfColumns: 4,
-            itemOnTap: (String bzID) => _onBzTap(context: context, bzID: bzID),
+            itemOnTap: (BzModel bzModel) => _onBzTap(
+                context: context,
+                bzModel: bzModel
+            ),
           ),
 
         ],
