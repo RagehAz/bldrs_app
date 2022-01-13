@@ -57,6 +57,7 @@ enum BzState {
 enum BzTab{
   flyers,
   about,
+  authors,
   targets,
   powers,
 }
@@ -64,6 +65,7 @@ enum BzTab{
 List<BzTab> bzTabsList = <BzTab>[
   BzTab.flyers,
   BzTab.about,
+  BzTab.authors,
   BzTab.targets,
   BzTab.powers,
 ];
@@ -551,6 +553,7 @@ class BzModel{
   static const List<String> bzPagesTabsTitles = <String>[
     'Flyers',
     'About',
+    'Authors',
     'Targets',
     'Powers'
   ];

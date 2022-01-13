@@ -265,11 +265,10 @@ class _NewHeaderState extends State<NewHeader>
     return AnimatedBuilder(
       animation: _controller.view,
       builder: (BuildContext ctx, Widget child) {
+
         final Color _headerColor = _backgroundColorTween.evaluate(_animation);
-        final BorderRadius _headerBorders =
-            _headerCornerTween.evaluate(_animation);
-        final BorderRadius _logoBorders =
-            _logoCornersTween.evaluate(_animation);
+        final BorderRadius _headerBorders = _headerCornerTween.evaluate(_animation);
+        final BorderRadius _logoBorders = _logoCornersTween.evaluate(_animation);
 
         return GestureDetector(
           onTap: _tinyMode == true ? null : toggle,
@@ -293,6 +292,7 @@ class _NewHeaderState extends State<NewHeader>
                         : const BouncingScrollPhysics(),
                     controller: _verticalController,
                     children: <Widget>[
+
                       /// MINI HEADER STRIP
                       Container(
                         width: widget.flyerBoxWidth,
@@ -441,6 +441,7 @@ class _NewHeaderState extends State<NewHeader>
                             ),
                           ),
                         ),
+
                     ],
                   ),
                 ),
