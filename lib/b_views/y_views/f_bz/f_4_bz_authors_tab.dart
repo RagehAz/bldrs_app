@@ -1,28 +1,18 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/contacts_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/paragraph_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/stats_line.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/tab_button.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
-import 'package:bldrs/b_views/z_components/layouts/tab_layout_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
-import 'package:bldrs/b_views/z_components/sizing/spacer.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,6 +34,7 @@ class BzAuthorsTab extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       children: <Widget>[
 
+        /// AUTHORS
         ...List.generate(_authors.length, (index){
 
           final AuthorModel _author = _authors[index];
@@ -55,6 +46,7 @@ class BzAuthorsTab extends StatelessWidget {
 
         }),
 
+        /// ADD AUTHORS BUTTON
         Align(
           alignment: Aligners.superCenterAlignment(context),
           child: DreamBox(
