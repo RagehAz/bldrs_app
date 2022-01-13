@@ -1,7 +1,6 @@
 import 'package:alphabet_list_scroll_view/alphabet_list_scroll_view.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_user_screen_controller.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
@@ -13,7 +12,6 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 List<String> getNamesFromDeviceContacts(List<Contact> deviceContacts){
   final List<String> _names = <String>[];
@@ -58,7 +56,6 @@ class InviteBusinessesScreenView extends StatelessWidget {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: true);
     final List<Contact> _allContacts = _usersProvider.myDeviceContacts;
     final List<Contact> _searchedContacts = _usersProvider.searchedDeviceContacts;
-    final List<String> _selectedDeviceContacts = _usersProvider.selectedDeviceContacts;
     final bool _isSearching = _usersProvider.isSearchingDeviceContacts;
 
     if (canLoopList(_allContacts) == false){

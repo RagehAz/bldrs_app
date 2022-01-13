@@ -44,6 +44,7 @@ class StatusBubble extends StatelessWidget {
     return Bubble(
       centered: true,
       columnChildren: <Widget>[
+
         /// HEADLINE QUESTION
         const SuperVerse(
           verse: 'Let the Builders know',
@@ -103,6 +104,7 @@ class StatusBubble extends StatelessWidget {
             switchUserStatus: switchUserStatus,
             currentUserStatus: currentUserStatus,
           ),
+
       ],
     );
   }
