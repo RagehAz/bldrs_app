@@ -519,6 +519,28 @@ class FlyerModel with ChangeNotifier{
     ];
   }
 // -----------------------------------------------------------------------------
+  static List<FlyerModel> getFlyersFromFlyersByAuthorID({
+    @required List<FlyerModel> flyers,
+    @required String authorID,
+  }){
+
+    final List<FlyerModel> _authorFlyers = <FlyerModel>[];
+
+    if (Mapper.canLoopList(flyers) == true && authorID != null){
+
+      for (final FlyerModel flyer in flyers){
+
+        if (flyer.authorID == authorID){
+          _authorFlyers.add(flyer);
+        }
+
+      }
+
+    }
+
+    return _authorFlyers;
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 enum FlyerState{
