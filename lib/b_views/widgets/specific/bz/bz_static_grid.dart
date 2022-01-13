@@ -95,10 +95,12 @@ class BzStaticGrid extends StatelessWidget {
         showName: true
     );
 // -------------------------------------------------------
+    /*
     final int _numberOfRows = concludeNumberOfRows(
       numberOfBzz: _bzz.length,
       numberOfColumns: numberOfColumns,
     );
+     */
 // -------------------------------------------------------
     final SliverGridDelegate _gridDelegate =
     SliverGridDelegateWithFixedCrossAxisCount(
