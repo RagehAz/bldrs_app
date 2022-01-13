@@ -20,7 +20,6 @@ class BzzBubble extends StatelessWidget {
     this.corners,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final List<BzModel> bzzModels;
   final String title;
@@ -29,7 +28,6 @@ class BzzBubble extends StatelessWidget {
   final Axis scrollDirection;
   final ValueChanged<BzModel> onTap;
   final double corners;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

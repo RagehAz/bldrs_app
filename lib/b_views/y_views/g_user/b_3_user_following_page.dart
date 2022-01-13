@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/following_bzz_bubble.dart';
+import 'package:bldrs/b_views/widgets/general/bubbles/following_bzz_grid.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/c_controllers/g_user_screen_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -32,34 +32,42 @@ class UserFollowingPage extends StatelessWidget {
 
     const List<BzType> _bzTypes = BzModel.bzTypesList;
 
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.only(bottom: Ratioz.horizon),
-      itemCount: _bzTypes.length,
-      itemBuilder: (_, int index){
+    return Stack(
+      children: <Widget>[
 
-        final BzType _bzType = _bzTypes[index];
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.only(bottom: Ratioz.horizon),
+          itemCount: _bzTypes.length,
+          itemBuilder: (_, int index){
 
-        final String _bzTypeString = TextGen.bzTypePluralStringer(context, _bzType);
+            final BzType _bzType = _bzTypes[index];
 
-        final List<BzModel> _bzzOfThisType = BzModel.getBzzFromBzzByBzType(
-            bzz: _followedBzz,
-            bzType: _bzType
-        );
+            final String _bzTypeString = TextGen.bzTypePluralStringer(context, _bzType);
 
-        final String _bzTypeIcon = Iconizer.bzTypeIconOff(_bzType);
+            final List<BzModel> _bzzOfThisType = BzModel.getBzzFromBzzByBzType(
+                bzz: _followedBzz,
+                bzType: _bzType
+            );
 
-        return FollowingBzzGrid(
-          bzzModels: _bzzOfThisType,
-          title: _bzTypeString,
-          icon: _bzTypeIcon,
-          onBzTap: (BzModel bzModel){
-            bzModel.blogBz(methodName: 'Yabny tapped bzModel aho tapped aho');
+            final String _bzTypeIcon = Iconizer.bzTypeIconOff(_bzType);
+
+            return FollowingBzzGrid(
+              bzzModels: _bzzOfThisType,
+              title: _bzTypeString,
+              icon: _bzTypeIcon,
+              onBzTap: (BzModel bzModel){
+                bzModel.blogBz(methodName: 'Yabny tapped bzModel aho tapped aho');
+              },
+            );
+
           },
-        );
+        ),
 
-      },
+        const InviteBzzButton(),
+
+      ],
     );
 
   }
