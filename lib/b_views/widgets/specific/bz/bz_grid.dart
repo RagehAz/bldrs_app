@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
+import 'package:bldrs/b_views/z_components/bz/bz_box.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -18,7 +19,6 @@ class BzGrid extends StatelessWidget {
     this.corners,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double gridZoneWidth;
   final int numberOfColumns;
@@ -40,10 +40,10 @@ class BzGrid extends StatelessWidget {
     ];
 
     const double _spacingRatioToGridWidth = 0.1;
-    final double _logoWidth = gridZoneWidth /
-        (numberOfColumns +
-            (numberOfColumns * _spacingRatioToGridWidth) +
-            _spacingRatioToGridWidth);
+    final double _logoWidth = gridZoneWidth / (numberOfColumns +
+        (numberOfColumns * _spacingRatioToGridWidth) +
+        _spacingRatioToGridWidth);
+
     final double _gridSpacing = _logoWidth * _spacingRatioToGridWidth;
     // int _bzCount = _bzz == <TinyBz>[] || _bzz.length == 0 ? _boxesColors.length : tinyBzz.length;
     // int _getNumberOfRowsByCount(int _bzCount){return (_bzCount/numberOfColumns).ceil();}
@@ -56,26 +56,34 @@ class BzGrid extends StatelessWidget {
         _logoWidth / ((_logoWidth * 1.25) + _gridSpacing);
 
     final SliverGridDelegateWithMaxCrossAxisExtent _gridDelegate =
-        SliverGridDelegateWithMaxCrossAxisExtent(
+    SliverGridDelegateWithMaxCrossAxisExtent(
       crossAxisSpacing: _gridSpacing,
       mainAxisSpacing: _gridSpacing,
-      childAspectRatio: scrollDirection == Axis.vertical
-          ? _verticalAspectRatio
-          : 1 / _verticalAspectRatio,
-      maxCrossAxisExtent:
-          scrollDirection == Axis.vertical ? _logoWidth : _logoWidth * 1.25,
+      childAspectRatio: scrollDirection == Axis.vertical ?
+      _verticalAspectRatio
+          :
+      1 / _verticalAspectRatio,
+      maxCrossAxisExtent: scrollDirection == Axis.vertical ?
+      _logoWidth
+          :
+      _logoWidth * 1.25,
     );
 
-    final double _zoneCorners =
-        corners ?? (_logoWidth * Ratioz.bzLogoCorner) + _gridSpacing;
+    final double _zoneCorners = corners ??
+        (_logoWidth * Ratioz.bzLogoCorner) + _gridSpacing;
 
     final EdgeInsets _gridPadding = EdgeInsets.only(
-        top: _gridSpacing, left: _gridSpacing, right: _gridSpacing);
+        top: _gridSpacing,
+        left: _gridSpacing,
+        right: _gridSpacing,
+    );
 
     final Axis _scrollDirection = scrollDirection ?? Axis.vertical;
-    final ScrollPhysics _physics = scrollDirection == null
-        ? const NeverScrollableScrollPhysics()
-        : const BouncingScrollPhysics();
+
+    final ScrollPhysics _physics = scrollDirection == null ?
+    const NeverScrollableScrollPhysics()
+        :
+    const BouncingScrollPhysics();
 
     return ClipRRect(
       borderRadius: Borderers.superBorderAll(context, _zoneCorners),
@@ -86,6 +94,7 @@ class BzGrid extends StatelessWidget {
         padding: EdgeInsets.only(bottom: _gridSpacing),
         child: Stack(
           children: <Widget>[
+
             /// --- GRID FOOTPRINTS
             if (_bzz.isEmpty)
               GridView(
@@ -95,39 +104,46 @@ class BzGrid extends StatelessWidget {
                 gridDelegate: _gridDelegate,
                 children: _boxesColors
                     .map(
-                      (Color color) => SizedBox(
-                        width: _logoWidth,
-                        height: _logoWidth * 1.25,
-                        // color: Colorz.Yellow50,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            /// LOGO
-                            Container(
-                              width: _logoWidth,
-                              height: _logoWidth,
-                              decoration: BoxDecoration(
-                                  color: color,
-                                  borderRadius: Borderers.superBorderAll(
-                                      context,
-                                      BzLogo.cornersValue(_logoWidth))),
-                            ),
+                      (Color color) =>
 
-                            /// BZ NAME FOOTPRINT
-                            SizedBox(
-                              width: _logoWidth,
-                              height: _logoWidth * 0.25,
-                              child: SuperVerse(
-                                verse: '...',
-                                color: color,
-                                weight: VerseWeight.black,
-                                size: 0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
+                          // SizedBox(
+                          //   width: _logoWidth,
+                          //   height: _logoWidth * 1.25,
+                          //   // color: Colorz.Yellow50,
+                          //   child: Column(
+                          //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     children: <Widget>[
+                          //       /// LOGO
+                          //       Container(
+                          //         width: _logoWidth,
+                          //         height: _logoWidth,
+                          //         decoration: BoxDecoration(
+                          //             color: color,
+                          //             borderRadius: Borderers.superBorderAll(
+                          //                 context,
+                          //                 BzLogo.cornersValue(_logoWidth))),
+                          //       ),
+                          //       /// BZ NAME FOOTPRINT
+                          //       SizedBox(
+                          //         width: _logoWidth,
+                          //         height: _logoWidth * 0.25,
+                          //         child: SuperVerse(
+                          //           verse: '...',
+                          //           color: color,
+                          //           weight: VerseWeight.black,
+                          //           size: 0,
+                          //         ),
+                          //       ),
+                          //
+                          //     ],
+                          //   ),
+                          // ),
+
+                      BzLogoBox(
+                        width: _logoWidth,
+                      )
+
+                )
                     .toList(),
               ),
 
@@ -142,36 +158,46 @@ class BzGrid extends StatelessWidget {
                 children: <Widget>[
                   ..._bzz
                       .map(
-                        (BzModel bz) => Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            /// BZ LOGO
-                            BzLogo(
-                              width: _logoWidth,
-                              image: bz.logo,
-                              zeroCornerIsOn: false,
-                              onTap: () => itemOnTap(bz.id),
-                            ),
+                        (BzModel bz) =>
+                        //     Column(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: <Widget>[
+                        //     /// BZ LOGO
+                        //     BzLogo(
+                        //       width: _logoWidth,
+                        //       image: bz.logo,
+                        //       zeroCornerIsOn: false,
+                        //       onTap: () => itemOnTap(bz.id),
+                        //     ),
+                        //
+                        //     /// BZ NAME
+                        //     SizedBox(
+                        //       width: _logoWidth,
+                        //       height: _logoWidth * 0.25,
+                        //       // color: Colorz.BloodTest,
+                        //       child: SuperVerse(
+                        //         verse: bz.name,
+                        //         scaleFactor: _logoWidth / 120,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
 
-                            /// BZ NAME
-                            SizedBox(
-                              width: _logoWidth,
-                              height: _logoWidth * 0.25,
-                              // color: Colorz.BloodTest,
-                              child: SuperVerse(
-                                verse: bz.name,
-                                scaleFactor: _logoWidth / 120,
-                              ),
-                            ),
-                          ],
-                        ),
+                        BzLogoBox(
+                          width: _logoWidth,
+                          bzModel: bz,
+                          onTap: () => itemOnTap(bz.id),
+                        )
+
                       )
                       .toList(),
                 ],
               ),
+
           ],
         ),
       ),
     );
   }
 }
+
