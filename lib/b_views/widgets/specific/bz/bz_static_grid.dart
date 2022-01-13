@@ -16,7 +16,7 @@ class BzStaticGrid extends StatelessWidget {
   final double gridBoxWidth;
   final int numberOfColumns;
   final List<BzModel> bzzModels;
-  final ValueChanged<String> itemOnTap;
+  final ValueChanged<BzModel> itemOnTap;
   final bool scrollable;
   /// --------------------------------------------------------------------------
   /*
@@ -131,7 +131,7 @@ class BzStaticGrid extends StatelessWidget {
             return BzLogoBox(
               width: _logoWidth,
               bzModel: _bzModel,
-              onTap: () => itemOnTap(_bzModel.id),
+              onTap: () => itemOnTap(_bzModel),
             );
 
           },

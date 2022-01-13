@@ -54,7 +54,9 @@ class UserFollowingPage extends StatelessWidget {
           bzzModels: _bzzOfThisType,
           title: _bzTypeString,
           icon: _bzTypeIcon,
-          onBzTap: (){},
+          onBzTap: (BzModel bzModel){
+            bzModel.blogBz(methodName: 'Yabny tapped bzModel aho tapped aho');
+          },
         );
 
       },

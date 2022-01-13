@@ -27,7 +27,7 @@ class BzzBubble extends StatelessWidget {
   final int numberOfColumns;
   final int numberOfRows;
   final Axis scrollDirection;
-  final ValueChanged<String> onTap;
+  final ValueChanged<BzModel> onTap;
   final double corners;
 
   /// --------------------------------------------------------------------------
@@ -54,16 +54,16 @@ class BzzBubble extends StatelessWidget {
           gridBoxWidth: Bubble.clearWidth(context),
           bzzModels: bzzModels ?? <BzModel>[],
           numberOfColumns: numberOfColumns,
-          itemOnTap: (String bzID) {
+          itemOnTap: (BzModel bzModel) {
             if (onTap == null) {
               Nav.goToNewScreen(
                   context,
                   BzCardScreen(
-                    bzID: bzID,
+                    bzID: bzModel.id,
                     flyerBoxWidth: Bubble.clearWidth(context),
                   ));
             } else {
-              onTap(bzID);
+              onTap(bzModel);
             }
           },
         ),
