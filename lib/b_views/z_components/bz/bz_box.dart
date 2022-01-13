@@ -55,17 +55,6 @@ class BzLogoBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
-          // /// LOGO
-          // Container(
-          //   width: width,
-          //   height: width,
-          //   decoration: BoxDecoration(
-          //       color: logoColor,
-          //       borderRadius: Borderers.superBorderAll(
-          //           context,
-          //           BzLogo.cornersValue(_logoWidth))),
-          // ),
-
           /// BZ LOGO
           BzLogo(
             width: width,
@@ -73,7 +62,6 @@ class BzLogoBox extends StatelessWidget {
             zeroCornerIsOn: zeroCornerIsOn,
             onTap: onTap,
           ),
-
 
           /// BZ NAME FOOTPRINT
           if (showName == true)
