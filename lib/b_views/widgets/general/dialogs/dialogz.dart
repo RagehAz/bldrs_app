@@ -135,8 +135,10 @@ Future<bool> bzzDeactivationDialog({
           if (bzzToDeactivate.isNotEmpty)
             BzzBubble(
               bzzModels: bzzToDeactivate,
-              onTap: (String value) {
-                blog(value);
+              onTap: (BzModel bzModel) {
+
+                bzModel.blogBz(methodName: 'dialog bz Tapped ahowwan');
+
               },
               numberOfColumns: 6,
               numberOfRows: 1,
@@ -145,8 +147,8 @@ Future<bool> bzzDeactivationDialog({
           if (bzzToKeep.isNotEmpty)
             BzzBubble(
               bzzModels: bzzToKeep,
-              onTap: (String value) {
-                blog(value);
+              onTap: (BzModel bzModel) {
+                bzModel.blogBz(methodName: 'Dialog 2 bzModel aho tapped');
               },
               numberOfColumns: 6,
               numberOfRows: 1,
