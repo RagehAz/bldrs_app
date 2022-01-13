@@ -22,7 +22,6 @@ class UserScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaxBounceNavigator(
-      boxDistance: 5000,
       child: NestedScrollView(
         physics: const BouncingScrollPhysics(),
         floatHeaderSlivers: true,

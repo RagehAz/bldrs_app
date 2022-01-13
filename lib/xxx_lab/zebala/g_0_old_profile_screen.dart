@@ -3,7 +3,7 @@
 // import 'package:bldrs/a_models/bz/bz_model.dart';
 // import 'package:bldrs/a_models/user/user_model.dart';
 // import 'package:bldrs/b_views/widgets/general/bubbles/contacts_bubble.dart';
-// import 'package:bldrs/b_views/widgets/general/bubbles/following_bzz_bubble.dart';
+// import 'package:bldrs/b_views/widgets/general/bubbles/following_bzz_grid.dart';
 // import 'package:bldrs/b_views/widgets/general/bubbles/status_bubble.dart';
 // import 'package:bldrs/b_views/widgets/general/bubbles/user_bubble.dart';
 // import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
