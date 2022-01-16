@@ -19,7 +19,6 @@ class FlyerBox extends StatelessWidget {
     this.editorMode = false,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final SuperFlyer superFlyer;
   final double flyerBoxWidth;
@@ -28,61 +27,55 @@ class FlyerBox extends StatelessWidget {
   final Function onFlyerZoneLongPress;
   final BzModel editorBzModel;
   final bool editorMode;
-
   /// --------------------------------------------------------------------------
   static double width(BuildContext context, double flyerSizeFactor) {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _flyerBoxWidth = _screenWidth * flyerSizeFactor;
     return _flyerBoxWidth;
   }
-
 // -----------------------------------------------------------------------------
   static double height(BuildContext context, double flyerBoxWidth) {
-    final double _flyerZoneHeight =
-        sizeFactorByWidth(context, flyerBoxWidth) == 1
-            ? Scale.superScreenHeightWithoutSafeArea(context)
-            : flyerBoxWidth * Ratioz.xxflyerZoneHeight;
+    final double _flyerZoneHeight = sizeFactorByWidth(context, flyerBoxWidth) == 1 ?
+    Scale.superScreenHeightWithoutSafeArea(context)
+            :
+    flyerBoxWidth * Ratioz.xxflyerZoneHeight;
+
     return _flyerZoneHeight;
   }
-
 // -----------------------------------------------------------------------------
   static double sizeFactorByWidth(BuildContext context, double flyerBoxWidth) {
-    final double _flyerSizeFactor =
-        flyerBoxWidth / Scale.superScreenWidth(context);
+    final double _flyerSizeFactor = flyerBoxWidth / Scale.superScreenWidth(context);
     return _flyerSizeFactor;
   }
-
 // -----------------------------------------------------------------------------
-  static double sizeFactorByHeight(
-      BuildContext context, double flyerZoneHeight) {
+  static double sizeFactorByHeight(BuildContext context, double flyerZoneHeight) {
     final double _flyerBoxWidth =
-        flyerZoneHeight == Scale.superScreenHeightWithoutSafeArea(context)
-            ? Scale.superScreenWidth(context)
-            : (flyerZoneHeight / Ratioz.xxflyerZoneHeight);
+        flyerZoneHeight == Scale.superScreenHeightWithoutSafeArea(context) ?
+        Scale.superScreenWidth(context)
+            :
+        (flyerZoneHeight / Ratioz.xxflyerZoneHeight);
 
     final double _flyerSizeFactor = sizeFactorByWidth(context, _flyerBoxWidth);
 
     return _flyerSizeFactor;
   }
-
 // -----------------------------------------------------------------------------
-  static double heightBySizeFactor(
-      {BuildContext context, double flyerSizeFactor}) {
+  static double heightBySizeFactor({
+    @required BuildContext context,
+    @required double flyerSizeFactor,
+  }) {
     final double _flyerBoxWidth = width(context, flyerSizeFactor);
     final double _flyerZoneHeight = height(context, _flyerBoxWidth);
     return _flyerZoneHeight;
   }
-
 // -----------------------------------------------------------------------------
   static double topCornerValue(double flyerBoxWidth) {
     return flyerBoxWidth * Ratioz.xxflyerTopCorners;
   }
-
 // -----------------------------------------------------------------------------
   static double bottomCornerValue(double flyerBoxWidth) {
     return flyerBoxWidth * Ratioz.xxflyerBottomCorners;
   }
-
 // -----------------------------------------------------------------------------
   static BorderRadius borders(BuildContext context, double flyerBoxWidth) {
     final double _flyerTopCorners = topCornerValue(flyerBoxWidth);
@@ -95,7 +88,6 @@ class FlyerBox extends StatelessWidget {
         enBottomRight: _flyerBottomCorners,
         enTopRight: _flyerTopCorners);
   }
-
 // -----------------------------------------------------------------------------
   static bool isTinyMode(BuildContext context, double flyerBoxWidth) {
     bool _tinyMode = false; // 0.4 needs calibration
@@ -106,60 +98,64 @@ class FlyerBox extends StatelessWidget {
 
     return _tinyMode;
   }
-
 // -----------------------------------------------------------------------------
-  static double headerBoxHeight(
-      {@required bool bzPageIsOn, @required double flyerBoxWidth}) {
-    final double _miniHeaderHeightAtMaxState =
-        flyerBoxWidth * Ratioz.xxflyerHeaderMaxHeight;
-    final double _miniHeaderHeightAtMiniState =
-        flyerBoxWidth * Ratioz.xxflyerHeaderMiniHeight;
-    final double _headerHeight = bzPageIsOn == true
-        ? _miniHeaderHeightAtMaxState
-        : _miniHeaderHeightAtMiniState;
+  static double headerBoxHeight({
+    @required bool bzPageIsOn,
+    @required double flyerBoxWidth
+  }) {
+    final double _miniHeaderHeightAtMaxState = flyerBoxWidth * Ratioz.xxflyerHeaderMaxHeight;
+    final double _miniHeaderHeightAtMiniState = flyerBoxWidth * Ratioz.xxflyerHeaderMiniHeight;
+    final double _headerHeight = bzPageIsOn == true ?
+    _miniHeaderHeightAtMaxState
+        :
+    _miniHeaderHeightAtMiniState;
+
     return _headerHeight;
   }
-
 // -----------------------------------------------------------------------------
-  static double headerStripHeight(
-      {@required bool bzPageIsOn, @required double flyerBoxWidth}) {
-    final double _headerStripHeight = bzPageIsOn == true
-        ? flyerBoxWidth
-        : flyerBoxWidth * Ratioz.xxflyerHeaderMiniHeight;
+  static double headerStripHeight({
+    @required bool bzPageIsOn,
+    @required double flyerBoxWidth,
+  }) {
+    final double _headerStripHeight = bzPageIsOn == true ?
+    flyerBoxWidth
+        :
+    flyerBoxWidth * Ratioz.xxflyerHeaderMiniHeight;
     return _headerStripHeight;
   }
-
 // -----------------------------------------------------------------------------
   static double headerOffsetHeight(double flyerBoxWidth) {
     final double _headerOffsetHeight =
-        (flyerBoxWidth * Ratioz.xxflyerHeaderMiniHeight) -
+        (flyerBoxWidth * Ratioz.xxflyerHeaderMiniHeight)
+            -
             (2 * flyerBoxWidth * Ratioz.xxfollowCallSpacing);
     return _headerOffsetHeight;
   }
-
 // -----------------------------------------------------------------------------
-  static double logoWidth(
-      {@required bool bzPageIsOn, @required double flyerBoxWidth}) {
-    final double _headerMainPadding =
-        flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
+  static double logoWidth({
+    @required bool bzPageIsOn,
+    @required double flyerBoxWidth
+  }) {
+    final double _headerMainPadding = flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
     final double _headerOffsetWidth = flyerBoxWidth - (2 * _headerMainPadding);
-    final double _logoWidth = bzPageIsOn == true
-        ? _headerOffsetWidth
-        : (flyerBoxWidth * Ratioz.xxflyerLogoWidth);
+    final double _logoWidth = bzPageIsOn == true ?
+    _headerOffsetWidth
+        :
+    (flyerBoxWidth * Ratioz.xxflyerLogoWidth);
+
     return _logoWidth;
   }
-
 // -----------------------------------------------------------------------------
   static double headerAndProgressHeights(double flyerBoxHeight) {
-    final double _headerBoxHeight =
-        headerBoxHeight(bzPageIsOn: false, flyerBoxWidth: flyerBoxHeight);
+    final double _headerBoxHeight = headerBoxHeight(
+        bzPageIsOn: false,
+        flyerBoxWidth: flyerBoxHeight
+    );
 
     return _headerBoxHeight + flyerBoxHeight * Ratioz.xxProgressBarHeightRatio;
   }
-
 // -----------------------------------------------------------------------------
   static const double editorPanelWidth = 50;
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -194,6 +190,7 @@ class FlyerBox extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
             /// EditorPanel
             if (_isEditorZone == true)
               EditorPanel(
@@ -232,6 +229,7 @@ class FlyerBox extends StatelessWidget {
                 ),
               ),
             ),
+
           ],
         ),
       ),
