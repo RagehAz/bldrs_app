@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/xxx_lab/new_flyer/abstract_flyer.dart';
+import 'package:bldrs/b_views/z_components/flyer/the_flyer.dart';
 import 'package:flutter/material.dart';
 
 class HeroMinScreen extends StatelessWidget {
