@@ -22,7 +22,9 @@ import 'package:bldrs/xxx_dashboard/dashboard.dart';
 import 'package:bldrs/xxx_dashboard/ldb_manager/providers_test.dart';
 import 'package:bldrs/xxx_lab/animations/animations_screen.dart';
 import 'package:bldrs/xxx_lab/animations/black_hole.dart';
+import 'package:bldrs/xxx_lab/animations/hero.dart';
 import 'package:bldrs/xxx_lab/new_layout.dart';
+import 'package:bldrs/xxx_lab/xxx_obelisk/aaa_the_flyer.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/expansion_tiles_test.dart';
@@ -114,7 +116,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
         const Expander(),
 
         BldrsButton(onTap: () => Nav.goToNewScreen(context, const DashBoard())),
+
       ],
+
       layoutWidget: ListView(
         physics: const BouncingScrollPhysics(),
         children: <Widget>[
@@ -122,8 +126,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           const Stratosphere(),
 
           const SuperVerse(
-            verse:
-                'Dear Lord\nPlease Bless this project to be in good use for humanity',
+            verse: 'Dear Lord\nPlease Bless this project to be in good use for humanity',
             size: 1,
             italic: true,
             weight: VerseWeight.thin,
@@ -132,9 +135,9 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             margin: 10,
           ),
 
+          const ObeliskButton('HERO TEST', Iconz.dvDonaldDuck, HeroMinScreen()),
 
-
-          const ObeliskButton('New User Screen', Iconz.normalUser, UserProfileScreen()),
+          const ObeliskButton('New Flyer', Iconz.flyer, TheFlyerScreen()),
 
           const ObeliskButton('VideoPlayer', Iconz.play, VideoPlayerScreen()),
 
@@ -174,8 +177,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 
           const ObeliskButton(
               'Awesome Notification test', Iconz.news, AwesomeNotiTestScreen()),
-
-          // ObeliskButton('HERO TEST', Iconz.DvDonaldDuck, HeroMinScreen()),
 
           const ObeliskButton(
               'Slider Test Screen', Iconz.flyer, SliderTestScreen()),

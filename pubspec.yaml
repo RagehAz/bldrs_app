@@ -31,6 +31,7 @@ dependencies:
   cloud_firestore: ^2.5.4
   cloud_functions: ^3.0.5
   contacts_service: ^0.6.3
+  dismissible_page: ^0.6.4
 #  dio: ^4.0.1
   email_validator: ^2.0.1
 #  esys_flutter_share: ^1.0.1

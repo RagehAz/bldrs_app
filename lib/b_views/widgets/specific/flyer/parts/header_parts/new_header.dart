@@ -177,21 +177,21 @@ class _NewHeaderState extends State<NewHeader>
   @override
   Widget build(BuildContext context) {
     const double _followCallScaleEnd = 1.5;
-    final double _followCallPaddingEnd =
-        FollowAndCallBTs.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) *
-            _followCallScaleEnd;
-    final double _followCallBoxWidthEnd =
-        FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
+    final double _followCallPaddingEnd = FollowAndCallBTs.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) * _followCallScaleEnd;
+    final double _followCallBoxWidthEnd = FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
     final double _logoSizeBegin = FlyerBox.logoWidth(
-        bzPageIsOn: false, flyerBoxWidth: widget.flyerBoxWidth);
+        bzPageIsOn: false,
+        flyerBoxWidth: widget.flyerBoxWidth
+    );
     final double _logoSizeEnd = widget.flyerBoxWidth * 0.6;
     final double _logoScaleRatio = _logoSizeEnd / _logoSizeBegin;
 
     final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
     final double _headerBoxHeight = FlyerBox.headerBoxHeight(
-        bzPageIsOn: false, flyerBoxWidth: widget.flyerBoxWidth);
-
+        bzPageIsOn: false,
+        flyerBoxWidth: widget.flyerBoxWidth
+    );
     //--------------------------------o
     _backgroundColorTween
       ..begin = _tinyMode == true ? Colorz.nothing : Colorz.blackSemi230
@@ -255,12 +255,9 @@ class _NewHeaderState extends State<NewHeader>
       controller: _controller,
     );
 
-    final bool _closed =
-        _isExpanded == false && _controller.isDismissed == true;
+    final bool _closed = _isExpanded == false && _controller.isDismissed == true;
     //------------------------------------------------------------o
-
-    final double _slideHeightWithoutHeader =
-        FlyerBox.height(context, widget.flyerBoxWidth) - _headerBoxHeight;
+    final double _slideHeightWithoutHeader = FlyerBox.height(context, widget.flyerBoxWidth) - _headerBoxHeight;
 
     return AnimatedBuilder(
       animation: _controller.view,
