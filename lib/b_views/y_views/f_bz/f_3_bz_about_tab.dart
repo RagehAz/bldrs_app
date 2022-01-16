@@ -3,8 +3,6 @@ import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/stats_line.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/tab_button.dart';
-import 'package:bldrs/b_views/z_components/layouts/tab_layout_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -20,28 +18,6 @@ class BzAboutTab extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   /// --------------------------------------------------------------------------
-  static TabModel aboutTabModel({
-    @required Function onChangeTab,
-    @required BzModel bzModel,
-    @required bool isSelected,
-    @required int tabIndex,
-  }) {
-    return TabModel(
-      tabButton: TabButton(
-        key: ValueKey<String>('bz_about_tab_${bzModel.id}'),
-        verse: BzModel.bzPagesTabsTitles[tabIndex],
-        icon: Iconz.info,
-        iconSizeFactor: 0.7,
-        isSelected: isSelected,
-        onTap: () => onChangeTab(tabIndex),
-      ),
-      page: BzAboutTab(
-        key: ValueKey<String>('bz_about_page_${bzModel.id}'),
-        bzModel: bzModel,
-      ),
-    );
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return ListView(

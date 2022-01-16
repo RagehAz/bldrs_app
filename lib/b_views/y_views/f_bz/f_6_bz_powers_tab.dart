@@ -1,12 +1,9 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/tab_button.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
-import 'package:bldrs/b_views/z_components/layouts/tab_layout_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -19,28 +16,6 @@ class BzPowersTab extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   /// --------------------------------------------------------------------------
-  static TabModel powersTabModel({
-    @required Function onChangeTab,
-    @required BzModel bzModel,
-    @required bool isSelected,
-    @required int tabIndex,
-  }) {
-    return TabModel(
-      tabButton: TabButton(
-        key: ValueKey<String>('bz_powers_tab_${bzModel.id}'),
-        verse: BzModel.bzPagesTabsTitles[tabIndex],
-        icon: Iconz.power,
-        isSelected: isSelected,
-        onTap: () => onChangeTab(tabIndex),
-        iconSizeFactor: 0.7,
-      ),
-      page: BzPowersTab(
-        key: ValueKey<String>('bz_powers_page_${bzModel.id}'),
-        bzModel: bzModel,
-      ),
-    );
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return ListView(
