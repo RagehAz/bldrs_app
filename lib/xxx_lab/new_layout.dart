@@ -127,6 +127,7 @@ class _NewLayoutState extends State<NewLayout>
         color: Colorz.bloodTest,
         child: Column(
           children: <Widget>[
+
             // /// STRATOSPHERE
             // Container(
             //   width: _screenWidth,
@@ -167,6 +168,7 @@ class _NewLayoutState extends State<NewLayout>
                     );
                   }),
             ),
+
           ],
         ),
       ),

@@ -165,4 +165,41 @@ class UiProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
+/// --- FLYER TWEEN
+
+// -------------------------------------
+  double _flyerWidthFactor = 1;
+// -------------------------------------
+  double get flyerWidthFactor => _flyerWidthFactor;
+// -------------------------------------
+  void setFlyerWidthFactor({
+    @required double tween,
+    double minFactor = 0.3,
+    double maxFactor = 1,
+  }){
+
+    /// tween geos from 0 --> to 1, or inverse
+    final double _widthFactor = _flyerWidthSizeFactor(
+        tween: tween,
+        minFactor: minFactor,
+        maxFactor: maxFactor
+    );
+
+    blog('setFlyerWidthFactor : $_widthFactor');
+
+    _flyerWidthFactor = _widthFactor;
+    notifyListeners();
+  }
+// -------------------------------------
+  double _flyerWidthSizeFactor({
+    @required double tween,
+    @required double minFactor,
+    @required double maxFactor,
+  }){
+    /// EW3AAA
+    final double _flyerWidthSizeFactor = minFactor + (tween * (maxFactor - minFactor));
+    return _flyerWidthSizeFactor;
+  }
+// -----------------------------------------------------------------------------
+
 }

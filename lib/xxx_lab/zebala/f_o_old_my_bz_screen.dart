@@ -11,7 +11,7 @@
 // import 'package:bldrs/b_views/y_views/f_bz_views/f_2_bz_flyers_tab.dart';
 // import 'package:bldrs/b_views/y_views/f_bz_views/f_6_bz_powers_tab.dart';
 // import 'package:bldrs/b_views/y_views/f_bz_views/f_5_bz_targets_tab.dart';
-// import 'package:bldrs/b_views/z_components/layouts/tab_layout_model.dart';
+// import 'package:bldrs/b_views/z_components/layouts/tab_model.dart';
 // import 'package:bldrs/d_providers/flyers_provider.dart';
 // import 'package:bldrs/d_providers/zone_provider.dart';
 // import 'package:bldrs/f_helpers/drafters/tracers.dart';
