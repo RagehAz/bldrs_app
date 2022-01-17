@@ -63,7 +63,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     final List<FlyerModel> _wallFlyers = _flyersProvider.wallFlyers;
 
     return FlyersGrid(
-      gridZoneWidth: FlyerBox.width(context, 1),
+      gridZoneWidth: OldFlyerBox.width(context, 1),
       scrollController: _scrollController,
       stratosphere: true,
       numberOfColumns: 2,

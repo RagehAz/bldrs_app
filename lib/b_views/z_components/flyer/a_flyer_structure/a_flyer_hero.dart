@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/the_flyer.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_tree.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -18,11 +18,9 @@ class FlyerHero extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static double flyerWidthSizeFactor({
     @required double tween,
-    /// minimum flyer width factor to be multiplied by screen width to
-    /// conclude minimum flyer width
+    /// min flyer width factor * screen width = minimum flyer width
     @required double minWidthFactor,
-    /// maximum flyer width factor to be multiplied by screen width to
-    /// conclude maximum flyer width
+    /// max flyer width factor * screen width = max flyer width
     double maxWidthFactor = 1,
   }) {
     /// EW3AAA
@@ -41,21 +39,23 @@ class FlyerHero extends StatelessWidget {
     @required double minWidthFactor,
   }) {
 
-    // final Hero toHero = toHeroContext.widget;
-    // final double _flyerBoxWidth = FlyerBox.width(fromHeroContext, 1);
-    // final double _flyerZoneHeight = FlyerBox.height(fromHeroContext, _flyerBoxWidth);
-    // final double _headerHeight = FlyerBox.headerBoxHeight(
-    //     bzPageIsOn: false,
-    //     flyerBoxWidth: _flyerBoxWidth
-    // );
-    // final double _footerHeight = FlyerFooter.boxHeight(
-    //     context: fromHeroContext,
-    //     flyerBoxWidth: _flyerBoxWidth
-    // );
-    // final double _flyerSmallWidth = FlyerBox.width(fromHeroContext, 0.4);
-    // final double _flyerSmallHeight = FlyerBox.height(fromHeroContext, _flyerSmallWidth);
-    // final double _flyerBigWidth = Scale.superScreenWidth(fromHeroContext);
-    // final double _flyerBigHeight = FlyerBox.height(fromHeroContext, _flyerBigWidth);
+    /*
+    final Hero toHero = toHeroContext.widget;
+    final double _flyerBoxWidth = FlyerBox.width(fromHeroContext, 1);
+    final double _flyerZoneHeight = FlyerBox.height(fromHeroContext, _flyerBoxWidth);
+    final double _headerHeight = FlyerBox.headerBoxHeight(
+        bzPageIsOn: false,
+        flyerBoxWidth: _flyerBoxWidth
+    );
+    final double _footerHeight = FlyerFooter.boxHeight(
+        context: fromHeroContext,
+        flyerBoxWidth: _flyerBoxWidth
+    );
+    final double _flyerSmallWidth = FlyerBox.width(fromHeroContext, 0.4);
+    final double _flyerSmallHeight = FlyerBox.height(fromHeroContext, _flyerSmallWidth);
+    final double _flyerBigWidth = Scale.superScreenWidth(fromHeroContext);
+    final double _flyerBigHeight = FlyerBox.height(fromHeroContext, _flyerBigWidth);
+ */
 
     /// 'push' if expanding --- 'pop' if contracting
     final String _curveName = flightDirection.name;
@@ -73,14 +73,14 @@ class FlyerHero extends StatelessWidget {
         curve: _curve,
         builder: (ctx, double value, Widget child){
 
-          final double _sizeFactor = flyerWidthSizeFactor(
+          final double _flyerWidthFactor = flyerWidthSizeFactor(
             tween: value,
             minWidthFactor: minWidthFactor,
-            // maxWidthFactor: 1,
+            // maxWidthFactor: 1, REDUNDANT
           );
 
-          return AbstractFlyer(
-            sizeFactor: _sizeFactor,
+          return FlyerTree(
+            flyerWidthFactor: _flyerWidthFactor,
             flyerModel: flyerModel,
           );
 
@@ -90,6 +90,7 @@ class FlyerHero extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Hero(
       key: ValueKey<String>('flyerID_${flyerModel.id}'),
       tag: flyerModel.id,
@@ -100,21 +101,19 @@ class FlyerHero extends StatelessWidget {
           BuildContext fromHeroContext,
           BuildContext toHeroContext,
           ){
-
         return FlyerHero.flyerFlightShuttle(
           flyerModel: flyerModel,
+          minWidthFactor: minWidthFactor,
           animation: animation,
           flightContext: flightContext,
           flightDirection: flightDirection,
           fromHeroContext: fromHeroContext,
           toHeroContext: toHeroContext,
-          minWidthFactor: minWidthFactor,
         );
-
       },
 
-      child: AbstractFlyer(
-        sizeFactor: isFullScreen ? 1 : minWidthFactor,
+      child: FlyerTree(
+        flyerWidthFactor: isFullScreen ? 1 : minWidthFactor,
         flyerModel: flyerModel,
       ),
 

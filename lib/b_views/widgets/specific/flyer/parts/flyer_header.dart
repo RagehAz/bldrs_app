@@ -36,7 +36,7 @@ class FlyerHeader extends StatelessWidget {
           shrinkWrap: true,
           children: <Widget>[
             SizedBox(
-              height: FlyerBox.headerBoxHeight(
+              height: OldFlyerBox.headerBoxHeight(
                 bzPageIsOn: superFlyer.nav.bzPageIsOn,
                 flyerBoxWidth: flyerBoxWidth,
               ),

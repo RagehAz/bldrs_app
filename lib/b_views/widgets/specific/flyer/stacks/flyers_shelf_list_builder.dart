@@ -75,7 +75,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
   Widget build(BuildContext context) {
     final List<FlyerModel> _flyers = widget.flyers;
     final double _flyerBoxWidth =
-        FlyerBox.width(context, widget.flyerSizeFactor);
+        OldFlyerBox.width(context, widget.flyerSizeFactor);
 
     return ListView.separated(
       physics: const BouncingScrollPhysics(),

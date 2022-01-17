@@ -25,7 +25,7 @@ class Slides extends StatelessWidget {
 
   /// --------------------------------------------------------------------------
   void _onSingleSlideTap(BuildContext context) {
-    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 
     if (Keyboarders.keyboardIsOn(context)) {
       Keyboarders.closeKeyboard(context);
@@ -93,8 +93,7 @@ class Slides extends StatelessWidget {
                           flyerID: superFlyer.flyerID, //_flyer.flyerID,
                           picture: _slidePic,
                           // slideMode: superFlyer.editMode ? SlideMode.Editor : SlideMode.View,//slidesModes[index],
-                          boxFit:
-                              _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
+                          boxFit: _currentPicFit, // [fitWidth - contain - scaleDown] have the blur background
                           titleController: superFlyer.edit.editMode == true
                               ? superFlyer.mSlides[i].headlineController
                               : null,

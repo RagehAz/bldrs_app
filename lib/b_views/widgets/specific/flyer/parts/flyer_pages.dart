@@ -22,7 +22,7 @@ class FlyerPages extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 
     Tracer.traceWidgetBuild(
         widgetName: 'FlyerPages',

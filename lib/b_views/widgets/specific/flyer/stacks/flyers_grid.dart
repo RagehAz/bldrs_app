@@ -119,7 +119,7 @@ class FlyersGrid extends StatelessWidget {
             child: AbsorbPointer(
               absorbing: !_canTapFlyer,
               child: FinalFlyer(
-                flyerBoxWidth: FlyerBox.width(context, _flyerSizeFactor),
+                flyerBoxWidth: OldFlyerBox.width(context, _flyerSizeFactor),
                 flyerModel: flyers[index],
                 onSwipeFlyer: (Sliders.SwipeDirection direction) {
                   // blog('Direction is ${direction}');

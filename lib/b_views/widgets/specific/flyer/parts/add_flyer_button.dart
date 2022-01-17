@@ -60,7 +60,7 @@ class AddFlyerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double _flyerSizeFactor =
-        FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
+        OldFlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
 
     final SuperFlyer _bzHeaderSuperFlyer =
         SuperFlyer.getSuperFlyerFromBzModelOnly(
@@ -72,7 +72,7 @@ class AddFlyerButton extends StatelessWidget {
       bzCity: bzCity,
     );
 
-    return FlyerBox(
+    return OldFlyerBox(
       flyerBoxWidth: flyerBoxWidth,
       superFlyer: _bzHeaderSuperFlyer,
       onFlyerZoneTap: () async {
@@ -90,7 +90,7 @@ class AddFlyerButton extends StatelessWidget {
           children: <Widget>[
             /// --- FAKE HEADER FOOTPRINT
             SizedBox(
-              height: FlyerBox.headerBoxHeight(
+              height: OldFlyerBox.headerBoxHeight(
                   bzPageIsOn: false, flyerBoxWidth: flyerBoxWidth),
             ),
 

@@ -55,7 +55,7 @@ FlyerMode flyerModeSelector(
     double flyerBoxWidth,
     bool inEditor,
     dynamic flyerSource}) {
-  final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+  final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
   final bool _editMode = inEditor;
   final FlyerSourceType _source = checkSuperFlyerSource(flyerSource);
 
