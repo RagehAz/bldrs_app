@@ -105,7 +105,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
 
     const double flyerSizeFactor = 0.8;
 
-    final double _flyerBoxWidth = FlyerBox.width(context, flyerSizeFactor);
+    final double _flyerBoxWidth = OldFlyerBox.width(context, flyerSizeFactor);
 
     final SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
       bzModel: _bzModel,
@@ -147,7 +147,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
       //   ),
       // ),
 
-      layoutWidget: FlyerBox(
+      layoutWidget: OldFlyerBox(
         flyerBoxWidth: _flyerBoxWidth,
         superFlyer: _superFlyer,
         onFlyerZoneTap: () {

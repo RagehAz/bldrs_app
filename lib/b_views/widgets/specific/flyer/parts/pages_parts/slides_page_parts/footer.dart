@@ -57,7 +57,7 @@ class FlyerFooter extends StatelessWidget {
       {@required BuildContext context,
       @required double flyerBoxWidth,
       @required bool buttonIsOn}) {
-    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 
     bool _buttonIsOn;
     if (buttonIsOn == null) {
@@ -137,7 +137,7 @@ class FlyerFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
     /// SHARE & SAVE BUTTONS
 

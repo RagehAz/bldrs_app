@@ -552,7 +552,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                             duration: Ratioz.durationFading200,
                             child: FinalFlyer(
                               flyerBoxWidth:
-                                  FlyerBox.width(context, _flyerSizeFactor),
+                                  OldFlyerBox.width(context, _flyerSizeFactor),
                               flyerModel: _flyers[index],
                               onSwipeFlyer:
                                   (Sliders.SwipeDirection direction) =>

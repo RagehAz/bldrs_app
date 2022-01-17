@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/widgets/general/buttons/obelisk_button.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/general/textings/the_golden_scroll.dart';
-import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/specs_lists_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
@@ -22,12 +21,11 @@ import 'package:bldrs/xxx_dashboard/dashboard.dart';
 import 'package:bldrs/xxx_dashboard/ldb_manager/providers_test.dart';
 import 'package:bldrs/xxx_lab/animations/animations_screen.dart';
 import 'package:bldrs/xxx_lab/animations/black_hole.dart';
-import 'package:bldrs/xxx_lab/animations/hero.dart';
 import 'package:bldrs/xxx_lab/new_layout.dart';
-import 'package:bldrs/xxx_lab/xxx_obelisk/aaa_the_flyer.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/dialog_test_screen.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/expansion_tiles_test.dart';
+import 'package:bldrs/xxx_lab/xxx_obelisk/flyers_screen_for_creation.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/forms_test.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/google_test_screen.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/haversine.dart';
@@ -135,9 +133,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             margin: 10,
           ),
 
-          const ObeliskButton('HERO TEST', Iconz.dvDonaldDuck, HeroMinScreen()),
-
-          const ObeliskButton('New Flyer', Iconz.flyer, TheFlyerScreen()),
+          const ObeliskButton('New Flyer', Iconz.flyer, TheFlyerScreenForCreation()),
 
           const ObeliskButton('VideoPlayer', Iconz.play, VideoPlayerScreen()),
 

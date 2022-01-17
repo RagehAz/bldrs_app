@@ -43,8 +43,8 @@ class PriceTag extends StatelessWidget {
     );
 
     final double _flyerSizeFactor =
-        FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
-    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+        OldFlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
+    final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 
     final double _tinyModePriceSizeMultiplier = _tinyMode == true ? 1.4 : 1;
 
@@ -55,7 +55,7 @@ class PriceTag extends StatelessWidget {
 
     return Container(
       width: flyerBoxWidth,
-      height: FlyerBox.height(context, flyerBoxWidth),
+      height: OldFlyerBox.height(context, flyerBoxWidth),
       alignment: Aligners.superBottomAlignment(context),
       child: Container(
         width: _priceTagWidth,

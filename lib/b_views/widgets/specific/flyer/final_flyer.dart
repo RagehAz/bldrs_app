@@ -944,7 +944,7 @@ class _FinalFlyerState extends State<FinalFlyer>
   void _onFlyerZoneTap() {
     blog('aho');
 
-    final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
+    final bool _tinyMode = OldFlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
     blog(
         'Final flyer zone tapped : ${_superFlyer.flyerID} : micro mode is $_tinyMode');
@@ -963,6 +963,7 @@ class _FinalFlyerState extends State<FinalFlyer>
   }
 
 // -----------------------------------------------------o
+  /// *** OPTIMIZED
   void _onHeaderTap(bool isExpanded) {
     blog('_onHeaderTap : bzPageIsOn was : ${_superFlyer.nav.bzPageIsOn}');
     // _superFlyer.nav.bzPageIsOn = !_superFlyer.nav.bzPageIsOn;
@@ -985,7 +986,6 @@ class _FinalFlyerState extends State<FinalFlyer>
 
     blog('_onHeaderTap : bzPageIsOn is : ${_superFlyer.nav.bzPageIsOn}');
   }
-
 // -----------------------------------------------------o
   Future<void> _goToFlyerEditor({BuildContext context, bool firstTimer}) async {
     blog(
@@ -1094,6 +1094,7 @@ class _FinalFlyerState extends State<FinalFlyer>
   }
 
 // -----------------------------------------------------o
+  /// *** OPTIMIZED
   void _statelessTriggerProgressOpacity({int verticalIndex}) {
     blog('triggering progress bar opacity');
 
@@ -3020,7 +3021,7 @@ class _FinalFlyerState extends State<FinalFlyer>
   Widget build(BuildContext context) {
     super.build(context);
 
-    final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
+    final bool _tinyMode = OldFlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
     final bool _superFlyerHasID = _superFlyerHasIDCheck();
 
@@ -3041,7 +3042,7 @@ class _FinalFlyerState extends State<FinalFlyer>
         tracerIsOn: false);
     // Tracer.traceWidgetBuild(number: 2, widgetName: 'FinalFlyer', varName: 'numberOfSlides', varValue: _superFlyer.numberOfSlides);
     // Tracer.traceWidgetBuild(number: 3, widgetName: 'FinalFlyer', varName: 'midColor', varValue: Colorizer.cipherColor(_superFlyer.mSlides[0].midColor));
-    return FlyerBox(
+    return OldFlyerBox(
       flyerBoxWidth: widget.flyerBoxWidth,
       superFlyer: _superFlyer,
       onFlyerZoneTap: _onFlyerZoneTap,
@@ -3059,7 +3060,7 @@ class _FinalFlyerState extends State<FinalFlyer>
         if (widget.isSponsored == true)
           Container(
             width: widget.flyerBoxWidth,
-            height: FlyerBox.headerBoxHeight(bzPageIsOn: false, flyerBoxWidth: widget.flyerBoxWidth) * 1.25,
+            height: OldFlyerBox.headerBoxHeight(bzPageIsOn: false, flyerBoxWidth: widget.flyerBoxWidth) * 1.25,
             alignment: Aligners.superBottomAlignment(context),
             padding: EdgeInsets.symmetric(horizontal: widget.flyerBoxWidth * 0.02),
             child: SuperVerse(
@@ -3079,6 +3080,7 @@ class _FinalFlyerState extends State<FinalFlyer>
             superFlyer: _superFlyer,
             flyerBoxWidth: widget.flyerBoxWidth,
           ),
+
         if (_tinyMode == false)
           ProgressBar(
             swipeDirection: _superFlyer.nav.swipeDirection,
