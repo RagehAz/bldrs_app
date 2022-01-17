@@ -46,7 +46,7 @@ class FooterButton extends StatelessWidget {
     final double _buttonSize = size ??
         FlyerFooter.buttonSize(
             context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: isOn);
-    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 
     return Container(
       width: _buttonSize,
@@ -87,7 +87,7 @@ class FooterButton extends StatelessWidget {
               child: SuperVerse(
                 verse: verse,
                 size: 1,
-                scaleFactor: FlyerBox.sizeFactorByWidth(context, flyerBoxWidth),
+                scaleFactor: OldFlyerBox.sizeFactorByWidth(context, flyerBoxWidth),
                 color: DreamBox.getIconColor(
                     inActiveMode: inActiveMode, colorOverride: Colorz.white125),
               ),

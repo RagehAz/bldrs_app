@@ -58,7 +58,7 @@ class InfoPage extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
+    final double _flyerZoneHeight = OldFlyerBox.height(context, flyerBoxWidth);
 
     final double _bubbleWidth = flyerBoxWidth - (Ratioz.appBarPadding * 2);
 
@@ -66,7 +66,7 @@ class InfoPage extends StatelessWidget {
     // double _peopleIconSize = flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 0.7;
     // double _peopleNameHeight = _peopleBubbleBoxHeight - _peopleIconSize;
 
-    final double _headerHeight = FlyerBox.headerBoxHeight(
+    final double _headerHeight = OldFlyerBox.headerBoxHeight(
       bzPageIsOn: false,
       flyerBoxWidth: flyerBoxWidth,
     );

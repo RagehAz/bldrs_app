@@ -86,7 +86,7 @@ class FlyerScreen extends StatelessWidget {
               ///
 
               FinalFlyer(
-            flyerBoxWidth: FlyerBox.width(context, 1),
+            flyerBoxWidth: OldFlyerBox.width(context, 1),
             flyerModel: flyerModel,
             flyerID: flyerID,
             initialSlideIndex: initialSlideIndex ?? 0,

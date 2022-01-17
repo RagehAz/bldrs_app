@@ -34,7 +34,7 @@ class FlyersShelf extends StatelessWidget {
   static const double titleIconCorner = Ratioz.appBarButtonCorner;
 // -----------------------------------------------------------------------------
   static double shelfHeight({BuildContext context, double flyerSizeFactor}) {
-    final double _flyerZoneHeight = FlyerBox.heightBySizeFactor(
+    final double _flyerZoneHeight = OldFlyerBox.heightBySizeFactor(
         context: context, flyerSizeFactor: flyerSizeFactor);
     final double _height =
         spacing + titleIconWidth + spacing + _flyerZoneHeight + spacing;
@@ -48,7 +48,7 @@ class FlyersShelf extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    final double _flyerZoneHeight = FlyerBox.heightBySizeFactor(
+    final double _flyerZoneHeight = OldFlyerBox.heightBySizeFactor(
         context: context, flyerSizeFactor: flyerSizeFactor);
 // -----------------------------------------------------------------------------
 //     bool _slidingIsOn = false;

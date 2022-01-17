@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_0_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
+import 'package:bldrs/d_providers/active_flyer_provider.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
@@ -200,6 +201,9 @@ class _BldrsAppState extends State<BldrsApp> {
           ),
           ChangeNotifierProvider<FlyersProvider>(
             create: (BuildContext ctx) => FlyersProvider(),
+          ),
+          ChangeNotifierProvider<ActiveFlyerProvider>(
+            create: (BuildContext ctx) => ActiveFlyerProvider(),
           ),
           ChangeNotifierProvider<KeywordsProvider>(
             create: (BuildContext ctx) => KeywordsProvider(),

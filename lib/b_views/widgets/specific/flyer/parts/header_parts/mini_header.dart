@@ -26,7 +26,7 @@ class MiniHeader extends StatelessWidget {
     // String businessLocale = TextGenerator.zoneStringer(context: context, zone: tinyBz?.bzZone,);
 // -----------------------------------------------------------------------------
 
-    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 
     return GestureDetector(
       onTap: _tinyMode == true
@@ -35,7 +35,7 @@ class MiniHeader extends StatelessWidget {
               await superFlyer.nav.onTinyFlyerTap();
             },
       child: SizedBox(
-        height: FlyerBox.headerBoxHeight(
+        height: OldFlyerBox.headerBoxHeight(
             bzPageIsOn: superFlyer.nav.bzPageIsOn,
             flyerBoxWidth: flyerBoxWidth),
         width: flyerBoxWidth,

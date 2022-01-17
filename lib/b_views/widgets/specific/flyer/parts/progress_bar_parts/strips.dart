@@ -179,7 +179,7 @@ class Strips extends StatelessWidget {
     final double _aStripLength = oneStripLength(
         flyerBoxWidth: flyerBoxWidth, numberOfStrips: numberOfStrips);
 // -----------------------------------------------------------------------------
-    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
     Tween<double> _tween() {
       Tween<double> _tween;

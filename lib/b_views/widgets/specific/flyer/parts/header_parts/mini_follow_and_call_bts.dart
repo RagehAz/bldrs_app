@@ -31,7 +31,7 @@ class FollowAndCallBTs extends StatelessWidget {
 
 // -----------------------------------------------------------------------------
   static double getBoxHeight({double flyerBoxWidth, bool bzPageIsOn}) {
-    final double _headerMainHeight = FlyerBox.headerStripHeight(
+    final double _headerMainHeight = OldFlyerBox.headerStripHeight(
         bzPageIsOn: bzPageIsOn, flyerBoxWidth: flyerBoxWidth);
     final double _headerMainPadding =
         flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
@@ -109,7 +109,7 @@ class FollowBT extends StatelessWidget {
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === ===
     final double screenWidth = Scale.superScreenWidth(context);
-    final bool _isTinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _isTinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
     // const bool versesShadow = false;
     /// --- FOLLOW BUTTON
     final Color followBTColor =
@@ -212,7 +212,7 @@ class CallBT extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
 //     const bool _versesShadow = false;
-    final bool _isTinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _isTinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 
     /// call BUTTON
     const Color _callBTColor = Colorz.white10;

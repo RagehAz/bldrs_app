@@ -101,7 +101,7 @@ class SingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
 // -----------------------------------------------------------------------------
-    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
     final int _slideTitleSize =
         flyerBoxWidth <= _screenWidth && flyerBoxWidth > (_screenWidth * 0.75)
@@ -139,7 +139,7 @@ class SingleSlide extends StatelessWidget {
           );
 // -----------------------------------------------------------------------------
 
-    final double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
+    final double _flyerZoneHeight = OldFlyerBox.height(context, flyerBoxWidth);
 
     return GestureDetector(
       onTap: () => _onBehindSlideImageTap(context,
@@ -149,7 +149,7 @@ class SingleSlide extends StatelessWidget {
 
       child: Container(
         width: flyerBoxWidth,
-        height: FlyerBox.height(context, flyerBoxWidth),
+        height: OldFlyerBox.height(context, flyerBoxWidth),
         alignment: Alignment.topCenter,
         decoration: BoxDecoration(
           borderRadius: Borderers.superFlyerCorners(context, flyerBoxWidth),
@@ -223,7 +223,7 @@ class SingleSlide extends StatelessWidget {
                     picture,
                     fit: boxFit,
                     width: flyerBoxWidth,
-                    height: FlyerBox.height(context, flyerBoxWidth),
+                    height: OldFlyerBox.height(context, flyerBoxWidth),
                   ),
                 ),
 

@@ -133,7 +133,7 @@ class _AnkhButtonState extends State<AnkhButton>
 // -----------------------------------------------------------------------------
     // Color flyerShadowColor = ankhIsOn == true ? Colorz.BlackBlack : Colorz.BlackBlack;
 // -----------------------------------------------------------------------------
-    final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
+    final bool _tinyMode = OldFlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
     // print('AnkhButton : _ankhColorAni : $_ankhColorAni');
     return Positioned(

@@ -52,7 +52,7 @@ class EditorPanel extends StatelessWidget {
     final double _buttonSize =
         panelWidth; //_panelWidth - (Ratioz.appBarMargin * 2);
 
-    final double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
+    final double _flyerZoneHeight = OldFlyerBox.height(context, flyerBoxWidth);
 
     // double _panelButtonSize = _buttonSize * 0.8;
 

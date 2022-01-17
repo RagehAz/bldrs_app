@@ -39,7 +39,6 @@ void disposePageControllerIfPossible(PageController controller) {
     controller.dispose();
   }
 }
-
 // -----------------------------------------------------------------------------
 void disposeScrollControllerIfPossible(ScrollController controller) {
   if (controller != null) {
@@ -47,3 +46,28 @@ void disposeScrollControllerIfPossible(ScrollController controller) {
   }
 }
 // -----------------------------------------------------------------------------
+Animation<double> animateDouble({
+  @required double begin,
+  @required double end,
+  @required AnimationController controller
+}) {
+  return Tween<double>(
+    begin: begin,
+    end: end,
+  ).animate(controller);
+
+  /// can do stuff here
+  //   ..addListener(() {
+  //   // setState(() {
+  //   //
+  //   // });
+  // })
+  //   ..addStatusListener((status) {
+  //     // if (status == AnimationStatus.completed) {
+  //     //   _controller.reverse();
+  //     // } else if (status == AnimationStatus.dismissed) {
+  //     //   _controller.forward();
+  //     // }
+  //   })
+
+}
