@@ -1,10 +1,8 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/flyer_full_screen.dart';
-import 'package:bldrs/b_views/z_components/flyer/flyer_hero.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -13,9 +11,9 @@ import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TheFlyerScreen extends StatelessWidget {
+class TheFlyerScreenForCreation extends StatelessWidget {
 
-  const TheFlyerScreen({
+  const TheFlyerScreenForCreation({
     Key key
   }) : super(key: key);
 
@@ -78,7 +76,7 @@ class TheFlyerScreen extends StatelessWidget {
             itemCount: _flyersProvider.savedFlyers.length,
             itemBuilder: (BuildContext ctx, int index){
 
-              List<Color> _colorz = <Color>[
+              const List<Color> _colorz = <Color>[
                 Colorz.red255,
                 Colorz.black255,
                 Colorz.green255,

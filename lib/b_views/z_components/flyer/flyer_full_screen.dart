@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/flyer_hero.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_hero.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
@@ -17,14 +18,14 @@ class FlyerFullScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return DismissiblePage(
-      onDismiss: () => Navigator.of(context).pop(),
+      onDismiss: () => Nav.goBack(context),
       isFullScreen: false,
       dragSensitivity: .4,
       maxTransformValue: 4,
       // direction: DismissDirection.horizontal,
       reverseDuration: Ratioz.duration150ms,
-
 
       child: Material(
         color: Colors.transparent,
@@ -35,29 +36,7 @@ class FlyerFullScreen extends StatelessWidget {
           isFullScreen: true,
           minWidthFactor: minWidthFactor,
         ),
-        // child: Hero(
-        //   tag: flyerModel.id,
-        //   flightShuttleBuilder: (
-        //       BuildContext flightContext,
-        //       Animation<double> animation,
-        //       HeroFlightDirection flightDirection,
-        //       BuildContext fromHeroContext,
-        //       BuildContext toHeroContext,
-        //       ) {
-        //     return FlyerHero.flyerFlightShuttle(
-        //       flyerModel: flyerModel,
-        //       animation: animation,
-        //       flightContext: flightContext,
-        //       flightDirection: flightDirection,
-        //       fromHeroContext: fromHeroContext,
-        //       toHeroContext: toHeroContext,
-        //     );
-        //   },
-        //   child: AbstractFlyer(
-        //     sizeFactor: 1,
-        //     flyerModel: flyerModel,
-        //   ),
-        // ),
+
       ),
     );
   }

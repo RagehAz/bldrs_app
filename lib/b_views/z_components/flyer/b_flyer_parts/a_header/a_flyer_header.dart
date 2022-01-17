@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
@@ -6,32 +7,37 @@ import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_he
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/max_header.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_header_labels.dart';
+import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
+import 'package:bldrs/d_providers/active_flyer_provider.dart';
+import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class NewHeader extends StatefulWidget {
+class FlyerHeader extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const NewHeader({
-    @required this.superFlyer,
+  const FlyerHeader({
+    @required this.flyerModel,
     @required this.flyerBoxWidth,
     this.initiallyExpanded = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final SuperFlyer superFlyer;
+  final FlyerModel flyerModel;
   final double flyerBoxWidth;
   final bool initiallyExpanded;
   /// --------------------------------------------------------------------------
   @override
-  _NewHeaderState createState() => _NewHeaderState();
-  /// --------------------------------------------------------------------------
+  _FlyerHeaderState createState() => _FlyerHeaderState();
+/// --------------------------------------------------------------------------
 }
 
-class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStateMixin {
+  AnimationController _headerAnimationController;
   bool _isExpanded = false;
   ColorTween _backgroundColorTween;
   BorderRadiusTween _headerCornerTween;
@@ -57,123 +63,48 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
     // widget.superFlyer.flyerTinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(widget.superFlyer.bz.bzAuthors[0]);
 
     _verticalController = ScrollController();
-    _controller = AnimationController(
-            duration: Ratioz.durationFading200,
-            vsync: this
-        );
+    _headerAnimationController = AnimationController(
+        duration: Ratioz.durationFading200,
+        vsync: this
+    );
 
     _backgroundColorTween = ColorTween();
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _animation = CurvedAnimation(parent: _headerAnimationController, curve: Curves.easeIn);
     _headerCornerTween = BorderRadiusTween();
     _logoCornersTween = BorderRadiusTween();
-    _isExpanded =
-        PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
+    _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
 
     if (_isExpanded) {
-      _controller.value = 1.0;
+      _headerAnimationController.value = 1.0;
     }
 
     _followCallButtonsScaleTween = Tween<double>(
       begin: 1,
       end: 1.5,
-    ).animate(_controller);
+    ).animate(_headerAnimationController);
   }
 
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    _controller.dispose();
+    _headerAnimationController.dispose();
     super.dispose();
   }
-
 // -----------------------------------------------------------------------------
-  void expand() {
-    _setExpanded(true);
+  void _onHeaderTap(){
+    onTriggerHeader(
+      context: context,
+      headerAnimationController: _headerAnimationController,
+    );
   }
-
-// -----------------------------------------------------------------------------
-  void collapse() {
-    _setExpanded(false);
-  }
-
-// -----------------------------------------------------------------------------
-  void toggle() {
-    _setExpanded(!_isExpanded);
-  }
-
-// -----------------------------------------------------------------------------
-  void _setExpanded(bool isExpanded) {
-    if (_isExpanded != isExpanded) {
-      setState(() {
-        _statelessFadeMaxHeader();
-        _isExpanded = isExpanded;
-
-        if (_isExpanded) {
-          _controller.forward();
-        } else {
-          _controller.reverse().then<void>((dynamic value) async {
-            await _verticalController.animateTo(0,
-                duration: Ratioz.durationSliding410, curve: Curves.easeOut);
-
-            setState(() {
-              // Rebuild without widget.children.
-            });
-          });
-        }
-
-        PageStorage.of(context)?.writeState(context, _isExpanded);
-        // widget.superFlyer.nav.bzPageIsOn = !widget.superFlyer.nav.bzPageIsOn;
-      });
-
-      widget.superFlyer.nav.onHeaderTap(_isExpanded);
-
-      // if (widget.onHeaderTap != null) {
-      //   widget.onHeaderTap(_isExpanded);
-      // }
-
-    }
-  }
-
-// -----------------------------------------------------------------------------
-  void _statelessFadeMaxHeader() {
-    blog('_maxHeaderOpacity = $_maxHeaderOpacity');
-
-    Future<void>.delayed(Ratioz.durationFading200, () {
-      if (_maxHeaderOpacity == 1) {
-        _maxHeaderOpacity = 0;
-      } else {
-        _maxHeaderOpacity = 1;
-      }
-    });
-  }
-
-// -----------------------------------------------------------------------------
-  Animation<double> animateDouble(
-      {double begin, double end, AnimationController controller}) {
-    return Tween<double>(
-      begin: begin,
-      end: end,
-    ).animate(controller)
-
-        /// can do stuff here
-        //   ..addListener(() {
-        //   // setState(() {
-        //   //
-        //   // });
-        // })
-        //   ..addStatusListener((status) {
-        //     // if (status == AnimationStatus.completed) {
-        //     //   _controller.reverse();
-        //     // } else if (status == AnimationStatus.dismissed) {
-        //     //   _controller.forward();
-        //     // }
-        //   })
-        ;
-  }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: true);
+    final int _currentSlideIndex = _activeFlyerProvider.currentSlideIndex;
+    final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
+
     const double _followCallScaleEnd = 1.5;
     final double _followCallPaddingEnd = FollowAndCallBTs.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) * _followCallScaleEnd;
     final double _followCallBoxWidthEnd = FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
@@ -193,11 +124,9 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
     //--------------------------------o
     _backgroundColorTween
       ..begin = _tinyMode == true ? Colorz.nothing : Colorz.blackSemi230
-      ..end =
-          widget.superFlyer.mSlides == null || widget.superFlyer.mSlides.isEmpty
-              ? Colorz.blackSemi230
-              : widget.superFlyer.mSlides[widget.superFlyer.currentSlideIndex]
-                  .midColor;
+      ..end = canLoopList(widget.flyerModel.slides) == false ? Colorz.blackSemi230
+          :
+      widget.flyerModel.slides[_currentSlideIndex].midColor;
 
     _headerCornerTween
       ..begin = Borderers.superHeaderCorners(
@@ -222,43 +151,43 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
     _headerHeightTween = Tween<double>(
       begin: _headerBoxHeight,
       end: OldFlyerBox.height(context, widget.flyerBoxWidth),
-    ).animate(_controller);
+    ).animate(_headerAnimationController);
 
     _logoSizeRatioTween = Tween<double>(
       begin: 1,
       end: _logoScaleRatio,
-    ).animate(_controller);
+    ).animate(_headerAnimationController);
 
     _headerLeftSpacerTween = Tween<double>(
       begin: 0, //Ratioz.xxflyerHeaderMainPadding * widget.flyerBoxWidth,
       end: (widget.flyerBoxWidth * 0.2) - _followCallPaddingEnd,
-    ).animate(_controller);
+    ).animate(_headerAnimationController);
 
-    _headerRightSpacerTween = animateDouble(
+    _headerRightSpacerTween = Animators.animateDouble(
       begin: 0,
       end: (widget.flyerBoxWidth * 0.2) -
           _followCallBoxWidthEnd -
           _followCallPaddingEnd,
-      controller: _controller,
+      controller: _headerAnimationController,
     );
 
     _headerLabelsWidthTween = Tween<double>(
       begin: HeaderLabels.getHeaderLabelWidth(widget.flyerBoxWidth),
       end: 0,
-    ).animate(_controller);
+    ).animate(_headerAnimationController);
 
-    _logoToHeaderLabelsSpacerWidthTween = animateDouble(
+    _logoToHeaderLabelsSpacerWidthTween = Animators.animateDouble(
       begin: 0,
       end: _followCallPaddingEnd,
-      controller: _controller,
+      controller: _headerAnimationController,
     );
 
-    final bool _closed = _isExpanded == false && _controller.isDismissed == true;
+    final bool _closed = _isExpanded == false && _headerAnimationController.isDismissed == true;
     //------------------------------------------------------------o
     final double _slideHeightWithoutHeader = OldFlyerBox.height(context, widget.flyerBoxWidth) - _headerBoxHeight;
 
     return AnimatedBuilder(
-      animation: _controller.view,
+      animation: _headerAnimationController.view,
       builder: (BuildContext ctx, Widget child) {
 
         final Color _headerColor = _backgroundColorTween.evaluate(_animation);
@@ -266,7 +195,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
         final BorderRadius _logoBorders = _logoCornersTween.evaluate(_animation);
 
         return GestureDetector(
-          onTap: _tinyMode == true ? null : toggle,
+          onTap: _tinyMode == true ? null : _onHeaderTap,
           child: Align(
             alignment: Alignment.topCenter,
             child: Container(
@@ -294,8 +223,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                         height: (_headerBoxHeight * _logoSizeRatioTween.value) +
                             (_headerLeftSpacerTween.value),
                         alignment: Alignment.center,
-                        padding:
-                            EdgeInsets.only(top: _headerLeftSpacerTween.value),
+                        padding: EdgeInsets.only(top: _headerLeftSpacerTween.value),
                         decoration: BoxDecoration(
                           color: _tinyMode == true
                               ? Colorz.white50
@@ -321,7 +249,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                               child: SizedBox(
                                 width: _headerLeftSpacerTween.value,
                                 height:
-                                    _logoSizeBegin * _logoSizeRatioTween.value,
+                                _logoSizeBegin * _logoSizeRatioTween.value,
                                 // color: Colorz.BloodTest,
                               ),
                             ),
@@ -329,12 +257,12 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                             /// LOGO
                             BzLogo(
                               width: _logoSizeBegin * _logoSizeRatioTween.value,
-                              image: widget.superFlyer.bz?.logo,
+                              image: widget.flyerModel.bz?.logo,
                               tinyMode: OldFlyerBox.isTinyMode(context, widget.flyerBoxWidth),
                               corners: _logoBorders,
-                              bzPageIsOn: widget.superFlyer.nav.bzPageIsOn,
+                              bzPageIsOn: _headerIsExpanded,
                               zeroCornerIsOn:
-                                  widget.superFlyer.flyerShowsAuthor,
+                              widget.superFlyer.flyerShowsAuthor,
                               // onTap:
                               //superFlyer.onHeaderTap,
                               // (){
@@ -348,9 +276,9 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                             Center(
                               child: SizedBox(
                                 width:
-                                    _logoToHeaderLabelsSpacerWidthTween.value,
+                                _logoToHeaderLabelsSpacerWidthTween.value,
                                 height:
-                                    _logoSizeBegin * _logoSizeRatioTween.value,
+                                _logoSizeBegin * _logoSizeRatioTween.value,
                               ),
                             ),
 
@@ -359,7 +287,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                               child: SizedBox(
                                 width: _headerLabelsWidthTween.value,
                                 height:
-                                    _logoSizeBegin * _logoSizeRatioTween.value,
+                                _logoSizeBegin * _logoSizeRatioTween.value,
                                 child: ListView(
                                   physics: const NeverScrollableScrollPhysics(),
                                   scrollDirection: Axis.horizontal,
@@ -379,10 +307,10 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                             Center(
                               child: Container(
                                 width: FollowAndCallBTs.getBoxWidth(
-                                        flyerBoxWidth: widget.flyerBoxWidth) *
+                                    flyerBoxWidth: widget.flyerBoxWidth) *
                                     _followCallButtonsScaleTween.value,
                                 height:
-                                    _logoSizeBegin * _logoSizeRatioTween.value,
+                                _logoSizeBegin * _logoSizeRatioTween.value,
                                 alignment: Alignment.topCenter,
                                 // color: Colorz.BloodTest,
                                 child: FollowAndCallBTs(
@@ -398,7 +326,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                               child: SizedBox(
                                 width: _headerRightSpacerTween.value,
                                 height:
-                                    _logoSizeBegin * _logoSizeRatioTween.value,
+                                _logoSizeBegin * _logoSizeRatioTween.value,
                                 // color: Colorz.BloodTest,
                               ),
                             ),
@@ -477,24 +405,22 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
           ),
         );
       },
-      child: _closed == true
-          ? null
-          : Container(
-              width: widget.flyerBoxWidth,
-              height: _slideHeightWithoutHeader,
-              decoration: BoxDecoration(
-                color: Colorz.bloodTest,
-                borderRadius: Borderers.superBorderOnly(
-                  context: context,
-                  enTopLeft: 0,
-                  enTopRight: 0,
-                  enBottomLeft:
-                      Ratioz.xxflyerBottomCorners * widget.flyerBoxWidth,
-                  enBottomRight:
-                      Ratioz.xxflyerBottomCorners * widget.flyerBoxWidth,
-                ),
-              ),
-            ),
+      child: _closed == true ? null : Container(
+        width: widget.flyerBoxWidth,
+        height: _slideHeightWithoutHeader,
+        decoration: BoxDecoration(
+          color: Colorz.bloodTest,
+          borderRadius: Borderers.superBorderOnly(
+            context: context,
+            enTopLeft: 0,
+            enTopRight: 0,
+            enBottomLeft:
+            Ratioz.xxflyerBottomCorners * widget.flyerBoxWidth,
+            enBottomRight:
+            Ratioz.xxflyerBottomCorners * widget.flyerBoxWidth,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -43,7 +43,7 @@ class NotificationFlyers extends StatelessWidget {
         color: Colorz.white10,
         borderRadius: Borderers.superFlyerCorners(
           context,
-          FlyerBox.width(context, FlyerBox.sizeFactorByHeight(context, 220)),
+          OldFlyerBox.width(context, OldFlyerBox.sizeFactorByHeight(context, 220)),
         ),
       ),
       child: ListView.builder(
@@ -66,8 +66,8 @@ class NotificationFlyers extends StatelessWidget {
                 child: AbsorbPointer(
                   absorbing: _absorbFlyerTap(),
                   child: FinalFlyer(
-                    flyerBoxWidth: FlyerBox.width(
-                        context, FlyerBox.sizeFactorByHeight(context, 200)),
+                    flyerBoxWidth: OldFlyerBox.width(
+                        context, OldFlyerBox.sizeFactorByHeight(context, 200)),
                     flyerModel: _flyer,
                     flyerID: _flyerID,
                     onSwipeFlyer: (Sliders.SwipeDirection direction) {

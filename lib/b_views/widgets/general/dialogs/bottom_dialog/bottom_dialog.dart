@@ -301,7 +301,7 @@ class BottomDialog extends StatelessWidget {
       {@required BuildContext context,
       @required BzModel bz,
       @required AuthorModel author}) async {
-    final double _flyerBoxWidth = FlyerBox.width(context, 0.71);
+    final double _flyerBoxWidth = OldFlyerBox.width(context, 0.71);
 
     await BottomDialog.showBottomDialog(
         context: context,
