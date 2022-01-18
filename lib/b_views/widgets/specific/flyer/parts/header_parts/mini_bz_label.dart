@@ -1,4 +1,6 @@
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -10,14 +12,20 @@ class BzLabel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzLabel({
     @required this.flyerBoxWidth,
-    this.superFlyer,
+    @required this.bzModel,
+    @required this.headerIsExpanded,
+    @required this.flyerShowsAuthor,
+    @required this.bzCountry,
+    @required this.bzCity,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
-  final SuperFlyer superFlyer;
+  final BzModel bzModel;
   final double flyerBoxWidth;
-
+  final bool headerIsExpanded;
+  final bool flyerShowsAuthor;
+  final CountryModel bzCountry;
+  final CityModel bzCity;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -26,27 +34,30 @@ class BzLabel extends StatelessWidget {
     // const bool versesShadow = false;
 // -----------------------------------------------------------------------------
     final double _headerMainHeight = OldFlyerBox.headerStripHeight(
-        bzPageIsOn: superFlyer.nav.bzPageIsOn, flyerBoxWidth: flyerBoxWidth);
-
+        bzPageIsOn: headerIsExpanded,
+        flyerBoxWidth: flyerBoxWidth
+    );
+// -----------------------------------------------------------------------------
     /// B.DATA
-    final double _businessDataHeight = superFlyer.flyerShowsAuthor == true
-        ? _headerMainHeight * 0.4
-        : _headerMainHeight * 0.7; //0.0475;
-    final double _businessDataWidth = flyerBoxWidth *
-        (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+    final double _businessDataHeight = flyerShowsAuthor == true ?
+    _headerMainHeight * 0.4
+        :
+    _headerMainHeight * 0.7; //0.0475;
+// -----------------------------------------------------------------------------
+    final double _businessDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
     final double _headerTextSidePadding = flyerBoxWidth * 0.02;
-
+// -----------------------------------------------------------------------------
     /// B.LOCALE
     final String _businessLocale = TextGen.countryStringer(
       context: context,
-      zone: superFlyer.bz?.zone,
-      country: superFlyer.bzCountry,
-      city: superFlyer.bzCity,
+      zone: bzModel?.zone,
+      country: bzCountry,
+      city: bzCity,
     );
 // -----------------------------------------------------------------------------
-    final int _bzNameSize = superFlyer.flyerShowsAuthor == true ? 3 : 5;
-    final int _bLocaleSize = superFlyer.flyerShowsAuthor == true ? 1 : 1;
-    final int _maxLines = superFlyer.flyerShowsAuthor == true ? 1 : 2;
+    final int _bzNameSize = flyerShowsAuthor == true ? 3 : 5;
+    final int _bLocaleSize = flyerShowsAuthor == true ? 1 : 1;
+    final int _maxLines = flyerShowsAuthor == true ? 1 : 2;
 // -----------------------------------------------------------------------------
 
     return SizedBox(
@@ -55,12 +66,13 @@ class BzLabel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+
           /// B.NAME
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
               child: SuperVerse(
-                verse: superFlyer.bz?.name,
+                verse: bzModel?.name,
                 centered: false,
                 size: _bzNameSize,
                 scaleFactor: (flyerBoxWidth / _screenWidth) * 0.9,
@@ -83,6 +95,7 @@ class BzLabel extends StatelessWidget {
               ),
             ),
           ),
+
         ],
       ),
     );

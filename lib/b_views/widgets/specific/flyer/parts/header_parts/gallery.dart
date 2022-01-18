@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
@@ -20,7 +19,7 @@ import 'package:provider/provider.dart';
 class Gallery extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const Gallery({
-    @required this.superFlyer,
+    @required this.bzModel,
     @required this.galleryBoxWidth,
     @required this.showFlyers,
     this.addAuthorButtonIsOn = true,
@@ -29,7 +28,7 @@ class Gallery extends StatefulWidget {
   }) : super(key: key);
 
   /// --------------------------------------------------------------------------
-  final SuperFlyer superFlyer;
+  final BzModel bzModel;
   final double galleryBoxWidth;
   final bool showFlyers; // why ?
   final bool addAuthorButtonIsOn;
@@ -76,7 +75,7 @@ class _GalleryState extends State<Gallery> {
     super.initState();
 
     blog('starting gallery init');
-    _bzModel = widget.superFlyer.bz;
+    _bzModel = widget.bzModel;
 
     _flyers = <FlyerModel>[];
 
@@ -211,40 +210,39 @@ class _GalleryState extends State<Gallery> {
                     alignment: Aligners.superCenterAlignment(context),
                     padding: const EdgeInsets.symmetric(
                         horizontal: Ratioz.appBarMargin),
-                    child: widget.superFlyer.bz.showsTeam == false
-                        ? SuperVerse(
-                            verse:
-                                '${Wordz.flyersPublishedBy(context)} ${widget.superFlyer.bz.name}',
-                            italic: true,
-                            margin: widget.galleryBoxWidth *
-                                Ratioz.xxflyersGridSpacing,
-                            maxLines: 3,
-                            centered: false,
-                            shadow: true,
-                            leadingDot: true,
-                          )
-                        : SuperVerse(
-                            verse: _bzTeamIDs.length == 1
-                                ? '${Wordz.flyersPublishedBy(context)} ${widget.superFlyer.bz.authors[0].name}'
-                                : '${widget.superFlyer.bz.name} ${Wordz.authorsTeam(context)}',
-                            italic: true,
-                            margin: widget.galleryBoxWidth *
-                                Ratioz.xxflyersGridSpacing,
-                            maxLines: 3,
-                            centered: false,
-                            shadow: true,
-                            leadingDot: true,
-                          ),
+                    child: _bzModel.showsTeam == false ?
+                    SuperVerse(
+                      verse: '${Wordz.flyersPublishedBy(context)} ${_bzModel.name}',
+                      italic: true,
+                      margin: widget.galleryBoxWidth * Ratioz.xxflyersGridSpacing,
+                      maxLines: 3,
+                      centered: false,
+                      shadow: true,
+                      leadingDot: true,
+                    )
+                        :
+                    SuperVerse(
+                      verse: _bzTeamIDs.length == 1 ?
+                      '${Wordz.flyersPublishedBy(context)} ${_bzModel.authors[0].name}'
+                          :
+                      '${_bzModel.name} ${Wordz.authorsTeam(context)}',
+                      italic: true,
+                      margin: widget.galleryBoxWidth * Ratioz.xxflyersGridSpacing,
+                      maxLines: 3,
+                      centered: false,
+                      shadow: true,
+                      leadingDot: true,
+                    ),
                   ),
 
                   /// AUTHORS BUBBLE
-                  if (widget.superFlyer.bz.showsTeam != false)
+                  if (_bzModel.showsTeam != false)
                     AuthorBubble(
                       flyerBoxWidth: widget.galleryBoxWidth,
                       addAuthorButtonIsOn: widget.addAuthorButtonIsOn,
-                      bzAuthors: widget.superFlyer.bz.authors,
+                      bzAuthors: _bzModel.authors,
                       showFlyers: widget.showFlyers,
-                      bzModel: widget.superFlyer.bz,
+                      bzModel: _bzModel,
                       onAuthorLabelTap: (String id) => _onAuthorLabelTap(id),
                       selectedAuthorID: _selectedAuthorID,
                       bzFlyers: _flyers,
@@ -254,20 +252,21 @@ class _GalleryState extends State<Gallery> {
                   // if (widget.galleryBoxWidth != null)
                   GalleryGrid(
                     gridZoneWidth: widget.galleryBoxWidth,
-                    bzID: widget.superFlyer.bz.authors == null ||
-                            widget.superFlyer.bz.authors == <AuthorModel>[] ||
-                            widget.superFlyer.bz.authors.isEmpty
-                        ? ''
-                        : widget.superFlyer.bz.id,
+                    bzID: _bzModel.authors == null ||
+                        _bzModel.authors == <AuthorModel>[] ||
+                        _bzModel.authors.isEmpty
+                        ?
+                    ''
+                        :
+                    _bzModel.id,
                     flyersVisibilities: _flyersVisibilities,
                     galleryFlyers: _flyers,
-                    bzAuthors: widget.superFlyer.bz.authors,
+                    bzAuthors: _bzModel.authors,
                     bz: _bzModel,
 
                     /// TASK : maybe should remove this as long as super flyer is here
                     // flyerOnTap: widget.flyerOnTap,
-                    addPublishedFlyerToGallery: (FlyerModel flyerModel) =>
-                        _addPublishedFlyerToGallery(flyerModel),
+                    addPublishedFlyerToGallery: (FlyerModel flyerModel) => _addPublishedFlyerToGallery(flyerModel),
                     addButtonIsOn: widget.addAuthorButtonIsOn,
                     bzCountry: _bzCountry,
                     bzCity: _bzCity,

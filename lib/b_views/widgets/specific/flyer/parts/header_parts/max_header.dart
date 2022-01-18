@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_counter.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_fields.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_verse.dart';
@@ -21,16 +20,12 @@ class MaxHeader extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
     @required this.bzModel,
-    @required this.superFlyer,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool bzPageIsOn;
   final BzModel bzModel;
-  final SuperFlyer superFlyer;
-
   /// --------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 //   Future<void> _openGalleryFlyer (BuildContext context, String flyerID) async {
@@ -73,8 +68,6 @@ class MaxHeader extends StatelessWidget {
           final int _bzTotalViews = bz != null ? bz.totalViews : 0;
           final int _callsCount = bz != null ? bz.totalCalls : 0;
 // -----------------------------------------------------------------------------
-
-          superFlyer.bz = bz;
 
           return Column(
             children: <Widget>[
@@ -162,9 +155,9 @@ class MaxHeader extends StatelessWidget {
               ),
 
               /// BZ GALLERY
-              if (Mapper.canLoopList(superFlyer.bz.flyersIDs))
+              if (Mapper.canLoopList(bz.flyersIDs))
                 Gallery(
-                  superFlyer: superFlyer,
+                  bzModel: bzModel,
                   showFlyers: true,
                   galleryBoxWidth: flyerBoxWidth,
                   addAuthorButtonIsOn: false,
@@ -173,10 +166,8 @@ class MaxHeader extends StatelessWidget {
 
               Container(
                 width: flyerBoxWidth,
-                height: flyerBoxWidth * Ratioz.xxflyerBottomCorners +
-                    Ratioz.appBarMargin,
-                margin: EdgeInsets.only(
-                    top: flyerBoxWidth * Ratioz.xxbzPageSpacing),
+                height: flyerBoxWidth * Ratioz.xxflyerBottomCorners + Ratioz.appBarMargin,
+                margin: EdgeInsets.only(top: flyerBoxWidth * Ratioz.xxbzPageSpacing),
                 decoration: BoxDecoration(
                   color: Colorz.black80,
                   borderRadius: Borderers.superBorderOnly(
