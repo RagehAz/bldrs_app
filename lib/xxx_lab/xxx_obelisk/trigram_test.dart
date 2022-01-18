@@ -41,8 +41,6 @@ class _TrigramTestState extends State<TrigramTest> {
 
     return TestingLayout(
       screenTitle: 'Trigram Test',
-      appbarButtonVerse: null,
-      appbarButtonOnTap: null,
       listViewWidgets: <Widget>[
         /// TEXT FIELD
         Container(
