@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
@@ -15,36 +14,37 @@ import 'package:websafe_svg/websafe_svg.dart';
 class FollowAndCallBTs extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FollowAndCallBTs({
-    @required this.superFlyer,
     @required this.flyerBoxWidth,
+    @required this.headerIsExpanded,
+    @required this.onFollowTap,
+    @required this.followIsOn,
+    @required this.onCallTap,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
-  final SuperFlyer superFlyer;
   final double flyerBoxWidth;
-
+  final bool headerIsExpanded;
+  final Function onFollowTap;
+  final Function onCallTap;
+  final bool followIsOn;
   /// --------------------------------------------------------------------------
   static double getPaddings({double flyerBoxWidth}) {
     return flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
   }
-
 // -----------------------------------------------------------------------------
   static double getBoxHeight({double flyerBoxWidth, bool bzPageIsOn}) {
     final double _headerMainHeight = OldFlyerBox.headerStripHeight(
-        bzPageIsOn: bzPageIsOn, flyerBoxWidth: flyerBoxWidth);
-    final double _headerMainPadding =
-        flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
-    final double _followGalleryHeight =
-        _headerMainHeight - (2 * _headerMainPadding);
+        bzPageIsOn: bzPageIsOn,
+        flyerBoxWidth: flyerBoxWidth
+    );
+    final double _headerMainPadding = flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
+    final double _followGalleryHeight = _headerMainHeight - (2 * _headerMainPadding);
     return _followGalleryHeight;
   }
-
 // -----------------------------------------------------------------------------
   static double getBoxWidth({double flyerBoxWidth}) {
     return (flyerBoxWidth * Ratioz.xxflyerFollowBtWidth) - 1;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -53,23 +53,28 @@ class FollowAndCallBTs extends StatelessWidget {
 
     /// --- FOLLOWERS & GALLERY
     final double followGalleryHeight = getBoxHeight(
-        flyerBoxWidth: flyerBoxWidth, bzPageIsOn: superFlyer.nav.bzPageIsOn);
+        flyerBoxWidth: flyerBoxWidth,
+        bzPageIsOn: headerIsExpanded
+    );
     final double followGalleryWidth = getBoxWidth(flyerBoxWidth: flyerBoxWidth);
 // -----------------------------------------------------------------------------
-    return superFlyer.nav.bzPageIsOn == true
-        ? Container()
-        : SizedBox(
+    return
+      headerIsExpanded == true ?
+      Container()
+        :
+      SizedBox(
             height: followGalleryHeight,
             width: followGalleryWidth,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+
                 /// --- FOLLOW BUTTON
                 FollowBT(
                   flyerBoxWidth: flyerBoxWidth,
-                  onFollowTap: superFlyer.rec.onFollowTap,
+                  onFollowTap: onFollowTap,
                   tappingUnfollow: () {},
-                  followOn: superFlyer.rec.followIsOn,
+                  followOn: followIsOn,
                 ),
 
                 /// --- FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
@@ -80,8 +85,9 @@ class FollowAndCallBTs extends StatelessWidget {
                 /// --- Call BUTTON
                 CallBT(
                   flyerBoxWidth: flyerBoxWidth,
-                  onCallTap: superFlyer.rec.onCallTap,
+                  onCallTap: onCallTap,
                 ),
+
               ],
             ),
           );
@@ -151,6 +157,7 @@ class FollowBT extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
+
                   /// BUTTON GRADIENT
                   Container(
                     height: followBTHeight,
@@ -188,6 +195,7 @@ class FollowBT extends StatelessWidget {
                         )
                     ],
                   )
+
                 ],
               ),
             ),
@@ -202,23 +210,21 @@ class CallBT extends StatelessWidget {
     @required this.flyerBoxWidth,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final Function onCallTap;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
 //     const bool _versesShadow = false;
     final bool _isTinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
-
+// -----------------------------------------------------------------------------
     /// call BUTTON
     const Color _callBTColor = Colorz.white10;
     final double _callBTHeight = flyerBoxWidth * Ratioz.xxCallBTHeight;
     final double _callBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
-
+// -----------------------------------------------------------------------------
     /// call ICON
     const String _callIcon = Iconz.comPhone;
     final double _callIconWidth = flyerBoxWidth * 0.05;
@@ -228,59 +234,63 @@ class CallBT extends StatelessWidget {
         flyerBoxWidth: flyerBoxWidth,
         gettingFollowCorner: false);
 // -----------------------------------------------------------------------------
-    return _isTinyMode == true
-        ? Container()
-        : GestureDetector(
-            onTap: onCallTap,
-            child: Container(
+    return _isTinyMode == true ?
+    Container()
+        :
+    GestureDetector(
+      onTap: onCallTap,
+      child: Container(
+        height: _callBTHeight,
+        width: _callBTWidth,
+        decoration: BoxDecoration(
+            color: _callBTColor,
+            boxShadow: Shadowz.superFollowBtShadow(_callBTHeight),
+            borderRadius: _corners),
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+
+            /// BUTTON GRADIENT
+            Container(
               height: _callBTHeight,
               width: _callBTWidth,
               decoration: BoxDecoration(
-                  color: _callBTColor,
-                  boxShadow: Shadowz.superFollowBtShadow(_callBTHeight),
-                  borderRadius: _corners),
-              child: Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  /// BUTTON GRADIENT
-                  Container(
-                    height: _callBTHeight,
-                    width: _callBTWidth,
-                    decoration: BoxDecoration(
-                      borderRadius: _corners,
-                      gradient: Colorizer.superFollowBTGradient(),
-                    ),
-                  ),
-
-                  /// BUTTON COMPONENTS : ICON, NUMBER, VERSE
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      /// call ICON
-                      Container(
-                        height: _callIconWidth,
-                        width: _callIconWidth,
-                        margin: EdgeInsets.all(flyerBoxWidth * 0.01),
-                        child: WebsafeSvg.asset(_callIcon),
-                      ),
-
-                      SizedBox(
-                        width: _callIconWidth,
-                        height: _callIconWidth * 0.1,
-                      ),
-
-                      /// FLYERS TEXT
-                      SuperVerse(
-                        verse: Wordz.call(context),
-                        size: 1,
-                        scaleFactor:
-                            flyerBoxWidth / Scale.superScreenWidth(context),
-                      )
-                    ],
-                  ),
-                ],
+                borderRadius: _corners,
+                gradient: Colorizer.superFollowBTGradient(),
               ),
             ),
-          );
+
+            /// BUTTON COMPONENTS : ICON, NUMBER, VERSE
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+
+                /// call ICON
+                Container(
+                  height: _callIconWidth,
+                  width: _callIconWidth,
+                  margin: EdgeInsets.all(flyerBoxWidth * 0.01),
+                  child: WebsafeSvg.asset(_callIcon),
+                ),
+
+                SizedBox(
+                  width: _callIconWidth,
+                  height: _callIconWidth * 0.1,
+                ),
+
+                /// FLYERS TEXT
+                SuperVerse(
+                  verse: Wordz.call(context),
+                  size: 1,
+                  scaleFactor:
+                  flyerBoxWidth / Scale.superScreenWidth(context),
+                )
+
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

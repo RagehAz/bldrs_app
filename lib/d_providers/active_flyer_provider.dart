@@ -1,20 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
-import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
-import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
-import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +15,84 @@ class ActiveFlyerProvider extends ChangeNotifier {
     if (notify == true){
       notifyListeners();
     }
+  }
+// -----------------------------------------------------------------------------
+
+  /// ACTIVE FLYER BZ MODEL
+
+// -------------------------------------
+  BzModel _activeFlyerBzModel;
+// -------------------------------------
+  BzModel get activeFlyerBzModel => _activeFlyerBzModel;
+// -------------------------------------
+  Future<void> getSetActiveFlyerBzModel({
+    @required BuildContext context,
+    @required String bzID,
+    bool notify,
+  }) async {
+
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzModel _bzModel = await _bzzProvider.fetchBzModel(context: context, bzID: bzID);
+
+    _activeFlyerBzModel = _bzModel;
+    _notify(notify);
+
+  }
+// -----------------------------------------------------------------------------
+
+  /// ACTIVE FLYER BZ COUNTRY AND CITY
+
+// -------------------------------------
+  CountryModel _activeFlyerBzCountry;
+  CityModel _activeFlyerBzCity;
+// -------------------------------------
+  CountryModel get activeFlyerBzCountry => _activeFlyerBzCountry;
+  CityModel get activeFlyerBzCity => _activeFlyerBzCity;
+// -------------------------------------
+  Future<void> getSetActiveFlyerBzCountryAndCity({
+    @required BuildContext context,
+    @required String countryID,
+    @required String cityID,
+    bool notify,
+  }) async {
+
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
+        context: context,
+        countryID: countryID
+    );
+    final CityModel _bzCity = await _zoneProvider.fetchCityByID(
+        context: context,
+        cityID: cityID,
+    );
+
+    _activeFlyerBzCountry = _bzCountry;
+    _activeFlyerBzCity = _bzCity;
+    _notify(notify);
+
+  }
+// -----------------------------------------------------------------------------
+
+  /// FOLLOW IS ON
+
+// -------------------------------------
+  bool _followIsOn = false;
+// -------------------------------------
+  bool get followIsOn => _followIsOn;
+// -------------------------------------
+  void setFollowIsOn({@required bool setFollowIsOnTo, bool notify}){
+
+    _notify(notify);
+  }
+
+  Future<void> getSetFollowIsOn({bool notify}) async {
+
+
+    setFollowIsOn(
+        setFollowIsOnTo: _followIsOn,
+        notify: notify,
+    );
+
   }
 // -----------------------------------------------------------------------------
 

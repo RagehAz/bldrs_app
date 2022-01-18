@@ -147,3 +147,10 @@ void _triggerHeaderPageOpacity({
   });
 }
 // -----------------------------------------------------------------------------
+Future<void> onFollowTap() async {
+
+}
+
+Future<void> onCallTap() async {
+
+}
