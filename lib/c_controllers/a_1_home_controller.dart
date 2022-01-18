@@ -36,10 +36,13 @@ Future<void> initializeHomeScreen(BuildContext context) async {
   /// G - USER BZZ
   await _initializeUserBzz(context);
 
-  /// H - KEYWORDS
+  /// H - USER FOLLOWED BZZ
+  await _initializeUserFollowedBzz(context);
+
+  /// I - KEYWORDS
   await _initializeKeywords(context);
 
-  /// I - SAVED FLYERS
+  /// J - SAVED FLYERS
   await _initializeSavedFlyers(context);
 
 }
@@ -94,6 +97,11 @@ Future<void> _initializeKeywords(BuildContext context) async {
 Future<void> _initializeUserBzz(BuildContext context) async {
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
   await _bzzProvider.getSetMyBzz(context);
+}
+// -----------------------------------------------------------------------------
+Future<void> _initializeUserFollowedBzz(BuildContext context) async {
+  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+  await _bzzProvider.getsetFollowedBzz(context);
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializePromotedFlyers(BuildContext context) async {
