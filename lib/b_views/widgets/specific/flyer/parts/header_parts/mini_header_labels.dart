@@ -13,17 +13,13 @@ class HeaderLabels extends StatelessWidget {
     @required this.flyerBoxWidth,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final SuperFlyer superFlyer;
   final double flyerBoxWidth;
-
   /// --------------------------------------------------------------------------
   static double getHeaderLabelWidth(double flyerBoxWidth) {
-    return flyerBoxWidth *
-        (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+    return flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
   }
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -31,43 +27,51 @@ class HeaderLabels extends StatelessWidget {
     final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
     final double labelsWidth = getHeaderLabelWidth(flyerBoxWidth);
-    final double labelsHeight = flyerBoxWidth *
-        (Ratioz.xxflyerHeaderMiniHeight -
-            (2 * Ratioz.xxflyerHeaderMainPadding));
+    final double labelsHeight = flyerBoxWidth * (Ratioz.xxflyerHeaderMiniHeight - (2 * Ratioz.xxflyerHeaderMainPadding));
 // -----------------------------------------------------------------------------
-    return _tinyMode == true
-        ? Container()
-        : SizedBox(
-            width: labelsWidth,
-            height: labelsHeight,
-            // color: Colorz.Bl,
-            child: Column(
-              mainAxisAlignment: superFlyer.flyerShowsAuthor == true
-                  ? MainAxisAlignment.end
-                  : MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                /// BUSINESS LABEL : BZ.NAME & BZ.LOCALE
-                BzLabel(
-                  superFlyer: superFlyer,
-                  flyerBoxWidth: flyerBoxWidth,
-                ),
+    return _tinyMode == true ?
+    Container()
+        :
+    SizedBox(
+        width: labelsWidth,
+        height: labelsHeight,
+        // color: Colorz.Bl,
 
-                /// middle expander ,, will delete i don't like it
-                if (superFlyer.flyerShowsAuthor == false) const Expander(),
+        child: Column(
+          mainAxisAlignment: superFlyer.flyerShowsAuthor == true ?
+          MainAxisAlignment.end
+              :
+          MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
 
-                /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
-                if (superFlyer.flyerShowsAuthor == true)
-                  AuthorLabel(
-                    flyerBoxWidth: flyerBoxWidth,
-                    authorID: superFlyer.authorID,
-                    bzModel: superFlyer.bz,
-                    showLabel: superFlyer.nav.bzPageIsOn,
-                    authorGalleryCount: 0, // is not needed here
-                    labelIsOn: true,
-                    onTap: null,
-                  ),
-              ],
-            ));
+            /// BUSINESS LABEL : BZ.NAME & BZ.LOCALE
+            BzLabel(
+              flyerBoxWidth: flyerBoxWidth,
+              bzModel: superFlyer.bz,
+              bzCountry: superFlyer.bzCountry,
+              bzCity: superFlyer.bzCity,
+              headerIsExpanded: superFlyer.nav.bzPageIsOn,
+              flyerShowsAuthor: superFlyer.flyerShowsAuthor,
+            ),
+
+            /// middle expander ,, will delete i don't like it
+            if (superFlyer.flyerShowsAuthor == false)
+              const Expander(),
+
+            /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
+            if (superFlyer.flyerShowsAuthor == true)
+              AuthorLabel(
+                flyerBoxWidth: flyerBoxWidth,
+                authorID: superFlyer.authorID,
+                bzModel: superFlyer.bz,
+                showLabel: superFlyer.nav.bzPageIsOn,
+                authorGalleryCount: 0, // is not needed here
+                labelIsOn: true,
+                onTap: null,
+              ),
+
+          ],
+        ));
   }
 }

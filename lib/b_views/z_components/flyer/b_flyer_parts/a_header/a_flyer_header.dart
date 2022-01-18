@@ -1,18 +1,22 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_headline.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/max_header.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_bz_label.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_header_labels.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/d_providers/active_flyer_provider.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +41,7 @@ class FlyerHeader extends StatefulWidget {
 }
 
 class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStateMixin {
+
   AnimationController _headerAnimationController;
   bool _isExpanded = false;
   ColorTween _backgroundColorTween;
@@ -104,6 +109,9 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: true);
     final int _currentSlideIndex = _activeFlyerProvider.currentSlideIndex;
     final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
+    final BzModel _bzModel = _activeFlyerProvider.activeFlyerBzModel;
+    final CountryModel _bzCountry = _activeFlyerProvider.activeFlyerBzCountry;
+    final CityModel _bzCity = _activeFlyerProvider.activeFlyerBzCity;
 
     const double _followCallScaleEnd = 1.5;
     final double _followCallPaddingEnd = FollowAndCallBTs.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) * _followCallScaleEnd;
@@ -165,9 +173,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
     _headerRightSpacerTween = Animators.animateDouble(
       begin: 0,
-      end: (widget.flyerBoxWidth * 0.2) -
-          _followCallBoxWidthEnd -
-          _followCallPaddingEnd,
+      end: (widget.flyerBoxWidth * 0.2) - _followCallBoxWidthEnd - _followCallPaddingEnd,
       controller: _headerAnimationController,
     );
 
@@ -185,7 +191,11 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     final bool _closed = _isExpanded == false && _headerAnimationController.isDismissed == true;
     //------------------------------------------------------------o
     final double _slideHeightWithoutHeader = OldFlyerBox.height(context, widget.flyerBoxWidth) - _headerBoxHeight;
-
+// -----------------------------------------------------------------------------
+    final double labelsWidth = HeaderLabels.getHeaderLabelWidth(_headerBoxHeight);
+    final double labelsHeight = _headerBoxHeight *
+        (Ratioz.xxflyerHeaderMiniHeight - (2 * Ratioz.xxflyerHeaderMainPadding));
+// -----------------------------------------------------------------------------
     return AnimatedBuilder(
       animation: _headerAnimationController.view,
       builder: (BuildContext ctx, Widget child) {
@@ -211,17 +221,17 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                 borderRadius: _headerBorders,
                 child: MaxBounceNavigator(
                   child: ListView(
-                    physics: _tinyMode == true || _isExpanded == false
-                        ? const NeverScrollableScrollPhysics()
-                        : const BouncingScrollPhysics(),
+                    physics: _tinyMode == true || _isExpanded == false ?
+                    const NeverScrollableScrollPhysics()
+                        :
+                    const BouncingScrollPhysics(),
                     controller: _verticalController,
                     children: <Widget>[
 
                       /// MINI HEADER STRIP
                       Container(
                         width: widget.flyerBoxWidth,
-                        height: (_headerBoxHeight * _logoSizeRatioTween.value) +
-                            (_headerLeftSpacerTween.value),
+                        height: (_headerBoxHeight * _logoSizeRatioTween.value) + (_headerLeftSpacerTween.value),
                         alignment: Alignment.center,
                         padding: EdgeInsets.only(top: _headerLeftSpacerTween.value),
                         decoration: BoxDecoration(
@@ -244,6 +254,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                           // mainAxisAlignment: MainAxisAlignment.center,
                           // crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
+
                             /// HEADER LEFT SPACER
                             Center(
                               child: SizedBox(
@@ -257,12 +268,11 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                             /// LOGO
                             BzLogo(
                               width: _logoSizeBegin * _logoSizeRatioTween.value,
-                              image: widget.flyerModel.bz?.logo,
+                              image: _bzModel.logo,
                               tinyMode: OldFlyerBox.isTinyMode(context, widget.flyerBoxWidth),
                               corners: _logoBorders,
                               bzPageIsOn: _headerIsExpanded,
-                              zeroCornerIsOn:
-                              widget.superFlyer.flyerShowsAuthor,
+                              zeroCornerIsOn: widget.flyerModel.showsAuthor,
                               // onTap:
                               //superFlyer.onHeaderTap,
                               // (){
@@ -293,11 +303,50 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                                   scrollDirection: Axis.horizontal,
                                   shrinkWrap: true,
                                   children: <Widget>[
-                                    HeaderLabels(
-                                      superFlyer: widget.superFlyer,
-                                      flyerBoxWidth: widget.flyerBoxWidth *
-                                          _logoSizeRatioTween.value,
-                                    ),
+
+
+                                    if (_tinyMode == false)
+                                    SizedBox(
+                                        width: labelsWidth,
+                                        height: labelsHeight,
+                                        // color: Colorz.Bl,
+                                        child: Column(
+                                          mainAxisAlignment: widget.flyerModel.showsAuthor == true ?
+                                          MainAxisAlignment.end
+                                              :
+                                          MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: <Widget>[
+
+                                            /// BUSINESS LABEL : BZ.NAME & BZ.LOCALE
+                                            BzLabel(
+                                              flyerBoxWidth: widget.flyerBoxWidth,
+                                              bzModel: _bzModel,
+                                              bzCity: _bzCity,
+                                              bzCountry: _bzCountry,
+                                              flyerShowsAuthor: widget.flyerModel.showsAuthor,
+                                              headerIsExpanded: _headerIsExpanded,
+                                            ),
+
+                                            /// middle expander ,, will delete i don't like it
+                                            if (widget.flyerModel.showsAuthor == false)
+                                              const Expander(),
+
+                                            /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
+                                            if (widget.flyerModel.showsAuthor == true)
+                                              AuthorLabel(
+                                                flyerBoxWidth: widget.flyerBoxWidth,
+                                                bzModel: _bzModel,
+                                                authorID: widget.flyerModel.authorID,
+                                                showLabel: _headerIsExpanded,
+                                                authorGalleryCount: 0, // is not needed here
+                                                labelIsOn: true,
+                                                onTap: null,
+                                              ),
+
+                                          ],
+                                        )),
+
                                   ],
                                 ),
                               ),
@@ -307,16 +356,16 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                             Center(
                               child: Container(
                                 width: FollowAndCallBTs.getBoxWidth(
-                                    flyerBoxWidth: widget.flyerBoxWidth) *
-                                    _followCallButtonsScaleTween.value,
-                                height:
-                                _logoSizeBegin * _logoSizeRatioTween.value,
+                                    flyerBoxWidth: widget.flyerBoxWidth) * _followCallButtonsScaleTween.value,
+                                height: _logoSizeBegin * _logoSizeRatioTween.value,
                                 alignment: Alignment.topCenter,
                                 // color: Colorz.BloodTest,
                                 child: FollowAndCallBTs(
-                                  flyerBoxWidth: widget.flyerBoxWidth *
-                                      _followCallButtonsScaleTween.value,
-                                  superFlyer: widget.superFlyer,
+                                  flyerBoxWidth: widget.flyerBoxWidth * _followCallButtonsScaleTween.value,
+                                  headerIsExpanded: _headerIsExpanded,
+                                  followIsOn: true, // _followIsOn,
+                                  onCallTap: null, // _onCallTap,
+                                  onFollowTap: null, // _onFollowTap,
                                 ),
                               ),
                             ),
@@ -330,6 +379,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                                 // color: Colorz.BloodTest,
                               ),
                             ),
+
                           ],
                         ),
                       ),
@@ -340,9 +390,9 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                         child: BzPageHeadline(
                           flyerBoxWidth: widget.flyerBoxWidth,
                           bzPageIsOn: true,
-                          bzModel: widget.superFlyer.bz,
-                          country: widget.superFlyer.bzCountry,
-                          city: widget.superFlyer.bzCity,
+                          bzModel: _bzModel,
+                          country: _bzCountry,
+                          city: _bzCity,
                         ),
                       ),
 
@@ -357,10 +407,9 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                             // height: 400,
                             // color: Colorz.Yellow200,
                             child: MaxHeader(
-                              superFlyer: widget.superFlyer,
                               flyerBoxWidth: widget.flyerBoxWidth,
                               bzPageIsOn: _isExpanded,
-                              bzModel: widget.superFlyer.bz,
+                              bzModel: _bzModel,
                             ),
                           ),
                         ),
