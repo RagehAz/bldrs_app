@@ -31,10 +31,6 @@ class FlyerTree extends StatelessWidget {
 
     final double _flyerBoxWidth = OldFlyerBox.width(context, flyerWidthFactor);
     final double _flyerZoneHeight = OldFlyerBox.height(context, _flyerBoxWidth);
-    final double _headerHeight = OldFlyerBox.headerBoxHeight(
-      flyerBoxWidth: _flyerBoxWidth,
-      bzPageIsOn: false,
-    );
 
     final double _footerHeight = FlyerFooter.boxHeight(context: context, flyerBoxWidth: _flyerBoxWidth);
 
@@ -64,7 +60,6 @@ class FlyerTree extends StatelessWidget {
           flyerBoxWidth: _flyerBoxWidth,
           flyerModel: flyerModel,
           bzModel: bzModel,
-          initiallyExpanded: false,
         ),
 
 
