@@ -79,7 +79,7 @@ class AddFlyerButton extends StatelessWidget {
         await _goToFlyerEditor(context);
       },
       stackWidgets: <Widget>[
-        FlyerHeader(
+        OldFlyerHeader(
           superFlyer: _bzHeaderSuperFlyer,
           flyerBoxWidth: flyerBoxWidth,
         ),

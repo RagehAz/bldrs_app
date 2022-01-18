@@ -7,13 +7,12 @@ class TestingLayout extends StatelessWidget {
   const TestingLayout({
     @required this.listViewWidgets,
     @required this.screenTitle,
-    @required this.appbarButtonVerse,
-    @required this.appbarButtonOnTap,
+    this.appbarButtonVerse,
+    this.appbarButtonOnTap,
     this.scrollable = false,
     // this.scaffoldKey,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final List<Widget> listViewWidgets;
   final String screenTitle;
@@ -21,12 +20,14 @@ class TestingLayout extends StatelessWidget {
   final Function appbarButtonOnTap;
   // final Key scaffoldKey;
   final bool scrollable;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return MainLayout(
       appBarType: AppBarType.basic,
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
+      pyramidsAreOn: true,
       pageTitle: screenTitle,
       // scaffoldKey: scaffoldKey,
 

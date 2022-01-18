@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/records/review_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart'
-    as FlyerTypeClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
@@ -1259,6 +1257,7 @@ class _FinalFlyerState extends State<FinalFlyer>
   }
 
 // -----------------------------------------------------o
+  /// *** OPTIMIZED
   Future<void> _onFollowTap() async {
     // blog('Following bz : followIsOn was ${_superFlyer.rec.followIsOn} & headline for slide ${_superFlyer.currentSlideIndex} is : ${_superFlyer.mSlides[_superFlyer.currentSlideIndex].headline}');
 
@@ -1287,6 +1286,7 @@ class _FinalFlyerState extends State<FinalFlyer>
   }
 
 // -----------------------------------------------------o
+  /// *** OPTIMIZED
   Future<void> _onCallTap() async {
     blog('Call Bz');
 
@@ -1296,11 +1296,13 @@ class _FinalFlyerState extends State<FinalFlyer>
         verse: 'Call button',
         secondLine: 'Allows users to call you directly',
       );
-    } else {
+    }
+
+    else {
       // final String _userID = superUserID();
       // final String _bzID = _superFlyer.bz.bzID;
       final String _contact = ContactModel.getAContactValueFromContacts(
-          _superFlyer.bz.contacts, ContactType.email);
+          _superFlyer.bz.contacts, ContactType.phone);
 
       /// alert user there is no contact to call
       if (_contact == null) {

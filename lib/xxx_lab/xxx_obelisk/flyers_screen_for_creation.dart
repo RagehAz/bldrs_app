@@ -1,7 +1,8 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_hero.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_initializer.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/flyer_full_screen.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -97,20 +98,10 @@ class TheFlyerScreenForCreation extends StatelessWidget {
               final FlyerModel _flyer = _flyersProvider.savedFlyers[index];
 
               return
-                  GestureDetector(
-                    onTap: () {
-                      context.pushTransparentRoute(
-                          FlyerFullScreen(
-                            flyerModel: _flyer,
-                            minWidthFactor: _minWidthFactor,
-                          )
-                      );
-                    },
-                    child: FlyerHero(
-                      flyerModel: _flyer,
-                      isFullScreen: false,
-                      minWidthFactor: _minWidthFactor,
-                    ),
+                  FlyerStarter(
+                    flyerModel: _flyer,
+                    isFullScreen: false,
+                    minWidthFactor: _minWidthFactor,
                   );
 
             }

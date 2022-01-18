@@ -27,6 +27,7 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------------------------------
+  /// HAS TO BE A FUTURE TO BE USED IN didChangeDependencies
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
     blogLoading(loading: _loading.value);

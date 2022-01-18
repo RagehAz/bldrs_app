@@ -17,6 +17,7 @@ class ActiveFlyerProvider extends ChangeNotifier {
     }
   }
 // -----------------------------------------------------------------------------
+/*
 
   /// ACTIVE FLYER BZ MODEL
 
@@ -38,6 +39,7 @@ class ActiveFlyerProvider extends ChangeNotifier {
     _notify(notify);
 
   }
+ */
 // -----------------------------------------------------------------------------
 
   /// ACTIVE FLYER BZ COUNTRY AND CITY
@@ -80,16 +82,25 @@ class ActiveFlyerProvider extends ChangeNotifier {
 // -------------------------------------
   bool get followIsOn => _followIsOn;
 // -------------------------------------
-  void setFollowIsOn({@required bool setFollowIsOnTo, bool notify}){
-
+  void setFollowIsOn({@required bool setFollowIsOnTo, @required bool notify}){
+    _followIsOn = setFollowIsOnTo;
     _notify(notify);
   }
+// -------------------------------------
+  Future<void> getSetFollowIsOn({
+    @required BuildContext context,
+    @required String bzID,
+    @required bool notify
+  }) async {
 
-  Future<void> getSetFollowIsOn({bool notify}) async {
-
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final bool _isOn = _bzzProvider.checkFollow(
+      context: context,
+      bzID: bzID,
+    );
 
     setFollowIsOn(
-        setFollowIsOnTo: _followIsOn,
+        setFollowIsOnTo: _isOn,
         notify: notify,
     );
 

@@ -8,9 +8,9 @@ import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart' as Tracer;
 import 'package:flutter/material.dart';
 
-class FlyerHeader extends StatelessWidget {
+class OldFlyerHeader extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FlyerHeader({
+  const OldFlyerHeader({
     @required this.flyerBoxWidth,
     this.superFlyer,
     Key key,
@@ -73,12 +73,14 @@ class FlyerHeader extends StatelessWidget {
                 ],
               ),
             ),
+
             if (superFlyer.nav.bzPageIsOn)
               MaxHeader(
                 flyerBoxWidth: flyerBoxWidth,
                 bzPageIsOn: superFlyer.nav.bzPageIsOn,
                 bzModel: superFlyer.bz,
               ),
+
           ],
         ));
   }

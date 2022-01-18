@@ -23,7 +23,6 @@ class AuthorBubble extends StatelessWidget {
     @required this.bzFlyers,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool addAuthorButtonIsOn;
@@ -33,34 +32,27 @@ class AuthorBubble extends StatelessWidget {
   final ValueChanged<String> onAuthorLabelTap;
   final String selectedAuthorID;
   final List<FlyerModel> bzFlyers;
-
   /// --------------------------------------------------------------------------
   static double bubbleWidth(double flyerBoxWidth) {
     return flyerBoxWidth - (2 * Ratioz.appBarMargin);
   }
-
 // -----------------------------------------------------------------------------
   static double authorPicHeight(double flyerBoxWidth) {
     return flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth;
   }
-
 // -----------------------------------------------------------------------------
   static double titleHeight(double flyerBoxWidth) {
     return authorPicHeight(flyerBoxWidth) * 0.4;
   }
-
 // -----------------------------------------------------------------------------
   static const double spacing = Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
   static double bubbleHeight(double flyerBoxWidth) {
     final double _titleHeight = titleHeight(flyerBoxWidth);
     final double _authorPicHeight = authorPicHeight(flyerBoxWidth);
-    final double _bubbleHeight =
-        _titleHeight + _authorPicHeight + (2 * spacing);
-
+    final double _bubbleHeight = _titleHeight + _authorPicHeight + (2 * spacing);
     return _bubbleHeight;
   }
-
 // -----------------------------------------------------------------------------
   bool _labelIsOnCheck(int authorIndex) {
     bool _isOn;
@@ -73,7 +65,6 @@ class AuthorBubble extends StatelessWidget {
 
     return _isOn;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -90,14 +81,14 @@ class AuthorBubble extends StatelessWidget {
           color: addAuthorButtonIsOn == true ? Colorz.white10 : Colorz.white10,
           borderRadius: Borderers.superLogoShape(
             context: context,
-            corner:
-                AuthorPic.getCornerValue(flyerBoxWidth) + Ratioz.appBarMargin,
+            corner: AuthorPic.getCornerValue(flyerBoxWidth) + Ratioz.appBarMargin,
             zeroCornerEnIsRight: false,
           )),
       alignment: Alignment.center,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+
           /// TOP SPACER
           SizedBox(
             height: spacing,
@@ -110,8 +101,7 @@ class AuthorBubble extends StatelessWidget {
             height: flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 0.4,
             // color: Colorz.BloodTest,
             alignment: Aligners.superCenterAlignment(context),
-            padding:
-                const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
+            padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
             child: const SuperVerse(
               verse: 'The Team',
               centered: false,
@@ -127,10 +117,10 @@ class AuthorBubble extends StatelessWidget {
             child: ListView(
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
                 key: PageStorageKey<String>('authorsRow_${bzModel.id}'),
                 children: <Widget>[
+
                   /// AUTHORS LABELS
                   if (bzAuthors != null)
                     ...List<Widget>.generate(bzAuthors.length,
@@ -168,7 +158,9 @@ class AuthorBubble extends StatelessWidget {
                       width: flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth,
                       isAddAuthorButton: true,
                     ),
-                ]),
+
+                ]
+            ),
           ),
 
           /// BOTTOM SPACER
@@ -176,6 +168,7 @@ class AuthorBubble extends StatelessWidget {
             height: spacing,
             width: _bubbleWidth,
           ),
+
         ],
       ),
     );
