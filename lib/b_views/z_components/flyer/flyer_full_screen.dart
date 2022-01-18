@@ -1,5 +1,6 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_hero.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:dismissible_page/dismissible_page.dart';
@@ -9,11 +10,13 @@ class FlyerFullScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerFullScreen({
     @required this.minWidthFactor,
-    this.flyerModel,
+    @required this.flyerModel,
+    @required this.bzModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
+  final BzModel bzModel;
   final double minWidthFactor;
   /// --------------------------------------------------------------------------
   @override
@@ -33,6 +36,7 @@ class FlyerFullScreen extends StatelessWidget {
 
         child: FlyerHero(
           flyerModel: flyerModel,
+          bzModel: bzModel,
           isFullScreen: true,
           minWidthFactor: minWidthFactor,
         ),

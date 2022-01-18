@@ -154,7 +154,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
           blog('tapping flyer zone in h 1 bz card screen ');
         },
         stackWidgets: <Widget>[
-          FlyerHeader(
+          OldFlyerHeader(
             superFlyer: _superFlyer,
             flyerBoxWidth: widget.flyerBoxWidth,
           ),

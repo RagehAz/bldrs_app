@@ -255,20 +255,22 @@ class BzzProvider extends ChangeNotifier {
     _setFollowedBzz(<BzModel>[]);
   }
 // -------------------------------------
-  bool checkFollow({BuildContext context, String bzID}) {
+  bool checkFollow({@required BuildContext context, @required String bzID}) {
     bool _isFollowing = false;
 
-    final UsersProvider _usersProvider =
-        Provider.of<UsersProvider>(context, listen: false);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final UserModel _myUserModel = _usersProvider.myUserModel;
 
     final String _id = _myUserModel?.followedBzzIDs?.firstWhere((String id) => id == bzID, orElse: () => null);
 
     if (_id == null) {
       _isFollowing = false;
-    } else {
+    }
+
+    else {
       _isFollowing = true;
     }
+
     // blog('_isFollowing = $_isFollowing');
 
     return _isFollowing;

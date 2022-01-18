@@ -1,5 +1,6 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_tree.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/d_flyer_tree.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -7,12 +8,14 @@ class FlyerHero extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerHero({
     @required this.flyerModel,
+    @required this.bzModel,
     @required this.isFullScreen,
     @required this.minWidthFactor,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
+  final BzModel bzModel;
   final bool isFullScreen;
   final double minWidthFactor;
   /// --------------------------------------------------------------------------
@@ -36,6 +39,7 @@ class FlyerHero extends StatelessWidget {
     @required BuildContext fromHeroContext,
     @required BuildContext toHeroContext,
     @required FlyerModel flyerModel,
+    @required BzModel bzModel,
     @required double minWidthFactor,
   }) {
 
@@ -82,6 +86,7 @@ class FlyerHero extends StatelessWidget {
           return FlyerTree(
             flyerWidthFactor: _flyerWidthFactor,
             flyerModel: flyerModel,
+            bzModel: bzModel,
           );
 
         }
@@ -92,7 +97,6 @@ class FlyerHero extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Hero(
-      key: ValueKey<String>('flyerID_${flyerModel.id}'),
       tag: flyerModel.id,
       flightShuttleBuilder: (
           BuildContext flightContext,
@@ -103,6 +107,7 @@ class FlyerHero extends StatelessWidget {
           ){
         return FlyerHero.flyerFlightShuttle(
           flyerModel: flyerModel,
+          bzModel: bzModel,
           minWidthFactor: minWidthFactor,
           animation: animation,
           flightContext: flightContext,
@@ -115,6 +120,7 @@ class FlyerHero extends StatelessWidget {
       child: FlyerTree(
         flyerWidthFactor: isFullScreen ? 1 : minWidthFactor,
         flyerModel: flyerModel,
+        bzModel: bzModel,
       ),
 
     );
