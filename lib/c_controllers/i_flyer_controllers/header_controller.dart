@@ -1,8 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/d_providers/active_flyer_provider.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -46,7 +44,7 @@ void onTriggerHeader({
 
   blog('_onHeaderTap : bzPageIsOn is : $_bzPageIsOn');
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------------------------
 /// PROGRESS BAR OPACITY
 void _triggerProgressBarOpacity({
   @required BuildContext context,
@@ -69,7 +67,7 @@ void _triggerProgressBarOpacity({
   }
 
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------------------------
 /// HEADER IS EXPANDED
 void _triggerHeaderExpansion({
   @required BuildContext context,
@@ -88,7 +86,7 @@ void _triggerHeaderExpansion({
   PageStorage.of(context)?.writeState(context, !_headerIsExpanded);
 
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------------------------
 /// HEADER EXPANSION ANIMATION
 void _animateHeaderExpansion({
   @required BuildContext context,
@@ -118,7 +116,7 @@ void _animateHeaderExpansion({
 
 
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------------------------
 /// HEADER PAGE OPACITY
 void _triggerHeaderPageOpacity({
   @required BuildContext context,
@@ -151,6 +149,7 @@ void _triggerHeaderPageOpacity({
   });
 }
 // -----------------------------------------------------------------------------
+/// ON FOLLOW
 Future<void> onFollowTap({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -177,14 +176,11 @@ Future<void> onFollowTap({
 
 }
 // -----------------------------------------------------------------------------
+/// ON CALL
 Future<void> onCallTap({
   @required BuildContext context,
   @required BzModel bzModel,
 }) async {
-  // final String _userID = superUserID();
-  // final String _bzID = _superFlyer.bz.bzID;
-
-  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
 
   final String _contact = ContactModel.getAContactValueFromContacts(
       bzModel.contacts,

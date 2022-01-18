@@ -1,17 +1,12 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_full_screen.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
-import 'package:bldrs/b_views/z_components/flyer/flyer_full_screen.dart';
 import 'package:bldrs/c_controllers/i_flyer_controller.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:dismissible_page/dismissible_page.dart';
-
+import 'package:flutter/material.dart';
 
 class FlyerStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -70,6 +65,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
         await _setBz(_bzModel);
 
         await _triggerLoading(setTo: false);
+
       });
 
     }
@@ -98,8 +94,8 @@ class _FlyerStarterState extends State<FlyerStarter> {
                 valueListenable: _bzModelListenableValue,
                 builder: (_, BzModel bzModel, Widget child){
 
-                  if (bzModel == null){
-                    return const Loading(loading: true);
+                  if (bzModel == null || widget.flyerModel == null){
+                    return FlyerLoading(flyerWidthFactor: widget.minWidthFactor,);
                   }
 
                   else {
