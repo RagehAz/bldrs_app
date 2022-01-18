@@ -386,9 +386,11 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                                 alignment: Alignment.topCenter,
                                 // color: Colorz.BloodTest,
                                 child: FollowAndCallBTs(
-                                  flyerBoxWidth: widget.flyerBoxWidth *
-                                      _followCallButtonsScaleTween.value,
-                                  superFlyer: widget.superFlyer,
+                                  flyerBoxWidth: widget.flyerBoxWidth * _followCallButtonsScaleTween.value,
+                                  onFollowTap: widget.superFlyer.rec.onFollowTap,
+                                  onCallTap: widget.superFlyer.rec.onCallTap,
+                                  followIsOn: widget.superFlyer.rec.followIsOn,
+                                  headerIsExpanded: widget.superFlyer.nav.bzPageIsOn,
                                 ),
                               ),
                             ),
@@ -429,7 +431,6 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                             // height: 400,
                             // color: Colorz.Yellow200,
                             child: MaxHeader(
-                              superFlyer: widget.superFlyer,
                               flyerBoxWidth: widget.flyerBoxWidth,
                               bzPageIsOn: _isExpanded,
                               bzModel: widget.superFlyer.bz,

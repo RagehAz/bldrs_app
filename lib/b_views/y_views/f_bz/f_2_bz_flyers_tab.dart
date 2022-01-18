@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
@@ -9,7 +8,6 @@ import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/gallery.
 import 'package:bldrs/b_views/x_screens/f_bz/f_2_deactivated_flyers_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
 
@@ -42,12 +40,7 @@ class BzFlyersTab extends StatelessWidget {
         if (Mapper.canLoopList(flyers))
           Gallery(
             galleryBoxWidth: Bubble.clearWidth(context),
-            superFlyer: SuperFlyer.getSuperFlyerFromBzModelOnly(
-              bzModel: bzModel,
-              onHeaderTap: () => blog('on header tap in f 0 my bz Screen'),
-              bzCity: bzCity,
-              bzCountry: bzCountry,
-            ),
+            bzModel: bzModel,
             showFlyers: true,
             // tinyFlyers: tinyFlyers,
           ),
