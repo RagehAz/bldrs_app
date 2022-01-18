@@ -1,9 +1,13 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/d_providers/active_flyer_provider.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 // -----------------------------------------------------------------------------
 void onTriggerHeader({
   @required BuildContext context,
@@ -147,10 +151,65 @@ void _triggerHeaderPageOpacity({
   });
 }
 // -----------------------------------------------------------------------------
-Future<void> onFollowTap() async {
+Future<void> onFollowTap({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
+  final bool _followIsOn = _activeFlyerProvider.followIsOn;
+
+  /// TASK : start follow bz ops
+  // final List<String> _updatedBzFollows = await RecordOps.followBzOPs(
+  //   context: context,
+  //   bzID: _superFlyer.bz.bzID,
+  //   userID: superUserID(),
+  // );
+  //
+  // /// add or remove tinyBz from local followed bzz
+  // _prof.updatedFollowsInLocalList(_updatedBzFollows);
+
+  /// trigger current follow value
+  _activeFlyerProvider.setFollowIsOn(
+    setFollowIsOnTo: !_followIsOn,
+    notify: true,
+  );
 
 }
+// -----------------------------------------------------------------------------
+Future<void> onCallTap({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+  // final String _userID = superUserID();
+  // final String _bzID = _superFlyer.bz.bzID;
 
-Future<void> onCallTap() async {
+  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
 
+  final String _contact = ContactModel.getAContactValueFromContacts(
+      bzModel.contacts,
+      ContactType.phone,
+  );
+
+  /// alert user there is no contact to call
+  if (_contact == null) {
+    blog('no contact here');
+  }
+
+  /// or launch call and start call bz ops
+  else {
+
+    /// launch call
+    await Launcher.launchCall('tel: $_contact');
+
+    /// TASK : start call bz ops
+    // await RecordOps.callBzOPs(
+    //   context: context,
+    //   bzID: _bzID,
+    //   userID: _userID,
+    //   slideIndex: _superFlyer.currentSlideIndex,
+    // );
+
+  }
 }
+// -----------------------------------------------------------------------------

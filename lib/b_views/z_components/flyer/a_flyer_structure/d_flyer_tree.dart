@@ -1,8 +1,10 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/zoomable_pic.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -10,15 +12,17 @@ import 'package:flutter/material.dart';
 class FlyerTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerTree({
+    @required this.flyerModel,
+    @required this.bzModel,
     this.flyerWidthFactor = 1,
     this.onTap,
-    this.flyerModel,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerWidthFactor;
   final Function onTap;
   final FlyerModel flyerModel;
+  final BzModel bzModel;
   /// --------------------------------------------------------------------------
   static const double flyerSmallWidth = 200;
 // -----------------------------------------------------------------------------
@@ -54,28 +58,15 @@ class FlyerTree extends StatelessWidget {
           ),
         ),
 
+
         /// HEADER
-        Positioned(
-          top: 0,
-          child: Container(
-            width: _flyerBoxWidth,
-            height: _headerHeight,
-            color: Colorz.yellow255,
-            child: Row(
-              // children: const [
-              //
-              //   // Container(
-              //   //   width: _headerHeight,
-              //   //   height: _headerHeight,
-              //   //   color: Colorz.white50,
-              //   // ),
-              //   //
-              //   // const Expander(),
-              //
-              // ],
-            ),
-          ),
+        FlyerHeader(
+          flyerBoxWidth: _flyerBoxWidth,
+          flyerModel: flyerModel,
+          bzModel: bzModel,
+          initiallyExpanded: false,
         ),
+
 
         /// FOOTER
         Positioned(
