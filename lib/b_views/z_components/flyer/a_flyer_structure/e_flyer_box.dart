@@ -147,7 +147,7 @@ class FlyerBox extends StatelessWidget {
     final double _flyerZoneHeight = FlyerBox.height(context, _flyerBoxWidth);
     final BorderRadius _flyerBorders = borders(context, _flyerBoxWidth);
 // -----------------------------------------------------------------------------
-    return Center(
+    return Center( /// to prevent flyer stretching out
       child: Container(
         width: _flyerBoxWidth,
         height: _flyerZoneHeight,
@@ -157,8 +157,7 @@ class FlyerBox extends StatelessWidget {
           borderRadius: _flyerBorders,
           // boxShadow: Shadowz.flyerZoneShadow(_flyerBoxWidth),
         ),
-        child: ClipRRect(
-          /// because I will not pass borders to all children
+        child: ClipRRect( /// because I will not pass borders to all children
           borderRadius: _flyerBorders,
           child: Container(
             width: _flyerBoxWidth,

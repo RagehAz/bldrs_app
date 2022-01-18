@@ -26,27 +26,29 @@ import 'package:provider/provider.dart';
 class FlyerHeader extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyerHeader({
+    @required this.flyerBoxWidth,
     @required this.flyerModel,
     @required this.bzModel,
-    @required this.flyerBoxWidth,
     this.initiallyExpanded = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final double flyerBoxWidth;
   final bool initiallyExpanded;
   /// --------------------------------------------------------------------------
   @override
   _FlyerHeaderState createState() => _FlyerHeaderState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStateMixin {
 
   AnimationController _headerAnimationController;
+
   bool _isExpanded = false;
+
   ColorTween _backgroundColorTween;
   BorderRadiusTween _headerCornerTween;
   BorderRadiusTween _logoCornersTween;
@@ -65,10 +67,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
   @override
   void initState() {
     super.initState();
-
-    // widget.superFlyer.flyerShowsAuthor = true;
-    // widget.superFlyer.authorID = widget.superFlyer.bz.bzAuthors[0].userID;
-    // widget.superFlyer.flyerTinyAuthor = TinyUser.getTinyAuthorFromAuthorModel(widget.superFlyer.bz.bzAuthors[0]);
 
     _verticalController = ScrollController();
     _headerAnimationController = AnimationController(

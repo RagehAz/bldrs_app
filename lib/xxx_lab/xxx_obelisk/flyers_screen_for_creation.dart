@@ -2,35 +2,28 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_initializer.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
-import 'package:bldrs/b_views/z_components/flyer/flyer_full_screen.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TheFlyerScreenForCreation extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const TheFlyerScreenForCreation({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    const double _flyerBoxWidth = 200;
 
     final double gridZoneWidth = Scale.superScreenWidth(context);
     const double spacingRatioToGridWidth = 0.03;
     const int numberOfColumns = 3;
     final double gridFlyerWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * spacingRatioToGridWidth) + spacingRatioToGridWidth);
 
-
-
     final double gridSpacing = gridFlyerWidth * spacingRatioToGridWidth;
-
 
     final EdgeInsets _gridPadding = EdgeInsets.all(gridSpacing);
 
@@ -100,7 +93,6 @@ class TheFlyerScreenForCreation extends StatelessWidget {
               return
                   FlyerStarter(
                     flyerModel: _flyer,
-                    isFullScreen: false,
                     minWidthFactor: _minWidthFactor,
                   );
 

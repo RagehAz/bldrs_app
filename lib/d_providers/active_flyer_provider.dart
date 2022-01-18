@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -16,30 +15,6 @@ class ActiveFlyerProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -----------------------------------------------------------------------------
-/*
-
-  /// ACTIVE FLYER BZ MODEL
-
-// -------------------------------------
-  BzModel _activeFlyerBzModel;
-// -------------------------------------
-  BzModel get activeFlyerBzModel => _activeFlyerBzModel;
-// -------------------------------------
-  Future<void> getSetActiveFlyerBzModel({
-    @required BuildContext context,
-    @required String bzID,
-    bool notify,
-  }) async {
-
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    final BzModel _bzModel = await _bzzProvider.fetchBzModel(context: context, bzID: bzID);
-
-    _activeFlyerBzModel = _bzModel;
-    _notify(notify);
-
-  }
- */
 // -----------------------------------------------------------------------------
 
   /// ACTIVE FLYER BZ COUNTRY AND CITY
@@ -120,7 +95,7 @@ class ActiveFlyerProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-/// PROGRESS BAR OPACITY
+  /// PROGRESS BAR OPACITY
 
 // -------------------------------------
   int _progressBarOpacity = 1;
@@ -133,7 +108,7 @@ class ActiveFlyerProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-/// HEADER IS EXPANDED
+  /// HEADER IS EXPANDED
 
 // -------------------------------------
   bool _headerIsExpanded = false;
@@ -146,7 +121,7 @@ class ActiveFlyerProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-/// HEADER PAGE OPACITY
+  /// HEADER PAGE OPACITY
 
 // -------------------------------------
   int _headerPageOpacity = 0;
