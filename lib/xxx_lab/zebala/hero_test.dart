@@ -1,6 +1,6 @@
 // import 'dart:math' as math;
 // import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
-// import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+// import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 // import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 // import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;

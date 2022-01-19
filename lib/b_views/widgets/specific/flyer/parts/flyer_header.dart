@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_headline.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/header_shadow.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/max_header.dart';

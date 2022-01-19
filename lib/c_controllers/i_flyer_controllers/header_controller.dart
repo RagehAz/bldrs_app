@@ -159,7 +159,7 @@ void _triggerHeaderPageOpacity({
 }) {
 
   final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
-  final int _headerPageOpacity = _activeFlyerProvider.headerPageOpacity;
+  final double _headerPageOpacity = _activeFlyerProvider.headerPageOpacity;
 
   blog('_headerPageOpacity = $_headerPageOpacity');
 

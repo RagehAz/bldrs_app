@@ -199,7 +199,7 @@ String removeTextBeforeFirstSpecialCharacter(String verse, String specialCharact
 }
 // -----------------------------------------------------------------------------
 String removeTextAfterLastSpecialCharacter(String verse, String specialCharacter) {
-  String _result;
+  String _result = '';
 
   final bool _verseContainsChar = TextChecker.stringContainsSubString(
     string: verse,
@@ -208,10 +208,6 @@ String removeTextAfterLastSpecialCharacter(String verse, String specialCharacter
 
   if (_verseContainsChar == true) {
     _result = verse?.substring(0, verse.lastIndexOf(specialCharacter));
-  }
-
-  else {
-    _result = '';
   }
 
   return _result;

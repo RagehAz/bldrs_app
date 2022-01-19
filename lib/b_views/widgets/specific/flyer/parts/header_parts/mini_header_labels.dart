@@ -1,5 +1,8 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_bz_label.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -9,13 +12,23 @@ import 'package:flutter/material.dart';
 class HeaderLabels extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const HeaderLabels({
-    @required this.superFlyer,
     @required this.flyerBoxWidth,
+    @required this.bzModel,
+    @required this.bzCountry,
+    @required this.bzCity,
+    @required this.flyerShowsAuthor,
+    @required this.headerIsExpanded,
+    @required this.authorID,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final SuperFlyer superFlyer;
   final double flyerBoxWidth;
+  final BzModel bzModel;
+  final CountryModel bzCountry;
+  final CityModel bzCity;
+  final bool flyerShowsAuthor;
+  final bool headerIsExpanded;
+  final String authorID;
   /// --------------------------------------------------------------------------
   static double getHeaderLabelWidth(double flyerBoxWidth) {
     return flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
@@ -38,7 +51,7 @@ class HeaderLabels extends StatelessWidget {
         // color: Colorz.Bl,
 
         child: Column(
-          mainAxisAlignment: superFlyer.flyerShowsAuthor == true ?
+          mainAxisAlignment: flyerShowsAuthor == true ?
           MainAxisAlignment.end
               :
           MainAxisAlignment.center,
@@ -48,24 +61,24 @@ class HeaderLabels extends StatelessWidget {
             /// BUSINESS LABEL : BZ.NAME & BZ.LOCALE
             BzLabel(
               flyerBoxWidth: flyerBoxWidth,
-              bzModel: superFlyer.bz,
-              bzCountry: superFlyer.bzCountry,
-              bzCity: superFlyer.bzCity,
-              headerIsExpanded: superFlyer.nav.bzPageIsOn,
-              flyerShowsAuthor: superFlyer.flyerShowsAuthor,
+              bzModel: bzModel,
+              bzCountry: bzCountry,
+              bzCity: bzCity,
+              headerIsExpanded: headerIsExpanded,
+              flyerShowsAuthor: flyerShowsAuthor,
             ),
 
             /// middle expander ,, will delete i don't like it
-            if (superFlyer.flyerShowsAuthor == false)
+            if (flyerShowsAuthor == false)
               const Expander(),
 
             /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
-            if (superFlyer.flyerShowsAuthor == true)
+            if (flyerShowsAuthor == true)
               AuthorLabel(
                 flyerBoxWidth: flyerBoxWidth,
-                authorID: superFlyer.authorID,
-                bzModel: superFlyer.bz,
-                showLabel: superFlyer.nav.bzPageIsOn,
+                authorID: authorID,
+                bzModel: bzModel,
+                showLabel: headerIsExpanded,
                 authorGalleryCount: 0, // is not needed here
                 labelIsOn: true,
                 onTap: null,

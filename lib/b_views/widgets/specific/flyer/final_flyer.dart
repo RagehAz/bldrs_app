@@ -28,7 +28,7 @@ import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/dialogs/flyer_type_selector.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/flyer_methods.dart' as FlyerMethod;
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_pages.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/new_header.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/stats_dialog.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar.dart';
@@ -3053,6 +3053,7 @@ class _FinalFlyerState extends State<FinalFlyer>
       editorMode: widget.inEditor,
       key: widget.flyerKey,
       stackWidgets: <Widget>[
+
         if (_superFlyerHasID == true)
           FlyerPages(
             superFlyer: _superFlyer,
@@ -3079,8 +3080,19 @@ class _FinalFlyerState extends State<FinalFlyer>
 
         if (_superFlyerHasID == true)
           NewHeader(
-            superFlyer: _superFlyer,
+            bzModel: _superFlyer.bz,
+            bzCountry: _superFlyer.bzCountry,
+            bzCity: _superFlyer.bzCity,
+            headerIsExpanded: _superFlyer.nav.bzPageIsOn,
+            followIsOn: _superFlyer.rec.followIsOn,
+            onCallTap: _superFlyer.rec.onCallTap,
+            onFollowTap: _superFlyer.rec.onFollowTap,
+            currentSlideIndex: _superFlyer.currentSlideIndex,
+            onHeaderTap: _superFlyer.nav.onHeaderTap,
+            slides: SlideModel.getSlidesFromMutableSlides(_superFlyer.mSlides),
             flyerBoxWidth: widget.flyerBoxWidth,
+            authorIsOn: _superFlyer.flyerShowsAuthor,
+            authorID: _superFlyer.authorID,
           ),
 
         if (_tinyMode == false)

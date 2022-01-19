@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialo
 import 'package:bldrs/b_views/widgets/general/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/strips.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;

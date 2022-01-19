@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/info_page.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
