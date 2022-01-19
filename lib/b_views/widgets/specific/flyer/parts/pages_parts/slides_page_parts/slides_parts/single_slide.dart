@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/slide_headline.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/zoomable_pic.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/x_3_slide_full_screen.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
@@ -152,12 +153,12 @@ class SingleSlide extends StatelessWidget {
         height: OldFlyerBox.height(context, flyerBoxWidth),
         alignment: Alignment.topCenter,
         decoration: BoxDecoration(
-          borderRadius: Borderers.superFlyerCorners(context, flyerBoxWidth),
+          borderRadius: FlyerBox.corners(context, flyerBoxWidth),
           color: slideColor,
           image: _slidePic,
         ),
         child: ClipRRect(
-          borderRadius: Borderers.superFlyerCorners(context, flyerBoxWidth),
+          borderRadius: FlyerBox.corners(context, flyerBoxWidth),
           child: Stack(
             alignment: Alignment.topCenter,
             children: <Widget>[

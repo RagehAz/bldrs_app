@@ -54,14 +54,12 @@ class FlyerTree extends StatelessWidget {
           ),
         ),
 
-
         /// HEADER
         FlyerHeader(
           flyerBoxWidth: _flyerBoxWidth,
           flyerModel: flyerModel,
           bzModel: bzModel,
         ),
-
 
         /// FOOTER
         Positioned(

@@ -7,6 +7,28 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
+AnimationController initializeHeaderAnimationController({
+  @required BuildContext context,
+  @required TickerProvider vsync,
+}){
+
+  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
+  final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
+
+  // _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
+
+  final AnimationController _headerAnimationController = AnimationController(
+      duration: Ratioz.durationFading200,
+      vsync: vsync
+  );
+
+  if (_headerIsExpanded == true) {
+    _headerAnimationController.value = 1.0;
+  }
+
+  return _headerAnimationController;
+}
+// -----------------------------------------------------------------------------
 void onTriggerHeader({
   @required BuildContext context,
   @required AnimationController headerAnimationController,
