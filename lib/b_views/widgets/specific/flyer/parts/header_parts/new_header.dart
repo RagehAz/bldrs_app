@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_he
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/max_header.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_header_labels.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -200,22 +201,22 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                   .midColor;
 
     _headerCornerTween
-      ..begin = Borderers.superHeaderCorners(
+      ..begin = FlyerBox.superHeaderCorners(
         context: context,
         bzPageIsOn: false,
         flyerBoxWidth: widget.flyerBoxWidth,
       )
-      ..end = Borderers.superFlyerCorners(context, widget.flyerBoxWidth);
+      ..end = FlyerBox.corners(context, widget.flyerBoxWidth);
     // ..begin = Scale.superHeaderHeight(false, widget.flyerBoxWidth)
     // ..end = Scale.superFlyerZoneHeight(context, widget.flyerBoxWidth);
 
     _logoCornersTween
-      ..begin = Borderers.superLogoCorner(
+      ..begin = FlyerBox.superLogoCorner(
         context: context,
         flyerBoxWidth: widget.flyerBoxWidth,
         zeroCornerIsOn: true,
       ) //widget.superFlyer.flyerShowsAuthor)
-      ..end = Borderers.superLogoCorner(
+      ..end = FlyerBox.superLogoCorner(
           context: context,
           flyerBoxWidth: widget.flyerBoxWidth * _logoScaleRatio);
 

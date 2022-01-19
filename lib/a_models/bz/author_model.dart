@@ -87,9 +87,11 @@ class AuthorModel {
 
     final List<String> _authorFlyersIDs = <String>[];
 
-    for (final FlyerModel flyerModel in bzFlyers) {
-      if (flyerModel.authorID == _authorID) {
-        _authorFlyersIDs.add(flyerModel.id);
+    if (Mapper.canLoopList(_authorFlyersIDs)){
+      for (final FlyerModel flyerModel in bzFlyers) {
+        if (flyerModel.authorID == _authorID) {
+          _authorFlyersIDs.add(flyerModel.id);
+        }
       }
     }
 

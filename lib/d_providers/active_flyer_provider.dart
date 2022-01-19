@@ -43,10 +43,22 @@ class ActiveFlyerProvider extends ChangeNotifier {
         cityID: cityID,
     );
 
-    _activeFlyerBzCountry = _bzCountry;
-    _activeFlyerBzCity = _bzCity;
-    _notify(notify);
+    setActiveFlyerBzCountryAndCity(
+      bzCountry: _bzCountry,
+      bzCity: _bzCity,
+      notify: notify,
+    );
 
+  }
+// -------------------------------------
+  void setActiveFlyerBzCountryAndCity({
+    @required CountryModel bzCountry,
+    @required CityModel bzCity,
+    @required bool notify,
+  }){
+    _activeFlyerBzCountry = bzCountry;
+    _activeFlyerBzCity = bzCity;
+    _notify(notify);
   }
 // -----------------------------------------------------------------------------
 
@@ -89,7 +101,10 @@ class ActiveFlyerProvider extends ChangeNotifier {
 // -------------------------------------
   int get currentSlideIndex => _currentSlideIndex;
 // -------------------------------------
-  void setCurrentSlideIndex({@required int setIndexTo, bool notify = true}){
+  void setCurrentSlideIndex({
+    @required int setIndexTo,
+    @required bool notify
+  }){
     _currentSlideIndex = setIndexTo;
     _notify(notify);
   }
@@ -98,11 +113,14 @@ class ActiveFlyerProvider extends ChangeNotifier {
   /// PROGRESS BAR OPACITY
 
 // -------------------------------------
-  int _progressBarOpacity = 1;
+  int _progressBarOpacity = 0;
 // -------------------------------------
   int get progressBarOpacity => _progressBarOpacity;
 // -------------------------------------
-  void setProgressBarOpacity({@required int setOpacityTo, bool notify = true}){
+  void setProgressBarOpacity({
+    @required int setOpacityTo,
+    bool notify = true
+  }){
     _progressBarOpacity = setOpacityTo;
     _notify(notify);
   }
@@ -115,7 +133,10 @@ class ActiveFlyerProvider extends ChangeNotifier {
 // -------------------------------------
   bool get headerIsExpanded => _headerIsExpanded;
 // -------------------------------------
-  void setHeaderIsExpanded({@required bool setHeaderIsExpandedTo, bool notify = true}){
+  void setHeaderIsExpanded({
+    @required bool setHeaderIsExpandedTo,
+    @required bool notify,
+  }){
     _headerIsExpanded = setHeaderIsExpandedTo;
     _notify(notify);
   }
@@ -128,7 +149,7 @@ class ActiveFlyerProvider extends ChangeNotifier {
 // -------------------------------------
   int get headerPageOpacity => _headerPageOpacity;
 // -------------------------------------
-  void setHeaderPageOpacity({@required int setOpacityTo, bool notify = true}){
+  void setHeaderPageOpacity({@required int setOpacityTo, @required bool notify}){
     _headerPageOpacity = setOpacityTo;
     _notify(notify);
   }
