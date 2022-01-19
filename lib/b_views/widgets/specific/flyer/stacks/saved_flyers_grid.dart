@@ -6,8 +6,8 @@ import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/stacks/gallery_grid.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/stacks/sliver_flyers_grid.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -85,9 +85,9 @@ class SavedFlyersGrid extends StatelessWidget {
                 if (_isSelected == true)
                   DreamBox(
                     width: _flyerBoxWidth,
-                    height: OldFlyerBox.height(context, _flyerBoxWidth),
+                    height: FlyerBox.height(context, _flyerBoxWidth),
                     color: Colorz.black50,
-                    corners: Borderers.superFlyerCorners(context, _flyerBoxWidth),
+                    corners: FlyerBox.corners(context, _flyerBoxWidth),
                   ),
 
                 /// SELECTED TEXT
@@ -114,7 +114,7 @@ class SavedFlyersGrid extends StatelessWidget {
                     alignment: Aligners.superInverseBottomAlignment(context),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colorz.white20,),
-                      borderRadius: Borderers.superFlyerCorners(context, _flyerBoxWidth),
+                      borderRadius: FlyerBox.corners(context, _flyerBoxWidth),
                     ),
                     child: DreamBox(
                       height: OldFlyerBox.bottomCornerValue(_flyerBoxWidth) * 2,
