@@ -67,8 +67,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
     _animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _headerCornerTween = BorderRadiusTween();
     _logoCornersTween = BorderRadiusTween();
-    _isExpanded =
-        PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
+    _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
 
     if (_isExpanded) {
       _controller.value = 1.0;

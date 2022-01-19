@@ -225,7 +225,6 @@ class FlyerBox extends StatelessWidget {
 
     return _logoCorners;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
