@@ -9,7 +9,7 @@
 // import 'package:bldrs/d_providers/flyers_provider.dart';
 // import 'package:bldrs/b_views/widgets/general/layouts/main_layout.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
-// import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+// import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 // import 'package:flutter/gestures.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_swiper/flutter_swiper.dart';

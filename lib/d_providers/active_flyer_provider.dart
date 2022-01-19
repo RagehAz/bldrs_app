@@ -145,11 +145,11 @@ class ActiveFlyerProvider extends ChangeNotifier {
   /// HEADER PAGE OPACITY
 
 // -------------------------------------
-  int _headerPageOpacity = 0;
+  double _headerPageOpacity = 0;
 // -------------------------------------
-  int get headerPageOpacity => _headerPageOpacity;
+  double get headerPageOpacity => _headerPageOpacity;
 // -------------------------------------
-  void setHeaderPageOpacity({@required int setOpacityTo, @required bool notify}){
+  void setHeaderPageOpacity({@required double setOpacityTo, @required bool notify}){
     _headerPageOpacity = setOpacityTo;
     _notify(notify);
   }

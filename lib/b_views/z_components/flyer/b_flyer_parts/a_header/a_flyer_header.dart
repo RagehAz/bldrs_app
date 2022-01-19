@@ -3,7 +3,8 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/new_header.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_headline.dart';
@@ -60,7 +61,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
   Animation<double> _logoToHeaderLabelsSpacerWidthTween;
   Animation<double> _followCallButtonsScaleTween;
   CurvedAnimation _animation;
-  double _maxHeaderOpacity = 0;
+  // double _maxHeaderOpacity = 0;
 
   ScrollController _verticalController;
 
@@ -68,11 +69,13 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
   void initState() {
     super.initState();
 
-    /// HEADER ANIMATION CONTROLLER
-    _initHeaderAnimationController();
 
     _verticalController = ScrollController();
     _backgroundColorTween = ColorTween();
+
+    /// HEADER ANIMATION CONTROLLER
+    _initHeaderAnimationController();
+
     _animation = CurvedAnimation(parent: _headerAnimationController, curve: Curves.easeIn);
     _headerCornerTween = BorderRadiusTween();
     _logoCornersTween = BorderRadiusTween();
@@ -147,62 +150,11 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     final CountryModel _bzCountry = _activeFlyerProvider.activeFlyerBzCountry;
     final CityModel _bzCity = _activeFlyerProvider.activeFlyerBzCity;
     final bool _followIsOn = _activeFlyerProvider.followIsOn;
+    final double _maxHeaderOpacity = _activeFlyerProvider.headerPageOpacity;
+    final int _progressBarOpacity = _activeFlyerProvider.progressBarOpacity;
 // ----------------------------------------------------------
     /// TINY MODE
     final bool _tinyMode = OldFlyerBox.isTinyMode(context, widget.flyerBoxWidth);
-// ----------------------------------------------------------
-
-    /// HEADER CORNERS
-
-    //--------------------------------o
-    final BorderRadius _headerMinCorners = FlyerBox.superHeaderCorners(
-      context: context,
-      bzPageIsOn: false,
-      flyerBoxWidth: widget.flyerBoxWidth,
-    );
-    //--------------------------------o
-    final BorderRadius _headerMaxCorners = FlyerBox.corners(context, widget.flyerBoxWidth);
-    //--------------------------------o
-    _headerCornerTween
-      ..begin = _headerMinCorners
-      ..end = _headerMaxCorners;
-    // ----------------------------------------------------------
-
-    /// LOGO SIZE
-
-    //--------------------------------o
-    final double _logoMinWidth = FlyerBox.logoWidth(
-        bzPageIsOn: false,
-        flyerBoxWidth: widget.flyerBoxWidth
-    );
-    //--------------------------------o
-    final double _logoMaxWidth = widget.flyerBoxWidth * 0.6;
-    //--------------------------------o
-    final double _logoScaleRatio = _logoMaxWidth / _logoMinWidth;
-    //--------------------------------o
-    _logoSizeRatioTween = Tween<double>(
-      begin: 1,
-      end: _logoScaleRatio,
-    ).animate(_headerAnimationController);
-    // ----------------------------------------------------------
-
-    /// LOGO CORNER
-
-    //--------------------------------o
-    final BorderRadius _logoMinCorners = FlyerBox.superLogoCorner(
-      context: context,
-      flyerBoxWidth: widget.flyerBoxWidth,
-      zeroCornerIsOn: true,
-    );
-    //--------------------------------o
-    final BorderRadius _logoMaxCorners = FlyerBox.superLogoCorner(
-        context: context,
-        flyerBoxWidth: widget.flyerBoxWidth * _logoScaleRatio
-    );
-    //--------------------------------o
-    _logoCornersTween
-      ..begin = _logoMinCorners//widget.superFlyer.flyerShowsAuthor)
-      ..end = _logoMaxCorners;
     // ----------------------------------------------------------
 
     /// BACK GROUND COLOR
@@ -223,6 +175,59 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     _backgroundColorTween
       ..begin = _minHeaderBackgroundColor
       ..end = _maxHeaderBackgroundColor;
+// ----------------------------------------------------------
+
+    /// HEADER CORNERS
+
+    //--------------------------------o
+    final BorderRadius _headerMinCorners = FlyerBox.superHeaderCorners(
+      context: context,
+      bzPageIsOn: false,
+      flyerBoxWidth: widget.flyerBoxWidth,
+    );
+    //--------------------------------o
+    final BorderRadius _headerMaxCorners = FlyerBox.corners(context, widget.flyerBoxWidth);
+    //--------------------------------o
+    _headerCornerTween
+      ..begin = _headerMinCorners
+      ..end = _headerMaxCorners;
+    // ----------------------------------------------------------
+
+    /// LOGO CORNER
+
+    //--------------------------------o
+    final double _logoMinWidth = FlyerBox.logoWidth(
+        bzPageIsOn: false,
+        flyerBoxWidth: widget.flyerBoxWidth
+    );
+    //--------------------------------o
+    final double _logoMaxWidth = widget.flyerBoxWidth * 0.6;
+    //--------------------------------o
+    final double _logoScaleRatio = _logoMaxWidth / _logoMinWidth;
+    //--------------------------------o
+    final BorderRadius _logoMinCorners = FlyerBox.superLogoCorner(
+      context: context,
+      flyerBoxWidth: widget.flyerBoxWidth,
+      zeroCornerIsOn: true,
+    );
+    //--------------------------------o
+    final BorderRadius _logoMaxCorners = FlyerBox.superLogoCorner(
+        context: context,
+        flyerBoxWidth: widget.flyerBoxWidth * _logoScaleRatio
+    );
+    //--------------------------------o
+    _logoCornersTween
+      ..begin = _logoMinCorners//widget.superFlyer.flyerShowsAuthor)
+      ..end = _logoMaxCorners;
+    // ----------------------------------------------------------
+
+    /// LOGO SIZE
+
+    //--------------------------------o
+    _logoSizeRatioTween = Tween<double>(
+      begin: 1,
+      end: _logoScaleRatio,
+    ).animate(_headerAnimationController);
     // ----------------------------------------------------------
 
     /// SIDE SPACERS
@@ -288,7 +293,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     // ----------------------------------------------------------
     final bool _closed = _headerIsExpanded == false && _headerAnimationController.isDismissed == true;
     //------------------------------------------------------------o
-    final double _slideHeightWithoutHeader = OldFlyerBox.height(context, widget.flyerBoxWidth) - _minHeaderHeight;
+    final double _slideHeightWithoutHeader = FlyerBox.height(context, widget.flyerBoxWidth) - _minHeaderHeight;
 // -----------------------------------------------------------------------------
 
     return AnimatedBuilder(
@@ -298,7 +303,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
         final Color _headerColor = _backgroundColorTween.evaluate(_animation);
         final BorderRadius _headerBorders = _headerCornerTween.evaluate(_animation);
         final BorderRadius _logoBorders = _logoCornersTween.evaluate(_animation);
-
 
         return GestureDetector(
           onTap: _tinyMode == true ? null : _onHeaderTap,
@@ -321,6 +325,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                     const NeverScrollableScrollPhysics()
                         :
                     const BouncingScrollPhysics(),
+                    padding: EdgeInsets.zero, /// NEVER EVER DELETE THIS BITCH TOOK ME 2 DAYS
                     controller: _verticalController,
                     children: <Widget>[
 
@@ -331,7 +336,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                         alignment: Alignment.center,
                         padding: EdgeInsets.only(top: _headerLeftSpacerTween.value),
                         decoration: BoxDecoration(
-                          color: Colorz.bloodTest, //_tinyMode == true ? Colorz.white50 : Colorz.black80,
+                          color: _tinyMode == true ? Colorz.white50 : Colorz.black80,
                           borderRadius: Borderers.superBorderOnly(
                             context: context,
                             enTopRight: _headerBorders.topRight.x,
@@ -394,47 +399,15 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                                   shrinkWrap: true,
                                   children: <Widget>[
 
-                                    if (_tinyMode == false)
-                                    SizedBox(
-                                        width: _labelsWidth,
-                                        height: _labelsHeight,
-                                        // color: Colorz.Bl,
-                                        child: Column(
-                                          mainAxisAlignment: widget.flyerModel.showsAuthor == true ?
-                                          MainAxisAlignment.end
-                                              :
-                                          MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget>[
-
-                                            /// BUSINESS LABEL : BZ.NAME & BZ.LOCALE
-                                            BzLabel(
-                                              flyerBoxWidth: widget.flyerBoxWidth,
-                                              bzModel: widget.bzModel,
-                                              bzCity: _bzCity,
-                                              bzCountry: _bzCountry,
-                                              flyerShowsAuthor: widget.flyerModel.showsAuthor,
-                                              headerIsExpanded: _headerIsExpanded,
-                                            ),
-
-                                            /// middle expander ,, will delete i don't like it
-                                            if (widget.flyerModel.showsAuthor == false)
-                                              const Expander(),
-
-                                            /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
-                                            if (widget.flyerModel.showsAuthor == true)
-                                              AuthorLabel(
-                                                flyerBoxWidth: widget.flyerBoxWidth,
-                                                bzModel: widget.bzModel,
-                                                authorID: widget.flyerModel.authorID,
-                                                showLabel: _headerIsExpanded,
-                                                authorGalleryCount: 0, // is not needed here
-                                                labelIsOn: true,
-                                                onTap: null,
-                                              ),
-
-                                          ],
-                                        )),
+                                    HeaderLabels(
+                                      flyerBoxWidth: widget.flyerBoxWidth,
+                                      authorID: widget.flyerModel.authorID,
+                                      bzCity: _bzCity,
+                                      bzCountry: _bzCountry,
+                                      bzModel: widget.bzModel,
+                                      headerIsExpanded: _headerIsExpanded,
+                                      flyerShowsAuthor: widget.flyerModel.showsAuthor,
+                                    ),
 
                                   ],
                                 ),
