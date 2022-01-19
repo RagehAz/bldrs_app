@@ -66,8 +66,13 @@ class MiniHeaderStrip extends StatelessWidget {
 
             /// --- B.NAME, B.LOCALE, AUTHOR PICTURE, AUTHOR NAME, AUTHOR TITLE, FOLLOWERS COUNT
             HeaderLabels(
-              superFlyer: superFlyer,
               flyerBoxWidth: flyerBoxWidth,
+              authorID: superFlyer.authorID,
+              bzCity: superFlyer.bzCity,
+              bzCountry: superFlyer.bzCountry,
+              bzModel: superFlyer.bz,
+              headerIsExpanded: superFlyer.nav.bzPageIsOn,
+              flyerShowsAuthor: superFlyer.flyerShowsAuthor,
             ),
 
             /// --- FOLLOW & Call
