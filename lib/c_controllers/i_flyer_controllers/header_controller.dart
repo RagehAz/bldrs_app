@@ -22,9 +22,12 @@ AnimationController initializeHeaderAnimationController({
       vsync: vsync
   );
 
-  if (_headerIsExpanded == true) {
-    _headerAnimationController.value = 1.0;
-  }
+  // if (_headerIsExpanded == true) {
+  //   _headerAnimationController.value = 1.0;
+  // }
+  // else {
+  //   _headerAnimationController.value = 0;
+  // }
 
   return _headerAnimationController;
 }
@@ -32,6 +35,7 @@ AnimationController initializeHeaderAnimationController({
 void onTriggerHeader({
   @required BuildContext context,
   @required AnimationController headerAnimationController,
+  @required ScrollController verticalController,
 }) {
 
   final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
@@ -39,16 +43,23 @@ void onTriggerHeader({
 
   blog('_onHeaderTap : bzPageIsOn was : $_bzPageIsOn');
 
-    /// PROGRESS BAR OPACITY
+  /// HEADER ANIMATION
+  _animateHeaderExpansion(
+    context: context,
+    headerAnimationController: headerAnimationController,
+    verticalController: verticalController,
+  );
+
+  /// PROGRESS BAR OPACITY
     _triggerProgressBarOpacity(
       context: context,
-      notify: false,
+      notify: true,
     );
 
     /// HEADER FADING
     _triggerHeaderPageOpacity(
       context: context,
-      notify: false,
+      notify: true,
     );
 
     /// HEADER EXPANSION
@@ -57,11 +68,6 @@ void onTriggerHeader({
       notify: true,
     );
 
-    /// HEADER ANIMATION
-    _animateHeaderExpansion(
-        context: context,
-        headerAnimationController: headerAnimationController,
-    );
 
 
   blog('_onHeaderTap : bzPageIsOn is : $_bzPageIsOn');
@@ -113,6 +119,7 @@ void _triggerHeaderExpansion({
 void _animateHeaderExpansion({
   @required BuildContext context,
   @required AnimationController headerAnimationController,
+  @required ScrollController verticalController,
 }){
 
   final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
@@ -127,6 +134,12 @@ void _animateHeaderExpansion({
   /// WHEN HEADER IS EXPANDED
   else {
     headerAnimationController.reverse().then<void>((dynamic value) async {
+
+      await verticalController.animateTo(0,
+          duration: Ratioz.durationSliding410,
+          curve: Curves.easeOut
+      );
+
 
       /// TASK : SHOOF KEDA EL IMPACT BTA3 DAWWAN
       // setState(() {
