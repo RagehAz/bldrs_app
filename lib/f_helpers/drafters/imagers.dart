@@ -325,17 +325,15 @@ Future<File> getFileFromURL(String imageUrl) async {
 Future<File> getFileFromPickerAsset(Asset asset) async {
   final ByteData _byteData = await asset.getThumbByteData(
       asset.originalWidth, asset.originalHeight,
-      quality: 100);
+      quality: 100
+  );
 
-  final String _name =
-      TextMod.removeTextAfterLastSpecialCharacter(asset.name, '.');
+  final String _name = TextMod.removeTextAfterLastSpecialCharacter(asset.name, '.');
 
-  blog(
-      '====================================================================================== asset name is : ${asset.runtimeType}');
+  blog('== asset name is : ${asset.runtimeType}');
 
   final File _tempFile = File('${(await getTemporaryDirectory()).path}/$_name');
-  await _tempFile.writeAsBytes(_byteData.buffer
-      .asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
+  await _tempFile.writeAsBytes(_byteData.buffer.asUint8List(_byteData.offsetInBytes, _byteData.lengthInBytes));
   await _tempFile.create(recursive: true);
 
   final File _file = _tempFile;

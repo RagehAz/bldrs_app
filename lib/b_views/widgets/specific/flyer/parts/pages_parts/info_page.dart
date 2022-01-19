@@ -10,7 +10,7 @@ import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/stats_line.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/info_page_parts/review_bubble.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/info_page_parts/specs_bubble.dart';
 import 'package:bldrs/b_views/widgets/specific/keywords/keywords_bubble.dart';
