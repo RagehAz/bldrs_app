@@ -296,6 +296,8 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     final double _slideHeightWithoutHeader = FlyerBox.height(context, widget.flyerBoxWidth) - _minHeaderHeight;
 // -----------------------------------------------------------------------------
 
+    blog('header is expanded : $_headerIsExpanded');
+
     return AnimatedBuilder(
       animation: _headerAnimationController.view,
       builder: (BuildContext ctx, Widget child) {
@@ -331,116 +333,131 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
                       /// MINI HEADER STRIP
                       Container(
-                        width: widget.flyerBoxWidth,
-                        height: _miniHeaderStripHeight,
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.only(top: _headerLeftSpacerTween.value),
-                        decoration: BoxDecoration(
-                          color: _tinyMode == true ? Colorz.white50 : Colorz.black80,
-                          borderRadius: Borderers.superBorderOnly(
-                            context: context,
-                            enTopRight: _headerBorders.topRight.x,
-                            enTopLeft: _headerBorders.topRight.x,
-                            enBottomRight: 0,
-                            enBottomLeft: 0,
+                        color: Colorz.bloodTest,
+                        child: Container(
+                          width: widget.flyerBoxWidth,
+                          height: (_minHeaderHeight * _logoSizeRatioTween.value) + (_headerLeftSpacerTween.value),
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.only(top: _headerLeftSpacerTween.value),
+                          decoration: BoxDecoration(
+                            color: _tinyMode == true ? Colorz.white50 : Colorz.black80,
+                            borderRadius: Borderers.superBorderOnly(
+                              context: context,
+                              enTopRight: _headerBorders.topRight.x,
+                              enTopLeft: _headerBorders.topRight.x,
+                              enBottomRight: 0,
+                              enBottomLeft: 0,
+                            ),
                           ),
-                        ),
-                        child: ListView(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          physics: const NeverScrollableScrollPhysics(),
-                          key: const PageStorageKey<String>('miniHeaderStrip'),
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
+                          child: ListView(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            physics: const NeverScrollableScrollPhysics(),
+                            key: const PageStorageKey<String>('miniHeaderStrip'),
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            // crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
 
-                            /// HEADER LEFT SPACER
-                            Center(
-                              child: SizedBox(
-                                width: _headerLeftSpacerTween.value,
-                                height: _logoMinWidth * _logoSizeRatioTween.value,
-                                // color: Colorz.BloodTest,
+                              /// HEADER LEFT SPACER
+                              Container(
+                                color: Colorz.red255,
+                                child: Center(
+                                  child: SizedBox(
+                                    width: _headerLeftSpacerTween.value,
+                                    height: _logoMinWidth * _logoSizeRatioTween.value,
+                                    // color: Colorz.BloodTest,
+                                  ),
+                                ),
                               ),
-                            ),
 
-                            /// LOGO
-                            BzLogo(
-                              width: _logoMinWidth * _logoSizeRatioTween.value,
-                              image: widget.bzModel?.logo,
-                              tinyMode: FlyerBox.isTinyMode(context, widget.flyerBoxWidth),
-                              corners: _logoBorders,
-                              bzPageIsOn: _headerIsExpanded,
-                              zeroCornerIsOn: widget.flyerModel.showsAuthor,
-                              // onTap:
-                              //superFlyer.onHeaderTap,
-                              // (){
-                              //   setState(() {
-                              //     _statelessFadeMaxHeader();
-                              //   });
-                              // }
-                            ),
-
-                            /// LOGO TO HEADER LABELS SPACER
-                            Center(
-                              child: SizedBox(
-                                width: _logoToHeaderLabelsSpacerWidthTween.value,
-                                height: _logoMinWidth * _logoSizeRatioTween.value,
+                              /// LOGO
+                              BzLogo(
+                                width: _logoMinWidth * _logoSizeRatioTween.value,
+                                image: widget.bzModel?.logo,
+                                tinyMode: FlyerBox.isTinyMode(context, widget.flyerBoxWidth),
+                                corners: _logoBorders,
+                                bzPageIsOn: _headerIsExpanded,
+                                zeroCornerIsOn: widget.flyerModel.showsAuthor,
+                                // onTap:
+                                //superFlyer.onHeaderTap,
+                                // (){
+                                //   setState(() {
+                                //     _statelessFadeMaxHeader();
+                                //   });
+                                // }
                               ),
-                            ),
 
-                            /// HEADER LABELS
-                            Center(
-                              child: SizedBox(
-                                width: _headerLabelsWidthTween.value,
-                                height: _logoMinWidth * _logoSizeRatioTween.value,
-                                child: ListView(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  children: <Widget>[
+                              /// LOGO TO HEADER LABELS SPACER
+                              Container(
+                                color: Colorz.yellow125,
+                                child: Center(
+                                  child: SizedBox(
+                                    width: _logoToHeaderLabelsSpacerWidthTween.value,
+                                    height: _logoMinWidth * _logoSizeRatioTween.value,
+                                  ),
+                                ),
+                              ),
 
-                                    HeaderLabels(
-                                      flyerBoxWidth: widget.flyerBoxWidth,
-                                      authorID: widget.flyerModel.authorID,
-                                      bzCity: _bzCity,
-                                      bzCountry: _bzCountry,
-                                      bzModel: widget.bzModel,
-                                      headerIsExpanded: _headerIsExpanded,
-                                      flyerShowsAuthor: widget.flyerModel.showsAuthor,
+                              /// HEADER LABELS
+                              Container(
+                                color: Colorz.blue80,
+                                child: Center(
+                                  child: SizedBox(
+                                    width: _headerLabelsWidthTween.value,
+                                    height: _logoMinWidth * _logoSizeRatioTween.value,
+                                    child: ListView(
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      children: <Widget>[
+
+                                        HeaderLabels(
+                                          flyerBoxWidth: widget.flyerBoxWidth  * _logoSizeRatioTween.value,
+                                          authorID: widget.flyerModel.authorID,
+                                          bzCity: _bzCity,
+                                          bzCountry: _bzCountry,
+                                          bzModel: widget.bzModel,
+                                          headerIsExpanded: false, //_headerIsExpanded,
+                                          flyerShowsAuthor: widget.flyerModel.showsAuthor,
+                                        ),
+
+                                      ],
                                     ),
-
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
 
-                            /// FOLLOW AND CALL
-                            Center(
-                              child: Container(
-                                width: FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * _followCallButtonsScaleTween.value,
-                                height: _logoMinWidth * _logoSizeRatioTween.value,
-                                alignment: Alignment.topCenter,
-                                // color: Colorz.BloodTest,
-                                child: FollowAndCallBTs(
-                                  flyerBoxWidth: widget.flyerBoxWidth * _followCallButtonsScaleTween.value,
-                                  headerIsExpanded: _headerIsExpanded,
-                                  followIsOn: _followIsOn,
-                                  onCallTap: _onCallTap,
-                                  onFollowTap: _onFollowTap,
+                              /// FOLLOW AND CALL
+                              Container(
+                                color: Colorz.blue80,
+                                child: Center(
+                                  child: Container(
+                                    width: FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * _followCallButtonsScaleTween.value,
+                                    height: _logoMinWidth * _logoSizeRatioTween.value,
+                                    alignment: Alignment.topCenter,
+                                    // color: Colorz.BloodTest,
+                                    child: FollowAndCallBTs(
+                                      flyerBoxWidth: widget.flyerBoxWidth * _followCallButtonsScaleTween.value,
+                                      followIsOn: _followIsOn,
+                                      onCallTap: _onCallTap,
+                                      onFollowTap: _onFollowTap,
+                                      headerIsExpanded: false, /// KEEP THIS NOW
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
 
-                            /// HEADER RIGHT SPACER
-                            Center(
-                              child: SizedBox(
-                                width: _headerRightSpacerTween.value,
-                                height: _logoMinWidth * _logoSizeRatioTween.value,
-                                // color: Colorz.BloodTest,
+                              /// HEADER RIGHT SPACER
+                              Center(
+                                child: SizedBox(
+                                  width: _headerRightSpacerTween.value,
+                                  height: _logoMinWidth * _logoSizeRatioTween.value,
+                                  // color: Colorz.BloodTest,
+                                ),
                               ),
-                            ),
 
-                          ],
+                            ],
+                          ),
                         ),
                       ),
 
@@ -456,23 +473,23 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                         ),
                       ),
 
-                      /// MAX HEADER
-                      if (_headerIsExpanded == true)
-                        AnimatedOpacity(
-                          duration: Ratioz.durationSliding400,
-                          curve: Curves.easeIn,
-                          opacity: _maxHeaderOpacity,
-                          child: SizedBox(
-                            width: widget.flyerBoxWidth,
-                            // height: 400,
-                            // color: Colorz.Yellow200,
-                            child: MaxHeader(
-                              flyerBoxWidth: widget.flyerBoxWidth,
-                              bzPageIsOn: _headerIsExpanded,
-                              bzModel: widget.bzModel,
-                            ),
-                          ),
-                        ),
+                      // /// MAX HEADER
+                      // if (_headerIsExpanded == true)
+                      //   AnimatedOpacity(
+                      //     duration: Ratioz.durationSliding400,
+                      //     curve: Curves.easeIn,
+                      //     opacity: _maxHeaderOpacity,
+                      //     child: SizedBox(
+                      //       width: widget.flyerBoxWidth,
+                      //       // height: 400,
+                      //       // color: Colorz.Yellow200,
+                      //       child: MaxHeader(
+                      //         flyerBoxWidth: widget.flyerBoxWidth,
+                      //         bzPageIsOn: _headerIsExpanded,
+                      //         bzModel: widget.bzModel,
+                      //       ),
+                      //     ),
+                      //   ),
 
                     ],
                   ),
