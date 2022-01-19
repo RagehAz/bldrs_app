@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class HeaderShadow extends StatelessWidget {
           width: flyerBoxWidth,
           height: flyerBoxWidth,
           decoration: BoxDecoration(
-            borderRadius: Borderers.superHeaderCorners(
+            borderRadius: FlyerBox.superHeaderCorners(
                 context: context,
                 bzPageIsOn: bzPageIsOn,
                 flyerBoxWidth: flyerBoxWidth),
