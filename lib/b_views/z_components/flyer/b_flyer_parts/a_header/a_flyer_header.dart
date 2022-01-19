@@ -6,6 +6,8 @@ import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navi
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_headline.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/max_header.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_bz_label.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_header_labels.dart';
@@ -17,6 +19,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -117,6 +120,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     onTriggerHeader(
       context: context,
       headerAnimationController: _headerAnimationController,
+      verticalController: _verticalController,
     );
   }
 // -----------------------------------------------------------------------------
@@ -139,7 +143,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 // ----------------------------------------------------------
     final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: true);
     final int _currentSlideIndex = _activeFlyerProvider.currentSlideIndex;
-    final bool _headerIsExpanded = false; //_activeFlyerProvider.headerIsExpanded;
+    final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
     final CountryModel _bzCountry = _activeFlyerProvider.activeFlyerBzCountry;
     final CityModel _bzCity = _activeFlyerProvider.activeFlyerBzCity;
     final bool _followIsOn = _activeFlyerProvider.followIsOn;
@@ -266,8 +270,8 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     /// HEADER LABELS SIZES
 
     //--------------------------------o
-    final double labelsWidth = HeaderLabels.getHeaderLabelWidth(_minHeaderHeight);
-    final double labelsHeight = _minHeaderHeight * (Ratioz.xxflyerHeaderMiniHeight - (2 * Ratioz.xxflyerHeaderMainPadding));
+    final double _labelsWidth = HeaderLabels.getHeaderLabelWidth(_minHeaderHeight);
+    final double _labelsHeight = _minHeaderHeight * (Ratioz.xxflyerHeaderMiniHeight - (2 * Ratioz.xxflyerHeaderMainPadding));
     //--------------------------------o
     final double _maxHeaderLabelsWidth = HeaderLabels.getHeaderLabelWidth(widget.flyerBoxWidth);
     //--------------------------------o
@@ -349,8 +353,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                             Center(
                               child: SizedBox(
                                 width: _headerLeftSpacerTween.value,
-                                height:
-                                _logoMinWidth * _logoSizeRatioTween.value,
+                                height: _logoMinWidth * _logoSizeRatioTween.value,
                                 // color: Colorz.BloodTest,
                               ),
                             ),
@@ -359,7 +362,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                             BzLogo(
                               width: _logoMinWidth * _logoSizeRatioTween.value,
                               image: widget.bzModel?.logo,
-                              tinyMode: OldFlyerBox.isTinyMode(context, widget.flyerBoxWidth),
+                              tinyMode: FlyerBox.isTinyMode(context, widget.flyerBoxWidth),
                               corners: _logoBorders,
                               bzPageIsOn: _headerIsExpanded,
                               zeroCornerIsOn: widget.flyerModel.showsAuthor,
@@ -393,8 +396,8 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
                                     if (_tinyMode == false)
                                     SizedBox(
-                                        width: labelsWidth,
-                                        height: labelsHeight,
+                                        width: _labelsWidth,
+                                        height: _labelsHeight,
                                         // color: Colorz.Bl,
                                         child: Column(
                                           mainAxisAlignment: widget.flyerModel.showsAuthor == true ?
@@ -468,7 +471,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                         ),
                       ),
 
-/*
                       /// Bz name below logo
                       Container(
                         color: Colorz.black80,
@@ -498,7 +500,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                             ),
                           ),
                         ),
- */
 
                     ],
                   ),
