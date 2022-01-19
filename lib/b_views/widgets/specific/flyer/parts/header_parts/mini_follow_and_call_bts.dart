@@ -50,12 +50,13 @@ class FollowAndCallBTs extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     final double _paddings = getPaddings(flyerBoxWidth: flyerBoxWidth);
-
+// -----------------------------------------------------------------------------
     /// --- FOLLOWERS & GALLERY
     final double followGalleryHeight = getBoxHeight(
         flyerBoxWidth: flyerBoxWidth,
         bzPageIsOn: headerIsExpanded
     );
+// -----------------------------------------------------------------------------
     final double followGalleryWidth = getBoxWidth(flyerBoxWidth: flyerBoxWidth);
 // -----------------------------------------------------------------------------
     return

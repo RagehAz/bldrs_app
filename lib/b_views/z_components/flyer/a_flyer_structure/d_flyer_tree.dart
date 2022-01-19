@@ -36,7 +36,7 @@ class FlyerTree extends StatelessWidget {
 
     final double _footerHeight = FlyerFooter.boxHeight(context: context, flyerBoxWidth: _flyerBoxWidth);
 
-    blog('THE Fu*king thing is doing good aho yabn el gazma : sizeFactor : $flyerWidthFactor');
+    // blog('THE Fu*king thing is doing good aho yabn el gazma : sizeFactor : $flyerWidthFactor');
 
     return FlyerBox(
       flyerWidthFactor: flyerWidthFactor,

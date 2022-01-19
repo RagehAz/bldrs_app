@@ -101,8 +101,18 @@ class _FlyerStarterState extends State<FlyerStarter> {
                   else {
 
                     return GestureDetector(
-                      onTap: () {
-                        context.pushTransparentRoute(
+                      onTap: () async {
+
+                        blog('getting city and county on flyer ${_flyerModel.id} tap');
+
+                        /// can get them in didChangedDependencies and pass them
+                        /// through constructors, but this will be easier
+                        await getFlyerBzCountryAndCity(
+                          context: context,
+                          bzModel: bzModel,
+                        );
+
+                        await context.pushTransparentRoute(
                             FlyerFullScreen(
                               flyerModel: _flyerModel,
                               bzModel: bzModel,

@@ -116,7 +116,7 @@ class _GalleryState extends State<Gallery> {
             cityID: _bzModel.zone.cityID,
         );
 
-        blog('active bz flyers are : $_flyersFromProvider');
+        // blog('active bz flyers are : $_flyersFromProvider');
 
         setState(() {
           _flyers = _flyersFromProvider;
