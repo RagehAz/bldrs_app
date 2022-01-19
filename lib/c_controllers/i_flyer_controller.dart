@@ -64,3 +64,18 @@ Future<BzModel> getFlyerBzModel({
   return _bzModel;
 }
 // -----------------------------------------------------------------------------
+Future<void> getFlyerBzCountryAndCity({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
+  await _activeFlyerProvider.getSetActiveFlyerBzCountryAndCity(
+    context: context,
+    countryID: bzModel.zone.countryID,
+    cityID: bzModel.zone.cityID,
+    notify: true,
+  );
+
+
+}

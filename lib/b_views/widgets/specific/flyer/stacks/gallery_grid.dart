@@ -135,7 +135,7 @@ class GalleryGrid extends StatelessWidget {
     );
 // -----------------------------------------------------------------------------
 
-    blog('the fucking flyers hena are : $galleryFlyers');
+    // blog('the fucking flyers hena are : $galleryFlyers');
 
     return SizedBox(
       width: gridZoneWidth,

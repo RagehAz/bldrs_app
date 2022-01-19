@@ -309,9 +309,10 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                 borderRadius: _headerBorders,
                 child: MaxBounceNavigator(
                   child: ListView(
-                    physics: _tinyMode == true || _isExpanded == false
-                        ? const NeverScrollableScrollPhysics()
-                        : const BouncingScrollPhysics(),
+                    physics: _tinyMode == true || _isExpanded == false ?
+                    const NeverScrollableScrollPhysics()
+                        :
+                    const BouncingScrollPhysics(),
                     controller: _verticalController,
                     children: <Widget>[
 
@@ -323,9 +324,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                         alignment: Alignment.center,
                         padding: EdgeInsets.only(top: _headerLeftSpacerTween.value),
                         decoration: BoxDecoration(
-                          color: _tinyMode == true
-                              ? Colorz.white50
-                              : Colorz.black80,
+                          color: _tinyMode == true ? Colorz.white50 : Colorz.black80,
                           borderRadius: Borderers.superBorderOnly(
                             context: context,
                             enTopRight: _headerBorders.topRight.x,
