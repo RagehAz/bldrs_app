@@ -155,4 +155,29 @@ class ActiveFlyerProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
+  /// CAN DISMISS FLYER
+
+// -------------------------------------
+  bool _canDismissFlyer = true;
+// -------------------------------------
+  bool get canDismissFlyer => _canDismissFlyer;
+// -------------------------------------
+  void setCanDismissFlyer({@required bool setTo, @required bool notify}){
+    _canDismissFlyer = setTo;
+    _notify(notify);
+  }
+// -----------------------------------------------------------------------------
+
+  /// SHOWING FULL SCREEN FLYER
+
+// -------------------------------------
+  bool _showingFullScreenFlyer = false;
+// -------------------------------------
+  bool get showingFullScreenFlyer => _showingFullScreenFlyer;
+// -------------------------------------
+  void setShowingFullScreenFlyer({@required bool setTo, @required bool notify}){
+    _showingFullScreenFlyer = setTo;
+    _notify(notify);
+  }
+// -----------------------------------------------------------------------------
 }

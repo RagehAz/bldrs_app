@@ -51,24 +51,28 @@ void onTriggerHeader({
   );
 
   /// PROGRESS BAR OPACITY
-    _triggerProgressBarOpacity(
-      context: context,
-      notify: true,
-    );
+  _triggerProgressBarOpacity(
+    context: context,
+    notify: false,
+  );
 
     /// HEADER FADING
-    _triggerHeaderPageOpacity(
-      context: context,
-      notify: true,
-    );
+  _triggerHeaderPageOpacity(
+    context: context,
+    notify: false,
+  );
 
-    /// HEADER EXPANSION
-    _triggerHeaderExpansion(
-      context: context,
-      notify: true,
-    );
+  /// HEADER EXPANSION
+  _triggerHeaderExpansion(
+    context: context,
+    notify: false,
+  );
 
-
+    /// CAN DISMISS FLYER
+  _triggerCanDismissFlyer(
+    context: context,
+    notify: true,
+  );
 
   blog('_onHeaderTap : bzPageIsOn is : $_bzPageIsOn');
 }
@@ -182,6 +186,21 @@ void _triggerHeaderPageOpacity({
     }
 
   });
+}
+// -------------------------------------------------------
+void _triggerCanDismissFlyer({
+  @required BuildContext context,
+  @required bool notify,
+}){
+
+  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
+  final bool _canDismissFlyer = _activeFlyerProvider.canDismissFlyer;
+
+  _activeFlyerProvider.setCanDismissFlyer(
+      setTo: !_canDismissFlyer,
+      notify: notify
+  );
+
 }
 // -----------------------------------------------------------------------------
 /// ON FOLLOW
