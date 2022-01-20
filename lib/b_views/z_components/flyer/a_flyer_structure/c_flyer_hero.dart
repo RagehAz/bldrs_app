@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/d_flyer_tree.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -83,10 +84,13 @@ class FlyerHero extends StatelessWidget {
             // maxWidthFactor: 1, REDUNDANT
           );
 
-          return FlyerTree(
-            flyerWidthFactor: _flyerWidthFactor,
-            flyerModel: flyerModel,
-            bzModel: bzModel,
+          return Scaffold(
+            backgroundColor: Colorz.nothing,
+            body: FlyerTree(
+              flyerWidthFactor: _flyerWidthFactor,
+              flyerModel: flyerModel,
+              bzModel: bzModel,
+            ),
           );
 
         }
