@@ -75,7 +75,7 @@ bool canSlide({
 }) {
   final double _offset = details.metrics.pixels;
 
-  const double _limitRatio = 0.25;
+  const double _limitRatio = 0.2;
 
   final double _backLimit = boxDistance * _limitRatio * (-1);
 

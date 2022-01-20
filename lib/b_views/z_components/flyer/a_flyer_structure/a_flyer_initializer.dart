@@ -4,9 +4,11 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loadi
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_full_screen.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/c_controllers/i_flyer_controller.dart';
+import 'package:bldrs/d_providers/active_flyer_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FlyerStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -105,9 +107,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
                         blog('getting city and county on flyer ${_flyerModel.id} tap');
 
-                        /// can get them in didChangedDependencies and pass them
-                        /// through constructors, but this will be easier
-                        await getFlyerBzCountryAndCity(
+                        await onOpenFullScreenFlyer(
                           context: context,
                           bzModel: bzModel,
                         );

@@ -44,10 +44,37 @@ void onCloseFullScreenFlyer(BuildContext context){
   /// HEADER PAGE OPACITY
   _activeFlyerProvider.setHeaderPageOpacity(
     setOpacityTo: 0,
-    notify: true,
+    notify: false,
+  );
+
+  /// SHOWING FULL SCREEN FLYER
+  _activeFlyerProvider.setCanDismissFlyer(
+      setTo: false,
+      notify: true
   );
 
   Nav.goBack(context);
+}
+// -----------------------------------------------------------------------------
+Future<void> onOpenFullScreenFlyer({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
+  _activeFlyerProvider.setShowingFullScreenFlyer(
+      setTo: true,
+      notify: false
+  );
+
+  /// can get them in didChangedDependencies and pass them
+  /// through constructors, but this will be easier
+  await _getFlyerBzCountryAndCity(
+    context: context,
+    bzModel: bzModel,
+    notify: true,
+  );
+
 }
 // -----------------------------------------------------------------------------
 Future<BzModel> getFlyerBzModel({
@@ -64,9 +91,10 @@ Future<BzModel> getFlyerBzModel({
   return _bzModel;
 }
 // -----------------------------------------------------------------------------
-Future<void> getFlyerBzCountryAndCity({
+Future<void> _getFlyerBzCountryAndCity({
   @required BuildContext context,
   @required BzModel bzModel,
+  @required bool notify,
 }) async {
 
   final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
@@ -74,8 +102,8 @@ Future<void> getFlyerBzCountryAndCity({
     context: context,
     countryID: bzModel.zone.countryID,
     cityID: bzModel.zone.cityID,
-    notify: true,
+    notify: notify,
   );
 
-
 }
+// -----------------------------------------------------------------------------
