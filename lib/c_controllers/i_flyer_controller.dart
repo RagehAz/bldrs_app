@@ -67,6 +67,11 @@ Future<void> onOpenFullScreenFlyer({
       notify: false
   );
 
+  _activeFlyerProvider.setCanDismissFlyer(
+      setTo: true,
+      notify: false,
+  );
+
   /// can get them in didChangedDependencies and pass them
   /// through constructors, but this will be easier
   await _getFlyerBzCountryAndCity(

@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controller.dart';
 import 'package:bldrs/d_providers/active_flyer_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -25,6 +26,8 @@ class FlyerFullScreen extends StatelessWidget {
 
     final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
     final bool _canDismissFlyer = _activeFlyerProvider.canDismissFlyer;
+
+    blog('can dismiss is : $_canDismissFlyer');
 
     if (_canDismissFlyer == true){
       onCloseFullScreenFlyer(context);
