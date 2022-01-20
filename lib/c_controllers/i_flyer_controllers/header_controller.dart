@@ -194,13 +194,22 @@ void _triggerCanDismissFlyer({
 }){
 
   final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
+  final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
   final bool _canDismissFlyer = _activeFlyerProvider.canDismissFlyer;
 
-  _activeFlyerProvider.setCanDismissFlyer(
-      setTo: !_canDismissFlyer,
-      notify: notify
-  );
+  if (_headerIsExpanded == true){
+    _activeFlyerProvider.setCanDismissFlyer(
+        setTo: false,
+        notify: notify
+    );
+  }
 
+  else {
+    _activeFlyerProvider.setCanDismissFlyer(
+        setTo: true,
+        notify: notify
+    );
+  }
 }
 // -----------------------------------------------------------------------------
 /// ON FOLLOW

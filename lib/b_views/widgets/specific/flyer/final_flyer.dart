@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
@@ -28,8 +29,8 @@ import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/dialogs/flyer_type_selector.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/flyer_methods.dart' as FlyerMethod;
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_pages.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/new_header.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/stats_dialog.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/flyer_maker_screen.dart';
