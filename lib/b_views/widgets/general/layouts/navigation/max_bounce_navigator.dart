@@ -69,10 +69,8 @@ class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _height =
-        widget.boxDistance ?? Scale.superScreenHeight(context);
-    final double _width =
-        widget.boxDistance ?? Scale.superScreenHeight(context);
+    final double _height = widget.boxDistance ?? Scale.superScreenHeight(context);
+    final double _width = widget.boxDistance ?? Scale.superScreenHeight(context);
 
     final double _boxDistance = widget.axis == Axis.vertical ? _height : _width;
 

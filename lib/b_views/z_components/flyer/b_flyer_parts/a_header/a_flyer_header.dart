@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/new_header.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
@@ -17,11 +18,13 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/d_providers/active_flyer_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -120,11 +123,13 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
   }
 // -----------------------------------------------------------------------------
   void _onHeaderTap(){
+
     onTriggerHeader(
       context: context,
       headerAnimationController: _headerAnimationController,
       verticalController: _verticalController,
     );
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _onFollowTap() async {
@@ -321,178 +326,206 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
               alignment: Alignment.topCenter,
               child: ClipRRect(
                 borderRadius: _headerBorders,
-                child: MaxBounceNavigator(
-                  child: ListView(
-                    physics: _tinyMode == true || _headerIsExpanded == false ?
-                    const NeverScrollableScrollPhysics()
-                        :
-                    const BouncingScrollPhysics(),
-                    padding: EdgeInsets.zero, /// NEVER EVER DELETE THIS BITCH TOOK ME 2 DAYS
-                    controller: _verticalController,
-                    children: <Widget>[
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: <Widget>[
 
-                      /// MINI HEADER STRIP
-                      Container(
-                        color: Colorz.bloodTest,
-                        child: Container(
-                          width: widget.flyerBoxWidth,
-                          height: (_minHeaderHeight * _logoSizeRatioTween.value) + (_headerLeftSpacerTween.value),
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.only(top: _headerLeftSpacerTween.value),
-                          decoration: BoxDecoration(
-                            color: _tinyMode == true ? Colorz.white50 : Colorz.black80,
-                            borderRadius: Borderers.superBorderOnly(
-                              context: context,
-                              enTopRight: _headerBorders.topRight.x,
-                              enTopLeft: _headerBorders.topRight.x,
-                              enBottomRight: 0,
-                              enBottomLeft: 0,
+                    MaxBounceNavigator(
+                      onNavigate: _onHeaderTap,
+                      // boxDistance: widget.flyerBoxWidth,
+                      child: ListView(
+                        physics: _tinyMode == true || _headerIsExpanded == false ?
+                        const NeverScrollableScrollPhysics()
+                            :
+                        const BouncingScrollPhysics(),
+                        padding: EdgeInsets.zero, /// NEVER EVER DELETE THIS BITCH TOOK ME 2 DAYS
+                        controller: _verticalController,
+                        children: <Widget>[
+
+                          /// MINI HEADER STRIP
+                          Container(
+                            width: widget.flyerBoxWidth,
+                            height: (_minHeaderHeight * _logoSizeRatioTween.value) + (_headerLeftSpacerTween.value),
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.only(top: _headerLeftSpacerTween.value),
+                            decoration: BoxDecoration(
+                              color: _tinyMode == true ? Colorz.white50 : Colorz.black80,
+                              borderRadius: Borderers.superBorderOnly(
+                                context: context,
+                                enTopRight: _headerBorders.topRight.x,
+                                enTopLeft: _headerBorders.topRight.x,
+                                enBottomRight: 0,
+                                enBottomLeft: 0,
+                              ),
                             ),
-                          ),
-                          child: ListView(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            physics: const NeverScrollableScrollPhysics(),
-                            key: const PageStorageKey<String>('miniHeaderStrip'),
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
+                            child: ListView(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              physics: const NeverScrollableScrollPhysics(),
+                              key: const PageStorageKey<String>('miniHeaderStrip'),
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
 
-                              /// HEADER LEFT SPACER
-                              Container(
-                                color: Colorz.red255,
-                                child: Center(
+                                /// HEADER LEFT SPACER
+                                Center(
                                   child: SizedBox(
                                     width: _headerLeftSpacerTween.value,
                                     height: _logoMinWidth * _logoSizeRatioTween.value,
                                     // color: Colorz.BloodTest,
                                   ),
                                 ),
-                              ),
 
-                              /// LOGO
-                              BzLogo(
-                                width: _logoMinWidth * _logoSizeRatioTween.value,
-                                image: widget.bzModel?.logo,
-                                tinyMode: FlyerBox.isTinyMode(context, widget.flyerBoxWidth),
-                                corners: _logoBorders,
-                                bzPageIsOn: _headerIsExpanded,
-                                zeroCornerIsOn: widget.flyerModel.showsAuthor,
-                                // onTap:
-                                //superFlyer.onHeaderTap,
-                                // (){
-                                //   setState(() {
-                                //     _statelessFadeMaxHeader();
-                                //   });
-                                // }
-                              ),
+                                /// LOGO
+                                BzLogo(
+                                  width: _logoMinWidth * _logoSizeRatioTween.value,
+                                  image: widget.bzModel?.logo,
+                                  tinyMode: FlyerBox.isTinyMode(context, widget.flyerBoxWidth),
+                                  corners: _logoBorders,
+                                  bzPageIsOn: _headerIsExpanded,
+                                  zeroCornerIsOn: widget.flyerModel.showsAuthor,
+                                  // onTap:
+                                  //superFlyer.onHeaderTap,
+                                  // (){
+                                  //   setState(() {
+                                  //     _statelessFadeMaxHeader();
+                                  //   });
+                                  // }
+                                ),
 
-                              /// LOGO TO HEADER LABELS SPACER
-                              Container(
-                                color: Colorz.yellow125,
-                                child: Center(
+                                /// LOGO TO HEADER LABELS SPACER
+                                Center(
                                   child: SizedBox(
                                     width: _logoToHeaderLabelsSpacerWidthTween.value,
                                     height: _logoMinWidth * _logoSizeRatioTween.value,
                                   ),
                                 ),
-                              ),
 
-                              /// HEADER LABELS
-                              Container(
-                                color: Colorz.blue80,
-                                child: Center(
+                                /// HEADER LABELS
+                                AnimatedOpacity(
+                                  opacity: _tinyMode == true ? 0 : 1,
+                                  duration: Ratioz.duration150ms,
+                                  child: Center(
+                                    child: SizedBox(
+                                      width: _headerLabelsWidthTween.value,
+                                      height: _logoMinWidth * _logoSizeRatioTween.value,
+                                      child: ListView(
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        scrollDirection: Axis.horizontal,
+                                        shrinkWrap: true,
+                                        children: <Widget>[
+
+                                          HeaderLabels(
+                                            flyerBoxWidth: widget.flyerBoxWidth  * _logoSizeRatioTween.value,
+                                            authorID: widget.flyerModel.authorID,
+                                            bzCity: _bzCity,
+                                            bzCountry: _bzCountry,
+                                            bzModel: widget.bzModel,
+                                            headerIsExpanded: false, //_headerIsExpanded,
+                                            flyerShowsAuthor: widget.flyerModel.showsAuthor,
+                                          ),
+
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                                /// FOLLOW AND CALL
+                                AnimatedOpacity(
+                                  opacity: _tinyMode == true ? 0 : 1,
+                                  duration: Ratioz.duration150ms,
+                                  child: Center(
+                                    child: Container(
+                                      width: FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * _followCallButtonsScaleTween.value,
+                                      height: _logoMinWidth * _logoSizeRatioTween.value,
+                                      alignment: Alignment.topCenter,
+                                      // color: Colorz.BloodTest,
+                                      child: FollowAndCallBTs(
+                                        flyerBoxWidth: widget.flyerBoxWidth * _followCallButtonsScaleTween.value,
+                                        followIsOn: _followIsOn,
+                                        onCallTap: _onCallTap,
+                                        onFollowTap: _onFollowTap,
+                                        headerIsExpanded: false, /// KEEP THIS NOW
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                                /// HEADER RIGHT SPACER
+                                Center(
                                   child: SizedBox(
-                                    width: _headerLabelsWidthTween.value,
+                                    width: _headerRightSpacerTween.value,
                                     height: _logoMinWidth * _logoSizeRatioTween.value,
-                                    child: ListView(
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      scrollDirection: Axis.horizontal,
-                                      shrinkWrap: true,
-                                      children: <Widget>[
-
-                                        HeaderLabels(
-                                          flyerBoxWidth: widget.flyerBoxWidth  * _logoSizeRatioTween.value,
-                                          authorID: widget.flyerModel.authorID,
-                                          bzCity: _bzCity,
-                                          bzCountry: _bzCountry,
-                                          bzModel: widget.bzModel,
-                                          headerIsExpanded: false, //_headerIsExpanded,
-                                          flyerShowsAuthor: widget.flyerModel.showsAuthor,
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              /// FOLLOW AND CALL
-                              Container(
-                                color: Colorz.blue80,
-                                child: Center(
-                                  child: Container(
-                                    width: FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * _followCallButtonsScaleTween.value,
-                                    height: _logoMinWidth * _logoSizeRatioTween.value,
-                                    alignment: Alignment.topCenter,
                                     // color: Colorz.BloodTest,
-                                    child: FollowAndCallBTs(
-                                      flyerBoxWidth: widget.flyerBoxWidth * _followCallButtonsScaleTween.value,
-                                      followIsOn: _followIsOn,
-                                      onCallTap: _onCallTap,
-                                      onFollowTap: _onFollowTap,
-                                      headerIsExpanded: false, /// KEEP THIS NOW
-                                    ),
                                   ),
                                 ),
-                              ),
 
-                              /// HEADER RIGHT SPACER
-                              Center(
-                                child: SizedBox(
-                                  width: _headerRightSpacerTween.value,
-                                  height: _logoMinWidth * _logoSizeRatioTween.value,
-                                  // color: Colorz.BloodTest,
-                                ),
-                              ),
-
-                            ],
+                              ],
+                            ),
                           ),
+
+                          /// Bz name below logo
+                          Container(
+                            color: Colorz.black80,
+                            child: BzPageHeadline(
+                              flyerBoxWidth: widget.flyerBoxWidth,
+                              bzPageIsOn: true,
+                              bzModel: widget.bzModel,
+                              country: _bzCountry,
+                              city: _bzCity,
+                            ),
+                          ),
+
+                          Container(
+                            width: widget.flyerBoxWidth,
+                            height: 500,
+                            color: Colorz.bloodTest,
+                          ),
+
+                          // /// MAX HEADER
+                          // if (_headerIsExpanded == true)
+                          //   AnimatedOpacity(
+                          //     duration: Ratioz.durationSliding400,
+                          //     curve: Curves.easeIn,
+                          //     opacity: _maxHeaderOpacity,
+                          //     child: SizedBox(
+                          //       width: widget.flyerBoxWidth,
+                          //       // height: 400,
+                          //       // color: Colorz.Yellow200,
+                          //       child: MaxHeader(
+                          //         flyerBoxWidth: widget.flyerBoxWidth,
+                          //         bzPageIsOn: _headerIsExpanded,
+                          //         bzModel: widget.bzModel,
+                          //       ),
+                          //     ),
+                          //   ),
+
+                        ],
+                      ),
+                    ),
+
+                    /// CORNER X BUTTON
+                    if (_headerIsExpanded == true)
+                    AnimatedOpacity(
+                      opacity: _headerIsExpanded == true ? 1 : 0,
+                      duration: Ratioz.duration1000ms,
+                      child: Align(
+                        alignment: Aligners.superTopAlignment(context),
+                        child: DreamBox(
+                          width: _headerBorders.topLeft.x * 2 - 10,
+                          height: _headerBorders.topLeft.x * 2 - 10,
+                          color: Colorz.white10,
+                          icon: Iconz.xLarge,
+                          corners: _headerBorders.topLeft.x - 5,
+                          margins: 5,
+                          iconSizeFactor: 0.5,
+                          onTap: _onHeaderTap,
                         ),
                       ),
+                    ),
 
-                      /// Bz name below logo
-                      Container(
-                        color: Colorz.black80,
-                        child: BzPageHeadline(
-                          flyerBoxWidth: widget.flyerBoxWidth,
-                          bzPageIsOn: true,
-                          bzModel: widget.bzModel,
-                          country: _bzCountry,
-                          city: _bzCity,
-                        ),
-                      ),
-
-                      // /// MAX HEADER
-                      // if (_headerIsExpanded == true)
-                      //   AnimatedOpacity(
-                      //     duration: Ratioz.durationSliding400,
-                      //     curve: Curves.easeIn,
-                      //     opacity: _maxHeaderOpacity,
-                      //     child: SizedBox(
-                      //       width: widget.flyerBoxWidth,
-                      //       // height: 400,
-                      //       // color: Colorz.Yellow200,
-                      //       child: MaxHeader(
-                      //         flyerBoxWidth: widget.flyerBoxWidth,
-                      //         bzPageIsOn: _headerIsExpanded,
-                      //         bzModel: widget.bzModel,
-                      //       ),
-                      //     ),
-                      //   ),
-
-                    ],
-                  ),
+                  ],
                 ),
               ),
 
