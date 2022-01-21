@@ -27,6 +27,7 @@ class FollowAndCallPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return AnimatedOpacity(
       opacity: tinyMode == true ? 0 : 1,
       duration: Ratioz.duration150ms,
@@ -46,5 +47,7 @@ class FollowAndCallPart extends StatelessWidget {
         ),
       ),
     );
+
   }
+
 }

@@ -5,15 +5,18 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_headline.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/max_header.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_header_labels.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_info_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_name_below_logo_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/follow_and_call_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_left_spacer_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_middle_spacer_part.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/mini_header_strip_part.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/convertible_header_strip_part.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/x_button_part.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/d_providers/active_flyer_provider.dart';
@@ -154,7 +157,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     final CountryModel _bzCountry = _activeFlyerProvider.activeFlyerBzCountry;
     final CityModel _bzCity = _activeFlyerProvider.activeFlyerBzCity;
     final bool _followIsOn = _activeFlyerProvider.followIsOn;
-    final double _maxHeaderOpacity = _activeFlyerProvider.headerPageOpacity;
     final int _progressBarOpacity = _activeFlyerProvider.progressBarOpacity;
 // ----------------------------------------------------------
     /// TINY MODE
@@ -339,7 +341,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                       children: <Widget>[
 
                         /// MINI HEADER STRIP
-                        MiniHeaderStripPart(
+                        ConvertibleHeaderStripPart(
                             flyerBoxWidth: widget.flyerBoxWidth,
                             minHeaderHeight: _minHeaderHeight,
                             logoSizeRatioTween: _logoSizeRatioTween,
@@ -370,51 +372,19 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                             bzCity: _bzCity
                         ),
 
-                        Container(
-                          width: widget.flyerBoxWidth,
-                          height: 500,
-                          color: Colorz.bloodTest,
+                        /// - BZ INFO PART
+                        BzInfoPart(
+                          flyerBoxWidth: widget.flyerBoxWidth,
+                          bzModel: widget.bzModel,
                         ),
-
-                        // /// MAX HEADER
-                        // if (_headerIsExpanded == true)
-                        //   AnimatedOpacity(
-                        //     duration: Ratioz.durationSliding400,
-                        //     curve: Curves.easeIn,
-                        //     opacity: _maxHeaderOpacity,
-                        //     child: SizedBox(
-                        //       width: widget.flyerBoxWidth,
-                        //       // height: 400,
-                        //       // color: Colorz.Yellow200,
-                        //       child: MaxHeader(
-                        //         flyerBoxWidth: widget.flyerBoxWidth,
-                        //         bzPageIsOn: _headerIsExpanded,
-                        //         bzModel: widget.bzModel,
-                        //       ),
-                        //     ),
-                        //   ),
 
                       ],
                     ),
 
-                    /// CORNER X BUTTON
-                    if (_headerIsExpanded == true)
-                    AnimatedOpacity(
-                      opacity: _headerIsExpanded == true ? 1 : 0,
-                      duration: Ratioz.duration1000ms,
-                      child: Align(
-                        alignment: Aligners.superTopAlignment(context),
-                        child: DreamBox(
-                          width: _headerBorders.topLeft.x * 2 - 10,
-                          height: _headerBorders.topLeft.x * 2 - 10,
-                          color: Colorz.white10,
-                          icon: Iconz.xLarge,
-                          corners: _headerBorders.topLeft.x - 5,
-                          margins: 5,
-                          iconSizeFactor: 0.5,
-                          onTap: _onHeaderTap,
-                        ),
-                      ),
+                    /// --- CORNER X BUTTON
+                    XButtonPart(
+                      headerBorders: _headerBorders,
+                      onHeaderTap: _onHeaderTap,
                     ),
 
                   ],

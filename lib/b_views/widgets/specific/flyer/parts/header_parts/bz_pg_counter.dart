@@ -11,23 +11,20 @@ class BzPgCounter extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.count,
     @required this.verse,
-    this.bzPageIsOn = true,
     this.icon,
     this.iconSizeFactor = 1,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final bool bzPageIsOn;
   final int count;
   final String verse;
   final String icon;
   final double iconSizeFactor;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     const Color bzPageBGColor = Colorz.black80;
     final double bzPageDividers = flyerBoxWidth * Ratioz.xxbzPageSpacing;
 
@@ -37,49 +34,49 @@ class BzPgCounter extends StatelessWidget {
 
     final double iconMargin = iconBoxHeight - iconHeight;
 
-    return bzPageIsOn == false
-        ? Container()
-        : Padding(
-            padding: EdgeInsets.only(top: bzPageDividers),
-            child: Container(
-              width: flyerBoxWidth,
-              color: bzPageBGColor,
-              padding: EdgeInsets.symmetric(vertical: flyerBoxWidth * 0.02),
-              child: Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: bzPageStripSideMargin),
-                child: Row(
-                  children: <Widget>[
-                    ///  ICON
-                    Container(
-                      width: iconBoxHeight,
-                      height: iconBoxHeight,
-                      margin: EdgeInsets.symmetric(
-                          horizontal: flyerBoxWidth * 0.01),
-                      // color: Colorz.BloodTest,
-                      child: Padding(
-                        padding: EdgeInsets.all(iconMargin),
-                        child: WebsafeSvg.asset(icon),
-                      ),
-                    ),
+    return Padding(
+      padding: EdgeInsets.only(top: bzPageDividers),
+      child: Container(
+        width: flyerBoxWidth,
+        color: bzPageBGColor,
+        padding: EdgeInsets.symmetric(vertical: flyerBoxWidth * 0.02),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: bzPageStripSideMargin),
+          child: Row(
+            children: <Widget>[
 
-                    SuperVerse(
-                      verse: Numeric.separateKilos(number: count),
-                      margin: bzPageStripSideMargin * 0.1,
-                    ),
-
-                    /// VERSE
-                    SuperVerse(
-                      verse: verse,
-                      color: Colorz.white200,
-                      weight: VerseWeight.thin,
-                      italic: true,
-                      margin: bzPageStripSideMargin * 0.1,
-                    ),
-                  ],
+              ///  ICON
+              Container(
+                width: iconBoxHeight,
+                height: iconBoxHeight,
+                margin: EdgeInsets.symmetric(
+                    horizontal: flyerBoxWidth * 0.01),
+                // color: Colorz.BloodTest,
+                child: Padding(
+                  padding: EdgeInsets.all(iconMargin),
+                  child: WebsafeSvg.asset(icon),
                 ),
               ),
-            ),
-          );
+
+              /// COUNT
+              SuperVerse(
+                verse: Numeric.separateKilos(number: count),
+                margin: bzPageStripSideMargin * 0.1,
+              ),
+
+              /// VERSE
+              SuperVerse(
+                verse: verse,
+                color: Colorz.white200,
+                weight: VerseWeight.thin,
+                italic: true,
+                margin: bzPageStripSideMargin * 0.1,
+              ),
+
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
