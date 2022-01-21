@@ -2,31 +2,22 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_headline.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/max_header.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_header_labels.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_info_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_name_below_logo_part.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/follow_and_call_part.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_left_spacer_part.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_middle_spacer_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/convertible_header_strip_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/x_button_part.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/d_providers/active_flyer_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -391,37 +382,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                 ),
               ),
 
-              // child:
-              // Column(
-              //   mainAxisSize: MainAxisSize.min,
-              //   children: <Widget>[
-              //
-              //     // /// COLLAPSED ZONE
-              //     // GestureDetector(
-              //     //   onTap: toggle,
-              //     //   child: MiniHeaderStrip(
-              //     //     superFlyer: widget.superFlyer,
-              //     //     flyerBoxWidth: widget.flyerBoxWidth,
-              //     //   ),
-              //     // ),
-              //     //
-              //     // /// EXPANDABLE ZONE
-              //     // ClipRRect(
-              //     //   borderRadius: Borderers.superBorderOnly(
-              //     //     context: context,
-              //     //     enTopLeft: 0,
-              //     //     enTopRight: 0,
-              //     //     enBottomLeft: Ratioz.xxflyerBottomCorners * widget.flyerBoxWidth,
-              //     //     enBottomRight: Ratioz.xxflyerBottomCorners * widget.flyerBoxWidth,
-              //     //   ),
-              //     //   child: new Align(
-              //     //     heightFactor: _animation.value,
-              //     //     child: child,
-              //     //   ),
-              //     // ),
-              //
-              //   ],
-              // ),
             ),
           ),
         );

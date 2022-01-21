@@ -9,8 +9,8 @@ import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navi
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
 import 'package:bldrs/b_views/widgets/general/textings/data_strip.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_header_strip.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
@@ -52,9 +52,10 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
       });
     }
 
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
+    _loading == true ?
+    blog('LOADING--------------------------------------')
+        :
+    blog('LOADING COMPLETE--------------------------------------');
   }
 
 // -----------------------------------------------------------------------------

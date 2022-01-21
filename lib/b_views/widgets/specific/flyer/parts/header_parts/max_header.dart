@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_co
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_fields.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_pg_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/gallery.dart';
-import 'package:bldrs/d_providers/streamers/bz_streamer.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;

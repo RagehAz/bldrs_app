@@ -60,6 +60,7 @@ enum BzTab{
   authors,
   targets,
   powers,
+  network,
 }
 // -----------------------------------------------------------------------------
 List<BzTab> bzTabsList = <BzTab>[
@@ -68,6 +69,7 @@ List<BzTab> bzTabsList = <BzTab>[
   BzTab.authors,
   BzTab.targets,
   BzTab.powers,
+  BzTab.network,
 ];
 // -----------------------------------------------------------------------------
 int getBzTabIndex(BzTab bzTab){
@@ -242,33 +244,19 @@ class BzModel{
 // -----------------------------------------------------------------------------
   static BzAccountType decipherBzAccountType(String bzAccountType) {
     switch (bzAccountType) {
-      case 'normal':
-        return BzAccountType.normal;
-        break; // 1
-      case 'premium':
-        return BzAccountType.premium;
-        break; // 2
-      case 'sphinx':
-        return BzAccountType.sphinx;
-        break; // 3
-      default:
-        return null;
+      case 'normal'   : return BzAccountType.normal   ; break; // 1
+      case 'premium'  : return BzAccountType.premium  ; break; // 2
+      case 'sphinx'   : return BzAccountType.sphinx   ; break; // 3
+      default:return null;
     }
   }
 // -----------------------------------------------------------------------------
   static String cipherBzAccountType(BzAccountType bzAccountType) {
     switch (bzAccountType) {
-      case BzAccountType.normal:
-        return 'normal';
-        break;
-      case BzAccountType.premium:
-        return 'premium';
-        break;
-      case BzAccountType.sphinx:
-        return 'sphinx';
-        break;
-      default:
-        return null;
+      case BzAccountType.normal:  return 'normal';  break;
+      case BzAccountType.premium: return 'premium'; break;
+      case BzAccountType.sphinx:  return 'sphinx';  break;
+      default:  return null;
     }
   }
 // -----------------------------------------------------------------------------
@@ -281,12 +269,17 @@ class BzModel{
       contacts: <ContactModel>[
         ContactModel(
             contact: ContactModel.getAContactValueFromContacts(
-                userModel.contacts, ContactType.email),
+                userModel.contacts,
+                ContactType.email
+            ),
             contactType: ContactType.email),
         ContactModel(
             contact: ContactModel.getAContactValueFromContacts(
-                userModel.contacts, ContactType.phone),
-            contactType: ContactType.phone),
+                userModel.contacts,
+                ContactType.phone
+            ),
+            contactType: ContactType.phone
+        ),
       ],
       authors: <AuthorModel>[
         AuthorModel.createMasterAuthorModelFromUserModel(userModel)
@@ -318,127 +311,65 @@ class BzModel{
 // -----------------------------------------------------------------------------
   static BzType decipherBzType(String x) {
     switch (x) {
-      case 'developer':
-        return BzType.developer;
-        break; // 1
-      case 'broker':
-        return BzType.broker;
-        break; // 2
-      case 'designer':
-        return BzType.designer;
-        break; // 3
-      case 'contractor':
-        return BzType.contractor;
-        break; // 4
-      case 'artisan':
-        return BzType.artisan;
-        break; // 5
-      case 'manufacturer':
-        return BzType.manufacturer;
-        break; // 6
-      case 'supplier':
-        return BzType.supplier;
-        break; // 7
-      default:
-        return null;
+      case 'developer'    : return BzType.developer;    break; // 1
+      case 'broker'       : return BzType.broker;       break; // 2
+      case 'designer'     : return BzType.designer;     break; // 3
+      case 'contractor'   : return BzType.contractor;   break; // 4
+      case 'artisan'      : return BzType.artisan;      break; // 5
+      case 'manufacturer' : return BzType.manufacturer; break; // 6
+      case 'supplier'     : return BzType.supplier;     break; // 7
+      default:  return null;
     }
   }
 // -----------------------------------------------------------------------------
   static String cipherBzType(BzType x) {
     switch (x) {
-      case BzType.developer:
-        return 'developer';
-        break;
-      case BzType.broker:
-        return 'broker';
-        break;
-      case BzType.designer:
-        return 'designer';
-        break;
-      case BzType.contractor:
-        return 'contractor';
-        break;
-      case BzType.artisan:
-        return 'artisan';
-        break;
-      case BzType.manufacturer:
-        return 'manufacturer';
-        break;
-      case BzType.supplier:
-        return 'supplier';
-        break;
-      default:
-        return null;
+      case BzType.developer     :  return 'developer'   ; break;
+      case BzType.broker        :  return 'broker'      ; break;
+      case BzType.designer      :  return 'designer'    ; break;
+      case BzType.contractor    :  return 'contractor'  ; break;
+      case BzType.artisan       :  return 'artisan'     ; break;
+      case BzType.manufacturer  :  return 'manufacturer'; break;
+      case BzType.supplier      :  return 'supplier'    ; break;
+      default:  return null;
     }
   }
 // -----------------------------------------------------------------------------
   static BzForm decipherBzForm(String x) {
     switch (x) {
-      case 'individual':
-        return BzForm.individual;
-        break; // 1
-      case 'company':
-        return BzForm.company;
-        break; // 2
-      default:
-        return null;
+      case 'individual' :  return BzForm.individual ; break; // 1
+      case 'company'    :  return BzForm.company    ; break; // 2
+      default:  return null;
     }
   }
 // -----------------------------------------------------------------------------
   static String cipherBzForm(BzForm x) {
     switch (x) {
-      case BzForm.individual:
-        return 'individual';
-        break;
-      case BzForm.company:
-        return 'company';
-        break;
-      default:
-        return null;
+      case BzForm.individual  : return 'individual' ; break;
+      case BzForm.company     : return 'company'    ; break;
+      default:  return null;
     }
   }
 // -----------------------------------------------------------------------------
   static String cipherBzState(BzState state) {
     switch (state) {
-      case BzState.online:
-        return 'online';
-        break;
-      case BzState.offline:
-        return 'offline';
-        break;
-      case BzState.deactivated:
-        return 'deactivated';
-        break;
-      case BzState.deleted:
-        return 'deleted';
-        break;
-      case BzState.banned:
-        return 'banned';
-        break;
-      default:
-        return null;
+      case BzState.online       : return 'online'     ; break;
+      case BzState.offline      : return 'offline'    ; break;
+      case BzState.deactivated  : return 'deactivated'; break;
+      case BzState.deleted      : return 'deleted'    ; break;
+      case BzState.banned       : return 'banned'     ;  break;
+      default:  return null;
     }
   }
 // -----------------------------------------------------------------------------
   static BzState decipherBzState(String state) {
     switch (state) {
-      case 'online':
-        return BzState.online;
-        break;
-      case 'offline':
-        return BzState.offline;
-        break;
-      case 'deactivated':
-        return BzState.deactivated;
-        break;
-      case 'deleted':
-        return BzState.deleted;
-        break;
-      case 'banned':
-        return BzState.banned;
-        break;
-      default:
-        return null;
+      case 'online'       : return BzState.online       ; break;
+      case 'offline'      : return BzState.offline      ; break;
+      case 'deactivated'  : return BzState.deactivated  ; break;
+      case 'deleted'      : return BzState.deleted      ; break;
+      case 'banned'       : return BzState.banned       ; break;
+      default:  return null;
     }
   }
 // -----------------------------------------------------------------------------
@@ -550,15 +481,17 @@ class BzModel{
 
   }
 // -----------------------------------------------------------------------------
-  static const List<String> bzPagesTabsTitles = <String>[
+  /// CAUTION : THESE TITLES CAN NOT BE TRANSLATED DUE TO THEIR USE IN WIDGET KEYS
+  static const List<String> bzPagesTabsTitlesInEnglishOnly = <String>[
     'Flyers',
     'About',
     'Authors',
     'Targets',
-    'Powers'
+    'Powers',
+    'Network',
   ];
 // -----------------------------------------------------------------------------
-  static bool bzzContainThisBz({List<BzModel> bzz, BzModel bzModel}) {
+  static bool bzzContainThisBz({@required List<BzModel> bzz, @required BzModel bzModel}) {
     bool _contains = false;
 
     if (Mapper.canLoopList(bzz) && bzModel != null) {
