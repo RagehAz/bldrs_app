@@ -33,9 +33,10 @@ class UserScreenTabBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
   String _userTabIcon(UserTab userTab){
     switch(userTab){
-      case UserTab.profile    : return Iconz.normalUser   ; break;
-      case UserTab.status      : return Iconz.terms        ; break;
-      case UserTab.following  : return Iconz.follow       ; break;
+      case UserTab.profile        : return Iconz.normalUser   ; break;
+      case UserTab.status         : return Iconz.terms        ; break;
+      case UserTab.notifications  : return Iconz.news         ; break;
+      case UserTab.following      : return Iconz.follow       ; break;
       default : return null;
     }
   }
@@ -51,7 +52,7 @@ class UserScreenTabBar extends StatelessWidget {
         ...List.generate(userProfileTabsList.length, (index){
 
           final UserTab _userTab = userProfileTabsList[index];
-          final String _userTabString = cipherUserTab(_userTab);
+          final String _userTabString = cipherUserTabInEnglishOnly(_userTab);
 
           return
 

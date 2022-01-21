@@ -33,11 +33,12 @@ class MyBzScreenTabBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
   String _bzTabIcon(BzTab bzTab){
     switch(bzTab){
-      case BzTab.flyers   : return Iconz.flyerGrid   ; break;
-      case BzTab.about    : return Iconz.info        ; break;
-      case BzTab.authors  : return Iconz.bz          ; break;
-      case BzTab.targets  : return Iconz.target      ; break;
-      case BzTab.powers   : return Iconz.power       ; break;
+      case BzTab.flyers   : return Iconz.flyerGrid  ; break;
+      case BzTab.about    : return Iconz.info       ; break;
+      case BzTab.authors  : return Iconz.bz         ; break;
+      case BzTab.targets  : return Iconz.target     ; break;
+      case BzTab.powers   : return Iconz.power      ; break;
+      case BzTab.network  : return Iconz.follow     ; break;
       default : return null;
     }
   }
@@ -53,7 +54,7 @@ class MyBzScreenTabBar extends StatelessWidget {
         ...List.generate(bzTabsList.length, (index){
 
           final BzTab _bzTab = bzTabsList[index];
-          final String _bzTabString = BzModel.bzPagesTabsTitles[index];
+          final String _bzTabString = BzModel.bzPagesTabsTitlesInEnglishOnly[index];
 
           return
             TabButton(

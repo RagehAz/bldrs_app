@@ -2,11 +2,12 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/b_views/y_views/f_bz/f_2_bz_flyers_tab.dart';
-import 'package:bldrs/b_views/y_views/f_bz/f_3_bz_about_tab.dart';
-import 'package:bldrs/b_views/y_views/f_bz/f_4_bz_authors_tab.dart';
-import 'package:bldrs/b_views/y_views/f_bz/f_5_bz_targets_tab.dart';
-import 'package:bldrs/b_views/y_views/f_bz/f_6_bz_powers_tab.dart';
+import 'package:bldrs/b_views/y_views/f_bz/f_2_bz_flyers_page.dart';
+import 'package:bldrs/b_views/y_views/f_bz/f_3_bz_about_page.dart';
+import 'package:bldrs/b_views/y_views/f_bz/f_4_bz_authors_page.dart';
+import 'package:bldrs/b_views/y_views/f_bz/f_5_bz_targets_page.dart';
+import 'package:bldrs/b_views/y_views/f_bz/f_6_bz_powers_page.dart';
+import 'package:bldrs/b_views/y_views/f_bz/f_7_bz_network_page.dart';
 import 'package:flutter/material.dart';
 
 class MyBzScreenViewPages extends StatelessWidget {
@@ -33,26 +34,30 @@ class MyBzScreenViewPages extends StatelessWidget {
       controller: tabController,
       children: <Widget>[
 
-        BzFlyersTab(
+        BzFlyersPage(
             bzModel: bzModel,
             flyers: bzFlyers,
             bzCountry: bzCountry,
             bzCity: bzCity
         ),
 
-        BzAboutTab(
+        BzAboutPage(
           bzModel: bzModel,
         ),
 
-        BzAuthorsTab(
+        BzAuthorsPage(
           bzModel: bzModel,
         ),
 
-        BzTargetsTab(
+        BzTargetsPage(
           bzModel: bzModel,
         ),
 
-        BzPowersTab(
+        BzPowersPage(
+          bzModel: bzModel,
+        ),
+
+        BzNetworkPage(
           bzModel: bzModel,
         ),
 

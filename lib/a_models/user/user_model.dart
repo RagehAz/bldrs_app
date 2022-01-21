@@ -521,20 +521,25 @@ enum AuthBy {
 enum UserTab {
   profile,
   status,
+  notifications,
   following,
 }
 // -----------------------------------------------------------------------------
 List<UserTab> userProfileTabsList = <UserTab>[
   UserTab.profile,
   UserTab.status,
+  UserTab.notifications,
   UserTab.following,
 ];
 // -----------------------------------------------------------------------------
-String cipherUserTab(UserTab userTab){
+/// CAUTION : THIS HAS TO REMAIN IN ENGLISH ONLY WITH NO TRANSLATIONS
+String cipherUserTabInEnglishOnly(UserTab userTab){
+  /// BECAUSE THESE VALUES ARE USED IN WIDGETS KEYS
   switch(userTab){
-    case UserTab.profile    : return 'Profile';   break;
-    case UserTab.status     : return 'Status';     break;
-    case UserTab.following  : return 'Following'; break;
+    case UserTab.profile        : return  'Profile'       ; break;
+    case UserTab.status         : return  'Status'        ; break;
+    case UserTab.notifications  : return  'Notifications' ; break;
+    case UserTab.following      : return  'Following'     ; break;
     default: return null;
   }
 }

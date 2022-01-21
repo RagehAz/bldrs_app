@@ -7,9 +7,9 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class BzPowersTab extends StatelessWidget {
+class BzPowersPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BzPowersTab({
+  const BzPowersPage({
     @required this.bzModel,
     Key key,
   }) : super(key: key);

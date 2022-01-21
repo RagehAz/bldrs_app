@@ -16,9 +16,9 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class BzAuthorsTab extends StatelessWidget {
+class BzAuthorsPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BzAuthorsTab({
+  const BzAuthorsPage({
     @required this.bzModel,
     Key key,
   }) : super(key: key);
