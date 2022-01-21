@@ -77,7 +77,6 @@ class OldFlyerHeader extends StatelessWidget {
             if (superFlyer.nav.bzPageIsOn)
               MaxHeader(
                 flyerBoxWidth: flyerBoxWidth,
-                bzPageIsOn: superFlyer.nav.bzPageIsOn,
                 bzModel: superFlyer.bz,
               ),
 

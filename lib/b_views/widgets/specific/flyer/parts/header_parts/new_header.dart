@@ -431,6 +431,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                                 // color: Colorz.BloodTest,
                               ),
                             ),
+
                           ],
                         ),
                       ),
@@ -459,7 +460,6 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                             // color: Colorz.Yellow200,
                             child: MaxHeader(
                               flyerBoxWidth: widget.flyerBoxWidth,
-                              bzPageIsOn: _isExpanded,
                               bzModel: widget.bzModel,
                             ),
                           ),
@@ -505,24 +505,25 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
           ),
         );
       },
-      child: _closed == true
-          ? null
-          : Container(
-              width: widget.flyerBoxWidth,
-              height: _slideHeightWithoutHeader,
-              decoration: BoxDecoration(
-                color: Colorz.bloodTest,
-                borderRadius: Borderers.superBorderOnly(
-                  context: context,
-                  enTopLeft: 0,
-                  enTopRight: 0,
-                  enBottomLeft:
-                      Ratioz.xxflyerBottomCorners * widget.flyerBoxWidth,
-                  enBottomRight:
-                      Ratioz.xxflyerBottomCorners * widget.flyerBoxWidth,
-                ),
-              ),
-            ),
+      child: _closed == true ? null
+          :
+      Container(
+        width: widget.flyerBoxWidth,
+        height: _slideHeightWithoutHeader,
+        decoration: BoxDecoration(
+          color: Colorz.bloodTest,
+          borderRadius: Borderers.superBorderOnly(
+            context: context,
+            enTopLeft: 0,
+            enTopRight: 0,
+            enBottomLeft:
+            Ratioz.xxflyerBottomCorners * widget.flyerBoxWidth,
+            enBottomRight:
+            Ratioz.xxflyerBottomCorners * widget.flyerBoxWidth,
+          ),
+        ),
+      ),
+
     );
   }
 }
