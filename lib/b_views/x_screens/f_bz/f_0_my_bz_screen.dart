@@ -25,7 +25,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
 
     _tabController = TabController(
       vsync: this,
-      length: BzModel.bzPagesTabsTitles.length,
+      length: BzModel.bzPagesTabsTitlesInEnglishOnly.length,
       initialIndex: getInitialMyBzScreenTabIndex(context),
     );
 

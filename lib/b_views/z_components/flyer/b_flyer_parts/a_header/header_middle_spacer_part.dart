@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/material.dart';
 
 class HeaderMiddleSpacerPart extends StatelessWidget {
@@ -24,4 +23,5 @@ class HeaderMiddleSpacerPart extends StatelessWidget {
       ),
     );
   }
+
 }

@@ -11,9 +11,9 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
 
-class BzFlyersTab extends StatelessWidget {
+class BzFlyersPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BzFlyersTab({
+  const BzFlyersPage({
     @required this.bzModel,
     @required this.flyers,
     @required this.bzCountry,

@@ -128,9 +128,9 @@ class NavBar extends StatelessWidget {
     if (FireAuthOps.userIsSignedIn() == false) {
       _numberOfButtons = 1;
     } else if (UserModel.userIsAuthor(userModel)) {
-      _numberOfButtons = 4;
-    } else {
       _numberOfButtons = 3;
+    } else {
+      _numberOfButtons = 2;
     }
 
     return _numberOfButtons;
@@ -344,7 +344,7 @@ class NavBar extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     const double _buttonCircleCorner = buttonCircleCorner;
     final BorderRadius _boxCorners = navBarCorners(context: context, barType: barType);
-    final double _boxHeight = navBarHeight(context: context, barType: barType);
+    final double _navBarHeight = navBarHeight(context: context, barType: barType);
     final double _bottomOffset = navBarBottomOffset(barType: barType);
 // -----------------------------------------------------------------------------
     /// TASK : IOS back button needs revision
@@ -361,7 +361,7 @@ class NavBar extends StatelessWidget {
       width: _spacerWidth * 0.5,
     );
 
-    final double _boxWidth = navBarWidth(context: context, userModel: _myUserModel);
+    final double _navBarWidth = navBarWidth(context: context, userModel: _myUserModel);
 
     final List<String> _userBzzIDs = BzModel.getBzzIDsFromBzz(_myBzz);
 
@@ -397,8 +397,8 @@ class NavBar extends StatelessWidget {
 
             /// navBar widgets
             Container(
-              width: _boxWidth,
-              height: _boxHeight,
+              width: _navBarWidth,
+              height: _navBarHeight,
               decoration: BoxDecoration(
                 color: Colorz.black230,
                 borderRadius: _boxCorners,
@@ -409,8 +409,8 @@ class NavBar extends StatelessWidget {
 
                   /// --- BLUR LAYER
                   BlurLayer(
-                    width: _boxWidth,
-                    height: _boxHeight,
+                    width: _navBarWidth,
+                    height: _navBarHeight,
                     borders: _boxCorners,
                   ),
 
@@ -473,21 +473,21 @@ class NavBar extends StatelessWidget {
                           },
                         ),
 
-                      _spacer,
-
-                      /// NEWS
-                      if (_userIsSignedIn == true)
-                        BarButton(
-                          width: navBarButtonWidth,
-                          text: Wordz.news(context),
-                          icon: Iconz.news,
-                          iconSizeFactor: 0.45,
-                          barType: barType,
-                          onTap: () {
-                            Nav.goToNewScreen(
-                                context, const NotificationsScreen());
-                          },
-                        ),
+                      // _spacer,
+                      //
+                      // /// NEWS
+                      // if (_userIsSignedIn == true)
+                      //   BarButton(
+                      //     width: navBarButtonWidth,
+                      //     text: Wordz.news(context),
+                      //     icon: Iconz.news,
+                      //     iconSizeFactor: 0.45,
+                      //     barType: barType,
+                      //     onTap: () {
+                      //       Nav.goToNewScreen(
+                      //           context, const NotificationsScreen());
+                      //     },
+                      //   ),
 
                       _spacer,
 

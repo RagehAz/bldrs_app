@@ -9,9 +9,9 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
-class BzAboutTab extends StatelessWidget {
+class BzAboutPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BzAboutTab({
+  const BzAboutPage({
     @required this.bzModel,
     Key key,
   }) : super(key: key);
