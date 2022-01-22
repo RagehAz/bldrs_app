@@ -48,8 +48,6 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         physics: const NeverScrollableScrollPhysics(),
         key: const PageStorageKey<String>('miniHeaderStrip'),
-        // mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: children,
       ),
     );

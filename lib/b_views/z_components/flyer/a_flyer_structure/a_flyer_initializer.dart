@@ -77,7 +77,8 @@ class _FlyerStarterState extends State<FlyerStarter> {
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-        key: ValueKey<String>('flyerID_${widget.flyerModel.id}'),
+        // key: ValueKey<String>('flyerID_${widget.flyerModel.id}'),
+        key: const ValueKey<String>('FlyerStarter'),
         valueListenable: _loading,
         child: FlyerLoading(flyerWidthFactor: widget.minWidthFactor,),
         builder: (_, bool isLoading, Widget child){
@@ -112,6 +113,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
                         await context.pushTransparentRoute(
                             FlyerFullScreen(
+                              key: const ValueKey<String>('Flyer_Full_Screen'),
                               flyerModel: _flyerModel,
                               bzModel: bzModel,
                               minWidthFactor: widget.minWidthFactor,
@@ -119,6 +121,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
                         );
                       },
                       child: FlyerHero(
+                        key: const ValueKey<String>('Flyer_hero'),
                         flyerModel: _flyerModel,
                         bzModel: bzModel,
                         minWidthFactor: widget.minWidthFactor,
