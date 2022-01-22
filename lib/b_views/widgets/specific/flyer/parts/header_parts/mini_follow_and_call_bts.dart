@@ -59,39 +59,35 @@ class FollowAndCallBTs extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final double followGalleryWidth = getBoxWidth(flyerBoxWidth: flyerBoxWidth);
 // -----------------------------------------------------------------------------
-    return
-      headerIsExpanded == true ?
-      Container()
-        :
-      SizedBox(
-            height: followGalleryHeight,
-            width: followGalleryWidth,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+    return SizedBox(
+      height: followGalleryHeight,
+      width: followGalleryWidth,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
 
-                /// --- FOLLOW BUTTON
-                FollowBT(
-                  flyerBoxWidth: flyerBoxWidth,
-                  onFollowTap: onFollowTap,
-                  tappingUnfollow: () {},
-                  followOn: followIsOn,
-                ),
+          /// --- FOLLOW BUTTON
+          FollowBT(
+            flyerBoxWidth: flyerBoxWidth,
+            onFollowTap: onFollowTap,
+            tappingUnfollow: () {},
+            followOn: followIsOn,
+          ),
 
-                /// --- FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
-                SizedBox(
-                  height: _paddings,
-                ),
+          /// --- FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
+          SizedBox(
+            height: _paddings,
+          ),
 
-                /// --- Call BUTTON
-                CallBT(
-                  flyerBoxWidth: flyerBoxWidth,
-                  onCallTap: onCallTap,
-                ),
+          /// --- Call BUTTON
+          CallBT(
+            flyerBoxWidth: flyerBoxWidth,
+            onCallTap: onCallTap,
+          ),
 
-              ],
-            ),
-          );
+        ],
+      ),
+    );
   }
 }
 
@@ -116,11 +112,9 @@ class FollowBT extends StatelessWidget {
   Widget build(BuildContext context) {
     // === === === === === === === === === === === === === === === === === ===
     final double screenWidth = Scale.superScreenWidth(context);
-    final bool _isTinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
     // const bool versesShadow = false;
     /// --- FOLLOW BUTTON
-    final Color followBTColor =
-        followOn == true ? Colorz.yellow255 : Colorz.white20;
+    final Color followBTColor = followOn == true ? Colorz.yellow255 : Colorz.white20;
     final double followBTHeight = flyerBoxWidth * Ratioz.xxfollowBTHeight;
     final double followBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
     // === === === === === === === === === === === === === === === === === ===
@@ -140,9 +134,7 @@ class FollowBT extends StatelessWidget {
     //   tappingUnfollow();
     // }
     // === === === === === === === === === === === === === === === === === ===
-    return _isTinyMode == true
-        ? Container()
-        : GestureDetector(
+    return GestureDetector(
             onTap: onFollowTap,
             child: Container(
               height: followBTHeight,
@@ -155,6 +147,7 @@ class FollowBT extends StatelessWidget {
                     flyerBoxWidth: flyerBoxWidth,
                     gettingFollowCorner: true),
               ),
+
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
@@ -176,14 +169,14 @@ class FollowBT extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+
                       /// FOLLOW ICON
                       SizedBox(
                         height: followIconHeight,
                         width: followIconWidth,
                         child: WebsafeSvg.asset(followIcon,
-                            color: followOn == true
-                                ? Colorz.black230
-                                : Colorz.white255),
+                            color: followOn == true ? Colorz.black230 : Colorz.white255
+                        ),
                       ),
 
                       /// FOLLOW TEXT
@@ -194,6 +187,7 @@ class FollowBT extends StatelessWidget {
                           size: 0,
                           scaleFactor: flyerBoxWidth / screenWidth,
                         )
+
                     ],
                   )
 
@@ -233,12 +227,10 @@ class CallBT extends StatelessWidget {
     final BorderRadius _corners = Borderers.superFollowOrCallCorners(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
-        gettingFollowCorner: false);
+        gettingFollowCorner: false
+    );
 // -----------------------------------------------------------------------------
-    return _isTinyMode == true ?
-    Container()
-        :
-    GestureDetector(
+    return GestureDetector(
       onTap: onCallTap,
       child: Container(
         height: _callBTHeight,
@@ -246,7 +238,8 @@ class CallBT extends StatelessWidget {
         decoration: BoxDecoration(
             color: _callBTColor,
             boxShadow: Shadowz.superFollowBtShadow(_callBTHeight),
-            borderRadius: _corners),
+            borderRadius: _corners,
+        ),
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
@@ -266,7 +259,7 @@ class CallBT extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
 
-                /// call ICON
+                /// CALL ICON
                 Container(
                   height: _callIconWidth,
                   width: _callIconWidth,

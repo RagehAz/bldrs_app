@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.d
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_info_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_name_below_logo_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/convertible_header_strip_part.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/x_button_part.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
@@ -72,7 +73,12 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     /// HEADER ANIMATION CONTROLLER
     _initHeaderAnimationController();
 
-    _animation = CurvedAnimation(parent: _headerAnimationController, curve: Curves.easeIn);
+    _animation = CurvedAnimation(
+      parent: _headerAnimationController,
+      curve: Curves.easeInOut,
+      reverseCurve: Curves.easeInOut,
+    );
+
     _headerCornerTween = BorderRadiusTween();
     _logoCornersTween = BorderRadiusTween();
 
@@ -297,11 +303,87 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
     return AnimatedBuilder(
       animation: _headerAnimationController.view,
+      child: XButtonPart(
+        key: const ValueKey<String>('FlyerHeader_XButtonPart'),
+        headerBorders: _headerMinCorners,
+        onHeaderTap: _onHeaderTap,
+      ),
       builder: (BuildContext ctx, Widget child) {
 
         final Color _headerColor = _backgroundColorTween.evaluate(_animation);
         final BorderRadius _headerBorders = _headerCornerTween.evaluate(_animation);
         final BorderRadius _logoBorders = _logoCornersTween.evaluate(_animation);
+
+        return HeaderBox(
+          key: const ValueKey<String>('FlyerHeader_HeaderBox'),
+          tinyMode: _tinyMode,
+          onHeaderTap: _onHeaderTap,
+          headerBorders: _headerBorders,
+          flyerBoxWidth: widget.flyerBoxWidth,
+          headerColor: _headerColor,
+          headerHeightTween: _headerHeightTween,
+          children: <Widget>[
+
+            ListView(
+              key: const ValueKey<String>('FlyerHeader_ListView'),
+              physics: _tinyMode == true || _headerIsExpanded == false ?
+              const NeverScrollableScrollPhysics()
+                  :
+              const BouncingScrollPhysics(),
+              padding: EdgeInsets.zero, /// NEVER EVER DELETE THIS BITCH TOOK ME 2 DAYS
+              controller: _verticalController,
+              children: <Widget>[
+
+                /// MINI HEADER STRIP
+                ConvertibleHeaderStripPart(
+                    key: const ValueKey<String>('FlyerHeader_ConvertibleHeaderStripPart'),
+                    flyerBoxWidth: widget.flyerBoxWidth,
+                    minHeaderHeight: _minHeaderHeight,
+                    logoSizeRatioTween: _logoSizeRatioTween,
+                    headerLeftSpacerTween: _headerLeftSpacerTween,
+                    tinyMode: _tinyMode,
+                    headerBorders: _headerBorders,
+                    logoMinWidth: _logoMinWidth,
+                    logoBorders: _logoBorders,
+                    headerIsExpanded: _headerIsExpanded,
+                    headerMiddleSpacerWidthTween: _headerMiddleSpacerWidthTween,
+                    headerLabelsWidthTween: _headerLabelsWidthTween,
+                    followCallButtonsScaleTween: _followCallButtonsScaleTween,
+                    followIsOn: _followIsOn,
+                    onFollowTap: _onFollowTap,
+                    onCallTap: _onCallTap,
+                    headerRightSpacerTween: _headerRightSpacerTween,
+                    flyerModel: widget.flyerModel,
+                    bzModel: widget.bzModel,
+                    bzCountry: _bzCountry,
+                    bzCity: _bzCity
+                ),
+
+                /// BZ NAME BELOW LOGO
+                BzNameBelowLogoPart(
+                    key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
+                    flyerBoxWidth: widget.flyerBoxWidth,
+                    bzModel: widget.bzModel,
+                    bzCountry: _bzCountry,
+                    bzCity: _bzCity
+                ),
+
+                /// - BZ INFO PART
+                BzInfoPart(
+                  key: const ValueKey<String>('FlyerHeader_BzInfoPart'),
+                  flyerBoxWidth: widget.flyerBoxWidth,
+                  bzModel: widget.bzModel,
+                ),
+
+              ],
+            ),
+
+            /// --- CORNER X BUTTON
+            child,
+
+
+          ],
+        );
 
         return GestureDetector(
           onTap: _tinyMode == true ? null : _onHeaderTap,
@@ -333,6 +415,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
                         /// MINI HEADER STRIP
                         ConvertibleHeaderStripPart(
+                            key: const ValueKey<String>('FlyerHeader_ConvertibleHeaderStripPart'),
                             flyerBoxWidth: widget.flyerBoxWidth,
                             minHeaderHeight: _minHeaderHeight,
                             logoSizeRatioTween: _logoSizeRatioTween,
@@ -357,6 +440,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
                         /// BZ NAME BELOW LOGO
                         BzNameBelowLogoPart(
+                            key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
                             flyerBoxWidth: widget.flyerBoxWidth,
                             bzModel: widget.bzModel,
                             bzCountry: _bzCountry,
@@ -365,6 +449,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
                         /// - BZ INFO PART
                         BzInfoPart(
+                          key: const ValueKey<String>('FlyerHeader_BzInfoPart'),
                           flyerBoxWidth: widget.flyerBoxWidth,
                           bzModel: widget.bzModel,
                         ),
@@ -373,10 +458,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                     ),
 
                     /// --- CORNER X BUTTON
-                    XButtonPart(
-                      headerBorders: _headerBorders,
-                      onHeaderTap: _onHeaderTap,
-                    ),
+                    child,
 
                   ],
                 ),
@@ -387,21 +469,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
         );
       },
 
-      child: _closed == true ? null :
-      Container(
-        width: widget.flyerBoxWidth,
-        height: _slideHeightWithoutHeader,
-        decoration: BoxDecoration(
-          color: Colorz.bloodTest,
-          borderRadius: Borderers.superBorderOnly(
-            context: context,
-            enTopLeft: 0,
-            enTopRight: 0,
-            enBottomLeft: Ratioz.xxflyerBottomCorners * widget.flyerBoxWidth,
-            enBottomRight: Ratioz.xxflyerBottomCorners * widget.flyerBoxWidth,
-          ),
-        ),
-      ),
     );
   }
 }

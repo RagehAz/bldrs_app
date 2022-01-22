@@ -22,7 +22,7 @@ class Haversine extends StatefulWidget {
 }
 
 class _HaversineState extends State<Haversine> {
-  final String _theCountryID = 'afg';
+  final String _theCountryID = 'are';
 
   ZoneProvider _zoneProvider;
   CityModel _selectedCity;

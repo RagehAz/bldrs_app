@@ -63,6 +63,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MiniHeaderStripBoxPart(
+      key: const ValueKey<String>('ConvertibleHeaderStripPart_MiniHeaderStripBoxPart'),
       flyerBoxWidth: flyerBoxWidth,
       minHeaderHeight: minHeaderHeight,
       logoSizeRatioTween: logoSizeRatioTween,
@@ -73,6 +74,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
 
         /// HEADER LEFT SPACER
         HeaderLeftSpacerPart(
+          key: const ValueKey<String>('ConvertibleHeaderStripPart_HeaderLeftSpacerPart'),
           headerLeftSpacerTween: headerLeftSpacerTween,
           logoMinWidth: logoMinWidth,
           logoSizeRationTween: logoSizeRatioTween,
@@ -80,6 +82,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
 
         /// LOGO
         BzLogo(
+          key: const ValueKey<String>('ConvertibleHeaderStripPart_BzLogo'),
           width: logoMinWidth * logoSizeRatioTween.value,
           image: bzModel?.logo,
           tinyMode: FlyerBox.isTinyMode(context, flyerBoxWidth),
@@ -97,6 +100,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
 
         /// MIDDLE SPACER
         HeaderMiddleSpacerPart(
+          key: const ValueKey<String>('ConvertibleHeaderStripPart_HeaderMiddleSpacerPart'),
           logoMinWidth: logoMinWidth,
           headerMiddleSpacerWidthTween: headerMiddleSpacerWidthTween,
           logoSizeRatioTween: logoSizeRatioTween,
@@ -104,19 +108,21 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
 
         /// HEADER LABELS
         HeaderLabelsPart(
-            tinyMode: tinyMode,
-            headerLabelsWidthTween: headerLabelsWidthTween,
-            logoMinWidth: logoMinWidth,
-            logoSizeRatioTween: logoSizeRatioTween,
-            flyerBoxWidth: flyerBoxWidth,
-            flyerModel: flyerModel,
-            bzModel: bzModel,
-            bzCountry: bzCountry,
-            bzCity: bzCity
+          key: const ValueKey<String>('ConvertibleHeaderStripPart_HeaderLabelsPart'),
+          headerLabelsWidthTween: headerLabelsWidthTween,
+          logoMinWidth: logoMinWidth,
+          logoSizeRatioTween: logoSizeRatioTween,
+          flyerBoxWidth: flyerBoxWidth,
+          flyerModel: flyerModel,
+          bzModel: bzModel,
+          bzCountry: bzCountry,
+          bzCity: bzCity,
+          tinyMode: tinyMode,
         ),
 
         /// FOLLOW AND CALL
         FollowAndCallPart(
+          key: const ValueKey<String>('ConvertibleHeaderStripPart_FollowAndCallPart'),
           tinyMode: tinyMode,
           logoSizeRatioTween: logoSizeRatioTween,
           flyerBoxWidth: flyerBoxWidth,
@@ -129,6 +135,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
 
         /// HEADER RIGHT SPACER
         HeaderRightSpacerPart(
+          key: const ValueKey<String>('ConvertibleHeaderStripPart_HeaderRightSpacerPart'),
           logoMinWidth: logoMinWidth,
           logoSizeRatioTween: logoSizeRatioTween,
           headerRightSpacerTween: headerRightSpacerTween,

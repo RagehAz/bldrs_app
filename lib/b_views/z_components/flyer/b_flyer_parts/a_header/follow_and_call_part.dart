@@ -28,25 +28,24 @@ class FollowAndCallPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return AnimatedOpacity(
-      opacity: tinyMode == true ? 0 : 1,
-      duration: Ratioz.duration150ms,
-      child: Center(
-        child: Container(
-          width: FollowAndCallBTs.getBoxWidth(flyerBoxWidth: flyerBoxWidth) * followCallButtonsScaleTween.value,
-          height: logoMinWidth * logoSizeRatioTween.value,
-          alignment: Alignment.topCenter,
-          // color: Colorz.BloodTest,
-          child: FollowAndCallBTs(
-            flyerBoxWidth: flyerBoxWidth * followCallButtonsScaleTween.value,
-            followIsOn: followIsOn,
-            onCallTap: onCallTap,
-            onFollowTap: onFollowTap,
-            headerIsExpanded: false, /// KEEP THIS NOW
-          ),
+      return Container(
+        width: FollowAndCallBTs.getBoxWidth(flyerBoxWidth: flyerBoxWidth) * followCallButtonsScaleTween.value,
+        height: logoMinWidth * logoSizeRatioTween.value,
+        alignment: Alignment.topCenter,
+        // color: Colorz.BloodTest,
+        child: tinyMode == true ?
+
+        Container()
+            :
+        FollowAndCallBTs(
+          flyerBoxWidth: flyerBoxWidth * followCallButtonsScaleTween.value,
+          followIsOn: followIsOn,
+          onCallTap: onCallTap,
+          onFollowTap: onFollowTap,
+          headerIsExpanded: false, /// KEEP THIS NOW
         ),
-      ),
-    );
+
+      );
 
   }
 

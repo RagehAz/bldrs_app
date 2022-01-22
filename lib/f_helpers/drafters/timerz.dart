@@ -63,17 +63,26 @@ Examples Using the US Locale:
 /// "2019-07-19 8:40:23"
 final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
 // -----------------------------------------------------------------------------
-dynamic cipherTime({@required DateTime time, @required bool toJSON}){
+dynamic cipherTime({
+  @required DateTime time,
+  @required bool toJSON,
+}){
   final dynamic _output = toJSON ? _cipherDateTimeIso8601(time) : time;
   return _output;
 }
 // -----------------------------------------------------------------------------
-DateTime decipherTime({@required dynamic time, @required bool fromJSON}){
+DateTime decipherTime({
+  @required dynamic time,
+  @required bool fromJSON,
+}){
   final DateTime _output = fromJSON == true ? _decipherDateTimeIso8601(time) : time?.toDate();
   return _output;
 }
 // -----------------------------------------------------------------------------
-List<dynamic> cipherTimes({@required List<DateTime> times, @required bool toJSON}){
+List<dynamic> cipherTimes({
+  @required List<DateTime> times,
+  @required bool toJSON,
+}){
   final List<dynamic> _times = <String>[];
 
   if (Mapper.canLoopList(times)){
@@ -90,7 +99,10 @@ List<dynamic> cipherTimes({@required List<DateTime> times, @required bool toJSON
   return _times;
 }
 // -----------------------------------------------------------------------------
-List<DateTime> decipherTimes({@required List<dynamic> times, @required bool fromJSON}){
+List<DateTime> decipherTimes({
+  @required List<dynamic> times,
+  @required bool fromJSON,
+}){
   final List<DateTime> _dateTimes = <DateTime>[];
 
   for (final dynamic time in times){
@@ -154,7 +166,16 @@ Timestamp decipherDateTimeIso8601ToTimeStamp(String cipheredDateTimeIso8601){
   return _time;
 }
 // -----------------------------------------------------------------------------
-DateTime createDateTime({int year, int month, int day, int hour, int minute, int second, int millisecond, int microsecond}){
+DateTime createDateTime({
+  int year,
+  int month,
+  int day,
+  int hour,
+  int minute,
+  int second,
+  int millisecond,
+  int microsecond,
+}){
   final DateTime _now = DateTime.now();
   final DateTime _localTime = _now.toLocal();
 
@@ -172,7 +193,11 @@ DateTime createDateTime({int year, int month, int day, int hour, int minute, int
   return _output;
 }
 // -----------------------------------------------------------------------------
-DateTime createDate({@required int year, @required int month, @required int day}){
+DateTime createDate({
+  @required int year,
+  @required int month,
+  @required int day,
+}){
   return
     createDateTime(
       year: year,
@@ -186,7 +211,11 @@ DateTime createDate({@required int year, @required int month, @required int day}
     );
 }
 // -----------------------------------------------------------------------------
-DateTime createClock({@required int hour, @required int minute, int second}){
+DateTime createClock({
+  @required int hour,
+  @required int minute,
+  int second,
+}){
   return
     createDateTime(
       year: DateTime.now().toLocal().year,
@@ -200,7 +229,14 @@ DateTime createClock({@required int hour, @required int minute, int second}){
     );
 }
 // -----------------------------------------------------------------------------
-DateTime createDateAndClock({@required int year, @required int month, @required int day, @required int hour, @required int minute, int second}){
+DateTime createDateAndClock({
+  @required int year,
+  @required int month,
+  @required int day,
+  @required int hour,
+  @required int minute,
+  int second,
+}){
   return
     createDateTime(
       year: year,
@@ -214,7 +250,10 @@ DateTime createDateAndClock({@required int year, @required int month, @required 
     );
 }
 // -----------------------------------------------------------------------------
-int getTimeDifferenceInSeconds({DateTime from, DateTime to}){
+int getTimeDifferenceInSeconds({
+  @required DateTime from,
+  @required DateTime to,
+}){
 
   // print('from is : $from');
   // print('to is : $to');
@@ -222,34 +261,55 @@ int getTimeDifferenceInSeconds({DateTime from, DateTime to}){
   return to.difference(from).inSeconds;
 }
 // -----------------------------------------------------------------------------
-int getTimeDifferenceInMinutes({DateTime from, DateTime to}){
+int getTimeDifferenceInMinutes({
+  @required DateTime from,
+  @required DateTime to,
+}){
   return to.difference(from).inMinutes;
 }
 // -----------------------------------------------------------------------------
-int getTimeDifferenceInHours({DateTime from, DateTime to}){
+int getTimeDifferenceInHours({
+  @required DateTime from,
+  @required DateTime to,
+}){
   return to.difference(from).inHours;
 }
 // -----------------------------------------------------------------------------
-int getTimeDifferenceInDays({DateTime from, DateTime to}){
+int getTimeDifferenceInDays({
+  @required DateTime from,
+  @required DateTime to,
+}){
   return to.difference(from).inDays;
 }
 // -----------------------------------------------------------------------------
-int getTimeDifferenceInWeeks({DateTime from, DateTime to}){
+int getTimeDifferenceInWeeks({
+  @required DateTime from,
+  @required DateTime to,
+}){
   final int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
   return (_differenceInDays / 7).floor();
 }
 // -----------------------------------------------------------------------------
-int getTimeDifferenceInMonths({DateTime from, DateTime to}){
+int getTimeDifferenceInMonths({
+  @required DateTime from,
+  @required DateTime to,
+}){
   final int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
   return (_differenceInDays / 30).floor();
 }
 // -----------------------------------------------------------------------------
-int getTimeDifferenceInYears({DateTime from, DateTime to}){
+int getTimeDifferenceInYears({
+  @required DateTime from,
+  @required DateTime to,
+}){
   final int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
   return (_differenceInDays / 365).floor();
 }
 // -----------------------------------------------------------------------------
-String getSuperTimeDifferenceString({@required DateTime from, @required DateTime to}) {
+String getSuperTimeDifferenceString({
+  @required DateTime from,
+  @required DateTime to,
+}) {
   String _string = '...';
 
   if (from != null){
@@ -300,7 +360,10 @@ String getSuperTimeDifferenceString({@required DateTime from, @required DateTime
   return _string;
 }
 // -----------------------------------------------------------------------------
-String stringOnDateMonthYear({BuildContext context, DateTime time}){
+String stringOnDateMonthYear({
+  @required BuildContext context,
+  @required DateTime time,
+}){
   final String _day = '${time.day}';
   final String _monthString = getMonthNameByInt(context, time.month);
   final String _year = '${time.year}';
@@ -309,7 +372,10 @@ String stringOnDateMonthYear({BuildContext context, DateTime time}){
   return _timeString;
 }
 // -----------------------------------------------------------------------------
-String getString_dd_month_yyyy({BuildContext context, DateTime time}){
+String getString_dd_month_yyyy({
+  @required BuildContext context,
+  @required DateTime time
+}){
   final String _day = '${time.day}';
   final String _monthString = getMonthNameByInt(context, time.month);
   final String _year = '${time.year}';
@@ -317,14 +383,20 @@ String getString_dd_month_yyyy({BuildContext context, DateTime time}){
   return _timeString;
 }
 // -----------------------------------------------------------------------------
-String getString_dd_I_mm_I_yyyy({BuildContext context, DateTime time}){
+String getString_dd_I_mm_I_yyyy({
+  @required BuildContext context,
+  @required DateTime time
+}){
   final String _day = '${time.day}';
   final String _year = '${time.year}';
   final String _timeString = '$_day / ${time.month} / $_year';
   return _timeString;
 }
 // -----------------------------------------------------------------------------
-String getString_hh_i_mm({BuildContext context, DateTime time}){
+String getString_hh_i_mm({
+  @required BuildContext context,
+  @required DateTime time,
+}){
   final String _hour = DateFormat('h').format(time);
   final String _minute = '${time.minute}';
   final String _ampm = DateFormat('a').format(time);
@@ -334,58 +406,96 @@ String getString_hh_i_mm({BuildContext context, DateTime time}){
 }
 // -----------------------------------------------------------------------------
 String monthYearStringer(BuildContext context, DateTime time){
-  return
-    '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${getMonthNameByInt(context, time.month)} ${time.year}';
+
+  String _output = '';
+
+  if (time != null && time.year != null && time.month != null){
+    _output = '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${getMonthNameByInt(context, time.month)} ${time.year}';
+  }
+
+  return _output;
 }
 // -----------------------------------------------------------------------------
 String dayMonthYearStringer(BuildContext context, DateTime time){
-  return
-    '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${time.day} ${getMonthNameByInt(context, time.month)} ${time.year}';
+
+  String _output = '';
+
+  if (time != null && time.year != null && time.month != null && time.day != null){
+    _output = '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${time.day} ${getMonthNameByInt(context, time.month)} ${time.year}';
+  }
+
+  return _output;
+
 }
 // -----------------------------------------------------------------------------
 String hourMinuteSecondStringer(DateTime time){
-  return
-    '${time.hour}:${time.minute}:${time.second}';
+
+  String _output = '';
+
+  if (time != null && time.hour != null && time.minute != null && time.second != null){
+    _output = '${time.hour}:${time.minute}:${time.second}';
+  }
+
+  return _output;
+
 }
 // -----------------------------------------------------------------------------
 String hourMinuteSecondListOfStrings(List<DateTime> times){
   String _output = '';
 
-  for (int i = 0; i<times.length; i++){
-    final String _string = hourMinuteSecondStringer(times[i]);
+  if (Mapper.canLoopList(times)){
 
-    _output = '$_output$_string\n';
+    for (int i = 0; i<times.length; i++){
+      final String _string = hourMinuteSecondStringer(times[i]);
+
+      _output = '$_output$_string\n';
+    }
+
   }
+
   return _output;
 }
 // -----------------------------------------------------------------------------
 String hourMinuteSecondListOfStringsWithIndexes(List<DateTime> times, List<int> indexes){
   String _output = '';
 
-  for (int i = 0; i<times.length; i++){
+  if (Mapper.canLoopList(times) == true && Mapper.canLoopList(indexes) == true){
 
-    final String _indexString = '${indexes[i]} : ';
-    final String _timeStampString =  hourMinuteSecondStringer(times[i]);
+    for (int i = 0; i<times.length; i++){
 
-    _output = '${_output+_indexString+_timeStampString}\n';
+      final String _indexString = '${indexes[i]} : ';
+      final String _timeStampString =  hourMinuteSecondStringer(times[i]);
+
+      _output = '${_output+_indexString+_timeStampString}\n';
+    }
+
   }
+
   return _output;
 }
 // -----------------------------------------------------------------------------
 String tempCipherDateTimeToString(DateTime dateTime){
+
   if(dateTime == null){
     return null;
-  } else {
+  }
+
+  else {
     return dateFormat?.format(dateTime);
   }
+
 }
 // -----------------------------------------------------------------------------
 DateTime tempDecipherDateTimeString(String dateTimeString){
+
   if (dateTimeString == null){
     return null;
-  } else {
+  }
+
+  else {
     return dateFormat?.parse(dateTimeString);
   }
+
 }
 // -----------------------------------------------------------------------------
 DateTime createDateTimeAfterNumberOfDays({@required int days}){
