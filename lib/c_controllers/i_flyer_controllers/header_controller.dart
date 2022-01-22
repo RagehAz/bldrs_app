@@ -18,7 +18,8 @@ AnimationController initializeHeaderAnimationController({
   // _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
 
   final AnimationController _headerAnimationController = AnimationController(
-      duration: Ratioz.durationFading200,
+      reverseDuration: Ratioz.durationFading200,
+      duration: Ratioz.durationSliding400,
       vsync: vsync
   );
 

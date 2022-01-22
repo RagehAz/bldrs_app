@@ -35,6 +35,7 @@ class FlyerTree extends StatelessWidget {
     // blog('THE Fu*king thing is doing good aho yabn el gazma : sizeFactor : $flyerWidthFactor');
 
     return FlyerBox(
+      key: const ValueKey<String>('FlyerBox'),
       flyerWidthFactor: flyerWidthFactor,
       stackWidgets: <Widget>[
 
@@ -56,6 +57,7 @@ class FlyerTree extends StatelessWidget {
         Positioned(
           top: 0,
           child: FlyerHeader(
+            key: const ValueKey<String>('FlyerTree_FlyerHeader'),
             flyerBoxWidth: _flyerBoxWidth,
             flyerModel: flyerModel,
             bzModel: bzModel,
