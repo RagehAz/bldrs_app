@@ -43,18 +43,17 @@ class MainButton extends StatelessWidget {
     final double _screenHeight = Scale.superScreenHeight(context);
     final double _screenWidth = Scale.superScreenWidth(context);
 
-    final double _buttonCorner =
-        _screenHeight * Ratioz.mainButtonCornerRatioToScreenHeight;
+    final double _buttonCorner = _screenHeight * Ratioz.mainButtonCornerRatioToScreenHeight;
     final double _buttonZoneHeight = _screenHeight * 0.08;
     final double _buttonZonePaddings = _screenHeight * 0.01;
 
-    final double _buttonWidth =
-        stretched == true ? _screenWidth : _screenHeight * 22 * 0.017;
+    final double _buttonWidth = stretched == true ? _screenWidth : _screenHeight * 22 * 0.017;
 
     final double _buttonHeight = _buttonZoneHeight * 0.85;
 
     /// BUTTON FOOTPRINT
     return Container(
+      key: const ValueKey<String>('Main_button'),
       width: _screenWidth,
       height: _buttonZoneHeight,
       // color: Colorz.Yellow,
@@ -72,16 +71,24 @@ class MainButton extends StatelessWidget {
                   color: Colorz.black230,
                   blurRadius: _buttonZoneHeight * 0.09,
                   style: BlurStyle.outer),
-            ]),
+            ]
+        ),
         child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             if (function.runtimeType != String) {
-              function();
+
+              await Future.delayed( const Duration(milliseconds: 200),
+
+                  () => function()
+
+              );
+
+
             } else {
               if (function == 'GoBackFucker') {
                 Navigator.pop(context);
               } else {
-                Navigator.pushNamed(context, function);
+                await Navigator.pushNamed(context, function);
               }
             }
           },
@@ -104,6 +111,7 @@ class MainButton extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
+
               /// BUTTON HIGHLIGHT
               Container(
                 width: _buttonWidth * 0.9,
@@ -160,9 +168,12 @@ class MainButton extends StatelessWidget {
                 /// --- WHEN BUTTON HAS AN ICON
                 Padding(
                   padding: EdgeInsets.only(
-                      left: _buttonZonePaddings, right: _buttonZonePaddings),
+                      left: _buttonZonePaddings,
+                      right: _buttonZonePaddings
+                  ),
                   child: Row(
                     children: <Widget>[
+
                       /// --- OLD BUTTON ICON
                       Flexible(
                         child: Container(
@@ -172,28 +183,25 @@ class MainButton extends StatelessWidget {
                           alignment: Alignment.center,
                           margin: EdgeInsets.all(_buttonZoneHeight * 0.1),
                           // padding: EdgeInsets.all(_buttonHeight * 0),
-                          child: buttonIcon.runtimeType != String
-                              ? buttonIcon
-                              : ObjectChecker.fileExtensionOf(buttonIcon) ==
-                                          'jpg' ||
-                                      ObjectChecker.fileExtensionOf(
-                                              buttonIcon) ==
-                                          'jpeg' ||
-                                      ObjectChecker.fileExtensionOf(
-                                              buttonIcon) ==
-                                          'png'
-                                  ? Container(
-                                      width: _buttonZoneHeight * 0.4,
-                                      height: _buttonZoneHeight * 0.4,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage(buttonIcon),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    )
-                                  : WebsafeSvg.asset(buttonIcon,
-                                      fit: BoxFit.fill, color: iconColor),
+                          child: buttonIcon.runtimeType != String ? buttonIcon
+                              :
+                          ObjectChecker.fileExtensionOf(buttonIcon) == 'jpg' ||
+                              ObjectChecker.fileExtensionOf(buttonIcon) == 'jpeg' ||
+                              ObjectChecker.fileExtensionOf(buttonIcon) == 'png' ? Container(
+                            width: _buttonZoneHeight * 0.4,
+                            height: _buttonZoneHeight * 0.4,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(buttonIcon),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )
+                              :
+                          WebsafeSvg.asset(buttonIcon,
+                              fit: BoxFit.fill,
+                              color: iconColor
+                          ),
                         ),
                       ),
 
@@ -211,8 +219,10 @@ class MainButton extends StatelessWidget {
                             shadow: buttonVerseShadow,
                             maxLines: 2,
                           ),
+
                         ),
                       ),
+
                     ],
                   ),
                 )

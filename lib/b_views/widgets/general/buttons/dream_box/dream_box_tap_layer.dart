@@ -34,19 +34,27 @@ class DreamBoxTapLayer extends StatelessWidget {
       child: Material(
         color: Colorz.nothing,
         child: GestureDetector(
-          onTapDown: inActiveMode == true || onTapDown == null
-              ? (TapDownDetails details) {}
-              : (TapDownDetails details) => onTapDown(),
-          onTapUp: inActiveMode == true || onTapUp == null
-              ? (TapUpDetails details) {}
-              : (TapUpDetails details) => onTapUp(),
+          onTapDown: inActiveMode == true || onTapDown == null ?
+              (TapDownDetails details) {}
+              :
+              (TapDownDetails details) => onTapDown(),
+          onTapUp: inActiveMode == true || onTapUp == null ?
+              (TapUpDetails details) {}
+              :
+              (TapUpDetails details) => onTapUp(),
           child: InkWell(
             splashColor: inActiveMode == true ? null : splashColor,
-            onTap: onTap == null
-                ? null
-                : () async {
-                    onTap();
-                  },
+            onTap: onTap == null ?
+            null
+                :
+                () async {
+
+              await Future.delayed(
+                  const Duration(milliseconds: 200,),
+                      () async { onTap(); }
+              );
+
+              },
             onTapCancel: onTapCancel,
           ),
         ),

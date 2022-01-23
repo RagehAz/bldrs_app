@@ -54,14 +54,11 @@ class FlyerTree extends StatelessWidget {
         ),
 
         /// HEADER
-        Positioned(
-          top: 0,
-          child: FlyerHeader(
-            key: const ValueKey<String>('FlyerTree_FlyerHeader'),
-            flyerBoxWidth: _flyerBoxWidth,
-            flyerModel: flyerModel,
-            bzModel: bzModel,
-          ),
+        FlyerHeader(
+          key: const ValueKey<String>('FlyerTree_FlyerHeader'),
+          flyerBoxWidth: _flyerBoxWidth,
+          flyerModel: flyerModel,
+          bzModel: bzModel,
         ),
 
         /// FOOTER
