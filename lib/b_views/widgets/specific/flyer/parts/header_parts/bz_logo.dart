@@ -51,10 +51,12 @@ class BzLogo extends StatelessWidget {
             enTopLeft: logoRoundCorners,
             enBottomLeft: logoRoundCorners,
             enBottomRight: logoZeroCorner,
-            enTopRight: logoRoundCorners);
+            enTopRight: logoRoundCorners
+        );
 // -----------------------------------------------------------------------------
 
     return GestureDetector(
+      key: const ValueKey<String>('bz_logo'),
       onTap: onTap,
       child: Center(
         child: Container(
@@ -83,9 +85,13 @@ class BzLogo extends StatelessWidget {
           ),
 
           child: ClipRRect(
-              borderRadius: bzLogoCorners,
-              child: SuperImage(image)
+            key: const ValueKey<String>('bz_logo_image'),
+            borderRadius: bzLogoCorners,
+            child: SuperImage(
+              pic: image,
+            ),
           ),
+
         ),
       ),
     );

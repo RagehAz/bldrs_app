@@ -59,18 +59,21 @@ class MaxHeader extends StatelessWidget {
     final int _callsCount = bzModel != null ? bzModel.totalCalls : 0;
 // -----------------------------------------------------------------------------
     return SizedBox(
+      key: const ValueKey<String>('Max_Header'),
       width: flyerBoxWidth,
       child: Column(
         children: <Widget>[
 
           /// BUSINESS FIELD
           BzPgFields(
+            key: const ValueKey<String>('max_header_bzPageFields'),
             flyerBoxWidth: flyerBoxWidth,
             bzScope: _bzScope,
           ),
 
           /// BUSINESS BIRTH YEAR
           BzPgVerse(
+            key: const ValueKey<String>('max_header_BzPgVerse'),
             flyerBoxWidth: flyerBoxWidth,
             verse: Timers.monthYearStringer(context, bzModel.createdAt),
             size: 2,
@@ -78,6 +81,7 @@ class MaxHeader extends StatelessWidget {
 
           /// BUSINESS DESCRIPTION
           BzAboutVerse(
+            key: const ValueKey<String>('max_header_BzAboutVerse'),
             flyerBoxWidth: flyerBoxWidth,
             verse: bzModel != null ? bzModel.about : '',
             bzName: bzModel != null ? bzModel.name : '',
@@ -85,6 +89,7 @@ class MaxHeader extends StatelessWidget {
 
           /// FOLLOWERS
           BzPgCounter(
+            key: const ValueKey<String>('max_header_BzPgCounter_follows'),
             flyerBoxWidth: flyerBoxWidth,
             count: _followersCount,
             verse: Wordz.followers(context),
@@ -94,6 +99,7 @@ class MaxHeader extends StatelessWidget {
 
           /// CALLS
           BzPgCounter(
+            key: const ValueKey<String>('max_header_BzPgCounter_calls'),
             flyerBoxWidth: flyerBoxWidth,
             count: _callsCount,
             verse: Wordz.callsReceived(context),
@@ -103,6 +109,7 @@ class MaxHeader extends StatelessWidget {
 
           /// PUBLISHED SLIDE & FLYERS
           BzPgCounter(
+            key: const ValueKey<String>('max_header_BzPgCounter_slides'),
             flyerBoxWidth: flyerBoxWidth,
             count: _bzTotalSlides,
             verse: Wordz.slidesPublished(context),
@@ -112,6 +119,7 @@ class MaxHeader extends StatelessWidget {
 
           /// TOTAL VIEWS
           BzPgCounter(
+            key: const ValueKey<String>('max_header_BzPgCounter_views'),
             flyerBoxWidth: flyerBoxWidth,
             count: _bzTotalViews,
             verse: Wordz.totalViews(context),
@@ -121,6 +129,7 @@ class MaxHeader extends StatelessWidget {
 
           /// TOTAL SHARES
           BzPgCounter(
+            key: const ValueKey<String>('max_header_BzPgCounter_shares'),
             flyerBoxWidth: flyerBoxWidth,
             count: _bzTotalShares,
             verse: Wordz.totalShares(context),
@@ -128,8 +137,9 @@ class MaxHeader extends StatelessWidget {
             iconSizeFactor: 0.85,
           ),
 
-          /// TOTAL ANKHS
+          /// TOTAL SAVES
           BzPgCounter(
+            key: const ValueKey<String>('max_header_BzPgCounter_saves'),
             flyerBoxWidth: flyerBoxWidth,
             count: _bzTotalSaves,
             verse: Wordz.totalSaves(context),
@@ -138,33 +148,54 @@ class MaxHeader extends StatelessWidget {
           ),
 
           /// BZ GALLERY
-          if (Mapper.canLoopList(bzModel.flyersIDs))
-            Gallery(
-              bzModel: bzModel,
-              showFlyers: true,
-              galleryBoxWidth: flyerBoxWidth,
-              addAuthorButtonIsOn: false,
-              // tinyFlyers: _bzTinyFlyers,
-            ),
+          // if (Mapper.canLoopList(bzModel.flyersIDs))
+          //   Gallery(
+          //     key: const ValueKey<String>('max_header_gallery'),
+          //     bzModel: bzModel,
+          //     showFlyers: true,
+          //     galleryBoxWidth: flyerBoxWidth,
+          //     addAuthorButtonIsOn: false,
+          //     // tinyFlyers: _bzTinyFlyers,
+          //   ),
 
           /// BOTTOM PADDING
-          Container(
-            width: flyerBoxWidth,
-            height: flyerBoxWidth * Ratioz.xxflyerBottomCorners + Ratioz.appBarMargin,
-            margin: EdgeInsets.only(top: flyerBoxWidth * Ratioz.xxbzPageSpacing),
-            decoration: BoxDecoration(
-              color: Colorz.black80,
-              borderRadius: Borderers.superBorderOnly(
-                context: context,
-                enTopLeft: 0,
-                enTopRight: 0,
-                enBottomLeft: flyerBoxWidth * Ratioz.xxflyerBottomCorners,
-                enBottomRight: flyerBoxWidth * Ratioz.xxflyerBottomCorners,
-              ),
-            ),
+          MaxHeaderBottomPadding(
+            key: const ValueKey<String>('max_header_bottom_padding'),
+            flyerBoxWidth: flyerBoxWidth,
           ),
 
         ],
+      ),
+    );
+  }
+}
+
+
+class MaxHeaderBottomPadding extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const MaxHeaderBottomPadding({
+    @required this.flyerBoxWidth,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: const ValueKey<String>('max_header_bottom_padding'),
+      width: flyerBoxWidth,
+      height: flyerBoxWidth * Ratioz.xxflyerBottomCorners + Ratioz.appBarMargin,
+      margin: EdgeInsets.only(top: flyerBoxWidth * Ratioz.xxbzPageSpacing),
+      decoration: BoxDecoration(
+        color: Colorz.black80,
+        borderRadius: Borderers.superBorderOnly(
+          context: context,
+          enTopLeft: 0,
+          enTopRight: 0,
+          enBottomLeft: flyerBoxWidth * Ratioz.xxflyerBottomCorners,
+          enBottomRight: flyerBoxWidth * Ratioz.xxflyerBottomCorners,
+        ),
       ),
     );
   }

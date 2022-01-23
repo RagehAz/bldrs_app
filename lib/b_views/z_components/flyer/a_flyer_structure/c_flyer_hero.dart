@@ -73,6 +73,7 @@ class FlyerHero extends StatelessWidget {
     Tween<double>(begin: 1, end: 0);
 
     return  TweenAnimationBuilder(
+      key: const ValueKey<String>('FlyerHero_TweenAnimationBuilder'),
         tween: _tween,
         duration: Ratioz.duration150ms,
         curve: _curve,
@@ -101,6 +102,7 @@ class FlyerHero extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Hero(
+      key: const ValueKey<String>('FlyerHero_Hero'),
       tag: flyerModel.id,
       flightShuttleBuilder: (
           BuildContext flightContext,

@@ -43,21 +43,6 @@ class TheFlyerScreenForCreation extends StatelessWidget {
         height: Scale.superScreenHeight(context),
         padding: const EdgeInsets.only(top: Ratioz.stratosphere),
         color: Colorz.blue10,
-        // child: Column(
-        //   children: <Widget>[
-        //     const Stratosphere(),
-        //     HeroFlyerWidget(
-        //       flyer: _flyer2,
-        //       color: Colorz.green255,
-        //     ),
-        //     const Spacer(),
-        //     HeroFlyerWidget(
-        //       flyer: _flyer3,
-        //       color: Colorz.red255,
-        //     ),
-        //   ],
-        // ),
-
         child: GridView.builder(
           physics: const BouncingScrollPhysics(),
           padding: _gridPadding,
@@ -69,24 +54,6 @@ class TheFlyerScreenForCreation extends StatelessWidget {
             ),
             itemCount: _flyersProvider.savedFlyers.length,
             itemBuilder: (BuildContext ctx, int index){
-
-              const List<Color> _colorz = <Color>[
-                Colorz.red255,
-                Colorz.black255,
-                Colorz.green255,
-                Colorz.blue80,
-                Colorz.white200,
-                Colorz.darkRed255,
-                Colorz.yellow200,
-                Colorz.skyLightBlue,
-                Colorz.grey50,
-                Colorz.green125,
-                Colorz.linkedIn,
-                Colorz.cyan50,
-                Colorz.yellow50,
-              ];
-
-              final Color _color = _colorz[index];
 
               final FlyerModel _flyer = _flyersProvider.savedFlyers[index];
 

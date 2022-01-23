@@ -155,7 +155,7 @@ class MainLayout extends StatelessWidget {
     );
 
     return GestureDetector(
-      key: key,
+      key: const ValueKey<String>('Main_layout'),
       onTap: () => Keyboarders.minimizeKeyboardOnTapOutSide(context),
       child: SafeArea(
         child: Stack(

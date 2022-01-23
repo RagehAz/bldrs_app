@@ -8,8 +8,8 @@ import 'package:websafe_svg/websafe_svg.dart';
 
 class SuperImage extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SuperImage(
-    this.pic, {
+  const SuperImage({
+    this.pic,
     this.width,
     this.height,
     this.fit,
@@ -27,8 +27,10 @@ class SuperImage extends StatelessWidget {
   final Color iconColor;
 
   /// --------------------------------------------------------------------------
-  static DecorationImage decorationImage(
-      {@required String picture, BoxFit boxFit}) {
+  static DecorationImage decorationImage({
+    @required String picture,
+    BoxFit boxFit
+  }) {
     DecorationImage _image;
 
     if (picture != null && picture != '') {
@@ -44,12 +46,14 @@ class SuperImage extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final BoxFit _boxFit = fit ?? BoxFit.cover;
     // int _width = fit == BoxFit.fitWidth ? width : null;
     // int _height = fit == BoxFit.fitHeight ? height : null;
     // Asset _asset = ObjectChecker.objectIsAsset(pic) == true ? pic : null;
 
-    return pic == null ? Container()
+    return pic == null ?
+    Container()
         :
     Transform.scale(
       scale: scale,
