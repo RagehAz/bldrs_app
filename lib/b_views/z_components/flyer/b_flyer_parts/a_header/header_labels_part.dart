@@ -74,6 +74,7 @@ class HeaderLabelsPart extends StatelessWidget {
         1;
 
         return AnimatedOpacity(
+          key: const ValueKey<String>('Header_labels_Animated_opacity'),
           opacity: _opacity,
           duration: Ratioz.durationFading200,
           child: child,

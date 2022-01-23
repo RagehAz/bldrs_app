@@ -17,6 +17,19 @@ class ActiveFlyerProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
+  /// ACTIVE FLYER ID
+
+// -------------------------------------
+  String _activeFlyerID;
+// -------------------------------------
+  String get activeFlyerID => _activeFlyerID;
+// -------------------------------------
+  void setActiveFlyerID({@required String setTo, @required bool notify}){
+    _activeFlyerID = setTo;
+    _notify(notify);
+  }
+// -----------------------------------------------------------------------------
+
   /// ACTIVE FLYER BZ COUNTRY AND CITY
 
 // -------------------------------------

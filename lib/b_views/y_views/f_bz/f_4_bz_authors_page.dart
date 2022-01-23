@@ -98,7 +98,7 @@ class AuthorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    const double _picSize = 80;
+    // const double _picSize = 80;
 
     final List<FlyerModel> _authorFlyers = _getNumberOfAuthorFlyers(author: author, context: context);
 

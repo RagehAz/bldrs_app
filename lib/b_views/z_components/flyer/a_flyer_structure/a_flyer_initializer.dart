@@ -77,16 +77,13 @@ class _FlyerStarterState extends State<FlyerStarter> {
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-        // key: ValueKey<String>('flyerID_${widget.flyerModel.id}'),
-        key: const ValueKey<String>('FlyerStarter'),
+        key: ValueKey<String>('FlyerStarter_${widget.flyerModel.id}'),
         valueListenable: _loading,
         child: FlyerLoading(flyerWidthFactor: widget.minWidthFactor,),
         builder: (_, bool isLoading, Widget child){
 
           if (isLoading == true){
-
             return child;
-
           }
 
           else {
@@ -109,6 +106,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
                         await onOpenFullScreenFlyer(
                           context: context,
                           bzModel: bzModel,
+                          flyerID: _flyerModel.id,
                         );
 
                         await context.pushTransparentRoute(
