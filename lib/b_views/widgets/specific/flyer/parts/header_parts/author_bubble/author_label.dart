@@ -244,7 +244,9 @@ class AuthorPic extends StatelessWidget {
 
                 :
 
-            SuperImage(authorPic)
+            SuperImage(
+                pic: authorPic
+            ),
 
         ),
 

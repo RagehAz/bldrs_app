@@ -137,30 +137,32 @@ class Balloona extends StatelessWidget {
       // color: Colorz.BloodTest,
       child: GestureDetector(
         onTap: onTap,
-        child: shadowIsOn == true
-            ? ClipShadowPath(
-                clipper: _clipper,
-                shadow: Shadowz.basicOuterShadow,
-                child: BalloonComponents(
-                  pic: pic,
-                  loading: loading,
-                  balloonColor: balloonColor,
-                  balloonWidth: balloonWidth,
-                  blackAndWhite: blackAndWhite,
-                  child: child,
-                ),
-              )
-            : ClipPath(
-                clipper: _clipper,
-                child: BalloonComponents(
-                  pic: pic,
-                  loading: loading,
-                  balloonColor: balloonColor,
-                  balloonWidth: balloonWidth,
-                  blackAndWhite: blackAndWhite,
-                  child: child,
-                ),
-              ),
+        child: shadowIsOn == true ?
+        ClipShadowPath(
+          clipper: _clipper,
+          shadow: Shadowz.basicOuterShadow,
+          child: BalloonComponents(
+            pic: pic,
+            loading: loading,
+            balloonColor: balloonColor,
+            balloonWidth: balloonWidth,
+            blackAndWhite: blackAndWhite,
+            child: child,
+          ),
+        )
+            :
+        ClipPath(
+          clipper: _clipper,
+          child: BalloonComponents(
+            pic: pic,
+            loading: loading,
+            balloonColor: balloonColor,
+            balloonWidth: balloonWidth,
+            blackAndWhite: blackAndWhite,
+            child: child,
+          ),
+        ),
+
       ),
     );
   }
@@ -177,7 +179,6 @@ class BalloonComponents extends StatelessWidget {
     this.loading = false,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double balloonWidth;
   final Color balloonColor;
@@ -185,15 +186,16 @@ class BalloonComponents extends StatelessWidget {
   final bool loading;
   final dynamic pic;
   final Widget child;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final Color _balloonColor = pic == null ? balloonColor : null;
 
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
+
         /// --- USER IMAGE LAYER
         Container(
             // color: Colorz.Yellow,
@@ -203,33 +205,37 @@ class BalloonComponents extends StatelessWidget {
             child: ColorFiltered(
                 colorFilter: Colorizer.superDesaturation(
                     isItBlackAndWhite: blackAndWhite),
-                child: loading == true
-                    ? Loading(
-                        loading: loading,
-                      )
-                    : _balloonColor == null
-                        ? SuperImage(
-                            pic,
-                            width: balloonWidth,
-                            height: balloonWidth,
-                            fit: BoxFit.cover,
-                          )
-                        : Container())),
+                child: loading == true ?
+                Loading(
+                  loading: loading,
+                )
+                    :
+                _balloonColor == null ?
+                SuperImage(
+                  pic: pic,
+                  width: balloonWidth,
+                  height: balloonWidth,
+                  fit: BoxFit.cover,
+                )
+                    :
+                Container()
+            )
+        ),
 
         /// --- BUTTON OVAL HIGHLIGHT
         Container(
           width: 2 * balloonWidth * 0.5 * 0.7,
           height: 1.4 * balloonWidth * 0.5 * 0.35,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.elliptical(
-                  balloonWidth * 0.8 * 0.5, balloonWidth * 0.7 * 0.8 * 0.5)),
+              borderRadius: BorderRadius.all(Radius.elliptical(balloonWidth * 0.8 * 0.5, balloonWidth * 0.7 * 0.8 * 0.5)),
               color: Colorz.nothing,
               boxShadow: <CustomBoxShadow>[
                 CustomBoxShadow(
                     color: Colorz.white80,
                     offset: Offset(0, balloonWidth * 0.5 * -0.5),
                     blurRadius: balloonWidth * 0.2),
-              ]),
+              ]
+          ),
         ),
 
         /// --- BUTTON GRADIENT
@@ -254,7 +260,9 @@ class BalloonComponents extends StatelessWidget {
         // ),
 
         // --- Child
-        if (child != null) child,
+        if (child != null)
+          child,
+
       ],
     );
   }

@@ -28,23 +28,21 @@ class HeaderBox extends StatelessWidget {
       onTap: tinyMode == true ? null : onHeaderTap,
       child: Align(
         alignment: Alignment.topCenter,
-        child: Container(
-          width: flyerBoxWidth,
-          height: headerHeightTween.value,
-          // margin: EdgeInsets.zero,
-          decoration: BoxDecoration(
-            color: headerColor,
-            // borderRadius: headerBorders,
-          ),
-          alignment: Alignment.topCenter,
-          child: ClipRRect(
-            borderRadius: headerBorders,
+        child: ClipRRect(
+          borderRadius: headerBorders,
+          child: Container(
+            width: flyerBoxWidth,
+            height: headerHeightTween.value,
+            decoration: BoxDecoration(
+              color: headerColor,
+              // borderRadius: headerBorders,
+            ),
+            alignment: Alignment.topCenter,
             child: Stack(
               alignment: Alignment.topCenter,
               children: children,
             ),
           ),
-
         ),
       ),
     );

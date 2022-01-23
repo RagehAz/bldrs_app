@@ -11,13 +11,11 @@ class GradientLayer extends StatelessWidget {
     this.color,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double width;
   final double height;
   final bool isWhite;
   final Color color;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -29,7 +27,7 @@ class GradientLayer extends StatelessWidget {
       height: height,
       // color: Colorz.BloodTest,
       child: SuperImage(
-        _gradient,
+        pic: _gradient,
         width: width,
         height: height,
         fit: BoxFit.cover,

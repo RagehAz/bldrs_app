@@ -59,9 +59,11 @@ void onCloseFullScreenFlyer(BuildContext context){
 Future<void> onOpenFullScreenFlyer({
   @required BuildContext context,
   @required BzModel bzModel,
+  @required String flyerID,
 }) async {
 
   final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
+
   _activeFlyerProvider.setShowingFullScreenFlyer(
       setTo: true,
       notify: false
@@ -70,6 +72,12 @@ Future<void> onOpenFullScreenFlyer({
   _activeFlyerProvider.setCanDismissFlyer(
       setTo: true,
       notify: false,
+  );
+
+  _setActiveFlyerID(
+    context: context,
+    flyerID: flyerID,
+    notify: false,
   );
 
   /// can get them in didChangedDependencies and pass them
@@ -110,5 +118,14 @@ Future<void> _getFlyerBzCountryAndCity({
     notify: notify,
   );
 
+}
+// -----------------------------------------------------------------------------
+void _setActiveFlyerID({
+  @required BuildContext context,
+  @required String flyerID,
+  @required bool notify,
+}){
+  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
+  _activeFlyerProvider.setActiveFlyerID(setTo: flyerID, notify: notify);
 }
 // -----------------------------------------------------------------------------

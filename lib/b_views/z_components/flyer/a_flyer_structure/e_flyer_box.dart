@@ -234,6 +234,7 @@ class FlyerBox extends StatelessWidget {
     final BorderRadius _flyerBorders = corners(context, _flyerBoxWidth);
 // -----------------------------------------------------------------------------
     return Center( /// to prevent flyer stretching out
+      key: const ValueKey<String>('flyer_box'),
       child: Container(
         width: _flyerBoxWidth,
         height: _flyerZoneHeight,

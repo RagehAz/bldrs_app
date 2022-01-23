@@ -20,7 +20,6 @@ class FooterButton extends StatelessWidget {
     this.isOn = false,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String icon;
   final double flyerBoxWidth;
@@ -31,30 +30,45 @@ class FooterButton extends StatelessWidget {
 
   /// needed for ankh button value
   final bool isOn;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _footerBTMargins = size != null
-        ? 0
-        : FlyerFooter.buttonMargin(
-            context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: isOn);
-    final double _saveBTRadius = size != null
-        ? size / 2
-        : FlyerFooter.buttonRadius(
-            context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: isOn);
+
+    final double _footerBTMargins = size != null ? 0
+        :
+    FlyerFooter.buttonMargin(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+        buttonIsOn: isOn
+    );
+
+    final double _saveBTRadius = size != null ?
+    size / 2
+        :
+    FlyerFooter.buttonRadius(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+        buttonIsOn: isOn
+    );
+
     final double _buttonSize = size ??
         FlyerFooter.buttonSize(
-            context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: isOn);
+            context: context,
+            flyerBoxWidth: flyerBoxWidth,
+            buttonIsOn: isOn
+        );
+
     final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 
     return Container(
+      key: const ValueKey<String>('Footer_button'),
       width: _buttonSize,
       height: _buttonSize,
       margin: EdgeInsets.all(_footerBTMargins),
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
+
           DreamBox(
             icon: _tinyMode ? icon : null,
             iconSizeFactor: 0.5,
@@ -65,19 +79,19 @@ class FooterButton extends StatelessWidget {
             onTap: inActiveMode == true ? null : onTap,
             childAlignment: Alignment.topCenter,
             inActiveMode: inActiveMode,
-            subChild: _tinyMode
-                ? null
-                : SizedBox(
-                    width: _buttonSize * 0.8,
-                    height: _buttonSize * 0.9,
-                    // color: Colorz.BloodTest,
-                    child: SuperImage(
-                      icon,
-                      iconColor:
-                          DreamBox.getIconColor(inActiveMode: inActiveMode),
-                      scale: 0.7,
-                    ),
-                  ),
+            subChild: _tinyMode ?
+            null
+                :
+            SizedBox(
+              width: _buttonSize * 0.8,
+              height: _buttonSize * 0.9,
+              // color: Colorz.BloodTest,
+              child: SuperImage(
+                pic: icon,
+                iconColor: DreamBox.getIconColor(inActiveMode: inActiveMode),
+                scale: 0.7,
+              ),
+            ),
           ),
 
           /// verse
@@ -92,6 +106,7 @@ class FooterButton extends StatelessWidget {
                     inActiveMode: inActiveMode, colorOverride: Colorz.white125),
               ),
             ),
+
         ],
       ),
     );

@@ -213,7 +213,7 @@ class CallBT extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
 //     const bool _versesShadow = false;
-    final bool _isTinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
+//     final bool _isTinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
     /// call BUTTON
     const Color _callBTColor = Colorz.white10;
