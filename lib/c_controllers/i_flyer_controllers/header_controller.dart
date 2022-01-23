@@ -19,7 +19,7 @@ AnimationController initializeHeaderAnimationController({
 
   final AnimationController _headerAnimationController = AnimationController(
       reverseDuration: Ratioz.durationFading200,
-      duration: Ratioz.durationSliding400,
+      duration: const Duration(milliseconds: 300),
       vsync: vsync
   );
 
