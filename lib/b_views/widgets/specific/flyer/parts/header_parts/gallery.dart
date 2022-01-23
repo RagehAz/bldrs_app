@@ -86,7 +86,6 @@ class _GalleryState extends State<Gallery> {
   }
 
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -175,16 +174,17 @@ class _GalleryState extends State<Gallery> {
     // TASK : of the tasks
     // _prof.updateTinyFlyerInLocalBzTinyFlyers(tinyFlyer);
 
-    blog(
-        'starting _addPublishedFlyerToGallery white tiny flyers were ${_flyers.length} flyers WHILE flyer visibilities were ${_flyersVisibilities.length} visibilities');
+    blog('starting _addPublishedFlyerToGallery white tiny flyers were ${_flyers.length} flyers WHILE flyer visibilities were ${_flyersVisibilities.length} visibilities');
 
     blog('tiny flyer is ${flyerModel.id}');
 
     _flyers.add(flyerModel);
+
     blog('_tinyFlyers are now  ${_flyers.length} flyers');
+
     _flyersVisibilities.add(true);
-    blog(
-        '_flyersVisibilities are now  ${_flyersVisibilities.length} visibilities');
+
+    blog('_flyersVisibilities are now  ${_flyersVisibilities.length} visibilities');
 
     _onAuthorLabelTap(flyerModel.authorID);
   }
@@ -192,86 +192,89 @@ class _GalleryState extends State<Gallery> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     // bool _thisIsMyBz = _bzTeamIDs.contains(superUserID());
 
     return Container(
       width: widget.galleryBoxWidth,
       margin: EdgeInsets.only(top: widget.galleryBoxWidth * 0.005),
       color: widget.addAuthorButtonIsOn == false ? Colorz.bzPageBGColor : null,
-      child: widget.showFlyers == false
-          ? Container()
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                  /// GRID TITLE
-                  Container(
-                    width: widget.galleryBoxWidth,
-                    // height: ,
-                    alignment: Aligners.superCenterAlignment(context),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: Ratioz.appBarMargin),
-                    child: _bzModel.showsTeam == false ?
-                    SuperVerse(
-                      verse: '${Wordz.flyersPublishedBy(context)} ${_bzModel.name}',
-                      italic: true,
-                      margin: widget.galleryBoxWidth * Ratioz.xxflyersGridSpacing,
-                      maxLines: 3,
-                      centered: false,
-                      shadow: true,
-                      leadingDot: true,
-                    )
-                        :
-                    SuperVerse(
-                      verse: _bzTeamIDs.length == 1 ?
-                      '${Wordz.flyersPublishedBy(context)} ${_bzModel.authors[0].name}'
-                          :
-                      '${_bzModel.name} ${Wordz.authorsTeam(context)}',
-                      italic: true,
-                      margin: widget.galleryBoxWidth * Ratioz.xxflyersGridSpacing,
-                      maxLines: 3,
-                      centered: false,
-                      shadow: true,
-                      leadingDot: true,
-                    ),
-                  ),
+      child: widget.showFlyers == false ? Container()
+          :
+      Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
 
-                  /// AUTHORS BUBBLE
-                  if (_bzModel.showsTeam != false)
-                    AuthorBubble(
-                      flyerBoxWidth: widget.galleryBoxWidth,
-                      addAuthorButtonIsOn: widget.addAuthorButtonIsOn,
-                      bzAuthors: _bzModel.authors,
-                      showFlyers: widget.showFlyers,
-                      bzModel: _bzModel,
-                      onAuthorLabelTap: (String id) => _onAuthorLabelTap(id),
-                      selectedAuthorID: _selectedAuthorID,
-                      bzFlyers: _flyers,
-                    ),
+            /// GRID TITLE
+            Container(
+              width: widget.galleryBoxWidth,
+              // height: ,
+              alignment: Aligners.superCenterAlignment(context),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Ratioz.appBarMargin),
+              child: _bzModel.showsTeam == false ?
+              SuperVerse(
+                verse: '${Wordz.flyersPublishedBy(context)} ${_bzModel.name}',
+                italic: true,
+                margin: widget.galleryBoxWidth * Ratioz.xxflyersGridSpacing,
+                maxLines: 3,
+                centered: false,
+                shadow: true,
+                leadingDot: true,
+              )
+                  :
+              SuperVerse(
+                verse: _bzTeamIDs.length == 1 ?
+                '${Wordz.flyersPublishedBy(context)} ${_bzModel.authors[0].name}'
+                    :
+                '${_bzModel.name} ${Wordz.authorsTeam(context)}',
+                italic: true,
+                margin: widget.galleryBoxWidth * Ratioz.xxflyersGridSpacing,
+                maxLines: 3,
+                centered: false,
+                shadow: true,
+                leadingDot: true,
+              ),
+            ),
 
-                  /// FLYERS
-                  // if (widget.galleryBoxWidth != null)
-                  GalleryGrid(
-                    gridZoneWidth: widget.galleryBoxWidth,
-                    bzID: _bzModel.authors == null ||
-                        _bzModel.authors == <AuthorModel>[] ||
-                        _bzModel.authors.isEmpty
-                        ?
-                    ''
-                        :
-                    _bzModel.id,
-                    flyersVisibilities: _flyersVisibilities,
-                    galleryFlyers: _flyers,
-                    bzAuthors: _bzModel.authors,
-                    bz: _bzModel,
+            /// AUTHORS BUBBLE
+            if (_bzModel.showsTeam != false)
+              AuthorBubble(
+                flyerBoxWidth: widget.galleryBoxWidth,
+                addAuthorButtonIsOn: widget.addAuthorButtonIsOn,
+                bzAuthors: _bzModel.authors,
+                showFlyers: widget.showFlyers,
+                bzModel: _bzModel,
+                onAuthorLabelTap: (String id) => _onAuthorLabelTap(id),
+                selectedAuthorID: _selectedAuthorID,
+                bzFlyers: _flyers,
+              ),
 
-                    /// TASK : maybe should remove this as long as super flyer is here
-                    // flyerOnTap: widget.flyerOnTap,
-                    addPublishedFlyerToGallery: (FlyerModel flyerModel) => _addPublishedFlyerToGallery(flyerModel),
-                    addButtonIsOn: widget.addAuthorButtonIsOn,
-                    bzCountry: _bzCountry,
-                    bzCity: _bzCity,
-                  ),
-                ]),
+            /// FLYERS
+            // if (widget.galleryBoxWidth != null)
+            GalleryGrid(
+              gridZoneWidth: widget.galleryBoxWidth,
+              bzID: _bzModel.authors == null ||
+                  _bzModel.authors == <AuthorModel>[] ||
+                  _bzModel.authors.isEmpty
+                  ?
+              ''
+                  :
+              _bzModel.id,
+              flyersVisibilities: _flyersVisibilities,
+              galleryFlyers: _flyers,
+              bzAuthors: _bzModel.authors,
+              bz: _bzModel,
+              /// TASK : maybe should remove this as long as super flyer is here
+              // flyerOnTap: widget.flyerOnTap,
+              addPublishedFlyerToGallery: (FlyerModel flyerModel) => _addPublishedFlyerToGallery(flyerModel),
+              addButtonIsOn: widget.addAuthorButtonIsOn,
+              bzCountry: _bzCountry,
+              bzCity: _bzCity,
+            ),
+
+          ]
+      ),
     );
   }
 }

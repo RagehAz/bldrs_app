@@ -39,6 +39,7 @@ class FlyerFullScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return DismissiblePage(
+      key: const ValueKey<String>('FullScreenFlyer_DismissiblePage'),
       onDismiss: () => _onDismiss(context),
       isFullScreen: false,
       dragSensitivity: .4,

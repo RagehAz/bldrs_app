@@ -12,14 +12,14 @@ AnimationController initializeHeaderAnimationController({
   @required TickerProvider vsync,
 }){
 
-  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
-  final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
+  // final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
+  // final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
 
   // _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
 
   final AnimationController _headerAnimationController = AnimationController(
       reverseDuration: Ratioz.durationFading200,
-      duration: const Duration(milliseconds: 300),
+      duration: Ratioz.durationFading200,
       vsync: vsync
   );
 
@@ -41,8 +41,6 @@ void onTriggerHeader({
 
   final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
   final bool _bzPageIsOn = _activeFlyerProvider.headerIsExpanded;
-
-  blog('_onHeaderTap : bzPageIsOn was : $_bzPageIsOn');
 
   /// HEADER ANIMATION
   _animateHeaderExpansion(
@@ -196,7 +194,7 @@ void _triggerCanDismissFlyer({
 
   final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
   final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
-  final bool _canDismissFlyer = _activeFlyerProvider.canDismissFlyer;
+  // final bool _canDismissFlyer = _activeFlyerProvider.canDismissFlyer;
 
   if (_headerIsExpanded == true){
     _activeFlyerProvider.setCanDismissFlyer(

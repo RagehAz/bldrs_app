@@ -42,9 +42,6 @@ class FlyerHeader extends StatefulWidget {
 class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStateMixin {
 
   AnimationController _headerAnimationController;
-
-  // bool _isExpanded = false;
-
   ColorTween _backgroundColorTween;
   BorderRadiusTween _headerCornerTween;
   BorderRadiusTween _logoCornersTween;
@@ -56,14 +53,15 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
   Animation<double> _headerMiddleSpacerWidthTween;
   Animation<double> _followCallButtonsScaleTween;
   CurvedAnimation _animation;
-  // double _maxHeaderOpacity = 0;
-
   ScrollController _verticalController;
+
+  bool _listenToActiveFlyerProvider;
 
   @override
   void initState() {
     super.initState();
 
+    _listenToActiveFlyerProvider = _checkListenToActiveFlyerProvider();
 
     _verticalController = ScrollController();
     _backgroundColorTween = ColorTween();
@@ -87,6 +85,18 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     ).animate(_headerAnimationController);
   }
 // -----------------------------------------------------------------------------
+  bool _checkListenToActiveFlyerProvider(){
+    final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
+    final String _activeFlyerID = _activeFlyerProvider.activeFlyerID;
+
+    if (widget.flyerModel.id == _activeFlyerID){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+// -----------------------------------------------------------------------------
   void _initHeaderAnimationController(){
 
     _headerAnimationController = initializeHeaderAnimationController(
@@ -96,35 +106,41 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
   }
 // -----------------------------------------------------------------------------
-  bool _isInit = true;
+//   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    if (_isInit) {
-
-      final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-      _uiProvider.startController(
-              () async {
-
-          }
-      );
-
-    }
-    _isInit = false;
+    // if (_isInit) {
+      // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+      // _uiProvider.startController(
+      //         () async {
+      //
+      //     }
+      // );
+    // }
+    // _isInit = false;
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
     _headerAnimationController.dispose();
+    _animation.dispose();
+    _verticalController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  void _onHeaderTap(){
+  Future<void> _onHeaderTap() async {
 
-    onTriggerHeader(
-      context: context,
-      headerAnimationController: _headerAnimationController,
-      verticalController: _verticalController,
+    await Future.delayed(const Duration(milliseconds: 100),
+        () async {
+
+          onTriggerHeader(
+            context: context,
+            headerAnimationController: _headerAnimationController,
+            verticalController: _verticalController,
+          );
+
+        }
     );
 
   }
@@ -143,16 +159,25 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     );
   }
 // -----------------------------------------------------------------------------
+  int _builds = 0;
+  _traceBuilds(){
+    _builds ++;
+    blog('Builds are : $_builds for flyer : ${widget.flyerModel.id}');
+  }
+
   @override
   Widget build(BuildContext context) {
 // ----------------------------------------------------------
-    final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: true);
+    final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: _listenToActiveFlyerProvider);
     final int _currentSlideIndex = _activeFlyerProvider.currentSlideIndex;
     final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
     final CountryModel _bzCountry = _activeFlyerProvider.activeFlyerBzCountry;
     final CityModel _bzCity = _activeFlyerProvider.activeFlyerBzCity;
     final bool _followIsOn = _activeFlyerProvider.followIsOn;
+    final String _activeFlyerID = _activeFlyerProvider.activeFlyerID;
     // final int _progressBarOpacity = _activeFlyerProvider.progressBarOpacity;
+
+    _traceBuilds();
 // ----------------------------------------------------------
     /// TINY MODE
     final bool _tinyMode = OldFlyerBox.isTinyMode(context, widget.flyerBoxWidth);
@@ -161,21 +186,12 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     /// BACK GROUND COLOR
 
     //--------------------------------o
-    final Color _minHeaderBackgroundColor =
-    _tinyMode == true ?
-    Colorz.nothing
-        :
-    Colorz.blackSemi230;
-    //--------------------------------o
-    final Color _maxHeaderBackgroundColor =
-    canLoopList(widget.flyerModel.slides) == false ?
-    Colorz.blackSemi230
-        :
-    widget.flyerModel.slides[_currentSlideIndex].midColor;
-    //--------------------------------o
     _backgroundColorTween
-      ..begin = _minHeaderBackgroundColor
-      ..end = _maxHeaderBackgroundColor;
+      ..begin = _tinyMode == true ? Colorz.nothing : Colorz.blackSemi230
+      ..end = canLoopList(widget.flyerModel.slides) == false ?
+      Colorz.blackSemi230
+          :
+      widget.flyerModel.slides[_currentSlideIndex].midColor;
 // ----------------------------------------------------------
 
     /// HEADER CORNERS
@@ -187,11 +203,9 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       flyerBoxWidth: widget.flyerBoxWidth,
     );
     //--------------------------------o
-    final BorderRadius _headerMaxCorners = FlyerBox.corners(context, widget.flyerBoxWidth);
-    //--------------------------------o
     _headerCornerTween
       ..begin = _headerMinCorners
-      ..end = _headerMaxCorners;
+      ..end = FlyerBox.corners(context, widget.flyerBoxWidth);
     // ----------------------------------------------------------
 
     /// LOGO CORNER
@@ -206,20 +220,16 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     //--------------------------------o
     final double _logoScaleRatio = _logoMaxWidth / _logoMinWidth;
     //--------------------------------o
-    final BorderRadius _logoMinCorners = FlyerBox.superLogoCorner(
-      context: context,
-      flyerBoxWidth: widget.flyerBoxWidth,
-      zeroCornerIsOn: true,
-    );
-    //--------------------------------o
-    final BorderRadius _logoMaxCorners = FlyerBox.superLogoCorner(
-        context: context,
-        flyerBoxWidth: widget.flyerBoxWidth * _logoScaleRatio
-    );
-    //--------------------------------o
     _logoCornersTween
-      ..begin = _logoMinCorners//widget.superFlyer.flyerShowsAuthor)
-      ..end = _logoMaxCorners;
+      ..begin = FlyerBox.superLogoCorner(
+        context: context,
+        flyerBoxWidth: widget.flyerBoxWidth,
+        zeroCornerIsOn: true,
+      )
+      ..end = FlyerBox.superLogoCorner(
+          context: context,
+          flyerBoxWidth: widget.flyerBoxWidth * _logoScaleRatio
+      );
     // ----------------------------------------------------------
 
     /// LOGO SIZE
@@ -234,23 +244,20 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     /// SIDE SPACERS
 
     //--------------------------------o
-    const double _followCallScaleEnd = 1.5;
-    final double _followCallPaddingEnd = FollowAndCallBTs.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) * _followCallScaleEnd;
+    final double _followCallPaddingEnd = FollowAndCallBTs.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
     //--------------------------------o
     final double _maxLeftSpacer = (widget.flyerBoxWidth * 0.2) - _followCallPaddingEnd;
     //--------------------------------o
     _headerLeftSpacerTween = Tween<double>(
-      begin: 0, //Ratioz.xxflyerHeaderMainPadding * widget.flyerBoxWidth,
+      begin: 0,
       end: _maxLeftSpacer,
     ).animate(_headerAnimationController);
     //--------------------------------o
     final double _followCallBoxWidthEnd = FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
     //--------------------------------o
-    final double _maxRightSpacer = (widget.flyerBoxWidth * 0.2) - _followCallBoxWidthEnd - _followCallPaddingEnd;
-    //--------------------------------o
     _headerRightSpacerTween = Animators.animateDouble(
       begin: 0,
-      end: _maxRightSpacer,
+      end: (widget.flyerBoxWidth * 0.2) - _followCallBoxWidthEnd - _followCallPaddingEnd,
       controller: _headerAnimationController,
     );
     // ----------------------------------------------------------
@@ -263,26 +270,17 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
         flyerBoxWidth: widget.flyerBoxWidth
     );
     //--------------------------------o
-    // final double _miniHeaderStripHeight = (_minHeaderHeight * _logoSizeRatioTween.value) + (_headerLeftSpacerTween.value);
-    //--------------------------------o
-    final double _maxHeaderHeight = FlyerBox.height(context, widget.flyerBoxWidth);
-    //--------------------------------o
     _headerHeightTween = Tween<double>(
       begin: _minHeaderHeight,
-      end: _maxHeaderHeight,
+      end: FlyerBox.height(context, widget.flyerBoxWidth),
     ).animate(_headerAnimationController);
     // ----------------------------------------------------------
 
     /// HEADER LABELS SIZES
 
     //--------------------------------o
-    // final double _labelsWidth = HeaderLabels.getHeaderLabelWidth(_minHeaderHeight);
-    // final double _labelsHeight = _minHeaderHeight * (Ratioz.xxflyerHeaderMiniHeight - (2 * Ratioz.xxflyerHeaderMainPadding));
-    //--------------------------------o
-    final double _maxHeaderLabelsWidth = HeaderLabels.getHeaderLabelWidth(widget.flyerBoxWidth);
-    //--------------------------------o
     _headerLabelsWidthTween = Tween<double>(
-      begin: _maxHeaderLabelsWidth,
+      begin: HeaderLabels.getHeaderLabelWidth(widget.flyerBoxWidth),
       end: 0,
     ).animate(_headerAnimationController);
     //--------------------------------o
@@ -291,22 +289,17 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       end: _followCallPaddingEnd,
       controller: _headerAnimationController,
     );
-    // ----------------------------------------------------------
-    // final bool _closed = _headerIsExpanded == false && _headerAnimationController.isDismissed == true;
-    //------------------------------------------------------------o
-    // final double _slideHeightWithoutHeader = FlyerBox.height(context, widget.flyerBoxWidth) - _minHeaderHeight;
 // -----------------------------------------------------------------------------
 
-    blog('header is expanded : $_headerIsExpanded');
-
     return AnimatedBuilder(
+      key: const ValueKey<String>('FlyerHeader_AnimationBuilder'),
       animation: _headerAnimationController.view,
       child: XButtonPart(
         key: const ValueKey<String>('FlyerHeader_XButtonPart'),
         headerBorders: _headerMinCorners,
         onHeaderTap: _onHeaderTap,
       ),
-      builder: (BuildContext ctx, Widget child) {
+      builder: (_, Widget child) {
 
         final Color _headerColor = _backgroundColorTween.evaluate(_animation);
         final BorderRadius _headerBorders = _headerCornerTween.evaluate(_animation);
@@ -358,7 +351,8 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                 ),
 
                 /// BZ NAME BELOW LOGO
-                BzNameBelowLogoPart(
+                if (_activeFlyerID == widget.flyerModel.id)
+                  BzNameBelowLogoPart(
                     key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
                     flyerBoxWidth: widget.flyerBoxWidth,
                     bzModel: widget.bzModel,
@@ -367,10 +361,12 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                 ),
 
                 /// - BZ INFO PART
+                if (_activeFlyerID == widget.flyerModel.id)
                 BzInfoPart(
                   key: const ValueKey<String>('FlyerHeader_BzInfoPart'),
                   flyerBoxWidth: widget.flyerBoxWidth,
                   bzModel: widget.bzModel,
+                  flyerModel: widget.flyerModel,
                 ),
 
               ],

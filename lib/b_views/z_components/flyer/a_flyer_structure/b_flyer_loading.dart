@@ -24,7 +24,10 @@ class FlyerLoading extends StatelessWidget {
           child: LinearProgressIndicator(
             color: Colorz.white10,
             backgroundColor: Colorz.nothing,
-            minHeight: FlyerBox.heightByWidthFactor(context: context, flyerWidthFactor: flyerWidthFactor),
+            minHeight: FlyerBox.heightByWidthFactor(
+                context: context,
+                flyerWidthFactor: flyerWidthFactor
+            ),
           ),
         ),
 
