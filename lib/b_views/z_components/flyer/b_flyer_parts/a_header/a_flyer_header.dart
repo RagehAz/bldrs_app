@@ -16,10 +16,8 @@ import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/d_providers/active_flyer_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -154,7 +152,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     final CountryModel _bzCountry = _activeFlyerProvider.activeFlyerBzCountry;
     final CityModel _bzCity = _activeFlyerProvider.activeFlyerBzCity;
     final bool _followIsOn = _activeFlyerProvider.followIsOn;
-    final int _progressBarOpacity = _activeFlyerProvider.progressBarOpacity;
+    // final int _progressBarOpacity = _activeFlyerProvider.progressBarOpacity;
 // ----------------------------------------------------------
     /// TINY MODE
     final bool _tinyMode = OldFlyerBox.isTinyMode(context, widget.flyerBoxWidth);
@@ -265,7 +263,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
         flyerBoxWidth: widget.flyerBoxWidth
     );
     //--------------------------------o
-    final double _miniHeaderStripHeight = (_minHeaderHeight * _logoSizeRatioTween.value) + (_headerLeftSpacerTween.value);
+    // final double _miniHeaderStripHeight = (_minHeaderHeight * _logoSizeRatioTween.value) + (_headerLeftSpacerTween.value);
     //--------------------------------o
     final double _maxHeaderHeight = FlyerBox.height(context, widget.flyerBoxWidth);
     //--------------------------------o
@@ -278,8 +276,8 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     /// HEADER LABELS SIZES
 
     //--------------------------------o
-    final double _labelsWidth = HeaderLabels.getHeaderLabelWidth(_minHeaderHeight);
-    final double _labelsHeight = _minHeaderHeight * (Ratioz.xxflyerHeaderMiniHeight - (2 * Ratioz.xxflyerHeaderMainPadding));
+    // final double _labelsWidth = HeaderLabels.getHeaderLabelWidth(_minHeaderHeight);
+    // final double _labelsHeight = _minHeaderHeight * (Ratioz.xxflyerHeaderMiniHeight - (2 * Ratioz.xxflyerHeaderMainPadding));
     //--------------------------------o
     final double _maxHeaderLabelsWidth = HeaderLabels.getHeaderLabelWidth(widget.flyerBoxWidth);
     //--------------------------------o
@@ -294,9 +292,9 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       controller: _headerAnimationController,
     );
     // ----------------------------------------------------------
-    final bool _closed = _headerIsExpanded == false && _headerAnimationController.isDismissed == true;
+    // final bool _closed = _headerIsExpanded == false && _headerAnimationController.isDismissed == true;
     //------------------------------------------------------------o
-    final double _slideHeightWithoutHeader = FlyerBox.height(context, widget.flyerBoxWidth) - _minHeaderHeight;
+    // final double _slideHeightWithoutHeader = FlyerBox.height(context, widget.flyerBoxWidth) - _minHeaderHeight;
 // -----------------------------------------------------------------------------
 
     blog('header is expanded : $_headerIsExpanded');
@@ -385,88 +383,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
           ],
         );
 
-        return GestureDetector(
-          onTap: _tinyMode == true ? null : _onHeaderTap,
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              width: widget.flyerBoxWidth,
-              height: _headerHeightTween.value,
-              // margin: EdgeInsets.zero,
-              decoration: BoxDecoration(
-                color: _headerColor,
-                borderRadius: _headerBorders,
-              ),
-              alignment: Alignment.topCenter,
-              child: ClipRRect(
-                borderRadius: _headerBorders,
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: <Widget>[
-
-                    ListView(
-                      physics: _tinyMode == true || _headerIsExpanded == false ?
-                      const NeverScrollableScrollPhysics()
-                          :
-                      const BouncingScrollPhysics(),
-                      padding: EdgeInsets.zero, /// NEVER EVER DELETE THIS BITCH TOOK ME 2 DAYS
-                      controller: _verticalController,
-                      children: <Widget>[
-
-                        /// MINI HEADER STRIP
-                        ConvertibleHeaderStripPart(
-                            key: const ValueKey<String>('FlyerHeader_ConvertibleHeaderStripPart'),
-                            flyerBoxWidth: widget.flyerBoxWidth,
-                            minHeaderHeight: _minHeaderHeight,
-                            logoSizeRatioTween: _logoSizeRatioTween,
-                            headerLeftSpacerTween: _headerLeftSpacerTween,
-                            tinyMode: _tinyMode,
-                            headerBorders: _headerBorders,
-                            logoMinWidth: _logoMinWidth,
-                            logoBorders: _logoBorders,
-                            headerIsExpanded: _headerIsExpanded,
-                            headerMiddleSpacerWidthTween: _headerMiddleSpacerWidthTween,
-                            headerLabelsWidthTween: _headerLabelsWidthTween,
-                            followCallButtonsScaleTween: _followCallButtonsScaleTween,
-                            followIsOn: _followIsOn,
-                            onFollowTap: _onFollowTap,
-                            onCallTap: _onCallTap,
-                            headerRightSpacerTween: _headerRightSpacerTween,
-                            flyerModel: widget.flyerModel,
-                            bzModel: widget.bzModel,
-                            bzCountry: _bzCountry,
-                            bzCity: _bzCity
-                        ),
-
-                        /// BZ NAME BELOW LOGO
-                        BzNameBelowLogoPart(
-                            key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
-                            flyerBoxWidth: widget.flyerBoxWidth,
-                            bzModel: widget.bzModel,
-                            bzCountry: _bzCountry,
-                            bzCity: _bzCity
-                        ),
-
-                        /// - BZ INFO PART
-                        BzInfoPart(
-                          key: const ValueKey<String>('FlyerHeader_BzInfoPart'),
-                          flyerBoxWidth: widget.flyerBoxWidth,
-                          bzModel: widget.bzModel,
-                        ),
-
-                      ],
-                    ),
-
-                    /// --- CORNER X BUTTON
-                    child,
-
-                  ],
-                ),
-              ),
-
-            ),
-          ),
-        );
       },
 
     );
