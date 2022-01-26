@@ -11,9 +11,9 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
-class FollowAndCallBTs extends StatelessWidget {
+class OldFollowAndCallBTs extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FollowAndCallBTs({
+  const OldFollowAndCallBTs({
     @required this.flyerBoxWidth,
     @required this.headerIsExpanded,
     @required this.onFollowTap,
@@ -34,7 +34,7 @@ class FollowAndCallBTs extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static double getBoxHeight({double flyerBoxWidth, bool bzPageIsOn}) {
     final double _headerMainHeight = OldFlyerBox.headerStripHeight(
-        bzPageIsOn: bzPageIsOn,
+        headerIsExpanded: bzPageIsOn,
         flyerBoxWidth: flyerBoxWidth
     );
     final double _headerMainPadding = flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
@@ -67,7 +67,7 @@ class FollowAndCallBTs extends StatelessWidget {
         children: <Widget>[
 
           /// --- FOLLOW BUTTON
-          FollowBT(
+          OldFollowBT(
             flyerBoxWidth: flyerBoxWidth,
             onFollowTap: onFollowTap,
             tappingUnfollow: () {},
@@ -80,7 +80,7 @@ class FollowAndCallBTs extends StatelessWidget {
           ),
 
           /// --- Call BUTTON
-          CallBT(
+          OldCallBT(
             flyerBoxWidth: flyerBoxWidth,
             onCallTap: onCallTap,
           ),
@@ -91,9 +91,9 @@ class FollowAndCallBTs extends StatelessWidget {
   }
 }
 
-class FollowBT extends StatelessWidget {
+class OldFollowBT extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FollowBT({
+  const OldFollowBT({
     @required this.flyerBoxWidth,
     @required this.onFollowTap,
     @required this.tappingUnfollow,
@@ -198,9 +198,9 @@ class FollowBT extends StatelessWidget {
   }
 }
 
-class CallBT extends StatelessWidget {
+class OldCallBT extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const CallBT({
+  const OldCallBT({
     @required this.onCallTap,
     @required this.flyerBoxWidth,
     Key key,

@@ -20,6 +20,7 @@ class HeaderLabelsPart extends StatelessWidget {
     @required this.bzCountry,
     @required this.bzCity,
     @required this.tinyMode,
+    @required this.headerIsExpanded,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -32,11 +33,13 @@ class HeaderLabelsPart extends StatelessWidget {
   final CountryModel bzCountry;
   final CityModel bzCity;
   final bool tinyMode;
+  final ValueNotifier<bool> headerIsExpanded;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return Consumer<ActiveFlyerProvider>(
+    return ValueListenableBuilder<bool>(
+      valueListenable: headerIsExpanded,
       child: Center(
         child: SizedBox(
           width: headerLabelsWidthTween.value,
@@ -49,27 +52,25 @@ class HeaderLabelsPart extends StatelessWidget {
 
               if (tinyMode == false)
                 HeaderLabels(
-                flyerBoxWidth: flyerBoxWidth  * logoSizeRatioTween.value,
-                authorID: flyerModel.authorID,
-                bzCity: bzCity,
-                bzCountry: bzCountry,
-                bzModel: bzModel,
-                headerIsExpanded: false, //_headerIsExpanded,
-                flyerShowsAuthor: flyerModel.showsAuthor,
-              ),
+                  flyerBoxWidth: flyerBoxWidth  * logoSizeRatioTween.value,
+                  authorID: flyerModel.authorID,
+                  bzCity: bzCity,
+                  bzCountry: bzCountry,
+                  bzModel: bzModel,
+                  headerIsExpanded: false, //_headerIsExpanded,
+                  flyerShowsAuthor: flyerModel.showsAuthor,
+                ),
 
             ],
           ),
         ),
       ),
-      builder: (_, ActiveFlyerProvider activeFlyerProvider, Widget child){
+      builder: (_, bool headerIsExpanded, Widget child){
 
-        final bool _headerIsExpanded = activeFlyerProvider.headerIsExpanded;
-        final bool _showingFullScreenFlyer = activeFlyerProvider.showingFullScreenFlyer;
         final double _opacity =
-        _headerIsExpanded == true ? 0
+        headerIsExpanded == true ? 0
             :
-        _showingFullScreenFlyer == false ? 0
+        tinyMode == true ? 0
             :
         1;
 
@@ -82,5 +83,6 @@ class HeaderLabelsPart extends StatelessWidget {
 
       },
     );
+
   }
 }

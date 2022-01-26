@@ -46,11 +46,11 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
   final BorderRadius headerBorders;
   final double logoMinWidth;
   final BorderRadius logoBorders;
-  final bool headerIsExpanded;
+  final ValueNotifier<bool> headerIsExpanded;
   final Animation<double> headerMiddleSpacerWidthTween;
   final Animation<double> headerLabelsWidthTween;
   final Animation<double> followCallButtonsScaleTween;
-  final bool followIsOn;
+  final ValueNotifier<bool> followIsOn;
   final Function onFollowTap;
   final Function onCallTap;
   final Animation<double> headerRightSpacerTween;
@@ -87,7 +87,6 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
           image: bzModel?.logo,
           tinyMode: FlyerBox.isTinyMode(context, flyerBoxWidth),
           corners: logoBorders,
-          bzPageIsOn: headerIsExpanded,
           zeroCornerIsOn: flyerModel.showsAuthor,
           // onTap:
           //superFlyer.onHeaderTap,
@@ -118,6 +117,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
           bzCountry: bzCountry,
           bzCity: bzCity,
           tinyMode: tinyMode,
+          headerIsExpanded: headerIsExpanded,
         ),
 
         /// FOLLOW AND CALL

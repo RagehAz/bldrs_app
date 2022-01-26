@@ -5,6 +5,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 class XButtonPart extends StatelessWidget {
@@ -12,16 +13,19 @@ class XButtonPart extends StatelessWidget {
   const XButtonPart({
     @required this.headerBorders,
     @required this.onHeaderTap,
+    @required this.headerIsExpanded,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BorderRadius headerBorders;
   final Function onHeaderTap;
+  final ValueNotifier<bool> headerIsExpanded;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return Consumer<ActiveFlyerProvider>(
+    return ValueListenableBuilder(
+      valueListenable: headerIsExpanded,
       child: Align(
         alignment: Aligners.superTopAlignment(context),
         child: DreamBox(
@@ -35,9 +39,7 @@ class XButtonPart extends StatelessWidget {
           onTap: onHeaderTap,
         ),
       ),
-      builder: (_, ActiveFlyerProvider activeFlyerProvider, Widget child){
-
-        final bool _headerIsExpanded = activeFlyerProvider.headerIsExpanded;
+      builder: (_, bool _headerIsExpanded, Widget child){
 
         return AnimatedOpacity(
           opacity: _headerIsExpanded == true ? 1 : 0,
@@ -45,7 +47,9 @@ class XButtonPart extends StatelessWidget {
           child: child,
         );
 
+
       },
     );
+
   }
 }
