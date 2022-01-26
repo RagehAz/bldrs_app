@@ -4,11 +4,10 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class ProgressBar extends StatelessWidget {
+class OldProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ProgressBar({
+  const OldProgressBar({
     @required this.numberOfSlides,
-    @required this.numberOfStrips,
     @required this.index,
     @required this.opacity,
     @required this.flyerBoxWidth,
@@ -22,7 +21,6 @@ class ProgressBar extends StatelessWidget {
 
   /// --------------------------------------------------------------------------
   final int numberOfSlides;
-  final int numberOfStrips;
   final int index;
   // final Duration duration;
   final double opacity;
@@ -45,11 +43,11 @@ class ProgressBar extends StatelessWidget {
         child:
 
             // superFlyer.loading == true ?
-            loading == true || numberOfStrips == null
-                ? ProgressBox(
+            loading == true || numberOfSlides == null ? ProgressBox(
                     flyerBoxWidth: flyerBoxWidth,
                     margins: margins,
                     strips: <Widget>[
+
                         Container(
                           width: Strips.stripsTotalLength(flyerBoxWidth),
                           height: Strips.stripThickness(flyerBoxWidth),
@@ -61,20 +59,23 @@ class ProgressBar extends StatelessWidget {
                           child: LinearProgressIndicator(
                             backgroundColor: Colorz.nothing,
                             minHeight: Strips.stripThickness(flyerBoxWidth),
-                            valueColor: const AlwaysStoppedAnimation(
-                                Strips.stripFadedColor),
+                            valueColor: const AlwaysStoppedAnimation(Strips.stripFadedColor),
                           ),
                         ),
-                      ])
-                : Strips.canBuildStrips(numberOfStrips) == true
-                    ? Strips(
-                        flyerBoxWidth: flyerBoxWidth,
-                        numberOfStrips: numberOfStrips,
-                        slideIndex: index,
-                        swipeDirection: swipeDirection,
-                        margins: margins,
-                      )
-                    : Container(),
+
+                      ]
+            )
+                :
+            Strips.canBuildStrips(numberOfSlides) == true ?
+            Strips(
+              flyerBoxWidth: flyerBoxWidth,
+              numberOfStrips: numberOfSlides,
+              slideIndex: index,
+              swipeDirection: swipeDirection,
+              margins: margins,
+            )
+                :
+            Container(),
       ),
     );
   }

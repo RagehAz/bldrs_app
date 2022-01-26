@@ -34,7 +34,7 @@ class BzLabel extends StatelessWidget {
     // const bool versesShadow = false;
 // -----------------------------------------------------------------------------
     final double _headerMainHeight = OldFlyerBox.headerStripHeight(
-        bzPageIsOn: headerIsExpanded,
+        headerIsExpanded: headerIsExpanded,
         flyerBoxWidth: flyerBoxWidth
     );
 // -----------------------------------------------------------------------------
