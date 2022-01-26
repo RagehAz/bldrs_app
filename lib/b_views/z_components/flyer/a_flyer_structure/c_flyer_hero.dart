@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/d_flyer_tree.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -10,6 +12,8 @@ class FlyerHero extends StatelessWidget {
   const FlyerHero({
     @required this.flyerModel,
     @required this.bzModel,
+    @required this.bzCountry,
+    @required this.bzCity,
     @required this.isFullScreen,
     @required this.minWidthFactor,
     Key key
@@ -17,6 +21,8 @@ class FlyerHero extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final BzModel bzModel;
+  final CountryModel bzCountry;
+  final CityModel bzCity;
   final bool isFullScreen;
   final double minWidthFactor;
   /// --------------------------------------------------------------------------
@@ -72,7 +78,7 @@ class FlyerHero extends StatelessWidget {
         :
     Tween<double>(begin: 1, end: 0);
 
-    return  TweenAnimationBuilder(
+    return TweenAnimationBuilder(
       key: const ValueKey<String>('FlyerHero_TweenAnimationBuilder'),
         tween: _tween,
         duration: Ratioz.duration150ms,
@@ -91,6 +97,8 @@ class FlyerHero extends StatelessWidget {
               flyerWidthFactor: _flyerWidthFactor,
               flyerModel: flyerModel,
               bzModel: bzModel,
+              bzCountry: null,
+              bzCity: null,
             ),
           );
 
@@ -127,6 +135,8 @@ class FlyerHero extends StatelessWidget {
         flyerWidthFactor: isFullScreen ? 1 : minWidthFactor,
         flyerModel: flyerModel,
         bzModel: bzModel,
+        bzCountry: bzCountry,
+        bzCity: bzCity,
       ),
 
     );

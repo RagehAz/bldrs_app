@@ -114,10 +114,10 @@ class OldFlyerBox extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double headerStripHeight({
-    @required bool bzPageIsOn,
+    @required bool headerIsExpanded,
     @required double flyerBoxWidth,
   }) {
-    final double _headerStripHeight = bzPageIsOn == true ?
+    final double _headerStripHeight = headerIsExpanded == true ?
     flyerBoxWidth
         :
     flyerBoxWidth * Ratioz.xxflyerHeaderMiniHeight;

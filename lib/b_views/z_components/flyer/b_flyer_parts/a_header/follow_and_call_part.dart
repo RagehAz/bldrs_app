@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_follow_and_call_bts.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/follow_and_call_sub_part.dart';
 import 'package:flutter/material.dart';
 
 class FollowAndCallPart extends StatelessWidget {
@@ -19,7 +20,7 @@ class FollowAndCallPart extends StatelessWidget {
   final Animation<double> logoSizeRatioTween;
   final double flyerBoxWidth;
   final Animation<double> followCallButtonsScaleTween;
-  final bool followIsOn;
+  final ValueNotifier<bool> followIsOn;
   final Function onCallTap;
   final Function onFollowTap;
   final double logoMinWidth;
@@ -28,7 +29,7 @@ class FollowAndCallPart extends StatelessWidget {
   Widget build(BuildContext context) {
 
       return Container(
-        width: FollowAndCallBTs.getBoxWidth(flyerBoxWidth: flyerBoxWidth) * followCallButtonsScaleTween.value,
+        width: OldFollowAndCallBTs.getBoxWidth(flyerBoxWidth: flyerBoxWidth) * followCallButtonsScaleTween.value,
         height: logoMinWidth * logoSizeRatioTween.value,
         alignment: Alignment.topCenter,
         // color: Colorz.BloodTest,

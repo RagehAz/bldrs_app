@@ -102,8 +102,7 @@ class FinalFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
 }
 
-class _FinalFlyerState extends State<FinalFlyer>
-    with AutomaticKeepAliveClientMixin<FinalFlyer> {
+class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMixin<FinalFlyer> {
   @override
   bool get wantKeepAlive => true;
 
@@ -3097,15 +3096,15 @@ class _FinalFlyerState extends State<FinalFlyer>
           ),
 
         if (_tinyMode == false)
-          ProgressBar(
+          OldProgressBar(
             swipeDirection: _superFlyer.nav.swipeDirection,
             opacity: _superFlyer.nav.progressBarOpacity,
-            numberOfStrips: _superFlyer?.numberOfStrips ?? 0,
             numberOfSlides: _superFlyer?.mSlides?.length ?? 0,
             index: _superFlyer.currentSlideIndex,
             flyerBoxWidth: widget.flyerBoxWidth,
             loading: _loading,
           ),
+
       ],
     );
   }
